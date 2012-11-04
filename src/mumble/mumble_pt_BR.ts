@@ -3438,6 +3438,11 @@ dos locais possíveis.</translation>
         <source>Skip</source>
         <translation>Pular</translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4268,12 +4273,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Raiz</translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2079"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4352,7 +4357,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4383,7 +4388,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>O Mumble está conectado a um servidor atualmente. Você gostaria de fechá-lo ou minimizá-lo?</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-190"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Ficar mudo</translation>
@@ -4424,7 +4429,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Sussurrar/Gritar</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation>&lt;center&gt;Não conectado&lt;/center&gt;</translation>
@@ -4595,7 +4600,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Canal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-898"/>
+        <location line="-899"/>
         <source>&amp;User</source>
         <translation>&amp;Usuário</translation>
     </message>
@@ -4617,7 +4622,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Ligar Canal</translation>
     </message>
     <message>
-        <location line="+687"/>
+        <location line="+688"/>
         <source>Change your comment</source>
         <translation>Alterar seu comentário</translation>
     </message>

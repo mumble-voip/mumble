@@ -3412,6 +3412,11 @@ of the possible locations.</source>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4240,7 +4245,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Корень</translation>
     </message>
@@ -4640,9 +4645,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Соединиться с веб-страницей Mumble, чтобы проверить доступность новой версии и уведомить Вас о ссылке для ее закачки.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2034"/>
+        <location filename="MainWindow.cpp" line="-2035"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4652,7 +4657,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Показывает все недавние действия: соединения с серверами, сообщения об ошибках и информационные сообщения.&lt;br /&gt;Чтобы настроить, какие точно сообщения отображать тут, используйте команду &lt;b&gt;Настройки&lt;/b&gt; из меню.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2320"/>
+        <location filename="MainWindow.cpp" line="-2321"/>
         <source>&amp;Channel</source>
         <translation>&amp;Канал</translation>
     </message>
@@ -4721,7 +4726,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Включение/Выключение замещения в игре.</translation>
     </message>
     <message>
-        <location line="+1129"/>
+        <location line="+1130"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Введите причину</translation>
@@ -5469,13 +5474,13 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <translation>Зарегистрироваться как %1</translation>
     </message>
     <message>
-        <location line="-1086"/>
+        <location line="-1087"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Переключает состояние Замещения в игре.</translation>
     </message>
     <message>
-        <location line="+732"/>
+        <location line="+733"/>
         <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Вы собираетесь зарегистрироваться на этом сервере. Невозможно будет отметить данное действие и изменить Ваше имя для данного сертификата. Вы всегда будете известны как &lt;b&gt;&apos;%1&apos;&lt;/b&gt; на этом сервере.&lt;/p&gt;&lt;p&gt;Вы действительно желаете зарегистрироваться?&lt;/p&gt;</translation>
@@ -5594,7 +5599,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Голосовой канал отправлен через канал управления.</translation>
     </message>
     <message>
-        <location line="-898"/>
+        <location line="-899"/>
         <source>&amp;User</source>
         <translation>&amp;Пользователь</translation>
     </message>
@@ -5605,7 +5610,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">Связать канал</translation>
     </message>
     <message>
-        <location line="+792"/>
+        <location line="+793"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation type="unfinished">&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.&lt;/p&gt;</translation>
     </message>
@@ -5696,7 +5701,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Свернуть в трей</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Сделать себя немым</translation>
@@ -5738,7 +5743,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Шепнуть/Крикнуть</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>&amp;Окно</translation>
     </message>
@@ -5748,7 +5753,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Включить Минимальный вид</translation>
@@ -5781,7 +5786,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Уменьшить громкость (-10%)</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -5967,6 +5972,11 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation type="unfinished">Не показывать все текстовые сообщения от пользователя.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7528,6 +7538,11 @@ An access token is a text string, which can be used as a password for very simpl
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Канал</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

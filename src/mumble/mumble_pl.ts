@@ -3424,6 +3424,11 @@ of the possible locations.</source>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4252,7 +4257,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Źródło</translation>
     </message>
@@ -4652,9 +4657,9 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Dodaje lub usuwa hasła dostępu</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2034"/>
+        <location filename="MainWindow.cpp" line="-2035"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4664,7 +4669,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Dziennik wyświetla wszystkie ostatnie wydarzenia takie jak: próby połączenia z serwerem, błędy oraz wiadomości użytkowników.&lt;br /&gt;Możesz dowolnie konfigurować okno dziennika w &lt;b&gt;Konfiguracja&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2320"/>
+        <location filename="MainWindow.cpp" line="-2321"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanał</translation>
     </message>
@@ -4679,7 +4684,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1191"/>
+        <location filename="MainWindow.cpp" line="+1192"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Podaj powód</translation>
@@ -4690,7 +4695,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1176"/>
+        <location filename="MainWindow.cpp" line="-1177"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Naciśnij i przytrzymaj ten przycisk, aby transmitować głos.</translation>
@@ -4708,7 +4713,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Włącz tryb nakładki w grze.</translation>
     </message>
     <message>
-        <location line="+1645"/>
+        <location line="+1646"/>
         <source>Unmuted and undeafened.</source>
         <translation>Wyłączono ogłuszenie oraz wyciszenie mikrofonu.</translation>
     </message>
@@ -5129,7 +5134,7 @@ Valid options are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-697"/>
+        <location filename="MainWindow.cpp" line="-698"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Aktywacja przyciskiem</translation>
@@ -5165,7 +5170,7 @@ Valid options are:
         <translation>Wyłącz wtyczki</translation>
     </message>
     <message>
-        <location line="+476"/>
+        <location line="+477"/>
         <location line="+192"/>
         <source>Connecting to server %1.</source>
         <translation>Łączenie z serwerem &lt;b&gt;%1&lt;/b&gt;.</translation>
@@ -5409,7 +5414,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Wysyła wiadomość tekstową do innego użytkownika.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2525"/>
+        <location filename="MainWindow.cpp" line="-2526"/>
         <source>&amp;User</source>
         <translation>&amp;Użytkownik</translation>
     </message>
@@ -5499,7 +5504,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ten kreator poprowadzi cię przez proces konfiguracji ustawień dźwięku.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2226"/>
+        <location filename="MainWindow.cpp" line="+2227"/>
         <source>SSL Verification failed: %1</source>
         <translation>Weryfikacja SSL nie powiodła się: %1</translation>
     </message>
@@ -5550,7 +5555,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Otwieranie adresu %1</translation>
     </message>
     <message>
-        <location line="-398"/>
+        <location line="-399"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Wyciszenie</translation>
@@ -5598,7 +5603,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+58"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -5731,7 +5736,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Tryb minimalny</translation>
@@ -5769,7 +5774,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Głośność w dół (-10%)</translation>
     </message>
     <message>
-        <location line="+340"/>
+        <location line="+341"/>
         <source>Clear</source>
         <translation>Wyczyść</translation>
     </message>
@@ -5927,7 +5932,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Zmień swój komentarz</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-706"/>
+        <location filename="MainWindow.cpp" line="-707"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Przełącza stany nakładki.</translation>
@@ -5960,6 +5965,11 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

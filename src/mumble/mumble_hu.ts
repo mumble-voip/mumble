@@ -1165,12 +1165,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation type="unfinished">%1 kbit/s (Hang %2 %5, Pozíció %4, Többletterhelés %3) {1 ?} {2,?} {4,?} {3)?}</translation>
     </message>
-    <message>
-        <location line="-59"/>
-        <source>%1 kb/s</source>
-        <oldsource>%1 min</oldsource>
-        <translation type="unfinished">%1 perc</translation>
-    </message>
 </context>
 <context>
     <name>AudioOutput</name>
@@ -1458,7 +1452,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+194"/>
+        <location filename="AudioConfigDialog.cpp" line="+135"/>
         <source>None</source>
         <translation>Nincs</translation>
     </message>
@@ -2729,7 +2723,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     <message>
         <location line="+2"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suttogás</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4272,12 +4266,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Gyökér</translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2079"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Beszédhez-nyomd</translation>
@@ -4338,7 +4332,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4466,7 +4460,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Adja meg az okot</translation>
     </message>
     <message>
-        <location line="-1211"/>
+        <location line="-1212"/>
         <source>&amp;User</source>
         <translation>&amp;Felhasználó</translation>
     </message>
@@ -4542,7 +4536,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+58"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
@@ -4844,7 +4838,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
     </message>
     <message>
-        <location line="-2302"/>
+        <location line="-2303"/>
         <source>&amp;Channel</source>
         <translation>&amp;Csatorna</translation>
     </message>
@@ -6262,7 +6256,7 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suttogás</translation>
     </message>
     <message>
         <location line="+3"/>

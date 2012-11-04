@@ -704,7 +704,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formulier</translation>
     </message>
     <message>
         <location/>
@@ -729,7 +729,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apparaat</translation>
     </message>
     <message>
         <location/>
@@ -1189,7 +1189,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formulier</translation>
     </message>
     <message>
         <location/>
@@ -1215,7 +1215,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apparaat</translation>
     </message>
     <message>
         <location/>
@@ -1743,7 +1743,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apparaatselectie</translation>
     </message>
     <message>
         <location/>
@@ -1773,7 +1773,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Apparaat</translation>
     </message>
     <message>
         <location/>
@@ -2188,7 +2188,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Voeg toe</translation>
     </message>
     <message>
         <location/>
@@ -2198,7 +2198,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Verwijder</translation>
     </message>
 </context>
 <context>
@@ -2206,7 +2206,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+53"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naam</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2428,7 +2428,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wachtwoord</translation>
     </message>
     <message>
         <location/>
@@ -2541,7 +2541,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naam</translation>
     </message>
     <message>
         <location/>
@@ -3173,7 +3173,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wachtwoord</translation>
     </message>
     <message>
         <location/>
@@ -3390,7 +3390,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Voeg toe</translation>
     </message>
     <message>
         <location/>
@@ -3405,7 +3405,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Verwijder</translation>
     </message>
     <message>
         <location/>
@@ -3420,6 +3420,11 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3487,12 +3492,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voeg toe</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verwijder</translation>
     </message>
     <message>
         <location/>
@@ -3566,7 +3571,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formulier</translation>
     </message>
     <message>
         <location/>
@@ -3576,7 +3581,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naam</translation>
     </message>
     <message>
         <location/>
@@ -4250,12 +4255,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2079"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4334,7 +4339,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4365,7 +4370,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-190"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
@@ -4407,7 +4412,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -4581,7 +4586,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-898"/>
+        <location line="-899"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4603,7 +4608,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+687"/>
+        <location line="+688"/>
         <source>Change your comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4964,7 +4969,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Voeg toe</translation>
     </message>
     <message>
         <location/>
@@ -4979,7 +4984,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Verwijder</translation>
     </message>
     <message>
         <location/>
@@ -6130,7 +6135,7 @@ Valid options are:
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wachtwoord</translation>
     </message>
     <message>
         <location/>
@@ -6528,7 +6533,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verwijder</translation>
     </message>
     <message>
         <location/>
@@ -6820,7 +6825,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formulier</translation>
     </message>
     <message>
         <location/>
@@ -6885,12 +6890,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Configureer</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naam</translation>
     </message>
     <message>
         <location/>
@@ -7302,7 +7307,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Voeg toe</translation>
     </message>
     <message>
         <location/>
@@ -7312,7 +7317,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Verwijder</translation>
     </message>
 </context>
 <context>
@@ -7326,7 +7331,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="+99"/>
         <source>Remove</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Verwijder</translation>
     </message>
     <message>
         <location filename="UserEdit.cpp" line="-5"/>
@@ -7521,6 +7526,11 @@ An access token is a text string, which can be used as a password for very simpl
         <comment>Label</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UserModel</name>
@@ -7648,7 +7658,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Naam</translation>
     </message>
     <message>
         <location line="+2"/>

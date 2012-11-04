@@ -3474,6 +3474,11 @@ of the possible locations.</source>
         <source>Skip</source>
         <translation>Ignorer</translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4359,7 +4364,7 @@ Les options valides sont :
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -4494,7 +4499,7 @@ Les options valides sont :
         <translation>Lier votre salon à un autre salon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2111"/>
+        <location filename="MainWindow.cpp" line="-2112"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -4857,7 +4862,7 @@ Les options valides sont :
     <message>
         <location filename="MainWindow.cpp" line="+77"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4867,7 +4872,7 @@ Les options valides sont :
         <translation>Affiche toute l&apos;activité récente. Les connexions aux serveurs, les messages d&apos;erreurs et d&apos;informations sont affichés ici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2320"/>
+        <location filename="MainWindow.cpp" line="-2321"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -4936,7 +4941,7 @@ Les options valides sont :
         <translation>Activer/Désactiver l&apos;affichage de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+1129"/>
+        <location line="+1130"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -5662,7 +5667,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>La voix est envoyée au-dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-834"/>
+        <location line="-835"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
@@ -5674,7 +5679,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Lier un canal</translation>
     </message>
     <message>
-        <location line="+792"/>
+        <location line="+793"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.&lt;/p&gt;</translation>
     </message>
@@ -5760,7 +5765,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet(te)</translation>
@@ -5802,7 +5807,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Chuchoter/Crier</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
@@ -5812,7 +5817,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Active/désactive l&apos;interface minimale</translation>
@@ -5845,7 +5850,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Diminuer le volume (-10 %)</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -7608,6 +7613,11 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Bande passante</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

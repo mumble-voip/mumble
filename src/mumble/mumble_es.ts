@@ -3464,6 +3464,11 @@ de las ubicaciones posibles.</translation>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4334,7 +4339,7 @@ Valid options are:
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
@@ -4729,14 +4734,14 @@ Valid options are:
         <translation>Agrega o elimina credenciales de acceso basadas en texto</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2034"/>
+        <location filename="MainWindow.cpp" line="-2035"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2320"/>
+        <location line="-2321"/>
         <source>&amp;Channel</source>
         <translation>&amp;Canal</translation>
     </message>
@@ -4751,7 +4756,7 @@ Valid options are:
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+1191"/>
+        <location filename="MainWindow.cpp" line="+1192"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Introduzca el motivo</translation>
@@ -5160,7 +5165,7 @@ Valid options are:
         <translation>Muestra toda la actividad reciente. Aquí se muestran conexiones a servidores, errores y mensajes informativos.&lt;br /&gt;Para configurar exactamente qué mensajes se muestran aquí, use la orden &lt;b&gt;Opciones&lt;/b&gt; del menú.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-697"/>
+        <location filename="MainWindow.cpp" line="-698"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -5196,7 +5201,7 @@ Valid options are:
         <translation>Conmutar sobreimpresión</translation>
     </message>
     <message>
-        <location line="+1418"/>
+        <location line="+1419"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>¿Está seguro de que desa borrar %1 y todos sus subcanales?</translation>
     </message>
@@ -5291,7 +5296,7 @@ Valid options are:
         <translation>Envía un mensaje de texto a otro usuario.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2303"/>
+        <location filename="MainWindow.cpp" line="-2304"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -5382,7 +5387,7 @@ Valid options are:
         <translation>Le guiará a través del proceso de configuración de su hardware de audio.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2226"/>
+        <location filename="MainWindow.cpp" line="+2227"/>
         <source>SSL Verification failed: %1</source>
         <translation>Falló la verificación SSL: %1</translation>
     </message>
@@ -5526,7 +5531,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Registrarse como %1</translation>
     </message>
     <message>
-        <location line="-1086"/>
+        <location line="-1087"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Esto conmutará el estado de la sobreimpresión durante el juego.</translation>
@@ -5538,7 +5543,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+713"/>
+        <location line="+714"/>
         <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Está a punto de registrarse en este servidor. Esta acción no puede deshacerse, y su nombre de usuario no puede cambiarse una vez que se complete. Será conocido para siempre como &apos;%1&apos; en este servidor.&lt;/p&gt;&lt;p&gt;¿Está seguro de que desea registrarse?&lt;/p&gt;</translation>
@@ -5634,7 +5639,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>&amp;Ver certificado</translation>
     </message>
     <message>
-        <location line="-2212"/>
+        <location line="-2213"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
         <translation>Mantenga pulsado este botón para enviar la voz.</translation>
@@ -5652,7 +5657,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Conmutar el estado de la sobreimpresión en el juego.</translation>
     </message>
     <message>
-        <location line="+835"/>
+        <location line="+836"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
@@ -5733,7 +5738,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Minimizar</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Enmudecerse</translation>
@@ -5775,7 +5780,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Susurrar/Gritar</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>&amp;Ventana</translation>
     </message>
@@ -5785,7 +5790,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Conmutar mínimo</translation>
@@ -5818,7 +5823,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Disminuir el volúmen (-10%)</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -6010,6 +6015,11 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7573,6 +7583,11 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Ancho de banda</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

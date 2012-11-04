@@ -3461,6 +3461,11 @@ of the possible locations.</source>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
@@ -4296,12 +4301,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-2078"/>
+        <location line="-2079"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translatorcomment>Global Shortcut</translatorcomment>
@@ -4392,7 +4397,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble——%1</translation>
     </message>
@@ -4423,7 +4428,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble正在链接到服务器。你确定要关闭或者最小化吗？</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-190"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translatorcomment>Global Shortcut</translatorcomment>
@@ -4470,7 +4475,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>悄悄话/大喊</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
@@ -4644,7 +4649,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">语音通道通过控制通道传输。</translation>
     </message>
     <message>
-        <location line="-898"/>
+        <location line="-899"/>
         <source>&amp;User</source>
         <translation>用户(&amp;U)</translation>
     </message>
@@ -4666,7 +4671,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">链接频道</translation>
     </message>
     <message>
-        <location line="+687"/>
+        <location line="+688"/>
         <source>Change your comment</source>
         <translation type="unfinished">改变你的说明</translation>
     </message>
@@ -7594,6 +7599,11 @@ An access token is a text string, which can be used as a password for very simpl
         <comment>Label</comment>
         <translatorcomment>Label</translatorcomment>
         <translation>带宽</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

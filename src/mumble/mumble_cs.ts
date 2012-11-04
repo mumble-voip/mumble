@@ -4364,7 +4364,7 @@ Platné možnosti jsou:
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2130"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -4895,9 +4895,9 @@ Platné možnosti jsou:
         <translation>Připojí se k webové stránce Mumble pro zjištění, je-li nová verze dostupná, a oznámí Vám to vhodným odkazem na stažení, pokud tomu opravdu tak je.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2034"/>
+        <location filename="MainWindow.cpp" line="-2035"/>
         <location line="+15"/>
-        <location line="+2229"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1 </translation>
     </message>
@@ -4907,7 +4907,7 @@ Platné možnosti jsou:
         <translation>Toto zobrazí nedávnou aktivitu. Připojování k serverům, chyby a informační zprávy jsou všechny zobrazeny zde.&lt;br /&gt; Abyste přesně nastavili, které zprávy se zde zobrazí, použijte z menu příkaz &lt;b&gt;Nastavení&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2320"/>
+        <location filename="MainWindow.cpp" line="-2321"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanál</translation>
     </message>
@@ -4976,7 +4976,7 @@ Platné možnosti jsou:
         <translation>Přepnout stav překryvu ve hře.</translation>
     </message>
     <message>
-        <location line="+667"/>
+        <location line="+668"/>
         <source>Reconnecting.</source>
         <translation>Znovu se připojuji.</translation>
     </message>
@@ -5590,7 +5590,7 @@ Platné možnosti jsou:
         <translation>Ověření SSL selhalo: %1</translation>
     </message>
     <message>
-        <location line="-2226"/>
+        <location line="-2227"/>
         <source>&amp;User</source>
         <translation>&amp;Uživatel</translation>
     </message>
@@ -5607,7 +5607,7 @@ Platné možnosti jsou:
         <translation>Propojit Kanál</translation>
     </message>
     <message>
-        <location line="+806"/>
+        <location line="+807"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Kontrolní kanál&lt;/h2&gt;&lt;p&gt;Šifrován pomocí %1 bit %2&lt;br /&gt;průměrné zpoždění %3 ms (odchylka %4)&lt;/p&gt;&lt;p&gt;Vzdálený hostitel %5 (port %6)&lt;/p&gt;</translation>
     </message>
@@ -5781,7 +5781,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Minimalizovat</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Zeslabit Se</translation>
@@ -5823,7 +5823,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Šeptat/Křičet</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>&amp;Okno</translation>
     </message>
@@ -5833,7 +5833,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Zapnout Minimálni Zobrazení</translation>
@@ -5866,7 +5866,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Snížit Hlasitost (-10%)</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
