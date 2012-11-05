@@ -3415,7 +3415,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Включить Глобальные горячие клавиши</translation>
     </message>
 </context>
 <context>
@@ -7542,7 +7542,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Отклонение</translation>
     </message>
 </context>
 <context>
