@@ -1592,8 +1592,8 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlink);
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
-	qmChannel->addAction(qaChannelSendMessage);
 	qmChannel->addAction(qaChannelCopyURL);
+	qmChannel->addAction(qaChannelSendMessage);
 
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
