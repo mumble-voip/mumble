@@ -2811,7 +2811,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>Indsæt og &amp;send</translation>
+        <translation>&amp;Indsæt og send</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3477,7 +3477,7 @@ som helst mulige placeringer.</translation>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivér globale genveje</translation>
     </message>
 </context>
 <context>
