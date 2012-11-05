@@ -55,10 +55,10 @@
         <File Source="$(var.SourceDir)\scripts\qt.conf" KeyPath="yes" />
       </Component>
 
-      <Component Id="licence.txt">
+      <Component Id="licence.txt" Guid="87C7967B-5E4B-41DD-83F5-A9E9E8AD3B39">
         <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
-      <Component Id="Readme.txt">
+      <Component Id="Readme.txt" Guid="15878902-B819-4E77-8C1D-0A915D79660B">
         <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes" />
       </Component>
       <Component Id="Changes.txt">
