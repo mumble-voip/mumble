@@ -3441,7 +3441,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ativar Atalhos Globais</translation>
     </message>
 </context>
 <context>
