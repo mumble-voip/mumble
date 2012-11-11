@@ -663,7 +663,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por Morris Arozi Moraes&lt;br /&gt;morrisarozi@gmail.com&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilizade de conversa por voz para jogadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por Morris Arozi Moraes&lt;br /&gt;morrisarozi@gmail.com&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilizade de conversa por voz para gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -3132,14 +3132,14 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location/>
         <source>Internet address of the server.</source>
-        <translation>Endereço na internet do servidor.</translation>
+        <translation>Endereço de internet do servidor.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <translation>&lt;b&gt;Endereço&lt;/b&gt;&lt;br/&gt;
-Endereço na internet do servidor. Isto pode ser um nome de host normal, um endereço IPv4/6 ou um identificador de serviços Bonjour. Identificadores de serviço Bonjour devem ser prefixados com &apos;@&apos; para serem reconhecidos pelo Mumble.</translation>
+Endereço de internet do servidor. Isto pode ser um nome de host normal, um endereço IPv4/6 ou um identificador de serviços Bonjour. Identificadores de serviço Bonjour devem ser prefixados com &apos;@&apos; para serem reconhecidos pelo Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -3149,14 +3149,14 @@ Endereço na internet do servidor. Isto pode ser um nome de host normal, um ende
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation>Porta na qual o servidor esta ouvindo</translation>
+        <translation>Porta que o servidor escuta</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
         <translation>&lt;b&gt;Porta&lt;/b&gt;&lt;br/&gt;
-Porta na qual o servidor está ouvindo. Se o servidor é identificado por um identificador Bonjour, este campo é ignorado.</translation>
+Porta que o servidor escuta. Se o servidor é identificado por um identificador Bonjour, este campo é ignorado.</translation>
     </message>
     <message>
         <location/>
@@ -3178,7 +3178,8 @@ Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor re
     <message>
         <location/>
         <source>Label</source>
-        <translation>Nome</translation>
+        <translatorcomment>Como etiqueta fica mais fácil pesquisar, e o favorito (bookmark) teria uma etiqueta e não um nome.</translatorcomment>
+        <translation>Etiqueta</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3200,7 +3201,7 @@ Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor re
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br/&gt;
-Senha para enviar ao servidor durante a conexão. Esta senha é necessária ao conectar-se como &lt;i&gt;SuperUser&lt;/i&gt; ou para um servidor usando autenticação por senha. Se não especificada a senha será pedida na conexão.</translation>
+Senha para enviar ao servidor na conexão. Essa senha é necessária ao conectar-se como &lt;i&gt;SuperUser&lt;/i&gt; ou para servidor com autenticação por senha. Se não especificada a senha é perguntada na conexão.</translation>
     </message>
     <message>
         <location/>
@@ -3211,8 +3212,8 @@ Senha para enviar ao servidor durante a conexão. Esta senha é necessária ao c
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br/&gt;
-Nome usado no favorito. Será como o servidor será nomeado na lista de servidor e pode ser escolhido livremente.</translation>
+        <translation>&lt;b&gt;Etiqueta&lt;/b&gt;&lt;br/&gt;
+Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e pode ser livremente escolhido.</translation>
     </message>
 </context>
 <context>
@@ -3228,12 +3229,12 @@ Nome usado no favorito. Será como o servidor será nomeado na lista de servidor
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation>Informe de erro do Mumble</translation>
+        <translation>Informe de Erro do Mumble</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Sentimos muitíssimo, mas parece que o Mumble travou. Você quer enviar um informe de erros para os desenvolvedores do Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;O informe contém uma cópia parcial da memória do Mumble durante o travamento, e ajudará os desenvolvedores a consertar o problema.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Sentimos muitíssimo, mas parece que o Mumble travou. Você quer enviar um informe de erro para os desenvolvedores do Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;O informe contém uma cópia parcial da memória do Mumble durante o travamento, e ajudará os desenvolvedores a consertar o problema.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3243,7 +3244,7 @@ Nome usado no favorito. Será como o servidor será nomeado na lista de servidor
     <message>
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
-        <translation>Por favor, descreve brevemente, em Inglês, o que você estava fazendo durante o travamento</translation>
+        <translation>Por favor, descreva brevemente, em Inglês, o que você estava fazendo durante o travamento</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3263,13 +3264,13 @@ Nome usado no favorito. Será como o servidor será nomeado na lista de servidor
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Obrigado por ajudar a tornar o Mumble melhor!</translation>
+        <translation>Obrigado por ajudar fazer o Mumble melhor!</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation>Envio de informa falhou</translation>
+        <translation>Envio de informe falhou</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -4001,7 +4002,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation>Não fazer nada</translation>
+        <translation>Nada fazer</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4442,7 +4443,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+27"/>
         <source>Opening URL %1</source>
-        <translation>Abrir URL %1</translation>
+        <translation>Abrindo URL %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4674,7 +4675,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Largura de banda do Audio&lt;/h2&gt;&lt;p&gt;Máxima %1 kbit/s&lt;br /&gt;Atual %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Largura de banda do áudio&lt;/h2&gt;&lt;p&gt;Máxima %1 kbit/s&lt;br /&gt;Atual %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7719,7 +7720,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>Uma nova versão do Mumble foi detectada e baixada automaticamente. É recomendado que ou você atualize para esta versão, ou desatualiza para a última versão estável. Você quer executar o instalador agora?</translation>
+        <translation>Uma nova versão do Mumble foi detectada e baixada automaticamente. É recomendado ou você atualizar para essa versão, ou retornar para a última versão estável. Você deseja executar o instalador agora?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -7729,12 +7730,12 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation>Download corrupto da nova versão detectada. Eliminada automaticamente.</translation>
+        <translation>Detectado download corrupto da nova versão. Automaticamente eliminado.</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation>Baixando nova versão de %1 em %2</translation>
+        <translation>Baixando nova versão teste de %1 em %2</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -7773,7 +7774,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <location line="+28"/>
         <location line="+28"/>
         <source>Common Name: %1</source>
-        <translation>Nome comum: %1</translation>
+        <translation>Nome Comum: %1</translation>
     </message>
     <message>
         <location line="-27"/>
@@ -7807,7 +7808,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="-27"/>
         <source>Valid from: %1</source>
-        <translation>Valido de: %1</translation>
+        <translation>Válido de: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7876,7 +7877,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation>Gravador falhou ao abrir o arquivo &apos;%s&apos;</translation>
+        <translation>Gravador falhou ao abrir arquivo &apos;%s&apos;</translation>
     </message>
     <message>
         <location line="+109"/>
@@ -7955,7 +7956,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location/>
         <source>Target directory</source>
-        <translation>Pasta destino</translation>
+        <translation>Caminho destino</translation>
     </message>
     <message>
         <location/>
@@ -7995,24 +7996,24 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation>Insere o endereço do servidor</translation>
+        <translation>Insere o nome do servidor</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation>Impossível iniciar a gravação. Não está conectado a um servidor.</translation>
+        <translation>Impossível iniciar a gravação. Não conectado a um servidor.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>O servidor no qual você está conectado é versão 1.2.2 ou anterior. Por motivos de privacidade, gravar em servidores anteriores a versão 1.2.3 não é possível.
-Por favor contate o administrador do servidor para mais informações.</translation>
+        <translation>O servidor ao qual você está conectado é versão 1.2.2 ou anterior. Por motivos de privacidade, gravar em servidores anteriores à versão 1.2.3 não é possível.
+Por favor contate seu administrador de servidor para mais informações.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation>Já há um gravador ativo para este servidor.</translation>
+        <translation>Já há um gravador ativo para esse servidor.</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -8022,7 +8023,7 @@ Por favor contate o administrador do servidor para mais informações.</translat
     <message>
         <location line="+95"/>
         <source>Select target directory</source>
-        <translation>Seleciona o diretório alvo</translation>
+        <translation>Selecione o caminho destino</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
