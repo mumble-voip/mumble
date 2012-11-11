@@ -1072,17 +1072,17 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished">Haltezeit</translation>
+        <translation>Haltezeit</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished">Zeit, die das Mikrofon aktiv bleibt, nachdem die PTT-Taste losgelassen wurde</translation>
+        <translation>Zeit, die das Mikrofon aktiv bleibt, nachdem die PTT-Taste losgelassen wurde</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished">Maximale Netzwerkbandbreite des Servers beträgt nur %1 kbit/s. Audioqualität wurde automatisch auf %2 kbit/s (%3 ms) angepasst</translation>
+        <translation>Maximale Netzwerkbandbreite des Servers beträgt nur %1 kbit/s. Audioqualität wurde automatisch auf %2 kbit/s (%3 ms) angepasst</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1092,32 +1092,32 @@ Zum Beispiel wäre für die Audigy 2 ZS &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; ein
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished">Aktion bei Untätigkeit</translation>
+        <translation>Aktion bei Untätigkeit</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished">Minuten führe aus</translation>
+        <translation>Minuten führe aus</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished">nichts</translation>
+        <translation>nichts</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished">taub stellen</translation>
+        <translation>taub stellen</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished">stumm stellen</translation>
+        <translation>stumm stellen</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished">nach</translation>
+        <translation>nach</translation>
     </message>
 </context>
 <context>
@@ -3512,22 +3512,22 @@ der möglichen Orte initialisieren.</translation>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kann zur Zeit nur Maus- und Zusatztasten (Alt, Strg, Befehlstaste usw.) für globale Tastenkürzel verwenden.&lt;/p&gt;&lt;p&gt;Für mehr Flexibilität kann &lt;span style=&quot;font-style:italic;&quot;&gt;Zugriff für Hilfsgeräte aktivieren&lt;/span&gt; in den Bedienungshilfen Einstellungen des Systems aktiviert werden. Diese Änderung erlaubt es jedoch auch potentiell bösartigen Programmen Tastatureingaben zu lesen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;    </translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne Bedienungshilfen Einstellungen</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Überspringen</translation>
     </message>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished">Aktiviere Globale Tastenkürzel</translation>
+        <translation>Aktiviere globale Tastenkürzel</translation>
     </message>
 </context>
 <context>
@@ -5020,7 +5020,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximale Verschachtelungstiefe erreicht.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5679,7 +5679,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;Bearbeiten</translation>
+        <translation>&amp;Bearbeiten</translation>
     </message>
     <message>
         <location/>
@@ -5985,7 +5985,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <location filename="MainWindow.ui"/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished">Verknü&amp;pfung entfernen</translation>
+        <translation>Verknü&amp;pfung entfernen</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="-10"/>
@@ -6107,7 +6107,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished">&amp;URL kopieren</translation>
+        <translation>&amp;URL kopieren</translation>
     </message>
 </context>
 <context>
@@ -6690,17 +6690,17 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation>Um Ausnahmen darzustellen benutze</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished">Zeige das Overlay in allen geeigneten Programmen, außer</translation>
+        <translation>Zeige das Overlay in allen geeigneten Programmen, außer</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished">Zeige das Overlay nur in</translation>
+        <translation>Zeige das Overlay nur in</translation>
     </message>
 </context>
 <context>
@@ -7681,7 +7681,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished">Ping Abweichung</translation>
+        <translation>Ping Abweichung</translation>
     </message>
 </context>
 <context>
