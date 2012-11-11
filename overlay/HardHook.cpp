@@ -178,6 +178,9 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
+			case 0x6a: // PUSH immediate
+				extra = 1;
+				break;
 			case 0x68: // PUSH immediate
 				extra = 4;
 				break;
@@ -190,11 +193,18 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x8b:	// MOV
 				extra = modrmbytes(a,b) + 1;
 				break;
-			default:
+			default: {
+				int rmop = ((a>>3) & 7);
+				if (opcode == 0xff && rmop == 6) { // PUSH memory
+					extra = modrmbytes(a,b) + 1;
+					break;
+				}
+
 				fods("HardHook: Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				VirtualProtect(o, 16, oldProtect, &restoreProtect);
 				return NULL;
 				break;
+			}
 		}
 		for (unsigned int i=0;i<extra;++i)
 			n[idx+i] = o[idx+i];
