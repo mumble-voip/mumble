@@ -87,7 +87,27 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 
 void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 	rtLast = msg.type();
-	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(u8(msg.reason())));
+
+	QString reason(u8(msg.reason()));;
+
+	switch (rtLast) {
+		case MumbleProto::Reject_RejectType_InvalidUsername:
+			reason = tr("Invalid username");
+			break;
+		case MumbleProto::Reject_RejectType_UsernameInUse:
+			reason = tr("Username in use");
+			break;
+		case MumbleProto::Reject_RejectType_WrongUserPW:
+			reason = tr("Wrong certificate or password");
+			break;
+		case MumbleProto::Reject_RejectType_WrongServerPW:
+			reason = tr("Wrong password");
+			break;
+		default:
+			break;
+	}
+
+	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(reason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
