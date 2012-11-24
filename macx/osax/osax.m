@@ -33,11 +33,14 @@
 
 __attribute__ ((visibility("default")))
 OSErr MumbleOverlayEventHandler(const AppleEvent *ae, AppleEvent *reply, long refcon) {
+	(void) ae;
+	(void) reply;
+	(void) refcon;
 
 	/* Is the overlay already loaded into the process? */
 	if (dlsym(RTLD_DEFAULT, "MumbleOverlayEntryPoint")) {
 		fprintf(stderr, "MumbleOverlayLoader: Overlay already loaded.\n");
-		return;
+		return noErr;
 	}
 
 	/*

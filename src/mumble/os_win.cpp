@@ -101,6 +101,37 @@ static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* Ex
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
+static void enableCrashOnCrashes() {
+	// Makes sure the application actually crashes when one of its callbacks
+	// called from the kernel crashes.
+	//
+	// See http://support.microsoft.com/kb/976038
+	//     http://www.altdevblogaday.com/2012/07/06/when-even-crashing-doesnt-work/
+
+	typedef BOOL (WINAPI *tGetPolicy)(LPDWORD lpFlags);
+	typedef BOOL (WINAPI *tSetPolicy)(DWORD dwFlags);
+
+	const DWORD PROCESS_CALLBACK_FILTER_ENABLED = 0x01;
+
+	HMODULE kernel32 = LoadLibrary(L"kernel32.dll");
+
+	tGetPolicy pGetPolicy = (tGetPolicy) GetProcAddress(kernel32,
+		"GetProcessUserModeExceptionPolicy");
+
+	tSetPolicy pSetPolicy = (tSetPolicy) GetProcAddress(kernel32,
+		"SetProcessUserModeExceptionPolicy");
+
+	if (pGetPolicy && pSetPolicy) { // Only available as of Vista SP2 / Win7 SP1
+		DWORD dwFlags;
+		if (pGetPolicy(&dwFlags)) {
+			if (!pSetPolicy(dwFlags & ~PROCESS_CALLBACK_FILTER_ENABLED))
+				qWarning("enableCrashOnCrashes: Failed to set policy");
+		} else {
+			qWarning("enableCrashOnCrashes: Failed to get policy");
+		}
+	}
+}
+
 BOOL SetHeapOptions() {
 	HMODULE hLib = LoadLibrary(L"kernel32.dll");
 	if (hLib == NULL)
@@ -196,6 +227,7 @@ void os_init() {
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
 
 	SetHeapOptions();
+	enableCrashOnCrashes();
 	mumble_speex_init();
 
 #ifdef QT_NO_DEBUG

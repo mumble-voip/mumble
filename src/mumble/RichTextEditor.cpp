@@ -439,10 +439,16 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 							writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
 						}
 					} else if (name == QLatin1String("p")) {
-						// Ignore first paragraph.
-
 						paragraphs++;
-						if (paragraphs > 1) {
+						if (paragraphs == 1) {
+							// Ignore first paragraph. If it is styled empty drop its contents (e.g. <br />) too.
+							if (style.value(QLatin1String("-qt-paragraph-type")) == QLatin1String("empty")) {
+								reader.skipCurrentElement();
+								continue;
+							}
+							rclose = 0;
+						}
+						else {
 							rclose = 1;
 							writer.writeStartElement(name);
 
@@ -458,8 +464,6 @@ static void recurseParse(QXmlStreamReader &reader, QXmlStreamWriter &writer, int
 
 								writer.writeAttribute(QLatin1String("style"), qsl.join(QLatin1String("; ")));
 							}
-						} else {
-							rclose = 0;
 						}
 					} else if (name == QLatin1String("a")) {
 						// Set pstyle to include implicit blue underline.

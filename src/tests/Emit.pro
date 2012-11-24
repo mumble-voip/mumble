@@ -1,6 +1,7 @@
-TEMPLATE	=app
-CONFIG  += qt thread warn_on release no_keywords
-LANGUAGE	= C++
+TEMPLATE = app
+CONFIG += qt thread warn_on release no_keywords
+CONFIG -= app_bundle
+LANGUAGE = C++
 TARGET = Emit
 HEADERS = Timer.h
 SOURCES = Emit.cpp Timer.cpp

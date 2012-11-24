@@ -1,4 +1,4 @@
-/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com> 
+/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -31,18 +31,40 @@
 
 #include "../mumble_plugin_win32.h"  
 
+/*
+	Arrays of bytes to find addresses accessed by respective functions so we don't have to blindly search for addresses after every update
+	Remember to disable scanning writable memory only in CE! We're searching for functions here, not values!
+	Current addresses as of version 1.0.0.145
+
+	Camera position vector address: F3 0F 11 03 F3 0F 10 44 24 14 D9 5C 24 28			:00B738E8
+	Camera front vector address: campos+0x14 (offset, not pointer!)
+
+	D9 5F 40 D9 46 04 D9 5F 44 D9 46 08 D9 5F 48 59 C3 CC (non-static! NEEDS POINTER)	:00E22E90
+	Avatar front vector address: 		+0x2acc [offset can change]
+
+	D9 9E E0 01 00 00 D9 40 70															:02F5E5F8
+	Avatar position vector address:		+0x1e0 (pointer offset) [offset can change]
+
+	IP is kept as text @ hostipptr
+	PORT is kept as a 4-byte decimal value @ hostportptr
+	Look for a non-unicode string that will contain server's IP. 28 bytes further from IP, there should be server's port
+																						:0AF69D18
+	PORT:					+0x1C (offset, not pointer!)
+*/
+
 static BYTE *posptr;
-static BYTE *camptr;
-static BYTE *camfrontptr;
-static BYTE *camtopptr;
 static BYTE *afrontptr;
+static BYTE *tmpptr;
 
-static BYTE *hostipptr;
-static BYTE *hostportptr;
+static BYTE *posptr_ = (BYTE *)0x2F5E5F8;
+static BYTE *camptr = (BYTE *)0xB738E8;
+static BYTE *camfrontptr = camptr + 0x14;
+static BYTE *gameptr = (BYTE *)0xE22E90;
 
-static BYTE *gameptr;
+static BYTE *hostipptr = (BYTE *)0xAF69D18;
+static BYTE *hostportptr = hostipptr + 0x1C;
 
-static char prev_hostip[16];
+static char prev_hostip[16]; // These should never change while the game is running, but just in case...
 static int prev_hostport;
 
 static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
@@ -56,44 +78,21 @@ static bool calcout(float *pos, float *cam, float *opos, float *ocam) {
 }
 
 static bool refreshPointers(void) {
-	// camera position vector @ 0xb56308
-	// camera front vector    @ 0xb562ec
-	// camera top vector	  @ 0xb5631c
-	// avatar position vector @ 0x2eafae8
-	// avatar front vector    @ 0xe00f88 -> +0x2a54
-	// host ip (text)		  @ 0xaf4f028
-	// host port (4 bytes)	  @ 0xaf4f044
-
-	posptr = camptr = camfrontptr = camtopptr = afrontptr = NULL;
+	posptr = afrontptr = tmpptr = NULL;
 	
-	// Camera position
-	camptr = (BYTE *)0xb56308;
-
-	// Camera front
-	camfrontptr = (BYTE *)0xb562ec;
-
-	// Camera top
-	camtopptr = (BYTE *)0xb5631c;
-
 	// Avatar front vector pointer
-	BYTE *tmpptr = NULL;
-	gameptr = (BYTE *)0xe00f88;			// NOTE: This pointer is availible ONLY when ingame. We are using this fact to unlink plugin when not ingame.
-	tmpptr = peekProc<BYTE *>(gameptr);	
-
+	tmpptr = peekProc<BYTE *>(gameptr);
 	if (!tmpptr)
-		return false;				// Player not in game (game is still loading), unlink plugin
+		return false; // Something went wrong, unlink
 
-	afrontptr = tmpptr + 0x2a54;
+	afrontptr = tmpptr + 0x2acc;
 	
 	// Avatar position vector
-	posptr = (BYTE *)0x2eafae8;			// NOTE: This consists of all zeros right after game is loaded until your avatar moves, but we don't have to worry about it since (0,0,0) is close to our spawning position
+	tmpptr = peekProc<BYTE *>(posptr_);
+	if (!tmpptr)
+		return false; // Something went wrong, unlink
 
-	// Host IP:PORT. It is kept in 3 places in memory, but 1 of them looks the coolest, so let's use it, ha!
-	// IP is kept as text @ hostipptr
-	// PORT is kept as a 4-byte decimal value @ hostportptr
-
-	hostipptr = (BYTE *)0xaf4f028;
-	hostportptr = (BYTE *)0xaf4f044;
+	posptr = tmpptr + 0x1e0;
 
 	return true;
 }
@@ -112,69 +111,53 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 
 	ok = peekProc(camfrontptr, camera_front, 12) &&
-		 peekProc(camtopptr, camera_top, 12) &&
 		 peekProc(camptr, cam, 12) &&
 		 peekProc(posptr, ipos, 12) &&
 		 peekProc(afrontptr, avatar_front, 12) &&
 		 peekProc(hostipptr, hostip) &&
 		 peekProc(hostportptr, &hostport, 4);
 
-	if (ok) {
-		int res = calcout(ipos, cam, avatar_pos, camera_pos);
-		if (res) {
-			avatar_top[0] = 0.0f;
-			avatar_top[1] = 1.0f; // Your character is always looking straight ahead ;)
-			avatar_top[2] = 0.0f;
+	if (!ok) 
+		return false;
 
-			if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
-				context.clear();
-				memcpy(prev_hostip, hostip, 16);
-				prev_hostport = hostport;
+	// Ensure strings are zero terminated
+	hostip[sizeof(hostip) - 1] = '\0';
 
-				if (strcmp(hostip, "") != 0) {
-					char buffer[50];
-					sprintf_s(buffer, 50, "{\"ipport\": \"%s:%d\"}", hostip, hostport);
-					context.assign(buffer);
-				}
-			}
+	calcout(ipos, cam, avatar_pos, camera_pos); //calculate proper position values
+	
+	if (strcmp(hostip, prev_hostip) != 0 || hostport != prev_hostport) {
+		context.clear();
+
+		strcpy_s(prev_hostip, sizeof(prev_hostip), hostip);
+		prev_hostport = hostport;
+
+		if (strcmp(hostip, "") != 0) {
+			char buffer[50];
+			sprintf_s(buffer, sizeof(buffer), "{\"ipport\": \"%s:%d\"}", hostip, hostport);
+			context.assign(buffer);
 		}
-		return res;
 	}
-
-	return false;
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 	if (! initialize(pids, L"League of Legends.exe"))
 		return false;
 
-	float pos[3], opos[3];
-	float cam[3], ocam[3];
-	float afront[3];
-	float camfront[3], camtop[3];
-	char hostip[16];
-	int hostport;
-
-	// unlink plugin if this fails
-	if (!refreshPointers()) {
-		generic_unlock();
-		return false;
-	}
-
-	bool ok = peekProc(camfrontptr, camfront, 12) &&
-			  peekProc(camtopptr, camtop, 12) &&
-			  peekProc(posptr, pos, 12) &&
-			  peekProc(camptr, cam, 12) &&
-			  peekProc(afrontptr, afront, 12) &&
-			  peekProc(hostipptr, hostip) &&
-			  peekProc(hostportptr, &hostport, 4);
-
-	ok = ok && calcout(pos,cam,opos,ocam); // make sure values are OK
-
-	if (ok) {
+	if (refreshPointers()) { // unlink plugin if this fails
 		*prev_hostip = '\0';
 		prev_hostport = 0;
-		return true;
+
+		float avatar_pos[3], avatar_front[3], avatar_top[3];
+		float camera_pos[3], camera_front[3], camera_top[3];
+		std::string context;
+		std::wstring identity;
+
+		if (fetch(avatar_pos, avatar_front, avatar_top, camera_pos, camera_front, camera_top, context, identity)) {
+			*prev_hostip = '\0'; // we need to do this again since fetch() above overwrites this (which results in empty context until next change)
+			prev_hostport = 0;
+			return true;
+		}
 	}
 
 	generic_unlock();
@@ -182,10 +165,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports League of Legends v1.0.0.139 with context. No identity support yet.");
+	return std::wstring(L"Supports League of Legends v1.0.0.145 with context. No identity support.");
 }
 
-static std::wstring description(L"League of Legends (v1.0.0.139)");
+static std::wstring description(L"League of Legends (v1.0.0.145)");
 static std::wstring shortname(L"League of Legends");
 
 static int trylock1() {

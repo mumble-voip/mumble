@@ -104,7 +104,7 @@ bool Manual::eventFilter(QObject *obj, QEvent *evt) {
 		if (qme) {
 			if (qme->buttons() & Qt::LeftButton) {
 				QPointF qpf = qgvPosition->mapToScene(qme->pos());
-				qdsbX->setValue(-qpf.x());
+				qdsbX->setValue(qpf.x());
 				qdsbZ->setValue(-qpf.y());
 				qgiPosition->setPos(qpf);
 			}
@@ -140,7 +140,7 @@ void Manual::on_qpbActivated_clicked(bool b) {
 
 void Manual::on_qdsbX_valueChanged(double d) {
 	my.avatar_pos[0] = my.camera_pos[0] = static_cast<float>(d);
-	qgiPosition->setPos(-my.avatar_pos[0], -my.avatar_pos[2]);
+	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
 void Manual::on_qdsbY_valueChanged(double d) {
@@ -149,7 +149,7 @@ void Manual::on_qdsbY_valueChanged(double d) {
 
 void Manual::on_qdsbZ_valueChanged(double d) {
 	my.avatar_pos[2] = my.camera_pos[2] = static_cast<float>(d);
-	qgiPosition->setPos(-my.avatar_pos[0], -my.avatar_pos[2]);
+	qgiPosition->setPos(my.avatar_pos[0], -my.avatar_pos[2]);
 }
 
 void Manual::on_qsbAzimuth_valueChanged(int i) {

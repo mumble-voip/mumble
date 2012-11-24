@@ -57,6 +57,17 @@
 #include "FileEngine.h"
 #include "SocketRPC.h"
 
+#ifdef USE_STATIC
+// Keep in sync with mumble.pro QTPLUGIN list.
+Q_IMPORT_PLUGIN(qtaccessiblewidgets)
+Q_IMPORT_PLUGIN(qico)
+Q_IMPORT_PLUGIN(qsvg)
+Q_IMPORT_PLUGIN(qsvgicon)
+#ifdef Q_OS_MAC
+Q_IMPORT_PLUGIN(qicnsicon)
+#endif
+#endif
+
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
 	void throw_exception(std::exception const &) {
@@ -141,6 +152,15 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+	#ifdef USE_SBCELT
+	{
+		// For now, force Mumble to use sbcelt-helper from the same directory as the 'mumble' executable.
+		QDir d(a.applicationDirPath());
+		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
+		setenv("SBCELT_HELPER_BINARY", helper.toUtf8().constData(), 1);
+	}
+#endif
 
 	Global::g_global_struct = new Global();
 
@@ -386,6 +406,16 @@ int main(int argc, char **argv) {
 	if (g.s.uiUpdateCounter == 0) {
 		// Previous version was an pre 1.2.3 release or this is the first run
 		runaudiowizard = true;
+
+	} else if (g.s.uiUpdateCounter == 1) {
+		// Previous versions used old idle action style, convert it
+
+		if (g.s.iIdleTime == 5 * 60) { // New default
+			g.s.iaeIdleAction = Settings::Nothing;
+		} else {
+			g.s.iIdleTime = 60 * qRound(g.s.iIdleTime / 60.); // Round to minutes
+			g.s.iaeIdleAction = Settings::Deafen; // Old behavior
+		}
 	}
 
 	if (runaudiowizard) {
@@ -394,7 +424,7 @@ int main(int argc, char **argv) {
 		delete aw;
 	}
 
-	g.s.uiUpdateCounter = 1;
+	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
@@ -434,9 +464,8 @@ int main(int argc, char **argv) {
 #else
 	g.mw->msgBox(MainWindow::tr("Skipping version check in debug mode."));
 #endif
-	if (g.s.bPluginOverlayCheck) {
+	if (g.s.bPluginCheck) {
 		g.p->checkUpdates();
-		g.o->checkUpdates();
 	}
 
 	if (url.isValid()) {

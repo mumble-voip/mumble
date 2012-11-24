@@ -3,7 +3,7 @@
   <?include "Settings.wxi" ?>
 
   <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="!(loc.LANG)" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
-    <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1033,4,1029,1030,1031,1034,1036,1040,1041,1043,1044,1045,1049,1053,31748" />
+    <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1028,1029,1030,1031,1033,1034,1036,1040,1041,1043,1044,1045,1046,1049,1053,1055,2052" />
 
     <Property Id='NSISINSTALL'>
       <RegistrySearch Id='NSISSearch' Win64='no' Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Mumble' Type='directory' Name='InstallLocation' />
@@ -73,8 +73,7 @@
     <Icon Id="murmur.ico" SourceFile="$(var.SourceDir)\icons\murmur.ico"/>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="UninstallShortcut" Guid="AFCE8451-06BF-4BD0-A25A-3F9832B39A0F">
-        <Shortcut Id="UninstallMumble" Name="!(loc.MUMBLE_UNINSTALL_LNK)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ApplicationProgramsFolder" />
+      <Component Id="ApplicationProgramsFolderRemovalComponent" Guid="0AE1745D-FF86-4D61-BAF3-44248D21D263">
         <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
       </Component>
@@ -97,7 +96,7 @@
       <ComponentRef Id="libeay32.dll" />
       <ComponentRef Id="ssleay32.dll" />
       <?ifdef ZlibDir ?>
-      <ComponentRef Id="zlib1.dll" />
+        <ComponentRef Id="zlib1.dll" />
       <?endif ?>
 
       <ComponentRef Id="qt.conf" />
@@ -110,60 +109,58 @@
       <ComponentRef Id="dbghelp.dll" />
 
       <?ifdef ProtoBufDir ?>
-      <ComponentRef Id="libprotobuf.dll" />
+        <ComponentRef Id="libprotobuf.dll" />
       <?endif ?>
       <?ifdef MySQLDir ?>
       <ComponentRef Id="libmysql.dll" />
       <?endif ?>
 
       <?ifdef IntelCppDir ?>
-      <ComponentRef Id="libmmd.dll"/>
+        <ComponentRef Id="libmmd.dll"/>
       <?endif ?>
 
       <?ifdef RedistDirVC10 ?>
-      <ComponentRef Id="msvcp100.dll" />
-      <ComponentRef Id="msvcr100.dll" />
+        <ComponentRef Id="msvcp100.dll" />
+        <ComponentRef Id="msvcr100.dll" />
       <?endif ?>
     </ComponentGroup>
 
-    <ComponentGroup Id="ClientCommon">
+    <Feature Id="Mumble" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no" ConfigurableDirectory="INSTALLDIR">
       <?ifdef SndFileDir ?>
-      <ComponentRef Id="libsndfile1.dll" />
+        <ComponentRef Id="libsndfile1.dll" />
       <?endif ?>
       <ComponentRef Id="speex.dll" />
       <ComponentRef Id="speex.txt" />
-    </ComponentGroup>
 
-    <Feature Id="Mumble" Title="$(var.ProductName)" Description="!(loc.DESC_SectionMumble)" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
-      <Feature Id="MumbleClient" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no">
-        <ComponentGroupRef Id="ClientCommon" />
-
-        <ComponentGroupRef Id="Plugins"/>
-        <ComponentRef Id="celt0.0.7.0.dll" />
-        <ComponentRef Id="celt0.0.11.0.dll" />
-        <?ifdef SSE ?>
+      <ComponentGroupRef Id="Plugins"/>
+      <ComponentRef Id="celt0.0.7.0.dll" />
+      <ComponentRef Id="celt0.0.11.0.dll" />
+      <ComponentRef Id="opus.dll" />
+      <?ifdef SSE ?>
         <ComponentRef Id="celt0.0.7.0.sse.dll" />
         <ComponentRef Id="celt0.0.11.0.sse.dll" />
-        <?endif ?>
-        <?ifdef SSE2 ?>
+      <?endif ?>
+      <?ifdef SSE2 ?>
         <ComponentRef Id="celt0.0.7.0.sse2.dll" />
         <ComponentRef Id="celt0.0.11.0.sse2.dll" />
-        <?endif ?>
-        <ComponentRef Id="mumble.exe" />
-        <ComponentRef Id="mumble_ol.dll" />
+        <ComponentRef Id="opus.sse2.dll" />
+      <?endif ?>
+      <ComponentRef Id="mumble.exe" />
+      <ComponentRef Id="mumble_ol.dll" />
+      <?ifdef G15 ?>
         <ComponentRef Id="mumble_g15_helper.exe" />
-      </Feature>
-
+      <?endif ?>
+      
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR">
       <?ifdef IceDir ?>
-      <ComponentRef Id="bzip2.dll" />
-      <ComponentRef Id="ice34.dll" />
-      <ComponentRef Id="iceutil34.dll" />
+        <ComponentRef Id="bzip2.dll" />
+        <ComponentRef Id="ice34.dll" />
+        <ComponentRef Id="iceutil34.dll" />
       <?endif ?>
       <?ifdef DBusDir ?>
-      <ComponentGroupRef Id="DBus" />
+        <ComponentGroupRef Id="DBus" />
       <?endif ?>
 
       <ComponentRef Id="murmur.exe" />
@@ -173,7 +170,7 @@
 
     <Feature Id="Libraries" Title="Required Libraries" Display="hidden" AllowAdvertise="no" Absent="disallow" Level="1">
       <ComponentGroupRef Id="LibrariesCommon" />
-      <ComponentRef Id="UninstallShortcut" />
+      <ComponentRef Id="ApplicationProgramsFolderRemovalComponent" />
       <ComponentRef Id="NSISUninstall" />
     </Feature>
 

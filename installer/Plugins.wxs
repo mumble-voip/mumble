@@ -29,6 +29,9 @@
       <Component Id="bfheroes.dll">
         <File Source="$(var.SourceDir)\release\plugins\bfheroes.dll" KeyPath="yes" />
       </Component>
+      <Component Id="blacklight.dll">
+        <File Source="$(var.SourceDir)\release\plugins\blacklight.dll" KeyPath="yes" />
+      </Component>
       <Component Id="borderlands.dll">
         <File Source="$(var.SourceDir)\release\plugins\borderlands.dll" KeyPath="yes" />
       </Component>
@@ -79,6 +82,9 @@
       </Component>
       <Component Id="insurgency.dll">
         <File Source="$(var.SourceDir)\release\plugins\insurgency.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="jc2.dll">
+        <File Source="$(var.SourceDir)\release\plugins\jc2.dll" KeyPath="yes" />
       </Component>
       <Component Id="l4d.dll">
         <File Source="$(var.SourceDir)\release\plugins\l4d.dll" KeyPath="yes" />
@@ -131,6 +137,7 @@
       <ComponentRef Id="bfbc2.dll" />
       <ComponentRef Id="bfheroes.dll" />
       <ComponentRef Id="borderlands.dll" />
+      <ComponentRef Id="blacklight.dll" />
       <ComponentRef Id="breach.dll" />
       <ComponentRef Id="cod2.dll" />
       <ComponentRef Id="cod4.dll" />
@@ -147,6 +154,7 @@
       <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
+      <ComponentRef Id="jc2.dll" />
       <ComponentRef Id="l4d.dll" />
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="link.dll" />

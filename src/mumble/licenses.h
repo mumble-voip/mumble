@@ -71,6 +71,53 @@ static const char *licenseCELT =
 	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
 
 
+static const char *licenseOpus = 
+	"Copyright 2001-2011 Xiph.Org, Skype Limited, Octasic,\n"
+	"                    Jean-Marc Valin, Timothy B. Terriberry,\n"
+	"                    CSIRO, Gregory Maxwell, Mark Borgerding,\n"
+	"                    Erik de Castro Lopo\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions\n"
+	"are met:\n"
+	"\n"
+	"- Redistributions of source code must retain the above copyright\n"
+	"notice, this list of conditions and the following disclaimer.\n"
+	"\n"
+	"- Redistributions in binary form must reproduce the above copyright\n"
+	"notice, this list of conditions and the following disclaimer in the\n"
+	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of Internet Society, IETF or IETF Trust, nor the \n"
+	"names of specific contributors, may be used to endorse or promote\n"
+	"products derived from this software without specific prior written\n"
+	"permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
+	"LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
+	"A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER\n"
+	"OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n"
+	"EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n"
+	"PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\n"
+	"PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\n"
+	"LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\n"
+	"NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n"
+	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+	"\n"
+	"Opus is subject to the royalty-free patent licenses which are\n"
+	"specified at:\n"
+	"\n"
+	"Xiph.Org Foundation:\n"
+	"https://datatracker.ietf.org/ipr/1524/\n"
+	"\n"
+	"Skype Limited:\n"
+	"https://datatracker.ietf.org/ipr/1602/\n"
+	"\n"
+	"Broadcom Corporation:\n"
+	"https://datatracker.ietf.org/ipr/1526/";
+
+
 static const char *licenseSPEEX = 
 	"Copyright 2002-2008 	Xiph.org Foundation\n"
 	"Copyright 2002-2008 	Jean-Marc Valin\n"
@@ -164,7 +211,7 @@ static const char *licenseOpenSSL =
 
 
 static const char *licenseLibsndfile = 
-	"Copyright (C) 1999-2011Erik de Castro Lopo <erikd@mega-nerd.com>\n"
+	"Copyright (C) 1999-2011 Erik de Castro Lopo <erikd@mega-nerd.com>\n"
 	"\n"
 	"This program is free software; you can redistribute it and/or modify\n"
 	"it under the terms of the GNU Lesser General Public License as published by\n"
@@ -181,29 +228,159 @@ static const char *licenseLibsndfile =
 	"Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.";
 
 
-static const char *licenses3rdParty[5] = {
+static const char *licenseOgg = 
+	"Copyright (c) 2002, Xiph.org Foundation\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions\n"
+	"are met:\n"
+	"\n"
+	"- Redistributions of source code must retain the above copyright\n"
+	"notice, this list of conditions and the following disclaimer.\n"
+	"\n"
+	"- Redistributions in binary form must reproduce the above copyright\n"
+	"notice, this list of conditions and the following disclaimer in the\n"
+	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of the Xiph.org Foundation nor the names of its\n"
+	"contributors may be used to endorse or promote products derived from\n"
+	"this software without specific prior written permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
+	"LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
+	"A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION\n"
+	"OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n"
+	"SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n"
+	"LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n"
+	"DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n"
+	"THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n"
+	"(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n"
+	"OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+
+
+static const char *licenseVorbis = 
+	"Copyright (c) 2002-2008 Xiph.org Foundation\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions\n"
+	"are met:\n"
+	"\n"
+	"- Redistributions of source code must retain the above copyright\n"
+	"notice, this list of conditions and the following disclaimer.\n"
+	"\n"
+	"- Redistributions in binary form must reproduce the above copyright\n"
+	"notice, this list of conditions and the following disclaimer in the\n"
+	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of the Xiph.org Foundation nor the names of its\n"
+	"contributors may be used to endorse or promote products derived from\n"
+	"this software without specific prior written permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
+	"LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
+	"A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION\n"
+	"OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n"
+	"SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\n"
+	"LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\n"
+	"DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\n"
+	"THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n"
+	"(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\n"
+	"OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+
+
+static const char *licenseFLAC = 
+	"Copyright (C) 2000,2001,2002,2003,2004,2005,2006,2007  Josh Coalson\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions\n"
+	"are met:\n"
+	"\n"
+	"- Redistributions of source code must retain the above copyright\n"
+	"notice, this list of conditions and the following disclaimer.\n"
+	"\n"
+	"- Redistributions in binary form must reproduce the above copyright\n"
+	"notice, this list of conditions and the following disclaimer in the\n"
+	"documentation and/or other materials provided with the distribution.\n"
+	"\n"
+	"- Neither the name of the Xiph.org Foundation nor the names of its\n"
+	"contributors may be used to endorse or promote products derived from\n"
+	"this software without specific prior written permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n"
+	"``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\n"
+	"LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\n"
+	"A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR\n"
+	"CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,\n"
+	"EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n"
+	"PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR\n"
+	"PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\n"
+	"LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\n"
+	"NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n"
+	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+
+
+static const char *licenseMachOverride = 
+	"Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch <http://rentzsch.com>\n"
+	"\n"
+	"Permission is hereby granted, free of charge, to any person obtaining\n"
+	"a copy of this software and associated documentation files (the \"Software\"),\n"
+	"to deal in the Software without restriction, including without limitation\n"
+	"the rights to use, copy, modify, merge, publish, distribute, sublicense,\n"
+	"and/or sell copies of the Software, and to permit persons to whom the\n"
+	"Software is furnished to do so, subject to the following conditions:\n"
+	"\n"
+	"The above copyright notice and this permission notice shall be\n"
+	"included in all copies or substantial portions of the Software.\n"
+	"\n"
+	"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\n"
+	"OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n"
+	"FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL\n"
+	"THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n"
+	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
+	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n"
+	"THE SOFTWARE.";
+
+
+static const char *licenses3rdParty[10] = {
 	licenseCELT, 
+	licenseOpus, 
 	licenseSPEEX, 
 	licenseOpenSSL, 
 	licenseLibsndfile, 
+	licenseOgg, 
+	licenseVorbis, 
+	licenseFLAC, 
+	licenseMachOverride, 
 	0
 };
 
 
-static const char *licenses3rdPartyNames[5] = {
+static const char *licenses3rdPartyNames[10] = {
 	"Speex",
+	"Opus",
 	"CELT",
 	"OpenSSL",
 	"libsndfile",
+	"libogg",
+	"libvorbis",
+	"libFLAC",
+	"mach_override",
 	0
 };
 
 
-static const char *licenses3rdPartyURLs[5] = {
+static const char *licenses3rdPartyURLs[10] = {
 	"http://www.speex.org/",
+	"http://www.opus-codec.org/",
 	"http://www.celt-codec.org/",
 	"http://www.openssl.org/",
 	"http://www.mega-nerd.com/libsndfile/",
+	"http://www.xiph.org/",
+	"http://www.xiph.org/",
+	"http://flac.sourceforge.net/",
+	"https://github.com/rentzsch/mach_star",
 	0
 };
 

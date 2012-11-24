@@ -133,13 +133,12 @@ QSet<Channel *> Channel::allLinks() {
 	if (qhLinks.isEmpty())
 		return seen;
 
-	Channel *l, *lnk;
 	QStack<Channel *> stack;
 	stack.push(this);
 
 	while (! stack.isEmpty()) {
-		lnk = stack.pop();
-		foreach(l, lnk->qhLinks.keys()) {
+		Channel *lnk = stack.pop();
+		foreach(Channel *l, lnk->qhLinks.keys()) {
 			if (! seen.contains(l)) {
 				seen.insert(l);
 				stack.push(l);
@@ -195,4 +194,30 @@ Channel::operator const QString() const {
 	        QString::number(iId),
 	        QString::number(cParent ? cParent->iId : -1),
 	        bTemporary ? QLatin1String("*") : QLatin1String(""));
+}
+
+size_t Channel::getLevel() const {
+	size_t i = 0;
+
+	const Channel *c = this;
+	while (c->cParent) {
+		c = c->cParent;
+		++i;
+	}
+
+	return i;
+}
+
+
+size_t Channel::getDepth() const {
+	if(qlChannels.empty()) {
+		return 0;
+	}
+
+	size_t result = 0;
+	foreach(Channel *child, qlChannels) {
+		result = qMax(result, child->getDepth() + 1);
+	}
+
+	return result;
 }

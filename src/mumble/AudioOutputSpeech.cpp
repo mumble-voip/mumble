@@ -54,6 +54,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	dsSpeex = NULL;
 	opusState = NULL;
 
+	bHasTerminator = false;
 	bStereo = false;
 
 	iSampleRate = SAMPLE_RATE;
@@ -326,7 +327,14 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 						memset(pOut, 0, sizeof(float) * iFrameSize);
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
-					decodedSamples = opus_decode_float(opusState, qba.isEmpty() ? NULL : reinterpret_cast<const unsigned char *>(qba.constData()), qba.size(), pOut, iAudioBufferSize, 0);
+					decodedSamples = opus_decode_float(opusState,
+					                                   qba.isEmpty() ?
+					                                       NULL :
+					                                       reinterpret_cast<const unsigned char *>(qba.constData()),
+					                                   qba.size(),
+					                                   pOut,
+					                                   iAudioBufferSize,
+					                                   0);
 #endif
 				} else {
 					if (qba.isEmpty()) {

@@ -121,6 +121,7 @@ extern void checkOpenGLHook();
 extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
 extern HMODULE hSelf;
+extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;
 

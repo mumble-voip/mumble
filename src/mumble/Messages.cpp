@@ -87,11 +87,33 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 
 void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 	rtLast = msg.type();
-	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(u8(msg.reason())));
+
+	QString reason(u8(msg.reason()));;
+
+	switch (rtLast) {
+		case MumbleProto::Reject_RejectType_InvalidUsername:
+			reason = tr("Invalid username");
+			break;
+		case MumbleProto::Reject_RejectType_UsernameInUse:
+			reason = tr("Username in use");
+			break;
+		case MumbleProto::Reject_RejectType_WrongUserPW:
+			reason = tr("Wrong certificate or password");
+			break;
+		case MumbleProto::Reject_RejectType_WrongServerPW:
+			reason = tr("Wrong password");
+			break;
+		default:
+			break;
+	}
+
+	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(reason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
 void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
+	g.sh->sendPing(); // Send initial ping to establish UDP connection
+
 	g.uiSession = msg.session();
 	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
 	g.l->clearIgnore();
@@ -226,6 +248,10 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 				g.l->log(Log::PermissionDenied, tr("Channel is full."));
 			}
 			break;
+		case MumbleProto::PermissionDenied_DenyType_NestingLimit: {
+				g.l->log(Log::PermissionDenied, tr("Channel nesting limit reached."));
+			}
+			break;
 		default: {
 				if (msg.has_reason())
 					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
@@ -299,7 +325,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 				} else {
 					g.l->log(Log::Recording, tr("Recording stopped"));
 				}
-			} else if (pDst->cChannel == pSelf->cChannel) {
+			} else if (pDst->cChannel->allLinks().contains(pSelf->cChannel)) {
 				if (pDst->bRecording) {
 					g.l->log(Log::Recording, tr("%1 started recording.").arg(Log::formatClientUser(pDst, Log::Source)));
 				} else {

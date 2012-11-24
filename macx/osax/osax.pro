@@ -12,6 +12,10 @@ TEMPLATE = lib
 CONFIG += plugin plugin_bundle
 CONFIG -= gui qt
 
+CONFIG(static) {
+	CONFIG -= static
+}
+
 TARGET = MumbleOverlay
 QMAKE_INFO_PLIST = osax.plist
 
@@ -23,7 +27,7 @@ SDEF.files = MumbleOverlay.sdef
 SDEF.path = Contents/Resources
 QMAKE_BUNDLE_DATA += SDEF
 
-SOURCES = osax.m
+OBJECTIVE_SOURCES = osax.m
 DIST = osax.plist MumbleOverlay.sdef
 
 CONFIG(debug, debug|release) {

@@ -209,7 +209,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		fake_celt_support = true;
 	}
 	uSource->bOpus = msg.opus();
-	recheckCodecVersions();
+	recheckCodecVersions(uSource);
 
 	MumbleProto::CodecVersion mpcv;
 	mpcv.set_alpha(iCodecAlpha);
@@ -220,8 +220,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	if (!bOpus && uSource->bOpus && fake_celt_support) {
 		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the CELT codec, you won't be able to talk to or hear most clients. Please make sure your client was built with CELT support."));
-	} else if (bOpus && !uSource->bOpus) {
-		sendTextMessage(NULL, uSource, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 	}
 
 	// Transmit channel tree
@@ -506,7 +504,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 		if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full."));
+			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 			return;
 		}
 	}
@@ -839,6 +837,16 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 					return;
 				}
 			}
+		}
+	}
+
+	if(p) {
+		// Having a parent channel given means we either want to create
+		// a channel in or move a channel into this parent.
+
+		if (!canNest(p, c)) {
+			PERM_DENIED_FALLBACK(NestingLimit, 0x010204, QLatin1String("Channel nesting limit reached"));
+			return;
 		}
 	}
 
@@ -1535,8 +1543,6 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
-	MumbleProto::UserStats_Stats *mpusss;
-	MumbleProto::Version *mpv;
 
 	bool extend = (uSource == pDstServerUser) || hasPermission(uSource, qhChannels.value(0), ChanACL::Register);
 
@@ -1563,6 +1569,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	}
 
 	if (local) {
+		MumbleProto::UserStats_Stats *mpusss;
+
 		mpusss = msg.mutable_from_client();
 		mpusss->set_good(cs.uiGood);
 		mpusss->set_late(cs.uiLate);
@@ -1584,6 +1592,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	msg.set_tcp_ping_var(pDstServerUser->dTCPPingVar);
 
 	if (details) {
+		MumbleProto::Version *mpv;
+
 		mpv = msg.mutable_version();
 		if (pDstServerUser->uiVersion)
 			mpv->set_version(pDstServerUser->uiVersion);

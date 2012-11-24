@@ -154,7 +154,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-	wservername[sizeof(wservername) - 1] = '\0';
+	wservername[sizeof(wservername)/sizeof(wservername[0]) - 1] = '\0';
 
 	std::string servername;
 	wcsToMultibyteStdString(wservername, servername);

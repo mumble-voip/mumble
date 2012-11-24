@@ -271,6 +271,8 @@ void D10State::init() {
 
 	ID3D10Texture2D* pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
+	if (FAILED(hr))
+		ods("D3D10: pSwapChain->GetBuffer failure!");
 
 	pDevice->ClearState();
 
@@ -287,6 +289,8 @@ void D10State::init() {
 	pDevice->RSSetViewports(1, &vp);
 
 	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
+	if (FAILED(hr))
+		ods("D3D10: pDevice->CreateRenderTargetView failure!");
 
 	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
 
@@ -324,6 +328,8 @@ void D10State::init() {
 	D3D10_PASS_DESC PassDesc;
 	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
 	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
+	if (FAILED(hr))
+		ods("D3D10: pDevice->CreateInputLayout failure!");
 	pDevice->IASetInputLayout(pVertexLayout);
 
 	D3D10_BUFFER_DESC bd;
@@ -334,6 +340,8 @@ void D10State::init() {
 	bd.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
 	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
+	if (FAILED(hr))
+		ods("D3D10: pDevice->CreateBuffer failure!");
 
 	DWORD indices[] = {
 		0,1,3,
@@ -349,6 +357,8 @@ void D10State::init() {
 	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = indices;
 	hr = pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer);
+	if (FAILED(hr))
+		ods("D3D10: pDevice->CreateBuffer failure!");
 
 	// Set index buffer
 	pDevice->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -541,8 +551,8 @@ static void HookResizeRaw(voidFunc vfResize) {
 
 void checkDXGIHook(bool preonly) {
 	if (bChaining) {
-		return;
 		ods("DXGI: Causing a chain");
+		return;
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
@@ -616,9 +626,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("Got %p", pCreateDXGIFactory);
 			if (pCreateDXGIFactory) {
-				HRESULT hr;
 				IDXGIFactory * pFactory;
-				hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
+				HRESULT hr = pCreateDXGIFactory(__uuidof(IDXGIFactory), (void**)(&pFactory));
+				if (FAILED(hr))
+					ods("D3D10: pCreateDXGIFactory failure!");
 				if (pFactory) {
 					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
 					                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
@@ -662,6 +673,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 					desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 					hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
+					if (FAILED(hr))
+						ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
 
 					if (pDevice && pSwapChain) {
 						HMODULE hRef;

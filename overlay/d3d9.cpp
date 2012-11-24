@@ -81,6 +81,7 @@ DevState::DevState() {
 	dev = NULL;
 	pSB = NULL;
 	dwMyThread = 0;
+	initRefCount = 0;
 	refCount = 0;
 	myRefCount = 0;
 	texTexture = NULL;
@@ -440,6 +441,27 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	return res;
 }
 
+static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
+	Mutex m;
+
+	DevState *ds = devMap[idd];
+	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
+		ds->myRefCount++;
+		return ds->refCount;
+	}
+
+	AddRefType oAddRef = (AddRefType) hhAddRef.call;
+	hhAddRef.restore();
+	LONG res = oAddRef(idd);
+	if (ds)
+		ds->refCount = res;
+	hhAddRef.inject();
+
+	ods("D3D9: Chaining AddRef (Win8): %d", res);
+
+	return res;
+}
+
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
@@ -480,6 +502,45 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	LONG res = oRelease(idd);
 	hhRelease.inject();
 	ods("D3D9: Chaining Release: %d", res);
+	return res;
+}
+
+static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
+	Mutex m;
+
+	DevState *ds = devMap[idd];
+	if (ds) {
+		if (ds->dwMyThread == GetCurrentThreadId()) {
+			ds->myRefCount--;
+			return ds->refCount;
+		}
+		if (ds->refCount == 1) {
+			ds->disconnect();
+
+			ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
+			DWORD dwOldThread = ds->dwMyThread;
+			if (dwOldThread)
+				ods("finalRelease from other thread");
+			ds->dwMyThread = GetCurrentThreadId();
+			ds->releaseAll();
+			ds->dwMyThread = dwOldThread;
+			ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+
+			devMap.erase(idd);
+			delete ds;
+			ds = NULL;
+		}
+	}
+
+	ReleaseType oRelease = (ReleaseType) hhRelease.call;
+	hhRelease.restore();
+	LONG res = oRelease(idd);
+	if (ds)
+		ds->refCount = res;
+	hhRelease.inject();
+
+	ods("D3D9: Chaining Release (Win8): %d", res);
+
 	return res;
 }
 
@@ -532,8 +593,13 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 
 	devMap[idd] = ds;
 
-	hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
-	hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+	if (bIsWin8) {
+		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myWin8AddRef));
+		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myWin8Release));
+	} else {
+		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
+		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+	}
 	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
 	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
 
@@ -576,8 +642,13 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 
 	devMap[idd] = ds;
 
-	hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
-	hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+	if (bIsWin8) {
+		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myWin8AddRef));
+		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myWin8Release));
+	} else {
+		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
+		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+	}
 	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
 	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
 
@@ -619,8 +690,8 @@ static void HookCreateRawEx(voidFunc vfCreate) {
 
 void checkD3D9Hook(bool preonly) {
 	if (bChaining) {
-		return;
 		ods("D3D9: Causing a chain");
+		return;
 	}
 
 	bChaining = true;
@@ -674,12 +745,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	ods("Preparing static data for D3D9 Injection");
 
-	char buffb[2048];
-
 	HMODULE hD3D = LoadLibrary("D3D9.DLL");
-	HMODULE hRef;
 
 	if (hD3D != NULL) {
+		HMODULE hRef;
+		char buffb[2048];
+
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
 		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (! d3dc9) {

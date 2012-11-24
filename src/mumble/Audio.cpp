@@ -52,6 +52,20 @@ CodecInit ciInit;
 void CodecInit::initialize() {
 	CELTCodec *codec = NULL;
 
+	if (g.s.bDisableCELT) {
+		// Kill switch for CELT activated. Do not initialize it.
+		return;
+	}
+
+#ifdef USE_SBCELT
+	codec = new CELTCodecSBCELT();
+	if (codec->isValid()) {
+		codec->report();
+		g.qmCodecs.insert(codec->bitstreamVersion(), codec);
+	} else {
+		delete codec;
+	}
+#else
 	codec = new CELTCodec070(QLatin1String("0.7.0"));
 	if (codec->isValid()) {
 		codec->report();
@@ -81,6 +95,7 @@ void CodecInit::initialize() {
 			delete codec;
 		}
 	}
+#endif
 }
 
 void CodecInit::destroy() {

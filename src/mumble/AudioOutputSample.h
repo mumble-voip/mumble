@@ -78,7 +78,6 @@ class AudioOutputSample : public AudioOutputUser {
 
 		SoundFile *sfHandle;
 
-		bool bLastAlive;
 		bool bLoop;
 		bool bEof;
 	signals:

@@ -3,7 +3,7 @@ include(../mumble.pri)
 DEFINES *= MURMUR
 TEMPLATE	=app
 CONFIG  *= network
-CONFIG(static) {
+CONFIG(static):!macx {
 	QMAKE_LFLAGS *= -static
 }
 CONFIG	-= gui
@@ -100,17 +100,22 @@ ice {
 	}
 
 	macx {
-		INCLUDEPATH *= $$(MUMBLE_PREFIX)/ice-3.4.1/include/
-		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/ice-3.4.1/lib/
-		slice.commands = $$(MUMBLE_PREFIX)/ice-3.4.1/bin/slice2cpp --checksum -I$$(MUMBLE_PREFIX)/ice-3.4.1/slice/ Murmur.ice
+		INCLUDEPATH *= $$(MUMBLE_PREFIX)/Ice-3.4.2/include/
+		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/Ice-3.4.2/lib/
+		slice.commands = $$(MUMBLE_PREFIX)/Ice-3.4.2/bin/slice2cpp --checksum -I$$(MUMBLE_PREFIX)/Ice-3.4.2/slice/ Murmur.ice
 	}
 
-	unix:CONFIG(static) {
+	unix:!macx:CONFIG(static) {
 		INCLUDEPATH *= /opt/Ice-3.3/include
 		QMAKE_LIBDIR *= /opt/Ice-3.3/lib
 		LIBS *= -lbz2
 		QMAKE_CXXFLAGS *= -fPIC
 		slice.commands = /opt/Ice-3.3/bin/slice2cpp --checksum -I/opt/Ice-3.3/slice Murmur.ice
+	}
+
+	macx:CONFIG(static) {
+		LIBS *= -lbz2 -liconv
+		QMAKE_CXXFLAGS *= -fPIC
 	}
 }
 

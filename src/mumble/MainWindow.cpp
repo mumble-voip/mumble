@@ -292,6 +292,7 @@ void MainWindow::createActions() {
 void MainWindow::setupGui()  {
 	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	setCentralWidget(qtvUsers);
+	setAcceptDrops(true);
 
 #ifdef Q_OS_MAC
 	QMenu *qmWindow = new QMenu(tr("&Window"), this);
@@ -340,6 +341,8 @@ void MainWindow::setupGui()  {
 	qdwChat->installEventFilter(dtbChatDockTitle);
 	qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 	qteChat->setEnabled(false);
+
+	setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 
 #ifdef QT_MAC_USE_COCOA
 	// Workaround for QTBUG-3116 -- using a unified toolbar on Mac OS X
@@ -390,6 +393,13 @@ void MainWindow::setupGui()  {
 	qApp->processEvents();
 #endif
 #endif
+}
+
+// Sets whether or not to show the title bars on the MainWindow's
+// dock widgets.
+void MainWindow::setShowDockTitleBars(bool doShow) {
+	dtbLogDockTitle->setEnabled(doShow);
+	dtbChatDockTitle->setEnabled(doShow);
 }
 
 MainWindow::~MainWindow() {
@@ -1582,8 +1592,8 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelUnlink);
 	qmChannel->addAction(qaChannelUnlinkAll);
 	qmChannel->addSeparator();
-	qmChannel->addAction(qaChannelSendMessage);
 	qmChannel->addAction(qaChannelCopyURL);
+	qmChannel->addAction(qaChannelSendMessage);
 
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
@@ -2101,17 +2111,20 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 	if (idx < 0) {
 		switch (idx) {
-			case -1:
+			case SHORTCUT_TARGET_ROOT:
 				c = Channel::get(0);
 				break;
-			case -2:
-			case -3:
+			case SHORTCUT_TARGET_PARENT:
+			case SHORTCUT_TARGET_CURRENT:
 				c = ClientUser::get(g.uiSession)->cChannel;
-				if (idx == -2)
+				if (idx == SHORTCUT_TARGET_PARENT)
 					c = c->cParent;
 				break;
 			default:
-				c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, -4 - idx);
+				if(idx <= SHORTCUT_TARGET_PARENT_SUBCHANNEL)
+					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel->cParent, SHORTCUT_TARGET_PARENT_SUBCHANNEL - idx);
+				else
+					c = pmModel->getSubChannel(ClientUser::get(g.uiSession)->cChannel, SHORTCUT_TARGET_SUBCHANNEL - idx);
 				break;
 		}
 	} else {
@@ -2266,6 +2279,14 @@ void MainWindow::whisperReleased(QVariant scdata) {
 
 	qsCurrentTargets.remove(st);
 	updateTarget();
+}
+
+void MainWindow::onResetAudio()
+{
+	qWarning("MainWindow: Start audio reset");
+	Audio::stop();
+	Audio::start();
+	qWarning("MainWindow: Audio reset complete");
 }
 
 void MainWindow::viewCertificate(bool) {

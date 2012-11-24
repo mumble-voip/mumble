@@ -155,6 +155,7 @@ class AudioInput : public QThread {
 		static void adjustBandwidth(int bitspersec, int &bitrate, int &frames);
 	signals:
 		void doDeaf();
+		void doMute();
 	public:
 		bool bResetProcessor;
 

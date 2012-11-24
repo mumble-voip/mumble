@@ -268,7 +268,11 @@ Settings::Settings() {
 	iJitterBufferSize = 1;
 	iFramesPerPacket = 2;
 	iNoiseSuppress = -30;
-	iIdleTime = 0;
+
+	// Idle auto actions
+	iIdleTime = 5 * 60;
+	iaeIdleAction = Nothing;
+
 	vsVAD = Amplitude;
 	fVADmin = 0.80f;
 	fVADmax = 0.98f;
@@ -277,7 +281,7 @@ Settings::Settings() {
 	qsTxAudioCueOn = cqsDefaultPushClickOn;
 	qsTxAudioCueOff = cqsDefaultPushClickOff;
 
-	bUserTop = false;
+	bUserTop = true;
 
 	bWhisperFriends = false;
 
@@ -287,10 +291,10 @@ Settings::Settings() {
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
-	bPluginOverlayCheck = false;
+	bPluginCheck = false;
 #else
 	bUpdateCheck = true;
-	bPluginOverlayCheck = true;
+	bPluginCheck = true;
 #endif
 
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
@@ -365,6 +369,9 @@ Settings::Settings() {
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
 
+	// Codec kill-switch
+	bDisableCELT = false;
+
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -379,6 +386,7 @@ Settings::Settings() {
 	iMaxLogBlocks = 0;
 
 	bShortcutEnable = true;
+	bSuppressMacEventTapWarning = false;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
@@ -546,7 +554,11 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+
+	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
+	LOADENUM(iaeIdleAction, "audio/idleaction");
+
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
@@ -635,7 +647,7 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(ssFilter, "ui/serverfilter");
 #ifndef NO_UPDATE_CHECK
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginOverlayCheck, "ui/plugincheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 #endif
 	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
@@ -659,6 +671,9 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
 
+	// Codec kill-switch
+	SAVELOAD(bDisableCELT, "audio/disablecelt");
+
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -668,6 +683,7 @@ void Settings::load(QSettings* settings_ptr) {
 		kpCertificate = CertWizard::importCert(qba);
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
+	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -824,7 +840,11 @@ void Settings::save() {
 	SAVELOAD(iNoiseSuppress, "audio/noisesupress");
 	SAVELOAD(iVoiceHold, "audio/voicehold");
 	SAVELOAD(iOutputDelay, "audio/outputdelay");
+
+	// Idle auto actions
 	SAVELOAD(iIdleTime, "audio/idletime");
+	SAVELOAD(iaeIdleAction, "audio/idleaction");
+
 	SAVELOAD(fAudioMinDistance, "audio/mindistance");
 	SAVELOAD(fAudioMaxDistance, "audio/maxdistance");
 	SAVELOAD(fAudioMaxDistVolume, "audio/maxdistancevolume");
@@ -911,7 +931,7 @@ void Settings::save() {
 	SAVELOAD(qsLastServer, "ui/server");
 	SAVELOAD(ssFilter, "ui/serverfilter");
 	SAVELOAD(bUpdateCheck, "ui/updatecheck");
-	SAVELOAD(bPluginOverlayCheck, "ui/plugincheck");
+	SAVELOAD(bPluginCheck, "ui/plugincheck");
 	SAVELOAD(bHideInTray, "ui/hidetray");
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
@@ -934,6 +954,9 @@ void Settings::save() {
 	SAVELOAD(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
 
+	// Codec kill-switch
+	SAVELOAD(bDisableCELT, "audio/disablecelt");
+
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
 	SAVELOAD(iLCDUserViewSplitterWidth, "lcd/userview/splitterwidth");
@@ -942,6 +965,7 @@ void Settings::save() {
 	settings_ptr->setValue(QLatin1String("net/certificate"), qba);
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
+	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

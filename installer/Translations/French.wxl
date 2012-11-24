@@ -1,43 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="fr-fr" xmlns="http://schemas.microsoft.com/wix/2006/localization">
   <String Id="LANG">1036</String>
 
   <!-- Traduction par Thibault Capdevielle <blackstorm_@hotmail.com> -->
   <String Id="MUMBLE_CREATE_SHORTCUT">Créer un raccourci sur le bureau</String>
   <String Id="MUMBLE_DONATE">Faire un don au projet Mumble</String>
-  <String Id="MUMBLE_TERMINATE_DBUS">Le démon DBus utilisé par Mumble est en cours d'utilisation. Terminer le processus démon pour procéder à la mise à jour?</String>
-  <String Id="MUMBLE_NO_SSE">Mumble a besoin des instructions SSE, fonctionnalité uniquement présente sur les Intel Pentium III, AMD Athlon XP ou processeurs plus récent. Les instructions SSE n'ont pas été détecté sur votre processeur, Mumble risque de ne pas fonctionner correctement. Désirez-vous quand même poursuivre l'installation?</String>
-  <String Id="MUMBLE_NO_XP">Mumble fonctionne seulement avec Windows XP SP2 ou plus récent. Un système d'exploitation plus ancien et incompatible a été détecté, Mumble risque donc de ne pas fonctionner. Désirez-vous quand même installer Mumble?</String>
+  <String Id="MUMBLE_TERMINATE_DBUS">Le démon DBus utilisé par Mumble est en cours d'utilisation. Terminer le processus démon pour procéder à la mise à jour ?</String>
+  <String Id="MUMBLE_NO_SSE">Mumble a besoin des instructions SSE, fonctionnalité uniquement présente sur les Intel Pentium III, AMD Athlon XP ou processeurs plus récents. Les instructions SSE n'ont pas été détectées sur votre processeur, Mumble risque de ne pas fonctionner correctement. Désirez-vous quand même poursuivre l'installation ?</String>
+  <String Id="MUMBLE_NO_XP">Mumble fonctionne seulement avec Windows XP SP2 ou plus récent. Un système d'exploitation plus ancien et incompatible a été détecté, Mumble risque donc de ne pas fonctionner. Désirez-vous quand même installer Mumble ?</String>
   <String Id="MUMBLE_START">Démarrer Mumble</String>
 
   <!-- For the start menu -->
-  <String Id="MUMBLE_README_LNK">Fichier README Mumble</String>
-  <String Id="MUMBLE_LICENSE_LNK">Licence Mumble</String>
-  <String Id="MUMBLE_QT_LNK">Licence Qt</String>
-  <String Id="MUMBLE_SPEEX_LNK">Licence Speex</String>
+  <String Id="MUMBLE_README_LNK">Fichier README de Mumble</String>
+  <String Id="MUMBLE_LICENSE_LNK">Licence de Mumble</String>
+  <String Id="MUMBLE_QT_LNK">Licence de Qt</String>
+  <String Id="MUMBLE_SPEEX_LNK">Licence de Speex</String>
   <String Id="MUMBLE_UNINSTALL_LNK">Désinstallation de Mumble</String>
-  <String Id="MUMBLE_COMPAT_LNK">Mumble (Backwards Compatible)</String>
+  <String Id="MUMBLE_COMPAT_LNK">Mumble (Rétrocompatible)</String>
 
   <!-- Install types -->
   <String Id="INSTALL_FULL">Complète</String>
   <String Id="INSTALL_CLIENT">Client seulement</String>
-  <String Id="INSTALL_SERVER">Server seulement</String>
+  <String Id="INSTALL_SERVER">Serveur seulement</String>
 
   <!-- Install sections -->
   <String Id="MUMBLE_SEC_MUMBLE">Mumble (client)</String>
-  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (client de compatibilité)</String>
+  <String Id="MUMBLE_SEC_MUMBLE11X">Mumble (client de rétrocompatibilité)</String>
   <String Id="MUMBLE_SEC_MURMUR">Murmur (serveur)</String>
   <String Id="MUMBLE_SEC_BONJOUR">Bonjour pour Windows</String>
   <String Id="DESC_SectionMumble">Client Mumble nécessaire pour vous connecter à un serveur.</String>
   <String Id="DESC_SectionMumble11X">Client Mumble pour se connecter aux anciens serveurs</String>
-  <String Id="DESC_SectionMurmur">Le serveur pour Mumble. Inclus tout ce dont vous avez besoin pour installer votre propre serveur.</String>
+  <String Id="DESC_SectionMurmur">Le serveur pour Mumble. Inclut tout ce dont vous avez besoin pour installer votre propre serveur.</String>
   <String Id="DESC_SectionBonjour">Bonjour permet d'annoncer et de découvrir les serveurs Murmur sur votre réseau local. Télécharge et lance le programme d'installation de Bonjour.</String>
 
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble et Murmur</String>
-  <String Id="MUMBLE_UNSEC_ALL">Préférences et Base de données</String>
+  <String Id="MUMBLE_UNSEC_ALL">Préférences et Bases de données</String>
   <String Id="DESC_SectionUninstBase">Désinstaller les programmes Mumble et Murmur</String>
-  <String Id="DESC_SectionUninstAll">Désinstaller toutes traces de Mumble et Murmur, incluant les préférences et la base de données.</String>
+  <String Id="DESC_SectionUninstAll">Désinstaller toutes traces de Mumble et Murmur, incluant les préférences et les bases de données.</String>
 
   <!-- Already installed -->
   <String Id="MUMBLE_ALREADY_INSTALLED">Mumble est déjà installé. Il est recommandé de désinstaller l'ancienne version avant de procéder à cette installation. Choisissez une option et cliquez sur Suivant pour continuer.</String>

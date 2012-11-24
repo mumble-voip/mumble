@@ -331,6 +331,7 @@ void Server::readParams() {
 	qvSuggestPositional = Meta::mp.qvSuggestPositional;
 	qvSuggestPushToTalk = Meta::mp.qvSuggestPushToTalk;
 	iOpusThreshold = Meta::mp.iOpusThreshold;
+	iChannelNestingLimit = Meta::mp.iChannelNestingLimit;
 
 	QString qsHost = getConf("host", QString()).toString();
 	if (! qsHost.isEmpty()) {
@@ -394,6 +395,8 @@ void Server::readParams() {
 		qvSuggestPushToTalk = QVariant();
 
 	iOpusThreshold = getConf("opusthreshold", iOpusThreshold).toInt();
+
+	iChannelNestingLimit = getConf("channelnestinglimit", iChannelNestingLimit).toInt();
 
 	qrUserName=QRegExp(getConf("username", qrUserName.pattern()).toString());
 	qrChannelName=QRegExp(getConf("channelname", qrChannelName.pattern()).toString());
@@ -506,7 +509,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "suggestpushtotalk")
 		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
 	else if (key == "opusthreshold")
-		iOpusThreshold = i ? i : Meta::mp.iOpusThreshold;
+		iOpusThreshold = (i >= 0) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
+	else if (key =="channelnestinglimit")
+		iChannelNestingLimit = (i >= 0) ? i : Meta::mp.iChannelNestingLimit;
 }
 
 #ifdef USE_BONJOUR
@@ -897,7 +902,6 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	char buffer[UDP_PACKET_SIZE];
 	PacketDataStream pdi(data + 1, len - 1);
 	PacketDataStream pds(buffer+1, UDP_PACKET_SIZE-1);
-	MessageHandler::UDPMessageType msgType = static_cast<MessageHandler::UDPMessageType>((buffer[0] >> 5) & 0x7);
 	unsigned int type = data[0] & 0xe0;
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
@@ -905,14 +909,17 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	// IP + UDP + Crypt + Data
 	int packetsize = 20 + 8 + 4 + len;
 
+	// Check the voice data rate limit.
 	if (! bw->addFrame(packetsize, iMaxBandwidth/8)) {
 		// Suppress packet.
 		return;
 	}
 
+	// Read the sequence number.
 	pdi >> counter;
 
-	if (msgType != MessageHandler::UDPVoiceOpus) {
+	// Skip to the end of the voice data.
+	if ((type >> 5) != MessageHandler::UDPVoiceOpus) {
 		do {
 			counter = pdi.next8();
 			pdi.skip(counter & 0x7f);
@@ -923,9 +930,12 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		pdi.skip(size & 0x1fff);
 	}
 
+	// Save location of the positional audio data.
 	poslen = pdi.left();
 
+	// Append session id to the new output stream.
 	pds << u->uiSession;
+	// Copy all voice and positional audio data to the output stream.
 	pds.append(data + 1, len - 1);
 
 	len = pds.size() + 1;
@@ -1242,6 +1252,7 @@ void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &r
 
 	if (u->sState == ServerUser::Authenticated) {
 		clearTempGroups(u); // Also clears ACL cache
+		recheckCodecVersions(); // Maybe can choose a better codec now
 	}
 
 	u->deleteLater();
@@ -1636,7 +1647,7 @@ bool Server::validateChannelName(const QString &name) {
 	return (qrChannelName.exactMatch(name) && (name.length() <= 512));
 }
 
-void Server::recheckCodecVersions() {
+void Server::recheckCodecVersions(ServerUser *connectingUser) {
 	QMap<int, int> qmCodecUsercount;
 	QMap<int, int>::const_iterator i;
 	int users = 0;
@@ -1650,8 +1661,9 @@ void Server::recheckCodecVersions() {
 		++users;
 		if (u->bOpus)
 			++opus;
+
 		foreach(int version, u->qlCodecs)
-			++ qmCodecUsercount[version];
+			++qmCodecUsercount[version];
 	}
 
 	if (! users)
@@ -1690,6 +1702,9 @@ void Server::recheckCodecVersions() {
 		else
 			iCodecBeta = version;
 	} else if (bOpus == enableOpus) {
+		if (connectingUser && !connectingUser->bOpus) {
+			sendTextMessage(NULL, connectingUser, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is using, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
+		}
 		return;
 	}
 
@@ -1701,6 +1716,17 @@ void Server::recheckCodecVersions() {
 	mpcv.set_prefer_alpha(bPreferAlpha);
 	mpcv.set_opus(bOpus);
 	sendAll(mpcv);
+
+	if (bOpus) {
+		foreach(ServerUser *u, qhUsers) {
+			// Prevent connected users that could not yet declare their opus capability during msgAuthenticate from being spammed.
+			// Only authenticated users and the currently connecting user (if recheck is called in that context) have a reliable u->bOpus.
+			if((u->sState == ServerUser::Authenticated || u == connectingUser)
+			   && !u->bOpus) {
+				sendTextMessage(NULL, u, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is switching to, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
+			}
+		}
+	}
 
 	log(QString::fromLatin1("CELT codec switch %1 %2 (prefer %3) (Opus %4)").arg(iCodecAlpha,0,16).arg(iCodecBeta,0,16).arg(bPreferAlpha ? iCodecAlpha : iCodecBeta,0,16).arg(bOpus));
 }
@@ -1798,4 +1824,11 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 
 		return (length <= iMaxTextMessageLength);
 	}
+}
+
+bool Server::canNest(Channel *newParent, Channel *channel) const {
+	const int parentLevel = newParent ? newParent->getLevel() : -1;
+	const int channelDepth = channel ? channel->getDepth() : 0;
+
+	return (parentLevel + channelDepth) < iChannelNestingLimit;
 }

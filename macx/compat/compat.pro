@@ -12,7 +12,7 @@ CONFIG(universal) {
 }
 
 TARGET = Mumble.compat
-SOURCES = compat.m
+OBJECTIVE_SOURCES = compat.m
 QMAKE_LFLAGS += -framework ApplicationServices -framework Cocoa -framework AppKit
 
 CONFIG(debug, debug|release) {

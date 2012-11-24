@@ -287,6 +287,7 @@ void ServerHandler::run() {
 
 	tTimestamp.restart();
 
+	// Setup ping timer;
 	QTimer *ticker = new QTimer(this);
 	connect(ticker, SIGNAL(timeout()), this, SLOT(sendPing()));
 	ticker->start(5000);
@@ -423,6 +424,7 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 			case MessageHandler::UDPVoiceCELTAlpha:
 			case MessageHandler::UDPVoiceCELTBeta:
 			case MessageHandler::UDPVoiceSpeex:
+			case MessageHandler::UDPVoiceOpus:
 				handleVoicePacket(msgFlags, pds, umsgType);
 				break;
 			default:

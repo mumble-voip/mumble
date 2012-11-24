@@ -62,7 +62,7 @@
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名稱</translation>
     </message>
     <message>
         <location/>
@@ -498,7 +498,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+226"/>
+        <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -896,11 +896,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location/>
-        <source>Amplification</source>
-        <translation>放大率</translation>
-    </message>
-    <message>
-        <location/>
         <source>Maximum amplification of input sound</source>
         <translation>輸入聲音的最大放大率</translation>
     </message>
@@ -975,33 +970,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>用于發送音頻的最大帶寬</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+566"/>
-        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3ms)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="AudioInput.ui"/>
+        <location/>
         <source>Use Amplitude based speech detection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>Idle AutoDeafen</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>How long to remain idle before auto-deafen.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1084,6 +1059,56 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>Gets played when stopping to transmit</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Hold Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Time the microphone stays open after the PTT key is released</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.cpp" line="+529"/>
+        <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="AudioInput.ui"/>
+        <source>Max. Amplification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Idle action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>minutes do</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>nothing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>deafen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>mute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>after</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioInputDialog</name>
@@ -1103,25 +1128,26 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>按鍵通話</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Audio Input</source>
         <translation>音頻輸入</translation>
     </message>
     <message>
-        <location line="+101"/>
+        <location line="+111"/>
         <location line="+8"/>
+        <location line="+7"/>
         <source>%1 ms</source>
         <translation>%1 毫秒</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="-9"/>
+        <location line="+7"/>
         <location line="+20"/>
-        <location line="+18"/>
         <source>Off</source>
         <translation>關閉</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-12"/>
         <source>%1 s</source>
         <translation>%1 秒</translation>
     </message>
@@ -1136,25 +1162,9 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>-%1 分貝</translation>
     </message>
     <message>
-        <location line="+55"/>
-        <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
-        <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
+        <location line="+48"/>
+        <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>CELT</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source>Speex</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <source>%1 min</source>
-        <translation>%1 分鐘</translation>
     </message>
 </context>
 <context>
@@ -1445,7 +1455,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+165"/>
+        <location filename="AudioConfigDialog.cpp" line="+135"/>
         <source>None</source>
         <translation>無</translation>
     </message>
@@ -1490,12 +1500,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+212"/>
+        <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
         <translation type="unfinished">選擇聲音文件</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Invalid sound file</source>
         <translation type="unfinished">無效聲音文件</translation>
     </message>
@@ -2035,22 +2045,7 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <location/>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>High</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2112,6 +2107,21 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2178,7 +2188,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+53"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名稱</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2274,7 +2284,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+424"/>
+        <location filename="main.cpp" line="+454"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2513,7 +2523,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名稱</translation>
     </message>
     <message>
         <location/>
@@ -2743,7 +2753,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <name>ChatbarTextEdit</name>
     <message>
         <location filename="CustomElements.cpp" line="+108"/>
-        <source>Paste and send</source>
+        <source>Paste and &amp;Send</source>
+        <oldsource>Paste and send</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2865,62 +2876,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConfigDialogMac</name>
-    <message>
-        <location filename="ConfigDialog_macx.mm" line="+70"/>
-        <source>Accept changes</source>
-        <translation type="unfinished">確定</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished">該按鈕將接受當前設置并返回到應用程序。&lt;br/&gt;當你退出應用程序時這些設置將被存盤。</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reject changes</source>
-        <translation type="unfinished">取消</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished">該按鈕將拒絕所有修改并返回到應用程序。&lt;br/&gt;這些設置將被重置到先前的設定。</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Apply changes</source>
-        <translation type="unfinished">應用</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished">該按鈕將立即應用所有修改.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Undo changes for current page</source>
-        <translation type="unfinished">撤銷</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished">該按鈕將復原對當前頁的任意修改到最近使用的設置。</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Restore defaults for current page</source>
-        <translation type="unfinished">恢復默認值</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3310,17 +3266,17 @@ Label of the server. This is what the server will be named like in your server l
         <translation>默認 DirectSound 語音輸入</translation>
     </message>
     <message>
-        <location line="+461"/>
+        <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>不能打開所選 DirectSound 輸入設備。不能捕捉麥克風。</translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>不能打開所選 DirectSound 輸入。將使用默認設備。</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+78"/>
         <source>Lost DirectSound input device.</source>
         <translation>丟失 DirectSound 輸入設備。</translation>
     </message>
@@ -3328,17 +3284,17 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location line="-496"/>
+        <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
         <translation>默認 DirectSound 語音輸出</translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>不能打開所選 DirectSound 輸出。將使用默認設備。</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+73"/>
         <source>Lost DirectSound output device.</source>
         <translation>丟失 DirectSound 輸出設備。</translation>
     </message>
@@ -3433,16 +3389,36 @@ of the possible locations.</source>
         <source>&amp;Remove</source>
         <translation>&amp;刪除</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open Accessibility Preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Skip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+673"/>
+        <location filename="GlobalShortcut.cpp" line="+721"/>
         <source>Shortcuts</source>
         <translation>快捷鍵</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+52"/>
         <source>Shortcut button combination.</source>
         <translation>快捷鍵按鈕組合.</translation>
     </message>
@@ -3640,7 +3616,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+229"/>
+        <location filename="Log.cpp" line="+200"/>
         <source>Debug</source>
         <translation>調試</translation>
     </message>
@@ -3756,7 +3732,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+66"/>
         <source>link to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3784,7 +3760,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-539"/>
+        <location line="-440"/>
         <source>Toggle console for %1 events</source>
         <translation>為 %1 事件啟用控制台</translation>
     </message>
@@ -4000,7 +3976,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>用戶界面</translation>
     </message>
     <message>
-        <location line="+130"/>
+        <location line="+133"/>
         <source>Choose skin file</source>
         <translation>選擇皮膚文件</translation>
     </message>
@@ -4250,17 +4226,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&amp;Browse...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Use selected item as the chat bar target</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+180"/>
-        <location line="+2086"/>
+        <location filename="MainWindow.cpp" line="+182"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-2034"/>
+        <location line="-2079"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵通話</translation>
@@ -4339,28 +4320,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2185"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation></translation>
     </message>
     <message>
-        <location line="-2181"/>
+        <location line="-2225"/>
         <source>&amp;Window</source>
         <translation>&amp;窗口</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+128"/>
+        <location line="+135"/>
         <source>Minimize</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-128"/>
+        <location line="-135"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location line="+127"/>
+        <location line="+134"/>
         <source>Close</source>
         <translation>關閉</translation>
     </message>
@@ -4370,7 +4351,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble 現在連接到了一個服務器。你想要關閉還是最小化它？</translation>
     </message>
     <message>
-        <location line="-224"/>
+        <location line="-232"/>
         <source>&amp;User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4423,14 +4404,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
-        <location line="+2214"/>
+        <location line="+58"/>
+        <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished">未連接</translation>
     </message>
     <message>
-        <location line="-1951"/>
+        <location line="-1998"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4491,7 +4472,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+108"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4511,30 +4492,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+11"/>
-        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1329"/>
+        <location line="+1364"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1432"/>
-        <location line="+342"/>
+        <location line="-1468"/>
+        <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1066"/>
+        <location line="-1087"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+724"/>
-        <location line="+342"/>
+        <location line="+733"/>
+        <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4595,7 +4571,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1206"/>
+        <location line="+1230"/>
         <source>Connected.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4622,7 +4598,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+111"/>
+        <location line="+122"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel &apos;%1&apos; here</oldsource>
         <translation type="unfinished"></translation>
@@ -4660,7 +4636,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1616"/>
+        <location line="-1651"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道通過控制信道發送。</translation>
     </message>
@@ -4700,18 +4676,23 @@ Otherwise abort and check your certificate and username.</source>
         <translation>重新同步</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+4"/>
+        <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Mumble Server Information</source>
         <translation>Mumble 服務器信息</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1306"/>
+        <location line="+1330"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;查看認証</translation>
     </message>
     <message>
-        <location line="-1031"/>
+        <location line="-1055"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>輸入原因</translation>
@@ -4778,7 +4759,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>關于 Qt</translation>
     </message>
     <message>
-        <location line="+365"/>
+        <location line="+389"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL 認証失敗: %1</translation>
     </message>
@@ -4833,7 +4814,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>未注冊用戶的服務器密碼錯誤，請重試。</translation>
     </message>
     <message>
-        <location line="-2258"/>
+        <location line="-2303"/>
         <source>&amp;Channel</source>
         <translation type="unfinished">&amp;頻道</translation>
     </message>
@@ -5420,7 +5401,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>這將啟用簡化窗口模式，該模式將隱藏日志窗口和菜單。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+327"/>
+        <location filename="Messages.cpp" line="+333"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5470,17 +5451,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+14"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-161"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 現在被靜音和耳聾.</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-120"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5546,6 +5527,11 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+4"/>
+        <source>Channel nesting limit reached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+7"/>
         <source>Permission denied.</source>
         <translation type="unfinished"></translation>
@@ -5591,7 +5577,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+100"/>
         <source>%1 is recording</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5616,7 +5602,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+200"/>
+        <location line="+201"/>
         <source>The server requests minimum client version %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5641,7 +5627,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-471"/>
+        <location line="-476"/>
         <source>You were muted by %1.</source>
         <translation>你被 %1 靜音。</translation>
     </message>
@@ -5692,12 +5678,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 被 %2 取消靜音。</translation>
     </message>
     <message>
-        <location line="+372"/>
+        <location line="+377"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-438"/>
+        <location line="-443"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished">你被 %1 耳聾。</translation>
@@ -5713,7 +5699,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished">%1 被 %2 取消耳聾。</translation>
     </message>
     <message>
-        <location line="+86"/>
+        <location line="+90"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>你被 %1 從服務器踢出: %2。</translation>
     </message>
@@ -5733,27 +5719,27 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3 被 %1 從服務器踢出并封禁: %2。</translation>
     </message>
     <message>
-        <location line="-60"/>
+        <location line="-64"/>
         <source>You were moved to %1 by %2.</source>
         <translation>你被從 %1 移動到 %2。</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+17"/>
         <source>%1 entered channel.</source>
         <translation>%1 進入頻道。</translation>
     </message>
     <message>
-        <location line="-348"/>
+        <location line="-358"/>
         <source>Server connection rejected: %1.</source>
         <translation>服務器拒絕連接: %1。</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Denied: %1.</source>
         <translation>拒絕: %1。</translation>
     </message>
     <message>
-        <location line="+360"/>
+        <location line="+364"/>
         <source>Message from %1</source>
         <translation>來至 %1 的消息</translation>
     </message>
@@ -5768,7 +5754,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-261"/>
+        <location filename="main.cpp" line="-271"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5798,7 +5784,7 @@ Valid options are:
         <translation>歡迎來到 Mumble。</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6262,16 +6248,6 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location line="+252"/>
-        <source>Skipping overlay update in debug mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverlayClient</name>
@@ -6371,7 +6347,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+223"/>
         <source>Overlay</source>
         <translation></translation>
     </message>
@@ -6383,17 +6359,6 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+38"/>
-        <source>Mumble has deemed the installer valid.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mumble was unable to verify the authenticity of the installer.</source>
-        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6509,11 +6474,6 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location/>
-        <source>View Certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
         <source>Load an overlay preset from file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6560,6 +6520,21 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>To list exceptions, use a</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay in all applicable programs except</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay only in</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6902,7 +6877,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名稱</translation>
     </message>
     <message>
         <location/>
@@ -6950,7 +6925,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+757"/>
+        <location filename="PulseAudio.cpp" line="+756"/>
         <source>Default Input</source>
         <translation>默認輸入</translation>
     </message>
@@ -7064,7 +7039,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+445"/>
+        <location filename="ServerHandler.cpp" line="+447"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7140,7 +7115,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-501"/>
+        <location filename="GlobalShortcut.cpp" line="-558"/>
         <source>Unassigned</source>
         <translation>未分配</translation>
     </message>
@@ -7148,7 +7123,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+361"/>
+        <location line="+370"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7171,7 +7146,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-435"/>
+        <location line="-444"/>
         <source>Press Shortcut</source>
         <translation>輸入快捷鍵</translation>
     </message>
@@ -7195,6 +7170,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+5"/>
+        <location line="+6"/>
         <source>Subchannel #%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7227,6 +7203,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
         <translation type="unfinished"></translation>
@@ -7246,7 +7223,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-259"/>
+        <location line="-268"/>
         <source>Off</source>
         <translation type="unfinished">關閉</translation>
     </message>
@@ -7452,7 +7429,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+96"/>
+        <location filename="UserInformation.cpp" line="+99"/>
         <source>%1w</source>
         <translation type="unfinished">%1 米 {1w?}</translation>
     </message>
@@ -7490,12 +7467,6 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1"/>
-        <location line="+1"/>
-        <source>%1 (%2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+15"/>
         <source>Supported</source>
         <translation type="unfinished"></translation>
@@ -7506,12 +7477,12 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="-119"/>
         <source>Not Reported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+160"/>
         <source>%1 online (%2 idle)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7535,6 +7506,11 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7664,7 +7640,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">名稱</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7706,7 +7682,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7811,7 +7787,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
+        <source>Digest (SHA-1): %1</source>
         <translation></translation>
     </message>
     <message>

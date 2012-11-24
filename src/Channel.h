@@ -85,6 +85,9 @@ class Channel : public QObject {
 #endif
 		static bool lessThan(const Channel *, const Channel *);
 
+		size_t getLevel() const;
+		size_t getDepth() const;
+
 		void addChannel(Channel *c);
 		void removeChannel(Channel *c);
 		void addUser(User *p);

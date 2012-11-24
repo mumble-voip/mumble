@@ -167,7 +167,7 @@ class Server : public QThread {
 		int iCodecBeta;
 		bool bPreferAlpha;
 		bool bOpus;
-		void recheckCodecVersions();
+		void recheckCodecVersions(ServerUser *connectingUser = 0);
 
 #ifdef USE_BONJOUR
 		void initBonjour();
@@ -176,6 +176,10 @@ class Server : public QThread {
 		// Registration, implementation in Register.cpp
 		QTimer qtTick;
 		void initRegister();
+
+	private:
+		int iChannelNestingLimit;
+
 	public slots:
 		void regSslError(const QList<QSslError> &);
 		void finished();
@@ -275,6 +279,8 @@ class Server : public QThread {
 
 		Server(int snum, QObject *parent = NULL);
 		~Server();
+
+		bool canNest(Channel *newParent, Channel *channel = NULL) const;
 
 		// RPC functions. Implementation in RPC.cpp
 		void connectAuthenticator(QObject *p);

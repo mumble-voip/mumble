@@ -506,7 +506,7 @@ void ServerItem::hideCheck() {
 
 	if (! bParent && (itType == PublicType)) {
 		if (g.s.ssFilter == Settings::ShowReachable)
-			hide = (uiPing == 0);
+			hide = (dPing == 0.0);
 		else if (g.s.ssFilter == Settings::ShowPopulated)
 			hide = (uiUsers == 0);
 	}

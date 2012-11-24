@@ -10,9 +10,23 @@ SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui ConnectDialogEdit.ui BanEditor.ui ACLEditor.ui Plugins.ui PTTButtonWidget.ui Overlay.ui OverlayEditor.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui AudioWizard.ui Tokens.ui RichTextEditor.ui RichTextEditorLink.ui UserInformation.ui VoiceRecorderDialog.ui
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_pl.ts mumble_ru.ts mumble_cs.ts mumble_it.ts mumble_ja.ts mumble_pt_BR.ts mumble_zh_CN.ts mumble_zh_TW.ts mumble_da.ts mumble_he.ts mumble_sv.ts mumble_tr.ts
+TRANSLATIONS	= mumble_cs.ts mumble_da.ts mumble_de.ts mumble_en.ts mumble_es.ts mumble_fr.ts mumble_he.ts mumble_hu.ts mumble_it.ts mumble_ja.ts mumble_nl.ts mumble_pl.ts mumble_pt_BR.ts mumble_ru.ts mumble_sv.ts mumble_tr.ts mumble_zh_CN.ts mumble_zh_TW.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../bonjour
+
+CONFIG(static) {
+  # Ensure that static Mumble.app on Mac OS X
+  # includes and exports its Qt symbols to plugins.
+  #
+  # Some plugins (libmanual) already make use of Qt
+  # functionality, and it's not inconceivable that some
+  # Mumble features will be split into plugins in the
+  # future.
+  macx {
+    QMAKE_LFLAGS -= -Wl,-dead_strip
+    QMAKE_LFLAGS += -Wl,-all_load
+  }
+}
 
 isEmpty(QMAKE_LRELEASE) {
   QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
@@ -45,16 +59,22 @@ CONFIG(no-bundled-speex) {
   LIBS 		*= -lspeex
 }
 
-unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
-  CONFIG	*= no-bundled-celt
-}
-
-CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= /usr/include/celt
-}
-
-!CONFIG(no-bundled-celt) {
-  INCLUDEPATH	*= ../../celt-0.7.0-src/libcelt
+CONFIG(sbcelt) {
+  SOURCES -= CELTCodec.cpp
+  SOURCES += CELTCodec_sbcelt.cpp
+  INCLUDEPATH *= ../../celt-0.7.0-src/libcelt ../../sbcelt-src
+  LIBS *= -lcelt -lsbcelt
+  DEFINES *= SBCELT_PREFIX_API SBCELT_COMPAT_API USE_SBCELT
+} else {
+  unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
+    CONFIG	*= no-bundled-celt
+  }
+  CONFIG(no-bundled-celt) {
+    INCLUDEPATH	*= /usr/include/celt
+  }
+  !CONFIG(no-bundled-celt) {
+    INCLUDEPATH	*= ../../celt-0.7.0-src/libcelt
+  }
 }
 
 !win32 {
@@ -77,10 +97,14 @@ CONFIG(no-vorbis-recording) {
   DEFINES *= NO_VORBIS_RECORDING
 }
 
-unix:system(pkg-config --exists opus) {
+unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   PKGCONFIG *= opus
   DEFINES *= USE_OPUS
 } else {
+  !CONFIG(no-opus) {
+    CONFIG *= opus
+  }
+
   CONFIG(opus) {
     INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
     DEFINES *= USE_OPUS
@@ -91,7 +115,7 @@ unix:system(pkg-config --exists opus) {
 win32 {
   RC_FILE	= mumble.rc
   HEADERS	*= GlobalShortcut_win.h TaskList.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
 
@@ -111,6 +135,7 @@ win32 {
       QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
     }
   }
+  QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest mumble.appcompat.manifest)
 }
 
 unix {
@@ -146,13 +171,20 @@ unix {
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp GlobalShortcut_macx.mm os_macx.mm
+    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp
+    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
         # Link against libxar so we can inspect Mac OS X installer packages.
-        LIBS += -lxar -framework ScriptingBridge
+        CONFIG(static) {
+          LIBS += -lxml2 -lbz2 -lxar
+        } else {
+          LIBS += -lxar
+        }
+        LIBS += -framework ScriptingBridge
+
         # Native feeling config dialog.
-        SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
         HEADERS += ConfigDialog_macx.h
     } else {
         SOURCES += Overlay_unix.cpp
@@ -164,7 +196,7 @@ unix {
     HEADERS += CoreAudio.h
   } else {
     HEADERS *= GlobalShortcut_unix.h
-    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp
+    SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     PKGCONFIG *= x11
     LIBS *= -lrt -lXi
 
@@ -258,8 +290,8 @@ directsound {
 
 wasapi {
 	DEFINES *= USE_WASAPI
-	HEADERS	*= WASAPI.h
-	SOURCES	*= WASAPI.cpp
+	HEADERS	*= WASAPI.h WASAPINotificationClient.h
+	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
 	LIBS	*= -lAVRT -delayload:AVRT.DLL
 }
 
@@ -286,7 +318,7 @@ CONFIG(no-update) {
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES_SRC *= qt_de.qm qt_es.qm qt_fr.qm qt_ja.qm qt_ja_JP.qm qt_ru.qm qt_pl.qm qt_pt.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
+	QT_TRANSLATION_FILES_SRC *= qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fr.qm qt_he.qm qt_hu.qm qt_ja.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
 	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
 		QT_TRANSLATION_FILES *= $${lang}
 	}
@@ -304,6 +336,20 @@ CONFIG(no-update) {
 
 !CONFIG(no-embed-tango-icons) {
 	RESOURCES *= mumble_tango.qrc
+}
+
+CONFIG(static) {
+  DEFINES *= USE_STATIC
+
+  # Keep in sync with main.cpp QT_IMPORT_PLUGIN list.
+  QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
+  macx {
+    QTPLUGIN += qicnsicon
+  }
+
+  # Icon engines are special; they don't get their lib directory
+  # included automatically by mkspecs/features/qt.prf
+  LIBS *= -L$$[QT_INSTALL_PLUGINS]/iconengines
 }
 
 lrel.output = ${QMAKE_FILE_BASE}.qm

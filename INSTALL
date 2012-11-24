@@ -65,12 +65,30 @@ CONFIG+=no-bundled-speex (Mumble)
  Note that this requires your system-installed Speex to be at least version
  1.2.0.
 
+CONFIG+=no-opus (Mumble)
+ Don't build Opus support at all.
+
+CONFIG+=no-bundled-opus (Mumble)
+ Don't use the included version of Opus, but look for one on the system.
+
+CONFIG+=sbcelt (Mumble, Linux, OSX, FreeBSD)
+ Use the SBCELT library for decoding CELT frames. Enabling this option will
+ build Mumble in a mode that forces all CELT frames to be decoded in a
+ separate, sandboxed, helper process. CELT frames will still be encoded using
+ Mumble's bundled CELT library.  This option implies CONFIG+=bundled-celt.
+
 CONFIG+=optimize
  Build a heavily optimized version, specific to the machine it's being
  compiled on.
 
+CONFIG+=static (Mumble)
+ Build Mumble as a static binary.
+
 CONFIG+=no-crash-report (Mumble)
  Don't include support for reporting crashes to the Mumble developers.
+
+CONFIG+=no-plugins (Mumble)
+ Don't build plugins.
 
 CONFIG+=universal (OSX)
  Build a universal binary build of Mumble for i386 and ppc instead of the
@@ -114,9 +132,15 @@ CONFIG+=no-speechd (Mumble, Linux)
 CONFIG+=no-update (Mumble)
  Default disable the checking of new versions. (For distributions)
 
+CONFIG+=no-vorbis-recording (Mumble)
+ Don't include support for ogg format for recordings.
+
 CONFIG+=no-embed-qt-translations (Mumble)
  Don't embed the translations for Qt, load them from the system. (For
  distributions).
+
+CONFIG+=no-embed-tango-icons (Mumble)
+ Don't embed the tango icons at all.
 
 CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
@@ -130,12 +154,3 @@ CONFIG+=no-overlay (Mumble, Linux)
 CONFIG+=no-xinput2 (Mumble, Linux)
  Don't build support for XI2.
 
-User Registrations
-==================
-
-To enable user registration, copy scripts/murmur.pl to murmur.cgi and put it
-somewhere accessible by your webserver. Make sure your webserver is
-configured to execute it as a CGI, and make sure you edit it to reflect
-the configuration parameters. Note that the user the CGI will run as needs
-write permissions to both the database file and the directory the database
-file resides in.

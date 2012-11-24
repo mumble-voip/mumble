@@ -82,6 +82,8 @@ MetaParams::MetaParams() {
 
 	iOpusThreshold = 100;
 
+	iChannelNestingLimit = 10;
+
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 
@@ -286,6 +288,8 @@ void MetaParams::read(QString fname) {
 
 	iOpusThreshold = qsSettings->value("opusthreshold", iOpusThreshold).toInt();
 
+	iChannelNestingLimit = qsSettings->value("channelnestinglimit", iChannelNestingLimit).toInt();
+
 #ifdef Q_OS_UNIX
 	qsName = qsSettings->value("uname").toString();
 	if (geteuid() == 0) {
@@ -445,6 +449,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
+	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
 }
 
 Meta::Meta() {

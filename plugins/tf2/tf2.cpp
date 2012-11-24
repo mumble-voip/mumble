@@ -94,6 +94,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok)
 		return false;
 
+	chHostStr[sizeof(chHostStr) - 1] = '\0'; // Ensure zero termination
 	std::string sHost(chHostStr);
 
 	// Possible values of chHostStr:

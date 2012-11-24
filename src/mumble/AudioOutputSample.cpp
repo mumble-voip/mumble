@@ -208,10 +208,10 @@ SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
 }
 
 QString AudioOutputSample::browseForSndfile() {
-	SoundFile *sf = NULL;
 	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
 	if (! file.isEmpty()) {
-		if ((sf = AudioOutputSample::loadSndfile(file)) == NULL) {
+		SoundFile *sf = AudioOutputSample::loadSndfile(file);
+		if (sf == NULL) {
 			QMessageBox::critical(NULL,
 			                      tr("Invalid sound file"),
 			                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file));
