@@ -59,6 +59,7 @@ static const char *overlayBlacklist[] = {
 	"hlmv.exe", // Half-Life Model Viewer
 	"hlfaceposer.exe", // Face Poser (from Source SDK)
 	"LoLLauncher.exe", // League of Legends Launcher/Patcher
+	"acrobat.exe", // Adobe Acrobat
 	NULL
 };
 
