@@ -61,6 +61,7 @@ struct MetaParams {
 	int iMaxTextMessageLength;
 	int iMaxImageMessageLength;
 	int iOpusThreshold;
+	int iChannelNestingLimit;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;

@@ -46,11 +46,13 @@
     <EmbeddedResource Include="Translations\Japanese.wxl" />
     <EmbeddedResource Include="Translations\Norwegian.wxl" />
     <EmbeddedResource Include="Translations\Polish.wxl" />
+    <EmbeddedResource Include="Translations\Portuguese.wxl" />
     <EmbeddedResource Include="Translations\Russian.wxl" />
     <EmbeddedResource Include="Translations\SimpChinese.wxl" />
     <EmbeddedResource Include="Translations\Spanish.wxl" />
     <EmbeddedResource Include="Translations\Swedish.wxl" />
     <EmbeddedResource Include="Translations\TradChinese.wxl" />
+    <EmbeddedResource Include="Translations\Turkish.wxl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Settings.wxi" />

@@ -66,7 +66,7 @@ class GlobalShortcut : public QObject {
 
 		bool active() const {
 			return ! qlActive.isEmpty();
-		};
+		}
 };
 
 class ShortcutKeyWidget : public QLineEdit {
@@ -130,6 +130,14 @@ class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
 		void on_qrbChannel_clicked();
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();
+};
+
+enum ShortcutTargetTypes {
+	SHORTCUT_TARGET_ROOT = -1,
+	SHORTCUT_TARGET_PARENT = -2,
+	SHORTCUT_TARGET_CURRENT = -3,
+	SHORTCUT_TARGET_SUBCHANNEL = -4,
+	SHORTCUT_TARGET_PARENT_SUBCHANNEL = -12
 };
 
 class ShortcutTargetWidget : public QFrame {

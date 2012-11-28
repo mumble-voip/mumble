@@ -5,6 +5,9 @@
 
 #ifdef WIN32
 #include <windows.h>
+#else
+#include <fcntl.h>
+#include <sys/mman.h>
 #endif
 
 struct LinkedMem {
@@ -133,6 +136,10 @@ int main(int argc, char **argv) {
 	while (true) {
 		qWarning("Tick!");
 		updateMumble();
+#ifdef WIN32
 		Sleep(100);
+#else
+		usleep(100*1000);
+#endif
 	}
 }

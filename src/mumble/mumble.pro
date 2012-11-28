@@ -10,9 +10,23 @@ SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui ConnectDialogEdit.ui BanEditor.ui ACLEditor.ui Plugins.ui PTTButtonWidget.ui Overlay.ui OverlayEditor.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui AudioWizard.ui Tokens.ui RichTextEditor.ui RichTextEditorLink.ui UserInformation.ui VoiceRecorderDialog.ui
-TRANSLATIONS	= mumble_en.ts mumble_es.ts mumble_de.ts mumble_fr.ts mumble_pl.ts mumble_ru.ts mumble_cs.ts mumble_it.ts mumble_ja.ts mumble_pt_BR.ts mumble_zh_CN.ts mumble_zh_TW.ts mumble_da.ts mumble_he.ts mumble_sv.ts mumble_tr.ts
+TRANSLATIONS	= mumble_cs.ts mumble_da.ts mumble_de.ts mumble_en.ts mumble_es.ts mumble_fr.ts mumble_he.ts mumble_hu.ts mumble_it.ts mumble_ja.ts mumble_nl.ts mumble_pl.ts mumble_pt_BR.ts mumble_ru.ts mumble_sv.ts mumble_tr.ts mumble_zh_CN.ts mumble_zh_TW.ts
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../bonjour
+
+CONFIG(static) {
+  # Ensure that static Mumble.app on Mac OS X
+  # includes and exports its Qt symbols to plugins.
+  #
+  # Some plugins (libmanual) already make use of Qt
+  # functionality, and it's not inconceivable that some
+  # Mumble features will be split into plugins in the
+  # future.
+  macx {
+    QMAKE_LFLAGS -= -Wl,-dead_strip
+    QMAKE_LFLAGS += -Wl,-all_load
+  }
+}
 
 isEmpty(QMAKE_LRELEASE) {
   QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
@@ -276,8 +290,8 @@ directsound {
 
 wasapi {
 	DEFINES *= USE_WASAPI
-	HEADERS	*= WASAPI.h
-	SOURCES	*= WASAPI.cpp
+	HEADERS	*= WASAPI.h WASAPINotificationClient.h
+	SOURCES	*= WASAPI.cpp WASAPINotificationClient.cpp
 	LIBS	*= -lAVRT -delayload:AVRT.DLL
 }
 
@@ -304,7 +318,7 @@ CONFIG(no-update) {
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES_SRC *= qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fr.qm qt_he.qm qt_ja.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
+	QT_TRANSLATION_FILES_SRC *= qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fr.qm qt_he.qm qt_hu.qm qt_ja.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
 	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
 		QT_TRANSLATION_FILES *= $${lang}
 	}

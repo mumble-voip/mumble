@@ -207,11 +207,18 @@ void *HardHook::cloneCode(void **porig) {
 			case 0xff:	// INC || DEC || CALL || JMP || PUSH - http://ref.x86asm.net/coder.html#xFF
 				extra = modrmbytes(a,b) + 1;
 				break;
-			default:
+			default: {
+				int rmop = ((a>>3) & 7);
+				if (opcode == 0xff && rmop == 6) { // PUSH memory
+					extra = modrmbytes(a,b) + 1;
+					break;
+				}
+
 				fods("HardHook: Unknown opcode %2x at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", opcode, idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				VirtualProtect(o, 16, oldProtect, &restoreProtect);
 				return NULL;
 				break;
+			}
 		}
 		for (unsigned int i=0;i<extra;++i)
 			n[idx+i] = o[idx+i];
@@ -244,9 +251,6 @@ void *HardHook::cloneCode(void **porig) {
  * @param replacement Pointer to code to redirect to.
  */
 void HardHook::setup(voidFunc func, voidFunc replacement) {
-	int i;
-	DWORD oldProtect, restoreProtect;
-
 	if (baseptr)
 		return;
 
@@ -265,18 +269,20 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 		call = func;
 	}
 
+	DWORD oldProtect;
 	if (VirtualProtect(fptr, 16, PAGE_EXECUTE_READ, &oldProtect)) {
 		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		replace[0] = 0x68; // PUSH immediate        1 Byte
 		*iptr = nptr;      // (imm. value = nptr)   4 Byte
 		replace[5] = 0xc3; // RETN                  1 Byte
 
-		for (i=0;i<6;i++) // Save original 6 bytes at start of original function
+		for (int i=0;i<6;i++) // Save original 6 bytes at start of original function
 			orig[i] = fptr[i];
 
 		baseptr = fptr;
 		inject(true);
 
+		DWORD restoreProtect;
 		VirtualProtect(fptr, 16, oldProtect, &restoreProtect);
 	} else {
 		fods("HardHook: Failed vprotect");
@@ -331,17 +337,17 @@ void HardHook::inject(bool force) {
  * @param force If true injection will be performed even when trampoline is available.
  */
 void HardHook::restore(bool force) {
-	DWORD oldProtect, restoreProtect;
-	int i;
 
 	if (! baseptr)
 		return;
 	if (! force && bTrampoline)
 		return;
 
+	DWORD oldProtect;
 	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (i=0;i<6;i++)
+		for (int i=0;i<6;i++)
 			baseptr[i] = orig[i];
+		DWORD restoreProtect;
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
 		FlushInstructionCache(GetCurrentProcess(), baseptr, 6);
 	}

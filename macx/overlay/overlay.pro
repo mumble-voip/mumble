@@ -21,8 +21,8 @@ QMAKE_LFLAGS = -framework CoreFoundation
 
 SOURCES = mach_override.c
 OBJECTIVE_SOURCES = overlay.m
-HEADERS = mach_override.h
-DIST = overlay.plist
+HEADERS = mach_override.h avail.h
+DIST = overlay.plist avail.pl
 
 CONFIG(debug, debug|release) {
   DESTDIR       = ../../debug

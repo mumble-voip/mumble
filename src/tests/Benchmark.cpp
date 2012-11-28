@@ -216,8 +216,16 @@ void Client::readyRead() {
 							const std::string &server_nonce = msg.server_nonce();
 							if (key.size() == AES_BLOCK_SIZE && client_nonce.size() == AES_BLOCK_SIZE && server_nonce.size() == AES_BLOCK_SIZE)
 								crypt.setKey(reinterpret_cast<const unsigned char *>(key.data()), reinterpret_cast<const unsigned char *>(client_nonce.data()), reinterpret_cast<const unsigned char *>(server_nonce.data()));
+						} else if (msg.has_server_nonce()) {
+							const std::string &server_nonce = msg.server_nonce();
+							if (server_nonce.size() == AES_BLOCK_SIZE) {
+								crypt.uiResync++;
+								memcpy(crypt.decrypt_iv, server_nonce.data(), AES_BLOCK_SIZE);
+							}
 						} else {
-							qFatal("Crypt resync");
+							MumbleProto::CryptSetup mpcs;
+							mpcs.set_client_nonce(std::string(reinterpret_cast<const char *>(crypt.encrypt_iv), AES_BLOCK_SIZE));
+							sendMessage(mpcs, MessageHandler::CryptSetup);
 						}
 						break;
 					}

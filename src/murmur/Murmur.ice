@@ -262,6 +262,8 @@ module Murmur
 	exception InvalidCallbackException extends MurmurException {};
 	/**  This is thrown when you supply the wrong secret in the calling context. */
 	exception InvalidSecretException extends MurmurException {};
+	/** This is thrown when the channel operation would excede the channel nesting limit */
+	exception NestingLimitException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
@@ -613,7 +615,7 @@ module Murmur
 		 * @param state Channel state to set.
 		 * @see getChannelState
 		 */
-		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
 
 		/** Remove a channel and all its subchannels.
 		 * @param channelid ID of Channel. See {@link Channel.id}.
@@ -625,7 +627,7 @@ module Murmur
 		 * @param parent Channel ID of parent channel. See {@link Channel.id}.
 		 * @return ID of newly created channel.
 		 */
-		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
 
 		/** Send text message to channel or a tree of channels.
 		 * @param channelid Channel ID of channel to send to. See {@link Channel.id}.
