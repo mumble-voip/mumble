@@ -104,6 +104,9 @@
       <Component Id="manual.dll">
         <File Source="$(var.SourceDir)\release\plugins\manual.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ps2.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ps2.dll" KeyPath="yes" />
+      </Component>
       <Component Id="sto.dll">
         <File Source="$(var.SourceDir)\release\plugins\sto.dll" KeyPath="yes" />
       </Component>
