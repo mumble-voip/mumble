@@ -674,7 +674,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 				IDXGIFactory1 * pFactory;
 				hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
 				if (pFactory) {
-					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
+					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI11 Window", WS_OVERLAPPEDWINDOW,
 								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
 								  NULL, NULL, 0);
 
@@ -790,6 +790,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 			}
 		}
 	} else {
-		ods("No DXGI1 pre-Win7");
+		ods("No DXGI11 pre-Win7");
 	}
 }
