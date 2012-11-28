@@ -1,7 +1,8 @@
-TEMPLATE	=app
+TEMPLATE = app
 CONFIG  += qt thread warn_on network qdbus xml qtestlib sql debug
+CONFIG -= app_bundle
 QT += qdbus xml sql network
-LANGUAGE	= C++
+LANGUAGE = C++
 TARGET = Lock
 SOURCES = Lock.cpp Timer.cpp
 HEADERS = Timer.h

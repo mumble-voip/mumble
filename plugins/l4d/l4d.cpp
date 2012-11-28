@@ -76,13 +76,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	float pos[3];
 	float rot[3];
-	float opos[3], top[3], front[3];
 
 	bool ok = peekProc(posptr, pos, 12) &&
 	          peekProc(rotptr, rot, 12);
 
-	if (ok)
+	if (ok) {
+		float opos[3], top[3], front[3];
 		return calcout(pos, rot, opos, top, front);
+	}
 
 	generic_unlock();
 

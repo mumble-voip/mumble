@@ -141,6 +141,7 @@ OverlayConfig::OverlayConfig(Settings &st) :
 		qswOverlayPage->setCurrentWidget(qwOverlayUpgrade);
 	} else {
 		qswOverlayPage->setCurrentWidget(qwOverlayConfig);
+		qpbUninstall->setVisible(supportsInstallableOverlay());
 	}
 
 	// grab a desktop screenshot as background

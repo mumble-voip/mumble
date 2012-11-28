@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WixLocalization Culture="zh-tw" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="LANG">31748</String>
+  <String Id="LANG">1028</String>
 
   <String Id="MUMBLE_CREATE_SHORTCUT">創建桌面快捷圖標</String>
   <String Id="MUMBLE_DONATE">向 Mumble 項目捐款</String>

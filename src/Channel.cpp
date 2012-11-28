@@ -195,3 +195,29 @@ Channel::operator const QString() const {
 	        QString::number(cParent ? cParent->iId : -1),
 	        bTemporary ? QLatin1String("*") : QLatin1String(""));
 }
+
+size_t Channel::getLevel() const {
+	size_t i = 0;
+
+	const Channel *c = this;
+	while (c->cParent) {
+		c = c->cParent;
+		++i;
+	}
+
+	return i;
+}
+
+
+size_t Channel::getDepth() const {
+	if(qlChannels.empty()) {
+		return 0;
+	}
+
+	size_t result = 0;
+	foreach(Channel *child, qlChannels) {
+		result = qMax(result, child->getDepth() + 1);
+	}
+
+	return result;
+}

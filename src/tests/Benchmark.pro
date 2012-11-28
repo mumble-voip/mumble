@@ -1,9 +1,10 @@
 include(../mumble.pri)
 
-TEMPLATE	=app
+TEMPLATE = app
 CONFIG *= qt thread warn_on network qtestlib debug
+CONFIG -= app_bundle
 QT *= network xml
-LANGUAGE	= C++
+LANGUAGE = C++
 TARGET = Benchmark
 SOURCES *= Benchmark.cpp Timer.cpp CryptState.cpp
 HEADERS *= Timer.h CryptState.h

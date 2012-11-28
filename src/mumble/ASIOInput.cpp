@@ -79,10 +79,7 @@ class ASIOInit : public DeferInit {
 void ASIOInit::initialize() {
 	HKEY hkDevs;
 	HKEY hk;
-	WCHAR keyname[255];
-	DWORD keynamelen = 255;
 	FILETIME ft;
-	HRESULT hr;
 
 	airASIO = NULL;
 	crASIO = NULL;
@@ -98,6 +95,8 @@ void ASIOInit::initialize() {
 #endif
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
 		DWORD idx = 0;
+		DWORD keynamelen = 255;
+		WCHAR keyname[255];
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
@@ -109,7 +108,7 @@ void ASIOInit::initialize() {
 					if (datasize > 76)
 						datasize = 76;
 					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2).toLower().trimmed();
-					if (! blacklist.contains(qsCls.toLower()) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
+					if (! blacklist.contains(qsCls.toLower()) && ! FAILED(CLSIDFromString(wclsid, &clsid))) {
 						bFound = true;
 					}
 				}

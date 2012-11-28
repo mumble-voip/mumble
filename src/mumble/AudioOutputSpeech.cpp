@@ -54,6 +54,7 @@ AudioOutputSpeech::AudioOutputSpeech(ClientUser *user, unsigned int freq, Messag
 	dsSpeex = NULL;
 	opusState = NULL;
 
+	bHasTerminator = false;
 	bStereo = false;
 
 	iSampleRate = SAMPLE_RATE;

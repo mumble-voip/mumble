@@ -349,7 +349,7 @@ Add a new group.</source>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルには必ず名前を設定してください</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -612,7 +612,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>スピーカー</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="+226"/>
+        <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
         <translation></translation>
     </message>
@@ -673,7 +673,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サード・パーティ・ライセンス(&amp;P)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -1033,92 +1033,92 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プッシュ・トゥ・トークボタンを表示するウィンドウを常に前面で表示します</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プッシュ・トゥ・トークウィンドウ</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">その他</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">転送を開始、終了するときに聞こえる音声キュー</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この機能は転送時に音声キューを有効にします。&lt;/b&gt;&lt;br /&gt;これを設定すると転送の開始時と、終了時に短いオーディオビープが聞こえるようになります。</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">音声キュー</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">転送を開始するときに再生します</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">転送を停止するときに再生します</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">待機時間</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">PTTキーを話した後にマイクがオープである時間</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバの最大ネットワーク帯域は%1kbit/sしかありません。音声品質は自動的に%2kbit/s (%3 ms)に調整されます</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">増幅の最大値</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アイドル時の動作</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">後に</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">何もしない</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">聴取禁止</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言禁止</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> </translation>
     </message>
 </context>
 <context>
@@ -1175,7 +1175,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1kbit/s (音声 %2 %5, 位置 %4, オーバヘッド %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation type="unfinished">%1kbit/s (音声 %2, 位置 %4, オーバヘッド %3)</translation>
     </message>
 </context>
 <context>
@@ -1513,12 +1513,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+212"/>
+        <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
         <translation>サウンドファイルを選択してください</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Invalid sound file</source>
         <translation>無効なサウンドファイル</translation>
     </message>
@@ -2155,17 +2155,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定ではMumbleは&lt;b&gt;少ない量の帯域&lt;/b&gt;を使うでしょう。必然的に高遅延及び、低品質になります。あなたの接続環境が他の設定を処理できない場合にのみ選択してください。(16kbit/s, 60ms per packet)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">これは&lt;b&gt;標準の&lt;/b&gt;設定として&lt;b&gt;推奨されます。&lt;/b&gt;音質と遅延、帯域の使用のバランスが良い設定です。(40kbit/s, 20ms per packet)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">この設定は帯域を問題としない場所、例えばLANのような場所でのみ使うことを推奨します。Mumbleがサポートする最も低い遅延と&lt;b&gt;高い音質&lt;/b&gt;を提供します。(72kbit/s, 10ms per packet)</translation>
     </message>
 </context>
 <context>
@@ -2810,7 +2810,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">貼り付けて送信</translation>
+        <translation type="unfinished">貼り付けて送信(&amp;S)</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2853,7 +2853,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ローカルで無視（テキストメッセージ）</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3323,17 +3323,17 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+555"/>
+        <location filename="DirectSound.cpp" line="+541"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>選択されたDirectSound Inputのオープンに失敗しました。デフォルトのデバイスが使用されます。</translation>
     </message>
     <message>
-        <location line="-382"/>
+        <location line="-368"/>
         <source>Default DirectSound Voice Input</source>
         <translation>デフォルトのDirectSound音声入力</translation>
     </message>
     <message>
-        <location line="+461"/>
+        <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>DirectSound入力デバイスのオープンに失敗しました。 マイクの取得ができませんでした。</translation>
     </message>
@@ -3346,22 +3346,22 @@ Label of the server. This is what the server will be named like in your server l
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location line="-167"/>
+        <location line="-166"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>選択されたDirectSound出力のオープンに失敗しました。音声は出力されません。</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-77"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>選択されたDirectSound出力のオープンに失敗しました。音声は出力されません。</translation>
     </message>
     <message>
-        <location line="-247"/>
+        <location line="-243"/>
         <source>Default DirectSound Voice Output</source>
         <translation>デフォルトのDirectSound音声出力</translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+316"/>
         <source>Lost DirectSound output device.</source>
         <translation>DirectSound出力デバイスを失いました。</translation>
     </message>
@@ -3456,23 +3456,28 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumbleはマウスボタンとキーボードの修飾キー（Alt、Ctrl、Cmdなど）のみを使用できます。&lt;/p&gt;&lt;p&gt;より柔軟に設定したいなら、システム環境設定のアクセシビリティの&lt;span style=&quot; font-style:italic;&quot;&gt;補助装置にアクセスできるようにする&lt;/span&gt;を有効にできる。しかし、この変更は悪意のあるプログラムがあなたがキーボードでタイプした内容を読み取ることを許すことに注意してください。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アクセシビリティ設定を開く</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">スキップ</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation type="unfinished">グローバルショートカットを有効にする</translation>
     </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+710"/>
+        <location filename="GlobalShortcut.cpp" line="+721"/>
         <source>Shortcuts</source>
         <translation>ショートカット</translation>
     </message>
@@ -3971,32 +3976,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">有効にするとあなたが送信したテキストメッセージがTTSにより読まれます</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">自分が送信したメッセージを読み上げる</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャットログ</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャットバーの長さの最大値</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">無制限</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">行</translation>
     </message>
 </context>
 <context>
@@ -4296,14 +4301,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">選択した項目をチャットバーの対象にする</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2127"/>
+        <location line="+2131"/>
         <source>Root</source>
         <translation>ルート</translation>
     </message>
@@ -4703,9 +4708,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumbleのウェブページに接続して新しいバージョンが出ているかを確認します。もし新しいのが出ていたら適切なダウンロードURLを通知します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2031"/>
+        <location filename="MainWindow.cpp" line="-2035"/>
         <location line="+15"/>
-        <location line="+2226"/>
+        <location line="+2230"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4715,7 +4720,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>最近の動作を全て表示します。サーバへの接続、エラーや情報メッセージは全てここに表示されます。&lt;br /&gt;ここにどのメッセージを表示するかを指定するには、メニューから&lt;b&gt;設定&lt;/b&gt;コマンドを選んでください。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2317"/>
+        <location filename="MainWindow.cpp" line="-2321"/>
         <source>&amp;Channel</source>
         <translation>チャンネル(&amp;C)</translation>
     </message>
@@ -4784,7 +4789,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ゲーム中でのオーバーレイの状態を切り替える。</translation>
     </message>
     <message>
-        <location line="+1129"/>
+        <location line="+1130"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>理由を入力してください</translation>
@@ -4835,7 +4840,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Qtについて</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+433"/>
         <source>Server connection failed: %1.</source>
         <translation>サーバへの接続に失敗しました: %1.</translation>
     </message>
@@ -4845,12 +4850,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>サーバから切断しました。</translation>
     </message>
     <message>
-        <location line="-1539"/>
+        <location line="-1542"/>
         <source>Reconnecting.</source>
         <translation type="unfinished">再接続中です。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+329"/>
+        <location filename="Messages.cpp" line="+333"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 があなたを発言・聴取を禁止しました。</translation>
     </message>
@@ -4910,7 +4915,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">%1が発言禁止/聴取禁止状態になりました。</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-120"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>あなたは %2 で %1 の権限を拒否されました。</translation>
     </message>
@@ -4974,6 +4979,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Channel is full.</source>
         <translation>チャンネルが満員です。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel nesting limit reached.</source>
+        <translation type="unfinished">チャンネルのネスト制限に達しました。</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5048,27 +5058,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバは最低でもバージョン%1のクライアントを要求しています</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバは位置音響を有効にすることを要求しています。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバは位置音響を無効にすることを要求しています。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバはプッシュ・トゥ・トークを有効にすることを要求しています。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サーバはプッシュ・トゥ・トークを無効にすることを要求しています。</translation>
     </message>
     <message>
         <location line="-476"/>
@@ -5173,12 +5183,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished">%1がチャンネルに入りました。</translation>
     </message>
     <message>
-        <location line="-354"/>
+        <location line="-358"/>
         <source>Server connection rejected: %1.</source>
         <translation>サーバへの接続は拒否されました: %1.</translation>
     </message>
     <message>
-        <location line="+143"/>
+        <location line="+147"/>
         <source>Denied: %1.</source>
         <translation>拒否されました: %1.</translation>
     </message>
@@ -5200,12 +5210,24 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用方法: mumble [オプション] [&lt;url&gt;]
+
+&lt;url&gt;は接続ウィンドウを表示する代わりに起動後に接続するURLを指定します。
+形式:mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+バージョンクエリパラメータは正しいクライアントのバージョンを呼び出すために設定されなければなりません。デフォルトはでは1.2.0です。
+
+利用可能なオプション：
+  -h, --help    このテキストを表示し終了します。.
+  -m, --multiple
+                クライアントの多重起動を許可します。.
+  -n, --noidentity
+                IDファイルの読み込みを抑制します。（例えば証明書。）         </translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">呼び出し</translation>
     </message>
     <message>
         <location line="+192"/>
@@ -5215,7 +5237,7 @@ Valid options are:
     <message>
         <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">デバッグモードではバージョン確認をスキップする。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5273,7 +5295,7 @@ Valid options are:
         <translation>(ツリー） %1宛: %2</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+724"/>
         <source>Invalid username</source>
         <translation>無効なユーザ名</translation>
     </message>
@@ -5318,7 +5340,7 @@ Valid options are:
         <translation>他のユーザにテキストメッセージを送信します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2522"/>
+        <location filename="MainWindow.cpp" line="-2526"/>
         <source>&amp;User</source>
         <translation>ユーザ(&amp;U)</translation>
     </message>
@@ -5410,7 +5432,7 @@ Valid options are:
         <translation>サウンドハードウェアの設定プロセスに案内します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+2223"/>
+        <location filename="MainWindow.cpp" line="+2227"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL検証エラー: %1</translation>
     </message>
@@ -5440,7 +5462,7 @@ Valid options are:
         <translation>サーバとの接続についての詳細な情報を表示します。</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1790"/>
+        <location filename="MainWindow.cpp" line="-1793"/>
         <source>Opening URL %1</source>
         <translation>URL %1 を開きます</translation>
     </message>
@@ -5512,18 +5534,18 @@ Valid options are:
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1327"/>
+        <location line="+1330"/>
         <source>&amp;View Certificate</source>
         <translation>証明書を見る(&amp;V)</translation>
     </message>
     <message>
-        <location line="-1448"/>
+        <location line="-1451"/>
         <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation>%1 の名前で自分をユーザ登録します</translation>
     </message>
     <message>
-        <location line="-1086"/>
+        <location line="-1087"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>ゲームオーバレイの状態を切り替えます。</translation>
@@ -5532,10 +5554,10 @@ Valid options are:
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">チャンネルのリンク</translation>
     </message>
     <message>
-        <location line="+713"/>
+        <location line="+714"/>
         <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;サーバ上で自分自身をユーザ登録しようとしています。このアクションは取り消せません。このサーバでのあなたのユーザ名をこの操作の後に変更できなくなります。あなたはこのサーバ上で &apos;%1&apos; のユーザ名を使うことになります。&lt;/p&gt;&lt;p&gt;本当に自分自身を登録しますか？&lt;/p&gt;</translation>
@@ -5543,12 +5565,12 @@ Valid options are:
     <message>
         <location line="-275"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;バージョン&lt;/h2&gt;&lt;p&gt;プロトコル %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation type="unfinished">&lt;h2&gt;バージョン&lt;/h2&gt;&lt;p&gt;プロトコル %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;h2&gt;音声帯域&lt;/h2&gt;&lt;p&gt;最大%1kbit/s&lt;br /&gt;現在%2kbit/s&lt;br /&gt;コーデック: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+241"/>
@@ -5577,7 +5599,7 @@ Valid options are:
         <translation>チャンネル %1 へのメッセージ</translation>
     </message>
     <message>
-        <location line="+541"/>
+        <location line="+544"/>
         <source>Connected.</source>
         <translation type="unfinished">サーバに接続しました。</translation>
     </message>
@@ -5592,31 +5614,31 @@ Valid options are:
         <translation>&lt;p&gt;%1.&lt;br /&gt;詳細な証明書エラーの内容: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;この証明書を受け入れますか？&lt;br /&gt;(同時に証明書を保存するので、今後この質問は表示されません。)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-1348"/>
+        <location line="-1351"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;制御チャンネル&lt;/h2&gt;&lt;p&gt;%1 bit %2 で暗号化されています。&lt;br /&gt;平均 %3 ms の遅延 (平方偏差 %4)&lt;/p&gt;&lt;p&gt;リモートホスト %5 (ポート %6)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1372"/>
+        <location line="+1375"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">このサーバはより古い暗号化規格を使用しており、Mumbleの最新のバージョンによってもはやサポートされていません。</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">使用しているユーザ名</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">証明書かパスワードが間違っています</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登録ユーザに対する証明書かパスワードが間違っています。このユーザが本当にパスワードによって保護されているなら、もう一度入力してください。そうでなければ、中断して証明書とユーザ名を確認してください。</translation>
     </message>
     <message>
         <location line="+122"/>
@@ -5652,7 +5674,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>画像の形式を認識できません。</translation>
     </message>
     <message>
-        <location line="-1648"/>
+        <location line="-1651"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>音声チャンネルは管理チャンネルを通して送信されます。</translation>
     </message>
@@ -5733,7 +5755,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>最小化</translation>
     </message>
     <message>
-        <location line="-191"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished">発言禁止状態</translation>
@@ -5775,7 +5797,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>ささやき</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>ウインドウ(&amp;W)</translation>
     </message>
@@ -5785,7 +5807,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>小型切り替え</translation>
@@ -5818,14 +5840,14 @@ Otherwise abort and check your certificate and username.</source>
         <translation>音量を下げる(-10%)</translation>
     </message>
     <message>
-        <location line="+67"/>
-        <location line="+2268"/>
+        <location line="+68"/>
+        <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>接続されていません</translation>
     </message>
     <message>
-        <location line="-1995"/>
+        <location line="-1998"/>
         <source>Clear</source>
         <translation>クリア</translation>
     </message>
@@ -5995,22 +6017,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">クリップボードにこのチャンネルへのリンクをコピーします。</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">メッセージを無視する</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザのテキストチャットメッセージをローカルで無視します。</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ユーザからのすべてのテキストメッセージを通知なしに無視します。</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Copy URL</source>
+        <translation type="unfinished">URLをコピー(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -6322,7 +6349,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言と最近の活動</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6342,7 +6369,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近の活動時間（%1秒）を設定します...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6352,17 +6379,17 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ソート</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">アルファベット順</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最後の状態変更</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6377,12 +6404,12 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近の活動時間を設定します</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">発言後にユーザを活動したままにする秒数:</translation>
     </message>
 </context>
 <context>
@@ -6420,7 +6447,7 @@ img タグでチャットメッセージに埋め込まれた画像のダウン�
         <translation type="unfinished">更なる設定をするには、ユーザを右クリックしてください。</translation>
     </message>
     <message>
-        <location line="+222"/>
+        <location line="+223"/>
         <source>Overlay</source>
         <translation>オーバーレイ</translation>
     </message>
@@ -6587,17 +6614,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">例外設定のリスト化に使う方法</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">次の対象を除くすべての適用可能なプログラムに対してオーバレイを表示します</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">次の対象だけにオーバレイを表示します</translation>
     </message>
 </context>
 <context>
@@ -7179,7 +7206,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-549"/>
+        <location filename="GlobalShortcut.cpp" line="-558"/>
         <source>Unassigned</source>
         <translation>未割り当て</translation>
     </message>
@@ -7187,7 +7214,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+361"/>
+        <location line="+370"/>
         <source>On</source>
         <translation>オン</translation>
     </message>
@@ -7210,7 +7237,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-435"/>
+        <location line="-444"/>
         <source>Press Shortcut</source>
         <translation>ショートカットを押下</translation>
     </message>
@@ -7234,6 +7261,7 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location line="+5"/>
+        <location line="+6"/>
         <source>Subchannel #%1</source>
         <translation>サブチャンネル #%1</translation>
     </message>
@@ -7266,6 +7294,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>現在</translation>
     </message>
     <message>
+        <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
         <translation>サブチャンネル #%1</translation>
@@ -7285,7 +7314,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-259"/>
+        <location line="-268"/>
         <source>Off</source>
         <translation>オフ</translation>
     </message>
@@ -7528,22 +7557,22 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サポートされています</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">サポートされません</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">報告されません</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7571,6 +7600,11 @@ An access token is a text string, which can be used as a password for very simpl
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>ネットワーク帯域</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation type="unfinished">Pingのばらつき</translation>
     </message>
 </context>
 <context>
@@ -7679,7 +7713,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">テキストメッセージを無視します</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8052,12 +8086,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">プッシュ・トゥ・トーク</translation>
     </message>
 </context>
 </TS>

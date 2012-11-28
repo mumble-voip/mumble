@@ -32,9 +32,12 @@
       <Component Id="opus.dll">
         <File Source="$(var.SourceDir)\release\opus.dll" KeyPath="yes" />
       </Component>
-      <Component Id="mumble_g15_helper.exe">
-        <File Source="$(var.SourceDir)\release\mumble-g15-helper.exe" KeyPath="yes" />
-      </Component>
+      
+      <?ifdef G15 ?>
+        <Component Id="mumble_g15_helper.exe">
+          <File Source="$(var.SourceDir)\release\mumble-g15-helper.exe" KeyPath="yes" />
+        </Component>
+      <?endif ?>
 
       <Component Id="murmur.exe">
         <File Id="murmur.exe" Source="$(var.SourceDir)\release\murmur.exe" KeyPath="yes">
@@ -52,19 +55,11 @@
         <File Source="$(var.SourceDir)\scripts\qt.conf" KeyPath="yes" />
       </Component>
 
-      <Component Id="licence.txt">
-        <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes">
-          <Shortcut Id="LicenceShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_LICENSE_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+      <Component Id="licence.txt" Guid="87C7967B-5E4B-41DD-83F5-A9E9E8AD3B39">
+        <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
-      <Component Id="Readme.txt">
-        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes">
-          <Shortcut Id="ReadmeShortcut" Directory="ApplicationProgramsFolder" Name="!(loc.MUMBLE_README_LNK)">
-            <ShortcutProperty Key="System.AppUserModel.ExcludeFromShowInNewInstall" Value="1" />
-          </Shortcut>
-        </File>
+      <Component Id="Readme.txt" Guid="15878902-B819-4E77-8C1D-0A915D79660B">
+        <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes" />
       </Component>
       <Component Id="Changes.txt">
         <File Source="$(var.SourceDir)\CHANGES" Name="Changes.txt" KeyPath="yes" />
@@ -87,24 +82,24 @@
       <?endif ?>
 
       <?ifdef SSE ?>
-      <Component Id="celt0.0.7.0.sse.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="celt0.0.11.0.sse.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse.dll" KeyPath="yes" />
-      </Component>
+        <Component Id="celt0.0.7.0.sse.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="celt0.0.11.0.sse.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse.dll" KeyPath="yes" />
+        </Component>
       <?endif ?>
 
       <?ifdef SSE2 ?>
-      <Component Id="celt0.0.7.0.sse2.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="celt0.0.11.0.sse2.dll">
-        <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse2.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="opus.sse2.dll">
-        <File Source="$(var.SourceDir)\release\opus.sse2.dll" KeyPath="yes" />
-      </Component>
+        <Component Id="celt0.0.7.0.sse2.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="celt0.0.11.0.sse2.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse2.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="opus.sse2.dll">
+          <File Source="$(var.SourceDir)\release\opus.sse2.dll" KeyPath="yes" />
+        </Component>
       <?endif ?>
 
       <?ifdef RedistDirVC10 ?>
