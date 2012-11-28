@@ -34,38 +34,6 @@
 BYTE* camptr;
 BYTE* frtptr;
 
-static bool cross(float *a, float *b, float *c) {
-	if (a == 0 || b == 0 || c == 0)
-		return false;
-
-	c[0] = a[1] * b[2] - a[2] * b[1];
-	c[1] = a[2] * b[0] - a[0] * b[2];
-	c[2] = a[0] * b[1] - a[1] * b[0];
-
-	return true;
-}
-
-static void norm(float *a) {
-	float length = sqrt(a[0]*a[0] + a[1]*a[1] + a[2]*a[2]);
-	if (length != 0.0f) {
-		a[0] /= length;
-		a[1] /= length;
-		a[2] /= length;
-	}
-}
-
-static void setTop(float *top, float* front) {
-	float c [3];
-
-	top[0] = 0;
-	top[1] = 1;
-	top[2] = 0;
-
-	cross(top, front, c);
-	cross(front, c, top);
-	norm(top);
-}
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
@@ -92,17 +60,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	BYTE *posptr0;
+	BYTE *topptr0;
 	
 	ok = peekProc((BYTE *) camptr, cam_corrector) &&
 	     peekProc((BYTE *) frtptr, front_corrector) &&
 	     peekProc((BYTE *) pModule + 0x02A09520, posptr0) &&
-	     peekProc((BYTE *) posptr0 + 0xC0, pos_corrector);
+	     peekProc((BYTE *) posptr0 + 0xC0, pos_corrector) &&
+	     peekProc((BYTE *) pModule + 0x02AA658C, topptr0) &&
+	     peekProc((BYTE *) topptr0 + 0x110, top_corrector);
 
 	if (! ok)
 		return false;
 
-	setTop(top_corrector, front_corrector);
-	
 	// Convert to left-handed coordinate system
 	camera_pos[0] = cam_corrector[2];
 	camera_pos[1] = cam_corrector[1];
@@ -112,10 +81,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[1] = pos_corrector[1];
 	avatar_pos[2] = pos_corrector[0];
 
-	for (int i=0;i<3;i++) {
-		avatar_pos[i] /= 1.0f; // Scale to meters
-		camera_pos[i] /= 1.0f; // Scale to meters
-	}
 	avatar_pos[1] += 1.5f;
 
 	avatar_front[0] = front_corrector[2];
