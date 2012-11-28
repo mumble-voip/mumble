@@ -1,5 +1,5 @@
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2012, Moritz Schneeweiss
+   Copyright (C) 2012, Moritz Schneeweiss <quirb@hotmail.com>
 
    All rights reserved.
 
@@ -31,9 +31,6 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE* camptr;
-BYTE* frtptr;
-
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
@@ -59,11 +56,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float top_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	BYTE *camptr0;
+	BYTE *camptr1;
 	BYTE *posptr0;
 	BYTE *topptr0;
-	
-	ok = peekProc((BYTE *) camptr, cam_corrector) &&
-	     peekProc((BYTE *) frtptr, front_corrector) &&
+
+	ok = peekProc((BYTE *) pModule + 0x02A2E9D8, camptr0) &&
+	     peekProc((BYTE *) camptr0 + 0x3C, camptr1) &&
+	     peekProc((BYTE *) camptr1 + 0x20, cam_corrector) &&
+	     peekProc((BYTE *) camptr1 + 0x40, front_corrector) &&
 	     peekProc((BYTE *) pModule + 0x02A09520, posptr0) &&
 	     peekProc((BYTE *) posptr0 + 0xC0, pos_corrector) &&
 	     peekProc((BYTE *) pModule + 0x02AA658C, topptr0) &&
@@ -121,8 +122,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 
 	BYTE* base = pModule + 0x2AA16C0;
-	camptr = base;
-	frtptr = base + 0x50;
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
