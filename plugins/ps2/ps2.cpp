@@ -34,15 +34,6 @@
 BYTE* camptr;
 BYTE* frtptr;
 
-/*static void wcsToMultibyteStdString(wchar_t *wcs, std::string &str) {
-	const int size = WideCharToMultiByte(CP_UTF8, 0, wcs, -1, NULL, 0, NULL, NULL);
-	if (size == 0) return;
-
-	str.resize(size);
-
-	WideCharToMultiByte(CP_UTF8, 0, wcs, -1, &str[0], size, NULL, NULL);
-}*/
-
 static bool cross(float *a, float *b, float *c) {
 	if (a == 0 || b == 0 || c == 0)
 		return false;
@@ -183,7 +174,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Planetside 2 (). No identity or context support yet.");
+	return std::wstring(L"Supports Planetside 2 (v0.473.22.176761). No identity support yet. Context support limited to continentname.");
 }
 
 static std::wstring description(L"Planetside 2 (v0.473.22.176761)");
