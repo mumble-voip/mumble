@@ -107,8 +107,12 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
 
   CONFIG(opus) {
     INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
-    DEFINES *= USE_OPUS
-    LIBS *= -lopus
+	DEFINES *= USE_OPUS
+    CONFIG(sse2) {
+	LIBS *= -lopus.sse
+    } else {
+	LIBS *= -lopus
+    }
   }
 }
 
