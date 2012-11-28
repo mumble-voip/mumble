@@ -1702,7 +1702,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 		else
 			iCodecBeta = version;
 	} else if (bOpus == enableOpus) {
-		if (connectingUser && !connectingUser->bOpus) {
+		if (bOpus && connectingUser && !connectingUser->bOpus) {
 			sendTextMessage(NULL, connectingUser, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is using, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 		}
 		return;
