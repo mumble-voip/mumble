@@ -164,6 +164,7 @@
       <ComponentRef Id="lol.dll" />
       <ComponentRef Id="lotro.dll" />
       <ComponentRef Id="manual.dll" />
+      <ComponentRef Id="ps2.dll" />
       <ComponentRef Id="sto.dll" />
       <ComponentRef Id="tf2.dll" />
       <ComponentRef Id="ut99.dll" />
