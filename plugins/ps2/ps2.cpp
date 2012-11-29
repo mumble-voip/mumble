@@ -35,16 +35,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
 
-	unsigned char state;
+	unsigned int state;
 	bool ok;
 
 	BYTE *stateptr;
-	ok = peekProc((BYTE *) pModule+0x0058CAE4, stateptr) &&
-	     peekProc((BYTE *) stateptr+0x5CB , state); // Magical state value
+	ok = peekProc((BYTE *) pModule+0x2A44680, state);
+
 	if (! ok)
 		return false;
 
-	if (state != 255) {
+	if (state == 0) {
 		context.clear();
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	}
@@ -120,8 +120,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	if (! initialize(pids, L"PlanetSide2.exe"))
 		return false;
-
-	BYTE* base = pModule + 0x2AA16C0;
 
 	// Check if we can get meaningful data from it
 	float apos[3], afront[3], atop[3];
