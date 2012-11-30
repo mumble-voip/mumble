@@ -35,7 +35,8 @@ using namespace std;
 
 BYTE *posptr;
 BYTE *rotptr;
-BYTE *stateptr;
+BYTE *serverstateptr;
+BYTE *spawnstateptr;
 BYTE *hostptr;
 //BYTE *teamptr;
 
@@ -73,7 +74,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	float ipos[3], rot[3];
 	bool ok;
-	char state;
+	char serverstate;
+	char spawnstate;
 	char chHostStr[40];
 	string sHost;
 	//BYTE bTeam;
@@ -83,7 +85,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc(posptr, ipos, 12) &&
 	     peekProc(rotptr, rot, 12) &&
-	     peekProc(stateptr, &state, 1) &&
+	     peekProc(serverstateptr, &serverstate, 1) &&
+	     peekProc(spawnstateptr, &spawnstate, 1) &&
 	     peekProc(hostptr, chHostStr, 40); //&&
 	//peekProc(teamptr, &bTeam, 1);
 	if (!ok)
@@ -122,8 +125,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		     << "</identity>";
 	identity = new_identity.str(); */
 
-	// Check to see if you are in a server
-	if (state == 0 || state == 3)
+	// Check to see if you are in a server and spawned
+	if (serverstate == 0 || spawnstate == 1)
 		return true; // Deactivate plugin
 
 	ok = calcout(ipos, rot, avatar_pos, avatar_front, avatar_top);
@@ -151,23 +154,25 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	// Check if we really have CSS running
 	/*
-		position tuple:		client.dll+0x3ee0c4  (x,y,z, float)
-		orientation tuple:	client.dll+0x39d504  (v,h float)
-		ID string:			client.dll+0x39ee41 = "CSSpectatorGUI@@" (16 characters, text)
-		spawn state:		client.dll+0x390070  (0 in main menu, 3 when at team selection menu or when not spawned, 5 for CT and 6 for T when spawned)
-		ip:port string		engine.dll+0x3909C4  (zero terminated ip:port, string)
+		position tuple:		client.dll+0x00709148  (x,y,z, float)
+		orientation tuple:	client.dll+0x007090BC  (v,h float)
+		ID string:			client.dll+0x0070A06D = "CSSpectatorGUI@@" (16 characters, text)
+		server state:		engine.dll+0x00397C2C  (0 in main menu or loading screen, 1 when fully in-game)
+		spawn state:		client.dll+0x0077C5F0  (0 when alive, 1 when observering or dead)
+		ip:port string		engine.dll+0x0042C94C  (zero terminated ip:port, string)
 		team state:			client.dll+0x3aa133  (60 when T, 61 when CT, byte)
 	*/
 	// Remember addresses for later
-	posptr = pModule + 0x006C31C0;
-	rotptr = pModule + 0x006C3134;
-	stateptr = pModule + 0x006AA044;
-	hostptr = mod_engine + 0x003E5E44;
+	posptr = pModule + 0x00709148;
+	rotptr = pModule + 0x007090BC;
+	serverstateptr = mod_engine + 0x00397C2C;
+	spawnstateptr = pModule + 0x0077C5F0;
+	hostptr = mod_engine + 0x0042C94C;
 	//teamptr = pModule + 0x3aa133;
 
 	//Gamecheck
 	char sMagic[16];
-	if (!peekProc(pModule + 0x006C5489, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
+	if (!peekProc(pModule + 0x0070A06D, sMagic, 16) || strncmp("CSSpectatorGUI@@", sMagic, 16)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -185,10 +190,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports CSS build 4724. No identity support yet.");
+	return std::wstring(L"Supports CSS build 5066. No identity support yet.");
 }
 
-static std::wstring description(L"Counter-Strike: Source (Build 4724)");
+static std::wstring description(L"Counter-Strike: Source (Build 5066)");
 static std::wstring shortname(L"Counter-Strike: Source");
 
 static int trylock1() {
