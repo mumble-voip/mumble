@@ -235,13 +235,13 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Ban lists</string>
+    <string>&amp;Ban list</string>
    </property>
    <property name="toolTip">
-    <string>Edit ban lists on server</string>
+    <string>Edit ban list on server</string>
    </property>
    <property name="whatsThis">
-    <string>This lets you edit the server-side IP ban lists.</string>
+    <string>This lets you edit the server-side IP ban list.</string>
    </property>
   </action>
   <action name="qaServerInformation">
