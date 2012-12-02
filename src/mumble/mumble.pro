@@ -141,9 +141,15 @@ win32 {
 unix {
   HAVE_PULSEAUDIO=$$system(pkg-config --modversion --silence-errors libpulse)
   HAVE_PORTAUDIO=$$system(pkg-config --modversion --silence-errors portaudio-2.0)
+  HAVE_JACKAUDIO=$$system(pkg-config --modversion --silence-errors jack)
 
   !isEmpty(HAVE_PORTAUDIO):!CONFIG(no-portaudio) {
     CONFIG *= portaudio
+  }
+
+  !isEmpty(HAVE_JACKAUDIO):!CONFIG(no-jackaudio) {
+    CONFIG -= portaudio
+    CONFIG *= jackaudio
   }
 
   !isEmpty(HAVE_PULSEAUDIO):!CONFIG(no-pulseaudio) {
@@ -156,6 +162,13 @@ unix {
     QMAKE_CXXFLAGS *= -I../../speex/include -I../../speexbuild
     QMAKE_CXXFLAGS_RELEASE *= -I../../speex/include -I../../speexbuild
     QMAKE_CXXFLAGS_DEBUG *= -I../../speex/include -I../../speexbuild
+  }
+
+  jackaudio {
+        DEFINES *= USE_JACKAUDIO
+        PKGCONFIG *= jack
+        HEADERS *= JackAudio.h
+        SOURCES *= JackAudio.cpp
   }
 
   CONFIG *= link_pkgconfig
