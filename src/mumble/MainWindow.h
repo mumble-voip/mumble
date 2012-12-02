@@ -149,6 +149,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setupView(bool toggle_minimize = true);
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
+		virtual void showEvent(QShowEvent *e);
 
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
