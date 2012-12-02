@@ -12,6 +12,12 @@
 #
 
 if (Ice_intversion() >= 30400) {
+  if (!stream_resolve_include_path('Ice.php')) {
+		exit('The required file Ice.php could not be found in the PHP include path(s).');
+  }
+  if (!stream_resolve_include_path('Murmur.php')) {
+		exit('The required file Murmur.php could not be found in the PHP include path(s).');
+  }
   require 'Ice.php';
   require 'Murmur.php';
 } else {
