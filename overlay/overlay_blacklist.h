@@ -61,7 +61,6 @@ static const char *overlayBlacklist[] = {
 	"LoLLauncher.exe", // League of Legends Launcher/Patcher
 	"acrobat.exe", // Adobe Acrobat
 	"Steam.exe", // Prevent invisible hooking
-	"chrome.exe", // Prevent invisible hooking (flash?)
 	NULL
 };
 
