@@ -73,8 +73,8 @@ inline bool resolve_ptrs() {
 
     /*
     Magic:
-        state : 0x02347E3C                                                       BYTE        2 when playing
-                                                                                             3 while in menu/dead
+        state : 0x02347E3C                                                       BYTE        1 when playing
+                                                                                             2 while in menu/dead
 
     Context:
         IP:Port of server: 0x023340D0                                            char[128]   ip:port of the server
@@ -210,7 +210,7 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Battlefield 3 with context and identity support.");
 }
 
-static std::wstring description(L"Battlefield 3 v981420 - Armored Kill");
+static std::wstring description(L"Battlefield 3 v1050237 - Aftermath");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {
