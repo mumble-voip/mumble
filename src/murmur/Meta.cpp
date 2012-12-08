@@ -110,7 +110,7 @@ MetaParams::~MetaParams() {
 template <class T>
 T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue) {
 	QVariant cfgVariable = qsSettings->value(name, defaultValue);
-	qCritical() << name << cfgVariable.toString();
+
 	if (!cfgVariable.convert(QVariant(defaultValue).type())) { // Bit convoluted as canConvert<T>() only does a static check without considering whether say a string like "blub" is actually a valid double (which convert does).
 		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of" << defaultValue << ".";
 		return defaultValue;
