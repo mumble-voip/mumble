@@ -3362,7 +3362,7 @@ veritabanını başlatamadı.</translation>
     <message>
         <location filename="CustomElements.cpp" line="+180"/>
         <source>Drag here</source>
-        <translation>Buraya sürükle</translation>
+        <translation>Buradan sürükle</translation>
     </message>
 </context>
 <context>
@@ -4278,12 +4278,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2131"/>
+        <location line="+2130"/>
         <source>Root</source>
         <translation>Kök</translation>
     </message>
     <message>
-        <location line="-2079"/>
+        <location line="-2078"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Bas-ve-Konuş</translation>
@@ -4362,7 +4362,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2230"/>
+        <location line="+2229"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4393,7 +4393,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Mumble hâlihazırda bir sunucuya bağlıdır. Kapatmak mı istiyorsunuz, küçültmek mi?</translation>
     </message>
     <message>
-        <location line="-190"/>
+        <location line="-189"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Kendini Sustur</translation>
@@ -4434,7 +4434,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Fısılda/Bağır</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+60"/>
         <location line="+2271"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation>&lt;center&gt;Çevrimdışı&lt;/center&gt;</translation>
@@ -4605,7 +4605,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Ses kanalı kontrol kanalından gönderilmekte.</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-898"/>
         <source>&amp;User</source>
         <translation>K&amp;ullanıcı</translation>
     </message>
@@ -4627,7 +4627,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Kanal Bağla</translation>
     </message>
     <message>
-        <location line="+688"/>
+        <location line="+687"/>
         <source>Change your comment</source>
         <translation>Yorumu değiştir</translation>
     </message>
@@ -5566,7 +5566,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Limite d&apos;imbrication des canaux atteinte.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8029,7 +8029,7 @@ Daha fazla bilgi için sunucu yöneticisi ile irtibata geçiniz.</translation>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalları azalt</translation>
     </message>
 </context>
 <context>
