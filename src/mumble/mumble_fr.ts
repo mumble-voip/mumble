@@ -3476,7 +3476,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Activez les raccourcis global</translation>
     </message>
 </context>
 <context>
@@ -7620,7 +7620,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Déviation du ping</translation>
     </message>
 </context>
 <context>
