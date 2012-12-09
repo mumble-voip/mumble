@@ -146,7 +146,12 @@ Database::Database() {
 	query.exec(QLatin1String("VACUUM"));
 
 	query.exec(QLatin1String("PRAGMA synchronous = OFF"));
+#ifdef Q_OS_WIN
+	// Windows can not handle TRUNCATE with multiple connections to the DB. Thus less performant DELETE.
+	query.exec(QLatin1String("PRAGMA journal_mode = DELETE"));
+#else
 	query.exec(QLatin1String("PRAGMA journal_mode = TRUNCATE"));
+#endif
 
 	query.exec(QLatin1String("SELECT sqlite_version()"));
 	while (query.next())
