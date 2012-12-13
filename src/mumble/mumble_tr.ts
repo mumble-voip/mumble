@@ -5566,7 +5566,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation>Limite d&apos;imbrication des canaux atteinte.</translation>
+        <translation>Kanal yuvalama sınırına ulaşıldı.</translation>
     </message>
     <message>
         <location line="+7"/>

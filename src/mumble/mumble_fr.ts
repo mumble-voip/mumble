@@ -5134,7 +5134,7 @@ Les options valides sont :
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation>Kanal yuvalama sınırına ulaşıldı.</translation>
+        <translation>Limite d&apos;imbrication des canaux atteinte.</translation>
     </message>
     <message>
         <location line="+7"/>
