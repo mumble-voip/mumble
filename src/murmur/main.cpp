@@ -345,18 +345,6 @@ int main(int argc, char **argv) {
 			_exit(0);
 		}
 
-		if (! Meta::mp.qsPid.isEmpty()) {
-			QFile pid(Meta::mp.qsPid);
-			if (pid.open(QIODevice::WriteOnly)) {
-				QFileInfo fi(pid);
-				Meta::mp.qsPid = fi.absoluteFilePath();
-
-				QTextStream out(&pid);
-				out << getpid();
-				pid.close();
-			}
-		}
-
 		chdir("/");
 		int fd;
 
@@ -372,6 +360,19 @@ int main(int argc, char **argv) {
 		dup2(fd, 2);
 		close(fd);
 	}
+
+	if (! Meta::mp.qsPid.isEmpty()) {
+		QFile pid(Meta::mp.qsPid);
+		if (pid.open(QIODevice::WriteOnly)) {
+			QFileInfo fi(pid);
+			Meta::mp.qsPid = fi.absoluteFilePath();
+
+			QTextStream out(&pid);
+			out << getpid();
+			pid.close();
+		}
+	}
+
 	unixhandler.finalcap();
 #endif
 
