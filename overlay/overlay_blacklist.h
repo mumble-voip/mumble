@@ -62,6 +62,7 @@ static const char *overlayBlacklist[] = {
 	"acrobat.exe", // Adobe Acrobat
 	"Steam.exe", // Prevent invisible hooking
 	"RzSynapse.exe", // Prevent invisible hooking - Razer Synapse (settings online synchronization)
+	"IpOverUsbSvc.exe", // Windows Phone IP over USB Transport
 	NULL
 };
 
