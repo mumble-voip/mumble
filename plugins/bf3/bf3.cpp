@@ -36,7 +36,7 @@ static bool ptr_chain_valid = false;
 static BYTE *pmodule_bf3;
 
 // Magic ptrs
-static BYTE* const state_ptr = (BYTE *) 0x02347E3C;
+static BYTE* const state_ptr = (BYTE *) 0x234CCCC;
 
 // Vector ptrs
 static BYTE* const avatar_pos_ptr = (BYTE *) 0x0234CC60;
@@ -52,8 +52,8 @@ static BYTE *squad_state_ptr;
 static BYTE *squad_lead_state_ptr;
 
 // Offsets
-static const int base_offset = 0x01F42AE4;
-static const int identity_offset1 = 0x8;
+static const int base_offset = 0x01F42AF0;
+static const int identity_offset1 = 0x1C;
 static const int identity_offset2 = 0xBC;
 static const int identity_offset3 = 0x36C;
 static const int identity_offset4 = 0x8;
@@ -63,14 +63,22 @@ static const int team_state_offset = 0x31C;
 
 enum state_values {
     STATE_UNKN = 0,
-    STATE_IN_GAME = 1,
-    STATE_IN_MENU = 2,
-    STATE_LOADING = 3
+    STATE_LOADING = 1,
+    STATE_IN_GAME = 2,
+    STATE_IN_MENU = 3
 };
 
 inline bool resolve_ptrs() {
     team_state_ptr = squad_state_ptr = squad_lead_state_ptr = NULL;
 
+    /*
+      Analysis for future patches:
+
+      - state_ptr is always 0x6C after avatar_pos_ptr
+      - avatar_front_ptr is always 0x30 after avatar_pos_ptr
+      - avatar_top_ptr is always 0x20 after avatar_pos_ptr
+      - you can find avatar_pos_ptr easily by jumping in a jet and search for altitude
+      */
     /*
     Magic:
         state : 0x02347E3C                                                       BYTE        1 when playing
