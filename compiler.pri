@@ -165,6 +165,11 @@ macx {
 	}
 }
 
+CONFIG(clang-analyzer) {
+	QMAKE_CC = $$(CC)
+	QMAKE_CXX = $$(CXX)
+}
+
 CONFIG(no-pch) {
 	CONFIG -= precompile_header
 } else {
