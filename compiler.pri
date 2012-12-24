@@ -5,7 +5,7 @@ win32 {
 	include(winpaths_default.pri)
 
 	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_49/"
-	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib" "$$BOOST_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
