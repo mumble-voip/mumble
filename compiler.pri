@@ -49,6 +49,8 @@ win32 {
 		CONFIG(analyze) {
 			QMAKE_CFLAGS_DEBUG *= /analyze
 			QMAKE_CXXFLAGS_DEBUG *= /analyze
+			QMAKE_CFLAGS_RELEASE *= /analyze
+			QMAKE_CXXFLAGS_RELEASE *= /analyze
 		}
 		DEFINES *= RESTRICT=
 		CONFIG(sse2) {
