@@ -36,15 +36,15 @@ static bool ptr_chain_valid = false;
 static BYTE *pmodule_bf3;
 
 // Magic ptrs
-static BYTE* const state_ptr = (BYTE *) 0x234CCCC;
+static BYTE* const state_ptr = (BYTE *) 0x2366F4C;
 
 // Vector ptrs
-static BYTE* const avatar_pos_ptr = (BYTE *) 0x0234CC60;
-static BYTE* const avatar_front_ptr = (BYTE *) 0x234CC90;
-static BYTE* const avatar_top_ptr = (BYTE *) 0x234CC80;
+static BYTE* const avatar_pos_ptr = (BYTE *) 0x02366EE0;
+static BYTE* const avatar_front_ptr = (BYTE *) 0x2366EF0;
+static BYTE* const avatar_top_ptr = (BYTE *) 0x2366F00;
 
 // Context ptrs
-static BYTE* const ipport_ptr = (BYTE *) 0x023340D0;
+static BYTE* const ipport_ptr = (BYTE *) 0x233DA30;
 
 // Identity ptrs
 static BYTE *team_state_ptr;
@@ -52,7 +52,7 @@ static BYTE *squad_state_ptr;
 static BYTE *squad_lead_state_ptr;
 
 // Offsets
-static const int base_offset = 0x01F42AF0;
+static const int base_offset = 0x01F5CD6C;
 static const int identity_offset1 = 0x1C;
 static const int identity_offset2 = 0xBC;
 static const int identity_offset3 = 0x36C;
@@ -218,7 +218,7 @@ static const std::wstring longdesc() {
     return std::wstring(L"Supports Battlefield 3 with context and identity support.");
 }
 
-static std::wstring description(L"Battlefield 3 v1050237 - Aftermath");
+static std::wstring description(L"Battlefield 3 v1089904 - Aftermath");
 static std::wstring shortname(L"Battlefield 3");
 
 static int trylock1() {
