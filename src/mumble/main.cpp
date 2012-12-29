@@ -322,9 +322,8 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	qWarning("Locale is %s", qPrintable(qsSystemLocale));
-
-	QString locale = g.s.qsLanguage.isEmpty() ? qsSystemLocale : g.s.qsLanguage;
+	const QString locale = g.s.qsLanguage.isEmpty() ? qsSystemLocale : g.s.qsLanguage;
+	qWarning("Locale is \"%s\" (System: \"%s\")", qPrintable(locale), qPrintable(qsSystemLocale));
 
 	QTranslator translator;
 	if (translator.load(QLatin1String("translation:mumble_") + locale))
