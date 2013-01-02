@@ -3772,8 +3772,23 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+6"/>
-        <source>You self-muted/deafened</source>
-        <translation>Selbst stumm/taub gestellt</translation>
+        <source>You self-muted</source>
+        <translation>Selbst stumm gestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-unmuted</source>
+        <translation>Selbst stumm abgestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-deafened</source>
+        <translation>Selbst taub gestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-undeafened</source>
+        <translation>Selbst taub abgestellt</translation>
     </message>
     <message>
         <location line="+1"/>

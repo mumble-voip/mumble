@@ -208,7 +208,10 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "User recording state changed"),
 	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
 	QT_TRANSLATE_NOOP("Log", "User kicked"),
-	QT_TRANSLATE_NOOP("Log", "You self-muted/deafened"),
+	QT_TRANSLATE_NOOP("Log", "You self-muted"),
+	QT_TRANSLATE_NOOP("Log", "You self-unmuted"),
+	QT_TRANSLATE_NOOP("Log", "You self-deafened"),
+	QT_TRANSLATE_NOOP("Log", "You self-undeafened"),
 	QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
 	QT_TRANSLATE_NOOP("Log", "User muted (you)"),
 	QT_TRANSLATE_NOOP("Log", "User muted (by you)"),
@@ -468,8 +471,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
 		postNotification(mt, console, plain);
 
-	// Don't make any noise if we are self deafened
-	if (g.s.bDeaf)
+	// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
+	if (g.s.bDeaf && mt != Log::SelfDeaf)
 		return;
 
 	// Message notification with static sounds
