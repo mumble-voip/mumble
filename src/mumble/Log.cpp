@@ -68,11 +68,13 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-		Log::MsgType t = static_cast<Log::MsgType>(i);
+		int iListIndex = Log::msgOrder[i];	//- Order messages according to array
+	
+		Log::MsgType t = static_cast<Log::MsgType>(iListIndex);
 		const QString messageName = g.l->msgName(t);
 
 		twi = new QTreeWidgetItem(qtwMessages);
-		twi->setData(ColMessage, Qt::UserRole, i);
+		twi->setData(ColMessage, Qt::UserRole, iListIndex);
 		twi->setText(ColMessage, messageName);
 		twi->setCheckState(ColConsole, Qt::Unchecked);
 		twi->setCheckState(ColNotification, Qt::Unchecked);
@@ -103,6 +105,7 @@ QIcon LogConfig::icon() const {
 
 void LogConfig::load(const Settings &r) {
 	QList<QTreeWidgetItem *> qlItems = qtwMessages->findItems(QString(), Qt::MatchContains);
+
 	foreach(QTreeWidgetItem *i, qlItems) {
 		Log::MsgType mt = static_cast<Log::MsgType>(i->data(ColMessage, Qt::UserRole).toInt());
 		Settings::MessageLog ml = static_cast<Settings::MessageLog>(r.qmMessages.value(mt));
@@ -113,6 +116,7 @@ void LogConfig::load(const Settings &r) {
 		i->setCheckState(ColStaticSound, (ml & Settings::LogSoundfile) ? Qt::Checked : Qt::Unchecked);
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
+	
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
 
 	loadSlider(qsVolume, r.iTTSVolume);
@@ -205,6 +209,33 @@ Log::Log(QObject *p) : QObject(p) {
 	qdDate = QDate::currentDate();
 }
 
+//- Displayorder in settingsscreen, allows to insert new events without breaking config-compatibility with older versions (Top = 0)
+const int Log::msgOrder[] = {
+	0,	//- DebugInfo
+	1,	//- CriticalError
+	2,	//- Warning
+	3,	//- Information
+	4,	//- ServerConnected
+	5,	//- ServerDisconnected
+	6,	//- UserJoin
+	7,	//- UserLeave
+	8,	//- Recording
+	9, 	//- YouKicked
+	10,	//- UserKicked
+	11,	//- SelfMute
+	20, //- SelfUnmute
+	21, //- SelfDeaf
+	22,	//- SelfUndeaf
+	12,	//- OtherSelfMute
+	13, //- YouMuted
+	14, //- YouMutedOther
+	15, //- OtherMutedOther
+	16, //- ChannelJoin
+	17, //- ChannelLeave
+	18, //- PermissionDenied
+	19  //- TextMessage
+};	
+
 const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "Debug"),
 	QT_TRANSLATE_NOOP("Log", "Critical"),
@@ -217,7 +248,7 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "User recording state changed"),
 	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
 	QT_TRANSLATE_NOOP("Log", "User kicked"),
-	QT_TRANSLATE_NOOP("Log", "You self-muted/deafened"),
+	QT_TRANSLATE_NOOP("Log", "You self-muted"),
 	QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
 	QT_TRANSLATE_NOOP("Log", "User muted (you)"),
 	QT_TRANSLATE_NOOP("Log", "User muted (by you)"),
@@ -225,7 +256,10 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "User Joined Channel"),
 	QT_TRANSLATE_NOOP("Log", "User Left Channel"),
 	QT_TRANSLATE_NOOP("Log", "Permission Denied"),
-	QT_TRANSLATE_NOOP("Log", "Text Message")
+	QT_TRANSLATE_NOOP("Log", "Text Message"),
+	QT_TRANSLATE_NOOP("Log", "You self-unmuted"),
+	QT_TRANSLATE_NOOP("Log", "You self-deafened"),
+	QT_TRANSLATE_NOOP("Log", "You self-undeafened")
 };
 
 QString Log::msgName(MsgType t) const {
@@ -488,8 +522,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
 		postNotification(mt, console, plain);
 
-	// Don't make any noise if we are self deafened
-	if (g.s.bDeaf)
+	// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
+	if (g.s.bDeaf && mt != Log::SelfDeaf)
 		return;
 
 	// Message notification with static sounds
