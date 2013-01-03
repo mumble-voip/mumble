@@ -3777,21 +3777,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+1"/>
-        <source>You self-unmuted</source>
-        <translation>Selbst stumm abgestellt</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>You self-deafened</source>
-        <translation>Selbst taub gestellt</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>You self-undeafened</source>
-        <translation>Selbst taub abgestellt</translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Other self-muted/deafened</source>
         <translation>Anderer stumm/taub gestellt</translation>
     </message>
@@ -3812,7 +3797,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Textnachricht</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="+1"/>
+        <source>You self-unmuted</source>
+        <translation>Selbst stumm abgestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-deafened</source>
+        <translation>Selbst taub gestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-undeafened</source>
+        <translation>Selbst taub abgestellt</translation>
+    </message>
+    <message>
+        <location line="-16"/>
         <source>User Joined Server</source>
         <translation>Benutzer betrat den Server</translation>
     </message>
@@ -3857,7 +3857,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Benutzer verließ den Kanal</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+63"/>
         <source>the server</source>
         <translation>den Server</translation>
     </message>

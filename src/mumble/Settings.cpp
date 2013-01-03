@@ -387,12 +387,12 @@ Settings::Settings() {
 
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
-
+	
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
+		{
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
-
-	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessageSounds.insert(i, QString());
+		}
 
 	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
 	qmMessageSounds[Log::PermissionDenied] = QLatin1String(":/PermissionDenied.ogg");

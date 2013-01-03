@@ -3654,21 +3654,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+1"/>
-        <source>You self-unmuted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>You self-deafened</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>You self-undeafened</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
         <source>Other self-muted/deafened</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3683,7 +3668,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="+1"/>
+        <source>You self-unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-deafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-undeafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-16"/>
         <source>User Joined Server</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3733,7 +3733,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+63"/>
         <source>the server</source>
         <translation type="unfinished"></translation>
     </message>
