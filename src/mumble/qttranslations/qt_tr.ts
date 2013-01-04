@@ -953,6 +953,10 @@ to
         <translation>İptal</translation>
     </message>
     <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;İptal</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>Kapat</translation>
     </message>

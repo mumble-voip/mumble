@@ -968,6 +968,10 @@ niet hernoemen naar
         <translation>Annuleren</translation>
     </message>
     <message>
+        <source>&amp;Cancel</source>
+        <translation>Ann&amp;uleren</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>Sluiten</translation>
     </message>

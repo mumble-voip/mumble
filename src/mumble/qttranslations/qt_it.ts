@@ -954,6 +954,10 @@ in
         <translation>Annulla</translation>
     </message>
     <message>
+        <source>&amp;Cancel</source>
+        <translation>Ann&amp;ulla</translation>
+    </message>
+    <message>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
