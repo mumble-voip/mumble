@@ -68,13 +68,11 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
-		int iListIndex = Log::msgOrder[i];	//- Order messages according to array
-	
-		Log::MsgType t = static_cast<Log::MsgType>(iListIndex);
+		Log::MsgType t = Log::msgOrder[i];
 		const QString messageName = g.l->msgName(t);
 
 		twi = new QTreeWidgetItem(qtwMessages);
-		twi->setData(ColMessage, Qt::UserRole, iListIndex);
+		twi->setData(ColMessage, Qt::UserRole, static_cast<int>(t));
 		twi->setText(ColMessage, messageName);
 		twi->setCheckState(ColConsole, Qt::Unchecked);
 		twi->setCheckState(ColNotification, Qt::Unchecked);
@@ -209,32 +207,19 @@ Log::Log(QObject *p) : QObject(p) {
 	qdDate = QDate::currentDate();
 }
 
-//- Displayorder in settingsscreen, allows to insert new events without breaking config-compatibility with older versions (Top = 0)
-const int Log::msgOrder[] = {
-	0,	//- DebugInfo
-	1,	//- CriticalError
-	2,	//- Warning
-	3,	//- Information
-	4,	//- ServerConnected
-	5,	//- ServerDisconnected
-	6,	//- UserJoin
-	7,	//- UserLeave
-	8,	//- Recording
-	9, 	//- YouKicked
-	10,	//- UserKicked
-	11,	//- SelfMute
-	20, //- SelfUnmute
-	21, //- SelfDeaf
-	22,	//- SelfUndeaf
-	12,	//- OtherSelfMute
-	13, //- YouMuted
-	14, //- YouMutedOther
-	15, //- OtherMutedOther
-	16, //- ChannelJoin
-	17, //- ChannelLeave
-	18, //- PermissionDenied
-	19  //- TextMessage
-};	
+// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older versions
+const Log::MsgType Log::msgOrder[] = {
+	DebugInfo, CriticalError, Warning, Information,
+	ServerConnected, ServerDisconnected,
+	UserJoin, UserLeave,
+	Recording,
+	YouKicked, UserKicked,
+	SelfMute, SelfUnmute, SelfDeaf, SelfUndeaf,
+	OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther,
+	ChannelJoin, ChannelLeave,
+	PermissionDenied,
+	TextMessage
+};
 
 const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "Debug"),

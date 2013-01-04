@@ -76,8 +76,8 @@ class Log : public QObject {
 		static const MsgType firstMsgType = DebugInfo;
 		static const MsgType lastMsgType = SelfUndeaf;
 		
-		//- Displayorder in settingsscreen, allows to insert new events without breaking config-compatibility with older versions (Top = 0)
-		static const int msgOrder[];
+		// Display order in settingsscreen, allows to insert new events without breaking config-compatibility with older versions.
+		static const MsgType msgOrder[];
 	
 	protected:
 		QHash<MsgType, int> qmIgnore;
