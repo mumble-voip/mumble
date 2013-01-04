@@ -3741,7 +3741,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+200"/>
+        <location filename="Log.cpp" line="+216"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -3857,7 +3857,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Benutzer verließ den Kanal</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+62"/>
         <source>the server</source>
         <translation>den Server</translation>
     </message>
