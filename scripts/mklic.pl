@@ -56,7 +56,7 @@ my @thirdPartyLicenses = (
     ["licenseVorbis", "../3rdPartyLicenses/libvorbis_license.txt", "libvorbis", "http://www.xiph.org/"],
     ["licenseFLAC", "../3rdPartyLicenses/libflac_license.txt", "libFLAC", "http://flac.sourceforge.net/"],
     ["licenseMachOverride", "../3rdPartyLicenses/mach_override_license.txt", "mach_override", "https://github.com/rentzsch/mach_star", "Q_OS_MAC"],
-    ["licenseQtTranslations", "../src/Mumble/qttranslations/LICENSE",
+    ["licenseQtTranslations", "../src/mumble/qttranslations/LICENSE",
     "Additional Qt translations", "https://www.virtualbox.org/ticket/2018", "USING_BUNDLED_QT_TRANSLATIONS"]);
                        
 # Print 3rd party licenses
