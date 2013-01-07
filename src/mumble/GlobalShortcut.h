@@ -230,7 +230,7 @@ class GlobalShortcutEngine : public QThread {
 		virtual void needRemap();
 		void run();
 
-		bool handleButton(const QVariant &, bool);
+		bool handleButton(const QVariant &button, bool down, bool handleSuppres = true);
 		static void add(GlobalShortcut *);
 		static void remove(GlobalShortcut *);
 		static QString buttonText(const QList<QVariant> &);

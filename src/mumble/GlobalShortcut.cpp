@@ -890,9 +890,9 @@ void GlobalShortcutEngine::resetMap() {
 void GlobalShortcutEngine::needRemap() {
 }
 
-bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
+bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down, bool allowSuppress) {
 	bool already = qlDownButtons.contains(button);
-	if (already == down)
+	if (allowSuppress && already == down)
 		return qlSuppressed.contains(button);
 	if (down)
 		qlDownButtons << button;
@@ -953,7 +953,7 @@ bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 			}
 		}
 	}
-	return suppress;
+	return allowSuppress ? suppress : false;
 }
 
 void GlobalShortcutEngine::add(GlobalShortcut *gs) {
