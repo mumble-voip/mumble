@@ -59,15 +59,19 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(GlobalShortcutWin)
-		friend class HookThread;
 	public:
+		BYTE ucKeyState[256];
 		LPDIRECTINPUT8 pDI;
 		QHash<GUID, InputDevice *> qhInputDevices;
+		HHOOK hhMouse, hhKeyboard;
 		unsigned int uiHardwareDevices;
 		Timer tDoubleClick;
+		bool bHook;
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
+		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
+		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 
 		virtual bool canSuppress();
 		void run();
@@ -78,29 +82,8 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		~GlobalShortcutWin();
 		void unacquire();
 		QString buttonName(const QVariant &);
-		void updateSuppressionState();
-		bool handleSuppress(const QVariant &, bool);
-		virtual void prepareInput();
-	private:
-		QMutex qmSuppress;
-		QList<QVariant> qlDownSuppressed;
-		QList<QVariant> qlSuppressButtons;
-		HookThread *hookThread;
-};
 
-class HookThread : public QThread {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(HookThread);
-	public:
-		HookThread(GlobalShortcutWin *gsw);
-		void prepareInput();
-		void run();
-		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
-		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
-	private:
-		HHOOK hhMouse, hhKeyboard;
-		BYTE ucKeyState[256];
+		virtual void prepareInput();
 };
 
 uint qHash(const GUID &);
