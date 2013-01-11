@@ -4055,7 +4055,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Stacked</source>
-        <translation>Empilé</translation>
+        <translation>Empilée</translation>
     </message>
     <message>
         <location/>
@@ -4065,7 +4065,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Personnalisé</translation>
+        <translation>Personnalisée</translation>
     </message>
     <message>
         <location/>
