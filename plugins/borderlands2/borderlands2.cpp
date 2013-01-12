@@ -31,73 +31,54 @@
 
 #include "../mumble_plugin_win32.h"
 
+VOID *vects_ptr;
+VOID *state_ptr;
+VOID *character_name_ptr_loc;
+
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
 {
 	// Zero out the structures
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-	if (NULL == pModule)
-		return false;
-
-	char state;
 	bool ok;
 
-	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
-	float pos_corrector[3];
-	float front_corrector[3];
-	float top_corrector[3];
+	char state;
 
 	// State 1 == in-game, 0 == in-menu
-	ok = peekProc((BYTE *) pModule + 0x1E78BC8, &state, 1); // Magical state value
-	if (! ok)
-		return false;
+	ok = peekProc(state_ptr, state);
+	if (!ok) return false;
 
 	if (state == 0)
              return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
-        // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x1E49070, &pos_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x1E782B0, &front_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x1E782BC, &top_corrector, 12);
-
-	if (! ok)
+	struct
 	{
-		return false;
-	}
+		float front[3];
+		float top[3];
+		float position[3];
+	} game_vects;
 
-	// Convert to left-handed coordinate system
 
-	// For some reason the X position seems to be the oppposite sign to
-	// the X component in the vectors below (or vice-versa)
-	avatar_pos[0] = -pos_corrector[0];
-	avatar_pos[1] = pos_corrector[2];
-	avatar_pos[2] = pos_corrector[1];
-	
+	ok = peekProc(vects_ptr, game_vects);
+	if (!ok) return false;
+
+	// Copy game vectors into return values
 	for (int i=0;i<3;i++)
-		avatar_pos[i]/=100.0f; // Scale to meters
-
-	avatar_front[0] = front_corrector[0];
-	avatar_front[1] = front_corrector[1];
-	avatar_front[2] = front_corrector[2];
-
-	avatar_top[0] = top_corrector[0];
-	avatar_top[1] = top_corrector[1];
-	avatar_top[2] = top_corrector[2];
-	
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
-		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
+	{
+		camera_pos[i]   = avatar_pos[i]   = game_vects.position[i] / 100.0f; // Scale to meters
+		camera_front[i] = avatar_front[i] = game_vects.front[i];
+		camera_top[i]   = avatar_top[i]   = game_vects.top[i];
 	}
+
 
 	// Extract the character name
-	BYTE *ptr1 = peekProc<BYTE *>(pModule + 0x1E7203C);
-	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0xC);
+	BYTE *ptr1 = peekProc<BYTE*>(character_name_ptr_loc);
+	BYTE *ptr2 = peekProc<BYTE*>(ptr1 + 0xC);
 	BYTE *character_name_ptr = ptr2 + 0x80;
 
-	char character_name[16] = ""; // The game limits us to 15 char names
-	ok = peekProc(character_name_ptr, &character_name, sizeof(character_name));
+	char character_name[16]; // The game limits us to 15 char names
+	ok = peekProc(character_name_ptr, character_name);
 	if (ok)
 	{
 		// character_name is zero terminated, but using strnlen for double-plus safety
@@ -109,16 +90,19 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
 {
-	pModule = NULL;
-
 	if (!initialize(pids, L"Borderlands2.exe"))
 		return false;
 
-	const char version_cookie[] = "WILLOW2-PCSAGE-20-CL691788";
+	char detected_version[32];
 
-	char detected_version[sizeof(version_cookie)];
-	if (	   !peekProc((BYTE *) pModule + 0x1E6C078, &detected_version, sizeof(version_cookie))
-		|| strcmp(version_cookie, detected_version) != 0)
+	if (peekProc(pModule + 0x1E6D048, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") != 0)
+	{
+		vects_ptr = pModule + 0x1E792B0;
+		state_ptr = pModule + 0x1E79BC8;
+		character_name_ptr_loc = pModule + 0x1E7302C;
+	}
+	else
 	{
 		generic_unlock();
 		return false;
@@ -142,7 +126,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
-static std::wstring description(L"Borderlands 2 (v1.0.20.691788)");
+static std::wstring description(L"Borderlands 2 (v1.3.1)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
