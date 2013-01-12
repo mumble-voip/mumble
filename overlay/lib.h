@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _LIB_H
-#define _LIB_H
+#ifndef LIB_H_
+#define LIB_H_
 
 #define _UNICODE
 #define  _WIN32_WINNT 0x0501
