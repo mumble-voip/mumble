@@ -1,6 +1,6 @@
 #ifndef Q_MOC_RUN
-#ifndef _MUMBLE_PCH_H
-#define _MUMBLE_PCH_H
+#ifndef MUMBLE_PCH_H_
+#define MUMBLE_PCH_H_
 
 #define QT_NO_DEBUG_STREAM
 #define QT_NO_CAST_TO_ASCII

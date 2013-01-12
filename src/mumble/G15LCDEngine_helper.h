@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __G15LCDENGINE_HELPER__
-#define __G15LCDENGINE_HELPER__
+#ifndef G15LCDENGINE_HELPER_H_
+#define G15LCDENGINE_HELPER_H_
 
 #include "mumble_pch.hpp"
 #include "LCD.h"

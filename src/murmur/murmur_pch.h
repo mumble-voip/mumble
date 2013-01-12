@@ -1,6 +1,6 @@
 #ifndef Q_MOC_RUN
-#ifndef _MURMUR_PCH_H
-#define _MURMUR_PCH_H
+#ifndef MURMUR_PCH_H_
+#define MURMUR_PCH_H_
 
 #define WIN32_LEAN_AND_MEAN
 
