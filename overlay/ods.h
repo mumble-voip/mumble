@@ -28,12 +28,12 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifndef ODS_H
-#define ODS_H
+#ifndef ODS_H_
+#define ODS_H_
 
 #include <stdarg.h>
 
 void __cdecl _ods_out(const char *format, va_list *args);
 void __cdecl fods(const char *format, ...);
 
-#endif // ODS_H
+#endif

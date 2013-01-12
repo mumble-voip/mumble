@@ -1,3 +1,6 @@
+#ifndef AVAIL_H_
+#define AVAIL_H_
+
 #define AVAIL_ALL_GLSYM ( \
 	AVAIL(glTexImage2D) && \
 	AVAIL(glCreateShader) && \
@@ -48,3 +51,5 @@
 	AVAIL(glTexParameteri) && \
 	AVAIL(glLoadIdentity) && \
 	1)
+
+#endif

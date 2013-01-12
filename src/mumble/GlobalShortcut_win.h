@@ -28,6 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef GLOBALSHORTCUT_WIN_H_
+#define GLOBALSHORTCUT_WIN_H_
+
 #include "GlobalShortcut.h"
 #include "Timer.h"
 
@@ -87,3 +90,5 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 };
 
 uint qHash(const GUID &);
+
+#endif

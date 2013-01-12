@@ -28,6 +28,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef GLOBALSHORTCUT_UNIX_H_
+#define GLOBALSHORTCUT_UNIX_H_
+
 #include "GlobalShortcut.h"
 #include "ConfigDialog.h"
 #include "Global.h"
@@ -71,3 +74,5 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		void inputReadyRead(int);
 		void directoryChanged(const QString &);
 };
+
+#endif

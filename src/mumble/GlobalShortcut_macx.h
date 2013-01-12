@@ -29,6 +29,9 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef GLOBALSHORTCUT_MACX_H_
+#define GLOBALSHORTCUT_MACX_H_
+
 #include <stdlib.h>
 #include <QtCore/QObject>
 
@@ -70,3 +73,5 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		QString translateModifierKey(const unsigned int keycode) const;
 		QString translateKeyName(const unsigned int keycode) const;
 };
+
+#endif
