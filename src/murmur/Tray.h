@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_TRAY_H_
-#define MUMBLE_TRAY_H_
+#ifndef MUMBLE_MURMUR_TRAY_H_
+#define MUMBLE_MURMUR_TRAY_H_
 
 #include <QtCore/QStringList>
 #include <QtCore/QObject>

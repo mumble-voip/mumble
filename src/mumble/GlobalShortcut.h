@@ -29,8 +29,8 @@
 */
 
 
-#ifndef MUMBLE_GLOBALSHORTCUT_H_
-#define MUMBLE_GLOBALSHORTCUT_H_
+#ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_H_
+#define MUMBLE_MUMBLE_GLOBALSHORTCUT_H_
 
 #include <QtCore/QThread>
 #include <QtGui/QToolButton>

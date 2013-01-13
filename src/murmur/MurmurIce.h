@@ -29,8 +29,8 @@
 */
 
 #ifdef USE_ICE
-#ifndef MUMBLE_MURMURICE_H_
-#define MUMBLE_MURMURICE_H_
+#ifndef MUMBLE_MURMUR_MURMURICE_H_
+#define MUMBLE_MURMUR_MURMURICE_H_
 
 #include <QtCore/QList>
 #include <QtCore/QMap>

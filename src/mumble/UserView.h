@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_USERVIEW_H_
-#define MUMBLE_USERVIEW_H_
+#ifndef MUMBLE_MUMBLE_USERVIEW_H_
+#define MUMBLE_MUMBLE_USERVIEW_H_
 
 #include <QtGui/QStyledItemDelegate>
 #include <QtGui/QTreeView>

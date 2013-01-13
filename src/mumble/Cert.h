@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_CERT_H_
-#define MUMBLE_CERT_H_
+#ifndef MUMBLE_MUMBLE_CERT_H_
+#define MUMBLE_MUMBLE_CERT_H_
 
 #include <QtCore/QString>
 #include <QtGui/QGroupBox>
