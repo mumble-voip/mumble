@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_GLOBAL_H_
-#define MUMBLE_GLOBAL_H_
+#ifndef MUMBLE_MUMBLE_GLOBAL_H_
+#define MUMBLE_MUMBLE_GLOBAL_H_
 
 #include <boost/shared_ptr.hpp>
 #include <QtCore/QDir>

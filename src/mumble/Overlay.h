@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_OVERLAY_H_
-#define MUMBLE_OVERLAY_H_
+#ifndef MUMBLE_MUMBLE_OVERLAY_H_
+#define MUMBLE_MUMBLE_OVERLAY_H_
 
 #include <QtCore/QUrl>
 #include <QtGui/QGraphicsItem>

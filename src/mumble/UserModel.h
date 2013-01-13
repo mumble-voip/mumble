@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_USERMODEL_H_
-#define MUMBLE_USERMODEL_H_
+#ifndef MUMBLE_MUMBLE_USERMODEL_H_
+#define MUMBLE_MUMBLE_USERMODEL_H_
 
 #include <QtCore/QAbstractItemModel>
 #include <QtCore/QHash>

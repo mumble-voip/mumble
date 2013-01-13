@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MUMBLE_SETTINGS_H_
-#define MUMBLE_SETTINGS_H_
+#ifndef MUMBLE_MUMBLE_SETTINGS_H_
+#define MUMBLE_MUMBLE_SETTINGS_H_
 
 #include <QtCore/QVariant>
 #include <QtCore/QList>
