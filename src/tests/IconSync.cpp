@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
 	sizes << 64;
 	sizes << 96;
 	sizes << 128;
+	sizes << 256;
 
 	QStringList qslImages;
 
