@@ -5,11 +5,8 @@
  <file>qt_de.qm</file>
  <file>qt_es.qm</file>
  <file>qt_fr.qm</file>
- <file>qt_he.qm</file>
- <file>qt_hu.qm</file>
  <file alias="qt_it.qm">qttranslations/qt_it.qm</file>
  <file>qt_ja.qm</file>
- <file alias="qt_nl.qm">qttranslations/qt_nl.qm</file>
  <file>qt_pl.qm</file>
  <file>qt_pt.qm</file>
  <file>qt_ru.qm</file>
