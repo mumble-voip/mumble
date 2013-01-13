@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USEREDIT_H_
-#define USEREDIT_H_
+#ifndef MUMBLE_USEREDIT_H_
+#define MUMBLE_USEREDIT_H_
 
 #include "Message.h"
 

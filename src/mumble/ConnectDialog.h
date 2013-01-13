@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONNECTDIALOG_H_
-#define CONNECTDIALOG_H_
+#ifndef MUMBLE_CONNECTDIALOG_H_
+#define MUMBLE_CONNECTDIALOG_H_
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/stats.hpp>

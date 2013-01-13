@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef WEBFETCH_H_
-#define WEBFETCH_H_
+#ifndef MUMBLE_WEBFETCH_H_
+#define MUMBLE_WEBFETCH_H_
 
 #include <QtCore/QByteArray>
 #include <QtCore/QMap>

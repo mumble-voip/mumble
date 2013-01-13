@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DATABASE_H_
-#define DATABASE_H_
+#ifndef MUMBLE_DATABASE_H_
+#define MUMBLE_DATABASE_H_
 
 #include "Settings.h"
 

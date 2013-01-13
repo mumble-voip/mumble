@@ -42,8 +42,8 @@
 
 	***************************************************************************/
 
-#ifndef		MACH_OVERRIDE_H_
-#define		MACH_OVERRIDE_H_
+#ifndef		MUMBLE_MACH_OVERRIDE_H_
+#define		MUMBLE_MACH_OVERRIDE_H_
 
 #include <sys/types.h>
 #include <mach/error.h>

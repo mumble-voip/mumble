@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONFIGWIDGET_H_
-#define CONFIGWIDGET_H_
+#ifndef MUMBLE_CONFIGWIDGET_H_
+#define MUMBLE_CONFIGWIDGET_H_
 
 #include <QtCore/QObject>
 #include <QtGui/QWidget>

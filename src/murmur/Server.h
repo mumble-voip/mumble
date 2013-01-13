@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SERVER_H_
-#define SERVER_H_
+#ifndef MUMBLE_SERVER_H_
+#define MUMBLE_SERVER_H_
 
 #include <boost/function.hpp>
 #include <QtCore/QEvent>

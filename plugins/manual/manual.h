@@ -1,5 +1,5 @@
-#ifndef MANUAL_H_
-#define MANUAL_H_
+#ifndef MUMBLE_MANUAL_H_
+#define MUMBLE_MANUAL_H_
 
 #include <QDialog>
 #include <QGraphicsItem>

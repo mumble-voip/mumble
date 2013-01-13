@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SERVERHANDLER_H_
-#define SERVERHANDLER_H_
+#ifndef MUMBLE_SERVERHANDLER_H_
+#define MUMBLE_SERVERHANDLER_H_
 
 #include <boost/accumulators/accumulators.hpp>
 #include <boost/accumulators/statistics/stats.hpp>

@@ -1,5 +1,5 @@
-#ifndef AVAIL_H_
-#define AVAIL_H_
+#ifndef MUMBLE_AVAIL_H_
+#define MUMBLE_AVAIL_H_
 
 #define AVAIL_ALL_GLSYM ( \
 	AVAIL(glTexImage2D) && \

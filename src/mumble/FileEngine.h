@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef FILEENGINE_H_
-#define FILEENGINE_H_
+#ifndef MUMBLE_FILEENGINE_H_
+#define MUMBLE_FILEENGINE_H_
 
 class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 	private:

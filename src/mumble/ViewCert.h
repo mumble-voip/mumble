@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef VIEWCERT_H_
-#define VIEWCERT_H_
+#ifndef MUMBLE_VIEWCERT_H_
+#define MUMBLE_VIEWCERT_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QList>

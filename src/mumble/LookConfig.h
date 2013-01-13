@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef LOOKCONFIG_H_
-#define LOOKCONFIG_H_
+#ifndef MUMBLE_LOOKCONFIG_H_
+#define MUMBLE_LOOKCONFIG_H_
 
 #include "ConfigDialog.h"
 

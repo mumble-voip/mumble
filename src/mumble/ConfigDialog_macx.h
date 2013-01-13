@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONFIGDIALOG_MACX_H_
-#define CONFIGDIALOG_MACX_H_
+#ifndef MUMBLE_CONFIGDIALOG_MACX_H_
+#define MUMBLE_CONFIGDIALOG_MACX_H_
 
 #include "mumble_pch.hpp"
 #include "ui_ConfigDialog.h"

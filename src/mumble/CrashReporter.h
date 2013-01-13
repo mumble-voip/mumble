@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRASHREPORTER_H_
-#define CRASHREPORTER_H_
+#ifndef MUMBLE_CRASHREPORTER_H_
+#define MUMBLE_CRASHREPORTER_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QEventLoop>
