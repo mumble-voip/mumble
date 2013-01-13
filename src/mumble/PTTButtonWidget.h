@@ -1,5 +1,5 @@
-#ifndef PTTBUTTONWIDGET_H_
-#define PTTBUTTONWIDGET_H_
+#ifndef MUMBLE_PTTBUTTONWIDGET_H_
+#define MUMBLE_PTTBUTTONWIDGET_H_
 
 #include "ui_PTTButtonWidget.h"
 

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ABOUT_H_
-#define ABOUT_H_
+#ifndef MUMBLE_ABOUT_H_
+#define MUMBLE_ABOUT_H_
 
 #include <QtCore/QObject>
 #include <QtGui/QDialog>

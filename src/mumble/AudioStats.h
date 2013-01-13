@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOSTATS_H_
-#define AUDIOSTATS_H_
+#ifndef MUMBLE_AUDIOSTATS_H_
+#define MUMBLE_AUDIOSTATS_H_
 
 #include <QtCore/QList>
 #include <QtCore/QTimer>

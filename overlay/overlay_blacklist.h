@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OVERLAY_BLACKLIST_H_
-#define OVERLAY_BLACKLIST_H_
+#ifndef MUMBLE_OVERLAY_BLACKLIST_H_
+#define MUMBLE_OVERLAY_BLACKLIST_H_
 
 static const char *overlayBlacklist[] = {
 	"iexplore.exe",

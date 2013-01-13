@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef MUMBLE_MAINWINDOW_H_
+#define MUMBLE_MAINWINDOW_H_
 
 #include <QtGui/QMainWindow>
 #include <QtGui/QSystemTrayIcon>
