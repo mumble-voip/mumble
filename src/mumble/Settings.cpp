@@ -306,8 +306,9 @@ Settings::Settings() {
 	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
 #ifdef Q_OS_WIN
-	// Don't enable minimize to tray by default on win7
-	bHideInTray = (QSysInfo::windowsVersion() != QSysInfo::WV_6_1);
+	// Don't enable minimize to tray by default on Windows 7 or Windows 8
+	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
+	bHideInTray = (winVer != QSysInfo::WV_WINDOWS7 && winVer != QSysInfo::WV_WINDOWS8);
 #else
 	bHideInTray = true;
 #endif
