@@ -405,7 +405,7 @@ Adicionar um novo grupo.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Especifique o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está conectado.</translation>
+        <translation>&lt;b&gt;Nome&lt;/b&gt;&lt;br /&gt;Especifique o nome do canal neste campo. O nome deve cumprir as restrições impostas pelo servidor ao qual está ligado.</translation>
     </message>
     <message>
         <location/>
@@ -1251,12 +1251,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Configura a distância mínima para cálculos de som. O volume da fala dos utilizadores não irá diminuir ate que estejam no mínimo a esta distância de si.</translation>
+        <translation>Configura a distância mínima para cálculos de som. O volume da voz dos utilizadores não irá diminuir ate que estejam no mínimo a esta distância de si.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outros utilizadores não irá diminuir mais.</translation>
+        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de voz de outros utilizadores não irá diminuir mais.</translation>
     </message>
     <message>
         <location/>
@@ -1292,7 +1292,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>Os &quot;altifalantes&quot; conectados são na realidade auscultadores</translation>
+        <translation>Os &quot;altifalantes&quot; ligados são na realidade auscultadores</translation>
     </message>
     <message>
         <location/>
@@ -1317,7 +1317,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Marcar isto indica que não tem altifalantes conectados, apenas auscultadores. Isto é importante, já que altifalantes geralmente ficam a sua frente, enquanto que auscultadores ficam diretamente ao seu lado.</translation>
+        <translation>Marcar isto indica que não tem altifalantes ligados, apenas auscultadores. Isto é importante, já que altifalantes geralmente ficam a sua frente, enquanto que auscultadores ficam diretamente ao seu lado.</translation>
     </message>
     <message>
         <location/>
@@ -1413,7 +1413,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Atenuar volume dos outras aplicações durante a fala&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outras aplicações durante a entrada/saída de fala. Configura a atenuação de outras aplicações quando ativo.</translation>
+        <translation>&lt;b&gt;Atenuar volume dos outras aplicações durante a fala&lt;/b&gt;&lt;br /&gt;O Mumble suporta a diminuição do volume de outras aplicações durante a entrada/saída de voz. Configura a atenuação de outras aplicações quando ativo.</translation>
     </message>
     <message>
         <location/>
@@ -1550,12 +1550,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation>Potência máxima no último quadro</translation>
+        <translation>Potência máxima no última frame</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Mostra a potência máxima no último quadro (20 ms), e é a mesma medida que geralmente encontra como &quot;potência de entrada&quot;. Por favor desconsidere isto e veja &lt;b&gt;Potência do microfone&lt;/b&gt;, que é muito mais regular e desconsidera extremos.</translation>
+        <translation>Mostra a potência máxima na última frame (20 ms), e é a mesma medida que geralmente encontra como &quot;potência de entrada&quot;. Por favor desconsidere isto e veja &lt;b&gt;Potência do microfone&lt;/b&gt;, que é muito mais regular e desconsidera extremos.</translation>
     </message>
     <message>
         <location/>
@@ -1566,7 +1566,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Mostra o pico de potência dos altifalantes no último quadro (20ms). A menos que esteja usando um método de amostra multi-canal (como ASIO) com altifalantes configurados, isto será 0. Se possui tal instalação configurada, e isto ainda mostra 0 enquanto estiver a usar áudio de outros programas, a sua configuração não está a funcionar.</translation>
+        <translation>Mostra o pico de potência dos altifalantes na última frame (20ms). A menos que esteja usando um método de amostra multi-canal (como ASIO) com altifalantes configurados, isto será 0. Se possui tal instalação configurada, e isto ainda mostra 0 enquanto estiver a usar áudio de outros programas, a sua configuração não está a funcionar.</translation>
     </message>
     <message>
         <location/>
@@ -1576,7 +1576,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando não está a falar. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte deve ver algo ao redor de -20 dB. Quando está a falar, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se está a usar anulação de eco, e isto aumenta para mais de -15 dB quando não está a falar, a sua configuração não está a funcionar, e vai incomodar outros utilizadores com ecos.</translation>
+        <translation>Mostra a potência máxima na última frame (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando não está a falar. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte deve ver algo ao redor de -20 dB. Quando está a falar, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se está a usar anulação de eco, e isto aumenta para mais de -15 dB quando não está a falar, a sua configuração não está a funcionar, e vai incomodar outros utilizadores com ecos.</translation>
     </message>
     <message>
         <location/>
@@ -1611,7 +1611,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Esta é a relação sinal/ruído (SNR) do microfone no último quadro (20 ms). Ele mostra quão mais clara a voz é compara com o ruído.&lt;br /&gt;Se este valor está abaixo de 1.0, há muito mais ruído do que voz no sinal, e então a qualidade é reduzida.&lt;br /&gt;Não há um limite superior para este valor, mas não espere ver muito acima de 40-50 sem um estúdio de som.</translation>
+        <translation>Esta é a relação sinal/ruído (SNR) do microfone na última frame (20 ms). Ele mostra quão mais clara a voz é compara com o ruído.&lt;br /&gt;Se este valor está abaixo de 1.0, há muito mais ruído do que voz no sinal, e então a qualidade é reduzida.&lt;br /&gt;Não há um limite superior para este valor, mas não espere ver muito acima de 40-50 sem um estúdio de som.</translation>
     </message>
     <message>
         <location/>
@@ -1626,7 +1626,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Este é provavelmente o último quadro (20 ms) que era fala e não ruído ambiente.&lt;br /&gt;Transmissão da atividade vocal depende disto estar certo. O truque com isto é que o meio da sentença é sempre detectado como fala; o problema são as pausas entre as palavras e o começo da fala. É difícil distinguir um suspiro de uma palavra começando com &apos;h&apos;.&lt;br /&gt;Se isto está em negrito, significa que o Mumble está a transmitir atualmente (se está conectado).</translation>
+        <translation>Este é provavelmente a última frame (20 ms) que era fala e não ruído ambiente.&lt;br /&gt;Transmissão da atividade vocal depende disto estar certo. O truque com isto é que o meio da sentença é sempre detectado como fala; o problema são as pausas entre as palavras e começar a falar. É difícil distinguir um suspiro de uma palavra começando com &apos;h&apos;.&lt;br /&gt;Se isto está em negrito, significa que o Mumble está a transmitir atualmente (se estiver ligado).</translation>
     </message>
     <message>
         <location/>
@@ -1641,7 +1641,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation>Taxa do último quadro</translation>
+        <translation>Taxa da última frame</translation>
     </message>
     <message>
         <location/>
@@ -1701,7 +1701,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá saltar para cima e para baixo conforma o VBD ajusta a qualidade. O pico da taxa pode ser ajustado no diálogo de Configuração.</translation>
+        <translation>Esta é a taxa de áudio para a última frame comprimida (20 ms), e como tal irá saltar para cima e para baixo conforma o VBD ajusta a qualidade. O pico da taxa pode ser ajustado no diálogo de Configuração.</translation>
     </message>
 </context>
 <context>
@@ -1744,7 +1744,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Este é o dispositivo ao qual o seu microfone está conectado.</translation>
+        <translation>Este é o dispositivo ao qual o seu microfone está ligado.</translation>
     </message>
     <message>
         <location/>
@@ -1794,7 +1794,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Este é o dispositivo ao qual seus altifalantes ou auscultadores estão conectados.</translation>
+        <translation>Este é o dispositivo ao qual seus altifalantes ou auscultadores estão ligados.</translation>
     </message>
     <message>
         <location/>
@@ -2325,7 +2325,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     <message>
         <location filename="main.cpp" line="+454"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está para expirar. Precisa renová-lo, ou não será mais capaz de conectar aos servidores em que está registrado.</translation>
+        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está para expirar. Precisa renová-lo, ou não será mais capaz de ligar aos servidores em que está registrado.</translation>
     </message>
 </context>
 <context>
@@ -2498,7 +2498,7 @@ Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Já possui um certificado gravado no Mumble, e esta prestes a substituí-lo.&lt;/p&gt;
-&lt;p&gt;Se está a atualizar um certificado emitido pela sua AC confiável e o endereço de e-mail coincide com o seu certificado atual, isto é totalmente seguro, e servidores aos quais se conectar vão reconhecer automaticamente o certificado robusto para o seu endereço de email.
+&lt;p&gt;Se está a atualizar um certificado emitido pela sua AC confiável e o endereço de e-mail coincide com o seu certificado atual, isto é totalmente seguro, e servidores aos quais se ligar vão reconhecer automaticamente o certificado robusto para o seu endereço de email.
 &lt;/p&gt;
 &lt;p&gt;Se este não é o caso, não será mais reconhecido em nenhum servidor onde se autenticou. Se ainda não se registou em nenhum servidor, isto também não é nada para se preocupar.
 &lt;/p&gt;
@@ -2564,7 +2564,7 @@ Tem certeza de que quer substituir o seu certificado?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;O Mumble irá gerar um certificado robusto para autenticação nos servidores.&lt;/p&gt;&lt;p&gt;Se quiser pode fornecer algumas informações adicionais que podem ser gravadas no certificado, que serão apresentadas aos servidores ao se conectar. Se fornecer um endereço de email válido, você pode atualizar para um certificado de email emitido por uma AC no futuro, o que fornece uma identificação robusta.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;O Mumble irá gerar um certificado robusto para autenticação nos servidores.&lt;/p&gt;&lt;p&gt;Se quiser pode fornecer algumas informações adicionais que podem ser gravadas no certificado, que serão apresentadas aos servidores ao se ligar. Se fornecer um endereço de email válido, pode atualizar para um certificado de email emitido por uma AC no futuro, o que fornece uma identificação robusta.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2711,7 +2711,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Isto representa a permissão de silenciar e ensurdecer outros utilizadores. Uma vez silenciado um utilizador permanecerá assim até ser removido silenciar por utilizador com privilégios ou ao reconectar com o servidor.</translation>
+        <translation>Isto representa a permissão de silenciar e ensurdecer outros utilizadores. Uma vez silenciado um utilizador permanecerá assim até ser removido silenciar por utilizador com privilégios ou ao ligar novamente com o servidor.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2935,7 +2935,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location filename="ConnectDialog.cpp" line="+906"/>
         <source>Connecting to %1</source>
-        <translation>Conectando a %1</translation>
+        <translation>Ligado a %1</translation>
     </message>
     <message>
         <location line="-515"/>
@@ -3013,7 +3013,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+293"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Conectar</translation>
+        <translation>&amp;Ligar</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -3220,7 +3220,7 @@ Nome de utilizador para enviar ao servidor. Lembre-se que o servidor pode impor 
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Senha&lt;/b&gt;&lt;br/&gt;
-Senha para enviar ao servidor na conexão. Essa senha é necessária ao conectar-se como &lt;i&gt;SuperUser&lt;/i&gt; ou para servidor com autenticação por senha. Se não especificada a senha é perguntada na conexão.</translation>
+Senha para enviar ao servidor na ligação. Essa senha é necessária ao ligar-se como &lt;i&gt;SuperUser&lt;/i&gt; ou para servidor com autenticação por senha. Se não especificada a senha é perguntada na ligação.</translation>
     </message>
     <message>
         <location/>
@@ -3866,7 +3866,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Clique aqui para alternar Texto-para-Fala para eventos %1.&lt;br /&gt;Se marcada, o Mumble usa Texto-para-Voz para ler eventos %1 para si. Texto-para-Voz também é capaz de ler conteúdos do evento o que não é verdade para ficheiros sonoros. Texto-para-Voz e ficheiros sonoros não podem ser usados ao mesmo tempo.</translation>
+        <translation>Clique aqui para alternar Texto-para-Voz para eventos %1.&lt;br /&gt;Se marcada, o Mumble usa Texto-para-Voz para ler eventos %1 para si. Texto-para-Voz também é capaz de ler conteúdos do evento o que não é verdade para ficheiros sonoros. Texto-para-Voz e ficheiros sonoros não podem ser usados ao mesmo tempo.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5878,17 +5878,17 @@ Opções válidas são:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation>Esconder quadro</translation>
+        <translation>Esconder Frame</translation>
     </message>
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation>Alternar mostrar quadro na janela mínima</translation>
+        <translation>Alternar mostrar frame na janela mínima</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation>Isto vai alternar se a janela mínima deve ter um quadro para mover e redimensioná-la.</translation>
+        <translation>Isto vai alternar se a janela mínima deve ter uma frame para mover e redimensioná-la.</translation>
     </message>
     <message>
         <location/>
@@ -6192,7 +6192,7 @@ Opções válidas são:
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Utilizador para autenticação no proxy&lt;/b&gt;&lt;br /&gt;Especifica o nome de utilizador para se autenticar com o proxy. Caso o proxy não exija autenticação, ou se quiser conectar anonimamente, simplesmente deixe este campo em branco.</translation>
+        <translation>&lt;b&gt;Utilizador para autenticação no proxy&lt;/b&gt;&lt;br /&gt;Especifica o nome de utilizador para se autenticar com o proxy. Caso o proxy não exija autenticação, ou se quiser ligar anonimamente, simplesmente deixe este campo em branco.</translation>
     </message>
     <message>
         <location/>
@@ -6207,7 +6207,7 @@ Opções válidas são:
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Senha para autenticação de proxy&lt;/b&gt;&lt;br /&gt;Especifica a senha que deve usar para se autenticar com o proxy. No caso do proxy não exigir autenticação, ou se quiser conectar anonimamente, simplesmente deixa este campo em branco.</translation>
+        <translation>&lt;b&gt;Senha para autenticação de proxy&lt;/b&gt;&lt;br /&gt;Especifica a senha que deve usar para se autenticar com o proxy. No caso do proxy não exigir autenticação, ou se quiser ligar anonimamente, simplesmente deixa este campo em branco.</translation>
     </message>
     <message>
         <location/>
@@ -6545,7 +6545,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation>Mostrar um contador de quadros na sobreposição</translation>
+        <translation>Mostrar um contador de frames na sobreposição</translation>
     </message>
     <message>
         <location/>
