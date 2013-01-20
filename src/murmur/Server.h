@@ -137,6 +137,7 @@ class Server : public QThread {
 		QString qsPassword;
 		QString qsWelcomeText;
 		bool bCertRequired;
+		bool bRequireCAMatch;
 
 		QString qsRegName;
 		QString qsRegPassword;

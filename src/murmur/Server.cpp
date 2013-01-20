@@ -325,6 +325,7 @@ void Server::readParams() {
 	bBonjour = Meta::mp.bBonjour;
 	bAllowPing = Meta::mp.bAllowPing;
 	bCertRequired = Meta::mp.bCertRequired;
+	bRequireCAMatch = Meta::mp.bRequireCAMatch;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 	qvSuggestVersion = Meta::mp.qvSuggestVersion;
@@ -381,6 +382,7 @@ void Server::readParams() {
 	bBonjour = getConf("bonjour", bBonjour).toBool();
 	bAllowPing = getConf("allowping", bAllowPing).toBool();
 	bCertRequired = getConf("certrequired", bCertRequired).toBool();
+	bRequireCAMatch = getConf("requireca", bRequireCAMatch).toBool();
 
 	qvSuggestVersion = getConf("suggestversion", qvSuggestVersion);
 	if (qvSuggestVersion.toUInt() == 0)
@@ -488,6 +490,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
 	else if (key == "certrequired")
 		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bCertRequired;
+	else if (key == "requireca")
+		bRequireCAMatch = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRequireCAMatch;
 	else if (key == "bonjour") {
 		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
 #ifdef USE_BONJOUR
@@ -1165,6 +1169,20 @@ void Server::encrypted() {
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
 			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(uSource->qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
+		}
+
+		if(bRequireCAMatch) {
+			bool CAMatched = false;
+			foreach(const QSslCertificate cacert, certs)
+				if(QSslSocket::defaultCaCertificates().contains(cacert)) {
+					CAMatched = true;
+					break;
+				}
+			if(!CAMatched)
+			{
+				log(uSource, QString("Certificate CA doesn't match any in the local trust chain."));
+				uSource->disconnectSocket();
+			}
 		}
 
 		foreach(const Ban &ban, qlBans) {
