@@ -355,6 +355,8 @@ void MetaParams::read(QString fname) {
 	QString qsSSLCA = qsSettings->value("sslCA").toString();
 
 	qbaPassPhrase = qsSettings->value("sslPassPhrase").toByteArray();
+	
+	bool CACertsEmpty = true;
 
 	if (! qsSSLCA.isEmpty()) {
 		QFile pem(qsSSLCA);
@@ -365,7 +367,11 @@ void MetaParams::read(QString fname) {
 			if (ql.isEmpty()) {
 				qCritical("Failed to parse any CA certificates from %s", qPrintable(qsSSLCA));
 			} else {
-				QSslSocket::addDefaultCaCertificates(ql);
+				CACertsEmpty = false;
+				if(bRequireCAMatch)
+					QSslSocket::setDefaultCaCertificates(ql);
+				else
+					QSslSocket::addDefaultCaCertificates(ql);
 			}
 		} else {
 			qCritical("Failed to read %s", qPrintable(qsSSLCA));
@@ -423,7 +429,10 @@ void MetaParams::read(QString fname) {
 			qFatal("Failed to find certificate matching private key.");
 		}
 		if (ql.size() > 0) {
-			QSslSocket::addDefaultCaCertificates(ql);
+			if(bRequireCAMatch && CACertsEmpty)
+				QSslSocket::setDefaultCaCertificates(ql);
+			else
+				QSslSocket::addDefaultCaCertificates(ql);
 			qCritical("Adding %d CA certificates from certificate file.", ql.size());
 		}
 	}
