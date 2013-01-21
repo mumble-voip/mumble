@@ -36,15 +36,15 @@ static bool ptr_chain_valid = false;
 static BYTE *pmodule_bf3;
 
 // Magic ptrs
-static BYTE* const state_ptr = (BYTE *) 0x2366F4C;
+static BYTE* const state_ptr = (BYTE *) 0x02366F4C;
 
 // Vector ptrs
 static BYTE* const avatar_pos_ptr = (BYTE *) 0x02366EE0;
-static BYTE* const avatar_front_ptr = (BYTE *) 0x2366EF0;
-static BYTE* const avatar_top_ptr = (BYTE *) 0x2366F00;
+static BYTE* const avatar_front_ptr = (BYTE *) 0x02366F10;
+static BYTE* const avatar_top_ptr = (BYTE *) 0x02366F00;
 
 // Context ptrs
-static BYTE* const ipport_ptr = (BYTE *) 0x233DA30;
+static BYTE* const ipport_ptr = (BYTE *) 0x0233DA30;
 
 // Identity ptrs
 static BYTE *team_state_ptr;
@@ -77,20 +77,25 @@ inline bool resolve_ptrs() {
       - state_ptr is always 0x6C after avatar_pos_ptr
       - avatar_front_ptr is always 0x30 after avatar_pos_ptr
       - avatar_top_ptr is always 0x20 after avatar_pos_ptr
-      - you can find avatar_pos_ptr easily by jumping in a jet and search for altitude
+      - you can find avatar_pos_ptr easily by jumping in a jet/heli and look at the altitude indicator
+
+      - for squad/team/squad lead pointers, search for your name
+      - name address - 0x20 = squad lead(1=yes/0=no)
+      - squad lead - 0x4 = squad number(1=alpha etc)
+      - squad number - 0x150 = team number(1=US,2=RU)
       */
     /*
     Magic:
-        state : 0x02347E3C                                                       BYTE        1 when playing
+        state : 0x02366F4C                                                       BYTE        1 when playing
                                                                                              2 while in menu/dead
 
     Context:
-        IP:Port of server: 0x023340D0                                            char[128]   ip:port of the server
+        IP:Port of server: 0233DA30                                              char[128]   ip:port of the server
 
     Identity:
-        Squad state: BF3.exe+0x01F42AE4 + 0x8 + 0xBC + 0x36C + 0x8 + 0x104      BYTE        0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
-        SLead state: BF3.exe+0x01F42AE4 + 0x8 + 0xBC + 0x36C + 0x8 + 0x108      BYTE        0 is not lead; 1 is lead
-        Team state:  BF3.exe+0x01F42AE4 + 0x8 + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
+        Squad state: BF3.exe+0x01F5CD6C + 0x1C + 0xBC + 0x36C + 0x8 + 0x104      BYTE        0 is not in squad; 1 is in Alpha squad, 2 Bravo, ... , 9 India
+        SLead state: BF3.exe+0x01F5CD6C + 0x1C + 0xBC + 0x36C + 0x8 + 0x108      BYTE        0 is not lead; 1 is lead
+        Team state:  BF3.exe+0x01F5CD6C + 0x1C + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
     BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + base_offset);
