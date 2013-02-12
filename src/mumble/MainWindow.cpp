@@ -1394,6 +1394,62 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 	pmModel->setFriendName(p, QString());
 }
 
+int randInt(int low, int high) { // returns a random integer value between low and high
+	return qrand() % ((high + 1) - low) + low;
+}
+
+QString MainWindow::randomReason() {
+
+    QStringList reasons;
+    reasons
+	    << tr("|Z| - there's the exit")
+	    << tr("A pity you have to leave so early")
+	    << tr("Absence makes the heart grow fonder")
+	    << tr("And now eat my poo-poo")
+	    << tr("Boo-hoo")
+	    << tr("Come back when you've finally learned not to be lame")
+	    << tr("Cya later - much later")
+	    << tr("Enough for today rookie")
+	    << tr("Everybody be cool, YOU - be cool")
+	    << tr("Get lost")
+	    << tr("Go play leapfrog with a unicorn")
+	    << tr("I didn't invite you, did I?")
+	    << tr("I love pressing this button")
+	    << tr("I rather want you to stay at teletubbies.com")
+	    << tr("I wonder what this button does?")
+	    << tr("Insufficient maturity detected")
+	    << tr("It's not that I hate you, it's just... that I don't like you")
+	    << tr("Kick sponsored by mumble.info")
+	    << tr("Ladies and Gentlemen - may I present: King Admin")
+	    << tr("Lame and fake - that's you")
+	    << tr("Look behind you, a three-headed monkey!")
+	    << tr("My channel, my rules")
+	    << tr("No Homers")
+		<< tr("Nope - no wrong button")
+	    << tr("Oops, I did it again")
+	    << tr("Perhaps you should try real life for a while")
+	    << tr("Pimp your brain")
+	    << tr("Pissing me off is one of your skills")
+	    << tr("See you in hell")
+	    << tr("Sometimes there is no other solution")
+	    << tr("Sorry, but you are dismissed")
+	    << tr("Testing... Worked.")
+	    << tr("Thank you, drive through")
+	    << tr("Thanks for your visit")
+	    << tr("The admin is always right")
+	    << tr("This random message was censored by popular request")
+	    << tr("Waste your time wherever you want, but not here")
+	    << tr("Yes, I have admin rights")
+	    << tr("You didn't understand any of this")
+	    << tr("You really wanted it, right?")
+	    << tr("You're falling in a bottomless pit of loneliness")
+		<< tr("You're not welcome here")
+		<< tr("You've been dying since the day you were born");
+
+	QString randomReason = reasons[randInt(0,reasons.count()-1)];
+	return randomReason;
+}
+
 void MainWindow::on_qaUserKick_triggered() {
 	ClientUser *p = getContextMenuUser();
 	if (!p)
@@ -1402,14 +1458,18 @@ void MainWindow::on_qaUserKick_triggered() {
 	unsigned int session = p->uiSession;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Kicking user %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+	QString reason = QInputDialog::getText(this, tr("Kicking user %1").arg(p->qsName), tr("Enter reason or leave it empty for random reason"), QLineEdit::Normal, QString(), &ok);
 
 	p = ClientUser::get(session);
 	if (!p)
 		return;
 
 	if (ok) {
-		g.sh->kickBanUser(p->uiSession, reason, false);
+		if (reason.length() == 0) {
+			g.sh->kickBanUser(p->uiSession, randomReason(), false);
+		} else {
+			g.sh->kickBanUser(p->uiSession, reason, false);
+		}
 	}
 }
 
@@ -1421,13 +1481,17 @@ void MainWindow::on_qaUserBan_triggered() {
 	unsigned int session = p->uiSession;
 
 	bool ok;
-	QString reason = QInputDialog::getText(this, tr("Banning user %1").arg(p->qsName), tr("Enter reason"), QLineEdit::Normal, QString(), &ok);
+	QString reason = QInputDialog::getText(this, tr("Banning user %1").arg(p->qsName), tr("Enter reason or leave it empty for random reason"), QLineEdit::Normal, QString(), &ok);
 	p = ClientUser::get(session);
 	if (!p)
 		return;
 
 	if (ok) {
-		g.sh->kickBanUser(p->uiSession, reason, true);
+		if (reason.length() == 0) {
+			g.sh->kickBanUser(p->uiSession, randomReason(), true);
+	    } else {
+			g.sh->kickBanUser(p->uiSession, reason, true);
+	    }
 	}
 }
 

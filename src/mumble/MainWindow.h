@@ -101,6 +101,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		MumbleProto::Reject_RejectType rtLast;
 		QString qsDesiredChannel;
+		QString randomReason();
 
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
