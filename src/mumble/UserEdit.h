@@ -32,17 +32,18 @@
 #define MUMBLE_MUMBLE_USEREDIT_H_
 
 #include "Message.h"
-
+#include "User.h"
+#include "mumble_pch.hpp"
 #include "ui_UserEdit.h"
 
 namespace MumbleProto {
 class UserList;
 }
 
-class UserEditListItem : public QListWidgetItem {
+class UserEditListItem : public QTreeWidgetItem {
 	public:
-		UserEditListItem(const QString &username, const int userid);
-		bool operator<(const QListWidgetItem & other) const;
+		UserEditListItem(const int userid);
+		bool operator<(const QTreeWidgetItem & other) const;
 };
 
 class UserEdit : public QDialog, public Ui::UserEdit {
@@ -50,16 +51,22 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
 	protected:
-		QMap<int, QString> qmUsers;
+		QMap<int, UserInfo> qmUsers;
 		QMap<int, QString> qmChanged;
 	public:
 		UserEdit(const MumbleProto::UserList &mpul, QWidget *p = NULL);
 	public slots:
 		void accept();
+		void on_qlSearch_textChanged(QString );
 	public slots:
 		void on_qpbRemove_clicked();
-		void on_qlwUserList_customContextMenuRequested(const QPoint&);
+		void on_qpbRename_clicked();
+		void on_qtwUserList_customContextMenuRequested(const QPoint&);
 		void renameTriggered();
+                void refreshUserList(int inactive = 0);
+		void on_qtwUserList_itemSelectionChanged();
+                void on_qsbInactive_valueChanged(int );
+		void on_qcbInactive_currentIndexChanged(int index);
 };
 
 #endif
