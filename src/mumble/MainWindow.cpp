@@ -483,6 +483,17 @@ void MainWindow::hideEvent(QHideEvent *e) {
 #endif
 }
 
+void MainWindow::showEvent(QShowEvent *e) {
+#ifndef Q_OS_MAC
+#ifdef Q_OS_UNIX
+	if (! qApp->activeModalWidget() && ! qApp->activePopupWidget())
+#endif
+		if (g.s.bHideInTray && qstiIcon->isSystemTrayAvailable() && e->spontaneous())
+			QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
+#endif
+	QMainWindow::showEvent(e);
+}
+
 void MainWindow::updateTrayIcon() {
 	ClientUser *p=ClientUser::get(g.uiSession);
 

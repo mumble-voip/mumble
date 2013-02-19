@@ -32,6 +32,7 @@
 #include <Global.h>
 #include <QMutexLocker>
 #include "MainWindow.h"
+#include <boost/thread/once.hpp>
 
 #include "WASAPINotificationClient.h"
 
@@ -167,9 +168,21 @@ void WASAPINotificationClient::clearUsedDeviceLists() {
 	_clearUsedDeviceLists();
 }
 
-WASAPINotificationClient& WASAPINotificationClient::get() {
+void WASAPINotificationClient::doGetOnce() {
+	(void)WASAPINotificationClient::doGet();
+}
+
+WASAPINotificationClient& WASAPINotificationClient::doGet() {
 	static WASAPINotificationClient instance;
 	return instance;
+}
+
+static boost::once_flag notification_client_init_once = BOOST_ONCE_INIT;
+
+WASAPINotificationClient& WASAPINotificationClient::get() {
+	// Hacky way of making sure we get a thread-safe yet lazy initialization of the static.
+	boost::call_once(&WASAPINotificationClient::doGetOnce, notification_client_init_once);
+	return doGet();
 }
 
 WASAPINotificationClient::WASAPINotificationClient() : QObject(), pEnumerator(0), listsMutex() {

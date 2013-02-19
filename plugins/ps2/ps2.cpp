@@ -39,12 +39,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 
 	BYTE *stateptr;
-	ok = peekProc((BYTE *) pModule+0x2A44680, state);
+	ok = peekProc((BYTE *) pModule+0x2B26464, state);
 
 	if (! ok)
 		return false;
 
-	if (state == 0) {
+	if (state != 1) {
 		context.clear();
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	}
@@ -58,17 +58,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	BYTE *camptr0;
 	BYTE *camptr1;
+	BYTE *camptr2;
+	BYTE *camptr3;
 	BYTE *posptr0;
-	BYTE *topptr0;
+	BYTE *posptr1;
 
-	ok = peekProc((BYTE *) pModule + 0x02A2E9D8, camptr0) &&
-	     peekProc((BYTE *) camptr0 + 0x3C, camptr1) &&
-	     peekProc((BYTE *) camptr1 + 0x20, cam_corrector) &&
-	     peekProc((BYTE *) camptr1 + 0x40, front_corrector) &&
-	     peekProc((BYTE *) pModule + 0x02A09520, posptr0) &&
-	     peekProc((BYTE *) posptr0 + 0xC0, pos_corrector) &&
-	     peekProc((BYTE *) pModule + 0x02AA658C, topptr0) &&
-	     peekProc((BYTE *) topptr0 + 0x110, top_corrector);
+	ok = peekProc((BYTE *) pModule + 0x02AD7300, camptr0) &&
+	     peekProc((BYTE *) camptr0 + 0xC, camptr1) &&
+	     peekProc((BYTE *) camptr1 + 0x88, camptr2) &&
+	     peekProc((BYTE *) camptr2 + 0x1D0, camptr3) &&
+	     peekProc((BYTE *) camptr3 + 0x350, cam_corrector) &&
+	     peekProc((BYTE *) camptr3 + 0x340, front_corrector) &&
+	     peekProc((BYTE *) camptr3 + 0x330, top_corrector);
+	     peekProc((BYTE *) pModule + 0x00D6DFDC, posptr0) &&
+	     peekProc((BYTE *) posptr0 + 0xd4, posptr1) &&
+	     peekProc((BYTE *) posptr1 + 0xb0, pos_corrector);
+	
 
 	if (! ok)
 		return false;
@@ -88,9 +93,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_front[1] = front_corrector[1];
 	avatar_front[2] = front_corrector[0];
 	
-	avatar_top[0] = top_corrector[2];
-	avatar_top[1] = top_corrector[1];
-	avatar_top[2] = top_corrector[0];
+	avatar_top[0] = -top_corrector[2];
+	avatar_top[1] = -top_corrector[1];
+	avatar_top[2] = -top_corrector[0];
 	
 	for (int i=0;i<3;i++) {
 		camera_front[i] = avatar_front[i];
@@ -98,12 +103,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Read continent name
-	BYTE *cbase = peekProc<BYTE *> ((BYTE *) pModule + 0x02A2E9D8);
-	BYTE *cptr1 = peekProc<BYTE *> ((BYTE *) cbase + 0x58);
-	BYTE *cptr2 = cptr1 + 0x40;
+	BYTE *cbase = peekProc<BYTE *> ((BYTE *) pModule + 0x02ACDC58);
+	BYTE *cptr1 = cbase + 0xEC;
 
-	char continentname[8];
-	peekProc(cptr2, continentname);
+	char continentname[6];
+	peekProc(cptr1, continentname);
 	continentname[sizeof(continentname)/sizeof(continentname[0]) - 1] = '\0';
 
 	std::ostringstream contextss;
@@ -136,10 +140,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Planetside 2 (v0.473.22.176761). No identity support yet. Context support limited to continentname.");
+	return std::wstring(L"Supports Planetside 2 (v0.554.6.191766). No identity support yet. Context support limited to continentname.");
 }
 
-static std::wstring description(L"Planetside 2 (v0.473.22.176761)");
+static std::wstring description(L"Planetside 2 (v0.554.6.191766)");
 static std::wstring shortname(L"Planetside 2");
 
 static int trylock1() {

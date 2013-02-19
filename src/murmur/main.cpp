@@ -260,7 +260,11 @@ int main(int argc, char **argv) {
 			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
 #endif
 			       "  -v               Add verbose output.\n"
-			       "  -fg              Don't detach from console [Unix-like systems only].\n"
+#ifdef Q_OS_UNIX
+			       "  -fg              Don't detach from console.\n"
+#else
+			       "  -fg              Don't write to the log file.\n"
+#endif
 			       "  -wipessl         Remove SSL certificates from database.\n"
 			       "  -wipelogs        Remove all log entries from database.\n"
 			       "  -version         Show version information.\n"
@@ -297,10 +301,9 @@ int main(int argc, char **argv) {
 			delete qfLog;
 			qfLog = NULL;
 #ifdef Q_OS_UNIX
-			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n",qPrintable(Meta::mp.qsLogfile));
+			fprintf(stderr, "murmurd: failed to open logfile %s: no logging will be done\n", qPrintable(Meta::mp.qsLogfile));
 #else
-			qWarning("Failed to open logfile %s. Will not detach.",qPrintable(Meta::mp.qsLogfile));
-			detach = false;
+			qWarning("Failed to open logfile %s. No logging will be performed.", qPrintable(Meta::mp.qsLogfile));
 #endif
 		} else {
 			qfLog->setTextModeEnabled(true);

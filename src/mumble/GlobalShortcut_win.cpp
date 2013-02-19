@@ -115,10 +115,27 @@ void GlobalShortcutWin::run() {
 		return;
 	}
 
-	/*
-	 * Wait for MainWindow's constructor to finish before we enumerate DirectInput devices.
-	 * We need to do this because adding a new device requires a Window handle. (SetCooperativeLevel())
-	 */
+	// Print the user's LowLevelHooksTimeout registry key for debugging purposes.
+	// On Windows 7 and greater, Windows will silently remove badly behaving hooks
+	// without telling the application. Users can tweak the timeout themselves
+	// with this registry key.
+	HKEY key = NULL;
+	DWORD type = 0;
+	DWORD value = 0;
+	DWORD len = sizeof(DWORD);
+	if (RegOpenKeyExA(HKEY_CURRENT_USER, "Control Panel\\Desktop", NULL, KEY_READ, &key) == ERROR_SUCCESS) {
+		LONG err = RegQueryValueExA(key, "LowLevelHooksTimeout", NULL, &type, reinterpret_cast<LPBYTE>(&value), &len);
+		if (err == ERROR_SUCCESS && type == REG_DWORD) {
+			qWarning("GlobalShortcutWin: Found LowLevelHooksTimeout with value = 0x%x", value);
+		} else if (err == ERROR_FILE_NOT_FOUND) {
+			qWarning("GlobalShortcutWin: No LowLevelHooksTimeout registry key found.");
+		} else {
+			qWarning("GlobalShortcutWin: Error looking up LowLevelHooksTimeout. (Error: 0x%x, Type: 0x%x, Value: 0x%x)", err, type, value);
+		}
+	}
+
+	// Wait for MainWindow's constructor to finish before we enumerate DirectInput devices.
+	// We need to do this because adding a new device requires a Window handle. (SetCooperativeLevel())
 	while (! g.mw)
 		this->yieldCurrentThread();
 

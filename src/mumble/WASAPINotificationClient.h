@@ -74,6 +74,9 @@ private:
 	WASAPINotificationClient(const WASAPINotificationClient&);
 	WASAPINotificationClient& operator=(const WASAPINotificationClient&);
 
+	static WASAPINotificationClient& doGet();
+	static void doGetOnce();
+
 	void restartAudio();
 
 	/* _fu = Non locking versions */

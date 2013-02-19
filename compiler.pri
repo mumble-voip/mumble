@@ -5,7 +5,7 @@ win32 {
 	include(winpaths_default.pri)
 
 	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_49/"
-	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib"
+	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib" "$$BOOST_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
@@ -49,6 +49,8 @@ win32 {
 		CONFIG(analyze) {
 			QMAKE_CFLAGS_DEBUG *= /analyze
 			QMAKE_CXXFLAGS_DEBUG *= /analyze
+			QMAKE_CFLAGS_RELEASE *= /analyze
+			QMAKE_CXXFLAGS_RELEASE *= /analyze
 		}
 		DEFINES *= RESTRICT=
 		CONFIG(sse2) {
@@ -163,6 +165,11 @@ macx {
 		QMAKE_CFLAGS *= -gfull -gdwarf-2
 		QMAKE_CXXFLAGS *= -gfull -gdwarf-2
 	}
+}
+
+CONFIG(clang-analyzer) {
+	QMAKE_CC = $$(CC)
+	QMAKE_CXX = $$(CXX)
 }
 
 CONFIG(no-pch) {

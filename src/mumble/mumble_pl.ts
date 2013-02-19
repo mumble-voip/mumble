@@ -5051,7 +5051,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation>Narywanie zakończone</translation>
+        <translation>Nagrywanie zakończone</translation>
     </message>
     <message>
         <location line="+4"/>

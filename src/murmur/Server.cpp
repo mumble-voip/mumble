@@ -509,9 +509,9 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "suggestpushtotalk")
 		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
 	else if (key == "opusthreshold")
-		iOpusThreshold = (i >= 0) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
+		iOpusThreshold = (i >= 0 && !v.isNull()) ? qBound(0, i, 100) : Meta::mp.iOpusThreshold;
 	else if (key =="channelnestinglimit")
-		iChannelNestingLimit = (i >= 0) ? i : Meta::mp.iChannelNestingLimit;
+		iChannelNestingLimit = (i >= 0 && !v.isNull()) ? i : Meta::mp.iChannelNestingLimit;
 }
 
 #ifdef USE_BONJOUR
@@ -1702,7 +1702,7 @@ void Server::recheckCodecVersions(ServerUser *connectingUser) {
 		else
 			iCodecBeta = version;
 	} else if (bOpus == enableOpus) {
-		if (connectingUser && !connectingUser->bOpus) {
+		if (bOpus && connectingUser && !connectingUser->bOpus) {
 			sendTextMessage(NULL, connectingUser, false, QLatin1String("<strong>WARNING:</strong> Your client doesn't support the Opus codec the server is using, you won't be able to talk or hear anyone. Please upgrade to a client with Opus support."));
 		}
 		return;

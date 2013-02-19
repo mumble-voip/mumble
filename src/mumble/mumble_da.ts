@@ -683,7 +683,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>3. &amp;part licenser</translation>
+        <translation>Tredje&amp;partslicenser</translation>
     </message>
     <message>
         <location line="+2"/>

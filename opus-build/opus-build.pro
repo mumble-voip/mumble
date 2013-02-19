@@ -40,6 +40,7 @@ win32 {
 }
 
 unix {
+  CONFIG += staticlib
   QMAKE_CFLAGS += -x c++
   INCLUDEPATH += ../$$BUILDDIR
 }

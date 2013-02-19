@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,43 +28,42 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _OVERLAY_BLACKLIST_H
-#define _OVERLAY_BLACKLIST_H
+#include "mumble_plugin_win32.h"
 
-static const char *overlayBlacklist[] = {
-	"iexplore.exe",
-	"ieuser.exe",
-	"vlc.exe",
-	"crimecraft.exe",
-	"dbgview.exe",
-	"opera.exe",
-	"chrome.exe",
-	"acrord32.exe",
-	"explorer.exe",
-	"wmpnscfg.exe",
-	"firefox.exe",
-	"thunderbird.exe",
-	"instantbird.exe",
-	"wlmail.exe",   // Windows Live Suite (mshtml.dll)
-	"msnmsgr.exe",
-	"MovieMaker.exe",
-	"WLXPhotoGallery.exe",
-	"psi.exe", // Secunia PSI (uses mshtml.dll)
-	"Photoshop.exe",
-	"blender.exe",
-	"googleearth.exe",
-	"XBMC.exe", // http://xbmc.org/
-	"BOXEE.exe", // http://www.boxee.tv/
-	"hammer.exe", // VALVE Hammer Editor
-	"hlmv.exe", // Half-Life Model Viewer
-	"hlfaceposer.exe", // Face Poser (from Source SDK)
-	"LoLLauncher.exe", // League of Legends Launcher/Patcher
-	"acrobat.exe", // Adobe Acrobat
-	"Steam.exe", // Prevent invisible hooking
-	"RzSynapse.exe", // Prevent invisible hooking - Razer Synapse (settings online synchronization)
-	"IpOverUsbSvc.exe", // Windows Phone IP over USB Transport
-	NULL
+#ifndef NULL_DESC
+#define NULL_DESC L"Retracted plugin"
+#endif // NULL_DESC
+
+static int fetch(float *, float *, float *, float *, float *, float *, std::string &, std::wstring &) {
+	// Empty
+	return false;
+}
+
+static int trylock() {
+	// Empty
+	return false;
+}
+
+static const std::wstring longdesc() {
+	return std::wstring(L"NULL plugin for retracted plugin. This should not be visible in Mumble >= 1.2.4");
+}
+
+static std::wstring description(NULL_DESC);
+static std::wstring shortname(L"Retracted");
+
+static MumblePlugin nullplug = {
+	MUMBLE_PLUGIN_MAGIC,
+	description,
+	shortname,
+	NULL,
+	NULL,
+	trylock,
+	generic_unlock,
+	longdesc,
+	fetch
 };
 
-#endif  // _OVERLAY_BLACKLIST_H
+extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+	return &nullplug;
+}
 

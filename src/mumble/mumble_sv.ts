@@ -47,7 +47,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanaler måste ha ett namn</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -211,7 +211,7 @@ Detta värde tillåter dig att ändra hur Mumble sorterar kanalerna i trädet. E
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Detta ställer in om ACL upp i kedjan av föräldrakanaler  är verkställta till detta objekt. Endast de poster som är markerade i förälder som &quot;Verkställ till underkanaler&quot; kommer bli ärvda.</translation>
+        <translation>Detta ställer in om ACL upp i kedjan av föräldrakanaler är verkställda till detta objekt. Endast de poster som är markerade i förälder som &quot;Verkställ till underkanaler&quot; kommer att ärvas.</translation>
     </message>
     <message>
         <location/>
@@ -681,7 +681,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>Licenser från &amp;tredjepart</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -744,7 +744,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>När din röst ska  överföras</translation>
+        <translation>När din röst ska överföras</translation>
     </message>
     <message>
         <location/>
@@ -1029,92 +1029,92 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa alltid ett alltid-överst-fönster med en tryck-för-att-prata-knapp</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa tryck-för-att-prata-fönster</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished">Övrigt</translation>
+        <translation>Blandat</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudmeddelande vid början och slut av röstöverföring</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Detta tillåter överföring av ljudmeddelanden.&lt;/b&gt;&lt;br /&gt;Detta kommer att ge dig ett kort ljudpip när du börjar eller slutar röstöverföring.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudmeddelande</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Spelas vid början av röstöverföring</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Spelas vid slut av röstöverföring</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Väntetid</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiden som mikrofonen är igång efter att tryck-för-att-prata-knappen släppts</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverns maximala nätverkskapacitet är bara %1 kbit/s. Ljudkvalitén autojusterades till %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximal förstärkning</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"></translation>
+        <translation>Efteråtgärd</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"></translation>
+        <translation>minuter, gör</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"></translation>
+        <translation>ingenting</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"></translation>
+        <translation>tysta</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"></translation>
+        <translation>avaktivera mikrofon</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"></translation>
+        <translation>efter</translation>
     </message>
 </context>
 <context>
@@ -1171,7 +1171,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished">%1 kbit/s (Ljud %2 %5, Position %4, Över %3) {1 ?} {2,?} {4,?} {3)?}</translation>
+        <translation>%1 kbit/s (Ljud %2, Position %4, Över %3)</translation>
     </message>
 </context>
 <context>
@@ -1341,7 +1341,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Högsta avstånd, under detta  kommer volymen inte kommer att minska</translation>
+        <translation>Högsta avstånd, under detta kommer volymen inte kommer att minska</translation>
     </message>
     <message>
         <location/>
@@ -1387,7 +1387,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Detta ställer in paketförluster för läget tillbakalop.&lt;/b&gt;&lt;br /&gt;Detta kommer att bli kvoteb av paketförluster. Såvida din utgående bandbredd är toppad eller att  någonting är fel med din nätverksanslutning, kommer detta bli 0%</translation>
+        <translation>&lt;b&gt;Detta ställer in paketförluster för läget tillbakalop.&lt;/b&gt;&lt;br /&gt;Detta kommer att bli kvoten av paketförluster, såvida din utgående bandbredd är toppad eller att någonting är fel med din nätverksanslutning, kommer detta bli 0%</translation>
     </message>
     <message>
         <location/>
@@ -1695,7 +1695,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Detta visar vikterna för ekoavbrytaren, med tiden ökande nedåt och frekvensen ökande till höger.&lt;br /&gt;Helst ska detta vara svart, vilket visar att det inte finns något eko alls. Vanligtvis, har du en eller flera horisontella linjer som representerar tidfördröjda ekon. Du borde se hur vikterna uppdateras i realtid.&lt;br /&gt;Kom ihåg att så länge du har något att ta bort eko ifrån, kommer du inte se någon användbar data här. Spela lite musik så kommer saker att stabiliseras. &lt;br /&gt;Du kan välja mellan att välja riktida eller tänkta delar av frekvensdomänens vikter, eller alternativt beräknade moduler och faser. Det mest användbara av dessa kommer säkerligen vara moduler, som är amplituden för ekot och visar hur mycket av den utgående signalen som tas bort just då. De andra visningslägena fär mest användbara för människor som vill ställa in ekoavbrytnings algoritmer.&lt;br /&gt;Kom ihåg att om hela bilden fluktuerar massivt i modulläget misslyckas ekoavbrytaren att hitta ett växelförhållande  mellan ingångskällorna (högtalare och mikrofon). Antingen har du en hög latens för ekot, eller så är en av ingångskällorna felkonfigurerade.</translation>
+        <translation>Detta visar vikterna för ekoavbrytaren, med tiden ökande nedåt och frekvensen ökande till höger.&lt;br /&gt;Helst ska detta vara svart, vilket visar att det inte finns något eko alls. Vanligtvis, har du en eller flera horisontella linjer som representerar tidfördröjda ekon. Du borde se hur vikterna uppdateras i realtid.&lt;br /&gt;Kom ihåg att så länge du har något att ta bort eko ifrån, kommer du inte se någon användbar data här. Spela lite musik så kommer saker att stabiliseras. &lt;br /&gt;Du kan välja mellan att välja riktida eller tänkta delar av frekvensdomänens vikter, eller alternativt beräknade moduler och faser. Det mest användbara av dessa kommer säkerligen vara moduler, som är amplituden för ekot och visar hur mycket av den utgående signalen som tas bort just då. De andra visningslägena fär mest användbara för människor som vill ställa in ekoavbrytnings algoritmer.&lt;br /&gt;Kom ihåg att om hela bilden fluktuerar massivt i modulläget misslyckas ekoavbrytaren att hitta ett växelförhållande mellan ingångskällorna (högtalare och mikrofon). Antingen har du en hög latens för ekot, eller så är en av ingångskällorna felkonfigurerade.</translation>
     </message>
     <message>
         <location/>
@@ -1920,7 +1920,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble stödjer positionellt ljud för vissa spel och kommer att överföra röst med positionsinformation för var användare befinner sig. Beroende på feras position  kommer volymen för ljudet att ändras mellan högtalarna för att simulera platsen och avståndet för där användaren är. Sådan positionering beror på om din högtalarkonfiguration är korrekt i ditt operativsystem, ett sådant test görs här.
+Mumble stödjer positionellt ljud för vissa spel och kommer att överföra röst med positionsinformation för var användare befinner sig. Beroende på deras position kommer volymen för ljudet att ändras mellan högtalarna för att simulera platsen och avståndet för där användaren är. Sådan positionering beror på om din högtalarkonfiguration är korrekt inställd i ditt operativsystem. Ett sådant test görs här.
 &lt;/p&gt;
 &lt;p&gt;
 Grafen visar positionen för &lt;font color=&quot;red&quot;&gt;dig&lt;/font&gt;,&lt;font color=&quot;yellow&quot;&gt;högtalarna&lt;/font&gt; och en &lt;font color=&quot;green&quot;&gt;flyttande ljudkälla&lt;/font&gt; som om att den syns från ovan. Du bör höra ljudflytten mellan kanalerna.
@@ -2152,17 +2152,17 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vid denna konfiguration komemr Mumble använda en &lt;b&gt;låg mängd bandbredd&lt;/b&gt;. Detta kommer oundvikligen resultera i hög latens och dålig ljudkvalitet. Används endast den här konfigurationen om din anslutning ej klarar andra inställningar. (16kbit/s, 60ms per paket)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Detta är den &lt;b&gt;rekommenderade standardkonfigurationen&lt;/b&gt;. Den ger bra kvalitet, latens och bandbreddsanvändning. (40kbit/s, 20ms per paket)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"></translation>
+        <translation>Denna konfiguration är endast rekommenderad för användning där bandbreddskapacitet inte är ett problem, som på et lokalt nätverk. Konfigurationen ger den lägsta latensen som stöds av Mumble och &lt;b&gt;hög ljudkvalitet&lt;/b&gt;. (72kbit/s, 10ms per paket)</translation>
     </message>
 </context>
 <context>
@@ -2808,7 +2808,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Klistra in och skicka</translation>
+        <translation>Klistra in och &amp;skicka</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2851,22 +2851,22 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lokal blockering (textmeddelanden)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Mikrofon avaktiverad (lokalt)</translation>
+        <translation>Blockera ljud (lokalt)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>Mikrofon avaktiverad (själv)</translation>
+        <translation>Mikrofon avaktiverad (egen)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>Ljud avaktiverat (själv)</translation>
+        <translation>Ljud avaktiverat (eget)</translation>
     </message>
 </context>
 <context>
@@ -3451,22 +3451,22 @@ av dessa möjliga platser.</translation>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan för närvarande bara använda musknappar och vissa tangenter (Alt, Ctrl, Cmd, osv.) för globala genvägar.&lt;/p&gt;&lt;p&gt;Om du vill ha bättre flexibilitet, kan du använda &lt;span style=&quot; font-style:italic;&quot;&gt;Åtkomst för tillgänglighetsenheter&lt;/span&gt; i systemets alternativ för hjälpmedel. Kom ihåg att den här ändringen möjligtvis ochså kan tillåta skadlig programvara att läsa vad som skrivs på ditt tangentbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Öppna tillgänglighetsinställningar</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoppa över</translation>
     </message>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivera globala snabbtangenter</translation>
     </message>
 </context>
 <context>
@@ -3632,12 +3632,12 @@ av dessa möjliga platser.</translation>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Här är listan med tillgängliga LCD-enheterpå din dator. Enheter listas enligt namn,men inkluderar även storleken av skärmen. Mumble stödert utskrift till flera LCD-enheter samtidigt.&lt;/p&gt;
+        <translation>&lt;p&gt;Här är listan med tillgängliga LCD-enheterpå din dator. Enheter listas enligt namn,men inkluderar även storleken på skärmen. Mumble stödjer utskrift till flera LCD-enheter samtidigt.&lt;/p&gt;
 &lt;h3&gt;Storlek:&lt;/h3&gt;
 &lt;p&gt;
-Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för grafiska LCDer) eller med tecken (för LCDer med tecken).&lt;/p&gt;
+Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för grafiska LCD:er), eller med tecken (för LCDer med tecken).&lt;/p&gt;
 &lt;h3&gt;Aktiverat:&lt;/h3&gt;
-&lt;p&gt;Detta beslutar om Mumble ska skrivas till en särskildr LCD-enhet.&lt;/p&gt;</translation>
+&lt;p&gt;Detta beslutar om Mumble ska skrivas till en särskild LCD-enhet.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4061,7 +4061,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Om detta är inställt kommer användare att visas  ovan underkanaler i kanalvyn.&lt;/b&gt;&lt;br /&gt;En omstart av Mumble krävs för att se förändringen.</translation>
+        <translation>&lt;b&gt;Om detta är inställt kommer användare att visas ovan underkanaler i kanalvyn.&lt;/b&gt;&lt;br /&gt;En omstart av Mumble krävs för att se förändringen.</translation>
     </message>
     <message>
         <location/>
@@ -4297,7 +4297,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd valt objekt som mål för chattfält</translation>
     </message>
 </context>
 <context>
@@ -4654,7 +4654,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Länka kanal</translation>
     </message>
     <message>
         <location line="+688"/>
@@ -4664,7 +4664,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+105"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -4709,7 +4709,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Ljudbandbredd&lt;/h2&gt;&lt;p&gt;Maximalt %1 kbit/s&lt;br /&gt;Nuvarande %2 kbit/s&lt;br /&gt;Kodek: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4856,7 +4856,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+4"/>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Användarnamn finns redan</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4866,14 +4866,16 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+5"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation>Felaktigt certifikat eller lösenord</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Felaktigt certifikat eller lösenord för registrerad användare. Om du är
+säker på att denna användaren skyddas av eller lösenord, försök igen.
+Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5098,7 +5100,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Tysta (aktivera/avaktivera mikrofon) användare på servern. Aktivera mikrofon för en användare  kommer också aktivera ljud för dem.</translation>
+        <translation>Tysta (aktivera/avaktivera mikrofon) användare på servern. Aktivera mikrofon för en användare kommer också aktivera ljud för dem.</translation>
     </message>
     <message>
         <location/>
@@ -5596,7 +5598,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gränsen för antalet kanaler har nåtts.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5704,27 +5706,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Servern kräver klientversionen %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servern efterfrågar användning av positionellt ljud.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servern efterfrågar avaktivering av positionellt ljud.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servern efterfrågar användning av Tryck-för-att-Tala-funktionen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Servern efterfrågar avaktivering av Tryck-för-att-Tala-funktionen.</translation>
     </message>
     <message>
         <location line="-474"/>
@@ -5845,12 +5847,27 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Användning: mumble [alternativ] [&lt;url&gt;]
+
+&lt;url&gt; anger en URL at ansluta till efter uppstart, istället för att visa
+anslutningsfönstret och har följande parametrar:
+mumble://[&lt;användarnamn&gt;[:&lt;lösenord&gt;]@]&lt;värd&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;underkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+Versionsparametern måste ställas in till
+rätt klientversion. För närvarande är standard 1.2.0.
+
+Följande alternativ är giltiga:
+  -h, --help    Visar den här hjälptexter och avslutar.
+  -m, --multiple
+                Tillåter flera instanser att köras samtidigt.
+  -n, --noidentity
+                Ladda inte identitetsfiler (ex. certifikat)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Anropande</translation>
     </message>
     <message>
         <location line="+192"/>
@@ -6010,17 +6027,17 @@ Valid options are:
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorera meddelanden</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorera användares textmeddelande lokalt.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Blockerar tyst alla textmeddelanden från användaren.</translation>
     </message>
 </context>
 <context>
@@ -6597,17 +6614,17 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"></translation>
+        <translation>För att visa undantag, använd en</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa överlaget i alla program förutom</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa endast överlaget i</translation>
     </message>
 </context>
 <context>
@@ -7355,7 +7372,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Detta är en redigerbar lista med tokens på den anslutna servern.&lt;/b&gt;
 &lt;br /&gt;
-En token är en text sträng som kan användas som ett lösenord för mycket enkel tillgång till underhåll på kanaler. Mumble kommer att komma ihåg de tokens du har använt och skicka dem till servern nästa gång du ansluter,  så att du inte behöver ange dessa varje gång.
+En token är en textsträng, som kan användas som ett lösenord för enkel tillgång till underhåll på kanaler. Mumble kommer att komma ihåg de tokens du har använt och skicka dem till servern nästa gång du ansluter, så att du inte behöver ange dessa varje gång.
 </translation>
     </message>
     <message>
@@ -7541,22 +7558,22 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1.%2.%3 (%4)</translation>
+        <translation>%1.%2.%3 (%4)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Stöds</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Stöds inte</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Inte rapporterad</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7588,7 +7605,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pingavvikelser</translation>
     </message>
 </context>
 <context>
@@ -7697,7 +7714,7 @@ En token är en text sträng som kan användas som ett lösenord för mycket enk
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorera textmeddelanden</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8070,12 +8087,12 @@ Kontakta din serveradministratör för mer information.</translation>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble TFT</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryck-för-att-tala</translation>
     </message>
 </context>
 </TS>

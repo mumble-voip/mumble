@@ -274,19 +274,26 @@ void Plugins::rescanPlugins() {
 	QFileInfoList libs = qd.entryInfoList();
 #endif
 
-	QSet<QString> loaded;
+	QSet<QString> evaluated;
 	foreach(const QFileInfo &libinfo, libs) {
 		QString fname = libinfo.fileName();
 		QString libname = libinfo.absoluteFilePath();
-		if (!loaded.contains(fname) && QLibrary::isLibrary(libname)) {
+		if (!evaluated.contains(fname) && QLibrary::isLibrary(libname)) {
 			PluginInfo *pi = new PluginInfo();
 			pi->lib.setFileName(libname);
 			pi->filename = fname;
 			if (pi->lib.load()) {
 				mumblePluginFunc mpf = reinterpret_cast<mumblePluginFunc>(pi->lib.resolve("getMumblePlugin"));
 				if (mpf) {
+					evaluated.insert(fname);
 					pi->p = mpf();
-					if (pi->p && (pi->p->magic == MUMBLE_PLUGIN_MAGIC)) {
+
+					// Check whether the plugin has a valid plugin magic and that it's not retracted.
+					// A retracted plugin is a plugin that clients should disregard, typically because
+					// the game the plugin was written for now provides positional audio via the
+					// link plugin (see null_plugin.cpp).
+					if (pi->p && pi->p->magic == MUMBLE_PLUGIN_MAGIC && pi->p->shortname != L"Retracted") {
+
 						pi->description = QString::fromStdWString(pi->p->description);
 						pi->shortname = QString::fromStdWString(pi->p->shortname);
 						pi->enabled = g.s.qmPositionalAudioPlugins.value(pi->filename, true);
@@ -300,7 +307,6 @@ void Plugins::rescanPlugins() {
 						}
 
 						qlPlugins << pi;
-						loaded.insert(fname);
 						continue;
 					}
 				}
