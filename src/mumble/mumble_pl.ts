@@ -5212,7 +5212,7 @@ Dostępne opcje:
     <message>
         <location line="+36"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Pasmo dźwięku&lt;/h2&gt;&lt;p&gt;Maksymalnie %1 kbit/s&lt;br /&gt;Aktualnie %2 kbit/s&lt;br /&gt;kodek: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Pasmo dźwięku&lt;/h2&gt;&lt;p&gt;Maksymalnie %1 kbit/s&lt;br /&gt;Aktualnie %2 kbit/s&lt;br /&gt;Kodek: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+241"/>
