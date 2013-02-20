@@ -290,7 +290,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::setupGui()  {
-	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	setWindowTitle(tr("Mumble+ -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
 	setCentralWidget(qtvUsers);
 	setAcceptDrops(true);
 
@@ -437,11 +437,14 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		mb.setDefaultButton(qpbCancel);
 		mb.setEscapeButton(qpbCancel);
 		mb.exec();
-		if (mb.clickedButton() != qpbClose) {
+		if (mb.clickedButton() == qpbMinimize) {
 			showMinimized();
 			e->ignore();
 			return;
-		}
+		} else if (mb.clickedButton() == qpbCancel) {
+      e->ignore();
+			return;
+    }
 	}
 	sh.reset();
 #endif
