@@ -68,7 +68,7 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QLabel *text=new QLabel(about);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
-	                  "<h3>Mumble (%1)</h3>"
+	                  "<h3>Mumble+ (%1)</h3>"
 	                  "<p>Copyright %3 Thorvald Natvig<br />slicer@users.sourceforge.net</p>"
 	                  "<p><b>A voice-chat utility for gamers</b></p>"
 	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
