@@ -145,12 +145,14 @@ OverlaySettings::OverlaySettings() {
 
 	setPreset();
 
-	// FPS display settings
+	// FPS and Time display settings
 	qcFps = Qt::white;
 	fFps = 0.75f;
 	qfFps = qfUserName;
-	qrfFps = QRectF(10, 10, -1, 0.023438f);
+	qrfFps = QRectF(10, 50, -1, 0.023438f);
 	bFps = false;
+	qrfTime = QRectF(10, 10, -1, 0.023438f);
+	bTime = false;
 
 	bUseWhitelist = false;
 
@@ -512,6 +514,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
 	SAVELOAD(bFps, "fpsshow");
+	SAVELOAD(bTime, "timeshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
@@ -799,6 +802,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
 	SAVELOAD(bFps, "fpsshow");
+	SAVELOAD(bTime, "timeshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");

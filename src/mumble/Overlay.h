@@ -247,14 +247,17 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void initDisplay();
 		void refreshFpsDemo();
 		void refreshFpsLive();
+		void refreshTimeLive();
 	protected:
 		QPixmap qpScreen;
 		QGraphicsPixmapItem *qgpiScreen;
 		QGraphicsScene qgs;
 		QGraphicsScene qgsFpsPreview;
 		BasepointPixmap bpFpsDemo;
+		BasepointPixmap bpTimeDemo;
 		QGraphicsPixmapItem *qgpiFpsDemo;
 		QGraphicsPixmapItem *qgpiFpsLive;
+		QGraphicsPixmapItem *qgpiTimeLive;
 		OverlayUserGroup *oug;
 		QGraphicsTextItem *qgtiInstructions;
 
@@ -281,6 +284,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void on_qrbBlacklist_toggled(bool);
 		void on_qcbEnable_stateChanged(int);
 		void on_qcbShowFps_stateChanged(int);
+		void on_qcbShowTime_stateChanged(int);
 		void on_qpbFpsFont_clicked();
 		void on_qpbFpsColor_clicked();
 		void on_qpbLoadPreset_clicked();
@@ -323,6 +327,7 @@ class OverlayClient : public QObject {
 		QGraphicsPixmapItem *qgpiCursor;
 		QGraphicsPixmapItem *qgpiLogo;
 		QGraphicsPixmapItem *qgpiFPS;
+		QGraphicsPixmapItem *qgpiTime;
 
 		quint64 uiPid;
 		QGraphicsScene qgs;
@@ -361,6 +366,7 @@ class OverlayClient : public QObject {
 		void scheduleDelete();
 		void updateMouse();
 		void updateFPS();
+		void updateTime();
 		bool update();
 		void openEditor();
 };

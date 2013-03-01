@@ -124,6 +124,7 @@ struct OverlaySettings {
 	bool bAvatar;
 	bool bBox;
 	bool bFps;
+	bool bTime;
 
 	qreal fUserName;
 	qreal fChannel;
@@ -137,6 +138,7 @@ struct OverlaySettings {
 	QRectF qrfMutedDeafened;
 	QRectF qrfAvatar;
 	QRectF qrfFps;
+	QRectF qrfTime;
 
 	Qt::Alignment qaUserName;
 	Qt::Alignment qaChannel;
