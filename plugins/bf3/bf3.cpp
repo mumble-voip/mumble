@@ -40,8 +40,8 @@ static BYTE* const state_ptr = (BYTE *) 0x238ABDC;
 
 // Vector ptrs
 static BYTE* const avatar_pos_ptr = (BYTE *) 0x0238AB70;
-static BYTE* const avatar_front_ptr = (BYTE *) 0x0238AB90;
-static BYTE* const avatar_top_ptr = (BYTE *) 0x0238AB80;
+static BYTE* const avatar_front_ptr = (BYTE *) 0x0238ABA0;
+static BYTE* const avatar_top_ptr = (BYTE *) 0x0238AB90;
 
 // Context ptrs
 static BYTE* const ipport_ptr = (BYTE *) 0x0235DB90;
