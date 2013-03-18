@@ -49,6 +49,10 @@
 #include "BonjourServiceRegister.h"
 #endif
 
+#ifndef MAX
+#define MAX(a,b) ((a)>(b) ? (a):(b))
+#endif
+
 #define UDP_PACKET_SIZE 1024
 
 LogEmitter::LogEmitter(QObject *p) : QObject(p) {
