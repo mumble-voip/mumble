@@ -7440,7 +7440,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location/>
         <source>Certificate</source>
-        <translation>certifikat</translation>
+        <translation>Certifikat</translation>
     </message>
     <message>
         <location/>
@@ -7558,7 +7558,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation>%1.%2.%3 (%4)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
