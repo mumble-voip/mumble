@@ -33,7 +33,6 @@
 
 #include "../mumble_plugin_win32.h"
 static bool ptr_chain_valid = false;
-static BYTE *pmodule_bf3;
 
 // Magic ptrs
 static BYTE* const state_ptr = (BYTE *) 0x238ABDC;
@@ -98,7 +97,7 @@ inline bool resolve_ptrs() {
         Team state:  BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
-    BYTE *base_bf3 = peekProc<BYTE *>(pmodule_bf3 + base_offset);
+    BYTE *base_bf3 = peekProc<BYTE *>(pModule + base_offset);
     if (!base_bf3)
         return false;
 
@@ -201,10 +200,6 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
     if (! initialize(pids, L"bf3.exe"))
-        return false;
-
-    pmodule_bf3 = getModuleAddr(L"bf3.exe");
-    if (!pmodule_bf3)
         return false;
 
     float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
