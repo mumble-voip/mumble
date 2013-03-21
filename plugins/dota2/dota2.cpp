@@ -1,5 +1,5 @@
 /* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
-   Copyright (C) 2013, gdur <gdur.mugen@gmail.com> 
+   Copyright (C) 2013, GDur <gdur.mugen@gmail.com> 
    Copyright (C) 2013, maun <ma.adameit@gmail.com> 
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
@@ -33,81 +33,50 @@
 
 #include "../mumble_plugin_win32.h"  
 
-static BYTE *posptr;
-static BYTE *rotptr;
-static BYTE *camptr;
+static BYTE *aposptr;
 static BYTE *afrontptr;
+static BYTE *cposptr;
+static BYTE *cfrontptr;
 
 enum state_values {
-    STATE_IN_GAME = 0,
-    STATE_UNKN    = 1,
-    STATE_LOADING_OR_IN_MENU  = 2
+    STATE_IN_GAME			 = 0,
+    STATE_UNKNOWN			 = 1,
+    STATE_LOADING_OR_IN_MENU = 2
 };
-
-static bool calcout(float *pos, float *rot, float *cam, float *opos, float *front, float *top, float *ocam) {
-	float h  = rot[0];
-	float v  = rot[1];
-
-	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
-		return false;
-
-	h       *= static_cast<float>(M_PI / 180.0f);
-	v       *= static_cast<float>(M_PI / 180.0f);
-
-	// Seems Dota 2 is in inches like all Source-based games...
-	opos[0]  = pos[0] / 39.37f;
-	opos[1]  = pos[2] / 39.37f;
-	opos[2]  = pos[1] / 39.37f;
- 
-	ocam[0]  = cam[0] / 39.37f;
-	// SAME HEIGHT AS PLAYER! -> pos[2]
-	ocam[1]  = pos[2] / 39.37f;
-	ocam[2]  = cam[1] / 39.37f;
-	
-	// LOOK NORTH
-	front[0] = 0.0f;
-	front[1] = 0.0f;
-	front[2] = 1.0f;
-
-	// ORTOGONAL TO PLANE AS PLAYER
-	top[0] = 0.0f;
-	top[1] = 1.0f;
-	top[2] = 0.0f;
-	
-	return true;
-}
 
 static bool refreshPointers(void)
 {
-	rotptr     = posptr = camptr = afrontptr = NULL;
+	aposptr = afrontptr = cposptr = cfrontptr = NULL;
 
-  // Camera position pointer (static ptr: 5F7D6DD8)
-	camptr     = pModule + 0x1E96DD8;
+	// Camera position pointer (static ptr: 5F7D6DD8)
+	cposptr		= pModule + 0x1E96DD8;
 
-  // Camera angle pointer
-	rotptr     = pModule + 0x1E96DE4;
+	// Camera angle pointer
+	cfrontptr	= pModule + 0x1E96DE4;
 	
 
-  // Avatar front vector pointer
-	BYTE *ptr1 = peekProc<BYTE*>(pModule + 0x01E335E4);
+	// Avatar dynamic pointer
+	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E335E4);
 	if (!ptr1)
 		return false;
 
-	BYTE *ptr2 = peekProc<BYTE*>(ptr1 + 0x5ec);
+	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x5ec);
 	if (!ptr2)
 		return false;
 	
-	BYTE *ptr3 = peekProc<BYTE*>(ptr2 + 0x0);
+	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x0);
 	if (!ptr3)
 		return false;
 
-	BYTE *ptr4 = peekProc<BYTE*>(ptr3 + 0x3dc);
+	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x3dc);
 	if (!ptr4)
 		return false;
 	
-	posptr     = ptr4 + 0x310;
-	
-	afrontptr  = ptr4 + 0x380;
+	// Avatar position pointer
+	aposptr		= ptr4 + 0x310;
+
+	// Avatar angle pointer
+	afrontptr	= ptr4 + 0x380;
 
 	return true;
 }
@@ -116,66 +85,90 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i = 0; i < 3; i++)
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
-	float ipos[3], rot[3], cam[3], afront[3];
+	float apos[3], afront[3];
+	float cpos[3], cfront[3];
+
 	bool ok;
 
-  // gamestate
+    // gamestate
 	int state;
 	ok = peekProc(pModule + 0x1EA4B20, state);
-	if (!ok) return false;
+	if (!ok)
+		return false;
 
 	if (state == STATE_LOADING_OR_IN_MENU)
-             return true;
+		return true;
+	
+	if (!refreshPointers())
+		return false; 
+	
+	ok = peekProc(aposptr,   apos,   12) &&
+		 peekProc(afrontptr, afront, 12) &&
+		 peekProc(cposptr,   cpos,   12) &&
+		 peekProc(cfrontptr, cfront, 12);
 
-	ok = peekProc(posptr, ipos, 12) &&
-		 peekProc(rotptr, rot, 12) &&
-		 peekProc(camptr, cam, 12) &&
-		 peekProc(afrontptr, afront, 12);
+	if (!ok)
+		return false;
 
-	if (ok) {
-		int res = calcout(ipos, rot, cam, avatar_pos, camera_front, camera_top, camera_pos);
-		if (res) {
-			avatar_top[0]   = 0;
-			avatar_top[1]   = 1; // it's Dota, your character is always looking straight ahead ;)
-			avatar_top[2]   = 0;
-			avatar_front[0] = afront[0];
-			avatar_front[1] = afront[2];
-			avatar_front[2] = -afront[1]; 
-			// For some reason when character moves up,
-			// Z-axis position increases, but front vector shows
-			// -1 for Z-axis, therefore this small fix
+	// ADJUSTING CALCULATIONS
+	float h  = afront[0];
+	float v  = afront[1];
 
-			// Example only -- only set these when you have sane values,
-			// and make sure they're pretty constant (every change causes a sever message).
-			//context = std::string(" serverip:port:team");
-			//identity = std::wstring(L"STEAM ID");
-			return res;
-		}
-	}
+	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
+		return false;
 
-	return false;
+	h       *= static_cast<float>(M_PI / 180.0f);
+	v       *= static_cast<float>(M_PI / 180.0f);
+	
+	// AVATAR
+	avatar_pos[0]   = apos[0] / 39.37f;
+	avatar_pos[1]   = apos[2] / 39.37f;
+	avatar_pos[2]   = apos[1] / 39.37f;
+
+	// SWAP [1] and [2]
+	avatar_front[0] =  afront[0];
+	avatar_front[1] =  afront[2];
+	avatar_front[2] = -afront[1]; // NEGATE
+
+	avatar_top[0]   = 0.0f;
+	avatar_top[1]   = 1.0f;
+	avatar_top[2]   = 0.0f;
+
+
+	// CAMERA
+	camera_pos[0]   = cpos[0] / 39.37f;		
+	camera_pos[1]   = avatar_pos[1];    // SAME HEIGHT AS PLAYER! -> avatar_pos[2]
+	camera_pos[2]   = cpos[1] / 39.37f;
+	
+	// LOOK NORTH
+	camera_front[0] = 0.0f;
+	camera_front[1] = 0.0f;
+	camera_front[2] = 1.0f;
+
+	// ORTOGONAL TO PLANE AS PLAYER
+	camera_top[0]   = 0.0f;
+	camera_top[1]   = 1.0f;
+	camera_top[2]   = 0.0f;
+
+	return ok;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
 	if (! initialize(pids, L"dota.exe",L"client.dll"))
 		return false;
+	
+	float apos[3], afront[3], atop[3];
+	float cpos[3], cfront[3], ctop[3];
+	std::wstring sidentity;
+	std::string scontext;
 
-	float pos[3], rot[3], opos[3], top[3], front[3], cam[3], ocam[3], afront[3];
-
-	if (!refreshPointers()) { generic_unlock(); return false; } // unlink plugin if this fails
-
-	bool ok = peekProc(posptr,pos,12) &&
-			  peekProc(rotptr,rot,12) &&
-			  peekProc(camptr,cam,12) &&
-			  peekProc(afrontptr,afront,12);
-
-	if (ok) {
-		return calcout(pos,rot,cam,opos,front,top,ocam); // make sure values are OK
-	} else {
+	if (!fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		generic_unlock();
 		return false;
 	}
+
+	return true;
 }
 
 static const std::wstring longdesc() {
