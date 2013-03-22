@@ -36,7 +36,7 @@
 static BYTE *aposptr;
 static BYTE *afrontptr;
 static BYTE *cposptr;
-// static BYTE *cfrontptr;
+static BYTE *contextptr;
 
 enum state_values {
     STATE_IN_GAME            = 0,
@@ -46,30 +46,29 @@ enum state_values {
 
 static bool resolvePointers(void)
 {
-	aposptr = afrontptr = cposptr = NULL; // = cfrontptr
+	aposptr = afrontptr = cposptr = NULL; // = contextptr
 
-	// Camera position pointer (static ptr: 5F7D6DD8)
+	// Camera position pointer
 	cposptr		= pModule + 0x1F367E8;
 
-	// Camera angle pointer // ignored anyway
-	// cfrontptr	= pModule + 0x1E96DE4;
+	// Context contains <ip>:<port> as a string, is emty when disconneted
+	contextptr	= pModule + 0x1EA8698;
 	
-
 	// Avatar dynamic pointer
 	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E54564);
-	if (!ptr1)
+	if (! ptr1)
 		return false;
 
 	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x408);
-	if (!ptr2)
+	if (! ptr2)
 		return false;
 	
 	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x2b4);
-	if (!ptr3)
+	if (! ptr3)
 		return false;
 
 	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x7b8);
-	if (!ptr4)
+	if (! ptr4)
 		return false;
 	
 	// Avatar position pointer
@@ -96,19 +95,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-	if (state == STATE_LOADING_OR_IN_MENU)
+	// mumble will turn off positional audio when we returne true
+	if (state == STATE_LOADING_OR_IN_MENU) {
+		context.clear();
 		return true;
-	
+	}
+
 	if (! resolvePointers())
 		return false;
+	
+    char ccontext[20];
 
-	ok = peekProc(aposptr,   apos,   12) &&
-		 peekProc(afrontptr, afront, 12) &&
-		 peekProc(cposptr,   cpos,   12);
-		 // peekProc(cfrontptr, cfront, 12);
+	ok = peekProc(aposptr,    apos,     12) &&
+		 peekProc(afrontptr,  afront,   12) &&
+		 peekProc(cposptr,    cpos,     12) &&
+		 peekProc(contextptr, ccontext, 20);
 
-	if (!ok)
+	if (! ok)
 		return false;
+	
+    ccontext[sizeof(ccontext) - 1] = 0;
+    if (ccontext[0] != '0') {
+        std::ostringstream ocontext;
+        ocontext << "{ \"ipport\": \"" << ccontext << "\" }";
+        context = ocontext.str();
+	}
 
 	// ADJUSTING CALCULATIONS
 	float h  = afront[0];
@@ -117,8 +128,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
 		return false;
 
-	h       *= static_cast<float>(M_PI / 180.0f);
-	v       *= static_cast<float>(M_PI / 180.0f);
+	h        *= static_cast<float>(M_PI / 180.0f);
+	v        *= static_cast<float>(M_PI / 180.0f);
 	
 	// AVATAR
 	avatar_pos[0]   = apos[0] / 39.37f;
@@ -172,7 +183,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DotA 2 build 5248:570. No identity/context support yet (feel free to contribute). Might work with newer builds. Supports independent camera and avatar positions, front and top vectors, with state detection (if ingame or not).");
+	return std::wstring(L"Supports independent camera and avatar positions, front and top vectors. State detection will enable PA if not in menu. Context support will make mumble able to differentiate between matches. No identity support yet (feel free to contribute).");
 }
 
 static std::wstring description(L"DotA 2 (build 5248:570)");
