@@ -62,7 +62,7 @@ extern "C" {
 #endif
 #include <pwd.h>
 #include <grp.h>
-#ifdef __FreeBSD__
+#if defined __FreeBSD__ || defined __OpenBSD__
 #include <netinet/in_systm.h>
 #endif
 #include <netinet/in.h>
