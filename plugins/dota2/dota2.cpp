@@ -36,47 +36,47 @@
 static BYTE *aposptr;
 static BYTE *afrontptr;
 static BYTE *cposptr;
-static BYTE *cfrontptr;
+// static BYTE *cfrontptr;
 
 enum state_values {
-    STATE_IN_GAME			 = 0,
-    STATE_UNKNOWN			 = 1,
+    STATE_IN_GAME            = 0,
+    STATE_UNKNOWN            = 1,
     STATE_LOADING_OR_IN_MENU = 2
 };
 
-static bool refreshPointers(void)
+static bool resolvePointers(void)
 {
-	aposptr = afrontptr = cposptr = cfrontptr = NULL;
+	aposptr = afrontptr = cposptr = NULL; // = cfrontptr
 
 	// Camera position pointer (static ptr: 5F7D6DD8)
-	cposptr		= pModule + 0x1E96DD8;
+	cposptr		= pModule + 0x1F367E8;
 
-	// Camera angle pointer
-	cfrontptr	= pModule + 0x1E96DE4;
+	// Camera angle pointer // ignored anyway
+	// cfrontptr	= pModule + 0x1E96DE4;
 	
 
 	// Avatar dynamic pointer
-	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E335E4);
+	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E54564);
 	if (!ptr1)
 		return false;
 
-	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x5ec);
+	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x408);
 	if (!ptr2)
 		return false;
 	
-	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x0);
+	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x2b4);
 	if (!ptr3)
 		return false;
 
-	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x3dc);
+	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x7b8);
 	if (!ptr4)
 		return false;
 	
 	// Avatar position pointer
-	aposptr		= ptr4 + 0x310;
+	aposptr		= ptr4 + 0x3c0;
 
 	// Avatar angle pointer
-	afrontptr	= ptr4 + 0x380;
+	afrontptr	= ptr4 + 0x430;
 
 	return true;
 }
@@ -90,22 +90,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	bool ok;
 
-    // gamestate
+	// gamestate
 	int state;
-	ok = peekProc(pModule + 0x1EA4B20, state);
-	if (!ok)
+	ok = peekProc(pModule + 0x1EBB870, state);
+	if (! ok)
 		return false;
 
 	if (state == STATE_LOADING_OR_IN_MENU)
 		return true;
 	
-	if (!refreshPointers())
-		return false; 
-	
+	if (! resolvePointers())
+		return false;
+
 	ok = peekProc(aposptr,   apos,   12) &&
 		 peekProc(afrontptr, afront, 12) &&
-		 peekProc(cposptr,   cpos,   12) &&
-		 peekProc(cfrontptr, cfront, 12);
+		 peekProc(cposptr,   cpos,   12);
+		 // peekProc(cfrontptr, cfront, 12);
 
 	if (!ok)
 		return false;
@@ -137,7 +137,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// CAMERA
 	camera_pos[0]   = cpos[0] / 39.37f;		
-	camera_pos[1]   = avatar_pos[1];    // SAME HEIGHT AS PLAYER! -> avatar_pos[2]
+	camera_pos[1]   = avatar_pos[1];    // SAME HEIGHT AS PLAYER! -> avatar_pos[1]
 	camera_pos[2]   = cpos[1] / 39.37f;
 	
 	// LOOK NORTH
@@ -163,7 +163,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	std::wstring sidentity;
 	std::string scontext;
 
-	if (!fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+	if (! fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
 		generic_unlock();
 		return false;
 	}
@@ -172,10 +172,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports DotA 2 build 5241:40. No identity/context support yet (feel free to contribute). Might work with newer builds. Supports independent camera and avatar positions, front and top vectors, with state detection (if ingame or not).");
+	return std::wstring(L"Supports DotA 2 build 5248:570. No identity/context support yet (feel free to contribute). Might work with newer builds. Supports independent camera and avatar positions, front and top vectors, with state detection (if ingame or not).");
 }
 
-static std::wstring description(L"DotA 2 (build 5241:40)");
+static std::wstring description(L"DotA 2 (build 5248:570)");
 static std::wstring shortname(L"DotA 2");
 
 static int trylock1() {
