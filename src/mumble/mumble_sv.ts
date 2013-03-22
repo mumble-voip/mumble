@@ -2324,7 +2324,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+454"/>
+        <location filename="main.cpp" line="+453"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -3365,7 +3365,7 @@ Serverns etikett. Detta är det servern kommer att kallas i din serverlista, som
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+113"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble kunde inte initiera en databas i någon
@@ -4304,12 +4304,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2131"/>
+        <location line="+2150"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-2079"/>
+        <location line="-2098"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4388,12 +4388,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2230"/>
+        <location line="+2249"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2225"/>
+        <location line="-2244"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4462,13 +4462,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+61"/>
-        <location line="+2271"/>
+        <location line="+2290"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1998"/>
+        <location line="-2006"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4582,7 +4582,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Meddelande till kanalen %1</translation>
     </message>
     <message>
-        <location line="+544"/>
+        <location line="+552"/>
         <source>Connected.</source>
         <translation>Ansluten.</translation>
     </message>
@@ -4630,12 +4630,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1651"/>
+        <location line="-1659"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Röstkanal skickas över kontrollkanal.</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-910"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4657,7 +4657,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Länka kanal</translation>
     </message>
     <message>
-        <location line="+688"/>
+        <location line="+699"/>
         <source>Change your comment</source>
         <translation>Ändra din kommentar</translation>
     </message>
@@ -4718,12 +4718,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1330"/>
+        <location line="+1338"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visa certifikat</translation>
     </message>
     <message>
-        <location line="-1055"/>
+        <location line="-1063"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Ange anledning</translation>
@@ -4809,7 +4809,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+389"/>
+        <location line="+397"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL verifiering misslyckades: %1</translation>
     </message>
@@ -4845,6 +4845,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+11"/>
+        <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
         <translation>Ogiltigt användarnamn</translation>
     </message>
@@ -4855,6 +4856,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+4"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
         <translation>Användarnamn finns redan</translation>
     </message>
@@ -4865,6 +4867,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+5"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
         <translation>Felaktigt certifikat eller lösenord</translation>
     </message>
@@ -4879,6 +4882,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     </message>
     <message>
         <location line="+7"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
         <translation>Felaktigt lösenord</translation>
     </message>
@@ -5470,7 +5474,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Detta kommer växla minimalt läge när loggfönstret och menyn är gömd.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+362"/>
+        <location filename="Messages.cpp" line="+278"/>
         <source>You muted and deafened %1.</source>
         <translation>Du avaktiverade mikrofon och ljud för %1.</translation>
     </message>
@@ -5830,7 +5834,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Okänd kanaldragnings läge i Användarmodell::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-271"/>
+        <location filename="main.cpp" line="-270"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5870,7 +5874,7 @@ Följande alternativ är giltiga:
         <translation>Anropande</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+191"/>
         <source>Welcome to Mumble.</source>
         <translation>Välkommen till Mumble.</translation>
     </message>
@@ -6979,7 +6983,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Hoppar över uppdatering för insticksmoduler i felsökningsläge.</translation>
     </message>
@@ -7130,7 +7134,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+447"/>
+        <location filename="ServerHandler.cpp" line="+470"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP-paket kan inte skickas till ellet tas emot från servern. Byter till TCP-läge.</translation>
     </message>
@@ -7150,7 +7154,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <translation>UDP-paket kan skickas till och tas emot från servern. Byter tillbaka till UDP-läge.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>Anslutningstiden överskreds</translation>
     </message>

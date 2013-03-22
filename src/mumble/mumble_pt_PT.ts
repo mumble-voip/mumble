@@ -2323,7 +2323,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
         <translation>Utilizador do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+454"/>
+        <location filename="main.cpp" line="+453"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está para expirar. Precisa renová-lo, ou não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
@@ -3362,7 +3362,7 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+113"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble falhou ao iniciar a base de dados em qualquer
@@ -4299,12 +4299,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2131"/>
+        <location line="+2150"/>
         <source>Root</source>
         <translation>Raiz</translation>
     </message>
     <message>
-        <location line="-2079"/>
+        <location line="-2098"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Pressionar-para-Falar</translation>
@@ -4383,12 +4383,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2230"/>
+        <location line="+2249"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2225"/>
+        <location line="-2244"/>
         <source>&amp;Window</source>
         <translation>&amp;Janela</translation>
     </message>
@@ -4457,13 +4457,13 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+61"/>
-        <location line="+2271"/>
+        <location line="+2290"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Não ligado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1998"/>
+        <location line="-2006"/>
         <source>Clear</source>
         <translation>Limpar</translation>
     </message>
@@ -4577,7 +4577,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Mensagem para canal %1</translation>
     </message>
     <message>
-        <location line="+544"/>
+        <location line="+552"/>
         <source>Connected.</source>
         <translation>Ligado.</translation>
     </message>
@@ -4625,12 +4625,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1651"/>
+        <location line="-1659"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Canal de voz é enviado pelo canal de controle.</translation>
     </message>
     <message>
-        <location line="-899"/>
+        <location line="-910"/>
         <source>&amp;User</source>
         <translation>&amp;Utilizador</translation>
     </message>
@@ -4652,7 +4652,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Ligar Canal</translation>
     </message>
     <message>
-        <location line="+688"/>
+        <location line="+699"/>
         <source>Change your comment</source>
         <translation>Alterar o seu comentário</translation>
     </message>
@@ -4713,12 +4713,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1330"/>
+        <location line="+1338"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ver Certificado</translation>
     </message>
     <message>
-        <location line="-1055"/>
+        <location line="-1063"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Especifique a razão</translation>
@@ -4804,7 +4804,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Sobre Qt</translation>
     </message>
     <message>
-        <location line="+389"/>
+        <location line="+397"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verificação SSL falhou: %1</translation>
     </message>
@@ -4840,6 +4840,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+11"/>
+        <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
         <translation>Nome de utilizador inválido</translation>
     </message>
@@ -4850,6 +4851,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+4"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
         <translation>Nome de utilizador em uso</translation>
     </message>
@@ -4860,6 +4862,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     </message>
     <message>
         <location line="+5"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
         <translation>Certificado ou senha errados</translation>
     </message>
@@ -4875,6 +4878,7 @@ o seu certificado e nome de utilizador.</translation>
     </message>
     <message>
         <location line="+7"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
         <translation>Senha errada</translation>
     </message>
@@ -5466,7 +5470,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Alterna o modo mínimo, em que a janela de registo e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+362"/>
+        <location filename="Messages.cpp" line="+278"/>
         <source>You muted and deafened %1.</source>
         <translation>Silenciou e ensurdeceu %1.</translation>
     </message>
@@ -5826,7 +5830,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Modo de movimento de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-271"/>
+        <location filename="main.cpp" line="-270"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5866,7 +5870,7 @@ Opções válidas são:
         <translation>Invocação</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+191"/>
         <source>Welcome to Mumble.</source>
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
@@ -6975,7 +6979,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Saltar atualização de plugin no modo de depuração.</translation>
     </message>
@@ -7126,7 +7130,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+447"/>
+        <location filename="ServerHandler.cpp" line="+470"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Pacotes UDP não podem ser enviados ou recebidos do servidor. Alternando para modo TCP.</translation>
     </message>
@@ -7146,7 +7150,7 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
         <translation>Pacotes UDP podem ser enviados e recebidos do servidor. Alternando de volta para o modo UDP.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>Tempo de ligação esgotado</translation>
     </message>

@@ -2332,7 +2332,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+454"/>
+        <location filename="main.cpp" line="+453"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -3375,7 +3375,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+113"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble n&apos;a pas réussi à initialiser la base de données
@@ -4312,7 +4312,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-271"/>
+        <location filename="main.cpp" line="-270"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -4352,7 +4352,7 @@ Les options valides sont :
         <translation>Invocation</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+191"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
@@ -6994,7 +6994,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
