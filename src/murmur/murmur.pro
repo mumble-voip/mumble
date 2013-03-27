@@ -6,6 +6,9 @@ CONFIG  *= network
 CONFIG(static):!macx {
 	QMAKE_LFLAGS *= -static
 }
+CONFIG(ermine) {
+	QMAKE_LFLAGS *= -Wl,-rpath,$$(MUMBLE_PREFIX)/lib:$$(MUMBLE_ICE_PREFIX)/lib
+}
 CONFIG	-= gui
 QT *= network sql xml
 QT -= gui
@@ -103,6 +106,12 @@ ice {
 		INCLUDEPATH *= $$(MUMBLE_PREFIX)/Ice-3.4.2/include/
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/Ice-3.4.2/lib/
 		slice.commands = $$(MUMBLE_PREFIX)/Ice-3.4.2/bin/slice2cpp --checksum -I$$(MUMBLE_PREFIX)/Ice-3.4.2/slice/ Murmur.ice
+	}
+
+	CONFIG(ermine) {
+		INCLUDEPATH *= $$(MUMBLE_ICE_PREFIX)/include/
+		QMAKE_LIBDIR *= $$(MUMBLE_ICE_PREFIX)/lib/
+		slice.commands = $$(MUMBLE_ICE_PREFIX)/bin/slice2cpp --checksum -I$$(MUMBLE_ICE_PREFIX)/slice/ Murmur.ice
 	}
 
 	unix:!macx:CONFIG(static) {
