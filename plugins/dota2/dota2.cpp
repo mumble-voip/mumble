@@ -96,13 +96,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 	context.clear();
-/*
-	// mumble will turn off positional audio when we return true
-	if (state == STATE_LOADING_OR_IN_MENU) {
-		context.clear();
-		return true;
-	}
-*/
+	
 	if (! resolvePointers())
 		return true;
 	
