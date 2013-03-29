@@ -1,4 +1,5 @@
-/* Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+/*
+   Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
    Copyright (C) 2013, GDur <gdur.mugen@gmail.com> 
    Copyright (C) 2013, maun <ma.adameit@gmail.com> 
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
@@ -39,43 +40,43 @@ static BYTE *cposptr;
 static BYTE *contextptr;
 
 enum state_values {
-    STATE_IN_GAME            = 0,
-    STATE_UNKNOWN            = 1,
-    STATE_LOADING_OR_IN_MENU = 2
+	STATE_IN_GAME            = 0,
+	STATE_UNKNOWN            = 1,
+	STATE_LOADING_OR_IN_MENU = 2
 };
 
 static bool resolvePointers(void)
 {
-	aposptr = afrontptr = cposptr = NULL; // = contextptr
+	aposptr = afrontptr = cposptr = contextptr = NULL;
 
 	// Camera position pointer
-	cposptr		= pModule + 0x1F367E8;
+	cposptr		= pModule + 0x1F2BDD0;
 
 	// Context contains <ip>:<port> as a string, is emty when disconneted
-	contextptr	= pModule + 0x1EA8698;
+	contextptr	= pModule + 0x1EB1050;
 	
 	// Avatar dynamic pointer
-	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E54564);
+	BYTE *ptr1	= peekProc<BYTE*>(pModule + 0x01E69544);
 	if (! ptr1)
 		return false;
 
-	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x408);
+	BYTE *ptr2	= peekProc<BYTE*>(ptr1 + 0x18);
 	if (! ptr2)
 		return false;
 	
-	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x2b4);
+	BYTE *ptr3	= peekProc<BYTE*>(ptr2 + 0x2c);
 	if (! ptr3)
 		return false;
 
-	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x7b8);
+	BYTE *ptr4	= peekProc<BYTE*>(ptr3 + 0x4);
 	if (! ptr4)
 		return false;
 	
 	// Avatar position pointer
-	aposptr		= ptr4 + 0x3c0;
+	aposptr		= ptr4 + 0x310;
 
 	// Avatar angle pointer
-	afrontptr	= ptr4 + 0x430;
+	afrontptr	= ptr4 + 0x380;
 
 	return true;
 }
@@ -89,22 +90,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	bool ok;
 
-	// gamestate
+	// if state available: connect to game
 	int state;
-	ok = peekProc(pModule + 0x1EBB870, state);
+	ok = peekProc(pModule + 0x1EB0D18, state);
 	if (! ok)
 		return false;
-
-	// mumble will turn off positional audio when we returne true
+	context.clear();
+/*
+	// mumble will turn off positional audio when we return true
 	if (state == STATE_LOADING_OR_IN_MENU) {
 		context.clear();
 		return true;
 	}
-
+*/
 	if (! resolvePointers())
-		return false;
+		return true;
 	
-    char ccontext[20];
+	char ccontext[20];
 
 	ok = peekProc(aposptr,    apos,     12) &&
 		 peekProc(afrontptr,  afront,   12) &&
@@ -112,24 +114,24 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		 peekProc(contextptr, ccontext, 20);
 
 	if (! ok)
-		return false;
+		return true;
 	
-    ccontext[sizeof(ccontext) - 1] = 0;
-    if (ccontext[0] != '0') {
-        std::ostringstream ocontext;
-        ocontext << "{ \"ipport\": \"" << ccontext << "\" }";
-        context = ocontext.str();
+	ccontext[sizeof(ccontext) - 1] = 0;
+	if (ccontext[0] != '0') {
+		std::ostringstream ocontext;
+		ocontext << " { \"ipport\": \"" << ccontext << "\" }";
+		context = ocontext.str();
 	}
 
 	// ADJUSTING CALCULATIONS
-	float h  = afront[0];
-	float v  = afront[1];
+	float h         = afront[0];
+	float v         = afront[1];
 
 	if ((v < -180.0f) || (v > 180.0f) || (h < -180.0f) || (h > 180.0f))
 		return false;
 
-	h        *= static_cast<float>(M_PI / 180.0f);
-	v        *= static_cast<float>(M_PI / 180.0f);
+	h               *= static_cast<float>(M_PI / 180.0f);
+	v               *= static_cast<float>(M_PI / 180.0f);
 	
 	// AVATAR
 	avatar_pos[0]   = apos[0] / 39.37f;
@@ -186,8 +188,9 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports independent camera and avatar positions, front and top vectors. State detection will enable PA if not in menu. Context support will make mumble able to differentiate between matches. No identity support yet (feel free to contribute).");
 }
 
-static std::wstring description(L"DotA 2 (build 5248:570)");
+static std::wstring description(L"DotA 2 (build 5255:570)");
 static std::wstring shortname(L"DotA 2");
+
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
