@@ -40,14 +40,13 @@ static NSString *ConfigDialogDelegate_QString_to_AutoreleasedNSString(const QStr
 	                                reinterpret_cast<const UniChar *>(string.unicode()), string.length()))) autorelease];
 }
 
-static NSImage *ConfigDialogDelegate_QIcon_to_AutoreleasedNSImage(const QIcon &icon) {
-	CGImageRef img = icon.pixmap(OSX_TOOLBAR_ICON_SIZE, OSX_TOOLBAR_ICON_SIZE).toMacCGImageRef();
-	NSBitmapImageRep *bmp = [[[NSBitmapImageRep alloc] initWithCGImage:img] autorelease];
-	CGImageRelease(img);
+// Private Qt symbol: gui/kernel/qt_cocoa_helpers_mac.mm
+extern NSImage *qt_mac_create_nsimage(const QPixmap &pm);
 
-	NSImage *nimg = [[[NSImage alloc] init] autorelease];
-	[nimg addRepresentation:bmp];
-	return nimg;
+static NSImage *ConfigDialogDelegate_QIcon_to_AutoreleasedNSImage(const QIcon &icon) {
+	QPixmap pm = icon.pixmap(OSX_TOOLBAR_ICON_SIZE, OSX_TOOLBAR_ICON_SIZE);
+	NSImage *nimg = qt_mac_create_nsimage(pm);
+	return [nimg autorelease];
 }
 
 @interface ConfigDialogDelegate () {
