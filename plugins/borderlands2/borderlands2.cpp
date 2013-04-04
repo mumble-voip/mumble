@@ -95,12 +95,21 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	char detected_version[32];
 
+	// 1.3.1
 	if (peekProc(pModule + 0x1E6D048, detected_version)
-		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") != 0)
+		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") == 0)
 	{
 		vects_ptr = pModule + 0x1E792B0;
 		state_ptr = pModule + 0x1E79BC8;
 		character_name_ptr_loc = pModule + 0x1E7302C;
+	}
+	// 1.4.0
+	else if (peekProc(pModule + 0x1E8D1D8, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCSAGE-77-CL711033") == 0)
+	{
+		vects_ptr = pModule + 0x1E993F0;
+		state_ptr = pModule + 0x1E99D08;
+		character_name_ptr_loc = pModule + 0x1E93194;
 	}
 	else
 	{
@@ -126,14 +135,14 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
-static std::wstring description(L"Borderlands 2 (v1.3.1)");
+static std::wstring description(L"Borderlands 2 (v1.4.0)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
 }
 
-static MumblePlugin aaplug = {
+static MumblePlugin bl2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
@@ -145,16 +154,16 @@ static MumblePlugin aaplug = {
 	fetch
 };
 
-static MumblePlugin2 aaplug2 = {
+static MumblePlugin2 bl2plug2 = {
 	MUMBLE_PLUGIN_MAGIC_2,
 	MUMBLE_PLUGIN_VERSION,
 	trylock
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &aaplug;
+	return &bl2plug;
 }
 
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
-	return &aaplug2;
+	return &bl2plug2;
 }
