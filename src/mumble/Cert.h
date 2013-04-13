@@ -50,6 +50,7 @@ class CertView : public QGroupBox {
 		QLabel *qlSubjectName, *qlSubjectEmail, *qlIssuerName, *qlExpiry;
 	public:
 		CertView(QWidget *p);
+		virtual ~CertView();
 		void setCert(const QList<QSslCertificate> &cert);
 };
 

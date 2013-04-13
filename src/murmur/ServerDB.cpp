@@ -78,6 +78,7 @@ ServerDB::ServerDB() {
 	}
 	if (db) {
 		// Don’t hide away our previous instance. Fail hard.
+		OutputDebugStringA("ServerDB has already been instantiated!");
 		throw std::exception();
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
