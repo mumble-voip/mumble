@@ -138,12 +138,6 @@ ASIOInput *ASIOInput::aiSelf;
 
 ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	HKEY hkDevs;
-	HKEY hk;
-	DWORD idx = 0;
-	WCHAR keyname[255];
-	DWORD keynamelen = 255;
-	FILETIME ft;
-	HRESULT hr;
 
 	setupUi(this);
 
@@ -155,18 +149,23 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 	blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
 #endif
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
+		WCHAR keyname[255];
+		DWORD keynamelen = 255;
+		FILETIME ft;
+		DWORD idx = 0;
 		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
 			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
+			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
 				WCHAR wclsid[255];
 				DWORD datasize = 255;
-				CLSID clsid;
 				if (RegQueryValueEx(hk, L"CLSID", 0, &dtype, reinterpret_cast<BYTE *>(wclsid), &datasize) == ERROR_SUCCESS) {
 					if (datasize > 76)
 						datasize = 76;
 					QString qsCls = QString::fromUtf16(reinterpret_cast<ushort *>(wclsid), datasize / 2).toLower().trimmed();
-					if (! blacklist.contains(qsCls) && ! FAILED(hr =CLSIDFromString(wclsid, &clsid))) {
+					CLSID clsid;
+					if (! blacklist.contains(qsCls) && ! FAILED(CLSIDFromString(wclsid, &clsid))) {
 						ASIODev ad(name, qsCls);
 						qlDevs << ad;
 					}
