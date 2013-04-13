@@ -73,6 +73,7 @@ class Channel : public QObject {
 
 #ifdef MUMBLE
 		unsigned int uiPermissions;
+		bool bHidden;
 
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;

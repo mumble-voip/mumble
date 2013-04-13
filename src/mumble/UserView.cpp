@@ -309,3 +309,75 @@ void UserView::selectSearchResult() {
 	}
 	qpmiSearch = QPersistentModelIndex();
 }
+
+bool ChannelHasUsers(const Channel *c)
+{
+	if(c->qlUsers.isEmpty() == false)
+		return true;
+
+	int i;	
+
+	for(i=0;i<c->qlChannels.count();i++)
+	{
+		if(ChannelHasUsers(c->qlChannels[i]))
+			return true;
+	}
+	return false;
+}
+
+static bool ChannelHidden(const Channel *c)
+{
+	while(c) {
+		if(c->bHidden)
+			return true;
+		c=c->cParent;
+	}
+	return false;
+}
+
+void UserView::updatechannel(const QModelIndex &idx)
+{
+	UserModel *um = static_cast<UserModel *>(model());
+	
+	if(!idx.isValid())
+		return;
+	
+	Channel * c = um->getChannel(idx);
+	
+	
+	int i;
+	for(i=0;idx.child(i,0).isValid();i++) {
+		updatechannel(idx.child(i,0));
+	}
+
+	if(c && idx.parent().isValid()) {
+
+		if(g.s.bFilterActive == false) {
+			setRowHidden(idx.row(),idx.parent(),false);
+		} else {
+
+			if(ChannelHidden(c)) {
+				QByteArray ba = c->qsName.toLocal8Bit();
+				setRowHidden(idx.row(),idx.parent(),true);
+			} else {
+				if(g.s.bFilterHidesEmptyChannels && !ChannelHasUsers(c)) {
+					setRowHidden(idx.row(),idx.parent(),true);
+				} else {
+					setRowHidden(idx.row(),idx.parent(),false);
+				}
+			}
+		}
+	}
+}
+
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
+{
+	UserModel *um = static_cast<UserModel *>(model());
+	int nRowCount = um->rowCount();
+	int i;
+	for(i=0;i<nRowCount;i++)
+		updatechannel(um->index(i,0));
+
+	QTreeView::dataChanged(topLeft,bottomRight);
+}
+

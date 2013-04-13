@@ -51,6 +51,7 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 		cParent->addChannel(this);
 #ifdef MUMBLE
 	uiPermissions = 0;
+	bHidden = false;
 #endif
 }
 

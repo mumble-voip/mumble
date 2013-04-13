@@ -258,6 +258,8 @@ struct Settings {
 	bool bUsage;
 	bool bShowUserCount;
 	bool bChatBarUseSelection;
+	bool bFilterHidesEmptyChannels;
+	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
 
