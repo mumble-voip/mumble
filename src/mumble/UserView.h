@@ -66,7 +66,8 @@ class UserView : public QTreeView {
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
-
+	    void dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight );
+        void updatechannel(const QModelIndex &index);
 };
 
 #endif

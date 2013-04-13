@@ -316,6 +316,9 @@ Settings::Settings() {
 	bUsage = true;
 	bShowUserCount = false;
 	bChatBarUseSelection = false;
+	bFilterHidesEmptyChannels = false;
+	bFilterActive = false;
+
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
 
@@ -655,6 +658,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
+	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
@@ -938,6 +943,8 @@ void Settings::save() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
+	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");

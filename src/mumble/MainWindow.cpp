@@ -65,6 +65,7 @@
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
 #include "../SignalCurry.h"
+#include "Settings.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -259,6 +260,9 @@ void MainWindow::createActions() {
 	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
 	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
 
+	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel", "Global Shortcut"));
+	gsHideChannel->setObjectName(QLatin1String("HideChannel"));
+
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
@@ -319,6 +323,8 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(g.s.bTTS);
+	qaFilterToggle->setChecked(g.s.bFilterActive);
+
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
@@ -1606,6 +1612,12 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelCopyURL);
 	qmChannel->addAction(qaChannelSendMessage);
 
+	// hiding the root is nonsense
+	if(c && c->cParent) {
+		qmChannel->addSeparator();
+		qmChannel->addAction(qaChannelHide);
+	}
+
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
@@ -1622,8 +1634,8 @@ void MainWindow::qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, link, unlink, unlinkall, msg;
-	add = remove = acl = link = unlink = unlinkall = msg = false;
+	bool add, remove, acl, link, unlink, unlinkall, msg, hide;
+	add = remove = acl = link = unlink = unlinkall = msg = hide = false;
 
 	if (g.uiSession != 0) {
 		add = true;
@@ -1646,6 +1658,9 @@ void MainWindow::qmChannel_aboutToShow() {
 		}
 	}
 
+	if(c)
+		qaChannelHide->setChecked(c->bHidden);
+
 	qaChannelAdd->setEnabled(add);
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
@@ -1661,6 +1676,17 @@ void MainWindow::on_qaChannelJoin_triggered() {
 
 	if (c) {
 		g.sh->joinChannel(c->iId);
+	}
+}
+
+void MainWindow::on_qaChannelHide_triggered() {
+	Channel *c = getContextMenuChannel();
+	
+	if (c) {
+		QByteArray ba = c->qsName.toLocal8Bit();		
+
+		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+		um->toggleHidden(c);
 	}
 }
 
@@ -1872,6 +1898,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	qaChannelHide->setEnabled(true);
 	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
@@ -1901,6 +1928,13 @@ void MainWindow::on_qaAudioReset_triggered() {
 	AudioInputPtr ai = g.ai;
 	if (ai)
 		ai->bResetProcessor = true;
+}
+
+void MainWindow::on_qaFilterToggle_triggered() {	
+	g.s.bFilterActive = qaFilterToggle->isChecked();
+
+	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+	um->toggleHidden(NULL); // force a UI refresh
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
@@ -2010,6 +2044,9 @@ void MainWindow::on_qaConfigDialog_triggered() {
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
 		updateTrayIcon();
+
+		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+		um->toggleHidden(NULL); // force a UI refresh
 	}
 
 	delete dlg;
@@ -2562,6 +2599,8 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
+		qmTray->addAction(qaFilterToggle);
+		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
@@ -2571,6 +2610,8 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
+		qmTray->addSeparator();
+		qmTray->addAction(qaFilterToggle);
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
 	}
