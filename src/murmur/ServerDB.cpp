@@ -62,15 +62,23 @@ class TransactionHolder {
 			delete qsqQuery;
 			ServerDB::db->commit();
 		}
+		TransactionHolder(const TransactionHolder & other) {
+			ServerDB::db->transaction();
+			qsqQuery = other.qsqQuery ? new QSqlQuery(*other.qsqQuery) : 0;
+		}
 };
 
-QSqlDatabase *ServerDB::db;
+QSqlDatabase *ServerDB::db = NULL;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
+	}
+	if (db) {
+		// Don’t hide away our previous instance. Fail hard.
+		throw std::exception();
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
 
