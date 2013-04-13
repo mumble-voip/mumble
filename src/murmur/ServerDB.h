@@ -66,6 +66,8 @@ class ServerDB {
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true, bool warn = true);
 		static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal= true, bool warn = true);
 		static bool execBatch(QSqlQuery &, const QString &str = QString(), bool fatal= true);
+		// No copy; private declaration without implementation
+		ServerDB(const ServerDB &);
 };
 
 #endif
