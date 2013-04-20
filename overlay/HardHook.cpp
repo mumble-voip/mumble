@@ -282,6 +282,10 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 	setup(reinterpret_cast<voidFunc>(ptr[funcoffset]), replacement);
 }
 
+void HardHook::reset() {
+	baseptr = 0;
+}
+
 /**
  * @brief Injects redirection code into the target function.
  *

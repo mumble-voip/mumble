@@ -67,6 +67,7 @@ struct HardHook {
 	void *cloneCode(void **orig);
 	void setup(voidFunc func, voidFunc replacement);
 	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
+	void reset();
 	void inject(bool force = false);
 	void restore(bool force = false);
 	void print();

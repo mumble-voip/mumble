@@ -734,6 +734,19 @@ void checkD3D9Hook(bool preonly) {
 				bHooked = false;
 			}
 		}
+	} else {
+		if (bHooked) {
+			fods("D3D9: DLL has been unloaded");
+			hhCreateDevice.reset();
+			hhCreateDeviceEx.reset();
+			hhReset.reset();
+			hhAddRef.reset();
+			hhRelease.reset();
+			hhPresent.reset();
+			hhPresentEx.reset();
+			hhSwapPresent.reset();
+			bHooked = false;
+		}
 	}
 
 	bChaining = false;
