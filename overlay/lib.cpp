@@ -407,8 +407,15 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
 	hhLoad.restore();
 
+	if (! bBlackListed) {
+		// Before loading DLL, check if existing hooks were lost
+		checkD3D9Hook();
+		checkDXGIHook();
+		checkOpenGLHook();
+	}
+
 	HMODULE h = oLoadLibrary(lpFileName);
-//	ods("Library %s loaded to %p", lpFileName, h);
+	ods("Library %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
 		checkD3D9Hook();
@@ -424,6 +431,13 @@ typedef HMODULE(__stdcall *LoadLibraryWType)(const wchar_t *);
 static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	LoadLibraryWType oLoadLibrary = (LoadLibraryWType) hhLoadW.call;
 	hhLoadW.restore();
+
+	if (! bBlackListed) {
+		// Before loading DLL, check if existing hooks were lost
+		checkD3D9Hook();
+		checkDXGIHook();
+		checkOpenGLHook();
+	}
 
 	HMODULE h = oLoadLibrary(lpFileName);
 	ods("Library %ls wloaded to %p", lpFileName, h);
