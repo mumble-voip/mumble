@@ -660,7 +660,6 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 
-					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
 					checkD3D9Hook(true);
 					checkDXGIHook(true);
 					checkOpenGLHook();
