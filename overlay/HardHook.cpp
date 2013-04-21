@@ -128,25 +128,25 @@ void *HardHook::cloneCode(void **porig) {
 	unsigned int idx = 0;
 
 	if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
-		fods("HardHook: Failed vprotect (1)");
+		fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate to PAGE_EXECUTE_READ)");
 		return NULL;
 	}
 
+	// Follow relative jumps to next instruction. On execution it doesn't make
+	// a difference if we actually perform all the jumps or directly jump to the
+	// end of the chain. Hence these jumps need not be part of the trampoline.
 	while (*o == 0xe9) { // JMP
 		unsigned char *tmp = o;
 		int *iptr = reinterpret_cast<int *>(o+1);
-		// Follow jmp relative to next command. It doesn't make a difference
-		// if we actually perform all the jumps or directly jump to the end of
-		// the chain. Hence these jumps need not be part of the trampoline.
 		o += *iptr + 5;
 
-		fods("HardHook: Chaining from %p to %p", *porig, o);
+		fods("HardHook: ClodeCode: Skipping jump from %p to %p", *porig, o);
 		*porig = o;
 
 		// Assume jump took us out of our read enabled zone, get rights for the new one
 		VirtualProtect(tmp, 16, oldProtect, &restoreProtect);
 		if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
-			fods("HardHook: Failed vprotect (2)");
+			fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate jump target to PAGE_EXECUTE_READ)");
 			return NULL;
 		}
 	}
@@ -200,7 +200,7 @@ void *HardHook::cloneCode(void **porig) {
 					break;
 				}
 
-				fods("HardHook: Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				fods("HardHook: CloneCode failed; Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				VirtualProtect(o, 16, oldProtect, &restoreProtect);
 				return NULL;
 				break;
@@ -240,10 +240,10 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 	if (baseptr)
 		return;
 
+	fods("HardHook: Setup: Asked to replace %p with %p", func, replacement);
+
 	unsigned char *fptr = reinterpret_cast<unsigned char *>(func);
 	unsigned char *nptr = reinterpret_cast<unsigned char *>(replacement);
-
-	fods("HardHook: Asked to replace %p with %p", func, replacement);
 
 	call = (voidFunc) cloneCode((void **) &fptr);
 
@@ -276,7 +276,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 }
 
 void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacement) {
-	fods("HardHook: Replacing %p function #%ld", unkn, funcoffset);
+	fods("HardHook: setupInterface: Replacing %p function #%ld", unkn, funcoffset);
 	void **ptr = reinterpret_cast<void **>(unkn);
 	ptr = reinterpret_cast<void **>(ptr[0]);
 	setup(reinterpret_cast<voidFunc>(ptr[funcoffset]), replacement);
@@ -309,11 +309,13 @@ void HardHook::inject(bool force) {
 		for (i=0;i<6;i++)
 			baseptr[i] = replace[i]; // Replace with jump to new code
 		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(),baseptr, 6);
+		FlushInstructionCache(GetCurrentProcess(), baseptr, 6);
 	}
+
+	// Verify that the injection was successful
 	for (i=0;i<6;i++)
 		if (baseptr[i] != replace[i])
-			fods("HH: Injection failure at byte %d", i);
+			fods("HardHook: Injection failure noticed at byte %d", i);
 }
 
 /**
@@ -344,7 +346,7 @@ void HardHook::restore(bool force) {
 }
 
 void HardHook::print() {
-	fods("HardHook: %02x %02x %02x %02x %02x => %02x %02x %02x %02x %02x (%02x %02x %02x %02x %02x)",
+	fods("HardHook: code replacement: %02x %02x %02x %02x %02x => %02x %02x %02x %02x %02x (currently effective: %02x %02x %02x %02x %02x)",
 	     orig[0], orig[1], orig[2], orig[3], orig[4],
 	     replace[0], replace[1], replace[2], replace[3], replace[4],
 	     baseptr[0], baseptr[1], baseptr[2], baseptr[3], baseptr[4]);
@@ -358,11 +360,13 @@ void HardHook::print() {
  */
 void HardHook::check() {
 	if (memcmp(baseptr, replace, 6) != 0) {
+		// The instructions do not match our replacement instructions
+		// If they match the original code, inject our hook.
 		if (memcmp(baseptr, orig, 6) == 0) {
-			fods("HH: Restoring function %p", baseptr);
+			fods("HardHook: Reinjecting hook into function %p", baseptr);
 			inject(true);
 		} else {
-			fods("HH: Function %p replaced by third party. Lost.");
+			fods("HardHook: Function %p replaced by third party. Lost injected hook.");
 		}
 	}
 }

@@ -247,7 +247,7 @@ void DevState::draw() {
 void DevState::createCleanState() {
 	DWORD dwOldThread = dwMyThread;
 	if (dwOldThread) {
-		ods("CreateCleanState from other thread.");
+		ods("D3D9: CreateCleanState from other thread.");
 	}
 	dwMyThread = GetCurrentThreadId();
 
@@ -321,7 +321,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 	if (ds && ds->pSB) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
-			ods("doPresent from other thread");
+			ods("D3D9: doPresent from other thread");
 		ds->dwMyThread = GetCurrentThreadId();
 
 		IDirect3DSurface9 *pTarget = NULL;
@@ -329,7 +329,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
 		idd->GetRenderTarget(0, &pRenderTarget);
 
-		ods("D3D9: doPresent Back %p RenderT %p",pTarget,pRenderTarget);
+		ods("D3D9: doPresent BackB %p RenderT %p", pTarget, pRenderTarget);
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
 		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
@@ -350,7 +350,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		pRenderTarget->Release();
 		pTarget->Release();
 
-//		ods("Finished ref is %d %d", ds->myRefCount, ds->refCount);
+//		ods("D3D9: Finished ref is %d %d", ds->myRefCount, ds->refCount);
 		ds->dwMyThread = dwOldThread;
 	}
 }
@@ -402,7 +402,7 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 	if (ds) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
-			ods("myReset from other thread");
+			ods("D3D9: myReset from other thread");
 		ds->dwMyThread = GetCurrentThreadId();
 
 		ds->releaseAll();
@@ -485,7 +485,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
-			ods("finalRelease from other thread");
+			ods("D3D9: finalRelease from other thread");
 		ds->dwMyThread = GetCurrentThreadId();
 
 		ds->releaseAll();
@@ -520,7 +520,7 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 			ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
 			DWORD dwOldThread = ds->dwMyThread;
 			if (dwOldThread)
-				ods("finalRelease from other thread");
+				ods("D3D9: finalRelease from other thread");
 			ds->dwMyThread = GetCurrentThreadId();
 			ds->releaseAll();
 			ds->dwMyThread = dwOldThread;
@@ -572,7 +572,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 			IDirect3DDevice9 *idorig = NULL;
 			if (SUCCEEDED(pSwap->GetDevice(&idorig))) {
 				if (idorig != idd) {
-					ods("Prepatched device, using original. %p => %p", idorig, idd);
+					ods("D3D9: Prepatched device, using original. %p => %p", idorig, idd);
 					if (idd != *ppReturnedDeviceInterface)
 						idd->Release();
 					idd = idorig;
@@ -716,19 +716,19 @@ void checkD3D9Hook(bool preonly) {
 				if (d3dd->iOffsetCreateEx)
 					HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
 			} else if (! preonly) {
-				fods("D3D9 Interface changed, can't rawpatch");
+				fods("D3D9: Interface changed, can't rawpatch");
 				pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
-				ods("Got %p", d3dc9);
+				ods("D3D9: Got %p", d3dc9);
 				if (d3dc9) {
 					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
 					if (id3d9) {
 						HookCreate(id3d9);
 						id3d9->Release();
 					} else {
-						ods("Failed Direct3DCreate9");
+						ods("D3D9: Failed Direct3DCreate9");
 					}
 				} else {
-					ods("D3D Library without Direct3DCreate9?");
+					ods("D3D9: Library without Direct3DCreate9?");
 				}
 			} else {
 				bHooked = false;
@@ -736,7 +736,7 @@ void checkD3D9Hook(bool preonly) {
 		}
 	} else {
 		if (bHooked) {
-			fods("D3D9: DLL has been unloaded");
+			fods("D3D9: DLL has previously been unloaded - resetting hook data");
 			hhCreateDevice.reset();
 			hhCreateDeviceEx.reset();
 			hhReset.reset();
@@ -756,7 +756,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
 
-	ods("Preparing static data for D3D9 Injection");
+	ods("D3D9: Preparing static data for D3D9 Injection");
 
 	HMODULE hD3D = LoadLibrary("D3D9.DLL");
 
@@ -767,14 +767,14 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
 		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (! d3dc9) {
-			ods("D3D9 Library without Direct3DCreate9");
+			ods("D3D9: Library without Direct3DCreate9");
 		} else {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9, &hRef)) {
-				ods("Failed to get module for D3D9");
+				ods("D3D9: Failed to get module for D3D9");
 			} else {
 				GetModuleFileName(hRef, buffb, 2048);
 				if (_stricmp(d3dd->cFileName, buffb) != 0) {
-					ods("Direct3DCreate9 is not in D3D9 library");
+					ods("D3D9: Direct3DCreate9 is not in D3D9 library");
 				} else {
 					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
 					if (id3d9) {
@@ -782,16 +782,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						void *pCreate = (*vtbl)[16];
 
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreate, &hRef)) {
-							ods("Failed to get module for CreateDevice");
+							ods("D3D9: Failed to get module for CreateDevice");
 						} else {
 							GetModuleFileName(hRef, buffb, 2048);
 							if (_stricmp(d3dd->cFileName, buffb) != 0) {
-								ods("CreateDevice is not in D3D9 library");
+								ods("D3D9: CreateDevice is not in D3D9 library");
 							} else {
 								unsigned char *b = (unsigned char *) pCreate;
 								unsigned char *a = (unsigned char *) hD3D;
 								d3dd->iOffsetCreate = b-a;
-								ods("Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreate, d3dd->iOffsetCreate);
+								ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreate, d3dd->iOffsetCreate);
 							}
 						}
 						id3d9->Release();
@@ -802,14 +802,14 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 		pDirect3DCreate9Ex d3dc9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
 		if (! d3dc9ex) {
-			ods("D3D9 Library without Direct3DCreate9Ex");
+			ods("D3D9: Library without Direct3DCreate9Ex");
 		} else {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9ex, &hRef)) {
-				ods("Failed to get module for D3D9");
+				ods("D3D9: Failed to get module for D3D9");
 			} else {
 				GetModuleFileName(hRef, buffb, 2048);
 				if (_stricmp(d3dd->cFileName, buffb) != 0) {
-					ods("Direct3DCreate9Ex is not in D3D9 library");
+					ods("D3D9: Direct3DCreate9Ex is not in D3D9 library");
 				} else {
 					IDirect3D9Ex *id3d9 = NULL;
 					d3dc9ex(D3D_SDK_VERSION, &id3d9);
@@ -818,16 +818,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						void *pCreateEx = (*vtbl)[20];
 
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreateEx, &hRef)) {
-							ods("Failed to get module for CreateDeviceEx");
+							ods("D3D9: Failed to get module for CreateDeviceEx");
 						} else {
 							GetModuleFileName(hRef, buffb, 2048);
 							if (_stricmp(d3dd->cFileName, buffb) != 0) {
-								ods("CreateDeviceEx is not in D3D9 library");
+								ods("D3D9: CreateDeviceEx is not in D3D9 library");
 							} else {
 								unsigned char *b = (unsigned char *) pCreateEx;
 								unsigned char *a = (unsigned char *) hD3D;
 								d3dd->iOffsetCreateEx = b-a;
-								ods("Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreateEx);
+								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreateEx);
 							}
 						}
 						id3d9->Release();
