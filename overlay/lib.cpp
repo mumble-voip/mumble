@@ -45,6 +45,7 @@ static BOOL bBlackListed = FALSE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
+static HardHook hhFree;
 
 static SharedData *sd;
 
@@ -56,7 +57,7 @@ FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 
 	pNew = (IUnknown *) &vtbl;
 
-	ods("Allocated %p for %d", f, entries);
+	ods("Lib: FakeInterface: Allocated %p for %d number of entries", f, entries);
 	for (int i=0;i<entries;i++) {
 		DWORD offset = i * 4;
 		vtbl[i] = f;
@@ -111,7 +112,7 @@ void FakeInterface::replace(LONG offset, voidMemberFunc replacement) {
 		mov eax, replacement
 		mov p, eax
 	}
-	ods("That gave %p", p);
+	ods("Lib: FakeInterface: replace: That gave %p", p);
 	vtbl[offset] = p;
 }
 
@@ -123,7 +124,7 @@ void Mutex::init() {
 
 Mutex::Mutex() {
 	if (! TryEnterCriticalSection(&cs)) {
-		ods("CritFail");
+		ods("Lib: Mutex: CritFail - blocking until able to enter critical section");
 		EnterCriticalSection(&cs);
 	}
 }
@@ -146,7 +147,7 @@ void __cdecl ods(const char *format, ...) {
 
 void __cdecl checkForWPF() {
 	if (!bBlackListed && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
-		ods("Blacklisted for loading WPF library");
+		ods("Lib: Blacklisted for loading WPF library");
 		bBlackListed = TRUE;
 	}
 }
@@ -404,18 +405,14 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
 	hhLoad.restore();
-
-	if (! bBlackListed) {
-		// Before loading DLL, check if existing hooks were lost
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkOpenGLHook();
-	}
-
 	HMODULE h = oLoadLibrary(lpFileName);
-	ods("Library %s loaded to %p", lpFileName, h);
+	hhLoad.inject();
+
+	ods("Lib: %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
 		checkD3D9Hook();
@@ -423,24 +420,19 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 		checkOpenGLHook();
 	}
 
-	hhLoad.inject();
 	return h;
 }
 
 typedef HMODULE(__stdcall *LoadLibraryWType)(const wchar_t *);
 static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	LoadLibraryWType oLoadLibrary = (LoadLibraryWType) hhLoadW.call;
 	hhLoadW.restore();
-
-	if (! bBlackListed) {
-		// Before loading DLL, check if existing hooks were lost
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkOpenGLHook();
-	}
-
 	HMODULE h = oLoadLibrary(lpFileName);
-	ods("Library %ls wloaded to %p", lpFileName, h);
+	hhLoadW.inject();
+
+	ods("Lib: %ls wloaded to %p", lpFileName, h);
 
 	checkForWPF();
 
@@ -450,8 +442,23 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 		checkOpenGLHook();
 	}
 
-	hhLoadW.inject();
 	return h;
+}
+
+typedef BOOL(__stdcall *FreeLibraryType)(HMODULE hModule);
+static BOOL WINAPI MyFreeLibrary(HMODULE hModule) {
+	ods("Lib: MyFreeLibrary %p", hModule);
+
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
+	FreeLibraryType oFreeLibrary = (FreeLibraryType) hhFree.call;
+	hhFree.restore();
+	BOOL r = oFreeLibrary(hModule);
+	hhFree.inject();
+
+	freeD3D9Hook(hModule);
+
+	return r;
 }
 
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
@@ -505,7 +512,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (!p) {
 					// No blacklisting if the file has no path
 				} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
-					ods("Attached to self");
+					ods("Lib: Attached to self (own process). Blacklisted - no overlay inection.");
 					bBlackListed = TRUE;
 					bMumble = TRUE;
 				} else {
@@ -548,7 +555,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							bool onwhitelist = false;
 							while (pos < buffsize && buffer[pos] != 0) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay enabled for whitelisted '%s'", buffer + pos);
+									ods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
 									onwhitelist = true;
 									break;
 								}
@@ -556,14 +563,14 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 							}
 
 							if (!onwhitelist) {
-								ods("No whitelist entry found for '%s', auto-blacklisted", procname);
+								ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
 								bBlackListed = TRUE;
 								break;
 							}
 						} else {
 							while (pos < buffsize && buffer[pos] != 0) {
 								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay blacklist entry found for '%s'", buffer + pos);
+									ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
 									bBlackListed = TRUE;
 									break;
 								}
@@ -572,11 +579,11 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						}
 					} else {
 						// If there is no list in the registry fallback to using the default blacklist
-						fods("Overlay fallback to default blacklist");
+						ods("Lib: Overlay fallback to default blacklist");
 						int i = 0;
 						while (overlayBlacklist[i]) {
 							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
-								fods("Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
+								ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
 								bBlackListed = TRUE;
 								break;
 							}
@@ -598,7 +605,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay disable %s found", fname);
+						ods("Lib: Overlay disable %s found", fname);
 						bBlackListed = TRUE;
 						return TRUE;
 					}
@@ -607,7 +614,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 					h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 					if (h != INVALID_HANDLE_VALUE) {
 						CloseHandle(h);
-						fods("Overlay debug %s found", fname);
+						ods("Lib: Overlay debug %s found", fname);
 						bDebug = TRUE;
 					}
 
@@ -644,7 +651,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				sd = static_cast<SharedData *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
 				if (sd == NULL) {
-					ods("MapViewOfFile Failed");
+					ods("Lib: MapViewOfFile Failed");
 					return TRUE;
 				}
 
@@ -659,18 +666,25 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				if (! bMumble) {
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
+					hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
 
 					checkD3D9Hook(true);
 					checkDXGIHook(true);
 					checkOpenGLHook();
-					ods("Injected into %s", procname);
+					ods("Lib: Injected into %s", procname);
 				}
 			}
 			break;
 		case DLL_PROCESS_DETACH: {
 				ods("Lib: ProcDetach: %s", procname);
+
 				hhLoad.restore(true);
+				hhLoad.reset();
 				hhLoadW.restore(true);
+				hhLoadW.reset();
+				hhFree.restore(true);
+				hhFree.reset();
+
 				if (sd)
 					UnmapViewOfFile(sd);
 				if (hMapObject)
@@ -689,7 +703,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 						checkD3D9Hook();
 						checkDXGIHook();
 						checkOpenGLHook();
-						ods("Injected to thread of %s", procname);
+						ods("Lib: Injected to thread of %s", procname);
 					}
 				}
 			}

@@ -56,8 +56,8 @@ HardHook::HardHook() : bTrampoline(false), call(0), baseptr(NULL) {
  * @param func Funktion to inject replacement into.
  * @param replacement Function to inject into func.
  */
-HardHook::HardHook(voidFunc func, voidFunc replacement) {
-	baseptr = NULL;
+HardHook::HardHook(voidFunc func, voidFunc replacement)
+	: bTrampoline(false), call(0), baseptr(NULL) {
 	for (int i = 0; i < CODEREPLACESIZE; ++i)
 		orig[i] = replace[i] = 0;
 	setup(func, replacement);
@@ -96,30 +96,31 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 /**
  * @brief Tries to construct a trampoline from original code.
  *
- * A trampoline is called by an injected mumble function to return
- * control flow to the original code.
- *
- * For this to work we have to save all commands overlapping the first 6 bytes
- * of code in the original function. This is needed so the first redirection,
- * to our mumble code, can be inserted in their place.
+ * A trampoline is the replacement code that features the original code plus
+ * a jump back to the original instructions that follow.
+ * It is called to execute the original behavior. As it is a replacement for
+ * the original, the original can then be overwritten.
+ * The size of the trampoline is at least CODEREPLACESIZE. Thus, CODEREPLACESIZE
+ * bytes of the original code can afterwards be overwritten (and the trampoline
+ * called after those instructions for the original logic).
+ * CODEREPLACESIZE has to be smaller than CODEPROTECTSIZE.
  *
  * As commands must not be destroyed they have to be disassembled to get their length.
  * All encountered commands will be part of the trampoline and stored in pCode (shared
  * for all trampolines).
  *
  * If code is encountered that can not be moved into the trampoline (conditionals etc.)
- * construction fails and and NULL is returned. If enough commands can be saved the
+ * construction fails and NULL is returned. If enough commands can be saved the
  * trampoline is finalized by appending a jump back to the original code. The return value
  * in this case will be the address of the newly constructed trampoline.
  *
  * pCode + offset to trampoline:
- *     [SAVED CODE FROM ORIGINAL > 6 bytes][JUMP BACK TO ORIGINAL CODE]
+ *     [SAVED CODE FROM ORIGINAL which is >= CODEREPLACESIZE bytes][JUMP BACK TO ORIGINAL CODE]
  *
  * @param porig Original code
  * @return Pointer to trampoline on success. NULL if trampoline construction failed.
  */
 void *HardHook::cloneCode(void **porig) {
-
 
 	if (! pCode || uiCode > 4000) {
 		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
@@ -224,18 +225,22 @@ void *HardHook::cloneCode(void **porig) {
 		idx += extra;
 
 	} while (idx < CODEREPLACESIZE);
+
 	DWORD tempProtect;
 	VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 
-	n[idx++] = 0xe9; // Add a relative jmp back to the original code
-	int offs = o - n - 5;
-
+	// Add a relative jmp back to the original code
+	n[idx++] = 0xe9;
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
+	int offs = o - n - 5;
 	*iptr = offs;
 	idx += 4;
 
 	uiCode += idx;
+
 	FlushInstructionCache(GetCurrentProcess(), n, idx);
+
+	fods("HardHook: trampoline creation successful at %p", n);
 
 	return n;
 }
@@ -281,6 +286,10 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 			orig[i] = fptr[i];
 
 		baseptr = fptr;
+
+		//TODO: Why do we want to force, even without a trampoline?!? We may
+		//      break the x86 instructions.
+		//      This is only safe as long as we always restore before calling .call.
 		inject(true);
 
 		DWORD tempProtect;
@@ -299,6 +308,11 @@ void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacem
 
 void HardHook::reset() {
 	baseptr = 0;
+	bTrampoline = false;
+	call = NULL;
+	for (int i = 0; i < CODEREPLACESIZE; ++i) {
+		orig[i] = replace[i] = 0;
+	}
 }
 
 /**
@@ -309,7 +323,7 @@ void HardHook::reset() {
  * to mumble code). If a trampoline is available this injection is not needed
  * as control flow was already permanently redirected by HardHook::setup .
  *
- * @param force If true injection will be performed even when trampoline is available.
+ * @param force Perform injection even when trampoline is available.
  */
 void HardHook::inject(bool force) {
 	if (! baseptr)
@@ -325,6 +339,7 @@ void HardHook::inject(bool force) {
 
 		DWORD tempProtect;
 		VirtualProtect(baseptr, CODEREPLACESIZE, origProtect, &tempProtect);
+
 		FlushInstructionCache(GetCurrentProcess(), baseptr, CODEREPLACESIZE);
 	}
 
@@ -344,7 +359,7 @@ void HardHook::inject(bool force) {
  * restoration is not needed as trampoline will correctly restore control
  * flow.
  *
- * @param force If true injection will be performed even when trampoline is available.
+ * @param force If true injection will be reverted even when trampoline is available.
  */
 void HardHook::restore(bool force) {
 
@@ -359,6 +374,7 @@ void HardHook::restore(bool force) {
 			baseptr[i] = orig[i];
 		DWORD tempProtect;
 		VirtualProtect(baseptr, CODEREPLACESIZE, origProtect, &tempProtect);
+
 		FlushInstructionCache(GetCurrentProcess(), baseptr, CODEREPLACESIZE);
 	}
 }
@@ -382,6 +398,7 @@ void HardHook::check() {
 		// If they match the original code, inject our hook.
 		if (memcmp(baseptr, orig, CODEREPLACESIZE) == 0) {
 			fods("HardHook: Reinjecting hook into function %p", baseptr);
+			//TODO: Why do we want to force, even without a trampoline?!?
 			inject(true);
 		} else {
 			fods("HardHook: Function %p replaced by third party. Lost injected hook.");
