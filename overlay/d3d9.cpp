@@ -772,6 +772,8 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	// Can we use the prepatch data?
 	GetModuleFileName(hD3D, procname, procnamesize);
 	if (_stricmp(d3dd->cFileName, procname) == 0) {
+		// The module seems to match the one we prepared d3dd for.
+
 		unsigned char *raw = (unsigned char *) hD3D;
 		HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
 		if (d3dd->iOffsetCreateEx)

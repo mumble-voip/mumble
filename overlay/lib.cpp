@@ -508,6 +508,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	char procname[1024+64];
 	GetModuleFileNameA(NULL, procname, 1024);
+
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH: {
 				Mutex::init();
@@ -521,7 +522,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 				} else {
 					DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
 
-					bool usewhitelist;
+					bool usewhitelist = false;
 					HKEY key = NULL;
 
 					char *buffer = new char[buffsize];
