@@ -74,7 +74,6 @@ class DevState : public Pipe {
 
 static map<IDirect3DDevice9 *, DevState *> devMap;
 static bool bHooked = false;
-static bool bChaining = false;
 static bool bPresenting = false;
 
 DevState::DevState() {
@@ -689,12 +688,13 @@ static void HookCreateRawEx(voidFunc vfCreate) {
 }
 
 void checkD3D9Hook(bool preonly) {
-	if (bChaining) {
-		ods("D3D9: Causing a chain");
+	static bool bCHActive = false;
+	if (bCHActive) {
+		ods("D3D9: Recursion in checkD3D9Hook");
 		return;
 	}
 
-	bChaining = true;
+	bCHActive = true;
 
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
@@ -749,7 +749,7 @@ void checkD3D9Hook(bool preonly) {
 		}
 	}
 
-	bChaining = false;
+	bCHActive = false;
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
