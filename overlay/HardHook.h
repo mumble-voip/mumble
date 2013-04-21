@@ -47,6 +47,11 @@
 typedef void *(*voidFunc)();
 
 struct HardHook {
+	// Pointer to executable code page that holds all trampoline codes
+	static void *pCode;
+	// Offset to next unused addr in pCode
+	static unsigned int uiCode;
+
 	// Pointer to original code (which is hooked/replaced)
 	unsigned char *baseptr;
 	// The original instructions that are replaced by the hook
@@ -59,14 +64,8 @@ struct HardHook {
 	// Points to the (rest of the) original function when used from the injected function
 	voidFunc call;
 
-	// Pointer to executable code page that holds all trampoline codes
-	static void *pCode;
-	// Offset to next unused addr in pCode
-	static unsigned int uiCode;
-
 	HardHook();
 	HardHook(voidFunc func, voidFunc replacement);
-	void *cloneCode(void **orig);
 	void setup(voidFunc func, voidFunc replacement);
 	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
 	void reset();
@@ -74,6 +73,12 @@ struct HardHook {
 	void restore(bool force = false);
 	void print();
 	void check();
+
+private:
+	static const int CODEREPLACESIZE;
+	static const int CODEPROTECTSIZE;
+
+	void *cloneCode(void **orig);
 };
 
 #endif
