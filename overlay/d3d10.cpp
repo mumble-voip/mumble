@@ -37,7 +37,6 @@
 DXGIData *dxgi = NULL;
 
 static bool bHooked = false;
-static bool bChaining = false;
 static HardHook hhPresent;
 static HardHook hhResize;
 static HardHook hhAddRef;
@@ -550,15 +549,16 @@ static void HookResizeRaw(voidFunc vfResize) {
 }
 
 void checkDXGIHook(bool preonly) {
-	if (bChaining) {
-		ods("DXGI: Causing a chain");
+	static bool bCHActive = false;
+	if (bCHActive) {
+		ods("DXGI: Recursion in checkDXGIHook");
 		return;
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
 		return;
 
-	bChaining = true;
+	bCHActive = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
@@ -593,7 +593,7 @@ void checkDXGIHook(bool preonly) {
 		}
 	}
 
-	bChaining = false;
+	bCHActive = false;
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {

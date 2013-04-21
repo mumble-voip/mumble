@@ -131,7 +131,6 @@ INJDEF(BOOL, wglSwapBuffers, (HDC));
 INJDEF(BOOL, SwapBuffers, (HDC));
 
 static bool bHooked = false;
-static bool bChaining = false;
 
 class Context : protected Pipe {
 	public:
@@ -368,12 +367,13 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 #define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
 
 void checkOpenGLHook() {
-	if (bChaining) {
-		ods("Causing a chain");
+	static bool bCHActive = false;
+	if (bCHActive) {
+		ods("Recursion in checkOpenGLHook");
 		return;
 	}
 
-	bChaining = true;
+	bCHActive = true;
 
 	HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
 
@@ -431,5 +431,5 @@ void checkOpenGLHook() {
 		}
 	}
 
-	bChaining = false;
+	bCHActive = false;
 }
