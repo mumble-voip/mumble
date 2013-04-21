@@ -237,7 +237,7 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 
 void Context::draw(HDC hdc) {
 	// DEBUG
-	// sm->bDebug = true;
+	//sm->bDebug = true;
 
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
@@ -381,7 +381,7 @@ void checkOpenGLHook() {
 		if (! bHooked) {
 			char procname[1024];
 			GetModuleFileName(NULL, procname, 1024);
-			fods("OpenGL: Unhooked OpenGL App %s", procname);
+			ods("OpenGL: Unhooked OpenGL App %s", procname);
 			bHooked = true;
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.

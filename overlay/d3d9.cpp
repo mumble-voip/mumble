@@ -74,8 +74,7 @@ class DevState : public Pipe {
 };
 
 static map<IDirect3DDevice9 *, DevState *> devMap;
-static bool bHooked = false;
-static bool bPresenting = false;
+static HMODULE hookedModule = NULL;
 
 DevState::DevState() {
 	dev = NULL;
@@ -360,23 +359,20 @@ typedef HRESULT(__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *,
 static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	ods("D3D9: SwapChain Present");
 
-	if (bPresenting) {
-		ods("D3D9: Not doublepresenting in chain!");
-	}  else {
-		IDirect3DDevice9 *idd = NULL;
-		ids->GetDevice(&idd);
-		if (idd) {
-			doPresent(idd);
-			idd->Release();
-		}
+	IDirect3DDevice9 *idd = NULL;
+	ids->GetDevice(&idd);
+	if (idd) {
+		doPresent(idd);
+		idd->Release();
 	}
 
-	SwapPresentType oSwapPresent;
-	oSwapPresent = (SwapPresentType) hhSwapPresent.call;
-
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
+	SwapPresentType oSwapPresent = (SwapPresentType) hhSwapPresent.call;
 	hhSwapPresent.restore();
 	HRESULT hr = oSwapPresent(ids, pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion,dwFlags);
 	hhSwapPresent.inject();
+
 	return hr;
 }
 
@@ -386,11 +382,13 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRe
 
 	doPresent(idd);
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	PresentType oPresent = (PresentType) hhPresent.call;
-
 	hhPresent.restore();
 	HRESULT hr = oPresent(idd,pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
 	hhPresent.inject();
+
 	return hr;
 }
 
@@ -409,21 +407,25 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 		ds->dwMyThread = dwOldThread;
 	}
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	ResetType oReset = (ResetType) hhReset.call;
-
 	hhReset.restore();
-	HRESULT hr=oReset(idd, param);
+	HRESULT hr = oReset(idd, param);
 	hhReset.inject();
 
 	if (ds)
 		ds->createCleanState();
+
 	return hr;
 }
 
 typedef ULONG(__stdcall *AddRefType)(IDirect3DDevice9 *);
-
 static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
+
+	ods("D3D9: Chaining AddRef");
+
 	DevState *ds = devMap[idd];
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
@@ -433,17 +435,23 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 		}
 		return ds->refCount + ds->initRefCount;
 	}
-	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
+	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 	hhAddRef.restore();
-	LONG res = oAddRef(idd);
+	ULONG res = oAddRef(idd);
 	hhAddRef.inject();
-	ods("D3D9: Chaining AddRef: %d", res);
+
+	ods("D3D9: Chained AddRef with result %d", res);
+
 	return res;
 }
 
 static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
+
+	ods("D3D9: Chaining AddRef (Win8)");
 
 	DevState *ds = devMap[idd];
 	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
@@ -451,14 +459,17 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 		return ds->refCount;
 	}
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 	hhAddRef.restore();
-	LONG res = oAddRef(idd);
-	if (ds)
-		ds->refCount = res;
+	ULONG res = oAddRef(idd);
 	hhAddRef.inject();
 
-	ods("D3D9: Chaining AddRef (Win8): %d", res);
+	if (ds)
+		ds->refCount = res;
+
+	ods("D3D9: Chained AddRef (Win8) with result %d", res);
 
 	return res;
 }
@@ -466,8 +477,10 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
-	DevState *ds = devMap[idd];
 
+	ods("D3D9: Chaining Release");
+
+	DevState *ds = devMap[idd];
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
@@ -498,16 +511,23 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 		devMap.erase(idd);
 		delete ds;
 	}
+
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
 	hhRelease.restore();
-	LONG res = oRelease(idd);
+	ULONG res = oRelease(idd);
 	hhRelease.inject();
-	ods("D3D9: Chaining Release: %d", res);
+
+	ods("D3D9: Chained Release with result %d", res);
+
 	return res;
 }
 
 static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	Mutex m;
+
+	ods("D3D9: Chaining Release (Win8)");
 
 	DevState *ds = devMap[idd];
 	if (ds) {
@@ -533,41 +553,46 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 		}
 	}
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
 	hhRelease.restore();
-	LONG res = oRelease(idd);
-	if (ds)
-		ds->refCount = res;
+	ULONG res = oRelease(idd);
 	hhRelease.inject();
 
-	ods("D3D9: Chaining Release (Win8): %d", res);
+	if (ds)
+		ds->refCount = res;
+
+	ods("D3D9: Chained Release (Win8) with result: %d", res);
 
 	return res;
 }
 
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
 static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
-	ods("D3D9: Chaining CreateDevice");
 	Mutex m;
+
+	ods("D3D9: Chaining CreateDevice");
 
 //	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	CreateDeviceType oCreateDevice = (CreateDeviceType) hhCreateDevice.call;
-
 	hhCreateDevice.restore();
-	HRESULT hr=oCreateDevice(id3d, Adapter,DeviceType,hFocusWindow,BehaviorFlags,pPresentationParameters,ppReturnedDeviceInterface);
+	HRESULT hr = oCreateDevice(id3d, Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 	hhCreateDevice.inject();
 
 	if (FAILED(hr))
 		return hr;
 
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
-	IDirect3DSwapChain9 *pSwap = NULL;
 
 	// Get real interface, please.
-	bool bfound;
+	bool bfound = false;
 	do {
 		bfound = false;
+		IDirect3DSwapChain9 *pSwap = NULL;
 		idd->GetSwapChain(0, &pSwap);
 		if (pSwap) {
 			IDirect3DDevice9 *idorig = NULL;
@@ -594,20 +619,29 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 
 	devMap[idd] = ds;
 
+	// The offsets are dependent on the declaration order of the struct.
+	// See IDirect3DDevice9 (2nd, 3rd, 17th, 18th functions)
+	const unsigned int offsetAddref = 1;
+	const unsigned int offsetRelease = 2;
+	const unsigned int offsetReset = 16;
+	const unsigned int offsetPresent = 17;
 	if (bIsWin8) {
-		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myWin8AddRef));
-		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myWin8Release));
+		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myWin8AddRef));
+		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myWin8Release));
 	} else {
-		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
-		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
+		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
 	}
-	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
-	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
+	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
+	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 
-	pSwap = NULL;
+	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
-		hhSwapPresent.setupInterface(pSwap, 3, reinterpret_cast<voidFunc>(mySwapPresent));
+		// The offset is dependent on the declaration order of the struct.
+		// See IDirect3DSwapChain9 (Present is the fourth function)
+		const unsigned int offsetPresent = 3;
+		hhSwapPresent.setupInterface(pSwap, offsetPresent, reinterpret_cast<voidFunc>(mySwapPresent));
 		pSwap->Release();
 	} else {
 		ods("D3D9: Failed to get swapchain");
@@ -624,10 +658,11 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 
 //	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	CreateDeviceExType oCreateDeviceEx = (CreateDeviceExType) hhCreateDeviceEx.call;
-
 	hhCreateDeviceEx.restore();
-	HRESULT hr=oCreateDeviceEx(id3d, Adapter,DeviceType,hFocusWindow,BehaviorFlags,pPresentationParameters,pFullscreenDisplayMode,ppReturnedDeviceInterface);
+	HRESULT hr = oCreateDeviceEx(id3d, Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode, ppReturnedDeviceInterface);
 	hhCreateDeviceEx.inject();
 
 	if (FAILED(hr))
@@ -643,20 +678,29 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 
 	devMap[idd] = ds;
 
+	// The offsets are dependent on the declaration order of the struct.
+	// See IDirect3DDevice9 (2nd, 3rd, 17th, 18th functions)
+	const unsigned int offsetAddref = 1;
+	const unsigned int offsetRelease = 2;
+	const unsigned int offsetReset = 16;
+	const unsigned int offsetPresent = 17;
 	if (bIsWin8) {
-		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myWin8AddRef));
-		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myWin8Release));
+		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myWin8AddRef));
+		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myWin8Release));
 	} else {
-		hhAddRef.setupInterface(idd, 1, reinterpret_cast<voidFunc>(myAddRef));
-		hhRelease.setupInterface(idd, 2, reinterpret_cast<voidFunc>(myRelease));
+		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
+		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
 	}
-	hhReset.setupInterface(idd, 16, reinterpret_cast<voidFunc>(myReset));
-	hhPresent.setupInterface(idd, 17, reinterpret_cast<voidFunc>(myPresent));
+	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
+	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 
 	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
 	if (pSwap) {
-		hhSwapPresent.setupInterface(pSwap, 3, reinterpret_cast<voidFunc>(mySwapPresent));
+		// The offset is dependent on the declaration order of the struct.
+		// See IDirect3DSwapChain9 (Present is the fourth function)
+		const unsigned int offsetPresent = 3;
+		hhSwapPresent.setupInterface(pSwap, offsetPresent, reinterpret_cast<voidFunc>(mySwapPresent));
 		pSwap->Release();
 	} else {
 		ods("D3D9: Failed to get swapchain for DevEx");
@@ -669,6 +713,11 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 static void HookCreateRaw(voidFunc vfCreate) {
 	ods("D3D9: Injecting CreateDevice Raw");
 	hhCreateDevice.setup(vfCreate, reinterpret_cast<voidFunc>(myCreateDevice));
+}
+
+static void HookCreateRawEx(voidFunc vfCreate) {
+	ods("D3D9: Injecting CreateDeviceEx Raw");
+	hhCreateDeviceEx.setup(vfCreate, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
 static void HookCreate(IDirect3D9 *pD3D) {
@@ -684,11 +733,11 @@ static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
-static void HookCreateRawEx(voidFunc vfCreate) {
-	ods("D3D9: Injecting CreateDeviceEx Raw");
-	hhCreateDeviceEx.setup(vfCreate, reinterpret_cast<voidFunc>(myCreateDeviceEx));
-}
+void hookD3D9(HMODULE hD3D, bool preonly);
 
+// @param preonly If rawpatching the createdevice-functions fails, don't try to
+//                patch Direct3DCreate9.
+//                Should be true on PROC_ATTACH, and false on THREAD_ATTACH. (?)
 void checkD3D9Hook(bool preonly) {
 	static bool bCHActive = false;
 	if (bCHActive) {
@@ -701,57 +750,79 @@ void checkD3D9Hook(bool preonly) {
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
 	if (hD3D != NULL) {
-		if (! bHooked) {
-			char procname[2048];
-			GetModuleFileName(NULL, procname, 2048);
-			fods("D3D9: CreateWnd in unhooked D3D App %s", procname);
-			bHooked = true;
-
-			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
-
-			// Can we use the prepatch data?
-			GetModuleFileName(hD3D, procname, 2048);
-			if (_stricmp(d3dd->cFileName, procname) == 0) {
-				unsigned char *raw = (unsigned char *) hD3D;
-				HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
-				if (d3dd->iOffsetCreateEx)
-					HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
-			} else if (! preonly) {
-				fods("D3D9: Interface changed, can't rawpatch");
-				pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
-				ods("D3D9: Got %p", d3dc9);
-				if (d3dc9) {
-					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
-					if (id3d9) {
-						HookCreate(id3d9);
-						id3d9->Release();
-					} else {
-						ods("D3D9: Failed Direct3DCreate9");
-					}
-				} else {
-					ods("D3D9: Library without Direct3DCreate9?");
-				}
-			} else {
-				bHooked = false;
-			}
-		}
-	} else {
-		if (bHooked) {
-			fods("D3D9: DLL has previously been unloaded - resetting hook data");
-			hhCreateDevice.reset();
-			hhCreateDeviceEx.reset();
-			hhReset.reset();
-			hhAddRef.reset();
-			hhRelease.reset();
-			hhPresent.reset();
-			hhPresentEx.reset();
-			hhSwapPresent.reset();
-			bHooked = false;
+		if (! hookedModule) {
+			hookD3D9(hD3D, preonly);
 		}
 	}
 
 	bCHActive = false;
+}
+
+void hookD3D9(HMODULE hD3D, bool preonly) {
+	const int procnamesize = 2048;
+	char procname[procnamesize];
+	GetModuleFileName(NULL, procname, procnamesize);
+	ods("D3D9: hookD3D9 in App %s", procname);
+
+	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
+
+	hookedModule = hD3D;
+
+	// Can we use the prepatch data?
+	GetModuleFileName(hD3D, procname, procnamesize);
+	if (_stricmp(d3dd->cFileName, procname) == 0) {
+		unsigned char *raw = (unsigned char *) hD3D;
+		HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
+		if (d3dd->iOffsetCreateEx)
+			HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
+	} else if (! preonly) {
+		ods("D3D9: Interface changed, can't rawpatch");
+
+		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+		if (d3dc9) {
+			ods("D3D9: Got %p for Direct3DCreate9", d3dc9);
+
+			IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
+			if (id3d9) {
+				HookCreate(id3d9);
+				id3d9->Release();
+			} else {
+				ods("D3D9: Failed call to Direct3DCreate9");
+			}
+		} else {
+			ods("D3D9: Library without Direct3DCreate9?");
+		}
+	} else {
+		hookedModule = NULL;
+	}
+}
+
+void freeD3D9Hook(HMODULE hModule) {
+	Mutex m;
+	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
+	if (hookedModule && hookedModule == hModule && !hD3D) {
+		ods("D3D9: Freeing hooks for module %p", hModule);
+
+		hhCreateDevice.restore(true);
+		hhCreateDevice.reset();
+		hhCreateDeviceEx.restore(true);
+		hhCreateDeviceEx.reset();
+		hhReset.restore(true);
+		hhReset.reset();
+		hhAddRef.restore(true);
+		hhAddRef.reset();
+		hhRelease.restore(true);
+		hhRelease.reset();
+		hhPresent.restore(true);
+		hhPresent.reset();
+		hhPresentEx.restore(true);
+		hhPresentEx.reset();
+		hhSwapPresent.restore(true);
+		hhSwapPresent.reset();
+
+		hookedModule = NULL;
+	}
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
