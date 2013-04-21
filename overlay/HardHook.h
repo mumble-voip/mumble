@@ -47,9 +47,11 @@
 typedef void *(*voidFunc)();
 
 struct HardHook {
-	// Pointer to the place in the original code where replacements happen
+	// Pointer to original code (which is hooked/replaced)
 	unsigned char *baseptr;
+	// The original instructions that are replaced by the hook
 	unsigned char orig[6];
+	// Hook-Code; Replacement instructions for function call jump
 	unsigned char replace[6];
 	// Remembers whether there is a trampoline in place in the target code or
 	// whether restore -> call orig. -> replace has to be used for every intercepted call
