@@ -50,6 +50,7 @@ class DevState : public Pipe {
 
 		LONG initRefCount;
 		LONG refCount;
+		// Thread-specific threadcount
 		LONG myRefCount;
 		DWORD dwMyThread;
 
@@ -427,8 +428,9 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount++;
-		} else
+		} else {
 			ds->refCount++;
+		}
 		return ds->refCount + ds->initRefCount;
 	}
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
@@ -480,7 +482,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 		if (ds->refCount >= 0)
 			return ds->refCount + ds->initRefCount;
 
-		ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
+		ods("D3D9: Final release is following. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
 
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
@@ -491,7 +493,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 		ds->dwMyThread = dwOldThread;
 
-		ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+		ods("D3D9: Final release. MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
 
 		devMap.erase(idd);
 		delete ds;
