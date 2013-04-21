@@ -32,16 +32,22 @@
 #include "ods.h"
 
 void *HardHook::pCode = NULL;
+// Number of bytes used for code (used of buffer)
 unsigned int HardHook::uiCode = 0;
+
+const int HardHook::CODEREPLACESIZE = 6;
+const int HardHook::CODEPROTECTSIZE = 16;
 
 /**
  * @brief Constructs a new hook without actually injecting.
  */
-HardHook::HardHook() : bTrampoline(false), call(0) {
-	int i;
-	baseptr = NULL;
-	for (i=0;i<6;i++)
-		orig[i]=replace[i]=0;
+HardHook::HardHook() : bTrampoline(false), call(0), baseptr(NULL) {
+	for (int i = 0; i < CODEREPLACESIZE; ++i) {
+		orig[i] = replace[i] = 0;
+	}
+
+//	assert(CODEREPLACESIZE == sizeof(orig) / sizeof(orig[0]));
+//	assert(CODEREPLACESIZE == sizeof(replace) / sizeof(replace[0]));
 }
 
 /**
@@ -51,10 +57,9 @@ HardHook::HardHook() : bTrampoline(false), call(0) {
  * @param replacement Function to inject into func.
  */
 HardHook::HardHook(voidFunc func, voidFunc replacement) {
-	int i;
 	baseptr = NULL;
-	for (i=0;i<6;i++)
-		orig[i]=replace[i]=0;
+	for (int i = 0; i < CODEREPLACESIZE; ++i)
+		orig[i] = replace[i] = 0;
 	setup(func, replacement);
 }
 
@@ -116,10 +121,13 @@ static unsigned int modrmbytes(unsigned char a, unsigned char b) {
 void *HardHook::cloneCode(void **porig) {
 
 
-	DWORD oldProtect, restoreProtect;
 	if (! pCode || uiCode > 4000) {
-		uiCode = 0;
 		pCode = VirtualAlloc(NULL, 4096, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+		uiCode = 0;
+	}
+	// If we have no memory to clone to, return.
+	if (! pCode) {
+		return NULL;
 	}
 
 	unsigned char *o = (unsigned char *) *porig;
@@ -127,7 +135,8 @@ void *HardHook::cloneCode(void **porig) {
 	n += uiCode;
 	unsigned int idx = 0;
 
-	if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+	DWORD origProtect;
+	if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
 		fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate to PAGE_EXECUTE_READ)");
 		return NULL;
 	}
@@ -144,8 +153,9 @@ void *HardHook::cloneCode(void **porig) {
 		*porig = o;
 
 		// Assume jump took us out of our read enabled zone, get rights for the new one
-		VirtualProtect(tmp, 16, oldProtect, &restoreProtect);
-		if (!VirtualProtect(o, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+		DWORD tempProtect;
+		VirtualProtect(tmp, CODEPROTECTSIZE, origProtect, &tempProtect);
+		if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
 			fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate jump target to PAGE_EXECUTE_READ)");
 			return NULL;
 		}
@@ -158,7 +168,7 @@ void *HardHook::cloneCode(void **porig) {
 		unsigned int extra = 0;
 
 		n[idx] = opcode;
-		idx++;
+		++idx;
 
 		switch (opcode) {
 			case 0x50: // PUSH
@@ -200,18 +210,22 @@ void *HardHook::cloneCode(void **porig) {
 					break;
 				}
 
-				fods("HardHook: CloneCode failed; Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x", idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
-				VirtualProtect(o, 16, oldProtect, &restoreProtect);
+				fods("HardHook: CloneCode failed; Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x",
+						idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				DWORD tempProtect;
+				VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 				return NULL;
 				break;
 			}
 		}
-		for (unsigned int i=0;i<extra;++i)
+
+		for (unsigned int i = 0; i < extra; ++i)
 			n[idx+i] = o[idx+i];
 		idx += extra;
 
-	} while (idx < 6);
-	VirtualProtect(o, 16, oldProtect, &restoreProtect);
+	} while (idx < CODEREPLACESIZE);
+	DWORD tempProtect;
+	VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 
 	n[idx++] = 0xe9; // Add a relative jmp back to the original code
 	int offs = o - n - 5;
@@ -255,23 +269,24 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 		call = func;
 	}
 
-	DWORD oldProtect;
-	if (VirtualProtect(fptr, 16, PAGE_EXECUTE_READ, &oldProtect)) {
+	DWORD origProtect;
+	if (VirtualProtect(fptr, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
 		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		replace[0] = 0x68; // PUSH immediate        1 Byte
 		*iptr = nptr;      // (imm. value = nptr)   4 Byte
 		replace[5] = 0xc3; // RETN                  1 Byte
 
-		for (int i=0;i<6;i++) // Save original 6 bytes at start of original function
+		// Save original 6 bytes at start of original function
+		for (int i = 0; i < CODEREPLACESIZE; ++i)
 			orig[i] = fptr[i];
 
 		baseptr = fptr;
 		inject(true);
 
-		DWORD restoreProtect;
-		VirtualProtect(fptr, 16, oldProtect, &restoreProtect);
+		DWORD tempProtect;
+		VirtualProtect(fptr, CODEPROTECTSIZE, origProtect, &tempProtect);
 	} else {
-		fods("HardHook: Failed vprotect");
+		fods("HardHook: setup failed; failed to elevate vprotect");
 	}
 }
 
@@ -297,25 +312,28 @@ void HardHook::reset() {
  * @param force If true injection will be performed even when trampoline is available.
  */
 void HardHook::inject(bool force) {
-	DWORD oldProtect, restoreProtect;
-	int i;
-
 	if (! baseptr)
 		return;
 	if (! force && bTrampoline)
 		return;
 
-	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (i=0;i<6;i++)
+	DWORD origProtect;
+	if (VirtualProtect(baseptr, CODEREPLACESIZE, PAGE_EXECUTE_READWRITE, &origProtect)) {
+		for (int i = 0; i < CODEREPLACESIZE; ++i) {
 			baseptr[i] = replace[i]; // Replace with jump to new code
-		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(), baseptr, 6);
+		}
+
+		DWORD tempProtect;
+		VirtualProtect(baseptr, CODEREPLACESIZE, origProtect, &tempProtect);
+		FlushInstructionCache(GetCurrentProcess(), baseptr, CODEREPLACESIZE);
 	}
 
 	// Verify that the injection was successful
-	for (i=0;i<6;i++)
-		if (baseptr[i] != replace[i])
+	for (int i = 0; i < CODEREPLACESIZE; ++i) {
+		if (baseptr[i] != replace[i]) {
 			fods("HardHook: Injection failure noticed at byte %d", i);
+		}
+	}
 }
 
 /**
@@ -335,13 +353,13 @@ void HardHook::restore(bool force) {
 	if (! force && bTrampoline)
 		return;
 
-	DWORD oldProtect;
-	if (VirtualProtect(baseptr, 6, PAGE_EXECUTE_READWRITE, &oldProtect)) {
-		for (int i=0;i<6;i++)
+	DWORD origProtect;
+	if (VirtualProtect(baseptr, CODEREPLACESIZE, PAGE_EXECUTE_READWRITE, &origProtect)) {
+		for (int i = 0; i < CODEREPLACESIZE; ++i)
 			baseptr[i] = orig[i];
-		DWORD restoreProtect;
-		VirtualProtect(baseptr, 6, oldProtect, &restoreProtect);
-		FlushInstructionCache(GetCurrentProcess(), baseptr, 6);
+		DWORD tempProtect;
+		VirtualProtect(baseptr, CODEREPLACESIZE, origProtect, &tempProtect);
+		FlushInstructionCache(GetCurrentProcess(), baseptr, CODEREPLACESIZE);
 	}
 }
 
@@ -359,10 +377,10 @@ void HardHook::print() {
  * original code at injection location.
  */
 void HardHook::check() {
-	if (memcmp(baseptr, replace, 6) != 0) {
+	if (memcmp(baseptr, replace, CODEREPLACESIZE) != 0) {
 		// The instructions do not match our replacement instructions
 		// If they match the original code, inject our hook.
-		if (memcmp(baseptr, orig, 6) == 0) {
+		if (memcmp(baseptr, orig, CODEREPLACESIZE) == 0) {
 			fods("HardHook: Reinjecting hook into function %p", baseptr);
 			inject(true);
 		} else {

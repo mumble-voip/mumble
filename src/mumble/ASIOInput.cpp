@@ -137,8 +137,6 @@ static class ASIOInit asioinit;
 ASIOInput *ASIOInput::aiSelf;
 
 ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
-	HKEY hkDevs;
-
 	setupUi(this);
 
 	// List of devices known to misbehave or be totally useless
@@ -148,13 +146,16 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 #ifdef QT_NO_DEBUG
 	blacklist << QLatin1String("{232685c6-6548-49d8-846d-4141a3ef7560}"); // ASIO4ALL
 #endif
+	HKEY hkDevs;
 	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, L"Software\\ASIO", 0, KEY_READ, &hkDevs) == ERROR_SUCCESS) {
-		WCHAR keyname[255];
-		DWORD keynamelen = 255;
+		const DWORD keynamebufsize = 255;
+		WCHAR keyname[keynamebufsize];
+
 		FILETIME ft;
 		DWORD idx = 0;
-		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft)  == ERROR_SUCCESS) {
-			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname),keynamelen);
+		DWORD keynamelen = keynamebufsize;
+		while (RegEnumKeyEx(hkDevs, idx++, keyname, &keynamelen, NULL, NULL, NULL, &ft) == ERROR_SUCCESS) {
+			QString name=QString::fromUtf16(reinterpret_cast<ushort *>(keyname), keynamelen);
 			HKEY hk;
 			if (RegOpenKeyEx(hkDevs, keyname, 0, KEY_READ, &hk) == ERROR_SUCCESS) {
 				DWORD dtype = REG_SZ;
@@ -172,7 +173,7 @@ ASIOConfig::ASIOConfig(Settings &st) : ConfigWidget(st) {
 				}
 				RegCloseKey(hk);
 			}
-			keynamelen = 255;
+			keynamelen = keynamebufsize;
 		}
 		RegCloseKey(hkDevs);
 	}
