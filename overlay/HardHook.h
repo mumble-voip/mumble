@@ -49,7 +49,7 @@ typedef void *(*voidFunc)();
 struct HardHook {
 	// Pointer to executable code page that holds all trampoline codes
 	static void *pCode;
-	// Offset to next unused addr in pCode
+	// Number of bytes used in pCode.
 	static unsigned int uiCode;
 
 	// Pointer to original code (which is hooked/replaced)
