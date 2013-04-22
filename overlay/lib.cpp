@@ -449,6 +449,9 @@ typedef BOOL(__stdcall *FreeLibraryType)(HMODULE hModule);
 static BOOL WINAPI MyFreeLibrary(HMODULE hModule) {
 	ods("Lib: MyFreeLibrary %p", hModule);
 
+	// Unhook for a clean state before freeing.
+	restoreD3D9Hook(hModule);
+
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	FreeLibraryType oFreeLibrary = (FreeLibraryType) hhFree.call;
