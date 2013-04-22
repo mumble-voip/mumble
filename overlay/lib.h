@@ -117,7 +117,6 @@ class Pipe {
 extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
-extern void restoreD3D9Hook(HMODULE hModule);
 extern void freeD3D9Hook(HMODULE hModule);
 
 extern Direct3D9Data *d3dd;

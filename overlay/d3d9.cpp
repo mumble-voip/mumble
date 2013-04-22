@@ -798,21 +798,6 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	}
 }
 
-void restoreD3D9Hook(HMODULE hModule) {
-	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
-	if (hookedModule && hookedModule == hModule && !hD3D) {
-		ods("D3D9: Restoring hooks for module %p", hModule);
-		hhCreateDevice.restore(true);
-		hhCreateDeviceEx.restore(true);
-		hhReset.restore(true);
-		hhAddRef.restore(true);
-		hhRelease.restore(true);
-		hhPresent.restore(true);
-		hhPresentEx.restore(true);
-		hhSwapPresent.restore(true);
-	}
-}
-
 void freeD3D9Hook(HMODULE hModule) {
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 	if (hookedModule && hookedModule == hModule && !hD3D) {
