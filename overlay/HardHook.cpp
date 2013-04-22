@@ -32,7 +32,6 @@
 #include "ods.h"
 
 void *HardHook::pCode = NULL;
-// Number of bytes used for code (used of buffer)
 unsigned int HardHook::uiCode = 0;
 
 const int HardHook::CODEREPLACESIZE = 6;
@@ -138,7 +137,7 @@ void *HardHook::cloneCode(void **porig) {
 
 	DWORD origProtect;
 	if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
-		fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate to PAGE_EXECUTE_READ)");
+		fods("HardHook: CloneCode failed; failed to make original code read and executable");
 		return NULL;
 	}
 
@@ -150,14 +149,14 @@ void *HardHook::cloneCode(void **porig) {
 		int *iptr = reinterpret_cast<int *>(o+1);
 		o += *iptr + 5;
 
-		fods("HardHook: ClodeCode: Skipping jump from %p to %p", *porig, o);
+		fods("HardHook: CloneCode: Skipping jump from %p to %p", *porig, o);
 		*porig = o;
 
 		// Assume jump took us out of our read enabled zone, get rights for the new one
 		DWORD tempProtect;
 		VirtualProtect(tmp, CODEPROTECTSIZE, origProtect, &tempProtect);
 		if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
-			fods("HardHook: CloneCode failed; Failed vprotect (tried to elevate jump target to PAGE_EXECUTE_READ)");
+			fods("HardHook: CloneCode failed; failed to make jump target code read and executable");
 			return NULL;
 		}
 	}
@@ -295,7 +294,7 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 		DWORD tempProtect;
 		VirtualProtect(fptr, CODEPROTECTSIZE, origProtect, &tempProtect);
 	} else {
-		fods("HardHook: setup failed; failed to elevate vprotect");
+		fods("HardHook: setup failed; failed to make original code read and executable");
 	}
 }
 
