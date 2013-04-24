@@ -143,9 +143,9 @@ class Context : protected Pipe {
 		Context(HDC hdc);
 		void draw(HDC hdc);
 
-		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		void setRect();
-		void newTexture(unsigned int width, unsigned int height);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
 Context::Context(HDC hdc) {

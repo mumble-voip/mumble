@@ -68,9 +68,9 @@ class DevState : public Pipe {
 		void draw();
 		void postDraw();
 
-		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		void setRect();
-		void newTexture(unsigned int width, unsigned int height);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
 static map<IDirect3DDevice9 *, DevState *> devMap;

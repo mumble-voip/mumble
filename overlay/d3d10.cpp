@@ -94,13 +94,13 @@ class D10State: protected Pipe {
 		unsigned int frameCount;
 
 		D10State(IDXGISwapChain *, ID3D10Device *);
-		~D10State();
+		virtual ~D10State();
 		void init();
 		void draw();
 
-		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		void setRect();
-		void newTexture(unsigned int w, unsigned int h);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int w, unsigned int h);
 };
 
 map<IDXGISwapChain *, D10State *> chains;
