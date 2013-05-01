@@ -367,13 +367,13 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 #define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
 
 void checkOpenGLHook() {
-	static bool bCHActive = false;
-	if (bCHActive) {
+	static bool bCheckHookActive = false;
+	if (bCheckHookActive) {
 		ods("Recursion in checkOpenGLHook");
 		return;
 	}
 
-	bCHActive = true;
+	bCheckHookActive = true;
 
 	HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
 
@@ -431,5 +431,5 @@ void checkOpenGLHook() {
 		}
 	}
 
-	bCHActive = false;
+	bCheckHookActive = false;
 }
