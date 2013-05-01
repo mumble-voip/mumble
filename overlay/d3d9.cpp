@@ -34,8 +34,8 @@
 
 Direct3D9Data *d3dd = NULL;
 
-typedef IDirect3D9*(WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
-typedef HRESULT(WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
+typedef IDirect3D9* (WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
+typedef HRESULT (WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
 
 struct D3DTLVERTEX {
 	float    x, y, z, rhw; // Position
@@ -739,13 +739,13 @@ void hookD3D9(HMODULE hD3D, bool preonly);
 //                patch Direct3DCreate9.
 //                Should be true on PROC_ATTACH, and false on THREAD_ATTACH. (?)
 void checkD3D9Hook(bool preonly) {
-	static bool bCHActive = false;
-	if (bCHActive) {
+	static bool bCheckHookActive = false;
+	if (bCheckHookActive) {
 		ods("D3D9: Recursion in checkD3D9Hook");
 		return;
 	}
 
-	bCHActive = true;
+	bCheckHookActive = true;
 
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
@@ -755,7 +755,7 @@ void checkD3D9Hook(bool preonly) {
 		}
 	}
 
-	bCHActive = false;
+	bCheckHookActive = false;
 }
 
 void hookD3D9(HMODULE hD3D, bool preonly) {
@@ -779,11 +779,11 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	} else if (! preonly) {
 		ods("D3D9: Interface changed, can't rawpatch");
 
-		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
-		if (d3dc9) {
-			ods("D3D9: Got %p for Direct3DCreate9", d3dc9);
+		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+		if (d3dcreate9) {
+			ods("D3D9: Got %p for Direct3DCreate9", d3dcreate9);
 
-			IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
+			IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
 			if (id3d9) {
 				HookCreate(id3d9);
 				id3d9->Release();

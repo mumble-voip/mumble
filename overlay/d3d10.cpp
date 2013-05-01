@@ -552,8 +552,8 @@ static void HookResizeRaw(voidFunc vfResize) {
 }
 
 void checkDXGIHook(bool preonly) {
-	static bool bCHActive = false;
-	if (bCHActive) {
+	static bool bCheckHookActive = false;
+	if (bCheckHookActive) {
 		ods("D3D10: Recursion in checkDXGIHook");
 		return;
 	}
@@ -561,7 +561,7 @@ void checkDXGIHook(bool preonly) {
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
 		return;
 
-	bCHActive = true;
+	bCheckHookActive = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
@@ -598,7 +598,7 @@ void checkDXGIHook(bool preonly) {
 		}
 	}
 
-	bCHActive = false;
+	bCheckHookActive = false;
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
