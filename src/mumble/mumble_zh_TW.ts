@@ -2206,7 +2206,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2819,7 +2819,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>確定</translation>
     </message>
@@ -4889,21 +4889,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;黑名單</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>編輯服務器上的黑名單</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>這讓你編輯服務器端的網址黑名單。</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation>&amp;信息</translation>
     </message>
@@ -5405,7 +5390,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>這將啟用簡化窗口模式，該模式將隱藏日志窗口和菜單。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+249"/>
+        <location filename="Messages.cpp" line="+252"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5476,7 +5461,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5957,6 +5947,21 @@ Valid options are:
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

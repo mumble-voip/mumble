@@ -2231,7 +2231,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
         <translation>Sona Erme Tarihi</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(boş)</translation>
     </message>
@@ -2857,7 +2857,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Değişiklikleri kabul et</translation>
     </message>
@@ -4927,21 +4927,6 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Ya&amp;saklama listeleri</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Sunucudaki yasaklama listelerini düzenle</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Sunucu tarafında İP yasaklama listelerini düzenlemenize imkân sağlar.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation>&amp;Bilgi</translation>
     </message>
@@ -5442,7 +5427,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>Kütük ve menü pencerelerinin saklandığı küçük görüntü kipini açıp kapatır.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>%1 adlı kullanıcıyı susturdunuz ve sağır ettiniz.</translation>
     </message>
@@ -5502,7 +5487,12 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>%1 artık susturuldu ve sağır edildi.</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-205"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Hoş geldiniz mesajı: %1</translation>
@@ -6008,6 +5998,21 @@ Geçerli seçenekler şunlardır:
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Kullanıcının tüm metin mesajlarını sessiz sedasız görmezden gelir.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

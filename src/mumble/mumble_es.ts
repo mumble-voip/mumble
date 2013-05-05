@@ -2247,7 +2247,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Fecha de vencimiento</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(ninguno)</translation>
     </message>
@@ -2883,7 +2883,7 @@ Se le recomienda &lt;b&gt;encarecidamente&lt;/b&gt; que &lt;a href=&quot;http://
         <translation>Avanzado</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Aceptar cambios</translation>
     </message>
@@ -4385,21 +4385,6 @@ Las opciones válidas son:
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Prohibiciones</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Edita la lista de prohibiciones en el servidor</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Le permite editar la lista de IPs prohibidas en el lado del servidor.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>&amp;Expulsar</translation>
     </message>
@@ -4832,7 +4817,7 @@ Las opciones válidas son:
         <translation>Volviendo a conectar.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+353"/>
+        <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 le dio voz y escucha.</translation>
     </message>
@@ -4903,7 +4888,12 @@ Las opciones válidas son:
         <translation>Mensaje de bienvenida: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -5272,7 +5262,7 @@ Las opciones válidas son:
     </message>
     <message>
         <location line="+178"/>
-        <location filename="Messages.cpp" line="-162"/>
+        <location filename="Messages.cpp" line="-165"/>
         <source>Invalid username</source>
         <translation>Nombre de usuario inválido</translation>
     </message>
@@ -5298,7 +5288,7 @@ Las opciones válidas son:
         <translation>Contraseña del servidor incorrecta para cuenta de usuario no registrada, por favor, inténtelo de nuevo.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+517"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>Mensaje de %1</translation>
     </message>
@@ -5506,7 +5496,7 @@ Las opciones válidas son:
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-523"/>
+        <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
         <translation>Nombre de usuario en uso</translation>
     </message>
@@ -5877,7 +5867,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>&amp;Desvincular</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+510"/>
+        <location filename="Messages.cpp" line="+513"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6042,6 +6032,21 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <location/>
         <source>&amp;Copy URL</source>
         <translation>&amp;Copiar URL</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -2250,7 +2250,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <translation>Udløbsdato</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(ingen)</translation>
     </message>
@@ -2875,7 +2875,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Acceptér ændringer</translation>
     </message>
@@ -4963,21 +4963,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Bandlyste brugere</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Redigér listen over bandlyste brugere på serveren</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Dette lader dig redigere serverens liste over bandlyste IP-adresser.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation>&amp;Information</translation>
     </message>
@@ -5519,7 +5504,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Dette vil slå minimal tilstand til/fra, hvor log-vinduet og menuen er skjult.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>Du deaktiverede mikrofon og lyd for %1.</translation>
     </message>
@@ -5590,7 +5575,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Velkomstbesked: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -6053,6 +6043,21 @@ Gyldige parametre er:
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Ser lydløst bort fra alle tekstbeskeder fra brugeren.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

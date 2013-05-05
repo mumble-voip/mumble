@@ -2229,7 +2229,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Data de Expiração</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(nenhum)</translation>
     </message>
@@ -2853,7 +2853,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Aceitar alterações</translation>
     </message>
@@ -4924,21 +4924,6 @@ seu certificado e nome de usuário.</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Lista de &amp;banimentos</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Editar lista de banimentos no servidor</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Permite que você edita as listas de banimento por IP no servidor.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation>&amp;Informação</translation>
     </message>
@@ -5439,7 +5424,7 @@ seu certificado e nome de usuário.</translation>
         <translation>Alterna o modo mínimo, em que a janela de registro e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>Você emudeceu e ensurdeceu %1.</translation>
     </message>
@@ -5499,7 +5484,12 @@ seu certificado e nome de usuário.</translation>
         <translation>%1 agora está mudo e surdo.</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-205"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Mensagem de boas-vindas: %1</translation>
@@ -6006,6 +5996,21 @@ Opções válidas são:
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Silenciosamente cancela todas mensagens de texto do usuário.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

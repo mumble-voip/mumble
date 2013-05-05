@@ -2249,7 +2249,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>有効期限</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>（空欄）</translation>
     </message>
@@ -2884,7 +2884,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>高度な設定を表示する</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>変更を確定</translation>
     </message>
@@ -4339,21 +4339,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;BAN一覧</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>サーバのBAN一覧を編集</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>サーバ側の禁止IPリストを編集します。</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>キック(&amp;K)</translation>
     </message>
@@ -4855,7 +4840,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>再接続中です。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+353"/>
+        <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 があなたを発言・聴取を禁止しました。</translation>
     </message>
@@ -4926,7 +4911,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ようこそメッセージ: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation></translation>
     </message>
@@ -5296,7 +5286,7 @@ Valid options are:
     </message>
     <message>
         <location line="+732"/>
-        <location filename="Messages.cpp" line="-162"/>
+        <location filename="Messages.cpp" line="-165"/>
         <source>Invalid username</source>
         <translation>無効なユーザ名</translation>
     </message>
@@ -5327,7 +5317,7 @@ Valid options are:
         <translation>画像ファイル (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+517"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>%1 からのメッセージ</translation>
     </message>
@@ -5627,7 +5617,7 @@ Valid options are:
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-523"/>
+        <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
         <translation>使用しているユーザ名</translation>
     </message>
@@ -5877,7 +5867,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>リンク解除(&amp;U)</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+510"/>
+        <location filename="Messages.cpp" line="+513"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6042,6 +6032,21 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>&amp;Copy URL</source>
         <translation>URLをコピー(&amp;C)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
