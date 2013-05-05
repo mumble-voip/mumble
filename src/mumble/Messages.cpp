@@ -103,6 +103,9 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 		case MumbleProto::Reject_RejectType_WrongServerPW:
 			reason = tr("Wrong password");
 			break;
+		case MumbleProto::Reject_RejectType_AuthenticatorFail:
+			reason = tr("Your account information can not be verified currently. Please try again later");
+			break;
 		default:
 			break;
 	}

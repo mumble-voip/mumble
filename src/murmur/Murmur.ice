@@ -352,7 +352,7 @@ module Murmur
 		 *  @param certstrong True if certificate was valid and signed by a trusted CA.
 		 *  @param newname Set this to change the username from the supplied one.
 		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
-		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough).
+		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough). You can pass through -3 to notify the user they could not be authenticated at this time with a clearer message than -1 (The recommended usage of -3 is during SERVER_DOWN exception handling in your authenticator script to avoid user confusion i.e. Showing invalid username password message when their credentials are correct, but the cause is the authenticator is unable to validate due to MySQL/LDAP being unavailable)
 		 */
 		idempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);
 
