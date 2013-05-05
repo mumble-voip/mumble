@@ -138,7 +138,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		reason = "Invalid server password";
 		rtType = MumbleProto::Reject_RejectType_WrongServerPW;
 	} else if (id==-3) {
-		reason = "Your account information can not be verified currently. Please try again later.";
+		reason = "Your account information can not be verified currently. Please try again later";
 		rtType = MumbleProto::Reject_RejectType_AuthenticatorFail;
 	} else {
 		ok = true;
