@@ -2285,7 +2285,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>תאריך פקיעת תוקף</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(ללא)</translation>
     </message>
@@ -2914,7 +2914,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אשר שינויים&lt;/p&gt;</translation>
     </message>
@@ -4991,21 +4991,6 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation type="unfinished">רשי&amp;מת מנודים</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>ערוך את רשימת הנידויים של השרת</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>מאפשר לך לערוך את רשימת הנידויים של השרת.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation type="unfinished">מי&amp;דע</translation>
     </message>
@@ -5507,7 +5492,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אפשרות זו מפעילה או מכבה את התצוגה המינימלית, שבה התפריט וחלונות הצ&apos;אט והיומן מוסתרים.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>השתקת והחרשת את %1.</translation>
     </message>
@@ -5567,7 +5552,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 מושתק ומוחרש כעת.</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-205"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעת פתיחה: %1&lt;/p&gt;</translation>
@@ -6078,6 +6068,21 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>מתעלם בחשאי מכל הודעות הטקסט של המשתמש.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

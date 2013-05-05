@@ -2256,7 +2256,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation>Platný do</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(žádný)</translation>
     </message>
@@ -2892,7 +2892,7 @@ Je &lt;b&gt;výrazně&lt;/b&gt; doporučeno, abyste si &lt;a href=&quot;http://m
         <translation>Pokročilé</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Přijmout změny</translation>
     </message>
@@ -4410,21 +4410,6 @@ Platné možnosti jsou:
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Seznam &amp;zákazů</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Upravit seznam zákazů na serveru</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Toto Vám umožní upravit seznamy zakázaných IP adres na straně serveru.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>&amp;Vykopnout</translation>
     </message>
@@ -5088,7 +5073,7 @@ Platné možnosti jsou:
         <translation>Odpojeno od serveru.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+205"/>
+        <location filename="Messages.cpp" line="+208"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 je nyní zeslaben a ohlušen.</translation>
     </message>
@@ -5174,7 +5159,12 @@ Platné možnosti jsou:
         <translation>Spojení se serverem odmítnuto: %1.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="-6"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Uvítací zpráva: %1</translation>
@@ -5646,7 +5636,7 @@ Platné možnosti jsou:
     </message>
     <message>
         <location line="+48"/>
-        <location filename="Messages.cpp" line="-696"/>
+        <location filename="Messages.cpp" line="-699"/>
         <source>Username in use</source>
         <translation>Uživatelské jméno se používá</translation>
     </message>
@@ -5903,7 +5893,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>&amp;Odpojit</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+510"/>
+        <location filename="Messages.cpp" line="+513"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6053,6 +6043,21 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
         <translation>Zkopíruje odkaz na tento kanál do schránky.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

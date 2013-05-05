@@ -2218,7 +2218,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Data wygaśnięcia</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(brak)</translation>
     </message>
@@ -2842,7 +2842,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>Zaawansowane</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Akceptuj zmiany</translation>
     </message>
@@ -4278,21 +4278,6 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Lista banów</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Edycja listy banów z serwera</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Pozwala na edycję listy zbanowanych IP.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>&amp;Kopnij</translation>
     </message>
@@ -4753,7 +4738,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Ponowne łączenie.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+351"/>
+        <location filename="Messages.cpp" line="+354"/>
         <source>You were muted and deafened by %1.</source>
         <translation>Zostałeś ogłuszony oraz wyciszony przez %1.</translation>
     </message>
@@ -4904,7 +4889,12 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Wiadomość powitalna: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -5252,7 +5242,7 @@ Dostępne opcje:
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-159"/>
+        <location filename="Messages.cpp" line="-162"/>
         <source>Username in use</source>
         <translation>Ta nazwa użytkownika jest już używana</translation>
     </message>
@@ -5407,7 +5397,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <translation>Obrazy (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+517"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>Wiadomość od %1</translation>
     </message>
@@ -5979,6 +5969,21 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <location/>
         <source>&amp;Copy URL</source>
         <translation>&amp;Kopiuj URL</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

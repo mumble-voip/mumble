@@ -2213,7 +2213,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Истекает</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(нет)</translation>
     </message>
@@ -2836,7 +2836,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>Экспертные настройки</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Применить изменения</translation>
     </message>
@@ -4276,21 +4276,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Списки забаненных</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Редактировать список забаненных на сервере</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Позволяет Вам изменять серверные банлисты по IP.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>К&amp;икнуть</translation>
     </message>
@@ -4792,7 +4777,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Повтор связи.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+353"/>
+        <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 снял с Вас глушение и онемение.</translation>
     </message>
@@ -4863,7 +4848,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Приветствие: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -5236,7 +5226,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     </message>
     <message>
         <location line="+732"/>
-        <location filename="Messages.cpp" line="-162"/>
+        <location filename="Messages.cpp" line="-165"/>
         <source>Invalid username</source>
         <translation>Недопустимое имя пользователя</translation>
     </message>
@@ -5262,7 +5252,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <translation>Неверный пароль для подключения к серверу. Попробуйте еще раз.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+517"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>Сообщение от %1</translation>
     </message>
@@ -5540,7 +5530,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-523"/>
+        <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
         <translation type="unfinished">Данное имя пользователя уже используется</translation>
     </message>
@@ -5981,6 +5971,21 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation type="unfinished">Не показывать все текстовые сообщения от пользователя.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

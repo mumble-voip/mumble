@@ -2254,7 +2254,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Date d&apos;expiration</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(aucun)</translation>
     </message>
@@ -2890,7 +2890,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>
@@ -4409,21 +4409,6 @@ Les options valides sont :
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Liste des &amp;bannis</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Éditer la liste des bannis du serveur</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Éditer la liste des IP bannies stockée sur le serveur.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Kick</source>
         <translation>&amp;Expulser</translation>
     </message>
@@ -5006,7 +4991,7 @@ Les options valides sont :
         <translation>Reconnexion.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+353"/>
+        <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 vous a rendu la parole et l&apos;ouïe.</translation>
     </message>
@@ -5077,7 +5062,12 @@ Les options valides sont :
         <translation>Message de bienvenue : %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble : %1</translation>
     </message>
@@ -5385,7 +5375,7 @@ Les options valides sont :
     </message>
     <message>
         <location line="+732"/>
-        <location filename="Messages.cpp" line="-162"/>
+        <location filename="Messages.cpp" line="-165"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
@@ -5411,7 +5401,7 @@ Les options valides sont :
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+517"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -5538,7 +5528,7 @@ Les options valides sont :
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-523"/>
+        <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
         <translation>Nom d&apos;utilisateur en cours d&apos;utilisation</translation>
     </message>
@@ -5886,7 +5876,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>&amp;Délier</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+510"/>
+        <location filename="Messages.cpp" line="+513"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6051,6 +6041,21 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Ignore simplement tous les messages textuels provenant de l&apos;utilisateur.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

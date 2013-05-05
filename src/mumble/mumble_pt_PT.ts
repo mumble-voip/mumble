@@ -2245,7 +2245,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
         <translation>Data de Expiração</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(nenhum)</translation>
     </message>
@@ -2869,7 +2869,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Aceitar alterações</translation>
     </message>
@@ -4954,21 +4954,6 @@ o seu certificado e nome de utilizador.</translation>
     </message>
     <message>
         <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Lista de &amp;banidos</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Editar lista de banidos no servidor</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Isto permite que edite as listas de banidos por IP no servidor.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Information</source>
         <translation>&amp;Informação</translation>
     </message>
@@ -5470,7 +5455,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Alterna o modo mínimo, em que a janela de registo e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>Silenciou e ensurdeceu %1.</translation>
     </message>
@@ -5530,7 +5515,12 @@ o seu certificado e nome de utilizador.</translation>
         <translation>%1 agora está silenciado e surdo.</translation>
     </message>
     <message>
-        <location line="-189"/>
+        <location line="-205"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Mensagem de boas-vindas: %1</translation>
@@ -6038,6 +6028,21 @@ Opções válidas são:
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Silenciosamente cancela todas mensagens de texto do utilizador.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
