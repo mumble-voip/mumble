@@ -5541,7 +5541,7 @@ certificato e il nome utente.</translation>
     <message>
         <location line="-64"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Le vostre informazioni d&apos;accesso attualmente non possono essere verificate. E pregato di riprovare più tardi</translation>
     </message>
     <message>
         <location line="+49"/>

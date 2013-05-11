@@ -5463,7 +5463,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-64"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>您的帳戶信息目前無法確認，請稍候重試</translation>
     </message>
     <message>
         <location line="+49"/>

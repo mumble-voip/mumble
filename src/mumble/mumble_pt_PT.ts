@@ -5517,7 +5517,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>A informação da sua conta não pode ser verificada de momento. Por favor tente mais tarde</translation>
     </message>
     <message>
         <location line="+16"/>

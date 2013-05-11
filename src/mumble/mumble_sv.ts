@@ -5521,7 +5521,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Din kontoinformation kan inte verifieras just nu. Var god försök igen senare</translation>
     </message>
     <message>
         <location line="+16"/>
