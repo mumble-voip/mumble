@@ -2363,7 +2363,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>משתמש ממבל</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+453"/>
+        <location filename="main.cpp" line="+456"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;פקיעת אישור האבטחה:&lt;/b&gt; תוקפו של אישור האבטחה שלכם עומד לפקוע. עליכם לחדש אותו או שלא תוכלו להתחבר יותר אל השרתים שאתם רשומים בהם.</translation>
     </message>
@@ -3406,7 +3406,7 @@ Password to be sent to the server on connect. This password is needed when conne
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+113"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>ממבל לא יכול ליצור בסיס נתונים באף אחד מהמיקומים האפשריים.</translation>
@@ -5859,7 +5859,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אופס! מצב גרירת ערוץ לא יודע בפעולה UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-270"/>
+        <location filename="main.cpp" line="-273"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5900,7 +5900,7 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
         <translation>קריאה</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לממבל.&lt;/p&gt;</translation>
     </message>

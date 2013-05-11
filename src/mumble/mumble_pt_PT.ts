@@ -2323,7 +2323,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
         <translation>Utilizador do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+453"/>
+        <location filename="main.cpp" line="+456"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está para expirar. Precisa renová-lo, ou não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
@@ -3362,7 +3362,7 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+113"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble falhou ao iniciar a base de dados em qualquer
@@ -5820,7 +5820,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Modo de movimento de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-270"/>
+        <location filename="main.cpp" line="-273"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5860,7 +5860,7 @@ Opções válidas são:
         <translation>Invocação</translation>
     </message>
     <message>
-        <location line="+191"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
