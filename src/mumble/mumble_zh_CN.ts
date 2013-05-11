@@ -5534,7 +5534,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>您的帐户信息目前无法确认，请稍候重试</translation>
     </message>
     <message>
         <location line="+16"/>

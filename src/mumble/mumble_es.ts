@@ -4890,7 +4890,7 @@ Las opciones válidas son:
     <message>
         <location line="-64"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>La informacion de su cuenta no se puede verificar en este momento, por favor intente mas tarde</translation>
     </message>
     <message>
         <location line="+49"/>

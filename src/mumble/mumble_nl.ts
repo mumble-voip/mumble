@@ -5470,7 +5470,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Uw account informatie kan momenteel niet geverifieerd worden. Probeer op een later tijdstip opnieuw alstublieft</translation>
     </message>
     <message>
         <location line="+16"/>

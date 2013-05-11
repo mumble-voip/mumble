@@ -5577,7 +5577,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-64"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Din kontoinformation kan i øjeblikket ikke verificeres. Prøv igen senere</translation>
     </message>
     <message>
         <location line="+49"/>

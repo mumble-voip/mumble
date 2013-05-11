@@ -5580,7 +5580,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-406"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>A belépési adatok ellenőrzése jelenleg sikertelen volt, kérem próbálkozzon újra később</translation>
     </message>
     <message>
         <location line="+16"/>

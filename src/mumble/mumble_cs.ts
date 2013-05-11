@@ -5161,7 +5161,7 @@ Platné možnosti jsou:
     <message>
         <location line="-6"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Informace o vašem účtu nemohou být momentálně ověřeny. Zkuste to prosím později</translation>
     </message>
     <message>
         <location line="+16"/>

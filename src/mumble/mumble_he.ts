@@ -5554,7 +5554,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אנו לא יכולים לאמת את חשבונך. נסה שנית מאוחר יותר&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+16"/>
