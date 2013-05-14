@@ -317,6 +317,7 @@ void Server::readParams() {
 	iMaxTextMessageLength = Meta::mp.iMaxTextMessageLength;
 	iMaxImageMessageLength = Meta::mp.iMaxImageMessageLength;
 	bAllowHTML = Meta::mp.bAllowHTML;
+	bAllowSavePassword = Meta::mp.bAllowSavePassword;
 	iDefaultChan = Meta::mp.iDefaultChan;
 	bRememberChan = Meta::mp.bRememberChan;
 	qsWelcomeText = Meta::mp.qsWelcomeText;
@@ -373,6 +374,7 @@ void Server::readParams() {
 	iMaxTextMessageLength = getConf("textmessagelength", iMaxTextMessageLength).toInt();
 	iMaxImageMessageLength = getConf("imagemessagelength", iMaxImageMessageLength).toInt();
 	bAllowHTML = getConf("allowhtml", bAllowHTML).toBool();
+	bAllowSavePassword = getConf("allowsavepassword", bAllowSavePassword).toBool();
 	iDefaultChan = getConf("defaultchannel", iDefaultChan).toInt();
 	bRememberChan = getConf("rememberchannel", bRememberChan).toBool();
 	qsWelcomeText = getConf("welcometext", qsWelcomeText).toString();
@@ -457,7 +459,15 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 			mpsc.set_allow_html(bAllowHTML);
 			sendAll(mpsc);
 		}
-	} else if (key == "defaultchannel")
+	} else if (key == "allowsavepassword") {
+		bool allow = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bAllowSavePassword;
+		if (allow != bAllowSavePassword) {
+			bAllowSavePassword = allow;
+			MumbleProto::ServerConfig mpsc;
+			mpsc.set_allow_save_password(bAllowSavePassword);
+			sendAll(mpsc);
+		}
+	else if (key == "defaultchannel")
 		iDefaultChan = i ? i : Meta::mp.iDefaultChan;
 	else if (key == "rememberchannel")
 		bRememberChan = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bRememberChan;

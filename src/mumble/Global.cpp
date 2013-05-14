@@ -90,6 +90,8 @@ Global::Global() {
 	bAttenuateOthers = false;
 
 	bAllowHTML = true;
+	bAllowSavePassword = true;
+	
 	uiMessageLength = 5000;
 	uiImageLength = 131072;
 

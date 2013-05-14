@@ -64,6 +64,7 @@ public:
 	int iOpusThreshold;
 	int iChannelNestingLimit;
 	bool bAllowHTML;
+	bool bAllowSavePassword;
 	QString qsPassword;
 	QString qsWelcomeText;
 	bool bCertRequired;

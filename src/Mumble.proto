@@ -56,6 +56,7 @@ message ServerConfig {
 	optional bool allow_html = 3;
 	optional uint32 message_length = 4;
 	optional uint32 image_message_length = 5;
+	optional bool allow_save_password = 6;
 }
 
 message ServerSync {

@@ -2336,6 +2336,8 @@ void MainWindow::serverConnected() {
 	qtvUsers->setRowHidden(0, QModelIndex(), false);
 
 	g.bAllowHTML = true;
+	g.bAllowSavePassword = true;
+	
 	g.uiMessageLength = 5000;
 	g.uiImageLength = 131072;
 
@@ -2529,7 +2531,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 				break;
 		}
 		if (ok && matched) {
-			if (! g.s.bSuppressIdentity)
+			if (! g.s.bSuppressIdentity && g.bAllowSavePassword)
 				Database::setPassword(host, port, uname, pw);
 			qaServerDisconnect->setEnabled(true);
 			g.sh->setConnectionInfo(host, port, uname, pw);

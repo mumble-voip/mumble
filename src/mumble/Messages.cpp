@@ -170,6 +170,8 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		AudioInput::setMaxBandwidth(msg.max_bandwidth());
 	if (msg.has_allow_html())
 		g.bAllowHTML = msg.allow_html();
+	if (msg.has_allow_save_password())
+		g.bAllowSavePassword = msg.allow_save_password();
 	if (msg.has_message_length())
 		g.uiMessageLength = msg.message_length();
 	if (msg.has_image_message_length())

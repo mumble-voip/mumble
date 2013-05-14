@@ -55,6 +55,7 @@ MetaParams::MetaParams() {
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
 	bAllowHTML = true;
+	bAllowSavePassword = true;
 	iDefaultChan = 0;
 	bRememberChan = true;
 	qsWelcomeText = QString("Welcome to this server");
@@ -258,6 +259,7 @@ void MetaParams::read(QString fname) {
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
 	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
+	bAllowSavePassword = typeCheckedFromSettings("allowsavepassword", bAllowSavePassword);
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
 	iDefaultChan = typeCheckedFromSettings("defaultchannel", iDefaultChan);
 	bRememberChan = typeCheckedFromSettings("rememberchannel", bRememberChan);
@@ -453,6 +455,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("textmessagelength"), QString::number(iMaxTextMessageLength));
 	qmConfig.insert(QLatin1String("allowhtml"), bAllowHTML ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("allowsavepassword"), bAllowSavePassword ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));
 	qmConfig.insert(QLatin1String("defaultchannel"),QString::number(iDefaultChan));
