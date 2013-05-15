@@ -843,6 +843,9 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 		} else {
 			ods("D3D9: Library without Direct3DCreate9?");
 		}
+
+		//TODO: hook for Direct3DCreate9Ex
+		// pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
 	} else {
 		bHooked = false;
 	}
@@ -937,8 +940,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;
 						// vtable offset: CreateDeviceEx is 20th method (0 based 19th)
-						// in IDirect3D9Ex. See d3d9.h of win-/D3D-API.
-						void *pCreateEx = (*vtbl)[19];
+						// in IDirect3D9Ex as declared in d3d9.h of win-/D3D-API,
+						// but is actually the 21th. TODO: How come?
+						// CreateDeviceEx defines one less method before-hand than
+						// CreateDevice. Maybe that one comes in anyway?
+						void *pCreateEx = (*vtbl)[20];
 
 						if (!IsFnInModule(d3dd->cFileName, (const char*)pCreateEx, "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
