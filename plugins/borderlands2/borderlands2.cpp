@@ -9,13 +9,13 @@
    are met: 
 
    - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
+	 this list of conditions and the following disclaimer.
    - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
+	 this list of conditions and the following disclaimer in the documentation
+	 and/or other materials provided with the distribution.
    - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
+	 contributors may be used to endorse or promote products derived from this
+	 software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -37,56 +37,56 @@ VOID *dir_ptr;
 VOID *state_ptr;
 
 typedef struct {
-    float coord[3];
+	float coord[3];
 } VecT;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
 {
-    // Zero out the structures
-    for (int i=0;i<3;i++)
-        avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
+	// Zero out the structures
+	for (int i=0;i<3;i++)
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
 
-    bool ok;
+	bool ok;
 
-    char state;
+	char state;
 
-    // State 1 == in-game, 0 == in-menu
-    ok = peekProc(state_ptr, state);
-    if (!ok) return false;
+	// State 1 == in-game, 0 == in-menu
+	ok = peekProc(state_ptr, state);
+	if (!ok) return false;
 
-    if (state == 0)
-             return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+	if (state == 0)
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
-    VecT pos;
-    VecT dir;
-    ok = peekProc(pos_ptr, pos) && peekProc(dir_ptr, dir);
-    if (!ok) return false;
+	VecT pos;
+	VecT dir;
+	ok = peekProc(pos_ptr, pos) && peekProc(dir_ptr, dir);
+	if (!ok) return false;
 
-    // Copy game vectors into return values
-    camera_pos[0] = avatar_pos[0] = -pos.coord[0] / 100.f;
-    camera_pos[1] = avatar_pos[1] = pos.coord[2] / 100.f;
-    camera_pos[2] = avatar_pos[2] = pos.coord[1] / 100.f;
-    camera_front[0] = avatar_front[0] = dir.coord[0];
-    camera_front[1] = avatar_front[1] = dir.coord[1];
-    camera_front[2] = avatar_front[2] = dir.coord[2];
+	// Copy game vectors into return values
+	camera_pos[0] = avatar_pos[0] = -pos.coord[0] / 100.f;
+	camera_pos[1] = avatar_pos[1] = pos.coord[2] / 100.f;
+	camera_pos[2] = avatar_pos[2] = pos.coord[1] / 100.f;
+	camera_front[0] = avatar_front[0] = dir.coord[0];
+	camera_front[1] = avatar_front[1] = dir.coord[1];
+	camera_front[2] = avatar_front[2] = dir.coord[2];
 	camera_top[0] = avatar_top[0] = 0;
 	camera_top[1] = avatar_top[1] = 1;
 	camera_top[2] = avatar_top[2] = 0;
 
-    return true;
+	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
 {
-    if (!initialize(pids, L"Borderlands2.exe")) {
-        return false;
+	if (!initialize(pids, L"Borderlands2.exe")) {
+		return false;
 	}
 	
-    char detected_version[32];
+	char detected_version[32];
 
-    if (peekProc(pModule + 0x1E9F338, detected_version)
-        && strcmp(detected_version, "WILLOW2-PCLILAC-60-CL721220") == 0)
-    {
+	if (peekProc(pModule + 0x1E9F338, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCLILAC-60-CL721220") == 0)
+	{
 		// Note for further versions:
 		// The "version" string above change. However, it looks like it will always start
 		// with "WILLOW2-". Everything after this can change between versions.
@@ -107,63 +107,63 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		// Note that I couldn't find a location that would do this reliably with the game "pause" 
 		// menu, only the main menu (when you initially start the game, or completely exit your
 		// current game)
-        pos_ptr = pModule + 0x1E7C390;
-        dir_ptr = pModule + 0x1EAB650;
-        state_ptr = pModule + 0x1EABF68;
-    }
-    else
-    {
-        generic_unlock();
-        return false;
-    }
+		pos_ptr = pModule + 0x1E7C390;
+		dir_ptr = pModule + 0x1EAB650;
+		state_ptr = pModule + 0x1EABF68;
+	}
+	else
+	{
+		generic_unlock();
+		return false;
+	}
 
-    // Check if we can get meaningful data from it
-    float apos[3], afront[3], atop[3];
-    float cpos[3], cfront[3], ctop[3];
-    std::wstring sidentity;
-    std::string scontext;
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3];
+	float cpos[3], cfront[3], ctop[3];
+	std::wstring sidentity;
+	std::string scontext;
 
-    if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
-        return true;
-    } else {
-        generic_unlock();
-        return false;
-    }
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+		return true;
+	} else {
+		generic_unlock();
+		return false;
+	}
 }
 
 static const std::wstring longdesc() {
-    return std::wstring(L"Supports Borderlands 2. No context support yet.");
+	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
 static std::wstring description(L"Borderlands 2 (v1.5.0)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
-    return trylock(std::multimap<std::wstring, unsigned long long int>());
+	return trylock(std::multimap<std::wstring, unsigned long long int>());
 }
 
 static MumblePlugin aaplug = {
-    MUMBLE_PLUGIN_MAGIC,
-    description,
-    shortname,
-    NULL,
-    NULL,
-    trylock1,
-    generic_unlock,
-    longdesc,
-    fetch
+	MUMBLE_PLUGIN_MAGIC,
+	description,
+	shortname,
+	NULL,
+	NULL,
+	trylock1,
+	generic_unlock,
+	longdesc,
+	fetch
 };
 
 static MumblePlugin2 aaplug2 = {
-    MUMBLE_PLUGIN_MAGIC_2,
-    MUMBLE_PLUGIN_VERSION,
-    trylock
+	MUMBLE_PLUGIN_MAGIC_2,
+	MUMBLE_PLUGIN_VERSION,
+	trylock
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-    return &aaplug;
+	return &aaplug;
 }
 
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
-    return &aaplug2;
+	return &aaplug2;
 }
