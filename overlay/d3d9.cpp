@@ -308,6 +308,7 @@ void DevState::createCleanState() {
 static HardHook hhCreateDevice;
 static HardHook hhCreateDeviceEx;
 static HardHook hhReset;
+static HardHook hhResetEx;
 static HardHook hhAddRef;
 static HardHook hhRelease;
 static HardHook hhPresent;
@@ -427,6 +428,34 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 	hhReset.restore();
 	HRESULT hr = oReset(idd, param);
 	hhReset.inject();
+
+	if (ds)
+		ds->createCleanState();
+
+	return hr;
+}
+
+typedef HRESULT(__stdcall *ResetExType)(IDirect3DDevice9Ex *, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *);
+static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex * idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX * param2) {
+	ods("D3D9: Chaining ResetEx");
+
+	DevState *ds = devMap[idd];
+	if (ds) {
+		DWORD dwOldThread = ds->dwMyThread;
+		if (dwOldThread)
+			ods("D3D9: myResetEx from other thread");
+		ds->dwMyThread = GetCurrentThreadId();
+
+		ds->releaseAll();
+		ds->dwMyThread = dwOldThread;
+	}
+
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
+	ResetExType oResetEx = (ResetExType) hhResetEx.call;
+	hhResetEx.restore();
+	HRESULT hr = oResetEx(idd, param, param2);
+	hhResetEx.inject();
 
 	if (ds)
 		ds->createCleanState();
@@ -698,6 +727,9 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	const unsigned int offsetRelease = 2;
 	const unsigned int offsetReset = 16;
 	const unsigned int offsetPresent = 17;
+	// On IDirect3DDevice9Ex
+	const unsigned int offsetPresentEx = 121;
+	const unsigned int offsetResetEx = 132;
 	if (bIsWin8) {
 		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myWin8AddRef));
 		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myWin8Release));
@@ -706,7 +738,9 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
 	}
 	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
+	hhResetEx.setupInterface(idd, offsetResetEx, reinterpret_cast<voidFunc>(myResetEx));
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
+	hhPresentEx.setupInterface(idd, offsetPresentEx, reinterpret_cast<voidFunc>(myPresentEx));
 
 	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
@@ -822,6 +856,7 @@ void freeD3D9Hook(HMODULE hModule) {
 		hhCreateDevice.reset();
 		hhCreateDeviceEx.reset();
 		hhReset.reset();
+		hhResetEx.reset();
 		hhAddRef.reset();
 		hhRelease.reset();
 		hhPresent.reset();
