@@ -832,6 +832,24 @@ void freeD3D9Hook(HMODULE hModule) {
 	}
 }
 
+// Checks if the module of the fnptr equals the name/path of the one saved in @global d3dd.
+bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & textindicator) {
+	char modulename[2048];
+	// A handle to the module.
+	HMODULE hRef = NULL;
+
+	bool success = GetModuleHandleEx(
+			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+			fnptr, &hRef);
+	if (!success) {
+		ods(("D3D9: Failed to get module for " + textindicator).c_str());
+	} else {
+		GetModuleFileName(hRef, modulename, 2048);
+		return _stricmp(refmodulepath, modulename) == 0;
+	}
+	return false;
+}
+
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
@@ -841,79 +859,63 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	HMODULE hD3D = LoadLibrary("D3D9.DLL");
 
 	if (hD3D != NULL) {
-		HMODULE hRef;
-		char buffb[2048];
 
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
 
-		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
-		if (! d3dc9) {
+		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+		if (! d3dcreate9) {
 			ods("D3D9: Library without Direct3DCreate9");
 		} else {
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9, &hRef)) {
-				ods("D3D9: Failed to get module for D3D9");
+			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9, "D3D9")) {
+				ods("D3D9: Direct3DCreate9 is not in D3D9 library");
 			} else {
-				GetModuleFileName(hRef, buffb, 2048);
-				if (_stricmp(d3dd->cFileName, buffb) != 0) {
-					ods("D3D9: Direct3DCreate9 is not in D3D9 library");
-				} else {
-					IDirect3D9 *id3d9 = d3dc9(D3D_SDK_VERSION);
-					if (id3d9) {
-						void ***vtbl = (void ***) id3d9;
-						void *pCreate = (*vtbl)[16];
+				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
+				if (id3d9) {
+					void ***vtbl = (void ***) id3d9;
+					// vtable offset: CreateDevice is 17th method (0 based 16th)
+					// in IDirect3D9. See d3d9.h of win-/D3D-API.
+					void *pCreate = (*vtbl)[16];
 
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreate, &hRef)) {
-							ods("D3D9: Failed to get module for CreateDevice");
-						} else {
-							GetModuleFileName(hRef, buffb, 2048);
-							if (_stricmp(d3dd->cFileName, buffb) != 0) {
-								ods("D3D9: CreateDevice is not in D3D9 library");
-							} else {
-								unsigned char *b = (unsigned char *) pCreate;
-								unsigned char *a = (unsigned char *) hD3D;
-								d3dd->iOffsetCreate = b-a;
-								ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dc9, pCreate, d3dd->iOffsetCreate);
-							}
-						}
-						id3d9->Release();
+					if (!IsFnInModule(d3dd->cFileName, (const char*)pCreate, "CreateDevice")) {
+						ods("D3D9: CreateDevice is not in D3D9 library");
+					} else {
+						unsigned char *b = (unsigned char *) pCreate;
+						unsigned char *a = (unsigned char *) hD3D;
+						d3dd->iOffsetCreate = b-a;
+						ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
 					}
+					id3d9->Release();
 				}
 			}
 		}
 
-		pDirect3DCreate9Ex d3dc9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
-		if (! d3dc9ex) {
+		std::string d3d9exFnName("Direct3DCreate9Ex");
+		pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, d3d9exFnName.c_str()));
+		if (! d3dcreate9ex) {
 			ods("D3D9: Library without Direct3DCreate9Ex");
 		} else {
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (const char *) d3dc9ex, &hRef)) {
-				ods("D3D9: Failed to get module for D3D9");
+			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9ex, "D3D9")) {
+				ods("D3D9: Direct3DCreate9Ex is not in D3D9 library");
 			} else {
-				GetModuleFileName(hRef, buffb, 2048);
-				if (_stricmp(d3dd->cFileName, buffb) != 0) {
-					ods("D3D9: Direct3DCreate9Ex is not in D3D9 library");
-				} else {
 					IDirect3D9Ex *id3d9 = NULL;
-					d3dc9ex(D3D_SDK_VERSION, &id3d9);
+					d3dcreate9ex(D3D_SDK_VERSION, &id3d9);
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;
-						void *pCreateEx = (*vtbl)[20];
+						// vtable offset: CreateDeviceEx is 20th method (0 based 19th)
+						// in IDirect3D9Ex. See d3d9.h of win-/D3D-API.
+						void *pCreateEx = (*vtbl)[19];
 
-						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pCreateEx, &hRef)) {
-							ods("D3D9: Failed to get module for CreateDeviceEx");
+						if (!IsFnInModule(d3dd->cFileName, (const char*)pCreateEx, "CreateDeviceEx")) {
+							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
-							GetModuleFileName(hRef, buffb, 2048);
-							if (_stricmp(d3dd->cFileName, buffb) != 0) {
-								ods("D3D9: CreateDeviceEx is not in D3D9 library");
-							} else {
-								unsigned char *b = (unsigned char *) pCreateEx;
-								unsigned char *a = (unsigned char *) hD3D;
-								d3dd->iOffsetCreateEx = b-a;
-								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dc9, pCreateEx, d3dd->iOffsetCreateEx);
-							}
+							unsigned char *b = (unsigned char *) pCreateEx;
+							unsigned char *a = (unsigned char *) hD3D;
+							d3dd->iOffsetCreateEx = b-a;
+							ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
 						}
+
 						id3d9->Release();
 					}
-				}
 			}
 		}
 
