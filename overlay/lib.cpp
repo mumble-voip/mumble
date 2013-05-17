@@ -263,7 +263,7 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		DWORD dwBytesRead;
 
 		if (! PeekNamedPipe(hSocket, NULL, 0, NULL, &dwBytesLeft, NULL)) {
-			ods("Pipe: No peek");
+			ods("Pipe: Could not peek");
 			disconnect();
 			return;
 		}
@@ -505,12 +505,9 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-bool dllmainProcAttachCheckProcessIsBlacklisted(char* procname, char* p);
+bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p);
 
-void dllmainProcAttach() {
-	char procname[1024+64];
-	GetModuleFileNameA(NULL, procname, 1024);
-
+void dllmainProcAttach(char* procname) {
 	Mutex::init();
 
 	char *p = strrchr(procname, '\\');
@@ -522,11 +519,10 @@ void dllmainProcAttach() {
 		bMumble = TRUE;
 	} else {
 		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
+			ods("Lib: Process %s is blacklisted - no overlay injection.");
 			return;
 		}
 	}
-
-	ods("Lib: ProcAttach: %s", procname);
 
 
 	OSVERSIONINFOEX ovi;
@@ -583,7 +579,7 @@ void dllmainProcAttach() {
 }
 
 // Is the process black(listed)?
-bool dllmainProcAttachCheckProcessIsBlacklisted(char* procname, char* p) {
+bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
 
 	bool usewhitelist = false;
@@ -671,7 +667,8 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char* procname, char* p) {
 		return true;
 
 	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
-	char fname[sizeof(procname)];
+	// Same buffersize as procname; which we copy from.
+	char fname[1024 + 64];
 	p = fname + (p - procname);
 	strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
 
@@ -735,13 +732,17 @@ void dllmainThreadAttach() {
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
+	// 1024 for the procname, 64 additional for more logic in the buffer deep inside
 	char procname[1024+64];
 	GetModuleFileNameA(NULL, procname, 1024);
+	// Fix for windows XP; on length nSize does not include null-termination
+	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
+	procname[1023] = '\0';
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
 			ods("Lib: ProcAttach: %s", procname);
-			dllmainProcAttach();
+			dllmainProcAttach(procname);
 			break;
 		case DLL_PROCESS_DETACH:
 			ods("Lib: ProcDetach: %s", procname);

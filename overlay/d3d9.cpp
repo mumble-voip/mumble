@@ -532,8 +532,9 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 			ds->refCount--;
 		}
 
-		if (ds->refCount <= 1)
+		if (ds->refCount <= 1) {
 			ds->disconnect();
+		}
 
 		if (ds->refCount >= 0)
 			return ds->refCount + ds->initRefCount;
@@ -660,6 +661,11 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
+	if (devMap.find(idd) != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device");
+		delete ds;
+		return hr;
+	}
 	devMap[idd] = ds;
 
 	// The offsets are dependent on the declaration order of the struct.
@@ -719,6 +725,11 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
+	if (devMap.find(idd) != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device");
+		delete ds;
+		return hr;
+	}
 	devMap[idd] = ds;
 
 	// The offsets are dependent on the declaration order of the struct.
