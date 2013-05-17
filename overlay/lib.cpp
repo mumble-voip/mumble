@@ -505,6 +505,8 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
+bool dllmainProcAttachCheckProcessIsBlacklisted(char* procname, char* p);
+
 void dllmainProcAttach() {
 	char procname[1024+64];
 	GetModuleFileNameA(NULL, procname, 1024);
@@ -519,122 +521,13 @@ void dllmainProcAttach() {
 		bBlackListed = TRUE;
 		bMumble = TRUE;
 	} else {
-		DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
-
-		bool usewhitelist = false;
-		HKEY key = NULL;
-
-		char *buffer = new char[buffsize];
-
-		// check if we're using a whitelist or a blacklist
-		DWORD tmpsize = buffsize - 1;
-		bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
-		          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
-
-		if (success) {
-			buffer[tmpsize] = '\0';
-			usewhitelist = (_stricmp(buffer, "true") == 0);
-			// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
-			tmpsize = buffsize - 1;
-
-			// read the whitelist or blacklist (depending on which one we use)
-			DWORD ret;
-			while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
-				// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
-				delete []buffer;
-				buffsize = tmpsize + 1;
-				buffer = new char[buffsize];
-			}
-
-			success = (ret == ERROR_SUCCESS);
-		}
-
-		if (key)
-			RegCloseKey(key);
-
-		if (success) {
-			buffer[tmpsize] = '\0';
-			unsigned int pos = 0;
-
-			if (usewhitelist) {
-				// check if process is whitelisted
-				bool onwhitelist = false;
-				while (pos < buffsize && buffer[pos] != 0) {
-					if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-						ods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
-						onwhitelist = true;
-						break;
-					}
-					pos += strlen(buffer + pos) + 1;
-				}
-
-				if (!onwhitelist) {
-					ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
-					bBlackListed = TRUE;
-					break;
-				}
-			} else {
-				// check if process is blacklisted
-				while (pos < buffsize && buffer[pos] != 0) {
-					if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-						ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
-						bBlackListed = TRUE;
-						break;
-					}
-					pos += strlen(buffer + pos) + 1;
-				}
-			}
-		} else {
-			// If there is no list in the registry, fallback to using the default blacklist
-			ods("Lib: Overlay fallback to default blacklist");
-			int i = 0;
-			while (overlayBlacklist[i]) {
-				if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
-					ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
-					bBlackListed = TRUE;
-					break;
-				}
-				i++;
-			}
-		}
-
-		// Make sure to always free/destroy buffer & heap
-		delete []buffer;
-
-		// if the processname is already found to be blacklisted, we can stop here
-		if (bBlackListed)
-			return;
-
-		// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
-		char fname[sizeof(procname)];
-		p = fname + (p - procname);
-		strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
-
-		strcpy_s(p+1, 64, "nooverlay");
-		HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-		if (h != INVALID_HANDLE_VALUE) {
-			CloseHandle(h);
-			ods("Lib: Overlay disable %s found", fname);
-			bBlackListed = TRUE;
+		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
 			return;
 		}
-
-		// check for "debugoverlay" file, which would enable overlay debugging
-		strcpy_s(p+1, 64, "debugoverlay");
-		h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-		if (h != INVALID_HANDLE_VALUE) {
-			CloseHandle(h);
-			ods("Lib: Overlay debug %s found", fname);
-			bDebug = TRUE;
-		}
-
-		// check for blacklisting for loading WPF library
-		checkForWPF();
-
-		if (bBlackListed)
-			return;
 	}
+
 	ods("Lib: ProcAttach: %s", procname);
+
 
 	OSVERSIONINFOEX ovi;
 	memset(&ovi, 0, sizeof(ovi));
@@ -643,6 +536,7 @@ void dllmainProcAttach() {
 	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 9200));
 
 	ods("Lib: bIsWin8: %i", bIsWin8);
+
 
 	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 	if (hHookMutex == NULL) {
@@ -688,6 +582,126 @@ void dllmainProcAttach() {
 	}
 }
 
+// Is the process black(listed)?
+bool dllmainProcAttachCheckProcessIsBlacklisted(char* procname, char* p) {
+	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
+
+	bool usewhitelist = false;
+	HKEY key = NULL;
+
+	char *buffer = new char[buffsize];
+
+	// check if we're using a whitelist or a blacklist
+	DWORD tmpsize = buffsize - 1;
+	bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+	          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		usewhitelist = (_stricmp(buffer, "true") == 0);
+		// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
+		tmpsize = buffsize - 1;
+
+		// read the whitelist or blacklist (depending on which one we use)
+		DWORD ret;
+		while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
+			// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
+			delete []buffer;
+			buffsize = tmpsize + 1;
+			buffer = new char[buffsize];
+		}
+
+		success = (ret == ERROR_SUCCESS);
+	}
+
+	if (key)
+		RegCloseKey(key);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		unsigned int pos = 0;
+
+		if (usewhitelist) {
+			// check if process is whitelisted
+			bool onwhitelist = false;
+			while (pos < buffsize && buffer[pos] != 0) {
+				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
+					ods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
+					onwhitelist = true;
+					break;
+				}
+				pos += strlen(buffer + pos) + 1;
+			}
+
+			if (!onwhitelist) {
+				ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
+				bBlackListed = TRUE;
+				return true;
+			}
+		} else {
+			// check if process is blacklisted
+			while (pos < buffsize && buffer[pos] != 0) {
+				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
+					ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
+					bBlackListed = TRUE;
+					return true;
+				}
+				pos += strlen(buffer + pos) + 1;
+			}
+		}
+	} else {
+		// If there is no list in the registry, fallback to using the default blacklist
+		ods("Lib: Overlay fallback to default blacklist");
+		int i = 0;
+		while (overlayBlacklist[i]) {
+			if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
+				ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
+				bBlackListed = TRUE;
+				return true;
+			}
+			i++;
+		}
+	}
+
+	// Make sure to always free/destroy buffer & heap
+	delete []buffer;
+
+	// if the processname is already found to be blacklisted, we can stop here
+	if (bBlackListed)
+		return true;
+
+	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
+	char fname[sizeof(procname)];
+	p = fname + (p - procname);
+	strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
+
+	strcpy_s(p+1, 64, "nooverlay");
+	HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay disable %s found", fname);
+		bBlackListed = TRUE;
+		return true;
+	}
+
+	// check for "debugoverlay" file, which would enable overlay debugging
+	strcpy_s(p+1, 64, "debugoverlay");
+	h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay debug %s found", fname);
+		bDebug = TRUE;
+	}
+
+	// check for blacklisting for loading WPF library
+	checkForWPF();
+
+	if (bBlackListed)
+		return true;
+
+	return false;
+}
+
 void dllmainProcDetach() {
 
 	hhLoad.restore(true);
@@ -715,7 +729,7 @@ void dllmainThreadAttach() {
 			checkD3D9Hook();
 			checkDXGIHook();
 			checkOpenGLHook();
-			ods("Lib: Injected to thread of %s", procname);
+			ods("Lib: Injected to thread");
 		}
 	}
 }
