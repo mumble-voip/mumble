@@ -900,12 +900,13 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
 
-		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
+		std::string d3d9FnName("Direct3DCreate9");
+		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));
 		if (! d3dcreate9) {
-			ods("D3D9: Library without Direct3DCreate9");
+			ods(("D3D9: Library without " + d3d9FnName).c_str());
 		} else {
 			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9, "D3D9")) {
-				ods("D3D9: Direct3DCreate9 is not in D3D9 library");
+				ods(("D3D9: " + d3d9FnName + " is not in D3D9 library").c_str());
 			} else {
 				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
 				if (id3d9) {
@@ -930,10 +931,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		std::string d3d9exFnName("Direct3DCreate9Ex");
 		pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, d3d9exFnName.c_str()));
 		if (! d3dcreate9ex) {
-			ods("D3D9: Library without Direct3DCreate9Ex");
+			ods(("D3D9: Library without " + d3d9exFnName).c_str());
 		} else {
 			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9ex, "D3D9")) {
-				ods("D3D9: Direct3DCreate9Ex is not in D3D9 library");
+				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
 					IDirect3D9Ex *id3d9 = NULL;
 					d3dcreate9ex(D3D_SDK_VERSION, &id3d9);
