@@ -187,7 +187,7 @@ void OverlayWidget::readyRead() {
 	if (qls != qlsSocket)
 		return;
 
-	while (1) {
+	while (true) {
 		int ready = qlsSocket->bytesAvailable();
 
 		if (om.omh.iLength == -1) {
