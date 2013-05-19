@@ -376,7 +376,7 @@ void OverlayClient::scheduleDelete() {
 }
 
 void OverlayClient::readyRead() {
-	while (1) {
+	while (true) {
 		unsigned int ready = qlsSocket->bytesAvailable();
 
 		if (omMsg.omh.iLength == -1) {

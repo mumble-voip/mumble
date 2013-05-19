@@ -135,7 +135,7 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 	bool hash = false;
 	c = curChan;
 
-	while (1) {
+	while (true) {
 		if (name.isEmpty())
 			return false;
 
