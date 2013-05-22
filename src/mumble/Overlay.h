@@ -333,6 +333,8 @@ class OverlayClient : public QObject {
 
 		bool eventFilter(QObject *, QEvent *);
 
+		void readyReadMsgInit(unsigned int length);
+
 		QList<QRectF> qlDirty;
 	protected slots:
 		void readyRead();
