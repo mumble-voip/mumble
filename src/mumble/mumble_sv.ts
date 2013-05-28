@@ -565,7 +565,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Detta förfrågar den valda enheten om kanler. Var medveten om att många ASIO-drivrutiner är mycket buggiga och förfrågning kan orsaka en krasch av programmet eller systemet.</translation>
+        <translation>Detta förfrågar den valda enheten om kanaler. Var medveten om att många ASIO-drivrutiner är mycket buggiga och förfrågning kan orsaka en krasch av programmet eller systemet.</translation>
     </message>
     <message>
         <location/>
