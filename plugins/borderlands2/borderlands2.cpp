@@ -32,8 +32,8 @@
 
 #include "../mumble_plugin_win32.h"
 
-VOID *pos_ptr;
-VOID *dir_ptr;
+VOID *vects_ptr;
+VOID *state_ptr;
 VOID *character_name_ptr_loc;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
@@ -102,14 +102,17 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// with "WILLOW2-". Everything after this can change between versions.
 	// Position vectors are read as triplet (X,Y,Z). The tree triplet are in this order:
 	// front, top, position.
-	// When entering the game, in Sanctuary, with the character Zero,
+	// When entering the game, in Sanctuary (after liftoff), with the character Zero,
 	// the reading are the following (rounded):
-	// pos.X = 8109
-	// pos.Z = 2930
-	// pos.Y = 3800
 	// front.X = 0
 	// front.Y = 0
 	// front.Z = 1
+	// top.X = 0
+	// top.Y = 1
+	// top.Z = 0
+	// pos.X = -8109
+	// pos.Y = 3794
+	// pos.Z = 2930
 	// The "state" ptr is just a value that reliably alternate between 0 (in main menu)
 	// and 1 (not in main menu). There is a lot of value that keep reliably changing even 
 	// across restart, change of characters...
