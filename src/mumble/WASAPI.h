@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef WASAPI_H_
-#define WASAPI_H_
+#ifndef MUMBLE_MUMBLE_WASAPI_H_
+#define MUMBLE_MUMBLE_WASAPI_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QUuid>

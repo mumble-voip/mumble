@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DATABASE_H_
-#define DATABASE_H_
+#ifndef MUMBLE_MURMUR_DATABASE_H_
+#define MUMBLE_MURMUR_DATABASE_H_
 
 #include <QtCore/QVariant>
 
@@ -66,6 +66,8 @@ class ServerDB {
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true, bool warn = true);
 		static bool exec(QSqlQuery &, const QString &str = QString(), bool fatal= true, bool warn = true);
 		static bool execBatch(QSqlQuery &, const QString &str = QString(), bool fatal= true);
+		// No copy; private declaration without implementation
+		ServerDB(const ServerDB &);
 };
 
 #endif

@@ -228,7 +228,7 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 }
 
 void SocketRPC::newConnection() {
-	while (1) {
+	while (true) {
 		QLocalSocket *qls = qlsServer->nextPendingConnection();
 		if (! qls)
 			break;

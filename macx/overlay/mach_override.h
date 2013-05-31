@@ -42,8 +42,8 @@
 
 	***************************************************************************/
 
-#ifndef		_mach_override_
-#define		_mach_override_
+#ifndef		MUMBLE_MACH_OVERRIDE_H_
+#define		MUMBLE_MACH_OVERRIDE_H_
 
 #include <sys/types.h>
 #include <mach/error.h>
@@ -118,4 +118,4 @@ mach_override_ptr(
 #ifdef	__cplusplus
 	}
 #endif
-#endif	//	_mach_override_
+#endif

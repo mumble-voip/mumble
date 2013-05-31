@@ -81,6 +81,13 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->setColumnStretch(1, 1);
 }
 
+CertView::~CertView() {
+	delete qlSubjectName;
+	delete qlSubjectEmail;
+	delete qlIssuerName;
+	delete qlExpiry;
+}
+
 void CertView::setCert(const QList<QSslCertificate> &cert) {
 	qlCert = cert;
 

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRYPTSTATE_H_
-#define CRYPTSTATE_H_
+#ifndef MUMBLE_CRYPTSTATE_H_
+#define MUMBLE_CRYPTSTATE_H_
 
 #include <openssl/aes.h>
 

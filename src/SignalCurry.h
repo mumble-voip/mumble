@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SIGNAL_CURRY_H_
-#define SIGNAL_CURRY_H_
+#ifndef MUMBLE_SIGNAL_CURRY_H_
+#define MUMBLE_SIGNAL_CURRY_H_
 
 #include <QObject>
 #include <QVariant>

@@ -86,6 +86,7 @@ Database::Database() {
 				found = db.open();
 			}
 
+			//TODO: If the above succeeds, but we also have a .mumble.sqlite, we open another DB!?
 			QFile f2(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 			if (f2.exists()) {
 				db.setDatabaseName(f2.fileName());

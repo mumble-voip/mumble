@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MESSAGE_H_
-#define MESSAGE_H_
+#ifndef MUMBLE_MESSAGE_H_
+#define MUMBLE_MESSAGE_H_
 
 #include <string>
 #include <QtCore/QCryptographicHash>

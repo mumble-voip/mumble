@@ -1,4 +1,5 @@
 /* Copyright (C) 2013, Steve Hill <github@cheesy.sackheads.org>
+   Copyright (C) 2013, Gabriel Risterucci <cleyfaye@gmail.com>
    Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
 
    All rights reserved.
@@ -39,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 {
 	// Zero out the structures
 	for (int i=0;i<3;i++)
-		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
 
 	bool ok;
 
@@ -50,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok) return false;
 
 	if (state == 0)
-             return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	struct
 	{
@@ -90,17 +91,57 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
 {
-	if (!initialize(pids, L"Borderlands2.exe"))
+	if (!initialize(pids, L"Borderlands2.exe")) {
 		return false;
+	}
 
 	char detected_version[32];
 
+	// Note for further versions:
+	// The "version" string above change. However, it looks like it will always start
+	// with "WILLOW2-". Everything after this can change between versions.
+	// Position vectors are read as triplet (X,Y,Z). The tree triplet are in this order:
+	// front, top, position.
+	// When entering the game, in Sanctuary (after liftoff), with the character Zero,
+	// the reading are the following (rounded):
+	// front.X = 0
+	// front.Y = 0
+	// front.Z = 1
+	// top.X = 0
+	// top.Y = 1
+	// top.Z = 0
+	// pos.X = -8109
+	// pos.Y = 3794
+	// pos.Z = 2930
+	// The "state" ptr is just a value that reliably alternate between 0 (in main menu)
+	// and 1 (not in main menu). There is a lot of value that keep reliably changing even 
+	// across restart, change of characters...
+	// Note that I couldn't find an address that would do this reliably with the game "pause" 
+	// menu, only the main menu (when you initially start the game, or completely exit your
+	// current game)
+	// 1.3.1
 	if (peekProc(pModule + 0x1E6D048, detected_version)
-		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") != 0)
+		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") == 0)
 	{
 		vects_ptr = pModule + 0x1E792B0;
 		state_ptr = pModule + 0x1E79BC8;
 		character_name_ptr_loc = pModule + 0x1E7302C;
+	}
+	// 1.4.0
+	else if (peekProc(pModule + 0x1E8D1D8, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCSAGE-77-CL711033") == 0)
+	{
+		vects_ptr = pModule + 0x1E993F0;
+		state_ptr = pModule + 0x1E99D08;
+		character_name_ptr_loc = pModule + 0x1E93194;
+	}
+	// 1.5.0
+	else if (peekProc(pModule + 0x01E9F338, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCLILAC-60-CL721220") == 0)
+	{
+		vects_ptr = pModule + 0x1EAB650;
+		state_ptr = pModule + 0x1EABF68;
+		character_name_ptr_loc = pModule + 0x01EA5384;
 	}
 	else
 	{
@@ -126,14 +167,14 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
-static std::wstring description(L"Borderlands 2 (v1.3.1)");
+static std::wstring description(L"Borderlands 2 (v1.5.0)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());
 }
 
-static MumblePlugin aaplug = {
+static MumblePlugin bl2plug = {
 	MUMBLE_PLUGIN_MAGIC,
 	description,
 	shortname,
@@ -145,16 +186,16 @@ static MumblePlugin aaplug = {
 	fetch
 };
 
-static MumblePlugin2 aaplug2 = {
+static MumblePlugin2 bl2plug2 = {
 	MUMBLE_PLUGIN_MAGIC_2,
 	MUMBLE_PLUGIN_VERSION,
 	trylock
 };
 
 extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
-	return &aaplug;
+	return &bl2plug;
 }
 
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
-	return &aaplug2;
+	return &bl2plug2;
 }

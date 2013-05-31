@@ -1,5 +1,5 @@
-#ifndef MANUAL_H
-#define MANUAL_H
+#ifndef MUMBLE_MANUAL_H_
+#define MUMBLE_MANUAL_H_
 
 #include <QDialog>
 #include <QGraphicsItem>
@@ -34,4 +34,4 @@ class Manual : public QDialog, public Ui::Manual {
 		void updateTopAndFront(int orientation, int azimut);
 };
 
-#endif // MANUAL_H
+#endif

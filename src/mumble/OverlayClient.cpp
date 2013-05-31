@@ -375,14 +375,50 @@ void OverlayClient::scheduleDelete() {
 	hideGui();
 }
 
+void OverlayClient::readyReadMsgInit(unsigned int length) {
+	if (length != sizeof(OverlayMsgInit)) {
+		return;
+	}
+
+	OverlayMsgInit *omi = & omMsg.omi;
+
+	uiWidth = omi->uiWidth;
+	uiHeight = omi->uiHeight;
+	qrLast = QRect();
+
+	delete smMem;
+
+	smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
+	if (! smMem->data()) {
+		qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
+		delete smMem;
+		smMem = NULL;
+		return;
+	}
+	QByteArray key = smMem->name().toUtf8();
+	key.append(static_cast<char>(0));
+
+	OverlayMsg om;
+	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
+	om.omh.iLength = key.length();
+	memcpy(om.oms.a_cName, key.constData(), key.length());
+	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
+
+	setupRender();
+
+	Overlay *o = static_cast<Overlay *>(parent());
+	QTimer::singleShot(0, o, SLOT(updateOverlay()));
+}
+
 void OverlayClient::readyRead() {
-	while (1) {
+	while (true) {
 		unsigned int ready = qlsSocket->bytesAvailable();
 
 		if (omMsg.omh.iLength == -1) {
-			if (ready < sizeof(OverlayMsgHeader))
+			if (ready < sizeof(OverlayMsgHeader)) {
 				break;
-			else {
+			} else {
 				qlsSocket->read(omMsg.headerbuffer, sizeof(OverlayMsgHeader));
 				if ((omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (omMsg.omh.iLength < 0) || (omMsg.omh.iLength > static_cast<int>(sizeof(OverlayMsgShmem)))) {
 					disconnect();
@@ -402,38 +438,7 @@ void OverlayClient::readyRead() {
 
 			switch (omMsg.omh.uiType) {
 				case OVERLAY_MSGTYPE_INIT: {
-						if (length != sizeof(OverlayMsgInit))
-							break;
-
-						OverlayMsgInit *omi = & omMsg.omi;
-
-						uiWidth = omi->uiWidth;
-						uiHeight = omi->uiHeight;
-						qrLast = QRect();
-
-						delete smMem;
-
-						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
-						if (! smMem->data()) {
-							qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
-							delete smMem;
-							smMem = NULL;
-							break;
-						}
-						QByteArray key = smMem->name().toUtf8();
-						key.append(static_cast<char>(0));
-
-						OverlayMsg om;
-						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-						om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
-						om.omh.iLength = key.length();
-						memcpy(om.oms.a_cName, key.constData(), key.length());
-						qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
-
-						setupRender();
-
-						Overlay *o = static_cast<Overlay *>(parent());
-						QTimer::singleShot(0, o, SLOT(updateOverlay()));
+						readyReadMsgInit(length);
 					}
 					break;
 				case OVERLAY_MSGTYPE_SHMEM: {
@@ -454,7 +459,7 @@ void OverlayClient::readyRead() {
 							break;
 
 						OverlayMsgFps *omf = & omMsg.omf;
-						fFps = omf ->fps;
+						fFps = omf->fps;
 						//qWarning() << "FPS: " << omf->fps;
 
 						Overlay *o = static_cast<Overlay *>(parent());

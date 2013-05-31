@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef META_H_
-#define META_H_
+#ifndef MUMBLE_MURMUR_META_H_
+#define MUMBLE_MURMUR_META_H_
 
 #include <QtCore/QDir>
 #include <QtCore/QList>
