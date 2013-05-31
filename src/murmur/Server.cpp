@@ -853,20 +853,23 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		msg.msg_controllen = CMSG_SPACE((u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct in6_pktinfo) : sizeof(struct in_pktinfo));
 
 		struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-		if (u->saiTcpLocalAddress.ss_family == AF_INET6) {
+		HostAddress tcpha(u->saiTcpLocalAddress);
+		if (u->saiUdpAddress.ss_family == AF_INET6) {
 			cmsg->cmsg_level = IPPROTO_IPV6;
 			cmsg->cmsg_type = IPV6_PKTINFO;
 			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in6_pktinfo));
 			struct in6_pktinfo *pktinfo = reinterpret_cast<struct in6_pktinfo *>(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
-			pktinfo->ipi6_addr =  reinterpret_cast<struct sockaddr_in6 *>(& u->saiTcpLocalAddress)->sin6_addr;
+			memcpy(&pktinfo->ipi6_addr.s6_addr[0], &tcpha.qip6.c[0], sizeof(pktinfo->ipi6_addr.s6_addr));
 		} else {
 			cmsg->cmsg_level = IPPROTO_IP;
 			cmsg->cmsg_type = IP_PKTINFO;
 			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in_pktinfo));
 			struct in_pktinfo *pktinfo = reinterpret_cast<struct in_pktinfo *>(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
-			pktinfo->ipi_spec_dst =  reinterpret_cast<struct sockaddr_in *>(& u->saiTcpLocalAddress)->sin_addr;
+			if (tcpha.isV6())
+				return;
+			pktinfo->ipi_spec_dst.s_addr = tcpha.hash[3];
 		}
 
 
