@@ -45,6 +45,7 @@ message Reject {
 		UsernameInUse = 5;
 		ServerFull = 6;
 		NoCertificate = 7;
+		AuthenticatorFail = 8;
 	}
 	optional RejectType type = 1;
 	optional string reason = 2;

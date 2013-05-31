@@ -1798,6 +1798,8 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		if (! text.contains(QLatin1Char('<')))
 			return false;
 
+		// Strip value from <img>s src attributes to check text-length only -
+		// we already ensured the img-length requirement is met
 		QString qsOut;
 		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
 		QXmlStreamWriter qxsw(&qsOut);
@@ -1807,8 +1809,6 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 					return false;
 				case QXmlStreamReader::StartElement: {
 						if (qxsr.name() == QLatin1String("img")) {
-							QXmlStreamAttributes attr = qxsr.attributes();
-
 							qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
 							foreach(const QXmlStreamAttribute &a, qxsr.attributes())
 								if (a.name() != QLatin1String("src"))

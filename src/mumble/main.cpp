@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
-	// Check wheter we need to enable accessibility features
+	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
 	// Only windows for now. Could not find any information on how to query this for osx or linux
 	{
@@ -366,6 +366,9 @@ int main(int argc, char **argv) {
 	g.bc = new BonjourClient();
 #endif
 
+	//TODO: This already loads up the DLL and does some initial hooking, even
+	// when the OL is disabled. This should either not be done (object instantiation)
+	// or the dll loading and preparation be delayed to first use.
 	g.o = new Overlay();
 	g.o->setActive(g.s.os.bEnable);
 

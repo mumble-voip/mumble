@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef NET_H_
-#define NET_H_
+#ifndef MUMBLE_NET_H_
+#define MUMBLE_NET_H_
 
 #include <QtCore/QDateTime>
 #include <QtCore/QString>

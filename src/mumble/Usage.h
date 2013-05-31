@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USAGE_H_
-#define USAGE_H_
+#ifndef MUMBLE_MUMBLE_USAGE_H_
+#define MUMBLE_MUMBLE_USAGE_H_
 
 #include <QtCore/QBuffer>
 #include <QtCore/QDataStream>

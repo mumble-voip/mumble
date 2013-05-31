@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SETTINGS_H_
-#define SETTINGS_H_
+#ifndef MUMBLE_MUMBLE_SETTINGS_H_
+#define MUMBLE_MUMBLE_SETTINGS_H_
 
 #include <QtCore/QVariant>
 #include <QtCore/QList>
@@ -44,7 +44,7 @@
 #include <QtNetwork/QSslKey>
 
 // Global helper classes to spread variables around across threads
-// especially helpfull to initialize things like the stored
+// especially helpful to initialize things like the stored
 // preference for audio transmission, since the GUI elements
 // will be created long before the AudioInput object, and the
 // latter lives in a separate thread and so cannot touch the

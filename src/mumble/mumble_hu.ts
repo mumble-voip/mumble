@@ -2222,7 +2222,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Lejárat dátuma</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(semmi)</translation>
     </message>
@@ -2300,7 +2300,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble felhasználó</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+454"/>
+        <location filename="main.cpp" line="+456"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Tanúsítvány lejár:&lt;/b&gt; Az ön tanúsítványa nem sokára lejár. Meg kell újitsa, vagy nem lesz képes többet bejelentkezni azokra a szerverekre, ahol regisztrálva van.</translation>
     </message>
@@ -2845,7 +2845,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Változások elfogadása</translation>
     </message>
@@ -3333,7 +3333,7 @@ Password to be sent to the server on connect. This password is needed when conne
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>A Mumble nem tudta betölteni az adatbázist
@@ -4266,12 +4266,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2131"/>
+        <location line="+2150"/>
         <source>Root</source>
         <translation>Gyökér</translation>
     </message>
     <message>
-        <location line="-2079"/>
+        <location line="-2098"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Beszédhez-nyomd</translation>
@@ -4332,12 +4332,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2230"/>
+        <location line="+2249"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2225"/>
+        <location line="-2244"/>
         <source>&amp;Window</source>
         <translation>&amp;Ablak</translation>
     </message>
@@ -4363,7 +4363,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A Mumble egy szerverrel van kapcsolatban. A programot be szeretné zárni vagy csak minimalizálni?</translation>
     </message>
     <message>
-        <location line="+182"/>
+        <location line="+193"/>
         <source>Clear</source>
         <translation>Töröl</translation>
     </message>
@@ -4449,18 +4449,18 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1330"/>
+        <location line="+1338"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Tanúsítvány megtekintése</translation>
     </message>
     <message>
-        <location line="-1055"/>
+        <location line="-1063"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Adja meg az okot</translation>
     </message>
     <message>
-        <location line="-1212"/>
+        <location line="-1223"/>
         <source>&amp;User</source>
         <translation>&amp;Felhasználó</translation>
     </message>
@@ -4537,12 +4537,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+58"/>
-        <location line="+2271"/>
+        <location line="+2290"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1967"/>
+        <location line="-1975"/>
         <source>File does not exist</source>
         <translation>A fájl nem létezik</translation>
     </message>
@@ -4585,7 +4585,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>&lt;p&gt;Ön éppen regisztrálja magát ezen a szerveren. Ez a művelet nem vonható vissza, és az ön felhasználó neve többet már nem módosítható. Ezen a szerveren önt ezentúl &apos;%1&apos; néven fogják ismerni.&lt;/p&gt;&lt;p&gt;Biztos abban, hogy regisztrálni akarja magát?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1114"/>
+        <location line="+1122"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4600,7 +4600,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1542"/>
+        <location line="-1550"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nincs fordításról vagy operációs rendszer verziójáról információ&lt;/p&gt;</translation>
     </message>
@@ -4675,7 +4675,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Üzenet a %1 csatornába</translation>
     </message>
     <message>
-        <location line="+544"/>
+        <location line="+552"/>
         <source>Connected.</source>
         <translation>Kapcsolódva.</translation>
     </message>
@@ -4706,7 +4706,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A kép formátuma nem felismerhető.</translation>
     </message>
     <message>
-        <location line="-1070"/>
+        <location line="-1078"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Biztos abban, hogy törli %1 csatornát és az összes alcsatornáját?</translation>
     </message>
@@ -4761,7 +4761,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Qt névjegye</translation>
     </message>
     <message>
-        <location line="+389"/>
+        <location line="+397"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL ellenőrzés hibát jelzett: %1</translation>
     </message>
@@ -4797,6 +4797,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+11"/>
+        <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
         <translation>Érvénytelen felhasználónév</translation>
     </message>
@@ -4807,6 +4808,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+4"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4817,6 +4819,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+5"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4829,6 +4832,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+7"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
         <translation>Hibás jelszó</translation>
     </message>
@@ -4838,7 +4842,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
     </message>
     <message>
-        <location line="-2303"/>
+        <location line="-2322"/>
         <source>&amp;Channel</source>
         <translation>&amp;Csatorna</translation>
     </message>
@@ -4931,21 +4935,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Disconnects you from the server.</source>
         <translation>Bontja az ön kapcsolatát a szerverrel.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Tiltó lista</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>A szerveren levő tiltó lista szerkesztése</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Ezzel ön szerkesztheti a szerver oldali IP tiltó listát.</translation>
     </message>
     <message>
         <location/>
@@ -5529,7 +5518,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ezzel válthatja a minimális nézet módot, amelyben a napló ablaka és a menü nem látszik.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+289"/>
+        <location filename="Messages.cpp" line="+208"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 most némítva és hangszórói kikapcsolva.</translation>
     </message>
@@ -5589,7 +5578,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kidobta és kitiltotta önt a szerverről: %2.</translation>
     </message>
     <message>
-        <location line="-390"/>
+        <location line="-406"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation>A belépési adatok ellenőrzése jelenleg sikertelen volt, kérem próbálkozzon újra később</translation>
+    </message>
+    <message>
+        <location line="+16"/>
         <location line="+48"/>
         <source>Welcome message: %1</source>
         <translation>Üdvözlő üzenet: %1</translation>
@@ -5880,7 +5874,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ismeretlen Csatorna húzási mód a UserModel::dropMimeData beállításokban.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-271"/>
+        <location filename="main.cpp" line="-273"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5905,7 +5899,7 @@ Valid options are:
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation>Üdvözli a Mumble.</translation>
     </message>
@@ -5974,6 +5968,21 @@ Valid options are:
     <message>
         <location/>
         <source>Recording</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6909,7 +6918,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+228"/>
+        <location filename="Plugins.cpp" line="+234"/>
         <source>%1 lost link.</source>
         <translation>%1 elveszett kapcsolat.</translation>
     </message>
@@ -7060,7 +7069,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+447"/>
+        <location filename="ServerHandler.cpp" line="+470"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>A szerver felé nem küldhető vagy a szervertől nem fogadható UDP csomag. TCP módra váltok.</translation>
     </message>
@@ -7080,7 +7089,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>A szerver felé küldhető és a szervertől fogadható UDP csomag. Vissza váltok UDP módra.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>A kapcsolat ideje lejárt</translation>
     </message>

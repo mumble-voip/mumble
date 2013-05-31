@@ -42,10 +42,12 @@ ConfigDialog::ConfigDialog(QWidget *p) : QDialog(p) {
 
 	s = g.s;
 
-	unsigned int idx = 0;
-	ConfigWidgetNew cwn;
-	foreach(cwn, *ConfigRegistrar::c_qmNew) {
-		addPage(cwn(s), ++idx);
+	if (ConfigRegistrar::c_qmNew) {
+		unsigned int idx = 0;
+		ConfigWidgetNew cwn;
+		foreach(cwn, *ConfigRegistrar::c_qmNew) {
+			addPage(cwn(s), ++idx);
+		}
 	}
 
 	qcbExpert->setChecked(g.s.bExpert);

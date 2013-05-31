@@ -257,6 +257,9 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
 
 		if (! suppress && g.ocIntercept) {
+			// In full-GUI-overlay always suppress
+			suppress = true;
+
 			HWND hwnd = g.ocIntercept->qgv.winId();
 
 			GUITHREADINFO gti;
@@ -269,8 +272,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 
 			if (! nomsg)
 				::PostMessage(hwnd, msg, w, l);
-
-			suppress = true;
 		}
 
 		if (suppress)
@@ -327,6 +328,9 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 		}
 
 		if (g.ocIntercept) {
+			// In full-GUI-overlay always suppress
+			suppress = true;
+
 			POINT p;
 			GetCursorPos(&p);
 
@@ -369,13 +373,11 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			::PostMessage(hwnd, msg, w, l);
 
 			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
-
-			suppress = true;
 		}
 
 		bool down = false;
 		unsigned int btn = 0;
-		switch (wParam) {
+		switch (msg) {
 			case WM_LBUTTONDOWN:
 				down = true;
 			case WM_LBUTTONUP:
@@ -403,6 +405,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			ql << static_cast<unsigned int>((btn << 8) | 0x4);
 			ql << QVariant(QUuid(GUID_SysMouse));
 			bool wantsuppress = gsw->handleButton(ql, down);
+			// Do not suppress LBUTTONUP though (so suppression can be deactvated via mouse).
 			if (! suppress)
 				suppress = wantsuppress && (btn != 3);
 		}

@@ -1,5 +1,5 @@
-#ifndef __MurmurI_h__
-#define __MurmurI_h__
+#ifndef MUMBLE_MURMUR_MURMURI_H_
+#define MUMBLE_MURMUR_MURMURI_H_
 
 #include <Murmur.h>
 

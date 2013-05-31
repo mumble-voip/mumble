@@ -28,8 +28,8 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICERESOLVER_H
-#define BONJOURSERVICERESOLVER_H
+#ifndef MUMBLE_BONJOURSERVICERESOLVER_H_
+#define MUMBLE_BONJOURSERVICERESOLVER_H_
 
 #include <QtCore/QMap>
 #include <QtCore/QObject>
@@ -71,4 +71,4 @@ class BonjourServiceResolver : public QObject {
 		        quint16 txtLen, const char *txtRecord, void *context);
 };
 
-#endif // BONJOURSERVICERESOLVER_H
+#endif

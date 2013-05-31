@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OVERLAY_H_
-#define OVERLAY_H_
+#ifndef MUMBLE_MUMBLE_OVERLAY_H_
+#define MUMBLE_MUMBLE_OVERLAY_H_
 
 #include <QtCore/QUrl>
 #include <QtGui/QGraphicsItem>
@@ -332,6 +332,8 @@ class OverlayClient : public QObject {
 		void setupScene(bool show);
 
 		bool eventFilter(QObject *, QEvent *);
+
+		void readyReadMsgInit(unsigned int length);
 
 		QList<QRectF> qlDirty;
 	protected slots:

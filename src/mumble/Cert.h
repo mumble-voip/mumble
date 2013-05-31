@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CERT_H_
-#define CERT_H_
+#ifndef MUMBLE_MUMBLE_CERT_H_
+#define MUMBLE_MUMBLE_CERT_H_
 
 #include <QtCore/QString>
 #include <QtGui/QGroupBox>
@@ -50,6 +50,7 @@ class CertView : public QGroupBox {
 		QLabel *qlSubjectName, *qlSubjectEmail, *qlIssuerName, *qlExpiry;
 	public:
 		CertView(QWidget *p);
+		virtual ~CertView();
 		void setCert(const QList<QSslCertificate> &cert);
 };
 
