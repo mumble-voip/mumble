@@ -314,7 +314,7 @@ CONFIG(no-update) {
 
 !CONFIG(no-embed-qt-translations) {
 	# Add additional 3rd party Qt translations not shipped with Qt
-	TRANSLATIONS *= qttranslations/qt_it.ts qttranslations/qt_tr.ts
+	TRANSLATIONS *= qttranslations/qt_it.ts qttranslations/qt_nl.ts qttranslations/qt_tr.ts
 	DEFINES *= USING_BUNDLED_QT_TRANSLATIONS
 
 	# Add translations shipped with Qt
