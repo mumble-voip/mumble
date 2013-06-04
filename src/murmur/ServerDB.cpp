@@ -77,8 +77,8 @@ ServerDB::ServerDB() {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
 	}
 	if (db) {
-		// Don’t hide away our previous instance. Fail hard.
-		throw std::exception();
+		// Don't hide away our previous instance. Fail hard.
+		qFatal("ServerDB has already been instantiated!");
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
 
