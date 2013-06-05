@@ -209,7 +209,7 @@ unix {
       CONFIG *= alsa
     }
 
-    !CONFIG(no-speechd) {
+    !CONFIG(no-speechd):system(pkg-config --atleast-version=0.8 speech-dispatcher) {
       CONFIG *= speechd
     }
   }
