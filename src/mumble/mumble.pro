@@ -279,7 +279,12 @@ dbus {
 
 speechd {
 	DEFINES *= USE_SPEECHD
-	LIBS *= -lspeechd
+	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
+		DEFINES *= USE_SPEECHD_PKGCONFIG
+		PKGCONFIG *= speech-dispatcher
+	} else {
+		LIBS *= -lspeechd
+	}
 }
 
 directsound {
