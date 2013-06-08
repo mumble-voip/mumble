@@ -13,7 +13,7 @@
 	<key>CFBundlePackageType</key>
 	<string>osax</string>
 	<key>CFbundleVersion</key>
-	<string>1.2.4</string>
+	<string>1.2.5</string>
 	<key>CFBundleSignature</key>
 	<string>MUOL</string>
 	<key>CSResourcesFileMapped</key>
