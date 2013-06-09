@@ -1,3 +1,7 @@
+/**
+ * Benchmark of storage mechanisms; array, vector, Qt collections.
+ */
+
 #include <QtCore>
 #include <vector>
 

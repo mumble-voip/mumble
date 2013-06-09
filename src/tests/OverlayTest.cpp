@@ -1,3 +1,7 @@
+/**
+ * Overlay drawing test application.
+ */
+
 #include <QtCore>
 #include <QtNetwork>
 #include <QtGui>
@@ -283,14 +287,14 @@ class TestWin : public QObject {
 };
 
 TestWin::TestWin() {
-	QMainWindow *qmw=new QMainWindow();
+	QMainWindow *qmw = new QMainWindow();
 	qmw->setObjectName(QLatin1String("main"));
 
 	OverlayWidget *ow = new OverlayWidget();
 	qmw->setCentralWidget(ow);
 
 	qmw->show();
-	qmw->resize(1280,720);
+	qmw->resize(1280, 720);
 
 	QMetaObject::connectSlotsByName(this);
 }
