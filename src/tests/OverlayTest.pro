@@ -15,4 +15,4 @@ win32 {
 }
 
 VPATH += ..
-INCLUDEPATH += .. ../murmur ../mumble
+INCLUDEPATH += .. ../murmur ../mumble ../../celt-0.7.0-src/libcelt ../../speex/include
