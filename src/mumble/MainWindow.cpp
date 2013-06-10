@@ -2818,6 +2818,14 @@ void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
+void MainWindow::on_qdwChat_visibilityChanged(bool) {
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
+void MainWindow::on_qdwLog_visibilityChanged(bool) {
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
 void MainWindow::context_triggered() {
 	QAction *a = qobject_cast<QAction *>(sender());
 
