@@ -329,8 +329,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4) {
 								ctx->uiMappedLength = buf.st_size;
 								ctx->a_ucTexture = mmap(NULL, buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
-								//TODO shouldn't -1 be MAP_FAILED ?
-								if (ctx->a_ucTexture != (unsigned char *) -1) {
+								if (ctx->a_ucTexture != MAP_FAILED) {
 									// mmap successfull; send a new bodyless sharedmemory overlay message and regenerate the overlay texture
 									struct OverlayMsg om;
 									om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
