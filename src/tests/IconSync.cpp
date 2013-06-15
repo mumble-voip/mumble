@@ -18,8 +18,6 @@ int main(int argc, char **argv) {
 	svg.render(&painter);
 
 	QList<int> sizes;
-	sizes << 16;
-	sizes << 24;
 	sizes << 32;
 	sizes << 48;
 	sizes << 64;
@@ -27,8 +25,33 @@ int main(int argc, char **argv) {
 	sizes << 128;
 	sizes << 256;
 
-	QStringList qslImages;
 
+	QSvgRenderer svgSmall(QLatin1String("../../icons/mumble_small.svg"));
+	QImage originalSmall(512,512,QImage::Format_ARGB32);
+	originalSmall.fill(Qt::transparent);
+
+	QPainter painterSmall(&originalSmall);
+	painterSmall.setRenderHint(QPainter::Antialiasing);
+	painterSmall.setRenderHint(QPainter::TextAntialiasing);
+	painterSmall.setRenderHint(QPainter::SmoothPixmapTransform);
+	painterSmall.setRenderHint(QPainter::HighQualityAntialiasing);
+	svgSmall.render(&painterSmall);
+    
+	QList<int> sizesSmall;
+	sizesSmall << 16;
+	sizesSmall << 24;
+
+
+	QStringList qslImages;
+	foreach(int size, sizesSmall) {
+		QImage img = originalSmall.scaled(size,size,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+		QString png = QDir::temp().absoluteFilePath(QString::fromLatin1("mumble.%1.png").arg(size));
+
+		QImageWriter qiw(png);
+		qiw.write(img);
+
+		qslImages << png;
+	}
 	foreach(int size, sizes) {
 		QImage img = original.scaled(size,size,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		QString png = QDir::temp().absoluteFilePath(QString::fromLatin1("mumble.%1.png").arg(size));
@@ -38,8 +61,9 @@ int main(int argc, char **argv) {
 
 		qslImages << png;
 	}
-	QStringList args;
 
+
+	QStringList args;
 	args << qslImages;
 	args << QDir::current().absoluteFilePath("../../icons/mumble.ico");
 
