@@ -392,6 +392,20 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRe
 	return hr;
 }
 
+typedef HRESULT(__stdcall *PresentExType)(IDirect3DDevice9Ex *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
+static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion, DWORD dwFlags) {
+	ods("D3D9: Device Present Ex");
+
+	doPresent(idd);
+
+	PresentExType oPresentEx = (PresentExType) hhPresentEx.call;
+
+	hhPresentEx.restore();
+	HRESULT hr = oPresentEx(idd, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
+	hhPresentEx.inject();
+	return hr;
+}
+
 typedef HRESULT(__stdcall *ResetType)(IDirect3DDevice9 *, D3DPRESENT_PARAMETERS *);
 static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
 	ods("D3D9: Chaining Reset");
