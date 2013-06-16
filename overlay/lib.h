@@ -52,8 +52,11 @@ using namespace std;
 void __cdecl ods(const char *format, ...);
 
 struct Direct3D9Data {
+	// Offset from module address to Create method.
 	int iOffsetCreate;
+	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
+	// Filename of the module.
 	char cFileName[2048];
 };
 

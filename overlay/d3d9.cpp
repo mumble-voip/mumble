@@ -779,7 +779,7 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 		if (d3dd->iOffsetCreateEx)
 			HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
 	} else if (! preonly) {
-		ods("D3D9: Interface changed, can't rawpatch");
+		ods("D3D9: Interface changed, can't rawpatch.");
 
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (d3dcreate9) {
@@ -831,6 +831,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		char buffb[2048];
 
 		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
+
 		pDirect3DCreate9 d3dc9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (! d3dc9) {
 			ods("D3D9: Library without Direct3DCreate9");

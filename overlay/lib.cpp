@@ -677,6 +677,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 
 				if (! bMumble) {
+					// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
 					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 					hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
