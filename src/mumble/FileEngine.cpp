@@ -35,6 +35,8 @@
 #include "ClientUser.h"
 #include "Global.h"
 
+#if QT_VERSION < 0x050000 // QAbstractFileEngineHandler is private in Qt 5.
+
 MumbleFileEngineHandler::MumbleFileEngineHandler() : QAbstractFileEngineHandler() {
 }
 
@@ -94,3 +96,5 @@ QString MumbleImageFileEngine::fileName(QAbstractFileEngine::FileName fn) const 
 			return quUrl.toString();
 	}
 }
+
+#endif

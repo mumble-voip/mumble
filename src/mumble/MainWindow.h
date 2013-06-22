@@ -32,8 +32,14 @@
 #ifndef MUMBLE_MUMBLE_MAINWINDOW_H_
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
-#include <QtGui/QMainWindow>
-#include <QtGui/QSystemTrayIcon>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QMainWindow>
+# include <QtWidgets/QSystemTrayIcon>
+#else
+# include <QtGui/QMainWindow>
+# include <QtGui/QSystemTrayIcon>
+#endif
+
 #include <QtNetwork/QAbstractSocket>
 
 #include "CustomElements.h"
@@ -105,8 +111,14 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
+#if QT_VERSION >= 0x050000
+		QPointer<Channel> cContextChannel;
+		QPointer<ClientUser> cuContextUser;
+#else
 		QWeakPointer<Channel> cContextChannel;
 		QWeakPointer<ClientUser> cuContextUser;
+#endif
+
 		QPoint qpContextPosition;
 
 		void recheckTTS();

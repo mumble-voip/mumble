@@ -174,7 +174,7 @@ void OverlayClient::updateMouse() {
 }
 #endif
 
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 extern bool Q_GUI_EXPORT qt_use_native_dialogs;
 #endif
 
@@ -183,7 +183,7 @@ extern bool Q_GUI_EXPORT qt_use_native_dialogs;
 // that we're about to reparent.
 
 void OverlayClient::showGui() {
-#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+#if defined(QT3_SUPPORT) || defined(Q_OS_WIN)
 	if (QCoreApplication::loopLevel() > 1)
 		return;
 #else
@@ -273,7 +273,7 @@ outer:
 
 	setupScene(true);
 
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	qt_use_native_dialogs = false;
 #endif
 
@@ -288,7 +288,7 @@ outer:
 }
 
 void OverlayClient::hideGui() {
-#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+#if defined(QT3_SUPPORT) || defined(Q_OS_WIN)
 	if (QCoreApplication::loopLevel() > 1) {
 		QCoreApplication::exit_loop();
 		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
@@ -353,7 +353,7 @@ void OverlayClient::hideGui() {
 	setupScene(false);
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	qt_use_native_dialogs = true;
 #endif
 

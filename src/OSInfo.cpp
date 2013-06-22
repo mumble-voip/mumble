@@ -30,15 +30,15 @@
 
 #include "murmur_pch.h"
 
-#ifdef Q_WS_WIN
+#if defined(Q_OS_WIN)
 #include <intrin.h>
 #endif
 
-#ifdef Q_WS_X11
+#ifdef Q_OS_UNIX && !defined(Q_OS_MAC)
 #include <sys/utsname.h>
 #endif
 
-#ifdef Q_WS_MAC
+#if defined(Q_OS_MAC)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include <mach-o/arch.h>
@@ -57,7 +57,7 @@ QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 		if (qni.hardwareAddress().isEmpty())
 			continue;
 
-		QString hash = QString::fromAscii(QCryptographicHash::hash(qni.hardwareAddress().toAscii(), QCryptographicHash::Sha1).toHex());
+		QString hash = QString::fromUtf8(QCryptographicHash::hash(qni.hardwareAddress().toUtf8(), QCryptographicHash::Sha1).toHex());
 
 		if (third.isEmpty() || third > hash)
 			third = hash;
@@ -86,9 +86,9 @@ QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 }
 
 QString OSInfo::getOS() {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 	return QLatin1String("Win");
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
 	return QLatin1String("OSX");
 #else
 	return QLatin1String("X11");
@@ -103,7 +103,7 @@ QString OSInfo::getOSVersion() {
 
 	QString os;
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
 
@@ -198,11 +198,11 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	t=doc.createTextNode(QString::fromLatin1(qVersion()));
 	tag.appendChild(t);
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 	BOOL bIsWow64 = FALSE;
 	IsWow64Process(GetCurrentProcess(), &bIsWow64);
 	bIs64 = bIsWow64;
-#elif defined(Q_WS_MAC)
+#elif defined(Q_OS_MAC)
 	size_t len = sizeof(bool);
 	sysctlbyname("hw.cpu64bit_capable", &bIs64, &len, NULL, 0);
 #else
@@ -213,7 +213,7 @@ void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, co
 	t=doc.createTextNode(QString::number(bIs64 ? 1 : 0));
 	tag.appendChild(t);
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #define regstr(x) QString::fromLatin1(reinterpret_cast<const char *>(& x), 4)
 	int chop;
 	int cpuinfo[4];

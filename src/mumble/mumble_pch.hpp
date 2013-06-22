@@ -2,7 +2,6 @@
 #ifndef MUMBLE_MUMBLE_MUMBLE_PCH_H_
 #define MUMBLE_MUMBLE_MUMBLE_PCH_H_
 
-#define QT_NO_DEBUG_STREAM
 #define QT_NO_CAST_TO_ASCII
 #define QT_NO_CAST_FROM_ASCII
 #define QT_USE_FAST_CONCATENATION
@@ -29,6 +28,9 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QtWidgets>
+#endif
 #include <QtSvg/QtSvg>
 #ifdef USE_DBUS
 #include <QtDBus/QtDBus>

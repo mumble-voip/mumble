@@ -32,7 +32,14 @@
 #define MUMBLE_MUMBLE_OVERLAY_H_
 
 #include <QtCore/QUrl>
-#include <QtGui/QGraphicsItem>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QGraphicsItem>
+#else
+# include <QtGui/QGraphicsItem>
+#endif
+
+
 #include <QtNetwork/QLocalSocket>
 
 #include "ConfigDialog.h"

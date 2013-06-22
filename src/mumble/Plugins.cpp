@@ -68,8 +68,13 @@ PluginInfo::PluginInfo() {
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
+#if QT_VERSION >= 0x050000
+	qtwPlugins->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+	qtwPlugins->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+#else
 	qtwPlugins->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwPlugins->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+#endif
 
 	refillPluginList();
 }
@@ -467,17 +472,29 @@ void Plugins::checkUpdates() {
 	QUrl url;
 	url.setPath(QLatin1String("/plugins.php"));
 
-	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
+	QList<QPair<QString, QString> > queryItems;
+	queryItems << qMakePair(QString::fromUtf8("ver"), QString::fromUtf8(QUrl::toPercentEncoding(QString::fromUtf8(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
-	url.addQueryItem(QLatin1String("abi"), QLatin1String(MUMTEXT(_MSC_VER)));
+	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("Win32"));
+	queryItems << qMakePair(QString::fromUtf8("abi"), QString::fromUtf8(MUMTEXT(_MSC_VER)));
 #elif defined(Q_OS_MAC)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
+	queryItems << qMakePair((QString::fromUtf8("os"), QString::fromUtf8("MacOSX"));
 #else
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
+	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("Unix"));
 #endif
 
+
 #ifdef QT_NO_DEBUG
+#if QT_VERSION >= 0x050000
+	QUrlQuery query;
+	query.setQueryItems(queryItems);
+	url.setQuery(query);
+#else
+	for (int i = 0; i < queryItems.size(); i++) {
+		const QPair<QString, QString> &queryPair = queryItems.at(i);
+		url.addQueryItem(queryPair.first, queryPair.second);
+	}
+#endif
 	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping plugin update in debug mode."));

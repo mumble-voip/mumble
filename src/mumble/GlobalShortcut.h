@@ -33,8 +33,14 @@
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_H_
 
 #include <QtCore/QThread>
-#include <QtGui/QToolButton>
-#include <QtGui/QStyledItemDelegate>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QToolButton>
+# include <QtWidgets/QStyledItemDelegate>
+#else
+# include <QtGui/QToolButton>
+# include <QtGui/QStyledItemDelegate>
+#endif
 
 #include "ConfigDialog.h"
 #include "Timer.h"

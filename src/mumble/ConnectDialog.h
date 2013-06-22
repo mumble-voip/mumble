@@ -36,7 +36,13 @@
 
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtGui/QTreeWidget>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QTreeWidget>
+#else
+# include <QtGui/QTreeWidget>
+#endif
+
 #include <QtNetwork/QHostInfo>
 
 #ifdef USE_BONJOUR

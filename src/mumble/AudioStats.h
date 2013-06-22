@@ -33,7 +33,12 @@
 
 #include <QtCore/QList>
 #include <QtCore/QTimer>
-#include <QtGui/QWidget>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QWidget>
+#else
+# include <QtGui/QWidget>
+#endif
 
 class AudioBar : public QWidget {
 	private:

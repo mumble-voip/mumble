@@ -33,7 +33,13 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
-#include <QtGui/QDialog>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QDialog>
+#else
+# include <QtGui/QDialog>
+#endif
+
 #include <QtNetwork/QSslCertificate>
 
 class QListWidget;

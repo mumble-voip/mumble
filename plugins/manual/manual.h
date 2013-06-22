@@ -1,9 +1,16 @@
 #ifndef MUMBLE_MANUAL_H_
 #define MUMBLE_MANUAL_H_
 
-#include <QDialog>
-#include <QGraphicsItem>
-#include <QGraphicsScene>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QDialog>
+# include <QtWidgets/QGraphicsItem>
+# include <QtWidgets/QGraphicsScene>
+#else
+# include <QDialog>
+# include <QGraphicsItem>
+# include <QGraphicsScene>
+#endif
+
 #include "ui_manual.h"
 
 class Manual : public QDialog, public Ui::Manual {

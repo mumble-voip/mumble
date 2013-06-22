@@ -397,7 +397,9 @@ int main(int argc, char **argv) {
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
 
+#if QT_VERSION < 0x050000
 	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
+#endif
 
 	Audio::start();
 
@@ -429,7 +431,12 @@ int main(int argc, char **argv) {
 	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
+#if QT_VERSION >= 0x050000
+		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+#else
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
+#endif
+
 		QFile qf(qd.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
 		if (qf.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
 			Settings::KeyPair kp = CertWizard::importCert(qf.readAll());
@@ -497,7 +504,9 @@ int main(int argc, char **argv) {
 	if (sh)
 		sh->disconnect();
 
+#if QT_VERSION < 0x050000
 	delete mfeh;
+#endif
 
 	delete srpc;
 

@@ -139,24 +139,24 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		if (name.isEmpty())
 			return false;
 
-		if (name.startsWith(QChar::fromAscii('!'))) {
+		if (name.startsWith(QChar::fromLatin1('!'))) {
 			invert = true;
 			name = name.remove(0,1);
 			continue;
 		}
 
-		if (name.startsWith(QChar::fromAscii('~'))) {
+		if (name.startsWith(QChar::fromLatin1('~'))) {
 			c = aclChan;
 			name = name.remove(0,1);
 			continue;
 		}
 
-		if (name.startsWith(QChar::fromAscii('#'))) {
+		if (name.startsWith(QChar::fromLatin1('#'))) {
 			token = true;
 			name = name.remove(0,1);
 			continue;
 		}
-		if (name.startsWith(QChar::fromAscii('$'))) {
+		if (name.startsWith(QChar::fromLatin1('$'))) {
 			hash = true;
 			name = name.remove(0,1);
 			continue;

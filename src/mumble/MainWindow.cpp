@@ -190,8 +190,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
+#if QT_VERSION < 0x050000
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
+#endif
 
 	qtReconnect = new QTimer(this);
 	qtReconnect->setInterval(10000);
@@ -687,7 +689,12 @@ void MainWindow::openUrl(const QUrl &url) {
 	minor = 2;
 	patch = 0;
 
+#if QT_VERSION >= 0x050000
+	QUrlQuery query(url);
+	QString version = query.queryItemValue(QLatin1String("version"));
+#else
 	QString version = url.queryItemValue(QLatin1String("version"));
+#endif
 	MumbleVersion::get(&major, &minor, &patch, version);
 
 	if ((major < 1) || // No pre 1.2.0
@@ -705,8 +712,14 @@ void MainWindow::openUrl(const QUrl &url) {
 	QString pw = url.password();
 	qsDesiredChannel = url.path();
 	QString name;
+
+#if QT_VERSION >= 0x050000
+	if (query.hasQueryItem(QLatin1String("title")))
+		name = query.queryItemValue(QLatin1String("title"));
+#else
 	if (url.hasQueryItem(QLatin1String("title")))
 		name = url.queryItemValue(QLatin1String("title"));
+#endif
 
 	if (g.sh && g.sh->isRunning()) {
 		QString oHost, oUser, oPw;
@@ -1525,7 +1538,11 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
+#if QT_VERSION >= 0x050000
+	qsText = qsText.toHtmlEscaped();
+#else
 	qsText = Qt::escape(qsText);
+#endif
 	qsText = TextMessage::autoFormat(qsText);
 
 	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
@@ -2740,8 +2757,13 @@ void MainWindow::context_triggered() {
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 
-	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath))
+	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath)) {
+#if QT_VERSION >= 0x050000
+		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+#else
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+#endif
+	}
 
 	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg *.svg)"));
 

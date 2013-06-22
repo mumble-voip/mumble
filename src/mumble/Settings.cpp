@@ -297,7 +297,11 @@ Settings::Settings() {
 	bPluginCheck = true;
 #endif
 
+#if QT_VERSION >= 0x050000
+	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+#else
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+#endif
 
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
@@ -365,7 +369,11 @@ Settings::Settings() {
 	bHighContrast = false;
 
 	// Recording
+#if QT_VERSION >= 0x050000
+	qsRecordingPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#else
 	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#endif
 	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;

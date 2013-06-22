@@ -362,6 +362,9 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		return NULL;
 
 	QUrl url;
+#if QT_VERSION >= 0x050000
+	QUrlQuery query(url);
+#endif
 	if (mime->hasUrls() && ! mime->urls().isEmpty())
 		url = mime->urls().at(0);
 	else if (mime->hasText())
@@ -401,6 +404,15 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		url.setUserName(g.s.qsUsername);
 	}
 
+#if QT_VERSION >= 0x050000
+	if (! query.hasQueryItem(QLatin1String("title")))
+		query.addQueryItem(QLatin1String("title"), url.host());
+
+	ServerItem *si = new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
+
+	if (query.hasQueryItem(QLatin1String("url")))
+		si->qsUrl = query.queryItemValue(QLatin1String("url"));
+#else
 	if (! url.hasQueryItem(QLatin1String("title")))
 		url.addQueryItem(QLatin1String("title"), url.host());
 
@@ -408,6 +420,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 
 	if (url.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = url.queryItemValue(QLatin1String("url"));
+#endif
 
 	return si;
 }
@@ -592,8 +605,16 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	if (port != DEFAULT_MUMBLE_PORT)
 		url.setPort(port);
 	url.setPath(channel);
+
+#if QT_VERSION >= 0x050000
+	QUrlQuery query;
+	query.addQueryItem(QLatin1String("title"), name);
+	query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+	url.setQuery(query);
+#else
 	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+#endif
 
 	QString qs = QLatin1String(url.toEncoded());
 
@@ -782,9 +803,16 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
 	
 	qtwServers->sortItems(1, Qt::AscendingOrder);
+
+#if QT_VERSION >= 0x050000
+	qtwServers->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+	qtwServers->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+	qtwServers->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+#else
 	qtwServers->header()->setResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 	qtwServers->header()->setResizeMode(2, QHeaderView::ResizeToContents);
+#endif
 
 	connect(qtwServers->header(), SIGNAL(sortIndicatorChanged(int, Qt::SortOrder)), this, SLOT(OnSortChanged(int, Qt::SortOrder)));
 
@@ -1140,7 +1168,13 @@ void ConnectDialog::initList() {
 
 	QUrl url;
 	url.setPath(QLatin1String("/list2.cgi"));
+#if QT_VERSION >= 0x050000
+	QUrlQuery query;
+	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+	url.setQuery(query);
+#else
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
+#endif
 
 	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
 }

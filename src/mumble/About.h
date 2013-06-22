@@ -32,7 +32,12 @@
 #define MUMBLE_MUMBLE_ABOUT_H_
 
 #include <QtCore/QObject>
-#include <QtGui/QDialog>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QDialog>
+#else
+# include <QtGui/QDialog>
+#endif
 
 class AboutDialog : public QDialog {
 	private:

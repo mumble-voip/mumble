@@ -32,7 +32,13 @@
 #define MUMBLE_MUMBLE_CERT_H_
 
 #include <QtCore/QString>
-#include <QtGui/QGroupBox>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QGroupBox>
+#else
+# include <QtGui/QGroupBox>
+#endif
+
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslCertificate>
 

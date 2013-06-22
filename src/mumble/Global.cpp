@@ -107,7 +107,11 @@ Global::Global() {
 
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();
+#if QT_VERSION >= 0x050000
+	qsl << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 #if defined(Q_OS_WIN)
 	QString appdata;
 	wchar_t appData[MAX_PATH];
@@ -137,7 +141,11 @@ Global::Global() {
 			qdBasePath.setPath(appdata);
 #else
 		migrateDataDir();
+#if QT_VERSION >= 0x050000
+		qdBasePath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 		qdBasePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 #endif
 		if (! qdBasePath.exists()) {
 			QDir::root().mkpath(qdBasePath.absolutePath());

@@ -1144,7 +1144,11 @@ void Server::newClient() {
 
 		u->setToS();
 
+#if QT_VERSION >= 0x050000
+		sock->setProtocol(QSsl::TlsV1_0);
+#else
 		sock->setProtocol(QSsl::TlsV1);
+#endif
 		sock->startServerEncryption();
 	}
 }
@@ -1168,10 +1172,31 @@ void Server::encrypted() {
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
+#if QT_VERSION >= 0x050000
+		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
+#else
 		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
+#endif
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
-			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(uSource->qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
+#if QT_VERSION >= 0x050000
+			QString subject;
+			QString issuer;
+
+			QStringList subjectList = cert.subjectInfo(QSslCertificate::CommonName);
+			if (! subjectList.isEmpty()) {
+				subject = subjectList.first();
+			}
+
+			QStringList issuerList = certs.first().issuerInfo(QSslCertificate::CommonName);
+			if (! issuerList.isEmpty()) {
+				issuer = issuerList.first();
+			}
+#else
+			QString subject = cert.subjectInfo(QSslCertificate::CommonName);
+			QString issuer = certs.first().issuerInfo(QSslCertificate::CommonName);
+#endif
+			log(uSource, QString::fromUtf8("Strong certificate for %1 <%2> (signed by %3)").arg(subject).arg(uSource->qslEmail.join(", ")).arg(issuer));
 		}
 
 		foreach(const Ban &ban, qlBans) {

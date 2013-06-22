@@ -31,6 +31,8 @@
 #ifndef MUMBLE_MUMBLE_FILEENGINE_H_
 #define MUMBLE_MUMBLE_FILEENGINE_H_
 
+#if QT_VERSION < 0x050000 // QAbstractFileEngineHandler is private in Qt 5.
+
 class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 	private:
 		Q_DISABLE_COPY(MumbleFileEngineHandler)
@@ -56,5 +58,7 @@ class MumbleImageFileEngine : public QAbstractFileEngine {
 		qint64 read(char *data, qint64 maxlen);
 		QString fileName(QAbstractFileEngine::FileName) const;
 };
+
+#endif
 
 #endif

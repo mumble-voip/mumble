@@ -31,7 +31,11 @@
 #ifndef MUMBLE_MUMBLE_RICHTEXTEDITOR_H_
 #define MUMBLE_MUMBLE_RICHTEXTEDITOR_H_
 
-#include <QtGui/QTextEdit>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QTextEdit>
+#else
+# include <QtGui/QTextEdit>
+#endif
 
 class RichTextHtmlEdit : public QTextEdit {
 	private:

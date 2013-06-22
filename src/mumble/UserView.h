@@ -31,8 +31,13 @@
 #ifndef MUMBLE_MUMBLE_USERVIEW_H_
 #define MUMBLE_MUMBLE_USERVIEW_H_
 
-#include <QtGui/QStyledItemDelegate>
-#include <QtGui/QTreeView>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QStyledItemDelegate>
+# include <QtWidgets/QTreeView>
+#else 
+# include <QtGui/QStyledItemDelegate>
+# include <QtGui/QTreeView>
+#endif
 
 #include "Timer.h"
 

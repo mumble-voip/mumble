@@ -106,6 +106,8 @@ class Connection : public QObject {
 #endif
 };
 
+#if QT_VERSION < 0x050000
 Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
+#endif
 
 #endif

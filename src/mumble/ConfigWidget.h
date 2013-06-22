@@ -33,7 +33,12 @@
 #define MUMBLE_MUMBLE_CONFIGWIDGET_H_
 
 #include <QtCore/QObject>
-#include <QtGui/QWidget>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QWidget> 
+#else 
+# include <QtGui/QWidget>
+#endif
 
 struct Settings;
 class ConfigDialog;
