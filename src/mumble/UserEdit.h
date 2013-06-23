@@ -63,9 +63,9 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		void on_qpbRename_clicked();
 		void on_qtwUserList_customContextMenuRequested(const QPoint&);
 		void renameTriggered();
-                void refreshUserList(int inactive = 0);
+		void refreshUserList(int inactive = 0);
 		void on_qtwUserList_itemSelectionChanged();
-                void on_qsbInactive_valueChanged(int );
+		void on_qsbInactive_valueChanged(int );
 		void on_qcbInactive_currentIndexChanged(int index);
 };
 

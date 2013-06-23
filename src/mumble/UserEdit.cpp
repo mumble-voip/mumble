@@ -53,15 +53,16 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	qmUsers.clear();
 
 	for (int i=0;i<msg.users_size(); ++i) {
-	const MumbleProto::UserList_User &u = msg.users(i);
+		const MumbleProto::UserList_User &u = msg.users(i);
 		UserInfo uie;
 		uie.user_id = u.user_id();
 		uie.name = u8(u.name());
 		uie.last_channel = u.last_channel();
-		if (u.has_last_seen())
-                        uie.last_active = u8(u.last_seen());
-                else
-                        uie.last_active = QString();
+		if (u.has_last_seen()) {
+			uie.last_active = u8(u.last_seen());
+		} else {
+			uie.last_active = QString();
+		}
 		qmUsers.insert(uie.user_id, uie);
 	}
 	refreshUserList();
@@ -74,54 +75,57 @@ void UserEdit::refreshUserList(int inactive) {
 	while (i.hasNext()) {
 		i.next();
 		UserEditListItem *ueli = new UserEditListItem(i.key());
-                ueli->setText(0, i.value().name);
+		ueli->setText(0, i.value().name);
 
-                QString last_active;
+		QString last_active;
 		QDateTime qdtLastActive;
 		int last_seen;
-                if (!i.value().last_active.isEmpty()) {
-                        qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-dd hh:mm:ss"));
-                        if (!qdtLastActive.isValid())
-                                qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-ddThh:mm:ss"));
-                        last_seen = qdtLastActive.daysTo(QDateTime::currentDateTime());
-                        last_active = tr("%1").arg(QString::number(last_seen));
-                } else
-                        last_active.clear();
+		if (!i.value().last_active.isEmpty()) {
+			qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-dd hh:mm:ss"));
+			if (!qdtLastActive.isValid()) {
+				qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-ddThh:mm:ss"));
+			}
+			last_seen = qdtLastActive.daysTo(QDateTime::currentDateTime());
+			last_active = tr("%1").arg(QString::number(last_seen));
+		} else {
+			last_active.clear();
+		}
 
-                if ((inactive > 0) && (last_seen < inactive))
-                        continue;
+		if ((inactive > 0) && (last_seen < inactive)) {
+			continue;
+		}
 
-                if (!last_active.isEmpty()) {
-                        ueli->setText(1, last_active);
-                        ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
+		if (!last_active.isEmpty()) {
+			ueli->setText(1, last_active);
+			ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
 
-                        Channel *c = Channel::get(i.value().last_channel);
-                        QString tree;
-                        if (c) {
-                                QStringList channel_tree;
-                                while (c->cParent != NULL) {
-                                        channel_tree.prepend(c->qsName);
-                                        c = c->cParent;
-                                }
-                                        QStringList _channel_tree;
-                                        for (QStringList::iterator it = channel_tree.begin(); it != channel_tree.end(); ++it) {
-                                                _channel_tree.append(*it);
-                                        }
-                                        channel_tree.clear();
-                                        channel_tree.append(_channel_tree);
-                        tree = QLatin1String("/ ") + channel_tree.join(QLatin1String(" / "));
-                        ueli->setText(2, tree);
-                        } else {
-                                tree = QLatin1String("-");
-                        }
-                } else {
-                        //Hide columns and other gui stuff
-                        qtwUserList->hideColumn(1);
-                        qtwUserList->hideColumn(2);
-                        qlInactive->hide();
-                        qsbInactive->hide();
-                        qcbInactive->hide();
-                }
+			Channel *c = Channel::get(i.value().last_channel);
+			QString tree;
+			if (c) {
+				QStringList channel_tree;
+				while (c->cParent != NULL) {
+					channel_tree.prepend(c->qsName);
+					c = c->cParent;
+				}
+				QStringList _channel_tree;
+				for (QStringList::iterator it = channel_tree.begin(); it != channel_tree.end(); ++it) {
+					_channel_tree.append(*it);
+				}
+				channel_tree.clear();
+				channel_tree.append(_channel_tree);
+			tree = QLatin1String("/ ") + channel_tree.join(QLatin1String(" / "));
+			ueli->setText(2, tree);
+			} else {
+				tree = QLatin1String("-");
+			}
+		} else {
+			//Hide columns and other gui stuff
+			qtwUserList->hideColumn(1);
+			qtwUserList->hideColumn(2);
+			qlInactive->hide();
+			qsbInactive->hide();
+			qcbInactive->hide();
+		}
 		qtwUserList->addTopLevelItem(ueli);
 	}
 }
@@ -131,19 +135,20 @@ void UserEdit::accept() {
 	foreach(QTreeWidgetItem * qlwi, ql) {
 		const QString &name = qlwi->text(0);
 		int id = qlwi->data(0, Qt::UserRole).toInt();
-				if (qmUsers.value(id).name != name) {
-						qmChanged.insert(id, name);
+		if (qmUsers.value(id).name != name) {
+			qmChanged.insert(id, name);
 		}
 	}
 
 	if (! qmChanged.isEmpty()) {
 		MumbleProto::UserList mpul;
 		QMap<int, QString>::const_iterator i;
-		for (i=qmChanged.constBegin(); i!=qmChanged.constEnd(); ++i) {
+		for (i = qmChanged.constBegin(); i != qmChanged.constEnd(); ++i) {
 			MumbleProto::UserList_User *u = mpul.add_users();
 			u->set_user_id(i.key());
-			if (! i.value().isEmpty())
+			if (! i.value().isEmpty()) {
 				u->set_name(u8(i.value()));
+			}
 		}
 		g.sh->sendMessage(mpul);
 	}
@@ -211,14 +216,14 @@ bool UserEditListItem::operator<(const QTreeWidgetItem &other) const {
 
 void UserEdit::on_qlSearch_textChanged(QString) {
 	qtwUserList->clearSelection();
-	for (int i=0; i < qtwUserList->topLevelItemCount(); ++i)
-	{
-	const QString name = qtwUserList->topLevelItem(i)->text(0);
-	const QString last_channel = qtwUserList->topLevelItem(i)->text(2);
-	if (!name.contains(qlSearch->text(), Qt::CaseInsensitive) && !last_channel.contains(qlSearch->text(), Qt::CaseInsensitive))
-		qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), true);
-	else
-                qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), false);
+	for (int i=0; i < qtwUserList->topLevelItemCount(); ++i) {
+		const QString name = qtwUserList->topLevelItem(i)->text(0);
+		const QString last_channel = qtwUserList->topLevelItem(i)->text(2);
+		if (!name.contains(qlSearch->text(), Qt::CaseInsensitive) && !last_channel.contains(qlSearch->text(), Qt::CaseInsensitive)) {
+			qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), true);
+		} else {
+			qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), false);
+		}
 	}
 }
 
@@ -228,28 +233,28 @@ void UserEdit::on_qtwUserList_itemSelectionChanged() {
 }
 
 void UserEdit::on_qsbInactive_valueChanged(int ) {
-        qtwUserList->clearSelection();
-        int cbvalue = qcbInactive->currentIndex();
-        int sbvalue;
-        switch (cbvalue) {
-            case 0:
-                    sbvalue = qsbInactive->value();
-                    break;
-            case 1:
-                    sbvalue = qsbInactive->value() * 7;
-                    break;
-            case 2:
-                    sbvalue = qsbInactive->value() * 30;
-                    break;
-            case 3:
-                    sbvalue = qsbInactive->value() * 365;
-                    break;
-            default:
-                    sbvalue = 0;
-            }
-        refreshUserList(sbvalue);
+	qtwUserList->clearSelection();
+	int cbvalue = qcbInactive->currentIndex();
+	int sbvalue;
+	switch (cbvalue) {
+		case 0:
+			sbvalue = qsbInactive->value();
+			break;
+		case 1:
+			sbvalue = qsbInactive->value() * 7;
+			break;
+		case 2:
+			sbvalue = qsbInactive->value() * 30;
+			break;
+		case 3:
+			sbvalue = qsbInactive->value() * 365;
+			break;
+		default:
+			sbvalue = 0;
+	}
+	refreshUserList(sbvalue);
 }
 
 void UserEdit::on_qcbInactive_currentIndexChanged(int index) {
-        on_qsbInactive_valueChanged(index);
+	on_qsbInactive_valueChanged(index);
 }

@@ -64,7 +64,7 @@
         </column>
         <column>
          <property name="text">
-          <string>On Channel</string>
+          <string>Last Channel</string>
          </property>
         </column>
        </widget>
