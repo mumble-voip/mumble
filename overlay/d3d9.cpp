@@ -105,7 +105,10 @@ void DevState::releaseData() {
 }
 
 void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
+	// Blit is called often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Blit %d %d %d %d", x, y, w, h);
+	#endif
 
 	if (! texTexture || !a_ucTexture)
 		return;
@@ -329,7 +332,10 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
 		idd->GetRenderTarget(0, &pRenderTarget);
 
+		// Present is called for each frame. Thus, we do not want to always log here.
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 		ods("D3D9: doPresent BackB %p RenderT %p", pTarget, pRenderTarget);
+		#endif
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
 		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
@@ -358,7 +364,10 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 typedef HRESULT(__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
 static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
+	// Present is called for each frame. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: SwapChain Present");
+	#endif
 
 	IDirect3DDevice9 *idd = NULL;
 	ids->GetDevice(&idd);
@@ -379,7 +388,10 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pS
 
 typedef HRESULT(__stdcall *PresentType)(IDirect3DDevice9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *);
 static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) {
+	// Present is called for each frame. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present");
+	#endif
 
 	doPresent(idd);
 
@@ -395,7 +407,10 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRe
 
 typedef HRESULT(__stdcall *PresentExType)(IDirect3DDevice9Ex *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
 static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion, DWORD dwFlags) {
+	// Present is called for each frame. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present Ex");
+	#endif
 
 	doPresent(idd);
 
@@ -467,7 +482,10 @@ typedef ULONG(__stdcall *AddRefType)(IDirect3DDevice9 *);
 static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
+	// AddRef is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chaining AddRef");
+	#endif
 
 	DevState *ds = devMap[idd];
 	if (ds) {
@@ -486,7 +504,10 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	ULONG res = oAddRef(idd);
 	hhAddRef.inject();
 
+	// AddRef is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chained AddRef with result %d", res);
+	#endif
 
 	return res;
 }
@@ -494,7 +515,10 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
+	// AddRef is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chaining AddRef (Win8)");
+	#endif
 
 	DevState *ds = devMap[idd];
 	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
@@ -512,7 +536,10 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	if (ds)
 		ds->refCount = res;
 
+	// AddRef is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chained AddRef (Win8) with result %d", res);
+	#endif
 
 	return res;
 }
@@ -521,7 +548,10 @@ typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
 
+	// Release is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chaining Release");
+	#endif
 
 	DevState *ds = devMap[idd];
 	if (ds) {
@@ -563,7 +593,10 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	ULONG res = oRelease(idd);
 	hhRelease.inject();
 
+	// Release is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chained Release with result %d", res);
+	#endif
 
 	return res;
 }
@@ -571,7 +604,10 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	Mutex m;
 
+	// Release is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chaining Release (Win8)");
+	#endif
 
 	DevState *ds = devMap[idd];
 	if (ds) {
@@ -607,7 +643,10 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	if (ds)
 		ds->refCount = res;
 
+	// Release is called very often. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Chained Release (Win8) with result: %d", res);
+	#endif
 
 	return res;
 }

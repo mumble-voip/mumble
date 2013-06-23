@@ -443,7 +443,10 @@ void D10State::draw() {
 
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
+	// Present is called for each frame. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D10: Call to Present; Drawing and then chaining the call");
+	#endif
 
 	ID3D10Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
@@ -466,7 +469,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		ds->draw();
 		pDevice->Release();
 	} else {
-		ods("D3D10: Could not draw as ID3D10Device could not be retrieved.");
+		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
 	}
 
 	//TODO: Move logic to HardHook.
