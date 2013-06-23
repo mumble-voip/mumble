@@ -33,9 +33,11 @@
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
 #if QT_VERSION >= 0x050000
+# include <QtCore/QPointer>
 # include <QtWidgets/QMainWindow>
 # include <QtWidgets/QSystemTrayIcon>
 #else
+# include <QtCore/QWeakPointer>
 # include <QtGui/QMainWindow>
 # include <QtGui/QSystemTrayIcon>
 #endif

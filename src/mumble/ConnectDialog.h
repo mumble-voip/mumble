@@ -31,8 +31,10 @@
 #ifndef MUMBLE_MUMBLE_CONNECTDIALOG_H_
 #define MUMBLE_MUMBLE_CONNECTDIALOG_H_
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/accumulators/accumulators.hpp>
+# include <boost/accumulators/statistics/stats.hpp>
+#endif
 
 #include <QtCore/QString>
 #include <QtCore/QUrl>

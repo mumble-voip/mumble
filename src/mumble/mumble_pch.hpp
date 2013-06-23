@@ -81,6 +81,12 @@
 #include <boost/weak_ptr.hpp>
 
 #ifdef Q_OS_WIN
+// Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
+// This causes Windows headers that use COM interfaces to break. Internally, it's
+// just defined as 'struct', so we'll do that here as well to make things work again
+// without too much hassle.
+#define interface struct
+
 #include <windows.h>
 #include <shellapi.h>
 #include <winsock2.h>

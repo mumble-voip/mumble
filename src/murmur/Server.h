@@ -32,7 +32,10 @@
 #ifndef MUMBLE_MURMUR_SERVER_H_
 #define MUMBLE_MURMUR_SERVER_H_
 
-#include <boost/function.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/function.hpp>
+#endif
+
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QTimer>

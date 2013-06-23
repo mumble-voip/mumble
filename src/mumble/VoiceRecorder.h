@@ -35,10 +35,13 @@
 
 #pragma once
 
-#include <boost/make_shared.hpp>
-#include <boost/scoped_array.hpp>
-#include <boost/scoped_ptr.hpp>
-#include <boost/shared_array.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/make_shared.hpp>
+# include <boost/scoped_array.hpp>
+# include <boost/scoped_ptr.hpp>
+# include <boost/shared_array.hpp>
+#endif
+
 #include <sndfile.h>
 #include <QtCore/QDateTime>
 #include <QtCore/QHash>

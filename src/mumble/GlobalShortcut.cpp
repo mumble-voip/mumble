@@ -638,7 +638,8 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 }
 
-bool GlobalShortcutConfig::eventFilter(QObject */*object*/, QEvent *event) {
+bool GlobalShortcutConfig::eventFilter(QObject *object, QEvent *event) {
+	Q_UNUSED(object);
 #ifdef Q_OS_MAC
 	if (event->type() == QEvent::WindowActivate) {
 		if (! g.s.bSuppressMacEventTapWarning) {

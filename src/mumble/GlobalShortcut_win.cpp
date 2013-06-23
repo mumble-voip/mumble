@@ -58,7 +58,7 @@ static HardHook hhSetForegroundWindow(reinterpret_cast<voidFunc>(::SetForeground
 typedef HWND(__stdcall *WindowFromPointType)(POINT);
 static HWND WINAPI HookWindowFromPoint(POINT p) {
 	if (g.ocIntercept)
-		return g.ocIntercept->qgv.winId();
+		return reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
 
 	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
 	hhWindowFromPoint.restore();
@@ -260,7 +260,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			// In full-GUI-overlay always suppress
 			suppress = true;
 
-			HWND hwnd = g.ocIntercept->qgv.winId();
+			HWND hwnd = reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -360,7 +360,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			w |= (mouse->mouseData & 0xFFFF0000);
 
-			HWND hwnd = g.ocIntercept->qgv.winId();
+			HWND hwnd = reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -473,7 +473,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			id->qhTypeToOfs[dwType] = dwOfs;
 		}
 
-		if (FAILED(hr = id->pDID->SetCooperativeLevel(g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
+		if (FAILED(hr = id->pDID->SetCooperativeLevel(reinterpret_cast<HWND>(g.mw->winId()), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
 			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
 
 		if (FAILED(hr = id->pDID->SetDataFormat(&df)))

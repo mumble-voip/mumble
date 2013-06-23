@@ -33,7 +33,12 @@
 
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
-#include <QtGui/QSystemTrayIcon>
+
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QSystemTrayIcon>
+#else
+# include <QtGui/QSystemTrayIcon>
+#endif
 
 class LogEmitter;
 class QAction;

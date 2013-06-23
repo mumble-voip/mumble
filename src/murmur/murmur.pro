@@ -38,6 +38,9 @@ win32 {
   RC_FILE = murmur.rc
   CONFIG *= gui
   QT *= gui
+  isEqual(QT_MAJOR_VERSION, 5) {
+    QT *= widgets
+  }
   RESOURCES	*= murmur.qrc
   SOURCES *= Tray.cpp
   HEADERS *= Tray.h

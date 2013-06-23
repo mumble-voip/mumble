@@ -79,14 +79,24 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
-class QAppMumble : public QApplication {
+#if QT_VERSION >= 0x050000
+# define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
+#else
+# define QAPP_INHERIT_EVENT_FILTER
+#endif
+
+class QAppMumble : public QApplication QAPP_INHERIT_EVENT_FILTER {
 	public:
 		QUrl quLaunchURL;
 		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
 		void commitData(QSessionManager&);
 		bool event(QEvent *e);
 #ifdef Q_OS_WIN
+# if QT_VERSION >= 0x050000
+		bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result);
+# else
 		bool winEventFilter(MSG *msg, long *result);
+# endif
 #endif
 };
 
@@ -112,6 +122,30 @@ bool QAppMumble::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
+# if QT_VERSION >= 0x050000
+bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
+	Q_UNUSED(eventType);
+	MSG *msg = reinterpret_cast<MSG *>(message);
+
+	if (QThread::currentThread() == thread()) {
+		if (Global::g_global_struct && g.ocIntercept) {
+			switch (msg->message) {
+				case WM_MOUSELEAVE:
+					*result = 0;
+					return true;
+				case WM_KEYDOWN:
+				case WM_KEYUP:
+				case WM_SYSKEYDOWN:
+				case WM_SYSKEYUP:
+					GlobalShortcutEngine::engine->prepareInput();
+				default:
+					break;
+			}
+		}
+	}
+	return false;
+}
+# else
 bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	if (QThread::currentThread() == thread()) {
 		if (Global::g_global_struct && g.ocIntercept) {
@@ -131,6 +165,7 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	}
 	return QApplication::winEventFilter(msg, result);
 }
+# endif
 #endif
 
 int main(int argc, char **argv) {
@@ -152,6 +187,10 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+#if QT_VERSION >= 0x050000
+	a.installNativeEventFilter(&a);
+#endif
 
 	#ifdef USE_SBCELT
 	{

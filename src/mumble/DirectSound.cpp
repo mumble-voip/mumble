@@ -258,7 +258,7 @@ void DXAudioOutput::run() {
 	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL))) {
 		qWarning("DXAudioOutput: DirectSoundCreate failed: hr=0x%08lx", hr);
 		goto cleanup;
-	} else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY))) {
+	} else if (FAILED(hr = pDS->SetCooperativeLevel(reinterpret_cast<HWND>(g.mw->winId()), DSSCL_PRIORITY))) {
 		qWarning("DXAudioOutput: SetCooperativeLevel failed: hr=0x%08lx", hr);
 		goto cleanup;
 	} else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL))) {

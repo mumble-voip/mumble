@@ -56,7 +56,7 @@ static int cpuinfo[4];
 bool bIsWin7 = false;
 bool bIsVistaSP1 = false;
 
-static void mumbleMessageOutput(QtMsgType type, const char *msg) {
+static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -71,14 +71,25 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 		default:
 			c='X';
 	}
-	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), msg);
+	fprintf(fConsole, "<%c>%s %s\n", c, qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg));
 	fflush(fConsole);
-	OutputDebugStringA(msg);
+	OutputDebugStringA(qPrintable(msg));
 	if (type == QtFatalMsg) {
-		::MessageBoxA(NULL, msg, "Mumble", MB_OK | MB_ICONERROR);
+		::MessageBoxA(NULL, qPrintable(msg), "Mumble", MB_OK | MB_ICONERROR);
 		exit(0);
 	}
 }
+
+static void mumbleMessageOutput(QtMsgType type, const char *msg) {
+	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
+}
+
+#if QT_VERSION >= 0x050000
+static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
+	Q_UNUSED(ctx);
+	mumbleMessageOutputQString(type, msg);
+}
+#endif
 
 static LONG WINAPI MumbleUnhandledExceptionFilter(struct _EXCEPTION_POINTERS* ExceptionInfo) {
 	MINIDUMP_EXCEPTION_INFORMATION i;
@@ -234,8 +245,13 @@ void os_init() {
 	QString console = g.qdBasePath.filePath(QLatin1String("Console.txt"));
 	fConsole = _wfsopen(console.toStdWString().c_str(), L"a+", _SH_DENYWR);
 
-	if (fConsole)
+	if (fConsole) {
+#if QT_VERSION >= 0x050000
+		qInstallMessageHandler(mumbleMessageOutputWithContext);
+#else
 		qInstallMsgHandler(mumbleMessageOutput);
+#endif
+	}
 
 	QString hash;
 	QFile f(qApp->applicationFilePath());

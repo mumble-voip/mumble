@@ -134,7 +134,7 @@ void PluginConfig::on_qpbConfig_clicked() {
 		return;
 
 	if (pi->p->config)
-		pi->p->config(winId());
+		pi->p->config(reinterpret_cast<HWND>(winId()));
 	else
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
 }
@@ -150,7 +150,7 @@ void PluginConfig::on_qpbAbout_clicked() {
 		return;
 
 	if (pi->p->about)
-		pi->p->about(winId());
+		pi->p->about(reinterpret_cast<HWND>(winId()));
 	else
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
 }

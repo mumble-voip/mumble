@@ -26,6 +26,9 @@
 
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
+#if QT_VERSION >= 0x050000
+# include <QtWidgets/QtWidgets>
+#endif
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>
