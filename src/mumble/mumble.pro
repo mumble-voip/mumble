@@ -4,7 +4,12 @@ DEFINES		*= MUMBLE
 TEMPLATE	= app
 QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
-	QT *= widgets
+  QT *= widgets
+  win32 {
+    # On Windows, we use QPlatformNativeInterface
+    # to get access to HWNDs.
+    QT *= gui-private
+  }
 }
 
 TARGET		= mumble

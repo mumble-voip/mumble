@@ -30,6 +30,10 @@
 
 #include "mumble_pch.hpp"
 
+#if QT_VERSION >= 0x050000
+# include <qpa/qplatformnativeinterface.h>
+#endif
+
 #include <windows.h>
 #include <tlhelp32.h>
 #include <dbghelp.h>
@@ -325,3 +329,11 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 	return errorStatus;
 }
 
+HWND MumbleHWNDForQWidget(QWidget *widget) {
+#if QT_VERSION >= 0x050000
+	QWindow *window = widget->windowHandle();
+	return static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
+#else
+	return widget->winId();
+#endif
+}

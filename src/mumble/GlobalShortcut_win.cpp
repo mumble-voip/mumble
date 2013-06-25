@@ -42,6 +42,9 @@
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
+// from os_win.cpp
+extern HWND MumbleHWNDForQWidget(QWidget *w);
+
 static uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
 	for (int i=0;i<8;i++)
@@ -58,7 +61,7 @@ static HardHook hhSetForegroundWindow(reinterpret_cast<voidFunc>(::SetForeground
 typedef HWND(__stdcall *WindowFromPointType)(POINT);
 static HWND WINAPI HookWindowFromPoint(POINT p) {
 	if (g.ocIntercept)
-		return reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
+		return MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
 	hhWindowFromPoint.restore();
@@ -260,7 +263,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 			// In full-GUI-overlay always suppress
 			suppress = true;
 
-			HWND hwnd = reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
+			HWND hwnd = MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -360,7 +363,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			w |= (mouse->mouseData & 0xFFFF0000);
 
-			HWND hwnd = reinterpret_cast<HWND>(g.ocIntercept->qgv.winId());
+			HWND hwnd = MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -473,7 +476,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			id->qhTypeToOfs[dwType] = dwOfs;
 		}
 
-		if (FAILED(hr = id->pDID->SetCooperativeLevel(reinterpret_cast<HWND>(g.mw->winId()), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
+		if (FAILED(hr = id->pDID->SetCooperativeLevel(MumbleHWNDForQWidget(g.mw), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
 			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
 
 		if (FAILED(hr = id->pDID->SetDataFormat(&df)))

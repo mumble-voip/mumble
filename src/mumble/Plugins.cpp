@@ -40,6 +40,11 @@
 #include "../../plugins/mumble_plugin.h"
 #include "WebFetch.h"
 
+#ifdef Q_OS_WIN
+// from os_win.cpp
+extern HWND MumbleHWNDForQWidget(QWidget *w);
+#endif
+
 static ConfigWidget *PluginConfigDialogNew(Settings &st) {
 	return new PluginConfig(st);
 }
@@ -133,10 +138,15 @@ void PluginConfig::on_qpbConfig_clicked() {
 	if (! pi)
 		return;
 
-	if (pi->p->config)
-		pi->p->config(reinterpret_cast<HWND>(winId()));
-	else
+	if (pi->p->config) {
+#ifdef Q_OS_WIN
+		pi->p->config(MumbleHWNDForQWidget(this));
+#else
+		pi->p->config(winId());
+#endif
+	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no configure function."), QMessageBox::Ok, QMessageBox::NoButton);
+	}
 }
 
 void PluginConfig::on_qpbAbout_clicked() {
@@ -149,10 +159,15 @@ void PluginConfig::on_qpbAbout_clicked() {
 	if (! pi)
 		return;
 
-	if (pi->p->about)
-		pi->p->about(reinterpret_cast<HWND>(winId()));
-	else
+	if (pi->p->about) {
+#ifdef Q_OS_WIN
+		pi->p->about(MumbleHWNDForQWidget(this));
+#else
+		pi->p->about(winId());
+#endif
+	} else {
 		QMessageBox::information(this, QLatin1String("Mumble"), tr("Plugin has no about function."), QMessageBox::Ok, QMessageBox::NoButton);
+	}
 }
 
 void PluginConfig::on_qpbReload_clicked() {
