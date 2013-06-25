@@ -79,7 +79,7 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
 # define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
 #else
 # define QAPP_INHERIT_EVENT_FILTER
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
 	a.installNativeEventFilter(&a);
 #endif
 

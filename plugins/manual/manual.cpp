@@ -247,10 +247,18 @@ static void unlock() {
 
 static void config(HWND h) {
 	if (mDlg) {
+#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
 		mDlg->setParent(QWidget::find(reinterpret_cast<WId>(h)), Qt::Dialog);
+#else
+		mDlg->setParent(QWidget::find(h), Qt::Dialog);
+#endif
 		mDlg->qpbUnhinge->setEnabled(true);
 	} else {
+#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
 		mDlg = new Manual(QWidget::find(reinterpret_cast<WId>(h)));
+#else
+		mDlg = new Manual(QWidget::find(h));
+#endif
 	}
 
 	mDlg->show();
@@ -288,7 +296,15 @@ static std::wstring description(L"Manual placement plugin");
 static std::wstring shortname(L"Manual placement");
 
 static void about(HWND h) {
-	QMessageBox::about(QWidget::find(reinterpret_cast<WId>(h)), QString::fromStdWString(description), QString::fromStdWString(longdesc()));
+	QMessageBox::about(
+#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
+		QWidget::find(reinterpret_cast<WId>(h)),
+#else
+		QWidget::find(h),
+#endif
+		QString::fromStdWString(description),
+		QString::fromStdWString(longdesc())
+	);
 }
 
 static MumblePlugin manual = {
