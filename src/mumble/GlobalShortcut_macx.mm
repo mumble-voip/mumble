@@ -29,11 +29,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "GlobalShortcut_macx.h"
-#include "Overlay.h"
-
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+
+#include "GlobalShortcut_macx.h"
+#include "Overlay.h"
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000

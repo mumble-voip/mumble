@@ -493,7 +493,7 @@ void Plugins::checkUpdates() {
 	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("Win32"));
 	queryItems << qMakePair(QString::fromUtf8("abi"), QString::fromUtf8(MUMTEXT(_MSC_VER)));
 #elif defined(Q_OS_MAC)
-	queryItems << qMakePair((QString::fromUtf8("os"), QString::fromUtf8("MacOSX"));
+	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("MacOSX"));
 #else
 	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("Unix"));
 #endif

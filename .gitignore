@@ -25,3 +25,4 @@ scripts/murmur.ini.*
 src/murmur/Murmur.h
 src/murmur/Murmur.cpp
 winpaths_custom.pri
+src/mumble/mumble_plugin_import.cpp

@@ -32,6 +32,7 @@
 #ifndef MUMBLE_MUMBLE_MAINWINDOW_H_
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
+#include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x050000
 # include <QtCore/QPointer>
 # include <QtWidgets/QMainWindow>

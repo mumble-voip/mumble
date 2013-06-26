@@ -117,7 +117,7 @@ void OverlayClient::updateFPS() {
 	}
 }
 
-#ifndef QT_MAC_USE_COCOA
+#if !defined(Q_OS_MAC) || (defined(Q_OS_MAC) && defined(USE_MAC_UNIVERSAL))
 void OverlayClient::updateMouse() {
 #if defined(Q_OS_WIN)
 	QPixmap pm;

@@ -31,9 +31,9 @@
 #ifndef MUMBLE_MUMBLE_AUDIOSTATS_H_
 #define MUMBLE_MUMBLE_AUDIOSTATS_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QList>
 #include <QtCore/QTimer>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QWidget>
 #else

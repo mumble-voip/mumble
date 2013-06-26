@@ -32,8 +32,8 @@
 #ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_H_
 #define MUMBLE_MUMBLE_GLOBALSHORTCUT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QThread>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QToolButton>
 # include <QtWidgets/QStyledItemDelegate>

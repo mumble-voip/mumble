@@ -157,6 +157,7 @@ macx {
 		QMAKE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		DEFINES += USE_MAC_UNIVERSAL
 	}
 
 	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon

@@ -70,7 +70,7 @@
 #include "TaskList.h"
 #endif
 
-#ifdef QT_MAC_USE_COCOA
+#ifdef USE_COCOA
 #include "ConfigDialog_macx.h"
 #endif
 
@@ -346,7 +346,7 @@ void MainWindow::setupGui()  {
 
 	setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 
-#ifdef QT_MAC_USE_COCOA
+#ifdef USE_COCOA
 	// Workaround for QTBUG-3116 -- using a unified toolbar on Mac OS X
 	// and using restoreGeometry before the window has updated its frameStrut
 	// causes the MainWindow to jump around on screen on launch.  Workaround
@@ -386,7 +386,7 @@ void MainWindow::setupGui()  {
 
 	updateTrayIcon();
 
-#ifdef QT_MAC_USE_COCOA
+#ifdef USE_COCOA
 	setWindowOpacity(1.0f);
 #if QT_VERSION < 0x040700
 	// Process pending events.  This is done to force the unified
@@ -2012,7 +2012,7 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 
 void MainWindow::on_qaConfigDialog_triggered() {
 	QDialog *dlg = NULL;
-#ifdef QT_MAC_USE_COCOA
+#ifdef USE_COCOA
 	// To fit in with Mumble skins, we'll only use the Mac OS X
 	// config dialog when we're using the Aqua skin with no external
 	// stylesheet set.  Also, the Mac dialog doesn't work when embedded

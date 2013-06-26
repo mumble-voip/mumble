@@ -31,8 +31,8 @@
 #ifndef MUMBLE_MUMBLE_CERT_H_
 #define MUMBLE_MUMBLE_CERT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QString>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QGroupBox>
 #else

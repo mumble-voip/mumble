@@ -10,6 +10,10 @@ isEqual(QT_MAJOR_VERSION, 5) {
     # to get access to HWNDs.
     QT *= gui-private
   }
+
+  # On OS X, we can't yet use Cocoa integration
+  # because we don't yet integrate with QtMacExtras.
+  CONFIG += no-cocoa
 }
 
 TARGET		= mumble
@@ -185,19 +189,24 @@ unix {
     OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
-        # Link against libxar so we can inspect Mac OS X installer packages.
-        CONFIG(static) {
-          LIBS += -lxml2 -lbz2 -lxar
-        } else {
-          LIBS += -lxar
-        }
-        LIBS += -framework ScriptingBridge
-
+        DEFINES *= USE_COCOA
         # Native feeling config dialog.
-        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm
         HEADERS += ConfigDialog_macx.h
+    }
+
+    !CONFIG(universal) {
+      # Link against libxar so we can inspect Mac OS X installer packages.
+      CONFIG(static) {
+        LIBS += -lxml2 -lbz2 -lxar
+      } else {
+        LIBS += -lxar
+      }
+
+      LIBS += -framework ScriptingBridge 
+      OBJECTIVE_SOURCES += Overlay_macx.mm
     } else {
-        SOURCES += Overlay_unix.cpp
+      SOURCES += Overlay_unix.cpp
     }
 
     # CoreAudio
@@ -361,10 +370,12 @@ CONFIG(no-update) {
 CONFIG(static) {
   DEFINES *= USE_STATIC
 
-  # Keep in sync with main.cpp QT_IMPORT_PLUGIN list.
   QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
   macx {
     QTPLUGIN += qicnsicon
+    isEqual(QT_MAJOR_VERSION, 5) {
+      QTPLUGIN += qcocoa
+    }
   }
 
   # Icon engines are special; they don't get their lib directory

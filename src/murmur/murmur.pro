@@ -26,7 +26,7 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= ice
 }
 
-!CONFIG(no-dbus):!win32 {
+!CONFIG(no-dbus):!win32:!macx {
 	CONFIG *= dbus
 }
 

@@ -32,6 +32,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <dns_sd.h>
 
+#include <QtCore/QObject>
+
 #include "BonjourRecord.h"
 
 class QSocketNotifier;

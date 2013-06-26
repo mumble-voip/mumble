@@ -31,8 +31,8 @@
 #ifndef MUMBLE_MUMBLE_OVERLAY_H_
 #define MUMBLE_MUMBLE_OVERLAY_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QUrl>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QGraphicsItem>
 #else

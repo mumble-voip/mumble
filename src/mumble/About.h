@@ -31,8 +31,8 @@
 #ifndef MUMBLE_MUMBLE_ABOUT_H_
 #define MUMBLE_MUMBLE_ABOUT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QDialog>
 #else

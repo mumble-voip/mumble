@@ -36,9 +36,9 @@
 # include <boost/accumulators/statistics/stats.hpp>
 #endif
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QTreeWidget>
 #else

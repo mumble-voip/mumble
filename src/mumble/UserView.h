@@ -31,6 +31,7 @@
 #ifndef MUMBLE_MUMBLE_USERVIEW_H_
 #define MUMBLE_MUMBLE_USERVIEW_H_
 
+#include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QStyledItemDelegate>
 # include <QtWidgets/QTreeView>

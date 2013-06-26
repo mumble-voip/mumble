@@ -31,9 +31,9 @@
 #ifndef MUMBLE_MUMBLE_VIEWCERT_H_
 #define MUMBLE_MUMBLE_VIEWCERT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
 #include <QtCore/QList>
-
 #if QT_VERSION >= 0x050000
 # include <QtWidgets/QDialog>
 #else

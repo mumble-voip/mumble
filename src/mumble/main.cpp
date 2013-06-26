@@ -57,16 +57,15 @@
 #include "FileEngine.h"
 #include "SocketRPC.h"
 
-#ifdef USE_STATIC
-// Keep in sync with mumble.pro QTPLUGIN list.
+#if defined(USE_STATIC) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
 Q_IMPORT_PLUGIN(qsvg)
 Q_IMPORT_PLUGIN(qsvgicon)
-#ifdef Q_OS_MAC
-Q_IMPORT_PLUGIN(qicnsicon)
-#endif
-#endif
+# ifdef Q_OS_MAC
+   Q_IMPORT_PLUGIN(qicnsicon)
+# endif
+#endif // USE_STATIC
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {

@@ -37,7 +37,11 @@ Global *Global::g_global_struct;
 static void migrateDataDir() {
 #ifdef Q_OS_MAC
 	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
+#if QT_VERSION >= 0x050000
+	QString newdir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 	QString linksTo = QFile::readLink(olddir);
 	if (!QFile::exists(newdir) && QFile::exists(olddir) && linksTo.isEmpty()) {
 		QDir d;
