@@ -80,21 +80,23 @@ void UserEdit::refreshUserList(int inactive) {
 		UserEditListItem *ueli = new UserEditListItem(i.key());
 		ueli->setText(0, i.value().name);
 
-		QString last_active;
+		QString qsLastActive;
 		QDateTime qdtLastActive;
-		int last_seen;
+		qdtLastActive.setTimeSpec(Qt::UTC);
+		int iSeenDaysAgo = 0;
 		if (!i.value().last_active.isEmpty()) {
 			qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-dd hh:mm:ss"));
+			qdtLastActive.setTimeSpec(Qt::UTC);
 			if (!qdtLastActive.isValid()) {
 				qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-ddThh:mm:ss"));
 			}
-			last_seen = qdtLastActive.daysTo(QDateTime::currentDateTime());
-			last_active = tr("%1").arg(QString::number(last_seen));
+			iSeenDaysAgo = qdtLastActive.daysTo(QDateTime::currentDateTime().toUTC());
+			qsLastActive = tr("%1").arg(QString::number(iSeenDaysAgo));
 		} else {
-			last_active.clear();
+			qsLastActive.clear();
 		}
-		ueli->setText(1, last_active);
-		ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
+		ueli->setText(1, qsLastActive);
+		ueli->setToolTip(1, qdtLastActive.toLocalTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
 
 		boost::optional<int> lastchanid = i.value().last_channel;
 		Channel *c = lastchanid ? Channel::get(*lastchanid) : NULL;
@@ -107,7 +109,7 @@ void UserEdit::refreshUserList(int inactive) {
 			hideExtendedGUI();
 		}
 
-		if ((inactive > 0) && (last_seen < inactive)) {
+		if ((inactive > 0) && (iSeenDaysAgo < inactive)) {
 			delete ueli;
 			continue;
 		}
@@ -262,25 +264,27 @@ void UserEdit::on_qtwUserList_itemSelectionChanged() {
 
 void UserEdit::on_qsbInactive_valueChanged(int ) {
 	qtwUserList->clearSelection();
-	int cbvalue = qcbInactive->currentIndex();
-	int sbvalue;
-	switch (cbvalue) {
+
+	const int iTimespanUnit = qcbInactive->currentIndex();
+	const int iTimespanCount = qsbInactive->value();
+	int iInactiveForDays = 0;
+	switch (iTimespanUnit) {
 		case 0:
-			sbvalue = qsbInactive->value();
+			iInactiveForDays = iTimespanCount;
 			break;
 		case 1:
-			sbvalue = qsbInactive->value() * 7;
+			iInactiveForDays = iTimespanCount * 7;
 			break;
 		case 2:
-			sbvalue = qsbInactive->value() * 30;
+			iInactiveForDays = iTimespanCount * 30;
 			break;
 		case 3:
-			sbvalue = qsbInactive->value() * 365;
+			iInactiveForDays = iTimespanCount * 365;
 			break;
 		default:
-			sbvalue = 0;
+			break;
 	}
-	refreshUserList(sbvalue);
+	refreshUserList(iInactiveForDays);
 }
 
 void UserEdit::on_qcbInactive_currentIndexChanged(int index) {
