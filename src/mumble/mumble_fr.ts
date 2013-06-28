@@ -349,7 +349,7 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Le canal doit avoir un nom</translation>
+        <translation>Le salon doit avoir un nom</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -469,7 +469,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Mot de passe&lt;/b&gt;&lt;br /&gt;Ce champ vous permet de définir ou de changer aisément le mot de passe d&apos;un canal. Il utilise les jetons d&apos;accès de Mumble. Utilisez les LCAs et les groupes si vous avez besoin de plus de finesse dans le contrôle des accès.</translation>
+        <translation>&lt;b&gt;Mot de passe&lt;/b&gt;&lt;br /&gt;Ce champ vous permet de définir ou de changer aisément le mot de passe d&apos;un salon. Il utilise les jetons d&apos;accès de Mumble. Utilisez les LCAs et les groupes si vous avez besoin de plus de finesse dans le contrôle des accès.</translation>
     </message>
     <message>
         <location/>
@@ -1558,7 +1558,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Montre la puissance maximale de la dernière trame (20 ms) des haut-parleurs. Sauf si vous utilisez une méthode multicanal d&apos;échantillonnage (telles que l&apos;ASIO) des canaux des haut-parleurs configurés, cette valeur sera 0. Si vous avez une telle configuration, affichant toujours 0 pendant que vous entendez le son d&apos;autres applications, c&apos;est que votre configuration ne fonctionne pas.</translation>
+        <translation>Montre la puissance maximale de la dernière trame (20 ms) des haut-parleurs. Sauf si vous utilisez une méthode multisalon d&apos;échantillonnage (telles que l&apos;ASIO) des canaux des haut-parleurs configurés, cette valeur sera 0. Si vous avez une telle configuration, affichant toujours 0 pendant que vous entendez le son d&apos;autres applications, c&apos;est que votre configuration ne fonctionne pas.</translation>
     </message>
     <message>
         <location/>
@@ -4333,7 +4333,7 @@ Valid options are:
 
 &lt;url&gt; spécifie une URL à laquelle une connexion sera établie après
 le démarrage au lieu de l&apos;affichage de la fenêtre de connexion et a la forme suivante :
-mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;canal&gt;[/&lt;souscanal&gt;...]][?version=&lt;x.y.z&gt;]
+mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;soussalon&gt;...]][?version=&lt;x.y.z&gt;]
 
 Le paramètre de demande de version doit être réglé afin d&apos;invoquer
 la version correcte du client. Actuellement, la valeur par défaut est 1.2.0.
@@ -5555,7 +5555,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="-1633"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br /&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Salon vocal&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br /&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5669,7 +5669,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation>Lier un canal</translation>
+        <translation>Lier un salon</translation>
     </message>
     <message>
         <location line="+804"/>
@@ -5935,7 +5935,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished">Voir le commentaire</translation>
+        <translation>Voir le commentaire</translation>
     </message>
     <message>
         <location/>
@@ -6025,7 +6025,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation>Copier un lien vers ce canal dans le presse-papiers.</translation>
+        <translation>Copier un lien vers ce salon dans le presse-papiers.</translation>
     </message>
     <message>
         <location/>
@@ -8004,7 +8004,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Multicanal</translation>
+        <translation>Multisalon</translation>
     </message>
     <message>
         <location/>
