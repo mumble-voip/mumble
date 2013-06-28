@@ -731,7 +731,16 @@ bool Server::unregisterUserDB(int id) {
 }
 
 QList<UserInfo> Server::getRegisteredUsersEx() {
-	QList<UserInfo> m;
+
+	QMap<int, QString> rpcUsers;
+	emit getRegisteredUsersSig(QString(), rpcUsers);
+
+	QList<UserInfo> users;
+	QMap<int, QString>::iterator it = rpcUsers.begin();
+	for (; it != rpcUsers.end(); ++it)
+	{
+		users.insert(it.key(), UserInfo(it.key(), it.value()));
+	}
 
 	TransactionHolder th;
 
@@ -747,10 +756,10 @@ QList<UserInfo> Server::getRegisteredUsersEx() {
 		userinfo.last_channel = query.value(2).toInt();
 		userinfo.last_active = query.value(3).toString();
 
-		m << userinfo;
+		users << userinfo;
 	}
 
-	return m;
+	return users;
 }
 
 QMap<int, QString > Server::getRegisteredUsers(const QString &filter) {
