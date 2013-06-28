@@ -127,7 +127,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	murmurMessageOutputQString(type, QString::fromUtf8(msg));
 }
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 static void murmurMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	murmurMessageOutputQString(type, msg);
@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 #endif
 
@@ -211,7 +211,7 @@ int main(int argc, char **argv) {
 #endif
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qInstallMessageHandler(murmurMessageOutputWithContext);
 #else
 	qInstallMsgHandler(murmurMessageOutput);
@@ -492,7 +492,7 @@ int main(int argc, char **argv) {
 
 	delete meta;
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qInstallMessageHandler(NULL);
 #else
 	qInstallMsgHandler(NULL);

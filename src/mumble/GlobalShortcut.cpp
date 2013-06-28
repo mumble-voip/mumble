@@ -620,7 +620,7 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qtwShortcuts->setColumnCount(canSuppress ? 4 : 3);
 	qtwShortcuts->setItemDelegate(new ShortcutDelegate(qtwShortcuts));
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qtwShortcuts->header()->setSectionResizeMode(0, QHeaderView::Fixed);
 	qtwShortcuts->header()->resizeSection(0, 150);
 	qtwShortcuts->header()->setSectionResizeMode(2, QHeaderView::Stretch);

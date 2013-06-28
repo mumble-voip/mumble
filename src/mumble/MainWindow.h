@@ -33,7 +33,7 @@
 #define MUMBLE_MUMBLE_MAINWINDOW_H_
 
 #include <QtCore/QtGlobal>
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 # include <QtCore/QPointer>
 # include <QtWidgets/QMainWindow>
 # include <QtWidgets/QSystemTrayIcon>
@@ -114,7 +114,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		QPointer<Channel> cContextChannel;
 		QPointer<ClientUser> cuContextUser;
 #else

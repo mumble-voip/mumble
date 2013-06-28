@@ -31,7 +31,7 @@
 #ifndef MUMBLE_MUMBLE_FILEENGINE_H_
 #define MUMBLE_MUMBLE_FILEENGINE_H_
 
-#if QT_VERSION < 0x050000 // QAbstractFileEngineHandler is private in Qt 5.
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0) // QAbstractFileEngineHandler is private in Qt 5.
 
 class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
 	private:

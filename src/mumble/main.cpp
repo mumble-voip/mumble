@@ -78,7 +78,7 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
-#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
 # define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
 #else
 # define QAPP_INHERIT_EVENT_FILTER
@@ -91,7 +91,7 @@ class QAppMumble : public QApplication QAPP_INHERIT_EVENT_FILTER {
 		void commitData(QSessionManager&);
 		bool event(QEvent *e);
 #ifdef Q_OS_WIN
-# if QT_VERSION >= 0x050000
+# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result);
 # else
 		bool winEventFilter(MSG *msg, long *result);
@@ -121,7 +121,7 @@ bool QAppMumble::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
-# if QT_VERSION >= 0x050000
+# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
 	Q_UNUSED(eventType);
 	MSG *msg = reinterpret_cast<MSG *>(message);
@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
 	a.installNativeEventFilter(&a);
 #endif
 
@@ -435,7 +435,7 @@ int main(int argc, char **argv) {
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
 #endif
 
@@ -469,7 +469,7 @@ int main(int argc, char **argv) {
 	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 #else
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
@@ -542,7 +542,7 @@ int main(int argc, char **argv) {
 	if (sh)
 		sh->disconnect();
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	delete mfeh;
 #endif
 

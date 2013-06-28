@@ -362,7 +362,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		return NULL;
 
 	QUrl url;
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QUrlQuery query(url);
 #endif
 	if (mime->hasUrls() && ! mime->urls().isEmpty())
@@ -404,7 +404,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		url.setUserName(g.s.qsUsername);
 	}
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	if (! query.hasQueryItem(QLatin1String("title")))
 		query.addQueryItem(QLatin1String("title"), url.host());
 
@@ -606,7 +606,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 		url.setPort(port);
 	url.setPath(channel);
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QUrlQuery query;
 	query.addQueryItem(QLatin1String("title"), name);
 	query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
@@ -804,7 +804,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	
 	qtwServers->sortItems(1, Qt::AscendingOrder);
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qtwServers->header()->setSectionResizeMode(0, QHeaderView::Stretch);
 	qtwServers->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 	qtwServers->header()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
@@ -1168,7 +1168,7 @@ void ConnectDialog::initList() {
 
 	QUrl url;
 	url.setPath(QLatin1String("/list2.cgi"));
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QUrlQuery query;
 	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 	url.setQuery(query);

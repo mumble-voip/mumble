@@ -51,7 +51,7 @@ static ConfigRegistrar registrar(4000, LogConfigDialogNew);
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qtwMessages->header()->setSectionResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setSectionResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);

@@ -190,7 +190,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
-#if QT_VERSION < 0x050000
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
 #endif
@@ -689,7 +689,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	minor = 2;
 	patch = 0;
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
 #else
@@ -713,7 +713,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	qsDesiredChannel = url.path();
 	QString name;
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	if (query.hasQueryItem(QLatin1String("title")))
 		name = query.queryItemValue(QLatin1String("title"));
 #else
@@ -1538,7 +1538,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	qsText = qsText.toHtmlEscaped();
 #else
 	qsText = Qt::escape(qsText);
@@ -2758,7 +2758,7 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 
 	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath)) {
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 #else
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);

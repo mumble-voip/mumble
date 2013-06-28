@@ -37,7 +37,7 @@
 
 #include "Global.h"
 
-#ifdef QT_VERSION >= 0x050000
+#ifdef QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 static NSWindow *qt_mac_window_for(QWidget *w) {
 	NSView *view = (NSView *) w->winId();
 	return [view window];

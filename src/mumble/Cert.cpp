@@ -92,7 +92,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 	} else {
 		QSslCertificate qscCert = qlCert.at(0);
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		const QStringList &names = qscCert.subjectInfo(QSslCertificate::CommonName);
 		QString name;
 		if (names.count() > 0) {
@@ -124,7 +124,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();
 
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		const QStringList &issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
 		QString issuerName;
 		if (issuerNames.count() > 0) {
