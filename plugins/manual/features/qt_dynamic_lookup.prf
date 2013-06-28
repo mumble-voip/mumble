@@ -1,4 +1,5 @@
 macx {
 	LIBS += -undefined dynamic_lookup
 	LIBS -= -lQtCore -lQtGui
+	LIBS -= -lQt5Core -lQt5Gui -lQt5Widgets
 }
