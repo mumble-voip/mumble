@@ -54,7 +54,6 @@
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
-#include "FileEngine.h"
 #include "SocketRPC.h"
 
 #if defined(USE_STATIC) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
@@ -435,10 +434,6 @@ int main(int argc, char **argv) {
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
-#endif
-
 	Audio::start();
 
 	a.setQuitOnLastWindowClosed(false);
@@ -541,10 +536,6 @@ int main(int argc, char **argv) {
 
 	if (sh)
 		sh->disconnect();
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-	delete mfeh;
-#endif
 
 	delete srpc;
 
