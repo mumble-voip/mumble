@@ -43,7 +43,7 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	qtwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	int n = msg.users_size();
-	setWindowTitle(tr("User List - %n - Registered Users", "", n));
+	setWindowTitle(tr("User List - %n Registered User(s)", "", n));
 
 
 	qtwUserList->header()->setResizeMode(0, QHeaderView::Stretch); // user name
