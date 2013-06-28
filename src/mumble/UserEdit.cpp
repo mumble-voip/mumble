@@ -52,17 +52,13 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	qtwUserList->sortByColumn(0, Qt::AscendingOrder); // sort by user name
 	qmUsers.clear();
 
-	for (int i=0;i<msg.users_size(); ++i) {
+	for (int i = 0; i < msg.users_size(); ++i) {
 		const MumbleProto::UserList_User &u = msg.users(i);
 		UserInfo uie;
 		uie.user_id = u.user_id();
 		uie.name = u8(u.name());
-		uie.last_channel = u.last_channel();
-		if (u.has_last_seen()) {
-			uie.last_active = u8(u.last_seen());
-		} else {
-			uie.last_active = QString();
-		}
+		uie.last_channel = u.has_last_channel() ? u.last_channel() : 0;
+		uie.last_active = u.has_last_seen() ? u8(u.last_seen()) : QString();
 		qmUsers.insert(uie.user_id, uie);
 	}
 	refreshUserList();
@@ -90,44 +86,68 @@ void UserEdit::refreshUserList(int inactive) {
 		} else {
 			last_active.clear();
 		}
+		ueli->setText(1, last_active);
+		ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
+
+		Channel *c = Channel::get(i.value().last_channel);
+		QString lastchantreestring = getChanneltreestring(c);
+		ueli->setText(2, lastchantreestring);
+
+		if (!lastchantreestring.isEmpty()) {
+			showExtendedGUI();
+		} else {
+			hideExtendedGUI();
+		}
 
 		if ((inactive > 0) && (last_seen < inactive)) {
+			delete ueli;
 			continue;
 		}
 
-		if (!last_active.isEmpty()) {
-			ueli->setText(1, last_active);
-			ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
-
-			Channel *c = Channel::get(i.value().last_channel);
-			QString tree;
-			if (c) {
-				QStringList channel_tree;
-				while (c->cParent != NULL) {
-					channel_tree.prepend(c->qsName);
-					c = c->cParent;
-				}
-				QStringList _channel_tree;
-				for (QStringList::iterator it = channel_tree.begin(); it != channel_tree.end(); ++it) {
-					_channel_tree.append(*it);
-				}
-				channel_tree.clear();
-				channel_tree.append(_channel_tree);
-			tree = QLatin1String("/ ") + channel_tree.join(QLatin1String(" / "));
-			ueli->setText(2, tree);
-			} else {
-				tree = QLatin1String("-");
-			}
-		} else {
-			//Hide columns and other gui stuff
-			qtwUserList->hideColumn(1);
-			qtwUserList->hideColumn(2);
-			qlInactive->hide();
-			qsbInactive->hide();
-			qcbInactive->hide();
-		}
 		qtwUserList->addTopLevelItem(ueli);
 	}
+}
+
+QString UserEdit::getChanneltreestring(Channel* c) const
+{
+	QString tree = QLatin1String("-");
+	if (c) {
+		QStringList channel_tree;
+		while (c->cParent != NULL) {
+			channel_tree.prepend(c->qsName);
+			c = c->cParent;
+		}
+
+		//TODO: This seems unnecessary
+		QStringList _channel_tree;
+		for (QStringList::iterator it = channel_tree.begin(); it != channel_tree.end(); ++it) {
+			_channel_tree.append(*it);
+		}
+
+		channel_tree.clear();
+		channel_tree.append(_channel_tree);
+
+		tree = QLatin1String("/ ") + channel_tree.join(QLatin1String(" / "));
+	}
+	return tree;
+}
+
+void UserEdit::showExtendedGUI()
+{
+	qtwUserList->showColumn(1);
+	qtwUserList->showColumn(2);
+	qlInactive->show();
+	qsbInactive->show();
+	qcbInactive->show();
+}
+
+void UserEdit::hideExtendedGUI()
+{
+	qtwUserList->hideColumn(1);
+	qtwUserList->hideColumn(2);
+	qlInactive->hide();
+	qsbInactive->hide();
+	qcbInactive->hide();
 }
 
 void UserEdit::accept() {

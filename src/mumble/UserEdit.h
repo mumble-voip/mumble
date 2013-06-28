@@ -50,6 +50,11 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
+
+		void showExtendedGUI();
+		void hideExtendedGUI();
+		QString getChanneltreestring(Channel* c) const;
+
 	protected:
 		QMap<int, UserInfo> qmUsers;
 		QMap<int, QString> qmChanged;

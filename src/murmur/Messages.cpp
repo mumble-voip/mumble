@@ -1434,6 +1434,8 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// The register permission is required on the root channel to be allowed to
+	// view the registered users.
 	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Register)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Register);
 		return;
@@ -1455,7 +1457,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		}
 		sendMessage(uSource, msg);
 	} else {
-		for (int i=0;i < msg.users_size(); ++i) {
+		for (int i=0; i < msg.users_size(); ++i) {
 			const MumbleProto::UserList_User &u = msg.users(i);
 
 			int id = u.user_id();
