@@ -62,10 +62,10 @@ class User {
 
 // for last seen
 struct UserInfo {
-        int user_id;
-        QString name;
-        int last_channel;
-        QString last_active;
+	int user_id;
+	QString name;
+	int last_channel;
+	QString last_active;
 };
 
 #endif
