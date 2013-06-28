@@ -1087,7 +1087,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation>Amplification max.</translation>
+        <translation>Amplification max</translation>
     </message>
     <message>
         <location/>
@@ -1097,7 +1097,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>minutes do</source>
-        <translation>minutes effectuer l&apos;action suivante :</translation>
+        <translation>minutes effectuer l&apos;action suivante</translation>
     </message>
     <message>
         <location/>
@@ -3708,12 +3708,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation>Informations</translation>
+        <translation>Information</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation>Serveur Connecté</translation>
+        <translation>Connecté au serveur</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3723,7 +3723,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation>Les autres sont rendus sourd/muet</translation>
+        <translation>Un autre s&apos;est rendu sourd/muet</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3753,12 +3753,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>Un utilisateur expulsé (vous ou par vous)</translation>
+        <translation>Utilisateur expulsé (vous ou par vous)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation>Un utilisateur expulsé</translation>
+        <translation>Utilisateur expulsé</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3778,7 +3778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Un utilisateur arrive sur le salon</translation>
+        <translation>Un utilisateur arrive dans le salon</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5038,7 +5038,7 @@ Les options valides sont :
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation>%1 a été sorti du salon %2 par %3.</translation>
+        <translation>%1 a été déplacé dans le salon %2 par %3.</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5270,7 +5270,7 @@ Les options valides sont :
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%1 n&apos;est plus muet (%2).</translation>
+        <translation>%2 a rendu la voix à %1.</translation>
     </message>
     <message>
         <location line="+377"/>
@@ -5935,7 +5935,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>View Comment</source>
-        <translation>Voir commentaire</translation>
+        <translation type="unfinished">Voir le commentaire</translation>
     </message>
     <message>
         <location/>
@@ -6045,17 +6045,17 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des &amp;bannis</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des utilisateurs bannis</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci permet d&apos;éditer liste des utilisateurs bannis du serveur.</translation>
     </message>
 </context>
 <context>
