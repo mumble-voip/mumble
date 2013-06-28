@@ -68,10 +68,13 @@ void UserEdit::protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInf
 	if (u.has_last_channel()) {
 		uie.last_channel = u.last_channel();
 	}
-	uie.last_active = u.has_last_seen() ? u8(u.last_seen()) : QString();
+	if (u.has_last_seen()) {
+		uie.last_active = QDateTime::fromString(u8(u.last_seen()), Qt::ISODate);
+		uie.last_active.setTimeSpec(Qt::UTC);
+	}
 }
 
-void UserEdit::refreshUserList(int inactive) {
+void UserEdit::refreshUserList(int iGreaterInactiveDaysFilter) {
 	qtwUserList->clear();
 	QMapIterator<int, UserInfo> i(qmUsers);
 
@@ -81,22 +84,14 @@ void UserEdit::refreshUserList(int inactive) {
 		ueli->setText(0, i.value().name);
 
 		QString qsLastActive;
-		QDateTime qdtLastActive;
-		qdtLastActive.setTimeSpec(Qt::UTC);
+		QDateTime qdtLastActive(i.value().last_active);
 		int iSeenDaysAgo = 0;
-		if (!i.value().last_active.isEmpty()) {
-			qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-dd hh:mm:ss"));
-			qdtLastActive.setTimeSpec(Qt::UTC);
-			if (!qdtLastActive.isValid()) {
-				qdtLastActive = QDateTime::fromString(i.value().last_active, QLatin1String("yyyy-MM-ddThh:mm:ss"));
-			}
+		if (qdtLastActive.isValid()) {
 			iSeenDaysAgo = qdtLastActive.daysTo(QDateTime::currentDateTime().toUTC());
 			qsLastActive = tr("%1").arg(QString::number(iSeenDaysAgo));
-		} else {
-			qsLastActive.clear();
 		}
 		ueli->setText(1, qsLastActive);
-		ueli->setToolTip(1, qdtLastActive.toLocalTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
+		ueli->setToolTip(1, qdtLastActive.toLocalTime().toString(Qt::ISODate));
 
 		boost::optional<int> lastchanid = i.value().last_channel;
 		Channel *c = lastchanid ? Channel::get(*lastchanid) : NULL;
@@ -109,7 +104,7 @@ void UserEdit::refreshUserList(int inactive) {
 			hideExtendedGUI();
 		}
 
-		if ((inactive > 0) && (iSeenDaysAgo < inactive)) {
+		if ((iGreaterInactiveDaysFilter > 0) && (iSeenDaysAgo < iGreaterInactiveDaysFilter)) {
 			delete ueli;
 			continue;
 		}

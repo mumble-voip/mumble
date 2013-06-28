@@ -1454,7 +1454,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				if (it->last_channel) {
 					u->set_last_channel(*it->last_channel);
 				}
-				u->set_last_seen(u8(it->last_active));
+				u->set_last_seen(u8(it->last_active.toString(Qt::ISODate)));
 			}
 		}
 		sendMessage(uSource, msg);

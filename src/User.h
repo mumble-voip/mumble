@@ -66,7 +66,7 @@ struct UserInfo {
 	int user_id;
 	QString name;
 	boost::optional<int> last_channel;
-	QString last_active;
+	QDateTime last_active;
 
 	UserInfo() : user_id(-1) {}
 	UserInfo(int id, QString uname) : user_id(id), name(uname) {}

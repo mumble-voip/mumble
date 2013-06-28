@@ -754,7 +754,8 @@ QList<UserInfo> Server::getRegisteredUsersEx() {
 		userinfo.user_id = query.value(0).toInt();
 		userinfo.name = query.value(1).toString();
 		userinfo.last_channel = query.value(2).toInt();
-		userinfo.last_active = query.value(3).toString();
+		userinfo.last_active = QDateTime::fromString(query.value(3).toString(), Qt::ISODate);
+		userinfo.last_active.setTimeSpec(Qt::UTC);
 
 		users << userinfo;
 	}
