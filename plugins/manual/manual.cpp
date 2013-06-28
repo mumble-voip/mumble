@@ -32,7 +32,7 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#if QT_VERSION >= 0x050000
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 #include <QtWidgets/QMessageBox>
 #else
 #include <QMessageBox>
@@ -247,17 +247,21 @@ static void unlock() {
 
 static void config(HWND h) {
 	if (mDlg) {
-#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
+#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		mDlg->setParent(QWidget::find(reinterpret_cast<WId>(h)), Qt::Dialog);
-#else
+#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 		mDlg->setParent(QWidget::find(h), Qt::Dialog);
+#else
+		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
 #endif
 		mDlg->qpbUnhinge->setEnabled(true);
 	} else {
-#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
+#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		mDlg = new Manual(QWidget::find(reinterpret_cast<WId>(h)));
-#else
+#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 		mDlg = new Manual(QWidget::find(h));
+#else
+		mDlg = new Manual(reinterpret_cast<QWidget *>(h));
 #endif
 	}
 
@@ -297,10 +301,12 @@ static std::wstring shortname(L"Manual placement");
 
 static void about(HWND h) {
 	QMessageBox::about(
-#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
+#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 		QWidget::find(reinterpret_cast<WId>(h)),
-#else
+#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 		QWidget::find(h),
+#else
+		reinterpret_cast<QWidget *>(h),
 #endif
 		QString::fromStdWString(description),
 		QString::fromStdWString(longdesc())
