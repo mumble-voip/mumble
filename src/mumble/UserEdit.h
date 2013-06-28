@@ -39,6 +39,7 @@
 namespace MumbleProto {
 class UserList;
 }
+namespace MumbleProto { class UserList_User; }
 
 class UserEditListItem : public QTreeWidgetItem {
 	public:
@@ -51,6 +52,7 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
 
+		void protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInfo & uie);
 		void showExtendedGUI();
 		void hideExtendedGUI();
 		QString getChanneltreestring(Channel* c) const;

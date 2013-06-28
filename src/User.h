@@ -33,6 +33,7 @@
 
 #include <QtCore/QByteArray>
 #include <QtCore/QString>
+#include <boost/optional.hpp>
 
 class Channel;
 
@@ -64,7 +65,7 @@ class User {
 struct UserInfo {
 	int user_id;
 	QString name;
-	int last_channel;
+	boost::optional<int> last_channel;
 	QString last_active;
 };
 

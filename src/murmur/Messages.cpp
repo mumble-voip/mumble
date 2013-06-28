@@ -1451,7 +1451,9 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 				::MumbleProto::UserList_User *u = msg.add_users();
 				u->set_user_id(it->user_id);
 				u->set_name(u8(it->name));
-				u->set_last_channel(it->last_channel);
+				if (it->last_channel) {
+					u->set_last_channel(*it->last_channel);
+				}
 				u->set_last_seen(u8(it->last_active));
 			}
 		}

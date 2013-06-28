@@ -55,13 +55,20 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
 	for (int i = 0; i < msg.users_size(); ++i) {
 		const MumbleProto::UserList_User &u = msg.users(i);
 		UserInfo uie;
-		uie.user_id = u.user_id();
-		uie.name = u8(u.name());
-		uie.last_channel = u.has_last_channel() ? u.last_channel() : 0;
-		uie.last_active = u.has_last_seen() ? u8(u.last_seen()) : QString();
+		protoUserToUserInfo(u, uie);
 		qmUsers.insert(uie.user_id, uie);
 	}
 	refreshUserList();
+}
+
+void UserEdit::protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInfo & uie)
+{
+	uie.user_id = u.user_id();
+	uie.name = u8(u.name());
+	if (u.has_last_channel()) {
+		uie.last_channel = u.last_channel();
+	}
+	uie.last_active = u.has_last_seen() ? u8(u.last_seen()) : QString();
 }
 
 void UserEdit::refreshUserList(int inactive) {
@@ -89,11 +96,12 @@ void UserEdit::refreshUserList(int inactive) {
 		ueli->setText(1, last_active);
 		ueli->setToolTip(1, qdtLastActive.toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
 
-		Channel *c = Channel::get(i.value().last_channel);
+		boost::optional<int> lastchanid = i.value().last_channel;
+		Channel *c = lastchanid ? Channel::get(*lastchanid) : NULL;
 		QString lastchantreestring = getChanneltreestring(c);
 		ueli->setText(2, lastchantreestring);
 
-		if (!lastchantreestring.isEmpty()) {
+		if (lastchanid) {
 			showExtendedGUI();
 		} else {
 			hideExtendedGUI();
