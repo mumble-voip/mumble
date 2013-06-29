@@ -52,14 +52,20 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
 
-		void protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInfo & uie);
-		void showExtendedGUI();
-		void hideExtendedGUI();
-		QString getChanneltreestring(Channel* c) const;
-
 	protected:
 		QMap<int, UserInfo> qmUsers;
 		QMap<int, QString> qmChanged;
+
+		int iInactiveForDaysFiltervalue;
+
+		void refreshUserList();
+		void updateInactiveDaysFilter();
+		void showExtendedGUI();
+		void hideExtendedGUI();
+
+		void protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInfo & uie);
+		QString getChanneltreestring(Channel* c) const;
+
 	public:
 		UserEdit(const MumbleProto::UserList &mpul, QWidget *p = NULL);
 	public slots:
@@ -70,7 +76,6 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		void on_qpbRename_clicked();
 		void on_qtwUserList_customContextMenuRequested(const QPoint&);
 		void renameTriggered();
-		void refreshUserList(int iGreaterInactiveDaysFilter = 0);
 		void on_qtwUserList_itemSelectionChanged();
 		void on_qsbInactive_valueChanged(int );
 		void on_qcbInactive_currentIndexChanged(int index);

@@ -36,14 +36,15 @@
 #include "ServerHandler.h"
 #include "User.h"
 
-UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
+UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p)
+	, iInactiveForDaysFiltervalue(0) {
 	setupUi(this);
 
 	qtwUserList->setFocus();
 	qtwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	int n = msg.users_size();
-	setWindowTitle(tr("User List - %n Registered User(s)", "", n));
+	setWindowTitle(tr("Registered Users: %n Account(s)", "", n));
 
 
 	qtwUserList->header()->setResizeMode(0, QHeaderView::Stretch); // user name
@@ -74,14 +75,17 @@ void UserEdit::protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInf
 	}
 }
 
-void UserEdit::refreshUserList(int iGreaterInactiveDaysFilter) {
+void UserEdit::refreshUserList() {
+	qtwUserList->clearSelection();
 	qtwUserList->clear();
-	QMapIterator<int, UserInfo> i(qmUsers);
 
+	QMapIterator<int, UserInfo> i(qmUsers);
 	while (i.hasNext()) {
 		i.next();
 		UserEditListItem *ueli = new UserEditListItem(i.key());
-		ueli->setText(0, i.value().name);
+
+		const QString username = i.value().name;
+		ueli->setText(0, username);
 
 		QString qsLastActive;
 		QDateTime qdtLastActive(i.value().last_active);
@@ -104,7 +108,11 @@ void UserEdit::refreshUserList(int iGreaterInactiveDaysFilter) {
 			hideExtendedGUI();
 		}
 
-		if ((iGreaterInactiveDaysFilter > 0) && (iSeenDaysAgo < iGreaterInactiveDaysFilter)) {
+		bool bHidden = false;
+		bHidden = bHidden || ((iInactiveForDaysFiltervalue > 0) && (iSeenDaysAgo < iInactiveForDaysFiltervalue));
+		bHidden = bHidden || (!username.contains(qlSearch->text(), Qt::CaseInsensitive)
+				&& !lastchantreestring.contains(qlSearch->text(), Qt::CaseInsensitive));
+		if (bHidden) {
 			delete ueli;
 			continue;
 		}
@@ -226,30 +234,8 @@ void UserEdit::renameTriggered() {
 	}
 }
 
-UserEditListItem::UserEditListItem(const int userid) : QTreeWidgetItem() {
-	setFlags(flags() | Qt::ItemIsEditable);
-	setData(0, Qt::UserRole, userid);
-}
-
-bool UserEditListItem::operator<(const QTreeWidgetItem &other) const {
-	// Avoid duplicating the User sorting code for a little more complexity
-	User first, second;
-	first.qsName = text(0);
-	second.qsName = other.text(0);
-	return User::lessThan(&first, &second);
-}
-
 void UserEdit::on_qlSearch_textChanged(QString) {
-	qtwUserList->clearSelection();
-	for (int i=0; i < qtwUserList->topLevelItemCount(); ++i) {
-		const QString name = qtwUserList->topLevelItem(i)->text(0);
-		const QString last_channel = qtwUserList->topLevelItem(i)->text(2);
-		if (!name.contains(qlSearch->text(), Qt::CaseInsensitive) && !last_channel.contains(qlSearch->text(), Qt::CaseInsensitive)) {
-			qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), true);
-		} else {
-			qtwUserList->setItemHidden(qtwUserList->topLevelItem(i), false);
-		}
-	}
+	refreshUserList();
 }
 
 void UserEdit::on_qtwUserList_itemSelectionChanged() {
@@ -257,9 +243,15 @@ void UserEdit::on_qtwUserList_itemSelectionChanged() {
 	qpbRemove->setEnabled(qtwUserList->selectedItems().count() > 0);
 }
 
-void UserEdit::on_qsbInactive_valueChanged(int ) {
-	qtwUserList->clearSelection();
+void UserEdit::on_qsbInactive_valueChanged(int) {
+	updateInactiveDaysFilter();
+}
 
+void UserEdit::on_qcbInactive_currentIndexChanged(int) {
+	updateInactiveDaysFilter();
+}
+
+void UserEdit::updateInactiveDaysFilter() {
 	const int iTimespanUnit = qcbInactive->currentIndex();
 	const int iTimespanCount = qsbInactive->value();
 	int iInactiveForDays = 0;
@@ -279,9 +271,20 @@ void UserEdit::on_qsbInactive_valueChanged(int ) {
 		default:
 			break;
 	}
-	refreshUserList(iInactiveForDays);
+	iInactiveForDaysFiltervalue = iInactiveForDays;
+	refreshUserList();
 }
 
-void UserEdit::on_qcbInactive_currentIndexChanged(int index) {
-	on_qsbInactive_valueChanged(index);
+
+UserEditListItem::UserEditListItem(const int userid) : QTreeWidgetItem() {
+	setFlags(flags() | Qt::ItemIsEditable);
+	setData(0, Qt::UserRole, userid);
+}
+
+bool UserEditListItem::operator<(const QTreeWidgetItem &other) const {
+	// Avoid duplicating the User sorting code for a little more complexity
+	User first, second;
+	first.qsName = text(0);
+	second.qsName = other.text(0);
+	return User::lessThan(&first, &second);
 }
