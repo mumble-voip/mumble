@@ -5915,7 +5915,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation>S&apos;en&amp;registrer</translation>
+        <translation>En&amp;registrer l&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
