@@ -32,6 +32,7 @@
 #define MUMBLE_USER_H_
 
 #include <QtCore/QByteArray>
+#include <QtCore/QDateTime>
 #include <QtCore/QString>
 #include <boost/optional.hpp>
 
