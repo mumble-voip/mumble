@@ -275,7 +275,9 @@ static void config(HWND h) {
 #else
 		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
 #endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 		mDlg->qpbUnhinge->setEnabled(true);
+#endif
 	} else {
 #if defined(Q_OS_WIN)
 		mDlg = new Manual(QWidgetForHWND(h));
@@ -284,6 +286,9 @@ static void config(HWND h) {
 #endif
 	}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	mDlg->qpbUnhinge->setEnabled(false);
+#endif
 	mDlg->show();
 }
 
