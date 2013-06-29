@@ -33,9 +33,12 @@
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-#include <QtWidgets/QMessageBox>
+# if defined(Q_OS_WIN)
+#   include <qpa/qplatformnativeinterface.h>
+# endif
+# include <QtWidgets/QMessageBox>
 #else
-#include <QMessageBox>
+# include <QMessageBox>
 #endif
 
 #include <QPointer>
@@ -75,6 +78,26 @@ static struct {
 	std::string(), std::wstring()
 };
 
+#ifdef Q_OS_WIN
+static QWidget *QWidgetForHWND(HWND hwnd) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QList<QWidget *> windows = qApp->topLevelWidgets();
+	foreach (QWidget *w, windows) {
+		QWindow *window = w->windowHandle();
+		if (window == NULL || window->handle() == 0) {
+			continue;
+		}
+		HWND whwnd = static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
+		if (whwnd == hwnd) {
+			return w;
+		}
+	}
+	return NULL;
+#else
+	return QWidget::find(hwnd);
+#endif
+}
+#endif
 
 Manual::Manual(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -247,19 +270,15 @@ static void unlock() {
 
 static void config(HWND h) {
 	if (mDlg) {
-#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		mDlg->setParent(QWidget::find(reinterpret_cast<WId>(h)), Qt::Dialog);
-#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-		mDlg->setParent(QWidget::find(h), Qt::Dialog);
+#if defined(Q_OS_WIN)
+		mDlg->setParent(QWidgetForHWND(h), Qt::Dialog);
 #else
 		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
 #endif
 		mDlg->qpbUnhinge->setEnabled(true);
 	} else {
-#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		mDlg = new Manual(QWidget::find(reinterpret_cast<WId>(h)));
-#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-		mDlg = new Manual(QWidget::find(h));
+#if defined(Q_OS_WIN)
+		mDlg = new Manual(QWidgetForHWND(h));
 #else
 		mDlg = new Manual(reinterpret_cast<QWidget *>(h));
 #endif
@@ -302,9 +321,7 @@ static std::wstring shortname(L"Manual placement");
 static void about(HWND h) {
 	QMessageBox::about(
 #if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		QWidget::find(reinterpret_cast<WId>(h)),
-#elif defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-		QWidget::find(h),
+		QWidgetForHWND(h),
 #else
 		reinterpret_cast<QWidget *>(h),
 #endif

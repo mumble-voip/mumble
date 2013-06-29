@@ -332,7 +332,16 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 HWND MumbleHWNDForQWidget(QWidget *widget) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
 	QWindow *window = widget->windowHandle();
-	return static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
+	if (window == NULL) {
+		QWidget *npw = widget->nativeParentWidget();
+		if (npw != NULL) {
+			window = npw->windowHandle();
+		}
+	}
+	if (window != NULL && window->handle() != 0) {
+		return static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
+	}
+	return 0;
 #else
 	return widget->winId();
 #endif
