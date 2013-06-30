@@ -37,7 +37,8 @@
 #include "Net.h"
 #include "ServerHandler.h"
 
-BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
+BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p)
+	, maskDefaultValue(32) {
 	setupUi(this);
 	qlwBans->setFocus();
 
@@ -173,7 +174,7 @@ void BanEditor::on_qpbRemove_clicked() {
 	qleUser->clear();
 	qleIP->clear();
 	qleReason->clear();
-	qsbMask->setValue(32);
+	qsbMask->setValue(maskDefaultValue);
 	qleHash->clear();
 
 	qdteStart->setDateTime(QDateTime::currentDateTime());
@@ -197,10 +198,10 @@ void BanEditor::refreshBanList() {
 	}
 
 	int n = qlBans.count();
-	setWindowTitle(tr("Ban List - %n - Banned Users", "", n));
+	setWindowTitle(tr("Ban List - %n Ban(s)", "", n));
 }
 
-void BanEditor::on_qleSearch_textChanged(QString )
+void BanEditor::on_qleSearch_textChanged(const QString & match)
 {
 	qlwBans->clearSelection();
 
@@ -211,13 +212,12 @@ void BanEditor::on_qleSearch_textChanged(QString )
 	qleUser->clear();
 	qleIP->clear();
 	qleReason->clear();
-	qsbMask->setValue(32);
+	qsbMask->setValue(maskDefaultValue);
 	qleHash->clear();
 
 	qdteStart->setDateTime(QDateTime::currentDateTime());
 	qdteEnd->setDateTime(QDateTime::currentDateTime());
 
-	const QString &match = qleSearch->text();
 	foreach(QListWidgetItem *item, qlwBans->findItems(QString(), Qt::MatchContains)) {
 		if (!item->text().contains(match))
 			item->setHidden(true);
@@ -263,7 +263,7 @@ void BanEditor::on_qpbClear_clicked()
 	qleUser->clear();
 	qleIP->clear();
 	qleReason->clear();
-	qsbMask->setValue(32);
+	qsbMask->setValue(maskDefaultValue);
 	qleHash->clear();
 
 	qdteStart->setDateTime(QDateTime::currentDateTime());

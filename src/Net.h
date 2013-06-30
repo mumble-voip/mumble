@@ -60,7 +60,7 @@ struct HostAddress {
 	bool operator < (const HostAddress &) const;
 	bool operator == (const HostAddress &) const;
 
-	bool match(const HostAddress &, int) const;
+	bool match(const HostAddress &, int bits) const;
 
 	QString toString() const;
 

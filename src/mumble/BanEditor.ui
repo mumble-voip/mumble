@@ -41,7 +41,7 @@
          <string>Search field</string>
         </property>
         <property name="whatsThis">
-         <string>This is search field, use it to find users by simply typing user nickname.</string>
+         <string>This is the search field. Use it to find bans that have this username set in the username field.</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -198,7 +198,7 @@
          <string>Ban end date</string>
         </property>
         <property name="whatsThis">
-         <string>Ban end date. If you set the same date for start and end, ban will be permanent.</string>
+         <string>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</string>
         </property>
         <property name="calendarPopup">
          <bool>true</bool>
@@ -231,7 +231,7 @@
          <string>Banned users</string>
         </property>
         <property name="whatsThis">
-         <string>This is list with banned users.</string>
+         <string>This is a list with banned users.</string>
         </property>
         <property name="alternatingRowColors">
          <bool>true</bool>
@@ -279,7 +279,7 @@
          <bool>false</bool>
         </property>
         <property name="whatsThis">
-         <string>Use this button if you want to remove user from ban list.</string>
+         <string>Use this button if you want to remove user from the ban list.</string>
         </property>
         <property name="text">
          <string>&amp;Remove</string>
@@ -292,7 +292,7 @@
          <string>Clear all fields</string>
         </property>
         <property name="whatsThis">
-         <string>This button clears all fields, use it if you want to add new ban.</string>
+         <string>This button clears all fields. Use it if you want to add a new ban.</string>
         </property>
         <property name="text">
          <string>Clear</string>
