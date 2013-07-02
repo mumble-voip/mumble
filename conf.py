@@ -2,7 +2,23 @@
 
 import sys, os
 
-extensions = []
+extensions = [
+	'sphinx.ext.pngmath',
+]
+
+pngmath_latex_preamble = r'''
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\usepackage{float}
+
+\DeclareMathOperator{\bit}{bit}
+\DeclareMathOperator{\band}{and}
+\DeclareMathOperator{\lshift}{<<}
+\DeclareMathOperator{\rshift}{>>}
+\DeclareMathOperator{\append}{\triangleright}
+'''
+
 templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
@@ -24,7 +40,7 @@ html_theme_options = {
 	'linkcolor':        '#696969',
 	'visitedlinkcolor': '#adadad',
 	'sidebarlinkcolor': '#cacaca',
-	'headtextcolor':    '#000000'
+	'headtextcolor':    '#000000',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
