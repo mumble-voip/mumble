@@ -46,10 +46,15 @@ UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p)
 	int n = msg.users_size();
 	setWindowTitle(tr("Registered Users: %n Account(s)", "", n));
 
-
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qtwUserList->header()->setSectionResizeMode(0, QHeaderView::Stretch); // user name
+	qtwUserList->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents); // last seen
+	qtwUserList->header()->setSectionResizeMode(2, QHeaderView::Stretch); // on channel
+#else
 	qtwUserList->header()->setResizeMode(0, QHeaderView::Stretch); // user name
 	qtwUserList->header()->setResizeMode(1, QHeaderView::ResizeToContents); // last seen
 	qtwUserList->header()->setResizeMode(2, QHeaderView::Stretch); // on channel
+#endif
 	qtwUserList->sortByColumn(0, Qt::AscendingOrder); // sort by user name
 	qmUsers.clear();
 
