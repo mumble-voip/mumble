@@ -74,10 +74,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
 		return false;
 
-	posptr = pModule + 0x642A4C;
-	rotptr = pModule + 0x642A08;
-	stateptr = pModule + 0x6F58AC;
-	contextptr = pModule + 0x6F58AC;
+	posptr = pModule + 0x856FE8;
+	rotptr = pModule + 0x856FF4;
+	stateptr = pModule + 0x831A24;
+	contextptr = pModule + 0x831A24;
 	
 	float pos[3];
 	float rot[3];
@@ -151,10 +151,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 5310 with context support. No identity support yet.");
+	return std::wstring(L"Supports L4D2 build 5338 with context support. No identity support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 5310)");
+static std::wstring description(L"Left 4 Dead 2 (Build 5338)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static int trylock1() {
