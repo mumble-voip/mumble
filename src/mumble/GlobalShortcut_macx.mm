@@ -440,7 +440,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 		}
 	}
 
-	return QString::fromRawData(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
+	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
 }
 
 QString GlobalShortcutMac::buttonName(const QVariant &v) {
