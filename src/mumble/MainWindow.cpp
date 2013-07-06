@@ -247,6 +247,9 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
+	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
+	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -348,6 +351,7 @@ void MainWindow::setupGui()  {
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
+	updateTransmitModeIcons();
 
 #ifdef USE_COCOA
 	setWindowOpacity(1.0f);
@@ -495,6 +499,29 @@ void MainWindow::updateTrayIcon() {
 	} else {
 		qstiIcon->setIcon(qiIcon);
 	}
+}
+
+void MainWindow::updateTransmitModeIcons() {
+
+	switch (g.s.atTransmit)
+	{
+		case Settings::Continous:
+			qaSetTransmitModeContinous->setChecked(true);
+			qaSetTransmitModePushToTalk->setChecked(false);
+			qaSetTransmitModeVAD->setChecked(false);
+			return;
+		case Settings::VAD:
+			qaSetTransmitModeContinous->setChecked(false);
+			qaSetTransmitModePushToTalk->setChecked(false);
+			qaSetTransmitModeVAD->setChecked(true);
+			return;
+		case Settings::PushToTalk:
+			qaSetTransmitModeContinous->setChecked(false);
+			qaSetTransmitModePushToTalk->setChecked(true);
+			qaSetTransmitModeVAD->setChecked(false);
+			return;
+	}
+
 }
 
 Channel *MainWindow::getContextMenuChannel() {
@@ -995,6 +1022,30 @@ void MainWindow::on_qaSelfRegister_triggered() {
 
 	if (result == QMessageBox::Yes)
 		g.sh->registerUser(p->uiSession);
+}
+
+void MainWindow::on_qaSetTransmitModeContinous_triggered() {
+	g.s.atTransmit = Settings::Continous;
+
+	g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
+
+	updateTransmitModeIcons();
+}
+
+void MainWindow::on_qaSetTransmitModePushToTalk_triggered() {
+	g.s.atTransmit = Settings::PushToTalk;
+
+	g.l->log(Log::Information, tr("Transmit Mode set to Push to Talk"));
+
+	updateTransmitModeIcons();
+}
+
+void MainWindow::on_qaSetTransmitModeVAD_triggered() {
+	g.s.atTransmit = Settings::VAD;
+
+	g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
+
+	updateTransmitModeIcons();
 }
 
 void MainWindow::on_qmServer_aboutToShow() {
@@ -2370,6 +2421,8 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 
 		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
+
+	updateTransmitModeIcons();
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
