@@ -286,6 +286,9 @@ void MainWindow::createActions() {
 	gsMetaLink=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
 	gsMetaLink->setObjectName(QLatin1String("MetaLink"));
 
+	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
+	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -2294,6 +2297,32 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
+	}
+}
+
+void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata) 
+{
+	if (down) 
+	{
+		QString qsNewMode;
+
+		switch (g.s.atTransmit)
+		{
+			case Settings::Continous:
+				g.s.atTransmit = Settings::VAD;
+				qsNewMode = QString::fromLatin1("Voice Activity");
+				break;
+			case Settings::VAD:
+				g.s.atTransmit = Settings::PushToTalk;
+				qsNewMode = QString::fromLatin1("Push To Talk");
+				break;
+			case Settings::PushToTalk:
+				g.s.atTransmit = Settings::Continous;
+				qsNewMode = QString::fromLatin1("Continuous");
+				break;
+		}
+
+		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
 }
 
