@@ -125,12 +125,12 @@ void OverlayClient::updateFPS() {
 }
 
 void OverlayClient::updateTime() {
-		if (g.s.os.bTime) {
-			const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
-			qgpiTime->setPixmap(pm);
-			qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
-		} else {
-			qgpiTime->setPixmap(QPixmap());
+	if (g.s.os.bTime) {
+		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		qgpiTime->setPixmap(pm);
+		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
+	} else {
+		qgpiTime->setPixmap(QPixmap());
 	}
 }
 
