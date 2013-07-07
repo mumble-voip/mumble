@@ -98,7 +98,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsMetaLink;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsMetaLink, *gsHideChannel;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -209,6 +209,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
+		void on_qaChannelHide_triggered();
 		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
@@ -262,6 +263,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pttReleased();
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
+		void on_qaFilterToggle_triggered();
+
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

@@ -564,6 +564,9 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		pmModel->repositionChannel(c, msg.position());
 	}
 
+	if (Database::isLocalHidden(c->qsName))
+		c->bHidden = true;
+
 	if (msg.links_size()) {
 		QList<Channel *> ql;
 		pmModel->unlinkAll(c);

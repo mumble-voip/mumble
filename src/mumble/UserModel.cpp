@@ -235,6 +235,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
+	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -448,6 +449,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
+				if (c->bHidden)
+					l << (qiFilter);
 				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
@@ -1309,6 +1312,23 @@ void UserModel::userMuteDeafChanged() {
 	QModelIndex idx = index(p);
 	emit dataChanged(idx, idx);
 
+	updateOverlay();
+}
+
+void UserModel::toggleHidden(Channel *c)
+{
+	QModelIndex idx;
+	if(c) {
+		c->bHidden = !c->bHidden;		
+		Database::setLocalHidden(c->qsName, c->bHidden);
+		idx = index(c);
+	} else {
+		c=getChannel(QModelIndex());
+		idx = QModelIndex();
+	}
+	
+	emit dataChanged(idx, idx);
+	
 	updateOverlay();
 }
 
