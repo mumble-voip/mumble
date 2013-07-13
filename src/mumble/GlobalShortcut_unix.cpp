@@ -32,14 +32,13 @@
 
 #include "GlobalShortcut_unix.h"
 
-/*!
-  \fn static GlobalShortcutEngine *GlobalShortcutEngine::platformInit()
-  Returns a platform specific GlobalShortcutEngine object.
-
-  \see GlobalShortcutX
-  \see GlobalShortcutMac
-  \see GlobalShortcutWin
-*/
+/**
+ * Returns a platform specific GlobalShortcutEngine object.
+ *
+ * @see GlobalShortcutX
+ * @see GlobalShortcutMac
+ * @see GlobalShortcutWin
+ */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutX();
 }

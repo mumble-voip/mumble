@@ -195,13 +195,12 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 	return QTextEdit::event(evt);
 }
 
-/*!
-  \fn int ChatbarTextEdit::completeAtCursor()
-  The bar will try to complete the username, if the nickname
-  is already complete it will try to find a longer match. If
-  there is none it will cycle the nicknames alphabetically.
-  Nothing is done on mismatch.
-*/
+/**
+ * The bar will try to complete the username, if the nickname
+ * is already complete it will try to find a longer match. If
+ * there is none it will cycle the nicknames alphabetically.
+ * Nothing is done on mismatch.
+ */
 unsigned int ChatbarTextEdit::completeAtCursor() {
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;

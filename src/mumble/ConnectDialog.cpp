@@ -579,10 +579,9 @@ FavoriteServer ServerItem::toFavoriteServer() const {
 }
 
 
-/*!
-  \fn QMimeData *ServerItem::toMimeData() const
-  This function turns a ServerItem object into a QMimeData object holding a URL to the server.
-*/
+/**
+ * This function turns a ServerItem object into a QMimeData object holding a URL to the server.
+ */
 QMimeData *ServerItem::toMimeData() const {
 	QMimeData *mime = ServerItem::toMimeData(qsName, qsHostname, usPort);
 
@@ -592,12 +591,11 @@ QMimeData *ServerItem::toMimeData() const {
 	return mime;
 }
 
-/*!
-  \fn QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel)
-  This function creates a QMimeData object containing a URL to the server at \a host and \a port. \a name is passed in the
-  query string as "title", which is used for adding a server to favorites. \a channel may be omitted, but if specified it
-  should be in the format of "/path/to/channel".
-*/
+/**
+ * This function creates a QMimeData object containing a URL to the server at host and port. name is passed in the
+ * query string as "title", which is used for adding a server to favorites. channel may be omitted, but if specified it
+ * should be in the format of "/path/to/channel".
+ */
 QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsigned short port, const QString &channel) {
 	QUrl url;
 	url.setScheme(QLatin1String("mumble"));

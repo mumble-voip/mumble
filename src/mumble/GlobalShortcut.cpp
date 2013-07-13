@@ -39,10 +39,9 @@
 #include "Global.h"
 #include "MainWindow.h"
 
-/*!
-  \var static GlobalShortcutEngine *GlobalShortcutEngine::engine
-  Used to save the global, unique, platform specific GlobalShortcutEngine.
-*/
+/**
+ * Used to save the global, unique, platform specific GlobalShortcutEngine.
+ */
 GlobalShortcutEngine *GlobalShortcutEngine::engine = NULL;
 
 static ConfigWidget *GlobalShortcutConfigDialogNew(Settings &st) {
@@ -394,10 +393,9 @@ ShortcutTargetWidget::ShortcutTargetWidget(QWidget *p) : QFrame(p) {
 	QMetaObject::connectSlotsByName(this);
 }
 
-/*!
-  \fn QString ShortcutTargetWidget::targetString(const ShortcutTarget &st)
-  This function returns a textual representation of the given shortcut target \a st.
-*/
+/**
+ * This function returns a textual representation of the given shortcut target st.
+ */
 QString ShortcutTargetWidget::targetString(const ShortcutTarget &st) {
 	if (st.bUsers) {
 		if (! st.qlUsers.isEmpty()) {
@@ -502,10 +500,9 @@ ShortcutDelegate::~ShortcutDelegate() {
 	setItemEditorFactory(NULL);
 }
 
-/*!
-  \fn QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc)
-  Provides textual representations for the mappings done for the edit behaviour.
-*/
+/**
+ * Provides textual representations for the mappings done for the edit behaviour.
+ */
 QString ShortcutDelegate::displayText(const QVariant &item, const QLocale &loc) const {
 	if (item.type() == QVariant::List) {
 		return GlobalShortcutEngine::buttonText(item.toList());
@@ -825,13 +822,11 @@ void GlobalShortcutEngine::resetMap() {
 void GlobalShortcutEngine::needRemap() {
 }
 
-/*!
-  \fn bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down)
-
-  This function gets called internally to update the state
-  of a \a button.
-
-  \return True if button is suppressed, otherwise false
+/**
+ * This function gets called internally to update the state
+ * of a button.
+ *
+ * @return True if button is suppressed, otherwise false
 */
 bool GlobalShortcutEngine::handleButton(const QVariant &button, bool down) {
 	bool already = qlDownButtons.contains(button);

@@ -70,7 +70,8 @@ class ClientUser : public QObject, public User {
 		QString getFlagsString() const;
 		ClientUser(QObject *p = NULL);
 
-		/*! Determines whether a user is active or not
+		/**
+		 * Determines whether a user is active or not
 		 * A user is active when it is currently speaking or when the user has
 		 * spoken within Settings::uiActiveTime amount of seconds.
 		 */

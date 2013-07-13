@@ -129,12 +129,11 @@ UserView::UserView(QWidget *p) : QTreeView(p) {
 	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
 
-/*!
-  \fn bool UserView::event(QEvent *evt)
-  This implementation contains a special handler to display
-  custom what's this entries for items. All other events are
-  passed on.
-*/
+/**
+ * This implementation contains a special handler to display
+ * custom what's this entries for items. All other events are
+ * passed on.
+ */
 bool UserView::event(QEvent *evt) {
 	if (evt->type() == QEvent::WhatsThisClicked) {
 		QWhatsThisClickedEvent *qwtce = static_cast<QWhatsThisClickedEvent *>(evt);
@@ -145,11 +144,10 @@ bool UserView::event(QEvent *evt) {
 	return QTreeView::event(evt);
 }
 
-/*!
-  \fn void UserView::mouseReleaseEvent(QMouseEvent *evt)
-  This function is used to create custom behaviour when clicking
-  on user/channel flags (e.g. showing the comment)
-*/
+/**
+ * This function is used to create custom behaviour when clicking
+ * on user/channel flags (e.g. showing the comment)
+ */
 void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QPoint qpos = evt->pos();
 
@@ -228,12 +226,11 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	}
 }
 
-/*!
-  \fn void UserView::keyboardSearch(const QString &search)
-  This implementation provides a recursive realtime search over
-  the whole channel tree. It also features delayed selection
-  with with automatic expanding of folded channels.
-*/
+/**
+ * This implementation provides a recursive realtime search over
+ * the whole channel tree. It also features delayed selection
+ * with with automatic expanding of folded channels.
+ */
 void UserView::keyboardSearch(const QString &search) {
 
 	if (qtSearch->isActive()) {
