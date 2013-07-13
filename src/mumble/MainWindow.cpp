@@ -75,51 +75,6 @@
 #include "ConfigDialog_macx.h"
 #endif
 
-/*!
-  \fn void MainWindow::findDesiredChannel()
-  This function tries to join a desired channel on connect. It gets called
-  directly after server syncronization is completed.
-  \see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
-*/
-
-/*!
-  \fn void MainWindow::on_qteChat_tabPressed()
-  Controlls tab username completion for the chatbar.
-  \see ChatbarLineEdit::completeAtCursor()
-*/
-
-/*!
-  \fn void MainWindow::on_qteChat_ctrlSpacePressed()
-  Controlls ctrl space username completion and selection for the chatbar.
-  \see ChatbarLineEdit::completeAtCursor()
-*/
-
-/*!
-  \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
-  This function updates the qteChat bar default text according to
-  the selected user/channel in the users treeview.
-*/
-
-/*!
-  \fn void MainWindow::serverConnected()
-  This function prepares the UI for receiving server data. It gets called once the
-  connection to the server is established but before the server Sync is complete.
-*/
-
-/*!
-  \fn MainWindow::updateMenuPermissions()
-  This function updates the UI according to the permission of the user in the current channel.
-  If possible the permissions are fetched from a cache. Otherwise they are requested by the server
-  via a PermissionQuery call (whose reply updates the cache and calls this function again).
-  \see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
-*/
-
-/*!
-  \fn QPair<QByteArray, QImage> MainWindow::openImageFile()
-  Presents a file open dialog, opens the selected picture and returns it.
-  \return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
-*/
-
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
 }
@@ -765,6 +720,12 @@ void MainWindow::openUrl(const QUrl &url) {
 	g.sh->start(QThread::TimeCriticalPriority);
 }
 
+/*!
+  \fn void MainWindow::findDesiredChannel()
+  This function tries to join a desired channel on connect. It gets called
+  directly after server syncronization is completed.
+  \see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
+*/
 void MainWindow::findDesiredChannel() {
 	bool found = false;
 	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
@@ -1570,10 +1531,20 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qteChat->clear();
 }
 
+/*!
+  \fn void MainWindow::on_qteChat_tabPressed()
+  Controlls tab username completion for the chatbar.
+  \see ChatbarLineEdit::completeAtCursor()
+*/
 void MainWindow::on_qteChat_tabPressed() {
 	qteChat->completeAtCursor();
 }
 
+/*!
+  \fn void MainWindow::on_qteChat_ctrlSpacePressed()
+  Controlls ctrl space username completion and selection for the chatbar.
+  \see ChatbarLineEdit::completeAtCursor()
+*/
 void MainWindow::on_qteChat_ctrlSpacePressed() {
 	unsigned int res = qteChat->completeAtCursor();
 	if (res == 0) return;
@@ -1841,6 +1812,13 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
 
+/*!
+  \fn MainWindow::updateMenuPermissions()
+  This function updates the UI according to the permission of the user in the current channel.
+  If possible the permissions are fetched from a cache. Otherwise they are requested by the server
+  via a PermissionQuery call (whose reply updates the cache and calls this function again).
+  \see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
+*/
 void MainWindow::updateMenuPermissions() {
 	ClientUser *cu = NULL;
 	Channel *c = NULL;
@@ -2388,6 +2366,11 @@ void MainWindow::viewCertificate(bool) {
 	vc.exec();
 }
 
+/*!
+  \fn void MainWindow::serverConnected()
+  This function prepares the UI for receiving server data. It gets called once the
+  connection to the server is established but before the server Sync is complete.
+*/
 void MainWindow::serverConnected() {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
@@ -2707,6 +2690,11 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	}
 }
 
+/*!
+  \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
+  This function updates the qteChat bar default text according to
+  the selected user/channel in the users treeview.
+*/
 void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
 	updateChatBar();
 }
@@ -2824,6 +2812,11 @@ void MainWindow::context_triggered() {
 	g.sh->sendMessage(mpca);
 }
 
+/*!
+  \fn QPair<QByteArray, QImage> MainWindow::openImageFile()
+  Presents a file open dialog, opens the selected picture and returns it.
+  \return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
+*/
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 

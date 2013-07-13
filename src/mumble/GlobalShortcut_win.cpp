@@ -86,6 +86,14 @@ static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 	return ret;
 }
 
+/*!
+  \fn static GlobalShortcutEngine *GlobalShortcutEngine::platformInit()
+  Returns a platform specific GlobalShortcutEngine object.
+
+  \see GlobalShortcutX
+  \see GlobalShortcutMac
+  \see GlobalShortcutWin
+*/
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
