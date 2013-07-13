@@ -97,8 +97,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsMetaLink, *gsHideChannel;
+		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel, *gsHideChannel;
 		GlobalShortcut *gsCycleTransmitMode;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 

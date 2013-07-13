@@ -214,12 +214,13 @@ void MainWindow::createActions() {
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName(QLatin1String("PushToMute"));
 
-	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
-	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
+	gsJoinChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
+	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
+	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
 	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel when Filtering", "Global Shortcut"));
 	gsHideChannel->setObjectName(QLatin1String("HideChannel"));
-	gsHideChannel->qsToolTip = tr("Mark the channel to be hidden when Filtering is active.", "Global Shortcut");
+	gsHideChannel->qsToolTip = tr("Mark the channel to be hidden when Filtering is active. Use in conjunction with Whisper to.", "Global Shortcut");
 
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
@@ -243,8 +244,9 @@ void MainWindow::createActions() {
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
 	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
 
-	gsMetaLink=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
-	gsMetaLink->setObjectName(QLatin1String("MetaLink"));
+	gsLinkChannel=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
+	gsLinkChannel->setObjectName(QLatin1String("MetaLink"));
+	gsLinkChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
@@ -2276,7 +2278,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	ShortcutTarget st = scdata.value<ShortcutTarget>();
 
 	if (down) {
-		if (gsMetaChannel->active()) {
+		if (gsJoinChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
@@ -2286,7 +2288,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
-		if (gsMetaLink->active()) {
+		if (gsLinkChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
 				Channel *l = mapChannel(st.iChannel);
