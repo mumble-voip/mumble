@@ -251,6 +251,9 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
+	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
+	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -2321,6 +2324,17 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
+	}
+}
+
+void MainWindow::on_gsChannelFilter_down(QVariant v) {
+	int val = v.toInt();
+	if (((val > 0) && ! g.s.bFilterActive) ||
+	    ((val < 0) && g.s.bFilterActive) ||
+	    (val == 0)
+	) {
+		qaFilterToggle->setChecked(! qaFilterToggle->isChecked());
+		on_qaFilterToggle_triggered();
 	}
 }
 
