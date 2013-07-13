@@ -382,9 +382,14 @@ static const char *licenseQtTranslations =
 	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
 	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n"
 	"SOFTWARE.";
-
-
 #endif
+
+
+static const char *ccbysa =
+	"Creative Commons Attribution-Share Alike 3.0 Unported license\n"
+	"See https://creativecommons.org/licenses/by-sa/3.0/deed.en";
+
+
 static const char *licenses3rdParty[] = {
 	licenseCELT, 
 	licenseOpus, 
@@ -400,6 +405,7 @@ static const char *licenses3rdParty[] = {
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 	licenseQtTranslations, 
 #endif
+	ccbysa,
 	0
 };
 
@@ -419,6 +425,7 @@ static const char *licenses3rdPartyNames[] = {
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 	"Additional Qt translations",
 #endif
+	"Filter.svg icon",
 	0
 };
 
@@ -438,6 +445,7 @@ static const char *licenses3rdPartyURLs[] = {
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 	"https://www.virtualbox.org/ticket/2018",
 #endif
+	"https://commons.wikimedia.org/wiki/File:Filter.svg",
 	0
 };
 
