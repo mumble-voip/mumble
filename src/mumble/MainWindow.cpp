@@ -217,8 +217,9 @@ void MainWindow::createActions() {
 	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
 	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
 
-	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel", "Global Shortcut"));
+	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel when Filtering", "Global Shortcut"));
 	gsHideChannel->setObjectName(QLatin1String("HideChannel"));
+	gsHideChannel->qsToolTip = tr("Mark the channel to be hidden when Filtering is active.", "Global Shortcut");
 
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
@@ -2295,6 +2296,16 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 					} else {
 						g.sh->addChannelLink(c->iId, l->iId);
 					}
+				}
+				return;
+			}
+		}
+
+		if (gsHideChannel->active()) {
+			if (! st.bUsers) {
+				Channel *c = mapChannel(st.iChannel);
+				if (c) {
+					c->bHidden = !c->bHidden;
 				}
 				return;
 			}

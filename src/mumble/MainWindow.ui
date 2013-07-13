@@ -792,7 +792,7 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Hide Channel</string>
+    <string>&amp;Hide Channel when Filtering</string>
    </property>
   </action>
   <action name="qaUserCommentView">
