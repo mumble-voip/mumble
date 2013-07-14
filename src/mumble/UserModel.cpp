@@ -1315,20 +1315,16 @@ void UserModel::userMuteDeafChanged() {
 	updateOverlay();
 }
 
-void UserModel::toggleHidden(Channel *c)
-{
+void UserModel::toggleHidden(Channel *c) {
 	QModelIndex idx;
 	if(c) {
 		c->bHidden = !c->bHidden;		
 		Database::setLocalHidden(c->qsName, c->bHidden);
 		idx = index(c);
-	} else {
-		c=getChannel(QModelIndex());
-		idx = QModelIndex();
 	}
-	
+
 	emit dataChanged(idx, idx);
-	
+
 	updateOverlay();
 }
 

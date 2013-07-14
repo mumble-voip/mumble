@@ -321,19 +321,17 @@ static bool ChannelHidden(const Channel *c)
 	return false;
 }
 
-void UserView::updatechannel(const QModelIndex &idx)
-{
+void UserView::updateChannel(const QModelIndex &idx) {
 	UserModel *um = static_cast<UserModel *>(model());
-	
+
 	if(!idx.isValid())
 		return;
-	
+
 	Channel * c = um->getChannel(idx);
-	
-	
-	int i;
-	for(i=0;idx.child(i,0).isValid();i++) {
-		updatechannel(idx.child(i,0));
+
+
+	for(int i = 0; idx.child(i, 0).isValid(); ++i) {
+		updateChannel(idx.child(i,0));
 	}
 
 	if(c && idx.parent().isValid()) {
@@ -362,7 +360,7 @@ void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bo
 	int nRowCount = um->rowCount();
 	int i;
 	for(i=0;i<nRowCount;i++)
-		updatechannel(um->index(i,0));
+		updateChannel(um->index(i,0));
 
 	QTreeView::dataChanged(topLeft,bottomRight);
 }
