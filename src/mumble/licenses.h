@@ -401,9 +401,9 @@ static const char *ccbysa =
 
 
 static const ThirdPartyLicense thirdPartyLicenses[] = {
-	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseCELT),
+	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseSPEEX),
 	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
-	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseSPEEX),
+	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseCELT),
 	ThirdPartyLicense("OpenSSL", "http://www.openssl.org/", licenseOpenSSL),
 	ThirdPartyLicense("libsndfile", "http://www.mega-nerd.com/libsndfile/", licenseLibsndfile),
 	ThirdPartyLicense("libogg", "http://www.xiph.org/", licenseOgg),
