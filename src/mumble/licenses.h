@@ -13,7 +13,8 @@ struct ThirdPartyLicense {
 	const char* license;
 
 	ThirdPartyLicense() : name(0), url(0), license(0) {}
-	ThirdPartyLicense(const char* name, const char* url, const char* license) : name(name), url(url), license(license) {}
+	ThirdPartyLicense(const char* name, const char* url, const char* license)
+	    : name(name), url(url), license(license) {}
 	bool isEmpty() const { return (name == 0 && url == 0 && license == 0); }
 };
 
@@ -125,8 +126,8 @@ static const char *licenseOpus =
 	"Xiph.Org Foundation:\n"
 	"https://datatracker.ietf.org/ipr/1524/\n"
 	"\n"
-	"Skype Limited:\n"
-	"https://datatracker.ietf.org/ipr/1602/\n"
+	"Microsoft Corporation:\n"
+	"https://datatracker.ietf.org/ipr/1914/\n"
 	"\n"
 	"Broadcom Corporation:\n"
 	"https://datatracker.ietf.org/ipr/1526/";
@@ -356,9 +357,9 @@ static const char *licenseMachOverride =
 	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
 	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n"
 	"THE SOFTWARE.";
-
-
 #endif
+
+
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 static const char *licenseQtTranslations = 
 	"Mumble uses Qt translations created by the VirtualBox community\n"
@@ -395,15 +396,29 @@ static const char *licenseQtTranslations =
 #endif
 
 
-static const char *ccbysa =
-	"Creative Commons Attribution-Share Alike 3.0 Unported license\n"
-	"See https://creativecommons.org/licenses/by-sa/3.0/deed.en";
+static const char *licenseFilterSvg = 
+	"http://commons.wikimedia.org/wiki/File:Filter.svg\n"
+	"\n"
+	"\n"
+	"I, the copyright holder of this work, hereby publish it under the following license:\n"
+	"w:en:Creative Commons\n"
+	"attribution share alike 	This file is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license. 	\n"
+	"\n"
+	"    You are free:\n"
+	"\n"
+	"        to share – to copy, distribute and transmit the work\n"
+	"        to remix – to adapt the work\n"
+	"\n"
+	"    Under the following conditions:\n"
+	"\n"
+	"        attribution – You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).\n"
+	"        share alike – If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.";
 
 
-static const ThirdPartyLicense thirdPartyLicenses[] = {
-	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseSPEEX),
-	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
+static const ThirdPartyLicense licenses3rdParties[] = {
 	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseCELT),
+	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
+	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseSPEEX),
 	ThirdPartyLicense("OpenSSL", "http://www.openssl.org/", licenseOpenSSL),
 	ThirdPartyLicense("libsndfile", "http://www.mega-nerd.com/libsndfile/", licenseLibsndfile),
 	ThirdPartyLicense("libogg", "http://www.xiph.org/", licenseOgg),
@@ -415,7 +430,7 @@ static const ThirdPartyLicense thirdPartyLicenses[] = {
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 	ThirdPartyLicense("Additional Qt translations", "https://www.virtualbox.org/ticket/2018", licenseQtTranslations),
 #endif
-	ThirdPartyLicense("Filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", ccbysa),
+	ThirdPartyLicense("Filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
 	ThirdPartyLicense(),
 };
 

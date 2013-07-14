@@ -50,12 +50,12 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	qtb3rdPartyLicense->setReadOnly(true);
 	qtb3rdPartyLicense->setOpenExternalLinks(true);
 
-	for(int i = 0; !thirdPartyLicenses[i].isEmpty(); ++i)
+	for(int i = 0; !licenses3rdParties[i].isEmpty(); ++i)
 	{
 		qtb3rdPartyLicense->append(QString::fromLatin1("<h3>%1 (<a href=\"%2\">%2</a>)</h3><pre>%3</pre>")
-				.arg(QString::fromLatin1(thirdPartyLicenses[i].name))
-				.arg(QString::fromLatin1(thirdPartyLicenses[i].url))
-				.arg(QString::fromLatin1(thirdPartyLicenses[i].license)));
+				.arg(QString::fromLatin1(licenses3rdParties[i].name))
+				.arg(QString::fromLatin1(licenses3rdParties[i].url))
+				.arg(QString::fromLatin1(licenses3rdParties[i].license)));
 	}
 
 	qtb3rdPartyLicense->moveCursor(QTextCursor::Start);
