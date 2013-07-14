@@ -7,6 +7,16 @@
 
 #include <QtGlobal>
 
+struct ThirdPartyLicense {
+	const char* name;
+	const char* url;
+	const char* license;
+
+	ThirdPartyLicense() : name(0), url(0), license(0) {}
+	ThirdPartyLicense(const char* name, const char* url, const char* license) : name(name), url(url), license(license) {}
+	bool isEmpty() const { return (name == 0 && url == 0 && license == 0); }
+};
+
 static const char *licenseMumble = 
 	"Copyright (C) 2005-2013, Thorvald Natvig <thorvald@natvig.com>\n"
 	"Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>\n"
@@ -390,63 +400,24 @@ static const char *ccbysa =
 	"See https://creativecommons.org/licenses/by-sa/3.0/deed.en";
 
 
-static const char *licenses3rdParty[] = {
-	licenseCELT, 
-	licenseOpus, 
-	licenseSPEEX, 
-	licenseOpenSSL, 
-	licenseLibsndfile, 
-	licenseOgg, 
-	licenseVorbis, 
-	licenseFLAC, 
+static const ThirdPartyLicense thirdPartyLicenses[] = {
+	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseCELT),
+	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
+	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseSPEEX),
+	ThirdPartyLicense("OpenSSL", "http://www.openssl.org/", licenseOpenSSL),
+	ThirdPartyLicense("libsndfile", "http://www.mega-nerd.com/libsndfile/", licenseLibsndfile),
+	ThirdPartyLicense("libogg", "http://www.xiph.org/", licenseOgg),
+	ThirdPartyLicense("libvorbis", "http://www.xiph.org/", licenseVorbis),
+	ThirdPartyLicense("libFLAC", "http://flac.sourceforge.net/", licenseFLAC),
 #ifdef Q_OS_MAC
-	licenseMachOverride, 
+	ThirdPartyLicense("mach_override", "https://github.com/rentzsch/mach_star", licenseMachOverride),
 #endif
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
-	licenseQtTranslations, 
+	ThirdPartyLicense("Additional Qt translations", "https://www.virtualbox.org/ticket/2018", licenseQtTranslations),
 #endif
-	ccbysa,
-	0
+	ThirdPartyLicense("Filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", ccbysa),
+	ThirdPartyLicense(),
 };
 
-
-static const char *licenses3rdPartyNames[] = {
-	"Speex",
-	"Opus",
-	"CELT",
-	"OpenSSL",
-	"libsndfile",
-	"libogg",
-	"libvorbis",
-	"libFLAC",
-#ifdef Q_OS_MAC
-	"mach_override",
-#endif
-#ifdef USING_BUNDLED_QT_TRANSLATIONS
-	"Additional Qt translations",
-#endif
-	"Filter.svg icon",
-	0
-};
-
-
-static const char *licenses3rdPartyURLs[] = {
-	"http://www.speex.org/",
-	"http://www.opus-codec.org/",
-	"http://www.celt-codec.org/",
-	"http://www.openssl.org/",
-	"http://www.mega-nerd.com/libsndfile/",
-	"http://www.xiph.org/",
-	"http://www.xiph.org/",
-	"http://flac.sourceforge.net/",
-#ifdef Q_OS_MAC
-	"https://github.com/rentzsch/mach_star",
-#endif
-#ifdef USING_BUNDLED_QT_TRANSLATIONS
-	"https://www.virtualbox.org/ticket/2018",
-#endif
-	"https://commons.wikimedia.org/wiki/File:Filter.svg",
-	0
-};
 
 #endif
