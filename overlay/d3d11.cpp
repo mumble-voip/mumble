@@ -72,9 +72,6 @@ class D11State: protected Pipe {
 		IDXGISwapChain *pSwapChain;
 
 		ID3D11RenderTargetView *pRTV;
-		ID3DX11Effect *pEffect;
-		ID3DX11EffectTechnique *pTechnique;
-		ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
 		ID3D11InputLayout *pVertexLayout;
 		ID3D11Buffer *pVertexBuffer;
 		ID3D11Buffer *pIndexBuffer;
@@ -110,9 +107,6 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 	ZeroMemory(&vp, sizeof(vp));
 
 	pRTV = NULL;
-	pEffect = NULL;
-	pTechnique = NULL;
-	pDiffuseTexture = NULL;
 	pVertexLayout = NULL;
 	pVertexBuffer = NULL;
 	pIndexBuffer = NULL;
@@ -286,10 +280,6 @@ void D11State::init() {
 	float bf[4];
 	pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-	hr = D3DX11CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, &pEffect);
-
-	pTechnique = pEffect->GetTechniqueByName("Render");
-	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
 
 	pTexture = NULL;
 	pSRView = NULL;
@@ -300,12 +290,6 @@ void D11State::init() {
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT numElements = sizeof(layout) / sizeof(layout[0]);
-
-	// Create the input layout
-	D3DX11_PASS_DESC PassDesc;
-	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
-	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
-	pDeviceContext->IASetInputLayout(pVertexLayout);
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -347,7 +331,6 @@ D11State::~D11State() {
 	pVertexBuffer->Release();
 	pIndexBuffer->Release();
 	pVertexLayout->Release();
-	pEffect->Release();
 	pRTV->Release();
 	if (pTexture)
 		pTexture->Release();
@@ -383,22 +366,10 @@ void D11State::draw() {
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		HRESULT hr;
 
-		D3DX11_TECHNIQUE_DESC techDesc;
-		pTechnique->GetDesc(&techDesc);
-
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
-
-		hr = pDiffuseTexture->SetResource(pSRView);
-		if (! SUCCEEDED(hr))
-			ods("D3D11: Failed to set resource");
-
-		for (UINT p = 0; p < techDesc.Passes; ++p) {
-			pTechnique->GetPassByIndex(p)->Apply(0, pDeviceContext);
-			pDeviceContext->DrawIndexed(6, 0, 0);
-		}
 
 		pDeviceContext->FinishCommandList(TRUE, &pCommandList);
 		ID3D11DeviceContext *ctx = NULL;
