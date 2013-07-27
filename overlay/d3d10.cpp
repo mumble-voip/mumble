@@ -586,7 +586,7 @@ void checkDXGIHook(bool preonly) {
 				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
 				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
 
-				GetModuleFileNameW(hD3D10, procname, 2048);
+				GetModuleFileNameW(hD3D10, procname, procnamesize);
 				if (_wcsicmp(dxgi->wcD3D10FileName, procname) == 0) {
 					unsigned char *raw = (unsigned char *) hD3D10;
 					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
