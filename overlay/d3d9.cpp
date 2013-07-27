@@ -926,7 +926,7 @@ bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & te
 	// A handle to the module.
 	HMODULE hRef = NULL;
 
-	bool success = GetModuleHandleEx(
+	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
 			fnptr, &hRef);
 	if (!success) {
