@@ -573,6 +573,9 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
+			GetModuleFileNameW(hD3D11, dxgi->wcDXGIFileName, 2048);
+			GetModuleFileNameW(hDXGI, dxgi->wcD3D10FileName, 2048);
+
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 			ods("D3D11: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
 			if (pCreateDXGIFactory1) {
@@ -694,8 +697,17 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 					DestroyWindow(hwnd);
 
 					pFactory->Release();
+				} else {
+					FreeLibrary(hD3D11);
+					FreeLibrary(hDXGI);
 				}
+			} else {
+				FreeLibrary(hD3D11);
+				FreeLibrary(hDXGI);
 			}
+		} else {
+			FreeLibrary(hD3D11);
+			FreeLibrary(hDXGI);
 		}
 	} else {
 		ods("D3D11: No DXGI1 pre-Win7 - skipping prepare");

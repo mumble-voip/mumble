@@ -630,6 +630,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 		if (hDXGI != NULL && hD3D10 != NULL) {
+			GetModuleFileNameW(hD3D10, dxgi->wcDXGIFileName, 2048);
+			GetModuleFileNameW(hDXGI, dxgi->wcD3D10FileName, 2048);
+
+
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("D3D10: Got CreateDXGIFactory at %p", pCreateDXGIFactory);
 			if (pCreateDXGIFactory) {
@@ -747,8 +751,17 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 					DestroyWindow(hwnd);
 
 					pFactory->Release();
+				} else {
+					FreeLibrary(hD3D10);
+					FreeLibrary(hDXGI);
 				}
+			} else {
+				FreeLibrary(hD3D10);
+				FreeLibrary(hDXGI);
 			}
+		} else {
+			FreeLibrary(hD3D10);
+			FreeLibrary(hDXGI);
 		}
 	} else {
 		ods("D3D10: No DXGI pre-Vista - skipping prepare");
