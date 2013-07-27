@@ -63,7 +63,6 @@ struct SimpleVertex {
 
 class D10State: protected Pipe {
 	public:
-
 		LONG lHighMark;
 
 		LONG initRefCount;
@@ -445,7 +444,7 @@ void D10State::draw() {
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D10: Call to Present; Drawing and then chaining the call");
+	ods("D3D10: Call to Present; Drawing and then chaining the call to the original logic");
 	#endif
 
 	ID3D10Device *pDevice = NULL;
@@ -500,7 +499,6 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 }
 
 static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
-
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;

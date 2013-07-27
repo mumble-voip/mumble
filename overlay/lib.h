@@ -112,7 +112,7 @@ class Pipe {
 		virtual void setRect() = 0;
 		virtual void newTexture(unsigned int w, unsigned int h) = 0;
 		Pipe();
-		~Pipe();
+		virtual ~Pipe();
 	public:
 		void disconnect();
 };

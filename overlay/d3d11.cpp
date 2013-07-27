@@ -36,7 +36,6 @@
 #include <time.h>
 
 static bool bHooked = false;
-static bool bChaining = false;
 static HardHook hhPresent;
 static HardHook hhResize;
 static HardHook hhAddRef;
@@ -44,6 +43,7 @@ static HardHook hhRelease;
 
 typedef HRESULT(__stdcall *CreateDXGIFactory1Type)(REFIID, void **);
 typedef HRESULT(__stdcall *D3D11CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3D_DRIVER_TYPE, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL *, UINT, UINT, const DXGI_SWAP_CHAIN_DESC *, IDXGISwapChain **, ID3D11Device **, D3D_FEATURE_LEVEL *, ID3D11DeviceContext **);
+
 typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
 typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
 typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
@@ -85,13 +85,13 @@ class D11State: protected Pipe {
 		unsigned int frameCount;
 
 		D11State(IDXGISwapChain *, ID3D11Device *);
-		~D11State();
+		virtual ~D11State();
 		void init();
 		void draw();
 
-		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		void setRect();
-		void newTexture(unsigned int w, unsigned int h);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int w, unsigned int h);
 };
 
 map<IDXGISwapChain *, D11State *> chains;
@@ -171,7 +171,7 @@ void D11State::setRect() {
 	top = -2.0f * (top / vp.Height) + 1.0f;
 	bottom = -2.0f * (bottom / vp.Height) + 1.0f;
 
-	ods("Vertex (%f %f) (%f %f)", left, top, right, bottom);
+	ods("D3D11: Vertex (%f %f) (%f %f)", left, top, right, bottom);
 
 	// Create vertex buffer
 	SimpleVertex vertices[] = {
@@ -181,11 +181,10 @@ void D11State::setRect() {
 		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
 	};
 
-
 	D3D11_MAPPED_SUBRESOURCE res;
 	hr = pDeviceContext->Map(pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &res);
 	memcpy(res.pData, vertices, sizeof(vertices));
-	ods("Map: %lx %d", hr, sizeof(vertices));
+	ods("D3D11: Map: %lx %d", hr, sizeof(vertices));
 	pDeviceContext->Unmap(pVertexBuffer, 0);
 }
 
@@ -246,8 +245,12 @@ void D11State::init() {
 
 	ID3D11Texture2D* pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
+	if (FAILED(hr))
+		ods("D3D11: pSwapChain->GetBuffer failure!");
 
 	hr = pDevice->CreateDeferredContext(0, &pDeviceContext);
+	if (FAILED(hr))
+		ods("D3D11: pDevice->CreateDeferredContext failure!");
 
 	D3D11_TEXTURE2D_DESC backBufferSurfaceDesc;
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
@@ -262,6 +265,8 @@ void D11State::init() {
 	pDeviceContext->RSSetViewports(1, &vp);
 
 	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
+	if (FAILED(hr))
+		ods("D3D11: pDevice->CreateRenderTargetView failure!");
 
 	pDeviceContext->OMSetRenderTargets(1, &pRTV, NULL);
 
@@ -299,6 +304,8 @@ void D11State::init() {
 	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
 	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
+	if (FAILED(hr))
+		ods("D3D11: pDevice->CreateBuffer failure!");
 
 	DWORD indices[] = {
 		0,1,3,
@@ -314,6 +321,8 @@ void D11State::init() {
 	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = indices;
 	hr = pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer);
+	if (FAILED(hr))
+		ods("D3D11: pDevice->CreateBuffer failure!");
 
 	// Set index buffer
 	pDeviceContext->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -385,23 +394,23 @@ void D11State::draw() {
 
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
-	HRESULT hr;
+	// Present is called for each frame. Thus, we do not want to always log here.
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+	ods("D3D11: Call to Present; Drawing and then chaining the call to the original logic");
+	#endif
 
 	ID3D11Device *pDevice = NULL;
-
-	ods("DXGI1: DrawBegin");
-
-	hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
-	if (pDevice) {
+	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
+	if (SUCCEEDED(hr) && pDevice) {
 		D11State *ds = chains[pSwapChain];
 		if (ds && ds->pDevice != pDevice) {
-			ods("DXGI11: SwapChain device changed");
-			delete ds;
+			ods("D3D11: SwapChain device changed");
 			devices.erase(ds->pDevice);
+			delete ds;
 			ds = NULL;
 		}
 		if (! ds) {
-			ods("DXGI1: New state");
+			ods("D3D11: New state");
 			ds = new D11State(pSwapChain, pDevice);
 			chains[pSwapChain] = ds;
 			devices[pDevice] = ds;
@@ -410,9 +419,12 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 
 		ds->draw();
 		pDevice->Release();
-		ods("DXGI11: DrawEnd");
+	} else {
+		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
 	}
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	PresentType oPresent = (PresentType) hhPresent.call;
 	hhPresent.restore();
 	hr = oPresent(pSwapChain, SyncInterval, Flags);
@@ -421,8 +433,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 }
 
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
-	HRESULT hr;
-
+	// Remove the D11State from our "cache" (= Invalidate)
 	D11State *ds = chains[pSwapChain];
 	if (ds) {
 		devices.erase(ds->pDevice);
@@ -430,16 +441,19 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 		delete ds;
 	}
 
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	ResizeBuffersType oResize = (ResizeBuffersType) hhResize.call;
 	hhResize.restore();
-	hr = oResize(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+	HRESULT hr = oResize(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
 	hhResize.inject();
 	return hr;
 }
 
 static ULONG __stdcall myAddRef(ID3D11Device *pDevice) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
-
 	hhAddRef.restore();
 	LONG res = oAddRef(pDevice);
 	hhAddRef.inject();
@@ -453,16 +467,17 @@ static ULONG __stdcall myAddRef(ID3D11Device *pDevice) {
 }
 
 static ULONG __stdcall myRelease(ID3D11Device *pDevice) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	ReleaseType oRelease = (ReleaseType) hhRelease.call;
-
 	hhRelease.restore();
-	LONG res = oRelease(pDevice);
+	ULONG res = oRelease(pDevice);
 	hhRelease.inject();
 
 	Mutex m;
 	D11State *ds = devices[pDevice];
 	if (ds)
-		if (res < (ds->lHighMark / 2)) {
+		if (res < static_cast<ULONG>(ds->lHighMark / 2)) {
 			ods("D3D11: Deleting resources %d < .5 %d", res, ds->lHighMark);
 			devices.erase(ds->pDevice);
 			chains.erase(ds->pSwapChain);
@@ -485,36 +500,39 @@ static void HookPresentRaw(voidFunc vfPresent) {
 }
 
 static void HookResizeRaw(voidFunc vfResize) {
-	ods("DXGI11: Injecting ResizeBuffers Raw");
+	ods("D3D11: Injecting ResizeBuffers Raw");
 	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
 }
 
 void checkDXGI11Hook(bool preonly) {
-	if (bChaining) {
+	static bool bCheckHookActive = false;
+	if (bCheckHookActive) {
+		ods("D3D11: Recursion in checkDXGI11Hook");
 		return;
-		ods("DXGI11: Causing a chain");
 	}
 
 	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
 		return;
 
-	bChaining = true;
+	bCheckHookActive = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 	HMODULE hD3D11 = GetModuleHandleW(L"D3D11.DLL");
 
 	if (hDXGI && hD3D11) {
 		if (! bHooked) {
-			wchar_t procname[2048];
+			const int procnamesize = 2048;
+			wchar_t procname[procnamesize];
 			GetModuleFileNameW(NULL, procname, 2048);
-			fods("DXGI11: Hookcheck '%ls'", procname);
-			bHooked = true;
+			ods("D3D11: checkDXGI11Hook in unhooked D3D App '%ls'", procname);
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGI11Hook), &hSelf);
 
+			bHooked = true;
+
 			// Can we use the prepatch data?
-			GetModuleFileNameW(hDXGI, procname, 2048);
+			GetModuleFileNameW(hDXGI, procname, procnamesize);
 			if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
 				unsigned char *raw = (unsigned char *) hDXGI;
 				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
@@ -526,21 +544,26 @@ void checkDXGI11Hook(bool preonly) {
 					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
 				}
 			} else if (! preonly) {
-				fods("DXGI Interface changed, can't rawpatch");
+				ods("D3D11: Interface changed, can't rawpatch");
 			} else {
 				bHooked = false;
 			}
 		}
 	}
 
-	bChaining = false;
+	bCheckHookActive = false;
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
+	// This function is called by the Mumble client in Mumble's scope
+	// mainly to extract the offsets of various functions in the IDXGISwapChain
+	// and IDXGIObject interfaces that need to be hooked in target
+	// applications. The data is stored in the dxgi shared memory structure.
+
 	if (! dxgi)
 		return;
 
-	ods("Preparing static data for DXGI1 Injection");
+	ods("D3D11: Preparing static data for DXGI1 Injection");
 
 	dxgi->wcDXGIFileName[0] = 0;
 	dxgi->wcD3D10FileName[0] = 0;
@@ -553,30 +576,28 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	if (ovi.dwMajorVersion >= 7 || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 7600))) {
+	// Make sure this is (Win7?) or greater
+	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 7600))) {
 		HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
-			ods("Got %p", pCreateDXGIFactory1);
+			ods("D3D11: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
 			if (pCreateDXGIFactory1) {
-				HRESULT hr;
 				IDXGIFactory1 * pFactory;
-				hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
+				HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
+				if (FAILED(hr))
+					ods("D3D10: Call to pCreateDXGIFactory1 failed!");
 				if (pFactory) {
 					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
-							CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-							NULL, NULL, 0);
+					                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+					                          NULL, NULL, 0);
 
 					IDXGIAdapter1 *pAdapter = NULL;
 					pFactory->EnumAdapters1(0, &pAdapter);
 
 					D3D11CreateDeviceAndSwapChainType pD3D11CreateDeviceAndSwapChain = reinterpret_cast<D3D11CreateDeviceAndSwapChainType>(GetProcAddress(hD3D11, "D3D11CreateDeviceAndSwapChain"));
-
-					IDXGISwapChain *pSwapChain = NULL;
-					ID3D11Device *pDevice = NULL;
-					ID3D11DeviceContext *pDeviceContext = NULL;
 
 					DXGI_SWAP_CHAIN_DESC desc;
 					ZeroMemory(&desc, sizeof(desc));
@@ -586,7 +607,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 					desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
 					desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-					ods("W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+					ods("D3D11: Got ClientRect W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
 					desc.BufferDesc.RefreshRate.Numerator = 60;
 					desc.BufferDesc.RefreshRate.Denominator = 1;
@@ -607,26 +628,33 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 
 					desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
+					IDXGISwapChain *pSwapChain = NULL;
+					ID3D11Device *pDevice = NULL;
 					D3D_FEATURE_LEVEL featureLevel;
+					ID3D11DeviceContext *pDeviceContext = NULL;
 					hr = pD3D11CreateDeviceAndSwapChain(pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &desc, &pSwapChain, &pDevice, &featureLevel, &pDeviceContext);
+					if (FAILED(hr))
+						ods("D3D10: pD3D11CreateDeviceAndSwapChain failure!");
 
 					if (pDevice && pDeviceContext && pSwapChain) {
 						HMODULE hRef;
+						// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
+						// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
 						void ***vtbl = (void ***) pSwapChain;
 						void *pPresent = (*vtbl)[8];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-							ods("DXGI1: Failed to get module for Present");
+							ods("D3D11: Failed to get module for Present");
 						} else {
 							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
 							unsigned char *b = (unsigned char *) pPresent;
 							unsigned char *a = (unsigned char *) hRef;
 							dxgi->iOffsetPresent = b-a;
-							ods("DXGI1: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 						}
 
 						void *pResize = (*vtbl)[13];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-							ods("DXGI1: Failed to get module for ResizeBuffers");
+							ods("D3D11: Failed to get module for ResizeBuffers");
 						} else {
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
@@ -634,7 +662,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
 								dxgi->iOffsetResize = b-a;
-								ods("DXGI1: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+								ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
 							}
 						}
 
@@ -664,8 +692,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 								ods("D3D11: Successfully found Release offset: %ls: %d", dxgi->wcD3D10FileName, dxgi->iOffsetRelease);
 							}
 						}
-					} else {
-						ods("D3D11CreateDeviceAndSwapChain failed");
 					}
 
 					if (pDevice)
@@ -681,6 +707,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 			}
 		}
 	} else {
-		ods("No DXGI1 pre-Win7");
+		ods("D3D11: No DXGI1 pre-Win7 - skipping prepare");
 	}
 }
