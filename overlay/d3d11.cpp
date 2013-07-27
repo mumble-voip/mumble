@@ -289,13 +289,6 @@ void D11State::init() {
 	pTexture = NULL;
 	pSRView = NULL;
 
-	// Define the input layout
-	D3D11_INPUT_ELEMENT_DESC layout[] = {
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	UINT numElements = sizeof(layout) / sizeof(layout[0]);
-
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
 	bd.Usage = D3D11_USAGE_DYNAMIC;
@@ -373,8 +366,6 @@ void D11State::draw() {
 	checkMessage(vp.Width, vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
-		HRESULT hr;
-
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
