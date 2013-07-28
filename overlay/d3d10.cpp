@@ -633,7 +633,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			GetModuleFileNameW(hD3D10, dxgi->wcDXGIFileName, 2048);
 			GetModuleFileNameW(hDXGI, dxgi->wcD3D10FileName, 2048);
 
-
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("D3D10: Got CreateDXGIFactory at %p", pCreateDXGIFactory);
 			if (pCreateDXGIFactory) {
@@ -687,10 +686,13 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
 
 					if (pDevice && pSwapChain) {
-						HMODULE hRef;
+						HMODULE hRef = NULL;
+
 						// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
 						// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
+
 						void ***vtbl = (void ***) pSwapChain;
+
 						void *pPresent = (*vtbl)[8];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
 							ods("D3D10: Failed to get module for Present");
@@ -706,6 +708,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
 							ods("D3D10: Failed to get module for ResizeBuffers");
 						} else {
+							// The module filename still has to be the same as it was above
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
 							if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
@@ -733,6 +736,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
 							ods("D3D10: Failed to get module for Release");
 						} else {
+							// The module filename still has to be the same as it was above
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
 							if (wcscmp(buff, dxgi->wcD3D10FileName) == 0) {
