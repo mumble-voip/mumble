@@ -266,8 +266,8 @@ void D11State::init() {
 	pBackBuffer->GetDesc(&backBufferSurfaceDesc);
 
 	ZeroMemory(&vp, sizeof(vp));
-	vp.Width = backBufferSurfaceDesc.Width;
-	vp.Height = backBufferSurfaceDesc.Height;
+	vp.Width = static_cast<float>(backBufferSurfaceDesc.Width);
+	vp.Height = static_cast<float>(backBufferSurfaceDesc.Height);
 	vp.MinDepth = 0;
 	vp.MaxDepth = 1;
 	vp.TopLeftX = 0;
@@ -371,7 +371,7 @@ void D11State::draw() {
 
 	dwMyThread = GetCurrentThreadId();
 
-	checkMessage(vp.Width, vp.Height);
+	checkMessage(static_cast<unsigned int>(vp.Width), static_cast<unsigned int>(vp.Height));
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
 		// Set vertex buffer
