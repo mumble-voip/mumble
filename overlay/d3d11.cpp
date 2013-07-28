@@ -35,6 +35,9 @@
 #include <d3dx11.h>
 #include <time.h>
 
+/*already defined in d3d10.cpp
+DXGIData *dxgi = NULL;*/
+
 static bool bHooked = false;
 static HardHook hhPresent;
 static HardHook hhResize;
