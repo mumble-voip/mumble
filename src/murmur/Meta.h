@@ -63,6 +63,7 @@ public:
 	int iMaxImageMessageLength;
 	int iOpusThreshold;
 	int iChannelNestingLimit;
+    bool bPasswordStrengthening;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;

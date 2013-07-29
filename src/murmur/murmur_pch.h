@@ -44,6 +44,7 @@ extern "C" {
 #include <openssl/pem.h>
 #include <openssl/conf.h>
 #include <openssl/x509v3.h>
+#include <openssl/err.h>
 /* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
 #undef set_key
 

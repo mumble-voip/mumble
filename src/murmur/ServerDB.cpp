@@ -49,6 +49,12 @@
 #define SQLEXECBATCH() ServerDB::execBatch(query)
 #define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
+// sha 384 bits (length extension attack)
+// 256-bit pw + 128-bit salt
+#define KEK_KEY_LEN 46 // double in hex characters
+#define SALT_LEN 16 // double in hex characters
+#define ITERATION 30000 // the highest acceptable the best
+
 class TransactionHolder {
 	public:
 		QSqlQuery *qsqQuery;
@@ -875,19 +881,47 @@ int Server::authenticate(QString &name, const QString &pw, int sessionId, const 
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("SELECT `user_id`,`name`,`pw` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
+	SQLPREP("SELECT `user_id`,`name`,`pw`, `salt` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(name);
 	SQLEXEC();
 	if (query.next()) {
-		res = -1;
 		QString storedpw = query.value(2).toString();
-		QString hashedpw = QString::fromLatin1(sha1(pw).toHex());
+        QString storedsalt = query.value(3).toString();
+		res = -1;
 
-		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
+        QString pwHash, saltHash;
+        if(Meta::mp.bPasswordStrengthening && storedsalt.isEmpty()) { // no salt, first login after PKD in place
+        	QMap<int, QString> info;
+            int user_id = query.value(0).toInt();
+            QCryptographicHash hash(QCryptographicHash::Sha1);
+            hash.addData(pw.toUtf8());
+            if(hash.result().toHex() == storedpw) { // password matches, update hashes
+                info.insert(ServerDB::User_Password, pw);
+                if(setInfo(user_id, info)) {
+                    name = query.value(1).toString();
+                    res = query.value(0).toInt();
+                }
+            }
+            saltHash = ServerDB::genSaltHash();
+        } else if (! Meta::mp.bPasswordStrengthening && ! storedsalt.isEmpty()) { // yes salt, first login after PKD removed
+        	QMap<int, QString> info;
+            pwHash = ServerDB::getPasswordHash(&storedsalt, &pw);
+            int user_id = query.value(0).toInt();
+            if(pwHash == storedpw){ // password matches, update hash and clear salt
+                info.insert(ServerDB::User_Password, pw);
+                if(setInfo(user_id, info)) {
+                    name = query.value(1).toString();
+                    res = query.value(0).toInt();
+                }
+            }
+        }
+        pwHash = ServerDB::getPasswordHash(&storedsalt, &pw);
+
+		if (! storedpw.isEmpty() && (storedpw == pwHash)) {
 			name = query.value(1).toString();
 			res = query.value(0).toInt();
-		} else if (query.value(0).toInt() == 0) {
+		} else if (query.value(0).toInt() == 0 && res == -1) {
 			return -1;
 		}
 	}
@@ -978,11 +1012,21 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 	}
 	if (info.contains(ServerDB::User_Password)) {
 		const QString &pw = info.value(ServerDB::User_Password);
-		QCryptographicHash hash(QCryptographicHash::Sha1);
-		hash.addData(pw.toUtf8());
+        QString pwHash, saltHash;
+        if(! pw.isEmpty()) {
+            if(Meta::mp.bPasswordStrengthening) {
+                saltHash = ServerDB::genSaltHash();
+                pwHash = ServerDB::getPasswordHash(&saltHash, &pw);
+            } else {
+                QCryptographicHash hash(QCryptographicHash::Sha1);
+                hash.addData(pw.toUtf8());
+                pwHash = hash.result().toHex();
+            }
+        }
 
-		SQLPREP("UPDATE `%1users` SET `pw`=? WHERE `server_id` = ? AND `user_id`=?");
-		query.addBindValue(pw.isEmpty() ? QVariant() : QString::fromLatin1(hash.result().toHex()));
+		SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=? WHERE `server_id` = ? AND `user_id`=?");
+		query.addBindValue(pw.isEmpty() ? QVariant() : pwHash);
+		query.addBindValue(pw.isEmpty() ? QVariant() : saltHash);
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
@@ -1053,10 +1097,11 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	TransactionHolder th;
-
-	QCryptographicHash hash(QCryptographicHash::Sha1);
-	hash.addData(pw.toUtf8());
-
+    QString pwHash, saltHash;
+    if(Meta::mp.bPasswordStrengthening)
+        saltHash = genSaltHash();
+    pwHash = getPasswordHash(&saltHash, &pw);
+    
 	QSqlQuery &query = *th.qsqQuery;
 
 	SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
@@ -1071,11 +1116,50 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 		SQLEXEC();
 	}
 
-	SQLPREP("UPDATE `%1users` SET `pw`=? WHERE `server_id` = ? AND `user_id`=?");
-	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
+	SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=? WHERE `server_id` = ? AND `user_id`=?");
+    query.addBindValue(pwHash);
+    query.addBindValue(saltHash);
 	query.addBindValue(srvnum);
 	query.addBindValue(0);
 	SQLEXEC();
+}
+
+QString ServerDB::genSaltHash() {
+    unsigned char saltArray[SALT_LEN];
+    if (! RAND_bytes(saltArray, SALT_LEN))
+        qWarning("ServerDB: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), NULL));
+
+    QString saltHex;
+    for(int i=0;i<SALT_LEN;i++)
+        saltHex += QString("%1").arg((quint8)saltArray[i],2,16,QLatin1Char('0'));
+
+    return saltHex;
+}
+
+QString ServerDB::getPasswordHash(QString *saltHex, const QString *pw) {
+    QString pwHex;
+
+    if(Meta::mp.bPasswordStrengthening) {
+        unsigned char *pwArray;
+        QByteArray pwBuff = pw->toLocal8Bit();
+        const char *pwInput = pwBuff.data();
+        QByteArray saltArray = QByteArray::fromHex(saltHex->toAscii().constData());
+
+        pwArray = (unsigned char *) malloc(sizeof(unsigned char) * KEK_KEY_LEN);
+
+        if( PKCS5_PBKDF2_HMAC(pwInput, strlen(pwInput), (unsigned char *)saltArray.data(), strlen(saltArray.data()), ITERATION, EVP_sha384(), KEK_KEY_LEN, pwArray) == 0 )
+            qFatal("ServerDB: PKCS5_PBKDF2_HMAC for supw failed: %s", ERR_error_string(ERR_get_error(), NULL));
+
+        for(int i=0;i<KEK_KEY_LEN;i++)
+            pwHex += QString("%1").arg((quint8)pwArray[i],2,16,QLatin1Char('0'));
+
+        free(pwArray);
+    } else {
+        QByteArray hash = QCryptographicHash::hash(pw->toUtf8(), QCryptographicHash::Sha1);
+        pwHex = QString::fromLatin1(hash.toHex());
+    }
+
+    return pwHex;
 }
 
 QString Server::getUserName(int id) {

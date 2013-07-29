@@ -54,6 +54,7 @@ MetaParams::MetaParams() {
 	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
+    bPasswordStrengthening = true;
 	bAllowHTML = true;
 	iDefaultChan = 0;
 	bRememberChan = true;
@@ -261,6 +262,7 @@ void MetaParams::read(QString fname) {
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
+	bPasswordStrengthening = typeCheckedFromSettings("passwordstrengthening", bPasswordStrengthening);
 	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
 	iDefaultChan = typeCheckedFromSettings("defaultchannel", iDefaultChan);
@@ -456,6 +458,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("textmessagelength"), QString::number(iMaxTextMessageLength));
+    qmConfig.insert(QLatin1String("passwordstrengthening"), bPasswordStrengthening ?  QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("allowhtml"), bAllowHTML ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));
 	qmConfig.insert(QLatin1String("users"),QString::number(iMaxUsers));

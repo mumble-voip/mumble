@@ -61,6 +61,8 @@ class ServerDB {
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value = QVariant());
 		static QList<LogRecord> getLog(int server_id, unsigned int offs_min, unsigned int offs_max);
+        static QString genSaltHash();
+        static QString getPasswordHash(QString *saltHex, const QString *pwInput);
 		static int getLogLen(int server_id);
 		static void wipeLogs();
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true, bool warn = true);
