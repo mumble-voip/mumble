@@ -43,7 +43,7 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 
 		QTimer *qtTimer;
 	public:
-		explicit VoiceRecorderDialog(QWidget *p);
+		explicit VoiceRecorderDialog(QWidget *p = NULL);
 		~VoiceRecorderDialog();
 
 		void closeEvent(QCloseEvent *evt);
