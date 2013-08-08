@@ -18,6 +18,7 @@
 #include "User.h"
 #include "PBKDF2.h"
 
+#define SQLQUERY(x) ServerDB::query(query, QLatin1String(x), true)
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
 #define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)
 #define SQLPREP(x) ServerDB::prepare(query, QLatin1String(x))
@@ -153,6 +154,8 @@ ServerDB::ServerDB() {
 
 	if (Meta::mp.qsDBDriver == "QSQLITE")
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` TEXT PRIMARY KEY, `value` TEXT)");
+	else if (Meta::mp.qsDBDriver == "QPSQL")
+		SQLQUERY("CREATE TABLE IF NOT EXISTS `%1meta` (`keystring` varchar(255) PRIMARY KEY, `value` varchar(255))");
 	else
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta`(`keystring` varchar(255) PRIMARY KEY, `value` varchar(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
 
@@ -166,25 +169,25 @@ ServerDB::ServerDB() {
 	if (version < 6) {
 		if (version > 0) {
 			qWarning("Renaming old tables...");
-			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
+			SQLQUERY("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
 			if (version < 2)
 				SQLMAY("ALTER TABLE `%1log` RENAME TO `%1slog`");
-			SQLDO("ALTER TABLE `%1slog` RENAME TO `%1slog%2`");
-			SQLDO("ALTER TABLE `%1config` RENAME TO `%1config%2`");
-			SQLDO("ALTER TABLE `%1channels` RENAME TO `%1channels%2`");
+			SQLQUERY("ALTER TABLE `%1slog` RENAME TO `%1slog%2`");
+			SQLQUERY("ALTER TABLE `%1config` RENAME TO `%1config%2`");
+			SQLQUERY("ALTER TABLE `%1channels` RENAME TO `%1channels%2`");
 			if (version < 4)
-				SQLDO("ALTER TABLE `%1players` RENAME TO `%1players%2`");
+				SQLQUERY("ALTER TABLE `%1players` RENAME TO `%1players%2`");
 			else
-				SQLDO("ALTER TABLE `%1users` RENAME TO `%1users%2`");
-			SQLDO("ALTER TABLE `%1groups` RENAME TO `%1groups%2`");
-			SQLDO("ALTER TABLE `%1group_members` RENAME TO `%1group_members%2`");
-			SQLDO("ALTER TABLE `%1acl` RENAME TO `%1acl%2`");
-			SQLDO("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links%2`");
-			SQLDO("ALTER TABLE `%1bans` RENAME TO `%1bans%2`");
+				SQLQUERY("ALTER TABLE `%1users` RENAME TO `%1users%2`");
+			SQLQUERY("ALTER TABLE `%1groups` RENAME TO `%1groups%2`");
+			SQLQUERY("ALTER TABLE `%1group_members` RENAME TO `%1group_members%2`");
+			SQLQUERY("ALTER TABLE `%1acl` RENAME TO `%1acl%2`");
+			SQLQUERY("ALTER TABLE `%1channel_links` RENAME TO `%1channel_links%2`");
+			SQLQUERY("ALTER TABLE `%1bans` RENAME TO `%1bans%2`");
 
 			if (version >= 4) {
-				SQLDO("ALTER TABLE `%1user_info` RENAME TO `%1user_info%2`");
-				SQLDO("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info%2`");
+				SQLQUERY("ALTER TABLE `%1user_info` RENAME TO `%1user_info%2`");
+				SQLQUERY("ALTER TABLE `%1channel_info` RENAME TO `%1channel_info%2`");
 			}
 		}
 
@@ -277,6 +280,100 @@ ServerDB::ServerDB() {
 
 			SQLDO("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BLOB, `mask` INTEGER, `name` TEXT, `hash` TEXT, `reason` TEXT, `start` DATE, `duration` INTEGER)");
 			SQLDO("CREATE TRIGGER `%1bans_del_server` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1bans` WHERE `server_id` = old.`server_id`; END;");
+		} else if (Meta::mp.qsDBDriver == "QPSQL") {
+			if (version > 0) {
+				typedef QPair<QString, QString> qsp;
+				QList<qsp> qlForeignKeys;
+				QList<qsp> qlIndexes;
+
+				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA=? AND CONSTRAINT_TYPE='FOREIGN KEY'");
+				query.addBindValue(Meta::mp.qsDatabase);
+				SQLEXEC();
+				while (query.next())
+					qlForeignKeys << qsp(query.value(0).toString(), query.value(1).toString());
+
+				foreach(const qsp &key, qlForeignKeys) {
+					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT FOREIGN KEY `%2`").arg(key.first).arg(key.second), true);
+				}
+				
+				SQLPREP("SELECT TABLE_NAME, CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA=? AND CONSTRAINT_TYPE='PRIMARY KEY'");
+				query.addBindValue(Meta::mp.qsDatabase);
+				SQLEXEC();
+				while (query.next())
+					qlIndexes << qsp(query.value(0).toString(), query.value(1).toString());
+
+				foreach(const qsp &key, qlIndexes) {
+					if (key.first.startsWith(Meta::mp.qsDBPrefix))
+						ServerDB::exec(query, QString::fromLatin1("ALTER TABLE `%1` DROP CONSTRAINT PRIMARY KEY `%2`").arg(key.first).arg(key.second), true);
+				}
+				
+				
+				SQLQUERY("DROP INDEX IF EXISTS `%1slog_time` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1config_key` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1channel_id` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1channel_info_id` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1players_name` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1players_id` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1users_channel` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1users_name` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1users_id` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1user_info_id` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1groups_name_channels` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1group_members_users` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1acl_channel_pri` CASCADE");
+				SQLQUERY("DROP INDEX IF EXISTS `%1acl_user` CASCADE");
+			}
+			SQLQUERY("CREATE TABLE `%1servers`(`server_id` SERIAL PRIMARY KEY)");
+
+			SQLQUERY("CREATE TABLE `%1slog`(`server_id` INTEGER NOT NULL, `msg` TEXT, `msgtime` TIMESTAMP)");
+			SQLQUERY("CREATE INDEX `%1slog_time` ON `%1slog`(`msgtime`)");
+			SQLQUERY("ALTER TABLE `%1slog` ADD CONSTRAINT `%1slog_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1config` (`server_id` INTEGER NOT NULL, `key` varchar(255), `value` TEXT)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1config_key` ON `%1config`(`server_id`, `key`)");
+			SQLQUERY("ALTER TABLE `%1config` ADD CONSTRAINT `%1config_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1channels` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `parent_id` INTEGER, `name` varchar(255), `inheritacl` INTEGER)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1channel_id` ON `%1channels`(`server_id`, `channel_id`)");
+			SQLQUERY("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_parent_del` FOREIGN KEY (`server_id`, `parent_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
+			SQLQUERY("ALTER TABLE `%1channels` ADD CONSTRAINT `%1channels_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1channel_info` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `key` INTEGER, `value` TEXT)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
+			SQLQUERY("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `lastchannel` INTEGER, `texture` BYTEA, `last_active` TIMESTAMP)");
+			SQLQUERY("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
+			SQLQUERY("ALTER TABLE `%1users` ADD CONSTRAINT `%1users_server_del` FOREIGN KEY (`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1user_info` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `key` INTEGER, `value` TEXT)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1user_info_id` ON `%1user_info`(`server_id`, `user_id`, `key`)");
+			SQLQUERY("ALTER TABLE `%1user_info` ADD CONSTRAINT `%1user_info_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1groups` (`group_id` SERIAL PRIMARY KEY, `server_id` INTEGER NOT NULL, `name` varchar(255), `channel_id` INTEGER NOT NULL, `inherit` INTEGER, `inheritable` INTEGER)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1groups_name_channels` ON `%1groups`(`server_id`, `channel_id`, `name`)");
+			SQLQUERY("ALTER TABLE `%1groups` ADD CONSTRAINT `%1groups_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1group_members` (`group_id` INTEGER NOT NULL, `server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `addit` INTEGER)");
+			SQLQUERY("CREATE INDEX `%1group_members_users` ON `%1group_members`(`server_id`, `user_id`)");
+			SQLQUERY("ALTER TABLE `%1group_members` ADD CONSTRAINT `%1group_members_del_group` FOREIGN KEY (`group_id`) REFERENCES `%1groups`(`group_id`) ON DELETE CASCADE");
+			SQLQUERY("ALTER TABLE `%1group_members` ADD CONSTRAINT `%1group_members_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`,`user_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1acl` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `priority` INTEGER, `user_id` INTEGER, `group_name` varchar(255), `apply_here` INTEGER, `apply_sub` INTEGER, `grantpriv` INTEGER, `revokepriv` INTEGER)");
+			SQLQUERY("CREATE UNIQUE INDEX `%1acl_channel_pri` ON `%1acl`(`server_id`, `channel_id`, `priority`)");
+			SQLQUERY("CREATE INDEX `%1acl_user` ON `%1acl`(`server_id`, `user_id`)");
+			SQLQUERY("ALTER TABLE `%1acl` ADD CONSTRAINT `%1acl_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
+			SQLQUERY("ALTER TABLE `%1acl` ADD CONSTRAINT `%1acl_del_user` FOREIGN KEY (`server_id`, `user_id`) REFERENCES `%1users`(`server_id`, `user_id`) ON DELETE CASCADE");
+
+			SQLQUERY("CREATE TABLE `%1channel_links` (`server_id` INTEGER NOT NULL, `channel_id` INTEGER NOT NULL, `link_id` INTEGER NOT NULL)");
+			SQLQUERY("ALTER TABLE `%1channel_links` ADD CONSTRAINT `%1channel_links_del_channel` FOREIGN KEY(`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`, `channel_id`) ON DELETE CASCADE");
+			SQLQUERY("DELETE FROM `%1channel_links`");
+
+			SQLQUERY("CREATE TABLE `%1bans` (`server_id` INTEGER NOT NULL, `base` BYTEA, `mask` INTEGER, `name` varchar(255), `hash` CHAR(40), `reason` TEXT, `start` TIMESTAMP, `duration` INTEGER)");
+			SQLQUERY("ALTER TABLE `%1bans` ADD CONSTRAINT `%1bans_del_server` FOREIGN KEY(`server_id`) REFERENCES `%1servers`(`server_id`) ON DELETE CASCADE");
 		} else {
 			if (version > 0) {
 				typedef QPair<QString, QString> qsp;
@@ -376,7 +473,7 @@ ServerDB::ServerDB() {
 		} else {
 			qWarning("Importing old data...");
 
-			if (Meta::mp.qsDBDriver != "QSQLITE")
+			if (Meta::mp.qsDBDriver != "QSQLITE" && Meta::mp.qsDBDriver != "QPSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 0;");
 			SQLDO("INSERT INTO `%1servers` (`server_id`) SELECT `server_id` FROM `%1servers%2`");
 			SQLDO("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) SELECT `server_id`, `msg`, `msgtime` FROM `%1slog%2`");
@@ -452,23 +549,23 @@ ServerDB::ServerDB() {
 				SQLDO("INSERT INTO `%1channel_info` SELECT * FROM `%1channel_info%2`");
 			}
 
-			if (Meta::mp.qsDBDriver != "QSQLITE")
+			if (Meta::mp.qsDBDriver != "QSQLITE" && Meta::mp.qsDBDriver != "QPSQL")
 				SQLDO("SET FOREIGN_KEY_CHECKS = 1;");
 
 			qWarning("Removing old tables...");
-			SQLDO("DROP TABLE IF EXISTS `%1slog%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1config%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1channel_info%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1channels%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1user_info%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1users%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1players%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1groups%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1group_members%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1acl%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1channel_links%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1bans%2`");
-			SQLDO("DROP TABLE IF EXISTS `%1servers%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1slog%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1config%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1channel_info%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1channels%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1user_info%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1users%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1players%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1groups%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1group_members%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1acl%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1channel_links%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1bans%2`");
+			SQLQUERY("DROP TABLE IF EXISTS `%1servers%2`");
 
 			SQLDO("UPDATE `%1meta` SET `value` = '6' WHERE `keystring` = 'version'");
 		}
@@ -497,6 +594,10 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 		q = str;
 	}
 
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		q.replace("`", "\"");
+	}
+	
 	if (query.prepare(q)) {
 		return true;
 	} else {
@@ -516,6 +617,52 @@ bool ServerDB::prepare(QSqlQuery &query, const QString &str, bool fatal, bool wa
 		} else if (warn) {
 			qDebug("SQL Prepare Error [%s]: %s", qPrintable(q), qPrintable(query.lastError().text()));
 		}
+		return false;
+	}
+}
+
+bool ServerDB::query(QSqlQuery &query, const QString &str, bool fatal, bool warn) {
+	if (! str.isEmpty()) {
+		if (! db->isValid()) {
+			qWarning("SQL [%s] rejected: Database is gone", qPrintable(str));
+			return false;
+		}
+		QString q;
+		if (str.contains(QLatin1String("%1"))) {
+			if (str.contains(QLatin1String("%2")))
+				q = str.arg(Meta::mp.qsDBPrefix, qsUpgradeSuffix);
+			else
+				q = str.arg(Meta::mp.qsDBPrefix);
+		} else {
+			q = str;
+		}
+
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			q.replace("`", "\"");
+		}
+		
+		if (query.exec(q)) {
+			return true;
+		} else {
+			db->close();
+			if (! db->open()) {
+				qFatal("Lost connection to SQL Database: Reconnect: %s", qPrintable(db->lastError().text()));
+			}
+			query = QSqlQuery();
+			if (query.exec(q)) {
+				qWarning("SQL Connection lost, reconnection OK");
+				return true;
+			}	
+			
+			if (fatal) {
+				*db = QSqlDatabase();
+				qFatal("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+			} else if (warn) {
+				qDebug("SQL Error [%s]: %s", qPrintable(query.lastQuery()), qPrintable(query.lastError().text()));
+			}
+			return false;
+		}
+	} else {
 		return false;
 	}
 }
@@ -691,12 +838,31 @@ int Server::registerUser(const QMap<int, QString> &info) {
 	} else {
 		id = res;
 	}
-
-	SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
+	
+	int rows = 0;
+	
+	SQLPREP("SELECT COUNT(*) AS rows FROM `%1users` WHERE `server_id` = ? AND `name` = ?");
 	query.addBindValue(iServerNum);
-	query.addBindValue(id);
 	query.addBindValue(name);
 	SQLEXEC();
+	if (query.next()) {
+		rows = query.value(0).toInt();
+		
+		if(rows > 0) {
+			SQLPREP("UPDATE `%1users` SET `user_id` = ? WHERE `server_id` = ? AND `name` = ?");
+			query.addBindValue(id);
+			query.addBindValue(iServerNum);
+			query.addBindValue(name);
+			SQLEXEC();
+		} else {
+			SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?,?,?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(id);
+			query.addBindValue(name);
+			SQLEXEC();
+		}
+	}
+	
 	qhUserNameCache.remove(id);
 
 	setInfo(id, info);
@@ -864,13 +1030,32 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 			int lchan=readLastChannel(res);
 			if (lchan < 0)
 				lchan = 0;
-
-			SQLPREP("REPLACE INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
+			
+			int rows = 0;
+			
+			SQLPREP("SELECT COUNT(*) AS rows FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
 			query.addBindValue(iServerNum);
 			query.addBindValue(res);
-			query.addBindValue(name);
-			query.addBindValue(lchan);
 			SQLEXEC();
+			if (query.next()) {
+				rows = query.value(0).toInt();
+				
+				if(rows > 0) {
+					SQLPREP("UPDATE `%1users` SET `name` = ?, `lastchannel` = ? WHERE `server_id` = ? AND `user_id` = ?");
+					query.addBindValue(name);
+					query.addBindValue(lchan);
+					query.addBindValue(iServerNum);
+					query.addBindValue(res);
+					SQLEXEC();
+				} else {
+					SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`, `lastchannel`) VALUES (?,?,?,?)");
+					query.addBindValue(iServerNum);
+					query.addBindValue(res);
+					query.addBindValue(name);
+					query.addBindValue(lchan);
+					SQLEXEC();
+				}
+			}
 		}
 		if (res >= 0) {
 			qhUserNameCache.remove(res);
@@ -988,18 +1173,60 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 		}
 	}
 	if (! certhash.isEmpty() && (res > 0)) {
-		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+		int rows = 0;
+			
+		SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
 		query.addBindValue(iServerNum);
 		query.addBindValue(res);
 		query.addBindValue(ServerDB::User_Hash);
-		query.addBindValue(certhash);
 		SQLEXEC();
+		if (query.next()) {
+			rows = query.value(0).toInt();
+			
+			if(rows > 0) {
+				SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
+				query.addBindValue(certhash);
+				query.addBindValue(iServerNum);
+				query.addBindValue(res);
+				query.addBindValue(ServerDB::User_Hash);
+				SQLEXEC();
+			} else {
+				SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+				query.addBindValue(iServerNum);
+				query.addBindValue(res);
+				query.addBindValue(ServerDB::User_Hash);
+				query.addBindValue(certhash);
+				SQLEXEC();
+			}
+		}
+		
 		if (! emails.isEmpty()) {
+			rows = 0;
+			
+			SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
 			query.addBindValue(iServerNum);
 			query.addBindValue(res);
 			query.addBindValue(ServerDB::User_Email);
-			query.addBindValue(emails.at(0));
 			SQLEXEC();
+			if (query.next()) {
+				rows = query.value(0).toInt();
+				
+				if(rows > 0) {
+					SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
+					query.addBindValue(emails.at(0));
+					query.addBindValue(iServerNum);
+					query.addBindValue(res);
+					query.addBindValue(ServerDB::User_Email);
+					SQLEXEC();
+				} else {
+					SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?, ?, ?, ?)");
+					query.addBindValue(iServerNum);
+					query.addBindValue(res);
+					query.addBindValue(ServerDB::User_Email);
+					query.addBindValue(emails.at(0));
+					SQLEXEC();
+				}
+			}
 		}
 	}
 	if (res >= 0) {
@@ -1075,22 +1302,37 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 		info.remove(ServerDB::User_Name);
 	}
 	if (! info.isEmpty()) {
+		int rows = 0;
 		QMap<int, QString>::const_iterator i;
-		SQLPREP("REPLACE INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?,?,?,?)");
-
-		QVariantList serverids, userids, keys, values;
-
+		
 		for (i=info.constBegin(); i != info.constEnd(); ++i) {
-			serverids << iServerNum;
-			userids << id;
-			keys << i.key();
-			values << i.value();
+			rows = 0;
+			
+			SQLPREP("SELECT COUNT(*) AS rows FROM `%1user_info` WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
+			query.addBindValue(iServerNum);
+			query.addBindValue(id);
+			query.addBindValue(i.key());
+			SQLEXEC();
+			if (query.next()) {
+				rows = query.value(0).toInt();
+				
+				if(rows > 0) {
+					SQLPREP("UPDATE `%1user_info` SET `value` = ? WHERE `server_id` = ? AND `user_id` = ? AND `key` = ?");
+					query.addBindValue(i.value());
+					query.addBindValue(iServerNum);
+					query.addBindValue(id);
+					query.addBindValue(i.key());
+					SQLEXEC();
+				} else {
+					SQLPREP("INSERT INTO `%1user_info` (`server_id`, `user_id`, `key`, `value`) VALUES (?,?,?,?)");
+					query.addBindValue(iServerNum);
+					query.addBindValue(id);
+					query.addBindValue(i.key());
+					query.addBindValue(i.value());
+					SQLEXEC();
+				}
+			}
 		}
-		query.addBindValue(serverids);
-		query.addBindValue(userids);
-		query.addBindValue(keys);
-		query.addBindValue(values);
-		SQLEXECBATCH();
 	}
 
 	return true;
@@ -1385,19 +1627,60 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	// Update channel description information
-	SQLPREP("REPLACE INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
+	int rows = 0;
+			
+	SQLPREP("SELECT COUNT(*) AS rows FROM `%1channel_info` WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	query.addBindValue(ServerDB::Channel_Description);
-	query.addBindValue(c->qsDesc);
 	SQLEXEC();
-
+	if (query.next()) {
+		rows = query.value(0).toInt();
+		
+		if(rows > 0) {
+			SQLPREP("UPDATE `%1channel_info` SET `value` = ? WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
+			query.addBindValue(c->qsDesc);
+			query.addBindValue(iServerNum);
+			query.addBindValue(c->iId);
+			query.addBindValue(ServerDB::Channel_Description);
+			SQLEXEC();
+		} else {
+			SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(c->iId);
+			query.addBindValue(ServerDB::Channel_Description);
+			query.addBindValue(c->qsDesc);
+			SQLEXEC();
+		}
+	}
+	
 	// Update channel position information
+	rows = 0;
+			
+	SQLPREP("SELECT COUNT(*) AS rows FROM `%1channel_info` WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
 	query.addBindValue(ServerDB::Channel_Position);
-	query.addBindValue(QVariant(c->iPosition).toString());
 	SQLEXEC();
+	if (query.next()) {
+		rows = query.value(0).toInt();
+		
+		if(rows > 0) {
+			SQLPREP("UPDATE `%1channel_info` SET `value` = ? WHERE `server_id` = ? AND `channel_id` = ? AND `key` = ?");
+			query.addBindValue(QVariant(c->iPosition).toString());
+			query.addBindValue(iServerNum);
+			query.addBindValue(c->iId);
+			query.addBindValue(ServerDB::Channel_Position);
+			SQLEXEC();
+		} else {
+			SQLPREP("INSERT INTO `%1channel_info` (`server_id`, `channel_id`, `key`, `value`) VALUES (?,?,?,?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(c->iId);
+			query.addBindValue(ServerDB::Channel_Position);
+			query.addBindValue(QVariant(c->iPosition).toString());
+			SQLEXEC();
+		}
+	}
 
 	// Update channel maximum users
 	query.addBindValue(iServerNum);
@@ -1417,16 +1700,31 @@ void Server::updateChannel(const Channel *c) {
 	SQLEXEC();
 
 	foreach(g, c->qhGroups) {
-		SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
-		query.addBindValue(iServerNum);
-		query.addBindValue(g->c->iId);
-		query.addBindValue(g->qsName);
-		query.addBindValue(g->bInherit ? 1 : 0);
-		query.addBindValue(g->bInheritable ? 1 : 0);
-		SQLEXEC();
-
-		int id = query.lastInsertId().toInt();
+		int id;
 		int pid;
+		
+		if (Meta::mp.qsDBDriver == "QPSQL") {
+			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?) RETURNING group_id");
+			query.addBindValue(iServerNum);
+			query.addBindValue(g->c->iId);
+			query.addBindValue(g->qsName);
+			query.addBindValue(g->bInherit ? 1 : 0);
+			query.addBindValue(g->bInheritable ? 1 : 0);
+			SQLEXEC();
+			
+			if (query.next())
+				id = query.value(0).toInt();
+		} else {
+			SQLPREP("INSERT INTO `%1groups` (`server_id`, `channel_id`, `name`, `inherit`, `inheritable`) VALUES (?,?,?,?,?)");
+			query.addBindValue(iServerNum);
+			query.addBindValue(g->c->iId);
+			query.addBindValue(g->qsName);
+			query.addBindValue(g->bInherit ? 1 : 0);
+			query.addBindValue(g->bInheritable ? 1 : 0);
+			SQLEXEC();
+			
+			id = query.lastInsertId().toInt();
+		}
 
 		foreach(pid, g->qsAdd) {
 			SQLPREP("INSERT INTO `%1group_members` (`group_id`, `server_id`, `user_id`, `addit`) VALUES (?, ?, ?, ?)");
@@ -1760,6 +2058,8 @@ void Server::dblog(const QString &str) const {
 			QString qstr;
 			if (Meta::mp.qsDBDriver == "QSQLITE") {
 				qstr = QString::fromLatin1("msgtime < datetime('now','-%1 days')").arg(Meta::mp.iLogDays);
+			} else if (Meta::mp.qsDBDriver == "QPSQL") {
+				qstr = QString::fromLatin1("msgtime < now() - INTERVAL '%1 day'").arg(Meta::mp.iLogDays);
 			} else {
 				qstr = QString::fromLatin1("msgtime < now() - INTERVAL %1 day").arg(Meta::mp.iLogDays);
 			}
@@ -1768,7 +2068,7 @@ void Server::dblog(const QString &str) const {
 		}
 	}
 
-	SQLPREP("INSERT INTO `%1slog` (`server_id`, `msg`) VALUES(?,?)");
+	SQLPREP("INSERT INTO `%1slog` (`server_id`, `msg`, `msgtime`) VALUES(?,?, now())");
 	query.addBindValue(iServerNum);
 	query.addBindValue(str);
 	SQLEXEC();
@@ -1784,12 +2084,20 @@ void ServerDB::wipeLogs() {
 QList<QPair<unsigned int, QString> > ServerDB::getLog(int server_id, unsigned int offs_min, unsigned int offs_max) {
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
-
-	SQLPREP("SELECT `msgtime`, `msg` FROM `%1slog` WHERE `server_id` = ? ORDER BY `msgtime` DESC LIMIT ?, ?");
-	query.addBindValue(server_id);
-	query.addBindValue(offs_min);
-	query.addBindValue(offs_max);
-	SQLEXEC();
+	
+	if (Meta::mp.qsDBDriver == "QPSQL") {
+		SQLPREP("SELECT `msgtime`, `msg` FROM `%1slog` WHERE `server_id` = ? ORDER BY `msgtime` DESC LIMIT ? OFFSET ?");
+		query.addBindValue(server_id);
+		query.addBindValue(offs_max);
+		query.addBindValue(offs_min);
+		SQLEXEC();
+	} else {
+		SQLPREP("SELECT `msgtime`, `msg` FROM `%1slog` WHERE `server_id` = ? ORDER BY `msgtime` DESC LIMIT ?, ?");
+		query.addBindValue(server_id);
+		query.addBindValue(offs_min);
+		query.addBindValue(offs_max);
+		SQLEXEC();
+	}
 
 	QList<QPair<unsigned int, QString> > ql;
 	while (query.next()) {
@@ -1825,13 +2133,32 @@ void ServerDB::setConf(int server_id, const QString &k, const QVariant &value) {
 		SQLPREP("DELETE FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
+		SQLEXEC();
 	} else {
-		SQLPREP("REPLACE INTO `%1config` (`server_id`, `key`, `value`) VALUES (?,?,?)");
+		int rows = 0;
+			
+		SQLPREP("SELECT COUNT(*) AS rows FROM `%1config` WHERE `server_id` = ? AND `key` = ?");
 		query.addBindValue(server_id);
 		query.addBindValue(key);
-		query.addBindValue(value.toString());
+		SQLEXEC();
+		if (query.next()) {
+			rows = query.value(0).toInt();
+			
+			if(rows > 0) {
+				SQLPREP("UPDATE `%1config` SET `value` = ? WHERE `server_id` = ? AND `key` = ?");
+				query.addBindValue(value.toString());
+				query.addBindValue(server_id);
+				query.addBindValue(key);
+				SQLEXEC();
+			} else {
+				SQLPREP("INSERT INTO `%1config` (`server_id`, `key`, `value`) VALUES (?,?,?)");
+				query.addBindValue(server_id);
+				query.addBindValue(key);
+				query.addBindValue(value.toString());
+				SQLEXEC();
+			}
+		}
 	}
-	SQLEXEC();
 }
 
 
