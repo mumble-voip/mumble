@@ -282,7 +282,6 @@ void UserEdit::updateInactiveDaysFilter() {
 
 
 UserEditListItem::UserEditListItem(const int userid) : QTreeWidgetItem() {
-	setFlags(flags() | Qt::ItemIsEditable);
 	setData(0, Qt::UserRole, userid);
 }
 
