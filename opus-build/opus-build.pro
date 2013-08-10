@@ -31,6 +31,9 @@ win32 {
   DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../$$BUILDDIR/win32
 
+  CONFIG -= static
+  CONFIG += shared
+
   CONFIG(sse2) {
     TARGET_VERSION_EXT = .sse2
   } else {
