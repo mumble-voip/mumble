@@ -8,6 +8,7 @@
 #
 
 ICE_PATH = %PROGPATH%/ZeroC/Ice-3.4.1
+BZIP2_PATH = /dev/bzip2
 PROTOBUF_PATH = /dev/protobuf-2.4.1
 OPENSSL_PATH = /dev/OpenSSL
 LIBSNDFILE_PATH = %PROGPATH%/Mega-Nerd/libsndfile
