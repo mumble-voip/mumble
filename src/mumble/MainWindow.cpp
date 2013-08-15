@@ -2650,8 +2650,6 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
-		qmTray->addAction(qaFilterToggle);
-		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
@@ -2661,8 +2659,6 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
-		qmTray->addSeparator();
-		qmTray->addAction(qaFilterToggle);
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
 	}
