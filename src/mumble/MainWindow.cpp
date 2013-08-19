@@ -1083,11 +1083,12 @@ void MainWindow::qcbTransmitMode_activated(int index) {
 void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
+	qmServer->addSeparator();
 	qmServer->addAction(qaServerDisconnect);
-	qmServer->addAction(qaServerBanList);
-	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addAction(qaServerTokens);
+	qmServer->addAction(qaServerUserList);
+	qmServer->addAction(qaServerBanList);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
 
