@@ -188,9 +188,10 @@ void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int col
 }
 
 void LogConfig::browseForAudioFile() {
-	QString file = AudioOutputSample::browseForSndfile();
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	QString defaultpath(i->text(ColStaticSoundPath));
+	QString file = AudioOutputSample::browseForSndfile(defaultpath);
 	if (!file.isEmpty()) {
-		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
 		i->setText(ColStaticSoundPath, file);
 		i->setCheckState(ColStaticSound, Qt::Checked);
 	}

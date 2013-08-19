@@ -207,8 +207,8 @@ SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
 	return sf;
 }
 
-QString AudioOutputSample::browseForSndfile() {
-	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
+QString AudioOutputSample::browseForSndfile(QString defaultpath) {
+	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), defaultpath, QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
 	if (! file.isEmpty()) {
 		SoundFile *sf = AudioOutputSample::loadSndfile(file);
 		if (sf == NULL) {
