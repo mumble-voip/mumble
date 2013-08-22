@@ -551,7 +551,10 @@ void ServerHandler::serverConnectionConnected() {
 		qbaDigest = sha1(qsc.publicKey().toDer());
 		bUdp = Database::getUdp(qbaDigest);
 	} else {
-		bUdp = true;
+		// Shouldn't reach this
+		qCritical("Server must have a certificate. Dropping connection");
+		disconnect();
+		return;
 	}
 
 	MumbleProto::Version mpv;
