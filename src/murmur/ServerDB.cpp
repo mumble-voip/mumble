@@ -49,11 +49,10 @@
 #define SQLEXECBATCH() ServerDB::execBatch(query)
 #define SOFTEXEC() ServerDB::exec(query, QString(), false)
 
-// sha 384 bits (length extension attack)
-// 256-bit pw + 128-bit salt
-#define KEK_KEY_LEN 46 // double in hex characters
-#define SALT_LEN 16 // double in hex characters
-#define ITERATION 30000 // the highest acceptable the best
+// pbkdf2 constants
+#define DK_LEN 256 // derived key length
+#define SALT_LEN 64 // random salt length
+#define ITERATION 30000 // highest iteration acceptable
 
 class TransactionHolder {
 	public:
@@ -1145,15 +1144,15 @@ QString ServerDB::getPasswordHash(QString *saltHex, const QString *pw) {
         const char *pwInput = pwBuff.data();
         QByteArray saltArray = QByteArray::fromHex(saltHex->toAscii().constData());
 
-        pwArray = (unsigned char *) malloc(sizeof(unsigned char) * KEK_KEY_LEN);
+        pwArray = new unsigned char[DK_LEN];
 
-        if( PKCS5_PBKDF2_HMAC(pwInput, strlen(pwInput), (unsigned char *)saltArray.data(), strlen(saltArray.data()), ITERATION, EVP_sha384(), KEK_KEY_LEN, pwArray) == 0 )
+        if( PKCS5_PBKDF2_HMAC(pwInput, strlen(pwInput), (unsigned char *)saltArray.data(), strlen(saltArray.data()), ITERATION, EVP_sha384(), DK_LEN, pwArray) == 0 )
             qFatal("ServerDB: PKCS5_PBKDF2_HMAC for supw failed: %s", ERR_error_string(ERR_get_error(), NULL));
 
-        for(int i=0;i<KEK_KEY_LEN;i++)
+        for(int i=0;i<DK_LEN;i++)
             pwHex += QString("%1").arg((quint8)pwArray[i],2,16,QLatin1Char('0'));
 
-        free(pwArray);
+        delete[] pwArray;
     } else {
         QByteArray hash = QCryptographicHash::hash(pw->toUtf8(), QCryptographicHash::Sha1);
         pwHex = QString::fromLatin1(hash.toHex());
