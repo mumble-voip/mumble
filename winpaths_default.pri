@@ -18,6 +18,13 @@ BONJOUR_PATH = %PROGRAMFILES%/Bonjour SDK
 ASIO_PATH = /dev/asio
 G15SDK_PATH = /dev/G15SDK/LCDSDK
 
+# If we're building in win32-static, include
+# winpaths_static.pri to override the defaults
+# above.
+CONFIG(static) {
+	include(winpaths_static.pri)
+}
+
 # Include custom file if it exists
 exists(winpaths_custom.pri) {
 	include(winpaths_custom.pri)

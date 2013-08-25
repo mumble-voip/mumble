@@ -13,3 +13,13 @@ isEqual(QT_MAJOR_VERSION, 5) {
 HEADERS		= manual.h
 SOURCES		= manual.cpp
 FORMS		+= manual.ui
+
+CONFIG(debug, debug|release) {
+  LIBPATH *= ../../debug
+}
+
+CONFIG(release, debug|release) {
+  LIBPATH *= ../../release
+}
+
+LIBS *= -lmumble_app

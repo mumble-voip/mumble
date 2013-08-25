@@ -107,7 +107,7 @@ ice {
 		} else {
 			DEFINES *= ICE_STATIC_LIBS
 			QMAKE_LIBDIR *= $$ICE_PATH/lib $$BZIP2_PATH/lib
-			LIBS *= -llibbz2 -liphlpapi -lrpcrt4
+			LIBS *= -llibbz2 -ldbghelp -liphlpapi -lrpcrt4
 		}
 	}
 
