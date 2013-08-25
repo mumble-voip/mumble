@@ -14,12 +14,16 @@ HEADERS		= manual.h
 SOURCES		= manual.cpp
 FORMS		+= manual.ui
 
-CONFIG(debug, debug|release) {
-  LIBPATH *= ../../debug
-}
+# Link against mumble_app.dll when
+# building for win32-static.
+win32:CONFIG(static) {
+    CONFIG(debug, debug|release) {
+        LIBPATH *= ../../debug
+    }
 
-CONFIG(release, debug|release) {
-  LIBPATH *= ../../release
-}
+    CONFIG(release, debug|release) {
+        LIBPATH *= ../../release
+    }
 
-LIBS *= -lmumble_app
+    LIBS *= -lmumble_app
+}
