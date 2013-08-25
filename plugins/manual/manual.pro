@@ -16,7 +16,7 @@ FORMS		+= manual.ui
 
 # Link against mumble_app.dll when
 # building for win32-static.
-win32:CONFIG(static) {
+win32:CONFIG(qt_dynamic_lookup) {
     CONFIG(debug, debug|release) {
         LIBPATH *= ../../debug
     }
