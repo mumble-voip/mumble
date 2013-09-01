@@ -449,7 +449,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
-				if (c->bHidden)
+				if (c->bFiltered)
 					l << (qiFilter);
 				return l;
 			case Qt::FontRole:
@@ -1315,11 +1315,13 @@ void UserModel::userMuteDeafChanged() {
 	updateOverlay();
 }
 
-void UserModel::toggleHidden(Channel *c) {
+void UserModel::toggleChannelFiltered(Channel *c) {
 	QModelIndex idx;
 	if(c) {
-		c->bHidden = !c->bHidden;		
-		Database::setLocalHidden(c->qsName, c->bHidden);
+		c->bFiltered = !c->bFiltered;
+
+		ServerHandlerPtr sh = g.sh;
+		Database::setChannelFiltered(sh->qbaDigest, c->iId, c->bFiltered);
 		idx = index(c);
 	}
 

@@ -98,8 +98,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel, *gsHideChannel;
-		GlobalShortcut *gsCycleTransmitMode, *gsChannelFilter;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
+		GlobalShortcut *gsCycleTransmitMode;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -210,7 +210,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
-		void on_qaChannelHide_triggered();
+		void on_qaChannelFilter_triggered();
 		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();

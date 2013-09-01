@@ -314,7 +314,7 @@ bool ChannelHasUsers(const Channel *c)
 static bool ChannelHidden(const Channel *c)
 {
 	while(c) {
-		if(c->bHidden)
+		if(c->bFiltered)
 			return true;
 		c=c->cParent;
 	}

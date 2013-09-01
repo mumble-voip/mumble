@@ -533,20 +533,31 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	Channel *p = msg.has_parent() ? Channel::get(msg.parent()) : NULL;
 
 	if (!c) {
-		if (msg.has_parent() && p && msg.has_name()) {
+		// Addresses channel does not exist so create it
+		if (p && msg.has_name()) {
 			c = pmModel->addChannel(msg.channel_id(), p, u8(msg.name()));
 			c->bTemporary = msg.temporary();
-			p = NULL;
+			p = NULL; // No need to move it later
+
+			ServerHandlerPtr sh = g.sh;
+			if (sh)
+				c->bFiltered = Database::isChannelFiltered(sh->qbaDigest, c->iId);
+
 		} else {
+			qWarning("Server attempted state change on nonexistent channel");
 			return;
 		}
 	}
 
 	if (p) {
+		// Channel move
 		Channel *pp = p;
 		while (pp) {
-			if (pp == c)
+			if (pp == c) {
+				qWarning("Server asked to move a channel into itself or one of its children");
 				return;
+			}
+
 			pp = pp->cParent;
 		}
 		pmModel->moveChannel(c, p);
@@ -563,9 +574,6 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (msg.has_position()) {
 		pmModel->repositionChannel(c, msg.position());
 	}
-
-	if (Database::isLocalHidden(c->qsName))
-		c->bHidden = true;
 
 	if (msg.links_size()) {
 		QList<Channel *> ql;
@@ -602,8 +610,15 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 	Channel *c = Channel::get(msg.channel_id());
-	if (c && (c->iId != 0))
+	if (c && (c->iId != 0)) {
+		if (c->bFiltered) {
+			ServerHandlerPtr sh = g.sh;
+			if (sh)
+				Database::setChannelFiltered(sh->qbaDigest, c->iId, false);
+			c->bFiltered = false;
+		}
 		pmModel->removeChannel(c);
+	}
 }
 
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {

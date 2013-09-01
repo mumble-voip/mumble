@@ -166,8 +166,9 @@ Database::Database() {
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 
-	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `hidden` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
-	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `hidden_hash` ON `hidden`(`hash`)"));
+	//Note: A previous snapshot version created a table called 'hidden'
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `filtered_channels` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `server_cert_digest` TEXT NOT NULL, `channel_id` INTEGER NOT NULL)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `filtered_channels_entry` ON `filtered_channels`(`server_cert_digest`, `channel_id`)"));
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
@@ -283,26 +284,31 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	execQueryAndLogFailure(query);
 }
 
-bool Database::isLocalHidden(const QString &hash) {
+bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id) {
 	QSqlQuery query;
 	
-	query.prepare(QLatin1String("SELECT `hash` FROM `hidden` WHERE `hash` = ?"));
-	query.addBindValue(hash);
+	query.prepare(QLatin1String("SELECT `channel_id` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+	query.addBindValue(server_cert_digest);
+	query.addBindValue(channel_id);
 	execQueryAndLogFailure(query);
+
 	while (query.next()) {
 		return true;
 	}
 	return false;
 }
 
-void Database::setLocalHidden(const QString &hash, bool hidden) {
+void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {
 	QSqlQuery query;
 	
 	if (hidden)
-		query.prepare(QLatin1String("INSERT INTO `hidden` (`hash`) VALUES (?)"));
+		query.prepare(QLatin1String("INSERT INTO `filtered_channels` (`server_cert_digest`, `channel_id`) VALUES (?, ?)"));
 	else
-		query.prepare(QLatin1String("DELETE FROM `hidden` WHERE `hash` = ?"));
-	query.addBindValue(hash);
+		query.prepare(QLatin1String("DELETE FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+
+	query.addBindValue(server_cert_digest);
+	query.addBindValue(channel_id);
+
 	execQueryAndLogFailure(query);
 }
 
