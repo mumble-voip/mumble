@@ -4,6 +4,11 @@
   <?define ProductManufacturer = "Thorvald Natvig" ?>
   <?define ProductVersion = "1.2.5" ?>
 
+  <!-- Enable the StaticBuild option if we detect MUMBLE_PREFIX in the environment -->
+  <?ifdef env.MUMBLE_PREFIX ?>
+    <?define StaticBuild = true ?>
+  <?endif ?>
+
   <!-- Defaults for values that aren't given by environment variables -->
   <?ifndef env.MumbleSourceDir ?>
     <?define SourceDir = "\dev\mumble" ?>
