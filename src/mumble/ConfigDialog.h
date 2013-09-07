@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONFIGDIALOG_H_
-#define CONFIGDIALOG_H_
+#ifndef MUMBLE_MUMBLE_CONFIGDIALOG_H_
+#define MUMBLE_MUMBLE_CONFIGDIALOG_H_
 
 #include "ConfigWidget.h"
 #include "Settings.h"

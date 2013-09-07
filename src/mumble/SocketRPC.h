@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SOCKETRPC_H_
-#define SOCKETRPC_H_
+#ifndef MUMBLE_MUMBLE_SOCKETRPC_H_
+#define MUMBLE_MUMBLE_SOCKETRPC_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QString>

@@ -2,15 +2,66 @@ include(../mumble.pri)
 
 DEFINES		*= MUMBLE
 TEMPLATE	= app
-QT		*= network sql xml svg
 TARGET		= mumble
-HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h UserView.h RichTextEditor.h UserInformation.h FileEngine.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp FileEngine.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
+
+CONFIG(static) {
+  # On Windows, building a static client
+  # means building the main app into a DLL.
+  win32 {
+    TEMPLATE = lib
+    TARGET = mumble_app
+    VERSION =
+
+    CONFIG -= static
+    CONFIG += shared qt_static mumble_dll
+    DEFINES += USE_MUMBLE_DLL QT_SHARED
+
+    DEF_FILE = $${DESTDIR}/$${TARGET}.def
+
+    QMAKE_LFLAGS += /DEF:$${DEF_FILE}
+    QMAKE_LFLAGS += /ignore:4102 # export of deleting destructor
+    QMAKE_LFLAGS += /ignore:4197 # specified multiple times
+
+    CONFIG(debug, debug|release) {
+      DEF_KIND = debug
+    }
+
+    CONFIG(release, debug|release) {
+      DEF_KIND = release
+    }
+
+    gendef.commands = python ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
+    QMAKE_EXTRA_TARGETS *= gendef
+    PRE_TARGETDEPS *= gendef
+    QMAKE_DISTCLEAN *= $${DEF_FILE}
+  }
+
+  DEFINES *= USE_STATIC
+  CONFIG += static_qt_plugins
+}
+
+QT		*= network sql xml svg
+isEqual(QT_MAJOR_VERSION, 5) {
+  QT *= widgets
+  win32 {
+    # On Windows, we use QPlatformNativeInterface
+    # to get access to HWNDs.
+    QT *= gui-private
+  }
+
+  # On OS X, we can't yet use Cocoa integration
+  # because we don't yet integrate with QtMacExtras.
+  CONFIG += no-cocoa
+}
+
+HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
+SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
 FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui ConnectDialogEdit.ui BanEditor.ui ACLEditor.ui Plugins.ui PTTButtonWidget.ui Overlay.ui OverlayEditor.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui AudioWizard.ui Tokens.ui RichTextEditor.ui RichTextEditorLink.ui UserInformation.ui VoiceRecorderDialog.ui
-TRANSLATIONS	= mumble_cs.ts mumble_da.ts mumble_de.ts mumble_en.ts mumble_es.ts mumble_fr.ts mumble_he.ts mumble_hu.ts mumble_it.ts mumble_ja.ts mumble_nl.ts mumble_pl.ts mumble_pt_BR.ts mumble_ru.ts mumble_sv.ts mumble_tr.ts mumble_zh_CN.ts mumble_zh_TW.ts
+TRANSLATIONS	= mumble_cs.ts mumble_da.ts mumble_de.ts mumble_en.ts mumble_es.ts mumble_fr.ts mumble_he.ts mumble_hu.ts mumble_it.ts mumble_ja.ts mumble_nl.ts mumble_pl.ts mumble_pt_BR.ts mumble_pt_PT.ts mumble_ru.ts mumble_sv.ts mumble_tr.ts mumble_zh_CN.ts mumble_zh_TW.ts
+
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../bonjour
 
@@ -117,7 +168,11 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
 }
 
 win32 {
-  RC_FILE	= mumble.rc
+  CONFIG(mumble_dll) {
+    RC_FILE = mumble_dll.rc
+  } else {
+    RC_FILE = mumble.rc
+  }
   HEADERS	*= GlobalShortcut_win.h TaskList.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32
@@ -134,12 +189,14 @@ win32 {
     CONFIG	*= wasapi
   }
 
-  !CONFIG(no-elevation) {
-    CONFIG(release, debug|release) {
-      QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
+  !CONFIG(mumble_dll) {
+    !CONFIG(no-elevation) {
+      CONFIG(release, debug|release) {
+        QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"
+      }
     }
+    QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest mumble.appcompat.manifest)
   }
-  QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest mumble.appcompat.manifest)
 }
 
 unix {
@@ -179,19 +236,24 @@ unix {
     OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
-        # Link against libxar so we can inspect Mac OS X installer packages.
-        CONFIG(static) {
-          LIBS += -lxml2 -lbz2 -lxar
-        } else {
-          LIBS += -lxar
-        }
-        LIBS += -framework ScriptingBridge
-
+        DEFINES *= USE_COCOA
         # Native feeling config dialog.
-        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm Overlay_macx.mm
+        OBJECTIVE_SOURCES += ConfigDialog_macx.mm ConfigDialogDelegate.mm
         HEADERS += ConfigDialog_macx.h
+    }
+
+    !CONFIG(universal) {
+      # Link against libxar so we can inspect Mac OS X installer packages.
+      CONFIG(static) {
+        LIBS += -lxml2 -lbz2 -lxar
+      } else {
+        LIBS += -lxar
+      }
+
+      LIBS += -framework ScriptingBridge 
+      OBJECTIVE_SOURCES += Overlay_macx.mm
     } else {
-        SOURCES += Overlay_unix.cpp
+      SOURCES += Overlay_unix.cpp
     }
 
     # CoreAudio
@@ -282,7 +344,12 @@ dbus {
 
 speechd {
 	DEFINES *= USE_SPEECHD
-	LIBS *= -lspeechd
+	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
+		DEFINES *= USE_SPEECHD_PKGCONFIG
+		PKGCONFIG *= speech-dispatcher
+	} else {
+		LIBS *= -lspeechd
+	}
 }
 
 directsound {
@@ -316,6 +383,11 @@ CONFIG(no-update) {
 }
 
 !CONFIG(no-embed-qt-translations) {
+	# Add additional 3rd party Qt translations not shipped with Qt
+	TRANSLATIONS *= qttranslations/qt_it.ts qttranslations/qt_nl.ts qttranslations/qt_tr.ts
+	DEFINES *= USING_BUNDLED_QT_TRANSLATIONS
+
+	# Add translations shipped with Qt
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
@@ -342,13 +414,14 @@ CONFIG(no-update) {
 	RESOURCES *= mumble_tango.qrc
 }
 
-CONFIG(static) {
-  DEFINES *= USE_STATIC
-
-  # Keep in sync with main.cpp QT_IMPORT_PLUGIN list.
+CONFIG(static_qt_plugins) {
+  DEFINES += USE_STATIC_QT_PLUGINS
   QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
   macx {
     QTPLUGIN += qicnsicon
+    isEqual(QT_MAJOR_VERSION, 5) {
+      QTPLUGIN += qcocoa
+    }
   }
 
   # Icon engines are special; they don't get their lib directory

@@ -29,11 +29,20 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef MUMBLE_MUMBLE_MAINWINDOW_H_
+#define MUMBLE_MUMBLE_MAINWINDOW_H_
 
-#include <QtGui/QMainWindow>
-#include <QtGui/QSystemTrayIcon>
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtCore/QPointer>
+# include <QtWidgets/QMainWindow>
+# include <QtWidgets/QSystemTrayIcon>
+#else
+# include <QtCore/QWeakPointer>
+# include <QtGui/QMainWindow>
+# include <QtGui/QSystemTrayIcon>
+#endif
+
 #include <QtNetwork/QAbstractSocket>
 
 #include "CustomElements.h"
@@ -88,8 +97,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
-		GlobalShortcut *gsUnlink, *gsPushMute, *gsMetaChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsMetaLink;
+		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel, *gsHideChannel;
+		GlobalShortcut *gsCycleTransmitMode, *gsChannelFilter;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -105,8 +115,14 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool bSuppressAskOnQuit;
 		bool bAutoUnmute;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		QPointer<Channel> cContextChannel;
+		QPointer<ClientUser> cuContextUser;
+#else
 		QWeakPointer<Channel> cContextChannel;
 		QWeakPointer<ClientUser> cuContextUser;
+#endif
+
 		QPoint qpContextPosition;
 
 		void recheckTTS();
@@ -149,6 +165,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setupView(bool toggle_minimize = true);
 		virtual void closeEvent(QCloseEvent *e);
 		virtual void hideEvent(QHideEvent *e);
+		virtual void showEvent(QShowEvent *e);
 
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
@@ -193,6 +210,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
+		void on_qaChannelHide_triggered();
 		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
@@ -227,6 +245,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsMuteSelf_down(QVariant);
 		void on_gsDeafSelf_down(QVariant);
 		void on_gsWhisper_triggered(bool, QVariant);
+		void on_gsCycleTransmitMode_triggered(bool, QVariant);
+		void on_gsChannelFilter_down(QVariant v);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);
@@ -246,6 +266,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void pttReleased();
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
+		void on_qaFilterToggle_triggered();
+
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

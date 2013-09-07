@@ -55,8 +55,9 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 		for (int i=0;i<100;++i) {
 			qsName = QString::fromLatin1("Local\\MumbleOverlayMemory%1").arg(++uiIndex);
 			d->hMemory = CreateFileMappingW(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, minsize, qsName.toStdWString().c_str());
-			if (d->hMemory && GetLastError() != ERROR_ALREADY_EXISTS)
+			if (d->hMemory && GetLastError() != ERROR_ALREADY_EXISTS) {
 				break;
+			}
 
 			if (d->hMemory)
 				CloseHandle(d->hMemory);

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CHANNEL_H_
-#define CHANNEL_H_
+#ifndef MUMBLE_CHANNEL_H_
+#define MUMBLE_CHANNEL_H_
 
 #include <QtCore/QHash>
 #include <QtCore/QList>
@@ -73,6 +73,7 @@ class Channel : public QObject {
 
 #ifdef MUMBLE
 		unsigned int uiPermissions;
+		bool bHidden;
 
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;

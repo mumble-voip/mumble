@@ -1,8 +1,7 @@
 #ifndef Q_MOC_RUN
-#ifndef _MUMBLE_PCH_H
-#define _MUMBLE_PCH_H
+#ifndef MUMBLE_MUMBLE_MUMBLE_PCH_H_
+#define MUMBLE_MUMBLE_MUMBLE_PCH_H_
 
-#define QT_NO_DEBUG_STREAM
 #define QT_NO_CAST_TO_ASCII
 #define QT_NO_CAST_FROM_ASCII
 #define QT_USE_FAST_CONCATENATION
@@ -29,6 +28,9 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QtWidgets>
+#endif
 #include <QtSvg/QtSvg>
 #ifdef USE_DBUS
 #include <QtDBus/QtDBus>
@@ -79,6 +81,12 @@
 #include <boost/weak_ptr.hpp>
 
 #ifdef Q_OS_WIN
+// Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
+// This causes Windows headers that use COM interfaces to break. Internally, it's
+// just defined as 'struct', so we'll do that here as well to make things work again
+// without too much hassle.
+#define interface struct
+
 #include <windows.h>
 #include <shellapi.h>
 #include <winsock2.h>

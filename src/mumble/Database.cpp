@@ -37,6 +37,30 @@
 #include "Net.h"
 #include "Version.h"
 
+
+static void logSQLError(const QSqlQuery &query) {
+	const QSqlError error(query.lastQuery());
+	qWarning() << "SQL Query failed" << query.lastQuery();
+	qWarning() << error.number() << query.lastError().text();
+}
+
+static bool execQueryAndLogFailure(QSqlQuery &query) {
+	if(!query.exec()) {
+		logSQLError(query);
+		return false;
+	}
+	return true;
+}
+
+static bool execQueryAndLogFailure(QSqlQuery &query, const QString &queryString) {
+	if(!query.exec(queryString)) {
+		logSQLError(query);
+		return false;
+	}
+	return true;
+}
+
+
 Database::Database() {
 	QSqlDatabase db = QSqlDatabase::addDatabase(QLatin1String("QSQLITE"));
 	QSettings qs;
@@ -44,7 +68,11 @@ Database::Database() {
 	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 #if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
@@ -62,6 +90,7 @@ Database::Database() {
 				found = db.open();
 			}
 
+			//TODO: If the above succeeds, but we also have a .mumble.sqlite, we open another DB!?
 			QFile f2(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 			if (f2.exists()) {
 				db.setDatabaseName(f2.fileName());
@@ -104,59 +133,67 @@ Database::Database() {
 
 	QSqlQuery query;
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT)"));
-	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT)"));
+	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT")); // Upgrade path, failing this query is not noteworthy
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE INDEX IF NOT EXISTS `comments_seen` ON `comments`(`seen`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `blobs` (`hash` TEXT, `data` BLOB, `seen` DATE)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `blobs_hash` ON `blobs`(`hash`)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `blobs_seen` ON `blobs`(`seen`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `blobs` (`hash` TEXT, `data` BLOB, `seen` DATE)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `blobs_hash` ON `blobs`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE INDEX IF NOT EXISTS `blobs_seen` ON `blobs`(`seen`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `token` TEXT)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`digest`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `tokens` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `token` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE INDEX IF NOT EXISTS `tokens_host_port` ON `tokens`(`digest`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
-	query.exec(QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`digest`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `shortcut` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB, `shortcut` BLOB, `target` BLOB, `suppress` INTEGER)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE INDEX IF NOT EXISTS `shortcut_host_port` ON `shortcut`(`digest`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `udp_host_port` ON `udp`(`digest`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `udp` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `digest` BLOB)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `udp_host_port` ON `udp`(`digest`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `cert` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `digest` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `cert_host_port` ON `cert`(`hostname`,`port`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `friends` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hash` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_name` ON `friends`(`name`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `friends_hash` ON `friends`(`hash`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `ignored` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_hash` ON `ignored`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `ignored` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `ignored_hash` ON `ignored`(`hash`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
 
-	query.exec(QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
-	query.exec(QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `hidden` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `hidden_hash` ON `hidden`(`hash`)"));
 
-	query.exec(QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
-	query.exec(QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
 
-	query.exec(QLatin1String("VACUUM"));
+	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `comments` WHERE `seen` < datetime('now', '-1 years')"));
+	execQueryAndLogFailure(query, QLatin1String("DELETE FROM `blobs` WHERE `seen` < datetime('now', '-1 months')"));
 
-	query.exec(QLatin1String("PRAGMA synchronous = OFF"));
-	query.exec(QLatin1String("PRAGMA journal_mode = TRUNCATE"));
+	execQueryAndLogFailure(query, QLatin1String("VACUUM"));
 
-	query.exec(QLatin1String("SELECT sqlite_version()"));
+	execQueryAndLogFailure(query, QLatin1String("PRAGMA synchronous = OFF"));
+#ifdef Q_OS_WIN
+	// Windows can not handle TRUNCATE with multiple connections to the DB. Thus less performant DELETE.
+	execQueryAndLogFailure(query, QLatin1String("PRAGMA journal_mode = DELETE"));
+#else
+	execQueryAndLogFailure(query, QLatin1String("PRAGMA journal_mode = TRUNCATE"));
+#endif
+
+	execQueryAndLogFailure(query, QLatin1String("SELECT sqlite_version()"));
 	while (query.next())
 		qWarning() << "Database SQLite:" << query.value(0).toString();
 }
 
 Database::~Database() {
 	QSqlQuery query;
-	query.exec(QLatin1String("PRAGMA journal_mode = DELETE"));
-	query.exec(QLatin1String("VACUUM"));
+	execQueryAndLogFailure(query, QLatin1String("PRAGMA journal_mode = DELETE"));
+	execQueryAndLogFailure(query, QLatin1String("VACUUM"));
 }
 
 QList<FavoriteServer> Database::getFavorites() {
@@ -164,7 +201,8 @@ QList<FavoriteServer> Database::getFavorites() {
 	QList<FavoriteServer> ql;
 
 	query.prepare(QLatin1String("SELECT `name`, `hostname`, `port`, `username`, `password`, `url` FROM `servers` ORDER BY `name`"));
-	query.exec();
+	execQueryAndLogFailure(query);
+
 	while (query.next()) {
 		FavoriteServer fs;
 		fs.qsName = query.value(0).toString();
@@ -183,7 +221,7 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 	QSqlDatabase::database().transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `servers`"));
-	query.exec();
+	execQueryAndLogFailure(query);
 
 	query.prepare(QLatin1String("REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`) VALUES (?,?,?,?,?,?)"));
 	foreach(const FavoriteServer &s, servers) {
@@ -193,7 +231,7 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 		query.addBindValue(s.qsUsername);
 		query.addBindValue(s.qsPassword);
 		query.addBindValue(s.qsUrl);
-		query.exec();
+		execQueryAndLogFailure(query);
 	}
 
 	QSqlDatabase::database().commit();
@@ -204,7 +242,7 @@ bool Database::isLocalIgnored(const QString &hash) {
 
 	query.prepare(QLatin1String("SELECT `hash` FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next()) {
 		return true;
 	}
@@ -219,7 +257,7 @@ void Database::setLocalIgnored(const QString &hash, bool ignored) {
 	else
 		query.prepare(QLatin1String("DELETE FROM `ignored` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 bool Database::isLocalMuted(const QString &hash) {
@@ -227,7 +265,7 @@ bool Database::isLocalMuted(const QString &hash) {
 
 	query.prepare(QLatin1String("SELECT `hash` FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next()) {
 		return true;
 	}
@@ -242,7 +280,30 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	else
 		query.prepare(QLatin1String("DELETE FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
+}
+
+bool Database::isLocalHidden(const QString &hash) {
+	QSqlQuery query;
+	
+	query.prepare(QLatin1String("SELECT `hash` FROM `hidden` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+	while (query.next()) {
+		return true;
+	}
+	return false;
+}
+
+void Database::setLocalHidden(const QString &hash, bool hidden) {
+	QSqlQuery query;
+	
+	if (hidden)
+		query.prepare(QLatin1String("INSERT INTO `hidden` (`hash`) VALUES (?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `hidden` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
 }
 
 QMap<QPair<QString, unsigned short>, unsigned int> Database::getPingCache() {
@@ -250,7 +311,7 @@ QMap<QPair<QString, unsigned short>, unsigned int> Database::getPingCache() {
 	QMap<QPair<QString, unsigned short>, unsigned int> map;
 
 	query.prepare(QLatin1String("SELECT `hostname`, `port`, `ping` FROM `pingcache`"));
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next()) {
 		map.insert(QPair<QString, unsigned short>(query.value(0).toString(), query.value(1).toUInt()), query.value(2).toUInt());
 	}
@@ -264,14 +325,14 @@ void Database::setPingCache(const QMap<QPair<QString, unsigned short>, unsigned 
 	QSqlDatabase::database().transaction();
 
 	query.prepare(QLatin1String("DELETE FROM `pingcache`"));
-	query.exec();
+	execQueryAndLogFailure(query);
 
 	query.prepare(QLatin1String("REPLACE INTO `pingcache` (`hostname`, `port`, `ping`) VALUES (?,?,?)"));
 	for (i = map.constBegin(); i != map.constEnd(); ++i) {
 		query.addBindValue(i.key().first);
 		query.addBindValue(i.key().second);
 		query.addBindValue(i.value());
-		query.exec();
+		execQueryAndLogFailure(query);
 	}
 
 	QSqlDatabase::database().commit();
@@ -283,13 +344,13 @@ bool Database::seenComment(const QString &hash, const QByteArray &commenthash) {
 	query.prepare(QLatin1String("SELECT COUNT(*) FROM `comments` WHERE `who` = ? AND `comment` = ?"));
 	query.addBindValue(hash);
 	query.addBindValue(commenthash);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next()) {
 		if (query.value(0).toInt() > 0) {
 			query.prepare(QLatin1String("UPDATE `comments` SET `seen` = datetime('now') WHERE `who` = ? AND `comment` = ?"));
 			query.addBindValue(hash);
 			query.addBindValue(commenthash);
-			query.exec();
+			execQueryAndLogFailure(query);
 			return true;
 		}
 	}
@@ -302,7 +363,7 @@ void Database::setSeenComment(const QString &hash, const QByteArray &commenthash
 	query.prepare(QLatin1String("REPLACE INTO `comments` (`who`, `comment`, `seen`) VALUES (?, ?, datetime('now'))"));
 	query.addBindValue(hash);
 	query.addBindValue(commenthash);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 QByteArray Database::blob(const QByteArray &hash) {
@@ -310,13 +371,13 @@ QByteArray Database::blob(const QByteArray &hash) {
 
 	query.prepare(QLatin1String("SELECT `data` FROM `blobs` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next()) {
 		QByteArray qba = query.value(0).toByteArray();
 
 		query.prepare(QLatin1String("UPDATE `blobs` SET `seen` = datetime('now') WHERE `hash` = ?"));
 		query.addBindValue(hash);
-		query.exec();
+		execQueryAndLogFailure(query);
 
 		return qba;
 	}
@@ -332,7 +393,7 @@ void Database::setBlob(const QByteArray &hash, const QByteArray &data) {
 	query.prepare(QLatin1String("REPLACE INTO `blobs` (`hash`, `data`, `seen`) VALUES (?, ?, datetime('now'))"));
 	query.addBindValue(hash);
 	query.addBindValue(data);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 QStringList Database::getTokens(const QByteArray &digest) {
@@ -341,7 +402,7 @@ QStringList Database::getTokens(const QByteArray &digest) {
 
 	query.prepare(QLatin1String("SELECT `token` FROM `tokens` WHERE `digest` = ?"));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next()) {
 		qsl << query.value(0).toString();
 	}
@@ -353,13 +414,13 @@ void Database::setTokens(const QByteArray &digest, QStringList &tokens) {
 
 	query.prepare(QLatin1String("DELETE FROM `tokens` WHERE `digest` = ?"));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 
 	query.prepare(QLatin1String("INSERT INTO `tokens` (`digest`, `token`) VALUES (?,?)"));
 	foreach(const QString &qs, tokens) {
 		query.addBindValue(digest);
 		query.addBindValue(qs);
-		query.exec();
+		execQueryAndLogFailure(query);
 	}
 }
 
@@ -369,7 +430,7 @@ QList<Shortcut> Database::getShortcuts(const QByteArray &digest) {
 
 	query.prepare(QLatin1String("SELECT `shortcut`,`target`,`suppress` FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next()) {
 		Shortcut sc;
 
@@ -401,7 +462,7 @@ bool Database::setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts
 
 	query.prepare(QLatin1String("DELETE FROM `shortcut` WHERE `digest` = ?"));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 
 	const QList<Shortcut> scs = shortcuts;
 
@@ -430,7 +491,7 @@ bool Database::setShortcuts(const QByteArray &digest, QList<Shortcut> &shortcuts
 			query.addBindValue(a);
 
 			query.addBindValue(sc.bSuppress);
-			query.exec();
+			execQueryAndLogFailure(query);
 		}
 	}
 	return updated;
@@ -441,7 +502,7 @@ const QMap<QString, QString> Database::getFriends() {
 	QSqlQuery query;
 
 	query.prepare(QLatin1String("SELECT `name`, `hash` FROM `friends`"));
-	query.exec();
+	execQueryAndLogFailure(query);
 	while (query.next())
 		qm.insert(query.value(0).toString(), query.value(1).toString());
 	return qm;
@@ -452,7 +513,7 @@ const QString Database::getFriend(const QString &hash) {
 
 	query.prepare(QLatin1String("SELECT `name` FROM `friends` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next())
 		return query.value(0).toString();
 	return QString();
@@ -464,7 +525,7 @@ void Database::addFriend(const QString &name, const QString &hash) {
 	query.prepare(QLatin1String("REPLACE INTO `friends` (`name`, `hash`) VALUES (?,?)"));
 	query.addBindValue(name);
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 void Database::removeFriend(const QString &hash) {
@@ -472,7 +533,7 @@ void Database::removeFriend(const QString &hash) {
 
 	query.prepare(QLatin1String("DELETE FROM `friends` WHERE `hash` = ?"));
 	query.addBindValue(hash);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 const QString Database::getDigest(const QString &hostname, unsigned short port) {
@@ -481,7 +542,7 @@ const QString Database::getDigest(const QString &hostname, unsigned short port) 
 	query.prepare(QLatin1String("SELECT `digest` FROM `cert` WHERE `hostname` = ? AND `port` = ?"));
 	query.addBindValue(hostname);
 	query.addBindValue(port);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next()) {
 		return query.value(0).toString();
 	}
@@ -494,7 +555,7 @@ void Database::setDigest(const QString &hostname, unsigned short port, const QSt
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 void Database::setPassword(const QString &hostname, unsigned short port, const QString &uname, const QString &pw) {
@@ -504,14 +565,14 @@ void Database::setPassword(const QString &hostname, unsigned short port, const Q
 	query.addBindValue(hostname);
 	query.addBindValue(port);
 	query.addBindValue(uname);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 bool Database::getUdp(const QByteArray &digest) {
 	QSqlQuery query;
 	query.prepare(QLatin1String("SELECT COUNT(*) FROM `udp` WHERE `digest` = ? "));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next()) {
 		return (query.value(0).toInt() == 0);
 	}
@@ -525,7 +586,7 @@ void Database::setUdp(const QByteArray &digest, bool udp) {
 	else
 		query.prepare(QLatin1String("DELETE FROM `udp` WHERE `digest` = ?"));
 	query.addBindValue(digest);
-	query.exec();
+	execQueryAndLogFailure(query);
 }
 
 bool Database::fuzzyMatch(QString &name, QString &user, QString &pw, QString &hostname, unsigned short port) {
@@ -538,7 +599,7 @@ bool Database::fuzzyMatch(QString &name, QString &user, QString &pw, QString &ho
 	}
 	query.addBindValue(hostname);
 	query.addBindValue(port);
-	query.exec();
+	execQueryAndLogFailure(query);
 	if (query.next()) {
 		user = query.value(0).toString();
 		if (pw.isEmpty())

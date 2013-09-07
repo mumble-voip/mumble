@@ -145,12 +145,14 @@ OverlaySettings::OverlaySettings() {
 
 	setPreset();
 
-	// FPS display settings
+	// FPS and Time display settings
 	qcFps = Qt::white;
 	fFps = 0.75f;
 	qfFps = qfUserName;
-	qrfFps = QRectF(10, 10, -1, 0.023438f);
+	qrfFps = QRectF(10, 50, -1, 0.023438f);
 	bFps = false;
+	qrfTime = QRectF(10, 10, -1, 0.023438f);
+	bTime = false;
 
 	bUseWhitelist = false;
 
@@ -297,7 +299,11 @@ Settings::Settings() {
 	bPluginCheck = true;
 #endif
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+#else
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+#endif
 
 	ceExpand = ChannelsWithUsers;
 	ceChannelDrag = Ask;
@@ -306,8 +312,9 @@ Settings::Settings() {
 	aotbAlwaysOnTop = OnTopNever;
 	bAskOnQuit = true;
 #ifdef Q_OS_WIN
-	// Don't enable minimize to tray by default on win7
-	bHideInTray = (QSysInfo::windowsVersion() != QSysInfo::WV_6_1);
+	// Don't enable minimize to tray by default on Windows 7 or Windows 8
+	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
+	bHideInTray = (winVer != QSysInfo::WV_WINDOWS7 && winVer != QSysInfo::WV_WINDOWS8);
 #else
 	bHideInTray = true;
 #endif
@@ -315,6 +322,9 @@ Settings::Settings() {
 	bUsage = true;
 	bShowUserCount = false;
 	bChatBarUseSelection = false;
+	bFilterHidesEmptyChannels = false;
+	bFilterActive = false;
+
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
 
@@ -364,7 +374,11 @@ Settings::Settings() {
 	bHighContrast = false;
 
 	// Recording
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qsRecordingPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#else
 	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
+#endif
 	qsRecordingFile = QLatin1String("Mumble-%date-%time-%host-%user");
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
@@ -503,6 +517,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
 	SAVELOAD(bFps, "fpsshow");
+	SAVELOAD(bTime, "timeshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
@@ -654,6 +669,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
+	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
@@ -790,6 +807,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(bAvatar, "avatarshow");
 	SAVELOAD(bBox, "boxshow");
 	SAVELOAD(bFps, "fpsshow");
+	SAVELOAD(bTime, "timeshow");
 
 	SAVELOAD(fUserName, "useropacity");
 	SAVELOAD(fChannel, "channelopacity");
@@ -937,6 +955,8 @@ void Settings::save() {
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
+	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
+	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");

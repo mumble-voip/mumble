@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOOUTPUT_H_
-#define AUDIOOUTPUT_H_
+#ifndef MUMBLE_MUMBLE_AUDIOOUTPUT_H_
+#define MUMBLE_MUMBLE_AUDIOOUTPUT_H_
 
 #include <boost/shared_ptr.hpp>
 #include <QtCore/QObject>

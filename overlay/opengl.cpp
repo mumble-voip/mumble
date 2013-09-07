@@ -131,7 +131,6 @@ INJDEF(BOOL, wglSwapBuffers, (HDC));
 INJDEF(BOOL, SwapBuffers, (HDC));
 
 static bool bHooked = false;
-static bool bChaining = false;
 
 class Context : protected Pipe {
 	public:
@@ -144,9 +143,9 @@ class Context : protected Pipe {
 		Context(HDC hdc);
 		void draw(HDC hdc);
 
-		void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		void setRect();
-		void newTexture(unsigned int width, unsigned int height);
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
 Context::Context(HDC hdc) {
@@ -238,7 +237,7 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 
 void Context::draw(HDC hdc) {
 	// DEBUG
-	// sm->bDebug = true;
+	//sm->bDebug = true;
 
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
@@ -368,12 +367,13 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 #define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
 
 void checkOpenGLHook() {
-	if (bChaining) {
-		ods("Causing a chain");
+	static bool bCheckHookActive = false;
+	if (bCheckHookActive) {
+		ods("Recursion in checkOpenGLHook");
 		return;
 	}
 
-	bChaining = true;
+	bCheckHookActive = true;
 
 	HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
 
@@ -381,7 +381,7 @@ void checkOpenGLHook() {
 		if (! bHooked) {
 			char procname[1024];
 			GetModuleFileName(NULL, procname, 1024);
-			fods("OpenGL: Unhooked OpenGL App %s", procname);
+			ods("OpenGL: Unhooked OpenGL App %s", procname);
 			bHooked = true;
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
@@ -431,5 +431,5 @@ void checkOpenGLHook() {
 		}
 	}
 
-	bChaining = false;
+	bCheckHookActive = false;
 }

@@ -30,6 +30,10 @@ CONFIG *= ordered debug_and_release
 
   SUBDIRS *= src/mumble
 
+  win32:CONFIG(static) {
+    SUBDIRS *= src/mumble_exe
+  }
+
   !CONFIG(no-plugins) {
     SUBDIRS *= plugins
   }

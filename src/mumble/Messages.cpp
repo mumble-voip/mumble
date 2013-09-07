@@ -103,6 +103,9 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 		case MumbleProto::Reject_RejectType_WrongServerPW:
 			reason = tr("Wrong password");
 			break;
+		case MumbleProto::Reject_RejectType_AuthenticatorFail:
+			reason = tr("Your account information can not be verified currently. Please try again later");
+			break;
 		default:
 			break;
 	}
@@ -214,12 +217,12 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.s.bTTS = true;
 					quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);
 					g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
-					g.l->log(Log::PermissionDenied, QString::fromAscii(g.ccHappyEaster + 39).arg(u));
+					g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(u));
 					g.s.qmMessages[Log::PermissionDenied] = oflags;
 					g.s.bDeaf = bold;
 					g.s.bTTS = bold2;
-					g.mw->setWindowIcon(QIcon(QLatin1String(g.ccHappyEaster)));
-					g.mw->setStyleSheet(QString::fromAscii(g.ccHappyEaster + 82));
+					g.mw->setWindowIcon(QIcon(QString::fromUtf8(g.ccHappyEaster)));
+					g.mw->setStyleSheet(QString::fromUtf8(g.ccHappyEaster + 82));
 					qWarning() << "Happy Easter";
 				}
 			}
@@ -560,6 +563,9 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	if (msg.has_position()) {
 		pmModel->repositionChannel(c, msg.position());
 	}
+
+	if (Database::isLocalHidden(c->qsName))
+		c->bHidden = true;
 
 	if (msg.links_size()) {
 		QList<Channel *> ql;

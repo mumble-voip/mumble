@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _HARDHOOK_H
-#define _HARDHOOK_H
+#ifndef MUMBLE_HARDHOOK_H_
+#define MUMBLE_HARDHOOK_H_
 
 #define _UNICODE
 #ifndef _WIN32_WINNT
@@ -47,9 +47,16 @@
 typedef void *(*voidFunc)();
 
 struct HardHook {
-	// Pointer to the place in the original code where replacements happen
+	// Pointer to executable code page that holds all trampoline codes
+	static void *pCode;
+	// Number of bytes used in pCode.
+	static unsigned int uiCode;
+
+	// Pointer to original code (which is hooked/replaced)
 	unsigned char *baseptr;
+	// The original instructions that are replaced by the hook
 	unsigned char orig[6];
+	// Hook-Code; Replacement instructions for function call jump
 	unsigned char replace[6];
 	// Remembers whether there is a trampoline in place in the target code or
 	// whether restore -> call orig. -> replace has to be used for every intercepted call
@@ -57,20 +64,21 @@ struct HardHook {
 	// Points to the (rest of the) original function when used from the injected function
 	voidFunc call;
 
-	// Pointer to executable code page that holds all trampoline codes
-	static void *pCode;
-	// Offset to next unused addr in pCode
-	static unsigned int uiCode;
-
 	HardHook();
 	HardHook(voidFunc func, voidFunc replacement);
-	void *cloneCode(void **orig);
 	void setup(voidFunc func, voidFunc replacement);
 	void setupInterface(IUnknown *intf, LONG funcoffset, voidFunc replacement);
+	void reset();
 	void inject(bool force = false);
 	void restore(bool force = false);
 	void print();
 	void check();
+
+private:
+	static const int CODEREPLACESIZE;
+	static const int CODEPROTECTSIZE;
+
+	void *cloneCode(void **orig);
 };
 
 #endif

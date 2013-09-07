@@ -27,8 +27,8 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOUR_SERVICE_REGISTER_H
-#define BONJOUR_SERVICE_REGISTER_H
+#ifndef MUMBLE_BONJOUR_SERVICE_REGISTER_H_
+#define MUMBLE_BONJOUR_SERVICE_REGISTER_H_
 
 // Bonjour flags
 #include <dns_sd.h>
@@ -66,4 +66,4 @@ class BonjourServiceRegister : public QObject {
 		BonjourRecord finalRecord;
 };
 
-#endif // BONJOUR_SERVICE_REGISTER_H
+#endif

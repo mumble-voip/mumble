@@ -32,9 +32,17 @@
 #include "ConfigDialog_macx.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"
-#include "Global.h"
 
 #import "ConfigDialogDelegate.h"
+
+#include "Global.h"
+
+#ifdef QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+static NSWindow *qt_mac_window_for(QWidget *w) {
+	NSView *view = (NSView *) w->winId();
+	return [view window];
+}
+#endif
 
 class QWidgetPrivate {
 	public:

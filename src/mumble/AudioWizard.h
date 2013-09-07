@@ -28,11 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOWIZARD_H_
-#define AUDIOWIZARD_H_
+#ifndef MUMBLE_MUMBLE_AUDIOWIZARD_H_
+#define MUMBLE_MUMBLE_AUDIOWIZARD_H_
 
-#include <QtGui/QWizard>
-#include <QtGui/QWizardPage>
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QWizard>
+# include <QtWidgets/QWizardPage>
+#else
+# include <QtGui/QWizard>
+# include <QtGui/QWizardPage>
+#endif
 
 #include "AudioStats.h"
 #include "AudioOutput.h"

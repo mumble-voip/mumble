@@ -183,6 +183,8 @@
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
    <addaction name="qaConfigDialog"/>
+   <addaction name="separator"/>
+   <addaction name="qaFilterToggle"/>
   </widget>
   <action name="qaQuit">
    <property name="text">
@@ -235,13 +237,13 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Ban lists</string>
+    <string>&amp;Ban list</string>
    </property>
    <property name="toolTip">
-    <string>Edit ban lists on server</string>
+    <string>Edit ban list on server</string>
    </property>
    <property name="whatsThis">
-    <string>This lets you edit the server-side IP ban lists.</string>
+    <string>This lets you edit the server-side IP ban list.</string>
    </property>
   </action>
   <action name="qaServerInformation">
@@ -534,6 +536,29 @@
     <bool>false</bool>
    </property>
   </action>
+  <action name="qaFilterToggle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="mumble.qrc">
+     <normaloff>skin:filter.svg</normaloff>
+     <normalon>skin:filter.svg</normalon>
+     <activeon>skin:filter.svg</activeon>filter.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Filter on/off</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle the channel filter</string>
+   </property>
+   <property name="whatsThis">
+    <string>Enable or disable the filtering of empty channels.</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
   <action name="qaAudioWizard">
    <property name="text">
     <string>&amp;Audio Wizard</string>
@@ -760,6 +785,14 @@
   <action name="qaChannelJoin">
    <property name="text">
     <string>&amp;Join Channel</string>
+   </property>
+  </action>
+  <action name="qaChannelHide">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Hide Channel when Filtering</string>
    </property>
   </action>
   <action name="qaUserCommentView">

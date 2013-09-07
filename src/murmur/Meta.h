@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef META_H_
-#define META_H_
+#ifndef MUMBLE_MURMUR_META_H_
+#define MUMBLE_MURMUR_META_H_
 
 #include <QtCore/QDir>
 #include <QtCore/QList>
@@ -47,7 +47,8 @@
 class Server;
 class QSettings;
 
-struct MetaParams {
+class MetaParams {
+public:
 	QDir qdBasePath;
 
 	QList<QHostAddress> qlBind;
@@ -124,6 +125,10 @@ struct MetaParams {
 	MetaParams();
 	~MetaParams();
 	void read(QString fname = QString("murmur.ini"));
+
+private:
+		template <class T>
+		T typeCheckedFromSettings(const QString &name, const T &variable);
 };
 
 class Meta : public QObject {

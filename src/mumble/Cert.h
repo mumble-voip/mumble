@@ -28,11 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CERT_H_
-#define CERT_H_
+#ifndef MUMBLE_MUMBLE_CERT_H_
+#define MUMBLE_MUMBLE_CERT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QString>
-#include <QtGui/QGroupBox>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QGroupBox>
+#else
+# include <QtGui/QGroupBox>
+#endif
+
 #include <QtNetwork/QHostInfo>
 #include <QtNetwork/QSslCertificate>
 

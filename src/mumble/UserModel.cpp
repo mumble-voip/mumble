@@ -235,6 +235,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
+	qiFilter=QIcon(QLatin1String("skin:filter.svg"));
 
 	ModelItem::bUsersTop = g.s.bUserTop;
 
@@ -448,6 +449,8 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
+				if (c->bHidden)
+					l << (qiFilter);
 				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
@@ -519,11 +522,15 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 									qb.open(QIODevice::ReadOnly);
 									QImageReader qir(&qb, p->qbaTextureFormat);
 									QSize sz = qir.size();
-									if (sz.width() > 128) {
-										int targ = sz.width() / ((sz.width()+127)/ 128);
-										qsImage = QString::fromLatin1("<img src=\"memoryblob://avatar/%1/texture.%2\" width=\"%3\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower()).arg(targ);
-									} else if (sz.width() > 0) {
-										qsImage = QString::fromLatin1("<img src=\"memoryblob://avatar/%1/texture.%2\" />").arg(p->uiSession).arg(QString::fromLatin1(p->qbaTextureFormat).toLower());
+									if (sz.width() > 0) {
+										qsImage = QString::fromLatin1("<img src=\"data:;base64,");
+										qsImage.append(QString::fromLatin1(p->qbaTexture.toBase64().toPercentEncoding()));
+										if (sz.width() > 128) {
+											int targ = sz.width() / ((sz.width()+127)/ 128);
+											qsImage.append(QString::fromLatin1("\" width=\"%1\" />").arg(targ));
+										} else {
+											qsImage.append(QString::fromLatin1("\" />"));
+										}
 									}
 								}
 							}
@@ -1303,6 +1310,19 @@ void UserModel::userTalkingChanged() {
 void UserModel::userMuteDeafChanged() {
 	ClientUser *p=static_cast<ClientUser *>(sender());
 	QModelIndex idx = index(p);
+	emit dataChanged(idx, idx);
+
+	updateOverlay();
+}
+
+void UserModel::toggleHidden(Channel *c) {
+	QModelIndex idx;
+	if(c) {
+		c->bHidden = !c->bHidden;		
+		Database::setLocalHidden(c->qsName, c->bHidden);
+		idx = index(c);
+	}
+
 	emit dataChanged(idx, idx);
 
 	updateOverlay();

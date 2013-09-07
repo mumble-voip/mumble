@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIO_H_
-#define AUDIO_H_
+#ifndef MUMBLE_MUMBLE_AUDIO_H_
+#define MUMBLE_MUMBLE_AUDIO_H_
 
 #include <QtCore/QByteArray>
 #include <QtCore/QMultiMap>

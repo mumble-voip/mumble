@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef WASAPINOTIFICATIONCLIENT_H_
-#define WASAPINOTIFICATIONCLIENT_H_
+#ifndef MUMBLE_MUMBLE_WASAPINOTIFICATIONCLIENT_H_
+#define MUMBLE_MUMBLE_WASAPINOTIFICATIONCLIENT_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QMutex>
@@ -73,6 +73,9 @@ private:
 
 	WASAPINotificationClient(const WASAPINotificationClient&);
 	WASAPINotificationClient& operator=(const WASAPINotificationClient&);
+
+	static WASAPINotificationClient& doGet();
+	static void doGetOnce();
 
 	void restartAudio();
 

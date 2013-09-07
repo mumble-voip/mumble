@@ -31,6 +31,9 @@ win32 {
   DEFINES += WIN32 _WIN32
   INCLUDEPATH += ../$$BUILDDIR/win32
 
+  CONFIG -= static
+  CONFIG += shared
+
   CONFIG(sse2) {
     TARGET_VERSION_EXT = .sse2
   } else {
@@ -40,6 +43,7 @@ win32 {
 }
 
 unix {
+  CONFIG += staticlib
   QMAKE_CFLAGS += -x c++
   INCLUDEPATH += ../$$BUILDDIR
 }

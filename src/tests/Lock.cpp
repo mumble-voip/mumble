@@ -1,3 +1,8 @@
+/**
+ * Benchmark of different locking mechanisms; QMutex, PosixMutex, Silly
+ * (int-flag).
+ */
+
 #include <QtCore>
 #include <QtNetwork>
 

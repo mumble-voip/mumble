@@ -43,7 +43,7 @@ static char crashhandler_fn[PATH_MAX];
 static void crashhandler_signals_restore();
 static void crashhandler_handle_crash();
 
-static void mumbleMessageOutput(QtMsgType type, const char *msg) {
+static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
 
 	switch (type) {
@@ -61,19 +61,30 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	}
 
 #define LOG(f, msg) fprintf(f, "<%c>%s %s\n", c, \
-		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), msg)
+		qPrintable(QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"))), qPrintable(msg))
 
 	LOG(stderr, msg);
 	LOG(fConsole, msg);
 	fflush(fConsole);
 
 	if (type == QtFatalMsg) {
-		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), msg);
+		CFStringRef csMsg = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%s\n\nThe error has been logged. Please submit your log file to the Mumble project if the problem persists."), qPrintable(msg));
 		CFUserNotificationDisplayAlert(0, 0, NULL,  NULL, NULL, CFSTR("Mumble has encountered a fatal error"), csMsg, CFSTR("OK"), NULL, NULL, NULL);
 		CFRelease(csMsg);
 		exit(0);
 	}
 }
+
+static void mumbleMessageOutput(QtMsgType type, const char *msg) {
+	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
+}
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
+	Q_UNUSED(ctx);
+	mumbleMessageOutputQString(type, msg);
+}
+#endif
 
 void query_language() {
 	CFPropertyListRef cfaLangs;
@@ -152,8 +163,13 @@ void os_init() {
 		strcat(buff, home);
 		strcat(buff, logpath);
 		fConsole = fopen(buff, "a+");
-		if (fConsole)
-			qInstallMsgHandler(mumbleMessageOutput);
+		if (fConsole) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		qInstallMessageHandler(mumbleMessageOutputWithContext);
+#else
+		qInstallMsgHandler(mumbleMessageOutput);
+#endif
+		}
 	}
 
 	/* Query for language setting. OS X's LANG environment variable is determined from the region selected

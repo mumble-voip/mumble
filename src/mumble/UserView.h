@@ -28,11 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USERVIEW_H_
-#define USERVIEW_H_
+#ifndef MUMBLE_MUMBLE_USERVIEW_H_
+#define MUMBLE_MUMBLE_USERVIEW_H_
 
-#include <QtGui/QStyledItemDelegate>
-#include <QtGui/QTreeView>
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QStyledItemDelegate>
+# include <QtWidgets/QTreeView>
+#else 
+# include <QtGui/QStyledItemDelegate>
+# include <QtGui/QTreeView>
+#endif
 
 #include "Timer.h"
 
@@ -66,7 +72,8 @@ class UserView : public QTreeView {
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
-
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+		void updateChannel(const QModelIndex &index);
 };
 
 #endif

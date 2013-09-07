@@ -92,9 +92,18 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 	} else {
 		QSslCertificate qscCert = qlCert.at(0);
 
-		QStringList emails(qscCert.alternateSubjectNames().values(QSsl::EmailEntry));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		const QStringList &names = qscCert.subjectInfo(QSslCertificate::CommonName);
+		QString name;
+		if (names.count() > 0) {
+			name = names.at(0);
+		}
 
+		QStringList emails = qscCert.subjectAlternativeNames().values(QSsl::EmailEntry);
+#else
 		const QString &name = qscCert.subjectInfo(QSslCertificate::CommonName);
+		QStringList emails(qscCert.alternateSubjectNames().values(QSsl::EmailEntry));
+#endif
 
 		QString tmpName = name;
 		tmpName = tmpName.replace(QLatin1String("\\x"), QLatin1String("%"));
@@ -115,8 +124,16 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		if (qlCert.count() > 1)
 			qscCert = qlCert.last();
 
-		const QString &issuer = qscCert.issuerInfo(QSslCertificate::CommonName);
-		qlIssuerName->setText((issuer == name) ? tr("Self-signed") : issuer);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		const QStringList &issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
+		QString issuerName;
+		if (issuerNames.count() > 0) {
+			issuerName = issuerName.at(0);
+		}
+#else
+		const QString &issuerName = qscCert.issuerInfo(QSslCertificate::CommonName);
+#endif
+		qlIssuerName->setText((issuerName == name) ? tr("Self-signed") : issuerName);
 	}
 }
 

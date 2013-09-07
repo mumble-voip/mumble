@@ -29,13 +29,20 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CUSTOMELEMENTS_H_
-#define CUSTOMELEMENTS_H_
+#ifndef MUMBLE_MUMBLE_CUSTOMELEMENTS_H_
+#define MUMBLE_MUMBLE_CUSTOMELEMENTS_H_
 
 #include <QtCore/QObject>
-#include <QtGui/QLabel>
-#include <QtGui/QTextBrowser>
-#include <QtGui/QTextEdit>
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QLabel>
+# include <QtWidgets/QTextBrowser>
+# include <QtWidgets/QTextEdit>
+#else
+# include <QtGui/QLabel>
+# include <QtGui/QTextBrowser>
+# include <QtGui/QTextEdit>
+#endif
 
 class LogTextBrowser : public QTextBrowser {
 	private:

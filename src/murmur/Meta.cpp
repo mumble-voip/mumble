@@ -94,12 +94,41 @@ MetaParams::~MetaParams() {
 	delete qsSettings;
 }
 
+/**
+ *	Checks whether a qsSettings config variable named 'name' was set to a valid value for the type
+ *  we want to convert it to. Otherwise a error message is logged and 'defaultValue' is returned.
+ *
+ *  E.g. checkedFromSettings<QString>("blub", bla) would output an error message and leave bla unchanged
+ *		 if the user had set the ini parameter to "blub = has, commas, in, it" which QSettings will interpret
+ *		 not as a String but as a list of strings.
+ *
+ *	@param T Conversion target type (type of 'defaultValue', auto inducable)
+ *	@param name qsSettings variable name
+ *	@param defaultValue Default value for 'name'
+ *	@return Setting if valid, default if not or setting not set.
+ */
+template <class T>
+T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue) {
+	QVariant cfgVariable = qsSettings->value(name, defaultValue);
+
+	if (!cfgVariable.convert(QVariant(defaultValue).type())) { // Bit convoluted as canConvert<T>() only does a static check without considering whether say a string like "blub" is actually a valid double (which convert does).
+		qCritical() << "Configuration variable" << name << "is of invalid format. Set to default value of" << defaultValue << ".";
+		return defaultValue;
+	}
+
+	return cfgVariable.value<T>();
+}
+
 void MetaParams::read(QString fname) {
 	if (fname.isEmpty()) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 
 		size_t reqSize;
 		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");
@@ -227,52 +256,52 @@ void MetaParams::read(QString fname) {
 			qlBind << QHostAddress(QHostAddress::Any);
 	}
 
-	qsPassword = qsSettings->value("serverpassword", qsPassword).toString();
-	usPort = static_cast<unsigned short>(qsSettings->value("port", usPort).toUInt());
-	iTimeout = qsSettings->value("timeout", iTimeout).toInt();
-	iMaxTextMessageLength = qsSettings->value("textmessagelength", iMaxTextMessageLength).toInt();
-	iMaxImageMessageLength = qsSettings->value("imagemessagelength", iMaxImageMessageLength).toInt();
-	bAllowHTML = qsSettings->value("allowhtml", bAllowHTML).toBool();
-	iMaxBandwidth = qsSettings->value("bandwidth", iMaxBandwidth).toInt();
-	iDefaultChan = qsSettings->value("defaultchannel", iDefaultChan).toInt();
-	bRememberChan = qsSettings->value("rememberchannel", bRememberChan).toBool();
-	iMaxUsers = qsSettings->value("users", iMaxUsers).toInt();
-	iMaxUsersPerChannel = qsSettings->value("usersperchannel", iMaxUsersPerChannel).toInt();
-	qsWelcomeText = qsSettings->value("welcometext", qsWelcomeText).toString();
-	bCertRequired = qsSettings->value("certrequired", bCertRequired).toBool();
+	qsPassword = typeCheckedFromSettings("serverpassword", qsPassword);
+	usPort = static_cast<unsigned short>(typeCheckedFromSettings("port", static_cast<uint>(usPort)));
+	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
+	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
+	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
+	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
+	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
+	iDefaultChan = typeCheckedFromSettings("defaultchannel", iDefaultChan);
+	bRememberChan = typeCheckedFromSettings("rememberchannel", bRememberChan);
+	iMaxUsers = typeCheckedFromSettings("users", iMaxUsers);
+	iMaxUsersPerChannel = typeCheckedFromSettings("usersperchannel", iMaxUsersPerChannel);
+	qsWelcomeText = typeCheckedFromSettings("welcometext", qsWelcomeText);
+	bCertRequired = typeCheckedFromSettings("certrequired", bCertRequired);
 
-	qsDatabase = qsSettings->value("database", qsDatabase).toString();
+	qsDatabase = typeCheckedFromSettings("database", qsDatabase);
 
-	qsDBDriver = qsSettings->value("dbDriver", qsDBDriver).toString();
-	qsDBUserName = qsSettings->value("dbUsername", qsDBUserName).toString();
-	qsDBPassword = qsSettings->value("dbPassword", qsDBPassword).toString();
-	qsDBHostName = qsSettings->value("dbHost", qsDBHostName).toString();
-	qsDBPrefix = qsSettings->value("dbPrefix", qsDBPrefix).toString();
-	qsDBOpts = qsSettings->value("dbOpts", qsDBOpts).toString();
-	iDBPort = qsSettings->value("dbPort", iDBPort).toInt();
+	qsDBDriver = typeCheckedFromSettings("dbDriver", qsDBDriver);
+	qsDBUserName = typeCheckedFromSettings("dbUsername", qsDBUserName);
+	qsDBPassword = typeCheckedFromSettings("dbPassword", qsDBPassword);
+	qsDBHostName = typeCheckedFromSettings("dbHost", qsDBHostName);
+	qsDBPrefix = typeCheckedFromSettings("dbPrefix", qsDBPrefix);
+	qsDBOpts = typeCheckedFromSettings("dbOpts", qsDBOpts);
+	iDBPort = typeCheckedFromSettings("dbPort", iDBPort);
 
-	qsIceEndpoint = qsSettings->value("ice", qsIceEndpoint).toString();
-	qsIceSecretRead = qsSettings->value("icesecret", qsIceSecretRead).toString();
-	qsIceSecretRead = qsSettings->value("icesecretread", qsIceSecretRead).toString();
-	qsIceSecretWrite = qsSettings->value("icesecretwrite", qsIceSecretRead).toString();
+	qsIceEndpoint = typeCheckedFromSettings("ice", qsIceEndpoint);
+	qsIceSecretRead = typeCheckedFromSettings("icesecret", qsIceSecretRead);
+	qsIceSecretRead = typeCheckedFromSettings("icesecretread", qsIceSecretRead);
+	qsIceSecretWrite = typeCheckedFromSettings("icesecretwrite", qsIceSecretRead);
 
-	iLogDays = qsSettings->value("logdays", iLogDays).toInt();
+	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
-	qsDBus = qsSettings->value("dbus", qsDBus).toString();
-	qsDBusService = qsSettings->value("dbusservice", qsDBusService).toString();
-	qsLogfile = qsSettings->value("logfile", qsLogfile).toString();
-	qsPid = qsSettings->value("pidfile", qsPid).toString();
+	qsDBus = typeCheckedFromSettings("dbus", qsDBus);
+	qsDBusService = typeCheckedFromSettings("dbusservice", qsDBusService);
+	qsLogfile = typeCheckedFromSettings("logfile", qsLogfile);
+	qsPid = typeCheckedFromSettings("pidfile", qsPid);
 
-	qsRegName = qsSettings->value("registerName", qsRegName).toString();
-	qsRegPassword = qsSettings->value("registerPassword", qsRegPassword).toString();
-	qsRegHost = qsSettings->value("registerHostname", qsRegHost).toString();
-	qsRegLocation = qsSettings->value("registerLocation", qsRegLocation).toString();
-	qurlRegWeb = QUrl(qsSettings->value("registerUrl", qurlRegWeb.toString()).toString());
-	bBonjour = qsSettings->value("bonjour", bBonjour).toBool();
+	qsRegName = typeCheckedFromSettings("registerName", qsRegName);
+	qsRegPassword = typeCheckedFromSettings("registerPassword", qsRegPassword);
+	qsRegHost = typeCheckedFromSettings("registerHostname", qsRegHost);
+	qsRegLocation = typeCheckedFromSettings("registerLocation", qsRegLocation);
+	qurlRegWeb = QUrl(typeCheckedFromSettings("registerUrl", qurlRegWeb).toString());
+	bBonjour = typeCheckedFromSettings("bonjour", bBonjour);
 
-	iBanTries = qsSettings->value("autobanAttempts", iBanTries).toInt();
-	iBanTimeframe = qsSettings->value("autobanTimeframe", iBanTimeframe).toInt();
-	iBanTime = qsSettings->value("autobanTime", iBanTime).toInt();
+	iBanTries = typeCheckedFromSettings("autobanAttempts", iBanTries);
+	iBanTimeframe = typeCheckedFromSettings("autobanTimeframe", iBanTimeframe);
+	iBanTime = typeCheckedFromSettings("autobanTime", iBanTime);
 
 	qvSuggestVersion = MumbleVersion::getRaw(qsSettings->value("suggestVersion").toString());
 	if (qvSuggestVersion.toUInt() == 0)
@@ -286,9 +315,9 @@ void MetaParams::read(QString fname) {
 	if (qvSuggestPushToTalk.toString().trimmed().isEmpty())
 		qvSuggestPushToTalk = QVariant();
 
-	iOpusThreshold = qsSettings->value("opusthreshold", iOpusThreshold).toInt();
+	iOpusThreshold = typeCheckedFromSettings("opusthreshold", iOpusThreshold);
 
-	iChannelNestingLimit = qsSettings->value("channelnestinglimit", iChannelNestingLimit).toInt();
+	iChannelNestingLimit = typeCheckedFromSettings("channelnestinglimit", iChannelNestingLimit);
 
 #ifdef Q_OS_UNIX
 	qsName = qsSettings->value("uname").toString();
@@ -312,16 +341,16 @@ void MetaParams::read(QString fname) {
 	}
 #endif
 
-	qrUserName = QRegExp(qsSettings->value("username", qrUserName.pattern()).toString());
-	qrChannelName = QRegExp(qsSettings->value("channelname", qrChannelName.pattern()).toString());
+	qrUserName = QRegExp(typeCheckedFromSettings("username", qrUserName.pattern()));
+	qrChannelName = QRegExp(typeCheckedFromSettings("channelname", qrChannelName.pattern()));
 
-	bool bObfuscate = qsSettings->value("obfuscate", false).toBool();
+	bool bObfuscate = typeCheckedFromSettings("obfuscate", false);
 	if (bObfuscate) {
 		qWarning("IP address obfuscation enabled.");
 		iObfuscate = qrand();
 	}
-	bSendVersion = qsSettings->value("sendversion", bSendVersion).toBool();
-	bAllowPing = qsSettings->value("allowping", bAllowPing).toBool();
+	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
+	bAllowPing = typeCheckedFromSettings("allowping", bAllowPing);
 
 	QString qsSSLCert = qsSettings->value("sslCert").toString();
 	QString qsSSLKey = qsSettings->value("sslKey").toString();

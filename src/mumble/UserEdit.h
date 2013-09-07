@@ -28,38 +28,57 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USEREDIT_H_
-#define USEREDIT_H_
+#ifndef MUMBLE_MUMBLE_USEREDIT_H_
+#define MUMBLE_MUMBLE_USEREDIT_H_
 
 #include "Message.h"
-
+#include "User.h"
+#include "mumble_pch.hpp"
 #include "ui_UserEdit.h"
 
 namespace MumbleProto {
 class UserList;
 }
+namespace MumbleProto { class UserList_User; }
 
-class UserEditListItem : public QListWidgetItem {
+class UserEditListItem : public QTreeWidgetItem {
 	public:
-		UserEditListItem(const QString &username, const int userid);
-		bool operator<(const QListWidgetItem & other) const;
+		UserEditListItem(const int userid);
+		bool operator<(const QTreeWidgetItem & other) const;
 };
 
 class UserEdit : public QDialog, public Ui::UserEdit {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
+
 	protected:
-		QMap<int, QString> qmUsers;
+		QMap<int, UserInfo> qmUsers;
 		QMap<int, QString> qmChanged;
+
+		int iInactiveForDaysFiltervalue;
+
+		void refreshUserList();
+		void updateInactiveDaysFilter();
+		void showExtendedGUI();
+		void hideExtendedGUI();
+
+		void protoUserToUserInfo(const MumbleProto::UserList_User & u, UserInfo & uie);
+		QString getChanneltreestring(Channel* c) const;
+
 	public:
 		UserEdit(const MumbleProto::UserList &mpul, QWidget *p = NULL);
 	public slots:
 		void accept();
+		void on_qlSearch_textChanged(QString );
 	public slots:
 		void on_qpbRemove_clicked();
-		void on_qlwUserList_customContextMenuRequested(const QPoint&);
+		void on_qpbRename_clicked();
+		void on_qtwUserList_customContextMenuRequested(const QPoint&);
 		void renameTriggered();
+		void on_qtwUserList_itemSelectionChanged();
+		void on_qsbInactive_valueChanged(int );
+		void on_qcbInactive_currentIndexChanged(int index);
 };
 
 #endif

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USERMODEL_H_
-#define USERMODEL_H_
+#ifndef MUMBLE_MUMBLE_USERMODEL_H_
+#define MUMBLE_MUMBLE_USERMODEL_H_
 
 #include <QtCore/QAbstractItemModel>
 #include <QtCore/QHash>
@@ -54,6 +54,7 @@ public:
 
 	ModelItem *parent;
 	QList<ModelItem *> qlChildren;
+	QList<ModelItem *> qlHiddenChildren;
 	int iUsers;
 
 	static QHash <Channel *, ModelItem *> c_qhChannels;
@@ -94,7 +95,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 		QIcon qiFriend;
-		QIcon qiComment, qiCommentSeen;
+		QIcon qiComment, qiCommentSeen, qiFilter;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
@@ -171,6 +172,7 @@ class UserModel : public QAbstractItemModel {
 		void ensureSelfVisible();
 		void recheckLinks();
 		void updateOverlay() const;
+		void toggleHidden(Channel *c);
 };
 
 #endif

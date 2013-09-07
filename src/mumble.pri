@@ -1,6 +1,7 @@
 include(../compiler.pri)
+include(../qt.pri)
 
-VERSION		= 1.2.4
+VERSION		= 1.2.5
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h Mumble.proto
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION

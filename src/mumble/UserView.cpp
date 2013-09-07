@@ -40,34 +40,6 @@
 #include "ServerHandler.h"
 #include "UserModel.h"
 
-/*!
-  \fn bool UserView::event(QEvent *evt)
-  This implementation contains a special handler to display
-  custom what's this entries for items. All other events are
-  passed on.
-*/
-
-/*!
-  \fn void UserView::mouseReleaseEvent(QMouseEvent *evt)
-  This function is used to create custom behaviour when clicking
-  on user/channel flags (e.g. showing the comment)
-*/
-
-/*!
-  \fn void UserView::activated(const QModelIndex &idx)
-  Depending on whether idx points to a channel or user this function
-  either moves the player to the channel or opens a message window.
-  This Slot connected to the objects activated signal. The activated
-  signal could, for example, be triggered by doubleclick.
-*/
-
-/*!
-  \fn void UserView::keyboardSearch(const QString &search)
-  This implementation provides a recursive realtime search over
-  the whole channel tree. It also features delayed selection
-  with with automatic expanding of folded channels.
-*/
-
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
@@ -86,11 +58,16 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	QIcon::Mode iconMode = QIcon::Normal;
 
 	QPalette::ColorRole colorRole = ((o.state & QStyle::State_Selected) ? QPalette::HighlightedText : QPalette::Text);
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
 	// Qt's Vista Style has the wrong highlight color for treeview items
 	// We can't check for QStyleSheetStyle so we have to search the children list search for a QWindowsVistaStyle
-	if (qobject_cast<QWindowsVistaStyle *>(style) || style->findChild<QWindowsVistaStyle *>()) {
-		colorRole = QPalette::Text;
+	QList<QObject *> hierarchy = style->findChildren<QObject *>();
+	hierarchy.insert(0, style);
+	foreach (QObject *obj, hierarchy) {
+		if (QString::fromUtf8(obj->metaObject()->className()) == QString::fromUtf8("QWindowsVistaStyle")) {
+			colorRole = QPalette::Text;
+			break;
+		}
 	}
 #endif
 
@@ -152,6 +129,11 @@ UserView::UserView(QWidget *p) : QTreeView(p) {
 	connect(qtSearch, SIGNAL(timeout()), this, SLOT(selectSearchResult()));
 }
 
+/**
+ * This implementation contains a special handler to display
+ * custom what's this entries for items. All other events are
+ * passed on.
+ */
 bool UserView::event(QEvent *evt) {
 	if (evt->type() == QEvent::WhatsThisClicked) {
 		QWhatsThisClickedEvent *qwtce = static_cast<QWhatsThisClickedEvent *>(evt);
@@ -162,6 +144,10 @@ bool UserView::event(QEvent *evt) {
 	return QTreeView::event(evt);
 }
 
+/**
+ * This function is used to create custom behaviour when clicking
+ * on user/channel flags (e.g. showing the comment)
+ */
 void UserView::mouseReleaseEvent(QMouseEvent *evt) {
 	QPoint qpos = evt->pos();
 
@@ -240,6 +226,11 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	}
 }
 
+/**
+ * This implementation provides a recursive realtime search over
+ * the whole channel tree. It also features delayed selection
+ * with with automatic expanding of folded channels.
+ */
 void UserView::keyboardSearch(const QString &search) {
 
 	if (qtSearch->isActive()) {
@@ -304,3 +295,73 @@ void UserView::selectSearchResult() {
 	}
 	qpmiSearch = QPersistentModelIndex();
 }
+
+bool ChannelHasUsers(const Channel *c)
+{
+	if(c->qlUsers.isEmpty() == false)
+		return true;
+
+	int i;	
+
+	for(i=0;i<c->qlChannels.count();i++)
+	{
+		if(ChannelHasUsers(c->qlChannels[i]))
+			return true;
+	}
+	return false;
+}
+
+static bool ChannelHidden(const Channel *c)
+{
+	while(c) {
+		if(c->bHidden)
+			return true;
+		c=c->cParent;
+	}
+	return false;
+}
+
+void UserView::updateChannel(const QModelIndex &idx) {
+	UserModel *um = static_cast<UserModel *>(model());
+
+	if(!idx.isValid())
+		return;
+
+	Channel * c = um->getChannel(idx);
+
+
+	for(int i = 0; idx.child(i, 0).isValid(); ++i) {
+		updateChannel(idx.child(i,0));
+	}
+
+	if(c && idx.parent().isValid()) {
+
+		if(g.s.bFilterActive == false) {
+			setRowHidden(idx.row(),idx.parent(),false);
+		} else {
+
+			if(ChannelHidden(c)) {
+				QByteArray ba = c->qsName.toLocal8Bit();
+				setRowHidden(idx.row(),idx.parent(),true);
+			} else {
+				if(g.s.bFilterHidesEmptyChannels && !ChannelHasUsers(c)) {
+					setRowHidden(idx.row(),idx.parent(),true);
+				} else {
+					setRowHidden(idx.row(),idx.parent(),false);
+				}
+			}
+		}
+	}
+}
+
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
+{
+	UserModel *um = static_cast<UserModel *>(model());
+	int nRowCount = um->rowCount();
+	int i;
+	for(i=0;i<nRowCount;i++)
+		updateChannel(um->index(i,0));
+
+	QTreeView::dataChanged(topLeft,bottomRight);
+}
+

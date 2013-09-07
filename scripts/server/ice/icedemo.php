@@ -8,6 +8,13 @@
 <body>
 <?php
 
+if (!extension_loaded('ice')) {
+	exit('Error: This example script needs the PHP extension for Ice to be loaded.');
+}
+if ((!function_exists('Ice_intVersion') || Ice_intVersion() < 30400) || !function_exists('Ice_loadProfile')) {
+	exit('Error: This example script is compatible only for php-ice versions prior to 3.4.');
+}
+
 Ice_loadProfile();
 
 if ($argc > 0) {

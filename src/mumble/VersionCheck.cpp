@@ -42,22 +42,23 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	QUrl url;
 	url.setPath(focus ? QLatin1String("/focus.php") : QLatin1String("/ver.php"));
 
-	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
-	url.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
-	url.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
+	QList<QPair<QString, QString> > queryItems;
+	queryItems << qMakePair(QString::fromLatin1("ver"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
+	queryItems << qMakePair(QString::fromLatin1("date"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
+	queryItems << qMakePair(QString::fromLatin1("time"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
 #if defined(Q_OS_WIN)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
+	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Win32"));
 #elif defined(Q_OS_MAC)
-	url.addQueryItem(QLatin1String("os"), QLatin1String("MacOSX"));
+	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("MacOSX"));
 #else
-	url.addQueryItem(QLatin1String("os"), QLatin1String("Unix"));
+	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Unix"));
 #endif
 	if (! g.s.bUsage)
-		url.addQueryItem(QLatin1String("nousage"), QLatin1String("1"));
+		queryItems << qMakePair(QString::fromLatin1("nousage"), QString::fromLatin1("1"));
 	if (autocheck)
-		url.addQueryItem(QLatin1String("auto"), QLatin1String("1"));
+		queryItems << qMakePair(QString::fromLatin1("auto"), QString::fromLatin1("1"));
 
-	url.addQueryItem(QLatin1String("locale"), g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
+	queryItems << qMakePair(QString::fromLatin1("locale"), g.s.qsLanguage.isEmpty() ? QLocale::system().name() : g.s.qsLanguage);
 
 	QFile f(qApp->applicationFilePath());
 	if (! f.open(QIODevice::ReadOnly)) {
@@ -69,10 +70,20 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		} else {
 			QCryptographicHash qch(QCryptographicHash::Sha1);
 			qch.addData(a);
-			url.addQueryItem(QLatin1String("sha1"), QLatin1String(qch.result().toHex()));
+			queryItems << qMakePair(QString::fromLatin1("sha1"), QString::fromLatin1(qch.result().toHex()));
 		}
 	}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QUrlQuery query;
+	query.setQueryItems(queryItems);
+	url.setQuery(query);
+#else
+	for (int i = 0; i < queryItems.size(); i++) {
+		const QPair<QString, QString> &queryPair = queryItems.at(i);
+		url.addQueryItem(queryPair.first, queryPair.second);
+	}
+#endif
 	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 }
 

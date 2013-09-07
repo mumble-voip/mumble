@@ -29,8 +29,8 @@
 */
 
 #ifdef USE_DBUS
-#ifndef DBUS_H_
-#define DBUS_H_
+#ifndef MUMBLE_MURMUR_DBUS_H_
+#define MUMBLE_MURMUR_DBUS_H_
 
 #include <QtDBus/QDBusAbstractAdaptor>
 #include <QtDBus/QDBusConnection>

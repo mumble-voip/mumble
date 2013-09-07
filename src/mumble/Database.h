@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DATABASE_H_
-#define DATABASE_H_
+#ifndef MUMBLE_MUMBLE_DATABASE_H_
+#define MUMBLE_MUMBLE_DATABASE_H_
 
 #include "Settings.h"
 
@@ -59,6 +59,9 @@ class Database : public QObject {
 
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
+
+		static bool isLocalHidden(const QString &hash);
+		static void setLocalHidden(const QString &hash, bool hidden);
 
 		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
 		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);

@@ -6,39 +6,205 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
-    <height>401</height>
+    <width>542</width>
+    <height>470</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Registered Users</string>
+  <property name="minimumSize">
+   <size>
+    <width>381</width>
+    <height>470</height>
+   </size>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <property name="windowTitle">
+   <string/>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="qgbUserList">
      <property name="title">
       <string>Registered Users</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="qpbRemove">
-        <property name="text">
-         <string>Remove</string>
+      <item row="0" column="0" colspan="6">
+       <widget class="QTreeWidget" name="qtwUserList">
+        <property name="alternatingRowColors">
+         <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QListWidget" name="qlwUserList">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <property name="rootIsDecorated">
+         <bool>false</bool>
+        </property>
         <property name="sortingEnabled">
          <bool>true</bool>
         </property>
+        <property name="allColumnsShowFocus">
+         <bool>false</bool>
+        </property>
+        <property name="columnCount">
+         <number>3</number>
+        </property>
+        <attribute name="headerShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Nick</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Inactive days</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Last Channel</string>
+         </property>
+        </column>
        </widget>
+      </item>
+      <item row="1" column="0" colspan="6">
+       <widget class="QLineEdit" name="qlSearch">
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Who are you looking for?</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="qpbRename">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Rename</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="qpbRemove">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Remove</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="qlInactive">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Inactive for</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QSpinBox" name="qsbInactive">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>48</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QComboBox" name="qcbInactive">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>Days</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Weeks</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Months</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Years</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -49,11 +215,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>qlwUserList</tabstop>
-  <tabstop>qpbRemove</tabstop>
-  <tabstop>qbbButtons</tabstop>
- </tabstops>
  <resources/>
  <connections>
   <connection>

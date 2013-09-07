@@ -28,11 +28,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
+#define MUMBLE_MUMBLE_GLOBALSHORTCUT_UNIX_H_
+
 #include "GlobalShortcut.h"
 #include "ConfigDialog.h"
 #include "Global.h"
 
-#include <QX11Info>
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #ifndef NO_XINPUT2
@@ -71,3 +73,5 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		void inputReadyRead(int);
 		void directoryChanged(const QString &);
 };
+
+#endif

@@ -1,1 +1,1 @@
-QMAKEFEATURES=features/
+QMAKEFEATURES=$$_PRO_FILE_PWD_/features/

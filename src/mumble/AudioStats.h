@@ -28,12 +28,17 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOSTATS_H_
-#define AUDIOSTATS_H_
+#ifndef MUMBLE_MUMBLE_AUDIOSTATS_H_
+#define MUMBLE_MUMBLE_AUDIOSTATS_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QList>
 #include <QtCore/QTimer>
-#include <QtGui/QWidget>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QWidget>
+#else
+# include <QtGui/QWidget>
+#endif
 
 class AudioBar : public QWidget {
 	private:

@@ -28,12 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <initguid.h>
-#include <Global.h>
-#include <QMutexLocker>
+#include "mumble_pch.hpp"
+
+#include "Global.h"
 #include "MainWindow.h"
 
+#include <initguid.h>
 #include "WASAPINotificationClient.h"
+
+#include <QtCore/QMutexLocker>
+#include <boost/thread/once.hpp>
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role, LPCWSTR pwstrDefaultDevice) {
 	const QString device = QString::fromWCharArray(pwstrDefaultDevice);
@@ -167,9 +171,21 @@ void WASAPINotificationClient::clearUsedDeviceLists() {
 	_clearUsedDeviceLists();
 }
 
-WASAPINotificationClient& WASAPINotificationClient::get() {
+void WASAPINotificationClient::doGetOnce() {
+	(void)WASAPINotificationClient::doGet();
+}
+
+WASAPINotificationClient& WASAPINotificationClient::doGet() {
 	static WASAPINotificationClient instance;
 	return instance;
+}
+
+static boost::once_flag notification_client_init_once = BOOST_ONCE_INIT;
+
+WASAPINotificationClient& WASAPINotificationClient::get() {
+	// Hacky way of making sure we get a thread-safe yet lazy initialization of the static.
+	boost::call_once(&WASAPINotificationClient::doGetOnce, notification_client_init_once);
+	return doGet();
 }
 
 WASAPINotificationClient::WASAPINotificationClient() : QObject(), pEnumerator(0), listsMutex() {

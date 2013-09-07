@@ -1,5 +1,7 @@
 include (../compiler.pri)
 
+VERSION = 1.2.5
+TARGET_EXT = .dll
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
