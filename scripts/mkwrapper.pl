@@ -47,7 +47,10 @@ void ::Murmur::${class}I::${func}_async('. join(", ", @{$wrapargs}).qq') {
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_${class}_${func}_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif

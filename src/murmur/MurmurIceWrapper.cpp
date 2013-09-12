@@ -14,7 +14,10 @@ void ::Murmur::ServerI::isRunning_async(const ::Murmur::AMD_Server_isRunningPtr 
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_isRunning_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -44,7 +47,10 @@ void ::Murmur::ServerI::start_async(const ::Murmur::AMD_Server_startPtr &cb, con
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_start_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -74,7 +80,10 @@ void ::Murmur::ServerI::stop_async(const ::Murmur::AMD_Server_stopPtr &cb, const
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_stop_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -104,7 +113,10 @@ void ::Murmur::ServerI::delete_async(const ::Murmur::AMD_Server_deletePtr &cb, c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_delete_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -134,7 +146,10 @@ void ::Murmur::ServerI::id_async(const ::Murmur::AMD_Server_idPtr &cb, const ::I
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_id_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -164,7 +179,10 @@ void ::Murmur::ServerI::addCallback_async(const ::Murmur::AMD_Server_addCallback
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_addCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -194,7 +212,10 @@ void ::Murmur::ServerI::removeCallback_async(const ::Murmur::AMD_Server_removeCa
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_removeCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -224,7 +245,10 @@ void ::Murmur::ServerI::setAuthenticator_async(const ::Murmur::AMD_Server_setAut
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setAuthenticator_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -254,7 +278,10 @@ void ::Murmur::ServerI::getConf_async(const ::Murmur::AMD_Server_getConfPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getConf_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -284,7 +311,10 @@ void ::Murmur::ServerI::getAllConf_async(const ::Murmur::AMD_Server_getAllConfPt
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getAllConf_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -314,7 +344,10 @@ void ::Murmur::ServerI::setConf_async(const ::Murmur::AMD_Server_setConfPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setConf_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -344,7 +377,10 @@ void ::Murmur::ServerI::setSuperuserPassword_async(const ::Murmur::AMD_Server_se
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setSuperuserPassword_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -374,7 +410,10 @@ void ::Murmur::ServerI::getLog_async(const ::Murmur::AMD_Server_getLogPtr &cb,  
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getLog_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -404,7 +443,10 @@ void ::Murmur::ServerI::getLogLen_async(const ::Murmur::AMD_Server_getLogLenPtr 
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getLogLen_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -434,7 +476,10 @@ void ::Murmur::ServerI::getUsers_async(const ::Murmur::AMD_Server_getUsersPtr &c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getUsers_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -464,7 +509,10 @@ void ::Murmur::ServerI::getChannels_async(const ::Murmur::AMD_Server_getChannels
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getChannels_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -494,7 +542,10 @@ void ::Murmur::ServerI::getCertificateList_async(const ::Murmur::AMD_Server_getC
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getCertificateList_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -524,7 +575,10 @@ void ::Murmur::ServerI::getTree_async(const ::Murmur::AMD_Server_getTreePtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getTree_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -554,7 +608,10 @@ void ::Murmur::ServerI::getBans_async(const ::Murmur::AMD_Server_getBansPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getBans_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -584,7 +641,10 @@ void ::Murmur::ServerI::setBans_async(const ::Murmur::AMD_Server_setBansPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setBans_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -614,7 +674,10 @@ void ::Murmur::ServerI::kickUser_async(const ::Murmur::AMD_Server_kickUserPtr &c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_kickUser_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -644,7 +707,10 @@ void ::Murmur::ServerI::getState_async(const ::Murmur::AMD_Server_getStatePtr &c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getState_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -674,7 +740,10 @@ void ::Murmur::ServerI::setState_async(const ::Murmur::AMD_Server_setStatePtr &c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setState_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -704,7 +773,10 @@ void ::Murmur::ServerI::sendMessage_async(const ::Murmur::AMD_Server_sendMessage
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_sendMessage_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -734,7 +806,10 @@ void ::Murmur::ServerI::hasPermission_async(const ::Murmur::AMD_Server_hasPermis
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_hasPermission_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -764,7 +839,10 @@ void ::Murmur::ServerI::effectivePermissions_async(const ::Murmur::AMD_Server_ef
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_effectivePermissions_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -794,7 +872,10 @@ void ::Murmur::ServerI::addContextCallback_async(const ::Murmur::AMD_Server_addC
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_addContextCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -824,7 +905,10 @@ void ::Murmur::ServerI::removeContextCallback_async(const ::Murmur::AMD_Server_r
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_removeContextCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -854,7 +938,10 @@ void ::Murmur::ServerI::getChannelState_async(const ::Murmur::AMD_Server_getChan
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getChannelState_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -884,7 +971,10 @@ void ::Murmur::ServerI::setChannelState_async(const ::Murmur::AMD_Server_setChan
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setChannelState_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -914,7 +1004,10 @@ void ::Murmur::ServerI::removeChannel_async(const ::Murmur::AMD_Server_removeCha
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_removeChannel_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -944,7 +1037,10 @@ void ::Murmur::ServerI::addChannel_async(const ::Murmur::AMD_Server_addChannelPt
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_addChannel_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -974,7 +1070,10 @@ void ::Murmur::ServerI::sendMessageChannel_async(const ::Murmur::AMD_Server_send
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_sendMessageChannel_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1004,7 +1103,10 @@ void ::Murmur::ServerI::getACL_async(const ::Murmur::AMD_Server_getACLPtr &cb,  
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getACL_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1034,7 +1136,10 @@ void ::Murmur::ServerI::setACL_async(const ::Murmur::AMD_Server_setACLPtr &cb,  
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setACL_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1064,7 +1169,10 @@ void ::Murmur::ServerI::addUserToGroup_async(const ::Murmur::AMD_Server_addUserT
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_addUserToGroup_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1094,7 +1202,10 @@ void ::Murmur::ServerI::removeUserFromGroup_async(const ::Murmur::AMD_Server_rem
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_removeUserFromGroup_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1124,7 +1235,10 @@ void ::Murmur::ServerI::redirectWhisperGroup_async(const ::Murmur::AMD_Server_re
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_redirectWhisperGroup_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1154,7 +1268,10 @@ void ::Murmur::ServerI::getUserNames_async(const ::Murmur::AMD_Server_getUserNam
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getUserNames_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1184,7 +1301,10 @@ void ::Murmur::ServerI::getUserIds_async(const ::Murmur::AMD_Server_getUserIdsPt
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getUserIds_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1214,7 +1334,10 @@ void ::Murmur::ServerI::registerUser_async(const ::Murmur::AMD_Server_registerUs
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_registerUser_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1244,7 +1367,10 @@ void ::Murmur::ServerI::unregisterUser_async(const ::Murmur::AMD_Server_unregist
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_unregisterUser_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1274,7 +1400,10 @@ void ::Murmur::ServerI::updateRegistration_async(const ::Murmur::AMD_Server_upda
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_updateRegistration_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1304,7 +1433,10 @@ void ::Murmur::ServerI::getRegistration_async(const ::Murmur::AMD_Server_getRegi
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getRegistration_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1334,7 +1466,10 @@ void ::Murmur::ServerI::getRegisteredUsers_async(const ::Murmur::AMD_Server_getR
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getRegisteredUsers_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1364,7 +1499,10 @@ void ::Murmur::ServerI::verifyPassword_async(const ::Murmur::AMD_Server_verifyPa
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_verifyPassword_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1394,7 +1532,10 @@ void ::Murmur::ServerI::getTexture_async(const ::Murmur::AMD_Server_getTexturePt
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getTexture_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1424,7 +1565,10 @@ void ::Murmur::ServerI::setTexture_async(const ::Murmur::AMD_Server_setTexturePt
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_setTexture_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1454,7 +1598,10 @@ void ::Murmur::ServerI::getUptime_async(const ::Murmur::AMD_Server_getUptimePtr 
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Server_getUptime_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1484,7 +1631,10 @@ void ::Murmur::MetaI::getServer_async(const ::Murmur::AMD_Meta_getServerPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getServer_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1514,7 +1664,10 @@ void ::Murmur::MetaI::newServer_async(const ::Murmur::AMD_Meta_newServerPtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_newServer_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1544,7 +1697,10 @@ void ::Murmur::MetaI::getBootedServers_async(const ::Murmur::AMD_Meta_getBootedS
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getBootedServers_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1574,7 +1730,10 @@ void ::Murmur::MetaI::getAllServers_async(const ::Murmur::AMD_Meta_getAllServers
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getAllServers_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1604,7 +1763,10 @@ void ::Murmur::MetaI::getDefaultConf_async(const ::Murmur::AMD_Meta_getDefaultCo
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getDefaultConf_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1634,7 +1796,10 @@ void ::Murmur::MetaI::getVersion_async(const ::Murmur::AMD_Meta_getVersionPtr &c
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getVersion_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1664,7 +1829,10 @@ void ::Murmur::MetaI::addCallback_async(const ::Murmur::AMD_Meta_addCallbackPtr 
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_addCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1694,7 +1862,10 @@ void ::Murmur::MetaI::removeCallback_async(const ::Murmur::AMD_Meta_removeCallba
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_removeCallback_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1724,7 +1895,10 @@ void ::Murmur::MetaI::getUptime_async(const ::Murmur::AMD_Meta_getUptimePtr &cb,
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getUptime_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
@@ -1754,7 +1928,10 @@ void ::Murmur::MetaI::getSliceChecksums_async(const ::Murmur::AMD_Meta_getSliceC
 		if (ok) {
 			const QString &secret = u8((*i).second);
 #ifdef ACCESS_Meta_getSliceChecksums_READ
-			ok = ((secret == meta->mp.qsIceSecretRead) || (secret == meta->mp.qsIceSecretWrite));
+			ok = (secret == meta->mp.qsIceSecretRead);
+			if (! meta->mp.qsIceSecretWrite.isEmpty()) {
+				ok = ok || (secret == meta->mp.qsIceSecretWrite);
+			}
 #else
 			ok = (secret == meta->mp.qsIceSecretWrite);
 #endif
