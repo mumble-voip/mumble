@@ -35,8 +35,6 @@
 
 #include <string>
 
-#define ENV_BUF_MAX 1024
-
 typedef int (*DLL_MAIN)(HINSTANCE, HINSTANCE, LPSTR, int);
 #ifdef DEBUG
 typedef int (*DLL_DEBUG_MAIN)(int, char **);
@@ -70,22 +68,6 @@ static bool ConfigureEnvironment() {
 	// Remove the current directory from the DLL search path.
 	if (!SetDllDirectoryW(L""))
 		return false;
-
-	// Insert mumble.exe's directory as the first entry in the PATH
-	// environment variable.
-	{
-		wchar_t path_env[ENV_BUF_MAX];
-		DWORD res = GetEnvironmentVariableW(L"PATH", path_env, ENV_BUF_MAX);
-		if (res == 0 || res >= ENV_BUF_MAX) {
-			return false;
-		}
-
-		std::wstring new_path(exe_path);
-		new_path.append(L"\\;");
-		new_path.append(path_env);
-		if (!SetEnvironmentVariableW(L"PATH", new_path.c_str()))
-			return false;
-	}
 
 	// Set mumble.exe's directory as the current working directory.
 	if (!SetCurrentDirectoryW(exe_path.c_str()))
