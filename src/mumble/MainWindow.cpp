@@ -388,6 +388,7 @@ void MainWindow::setupGui()  {
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
+	updateTransmitModeIcons();
 
 #ifdef USE_COCOA
 	setWindowOpacity(1.0f);
