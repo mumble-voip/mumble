@@ -182,6 +182,10 @@
    <addaction name="separator"/>
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
+   <addaction name="qaSetTransmitModeVAD"/>
+   <addaction name="qaSetTransmitModePushToTalk"/>
+   <addaction name="qaSetTransmitModeContinous"/>
+   <addaction name="separator"/>
    <addaction name="qaConfigDialog"/>
   </widget>
   <action name="qaQuit">
@@ -788,6 +792,57 @@
    </property>
    <property name="toolTip">
     <string>Change your own comment</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaSetTransmitModeContinous">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="iconText">
+    <string>C</string>
+   </property>
+   <property name="text">
+    <string>&amp;Continuous</string>
+   </property>
+   <property name="toolTip">
+    <string>Set Transmit Mode to Continuous</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaSetTransmitModeVAD">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="iconText">
+    <string>VA</string>
+   </property>
+   <property name="text">
+    <string>&amp;Voice Activity</string>
+   </property>
+   <property name="toolTip">
+    <string>Set Transmit Mode to Voice Activity</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaSetTransmitModePushToTalk">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="iconText">
+    <string>PTT</string>
+   </property>
+   <property name="text">
+    <string>&amp;Push to Talk</string>
+   </property>
+   <property name="toolTip">
+    <string>Set Transmit Mode to Push to Talk</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
