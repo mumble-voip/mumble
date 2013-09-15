@@ -65,6 +65,7 @@
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
 #include "../SignalCurry.h"
+#include "Settings.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -73,51 +74,6 @@
 #ifdef USE_COCOA
 #include "ConfigDialog_macx.h"
 #endif
-
-/*!
-  \fn void MainWindow::findDesiredChannel()
-  This function tries to join a desired channel on connect. It gets called
-  directly after server syncronization is completed.
-  \see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
-*/
-
-/*!
-  \fn void MainWindow::on_qteChat_tabPressed()
-  Controlls tab username completion for the chatbar.
-  \see ChatbarLineEdit::completeAtCursor()
-*/
-
-/*!
-  \fn void MainWindow::on_qteChat_ctrlSpacePressed()
-  Controlls ctrl space username completion and selection for the chatbar.
-  \see ChatbarLineEdit::completeAtCursor()
-*/
-
-/*!
-  \fn void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)
-  This function updates the qteChat bar default text according to
-  the selected user/channel in the users treeview.
-*/
-
-/*!
-  \fn void MainWindow::serverConnected()
-  This function prepares the UI for receiving server data. It gets called once the
-  connection to the server is established but before the server Sync is complete.
-*/
-
-/*!
-  \fn MainWindow::updateMenuPermissions()
-  This function updates the UI according to the permission of the user in the current channel.
-  If possible the permissions are fetched from a cache. Otherwise they are requested by the server
-  via a PermissionQuery call (whose reply updates the cache and calls this function again).
-  \see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
-*/
-
-/*!
-  \fn QPair<QByteArray, QImage> MainWindow::openImageFile()
-  Presents a file open dialog, opens the selected picture and returns it.
-  \return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
-*/
 
 MessageBoxEvent::MessageBoxEvent(QString m) : QEvent(static_cast<QEvent::Type>(MB_QEVENT)) {
 	msg = m;
@@ -258,8 +214,13 @@ void MainWindow::createActions() {
 	gsPushMute=new GlobalShortcut(this, idx++, tr("Push-to-Mute", "Global Shortcut"));
 	gsPushMute->setObjectName(QLatin1String("PushToMute"));
 
-	gsMetaChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
-	gsMetaChannel->setObjectName(QLatin1String("MetaChannel"));
+	gsJoinChannel=new GlobalShortcut(this, idx++, tr("Join Channel", "Global Shortcut"));
+	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
+	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
+
+	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel when Filtering", "Global Shortcut"));
+	gsHideChannel->setObjectName(QLatin1String("HideChannel"));
+	gsHideChannel->qsToolTip = tr("Mark the channel to be hidden when Filtering is active. Use in conjunction with Whisper to.", "Global Shortcut");
 
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
@@ -283,8 +244,15 @@ void MainWindow::createActions() {
 	gsWhisper = new GlobalShortcut(this, idx++, tr("Whisper/Shout"), false, QVariant::fromValue(ShortcutTarget()));
 	gsWhisper->setObjectName(QLatin1String("gsWhisper"));
 
-	gsMetaLink=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
-	gsMetaLink->setObjectName(QLatin1String("MetaLink"));
+	gsLinkChannel=new GlobalShortcut(this, idx++, tr("Link Channel", "Global Shortcut"));
+	gsLinkChannel->setObjectName(QLatin1String("MetaLink"));
+	gsLinkChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
+
+	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
+	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
+
+	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
+	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
 
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
@@ -324,6 +292,8 @@ void MainWindow::setupGui()  {
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
 	qaAudioTTS->setChecked(g.s.bTTS);
+	qaFilterToggle->setChecked(g.s.bFilterActive);
+
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
 
 	qaConfigMinimal->setChecked(g.s.bMinimalView);
@@ -783,6 +753,11 @@ void MainWindow::openUrl(const QUrl &url) {
 	g.sh->start(QThread::TimeCriticalPriority);
 }
 
+/**
+ * This function tries to join a desired channel on connect. It gets called
+ * directly after server syncronization is completed.
+ * @see void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg)
+ */
 void MainWindow::findDesiredChannel() {
 	bool found = false;
 	QStringList qlChans = qsDesiredChannel.split(QLatin1String("/"));
@@ -1612,10 +1587,18 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qteChat->clear();
 }
 
+/**
+ * Controlls tab username completion for the chatbar.
+ * @see ChatbarLineEdit::completeAtCursor()
+ */
 void MainWindow::on_qteChat_tabPressed() {
 	qteChat->completeAtCursor();
 }
 
+/**
+ * Controlls ctrl space username completion and selection for the chatbar.
+ * @see ChatbarLineEdit::completeAtCursor()
+ */
 void MainWindow::on_qteChat_ctrlSpacePressed() {
 	unsigned int res = qteChat->completeAtCursor();
 	if (res == 0) return;
@@ -1674,6 +1657,12 @@ void MainWindow::qmChannel_aboutToShow() {
 	qmChannel->addAction(qaChannelCopyURL);
 	qmChannel->addAction(qaChannelSendMessage);
 
+	// hiding the root is nonsense
+	if(c && c->cParent) {
+		qmChannel->addSeparator();
+		qmChannel->addAction(qaChannelHide);
+	}
+
 #ifndef Q_OS_MAC
 	if (g.s.bMinimalView) {
 		qmChannel->addSeparator();
@@ -1690,8 +1679,8 @@ void MainWindow::qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, link, unlink, unlinkall, msg;
-	add = remove = acl = link = unlink = unlinkall = msg = false;
+	bool add, remove, acl, link, unlink, unlinkall, msg, hide;
+	add = remove = acl = link = unlink = unlinkall = msg = hide = false;
 
 	if (g.uiSession != 0) {
 		add = true;
@@ -1714,6 +1703,9 @@ void MainWindow::qmChannel_aboutToShow() {
 		}
 	}
 
+	if(c)
+		qaChannelHide->setChecked(c->bHidden);
+
 	qaChannelAdd->setEnabled(add);
 	qaChannelRemove->setEnabled(remove);
 	qaChannelACL->setEnabled(acl);
@@ -1729,6 +1721,17 @@ void MainWindow::on_qaChannelJoin_triggered() {
 
 	if (c) {
 		g.sh->joinChannel(c->iId);
+	}
+}
+
+void MainWindow::on_qaChannelHide_triggered() {
+	Channel *c = getContextMenuChannel();
+	
+	if (c) {
+		QByteArray ba = c->qsName.toLocal8Bit();		
+
+		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+		um->toggleHidden(c);
 	}
 }
 
@@ -1863,6 +1866,12 @@ void MainWindow::on_qaChannelCopyURL_triggered() {
 	QApplication::clipboard()->setMimeData(ServerItem::toMimeData(c->qsName, host, port, channel), QClipboard::Clipboard);
 }
 
+/**
+ * This function updates the UI according to the permission of the user in the current channel.
+ * If possible the permissions are fetched from a cache. Otherwise they are requested by the server
+ * via a PermissionQuery call (whose reply updates the cache and calls this function again).
+ * @see MainWindow::msgPermissionQuery(const MumbleProto::PermissionQuery &msg)
+ */
 void MainWindow::updateMenuPermissions() {
 	ClientUser *cu = NULL;
 	Channel *c = NULL;
@@ -1940,6 +1949,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	qaChannelHide->setEnabled(true);
 	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
@@ -1969,6 +1979,13 @@ void MainWindow::on_qaAudioReset_triggered() {
 	AudioInputPtr ai = g.ai;
 	if (ai)
 		ai->bResetProcessor = true;
+}
+
+void MainWindow::on_qaFilterToggle_triggered() {	
+	g.s.bFilterActive = qaFilterToggle->isChecked();
+
+	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+	um->toggleHidden(NULL); // force a UI refresh
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
@@ -2078,6 +2095,9 @@ void MainWindow::on_qaConfigDialog_triggered() {
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
 		updateTrayIcon();
+
+		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+		um->toggleHidden(NULL); // force a UI refresh
 	}
 
 	delete dlg;
@@ -2312,7 +2332,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	ShortcutTarget st = scdata.value<ShortcutTarget>();
 
 	if (down) {
-		if (gsMetaChannel->active()) {
+		if (gsJoinChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
@@ -2322,7 +2342,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
-		if (gsMetaLink->active()) {
+		if (gsLinkChannel->active()) {
 			if (! st.bUsers) {
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
 				Channel *l = mapChannel(st.iChannel);
@@ -2337,6 +2357,16 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
+		if (gsHideChannel->active()) {
+			if (! st.bUsers) {
+				Channel *c = mapChannel(st.iChannel);
+				if (c) {
+					c->bHidden = !c->bHidden;
+				}
+				return;
+			}
+		}
+
 		qsCurrentTargets.insert(st);
 		updateTarget();
 
@@ -2345,6 +2375,17 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
+	}
+}
+
+void MainWindow::on_gsChannelFilter_down(QVariant v) {
+	int val = v.toInt();
+	if (((val > 0) && ! g.s.bFilterActive) ||
+	    ((val < 0) && g.s.bFilterActive) ||
+	    (val == 0)
+	) {
+		qaFilterToggle->setChecked(! qaFilterToggle->isChecked());
+		on_qaFilterToggle_triggered();
 	}
 }
 
@@ -2399,6 +2440,10 @@ void MainWindow::viewCertificate(bool) {
 	vc.exec();
 }
 
+/**
+ * This function prepares the UI for receiving server data. It gets called once the
+ * connection to the server is established but before the server Sync is complete.
+ */
 void MainWindow::serverConnected() {
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
@@ -2656,6 +2701,8 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
+		qmTray->addAction(qaFilterToggle);
+		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
@@ -2665,6 +2712,8 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
+		qmTray->addSeparator();
+		qmTray->addAction(qaFilterToggle);
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
 	}
@@ -2714,6 +2763,10 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 	}
 }
 
+/**
+ * This function updates the qteChat bar default text according to
+ * the selected user/channel in the users treeview.
+ */
 void MainWindow::qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &) {
 	updateChatBar();
 }
@@ -2831,6 +2884,10 @@ void MainWindow::context_triggered() {
 	g.sh->sendMessage(mpca);
 }
 
+/**
+ * Presents a file open dialog, opens the selected picture and returns it.
+ * @return Pair consisting of the raw file contents and the image. Unitialized on error or cancel.
+ */
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 

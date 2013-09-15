@@ -38,8 +38,8 @@
 
 class QNetworkReply;
 
-/*!
- * \brief Utility class to fetch data from mumble servers.
+/**
+ * @brief Utility class to fetch data from mumble servers.
  *
  * This prefers regional servers, followed
  * by the global server, then finally the global backup server.

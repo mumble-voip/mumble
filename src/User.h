@@ -31,10 +31,13 @@
 #ifndef MUMBLE_USER_H_
 #define MUMBLE_USER_H_
 
+#ifndef Q_MOC_RUN
+# include <boost/optional.hpp>
+#endif
+
 #include <QtCore/QByteArray>
 #include <QtCore/QDateTime>
 #include <QtCore/QString>
-#include <boost/optional.hpp>
 
 class Channel;
 

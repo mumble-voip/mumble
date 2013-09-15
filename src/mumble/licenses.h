@@ -7,6 +7,17 @@
 
 #include <QtGlobal>
 
+struct ThirdPartyLicense {
+	const char* name;
+	const char* url;
+	const char* license;
+
+	ThirdPartyLicense() : name(0), url(0), license(0) {}
+	ThirdPartyLicense(const char* name, const char* url, const char* license)
+	    : name(name), url(url), license(license) {}
+	bool isEmpty() const { return (name == 0 && url == 0 && license == 0); }
+};
+
 static const char *licenseMumble = 
 	"Copyright (C) 2005-2013, Thorvald Natvig <thorvald@natvig.com>\n"
 	"Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>\n"
@@ -115,8 +126,8 @@ static const char *licenseOpus =
 	"Xiph.Org Foundation:\n"
 	"https://datatracker.ietf.org/ipr/1524/\n"
 	"\n"
-	"Skype Limited:\n"
-	"https://datatracker.ietf.org/ipr/1602/\n"
+	"Microsoft Corporation:\n"
+	"https://datatracker.ietf.org/ipr/1914/\n"
 	"\n"
 	"Broadcom Corporation:\n"
 	"https://datatracker.ietf.org/ipr/1526/";
@@ -346,9 +357,9 @@ static const char *licenseMachOverride =
 	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
 	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\n"
 	"THE SOFTWARE.";
-
-
 #endif
+
+
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 static const char *licenseQtTranslations = 
 	"Mumble uses Qt translations created by the VirtualBox community\n"
@@ -382,63 +393,46 @@ static const char *licenseQtTranslations =
 	"LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n"
 	"OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n"
 	"SOFTWARE.";
-
-
 #endif
-static const char *licenses3rdParty[] = {
-	licenseCELT, 
-	licenseOpus, 
-	licenseSPEEX, 
-	licenseOpenSSL, 
-	licenseLibsndfile, 
-	licenseOgg, 
-	licenseVorbis, 
-	licenseFLAC, 
+
+
+static const char *licenseFilterSvg = 
+	"http://commons.wikimedia.org/wiki/File:Filter.svg\n"
+	"\n"
+	"\n"
+	"I, the copyright holder of this work, hereby publish it under the following license:\n"
+	"w:en:Creative Commons\n"
+	"attribution share alike 	This file is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license. 	\n"
+	"\n"
+	"    You are free:\n"
+	"\n"
+	"        to share – to copy, distribute and transmit the work\n"
+	"        to remix – to adapt the work\n"
+	"\n"
+	"    Under the following conditions:\n"
+	"\n"
+	"        attribution – You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).\n"
+	"        share alike – If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.";
+
+
+static const ThirdPartyLicense licenses3rdParties[] = {
+	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseCELT),
+	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
+	ThirdPartyLicense("Speex", "http://www.speex.org/", licenseSPEEX),
+	ThirdPartyLicense("OpenSSL", "http://www.openssl.org/", licenseOpenSSL),
+	ThirdPartyLicense("libsndfile", "http://www.mega-nerd.com/libsndfile/", licenseLibsndfile),
+	ThirdPartyLicense("libogg", "http://www.xiph.org/", licenseOgg),
+	ThirdPartyLicense("libvorbis", "http://www.xiph.org/", licenseVorbis),
+	ThirdPartyLicense("libFLAC", "http://flac.sourceforge.net/", licenseFLAC),
 #ifdef Q_OS_MAC
-	licenseMachOverride, 
+	ThirdPartyLicense("mach_override", "https://github.com/rentzsch/mach_star", licenseMachOverride),
 #endif
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
-	licenseQtTranslations, 
+	ThirdPartyLicense("Additional Qt translations", "https://www.virtualbox.org/ticket/2018", licenseQtTranslations),
 #endif
-	0
+	ThirdPartyLicense("Filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
+	ThirdPartyLicense(),
 };
 
-
-static const char *licenses3rdPartyNames[] = {
-	"Speex",
-	"Opus",
-	"CELT",
-	"OpenSSL",
-	"libsndfile",
-	"libogg",
-	"libvorbis",
-	"libFLAC",
-#ifdef Q_OS_MAC
-	"mach_override",
-#endif
-#ifdef USING_BUNDLED_QT_TRANSLATIONS
-	"Additional Qt translations",
-#endif
-	0
-};
-
-
-static const char *licenses3rdPartyURLs[] = {
-	"http://www.speex.org/",
-	"http://www.opus-codec.org/",
-	"http://www.celt-codec.org/",
-	"http://www.openssl.org/",
-	"http://www.mega-nerd.com/libsndfile/",
-	"http://www.xiph.org/",
-	"http://www.xiph.org/",
-	"http://flac.sourceforge.net/",
-#ifdef Q_OS_MAC
-	"https://github.com/rentzsch/mach_star",
-#endif
-#ifdef USING_BUNDLED_QT_TRANSLATIONS
-	"https://www.virtualbox.org/ticket/2018",
-#endif
-	0
-};
 
 #endif

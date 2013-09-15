@@ -37,7 +37,8 @@ class BasepointPixmap : public QPixmap {
 		//! Local coordinates of the base point.
 		QPoint qpBasePoint;
 		//@{
-		/*! Font ascent and descent.
+		/**
+		 * Font ascent and descent.
 		 * The pixmap may exceed those font metrics, so if you need to
 		 * transform rendered text properly, use these attributes.
 		 */

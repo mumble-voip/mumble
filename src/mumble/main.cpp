@@ -56,7 +56,7 @@
 #include "CrashReporter.h"
 #include "SocketRPC.h"
 
-#if defined(USE_STATIC) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
 Q_IMPORT_PLUGIN(qsvg)
@@ -64,7 +64,7 @@ Q_IMPORT_PLUGIN(qsvgicon)
 # ifdef Q_OS_MAC
    Q_IMPORT_PLUGIN(qicnsicon)
 # endif
-#endif // USE_STATIC
+#endif
 
 #ifdef BOOST_NO_EXCEPTIONS
 namespace boost {
@@ -166,7 +166,11 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 # endif
 #endif
 
+#if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
+extern "C" _declspec(dllexport) int main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
 	int res = 0;
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
@@ -574,3 +578,21 @@ int main(int argc, char **argv) {
 #endif
 	return res;
 }
+
+#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
+extern void qWinMain(HINSTANCE, HINSTANCE, LPSTR, int, int &, QVector<char *> &);
+
+extern "C" _declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
+	Q_UNUSED(cmdArg);
+
+	QByteArray cmdParam = QString::fromWCharArray(GetCommandLine()).toLocal8Bit();
+	int argc = 0;
+
+	// qWinMain takes argv as a reference.
+	QVector<char *> argv;
+	qWinMain(instance, prevInstance, cmdParam.data(), cmdShow, argc, argv);
+
+	int result = main(argc, argv.data());
+	return result;
+}
+#endif

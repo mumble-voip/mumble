@@ -86,6 +86,13 @@ static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 	return ret;
 }
 
+/**
+ * Returns a platform specific GlobalShortcutEngine object.
+ *
+ * @see GlobalShortcutX
+ * @see GlobalShortcutMac
+ * @see GlobalShortcutWin
+ */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
@@ -110,9 +117,6 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::run() {
-	HMODULE hSelf;
-	QTimer *timer;
-
 	if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
@@ -143,12 +147,13 @@ void GlobalShortcutWin::run() {
 		this->yieldCurrentThread();
 
 	if (bHook) {
+		HMODULE hSelf;
 		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
 		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 	}
 
-	timer = new QTimer(this);
+	QTimer * timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
 

@@ -78,6 +78,12 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
 	qgpiFPS->show();
 
+	// Time
+	qgpiTime = new QGraphicsPixmapItem();
+	qgs.addItem(qgpiTime);
+	qgpiTime->setPos(g.s.os.qrfTime.x(), g.s.os.qrfTime.y());
+	qgpiTime->show();
+
 	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
@@ -87,6 +93,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 
 OverlayClient::~OverlayClient() {
 	delete qgpiFPS;
+	delete qgpiTime;
 	delete qgpiCursor;
 	delete qgpiLogo;
 
@@ -114,6 +121,16 @@ void OverlayClient::updateFPS() {
 		qgpiFPS->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
 	} else {
 		qgpiFPS->setPixmap(QPixmap());
+	}
+}
+
+void OverlayClient::updateTime() {
+	if (g.s.os.bTime) {
+		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		qgpiTime->setPixmap(pm);
+		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
+	} else {
+		qgpiTime->setPixmap(QPixmap());
 	}
 }
 
@@ -539,6 +556,7 @@ void OverlayClient::setupScene(bool show) {
 	}
 	ougUsers.updateUsers();
 	updateFPS();
+	updateTime();
 }
 
 void OverlayClient::setupRender() {
@@ -569,6 +587,7 @@ bool OverlayClient::update() {
 
 	ougUsers.updateUsers();
 	updateFPS();
+	updateTime();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);

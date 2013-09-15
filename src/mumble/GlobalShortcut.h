@@ -75,6 +75,10 @@ class GlobalShortcut : public QObject {
 		}
 };
 
+/**
+ * Widget used to define and key combination for a shortcut. Once it gains
+ * focus it will listen for a button combination until it looses focus.
+ */
 class ShortcutKeyWidget : public QLineEdit {
 	private:
 		Q_OBJECT
@@ -98,6 +102,12 @@ class ShortcutKeyWidget : public QLineEdit {
 		void keySet(bool, bool);
 };
 
+/**
+ * Combo box widget used to define the kind of action a shortcut triggers. Then
+ * entries get auto-generated from the GlobalShortcutEngine::qmShortcuts store.
+ *
+ * @see GlobalShortcutEngine
+ */
 class ShortcutActionWidget : public QComboBox {
 	private:
 		Q_OBJECT
@@ -120,6 +130,9 @@ class ShortcutToggleWidget : public QComboBox {
 		void setIndex(int);
 };
 
+/**
+ * Dialog which is used to select the targets of a targeted shortcut like Whisper.
+ */
 class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
 	private:
 		Q_OBJECT
@@ -146,6 +159,10 @@ enum ShortcutTargetTypes {
 	SHORTCUT_TARGET_PARENT_SUBCHANNEL = -12
 };
 
+/**
+ * Widget used to display and change a ShortcutTarget. The widget displays a textual representation
+ * of a ShortcutTarget and enable its editing with a ShortCutTargetDialog.
+ */
 class ShortcutTargetWidget : public QFrame {
 	private:
 		Q_OBJECT
@@ -164,6 +181,16 @@ class ShortcutTargetWidget : public QFrame {
 		void on_qtbEdit_clicked();
 };
 
+/**
+ * Used to get custom display and edit behaviour for the model used in GlobalShortcutConfig::qtwShortcuts.
+ * It registers custom handlers which link specific types to custom ShortcutXWidget editors and also
+ * provides a basic textual representation for them when they are not edited.
+ *
+ * @see GlobalShortcutConfig
+ * @see ShortcutKeyWidget
+ * @see ShortcutActionWidget
+ * @see ShortcutTargetWidget
+ */
 class ShortcutDelegate : public QStyledItemDelegate {
 		Q_OBJECT
 		Q_DISABLE_COPY(ShortcutDelegate)
@@ -173,6 +200,10 @@ class ShortcutDelegate : public QStyledItemDelegate {
 		QString displayText(const QVariant &, const QLocale &) const;
 };
 
+/**
+ * Contains the Shortcut tab from the settings. This ConfigWidget provides
+ * the user with the interface to add/edit/delete global shortcuts in Mumble.
+ */
 class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		friend class ShortcutActionWidget;
 	private:
@@ -210,6 +241,15 @@ struct ShortcutKey {
 	GlobalShortcut *gs;
 };
 
+/**
+ * Creates a background thread which handles global shortcut behaviour. This class inherits
+ * a system unspecific interface and basic functionality to the actually used native backend
+ * classes (GlobalShortcutPlatform).
+ *
+ * @see GlobalShortcutX
+ * @see GlobalShortcutMac
+ * @see GlobalShortcutWin
+ */
 class GlobalShortcutEngine : public QThread {
 	private:
 		Q_OBJECT
