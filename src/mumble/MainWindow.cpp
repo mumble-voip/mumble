@@ -254,9 +254,6 @@ void MainWindow::createActions() {
 	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
 	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
 
-	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
-	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
-
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
