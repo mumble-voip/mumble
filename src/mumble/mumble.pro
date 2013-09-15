@@ -15,6 +15,20 @@ CONFIG(static) {
     CONFIG -= static
     CONFIG += shared qt_static mumble_dll
     DEFINES += USE_MUMBLE_DLL QT_SHARED
+    isEqual(QT_MAJOR_VERSION, 5) {
+      # Qt 5 uses an auto-generated .cpp file for importing plugins.
+      # However, it is only automatically enabled for TEMPLATE = app.
+      # Since we're building mumble_app.dll, we're not an app, but a library.
+      # This means we'll have to explicitly ask Qt to generate and build the
+      # plugin importer.
+      CONFIG += force_import_plugins
+
+      # Pretend we're inside a Qt build to get the Qt headers to dllexport correctly.
+      # This is achievable in Qt 4 by defining QT_SHARED, but in Qt 5 we have to
+      # hack our way around it. Even QT_SHARED will give us dllimport unless Qt thinks
+      # it's doing a Qt build.
+      DEFINES += QT_BUILD_CORE_LIB QT_BUILD_GUI_LIB QT_BUILD_WIDGETS_LIB QT_BUILD_NETWORK_LIB QT_BUILD_XML_LIB QT_BUILD_SQL_LIB QT_BUILD_SVG_LIB
+    }
 
     DEF_FILE = $${DESTDIR}/$${TARGET}.def
 
@@ -417,6 +431,12 @@ CONFIG(static_qt_plugins) {
     QTPLUGIN += qicnsicon
     isEqual(QT_MAJOR_VERSION, 5) {
       QTPLUGIN += qcocoa
+    }
+  }
+
+  win32 {
+    isEqual(QT_MAJOR_VERSION, 5) {
+      QTPLUGIN += qwindows
     }
   }
 
