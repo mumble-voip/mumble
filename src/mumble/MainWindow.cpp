@@ -2410,6 +2410,8 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 
 		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
+
+	updateTransmitModeIcons();
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
