@@ -49,6 +49,14 @@ class UserDelegate : public QStyledItemDelegate {
 	public:
 		UserDelegate(QObject *parent = NULL);
 		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+		//! Width/height in px of user/channel flag icons
+		const static int FLAG_ICON_DIMENSION;
+		//! Padding in px around user/channel flag icons
+		const static int FLAG_ICON_PADDING;
+		//! Width/height in px of user/channel flags including padding
+		const static int FLAG_DIMENSION;
+
 	public slots:
 		bool helpEvent(QHelpEvent *event, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index);
 };

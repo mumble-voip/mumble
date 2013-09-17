@@ -440,6 +440,7 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					}
 					return qiChannel;
 				}
+				break;
 			case Qt::DisplayRole:
 				if (idx.column() == 0) {
 					if (! g.s.bShowUserCount || item->iUsers == 0)
@@ -449,8 +450,10 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
+
 				if (c->bFiltered)
 					l << (qiFilter);
+
 				return l;
 			case Qt::FontRole:
 				if (g.uiSession) {
@@ -634,20 +637,22 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 						                                           tr("Muted (not allowed to speak in current channel)"),
 						                                           tr("Muted (muted by you, only on your machine)")
 						                                          ).arg(
-						           tr("Deafened (by self)"),
-						           tr("Deafened (by admin)"),
-						           tr("User has a new comment set (click to show)"),
-						           tr("User has a comment set, which you've already seen. (click to show)"),
-						           tr("Ignoring Text Messages")
-						       );
+						                                           tr("Deafened (by self)"),
+						                                           tr("Deafened (by admin)"),
+						                                           tr("User has a new comment set (click to show)"),
+						                                           tr("User has a comment set, which you've already seen. (click to show)"),
+						                                           tr("Ignoring Text Messages")
+						);
 					else
 						return QString::fromLatin1("%1"
 						                           "<table>"
 						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
 						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:filter.svg\" width=64 /></td><td valign=\"middle\">%12</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the channel has, if any:"),
 						                                           tr("Channel has a new comment set (click to show)"),
-						                                           tr("Channel has a comment set, which you've already seen. (click to show)")
+						                                           tr("Channel has a comment set, which you've already seen. (click to show)"),
+						                                           tr("Channel will be hidden when filtering is enabled")
 						                                          );
 
 			}

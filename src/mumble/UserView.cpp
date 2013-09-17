@@ -40,6 +40,10 @@
 #include "ServerHandler.h"
 #include "UserModel.h"
 
+const int UserDelegate::FLAG_ICON_DIMENSION = 16;
+const int UserDelegate::FLAG_ICON_PADDING = 1;
+const int UserDelegate::FLAG_DIMENSION = 18;
+
 UserDelegate::UserDelegate(QObject *p) : QStyledItemDelegate(p) {
 }
 
@@ -75,7 +79,7 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	style->drawPrimitive(QStyle::PE_PanelItemViewItem, &o, painter, o.widget);
 
 	// resize rect to exclude the flag icons
-	o.rect = option.rect.adjusted(0, 0, -18 * ql.count(), 0);
+	o.rect = option.rect.adjusted(0, 0, -FLAG_DIMENSION * ql.count(), 0);
 
 	// draw icon
 	QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &o, o.widget);
@@ -88,11 +92,14 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 	style->drawItemText(painter, textRect, o.displayAlignment, o.palette, true, itemText, colorRole);
 
 	// draw flag icons to original rect
-	QRect ps = QRect(option.rect.right() - (ql.size() * 18), option.rect.y(), ql.size() * 18, option.rect.height());
+	QRect ps = QRect(option.rect.right() - (ql.size() * FLAG_DIMENSION),
+					 option.rect.y(), ql.size() * FLAG_DIMENSION,
+					 option.rect.height());
+
 	for (int i = 0; i < ql.size(); ++i) {
 		QRect r = ps;
-		r.setSize(QSize(16, 16));
-		r.translate(i * 18 + 1, 1);
+		r.setSize(QSize(FLAG_ICON_DIMENSION, FLAG_ICON_DIMENSION));
+		r.translate(i * FLAG_DIMENSION + FLAG_ICON_PADDING, FLAG_ICON_PADDING);
 		QRect p = QStyle::alignedRect(option.direction, option.decorationAlignment, r.size(), r);
 		qvariant_cast<QIcon>(ql[i]).paint(painter, p, option.decorationAlignment, iconMode, QIcon::On);
 	}
@@ -103,15 +110,14 @@ void UserDelegate::paint(QPainter * painter, const QStyleOptionViewItem &option,
 bool UserDelegate::helpEvent(QHelpEvent *evt, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index) {
 	if (index.isValid()) {
 		const QAbstractItemModel *m = index.model();
-		const QModelIndex idxc1 = index.sibling(index.row(), 1);
-		QVariant data = m->data(idxc1);
-		QList<QVariant> ql = data.toList();
-		int offset = 0;
-		offset = ql.size() * 18;
-		offset = option.rect.topRight().x() - offset;
+		const QModelIndex firstColumnIdx = index.sibling(index.row(), 1);
+		QVariant data = m->data(firstColumnIdx);
+		QList<QVariant> flagList = data.toList();
+		const int offset = flagList.size() * -FLAG_DIMENSION;
+		const int firstFlagPos = option.rect.topRight().x() + offset;
 
-		if (evt->pos().x() >= offset) {
-			return QStyledItemDelegate::helpEvent(evt, view, option, idxc1);
+		if (evt->pos().x() >= firstFlagPos) {
+			return QStyledItemDelegate::helpEvent(evt, view, option, firstColumnIdx);
 		}
 	}
 	return QStyledItemDelegate::helpEvent(evt, view, option, index);
@@ -149,54 +155,64 @@ bool UserView::event(QEvent *evt) {
  * on user/channel flags (e.g. showing the comment)
  */
 void UserView::mouseReleaseEvent(QMouseEvent *evt) {
-	QPoint qpos = evt->pos();
+	QPoint clickPosition = evt->pos();
 
-	QModelIndex idx = indexAt(qpos);
+	QModelIndex idx = indexAt(clickPosition);
 	if ((evt->button() == Qt::LeftButton) && idx.isValid()) {
-		UserModel *um = static_cast<UserModel *>(model());
-		ClientUser *cu = um->getUser(idx);
-		Channel * c = um->getChannel(idx);
-		if ((cu && ! cu->qbaCommentHash.isEmpty()) ||
-		        (! cu && c && ! c->qbaDescHash.isEmpty())) {
+		UserModel *userModel = qobject_cast<UserModel *>(model());
+		ClientUser *clientUser = userModel->getUser(idx);
+		Channel *channel = userModel->getChannel(idx);
+
+		int commentFlagPxOffset = -UserDelegate::FLAG_DIMENSION;
+		bool hasComment = false;
+
+		if (clientUser && !clientUser->qbaCommentHash.isEmpty()) {
+			hasComment = true;
+
+			if (clientUser->bLocalIgnore)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bRecording)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bPrioritySpeaker)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bMute)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bSuppress)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bSelfMute)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bLocalMute)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bSelfDeaf)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->bDeaf)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (! clientUser->qsFriendName.isEmpty())
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+			if (clientUser->iId >= 0)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+
+		} else if (channel && !channel->qbaDescHash.isEmpty()) {
+			hasComment = true;
+
+			if (channel->bFiltered)
+				commentFlagPxOffset -= UserDelegate::FLAG_DIMENSION;
+
+		}
+
+		if (hasComment) {
 			QRect r = visualRect(idx);
+			const int commentFlagPxPos = r.topRight().x() + commentFlagPxOffset;
 
-			int offset = 18;
-
-			if (cu) {
-				// Calculate pixel offset of comment flag
-				if (cu->bLocalIgnore)
-					offset += 18;
-				if (cu->bRecording)
-					offset += 18;
-				if (cu->bPrioritySpeaker)
-					offset += 18;
-				if (cu->bMute)
-					offset += 18;
-				if (cu->bSuppress)
-					offset += 18;
-				if (cu->bSelfMute)
-					offset += 18;
-				if (cu->bLocalMute)
-					offset += 18;
-				if (cu->bSelfDeaf)
-					offset += 18;
-				if (cu->bDeaf)
-					offset += 18;
-				if (! cu->qsFriendName.isEmpty())
-					offset += 18;
-				if (cu->iId >= 0)
-					offset += 18;
-			}
-
-			offset = r.topRight().x() - offset;
-
-			if ((qpos.x() >= offset) && (qpos.x() <= (offset+18))) {
-				QString str = um->data(idx, Qt::ToolTipRole).toString();
+			if ((clickPosition.x() >= commentFlagPxPos)
+					&& (clickPosition.x() <= (commentFlagPxPos + UserDelegate::FLAG_DIMENSION))) {
+				// Clicked comment icon
+				QString str = userModel->data(idx, Qt::ToolTipRole).toString();
 				if (str.isEmpty()) {
-					um->bClicked = true;
+					userModel->bClicked = true;
 				} else {
 					QWhatsThis::showText(viewport()->mapToGlobal(r.bottomRight()), str, this);
-					um->seenComment(idx);
+					userModel->seenComment(idx);
 				}
 				return;
 			}
