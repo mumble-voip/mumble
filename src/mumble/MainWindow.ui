@@ -111,7 +111,7 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QTabWidget" name="qtwLogTabs">
+   <widget class="LogTabs" name="qtwLogTabs">
     <widget class="LogTextBrowser" name="qteLog">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
@@ -880,6 +880,11 @@
    <class>LogTextBrowser</class>
    <extends>QTextBrowser</extends>
    <header>CustomElements.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LogTabs</class>
+   <extends>QTabWidget</extends>
+   <header>LogTabs.h</header>
   </customwidget>
  </customwidgets>
  <resources>
