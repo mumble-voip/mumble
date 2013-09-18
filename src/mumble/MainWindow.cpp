@@ -866,7 +866,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qtIconToolbar->setVisible(showit);
 	}
 	menuBar()->setVisible(showit);
-	qtwLogTabs->showTabs(false);
+	qtwLogTabs->showTabs(g.s.bLogTabs);
 
 	if (toggle_minimize) {
 		if (! showit) {

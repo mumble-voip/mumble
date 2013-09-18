@@ -135,6 +135,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
+	loadCheckBox(qcbLogTabs, r.bLogTabs);
 	
 }
 
@@ -177,6 +178,7 @@ void LookConfig::save() const {
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
+	s.bLogTabs = qcbLogTabs->isChecked();
 }
 
 void LookConfig::accept() const {
@@ -236,4 +238,8 @@ void LookConfig::on_qpbSkinFile_clicked(bool) {
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);
 	}
+}
+
+void LookConfig::on_qcbLogTabs_stateChanged(int v) {
+	qcbChatBarUseSelection->setEnabled(!v);
 }

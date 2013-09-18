@@ -92,6 +92,16 @@
        </widget>
       </item>
       <item row="7" column="0">
+       <widget class="QCheckBox" name="qcbLogTabs">
+        <property name="toolTip">
+         <string>Adds tabs to the log section, for different communication channels</string>
+        </property>
+        <property name="text">
+         <string>Enalbe tabs for the log</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
