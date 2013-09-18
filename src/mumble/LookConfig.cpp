@@ -242,4 +242,5 @@ void LookConfig::on_qpbSkinFile_clicked(bool) {
 
 void LookConfig::on_qcbLogTabs_stateChanged(int v) {
 	qcbChatBarUseSelection->setEnabled(!v);
+	qcbChatBarUseSelection->setCheckState(Qt::Unchecked);
 }

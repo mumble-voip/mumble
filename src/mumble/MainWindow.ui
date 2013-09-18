@@ -113,6 +113,9 @@
    </attribute>
    <widget class="LogTabs" name="qtwLogTabs">
     <widget class="LogTextBrowser" name="qteLog">
+     <attribute name="title">
+      <string>Not connected</string>
+     </attribute>
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
