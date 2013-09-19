@@ -312,7 +312,7 @@ void UserView::selectSearchResult() {
 	qpmiSearch = QPersistentModelIndex();
 }
 
-bool ChannelHasUsers(const Channel *c)
+bool channelHasUsers(const Channel *c)
 {
 	if(c->qlUsers.isEmpty() == false)
 		return true;
@@ -321,13 +321,13 @@ bool ChannelHasUsers(const Channel *c)
 
 	for(i=0;i<c->qlChannels.count();i++)
 	{
-		if(ChannelHasUsers(c->qlChannels[i]))
+		if(channelHasUsers(c->qlChannels[i]))
 			return true;
 	}
 	return false;
 }
 
-static bool ChannelHidden(const Channel *c)
+static bool channelFiltered(const Channel *c)
 {
 	while(c) {
 		if(c->bFiltered)
@@ -355,12 +355,27 @@ void UserView::updateChannel(const QModelIndex &idx) {
 		if(g.s.bFilterActive == false) {
 			setRowHidden(idx.row(),idx.parent(),false);
 		} else {
-
-			if(ChannelHidden(c)) {
-				QByteArray ba = c->qsName.toLocal8Bit();
+			bool isChannelUserIsIn = false;
+			
+			// Check whether user resides in this channel or a subchannel
+			if (g.uiSession != 0) {
+				const ClientUser* user = ClientUser::get(g.uiSession);
+				if (user != NULL) {
+					Channel *chan = user->cChannel;
+					while (chan) {
+						if (chan == c) {
+							isChannelUserIsIn = true;
+							break;
+						}
+						chan = chan->cParent;
+					}
+				}
+			}
+			
+			if(channelFiltered(c) && !isChannelUserIsIn) {
 				setRowHidden(idx.row(),idx.parent(),true);
 			} else {
-				if(g.s.bFilterHidesEmptyChannels && !ChannelHasUsers(c)) {
+				if(g.s.bFilterHidesEmptyChannels && !channelHasUsers(c)) {
 					setRowHidden(idx.row(),idx.parent(),true);
 				} else {
 					setRowHidden(idx.row(),idx.parent(),false);
