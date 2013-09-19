@@ -550,10 +550,13 @@
     <string>&amp;Filter on/off</string>
    </property>
    <property name="toolTip">
-    <string>Toggle the channel filter</string>
+    <string>Toggle the channel filter (Ctrl+F)</string>
    </property>
    <property name="whatsThis">
-    <string>Enable or disable the filtering of empty channels.</string>
+    <string>Enable or disable the filtering of select channels.
+By default all empty channels will be filtered.
+You can mark additional channels for filtering from
+the channel's context menu.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+F</string>
