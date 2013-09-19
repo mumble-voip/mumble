@@ -555,6 +555,9 @@
    <property name="whatsThis">
     <string>Enable or disable the filtering of empty channels.</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
    </property>
