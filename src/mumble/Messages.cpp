@@ -623,8 +623,12 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		target += tr("(Channel) ");
 	}
 
+	int targetLogTab = 0;
+	if(g.s.bLogTabs && msg.channel_id_size() == 0 && msg.tree_id_size() == 0)
+		targetLogTab = qtwLogTabs->getTabIndex(pSrc->qsHash);
+
 	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
-	         tr("Message from %1").arg(plainName));
+	         tr("Message from %1").arg(plainName), false, targetLogTab);
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {
