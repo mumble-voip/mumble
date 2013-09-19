@@ -28,13 +28,23 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#pragma once
+#ifndef MUMBLE_MUMBLE_LOGTABS_H
+#define MUMBLE_MUMBLE_LOGTABS_H
 
 #include <QtGui/QTabWidget>
 
 #include "ui_Log.h"
+#include <map>
 
 class LogTabs : public QTabWidget {
+	private:
+		QHash<QString, int>* mHashIndex;
+		void 	newTab(QString hash); 
 	public:
-		void showTabs(bool);
+		LogTabs(QWidget* parent = 0);
+		~LogTabs();
+		void 	showTabs(bool show);
+		int		getTabIndex(QString hash);	
 };
+
+#endif

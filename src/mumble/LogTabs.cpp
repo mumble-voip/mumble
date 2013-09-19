@@ -29,7 +29,31 @@
 */
 
 #include "LogTabs.h"
+#include "CustomElements.h"
+#include "UserModel.h"
+#include "ClientUser.h"
+#include "ui_MainWindow.h"
+#include "Global.h"
+#include "MainWindow.h"
+
+LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
+	this->mHashIndex = new QHash<QString, int>();
+}
+
+LogTabs::~LogTabs(){
+}
 
 void LogTabs::showTabs(bool show){
 	this->tabBar()->setVisible(show);
+}
+
+void LogTabs::newTab(QString hash){
+	this->mHashIndex->insert(hash, this->count());
+	this->QTabWidget::addTab(new LogTextBrowser(), g.mw->pmModel->getUser(hash)->qsName);
+}
+
+int LogTabs::getTabIndex(QString hash){
+	if(mHashIndex->find(hash) == mHashIndex->end())
+		newTab(hash);
+	return this->mHashIndex->find(hash).value();
 }
