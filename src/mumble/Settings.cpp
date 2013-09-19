@@ -322,7 +322,7 @@ Settings::Settings() {
 	bUsage = true;
 	bShowUserCount = false;
 	bChatBarUseSelection = false;
-	bFilterHidesEmptyChannels = false;
+	bFilterHidesEmptyChannels = true;
 	bFilterActive = false;
 
 	wlWindowLayout = LayoutClassic;
