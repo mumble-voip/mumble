@@ -46,6 +46,7 @@ class LogTabs : public QTabWidget {
 		~LogTabs();
 		void 	showTabs(bool show);
 		int		getTabIndex(QString hash);	
+		void 	openTab(QString hash);
 		QString	getHash(int Index);
 };
 

@@ -54,6 +54,12 @@ void LogTabs::newTab(QString hash){
 	this->QTabWidget::addTab(new LogTextBrowser(), g.mw->pmModel->getUser(hash)->qsName);
 }
 
+void LogTabs::openTab(QString hash){
+	if(mHashIndex->find(hash) == mHashIndex->end())
+		newTab(hash);
+	this->setCurrentIndex(mHashIndex->find(hash).value());
+}
+
 int LogTabs::getTabIndex(QString hash){
 	if(mHashIndex->find(hash) == mHashIndex->end())
 		newTab(hash);
