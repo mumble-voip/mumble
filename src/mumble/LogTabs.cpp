@@ -38,6 +38,7 @@
 
 LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->mHashIndex = new QHash<QString, int>();
+	this->mIndexHash = new QHash<int, QString>();
 }
 
 LogTabs::~LogTabs(){
@@ -49,6 +50,7 @@ void LogTabs::showTabs(bool show){
 
 void LogTabs::newTab(QString hash){
 	this->mHashIndex->insert(hash, this->count());
+	this->mIndexHash->insert(this->count(), hash);
 	this->QTabWidget::addTab(new LogTextBrowser(), g.mw->pmModel->getUser(hash)->qsName);
 }
 
@@ -56,4 +58,8 @@ int LogTabs::getTabIndex(QString hash){
 	if(mHashIndex->find(hash) == mHashIndex->end())
 		newTab(hash);
 	return this->mHashIndex->find(hash).value();
+}
+
+QString LogTabs::getHash(int index){
+	return this->mIndexHash->find(index).value();
 }

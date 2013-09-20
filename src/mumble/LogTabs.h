@@ -39,12 +39,14 @@
 class LogTabs : public QTabWidget {
 	private:
 		QHash<QString, int>* mHashIndex;
+		QHash<int, QString>* mIndexHash;
 		void 	newTab(QString hash); 
 	public:
 		LogTabs(QWidget* parent = 0);
 		~LogTabs();
 		void 	showTabs(bool show);
 		int		getTabIndex(QString hash);	
+		QString	getHash(int Index);
 };
 
 #endif
