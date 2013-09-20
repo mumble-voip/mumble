@@ -248,7 +248,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsDeafSelf_down(QVariant);
 		void on_gsWhisper_triggered(bool, QVariant);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
-		void on_gsChannelFilter_down(QVariant v);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);

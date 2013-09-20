@@ -2308,17 +2308,6 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	}
 }
 
-void MainWindow::on_gsChannelFilter_down(QVariant v) {
-	int val = v.toInt();
-	if (((val > 0) && ! g.s.bFilterActive) ||
-	    ((val < 0) && g.s.bFilterActive) ||
-	    (val == 0)
-	) {
-		qaFilterToggle->setChecked(! qaFilterToggle->isChecked());
-		on_qaFilterToggle_triggered();
-	}
-}
-
 void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata) 
 {
 	if (down) 
