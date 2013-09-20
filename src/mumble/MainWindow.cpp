@@ -2922,3 +2922,7 @@ void MainWindow::on_qtwLogTabs_currentChanged(int index){
 	this->updateChatBar();
 }
 
+void MainWindow::on_qtwLogTabs_tabCloseRequested(int index){
+	qtwLogTabs->closeTab(index);
+}
+

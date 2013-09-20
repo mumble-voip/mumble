@@ -39,8 +39,9 @@
 class LogTabs : public QTabWidget {
 	private:
 		QHash<QString, int>* mHashIndex;
-		QHash<int, QString>* mIndexHash;
-		void 	newTab(QString hash); 
+		QList<QString>* 	 mIndexHash;
+		void 	newTab(QString hash);
+		void	update(); 
 	public:
 		LogTabs(QWidget* parent = 0);
 		~LogTabs();
@@ -48,6 +49,8 @@ class LogTabs : public QTabWidget {
 		int		getTabIndex(QString hash);	
 		void 	openTab(QString hash);
 		QString	getHash(int Index);
+		void 	closeTab(int index);
+		int		addTab(QWidget* page, const QString& label);
 };
 
 #endif

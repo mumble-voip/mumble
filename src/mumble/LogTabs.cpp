@@ -35,10 +35,14 @@
 #include "ui_MainWindow.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "iostream"
 
 LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->mHashIndex = new QHash<QString, int>();
-	this->mIndexHash = new QHash<int, QString>();
+	this->mIndexHash = new QList<QString>();
+	QString tmp;
+	this->mIndexHash->append(tmp);
+	this->setTabsClosable(true);
 }
 
 LogTabs::~LogTabs(){
@@ -50,7 +54,7 @@ void LogTabs::showTabs(bool show){
 
 void LogTabs::newTab(QString hash){
 	this->mHashIndex->insert(hash, this->count());
-	this->mIndexHash->insert(this->count(), hash);
+	this->mIndexHash->append(hash);
 	this->QTabWidget::addTab(new LogTextBrowser(), g.mw->pmModel->getUser(hash)->qsName);
 }
 
@@ -67,5 +71,25 @@ int LogTabs::getTabIndex(QString hash){
 }
 
 QString LogTabs::getHash(int index){
-	return this->mIndexHash->find(index).value();
+	return this->mIndexHash->at(index);
+}
+
+int	LogTabs::addTab(QWidget* page, const QString& label){
+	QTabWidget::addTab(page, label);
+	this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
+} 
+
+void LogTabs::closeTab(int index){
+	QString hashKey = mIndexHash->at(index);
+	mIndexHash->removeOne(hashKey);
+	mHashIndex->remove(hashKey);
+	widget(index)->deleteLater();
+	removeTab(index);
+	update();
+}
+
+void LogTabs::update(){
+	mHashIndex->clear();
+	for(int i = 0; i < mIndexHash->count(); i++)
+		mHashIndex->insert(mIndexHash->at(i), i);
 }
