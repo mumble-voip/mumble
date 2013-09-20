@@ -2741,13 +2741,22 @@ void MainWindow::updateChatBar() {
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 		qtwLogTabs->setTabText(qtwLogTabs->indexOf(qteLog), tr("Not connected"));
+	} else if(g.s.bLogTabs){
+		if(qtwLogTabs->currentIndex() != 0){
+			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
+			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
+		}
+		else{
+			c = ClientUser::get(g.uiSession)->cChannel;
+			qtwLogTabs->setTabText(0, tr("%1").arg(c->qsName));
+			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
+		}	
 	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
-		qtwLogTabs->setTabText(qtwLogTabs->indexOf(qteLog), tr("%1").arg(c->qsName));
 	} else {
 		// User target
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
@@ -2907,5 +2916,9 @@ void MainWindow::destroyUserInformation() {
 			return;
 		}
 	}
+}
+
+void MainWindow::on_qtwLogTabs_currentChanged(int index){
+	this->updateChatBar();
 }
 

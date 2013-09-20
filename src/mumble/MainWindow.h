@@ -267,6 +267,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
 		void on_qaFilterToggle_triggered();
+		void on_qtwLogTabs_currentChanged(int index);
 
 	public:
 		MainWindow(QWidget *parent);
