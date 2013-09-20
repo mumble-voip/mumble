@@ -1444,7 +1444,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p->qsHash));
 		}
 	}
 	delete texm;
