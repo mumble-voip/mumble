@@ -1521,19 +1521,32 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 #endif
 	qsText = TextMessage::autoFormat(qsText);
 
-	if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
-		// Channel message
-		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
+	if(g.s.bLogTabs){
+		if(qtwLogTabs->currentIndex() == 0){
 			c = ClientUser::get(g.uiSession)->cChannel;
-
-		g.sh->sendChannelTextMessage(c->iId, qsText, false);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
-	} else {
-		// User message
-		g.sh->sendUserTextMessage(p->uiSession, qsText);
-		g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+			g.sh->sendChannelTextMessage(c->iId, qsText, false);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+		}
+		else{
+			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
+			g.sh->sendUserTextMessage(p->uiSession, qsText);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p->qsHash));
+		}
 	}
-
+	else{
+		if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
+			// Channel message
+			if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
+				c = ClientUser::get(g.uiSession)->cChannel;
+	
+			g.sh->sendChannelTextMessage(c->iId, qsText, false);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
+		} else {
+			// User message
+			g.sh->sendUserTextMessage(p->uiSession, qsText);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true);
+		}
+	}
 	qteChat->clear();
 }
 
