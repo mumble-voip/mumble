@@ -75,8 +75,9 @@ QString LogTabs::getHash(int index){
 }
 
 int	LogTabs::addTab(QWidget* page, const QString& label){
-	QTabWidget::addTab(page, label);
+	int retVal = QTabWidget::addTab(page, label);
 	this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
+	return retVal;
 } 
 
 void LogTabs::closeTab(int index){
