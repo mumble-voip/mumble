@@ -177,6 +177,7 @@ UserListFilterProxyModel::UserListFilterProxyModel(QObject *parent)
 	, m_minimumInactiveDays(0) {
 
 	setFilterKeyColumn(UserListModel::COL_NICK);
+	setFilterCaseSensitivity(Qt::CaseInsensitive);
 	setSortLocaleAware(true);
 	setDynamicSortFilter(true);
 }
