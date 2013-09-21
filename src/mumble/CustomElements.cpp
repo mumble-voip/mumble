@@ -37,8 +37,12 @@
 #include "Global.h"
 #include "MainWindow.h"
 
+#include <iostream>
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
+	connect(this, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(redirectAnchorClick(const QUrl&)));
+}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
@@ -59,6 +63,10 @@ void LogTextBrowser::setLogScroll(int pos) {
 
 void LogTextBrowser::scrollLogToBottom() {
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+}
+
+void LogTextBrowser::redirectAnchorClick(const QUrl& link){
+	g.mw->on_qteLog_anchorClicked(link);
 }
 
 

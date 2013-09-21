@@ -35,7 +35,7 @@
 #include "ui_MainWindow.h"
 #include "Global.h"
 #include "MainWindow.h"
-#include "iostream"
+#include "Log.h"
 
 LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->mHashIndex = new QHash<QString, int>();
@@ -55,7 +55,13 @@ void LogTabs::showTabs(bool show){
 void LogTabs::newTab(QString hash){
 	this->mHashIndex->insert(hash, this->count());
 	this->mIndexHash->append(hash);
-	this->QTabWidget::addTab(new LogTextBrowser(), g.mw->pmModel->getUser(hash)->qsName);
+	LogTextBrowser* ltb = new LogTextBrowser();
+	ltb->setOpenLinks(false);
+	LogDocument *ld = new LogDocument(ltb);
+	ltb->setDocument(ld);
+	ltb->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
+	ltb->document()->setDefaultStyleSheet(qApp->styleSheet());
+	this->QTabWidget::addTab(ltb, g.mw->pmModel->getUser(hash)->qsName);
 }
 
 void LogTabs::openTab(QString hash){
