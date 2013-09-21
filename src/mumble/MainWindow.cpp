@@ -167,10 +167,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
 
-	// Fix context of all actions.
-	QList<QAction *> qla = findChildren<QAction *>();
-	foreach(QAction *a, qla)
-		a->setShortcutContext(Qt::ApplicationShortcut);
+
+	// Explicitely add actions to mainwindow so their shortcuts are available
+	// if only the main window is visible (e.g. minimal mode)
+	addActions(findChildren<QAction*>());
 
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
