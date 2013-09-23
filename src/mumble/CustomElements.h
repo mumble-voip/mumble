@@ -57,8 +57,6 @@ class LogTextBrowser : public QTextBrowser {
 		int getLogScrollMaximum();
 		void setLogScroll(int pos);
 		void scrollLogToBottom();
-	public slots:
-		void redirectAnchorClick(const QUrl&);
 };
 
 class ChatbarTextEdit : public QTextEdit {

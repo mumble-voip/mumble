@@ -52,28 +52,32 @@ void LogTabs::showTabs(bool show){
 	this->tabBar()->setVisible(show);
 }
 
-void LogTabs::newTab(QString hash){
+void LogTabs::newTab(QString hash, QString name){
 	this->mHashIndex->insert(hash, this->count());
 	this->mIndexHash->append(hash);
 	LogTextBrowser* ltb = new LogTextBrowser();
 	ltb->setOpenLinks(false);
+	connect(ltb, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
 	LogDocument *ld = new LogDocument(ltb);
 	ltb->setDocument(ld);
 	ltb->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
 	ltb->document()->setDefaultStyleSheet(qApp->styleSheet());
-	this->QTabWidget::addTab(ltb, g.mw->pmModel->getUser(hash)->qsName);
+	this->QTabWidget::addTab(ltb, name);
 }
 
-void LogTabs::openTab(QString hash){
-	if(mHashIndex->find(hash) == mHashIndex->end())
-		newTab(hash);
-	this->setCurrentIndex(mHashIndex->find(hash).value());
+void LogTabs::validateTab(ClientUser* user){
+	if(mHashIndex->find(user->qsHash) == mHashIndex->end())
+		newTab(user->qsHash, user->qsName);
 }
 
-int LogTabs::getTabIndex(QString hash){
-	if(mHashIndex->find(hash) == mHashIndex->end())
-		newTab(hash);
-	return this->mHashIndex->find(hash).value();
+void LogTabs::openTab(ClientUser* user){
+	validateTab(user);
+	this->setCurrentIndex(mHashIndex->find(user->qsHash).value());
+}
+
+int LogTabs::getTabIndex(ClientUser* user){
+	validateTab(user);
+	return this->mHashIndex->find(user->qsHash).value();
 }
 
 QString LogTabs::getHash(int index){
@@ -99,4 +103,7 @@ void LogTabs::update(){
 	mHashIndex->clear();
 	for(int i = 0; i < mIndexHash->count(); i++)
 		mHashIndex->insert(mIndexHash->at(i), i);
+}
+
+void anchorClick(const QUrl&){
 }

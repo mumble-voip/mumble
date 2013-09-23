@@ -216,7 +216,7 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	ClientUser *p = um->getUser(idx);
 	if (p) {
 		if(g.s.bLogTabs)
-			g.mw->qtwLogTabs->openTab(p->qsHash);
+			g.mw->qtwLogTabs->openTab(p);
 		else
 			g.mw->openTextMessageDialog(p);
 		return;

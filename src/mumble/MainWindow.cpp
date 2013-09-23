@@ -299,6 +299,7 @@ void MainWindow::setupGui()  {
 	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
 	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
+	connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(on_qteLog_anchorClicked(const QUrl &)));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -1444,7 +1445,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p->qsHash));
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p));
 		}
 	}
 	delete texm;
@@ -1530,7 +1531,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 		else{
 			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
 			g.sh->sendUserTextMessage(p->uiSession, qsText);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p->qsHash));
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p));
 		}
 	}
 	else{

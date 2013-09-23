@@ -36,21 +36,27 @@
 #include "ui_Log.h"
 #include <map>
 
+class ClientUser;
+
 class LogTabs : public QTabWidget {
 	private:
+		Q_OBJECT
 		QHash<QString, int>* mHashIndex;
 		QList<QString>* 	 mIndexHash;
-		void 	newTab(QString hash);
+		void 	newTab(QString, QString);
 		void	update(); 
+		void 	validateTab(ClientUser*);
 	public:
 		LogTabs(QWidget* parent = 0);
 		~LogTabs();
 		void 	showTabs(bool show);
-		int		getTabIndex(QString hash);	
-		void 	openTab(QString hash);
+		int		getTabIndex(ClientUser*);	
+		void 	openTab(ClientUser*);
 		QString	getHash(int Index);
 		void 	closeTab(int index);
 		int		addTab(QWidget* page, const QString& label);
+	signals:
+		void 	anchorClick(const QUrl&);
 };
 
 #endif
