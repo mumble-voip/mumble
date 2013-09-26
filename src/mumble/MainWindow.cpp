@@ -1916,7 +1916,10 @@ void MainWindow::updateMenuPermissions() {
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(true);
-	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+	if(g.s.bLogTabs)
+		qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
+	else
+		qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
 void MainWindow::talkingChanged() {
