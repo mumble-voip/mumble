@@ -300,6 +300,7 @@ void MainWindow::setupGui()  {
 	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
 	connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(on_qteLog_anchorClicked(const QUrl &)));
+	connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(on_qteLog_customContextMenuRequested(const QPoint&)));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -585,19 +586,20 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 }
 
 void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
-	QString link = qteLog->anchorAt(mpos);
+	LogTextBrowser* tabifiedLog = (LogTextBrowser*)qtwLogTabs->widget(qtwLogTabs->currentIndex());
+	QString link = tabifiedLog->anchorAt(mpos);
 	if (! link.isEmpty()) {
 		QUrl l(link);
 
-		if (handleSpecialContextMenu(l, qteLog->mapToGlobal(mpos)))
+		if (handleSpecialContextMenu(l, tabifiedLog->mapToGlobal(mpos)))
 			return;
 	}
 
-	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
-	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
+	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (tabifiedLog->horizontalScrollBar()->maximum() - tabifiedLog->horizontalScrollBar()->value()) : tabifiedLog->horizontalScrollBar()->value(), tabifiedLog->verticalScrollBar()->value());
+	QMenu *menu = tabifiedLog->createStandardContextMenu(mpos + contentPosition);
 	menu->addSeparator();
-	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
-	menu->exec(qteLog->mapToGlobal(mpos));
+	menu->addAction(tr("Clear"), tabifiedLog, SLOT(clear(void)));
+	menu->exec(tabifiedLog->mapToGlobal(mpos));
 	delete menu;
 }
 

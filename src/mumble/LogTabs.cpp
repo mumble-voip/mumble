@@ -37,7 +37,10 @@
 #include "MainWindow.h"
 #include "Log.h"
 
+#include <QtCore/QtGlobal>
+
 LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
+	this->setTabPosition(QTabWidget::South);
 	this->mHashIndex = new QHash<QString, int>();
 	this->mIndexHash = new QList<QString>();
 	QString tmp;
@@ -57,7 +60,9 @@ void LogTabs::newTab(QString hash, QString name){
 	this->mIndexHash->append(hash);
 	LogTextBrowser* ltb = new LogTextBrowser();
 	ltb->setOpenLinks(false);
+	ltb->setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(ltb, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
+	connect(ltb, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
 	LogDocument *ld = new LogDocument(ltb);
 	ltb->setDocument(ld);
 	ltb->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
@@ -106,4 +111,7 @@ void LogTabs::update(){
 }
 
 void anchorClick(const QUrl&){
+}
+
+void customContextMenuRequest(const QPoint&){
 }

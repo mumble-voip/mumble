@@ -57,6 +57,7 @@ class LogTabs : public QTabWidget {
 		int		addTab(QWidget* page, const QString& label);
 	signals:
 		void 	anchorClick(const QUrl&);
+		void	customContextMenuRequest(const QPoint&);
 };
 
 #endif
