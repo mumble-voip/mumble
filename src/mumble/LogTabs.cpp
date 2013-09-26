@@ -46,6 +46,7 @@ LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	QString tmp;
 	this->mIndexHash->append(tmp);
 	this->setTabsClosable(true);
+	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
 }
 
 LogTabs::~LogTabs(){
@@ -110,8 +111,11 @@ void LogTabs::update(){
 		mHashIndex->insert(mIndexHash->at(i), i);
 }
 
-void anchorClick(const QUrl&){
+int	LogTabs::markTabAsUpdated(int index){
+	if(this->currentIndex() != index)
+		this->tabBar()->setTabTextColor(index, Qt::blue); 
 }
 
-void customContextMenuRequest(const QPoint&){
+void LogTabs::onCurrentChanged(int index){
+	this->tabBar()->setTabTextColor(index, Qt::black); 
 }

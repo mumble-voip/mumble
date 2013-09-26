@@ -55,9 +55,13 @@ class LogTabs : public QTabWidget {
 		QString	getHash(int Index);
 		void 	closeTab(int index);
 		int		addTab(QWidget* page, const QString& label);
+		int		markTabAsUpdated(int index);
+	public slots:
+		void 	onCurrentChanged(int);
 	signals:
 		void 	anchorClick(const QUrl&);
 		void	customContextMenuRequest(const QPoint&);
+		
 };
 
 #endif

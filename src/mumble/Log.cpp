@@ -437,7 +437,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if(g.mw->qtwLogTabs->count() < tabToLog)
 			tabToLog = 0;
 		LogTextBrowser *tlog = (LogTextBrowser*)g.mw->qtwLogTabs->widget(tabToLog);
-		g.mw->qtwLogTabs->setCurrentIndex(tabToLog);
+		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
 		QTextCursor tc = tlog->textCursor();
 
 		const int oldscrollvalue = tlog->getLogScroll();
