@@ -116,6 +116,10 @@ int	LogTabs::markTabAsUpdated(int index){
 		this->tabBar()->setTabTextColor(index, Qt::blue); 
 }
 
+void LogTabs::userUpdate(ClientUser* user){
+	this->setTabText(mHashIndex->find(user->qsHash).value(), user->qsName);
+}
+
 void LogTabs::onCurrentChanged(int index){
 	this->tabBar()->setTabTextColor(index, Qt::black); 
 }

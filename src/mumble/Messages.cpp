@@ -479,6 +479,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_name()) {
 		pmModel->renameUser(pDst, u8(msg.name()));
+		g.mw->qtwLogTabs->userUpdate(pDst);
 	}
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());

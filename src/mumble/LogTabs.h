@@ -56,6 +56,7 @@ class LogTabs : public QTabWidget {
 		void 	closeTab(int index);
 		int		addTab(QWidget* page, const QString& label);
 		int		markTabAsUpdated(int index);
+		void	userUpdate(ClientUser*);
 	public slots:
 		void 	onCurrentChanged(int);
 	signals:
