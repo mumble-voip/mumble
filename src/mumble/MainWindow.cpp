@@ -1532,6 +1532,8 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 		}
 		else{
 			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
+			if(p == NULL)
+				return;
 			g.sh->sendUserTextMessage(p->uiSession, qsText);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p));
 		}
@@ -2748,13 +2750,11 @@ void MainWindow::updateChatBar() {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 		qtwLogTabs->setTabText(qtwLogTabs->indexOf(qteLog), tr("Not connected"));
 	} else if(g.s.bLogTabs){
-		p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
-		c = ClientUser::get(g.uiSession)->cChannel;
 		if(qtwLogTabs->currentIndex() != 0){
-			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
+			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(qtwLogTabs->tabText(qtwLogTabs->currentIndex())));
 		}
 		else{
-			
+			c = ClientUser::get(g.uiSession)->cChannel;
 			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
 		}
 		qtwLogTabs->setTabText(0, tr("%1").arg(c->qsName));	
