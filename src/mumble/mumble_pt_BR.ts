@@ -97,7 +97,7 @@
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation>Valor para o posicionalmento do canal</translation>
+        <translation>Valor para o posicionamento do canal</translation>
     </message>
     <message>
         <location/>
@@ -159,7 +159,7 @@ Este valor permite-lhe trocar a forma com que o Mumble ordena os canais na árvo
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>O grupo foi herdade do canal pai</translation>
+        <translation>O grupo foi herdado do canal pai</translation>
     </message>
     <message>
         <location/>
@@ -663,7 +663,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por Morris Arozi Moraes&lt;br /&gt;morrisarozi@gmail.com&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilizade de conversa por voz para gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por Morris Arozi Moraes&lt;br /&gt;morrisarozi@gmail.com&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilidade de conversa por voz para gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -711,7 +711,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Este é o método de entrada para usar para áudio.&lt;/b&gt;&lt;br /&gt;Mais provavelmente você quer usar DirectSound.</translation>
+        <translation>&lt;b&gt;Este é o método de entrada para usar para áudio.&lt;/b&gt;&lt;br /&gt;Provavelmente você quer usar DirectSound.</translation>
     </message>
     <message>
         <location/>
@@ -781,7 +781,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Procurar por um arquivo de áudio para-Inativo</translation>
+        <translation>Procurar por um arquivo de áudio para Inativo</translation>
     </message>
     <message>
         <location/>
@@ -836,7 +836,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Estabelece os gatilhos para a detecção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de deteção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova deteção.</translation>
+        <translation>&lt;b&gt;Estabelece os gatilhos para a deteção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de deteção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova deteção.</translation>
     </message>
     <message>
         <location/>
@@ -916,7 +916,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isto configura quando ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala, mas nunca passará do especificado aqui.&lt;br /&gt;Se a &lt;i&gt;Altura do microfone&lt;/i&gt; nível das estatísticas de áudio ficam sobre os 100%, você provavelmente quer configurar isto para 2.0 ou parecido, mas se , como a maioria das pessoas, você é incapaz de chegar aos 100%, configure isto muito mais alto.&lt;br /&gt;Idealmente, configure dem odo que a &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar isto no máximo, mas o Mumble começará a transmitir outras conversar se você deixá-lo auto-afinado para este nível.</translation>
+        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isto configura quando ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala, mas nunca passará do especificado aqui.&lt;br /&gt;Se a &lt;i&gt;Altura do microfone&lt;/i&gt; nível das estatísticas de áudio ficam sobre os 100%, você provavelmente quer configurar isto para 2.0 ou parecido, mas se , como a maioria das pessoas, você é incapaz de chegar aos 100%, configure isto muito mais alto.&lt;br /&gt;Idealmente, configure de modo que a &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar isto no máximo, mas o Mumble começará a transmitir outras conversar se você deixá-lo auto-afinado para este nível.</translation>
     </message>
     <message>
         <location/>
@@ -1001,7 +1001,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>R&amp;eset</translation>
+        <translation>R&amp;esetar</translation>
     </message>
     <message>
         <location/>
@@ -1061,7 +1061,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>É usado no final da transmissão </translation>
+        <translation>É usado no final da transmissão</translation>
     </message>
     <message>
         <location/>
@@ -1236,7 +1236,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Isto configura a margem mínima de segurança para o buffer jitter.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em buffer, e o bufer jitter tenta continuamente empurrar o buffer para o mínimo suportado pela sua rede, diminuindo a latência. Configure o tamanho mínimo do buffer. Se o começo das suas frases é muito irregular, aumente este valor.</translation>
+        <translation>&lt;b&gt;Isto configura a margem mínima de segurança para o buffer jitter.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em buffer, e o buffer jitter tenta continuamente empurrar o buffer para o mínimo suportado pela sua rede, diminuindo a latência. Configure o tamanho mínimo do buffer. Se o começo das suas frases é muito irregular, aumente este valor.</translation>
     </message>
     <message>
         <location/>
@@ -1296,7 +1296,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Bloom</source>
-        <translation>Bloom</translation>
+        <translation>Floração</translation>
     </message>
     <message>
         <location/>
@@ -1557,7 +1557,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
-        <translation>Mostra o pico de potência dos alto-falantes no último quadro (20ms). A menos que você esteja usando um método de amostra multi-canal (como ASIO) com alto-falantes configurados, isto será 0. Se você possui tal instalação configurada, e isto ainda mostra 0 enquanto você está tocando áudio de outros programas, sua instalação não está funcionando.</translation>
+        <translation>Mostra o pico de potência dos alto-falantes no último quadro (20ms). A menos que você esteja usando um método de amostra multicanal (como ASIO) com alto-falantes configurados, isto será 0. Se você possui tal instalação configurada, e isto ainda mostra 0 enquanto você está tocando áudio de outros programas, sua instalação não está funcionando.</translation>
     </message>
     <message>
         <location/>
@@ -1692,7 +1692,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá pular para cima e para baixo conforma o VBD ajusta a qualidade. O pico da taxa pode ser ajustado no diálogo de Configuração.</translation>
+        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá pular para cima e para baixo conforma o VBR ajusta a qualidade. O pico da taxa pode ser ajustado no diálogo de Configuração.</translation>
     </message>
 </context>
 <context>
@@ -2086,7 +2086,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isto significa que assim que alguém começa a falar com você no Mumble, o som de todos outros programas (como tocadores de audio) será atenuado para que você possa ouvi-los mais claramente.</translation>
+        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isto significa que assim que alguém começa a falar com você no Mumble, o som de todos outros programas (como tocadores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
     </message>
     <message>
         <location/>
@@ -2101,7 +2101,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Manter configurações personalizadas de Texto-para-Voz.</translation>
+        <translation>Manter configurações personalizadas de Texto-para-Fala.</translation>
     </message>
     <message>
         <location/>
@@ -2135,7 +2135,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência é qualidade ruim. Escolha esta opção somente se sua conexão não suporta outra configuração. (16kbit/s, 60ms por pacote)</translation>
+        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência e qualidade ruim. Escolha esta opção somente se sua conexão não suporta outra configuração. (16kbit/s, 60ms por pacote)</translation>
     </message>
     <message>
         <location/>
@@ -2236,7 +2236,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location line="+11"/>
         <source>Self-signed</source>
-        <translation>Auto-assinado</translation>
+        <translation>Autoassinado</translation>
     </message>
 </context>
 <context>
@@ -2645,7 +2645,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Mutar/Ensurdecer</translation>
+        <translation>Emudecer/Ensurdecer</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2960,7 +2960,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Páigna web</translation>
+        <translation>Página web</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3351,7 +3351,7 @@ dos locais possíveis.</translation>
     <message>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
-        <translation>A base de dados &apos;%1&apos; é somente leitura. O Mumble não pode salvar as configurações do servidor (ex. certificados SSL) até você resolver este problema.</translation>
+        <translation>A base de dados &apos;%1&apos; é somente leitura. O Mumble não pode salvar as configurações do servidor (ex. certificados TLS) até você resolver este problema.</translation>
     </message>
 </context>
 <context>
@@ -3523,7 +3523,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>Não enviar informação de áudio posicional quando usar este atalho de sussuro.</translation>
+        <translation>Não enviar informação de áudio posicional quando usar este atalho de sussurro.</translation>
     </message>
     <message>
         <location/>
@@ -3763,7 +3763,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+117"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation>[[ Texto objeto muito grande para mostrar ]]</translation>
+        <translation>[[ Objeto de texto muito grande para mostrar ]]</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -4557,7 +4557,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+159"/>
         <source>SSL Version mismatch</source>
-        <translation>Versões SSL não coincidem</translation>
+        <translation>Versões TSL não coincidem</translation>
     </message>
     <message>
         <location line="+153"/>
@@ -4660,7 +4660,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+0"/>
         <source>Late</source>
-        <translation>Atrasados</translation>
+        <translation>Tardios</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4776,12 +4776,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+397"/>
         <source>SSL Verification failed: %1</source>
-        <translation>Verificação SSL falhou: %1</translation>
+        <translation>Verificação TLS falhou: %1</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b.ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
+        <translation>&lt;b&gt;ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5121,7 +5121,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation>Desvindula seu canal atual (não o selecionado atualmente) de todos canais vinculados.</translation>
+        <translation>Desvincula seu canal atual (não o selecionado atualmente) de todos canais vinculados.</translation>
     </message>
     <message>
         <location/>
@@ -5562,7 +5562,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation>Premissão negada.</translation>
+        <translation>Permissão negada.</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -5679,12 +5679,12 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation>O servidor requer Pressione-para-Falar ativo.</translation>
+        <translation>O servidor requer Pressionar-para-Falar ativo.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation>O servidor requer Pressione-para-Falar inativo.</translation>
+        <translation>O servidor requer Pressionar-para-Falar inativo.</translation>
     </message>
     <message>
         <location line="-474"/>
@@ -5774,7 +5774,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+364"/>
         <source>Message from %1</source>
-        <translation>Mesangem de %1</translation>
+        <translation>Mensagem de %1</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1390"/>
@@ -6000,17 +6000,17 @@ Opções válidas são:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de &amp;banimentos</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar lista de banimentos do servidor</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Permite que você edite a lista de banimentos de IP usada pelo servidor</translation>
     </message>
 </context>
 <context>
@@ -6133,7 +6133,7 @@ Opções válidas são:
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Tipo de proxy ao qual se conectar&lt;/b&gt;&lt;br /&gt;Isto faz o Mumble se conectar através de um proxy para todas conexões externas. Note que tunelar força o Mumble ao modo de compatibilidade TCP, causando todos dados de voz a serem enviadas pelo canal de controle.</translation>
+        <translation>&lt;b&gt;Tipo de proxy ao qual se conectar&lt;/b&gt;&lt;br /&gt;Isto faz o Mumble se conectar através de um proxy para todas conexões externas. Note que o uso de túneis de conexão força o Mumble ao modo de compatibilidade TCP, que causa o envio de todos os dados de voz usando o canal de controle.</translation>
     </message>
     <message>
         <location/>
@@ -6188,7 +6188,7 @@ Opções válidas são:
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Miscelânia</translation>
+        <translation>Miscelânea</translation>
     </message>
     <message>
         <location/>
@@ -7266,7 +7266,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation>Subcanal $%1</translation>
+        <translation>Subcanal #%1</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7340,7 +7340,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Esta é uma lista editável de credenciais de acesso no servidor conectado.&lt;/b&gt;
 &lt;br /&gt;
-Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha oara um gerenciamento de acesso simples nos canais. O Mumble vai lembrar das credenciais que você usou e vai reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.</translation>
+Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha para um gerenciamento de acesso simples nos canais. O Mumble vai lembrar das credenciais que você usou e vai reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.</translation>
     </message>
     <message>
         <location/>
@@ -7980,7 +7980,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-195"/>
         <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation>Fechar o gravador vai parar sua gravação atual. Você realmente quer fechar o gravador?</translation>
+        <translation>Fechar o gravador vai parar sua gravação atual. Realmente quer fechar o gravador?</translation>
     </message>
     <message>
         <location line="-31"/>

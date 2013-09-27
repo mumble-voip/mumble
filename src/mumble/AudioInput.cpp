@@ -706,7 +706,6 @@ int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
 
 void AudioInput::encodeAudioFrame() {
 	int iArg;
-	ClientUser *p=ClientUser::get(g.uiSession);
 	int i;
 	float sum;
 	short max;
@@ -790,6 +789,7 @@ void AudioInput::encodeAudioFrame() {
 
 	bIsSpeech = bIsSpeech || (g.iPushToTalk > 0);
 
+	ClientUser *p = ClientUser::get(g.uiSession);
 	if (g.s.bMute || ((g.s.lmLoopMode != Settings::Local) && p && (p->bMute || p->bSuppress)) || g.bPushToMute || (g.iTarget < 0)) {
 		bIsSpeech = false;
 	}

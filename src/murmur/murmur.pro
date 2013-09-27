@@ -102,7 +102,13 @@ ice {
 
 	win32 {
 		INCLUDEPATH *= "$$ICE_PATH/include"
-		QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
+		!CONFIG(static) {
+			QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
+		} else {
+			DEFINES *= ICE_STATIC_LIBS
+			QMAKE_LIBDIR *= $$ICE_PATH/lib $$BZIP2_PATH/lib
+			LIBS *= -llibbz2 -ldbghelp -liphlpapi -lrpcrt4
+		}
 	}
 
 	macx {

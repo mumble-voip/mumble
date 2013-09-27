@@ -172,7 +172,7 @@ class UserModel : public QAbstractItemModel {
 		void ensureSelfVisible();
 		void recheckLinks();
 		void updateOverlay() const;
-		void toggleHidden(Channel *c);
+		void toggleChannelFiltered(Channel *c);
 };
 
 #endif

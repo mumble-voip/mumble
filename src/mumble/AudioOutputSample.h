@@ -84,7 +84,7 @@ class AudioOutputSample : public AudioOutputUser {
 		void playbackFinished();
 	public:
 		static SoundFile* loadSndfile(const QString &filename);
-		static QString browseForSndfile();
+		static QString browseForSndfile(QString defaultpath=QString());
 		virtual bool needSamples(unsigned int snum);
 		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
 		~AudioOutputSample();
