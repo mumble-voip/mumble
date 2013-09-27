@@ -1525,7 +1525,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qsText = TextMessage::autoFormat(qsText);
 
 	if(g.s.bLogTabs){
-		if(qtwLogTabs->currentIndex() == 0){
+		if(qtwLogTabs->currentIndex() == qtwLogTabs->getChannelTab()){
 			c = ClientUser::get(g.uiSession)->cChannel;
 			g.sh->sendChannelTextMessage(c->iId, qsText, false);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
@@ -2757,7 +2757,7 @@ void MainWindow::updateChatBar() {
 			c = ClientUser::get(g.uiSession)->cChannel;
 			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
 		}
-		qtwLogTabs->setTabText(0, tr("%1").arg(c->qsName));	
+		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));	
 	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one

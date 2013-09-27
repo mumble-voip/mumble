@@ -51,6 +51,7 @@ class LogTabs : public QTabWidget {
 		~LogTabs();
 		void 	showTabs(bool show);
 		int		getTabIndex(ClientUser*);	
+		int 	getChannelTab();
 		void 	openTab(ClientUser*);
 		QString	getHash(int Index);
 		void 	closeTab(int index);
@@ -59,6 +60,7 @@ class LogTabs : public QTabWidget {
 		void	userUpdate(ClientUser*);
 	public slots:
 		void 	onCurrentChanged(int);
+		void	onTabMoved(int from, int to);
 	signals:
 		void 	anchorClick(const QUrl&);
 		void	customContextMenuRequest(const QPoint&);

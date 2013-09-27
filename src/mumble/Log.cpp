@@ -434,8 +434,8 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		if(g.mw->qtwLogTabs->count() < tabToLog)
-			tabToLog = 0;
+		if(tabToLog == -1 || g.mw->qtwLogTabs->count() < tabToLog)
+			tabToLog = g.mw->qtwLogTabs->getChannelTab();
 		LogTextBrowser *tlog = (LogTextBrowser*)g.mw->qtwLogTabs->widget(tabToLog);
 		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
 		QTextCursor tc = tlog->textCursor();

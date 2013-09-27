@@ -43,10 +43,13 @@ LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->setTabPosition(QTabWidget::South);
 	this->mHashIndex = new QHash<QString, int>();
 	this->mIndexHash = new QList<QString>();
-	QString tmp;
+	QString tmp = QString::fromUtf8("channel");
 	this->mIndexHash->append(tmp);
+	this->mHashIndex->insert(tmp, 0);
 	this->setTabsClosable(true);
+	this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
+	connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
 }
 
 LogTabs::~LogTabs(){
@@ -86,6 +89,10 @@ int LogTabs::getTabIndex(ClientUser* user){
 	return this->mHashIndex->find(user->qsHash).value();
 }
 
+int LogTabs::getChannelTab(){
+	return this->mHashIndex->find(QString::fromUtf8("channel")).value(); 
+}
+
 QString LogTabs::getHash(int index){
 	return this->mIndexHash->at(index);
 }
@@ -101,8 +108,8 @@ void LogTabs::closeTab(int index){
 	mIndexHash->removeOne(hashKey);
 	mHashIndex->remove(hashKey);
 	widget(index)->deleteLater();
-	removeTab(index);
 	update();
+	removeTab(index);
 }
 
 void LogTabs::update(){
@@ -122,4 +129,9 @@ void LogTabs::userUpdate(ClientUser* user){
 
 void LogTabs::onCurrentChanged(int index){
 	this->tabBar()->setTabTextColor(index, Qt::black); 
+}
+
+void LogTabs::onTabMoved(int from, int to){
+	this->mIndexHash->swap(from, to);
+	this->update();
 }
