@@ -63,7 +63,8 @@ public:
 	int iMaxImageMessageLength;
 	int iOpusThreshold;
 	int iChannelNestingLimit;
-    bool bPasswordStrengthening;
+	bool bPlainPasswordHash;
+	int iKdfIterations;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
@@ -122,6 +123,9 @@ public:
 	QVariant qvSuggestPushToTalk;
 
 	QSettings *qsSettings;
+
+	// db meta
+	size_t kdfIterations;
 
 	MetaParams();
 	~MetaParams();
