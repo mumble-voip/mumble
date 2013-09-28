@@ -50,6 +50,7 @@ LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
 	connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
+	this->setStyleSheet(QString::fromUtf8("QTabBar::tab:!selected{max-width: 100px; text-align:left;}"));
 }
 
 LogTabs::~LogTabs(){
