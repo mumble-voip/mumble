@@ -624,7 +624,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		target += tr("(Channel) ");
 	}
 
-	int targetLogTab = 0;
+	int targetLogTab = -1;
 	if(g.s.bLogTabs && msg.channel_id_size() == 0 && msg.tree_id_size() == 0)
 		targetLogTab = qtwLogTabs->getTabIndex(pSrc);
 
