@@ -13,210 +13,309 @@
   <property name="windowTitle">
    <string>Messages</string>
   </property>
-  <layout class="QVBoxLayout">
-   <item>
-    <widget class="QTreeWidget" name="qtwMessages">
-     <property name="alternatingRowColors">
-      <bool>true</bool>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="1" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
      </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::SingleSelection</enum>
-     </property>
-     <property name="rootIsDecorated">
-      <bool>false</bool>
-     </property>
-     <property name="uniformRowHeights">
-      <bool>true</bool>
-     </property>
-     <property name="itemsExpandable">
-      <bool>false</bool>
-     </property>
-     <column>
-      <property name="text">
-       <string>Message</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Console</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Notification</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Text-To-Speech</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Soundfile</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Path</string>
-      </property>
-     </column>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbTTS">
-     <property name="title">
-      <string>Text To Speech</string>
-     </property>
-     <layout class="QGridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qlVolume">
-        <property name="text">
-         <string>Volume</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsVolume</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QSlider" name="qsVolume">
-        <property name="toolTip">
-         <string>Volume of Text-To-Speech Engine</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</string>
-        </property>
-        <property name="maximum">
-         <number>100</number>
-        </property>
-        <property name="singleStep">
-         <number>5</number>
-        </property>
-        <property name="pageStep">
-         <number>20</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="tickPosition">
-         <enum>QSlider::TicksBelow</enum>
-        </property>
-        <property name="tickInterval">
-         <number>5</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="qlThreshold">
-        <property name="text">
-         <string>Length threshold</string>
-        </property>
-        <property name="buddy">
-         <cstring>qsbThreshold</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="qsbThreshold">
-        <property name="toolTip">
-         <string>Message length threshold for Text-To-Speech Engine</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::PlusMinus</enum>
-        </property>
-        <property name="suffix">
-         <string> Characters</string>
-        </property>
-        <property name="maximum">
-         <number>5000</number>
-        </property>
-        <property name="singleStep">
-         <number>10</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="qcbReadBackOwn">
-        <property name="toolTip">
-         <string>If enabled text messages you send will be read back to you with TTS</string>
-        </property>
-        <property name="text">
-         <string>Read back own messages</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbWhisper">
-     <property name="title">
-      <string>Whisper</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="qcbWhisperFriends">
-        <property name="toolTip">
-         <string>If checked you will only hear whispers from users you added to your friend list.</string>
-        </property>
-        <property name="text">
-         <string>Only accept whispers from friends</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="qgbMaxBlocks">
-     <property name="title">
-      <string>Chat Log</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="qlMaxBlocks">
-        <property name="text">
-         <string>Maximum chat length</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="qsbMaxBlocks">
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::PlusMinus</enum>
-        </property>
-        <property name="specialValueText">
-         <string>Unlimited</string>
-        </property>
-        <property name="suffix">
-         <string> Lines</string>
-        </property>
-        <property name="maximum">
-         <number>1000000</number>
-        </property>
-        <property name="singleStep">
-         <number>100</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>8</width>
-          <height>16</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QWidget" name="tab_log">
+      <attribute name="title">
+       <string>Messages</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QTreeWidget" name="qtwMessages">
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="uniformRowHeights">
+          <bool>true</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string>Message</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Console</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Notification</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Text-To-Speech</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Soundfile</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Path</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="qgbTTS">
+         <property name="title">
+          <string>Text To Speech</string>
+         </property>
+         <layout class="QGridLayout">
+          <item row="1" column="0">
+           <widget class="QLabel" name="qlThreshold">
+            <property name="text">
+             <string>Length threshold</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsbThreshold</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="qlVolume">
+            <property name="text">
+             <string>Volume</string>
+            </property>
+            <property name="buddy">
+             <cstring>qsVolume</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QCheckBox" name="qcbReadBackOwn">
+            <property name="toolTip">
+             <string>If enabled text messages you send will be read back to you with TTS</string>
+            </property>
+            <property name="text">
+             <string>Read back own messages</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="qsbThreshold">
+            <property name="toolTip">
+             <string>Message length threshold for Text-To-Speech Engine</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</string>
+            </property>
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="suffix">
+             <string> Characters</string>
+            </property>
+            <property name="maximum">
+             <number>5000</number>
+            </property>
+            <property name="singleStep">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="3">
+           <widget class="QSlider" name="qsVolume">
+            <property name="toolTip">
+             <string>Volume of Text-To-Speech Engine</string>
+            </property>
+            <property name="whatsThis">
+             <string>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</string>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="singleStep">
+             <number>5</number>
+            </property>
+            <property name="pageStep">
+             <number>20</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksBelow</enum>
+            </property>
+            <property name="tickInterval">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="qgbWhisper">
+         <property name="title">
+          <string>Whisper</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QCheckBox" name="qcbWhisperFriends">
+            <property name="toolTip">
+             <string>If checked you will only hear whispers from users you added to your friend list.</string>
+            </property>
+            <property name="text">
+             <string>Only accept whispers from friends</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QGroupBox" name="qgbMaxBlocks">
+         <property name="title">
+          <string>Chat Log</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="qlMaxBlocks">
+            <property name="text">
+             <string>Maximum chat length</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="qsbMaxBlocks">
+            <property name="buttonSymbols">
+             <enum>QAbstractSpinBox::PlusMinus</enum>
+            </property>
+            <property name="specialValueText">
+             <string>Unlimited</string>
+            </property>
+            <property name="suffix">
+             <string> Lines</string>
+            </property>
+            <property name="maximum">
+             <number>1000000</number>
+            </property>
+            <property name="singleStep">
+             <number>100</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>8</width>
+              <height>16</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_kickbanmsgs">
+      <attribute name="title">
+       <string>Kick/Ban Reasons</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="qcbEnableranmsgs">
+         <property name="text">
+          <string>Enable random reasons</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="3">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0" colspan="4">
+        <widget class="QGroupBox" name="qgb_kickbanmsgs">
+         <property name="title">
+          <string>Kick/Ban Reasons</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="0">
+           <widget class="QListWidget" name="qlwReasons">
+            <property name="selectionMode">
+             <enum>QAbstractItemView::MultiSelection</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>287</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="qpb_add">
+         <property name="maximumSize">
+          <size>
+           <width>87</width>
+           <height>27</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Add</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="qpb_remove">
+         <property name="maximumSize">
+          <size>
+           <width>86</width>
+           <height>27</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>

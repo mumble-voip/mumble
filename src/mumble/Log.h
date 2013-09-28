@@ -60,6 +60,9 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
 		void browseForAudioFile();
+	private slots:
+		void on_qpb_add_clicked();
+		void on_qpb_remove_clicked();
 };
 
 class ClientUser;
@@ -123,6 +126,53 @@ class LogDocument : public QTextDocument {
 	public slots:
 		void receivedHead();
 		void finished();
+};
+
+static const char *kickBanReasons[] = {
+	"|Z| - there's the exit",
+	"A pity you have to leave so early",
+	"Absence makes the heart grow fonder",
+	"And now eat my poo-poo",
+	"Boo-hoo",
+	"Come back when you've finally learned not to be lame",
+	"Cya later - much later",
+	"Enough for today rookie",
+	"Everybody be cool, YOU - be cool",
+	"Get lost",
+	"Go play leapfrog with a unicorn",
+	"I didn't invite you, did I?",
+	"I love pressing this button",
+	"I rather want you to stay at teletubbies.com",
+	"I wonder what this button does?",
+	"Insufficient maturity detected",
+	"It's not that I hate you, it's just... that I don't like you",
+	"Kick sponsored by mumble.info",
+	"Ladies and Gentlemen - may I present: King Admin",
+	"Lame and fake - that's you",
+	"Look behind you, a three-headed monkey!",
+	"My channel, my rules",
+	"No Homers",
+	"Nope - no wrong button",
+	"Oops, I did it again",
+	"Perhaps you should try real life for a while",
+	"Pimp your brain",
+	"Pissing me off is one of your skills",
+	"See you in hell",
+	"Sometimes there is no other solution",
+	"Sorry, but you are dismissed",
+	"Testing... Worked.",
+	"Thank you, drive through",
+	"Thanks for your visit",
+	"The admin is always right",
+	"This random message was censored by popular request",
+	"Waste your time wherever you want, but not here",
+	"Yes, I have admin rights",
+	"You didn't understand any of this",
+	"You really wanted it, right?",
+	"You're falling in a bottomless pit of loneliness",
+	"You're not welcome here",
+	"You've been dying since the day you were born",
+	NULL
 };
 
 #endif

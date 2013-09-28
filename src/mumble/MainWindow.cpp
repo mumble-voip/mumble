@@ -1375,6 +1375,16 @@ void MainWindow::on_qaUserFriendRemove_triggered() {
 	pmModel->setFriendName(p, QString());
 }
 
+int randInt(int low, int high) { // returns a random integer value between low and high
+	return qrand() % ((high + 1) - low) + low;
+}
+
+QString MainWindow::randomReason() {
+
+	QString rReason = g.s.qslKickBanReasons[randInt(0,g.s.qslKickBanReasons.count()-1)];
+	return rReason;
+}
+
 void MainWindow::on_qaUserKick_triggered() {
 	ClientUser *p = getContextMenuUser();
 	if (!p)
@@ -1390,7 +1400,11 @@ void MainWindow::on_qaUserKick_triggered() {
 		return;
 
 	if (ok) {
-		g.sh->kickBanUser(p->uiSession, reason, false);
+		if ((reason.length() == 0) && g.s.bEnableRanKBMsgs) {
+			g.sh->kickBanUser(p->uiSession, randomReason(), false);
+		} else {
+			g.sh->kickBanUser(p->uiSession, reason, false);
+		}
 	}
 }
 
@@ -1408,7 +1422,11 @@ void MainWindow::on_qaUserBan_triggered() {
 		return;
 
 	if (ok) {
-		g.sh->kickBanUser(p->uiSession, reason, true);
+		if ((reason.length() == 0) && g.s.bEnableRanKBMsgs) {
+			g.sh->kickBanUser(p->uiSession, randomReason(), true);
+		} else {
+			g.sh->kickBanUser(p->uiSession, reason, true);
+		}
 	}
 }
 
