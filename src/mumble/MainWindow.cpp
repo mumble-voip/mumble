@@ -870,6 +870,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 	}
 	menuBar()->setVisible(showit);
 	qtwLogTabs->showTabs(g.s.bLogTabs);
+	if(!g.s.bLogTabs)
+		qtwLogTabs->setCurrentIndex(qtwLogTabs->getChannelTab());
 
 	if (toggle_minimize) {
 		if (! showit) {
