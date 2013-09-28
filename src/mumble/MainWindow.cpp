@@ -2752,11 +2752,11 @@ void MainWindow::updateChatBar() {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
 		qtwLogTabs->setTabText(qtwLogTabs->indexOf(qteLog), tr("Not connected"));
 	} else if(g.s.bLogTabs){
-		if(qtwLogTabs->currentIndex() != 0){
+		c = ClientUser::get(g.uiSession)->cChannel;
+		if(qtwLogTabs->currentIndex() != qtwLogTabs->getChannelTab()){
 			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(qtwLogTabs->tabText(qtwLogTabs->currentIndex())));
 		}
 		else{
-			c = ClientUser::get(g.uiSession)->cChannel;
 			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
 		}
 		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));	
