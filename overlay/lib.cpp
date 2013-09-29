@@ -47,7 +47,7 @@ static HardHook hhLoad;
 static HardHook hhLoadW;
 static HardHook hhFree;
 
-static SharedData *sd;
+static SharedData *sd = NULL;
 
 FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 	this->pOriginal = orig;
@@ -508,6 +508,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 }
 
 bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p);
+void createSharedDataMap();
 
 void dllmainProcAttach(char* procname) {
 	Mutex::init();
@@ -542,30 +543,7 @@ void dllmainProcAttach(char* procname) {
 		return;
 	}
 
-	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
-
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
-	if (hMapObject == NULL) {
-		ods("Lib: CreateFileMapping failed");
-		return;
-	}
-
-	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
-
-	sd = static_cast<SharedData *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
-
-	if (sd == NULL) {
-		ods("Lib: MapViewOfFile Failed");
-		return;
-	}
-
-	if (bInit)
-		memset(sd, 0, dwSharedSize);
-
-	unsigned char *raw = (unsigned char *) sd;
-	d3dd = reinterpret_cast<Direct3D9Data *>(raw + sizeof(SharedData));
-	dxgi = reinterpret_cast<DXGIData *>(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
-
+	createSharedDataMap();
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -700,6 +678,37 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 		return true;
 
 	return false;
+}
+
+void createSharedDataMap() {
+	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
+
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
+	if (hMapObject == NULL) {
+		ods("Lib: CreateFileMapping failed");
+		return;
+	}
+
+	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
+
+	unsigned char * rawSharedPointer = static_cast<unsigned char *>(
+			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
+
+	if (rawSharedPointer == NULL) {
+		ods("Lib: MapViewOfFile Failed");
+		return;
+	}
+
+	if (bInit)
+		memset(rawSharedPointer, 0, dwSharedSize);
+
+	sd = reinterpret_cast<SharedData *>(rawSharedPointer);
+	rawSharedPointer += sizeof(SharedData);
+
+	d3dd = reinterpret_cast<Direct3D9Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(Direct3D9Data);
+
+	dxgi = reinterpret_cast<DXGIData *>(rawSharedPointer);
 }
 
 void dllmainProcDetach() {
