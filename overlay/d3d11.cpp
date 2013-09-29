@@ -607,6 +607,7 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 }
 
 static void HookPresentRaw(voidFunc vfPresent) {
+	ods("D3D11: Injecting Present");
 	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
 }
 
@@ -660,6 +661,14 @@ void checkDXGI11Hook(bool preonly) {
 				bHooked = false;
 			}
 		}
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+	} else {
+		if (hDXGI) {
+			ods("D3D11: No DXGI.DLL found as loaded. No hooking at this point.");
+		} else {
+			ods("D3D11: No D3D11.DLL found as loaded. No hooking at this point.");
+		}
+	#endif
 	}
 
 	bCheckHookActive = false;

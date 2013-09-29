@@ -469,6 +469,9 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		pDevice->Release();
 	} else {
 		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
+
+		// As DXGI is used for multiple D3D versions this is expected if
+		// another version is used (like D3D11).
 	}
 
 	//TODO: Move logic to HardHook.
@@ -545,6 +548,7 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 }
 
 static void HookPresentRaw(voidFunc vfPresent) {
+	ods("D3D10: Injecting Present");
 	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
 }
 
@@ -598,6 +602,14 @@ void checkDXGIHook(bool preonly) {
 				bHooked = false;
 			}
 		}
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+	} else {
+		if (hDXGI) {
+			ods("D3D10: No DXGI.DLL found as loaded. No hooking at this point.");
+		} else {
+			ods("D3D10: No D3D10CORE.DLL found as loaded. No hooking at this point.");
+		}
+	#endif
 	}
 
 	bCheckHookActive = false;

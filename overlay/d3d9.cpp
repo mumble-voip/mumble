@@ -851,6 +851,10 @@ void checkD3D9Hook(bool preonly) {
 		if (! bHooked) {
 			hookD3D9(hD3D, preonly);
 		}
+	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+	} else {
+		ods("D3D9: No D3D9.DLL found as loaded. No hooking at this point.");
+	#endif
 	}
 
 	bCheckHookActive = false;
