@@ -1,4 +1,6 @@
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2011, Kissaki <kissaki@gmx.de>
+   Copyright (C) 2011, Nye Liu <nyet@nyet.org>
 
    All rights reserved.
 
@@ -29,7 +31,9 @@
 */
 
 #include "lib.h"
+#include "D11StateBlock.h"
 #include "overlay11.hex"
+#include "d3dx11effect.h"
 #include <d3d11.h>
 #include <d3dx10math.h>
 #include <d3dx11.h>
@@ -51,6 +55,7 @@ typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
 typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
 typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
 typedef ULONG(__stdcall *ReleaseType)(ID3D11Device *);
+typedef HRESULT(__cdecl *CreateEffectFromMemoryType)(CONST void *, SIZE_T, UINT, ID3D11Device *, ID3DX11Effect **);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
@@ -75,7 +80,12 @@ class D11State: protected Pipe {
 		bool bDeferredContext;
 		IDXGISwapChain *pSwapChain;
 
+		D11StateBlock *pOrigStateBlock;
+		D11StateBlock *pMyStateBlock;
 		ID3D11RenderTargetView *pRTV;
+		ID3DX11Effect *pEffect;
+		ID3DX11EffectTechnique *pTechnique;
+		ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
 		ID3D11InputLayout *pVertexLayout;
 		ID3D11Buffer *pVertexBuffer;
 		ID3D11Buffer *pIndexBuffer;
@@ -109,7 +119,12 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
 
 	ZeroMemory(&vp, sizeof(vp));
 
+	pOrigStateBlock = NULL;
+	pMyStateBlock = NULL;
 	pRTV = NULL;
+	pEffect = NULL;
+	pTechnique = NULL;
+	pDiffuseTexture = NULL;
 	pVertexLayout = NULL;
 	pVertexBuffer = NULL;
 	pIndexBuffer = NULL;
@@ -183,8 +198,10 @@ void D11State::setRect() {
 		{ D3DXVECTOR3(left, bottom, 0.5f), D3DXVECTOR2(texl, texb) },
 	};
 
+	// map/unmap to temporarily deny GPU access to the resource pVertexBuffer
 	D3D11_MAPPED_SUBRESOURCE res;
 	hr = pDeviceContext->Map(pVertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &res);
+	//TODO no size-checks? Is that correct and safe?
 	memcpy(res.pData, vertices, sizeof(vertices));
 	ods("D3D11: Map: %lx %d", hr, sizeof(vertices));
 	pDeviceContext->Unmap(pVertexBuffer, 0);
@@ -240,6 +257,39 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 	}
 }
 
+static CreateEffectFromMemoryType GetCreateEffectFromMemory(void)
+{
+	HMODULE hRef;
+	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) GetCreateEffectFromMemory, &hRef)) {
+		ods("D3D11: failed to find my module");
+		return NULL;
+	}
+
+	TCHAR path[2048];
+	GetModuleFileName(hRef, path, sizeof(path));
+	path[2047] = '\0';
+	char *p = strrchr(path,'\\');
+	if (!p) {
+		ods("D3D11: bad path %s", path);
+		return NULL;
+	}
+
+	// Look for effects11.ddl in the same path where mumble_ol.ddl is
+	*p = '\0';
+	strcat_s(path, sizeof(path), "\\effects11.dll");
+	HMODULE effects11 = LoadLibrary(path);
+	if (!effects11) {
+		ods("D3D11: failed to load %s", path);
+		return NULL;
+	}
+
+	CreateEffectFromMemoryType pCEFM =
+		(HRESULT(__cdecl *)(CONST void *, SIZE_T, UINT, ID3D11Device *, ID3DX11Effect **))
+		GetProcAddress(effects11, "CreateEffectFromMemory");
+
+	return pCEFM;
+}
+
 void D11State::init() {
 	HRESULT hr;
 
@@ -257,6 +307,10 @@ void D11State::init() {
 	if (! SUCCEEDED(hr) || !pDeviceContext) {
 		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
 		pDevice->GetImmediateContext(&pDeviceContext);
+		D11CreateStateBlock(pDeviceContext, &pOrigStateBlock);
+		D11CreateStateBlock(pDeviceContext, &pMyStateBlock);
+
+		pOrigStateBlock->Capture();
 		bDeferredContext = false;
 	} else {
 		bDeferredContext = true;
@@ -295,9 +349,27 @@ void D11State::init() {
 	float bf[4];
 	pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
+	CreateEffectFromMemoryType pCreateEffectFromMemory = GetCreateEffectFromMemory();
+	hr = pCreateEffectFromMemory((void *) g_main11, sizeof(g_main11), 0, pDevice, &pEffect);
+
+	pTechnique = pEffect->GetTechniqueByName("Render");
+	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
 
 	pTexture = NULL;
 	pSRView = NULL;
+
+	// Define the input layout
+	D3D11_INPUT_ELEMENT_DESC layout[] = {
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT numElements = sizeof(layout) / sizeof(layout[0]);
+
+	// Create the input layout
+	D3DX11_PASS_DESC PassDesc;
+	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
+	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
+	pDeviceContext->IASetInputLayout(pVertexLayout);
 
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory(&bd, sizeof(bd));
@@ -333,6 +405,10 @@ void D11State::init() {
 	// Set primitive topology
 	pDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	if (!bDeferredContext) {
+		pMyStateBlock->Capture();
+		pOrigStateBlock->Apply();
+	}
 	pBackBuffer->Release();
 
 	dwMyThread = 0;
@@ -343,11 +419,23 @@ D11State::~D11State() {
 	pVertexBuffer->Release();
 	pIndexBuffer->Release();
 	pVertexLayout->Release();
+	pEffect->Release();
 	pRTV->Release();
 	if (pTexture)
 		pTexture->Release();
 	if (pSRView)
 		pSRView->Release();
+
+	if (pMyStateBlock) {
+		pMyStateBlock->ReleaseAllDeviceObjects();
+		pMyStateBlock->ReleaseObjects();
+	}
+
+	if (pOrigStateBlock) {
+		pOrigStateBlock->ReleaseAllDeviceObjects();
+		pOrigStateBlock->ReleaseObjects();
+	}
+
 	if (pDeviceContext)
 		pDeviceContext->Release();
 }
@@ -374,10 +462,27 @@ void D11State::draw() {
 	checkMessage(static_cast<unsigned int>(vp.Width), static_cast<unsigned int>(vp.Height));
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
+		if (!bDeferredContext) {
+			pOrigStateBlock->Capture();
+			pMyStateBlock->Apply();
+		}
+
+		D3DX11_TECHNIQUE_DESC techDesc;
+		pTechnique->GetDesc(&techDesc);
+
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
+
+		HRESULT hr = pDiffuseTexture->SetResource(pSRView);
+		if (! SUCCEEDED(hr))
+			ods("D3D11: Failed to set resource");
+
+		for (UINT p = 0; p < techDesc.Passes; ++p) {
+			pTechnique->GetPassByIndex(p)->Apply(0, pDeviceContext);
+			pDeviceContext->DrawIndexed(6, 0, 0);
+		}
 
 		if (bDeferredContext) {
 			ID3D11CommandList *pCommandList;
@@ -389,6 +494,8 @@ void D11State::draw() {
 			pCommandList->Release();
 		} else {
 			pDeviceContext->Flush();
+			pMyStateBlock->Capture();
+			pOrigStateBlock->Apply();
 		}
 	}
 

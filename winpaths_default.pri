@@ -16,6 +16,7 @@ VLD_PATH = %PROGPATH%/Visual Leak Detector
 BONJOUR_PATH = %PROGRAMFILES%/Bonjour SDK
 ASIO_PATH = /dev/asio
 G15SDK_PATH = /dev/G15SDK/LCDSDK
+EFFECTS11_PATH = %PROGPATH%/Effects11
 
 # Include custom file if it exists
 exists(winpaths_custom.pri) {
