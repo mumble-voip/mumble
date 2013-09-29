@@ -443,10 +443,19 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				break;
 			case Qt::DisplayRole:
 				if (idx.column() == 0) {
-					if (! g.s.bShowUserCount || item->iUsers == 0)
-						return c->qsName;
-
-					return QString::fromLatin1("%1 (%2)").arg(c->qsName).arg(item->iUsers);
+					if (! g.s.bShowUserCount || item->iUsers == 0) {
+						if (! g.s.bShowChannelID) {
+							return c->qsName;
+						} else {
+							return QString::fromLatin1("%1 [%2]").arg(c->qsName).arg(c->iId);
+						}
+					} else {
+						if (! g.s.bShowChannelID) {
+							return QString::fromLatin1("%1 (%2)").arg(c->qsName).arg(item->iUsers);
+						} else {
+							return QString::fromLatin1("%1 [%2] (%3)").arg(c->qsName).arg(c->iId).arg(item->iUsers);
+						}
+					}
 				}
 				if (! c->qbaDescHash.isEmpty())
 					l << (item->bCommentSeen ? qiCommentSeen : qiComment);
