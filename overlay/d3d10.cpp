@@ -626,12 +626,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 	// Make sure this is vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
-		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
+		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 
 		if (hDXGI != NULL && hD3D10 != NULL) {
-			GetModuleFileNameW(hD3D10, dxgi->wcDXGIFileName, 2048);
-			GetModuleFileNameW(hDXGI, dxgi->wcD3D10FileName, 2048);
+			GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+			GetModuleFileNameW(hD3D10, dxgi->wcD3D10FileName, 2048);
 
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("D3D10: Got CreateDXGIFactory at %p", pCreateDXGIFactory);

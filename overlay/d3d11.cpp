@@ -689,12 +689,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 	// Make sure this is (Win7?) or greater
 	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 7600))) {
-		HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
+		HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
-			GetModuleFileNameW(hD3D11, dxgi->wcDXGIFileName, 2048);
-			GetModuleFileNameW(hDXGI, dxgi->wcD3D11FileName, 2048);
+			GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+			GetModuleFileNameW(hD3D11, dxgi->wcD3D11FileName, 2048);
 
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 			ods("D3D11: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
