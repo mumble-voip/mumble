@@ -531,7 +531,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		ds->draw();
 		pDevice->Release();
 	} else {
-		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
+		ods("D3D11: Could not draw because ID3D11Device could not be retrieved.");
 	}
 
 	//TODO: Move logic to HardHook.
@@ -702,7 +702,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 				IDXGIFactory1 * pFactory;
 				HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
 				if (FAILED(hr))
-					ods("D3D10: Call to pCreateDXGIFactory1 failed!");
+					ods("D3D11: Call to pCreateDXGIFactory1 failed!");
 				if (pFactory) {
 					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
 					                          CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
@@ -748,7 +748,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 					ID3D11DeviceContext *pDeviceContext = NULL;
 					hr = pD3D11CreateDeviceAndSwapChain(pAdapter, D3D_DRIVER_TYPE_UNKNOWN, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &desc, &pSwapChain, &pDevice, &featureLevel, &pDeviceContext);
 					if (FAILED(hr))
-						ods("D3D10: pD3D11CreateDeviceAndSwapChain failure!");
+						ods("D3D11: pD3D11CreateDeviceAndSwapChain failure!");
 
 					if (pDevice && pDeviceContext && pSwapChain) {
 						HMODULE hRef = NULL;

@@ -369,7 +369,7 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 void checkOpenGLHook() {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
-		ods("Recursion in checkOpenGLHook");
+		ods("OpenGL: Recursion in checkOpenGLHook");
 		return;
 	}
 
