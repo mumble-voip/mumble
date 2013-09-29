@@ -477,6 +477,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	hhPresent.restore();
 	hr = oPresent(pSwapChain, SyncInterval, Flags);
 	hhPresent.inject();
+
 	return hr;
 }
 

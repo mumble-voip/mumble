@@ -340,25 +340,31 @@ static void doSwap(HDC hdc) {
 static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	ods("OpenGL: wglSwapBuffers");
 	doSwap(hdc);
+
 	hhwglSwapBuffers.restore();
 	BOOL ret=owglSwapBuffers(hdc);
 	hhwglSwapBuffers.inject();
+
 	return ret;
 }
 
 static BOOL __stdcall mySwapBuffers(HDC hdc) {
 	ods("OpenGL: SwapBuffers");
+
 	hhSwapBuffers.restore();
 	BOOL ret=oSwapBuffers(hdc);
 	hhSwapBuffers.inject();
+
 	return ret;
 }
 
 static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 	ods("OpenGL: SwapLayerBuffers %x",fuPlanes);
+
 	hhwglSwapLayerBuffers.restore();
 	BOOL ret=owglSwapLayerBuffers(hdc, fuPlanes);
 	hhwglSwapLayerBuffers.inject();
+
 	return ret;
 }
 

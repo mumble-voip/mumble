@@ -415,10 +415,10 @@ static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSour
 	doPresent(idd);
 
 	PresentExType oPresentEx = (PresentExType) hhPresentEx.call;
-
 	hhPresentEx.restore();
 	HRESULT hr = oPresentEx(idd, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
 	hhPresentEx.inject();
+
 	return hr;
 }
 
