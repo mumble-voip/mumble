@@ -131,6 +131,7 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHideTray, r.bHideInTray);
 	loadCheckBox(qcbStateInTray, r.bStateInTray);
 	loadCheckBox(qcbShowUserCount, r.bShowUserCount);
+	loadCheckBox(qcbShowChannelID, r.bShowChannelID);
 	loadCheckBox(qcbShowContextMenuInMenuBar, r.bShowContextMenuInMenuBar);
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
@@ -173,6 +174,7 @@ void LookConfig::save() const {
 	s.bHideInTray = qcbHideTray->isChecked();
 	s.bStateInTray = qcbStateInTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();
+	s.bShowChannelID = qcbShowChannelID->isChecked();
 	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
@@ -209,6 +211,7 @@ bool LookConfig::expert(bool b) {
 	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
+	qcbShowChannelID->setVisible(b);
 	return true;
 }
 

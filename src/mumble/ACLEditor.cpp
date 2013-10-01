@@ -91,6 +91,8 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 	iId = mea.channel_id();
 	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
 
+    qleChannelID->setText(QString::number(iId));
+
 	qleChannelName->setText(pChannel->qsName);
 	if (channelid == 0)
 		qleChannelName->setEnabled(false);
