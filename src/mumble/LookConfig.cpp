@@ -211,6 +211,7 @@ bool LookConfig::expert(bool b) {
 	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
+	qcbShowChannelID->setVisible(b);
 	return true;
 }
 
