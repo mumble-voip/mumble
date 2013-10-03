@@ -32,7 +32,7 @@ CONFIG(release, debug|release) {
   DESTDIR       = ../release
   #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_2012/Win32/Debug/Effects11"
   #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_DXSDK/Win32/Debug/Effects11"
-  #LIBS *= effects11/release/effects11.lib
+  LIBS *= -leffects11/release/effects11
 }
 
 CONFIG(debug, debug|release) {
