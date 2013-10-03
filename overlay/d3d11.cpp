@@ -582,6 +582,8 @@ static void HookResizeRaw(voidFunc vfResize) {
 	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
 }
 
+void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly);
+
 void checkDXGI11Hook(bool preonly) {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
@@ -599,33 +601,7 @@ void checkDXGI11Hook(bool preonly) {
 
 	if (hDXGI && hD3D11) {
 		if (! bHooked) {
-			const int procnamesize = 2048;
-			wchar_t procname[procnamesize];
-			GetModuleFileNameW(NULL, procname, 2048);
-			ods("D3D11: checkDXGI11Hook in unhooked D3D App '%ls'", procname);
-
-			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGI11Hook), &hSelf);
-
-			bHooked = true;
-
-			// Can we use the prepatch data?
-			GetModuleFileNameW(hDXGI, procname, procnamesize);
-			if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
-				unsigned char *raw = (unsigned char *) hDXGI;
-				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
-				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
-
-				GetModuleFileNameW(hD3D11, procname, procnamesize);
-				if (_wcsicmp(dxgi->wcD3D11FileName, procname) == 0) {
-					unsigned char *raw = (unsigned char *) hD3D11;
-					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
-				}
-			} else if (! preonly) {
-				ods("D3D11: Interface changed, can't rawpatch");
-			} else {
-				bHooked = false;
-			}
+			hookD3D11(hDXGI, hD3D11, preonly);
 		}
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
@@ -638,6 +614,38 @@ void checkDXGI11Hook(bool preonly) {
 	}
 
 	bCheckHookActive = false;
+}
+
+void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
+	const int procnamesize = 2048;
+	wchar_t procname[procnamesize];
+	GetModuleFileNameW(NULL, procname, procnamesize);
+	ods("D3D11: hookD3D11 in App '%ls'", procname);
+
+	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGI11Hook), &hSelf);
+
+	bHooked = true;
+
+	// Can we use the prepatch data?
+	GetModuleFileNameW(hDXGI, procname, procnamesize);
+	if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
+		// The module seems to match the one we prepared d3dd for.
+
+		unsigned char *raw = (unsigned char *) hDXGI;
+		HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
+		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
+
+		GetModuleFileNameW(hD3D11, procname, procnamesize);
+		if (_wcsicmp(dxgi->wcD3D11FileName, procname) == 0) {
+			unsigned char *raw = (unsigned char *) hD3D11;
+			HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
+		}
+	} else if (! preonly) {
+		ods("D3D11: Interface changed, can't rawpatch");
+	} else {
+		bHooked = false;
+	}
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {

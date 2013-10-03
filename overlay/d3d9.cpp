@@ -864,7 +864,7 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	const int procnamesize = 2048;
 	char procname[procnamesize];
 	GetModuleFileName(NULL, procname, procnamesize);
-	ods("D3D9: hookD3D9 in App %s", procname);
+	ods("D3D9: hookD3D9 in App '%s'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
@@ -878,8 +878,10 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 
 		unsigned char *raw = (unsigned char *) hD3D;
 		HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
-		if (d3dd->iOffsetCreateEx)
+		if (d3dd->iOffsetCreateEx) {
 			HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
+		}
+
 	} else if (! preonly) {
 		ods("D3D9: Interface changed, can't rawpatch.");
 

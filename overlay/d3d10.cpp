@@ -557,6 +557,8 @@ static void HookResizeRaw(voidFunc vfResize) {
 	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
 }
 
+void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly);
+
 void checkDXGIHook(bool preonly) {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
@@ -574,34 +576,7 @@ void checkDXGIHook(bool preonly) {
 
 	if (hDXGI && hD3D10) {
 		if (! bHooked) {
-			//TODO Move into function hookD3D10(HMODULE hD3D, bool preonly)
-			const int procnamesize = 2048;
-			wchar_t procname[procnamesize];
-			GetModuleFileNameW(NULL, procname, procnamesize);
-			ods("D3D10: checkDXGIHook in unhooked D3D App %ls", procname);
-
-			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGIHook), &hSelf);
-
-			bHooked = true;
-
-			// Can we use the prepatch data?
-			GetModuleFileNameW(hDXGI, procname, procnamesize);
-			if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
-				unsigned char *raw = (unsigned char *) hDXGI;
-				HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
-				HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
-
-				GetModuleFileNameW(hD3D10, procname, procnamesize);
-				if (_wcsicmp(dxgi->wcD3D10FileName, procname) == 0) {
-					unsigned char *raw = (unsigned char *) hD3D10;
-					HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
-				}
-			} else if (! preonly) {
-				ods("D3D10: Interface changed, can't rawpatch");
-			} else {
-				bHooked = false;
-			}
+			hookD3D10(hDXGI, hD3D10, preonly);
 		}
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
@@ -614,6 +589,38 @@ void checkDXGIHook(bool preonly) {
 	}
 
 	bCheckHookActive = false;
+}
+
+void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly) {
+	const int procnamesize = 2048;
+	wchar_t procname[procnamesize];
+	GetModuleFileNameW(NULL, procname, procnamesize);
+	ods("D3D10: hookD3D10 in App '%ls'", procname);
+
+	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGIHook), &hSelf);
+
+	bHooked = true;
+
+	// Can we use the prepatch data?
+	GetModuleFileNameW(hDXGI, procname, procnamesize);
+	if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
+		// The module seems to match the one we prepared d3dd for.
+
+		unsigned char *raw = (unsigned char *) hDXGI;
+		HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
+		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
+
+		GetModuleFileNameW(hD3D10, procname, procnamesize);
+		if (_wcsicmp(dxgi->wcD3D10FileName, procname) == 0) {
+			unsigned char *raw = (unsigned char *) hD3D10;
+			HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
+		}
+	} else if (! preonly) {
+		ods("D3D10: Interface changed, can't rawpatch");
+	} else {
+		bHooked = false;
+	}
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
