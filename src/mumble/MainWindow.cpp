@@ -2758,8 +2758,7 @@ void MainWindow::updateChatBar() {
 		}
 		else{
 			qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
-		}
-		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));	
+		}	
 	} else if (!g.s.bChatBarUseSelection || p == NULL || p->uiSession == g.uiSession) {
 		// Channel tree target
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
@@ -2770,6 +2769,7 @@ void MainWindow::updateChatBar() {
 		// User target
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
 	}
+    qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));
 
 	updateMenuPermissions();
 }
