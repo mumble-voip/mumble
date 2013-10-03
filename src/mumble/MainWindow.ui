@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>21</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -99,7 +99,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>50</height>
+     <height>142</height>
     </size>
    </property>
    <property name="features">
@@ -111,11 +111,8 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="LogTabs" name="qtwLogTabs">
+   <widget class="LogTabWidget" name="qtwLogTabs">
     <widget class="LogTextBrowser" name="qteLog">
-     <attribute name="title">
-      <string>Not connected</string>
-     </attribute>
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -125,6 +122,9 @@
      <property name="openLinks">
       <bool>false</bool>
      </property>
+     <attribute name="title">
+      <string>Not connected</string>
+     </attribute>
     </widget>
    </widget>
   </widget>
@@ -207,7 +207,7 @@
   </action>
   <action name="qaServerConnect">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:categories/applications-internet.svg</normaloff>skin:categories/applications-internet.svg</iconset>
    </property>
    <property name="text">
@@ -256,7 +256,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="text">
@@ -443,7 +443,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/audio-input-microphone.svg</normaloff>
      <normalon>skin:actions/audio-input-microphone-muted.svg</normalon>
      <activeon>skin:actions/audio-input-microphone-muted.svg</activeon>skin:actions/audio-input-microphone.svg</iconset>
@@ -466,7 +466,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:self_undeafened.svg</normaloff>
      <normalon>skin:deafened_self.svg</normalon>
      <activeon>skin:deafened_self.svg</activeon>skin:self_undeafened.svg</iconset>
@@ -522,7 +522,7 @@
   </action>
   <action name="qaConfigDialog">
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:config_basic.png</normaloff>skin:config_basic.png</iconset>
    </property>
    <property name="text">
@@ -546,10 +546,10 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:filter.svg</normaloff>
      <normalon>skin:filter.svg</normalon>
-     <activeon>skin:filter.svg</activeon>filter.svg</iconset>
+     <activeon>skin:filter.svg</activeon>skin:filter.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Filter on/off</string>
@@ -818,7 +818,7 @@
   </action>
   <action name="qaSelfComment">
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:comment.svg</normaloff>skin:comment.svg</iconset>
    </property>
    <property name="text">
@@ -857,7 +857,7 @@
   </action>
   <action name="qaRecording">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/media-record.svg</normaloff>skin:actions/media-record.svg</iconset>
    </property>
    <property name="text">
@@ -885,14 +885,12 @@
    <header>CustomElements.h</header>
   </customwidget>
   <customwidget>
-   <class>LogTabs</class>
+   <class>LogTabWidget</class>
    <extends>QTabWidget</extends>
    <header>LogTabs.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="mumble.qrc"/>
-  <include location="mumble_tango.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

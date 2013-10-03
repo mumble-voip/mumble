@@ -38,7 +38,7 @@
 
 class ClientUser;
 
-class LogTabs : public QTabWidget {
+class LogTabWidget : public QTabWidget {
 	private:
 		Q_OBJECT
 		QHash<QString, int>* mHashIndex;
@@ -48,8 +48,8 @@ class LogTabs : public QTabWidget {
 		void	update(); 
 		void 	validateTab(ClientUser*);
 	public:
-		LogTabs(QWidget* parent = 0);
-		~LogTabs();
+        LogTabWidget(QWidget* parent = 0);
+        ~LogTabWidget();
 		void 	showTabs(bool show);
 		int		getTabIndex(ClientUser*);	
 		int 	getChannelTab();

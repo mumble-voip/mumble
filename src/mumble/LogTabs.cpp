@@ -39,7 +39,7 @@
 
 #include <QtCore/QtGlobal>
 
-LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
+LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
 	this->setTabPosition(QTabWidget::South);
 	this->mHashIndex = new QHash<QString, int>();
 	this->mIndexHash = new QList<QString>();
@@ -53,14 +53,14 @@ LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	//this->setStyleSheet(QString::fromUtf8("QTabBar::tab:!selected{max-width: 100px;}"));
 }
 
-LogTabs::~LogTabs(){
+LogTabWidget::~LogTabWidget(){
 }
 
-void LogTabs::showTabs(bool show){
+void LogTabWidget::showTabs(bool show){
 	this->tabBar()->setVisible(show);
 }
 
-void LogTabs::newTab(QString hash, QString name){
+void LogTabWidget::newTab(QString hash, QString name){
 	this->mHashIndex->insert(hash, this->count());
 	this->mIndexHash->append(hash);
 	LogTextBrowser* ltb = new LogTextBrowser();
@@ -79,36 +79,36 @@ void LogTabs::newTab(QString hash, QString name){
 	this->setTabToolTip(this->count(), name);
 }
 
-void LogTabs::validateTab(ClientUser* user){
+void LogTabWidget::validateTab(ClientUser* user){
 	if(mHashIndex->find(user->qsHash) == mHashIndex->end())
 		newTab(user->qsHash, user->qsName);
 }
 
-void LogTabs::openTab(ClientUser* user){
+void LogTabWidget::openTab(ClientUser* user){
 	validateTab(user);
 	this->setCurrentIndex(mHashIndex->find(user->qsHash).value());
 }
 
-int LogTabs::getTabIndex(ClientUser* user){
+int LogTabWidget::getTabIndex(ClientUser* user){
 	validateTab(user);
 	return this->mHashIndex->find(user->qsHash).value();
 }
 
-int LogTabs::getChannelTab(){
+int LogTabWidget::getChannelTab(){
 	return this->mHashIndex->find(QString::fromUtf8("channel")).value(); 
 }
 
-QString LogTabs::getHash(int index){
+QString LogTabWidget::getHash(int index){
 	return this->mIndexHash->at(index);
 }
 
-int	LogTabs::addTab(QWidget* page, const QString& label){
+int	LogTabWidget::addTab(QWidget* page, const QString& label){
 	int retVal = QTabWidget::addTab(page, label);
 	this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
 	return retVal;
 } 
 
-void LogTabs::closeTab(int index){
+void LogTabWidget::closeTab(int index){
 	QString hashKey = mIndexHash->at(index);
 	mIndexHash->removeOne(hashKey);
 	mHashIndex->remove(hashKey);
@@ -117,22 +117,22 @@ void LogTabs::closeTab(int index){
 	removeTab(index);
 }
 
-void LogTabs::update(){
+void LogTabWidget::update(){
 	mHashIndex->clear();
 	for(int i = 0; i < mIndexHash->count(); i++)
 		mHashIndex->insert(mIndexHash->at(i), i);
 }
 
-int	LogTabs::markTabAsUpdated(int index){
+int	LogTabWidget::markTabAsUpdated(int index){
 	if(this->currentIndex() != index)
 		this->tabBar()->setTabTextColor(index, Qt::blue); 
 }
 
-int LogTabs::markTabAsRestricted(int index){
+int LogTabWidget::markTabAsRestricted(int index){
 	this->tabBar()->setTabTextColor(index, Qt::gray);
 }
 
-void LogTabs::userUpdate(ClientUser* user){
+void LogTabWidget::userUpdate(ClientUser* user){
 	QString tabName = user->qsName;
 	if(tabName.size() > 8)
 		tabName.resize(8);
@@ -140,11 +140,11 @@ void LogTabs::userUpdate(ClientUser* user){
 	this->setTabToolTip(this->count(), user->qsName);
 }
 
-void LogTabs::onCurrentChanged(int index){
+void LogTabWidget::onCurrentChanged(int index){
 	this->tabBar()->setTabTextColor(index, Qt::black); 
 }
 
-void LogTabs::onTabMoved(int from, int to){
+void LogTabWidget::onTabMoved(int from, int to){
 	this->mIndexHash->swap(from, to);
 	this->update();
 }
