@@ -868,7 +868,7 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	ods("D3D9: hookD3D9 in App '%s'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D9), &hSelf);
 
 	bHooked = true;
 

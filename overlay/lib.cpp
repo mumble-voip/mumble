@@ -681,7 +681,7 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 }
 
 void createSharedDataMap() {
-	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
+	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
 	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
 	if (hMapObject == NULL) {
@@ -709,6 +709,13 @@ void createSharedDataMap() {
 	rawSharedPointer += sizeof(Direct3D9Data);
 
 	dxgi = reinterpret_cast<DXGIData *>(rawSharedPointer);
+	rawSharedPointer += sizeof(DXGIData);
+
+	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(D3D10Data);
+
+	d3d11 = reinterpret_cast<D3D11Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(D3D11Data);
 }
 
 void dllmainProcDetach() {

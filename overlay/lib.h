@@ -63,12 +63,19 @@ struct Direct3D9Data {
 struct DXGIData {
 	int iOffsetPresent;
 	int iOffsetResize;
+	wchar_t wcDXGIFileName[2048];
+};
+
+struct D3D10Data {
+	wchar_t wcD3D10FileName[2048];
 	int iOffsetAddRef;
 	int iOffsetRelease;
-	wchar_t wcDXGIFileName[2048];
-	//TODO: Move to separate structures
-	wchar_t wcD3D10FileName[2048];
+};
+
+struct D3D11Data {
 	wchar_t wcD3D11FileName[2048];
+	int iOffsetAddRef;
+	int iOffsetRelease;
 };
 
 struct SharedData {
@@ -127,6 +134,8 @@ extern void freeD3D9Hook(HMODULE hModule);
 
 extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
+extern D3D10Data *d3d10;
+extern D3D11Data *d3d11;
 extern HMODULE hSelf;
 extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;

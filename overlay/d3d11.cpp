@@ -41,6 +41,7 @@
 
 /*already defined in d3d10.cpp
 DXGIData *dxgi = NULL;*/
+D3D11Data *d3d11 = NULL;
 
 static bool bHooked = false;
 static HardHook hhPresent;
@@ -623,7 +624,7 @@ void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
 	ods("D3D11: hookD3D11 in App '%ls'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkDXGI11Hook), &hSelf);
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D11), &hSelf);
 
 	bHooked = true;
 
@@ -637,9 +638,9 @@ void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
 		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
 
 		GetModuleFileNameW(hD3D11, procname, procnamesize);
-		if (_wcsicmp(dxgi->wcD3D11FileName, procname) == 0) {
+		if (_wcsicmp(d3d11->wcD3D11FileName, procname) == 0) {
 			unsigned char *raw = (unsigned char *) hD3D11;
-			HookAddRelease((voidFunc)(raw + dxgi->iOffsetAddRef), (voidFunc)(raw + dxgi->iOffsetRelease));
+			HookAddRelease((voidFunc)(raw + d3d11->iOffsetAddRef), (voidFunc)(raw + d3d11->iOffsetRelease));
 		}
 	} else if (! preonly) {
 		ods("D3D11: Interface changed, can't rawpatch");
@@ -660,11 +661,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	ods("D3D11: Preparing static data for DXGI1 Injection");
 
 	dxgi->wcDXGIFileName[0] = 0;
-	dxgi->wcD3D11FileName[0] = 0;
 	dxgi->iOffsetPresent = 0;
 	dxgi->iOffsetResize = 0;
-	dxgi->iOffsetAddRef = 0;
-	dxgi->iOffsetRelease = 0;
+	d3d11->wcD3D11FileName[0] = 0;
+	d3d11->iOffsetAddRef = 0;
+	d3d11->iOffsetRelease = 0;
 
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
@@ -677,7 +678,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
 			GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
-			GetModuleFileNameW(hD3D11, dxgi->wcD3D11FileName, 2048);
+			GetModuleFileNameW(hD3D11, d3d11->wcD3D11FileName, 2048);
 
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 			ods("D3D11: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
@@ -773,11 +774,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
 							ods("D3D11: Failed to get module for AddRef");
 						} else {
-							GetModuleFileNameW(hRef, dxgi->wcD3D11FileName, 2048);
+							GetModuleFileNameW(hRef, d3d11->wcD3D11FileName, 2048);
 							unsigned char *b = (unsigned char *) pAddRef;
 							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetAddRef = b-a;
-							ods("D3D11: Successfully found AddRef offset: %ls: %d", dxgi->wcD3D11FileName, dxgi->iOffsetAddRef);
+							d3d11->iOffsetAddRef = b-a;
+							ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetAddRef);
 						}
 
 						void *pRelease = (*vtbl)[2];
@@ -787,11 +788,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 							// The module filename still has to be the same as it was above
 							wchar_t buff[2048];
 							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcD3D11FileName) == 0) {
+							if (wcscmp(buff, d3d11->wcD3D11FileName) == 0) {
 								unsigned char *b = (unsigned char *) pRelease;
 								unsigned char *a = (unsigned char *) hRef;
-								dxgi->iOffsetRelease = b-a;
-								ods("D3D11: Successfully found Release offset: %ls: %d", dxgi->wcD3D11FileName, dxgi->iOffsetRelease);
+								d3d11->iOffsetRelease = b-a;
+								ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetRelease);
 							}
 						}
 					}
