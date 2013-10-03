@@ -43,6 +43,7 @@ class LogTabs : public QTabWidget {
 		Q_OBJECT
 		QHash<QString, int>* mHashIndex;
 		QList<QString>* 	 mIndexHash;
+		int		oldIndex;
 		void 	newTab(QString, QString);
 		void	update(); 
 		void 	validateTab(ClientUser*);
@@ -57,6 +58,7 @@ class LogTabs : public QTabWidget {
 		void 	closeTab(int index);
 		int		addTab(QWidget* page, const QString& label);
 		int		markTabAsUpdated(int index);
+		int		markTabAsRestricted(int index);
 		void	userUpdate(ClientUser*);
 	public slots:
 		void 	onCurrentChanged(int);

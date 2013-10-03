@@ -50,7 +50,7 @@ LogTabs::LogTabs(QWidget* parent) : QTabWidget(parent){
 	this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
 	connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
-	this->setStyleSheet(QString::fromUtf8("QTabBar::tab:!selected{max-width: 100px; text-align:left;}"));
+	//this->setStyleSheet(QString::fromUtf8("QTabBar::tab:!selected{max-width: 100px;}"));
 }
 
 LogTabs::~LogTabs(){
@@ -72,7 +72,11 @@ void LogTabs::newTab(QString hash, QString name){
 	ltb->setDocument(ld);
 	ltb->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
 	ltb->document()->setDefaultStyleSheet(qApp->styleSheet());
-	this->QTabWidget::addTab(ltb, name);
+	QString tabName = name;
+	if(tabName.size() > 8)
+		tabName.resize(8);
+	this->QTabWidget::addTab(ltb, tabName);
+	this->setTabToolTip(this->count(), name);
 }
 
 void LogTabs::validateTab(ClientUser* user){
@@ -124,8 +128,16 @@ int	LogTabs::markTabAsUpdated(int index){
 		this->tabBar()->setTabTextColor(index, Qt::blue); 
 }
 
+int LogTabs::markTabAsRestricted(int index){
+	this->tabBar()->setTabTextColor(index, Qt::gray);
+}
+
 void LogTabs::userUpdate(ClientUser* user){
-	this->setTabText(mHashIndex->find(user->qsHash).value(), user->qsName);
+	QString tabName = user->qsName;
+	if(tabName.size() > 8)
+		tabName.resize(8);
+	this->setTabText(mHashIndex->find(user->qsHash).value(), tabName);
+	this->setTabToolTip(this->count(), user->qsName);
 }
 
 void LogTabs::onCurrentChanged(int index){
