@@ -55,7 +55,6 @@ typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
 typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
 typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
 typedef ULONG(__stdcall *ReleaseType)(ID3D11Device *);
-typedef HRESULT(__cdecl *CreateEffectFromMemoryType)(CONST void *, SIZE_T, UINT, ID3D11Device *, ID3DX11Effect **);
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
@@ -258,39 +257,6 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 	}
 }
 
-static CreateEffectFromMemoryType GetCreateEffectFromMemory(void)
-{
-	HMODULE hRef;
-	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) GetCreateEffectFromMemory, &hRef)) {
-		ods("D3D11: failed to find my module");
-		return NULL;
-	}
-
-	TCHAR path[2048];
-	GetModuleFileName(hRef, path, sizeof(path));
-	path[2047] = '\0';
-	char *p = strrchr(path,'\\');
-	if (!p) {
-		ods("D3D11: bad path %s", path);
-		return NULL;
-	}
-
-	// Look for effects11.ddl in the same path where mumble_ol.ddl is
-	*p = '\0';
-	strcat_s(path, sizeof(path), "\\effects11.dll");
-	HMODULE effects11 = LoadLibrary(path);
-	if (!effects11) {
-		ods("D3D11: failed to load %s", path);
-		return NULL;
-	}
-
-	CreateEffectFromMemoryType pCEFM =
-		(HRESULT(__cdecl *)(CONST void *, SIZE_T, UINT, ID3D11Device *, ID3DX11Effect **))
-		GetProcAddress(effects11, "CreateEffectFromMemory");
-
-	return pCEFM;
-}
-
 void D11State::init() {
 	HRESULT hr;
 
@@ -350,8 +316,7 @@ void D11State::init() {
 	float bf[4];
 	pDeviceContext->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-	CreateEffectFromMemoryType pCreateEffectFromMemory = GetCreateEffectFromMemory();
-	hr = pCreateEffectFromMemory((void *) g_main11, sizeof(g_main11), 0, pDevice, &pEffect);
+	hr = D3DX11CreateEffectFromMemory((LPCVOID) g_main, sizeof(g_main), 0, pDevice, &pEffect);
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
