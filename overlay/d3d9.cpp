@@ -827,7 +827,8 @@ static void HookCreate(IDirect3D9 *pD3D) {
 static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	ods("D3D9Ex: Injecting CreateDevice / CreateDeviceEx");
 
-	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
+	//TODO: Has this already been done now, in HookCreate ?
+	//hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
@@ -900,8 +901,27 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 			ods("D3D9: Library without Direct3DCreate9?");
 		}
 
-		//TODO: hook for Direct3DCreate9Ex
-		// pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+		pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+		if (d3dcreate9ex) {
+			ods("D3D9: Got %p for Direct3DCreate9Ex", d3dcreate9ex);
+			IDirect3D9Ex** pD3D11Device = 0;
+			HRESULT hr = d3dcreate9ex(D3D_SDK_VERSION, pD3D11Device);
+			if (SUCCEEDED(hr)) {
+				HookCreateEx(*pD3D11Device);
+				(*pD3D11Device)->Release();
+			} else {
+				switch (hr) {
+					case D3DERR_OUTOFVIDEOMEMORY:
+						ods("D3D11: Direct3DCreate9Ex returned with out of memory error.");
+						break;
+					case D3DERR_NOTAVAILABLE:
+						ods("D3D11: Direct3DCreate9Ex is not available.");
+						break;
+					default:
+						ods("D3D11: Unexpected return result from Direct3DCreate9Ex");
+				}
+			}
+		}
 	} else {
 		bHooked = false;
 	}
