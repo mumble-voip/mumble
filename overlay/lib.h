@@ -66,6 +66,7 @@ struct DXGIData {
 	int iOffsetAddRef;
 	int iOffsetRelease;
 	wchar_t wcDXGIFileName[2048];
+	//TODO: Move to separate structures
 	wchar_t wcD3D10FileName[2048];
 	wchar_t wcD3D11FileName[2048];
 };

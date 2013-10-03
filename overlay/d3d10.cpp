@@ -574,6 +574,7 @@ void checkDXGIHook(bool preonly) {
 
 	if (hDXGI && hD3D10) {
 		if (! bHooked) {
+			//TODO Move into function hookD3D10(HMODULE hD3D, bool preonly)
 			const int procnamesize = 2048;
 			wchar_t procname[procnamesize];
 			GetModuleFileNameW(NULL, procname, procnamesize);

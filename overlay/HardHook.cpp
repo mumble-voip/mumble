@@ -232,6 +232,7 @@ void *HardHook::cloneCode(void **porig) {
 	// Add a relative jmp back to the original code
 	n[idx++] = 0xe9;
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
+	//TODO: Document: Why - 5? Fn head?
 	int offs = o - n - 5;
 	*iptr = offs;
 	idx += 4;
