@@ -110,7 +110,8 @@ class D11State: protected Pipe {
 map<IDXGISwapChain *, D11State *> chains;
 map<ID3D11Device *, D11State *> devices;
 
-D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice) {
+D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice)
+	: bDeferredContext(false) {
 	this->pSwapChain = pSwapChain;
 	this->pDevice = pDevice;
 
