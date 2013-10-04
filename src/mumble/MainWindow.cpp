@@ -292,8 +292,8 @@ void MainWindow::setupGui()  {
 	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
 	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
-	connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(on_qteLog_anchorClicked(const QUrl &)));
-	connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(on_qteLog_customContextMenuRequested(const QPoint&)));
+    connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(onLogTabAnchorClicked(const QUrl &)));
+    connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(onLogTabCustomContextMenuRequested(const QPoint&)));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -578,12 +578,11 @@ void MainWindow::on_qtvUsers_customContextMenuRequested(const QPoint &mpos) {
 	qpContextPosition = QPoint();
 }
 
-void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
+void MainWindow::onLogTabCustomContextMenuRequested(const QPoint &mpos) {
 	LogTextBrowser* tabifiedLog = (LogTextBrowser*)qtwLogTabs->widget(qtwLogTabs->currentIndex());
 	QString link = tabifiedLog->anchorAt(mpos);
 	if (! link.isEmpty()) {
 		QUrl l(link);
-
 		if (handleSpecialContextMenu(l, tabifiedLog->mapToGlobal(mpos)))
 			return;
 	}
@@ -2812,7 +2811,7 @@ void MainWindow::customEvent(QEvent *evt) {
 }
 
 
-void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
+void MainWindow::onLogTabAnchorClicked(const QUrl &url) {
 	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
 #ifdef Q_OS_MAC
 		// Clicking a link can cause the user's default browser to pop up while
@@ -2828,16 +2827,6 @@ void MainWindow::on_qteLog_anchorClicked(const QUrl &url) {
 		        && !url.isRelative())
 			QDesktopServices::openUrl(url);
 	}
-}
-
-void MainWindow::on_qteLog_highlighted(const QUrl &url) {
-	if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
-		return;
-
-	if (! url.isValid())
-		QToolTip::hideText();
-	else
-		QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
 }
 
 void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {

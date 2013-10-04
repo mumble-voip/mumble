@@ -65,6 +65,7 @@ void LogTab::initTab(){
     ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
     ld->setDefaultStyleSheet(qApp->styleSheet());
     this->setDocument(ld);
+    connect(this, SIGNAL(highlighted(QUrl)), this, SLOT(onHighlighted(QUrl)));
 }
 
 LogTab::~LogTab(){
@@ -79,6 +80,15 @@ void LogTab::updateUser(ClientUser* user){
     this->shortName = user->qsName;
     if(shortName.size() > 8)
         shortName.resize(8);
+}
+
+void LogTab::onHighlighted(const QUrl& url){
+    if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
+        return;
+    if (! url.isValid())
+        QToolTip::hideText();
+    else
+        QToolTip::showText(QCursor::pos(), url.toString(), this, QRect());
 }
 
 LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
@@ -122,6 +132,7 @@ int LogTabWidget::createTab(ClientUser *user){
     lt->addToTabWidget(this);
     connect(lt, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
     connect(lt, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
+    //connect(lt, SIGNAL(highlighted(QUrl&)), this, SIGNAL(highlighted(QUrl&)));
     return count()-1;
 }
 

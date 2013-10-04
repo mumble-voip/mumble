@@ -233,9 +233,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteChat_tabPressed();
 		void on_qteChat_ctrlSpacePressed();
 		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
-		void on_qteLog_customContextMenuRequested(const QPoint &pos);
-		void on_qteLog_anchorClicked(const QUrl &);
-		void on_qteLog_highlighted(const QUrl & link);
+        void onLogTabCustomContextMenuRequested(const QPoint &pos);
+        void onLogTabAnchorClicked(const QUrl &);
 		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
 		void on_PushToTalk_triggered(bool, QVariant);

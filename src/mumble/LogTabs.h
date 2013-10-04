@@ -52,6 +52,8 @@ private:
     friend class LogTabWidget;
 public:
     LogTab(QWidget *p = NULL);
+public slots:
+    void onHighlighted(const QUrl&);
 };
 
 class LogTabWidget : public QTabWidget {
@@ -84,6 +86,7 @@ class LogTabWidget : public QTabWidget {
 	signals:
 		void 	anchorClick(const QUrl&);
 		void	customContextMenuRequest(const QPoint&);
+        void    highlighted(const QUrl&);
 		
 };
 
