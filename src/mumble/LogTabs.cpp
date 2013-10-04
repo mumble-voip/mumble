@@ -96,7 +96,7 @@ LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
 LogTabWidget::~LogTabWidget(){
 }
 
-void LogTabWidget::showTabs(bool show){
+void LogTabWidget::activateTabs(bool show){
 	this->tabBar()->setVisible(show);
 }
 
@@ -112,7 +112,7 @@ int LogTabWidget::searchTab(ClientUser *user){
 
 int LogTabWidget::createTab(ClientUser *user){
     m_hashMap->insert(user->qsHash, count());
-    LogTab* lt = new LogTab(user);
+    LogTab* lt = new LogTab(user, this);
     lt->addToTabWidget(this);
     lt->document()->setMaximumBlockCount(m_maxBlockCount);
     connect(lt, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
@@ -132,7 +132,7 @@ QString LogTabWidget::getHash(int index){
     return dynamic_cast<LogTab*>(widget(index))->m_hash;
 }
 
-void LogTabWidget::update(){
+void LogTabWidget::updateHashMap(){
     m_hashMap->clear();
     for(int i = 0; i < count(); i++){
         m_hashMap->insert(dynamic_cast<LogTab*>(widget(i))->m_hash, i);
@@ -166,7 +166,7 @@ void LogTabWidget::handleDocumentsetMaximumBlockCount(int maxLogBlocks){
     this->m_maxBlockCount = maxLogBlocks;
 }
 
-void LogTabWidget::handleDocumentSetDefaultStyleSheed(QString styleSheet){
+void LogTabWidget::handleDocumentSetDefaultStyleSheet(QString styleSheet){
     for(int i = 0; i < count(); i++){
         dynamic_cast<LogTab*>(widget(i))->document()->setDefaultStyleSheet(styleSheet);
     }
@@ -181,7 +181,7 @@ void LogTabWidget::onCurrentChanged(int newIndex){
 
 void LogTabWidget::onTabMoved(int to, int from){
     m_oldIndex = to;
-	this->update();
+    this->updateHashMap();
 }
 
 void LogTabWidget::onTabCloseRequested(int index){

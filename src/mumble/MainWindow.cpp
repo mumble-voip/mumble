@@ -861,7 +861,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 		qtIconToolbar->setVisible(showit);
 	}
 	menuBar()->setVisible(showit);
-	qtwLogTabs->showTabs(g.s.bLogTabs);
+	qtwLogTabs->activateTabs(g.s.bLogTabs);
 	if(!g.s.bLogTabs)
 		qtwLogTabs->setCurrentIndex(qtwLogTabs->getChannelTab());
 
