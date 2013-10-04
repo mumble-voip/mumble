@@ -147,7 +147,7 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
-	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
+    g.mw->qtwLogTabs->handleDocumentsetMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 bool LogConfig::expert(bool) {
@@ -436,7 +436,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 	if ((flags & Settings::LogConsole)) {
 		if(tabToLog == -1 || g.mw->qtwLogTabs->count() < tabToLog)
 			tabToLog = g.mw->qtwLogTabs->getChannelTab();
-		LogTextBrowser *tlog = (LogTextBrowser*)g.mw->qtwLogTabs->widget(tabToLog);
+        LogTab *tlog = dynamic_cast<LogTab*>(g.mw->qtwLogTabs->widget(tabToLog));
 		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
 		QTextCursor tc = tlog->textCursor();
 
@@ -628,7 +628,6 @@ void LogDocument::finished() {
 
 		if (qi.loadFromData(qv.toByteArray()) && qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight) {
 			addResource(QTextDocument::ImageResource, rep->request().url(), qi);
-			g.mw->qteLog->setDocument(this);
 		} else qWarning() << "Image "<< rep->url().toString() <<" (" << qi.width() << "x" << qi.height() <<") to large.";
 	} else qWarning() << "Image "<< rep->url().toString() << " download failed.";
 

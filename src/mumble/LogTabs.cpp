@@ -45,6 +45,7 @@ LogTab::LogTab(ClientUser* user,QWidget *p) : LogTextBrowser(p){
     this->shortName = user->qsName;
     if(shortName.size() > 8)
         shortName.resize(8);
+    this->initTab();
 }
 
 LogTab::LogTab(QWidget *p) : LogTextBrowser(p){
@@ -53,6 +54,17 @@ LogTab::LogTab(QWidget *p) : LogTextBrowser(p){
     this->shortName = QString::fromUtf8("channel");
     if(shortName.size() > 8)
         shortName.resize(8);
+    this->initTab();
+}
+
+void LogTab::initTab(){
+    this->setFrameStyle(QFrame::NoFrame);
+    this->setOpenLinks(false);
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    LogDocument* ld = new LogDocument(this);
+    ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
+    ld->setDefaultStyleSheet(qApp->styleSheet());
+    this->setDocument(ld);
 }
 
 LogTab::~LogTab(){
@@ -101,16 +113,16 @@ int LogTabWidget::searchTab(ClientUser *user){
 int LogTabWidget::createTab(ClientUser *user){
     mHashIndex->insert(user->qsHash, count());
     LogTab* lt = new LogTab(user);
-    lt->setOpenLinks(false);
-    lt->setContextMenuPolicy(Qt::CustomContextMenu);
-    LogDocument* ld = new LogDocument(lt);
-    ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
-    ld->setDefaultStyleSheet(qApp->styleSheet());
-    lt->setDocument(ld);
+    //lt->setOpenLinks(false);
+    //lt->setContextMenuPolicy(Qt::CustomContextMenu);
+    //LogDocument* ld = new LogDocument(lt);
+    //ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
+    //ld->setDefaultStyleSheet(qApp->styleSheet());
+    //lt->setDocument(ld);
     lt->addToTabWidget(this);
     connect(lt, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
     connect(lt, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
-    return count();
+    return count()-1;
 }
 
 void LogTabWidget::openTab(ClientUser* user){
@@ -156,6 +168,18 @@ void LogTabWidget::updateTab(ClientUser* user){
         setTabText(index, dynamic_cast<LogTab*>(widget(index))->fullname);
     else
         setTabText(index, dynamic_cast<LogTab*>(widget(index))->shortName);
+}
+
+void LogTabWidget::handleDocumentsetMaximumBlockCount(int maxLogBlocks){
+    for(int i = 0; i < count(); i++){
+        dynamic_cast<LogTab*>(widget(i))->document()->setMaximumBlockCount(maxLogBlocks);
+    }
+}
+
+void LogTabWidget::handleDocumentSetDefaultStyleSheed(QString styleSheet){
+    for(int i = 0; i < count(); i++){
+        dynamic_cast<LogTab*>(widget(i))->document()->setDefaultStyleSheet(styleSheet);
+    }
 }
 
 void LogTabWidget::onCurrentChanged(int newIndex){

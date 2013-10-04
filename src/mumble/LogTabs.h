@@ -46,6 +46,7 @@ private:
     QString hash;
     LogTab(ClientUser*, QWidget *p = NULL);
     ~LogTab();
+    void    initTab();
     void    addToTabWidget(QTabWidget*);
     void    updateUser(ClientUser* user);
     friend class LogTabWidget;
@@ -74,6 +75,8 @@ class LogTabWidget : public QTabWidget {
         int     findTab(ClientUser*);
         int     searchTab(ClientUser*);
         void    updateTab(ClientUser*);
+        void    handleDocumentsetMaximumBlockCount(int maxLogBlocks);
+        void    handleDocumentSetDefaultStyleSheed(QString styleSheet);
 	public slots:
 		void 	onCurrentChanged(int);
         void	onTabMoved(int to, int from);

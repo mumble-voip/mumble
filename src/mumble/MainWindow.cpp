@@ -272,14 +272,7 @@ void MainWindow::setupGui()  {
 	qtvUsers->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setFrameShape(QFrame::NoFrame);
-	qteLog->setFrameStyle(QFrame::NoFrame);
 #endif
-
-	LogDocument *ld = new LogDocument(qteLog);
-	qteLog->setDocument(ld);
-
-	qteLog->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
-	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new UserModel(qtvUsers);
 	qtvUsers->setModel(pmModel);
@@ -1920,8 +1913,8 @@ void MainWindow::updateMenuPermissions() {
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(true);
-	if(g.s.bLogTabs)
-		qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
+    if(g.s.bLogTabs)
+        qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
 	else
 		qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
@@ -2750,7 +2743,7 @@ void MainWindow::updateChatBar() {
 
 	if (g.uiSession == 0) {
 		qteChat->setDefaultText(tr("<center>Not connected</center>"), true);
-		qtwLogTabs->setTabText(qtwLogTabs->indexOf(qteLog), tr("Not connected"));
+        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("Not connected"));
 	} else if(g.s.bLogTabs){
 		c = ClientUser::get(g.uiSession)->cChannel;
 		if(qtwLogTabs->currentIndex() != qtwLogTabs->getChannelTab()){

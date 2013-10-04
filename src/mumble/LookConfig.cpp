@@ -189,7 +189,7 @@ void LookConfig::accept() const {
 	if (s.qsSkin.isEmpty()) {
 		if (qApp->styleSheet() != MainWindow::defaultStyleSheet) {
 			qApp->setStyleSheet(MainWindow::defaultStyleSheet);
-			g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+            g.mw->qtwLogTabs->handleDocumentSetDefaultStyleSheed(qApp->styleSheet());
 		}
 	} else {
 		QFile file(s.qsSkin);
@@ -197,7 +197,7 @@ void LookConfig::accept() const {
 		QString sheet = QLatin1String(file.readAll());
 		if (! sheet.isEmpty() && (sheet != qApp->styleSheet())) {
 			qApp->setStyleSheet(sheet);
-			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
+            g.mw->qtwLogTabs->handleDocumentSetDefaultStyleSheed(sheet);
 		}
 	}
 	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
