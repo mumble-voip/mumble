@@ -39,7 +39,7 @@ LogTab::LogTab(ClientUser* user,QWidget *p) : LogTextBrowser(p){
     this->m_hash      = user->qsHash;
     this->m_fullname  = user->qsName;
     this->m_shortName = user->qsName;
-    if(m_shortName.size() > 8)
+    if(8 < m_shortName.size())
         m_shortName.resize(8);
     this->setFrameStyle(QFrame::NoFrame);
     this->setOpenLinks(false);
@@ -62,12 +62,12 @@ void LogTab::addToTabWidget(QTabWidget * tabWidget){
 void LogTab::updateUser(ClientUser* user){
     this->m_fullname  = user->qsName;
     this->m_shortName = user->qsName;
-    if(m_shortName.size() > 8)
+    if(8 < m_shortName.size())
         m_shortName.resize(8);
 }
 
 void LogTab::onHighlighted(const QUrl& url){
-    if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
+    if (QString::fromLatin1("clientid") == url.scheme() || QString::fromLatin1("channelid") == url.scheme())
         return;
     if (! url.isValid())
         QToolTip::hideText();
@@ -150,13 +150,12 @@ int LogTabWidget::markTabAsRestricted(int index){
 
 void LogTabWidget::updateTab(ClientUser* user){
     int index = searchTab(user);
-    if(index == -1)
+    if(-1 == index)
         return;
     dynamic_cast<LogTab*>(widget(index))->updateUser(user);
-    if(index == currentIndex())
+    if(currentIndex() == index)
         setTabText(index, dynamic_cast<LogTab*>(widget(index))->m_fullname);
-    else
-        setTabText(index, dynamic_cast<LogTab*>(widget(index))->m_shortName);
+    setTabText(index, dynamic_cast<LogTab*>(widget(index))->m_shortName);
 }
 
 void LogTabWidget::handleDocumentsetMaximumBlockCount(int maxLogBlocks){

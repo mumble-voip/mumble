@@ -627,7 +627,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 	}
 
 	int targetLogTab = -1;
-	if(g.s.bLogTabs && msg.channel_id_size() == 0 && msg.tree_id_size() == 0)
+    if(g.s.bLogTabs && 0 == msg.channel_id_size() && 0 == msg.tree_id_size())
         targetLogTab = qtwLogTabs->findTab(pSrc);
 
 	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),

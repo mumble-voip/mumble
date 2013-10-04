@@ -1519,14 +1519,14 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qsText = TextMessage::autoFormat(qsText);
 
 	if(g.s.bLogTabs){
-		if(qtwLogTabs->currentIndex() == qtwLogTabs->getChannelTab()){
+        if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()){
 			c = ClientUser::get(g.uiSession)->cChannel;
 			g.sh->sendChannelTextMessage(c->iId, qsText, false);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
 		}
 		else{
 			p = pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()));
-			if(p == NULL)
+            if(NULL == p)
 				return;
 			g.sh->sendUserTextMessage(p->uiSession, qsText);
             g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
@@ -1913,7 +1913,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(true);
     if(g.s.bLogTabs)
-        if(qtwLogTabs->currentIndex() == qtwLogTabs->getChannelTab())
+        if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex())
             qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
         else
             qteChat->setEnabled(true);
@@ -2748,7 +2748,7 @@ void MainWindow::updateChatBar() {
         qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("Not connected"));
 	} else if(g.s.bLogTabs){
 		c = ClientUser::get(g.uiSession)->cChannel;
-		if(qtwLogTabs->currentIndex() != qtwLogTabs->getChannelTab()){
+        if(qtwLogTabs->getChannelTab() != qtwLogTabs->currentIndex()){
 			qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(qtwLogTabs->tabText(qtwLogTabs->currentIndex())));
 		}
 		else{

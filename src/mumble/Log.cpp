@@ -434,7 +434,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		if(tabToLog == -1 || g.mw->qtwLogTabs->count() < tabToLog)
+        if(-1 == tabToLog || g.mw->qtwLogTabs->count() < tabToLog)
 			tabToLog = g.mw->qtwLogTabs->getChannelTab();
         LogTab *tlog = dynamic_cast<LogTab*>(g.mw->qtwLogTabs->widget(tabToLog));
 		g.mw->qtwLogTabs->markTabAsUpdated(tabToLog);
