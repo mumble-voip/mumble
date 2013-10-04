@@ -64,6 +64,8 @@ struct DXGIData {
 	int iOffsetPresent;
 	int iOffsetResize;
 	wchar_t wcDXGIFileName[2048];
+
+	void init();
 };
 
 struct D3D10Data {

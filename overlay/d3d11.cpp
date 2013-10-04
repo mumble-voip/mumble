@@ -498,7 +498,11 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		ds->draw();
 		pDevice->Release();
 	} else {
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		// As DXGI is used for multiple D3D versions. Thus, this is expected if
+		// another version is used (like D3D10).
 		ods("D3D11: Could not draw because ID3D11Device could not be retrieved.");
+		#endif
 	}
 
 	//TODO: Move logic to HardHook.
@@ -658,11 +662,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	if (! dxgi)
 		return;
 
-	ods("D3D11: Preparing static data for DXGI1 Injection");
+	ods("D3D11: Preparing static data for DXGI and and D3D11 Injection");
 
-	dxgi->wcDXGIFileName[0] = 0;
-	dxgi->iOffsetPresent = 0;
-	dxgi->iOffsetResize = 0;
 	d3d11->wcD3D11FileName[0] = 0;
 	d3d11->iOffsetAddRef = 0;
 	d3d11->iOffsetRelease = 0;
@@ -677,7 +678,20 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 		HMODULE hD3D11 = LoadLibrary("D3D11.DLL");
 
 		if (hDXGI != NULL && hD3D11 != NULL) {
-			GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+
+			bool initializeDXGIData = dxgi->wcDXGIFileName[0] == 0;
+			if (initializeDXGIData) {
+				GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+			} else {
+				wchar_t modulename[2048];
+				GetModuleFileNameW(hDXGI, modulename, 2048);
+				if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
+					ods("D3D11: Verified DXGI module name to match previously found.");
+				} else {
+					ods("D3D11: Could not verify DXGI module name to match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
+				}
+			}
+
 			GetModuleFileNameW(hD3D11, d3d11->wcD3D11FileName, 2048);
 
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
@@ -746,25 +760,49 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
 							ods("D3D11: Failed to get module for Present");
 						} else {
-							GetModuleFileNameW(hRef, dxgi->wcDXGIFileName, 2048);
-							unsigned char *b = (unsigned char *) pPresent;
-							unsigned char *a = (unsigned char *) hRef;
-							dxgi->iOffsetPresent = b-a;
-							ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+							wchar_t modulename[2048];
+							GetModuleFileNameW(hRef, modulename, 2048);
+							if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
+								unsigned char *b = (unsigned char *) pPresent;
+								unsigned char *a = (unsigned char *) hRef;
+								int offset = b-a;
+								if (initializeDXGIData) {
+									dxgi->iOffsetPresent = offset;
+									ods("D3D11: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+								} else {
+									if (dxgi->iOffsetPresent == offset) {
+										ods("D3D11: Successfully verified Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+									} else {
+										ods("D3D11: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetPresent);
+									}
+								}
+							} else {
+								ods("D3D11: Present functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
+							}
 						}
 
 						void *pResize = (*vtbl)[13];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
 							ods("D3D11: Failed to get module for ResizeBuffers");
 						} else {
-							// The module filename still has to be the same as it was above
-							wchar_t buff[2048];
-							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, dxgi->wcDXGIFileName) == 0) {
+							wchar_t modulename[2048];
+							GetModuleFileNameW(hRef, modulename, 2048);
+							if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
-								dxgi->iOffsetResize = b-a;
-								ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+								int offset = b-a;
+								if (initializeDXGIData) {
+									dxgi->iOffsetResize = offset;
+									ods("D3D11: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+								} else {
+									if (dxgi->iOffsetResize == offset) {
+										ods("D3D11: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+									} else {
+										ods("D3D11: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetResize);
+									}
+								}
+							} else {
+								ods("D3D11: ResizeBuffers functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
 							}
 						}
 
@@ -774,11 +812,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
 							ods("D3D11: Failed to get module for AddRef");
 						} else {
-							GetModuleFileNameW(hRef, d3d11->wcD3D11FileName, 2048);
-							unsigned char *b = (unsigned char *) pAddRef;
-							unsigned char *a = (unsigned char *) hRef;
-							d3d11->iOffsetAddRef = b-a;
-							ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetAddRef);
+							wchar_t modulename[2048];
+							GetModuleFileNameW(hRef, modulename, 2048);
+							if (wcscmp(modulename, d3d11->wcD3D11FileName) == 0) {
+								unsigned char *b = (unsigned char *) pAddRef;
+								unsigned char *a = (unsigned char *) hRef;
+								d3d11->iOffsetAddRef = b-a;
+								ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetAddRef);
+							} else {
+								ods("D3D11: AddRef functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d11->wcD3D11FileName);
+							}
 						}
 
 						void *pRelease = (*vtbl)[2];
@@ -786,13 +829,15 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 							ods("D3D11: Failed to get module for Release");
 						} else {
 							// The module filename still has to be the same as it was above
-							wchar_t buff[2048];
-							GetModuleFileNameW(hRef, buff, 2048);
-							if (wcscmp(buff, d3d11->wcD3D11FileName) == 0) {
+							wchar_t modulename[2048];
+							GetModuleFileNameW(hRef, modulename, 2048);
+							if (wcscmp(modulename, d3d11->wcD3D11FileName) == 0) {
 								unsigned char *b = (unsigned char *) pRelease;
 								unsigned char *a = (unsigned char *) hRef;
 								d3d11->iOffsetRelease = b-a;
 								ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetRelease);
+							} else {
+								ods("D3D11: Release functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d11->wcD3D11FileName);
 							}
 						}
 					}
