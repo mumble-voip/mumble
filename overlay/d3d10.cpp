@@ -664,8 +664,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				}
 			}
 
-			GetModuleFileNameW(hD3D10, d3d10->wcD3D10FileName, 2048);
-
 			CreateDXGIFactoryType pCreateDXGIFactory = reinterpret_cast<CreateDXGIFactoryType>(GetProcAddress(hDXGI, "CreateDXGIFactory"));
 			ods("D3D10: Got CreateDXGIFactory at %p", pCreateDXGIFactory);
 			if (pCreateDXGIFactory) {
@@ -782,16 +780,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
 							ods("D3D10: Failed to get module for AddRef");
 						} else {
-							wchar_t modulename[2048];
-							GetModuleFileNameW(hRef, modulename, 2048);
-							if (wcscmp(modulename, d3d10->wcD3D10FileName) == 0) {
-								unsigned char *b = (unsigned char *) pAddRef;
-								unsigned char *a = (unsigned char *) hRef;
-								d3d10->iOffsetAddRef = b-a;
-								ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetAddRef);
-							} else {
-								ods("D3D10: AddRef functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d10->wcD3D10FileName);
-							}
+							GetModuleFileNameW(hRef, d3d10->wcD3D10FileName, 2048);
+							unsigned char *b = (unsigned char *) pAddRef;
+							unsigned char *a = (unsigned char *) hRef;
+							d3d10->iOffsetAddRef = b-a;
+							ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetAddRef);
 						}
 
 						void *pRelease = (*vtbl)[2];
@@ -801,13 +794,14 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 							// The module filename still has to be the same as it was above
 							wchar_t modulename[2048];
 							GetModuleFileNameW(hRef, modulename, 2048);
+							// Make sure we are still in the same module and do not mix address pointers
 							if (wcscmp(modulename, d3d10->wcD3D10FileName) == 0) {
 								unsigned char *b = (unsigned char *) pRelease;
 								unsigned char *a = (unsigned char *) hRef;
 								d3d10->iOffsetRelease = b-a;
 								ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetRelease);
 							} else {
-								ods("D3D10: Release functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d10->wcD3D10FileName);
+								ods("D3D10: Release functions module does not match the AddRef one. Release: '%ls', AddRef: '%ls'", modulename, d3d10->wcD3D10FileName);
 							}
 						}
 					}
