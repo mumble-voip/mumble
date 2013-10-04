@@ -29,12 +29,9 @@
 */
 
 #include "LogTabs.h"
-#include "CustomElements.h"
-#include "UserModel.h"
 #include "ClientUser.h"
 #include "ui_MainWindow.h"
 #include "Global.h"
-#include "MainWindow.h"
 #include "Log.h"
 
 #include <QtCore/QtGlobal>

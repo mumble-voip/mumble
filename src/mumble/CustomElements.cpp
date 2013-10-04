@@ -1,3 +1,4 @@
+
 /* Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
    Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
@@ -36,9 +37,6 @@
 #include "ClientUser.h"
 #include "Global.h"
 #include "MainWindow.h"
-
-#include <iostream>
-
 
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
 }
