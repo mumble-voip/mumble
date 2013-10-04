@@ -68,36 +68,36 @@ public:
     LogTabWidget(QWidget* parent = 0);
     ~LogTabWidget();
     ///Set the visibility of the tabbar
-    void 	activateTabs(bool);
+    void    activateTabs(bool);
     ///Retrieve the index of the channel tab
-    int 	getChannelTab();
+    int     getChannelTab();
     ///Open the tab related to the provided user
-    void 	openTab(ClientUser*);
+    void    openTab(ClientUser*);
     ///Finds a tab related to the provided user
     int     findTab(ClientUser*);
     ///Searches a tab related to the provided user
     int     searchTab(ClientUser*);
     ///Retrieve the user hash of the provided tab
-    QString	getHash(int);
+    QString getHash(int);
     ///Update the tab related to the provided user
     void    updateTab(ClientUser*);
     ///Close the tab and do some cleanup
-    void 	closeTab(int);
+    void    closeTab(int);
     ///Shows a visible indicator, that the provided tab has been updated
-    int		markTabAsUpdated(int);
+    int     markTabAsUpdated(int);
     ///Shows a visible indicator, that the provided tab has been restricted
-    int		markTabAsRestricted(int);
+    int     markTabAsRestricted(int);
     ///Sets the maximum block count for all tabs
     void    handleDocumentsetMaximumBlockCount(int);
     ///Sets the default stylesheet for all tabs
     void    handleDocumentSetDefaultStyleSheet(QString);
 public slots:
     void 	onCurrentChanged(int);
-    void	onTabMoved(int, int);
+    void    onTabMoved(int, int);
     void    onTabCloseRequested(int);
 signals:
     void 	anchorClick(const QUrl&);
-    void	customContextMenuRequest(const QPoint&);
+    void    customContextMenuRequest(const QPoint&);
     void    highlighted(const QUrl&);
 private:
     ///Mapping a users hash to a tab index
@@ -107,7 +107,7 @@ private:
     ///Maximum block count
     int     m_maxBlockCount;
     ///Updates the hash map, iterating over all tabs
-    void	updateHashMap();
+    void    updateHashMap();
     ///Creates a new tab for the provided user
     int     createTab(ClientUser*);
 };

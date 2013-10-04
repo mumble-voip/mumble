@@ -77,8 +77,8 @@ void LogTab::onHighlighted(const QUrl& url){
 
 LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
     this->setTabPosition(QTabWidget::South);
-	this->setTabsClosable(true);
-	this->setMovable(true);
+    this->setTabsClosable(true);
+    this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
     connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
     connect(this, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabCloseRequested(int)));
@@ -97,7 +97,7 @@ LogTabWidget::~LogTabWidget(){
 }
 
 void LogTabWidget::activateTabs(bool show){
-	this->tabBar()->setVisible(show);
+    this->tabBar()->setVisible(show);
 }
 
 int LogTabWidget::findTab(ClientUser *user){
@@ -140,7 +140,7 @@ void LogTabWidget::updateHashMap(){
 }
 
 int	LogTabWidget::markTabAsUpdated(int index){
-	if(this->currentIndex() != index)
+    if(this->currentIndex() != index)
 		this->tabBar()->setTabTextColor(index, Qt::blue); 
 }
 
