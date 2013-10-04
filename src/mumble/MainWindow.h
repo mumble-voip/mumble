@@ -268,8 +268,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void onResetAudio();
 		void on_qaFilterToggle_triggered();
         void on_qtwLogTabs_currentChanged(int index);
-        void on_qtwLogTabs_tabCloseRequested(int index);
-
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

@@ -47,6 +47,7 @@ private:
     LogTab(ClientUser*, QWidget *p = NULL);
     ~LogTab();
     void    addToTabWidget(QTabWidget*);
+    void    updateUser(ClientUser* user);
     friend class LogTabWidget;
 public:
     LogTab(QWidget *p = NULL);
@@ -56,30 +57,27 @@ class LogTabWidget : public QTabWidget {
 	private:
 		Q_OBJECT
         QHash<QString, int>* mHashIndex;
-        //QList<QString>* 	 mIndexHash;
         int		oldIndex;
-        //void 	newTab(QString, QString);
-		void	update(); 
-		void 	validateTab(ClientUser*);
+        void	update();
         int     createTab(ClientUser*);
 	public:
         LogTabWidget(QWidget* parent = 0);
         ~LogTabWidget();
-		void 	showTabs(bool show);
-		int		getTabIndex(ClientUser*);	
+        void 	showTabs(bool show);
 		int 	getChannelTab();
 		void 	openTab(ClientUser*);
 		QString	getHash(int Index);
 		void 	closeTab(int index);
-		int		addTab(QWidget* page, const QString& label);
+        int		addTab(QWidget* page, const QString& label);//TODO: Remove
 		int		markTabAsUpdated(int index);
-		int		markTabAsRestricted(int index);
-		void	userUpdate(ClientUser*);
+        int		markTabAsRestricted(int index);
         int     findTab(ClientUser*);
-        int     findTabOrCreate(ClientUser*);
+        int     searchTab(ClientUser*);
+        void    updateTab(ClientUser*);
 	public slots:
 		void 	onCurrentChanged(int);
         void	onTabMoved(int to, int from);
+        void    onTabCloseRequested(int index);
 	signals:
 		void 	anchorClick(const QUrl&);
 		void	customContextMenuRequest(const QPoint&);

@@ -1449,7 +1449,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p));
+            g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
 		}
 	}
 	delete texm;
@@ -1537,7 +1537,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 			if(p == NULL)
 				return;
 			g.sh->sendUserTextMessage(p->uiSession, qsText);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->getTabIndex(p));
+            g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), qsText), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
 		}
 	}
 	else{
@@ -2929,9 +2929,5 @@ void MainWindow::destroyUserInformation() {
 
 void MainWindow::on_qtwLogTabs_currentChanged(int index){
 	this->updateChatBar();
-}
-
-void MainWindow::on_qtwLogTabs_tabCloseRequested(int index){
-    qtwLogTabs->closeTab(index);
 }
 

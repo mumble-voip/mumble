@@ -62,17 +62,23 @@ void LogTab::addToTabWidget(QTabWidget * tabWidget){
     tabWidget->addTab(this, shortName);
 }
 
+void LogTab::updateUser(ClientUser* user){
+    this->fullname  = user->qsName;
+    this->shortName = user->qsName;
+    if(shortName.size() > 8)
+        shortName.resize(8);
+}
+
 LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
 	this->setTabPosition(QTabWidget::South);
     this->mHashIndex = new QHash<QString, int>();
-    //this->mIndexHash = new QList<QString>();
-	QString tmp = QString::fromUtf8("channel");
-    //this->mIndexHash->append(tmp);
+    QString tmp = QString::fromUtf8("channel");
 	this->mHashIndex->insert(tmp, 0);
 	this->setTabsClosable(true);
 	this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
     connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
+    connect(this, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabCloseRequested(int)));
 }
 
 LogTabWidget::~LogTabWidget(){
@@ -84,12 +90,12 @@ void LogTabWidget::showTabs(bool show){
 
 int LogTabWidget::findTab(ClientUser *user){
     QHash<QString, int>::const_iterator iter = mHashIndex->find(user->qsHash);
-    return iter != mHashIndex->constEnd() ? iter.value() : -1;
+    return iter != mHashIndex->constEnd() ? iter.value() : createTab(user);
 }
 
-int LogTabWidget::findTabOrCreate(ClientUser *user){
-    int search = findTab(user);
-    return search != -1 ? search : createTab(user);
+int LogTabWidget::searchTab(ClientUser *user){
+    QHash<QString, int>::const_iterator iter = mHashIndex->find(user->qsHash);
+    return iter != mHashIndex->constEnd() ? iter.value() : -1;
 }
 
 int LogTabWidget::createTab(ClientUser *user){
@@ -106,40 +112,9 @@ int LogTabWidget::createTab(ClientUser *user){
     connect(lt, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
     return count();
 }
-/*
-void LogTabWidget::newTab(QString hash, QString name){
-	this->mHashIndex->insert(hash, this->count());
-	this->mIndexHash->append(hash);
-    LogTextBrowser* ltb = new LogTextBrowser();
-	ltb->setOpenLinks(false);
-	ltb->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(ltb, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
-	connect(ltb, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
-    LogDocument *ld = new LogDocument(ltb);
-	ltb->setDocument(ld);
-	ltb->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
-	ltb->document()->setDefaultStyleSheet(qApp->styleSheet());
-	QString tabName = name;
-	if(tabName.size() > 8)
-		tabName.resize(8);
-	this->QTabWidget::addTab(ltb, tabName);
-	this->setTabToolTip(this->count(), name);
-}*/
-
-void LogTabWidget::validateTab(ClientUser* user){
-	if(mHashIndex->find(user->qsHash) == mHashIndex->end())
-        //newTab(user->qsHash, user->qsName);
-        createTab(user);
-}
 
 void LogTabWidget::openTab(ClientUser* user){
-	validateTab(user);
-	this->setCurrentIndex(mHashIndex->find(user->qsHash).value());
-}
-
-int LogTabWidget::getTabIndex(ClientUser* user){
-	validateTab(user);
-	return this->mHashIndex->find(user->qsHash).value();
+    this->setCurrentIndex(findTab(user));
 }
 
 int LogTabWidget::getChannelTab(){
@@ -148,32 +123,18 @@ int LogTabWidget::getChannelTab(){
 
 QString LogTabWidget::getHash(int index){
     return dynamic_cast<LogTab*>(widget(index))->hash;
-    //return this->mIndexHash->at(index);
 }
 
 int	LogTabWidget::addTab(QWidget* page, const QString& label){
 	int retVal = QTabWidget::addTab(page, label);
 	this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
 	return retVal;
-} 
-
-void LogTabWidget::closeTab(int index){
-    QString hashKey = dynamic_cast<LogTab*>(widget(index))->hash;
-    //mIndexHash->removeOne(hashKey);
-    mHashIndex->remove(hashKey);
-	widget(index)->deleteLater();
-    //update();
-	removeTab(index);
 }
 
 void LogTabWidget::update(){
 	mHashIndex->clear();
     for(int i = 0; i < count(); i++){
-        try{
-            mHashIndex->insert(dynamic_cast<LogTab*>(widget(i))->hash, i);
-        }
-        catch(...){
-        }
+        mHashIndex->insert(dynamic_cast<LogTab*>(widget(i))->hash, i);
     }
 }
 
@@ -186,25 +147,32 @@ int LogTabWidget::markTabAsRestricted(int index){
 	this->tabBar()->setTabTextColor(index, Qt::gray);
 }
 
-void LogTabWidget::userUpdate(ClientUser* user){
-	QString tabName = user->qsName;
-	if(tabName.size() > 8)
-		tabName.resize(8);
-	this->setTabText(mHashIndex->find(user->qsHash).value(), tabName);
-	this->setTabToolTip(this->count(), user->qsName);
+void LogTabWidget::updateTab(ClientUser* user){
+    int index = searchTab(user);
+    if(index == -1)
+        return;
+    dynamic_cast<LogTab*>(widget(index))->updateUser(user);
+    if(index == currentIndex())
+        setTabText(index, dynamic_cast<LogTab*>(widget(index))->fullname);
+    else
+        setTabText(index, dynamic_cast<LogTab*>(widget(index))->shortName);
 }
 
 void LogTabWidget::onCurrentChanged(int newIndex){
     this->tabBar()->setTabTextColor(newIndex, Qt::black);
-    if(newIndex != getChannelTab())
-        setTabText(newIndex, dynamic_cast<LogTab*>(widget(newIndex))->fullname);
-    if(oldIndex != getChannelTab())
-        setTabText(oldIndex, dynamic_cast<LogTab*>(widget(oldIndex))->shortName);
+    setTabText(newIndex, dynamic_cast<LogTab*>(widget(newIndex))->fullname);
+    setTabText(oldIndex, dynamic_cast<LogTab*>(widget(oldIndex))->shortName);
     oldIndex = newIndex;
 }
 
 void LogTabWidget::onTabMoved(int to, int from){
-    //this->mIndexHash->swap(from, to);
     oldIndex = to;
 	this->update();
+}
+
+void LogTabWidget::onTabCloseRequested(int index){
+    QString hashKey = dynamic_cast<LogTab*>(widget(index))->hash;
+    mHashIndex->remove(hashKey);
+    widget(index)->deleteLater();
+    removeTab(index);
 }

@@ -479,7 +479,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_name()) {
 		pmModel->renameUser(pDst, u8(msg.name()));
-		g.mw->qtwLogTabs->userUpdate(pDst);
+        g.mw->qtwLogTabs->updateTab(pDst);
 	}
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
@@ -524,7 +524,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	}
 	if (pDst != pSelf){
 		pmModel->removeUser(pDst);
-		g.mw->qtwLogTabs->markTabAsRestricted(g.mw->qtwLogTabs->getTabIndex(pDst));
+        g.mw->qtwLogTabs->markTabAsRestricted(g.mw->qtwLogTabs->findTab(pDst));
 	}
 }
 
@@ -628,7 +628,7 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 
 	int targetLogTab = -1;
 	if(g.s.bLogTabs && msg.channel_id_size() == 0 && msg.tree_id_size() == 0)
-		targetLogTab = qtwLogTabs->getTabIndex(pSrc);
+        targetLogTab = qtwLogTabs->findTab(pSrc);
 
 	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
 	         tr("Message from %1").arg(plainName), false, targetLogTab);
