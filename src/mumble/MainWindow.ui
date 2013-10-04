@@ -112,7 +112,7 @@
     <number>1</number>
    </attribute>
    <widget class="LogTabWidget" name="qtwLogTabs">
-    <widget class="LogTextBrowser" name="qteLog">
+    <widget class="LogTab" name="qteLog">
      <property name="contextMenuPolicy">
       <enum>Qt::CustomContextMenu</enum>
      </property>
@@ -880,9 +880,9 @@
    <header>CustomElements.h</header>
   </customwidget>
   <customwidget>
-   <class>LogTextBrowser</class>
+   <class>LogTab</class>
    <extends>QTextBrowser</extends>
-   <header>CustomElements.h</header>
+   <header>LogTabs.h</header>
   </customwidget>
   <customwidget>
    <class>LogTabWidget</class>

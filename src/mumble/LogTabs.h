@@ -34,19 +34,34 @@
 #include <QtGui/QTabWidget>
 
 #include "ui_Log.h"
-#include <map>
+#include "CustomElements.h"
 
 class ClientUser;
+
+class LogTab : public LogTextBrowser{
+private:
+    Q_OBJECT
+    QString fullname;
+    QString shortName;
+    QString hash;
+    LogTab(ClientUser*, QWidget *p = NULL);
+    ~LogTab();
+    void    addToTabWidget(QTabWidget*);
+    friend class LogTabWidget;
+public:
+    LogTab(QWidget *p = NULL);
+};
 
 class LogTabWidget : public QTabWidget {
 	private:
 		Q_OBJECT
-		QHash<QString, int>* mHashIndex;
-		QList<QString>* 	 mIndexHash;
-		int		oldIndex;
-		void 	newTab(QString, QString);
+        QHash<QString, int>* mHashIndex;
+        //QList<QString>* 	 mIndexHash;
+        int		oldIndex;
+        //void 	newTab(QString, QString);
 		void	update(); 
 		void 	validateTab(ClientUser*);
+        int     createTab(ClientUser*);
 	public:
         LogTabWidget(QWidget* parent = 0);
         ~LogTabWidget();
@@ -60,9 +75,11 @@ class LogTabWidget : public QTabWidget {
 		int		markTabAsUpdated(int index);
 		int		markTabAsRestricted(int index);
 		void	userUpdate(ClientUser*);
+        int     findTab(ClientUser*);
+        int     findTabOrCreate(ClientUser*);
 	public slots:
 		void 	onCurrentChanged(int);
-		void	onTabMoved(int from, int to);
+        void	onTabMoved(int to, int from);
 	signals:
 		void 	anchorClick(const QUrl&);
 		void	customContextMenuRequest(const QPoint&);
