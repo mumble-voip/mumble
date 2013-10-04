@@ -659,7 +659,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 	// and IDXGIObject interfaces that need to be hooked in target
 	// applications. The data is stored in the dxgi shared memory structure.
 
-	if (! dxgi)
+	if (! dxgi || !d3d11)
 		return;
 
 	ods("D3D11: Preparing static data for DXGI and and D3D11 Injection");

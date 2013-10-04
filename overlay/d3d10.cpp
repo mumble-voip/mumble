@@ -626,12 +626,21 @@ void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly) {
 }
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
+	if (! dxgi)
+		return;
+
+	dxgi->iOffsetPresent = 0;
+	dxgi->iOffsetResize = 0;
+	dxgi->wcDXGIFileName[0] = 0;
+}
+
+extern "C" __declspec(dllexport) void __cdecl PrepareDXGI10() {
 	// This function is called by the Mumble client in Mumble's scope
 	// mainly to extract the offsets of various functions in the IDXGISwapChain
 	// and IDXGIObject interfaces that need to be hooked in target
 	// applications. The data is stored in the dxgi shared memory structure.
 
-	if (! dxgi)
+	if (! dxgi || !d3d10)
 		return;
 
 	ods("D3D10: Preparing static data for DXGI and D3D10 Injection");

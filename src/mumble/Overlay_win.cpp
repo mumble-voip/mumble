@@ -38,8 +38,6 @@
 
 typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
-typedef void (__cdecl *PrepDXGIProc)();
-typedef void (__cdecl *PrepDXGI11Proc)();
 
 // Used by the overlay to detect whether we injected into ourselve
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
@@ -74,11 +72,15 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
 	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
 	PrepProc prepareProc9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
-	PrepDXGIProc prepareProc10 = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
-	PrepDXGI11Proc prepareProc11 = (PrepDXGI11Proc) qlOverlay->resolve("PrepareDXGI11");
+	PrepProc prepareProcDXGI = (PrepProc) qlOverlay->resolve("PrepareDXGI");
+	PrepProc prepareProc10 = (PrepProc) qlOverlay->resolve("PrepareDXGI10");
+	PrepProc prepareProc11 = (PrepProc) qlOverlay->resolve("PrepareDXGI11");
 
 	if (prepareProc9)
 		prepareProc9();
+
+	if (prepareProcDXGI)
+		prepareProcDXGI();
 
 	if (prepareProc10)
 		prepareProc10();

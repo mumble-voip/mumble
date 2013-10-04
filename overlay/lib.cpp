@@ -680,12 +680,6 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	return false;
 }
 
-void DXGIData::init() {
-	iOffsetPresent = 0;
-	iOffsetResize = 0;
-	wcDXGIFileName[0] = 0;
-}
-
 void createSharedDataMap() {
 	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
@@ -716,7 +710,6 @@ void createSharedDataMap() {
 
 	dxgi = reinterpret_cast<DXGIData *>(rawSharedPointer);
 	rawSharedPointer += sizeof(DXGIData);
-	dxgi->init();
 
 	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
 	rawSharedPointer += sizeof(D3D10Data);
