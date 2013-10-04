@@ -39,52 +39,52 @@
 class ClientUser;
 
 class LogTab : public LogTextBrowser{
-private:
     Q_OBJECT
-    QString fullname;
-    QString shortName;
-    QString hash;
-    LogTab(ClientUser*, QWidget *p = NULL);
-    ~LogTab();
-    void    addToTabWidget(QTabWidget*);
-    void    updateUser(ClientUser* user);
     friend class LogTabWidget;
 public slots:
     void onHighlighted(const QUrl&);
+private:
+    Q_OBJECT
+    QString m_fullname;
+    QString m_shortName;
+    QString m_hash;
+    LogTab(ClientUser*, QWidget *p = NULL);
+    ~LogTab();
+    void    addToTabWidget(QTabWidget*);
+    void    updateUser(ClientUser*);
 };
 
 class LogTabWidget : public QTabWidget {
-	private:
-		Q_OBJECT
-        QHash<QString, int>* mHashIndex;
-        int		oldIndex;
-        void	update();
-        int     createTab(ClientUser*);
-        int     maxBlockCount;
-	public:
-        LogTabWidget(QWidget* parent = 0);
-        ~LogTabWidget();
-        void 	showTabs(bool show);
-		int 	getChannelTab();
-		void 	openTab(ClientUser*);
-		QString	getHash(int Index);
-        void 	closeTab(int index);
-		int		markTabAsUpdated(int index);
-        int		markTabAsRestricted(int index);
-        int     findTab(ClientUser*);
-        int     searchTab(ClientUser*);
-        void    updateTab(ClientUser*);
-        void    handleDocumentsetMaximumBlockCount(int maxLogBlocks);
-        void    handleDocumentSetDefaultStyleSheed(QString styleSheet);
-	public slots:
-		void 	onCurrentChanged(int);
-        void	onTabMoved(int to, int from);
-        void    onTabCloseRequested(int index);
-	signals:
-		void 	anchorClick(const QUrl&);
-		void	customContextMenuRequest(const QPoint&);
-        void    highlighted(const QUrl&);
-		
+    Q_OBJECT
+public:
+    LogTabWidget(QWidget* parent = 0);
+    ~LogTabWidget();
+    void 	showTabs(bool);
+    int 	getChannelTab();
+    void 	openTab(ClientUser*);
+    int     findTab(ClientUser*);
+    int     searchTab(ClientUser*);
+    QString	getHash(int);
+    void    updateTab(ClientUser*);
+    void 	closeTab(int);
+    int		markTabAsUpdated(int);
+    int		markTabAsRestricted(int);
+    void    handleDocumentsetMaximumBlockCount(int);
+    void    handleDocumentSetDefaultStyleSheed(QString);
+public slots:
+    void 	onCurrentChanged(int);
+    void	onTabMoved(int, int);
+    void    onTabCloseRequested(int);
+signals:
+    void 	anchorClick(const QUrl&);
+    void	customContextMenuRequest(const QPoint&);
+    void    highlighted(const QUrl&);
+private:
+    QHash<QString, int>* m_hashMap;
+    int		m_oldIndex;
+    int     m_maxBlockCount;
+    void	update();
+    int     createTab(ClientUser*);
 };
 
 #endif
