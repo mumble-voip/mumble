@@ -188,4 +188,5 @@ void LogTabWidget::onTabCloseRequested(int index){
     m_hashMap->remove(hashKey);
     widget(index)->deleteLater();
     removeTab(index);
+    updateHashMap();
 }

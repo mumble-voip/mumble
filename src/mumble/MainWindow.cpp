@@ -2764,7 +2764,10 @@ void MainWindow::updateChatBar() {
 		// User target
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
 	}
-    qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));
+    if(c != NULL)
+        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));
+    else
+        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), QString::fromUtf8("Not connected"));
 
 	updateMenuPermissions();
 }

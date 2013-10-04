@@ -71,7 +71,6 @@ public:
     int     searchTab(ClientUser*);
     QString getHash(int);
     void    updateTab(ClientUser*);
-    void    closeTab(int);
     ///Adds a visible notification, indicating the related tab has been updated
     int     markTabAsUpdated(int);
     ///Adds a visible notification, indicating the related tab has been restricted
