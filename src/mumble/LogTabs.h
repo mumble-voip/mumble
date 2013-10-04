@@ -46,16 +46,12 @@ class LogTab : public LogTextBrowser{
 public slots:
     void onHighlighted(const QUrl&);
 private:
-    ///If this tab is active, the full Name should be shown
     QString m_fullname;
-    ///If this tab is not active, the short Name should be shown
     QString m_shortName;
-    ///Hash of the related user
     QString m_hash;
     ///Initialize a LogTab from a user
     LogTab(ClientUser*, QWidget *p = NULL);
     ~LogTab();
-    ///Adds this LogTab to the provided TabWidget
     void    addToTabWidget(QTabWidget*);
     ///Updates the names of the related user
     void    updateUser(ClientUser*);
@@ -69,23 +65,16 @@ public:
     ~LogTabWidget();
     ///Set the visibility of the tabbar
     void    activateTabs(bool);
-    ///Retrieve the index of the channel tab
     int     getChannelTab();
-    ///Open the tab related to the provided user
     void    openTab(ClientUser*);
-    ///Finds a tab related to the provided user
     int     findTab(ClientUser*);
-    ///Searches a tab related to the provided user
     int     searchTab(ClientUser*);
-    ///Retrieve the user hash of the provided tab
     QString getHash(int);
-    ///Update the tab related to the provided user
     void    updateTab(ClientUser*);
-    ///Close the tab and do some cleanup
     void    closeTab(int);
-    ///Shows a visible indicator, that the provided tab has been updated
+    ///Adds a visible notification, indicating the related tab has been updated
     int     markTabAsUpdated(int);
-    ///Shows a visible indicator, that the provided tab has been restricted
+    ///Adds a visible notification, indicating the related tab has been restricted
     int     markTabAsRestricted(int);
     ///Sets the maximum block count for all tabs
     void    handleDocumentsetMaximumBlockCount(int);
@@ -102,13 +91,9 @@ signals:
 private:
     ///Mapping a users hash to a tab index
     QHash<QString, int>* m_hashMap;
-    ///Previos index
     int		m_oldIndex;
-    ///Maximum block count
     int     m_maxBlockCount;
-    ///Updates the hash map, iterating over all tabs
     void    updateHashMap();
-    ///Creates a new tab for the provided user
     int     createTab(ClientUser*);
 };
 
