@@ -45,19 +45,6 @@ LogTab::LogTab(ClientUser* user,QWidget *p) : LogTextBrowser(p){
     this->shortName = user->qsName;
     if(shortName.size() > 8)
         shortName.resize(8);
-    this->initTab();
-}
-
-LogTab::LogTab(QWidget *p) : LogTextBrowser(p){
-    this->hash      = QString::fromUtf8("channel");
-    this->fullname  = QString::fromUtf8("channel");
-    this->shortName = QString::fromUtf8("channel");
-    if(shortName.size() > 8)
-        shortName.resize(8);
-    this->initTab();
-}
-
-void LogTab::initTab(){
     this->setFrameStyle(QFrame::NoFrame);
     this->setOpenLinks(false);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -66,6 +53,8 @@ void LogTab::initTab(){
     ld->setDefaultStyleSheet(qApp->styleSheet());
     this->setDocument(ld);
     connect(this, SIGNAL(highlighted(QUrl)), this, SLOT(onHighlighted(QUrl)));
+    this->setWhatsThis(QString::fromUtf8("This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu."));
+
 }
 
 LogTab::~LogTab(){
@@ -93,14 +82,20 @@ void LogTab::onHighlighted(const QUrl& url){
 
 LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
 	this->setTabPosition(QTabWidget::South);
-    this->mHashIndex = new QHash<QString, int>();
-    QString tmp = QString::fromUtf8("channel");
-	this->mHashIndex->insert(tmp, 0);
 	this->setTabsClosable(true);
 	this->setMovable(true);
 	connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentChanged(int)));
     connect(this->tabBar(), SIGNAL(tabMoved(int, int)), this, SLOT(onTabMoved(int, int)));
     connect(this, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabCloseRequested(int)));
+
+    QString tmp = QString::fromUtf8("channel");
+    ClientUser* channel =  new ClientUser();
+    channel->qsHash = tmp;
+    channel->qsName = tmp;
+    this->mHashIndex = new QHash<QString, int>();
+    this->createTab(channel);
+    this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
+    this->setTabText(0, QString::fromUtf8("Not connected"));
 }
 
 LogTabWidget::~LogTabWidget(){
@@ -123,16 +118,9 @@ int LogTabWidget::searchTab(ClientUser *user){
 int LogTabWidget::createTab(ClientUser *user){
     mHashIndex->insert(user->qsHash, count());
     LogTab* lt = new LogTab(user);
-    //lt->setOpenLinks(false);
-    //lt->setContextMenuPolicy(Qt::CustomContextMenu);
-    //LogDocument* ld = new LogDocument(lt);
-    //ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
-    //ld->setDefaultStyleSheet(qApp->styleSheet());
-    //lt->setDocument(ld);
     lt->addToTabWidget(this);
     connect(lt, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
     connect(lt, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
-    //connect(lt, SIGNAL(highlighted(QUrl&)), this, SIGNAL(highlighted(QUrl&)));
     return count()-1;
 }
 
@@ -146,12 +134,6 @@ int LogTabWidget::getChannelTab(){
 
 QString LogTabWidget::getHash(int index){
     return dynamic_cast<LogTab*>(widget(index))->hash;
-}
-
-int	LogTabWidget::addTab(QWidget* page, const QString& label){
-	int retVal = QTabWidget::addTab(page, label);
-	this->tabBar()->tabButton(0, QTabBar::RightSide)->resize(0, 0);
-	return retVal;
 }
 
 void LogTabWidget::update(){

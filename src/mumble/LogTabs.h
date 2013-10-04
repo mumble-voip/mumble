@@ -46,12 +46,9 @@ private:
     QString hash;
     LogTab(ClientUser*, QWidget *p = NULL);
     ~LogTab();
-    void    initTab();
     void    addToTabWidget(QTabWidget*);
     void    updateUser(ClientUser* user);
     friend class LogTabWidget;
-public:
-    LogTab(QWidget *p = NULL);
 public slots:
     void onHighlighted(const QUrl&);
 };
@@ -70,8 +67,7 @@ class LogTabWidget : public QTabWidget {
 		int 	getChannelTab();
 		void 	openTab(ClientUser*);
 		QString	getHash(int Index);
-		void 	closeTab(int index);
-        int		addTab(QWidget* page, const QString& label);//TODO: Remove
+        void 	closeTab(int index);
 		int		markTabAsUpdated(int index);
         int		markTabAsRestricted(int index);
         int     findTab(ClientUser*);
