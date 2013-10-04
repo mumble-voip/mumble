@@ -31,7 +31,6 @@
 #include "LogTabs.h"
 #include "ClientUser.h"
 #include "ui_MainWindow.h"
-#include "Global.h"
 #include "Log.h"
 
 #include <QtCore/QtGlobal>
@@ -46,7 +45,6 @@ LogTab::LogTab(ClientUser* user,QWidget *p) : LogTextBrowser(p){
     this->setOpenLinks(false);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
     LogDocument* ld = new LogDocument(this);
-    ld->setMaximumBlockCount(g.s.iMaxLogBlocks);
     ld->setDefaultStyleSheet(qApp->styleSheet());
     this->setDocument(ld);
     connect(this, SIGNAL(highlighted(QUrl)), this, SLOT(onHighlighted(QUrl)));
@@ -116,6 +114,7 @@ int LogTabWidget::createTab(ClientUser *user){
     mHashIndex->insert(user->qsHash, count());
     LogTab* lt = new LogTab(user);
     lt->addToTabWidget(this);
+    lt->document()->setMaximumBlockCount(maxBlockCount);
     connect(lt, SIGNAL(anchorClicked(const QUrl&)), this, SIGNAL(anchorClick(const QUrl&)));
     connect(lt, SIGNAL(customContextMenuRequested(const QPoint&)), this, SIGNAL(customContextMenuRequest(const QPoint&)));
     return count()-1;
@@ -164,6 +163,7 @@ void LogTabWidget::handleDocumentsetMaximumBlockCount(int maxLogBlocks){
     for(int i = 0; i < count(); i++){
         dynamic_cast<LogTab*>(widget(i))->document()->setMaximumBlockCount(maxLogBlocks);
     }
+    this->maxBlockCount = maxLogBlocks;
 }
 
 void LogTabWidget::handleDocumentSetDefaultStyleSheed(QString styleSheet){

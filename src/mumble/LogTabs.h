@@ -60,6 +60,7 @@ class LogTabWidget : public QTabWidget {
         int		oldIndex;
         void	update();
         int     createTab(ClientUser*);
+        int     maxBlockCount;
 	public:
         LogTabWidget(QWidget* parent = 0);
         ~LogTabWidget();
