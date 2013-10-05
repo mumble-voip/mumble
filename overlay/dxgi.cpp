@@ -159,8 +159,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 	}
 }
 
-extern void PrepareDXGI10();
-extern void PrepareDXGI11();
+extern void PrepareDXGI10(IDXGIAdapter1* pAdapter);
+extern void PrepareDXGI11(IDXGIAdapter1* pAdapter);
 
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	if (! dxgi)
@@ -199,17 +199,11 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				if (FAILED(hr))
 					ods("DXGI: Call to pCreateDXGIFactory1 failed!");
 				if (pFactory) {
-					HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
-											  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-											  NULL, NULL, 0);
-
 					IDXGIAdapter1 *pAdapter = NULL;
 					pFactory->EnumAdapters1(0, &pAdapter);
 
-					PrepareDXGI10();
-					PrepareDXGI11();
-
-					DestroyWindow(hwnd);
+					PrepareDXGI10(pAdapter);
+					PrepareDXGI11(pAdapter);
 
 					pFactory->Release();
 				} else {
