@@ -73,20 +73,12 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
 	PrepProc prepareProc9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
 	PrepProc prepareProcDXGI = (PrepProc) qlOverlay->resolve("PrepareDXGI");
-	PrepProc prepareProc10 = (PrepProc) qlOverlay->resolve("PrepareDXGI10");
-	PrepProc prepareProc11 = (PrepProc) qlOverlay->resolve("PrepareDXGI11");
 
 	if (prepareProc9)
 		prepareProc9();
 
 	if (prepareProcDXGI)
 		prepareProcDXGI();
-
-	if (prepareProc10)
-		prepareProc10();
-
-	if (prepareProc11)
-		prepareProc11();
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {

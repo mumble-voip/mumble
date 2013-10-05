@@ -39,8 +39,6 @@
 #include <d3dx11.h>
 #include <time.h>
 
-/*already defined in d3d10.cpp
-DXGIData *dxgi = NULL;*/
 D3D11Data *d3d11 = NULL;
 
 static bool bHooked = false;
@@ -52,8 +50,6 @@ static HardHook hhRelease;
 typedef HRESULT(__stdcall *CreateDXGIFactory1Type)(REFIID, void **);
 typedef HRESULT(__stdcall *D3D11CreateDeviceAndSwapChainType)(IDXGIAdapter *, D3D_DRIVER_TYPE, HMODULE Software, UINT Flags, const D3D_FEATURE_LEVEL *, UINT, UINT, const DXGI_SWAP_CHAIN_DESC *, IDXGISwapChain **, ID3D11Device **, D3D_FEATURE_LEVEL *, ID3D11DeviceContext **);
 
-typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
-typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
 typedef ULONG(__stdcall *AddRefType)(ID3D11Device *);
 typedef ULONG(__stdcall *ReleaseType)(ID3D11Device *);
 
@@ -470,12 +466,8 @@ void D11State::draw() {
 }
 
 
-
-static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
-	// Present is called for each frame. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D11: Call to Present; Drawing and then chaining the call to the original logic");
-	#endif
+// D3D11 specific logic for the Present function.
+extern HRESULT presentD3D11(IDXGISwapChain *pSwapChain) {
 
 	ID3D11Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
@@ -505,16 +497,10 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		#endif
 	}
 
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	PresentType oPresent = (PresentType) hhPresent.call;
-	hhPresent.restore();
-	hr = oPresent(pSwapChain, SyncInterval, Flags);
-	hhPresent.inject();
 	return hr;
 }
 
-static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
+extern void resizeD3D11(IDXGISwapChain *pSwapChain) {
 	// Remove the D11State from our "cache" (= Invalidate)
 	D11State *ds = chains[pSwapChain];
 	if (ds) {
@@ -522,14 +508,6 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 		chains.erase(pSwapChain);
 		delete ds;
 	}
-
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	ResizeBuffersType oResize = (ResizeBuffersType) hhResize.call;
-	hhResize.restore();
-	HRESULT hr = oResize(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
-	hhResize.inject();
-	return hr;
 }
 
 static ULONG __stdcall myAddRef(ID3D11Device *pDevice) {
@@ -577,17 +555,7 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
 
-static void HookPresentRaw(voidFunc vfPresent) {
-	ods("D3D11: Injecting Present");
-	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
-}
-
-static void HookResizeRaw(voidFunc vfResize) {
-	ods("D3D11: Injecting ResizeBuffers Raw");
-	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
-}
-
-void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly);
+void hookD3D11(HMODULE hD3D11, bool preonly);
 
 void checkDXGI11Hook(bool preonly) {
 	static bool bCheckHookActive = false;
@@ -606,7 +574,7 @@ void checkDXGI11Hook(bool preonly) {
 
 	if (hDXGI && hD3D11) {
 		if (! bHooked) {
-			hookD3D11(hDXGI, hD3D11, preonly);
+			hookD3D11(hD3D11, preonly);
 		}
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
@@ -621,7 +589,8 @@ void checkDXGI11Hook(bool preonly) {
 	bCheckHookActive = false;
 }
 
-void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
+/// @param hD3D11 must be a valid module handle
+void hookD3D11(HMODULE hD3D11, bool preonly) {
 	const int procnamesize = 2048;
 	wchar_t procname[procnamesize];
 	GetModuleFileNameW(NULL, procname, procnamesize);
@@ -632,20 +601,10 @@ void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
 
 	bHooked = true;
 
-	// Can we use the prepatch data?
-	GetModuleFileNameW(hDXGI, procname, procnamesize);
-	if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
-		// The module seems to match the one we prepared d3dd for.
-
-		unsigned char *raw = (unsigned char *) hDXGI;
-		HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
-		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
-
-		GetModuleFileNameW(hD3D11, procname, procnamesize);
-		if (_wcsicmp(d3d11->wcD3D11FileName, procname) == 0) {
-			unsigned char *raw = (unsigned char *) hD3D11;
-			HookAddRelease((voidFunc)(raw + d3d11->iOffsetAddRef), (voidFunc)(raw + d3d11->iOffsetRelease));
-		}
+	GetModuleFileNameW(hD3D11, procname, procnamesize);
+	if (_wcsicmp(d3d11->wcD3D11FileName, procname) == 0) {
+		unsigned char *raw = (unsigned char *) hD3D11;
+		HookAddRelease((voidFunc)(raw + d3d11->iOffsetAddRef), (voidFunc)(raw + d3d11->iOffsetRelease));
 	} else if (! preonly) {
 		ods("D3D11: Interface changed, can't rawpatch");
 	} else {
@@ -653,7 +612,7 @@ void hookD3D11(HMODULE hDXGI, HMODULE hD3D11, bool preonly) {
 	}
 }
 
-extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
+void PrepareDXGI11() {
 	// This function is called by the Mumble client in Mumble's scope
 	// mainly to extract the offsets of various functions in the IDXGISwapChain
 	// and IDXGIObject interfaces that need to be hooked in target
@@ -691,8 +650,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 					ods("D3D11: Could not verify DXGI module name to match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
 				}
 			}
-
-			GetModuleFileNameW(hD3D11, d3d11->wcD3D11FileName, 2048);
 
 			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 			ods("D3D11: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
@@ -787,6 +744,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						} else {
 							wchar_t modulename[2048];
 							GetModuleFileNameW(hRef, modulename, 2048);
+							// Make sure we are still in the same module and do not mix address pointers
 							if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
@@ -812,32 +770,27 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
 							ods("D3D11: Failed to get module for AddRef");
 						} else {
-							wchar_t modulename[2048];
-							GetModuleFileNameW(hRef, modulename, 2048);
-							if (wcscmp(modulename, d3d11->wcD3D11FileName) == 0) {
-								unsigned char *b = (unsigned char *) pAddRef;
-								unsigned char *a = (unsigned char *) hRef;
-								d3d11->iOffsetAddRef = b-a;
-								ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetAddRef);
-							} else {
-								ods("D3D11: AddRef functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d11->wcD3D11FileName);
-							}
+							GetModuleFileNameW(hRef, d3d11->wcD3D11FileName, 2048);
+							unsigned char *b = (unsigned char *) pAddRef;
+							unsigned char *a = (unsigned char *) hRef;
+							d3d11->iOffsetAddRef = b-a;
+							ods("D3D11: Successfully found AddRef offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetAddRef);
 						}
 
 						void *pRelease = (*vtbl)[2];
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
 							ods("D3D11: Failed to get module for Release");
 						} else {
-							// The module filename still has to be the same as it was above
 							wchar_t modulename[2048];
 							GetModuleFileNameW(hRef, modulename, 2048);
+							// Make sure we are still in the same module and do not mix address pointers
 							if (wcscmp(modulename, d3d11->wcD3D11FileName) == 0) {
 								unsigned char *b = (unsigned char *) pRelease;
 								unsigned char *a = (unsigned char *) hRef;
 								d3d11->iOffsetRelease = b-a;
 								ods("D3D11: Successfully found Release offset: %ls: %d", d3d11->wcD3D11FileName, d3d11->iOffsetRelease);
 							} else {
-								ods("D3D11: Release functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, d3d11->wcD3D11FileName);
+								ods("D3D10: Release functions module does not match the AddRef one. Release: '%ls', AddRef: '%ls'", modulename, d3d11->wcD3D11FileName);
 							}
 						}
 					}
@@ -864,6 +817,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI11() {
 			FreeLibrary(hDXGI);
 		}
 	} else {
-		ods("D3D11: No DXGI1 pre-Win7 - skipping prepare");
+		ods("D3D11: No DXGI pre-Win7 - skipping prepare");
 	}
 }

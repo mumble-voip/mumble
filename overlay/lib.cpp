@@ -406,6 +406,14 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 
+static void checkHooks(bool preonly) {
+	checkD3D9Hook(preonly);
+	checkDXGIHook(preonly);
+	checkDXGI10Hook(preonly);
+	checkDXGI11Hook(preonly);
+	checkOpenGLHook();
+}
+
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	//TODO: Move logic to HardHook.
@@ -418,10 +426,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkDXGI11Hook();
-		checkOpenGLHook();
+		checkHooks();
 	}
 
 	return h;
@@ -441,10 +446,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	checkForWPF();
 
 	if (! bBlackListed) {
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkDXGI11Hook();
-		checkOpenGLHook();
+		checkHooks();
 	}
 
 	return h;
@@ -551,10 +553,7 @@ void dllmainProcAttach(char* procname) {
 		hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 		hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
 
-		checkD3D9Hook(true);
-		checkDXGIHook(true);
-		checkDXGI11Hook(true);
-		checkOpenGLHook();
+		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
 }
@@ -742,10 +741,7 @@ void dllmainThreadAttach() {
 		checkForWPF();
 
 		if (!bBlackListed) {
-			checkD3D9Hook();
-			checkDXGIHook();
-			checkDXGI11Hook();
-			checkOpenGLHook();
+			checkHooks();
 			ods("Lib: Injected to thread");
 		}
 	}

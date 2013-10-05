@@ -34,7 +34,6 @@
 #include <d3dx10.h>
 #include <time.h>
 
-DXGIData *dxgi = NULL;
 D3D10Data *d3d10 = NULL;
 
 static bool bHooked = false;
@@ -50,8 +49,6 @@ typedef HRESULT(__stdcall *D3D10CreateStateBlockType)(ID3D10Device *, D3D10_STAT
 typedef HRESULT(__stdcall *D3D10StateBlockMaskEnableAllType)(D3D10_STATE_BLOCK_MASK *);
 typedef HRESULT(__stdcall *D3D10CreateEffectFromMemoryType)(void *, SIZE_T, UINT, ID3D10Device *, ID3D10EffectPool *, ID3D10Effect **);
 
-typedef HRESULT(__stdcall *PresentType)(IDXGISwapChain *, UINT, UINT);
-typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT, DXGI_FORMAT, UINT);
 typedef ULONG(__stdcall *AddRefType)(ID3D10Device *);
 typedef ULONG(__stdcall *ReleaseType)(ID3D10Device *);
 
@@ -440,13 +437,8 @@ void D10State::draw() {
 	dwMyThread = 0;
 }
 
-
-
-static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
-	// Present is called for each frame. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D10: Call to Present; Drawing and then chaining the call to the original logic");
-	#endif
+// D3D10 specific logic for the Present function.
+extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 
 	ID3D10Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
@@ -476,17 +468,10 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 		#endif
 	}
 
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	PresentType oPresent = (PresentType) hhPresent.call;
-	hhPresent.restore();
-	hr = oPresent(pSwapChain, SyncInterval, Flags);
-	hhPresent.inject();
-
 	return hr;
 }
 
-static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
+extern void resizeD3D10(IDXGISwapChain *pSwapChain) {
 	// Remove the D10State from our "cache" (= Invalidate)
 	D10State *ds = chains[pSwapChain];
 	if (ds) {
@@ -494,14 +479,6 @@ static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, 
 		chains.erase(pSwapChain);
 		delete ds;
 	}
-
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	ResizeBuffersType oResize = (ResizeBuffersType) hhResize.call;
-	hhResize.restore();
-	HRESULT hr = oResize(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
-	hhResize.inject();
-	return hr;
 }
 
 static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
@@ -549,19 +526,9 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
 
-static void HookPresentRaw(voidFunc vfPresent) {
-	ods("D3D10: Injecting Present");
-	hhPresent.setup(vfPresent, reinterpret_cast<voidFunc>(myPresent));
-}
+void hookD3D10(HMODULE hD3D10, bool preonly);
 
-static void HookResizeRaw(voidFunc vfResize) {
-	ods("D3D10: Injecting ResizeBuffers Raw");
-	hhResize.setup(vfResize, reinterpret_cast<voidFunc>(myResize));
-}
-
-void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly);
-
-void checkDXGIHook(bool preonly) {
+void checkDXGI10Hook(bool preonly) {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
 		ods("D3D10: Recursion in checkDXGIHook");
@@ -573,12 +540,11 @@ void checkDXGIHook(bool preonly) {
 
 	bCheckHookActive = true;
 
-	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
 
-	if (hDXGI && hD3D10) {
+	if (hD3D10) {
 		if (! bHooked) {
-			hookD3D10(hDXGI, hD3D10, preonly);
+			hookD3D10(hD3D10, preonly);
 		}
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
@@ -593,7 +559,8 @@ void checkDXGIHook(bool preonly) {
 	bCheckHookActive = false;
 }
 
-void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly) {
+/// @param hD3D10 must be a valid module handle
+void hookD3D10(HMODULE hD3D10, bool preonly) {
 	const int procnamesize = 2048;
 	wchar_t procname[procnamesize];
 	GetModuleFileNameW(NULL, procname, procnamesize);
@@ -604,37 +571,18 @@ void hookD3D10(HMODULE hDXGI, HMODULE hD3D10, bool preonly) {
 
 	bHooked = true;
 
-	// Can we use the prepatch data?
-	GetModuleFileNameW(hDXGI, procname, procnamesize);
-	if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
-		// The module seems to match the one we prepared d3dd for.
-
-		unsigned char *raw = (unsigned char *) hDXGI;
-		HookPresentRaw((voidFunc)(raw + dxgi->iOffsetPresent));
-		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
-
-		GetModuleFileNameW(hD3D10, procname, procnamesize);
-		if (_wcsicmp(d3d10->wcD3D10FileName, procname) == 0) {
-			unsigned char *raw = (unsigned char *) hD3D10;
-			HookAddRelease((voidFunc)(raw + d3d10->iOffsetAddRef), (voidFunc)(raw + d3d10->iOffsetRelease));
-		}
+	GetModuleFileNameW(hD3D10, procname, procnamesize);
+	if (_wcsicmp(d3d10->wcD3D10FileName, procname) == 0) {
+		unsigned char *raw = (unsigned char *) hD3D10;
+		HookAddRelease((voidFunc)(raw + d3d10->iOffsetAddRef), (voidFunc)(raw + d3d10->iOffsetRelease));
 	} else if (! preonly) {
-		ods("D3D10: Interface changed, can't rawpatch");
+			ods("D3D11: Interface changed, can't rawpatch");
 	} else {
 		bHooked = false;
 	}
 }
 
-extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
-	if (! dxgi)
-		return;
-
-	dxgi->iOffsetPresent = 0;
-	dxgi->iOffsetResize = 0;
-	dxgi->wcDXGIFileName[0] = 0;
-}
-
-extern "C" __declspec(dllexport) void __cdecl PrepareDXGI10() {
+void PrepareDXGI10() {
 	// This function is called by the Mumble client in Mumble's scope
 	// mainly to extract the offsets of various functions in the IDXGISwapChain
 	// and IDXGIObject interfaces that need to be hooked in target
@@ -764,6 +712,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI10() {
 						} else {
 							wchar_t modulename[2048];
 							GetModuleFileNameW(hRef, modulename, 2048);
+							// Make sure we are still in the same module and do not mix address pointers
 							if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
 								unsigned char *b = (unsigned char *) pResize;
 								unsigned char *a = (unsigned char *) hRef;
@@ -800,7 +749,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI10() {
 						if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
 							ods("D3D10: Failed to get module for Release");
 						} else {
-							// The module filename still has to be the same as it was above
 							wchar_t modulename[2048];
 							GetModuleFileNameW(hRef, modulename, 2048);
 							// Make sure we are still in the same module and do not mix address pointers
