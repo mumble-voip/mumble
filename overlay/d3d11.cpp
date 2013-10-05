@@ -633,7 +633,7 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
 	if (hD3D11 != NULL) {
 
-		HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI1 Window", WS_OVERLAPPEDWINDOW,
+		HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
 								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
 								  NULL, NULL, 0);
 

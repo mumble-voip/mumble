@@ -531,7 +531,7 @@ void hookD3D10(HMODULE hD3D10, bool preonly);
 void checkDXGI10Hook(bool preonly) {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
-		ods("D3D10: Recursion in checkDXGIHook");
+		ods("D3D10: Recursion in checkDXGI10Hook");
 		return;
 	}
 
