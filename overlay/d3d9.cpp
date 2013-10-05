@@ -862,10 +862,10 @@ void checkD3D9Hook(bool preonly) {
 }
 
 void hookD3D9(HMODULE hD3D, bool preonly) {
-	const int procnamesize = 2048;
-	char procname[procnamesize];
-	GetModuleFileName(NULL, procname, procnamesize);
-	ods("D3D9: hookD3D9 in App '%s'", procname);
+	const int modulenamesize = Direct3D9Data::cFileNameBuflen;
+	char modulename[modulenamesize];
+	GetModuleFileName(NULL, modulename, modulenamesize);
+	ods("D3D9: hookD3D9 in App '%s'", modulename);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D9), &hSelf);
@@ -873,8 +873,8 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 	bHooked = true;
 
 	// Can we use the prepatch data?
-	GetModuleFileName(hD3D, procname, procnamesize);
-	if (_stricmp(d3dd->cFileName, procname) == 0) {
+	GetModuleFileName(hD3D, modulename, modulenamesize);
+	if (_stricmp(d3dd->cFileName, modulename) == 0) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hD3D;
@@ -948,7 +948,8 @@ void freeD3D9Hook(HMODULE hModule) {
 
 // Checks if the module of the fnptr equals the name/path of the one saved in @global d3dd.
 bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & textindicator) {
-	char modulename[2048];
+	const int modulenamesize = Direct3D9Data::cFileNameBuflen;
+	char modulename[modulenamesize];
 	// A handle to the module.
 	HMODULE hRef = NULL;
 
@@ -958,7 +959,7 @@ bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & te
 	if (!success) {
 		ods(("D3D9: Failed to get module for " + textindicator).c_str());
 	} else {
-		GetModuleFileName(hRef, modulename, 2048);
+		GetModuleFileName(hRef, modulename, modulenamesize);
 		return _stricmp(refmodulepath, modulename) == 0;
 	}
 	return false;
@@ -974,7 +975,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	if (hD3D != NULL) {
 
-		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
+		GetModuleFileName(hD3D, d3dd->cFileName, Direct3D9Data::cFileNameBuflen);
 
 		std::string d3d9FnName("Direct3DCreate9");
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));

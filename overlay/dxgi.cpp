@@ -133,10 +133,10 @@ void checkDXGIHook(bool preonly) {
 
 /// @param hDXGI must be a valid module handle.
 void hookDXGI(HMODULE hDXGI, bool preonly) {
-	const int procnamesize = 2048;
-	wchar_t procname[procnamesize];
-	GetModuleFileNameW(NULL, procname, procnamesize);
-	ods("DXGI: hookDXGI in App '%ls'", procname);
+	const int modulenamesize = DXGIData::wcDXGIFileNameBuflen;
+	wchar_t modulename[modulenamesize];
+	GetModuleFileNameW(NULL, modulename, modulenamesize);
+	ods("DXGI: hookDXGI in App '%ls'", modulename);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookDXGI), &hSelf);
@@ -144,8 +144,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 	bHooked = true;
 
 	// Can we use the prepatch data?
-	GetModuleFileNameW(hDXGI, procname, procnamesize);
-	if (_wcsicmp(dxgi->wcDXGIFileName, procname) == 0) {
+	GetModuleFileNameW(hDXGI, modulename, modulenamesize);
+	if (_wcsicmp(dxgi->wcDXGIFileName, modulename) == 0) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hDXGI;
@@ -189,7 +189,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 	if (hDXGI != NULL) {
-		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, DXGIData::wcDXGIFileNameBuflen);
 
 		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 		ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);

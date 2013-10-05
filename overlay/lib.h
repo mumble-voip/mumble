@@ -56,24 +56,28 @@ struct Direct3D9Data {
 	int iOffsetCreate;
 	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
+	static const int cFileNameBuflen = 2048;
 	// Filename of the module.
-	char cFileName[2048];
+	char cFileName[cFileNameBuflen];
 };
 
 struct DXGIData {
+	static const int wcDXGIFileNameBuflen = 2048;
+	wchar_t wcDXGIFileName[wcDXGIFileNameBuflen];
 	int iOffsetPresent;
 	int iOffsetResize;
-	wchar_t wcDXGIFileName[2048];
 };
 
 struct D3D10Data {
-	wchar_t wcD3D10FileName[2048];
+	static const int wcD3D10FileNameBuflen = 2048;
+	wchar_t wcD3D10FileName[wcD3D10FileNameBuflen];
 	int iOffsetAddRef;
 	int iOffsetRelease;
 };
 
 struct D3D11Data {
-	wchar_t wcD3D11FileName[2048];
+	static const int wcD3D11FileNameBuflen = 2048;
+	wchar_t wcD3D11FileName[wcD3D11FileNameBuflen];
 	int iOffsetAddRef;
 	int iOffsetRelease;
 };

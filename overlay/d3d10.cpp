@@ -562,22 +562,21 @@ void checkDXGI10Hook(bool preonly) {
 
 /// @param hD3D10 must be a valid module handle
 void hookD3D10(HMODULE hD3D10, bool preonly) {
-	const int procnamesize = 2048;
-	wchar_t procname[procnamesize];
-	GetModuleFileNameW(NULL, procname, procnamesize);
-	ods("D3D10: hookD3D10 in App '%ls'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D10), &hSelf);
 
 	bHooked = true;
 
-	GetModuleFileNameW(hD3D10, procname, procnamesize);
-	if (_wcsicmp(d3d10->wcD3D10FileName, procname) == 0) {
+	const int modulenamesize = D3D10Data::wcD3D10FileNameBuflen;
+	wchar_t modulename[modulenamesize];
+	GetModuleFileNameW(hD3D10, modulename, modulenamesize);
+
+	if (_wcsicmp(d3d10->wcD3D10FileName, modulename) == 0) {
 		unsigned char *raw = (unsigned char *) hD3D10;
 		HookAddRelease((voidFunc)(raw + d3d10->iOffsetAddRef), (voidFunc)(raw + d3d10->iOffsetRelease));
 	} else if (! preonly) {
-			ods("D3D11: Interface changed, can't rawpatch");
+		ods("D3D11: Interface changed, can't rawpatch");
 	} else {
 		bHooked = false;
 	}
@@ -656,8 +655,8 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
 				ods("D3D10: Failed to get module for Present");
 			} else {
-				wchar_t modulename[2048];
-				GetModuleFileNameW(hRef, modulename, 2048);
+				wchar_t modulename[DXGIData::wcDXGIFileNameBuflen];
+				GetModuleFileNameW(hRef, modulename, DXGIData::wcDXGIFileNameBuflen);
 				if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
 					unsigned char *b = (unsigned char *) pPresent;
 					unsigned char *a = (unsigned char *) hRef;
@@ -682,8 +681,8 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
 				ods("D3D10: Failed to get module for ResizeBuffers");
 			} else {
-				wchar_t modulename[2048];
-				GetModuleFileNameW(hRef, modulename, 2048);
+				wchar_t modulename[DXGIData::wcDXGIFileNameBuflen];
+				GetModuleFileNameW(hRef, modulename, DXGIData::wcDXGIFileNameBuflen);
 				// Make sure we are still in the same module and do not mix address pointers
 				if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
 					unsigned char *b = (unsigned char *) pResize;
@@ -710,7 +709,7 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
 				ods("D3D10: Failed to get module for AddRef");
 			} else {
-				GetModuleFileNameW(hRef, d3d10->wcD3D10FileName, 2048);
+				GetModuleFileNameW(hRef, d3d10->wcD3D10FileName, D3D10Data::wcD3D10FileNameBuflen);
 				unsigned char *b = (unsigned char *) pAddRef;
 				unsigned char *a = (unsigned char *) hRef;
 				d3d10->iOffsetAddRef = b-a;
@@ -721,9 +720,10 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
 				ods("D3D10: Failed to get module for Release");
 			} else {
-				wchar_t modulename[2048];
-				GetModuleFileNameW(hRef, modulename, 2048);
-				// Make sure we are still in the same module and do not mix address pointers
+				wchar_t modulename[D3D10Data::wcD3D10FileNameBuflen];
+				GetModuleFileNameW(hRef, modulename, D3D10Data::wcD3D10FileNameBuflen);
+				// Make sure we are still in the same module and do not mix
+				// address pointer offsets from different modules (the AddRef above).
 				if (wcscmp(modulename, d3d10->wcD3D10FileName) == 0) {
 					unsigned char *b = (unsigned char *) pRelease;
 					unsigned char *a = (unsigned char *) hRef;
