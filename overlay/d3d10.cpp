@@ -582,14 +582,14 @@ void hookD3D10(HMODULE hD3D10, bool preonly) {
 	}
 }
 
-/// @param hDXGI must be a valid module handle.
-void PrepareDXGI10(IDXGIAdapter1* pAdapter) {
-	// This function is called by the Mumble client in Mumble's scope
-	// mainly to extract the offsets of various functions in the IDXGISwapChain
-	// and IDXGIObject interfaces that need to be hooked in target
-	// applications. The data is stored in the dxgi shared memory structure.
+/// Prepares DXGI and D3D10 data by trying to determining the module filepath
+/// and function offsets in memory.
+/// (This data can later be used for hooking / code injection.
+///
+/// Adjusts the data behind the global variables dxgi and d3d10.
+void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
-	if (!dxgi || !d3d10)
+	if (!dxgi || !d3d10 || !pAdapter)
 		return;
 
 	ods("D3D10: Preparing static data for DXGI and D3D10 Injection");
@@ -602,7 +602,7 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter) {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	// Make sure this is vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
+	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
 		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 
@@ -654,8 +654,6 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter) {
 
 				// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
 				// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
-
-				bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
 
 				void ***vtbl = (void ***) pSwapChain;
 

@@ -159,18 +159,14 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 	}
 }
 
-extern void PrepareDXGI10(IDXGIAdapter1* pAdapter);
-extern void PrepareDXGI11(IDXGIAdapter1* pAdapter);
+extern void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData);
+extern void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData);
 
+/// This function is called by the Mumble client in Mumble's scope
+/// mainly to extract the offsets of various functions in the IDXGISwapChain
+/// and IDXGIObject interfaces that need to be hooked in target
+/// applications. The data is stored in the dxgi shared memory structure.
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
-	if (! dxgi)
-		return;
-
-	// This function is called by the Mumble client in Mumble's scope
-	// mainly to extract the offsets of various functions in the IDXGISwapChain
-	// and IDXGIObject interfaces that need to be hooked in target
-	// applications. The data is stored in the dxgi shared memory structure.
-
 	if (! dxgi)
 		return;
 
@@ -184,7 +180,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	// Make sure this is (Win7?) or greater
+	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
 		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
@@ -202,8 +198,10 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 					IDXGIAdapter1 *pAdapter = NULL;
 					pFactory->EnumAdapters1(0, &pAdapter);
 
-					PrepareDXGI10(pAdapter);
-					PrepareDXGI11(pAdapter);
+					bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+					PrepareDXGI10(pAdapter, initializeDXGIData);
+					initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+					PrepareDXGI11(pAdapter, initializeDXGIData);
 
 					pFactory->Release();
 				} else {

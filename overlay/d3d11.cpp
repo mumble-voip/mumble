@@ -612,14 +612,14 @@ void hookD3D11(HMODULE hD3D11, bool preonly) {
 	}
 }
 
-/// @param hDXGI must be a valid module handle.
-void PrepareDXGI11(IDXGIAdapter1* pAdapter) {
-	// This function is called by the Mumble client in Mumble's scope
-	// mainly to extract the offsets of various functions in the IDXGISwapChain
-	// and IDXGIObject interfaces that need to be hooked in target
-	// applications. The data is stored in the dxgi shared memory structure.
+/// Prepares DXGI and D3D10 data by trying to determining the module filepath
+/// and function offsets in memory.
+/// (This data can later be used for hooking / code injection.
+///
+/// Adjusts the data behind the global variables dxgi and d3d11.
+void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 
-	if (! dxgi || !d3d11)
+	if (!dxgi || !d3d11 || !pAdapter)
 		return;
 
 	ods("D3D11: Preparing static data for DXGI and D3D11 Injection");
@@ -686,8 +686,6 @@ void PrepareDXGI11(IDXGIAdapter1* pAdapter) {
 
 				// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
 				// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
-
-				bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
 
 				void ***vtbl = (void ***) pSwapChain;
 
