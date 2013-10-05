@@ -111,7 +111,7 @@ void checkDXGIHook(bool preonly) {
 		return;
 	}
 
-	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
+	if (dxgi->iOffsetPresent == 0 || dxgi->iOffsetResize == 0)
 		return;
 
 	bCheckHookActive = true;
@@ -176,37 +176,39 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	dxgi->iOffsetPresent = 0;
 	dxgi->iOffsetResize = 0;
 
+	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
 	OSVERSIONINFOEXW ovi;
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
-	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
-		HMODULE hDXGI = LoadLibrary("DXGI.DLL");
+	if (ovi.dwMajorVersion < 6 || (ovi.dwMajorVersion == 6 && ovi.dwBuildNumber < 6001)) {
+		ods("DXGI: No DXGI pre-Vista - skipping prepare");
+		return;
+	}
 
-		if (hDXGI != NULL) {
-			GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
+	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
-			CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
-			ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
-			if (pCreateDXGIFactory1) {
-				IDXGIFactory1 * pFactory;
-				HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
-				if (FAILED(hr))
-					ods("DXGI: Call to pCreateDXGIFactory1 failed!");
-				if (pFactory) {
-					IDXGIAdapter1 *pAdapter = NULL;
-					pFactory->EnumAdapters1(0, &pAdapter);
+	if (hDXGI != NULL) {
+		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, 2048);
 
-					bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
-					PrepareDXGI10(pAdapter, initializeDXGIData);
-					initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
-					PrepareDXGI11(pAdapter, initializeDXGIData);
+		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
+		ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
+		if (pCreateDXGIFactory1) {
+			IDXGIFactory1 * pFactory;
+			HRESULT hr = pCreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&pFactory));
+			if (FAILED(hr))
+				ods("DXGI: Call to pCreateDXGIFactory1 failed!");
+			if (pFactory) {
+				IDXGIAdapter1 *pAdapter = NULL;
+				pFactory->EnumAdapters1(0, &pAdapter);
 
-					pFactory->Release();
-				} else {
-					FreeLibrary(hDXGI);
-				}
+				/// Offsets have to be identified and initialized only once.
+				bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+				PrepareDXGI10(pAdapter, initializeDXGIData);
+				initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+				PrepareDXGI11(pAdapter, initializeDXGIData);
+
+				pFactory->Release();
 			} else {
 				FreeLibrary(hDXGI);
 			}
@@ -214,6 +216,6 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 			FreeLibrary(hDXGI);
 		}
 	} else {
-		ods("DXGI: No DXGI pre-Vista - skipping prepare");
+		FreeLibrary(hDXGI);
 	}
 }

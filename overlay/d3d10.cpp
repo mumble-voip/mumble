@@ -535,8 +535,9 @@ void checkDXGI10Hook(bool preonly) {
 		return;
 	}
 
-	if (! dxgi->iOffsetPresent || ! dxgi->iOffsetResize)
+	if (d3d10->iOffsetAddRef == 0 || d3d10->iOffsetRelease == 0) {
 		return;
+	}
 
 	bCheckHookActive = true;
 
@@ -598,157 +599,148 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 	d3d10->iOffsetAddRef = 0;
 	d3d10->iOffsetRelease = 0;
 
-	OSVERSIONINFOEXW ovi;
-	memset(&ovi, 0, sizeof(ovi));
-	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	GetVersionExW(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
-	// Make sure this is Vista or greater as quite a number of <=WinXP users have fake DX10 libs installed
-	if ((ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 6001))) {
-		HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
+	HMODULE hD3D10 = LoadLibrary("D3D10.DLL");
 
-		if (hD3D10 != NULL) {
+	if (hD3D10 != NULL) {
 
-			HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
-									  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
-									  NULL, NULL, 0);
+		HWND hwnd = CreateWindowW(L"STATIC", L"Mumble DXGI Window", WS_OVERLAPPEDWINDOW,
+								  CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, 0,
+								  NULL, NULL, 0);
 
-			D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
+		D3D10CreateDeviceAndSwapChainType pD3D10CreateDeviceAndSwapChain = reinterpret_cast<D3D10CreateDeviceAndSwapChainType>(GetProcAddress(hD3D10, "D3D10CreateDeviceAndSwapChain"));
 
-			DXGI_SWAP_CHAIN_DESC desc;
-			ZeroMemory(&desc, sizeof(desc));
+		DXGI_SWAP_CHAIN_DESC desc;
+		ZeroMemory(&desc, sizeof(desc));
 
-			RECT rcWnd;
-			GetClientRect(hwnd, &rcWnd);
-			desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
-			desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
+		RECT rcWnd;
+		GetClientRect(hwnd, &rcWnd);
+		desc.BufferDesc.Width = rcWnd.right - rcWnd.left;
+		desc.BufferDesc.Height = rcWnd.bottom - rcWnd.top;
 
-			ods("D3D10: Got ClientRect W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
+		ods("D3D10: Got ClientRect W %d H %d", desc.BufferDesc.Width, desc.BufferDesc.Height);
 
-			desc.BufferDesc.RefreshRate.Numerator = 60;
-			desc.BufferDesc.RefreshRate.Denominator = 1;
-			desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
-			desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-			desc.BufferDesc.Scaling = DXGI_MODE_SCALING_CENTERED;
+		desc.BufferDesc.RefreshRate.Numerator = 60;
+		desc.BufferDesc.RefreshRate.Denominator = 1;
+		desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+		desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+		desc.BufferDesc.Scaling = DXGI_MODE_SCALING_CENTERED;
 
-			desc.SampleDesc.Count = 1;
-			desc.SampleDesc.Quality = 0;
+		desc.SampleDesc.Count = 1;
+		desc.SampleDesc.Quality = 0;
 
-			desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+		desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 
-			desc.BufferCount = 2;
+		desc.BufferCount = 2;
 
-			desc.OutputWindow = hwnd;
+		desc.OutputWindow = hwnd;
 
-			desc.Windowed = true;
+		desc.Windowed = true;
 
-			desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-			IDXGISwapChain *pSwapChain = NULL;
-			ID3D10Device *pDevice = NULL;
-			HRESULT hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
-			if (FAILED(hr))
-				ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
+		IDXGISwapChain *pSwapChain = NULL;
+		ID3D10Device *pDevice = NULL;
+		HRESULT hr = pD3D10CreateDeviceAndSwapChain(pAdapter, D3D10_DRIVER_TYPE_HARDWARE, NULL, 0, D3D10_SDK_VERSION, &desc, &pSwapChain, &pDevice);
+		if (FAILED(hr))
+			ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
 
-			if (pDevice && pSwapChain) {
-				HMODULE hRef = NULL;
+		if (pDevice && pSwapChain) {
+			HMODULE hRef = NULL;
 
-				// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
-				// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
+			// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
+			// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
 
-				void ***vtbl = (void ***) pSwapChain;
+			void ***vtbl = (void ***) pSwapChain;
 
-				void *pPresent = (*vtbl)[8];
-				if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-					ods("D3D10: Failed to get module for Present");
-				} else {
-					wchar_t modulename[2048];
-					GetModuleFileNameW(hRef, modulename, 2048);
-					if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
-						unsigned char *b = (unsigned char *) pPresent;
-						unsigned char *a = (unsigned char *) hRef;
-						int offset = b-a;
-
-						if (initializeDXGIData) {
-							dxgi->iOffsetPresent = offset;
-							ods("D3D10: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
-						} else {
-							if (dxgi->iOffsetPresent == offset) {
-								ods("D3D10: Successfully verified Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
-							} else {
-								ods("D3D10: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetPresent);
-							}
-						}
-					} else {
-						ods("D3D10: Present functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
-					}
-				}
-
-				void *pResize = (*vtbl)[13];
-				if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-					ods("D3D10: Failed to get module for ResizeBuffers");
-				} else {
-					wchar_t modulename[2048];
-					GetModuleFileNameW(hRef, modulename, 2048);
-					// Make sure we are still in the same module and do not mix address pointers
-					if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
-						unsigned char *b = (unsigned char *) pResize;
-						unsigned char *a = (unsigned char *) hRef;
-						int offset = b-a;
-						if (initializeDXGIData) {
-							dxgi->iOffsetResize = offset;
-							ods("D3D10: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
-						} else {
-							if (dxgi->iOffsetResize == offset) {
-								ods("D3D10: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
-							} else {
-								ods("D3D10: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetResize);
-							}
-						}
-					} else {
-						ods("D3D10: ResizeBuffers functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
-					}
-				}
-
-				vtbl = (void ***) pDevice;
-
-				void *pAddRef = (*vtbl)[1];
-				if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
-					ods("D3D10: Failed to get module for AddRef");
-				} else {
-					GetModuleFileNameW(hRef, d3d10->wcD3D10FileName, 2048);
-					unsigned char *b = (unsigned char *) pAddRef;
+			void *pPresent = (*vtbl)[8];
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
+				ods("D3D10: Failed to get module for Present");
+			} else {
+				wchar_t modulename[2048];
+				GetModuleFileNameW(hRef, modulename, 2048);
+				if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
+					unsigned char *b = (unsigned char *) pPresent;
 					unsigned char *a = (unsigned char *) hRef;
-					d3d10->iOffsetAddRef = b-a;
-					ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetAddRef);
-				}
+					int offset = b-a;
 
-				void *pRelease = (*vtbl)[2];
-				if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
-					ods("D3D10: Failed to get module for Release");
-				} else {
-					wchar_t modulename[2048];
-					GetModuleFileNameW(hRef, modulename, 2048);
-					// Make sure we are still in the same module and do not mix address pointers
-					if (wcscmp(modulename, d3d10->wcD3D10FileName) == 0) {
-						unsigned char *b = (unsigned char *) pRelease;
-						unsigned char *a = (unsigned char *) hRef;
-						d3d10->iOffsetRelease = b-a;
-						ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetRelease);
+					if (initializeDXGIData) {
+						dxgi->iOffsetPresent = offset;
+						ods("D3D10: Successfully found Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
 					} else {
-						ods("D3D10: Release functions module does not match the AddRef one. Release: '%ls', AddRef: '%ls'", modulename, d3d10->wcD3D10FileName);
+						if (dxgi->iOffsetPresent == offset) {
+							ods("D3D10: Successfully verified Present offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetPresent);
+						} else {
+							ods("D3D10: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetPresent);
+						}
 					}
+				} else {
+					ods("D3D10: Present functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
 				}
 			}
 
-			if (pDevice)
-				pDevice->Release();
-			if (pSwapChain)
-				pSwapChain->Release();
-			DestroyWindow(hwnd);
-		} else {
-			FreeLibrary(hD3D10);
+			void *pResize = (*vtbl)[13];
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
+				ods("D3D10: Failed to get module for ResizeBuffers");
+			} else {
+				wchar_t modulename[2048];
+				GetModuleFileNameW(hRef, modulename, 2048);
+				// Make sure we are still in the same module and do not mix address pointers
+				if (wcscmp(modulename, dxgi->wcDXGIFileName) == 0) {
+					unsigned char *b = (unsigned char *) pResize;
+					unsigned char *a = (unsigned char *) hRef;
+					int offset = b-a;
+					if (initializeDXGIData) {
+						dxgi->iOffsetResize = offset;
+						ods("D3D10: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+					} else {
+						if (dxgi->iOffsetResize == offset) {
+							ods("D3D10: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcDXGIFileName, dxgi->iOffsetResize);
+						} else {
+							ods("D3D10: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcDXGIFileName, offset, dxgi->iOffsetResize);
+						}
+					}
+				} else {
+					ods("D3D10: ResizeBuffers functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcDXGIFileName);
+				}
+			}
+
+			vtbl = (void ***) pDevice;
+
+			void *pAddRef = (*vtbl)[1];
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
+				ods("D3D10: Failed to get module for AddRef");
+			} else {
+				GetModuleFileNameW(hRef, d3d10->wcD3D10FileName, 2048);
+				unsigned char *b = (unsigned char *) pAddRef;
+				unsigned char *a = (unsigned char *) hRef;
+				d3d10->iOffsetAddRef = b-a;
+				ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetAddRef);
+			}
+
+			void *pRelease = (*vtbl)[2];
+			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
+				ods("D3D10: Failed to get module for Release");
+			} else {
+				wchar_t modulename[2048];
+				GetModuleFileNameW(hRef, modulename, 2048);
+				// Make sure we are still in the same module and do not mix address pointers
+				if (wcscmp(modulename, d3d10->wcD3D10FileName) == 0) {
+					unsigned char *b = (unsigned char *) pRelease;
+					unsigned char *a = (unsigned char *) hRef;
+					d3d10->iOffsetRelease = b-a;
+					ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcD3D10FileName, d3d10->iOffsetRelease);
+				} else {
+					ods("D3D10: Release functions module does not match the AddRef one. Release: '%ls', AddRef: '%ls'", modulename, d3d10->wcD3D10FileName);
+				}
+			}
 		}
+
+		if (pDevice)
+			pDevice->Release();
+		if (pSwapChain)
+			pSwapChain->Release();
+		DestroyWindow(hwnd);
 	} else {
-		ods("D3D10: No DXGI pre-Vista - skipping prepare");
+		FreeLibrary(hD3D10);
 	}
 }
