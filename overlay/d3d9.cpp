@@ -862,7 +862,7 @@ void checkD3D9Hook(bool preonly) {
 }
 
 void hookD3D9(HMODULE hD3D, bool preonly) {
-	const int modulenamesize = Direct3D9Data::cFileNameBuflen;
+	const int modulenamesize = MODULEFILEPATH_BUFLEN;
 	char modulename[modulenamesize];
 	GetModuleFileName(NULL, modulename, modulenamesize);
 	ods("D3D9: hookD3D9 in App '%s'", modulename);
@@ -946,25 +946,6 @@ void freeD3D9Hook(HMODULE hModule) {
 	}
 }
 
-// Checks if the module of the fnptr equals the name/path of the one saved in @global d3dd.
-bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & textindicator) {
-	const int modulenamesize = Direct3D9Data::cFileNameBuflen;
-	char modulename[modulenamesize];
-	// A handle to the module.
-	HMODULE hRef = NULL;
-
-	BOOL success = GetModuleHandleEx(
-			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			fnptr, &hRef);
-	if (!success) {
-		ods(("D3D9: Failed to get module for " + textindicator).c_str());
-	} else {
-		GetModuleFileName(hRef, modulename, modulenamesize);
-		return _stricmp(refmodulepath, modulename) == 0;
-	}
-	return false;
-}
-
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
@@ -975,14 +956,14 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	if (hD3D != NULL) {
 
-		GetModuleFileName(hD3D, d3dd->cFileName, Direct3D9Data::cFileNameBuflen);
+		GetModuleFileName(hD3D, d3dd->cFileName, MODULEFILEPATH_BUFLEN);
 
 		std::string d3d9FnName("Direct3DCreate9");
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));
 		if (! d3dcreate9) {
 			ods(("D3D9: Library without " + d3d9FnName).c_str());
 		} else {
-			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9, "D3D9")) {
+			if (!IsFnInModule((const char*)d3dcreate9, d3dd->cFileName, "D3D9", d3d9FnName)) {
 				ods(("D3D9: " + d3d9FnName + " is not in D3D9 library").c_str());
 			} else {
 				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
@@ -992,7 +973,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					// in IDirect3D9. See d3d9.h of win-/D3D-API.
 					void *pCreate = (*vtbl)[16];
 
-					if (!IsFnInModule(d3dd->cFileName, (const char*)pCreate, "CreateDevice")) {
+					if (!IsFnInModule((const char*)pCreate, d3dd->cFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
 					} else {
 						unsigned char *b = (unsigned char *) pCreate;
@@ -1010,7 +991,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		if (! d3dcreate9ex) {
 			ods(("D3D9: Library without " + d3d9exFnName).c_str());
 		} else {
-			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9ex, "D3D9")) {
+			if (!IsFnInModule((const char*)d3dcreate9ex, d3dd->cFileName, "D3D9", d3d9exFnName)) {
 				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
 					IDirect3D9Ex *id3d9 = NULL;
@@ -1024,7 +1005,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						// CreateDevice. Maybe that one comes in anyway?
 						void *pCreateEx = (*vtbl)[20];
 
-						if (!IsFnInModule(d3dd->cFileName, (const char*)pCreateEx, "CreateDeviceEx")) {
+						if (!IsFnInModule((const char*)pCreateEx, d3dd->cFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
 							unsigned char *b = (unsigned char *) pCreateEx;

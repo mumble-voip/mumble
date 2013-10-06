@@ -51,33 +51,32 @@ using namespace std;
 
 void __cdecl ods(const char *format, ...);
 
+const int MODULEFILEPATH_BUFLEN = 2048;
+
 struct Direct3D9Data {
-	// Offset from module address to Create method.
+	/// Filepath of the module the offsets are for.
+	char cFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetCreate;
-	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
-	static const int cFileNameBuflen = 2048;
-	// Filename of the module.
-	char cFileName[cFileNameBuflen];
 };
 
 struct DXGIData {
-	static const int wcDXGIFileNameBuflen = 2048;
-	wchar_t wcDXGIFileName[wcDXGIFileNameBuflen];
+	/// Filepath of the module the offsets are for.
+	wchar_t wcDXGIFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetPresent;
 	int iOffsetResize;
 };
 
 struct D3D10Data {
-	static const int wcD3D10FileNameBuflen = 2048;
-	wchar_t wcD3D10FileName[wcD3D10FileNameBuflen];
+	/// Filepath of the module the offsets are for.
+	wchar_t wcD3D10FileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetAddRef;
 	int iOffsetRelease;
 };
 
 struct D3D11Data {
-	static const int wcD3D11FileNameBuflen = 2048;
-	wchar_t wcD3D11FileName[wcD3D11FileNameBuflen];
+	/// Filepath of the module the offsets are for.
+	wchar_t wcD3D11FileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetAddRef;
 	int iOffsetRelease;
 };
@@ -146,5 +145,15 @@ extern HMODULE hSelf;
 extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;
+
+/// Checks if the module of the function pointer fnptr equals the module filepath
+/// of refmodulepath.
+///
+/// @param fnptr
+/// @param refmodulepath the module path to compare against
+/// @param logPrefix Used for debug logging.
+/// @param fnName name of the method fnptr points to. used for debug logging
+/// @return true if the module filepath of the function pointer matches the reference one
+extern bool IsFnInModule(const char* fnptr, char* refmodulepath, const std::string & logPrefix, const std::string & fnName);
 
 #endif

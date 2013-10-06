@@ -773,3 +773,21 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	}
 	return TRUE;
 }
+
+bool IsFnInModule(const char* fnptr, char* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
+
+	HMODULE moduleHandle = NULL;
+
+	BOOL success = GetModuleHandleEx(
+			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+			fnptr, &moduleHandle);
+	if (!success) {
+		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
+	} else {
+		const int modulenamesize = MODULEFILEPATH_BUFLEN;
+		char modulename[modulenamesize];
+		GetModuleFileName(moduleHandle, modulename, modulenamesize);
+		return _stricmp(refmodulepath, modulename) == 0;
+	}
+	return false;
+}

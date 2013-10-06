@@ -133,7 +133,7 @@ void checkDXGIHook(bool preonly) {
 
 /// @param hDXGI must be a valid module handle.
 void hookDXGI(HMODULE hDXGI, bool preonly) {
-	const int modulenamesize = DXGIData::wcDXGIFileNameBuflen;
+	const int modulenamesize = MODULEFILEPATH_BUFLEN;
 	wchar_t modulename[modulenamesize];
 	GetModuleFileNameW(NULL, modulename, modulenamesize);
 	ods("DXGI: hookDXGI in App '%ls'", modulename);
@@ -189,7 +189,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 	if (hDXGI != NULL) {
-		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, DXGIData::wcDXGIFileNameBuflen);
+		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, MODULEFILEPATH_BUFLEN);
 
 		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 		ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
