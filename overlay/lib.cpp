@@ -810,7 +810,7 @@ int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::st
 	} else {
 		wchar_t modulename[MODULEFILEPATH_BUFLEN];
 		GetModuleFileNameW(hModule, modulename, MODULEFILEPATH_BUFLEN);
-		if (wcscmp(modulename, refmodulepath) != 0) {
+		if (_wcsicmp(modulename, refmodulepath) != 0) {
 			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
 			return -2;
 		}
