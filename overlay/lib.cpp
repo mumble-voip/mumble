@@ -36,7 +36,6 @@ static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
-HMODULE hSelf = NULL;
 BOOL bIsWin8 = FALSE;
 
 static BOOL bMumble = FALSE;
@@ -490,6 +489,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (! sd->bHooked) {
+			HMODULE hSelf = NULL;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
@@ -648,11 +648,14 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 
 	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
 	// Same buffersize as procname; which we copy from.
-	char fname[1024 + 64];
-	p = fname + (p - procname);
-	strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
+	char fname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
 
-	strcpy_s(p+1, 64, "nooverlay");
+	int pathlength = p - procname;
+	p = fname + pathlength;
+	strncpy_s(fname, sizeof(fname), procname, pathlength + 1);
+
+
+	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "nooverlay");
 	HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
@@ -662,7 +665,7 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	}
 
 	// check for "debugoverlay" file, which would enable overlay debugging
-	strcpy_s(p+1, 64, "debugoverlay");
+	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "debugoverlay");
 	h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
@@ -748,9 +751,9 @@ void dllmainThreadAttach() {
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	// 1024 for the procname, 64 additional for more logic in the buffer deep inside
-	char procname[1024+64];
-	GetModuleFileNameA(NULL, procname, 1024);
+
+	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
+	GetModuleFileNameA(NULL, procname, PROCNAMEFILEPATH_BUFLEN);
 	// Fix for windows XP; on length nSize does not include null-termination
 	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
 	procname[1023] = '\0';
@@ -774,20 +777,20 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	return TRUE;
 }
 
-bool IsFnInModule(const char* fnptr, char* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
+bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
 
-	HMODULE moduleHandle = NULL;
+	HMODULE hModule = NULL;
 
 	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			fnptr, &moduleHandle);
+			fnptr, &hModule);
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
 		const int modulenamesize = MODULEFILEPATH_BUFLEN;
-		char modulename[modulenamesize];
-		GetModuleFileName(moduleHandle, modulename, modulenamesize);
-		return _stricmp(refmodulepath, modulename) == 0;
+		wchar_t modulename[modulenamesize];
+		GetModuleFileNameW(hModule, modulename, modulenamesize);
+		return _wcsicmp(modulename, refmodulepath) == 0;
 	}
 	return false;
 }

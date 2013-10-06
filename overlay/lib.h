@@ -52,10 +52,13 @@ using namespace std;
 void __cdecl ods(const char *format, ...);
 
 const int MODULEFILEPATH_BUFLEN = 2048;
+const int PROCNAMEFILEPATH_BUFLEN = 1024;
+const int PROCNAMEFILEPATH_EXTENDED_EXTLEN = 64;
+const int PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN = PROCNAMEFILEPATH_BUFLEN + PROCNAMEFILEPATH_EXTENDED_EXTLEN;
 
 struct Direct3D9Data {
 	/// Filepath of the module the offsets are for.
-	char cFileName[MODULEFILEPATH_BUFLEN];
+	wchar_t cFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetCreate;
 	int iOffsetCreateEx;
 };
@@ -141,7 +144,6 @@ extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
 extern D3D10Data *d3d10;
 extern D3D11Data *d3d11;
-extern HMODULE hSelf;
 extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;
@@ -154,6 +156,6 @@ extern bool bVideoHooked;
 /// @param logPrefix Used for debug logging.
 /// @param fnName name of the method fnptr points to. used for debug logging
 /// @return true if the module filepath of the function pointer matches the reference one
-extern bool IsFnInModule(const char* fnptr, char* refmodulepath, const std::string & logPrefix, const std::string & fnName);
+extern bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
 
 #endif

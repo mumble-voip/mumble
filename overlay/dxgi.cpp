@@ -139,7 +139,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 	ods("DXGI: hookDXGI in App '%ls'", modulename);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookDXGI), &hSelf);
+	HMODULE hTempSelf = NULL;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookDXGI), &hTempSelf);
 
 	bHooked = true;
 

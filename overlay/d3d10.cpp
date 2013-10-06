@@ -564,7 +564,8 @@ void checkDXGI10Hook(bool preonly) {
 void hookD3D10(HMODULE hD3D10, bool preonly) {
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D10), &hSelf);
+	HMODULE hTempSelf = NULL;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D10), &hTempSelf);
 
 	bHooked = true;
 
