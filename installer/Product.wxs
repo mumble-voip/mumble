@@ -159,7 +159,7 @@
       <?ifdef G15 ?>
         <ComponentRef Id="mumble_g15_helper.exe" />
       <?endif ?>
-      
+      <ComponentRef Id="effects11.dll" />
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR">

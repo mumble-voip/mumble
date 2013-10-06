@@ -420,6 +420,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	if (! bBlackListed) {
 		checkD3D9Hook();
 		checkDXGIHook();
+		checkDXGI11Hook();
 		checkOpenGLHook();
 	}
 
@@ -442,6 +443,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	if (! bBlackListed) {
 		checkD3D9Hook();
 		checkDXGIHook();
+		checkDXGI11Hook();
 		checkOpenGLHook();
 	}
 
@@ -573,6 +575,7 @@ void dllmainProcAttach(char* procname) {
 
 		checkD3D9Hook(true);
 		checkDXGIHook(true);
+		checkDXGI11Hook(true);
 		checkOpenGLHook();
 		ods("Lib: Injected into %s", procname);
 	}
@@ -725,6 +728,7 @@ void dllmainThreadAttach() {
 		if (!bBlackListed) {
 			checkD3D9Hook();
 			checkDXGIHook();
+			checkDXGI11Hook();
 			checkOpenGLHook();
 			ods("Lib: Injected to thread");
 		}

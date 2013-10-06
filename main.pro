@@ -43,6 +43,9 @@ CONFIG *= ordered debug_and_release
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
     }
+    exists(effects11/effects11.cpp) {
+      SUBDIRS *= effects11
+    }
   }
 
   unix:!macx:!CONFIG(no-overlay) {

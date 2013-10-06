@@ -5,6 +5,7 @@ debug/
 release/
 asio/
 local/
+obj/
 indent.sh
 *.pdb
 *.sln
@@ -15,6 +16,7 @@ indent.sh
 *~
 *.pb.h
 *.pb.cc
+*.msi
 *.pro.user
 ui_*.h
 *.qm

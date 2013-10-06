@@ -188,9 +188,16 @@ void *HardHook::cloneCode(void **porig) {
 			case 0x5e:
 			case 0x5f:
 				break;
+			case 0x00: // OR - r/m8 r8 - http://ref.x86asm.net/coder32.html#x00
+			case 0x0b: // OR - r32 r/m32 - http://ref.x86asm.net/coder32.html#x0B
+				extra =1;
+				break;
 			case 0x6a: // PUSH immediate
 				extra = 1;
 				break;
+//			case 0x6f: // OUTS - no idea  - http://ref.x86asm.net/coder32.html#x6F
+//				extra = 4;
+//				break;
 			case 0x68: // PUSH immediate
 				extra = 4;
 				break;
@@ -201,6 +208,13 @@ void *HardHook::cloneCode(void **porig) {
 				extra = modrmbytes(a,b) + 2;
 				break;
 			case 0x8b:	// MOV
+				extra = modrmbytes(a,b) + 1;
+				break;
+//			case 0xcb:	// RETF
+//			case 0xcc:	// INT 3
+//				extra = 6;	// hack for now
+//				break;
+			case 0xff:	// INC || DEC || CALL || JMP || PUSH - http://ref.x86asm.net/coder.html#xFF
 				extra = modrmbytes(a,b) + 1;
 				break;
 			default: {

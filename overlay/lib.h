@@ -67,6 +67,7 @@ struct DXGIData {
 	int iOffsetRelease;
 	wchar_t wcDXGIFileName[2048];
 	wchar_t wcD3D10FileName[2048];
+	wchar_t wcD3D11FileName[2048];
 };
 
 struct SharedData {
@@ -117,6 +118,7 @@ class Pipe {
 		void disconnect();
 };
 
+extern void checkDXGI11Hook(bool preonly = false);
 extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
