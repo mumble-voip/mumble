@@ -545,6 +545,7 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 }
 
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
+
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
 
@@ -651,6 +652,35 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	return res;
 }
 
+IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9* device) {
+
+	IDirect3DSwapChain9 *pSwap = NULL;
+	device->GetSwapChain(0, &pSwap);
+	if (pSwap) {
+
+		IDirect3DDevice9 *originalDevice = NULL;
+		if (SUCCEEDED(pSwap->GetDevice(&originalDevice))) {
+
+			if (originalDevice == device) {
+				// Found the original device. Release responsibility is passed
+				// to the caller.
+			} else {
+				device = findOriginalDevice(originalDevice);
+				originalDevice->Release();
+			}
+
+		} else {
+			ods("D3D9: Failed to recurse to find original device. Could not get Device from Swapchain.");
+		}
+
+		pSwap->Release();
+	} else {
+		ods("D3D9: Failed to recurse to find original device. Could not get Swapchain.");
+	}
+
+	return device;
+}
+
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
 static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	Mutex m;
@@ -672,27 +702,11 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
 
 	// Get real interface, please.
-	bool bfound = false;
-	do {
-		bfound = false;
-		IDirect3DSwapChain9 *pSwap = NULL;
-		idd->GetSwapChain(0, &pSwap);
-		if (pSwap) {
-			IDirect3DDevice9 *idorig = NULL;
-			if (SUCCEEDED(pSwap->GetDevice(&idorig))) {
-				if (idorig != idd) {
-					ods("D3D9: Prepatched device, using original. %p => %p", idorig, idd);
-					if (idd != *ppReturnedDeviceInterface)
-						idd->Release();
-					idd = idorig;
-					bfound = true;
-				} else {
-					idorig->Release();
-				}
-			}
-			pSwap->Release();
-		}
-	} while (bfound);
+	IDirect3DDevice9 * originalDevice = findOriginalDevice(idd);
+	if (idd != originalDevice) {
+		ods("D3D9: Prepatched device, using original. %p => %p", idd, originalDevice);
+		idd = originalDevice;
+	}
 
 	DevState *ds = new DevState;
 	ds->dev = idd;
@@ -703,6 +717,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	if (devMap.find(idd) != devMap.end()) {
 		ods("Device exists in devMap already - canceling injection into device");
 		delete ds;
+
 		return hr;
 	}
 	devMap[idd] = ds;
@@ -736,6 +751,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	}
 
 	ds->createCleanState();
+
 	return hr;
 }
 
