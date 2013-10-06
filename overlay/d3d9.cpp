@@ -86,7 +86,6 @@ class DevState : public Pipe {
 		void releaseData();
 		void releaseAll();
 		void draw();
-		void postDraw();
 
 		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		virtual void setRect();
