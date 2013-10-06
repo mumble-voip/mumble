@@ -886,7 +886,7 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 		}
 
 	} else if (! preonly) {
-		ods("D3D9: Interface changed, can't rawpatch.");
+		ods("D3D9: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3dd->wcFileName);
 
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (d3dcreate9) {

@@ -154,7 +154,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 		HookResizeRaw((voidFunc)(raw + dxgi->iOffsetResize));
 
 	} else if (! preonly) {
-		ods("DXGI: Interface changed, can't rawpatch");
+		ods("DXGI: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, dxgi->wcFileName);
 	} else {
 		bHooked = false;
 	}

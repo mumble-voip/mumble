@@ -577,7 +577,7 @@ void hookD3D10(HMODULE hD3D10, bool preonly) {
 		unsigned char *raw = (unsigned char *) hD3D10;
 		HookAddRelease((voidFunc)(raw + d3d10->iOffsetAddRef), (voidFunc)(raw + d3d10->iOffsetRelease));
 	} else if (! preonly) {
-		ods("D3D11: Interface changed, can't rawpatch");
+		ods("D3D11: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d10->wcFileName);
 	} else {
 		bHooked = false;
 	}
