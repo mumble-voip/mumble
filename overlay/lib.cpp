@@ -744,8 +744,8 @@ void dllmainThreadAttach() {
 		checkForWPF();
 
 		if (!bBlackListed) {
+			ods("Lib: Checking for hooks, potentially injecting");
 			checkHooks();
-			ods("Lib: Injected to thread");
 		}
 	}
 }

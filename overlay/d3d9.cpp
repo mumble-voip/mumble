@@ -73,7 +73,8 @@ class DevState : public Pipe {
 		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
-static map<IDirect3DDevice9 *, DevState *> devMap;
+typedef map<IDirect3DDevice9 *, DevState *> DevMapType;
+static DevMapType devMap;
 static bool bHooked = false;
 
 DevState::DevState() {
@@ -319,7 +320,8 @@ static HardHook hhPresentEx;
 static HardHook hhSwapPresent;
 
 static void doPresent(IDirect3DDevice9 *idd) {
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 
 	if (ds && ds->pSB) {
 		DWORD dwOldThread = ds->dwMyThread;
@@ -426,7 +428,8 @@ typedef HRESULT(__stdcall *ResetType)(IDirect3DDevice9 *, D3DPRESENT_PARAMETERS 
 static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
 	ods("D3D9: Chaining Reset");
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
@@ -454,7 +457,8 @@ typedef HRESULT(__stdcall *ResetExType)(IDirect3DDevice9Ex *, D3DPRESENT_PARAMET
 static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex * idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX * param2) {
 	ods("D3D9: Chaining ResetEx");
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
 		DWORD dwOldThread = ds->dwMyThread;
 		if (dwOldThread)
@@ -487,7 +491,8 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	ods("D3D9: Chaining AddRef");
 	#endif
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount++;
@@ -520,7 +525,8 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	ods("D3D9: Chaining AddRef (Win8)");
 	#endif
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
 		ds->myRefCount++;
 		return ds->refCount;
@@ -554,7 +560,8 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	ods("D3D9: Chaining Release");
 	#endif
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
@@ -581,10 +588,11 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 
 		ds->dwMyThread = dwOldThread;
 
-		ods("D3D9: Final release. MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+		ods("D3D9: Final release of %p. MyRefs = %d Tot = %d", idd, ds->myRefCount, ds->refCount);
 
-		devMap.erase(idd);
+		devMap.erase(it);
 		delete ds;
+		ds = NULL;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -610,7 +618,8 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	ods("D3D9: Chaining Release (Win8)");
 	#endif
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
@@ -626,9 +635,9 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 			ds->dwMyThread = GetCurrentThreadId();
 			ds->releaseAll();
 			ds->dwMyThread = dwOldThread;
-			ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+			ods("D3D9: Final release of %p. MyRefs = %d Tot = %d", idd, ds->myRefCount, ds->refCount);
 
-			devMap.erase(idd);
+			devMap.erase(it);
 			delete ds;
 			ds = NULL;
 		}
@@ -714,8 +723,9 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap.find(idd) != devMap.end()) {
-		ods("Device exists in devMap already - canceling injection into device");
+	DevMapType::iterator it = devMap.find(idd);
+	if (it != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
 
 		return hr;
@@ -780,9 +790,11 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap.find(idd) != devMap.end()) {
-		ods("Device exists in devMap already - canceling injection into device");
+	DevMapType::iterator it = devMap.find(idd);
+	if (it != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
+
 		return hr;
 	}
 	devMap[idd] = ds;
