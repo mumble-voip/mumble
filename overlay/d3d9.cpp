@@ -958,24 +958,25 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	if (hD3D != NULL) {
 
-		GetModuleFileNameW(hD3D, d3dd->cFileName, MODULEFILEPATH_BUFLEN);
+		GetModuleFileNameW(hD3D, d3dd->wcFileName, MODULEFILEPATH_BUFLEN);
 
 		std::string d3d9FnName("Direct3DCreate9");
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));
 		if (! d3dcreate9) {
 			ods(("D3D9: Library without " + d3d9FnName).c_str());
 		} else {
-			if (!IsFnInModule((const char*)d3dcreate9, d3dd->cFileName, "D3D9", d3d9FnName)) {
+			if (!IsFnInModule((const char*)d3dcreate9, d3dd->wcFileName, "D3D9", d3d9FnName)) {
 				ods(("D3D9: " + d3d9FnName + " is not in D3D9 library").c_str());
 			} else {
 				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
 				if (id3d9) {
 					void ***vtbl = (void ***) id3d9;
+
 					// vtable offset: CreateDevice is 17th method (0 based 16th)
 					// in IDirect3D9. See d3d9.h of win-/D3D-API.
 					void *pCreate = (*vtbl)[16];
 
-					if (!IsFnInModule((const char*)pCreate, d3dd->cFileName, "D3D9", "CreateDevice")) {
+					if (!IsFnInModule((const char*)pCreate, d3dd->wcFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
 					} else {
 						unsigned char *b = (unsigned char *) pCreate;
@@ -993,7 +994,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		if (! d3dcreate9ex) {
 			ods(("D3D9: Library without " + d3d9exFnName).c_str());
 		} else {
-			if (!IsFnInModule((const char*)d3dcreate9ex, d3dd->cFileName, "D3D9", d3d9exFnName)) {
+			if (!IsFnInModule((const char*)d3dcreate9ex, d3dd->wcFileName, "D3D9", d3d9exFnName)) {
 				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
 					IDirect3D9Ex *id3d9 = NULL;
@@ -1007,7 +1008,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						// CreateDevice. Maybe that one comes in anyway?
 						void *pCreateEx = (*vtbl)[20];
 
-						if (!IsFnInModule((const char*)pCreateEx, d3dd->cFileName, "D3D9", "CreateDeviceEx")) {
+						if (!IsFnInModule((const char*)pCreateEx, d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
 							unsigned char *b = (unsigned char *) pCreateEx;

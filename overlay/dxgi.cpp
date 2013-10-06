@@ -146,7 +146,7 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 
 	// Can we use the prepatch data?
 	GetModuleFileNameW(hDXGI, modulename, modulenamesize);
-	if (_wcsicmp(dxgi->wcDXGIFileName, modulename) == 0) {
+	if (_wcsicmp(dxgi->wcFileName, modulename) == 0) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hDXGI;
@@ -173,7 +173,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 
 	ods("DXGI: Preparing static data for DXGI Injection");
 
-	dxgi->wcDXGIFileName[0] = 0;
+	dxgi->wcFileName[0] = 0;
 	dxgi->iOffsetPresent = 0;
 	dxgi->iOffsetResize = 0;
 
@@ -190,7 +190,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 	HMODULE hDXGI = LoadLibrary("DXGI.DLL");
 
 	if (hDXGI != NULL) {
-		GetModuleFileNameW(hDXGI, dxgi->wcDXGIFileName, MODULEFILEPATH_BUFLEN);
+		GetModuleFileNameW(hDXGI, dxgi->wcFileName, MODULEFILEPATH_BUFLEN);
 
 		CreateDXGIFactory1Type pCreateDXGIFactory1 = reinterpret_cast<CreateDXGIFactory1Type>(GetProcAddress(hDXGI, "CreateDXGIFactory1"));
 		ods("DXGI: Got CreateDXGIFactory1 at %p", pCreateDXGIFactory1);
