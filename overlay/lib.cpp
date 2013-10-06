@@ -794,3 +794,29 @@ bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string &
 	}
 	return false;
 }
+
+int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
+
+	HMODULE hModule = NULL;
+
+	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) fnptr, &hModule)) {
+		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
+		return -1;
+	}
+
+	const bool bInit = refmodulepath[0] == '\0';
+	if (bInit) {
+		GetModuleFileNameW(hModule, refmodulepath, MODULEFILEPATH_BUFLEN);
+	} else {
+		wchar_t modulename[MODULEFILEPATH_BUFLEN];
+		GetModuleFileNameW(hModule, modulename, MODULEFILEPATH_BUFLEN);
+		if (wcscmp(modulename, refmodulepath) != 0) {
+			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
+			return -2;
+		}
+	}
+
+	unsigned char * fn = (unsigned char *) fnptr;
+	unsigned char * base = (unsigned char *) hModule;
+	return fn - base;
+}

@@ -158,4 +158,9 @@ extern bool bVideoHooked;
 /// @return true if the module filepath of the function pointer matches the reference one
 extern bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
 
+/// Checks fnptr is in a loaded module with module path refmodulepath.
+///
+/// @return Offset as int or < 0 on failure.
+extern int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
+
 #endif

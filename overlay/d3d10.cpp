@@ -645,7 +645,6 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			ods("D3D10: pD3D10CreateDeviceAndSwapChain failure!");
 
 		if (pDevice && pSwapChain) {
-			HMODULE hRef = NULL;
 
 			// For VC++ the vtable is located at the base addr. of the object and each function entry is a single pointer. Since p.e. the base classes
 			// of IDXGISwapChain have a total of 8 functions the 8+Xth entry points to the Xth added function in the derived interface.
@@ -653,86 +652,49 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			void ***vtbl = (void ***) pSwapChain;
 
 			void *pPresent = (*vtbl)[8];
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pPresent, &hRef)) {
-				ods("D3D10: Failed to get module for Present");
-			} else {
-				wchar_t modulename[MODULEFILEPATH_BUFLEN];
-				GetModuleFileNameW(hRef, modulename, MODULEFILEPATH_BUFLEN);
-				if (wcscmp(modulename, dxgi->wcFileName) == 0) {
-					unsigned char *b = (unsigned char *) pPresent;
-					unsigned char *a = (unsigned char *) hRef;
-					int offset = b-a;
-
-					if (initializeDXGIData) {
-						dxgi->iOffsetPresent = offset;
-						ods("D3D10: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
-					} else {
-						if (dxgi->iOffsetPresent == offset) {
-							ods("D3D10: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
-						} else {
-							ods("D3D10: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetPresent);
-						}
-					}
+			int offset = GetFnOffsetInModule((const char*) pPresent, dxgi->wcFileName, "D3D10", "Present");
+			if (offset >= 0) {
+				if (initializeDXGIData) {
+					dxgi->iOffsetPresent = offset;
+					ods("D3D10: Successfully found Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
 				} else {
-					ods("D3D10: Present functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcFileName);
+					if (dxgi->iOffsetPresent == offset) {
+						ods("D3D10: Successfully verified Present offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetPresent);
+					} else {
+						ods("D3D10: Failed to verify Present offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetPresent);
+					}
 				}
 			}
 
 			void *pResize = (*vtbl)[13];
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pResize, &hRef)) {
-				ods("D3D10: Failed to get module for ResizeBuffers");
-			} else {
-				wchar_t modulename[MODULEFILEPATH_BUFLEN];
-				GetModuleFileNameW(hRef, modulename, MODULEFILEPATH_BUFLEN);
-				// Make sure we are still in the same module and do not mix address pointers
-				if (wcscmp(modulename, dxgi->wcFileName) == 0) {
-					unsigned char *b = (unsigned char *) pResize;
-					unsigned char *a = (unsigned char *) hRef;
-					int offset = b-a;
-					if (initializeDXGIData) {
-						dxgi->iOffsetResize = offset;
-						ods("D3D10: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
-					} else {
-						if (dxgi->iOffsetResize == offset) {
-							ods("D3D10: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
-						} else {
-							ods("D3D10: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetResize);
-						}
-					}
+			offset = GetFnOffsetInModule((const char*) pResize, dxgi->wcFileName, "D3D10", "ResizeBuffers");
+			if (offset >= 0) {
+				if (initializeDXGIData) {
+					dxgi->iOffsetResize = offset;
+					ods("D3D10: Successfully found ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
 				} else {
-					ods("D3D10: ResizeBuffers functions module name does not match previously found. Now: '%ls', Previously: '%ls'", modulename, dxgi->wcFileName);
+					if (dxgi->iOffsetResize == offset) {
+						ods("D3D10: Successfully verified ResizeBuffers offset: %ls: %d", dxgi->wcFileName, dxgi->iOffsetResize);
+					} else {
+						ods("D3D10: Failed to verify ResizeBuffers offset for %ls. Found %d, but previously found %d.", dxgi->wcFileName, offset, dxgi->iOffsetResize);
+					}
 				}
 			}
 
 			vtbl = (void ***) pDevice;
 
 			void *pAddRef = (*vtbl)[1];
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pAddRef, &hRef)) {
-				ods("D3D10: Failed to get module for AddRef");
-			} else {
-				GetModuleFileNameW(hRef, d3d10->wcFileName, MODULEFILEPATH_BUFLEN);
-				unsigned char *b = (unsigned char *) pAddRef;
-				unsigned char *a = (unsigned char *) hRef;
-				d3d10->iOffsetAddRef = b-a;
+			offset = GetFnOffsetInModule((const char*) pAddRef, d3d10->wcFileName, "D3D10", "AddRef");
+			if (offset >= 0) {
+				d3d10->iOffsetAddRef = offset;
 				ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcFileName, d3d10->iOffsetAddRef);
 			}
 
 			void *pRelease = (*vtbl)[2];
-			if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) pRelease, &hRef)) {
-				ods("D3D10: Failed to get module for Release");
-			} else {
-				wchar_t modulename[MODULEFILEPATH_BUFLEN];
-				GetModuleFileNameW(hRef, modulename, MODULEFILEPATH_BUFLEN);
-				// Make sure we are still in the same module and do not mix
-				// address pointer offsets from different modules (the AddRef above).
-				if (wcscmp(modulename, d3d10->wcFileName) == 0) {
-					unsigned char *b = (unsigned char *) pRelease;
-					unsigned char *a = (unsigned char *) hRef;
-					d3d10->iOffsetRelease = b-a;
-					ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcFileName, d3d10->iOffsetRelease);
-				} else {
-					ods("D3D10: Release functions module does not match the AddRef one. Release: '%ls', AddRef: '%ls'", modulename, d3d10->wcFileName);
-				}
+			offset = GetFnOffsetInModule((const char*) pRelease, d3d10->wcFileName, "D3D10", "Release");
+			if (offset >= 0) {
+				d3d10->iOffsetRelease = offset;
+				ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcFileName, d3d10->iOffsetRelease);
 			}
 		}
 
