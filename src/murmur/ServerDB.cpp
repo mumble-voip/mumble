@@ -953,14 +953,14 @@ int Server::authenticate(QString &name, const QString &pw, int sessionId, const 
 						if(! setInfo(userId, info))
 							qWarning("ServerDB: Failed to downgrade user account to legacy hash.");
 					}
-					else if (storedmeter < Meta::mp.kdfIterations) {
-						// user kdfmeter lower than global, update it
+					else if (storedmeter < Meta::mp.kdfIterations || storedmeter < Meta::mp.iKdfIterations) {
+						// user kdfmeter lower than global a/or override, update it
 						QMap<int, QString> info;
 						info.insert(ServerDB::User_Password, pw);
 						info.insert(ServerDB::User_KdfMeter, QString::number(static_cast<int>(Meta::mp.kdfIterations)));
 						int userId = query.value(0).toInt();
 						if(! setInfo(userId, info))
-							qWarning("ServerDB: Failed to upgrade user kdf shadow.");
+							qWarning("ServerDB: Failed to update user kdf shadow.");
 					}
 				}
 			}
