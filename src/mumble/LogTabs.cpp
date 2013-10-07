@@ -141,7 +141,7 @@ void LogTabWidget::updateHashMap(){
 
 int	LogTabWidget::markTabAsUpdated(int index){
     if(this->currentIndex() != index)
-		this->tabBar()->setTabTextColor(index, Qt::blue); 
+        this->tabBar()->setTabTextColor(index, Qt::blue);
 }
 
 int LogTabWidget::markTabAsRestricted(int index){
@@ -173,8 +173,10 @@ void LogTabWidget::handleDocumentSetDefaultStyleSheet(QString styleSheet){
 
 void LogTabWidget::onCurrentChanged(int newIndex){
     this->tabBar()->setTabTextColor(newIndex, Qt::black);
-    setTabText(newIndex, dynamic_cast<LogTab*>(widget(newIndex))->m_fullname);
-    setTabText(m_oldIndex, dynamic_cast<LogTab*>(widget(m_oldIndex))->m_shortName);
+    if(getChannelTab() != newIndex)
+        setTabText(newIndex, dynamic_cast<LogTab*>(widget(newIndex))->m_fullname);
+    if(getChannelTab() != m_oldIndex)
+        setTabText(m_oldIndex, dynamic_cast<LogTab*>(widget(m_oldIndex))->m_shortName);
     m_oldIndex = newIndex;
 }
 

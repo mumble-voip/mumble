@@ -524,7 +524,9 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	}
 	if (pDst != pSelf){
 		pmModel->removeUser(pDst);
-        g.mw->qtwLogTabs->markTabAsRestricted(g.mw->qtwLogTabs->findTab(pDst));
+        int targetTab = g.mw->qtwLogTabs->findTab(pDst);
+        if(-1 != targetTab)
+            g.mw->qtwLogTabs->markTabAsRestricted(targetTab);
 	}
 }
 
