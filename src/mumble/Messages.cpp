@@ -522,11 +522,11 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	} else {
 		g.l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 	}
-	if (pDst != pSelf){
-		pmModel->removeUser(pDst);
+    if (pDst != pSelf){
         int targetTab = g.mw->qtwLogTabs->findTab(pDst);
         if(-1 != targetTab)
             g.mw->qtwLogTabs->markTabAsRestricted(targetTab);
+        pmModel->removeUser(pDst);
 	}
 }
 
