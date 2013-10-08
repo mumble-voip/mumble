@@ -278,6 +278,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (msg.has_name()) {
 			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
 			bNewUser = true;
+            g.mw->updateChatBar();
 		} else {
 			return;
 		}

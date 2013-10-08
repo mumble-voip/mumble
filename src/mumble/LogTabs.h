@@ -46,8 +46,7 @@ class LogTab : public LogTextBrowser{
 public slots:
     void onHighlighted(const QUrl&);
 private:
-    QString m_fullname;
-    QString m_shortName;
+    QString m_name;
     QString m_hash;
     ///Initialize a LogTab from a user
     LogTab(ClientUser*, QWidget *p = NULL);
@@ -83,6 +82,7 @@ public slots:
     void 	onCurrentChanged(int);
     void    onTabMoved(int, int);
     void    onTabCloseRequested(int);
+    void    onTabBarCustomContextMenuRequested(const QPoint&);
 signals:
     void 	anchorClick(const QUrl&);
     void    customContextMenuRequest(const QPoint&);
@@ -90,7 +90,6 @@ signals:
 private:
     ///Mapping a users hash to a tab index
     QHash<QString, int>* m_hashMap;
-    int		m_oldIndex;
     int     m_maxBlockCount;
     void    updateHashMap();
     int     createTab(ClientUser*);
