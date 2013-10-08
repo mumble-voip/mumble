@@ -193,7 +193,7 @@ void LogTabWidget::onTabBarCustomContextMenuRequested(const QPoint& point){
     QSignalMapper *mapper = new QSignalMapper();
     for(int i = 0; i < count(); i++){
         if(i == getChannelTab())
-            return;
+            continue;
         if(this->tabBar()->tabRect(i).contains(point)){
             QMenu* menu = new QMenu();
             QAction* action = menu->addAction(QString::fromUtf8("Close"));
