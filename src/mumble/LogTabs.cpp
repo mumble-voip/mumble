@@ -47,7 +47,6 @@ LogTab::LogTab(ClientUser* user,QWidget *p) : LogTextBrowser(p){
     this->setDocument(ld);
     connect(this, SIGNAL(highlighted(QUrl)), this, SLOT(onHighlighted(QUrl)));
     this->setWhatsThis(QString::fromUtf8("This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu."));
-
 }
 
 LogTab::~LogTab(){
@@ -73,9 +72,9 @@ void LogTab::onHighlighted(const QUrl& url){
 LogTabWidget::LogTabWidget(QWidget* parent) : QTabWidget(parent){
     this->setTabPosition(QTabWidget::South);
     this->setMovable(true);
-    this->setUsesScrollButtons(false);
+    this->setUsesScrollButtons(true);
     this->setElideMode(Qt::ElideRight);
-    this->setStyleSheet(QString::fromUtf8("QTabBar::tab{min-width: 1px} QTabBar::tab:selected{min-width: 100px}"));
+    this->setStyleSheet(QString::fromUtf8("QTabBar::tab{min-width: 1px}"));
 
     this->tabBar()->setContextMenuPolicy(Qt::CustomContextMenu);
 
