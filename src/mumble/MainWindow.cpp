@@ -1071,7 +1071,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	if (g.sh->qsRelease.isEmpty() || g.sh->qsOS.isEmpty() || g.sh->qsOSVersion.isEmpty()) {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
 	} else {
-		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
+		qsVersion.append(tr("<p>%1<br />%2 %3</p>")
 		                 .arg(g.sh->qsRelease, g.sh->qsOS, g.sh->qsOSVersion));
 	}
 
