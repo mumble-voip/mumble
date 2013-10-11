@@ -491,7 +491,7 @@ extern HRESULT presentD3D11(IDXGISwapChain *pSwapChain) {
 		pDevice->Release();
 	} else {
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-		// As DXGI is used for multiple D3D versions. Thus, this is expected if
+		// DXGI is used for multiple D3D versions. Thus, this is expected if
 		// another version is used (like D3D10).
 		ods("D3D11: Could not draw because ID3D11Device could not be retrieved.");
 		#endif
