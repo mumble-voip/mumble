@@ -233,7 +233,7 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
 
-	if (! SUCCEEDED(hr)) {
+	if (FAILED(hr)) {
 		pTexture = NULL;
 		ods("D3D11: Failed to create texture.");
 		return;
@@ -247,7 +247,7 @@ void D11State::newTexture(unsigned int w, unsigned int h) {
 	srvDesc.Texture2D.MipLevels = desc.MipLevels;
 
 	hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
-	if (! SUCCEEDED(hr)) {
+	if (FAILED(hr)) {
 		pSRView = NULL;
 		pTexture->Release();
 		pTexture = NULL;
@@ -270,7 +270,7 @@ void D11State::init() {
 	if (FAILED(hr))
 		ods("D3D11: pDevice->CreateDeferredContext failure!");
 
-	if (! SUCCEEDED(hr) || !pDeviceContext) {
+	if (FAILED(hr) || !pDeviceContext) {
 		ods("D3D11: Failed to create DeferredContext (0x%x). Getting ImmediateContext", hr);
 		pDevice->GetImmediateContext(&pDeviceContext);
 		D11CreateStateBlock(pDeviceContext, &pOrigStateBlock);
@@ -441,7 +441,7 @@ void D11State::draw() {
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
 		HRESULT hr = pDiffuseTexture->SetResource(pSRView);
-		if (! SUCCEEDED(hr))
+		if (FAILED(hr))
 			ods("D3D11: Failed to set resource");
 
 		for (UINT p = 0; p < techDesc.Passes; ++p) {
@@ -482,7 +482,7 @@ extern HRESULT presentD3D11(IDXGISwapChain *pSwapChain) {
 			delete ds;
 			ds = NULL;
 		}
-		if (! ds) {
+		if (ds == NULL) {
 			ods("D3D11: New state");
 			ds = new D11State(pSwapChain, pDevice);
 			chains[pSwapChain] = ds;

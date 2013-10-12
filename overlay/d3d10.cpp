@@ -227,7 +227,7 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	desc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
 	hr = pDevice->CreateTexture2D(&desc, NULL, &pTexture);
 
-	if (! SUCCEEDED(hr)) {
+	if (FAILED(hr)) {
 		pTexture = NULL;
 		ods("D3D10: Failed to create texture.");
 		return;
@@ -241,7 +241,7 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	srvDesc.Texture2D.MipLevels = desc.MipLevels;
 
 	hr = pDevice->CreateShaderResourceView(pTexture, &srvDesc, &pSRView);
-	if (! SUCCEEDED(hr)) {
+	if (FAILED(hr)) {
 		pSRView = NULL;
 		pTexture->Release();
 		pTexture = NULL;
@@ -426,7 +426,7 @@ void D10State::draw() {
 		pDevice->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
 		hr = pDiffuseTexture->SetResource(pSRView);
-		if (! SUCCEEDED(hr))
+		if (FAILED(hr))
 			ods("D3D10: Failed to set resource");
 
 		for (UINT p = 0; p < techDesc.Passes; ++p) {
@@ -454,7 +454,7 @@ extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 			delete ds;
 			ds = NULL;
 		}
-		if (! ds) {
+		if (ds == NULL) {
 			ods("D3D10: New state");
 			ds = new D10State(pSwapChain, pDevice);
 			chains[pSwapChain] = ds;
