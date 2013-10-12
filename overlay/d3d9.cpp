@@ -972,6 +972,7 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 						break;
 					default:
 						ods("D3D11: Unexpected return result from Direct3DCreate9Ex");
+						break;
 				}
 			}
 		}
