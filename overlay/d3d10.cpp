@@ -552,14 +552,14 @@ void checkDXGI10Hook(bool preonly) {
 		if (! bHooked) {
 			hookD3D10(hD3D10, preonly);
 		}
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 		if (hDXGI) {
 			ods("D3D10: No DXGI.DLL found as loaded. No hooking at this point.");
 		} else {
 			ods("D3D10: No D3D10CORE.DLL found as loaded. No hooking at this point.");
 		}
-	#endif
+		#endif
 	}
 
 	bCheckHookActive = false;

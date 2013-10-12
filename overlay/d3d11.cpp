@@ -581,14 +581,14 @@ void checkDXGI11Hook(bool preonly) {
 		if (! bHooked) {
 			hookD3D11(hD3D11, preonly);
 		}
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	} else {
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 		if (hDXGI) {
 			ods("D3D11: No DXGI.DLL found as loaded. No hooking at this point.");
 		} else {
 			ods("D3D11: No D3D11.DLL found as loaded. No hooking at this point.");
 		}
-	#endif
+		#endif
 	}
 
 	bCheckHookActive = false;
