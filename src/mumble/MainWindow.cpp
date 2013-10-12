@@ -1912,7 +1912,7 @@ void MainWindow::updateMenuPermissions() {
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(true);
-    if(g.s.bLogTabs)
+    if(g.s.bLogTabs){
         if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex())
             qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
         else if(NULL == pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()))){
@@ -1921,8 +1921,9 @@ void MainWindow::updateMenuPermissions() {
         }
         else
             qteChat->setEnabled(true);
-	else
-		qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
+     }
+    else
+        qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
 void MainWindow::talkingChanged() {
@@ -2922,4 +2923,3 @@ void MainWindow::destroyUserInformation() {
 void MainWindow::on_qtwLogTabs_currentChanged(int index){
 	this->updateChatBar();
 }
-

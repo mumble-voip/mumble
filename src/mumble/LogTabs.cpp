@@ -199,6 +199,7 @@ void LogTabWidget::onTabBarCustomContextMenuRequested(const QPoint& point){
             mapper->setMapping(action, i);
             connect(action, SIGNAL(triggered()), mapper, SLOT(map()));
             connect(mapper, SIGNAL(mapped(int)), this, SLOT(onTabCloseRequested(int)));
+            connect(mapper, SIGNAL(mapped(int)), this, SIGNAL(currentChanged(int)));
             menu->exec(QCursor::pos());
             break;
         }
