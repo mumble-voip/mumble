@@ -100,8 +100,10 @@ class D10State: protected Pipe {
 		virtual void newTexture(unsigned int w, unsigned int h);
 };
 
-map<IDXGISwapChain *, D10State *> chains;
-map<ID3D10Device *, D10State *> devices;
+typedef map<IDXGISwapChain *, D10State *> SwapchainMap;
+SwapchainMap chains;
+typedef map<ID3D10Device *, D10State *> DeviceMap;
+DeviceMap devices;
 
 D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	this->pSwapChain = pSwapChain;
@@ -443,7 +445,9 @@ extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 	ID3D10Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
 	if (SUCCEEDED(hr) && pDevice) {
-		D10State *ds = chains[pSwapChain];
+		SwapchainMap::iterator it = chains.find(pSwapChain);
+		D10State *ds = it != chains.end() ? it->second : NULL;
+
 		if (ds && ds->pDevice != pDevice) {
 			ods("D3D10: SwapChain device changed");
 			devices.erase(ds->pDevice);
@@ -473,10 +477,11 @@ extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 
 extern void resizeD3D10(IDXGISwapChain *pSwapChain) {
 	// Remove the D10State from our "cache" (= Invalidate)
-	D10State *ds = chains[pSwapChain];
-	if (ds) {
+	SwapchainMap::iterator it = chains.find(pSwapChain);
+	if (it != chains.end()) {
+		D10State *ds = it->second;
 		devices.erase(ds->pDevice);
-		chains.erase(pSwapChain);
+		chains.erase(it);
 		delete ds;
 	}
 }

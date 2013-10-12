@@ -103,8 +103,10 @@ class D11State: protected Pipe {
 		virtual void newTexture(unsigned int w, unsigned int h);
 };
 
-map<IDXGISwapChain *, D11State *> chains;
-map<ID3D11Device *, D11State *> devices;
+typedef map<IDXGISwapChain *, D11State *> SwapchainMap;
+SwapchainMap chains;
+typedef map<ID3D11Device *, D11State *> DeviceMap;
+DeviceMap devices;
 
 D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice)
 	: bDeferredContext(false) {
@@ -472,7 +474,8 @@ extern HRESULT presentD3D11(IDXGISwapChain *pSwapChain) {
 	ID3D11Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D11Device), (void **) &pDevice);
 	if (SUCCEEDED(hr) && pDevice) {
-		D11State *ds = chains[pSwapChain];
+		SwapchainMap::iterator it = chains.find(pSwapChain);
+		D11State *ds = it != chains.end() ? it->second : NULL;
 		if (ds && ds->pDevice != pDevice) {
 			ods("D3D11: SwapChain device changed");
 			devices.erase(ds->pDevice);
@@ -502,8 +505,9 @@ extern HRESULT presentD3D11(IDXGISwapChain *pSwapChain) {
 
 extern void resizeD3D11(IDXGISwapChain *pSwapChain) {
 	// Remove the D11State from our "cache" (= Invalidate)
-	D11State *ds = chains[pSwapChain];
-	if (ds) {
+	SwapchainMap::iterator it = chains.find(pSwapChain);
+	if (it != chains.end()) {
+		D11State *ds = it->second;
 		devices.erase(ds->pDevice);
 		chains.erase(pSwapChain);
 		delete ds;
