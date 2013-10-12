@@ -229,11 +229,11 @@ void *HardHook::cloneCode(void **porig) {
 	DWORD tempProtect;
 	VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 
-	// Add a relative jmp back to the original code
+	// Add a relative jmp back to the original code, to after the copied code
 	n[idx++] = 0xe9;
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
-	//TODO: Document: Why - 5? Fn head?
-	int offs = o - n - 5;
+	const int JUMPOP_OFFSET = 5;
+	int offs = o - n - JUMPOP_OFFSET;
 	*iptr = offs;
 	idx += 4;
 
