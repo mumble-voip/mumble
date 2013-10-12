@@ -1,4 +1,3 @@
-
 /* Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
    Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
 
@@ -38,8 +37,7 @@
 #include "Global.h"
 #include "MainWindow.h"
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {
-}
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
@@ -61,6 +59,7 @@ void LogTextBrowser::setLogScroll(int pos) {
 void LogTextBrowser::scrollLogToBottom() {
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 }
+
 
 void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
 	inFocus(true);
