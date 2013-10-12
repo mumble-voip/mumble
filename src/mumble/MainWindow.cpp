@@ -1913,15 +1913,17 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelHide->setEnabled(true);
     if(g.s.bLogTabs){
-        if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex())
+        if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()){
+            qtwLogTabs->onCurrentChanged(qtwLogTabs->currentIndex());
             qteChat->setEnabled(homep & (ChanACL::Write | ChanACL::TextMessage));
+        }
         else if(NULL == pmModel->getUser(qtwLogTabs->getHash(qtwLogTabs->currentIndex()))){
             qteChat->setEnabled(false);
             qtwLogTabs->markTabAsRestricted(qtwLogTabs->currentIndex());
         }
         else
             qteChat->setEnabled(true);
-     }
+    }
     else
         qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
