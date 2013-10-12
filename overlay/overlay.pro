@@ -22,25 +22,19 @@ QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
 INCLUDEPATH *= "$(DXSDK_DIR)Include"
-INCLUDEPATH *= "$$EFFECTS11_PATH/inc"
 INCLUDEPATH *= effects11/inc
 
 LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32 -ladvapi32
-LIBS *= "c:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/*"
+LIBS *= "$$(DXSDK_DIR)Lib/x86/*"
 
 CONFIG(release, debug|release) {
-  DESTDIR       = ../release
-  #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_2012/Win32/Debug/Effects11"
-  #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_DXSDK/Win32/Debug/Effects11"
+  DESTDIR = ../release
   LIBS *= -leffects11/release/effects11
 }
 
 CONFIG(debug, debug|release) {
-  DESTDIR       = ../debug
-  DEFINES	*= DEBUG
-  #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_2012/Win32/Release/Effects11"
-  #LIBS *= -l"$$EFFECTS11_PATH/Bin/Desktop_DXSDK/Win32/Release/Effects11"
-  #LIBS *= effects11/debug/effects11.lib
+  DESTDIR = ../debug
+  DEFINES *= DEBUG
   LIBS *= -leffects11/debug/effects11
 }
 

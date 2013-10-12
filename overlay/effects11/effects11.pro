@@ -2,8 +2,7 @@ include (../../compiler.pri)
 
 TEMPLATE = lib
 CONFIG *= debug_and_release warn_on
-#CONFIG *= staticlib
-//CONFIG -= embed_manifest_dll
+CONFIG *= staticlib
 TARGET = effects11
 SOURCES = EffectAPI.cpp \
     EffectLoad.cpp \
@@ -30,17 +29,10 @@ QMAKE_CXXFLAGS_DEBUG	-= -MDd
 QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
-INCLUDEPATH *= $(DXSDK_DIR)Include
-#INCLUDEPATH *= "c:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Include"
 INCLUDEPATH *= Inc Binary
-#LIBS *= "$(DXSDK_DIR)/Lib/x86/*"
-LIBS *= "c:/Program Files (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/*"
-
-CONFIG(release, debug|release) {
-  #DESTDIR       = ../../release
-}
+INCLUDEPATH *= $(DXSDK_DIR)Include
+LIBS *= "$$(DXSDK_DIR)/Lib/x86/*"
 
 CONFIG(debug, debug|release) {
-  #DESTDIR       = ../../debug
-  DEFINES	*= DEBUG
+  DEFINES *= DEBUG
 }
