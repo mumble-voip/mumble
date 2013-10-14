@@ -147,7 +147,7 @@ void LogConfig::save() const {
 
 void LogConfig::accept() const {
 	g.l->tts->setVolume(s.iTTSVolume);
-    g.mw->qtwLogTabs->handleDocumentsetMaximumBlockCount(s.iMaxLogBlocks);
+	g.mw->qtwLogTabs->handleDocumentsetMaximumBlockCount(s.iMaxLogBlocks);
 }
 
 bool LogConfig::expert(bool) {
