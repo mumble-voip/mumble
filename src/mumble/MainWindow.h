@@ -233,8 +233,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteChat_tabPressed();
 		void on_qteChat_ctrlSpacePressed();
 		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
-        void onLogTabCustomContextMenuRequested(const QPoint &pos);
-        void onLogTabAnchorClicked(const QUrl &);
+		void onLogTabCustomContextMenuRequested(const QPoint &pos);
+		void onLogTabAnchorClicked(const QUrl &);
 		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
 		void on_PushToTalk_triggered(bool, QVariant);
@@ -266,7 +266,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
 		void on_qaFilterToggle_triggered();
-        void on_qtwLogTabs_currentChanged(int index);
+		void on_qtwLogTabs_currentChanged(int index);
 	public:
 		MainWindow(QWidget *parent);
 		~MainWindow();

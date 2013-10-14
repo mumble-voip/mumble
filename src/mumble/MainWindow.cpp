@@ -292,8 +292,8 @@ void MainWindow::setupGui()  {
 	connect(gsResetAudio, SIGNAL(down(QVariant)), qaAudioReset, SLOT(trigger()));
 	connect(gsUnlink, SIGNAL(down(QVariant)), qaAudioUnlink, SLOT(trigger()));
 	connect(gsMinimal, SIGNAL(down(QVariant)), qaConfigMinimal, SLOT(trigger()));
-    connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(onLogTabAnchorClicked(const QUrl &)));
-    connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(onLogTabCustomContextMenuRequested(const QPoint&)));
+	connect(qtwLogTabs, SIGNAL(anchorClick(const QUrl&)), this, SLOT(onLogTabAnchorClicked(const QUrl &)));
+	connect(qtwLogTabs, SIGNAL(customContextMenuRequest(const QPoint&)), this, SLOT(onLogTabCustomContextMenuRequested(const QPoint&)));
 
 	dtbLogDockTitle = new DockTitleBar();
 	qdwLog->setTitleBarWidget(dtbLogDockTitle);
@@ -1441,7 +1441,7 @@ void MainWindow::openTextMessageDialog(ClientUser *p) {
 
 		if (! msg.isEmpty()) {
 			g.sh->sendUserTextMessage(p->uiSession, msg);
-            g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true, qtwLogTabs->findTab(p));
 		}
 	}
 	delete texm;
@@ -1519,7 +1519,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	qsText = TextMessage::autoFormat(qsText);
 
 	if(g.s.bLogTabs){
-        if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()){
+		if(qtwLogTabs->getChannelTab() == qtwLogTabs->currentIndex()){
 			c = ClientUser::get(g.uiSession)->cChannel;
 			g.sh->sendChannelTextMessage(c->iId, qsText, false);
 			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
@@ -2771,10 +2771,10 @@ void MainWindow::updateChatBar() {
 		// User target
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
 	}
-    if(c != NULL)
-        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));
-    else
-        qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), QString::fromUtf8("Not connected"));
+	if(c != NULL)
+		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), tr("%1").arg(c->qsName));
+	else
+		qtwLogTabs->setTabText(qtwLogTabs->getChannelTab(), QString::fromUtf8("Not connected"));
 
 	updateMenuPermissions();
 }

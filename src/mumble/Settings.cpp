@@ -324,7 +324,7 @@ Settings::Settings() {
 	bChatBarUseSelection = false;
 	bFilterHidesEmptyChannels = false;
 	bFilterActive = false;
-    bLogTabs = true;
+	bLogTabs = true;
 
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;

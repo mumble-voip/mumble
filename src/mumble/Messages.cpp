@@ -278,7 +278,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (msg.has_name()) {
 			pDst = pmModel->addUser(msg.session(), u8(msg.name()));
 			bNewUser = true;
-            g.mw->updateChatBar();
+			g.mw->updateChatBar();
 		} else {
 			return;
 		}
@@ -480,7 +480,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 	}
 	if (msg.has_name()) {
 		pmModel->renameUser(pDst, u8(msg.name()));
-        g.mw->qtwLogTabs->updateTab(pDst);
+		g.mw->qtwLogTabs->updateTab(pDst);
 	}
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
