@@ -140,12 +140,12 @@ void LogTabWidget::updateHashMap(){
 	}
 }
 
-int	LogTabWidget::markTabAsUpdated(int index){
+void LogTabWidget::markTabAsUpdated(int index){
 	if(this->currentIndex() != index)
 		this->tabBar()->setTabTextColor(index, Qt::blue);
 }
 
-int LogTabWidget::markTabAsRestricted(int index){
+void LogTabWidget::markTabAsRestricted(int index){
 	this->tabBar()->setTabTextColor(index, Qt::gray);
 }
 
@@ -176,7 +176,7 @@ void LogTabWidget::onCurrentChanged(int newIndex){
 	this->tabBar()->setTabTextColor(newIndex, Qt::black);
 }
 
-void LogTabWidget::onTabMoved(int to, int from){
+void LogTabWidget::onTabMoved(int, int){
 	this->updateHashMap();
 }
 

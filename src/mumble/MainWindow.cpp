@@ -2922,6 +2922,6 @@ void MainWindow::destroyUserInformation() {
 	}
 }
 
-void MainWindow::on_qtwLogTabs_currentChanged(int index){
+void MainWindow::on_qtwLogTabs_currentChanged(int){
 	this->updateChatBar();
 }

@@ -31,7 +31,7 @@
 #ifndef MUMBLE_MUMBLE_LOGTABS_H
 #define MUMBLE_MUMBLE_LOGTABS_H
 
-#include <QtGui/QTabWidget>
+#include <QTabWidget>
 
 #include "ui_Log.h"
 #include "CustomElements.h"
@@ -71,9 +71,9 @@ public:
 	QString getHash(int);
 	void    updateTab(ClientUser*);
 	///Adds a visible notification, indicating the related tab has been updated
-	int     markTabAsUpdated(int);
+	void     markTabAsUpdated(int);
 	///Adds a visible notification, indicating the related tab has been restricted
-	int     markTabAsRestricted(int);
+	void     markTabAsRestricted(int);
 	///Sets the maximum block count for all tabs
 	void    handleDocumentsetMaximumBlockCount(int);
 	///Sets the default stylesheet for all tabs
