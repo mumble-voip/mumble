@@ -171,7 +171,11 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 		qlVersion->setText(tr("%1 (%2)").arg(MumbleVersion::toString(mpv.version())).arg(u8(mpv.release())));
 #if defined(Q_OS_WIN)
-		qlOS->setText(tr("%1 %2").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
+		if (u8(mpv.os_displayable_version()).isEmpty()) {
+			qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
+		} else {
+			qlOS->setText(tr("%1").arg(u8(mpv.os_displayable_version())));
+		}
 #else
 		qlOS->setText(tr("%1 (%2)").arg(u8(mpv.os())).arg(u8(mpv.os_version())));
 #endif

@@ -1426,6 +1426,8 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 		uSource->qsOS = u8(msg.os());
 		if (msg.has_os_version())
 			uSource->qsOSVersion = u8(msg.os_version());
+		if (msg.has_os_displayable_version())
+			uSource->qsOSDisplayableVersion = u8(msg.os_displayable_version());
 	}
 
 	log(uSource, QString("Client version %1 (%2: %3)").arg(MumbleVersion::toString(uSource->uiVersion)).arg(uSource->qsOS).arg(uSource->qsRelease));
@@ -1613,6 +1615,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 			mpv->set_os(u8(pDstServerUser->qsOS));
 			if (! pDstServerUser->qsOSVersion.isEmpty())
 				mpv->set_os_version(u8(pDstServerUser->qsOSVersion));
+			if (! pDstServerUser->qsOSDisplayableVersion.isEmpty())
+				mpv->set_os_displayable_version(u8(pDstServerUser->qsOSDisplayableVersion));
 		}
 
 		foreach(int v, pDstServerUser->qlCodecs)

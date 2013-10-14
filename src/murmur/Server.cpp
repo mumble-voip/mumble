@@ -1166,6 +1166,7 @@ void Server::encrypted() {
 		mpv.set_release(u8(release));
 		mpv.set_os(u8(meta->qsOS));
 		mpv.set_os_version(u8(meta->qsOSVersion));
+		mpv.set_os_displayable_version(u8(meta->qsOSDisplayableVersion));
 	}
 	sendMessage(uSource, mpv);
 

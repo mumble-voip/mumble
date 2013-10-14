@@ -567,6 +567,7 @@ void ServerHandler::serverConnectionConnected() {
 
 	mpv.set_os(u8(OSInfo::getOS()));
 	mpv.set_os_version(u8(OSInfo::getOSVersion()));
+	mpv.set_os_displayable_version(u8(OSInfo::getOSDisplayableVersion()));
 	sendMessage(mpv);
 
 	MumbleProto::Authenticate mpa;

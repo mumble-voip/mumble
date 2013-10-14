@@ -7,6 +7,7 @@ message	Version {
 	optional string release = 2;
 	optional string os = 3;
 	optional string os_version = 4;
+	optional string os_displayable_version = 5;
 }
 
 message UDPTunnel {
