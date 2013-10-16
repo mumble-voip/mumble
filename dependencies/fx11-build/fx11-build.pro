@@ -4,7 +4,7 @@ BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 !exists(../$$SOURCEDIR/Effect.h) {
-	message("The $$SOURCEDIR/ directory was not found. Please make sure it contains the fx11 libraries source.")
+	message("The $$SOURCEDIR directory was not found. Please make sure it contains the fx11 libraries source.")
 	message("To clone it from git:")
 	message("git submodule update --init")
 	message("")
@@ -33,7 +33,7 @@ HEADERS = pchfx.h \
     EffectLoad.h \
     IUnknownImp.h
 
-DEFINES -= UNICODE
+DEFINES += WIN32 PROFILE _WINDOWS _LIB D3DXFX_LARGEADDRESS_HANDLE
 
 QMAKE_CXXFLAGS_RELEASE	-= -MD
 QMAKE_CXXFLAGS_DEBUG	-= -MDd
@@ -45,6 +45,10 @@ INCLUDEPATH *= ../$$SOURCEDIR/Inc ../$$SOURCEDIR/Binary
 INCLUDEPATH *= $(DXSDK_DIR)Include
 LIBS *= "$$(DXSDK_DIR)/Lib/x86/*"
 
+CONFIG(release, debug|release) {
+  DEFINES *= NDEBUG
+}
+
 CONFIG(debug, debug|release) {
-  DEFINES *= DEBUG
+  DEFINES *= DEBUG _DEBUG
 }

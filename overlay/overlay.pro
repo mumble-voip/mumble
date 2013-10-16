@@ -11,7 +11,8 @@ SOURCES = lib.cpp d3d9.cpp dxgi.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardH
 HEADERS = lib.h ods.h HardHook.h overlay_blacklist.h D11StateBlock.h
 EFFECTS = overlay.fx
 DIST = overlay.h overlay.fx HardHook.h
-SUBDIRS *= effects11
+FX11DIR = "../dependencies/fx11-src"
+FX11DIR_BUILD = $$replace(FX11DIR,-src,-build)
 
 DEFINES -= UNICODE
 
@@ -22,20 +23,20 @@ QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
 INCLUDEPATH *= "$(DXSDK_DIR)Include"
-INCLUDEPATH *= effects11/inc
+INCLUDEPATH *= "$$FX11DIR/inc"
 
 LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32 -ladvapi32
 LIBS *= "$$(DXSDK_DIR)Lib/x86/*"
 
 CONFIG(release, debug|release) {
   DESTDIR = ../release
-  LIBS *= -leffects11/release/effects11
+  LIBS *= -l$$FX11DIR_BUILD/release/effects11
 }
 
 CONFIG(debug, debug|release) {
   DESTDIR = ../debug
   DEFINES *= DEBUG
-  LIBS *= -leffects11/debug/effects11
+  LIBS *= -l$$FX11DIR_BUILD/debug/effects11
 }
 
 fxc.output = ${QMAKE_FILE_BASE}.hex
