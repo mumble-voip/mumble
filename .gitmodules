@@ -13,3 +13,6 @@
 [submodule "sbcelt-src"]
 	path = sbcelt-src
 	url = git://github.com/mumble-voip/sbcelt.git
+[submodule "dependencies/fx11-src"]
+	path = dependencies/fx11-src
+	url = git://github.com/mumble-voip/fx11.git

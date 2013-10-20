@@ -51,22 +51,37 @@ using namespace std;
 
 void __cdecl ods(const char *format, ...);
 
+const int MODULEFILEPATH_BUFLEN = 2048;
+const int PROCNAMEFILEPATH_BUFLEN = 1024;
+const int PROCNAMEFILEPATH_EXTENDED_EXTLEN = 64;
+const int PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN = PROCNAMEFILEPATH_BUFLEN + PROCNAMEFILEPATH_EXTENDED_EXTLEN;
+
 struct Direct3D9Data {
-	// Offset from module address to Create method.
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetCreate;
-	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
-	// Filename of the module.
-	char cFileName[2048];
 };
 
 struct DXGIData {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetPresent;
 	int iOffsetResize;
+};
+
+struct D3D10Data {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetAddRef;
 	int iOffsetRelease;
-	wchar_t wcDXGIFileName[2048];
-	wchar_t wcD3D10FileName[2048];
+};
+
+struct D3D11Data {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
+	int iOffsetAddRef;
+	int iOffsetRelease;
 };
 
 struct SharedData {
@@ -112,21 +127,40 @@ class Pipe {
 		virtual void setRect() = 0;
 		virtual void newTexture(unsigned int w, unsigned int h) = 0;
 		Pipe();
-		~Pipe();
+		virtual ~Pipe();
 	public:
 		void disconnect();
 };
 
+extern void checkHooks(bool preonly = false);
 extern void checkDXGIHook(bool preonly = false);
+extern void checkDXGI10Hook(bool preonly = false);
+extern void checkDXGI11Hook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
 extern void freeD3D9Hook(HMODULE hModule);
 
 extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
-extern HMODULE hSelf;
+extern D3D10Data *d3d10;
+extern D3D11Data *d3d11;
 extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;
+
+/// Checks if the module of the function pointer fnptr equals the module filepath
+/// of refmodulepath.
+///
+/// @param fnptr
+/// @param refmodulepath the module path to compare against
+/// @param logPrefix Used for debug logging.
+/// @param fnName name of the method fnptr points to. used for debug logging
+/// @return true if the module filepath of the function pointer matches the reference one
+extern bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
+
+/// Checks fnptr is in a loaded module with module path refmodulepath.
+///
+/// @return Offset as int or < 0 on failure.
+extern int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
 
 #endif
