@@ -31,8 +31,16 @@
 #ifndef MUMBLE_MUMBLE_USERLISTMODEL_H_
 #define MUMBLE_MUMBLE_USERLISTMODEL_H_
 
+#include <Qt>
 #include <QAbstractTableModel>
+#include <QDateTime>
+#include <QHash>
 #include <QItemSelection>
+#include <QList>
+#include <QModelIndex>
+#include <QObject>
+#include <QString>
+#include <QVariant>
 
 #include "Mumble.pb.h"
 
