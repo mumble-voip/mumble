@@ -214,11 +214,11 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 
 void GlobalShortcutMac::dumpEventTaps() {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	CGTableCount ntaps = 0;
+	uint32_t ntaps = 0;
 	CGEventTapInformation table[64];
 	if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
 		qWarning("--- Installed Event Taps ---");
-		for (CGTableCount i = 0; i < ntaps; i++) {
+		for (uint32_t i = 0; i < ntaps; i++) {
 			CGEventTapInformation *info = &table[i];
 
 			ProcessSerialNumber psn;
