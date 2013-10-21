@@ -37,10 +37,15 @@
 
 #include "Global.h"
 
-#ifdef QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <qpa/qplatformnativeinterface.h>
+
 static NSWindow *qt_mac_window_for(QWidget *w) {
-	NSView *view = (NSView *) w->winId();
-	return [view window];
+	QWindow *window = w->windowHandle();
+	if (window) {	
+		return static_cast<NSWindow *>(QGuiApplication::platformNativeInterface()->nativeResourceForWindow("nswindow", window));
+	}
+	return nil;
 }
 #endif
 
@@ -72,8 +77,6 @@ ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 		addPage(cwn(s), idx++);
 	}
 
-	updateExpert(g.s.bExpert);
-
 	QPushButton *okButton = dialogButtonBox->button(QDialogButtonBox::Ok);
 	okButton->setToolTip(tr("Accept changes"));
 	okButton->setWhatsThis(tr("This button will accept current settings and return to the application.<br />"
@@ -97,6 +100,16 @@ ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 	restoreButton->setWhatsThis(tr("This button will restore the defaults for the settings on the current page. Other pages will not be changed.<br />"
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QTimer::singleShot(0, this, SLOT(delayedInit()));
+#else
+	delayedInit();
+#endif
+}
+
+void ConfigDialogMac::delayedInit() {
+	updateExpert(g.s.bExpert);
 
 	if (! g.s.qbaConfigGeometry.isEmpty())
 		restoreGeometry(g.s.qbaConfigGeometry);
@@ -189,9 +202,9 @@ void ConfigDialogMac::setupMacToolbar(bool expert) {
 	   The identifier string is simply an unique string for this particular toolbar. The OS will graphically
 	   synchronize toolbars with the same identifier, so that if multiple NSToolbars with the same identifier
 	   are used within the same application, they all stay in sync automatically. */
-	NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier: @"MumbleConfigDialog"];
-	[toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
-	[toolbar setSizeMode: NSToolbarSizeModeRegular];
+	NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"MumbleConfigDialog"];
+	[toolbar setDisplayMode:NSToolbarDisplayModeIconAndLabel];
+	[toolbar setSizeMode:NSToolbarSizeModeRegular];
 	[toolbar setAllowsUserCustomization:NO];
 	[toolbar setAutosavesConfiguration:NO];
 

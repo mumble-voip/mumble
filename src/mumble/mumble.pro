@@ -57,15 +57,9 @@ CONFIG(static) {
 QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
-  win32 {
-    # On Windows, we use QPlatformNativeInterface
-    # to get access to HWNDs.
-    QT *= gui-private
-  }
-
-  # On OS X, we can't yet use Cocoa integration
-  # because we don't yet integrate with QtMacExtras.
-  CONFIG += no-cocoa
+  # Allow native widget access.
+  win32:QT *= gui-private
+  macx:QT *= gui-private
 }
 
 HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h UserListModel.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
