@@ -295,7 +295,7 @@ void VoiceRecorder::run() {
 				if (ri->sf == NULL) {
 					qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
 					bRecording = false;
-					emit error(CreateFileFailed, tr("Recorder failed to open file '%s'").arg(filename));
+					emit error(CreateFileFailed, tr("Recorder failed to open file '%1'").arg(filename));
 					emit recording_stopped();
 					return;
 				}
