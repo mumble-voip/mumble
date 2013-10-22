@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>533</width>
-    <height>676</height>
+    <width>569</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <property name="title">
       <string>Interface</string>
      </property>
-     <layout class="QGridLayout">
+     <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="qliSystem">
         <property name="text">
@@ -94,6 +94,32 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbExclusive">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>27</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Exclusive mode</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</string>
+        </property>
+        <property name="text">
+         <string>Exclusive</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="qliEcho">
+        <property name="text">
+         <string>Echo</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="4">
        <widget class="QComboBox" name="qcbEcho">
         <property name="toolTip">
@@ -117,26 +143,6 @@
           <string>Multichannel</string>
          </property>
         </item>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QLabel" name="qliEcho">
-        <property name="text">
-         <string>Echo</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="qcbExclusive">
-        <property name="toolTip">
-         <string>Exclusive mode</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</string>
-        </property>
-        <property name="text">
-         <string>Exclusive</string>
-        </property>
        </widget>
       </item>
      </layout>
