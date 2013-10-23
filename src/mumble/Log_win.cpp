@@ -33,6 +33,6 @@
 
 #include "Log.h"
 
-void Log::postNotification(MsgType mt, const QString &console, const QString &plain) {
+void Log::postNotification(MsgType mt, const QString &/*console*/, const QString &plain) {
 	postQtNotification(mt, plain);
 }

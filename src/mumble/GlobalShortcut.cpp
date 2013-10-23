@@ -559,14 +559,15 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 }
 
-bool GlobalShortcutConfig::eventFilter(QObject *object, QEvent *event) {
-	Q_UNUSED(object);
+bool GlobalShortcutConfig::eventFilter(QObject* /*object*/, QEvent *event) {
 #ifdef Q_OS_MAC
 	if (event->type() == QEvent::WindowActivate) {
 		if (! g.s.bSuppressMacEventTapWarning) {
 			qwWarningContainer->setVisible(showWarning());
 		}
 	}
+#else
+	Q_UNUSED(event)
 #endif
 	return false;
 }

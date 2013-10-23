@@ -251,7 +251,7 @@ void RichTextEditor::on_qaImage_triggered() {
 	if (qba.isEmpty())
 		return;
 
-	if ((g.uiImageLength > 0) && (qba.length() > g.uiImageLength)) {
+	if ((g.uiImageLength > 0) && (static_cast<unsigned int>(qba.length()) > g.uiImageLength)) {
 		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file too large to embed in document. Please use images smaller than %1 kB.").arg(g.uiImageLength /1024));
 		return;
 	}
