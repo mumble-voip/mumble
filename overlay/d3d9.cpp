@@ -700,7 +700,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap.find(idd) != devMap.end()) {
+	if (devMap[idd] != NULL) {
 		ods("Device exists in devMap already - canceling injection into device");
 		delete ds;
 		return hr;
@@ -764,7 +764,7 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap.find(idd) != devMap.end()) {
+	if (devMap[idd] != NULL) {
 		ods("Device exists in devMap already - canceling injection into device");
 		delete ds;
 		return hr;
