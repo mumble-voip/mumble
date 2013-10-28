@@ -161,13 +161,8 @@ QString OSInfo::getOSVersion() {
 	return qsCached;
 }
 
-#if defined(Q_OS_WIN)
 QString OSInfo::getOSDisplayableVersion() {
-	static QString qsCachedD;
-
-	if (! qsCachedD.isNull())
-		return qsCachedD.isEmpty() ? QString() : qsCachedD;
-
+#if defined(Q_OS_WIN)
 	QString osdispver;
 
 	OSVERSIONINFOEXW ovi;
@@ -200,6 +195,12 @@ QString OSInfo::getOSDisplayableVersion() {
 				osdispver = QLatin1String("Windows 8");
 			else
 				osdispver = QLatin1String("Windows Server 2012");
+		}
+		else if (ovi.dwMinorVersion == 3) {
+			if (ovi.wProductType == VER_NT_WORKSTATION)
+				osdispver = QLatin1String("Windows 8.1");
+			else
+			osdispver = QLatin1String("Windows Server 2012 R2");
 		}
 
 		pGPI = (PGPI) GetProcAddress(
@@ -341,14 +342,13 @@ QString OSInfo::getOSDisplayableVersion() {
 	osv.sprintf(" (%d.%d.%d)", ovi.dwMajorVersion, ovi.dwMinorVersion, ovi.dwBuildNumber);
 	osdispver.append(osv);
 
-	if (! osdispver.isNull())
-		qsCachedD = osdispver;
-	else
-		qsCachedD = QLatin1String("");
-
-	return qsCachedD;
-}
+	return osdispver;
+#elif defined(Q_OS_MAC)
+	return QLatin1String("");
+#else
+	return QLatin1String("");
 #endif
+}
 
 void OSInfo::fillXml(QDomDocument &doc, QDomElement &root, const QString &os, const QString &osver, const QList<QHostAddress> &qlBind) {
 	QDomElement tag;
