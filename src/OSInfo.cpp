@@ -163,7 +163,7 @@ QString OSInfo::getOSVersion() {
 
 QString OSInfo::getOSDisplayableVersion() {
 #if defined(Q_OS_WIN)
-	QString osdispver;
+	QString osdispver = QLatin1String("Windows");
 
 	OSVERSIONINFOEXW ovi;
 	_SYSTEM_INFO si;
@@ -173,7 +173,7 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	memset(&ovi, 0, sizeof(ovi));
 
-	ovi.dwOSVersionInfoSize=sizeof(ovi);
+	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 	GetNativeSystemInfo(&si);
 
@@ -200,7 +200,7 @@ QString OSInfo::getOSDisplayableVersion() {
 			if (ovi.wProductType == VER_NT_WORKSTATION)
 				osdispver = QLatin1String("Windows 8.1");
 			else
-			osdispver = QLatin1String("Windows Server 2012 R2");
+				osdispver = QLatin1String("Windows Server 2012 R2");
 		}
 
 		pGPI = (PGPI) GetProcAddress(
@@ -289,18 +289,18 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	if (ovi.dwMajorVersion == 5 && ovi.dwMinorVersion == 2) {
 		if (GetSystemMetrics(SM_SERVERR2))
-			osdispver = QLatin1String("Server 2003 R2");
+			osdispver = QLatin1String("Windows Server 2003 R2");
 		else if (ovi.wSuiteMask & VER_SUITE_STORAGE_SERVER)
-			osdispver = QLatin1String("Storage Server 2003");
+			osdispver = QLatin1String("Windows Storage Server 2003");
 		else if (ovi.wSuiteMask & VER_SUITE_WH_SERVER)
-			osdispver = QLatin1String("Home Server");
-		else if (ovi.wProductType == VER_NT_WORKSTATION && si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
-			osdispver = QLatin1String("XP Professional x64 Edition");
+			osdispver = QLatin1String("Windows Home Server");
+		else if (ovi.wProductType == VER_NT_WORKSTATION && si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64)
+			osdispver = QLatin1String("Windows XP Professional x64 Edition");
 		else
 			osdispver = QLatin1String("Windows Server 2003");
 
 		if (ovi.wProductType != VER_NT_WORKSTATION) {
-			if (si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64) {
+			if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64) {
 				if (ovi.wSuiteMask & VER_SUITE_DATACENTER)
 					osdispver.append(QLatin1String(" Datacenter x64 Edition"));
 				else if (ovi.wSuiteMask & VER_SUITE_ENTERPRISE)
@@ -332,9 +332,9 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	// 32/64?
 	if (ovi.dwMajorVersion >= 6) {
-		if (si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
+		if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64)
 			osdispver.append(QLatin1String(" 64-bit"));
-		else if (si.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_INTEL)
+		else if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_INTEL)
 			osdispver.append(QLatin1String(" 32-bit"));
 	}
 
@@ -343,10 +343,8 @@ QString OSInfo::getOSDisplayableVersion() {
 	osdispver.append(osv);
 
 	return osdispver;
-#elif defined(Q_OS_MAC)
-	return QLatin1String("");
 #else
-	return QLatin1String("");
+	return QString();
 #endif
 }
 
