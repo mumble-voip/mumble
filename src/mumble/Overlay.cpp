@@ -120,7 +120,7 @@ Overlay::~Overlay() {
 }
 
 void Overlay::newConnection() {
-	while (1) {
+	while (true) {
 		QLocalSocket *qls = qlsServer->nextPendingConnection();
 		if (! qls)
 			break;

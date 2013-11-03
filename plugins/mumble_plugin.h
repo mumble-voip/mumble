@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _MUMBLE_PLUGIN_H
-#define _MUMBLE_PLUGIN_H
+#ifndef MUMBLE_MUMBLE_PLUGIN_H_
+#define MUMBLE_MUMBLE_PLUGIN_H_
 
 #include <string>
 #include <map>

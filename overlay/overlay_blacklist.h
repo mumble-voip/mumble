@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _OVERLAY_BLACKLIST_H
-#define _OVERLAY_BLACKLIST_H
+#ifndef MUMBLE_OVERLAY_BLACKLIST_H_
+#define MUMBLE_OVERLAY_BLACKLIST_H_
 
 static const char *overlayBlacklist[] = {
 	"iexplore.exe",
@@ -59,8 +59,11 @@ static const char *overlayBlacklist[] = {
 	"hlmv.exe", // Half-Life Model Viewer
 	"hlfaceposer.exe", // Face Poser (from Source SDK)
 	"LoLLauncher.exe", // League of Legends Launcher/Patcher
+	"acrobat.exe", // Adobe Acrobat
+	"Steam.exe", // Prevent invisible hooking
+	"RzSynapse.exe", // Prevent invisible hooking - Razer Synapse (settings online synchronization)
+	"IpOverUsbSvc.exe", // Windows Phone IP over USB Transport
 	NULL
 };
 
-#endif  // _OVERLAY_BLACKLIST_H
-
+#endif

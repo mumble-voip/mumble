@@ -29,11 +29,11 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "GlobalShortcut_macx.h"
-#include "Overlay.h"
-
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+
+#include "GlobalShortcut_macx.h"
+#include "Overlay.h"
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
@@ -214,11 +214,11 @@ GlobalShortcutMac::~GlobalShortcutMac() {
 
 void GlobalShortcutMac::dumpEventTaps() {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	CGTableCount ntaps = 0;
+	uint32_t ntaps = 0;
 	CGEventTapInformation table[64];
 	if (CGGetEventTapList(20, table, &ntaps) == kCGErrorSuccess) {
 		qWarning("--- Installed Event Taps ---");
-		for (CGTableCount i = 0; i < ntaps; i++) {
+		for (uint32_t i = 0; i < ntaps; i++) {
 			CGEventTapInformation *info = &table[i];
 
 			ProcessSerialNumber psn;
@@ -440,7 +440,7 @@ QString GlobalShortcutMac::translateKeyName(const unsigned int keycode) const {
 		}
 	}
 
-	return QString::fromRawData(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
+	return QString(reinterpret_cast<const QChar *>(unicodeString), len).toUpper();
 }
 
 QString GlobalShortcutMac::buttonName(const QVariant &v) {

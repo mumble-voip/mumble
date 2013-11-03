@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ALSAAUDIO_H_
-#define ALSAAUDIO_H_
+#ifndef MUMBLE_MUMBLE_ALSAAUDIO_H_
+#define MUMBLE_MUMBLE_ALSAAUDIO_H_
 
 #include "AudioInput.h"
 #include "AudioOutput.h"

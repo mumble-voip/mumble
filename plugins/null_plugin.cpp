@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
 
@@ -28,33 +28,42 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef FILEENGINE_H_
-#define FILEENGINE_H_
+#include "mumble_plugin_win32.h"
 
-class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
-	private:
-		Q_DISABLE_COPY(MumbleFileEngineHandler)
-	public:
-		MumbleFileEngineHandler();
-		QAbstractFileEngine *create(const QString &) const;
+#ifndef NULL_DESC
+#define NULL_DESC L"Retracted plugin"
+#endif // NULL_DESC
+
+static int fetch(float *, float *, float *, float *, float *, float *, std::string &, std::wstring &) {
+	// Empty
+	return false;
+}
+
+static int trylock() {
+	// Empty
+	return false;
+}
+
+static const std::wstring longdesc() {
+	return std::wstring(L"NULL plugin for retracted plugin. This should not be visible in Mumble >= 1.2.4");
+}
+
+static std::wstring description(NULL_DESC);
+static std::wstring shortname(L"Retracted");
+
+static MumblePlugin nullplug = {
+	MUMBLE_PLUGIN_MAGIC,
+	description,
+	shortname,
+	NULL,
+	NULL,
+	trylock,
+	generic_unlock,
+	longdesc,
+	fetch
 };
 
-class MumbleImageFileEngine : public QAbstractFileEngine {
-	private:
-		Q_DISABLE_COPY(MumbleImageFileEngine)
-	protected:
-		QBuffer qbData;
-		QUrl quUrl;
-		QStringList qslPath;
-	public:
-		MumbleImageFileEngine(const QUrl &);
-		bool open(QIODevice::OpenMode);
-		bool close();
-		bool seek(qint64 offset);
-		qint64 pos() const;
-		qint64 size() const;
-		qint64 read(char *data, qint64 maxlen);
-		QString fileName(QAbstractFileEngine::FileName) const;
-};
+extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
+	return &nullplug;
+}
 
-#endif

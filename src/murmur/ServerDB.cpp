@@ -62,15 +62,23 @@ class TransactionHolder {
 			delete qsqQuery;
 			ServerDB::db->commit();
 		}
+		TransactionHolder(const TransactionHolder & other) {
+			ServerDB::db->transaction();
+			qsqQuery = other.qsqQuery ? new QSqlQuery(*other.qsqQuery) : 0;
+		}
 };
 
-QSqlDatabase *ServerDB::db;
+QSqlDatabase *ServerDB::db = NULL;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
 		qFatal("ServerDB: Database driver %s not available", qPrintable(Meta::mp.qsDBDriver));
+	}
+	if (db) {
+		// Don't hide away our previous instance. Fail hard.
+		qFatal("ServerDB has already been instantiated!");
 	}
 	db = new QSqlDatabase(QSqlDatabase::addDatabase(Meta::mp.qsDBDriver));
 
@@ -720,6 +728,39 @@ bool Server::unregisterUserDB(int id) {
 	SQLEXEC();
 
 	return true;
+}
+
+QList<UserInfo> Server::getRegisteredUsersEx() {
+
+	QMap<int, QString> rpcUsers;
+	emit getRegisteredUsersSig(QString(), rpcUsers);
+
+	QList<UserInfo> users;
+	QMap<int, QString>::iterator it = rpcUsers.begin();
+	for (; it != rpcUsers.end(); ++it)
+	{
+		users.insert(it.key(), UserInfo(it.key(), it.value()));
+	}
+
+	TransactionHolder th;
+
+	QSqlQuery &query = *th.qsqQuery;
+	SQLPREP("SELECT `user_id`, `name`, `lastchannel`, `last_active` FROM `%1users` WHERE `server_id` = ?");
+	query.addBindValue(iServerNum);
+	SQLEXEC();
+
+	while (query.next()) {
+		UserInfo userinfo;
+		userinfo.user_id = query.value(0).toInt();
+		userinfo.name = query.value(1).toString();
+		userinfo.last_channel = query.value(2).toInt();
+		userinfo.last_active = QDateTime::fromString(query.value(3).toString(), Qt::ISODate);
+		userinfo.last_active.setTimeSpec(Qt::UTC);
+
+		users << userinfo;
+	}
+
+	return users;
 }
 
 QMap<int, QString > Server::getRegisteredUsers(const QString &filter) {

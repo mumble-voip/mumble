@@ -28,9 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _INTERNAL_OVERLAY_H
-#define _INTERNAL_OVERLAY_H
+#ifndef MUMBLE_INTERNAL_OVERLAY_H_
+#define MUMBLE_INTERNAL_OVERLAY_H_
 
+// overlay message protocol version number
 #define OVERLAY_MAGIC_NUMBER 0x00000005
 
 struct OverlayMsgHeader {

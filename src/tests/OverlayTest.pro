@@ -1,9 +1,10 @@
 include(../../compiler.pri)
 
-TEMPLATE	=app
-CONFIG  += qt thread warn_on debug console
+TEMPLATE = app
+CONFIG += qt thread warn_on debug console
+CONFIG -= app_bundle
 QT += network gui
-LANGUAGE	= C++
+LANGUAGE = C++
 TARGET = OverlayTest
 HEADERS = ../mumble/SharedMemory.h
 SOURCES = OverlayTest.cpp ../mumble/SharedMemory.cpp
@@ -14,4 +15,4 @@ win32 {
 }
 
 VPATH += ..
-INCLUDEPATH += .. ../murmur ../mumble
+INCLUDEPATH += .. ../murmur ../mumble ../../celt-0.7.0-src/libcelt ../../speex/include

@@ -11,6 +11,14 @@ $serverId = 1;
 
 // This is as simple as it can get. You really SHOULD NOT make the URL to this script all-public as it may be abused/spammed.
 
+
+if (!extension_loaded('ice')) {
+	exit('Error: This example script needs the PHP extension for Ice to be loaded.');
+}
+if ((!function_exists('Ice_intVersion') || Ice_intVersion() < 30400) || !function_exists('Ice_loadProfile')) {
+	exit('Error: This example script is compatible only for php-ice versions prior to 3.4.');
+}
+
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">

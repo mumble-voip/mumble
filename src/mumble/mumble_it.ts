@@ -2254,7 +2254,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Data di scadenza</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(nessuno)</translation>
     </message>
@@ -2332,7 +2332,11 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Utente Mumble</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="main.cpp" line="+454"/>
+=======
+        <location filename="main.cpp" line="+456"/>
+>>>>>>> upstream/master
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato sta per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -2880,7 +2884,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Accetta i cambiamenti</translation>
     </message>
@@ -3373,7 +3377,7 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble non è riuscito a inizializzare il database in nessuna
@@ -4311,12 +4315,20 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
+<<<<<<< HEAD
         <location line="+2131"/>
+=======
+        <location line="+2150"/>
+>>>>>>> upstream/master
         <source>Root</source>
         <translation>Canale principale</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-2079"/>
+=======
+        <location line="-2098"/>
+>>>>>>> upstream/master
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -4395,12 +4407,20 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
+<<<<<<< HEAD
         <location line="+2230"/>
+=======
+        <location line="+2249"/>
+>>>>>>> upstream/master
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-2225"/>
+=======
+        <location line="-2244"/>
+>>>>>>> upstream/master
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
@@ -4475,13 +4495,21 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+58"/>
+<<<<<<< HEAD
         <location line="+2271"/>
+=======
+        <location line="+2290"/>
+>>>>>>> upstream/master
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-1998"/>
+=======
+        <location line="-2006"/>
+>>>>>>> upstream/master
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -4513,8 +4541,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+21"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translatorcomment>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translatorcomment>
-        <translation></translation>
+        <translation>Questa versione di Mumble non può utilizzare gli URL di Mumble versione %1.%2.%3</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -4558,17 +4585,23 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>&lt;h2&gt;Canale di controllo&lt;/h2&gt;&lt;p&gt;Crittografato con %1 bit %2&lt;br/&gt;%3 ms latenza media (%4 deviazione)&lt;/p&gt;&lt;p&gt;Host remoto %5 (porta%6)&lt;/p&gt;</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="+1375"/>
+=======
+        <location line="+1383"/>
+>>>>>>> upstream/master
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation>Questo server utilizza un vecchio standard di criptazione che non è più supportato dalle nuove versioni di Mumble.</translation>
     </message>
     <message>
         <location line="+24"/>
+        <location filename="Messages.cpp" line="+98"/>
         <source>Username in use</source>
         <translation>Nome utente in uso</translation>
     </message>
     <message>
         <location line="+6"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
         <translation>Certificato o password errati</translation>
     </message>
@@ -4588,7 +4621,11 @@ certificato e il nome utente.</translation>
         <translation>Immagini (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-1625"/>
+=======
+        <location line="-1633"/>
+>>>>>>> upstream/master
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
@@ -4599,13 +4636,21 @@ certificato e il nome utente.</translation>
         <translation>Registrati come %1</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-1087"/>
+=======
+        <location line="-1098"/>
+>>>>>>> upstream/master
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Cambia lo stato della sovrapposizione in gioco.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="+733"/>
+=======
+        <location line="+744"/>
+>>>>>>> upstream/master
         <location line="+354"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
@@ -4667,7 +4712,11 @@ certificato e il nome utente.</translation>
         <translation>Per %1: %2</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="+544"/>
+=======
+        <location line="+552"/>
+>>>>>>> upstream/master
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
@@ -4710,7 +4759,11 @@ certificato e il nome utente.</translation>
         <translation>Formato dell&apos;immagine non riconosciuto.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-1651"/>
+=======
+        <location line="-1659"/>
+>>>>>>> upstream/master
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale della voce è trasmesso sul canale di controllo.</translation>
     </message>
@@ -4761,12 +4814,20 @@ certificato e il nome utente.</translation>
     </message>
     <message>
         <location line="+4"/>
+<<<<<<< HEAD
         <location line="+1330"/>
+=======
+        <location line="+1338"/>
+>>>>>>> upstream/master
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-1055"/>
+=======
+        <location line="-1063"/>
+>>>>>>> upstream/master
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -4833,7 +4894,11 @@ certificato e il nome utente.</translation>
         <translation>Informazioni su Qt</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="+389"/>
+=======
+        <location line="+397"/>
+>>>>>>> upstream/master
         <source>SSL Verification failed: %1</source>
         <translation>Verifica SSL fallita: %1</translation>
     </message>
@@ -4864,6 +4929,7 @@ certificato e il nome utente.</translation>
     </message>
     <message>
         <location line="+11"/>
+        <location filename="Messages.cpp" line="-6"/>
         <source>Invalid username</source>
         <translation>Nome utente non valido</translation>
     </message>
@@ -4879,6 +4945,7 @@ certificato e il nome utente.</translation>
     </message>
     <message>
         <location line="+13"/>
+        <location filename="Messages.cpp" line="+9"/>
         <source>Wrong password</source>
         <translation>Password errata</translation>
     </message>
@@ -4888,7 +4955,11 @@ certificato e il nome utente.</translation>
         <translation>Password errata per un account non registrato, prova di nuovo.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location line="-2303"/>
+=======
+        <location line="-2322"/>
+>>>>>>> upstream/master
         <source>&amp;Channel</source>
         <translation>&amp;Canale</translation>
     </message>
@@ -4956,21 +5027,6 @@ certificato e il nome utente.</translation>
         <location/>
         <source>Disconnects you from the server.</source>
         <translation>Disconnette dal server.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Lista utenti banditi</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Modifica la lista degli utenti banditi dal server</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Questo ti permette di modificare la lista degli IP banditi dal lato server.</translation>
     </message>
     <message>
         <location/>
@@ -5480,7 +5536,11 @@ certificato e il nome utente.</translation>
         <translation>Questo alterna la modalità minima, dove la finestra del log e il menu sono noscosti.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="Messages.cpp" line="+333"/>
+=======
+        <location filename="Messages.cpp" line="+252"/>
+>>>>>>> upstream/master
         <source>You were unmuted and undeafened by %1.</source>
         <translation>Microfono e audio riattivati da %1.</translation>
     </message>
@@ -5551,7 +5611,12 @@ certificato e il nome utente.</translation>
         <translation>Messaggio di benvenuto: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation>Le vostre informazioni d&apos;accesso attualmente non possono essere verificate. E pregato di riprovare più tardi</translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -5833,7 +5898,11 @@ certificato e il nome utente.</translation>
         <translation>Modalità trascinamento canale sconosciuta in UserModel::dropMimeData.</translation>
     </message>
     <message>
+<<<<<<< HEAD
         <location filename="main.cpp" line="-271"/>
+=======
+        <location filename="main.cpp" line="-273"/>
+>>>>>>> upstream/master
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5873,7 +5942,7 @@ Opzioni valide:
         <translation>Invocazione</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
@@ -6049,6 +6118,24 @@ Opzioni valide:
         <location/>
         <source>Silently drops all text messages from the user.</source>
         <translation>Elimina silenziosamente tutti i messaggi di testo provenienti dall&apos;utente.</translation>
+<<<<<<< HEAD
+=======
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
+>>>>>>> upstream/master
     </message>
 </context>
 <context>
@@ -6990,7 +7077,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Salta gli aggiornamenti dei plugin in modalità Debug.</translation>
     </message>
@@ -7141,7 +7228,11 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>ServerHandler</name>
     <message>
+<<<<<<< HEAD
         <location filename="ServerHandler.cpp" line="+447"/>
+=======
+        <location filename="ServerHandler.cpp" line="+470"/>
+>>>>>>> upstream/master
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Impossibile inviare o ricevere pacchetti UDP dal server. Cambio modalità su TCP.</translation>
     </message>
@@ -7161,7 +7252,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
         <translation>I pacchetti UDP possono essere inviati e ricevuti dal server. Ritorno a modalità UDP.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>Tempo per la connessione esaurito</translation>
     </message>

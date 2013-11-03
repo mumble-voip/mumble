@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef VOICERECORDERDIALOG_H_
-#define VOICERECORDERDIALOG_H_
+#ifndef MUMBLE_MUMBLE_VOICERECORDERDIALOG_H_
+#define MUMBLE_MUMBLE_VOICERECORDERDIALOG_H_
 
 #pragma once
 
@@ -43,7 +43,7 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 
 		QTimer *qtTimer;
 	public:
-		explicit VoiceRecorderDialog(QWidget *p);
+		explicit VoiceRecorderDialog(QWidget *p = NULL);
 		~VoiceRecorderDialog();
 
 		void closeEvent(QCloseEvent *evt);

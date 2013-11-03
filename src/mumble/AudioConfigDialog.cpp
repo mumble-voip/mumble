@@ -306,13 +306,15 @@ void AudioInputDialog::on_qcbPushClick_clicked(bool b) {
 }
 
 void AudioInputDialog::on_qpbPushClickBrowseOn_clicked() {
-	QString qsnew = AudioOutputSample::browseForSndfile();
+	QString defaultpath(qlePushClickPathOn->text());
+	QString qsnew = AudioOutputSample::browseForSndfile(defaultpath);
 	if (!qsnew.isEmpty())
 		qlePushClickPathOn->setText(qsnew);
 }
 
 void AudioInputDialog::on_qpbPushClickBrowseOff_clicked() {
-	QString qsnew = AudioOutputSample::browseForSndfile();
+	QString defaultpath(qlePushClickPathOff->text());
+	QString qsnew = AudioOutputSample::browseForSndfile(defaultpath);
 	if (!qsnew.isEmpty())
 		qlePushClickPathOff->setText(qsnew);
 }

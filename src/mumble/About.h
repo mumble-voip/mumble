@@ -28,11 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ABOUT_H_
-#define ABOUT_H_
+#ifndef MUMBLE_MUMBLE_ABOUT_H_
+#define MUMBLE_MUMBLE_ABOUT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
-#include <QtGui/QDialog>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QDialog>
+#else
+# include <QtGui/QDialog>
+#endif
 
 class AboutDialog : public QDialog {
 	private:

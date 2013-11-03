@@ -137,6 +137,9 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	} else if (id==-2 && ! qsPassword.isEmpty() && qsPassword != pw) {
 		reason = "Invalid server password";
 		rtType = MumbleProto::Reject_RejectType_WrongServerPW;
+	} else if (id==-3) {
+		reason = "Your account information can not be verified currently. Please try again later";
+		rtType = MumbleProto::Reject_RejectType_AuthenticatorFail;
 	} else {
 		ok = true;
 	}
@@ -504,7 +507,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 		if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full."));
+			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 			return;
 		}
 	}
@@ -837,6 +840,16 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 					return;
 				}
 			}
+		}
+	}
+
+	if(p) {
+		// Having a parent channel given means we either want to create
+		// a channel in or move a channel into this parent.
+
+		if (!canNest(p, c)) {
+			PERM_DENIED_FALLBACK(NestingLimit, 0x010204, QLatin1String("Channel nesting limit reached"));
+			return;
 		}
 	}
 
@@ -1421,6 +1434,8 @@ void Server::msgVersion(ServerUser *uSource, MumbleProto::Version &msg) {
 void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 
+	// The register permission is required on the root channel to be allowed to
+	// view the registered users.
 	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Register)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Register);
 		return;
@@ -1428,18 +1443,23 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 
 	if (msg.users_size() == 0) {
 		// Query mode.
-		QMap<int, QString> users = getRegisteredUsers();
-		QMap<int, QString>::const_iterator i;
-		for (i = users.constBegin(); i != users.constEnd(); ++i) {
-			if (i.key() > 0) {
+		QList<UserInfo> users = getRegisteredUsersEx();
+		QList<UserInfo>::const_iterator it = users.constBegin();
+		for (; it != users.constEnd(); ++it) {
+			// Skip the SuperUser
+			if (it->user_id > 0) {
 				::MumbleProto::UserList_User *u = msg.add_users();
-				u->set_user_id(i.key());
-				u->set_name(u8(i.value()));
+				u->set_user_id(it->user_id);
+				u->set_name(u8(it->name));
+				if (it->last_channel) {
+					u->set_last_channel(*it->last_channel);
+				}
+				u->set_last_seen(u8(it->last_active.toString(Qt::ISODate)));
 			}
 		}
 		sendMessage(uSource, msg);
 	} else {
-		for (int i=0;i < msg.users_size(); ++i) {
+		for (int i=0; i < msg.users_size(); ++i) {
 			const MumbleProto::UserList_User &u = msg.users(i);
 
 			int id = u.user_id();
@@ -1533,8 +1553,6 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
-	MumbleProto::UserStats_Stats *mpusss;
-	MumbleProto::Version *mpv;
 
 	bool extend = (uSource == pDstServerUser) || hasPermission(uSource, qhChannels.value(0), ChanACL::Register);
 
@@ -1561,6 +1579,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	}
 
 	if (local) {
+		MumbleProto::UserStats_Stats *mpusss;
+
 		mpusss = msg.mutable_from_client();
 		mpusss->set_good(cs.uiGood);
 		mpusss->set_late(cs.uiLate);
@@ -1582,6 +1602,8 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	msg.set_tcp_ping_var(pDstServerUser->dTCPPingVar);
 
 	if (details) {
+		MumbleProto::Version *mpv;
+
 		mpv = msg.mutable_version();
 		if (pDstServerUser->uiVersion)
 			mpv->set_version(pDstServerUser->uiVersion);

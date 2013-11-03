@@ -1,3 +1,7 @@
+/**
+ * Overlay drawing test application.
+ */
+
 #include <QtCore>
 #include <QtNetwork>
 #include <QtGui>
@@ -187,7 +191,7 @@ void OverlayWidget::readyRead() {
 	if (qls != qlsSocket)
 		return;
 
-	while (1) {
+	while (true) {
 		int ready = qlsSocket->bytesAvailable();
 
 		if (om.omh.iLength == -1) {
@@ -283,14 +287,14 @@ class TestWin : public QObject {
 };
 
 TestWin::TestWin() {
-	QMainWindow *qmw=new QMainWindow();
+	QMainWindow *qmw = new QMainWindow();
 	qmw->setObjectName(QLatin1String("main"));
 
 	OverlayWidget *ow = new OverlayWidget();
 	qmw->setCentralWidget(ow);
 
 	qmw->show();
-	qmw->resize(1280,720);
+	qmw->resize(1280, 720);
 
 	QMetaObject::connectSlotsByName(this);
 }

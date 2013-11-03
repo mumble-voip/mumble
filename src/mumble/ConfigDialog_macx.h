@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_MACX_H
-#define _CONFIGDIALOG_MACX_H
+#ifndef MUMBLE_MUMBLE_CONFIGDIALOG_MACX_H_
+#define MUMBLE_MUMBLE_CONFIGDIALOG_MACX_H_
 
 #include "mumble_pch.hpp"
 #include "ui_ConfigDialog.h"
@@ -57,6 +57,7 @@ class ConfigDialogMac : public QDialog, public Ui::ConfigDialog {
 		void updateExpert(bool expert);
 		void on_widgetSelected(ConfigWidget *);
 	public slots:
+		void delayedInit();
 		void on_pageButtonBox_clicked(QAbstractButton *);
 		void on_dialogButtonBox_clicked(QAbstractButton *);
 		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);

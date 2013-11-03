@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOOUTPUTSAMPLE_H_
-#define AUDIOOUTPUTSAMPLE_H_
+#ifndef MUMBLE_MUMBLE_AUDIOOUTPUTSAMPLE_H_
+#define MUMBLE_MUMBLE_AUDIOOUTPUTSAMPLE_H_
 
 #include <sndfile.h>
 #include <speex/speex_resampler.h>
@@ -78,14 +78,13 @@ class AudioOutputSample : public AudioOutputUser {
 
 		SoundFile *sfHandle;
 
-		bool bLastAlive;
 		bool bLoop;
 		bool bEof;
 	signals:
 		void playbackFinished();
 	public:
 		static SoundFile* loadSndfile(const QString &filename);
-		static QString browseForSndfile();
+		static QString browseForSndfile(QString defaultpath=QString());
 		virtual bool needSamples(unsigned int snum);
 		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
 		~AudioOutputSample();

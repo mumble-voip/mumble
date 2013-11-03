@@ -132,13 +132,14 @@ void ServerHandler::customEvent(QEvent *evt) {
 	if (evt->type() != SERVERSEND_EVENT)
 		return;
 
-	ServerHandlerMessageEvent *shme=static_cast<ServerHandlerMessageEvent *>(evt);
+	ServerHandlerMessageEvent *shme = static_cast<ServerHandlerMessageEvent *>(evt);
 
-	if (cConnection) {
+	ConnectionPtr connection(cConnection);
+	if (connection) {
 		if (shme->qbaMsg.size() > 0) {
-			cConnection->sendMessage(shme->qbaMsg);
+			connection->sendMessage(shme->qbaMsg);
 			if (shme->bFlush)
-				cConnection->forceFlush();
+				connection->forceFlush();
 		} else {
 			exit(0);
 		}
@@ -157,19 +158,20 @@ void ServerHandler::udpReady() {
 		if (!(senderAddr == qhaRemote) || (senderPort != usPort))
 			continue;
 
-		if (! cConnection)
+		ConnectionPtr connection(cConnection);
+		if (! connection)
 			continue;
 
-		if (! cConnection->csCrypt.isValid())
+		if (! connection->csCrypt.isValid())
 			continue;
 
 		if (buflen < 5)
 			continue;
 
-		if (! cConnection->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(buffer), buflen)) {
-			if (cConnection->csCrypt.tLastGood.elapsed() > 5000000ULL) {
-				if (cConnection->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
-					cConnection->csCrypt.tLastRequest.restart();
+		if (! connection->csCrypt.decrypt(reinterpret_cast<const unsigned char *>(encrypted), reinterpret_cast<unsigned char *>(buffer), buflen)) {
+			if (connection->csCrypt.tLastGood.elapsed() > 5000000ULL) {
+				if (connection->csCrypt.tLastRequest.elapsed() > 5000000ULL) {
+					connection->csCrypt.tLastRequest.restart();
 					MumbleProto::CryptSetup mpcs;
 					sendMessage(mpcs);
 				}
@@ -224,7 +226,9 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 	if (! qusUdp)
 		return;
-	if (! cConnection->csCrypt.isValid())
+
+	ConnectionPtr connection(cConnection);
+	if (!connection || !connection->csCrypt.isValid())
 		return;
 
 	if (!force && (NetworkConfig::TcpModeEnabled() || !bUdp)) {
@@ -238,7 +242,7 @@ void ServerHandler::sendMessage(const char *data, int len, bool force) {
 
 		QApplication::postEvent(this, new ServerHandlerMessageEvent(qba, MessageHandler::UDPTunnel, true));
 	} else {
-		cConnection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
+		connection->csCrypt.encrypt(reinterpret_cast<const unsigned char *>(data), crypto, len);
 		qusUdp->writeDatagram(reinterpret_cast<const char *>(crypto), len + 4, qhaRemote, usPort);
 	}
 }
@@ -251,7 +255,11 @@ void ServerHandler::sendProtoMessage(const ::google::protobuf::Message &msg, uns
 		ServerHandlerMessageEvent *shme=new ServerHandlerMessageEvent(qba, 0, false);
 		QApplication::postEvent(this, shme);
 	} else {
-		cConnection->sendMessage(msg, msgType, qba);
+		ConnectionPtr connection(cConnection);
+		if (!connection)
+			return;
+
+		connection->sendMessage(msg, msgType, qba);
 	}
 }
 
@@ -268,21 +276,27 @@ void ServerHandler::run() {
 		qtsSock->setCaCertificates(certs);
 	}
 
-	cConnection = ConnectionPtr(new Connection(this, qtsSock));
+	{
+		ConnectionPtr connection(new Connection(this, qtsSock));
+		cConnection = connection;
 
-	qlErrors.clear();
-	qscCert.clear();
+		qlErrors.clear();
+		qscCert.clear();
 
-	connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
-	connect(qtsSock, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(serverConnectionStateChanged(QAbstractSocket::SocketState)));
-	connect(cConnection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
-	connect(cConnection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
-	connect(cConnection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
-
+		connect(qtsSock, SIGNAL(encrypted()), this, SLOT(serverConnectionConnected()));
+		connect(qtsSock, SIGNAL(stateChanged(QAbstractSocket::SocketState)), this, SLOT(serverConnectionStateChanged(QAbstractSocket::SocketState)));
+		connect(connection.get(), SIGNAL(connectionClosed(QAbstractSocket::SocketError, const QString &)), this, SLOT(serverConnectionClosed(QAbstractSocket::SocketError, const QString &)));
+		connect(connection.get(), SIGNAL(message(unsigned int, const QByteArray &)), this, SLOT(message(unsigned int, const QByteArray &)));
+		connect(connection.get(), SIGNAL(handleSslErrors(const QList<QSslError> &)), this, SLOT(setSslErrors(const QList<QSslError> &)));
+	}
 	bUdp = false;
 
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qtsSock->setProtocol(QSsl::TlsV1_0);
+#else
 	qtsSock->setProtocol(QSsl::TlsV1);
+#endif
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
 	tTimestamp.restart();
@@ -318,9 +332,12 @@ void ServerHandler::run() {
 	}
 
 	ticker->stop();
-	cConnection->disconnectSocket(true);
 
-	ConnectionPtr cptr = cConnection;
+	ConnectionPtr cptr(cConnection);
+	if (cptr) {
+		cptr->disconnectSocket(true);
+	}
+
 	cConnection.reset();
 	while (! cptr.unique()) {
 		msleep(100);
@@ -333,7 +350,10 @@ extern DWORD WinVerifySslCert(const QByteArray& cert);
 #endif
 
 void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
-	qscCert = cConnection->peerCertificateChain();
+	ConnectionPtr connection(cConnection);
+	if (!connection) return;
+
+	qscCert = connection->peerCertificateChain();
 	QList<QSslError> newErrors = errors;
 
 #ifdef Q_OS_WIN
@@ -360,7 +380,7 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 			}
 		}
 		if (newErrors.isEmpty()) {
-			cConnection->proceedAnyway();
+			connection->proceedAnyway();
 			return;
 		}
 	}
@@ -368,13 +388,17 @@ void ServerHandler::setSslErrors(const QList<QSslError> &errors) {
 
 	bStrong = false;
 	if ((qscCert.size() > 0)  && (QString::fromLatin1(qscCert.at(0).digest(QCryptographicHash::Sha1).toHex()) == Database::getDigest(qsHostName, usPort)))
-		cConnection->proceedAnyway();
+		connection->proceedAnyway();
 	else
 		qlErrors = newErrors;
 }
 
 void ServerHandler::sendPing() {
-	CryptState &cs = cConnection->csCrypt;
+	ConnectionPtr connection(cConnection);
+	if (!connection)
+		return;
+
+	CryptState &cs = connection->csCrypt;
 
 	quint64 t = tTimestamp.elapsed();
 
@@ -433,7 +457,10 @@ void ServerHandler::message(unsigned int msgType, const QByteArray &qbaMsg) {
 	} else if (msgType == MessageHandler::Ping) {
 		MumbleProto::Ping msg;
 		if (msg.ParseFromArray(qbaMsg.constData(), qbaMsg.size())) {
-			CryptState &cs = cConnection->csCrypt;
+			ConnectionPtr connection(cConnection);
+			if (!connection) return;
+
+			CryptState &cs = connection->csCrypt;
 			cs.uiRemoteGood = msg.good();
 			cs.uiRemoteLate = msg.late();
 			cs.uiRemoteLost = msg.lost();
@@ -490,7 +517,10 @@ void ServerHandler::serverConnectionClosed(QAbstractSocket::SocketError err, con
 }
 
 void ServerHandler::serverConnectionTimeoutOnConnect() {
-	cConnection->disconnectSocket(true);
+	ConnectionPtr connection(cConnection);
+	if (connection)
+		connection->disconnectSocket(true);
+
 	serverConnectionClosed(QAbstractSocket::SocketTimeoutError, tr("Connection timed out"));
 }
 
@@ -505,20 +535,26 @@ void ServerHandler::serverConnectionStateChanged(QAbstractSocket::SocketState st
 }
 
 void ServerHandler::serverConnectionConnected() {
+	ConnectionPtr connection(cConnection);
+	if (!connection) return;
+
 	tConnectionTimeoutTimer->stop();
 
 	if (g.s.bQoS)
-		cConnection->setToS();
+		connection->setToS();
 
-	qscCert = cConnection->peerCertificateChain();
-	qscCipher = cConnection->sessionCipher();
+	qscCert = connection->peerCertificateChain();
+	qscCipher = connection->sessionCipher();
 
 	if (! qscCert.isEmpty()) {
 		const QSslCertificate &qsc = qscCert.last();
 		qbaDigest = sha1(qsc.publicKey().toDer());
 		bUdp = Database::getUdp(qbaDigest);
 	} else {
-		bUdp = true;
+		// Shouldn't reach this
+		qCritical("Server must have a certificate. Dropping connection");
+		disconnect();
+		return;
 	}
 
 	MumbleProto::Version mpv;
@@ -554,7 +590,7 @@ void ServerHandler::serverConnectionConnected() {
 	{
 		QMutexLocker qml(&qmUdp);
 
-		qhaRemote = cConnection->peerAddress();
+		qhaRemote = connection->peerAddress();
 
 		qusUdp = new QUdpSocket(this);
 		if (qhaRemote.protocol() == QAbstractSocket::IPv6Protocol)
@@ -734,7 +770,7 @@ void ServerHandler::sendChannelTextMessage(unsigned int channel, const QString &
 	} else {
 		mptm.add_channel_id(channel);
 
-		if (message_ == QString::fromAscii(g.ccHappyEaster + 10)) g.bHappyEaster = true;
+		if (message_ == QString::fromUtf8(g.ccHappyEaster + 10)) g.bHappyEaster = true;
 	}
 	mptm.set_message(u8(message_));
 	sendMessage(mptm);

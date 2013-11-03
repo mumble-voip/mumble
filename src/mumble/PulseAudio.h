@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef PULSEAUDIO_H_
-#define PULSEAUDIO_H_
+#ifndef MUMBLE_MUMBLE_PULSEAUDIO_H_
+#define MUMBLE_MUMBLE_PULSEAUDIO_H_
 
 #include <pulse/pulseaudio.h>
 #include <pulse/ext-stream-restore.h>

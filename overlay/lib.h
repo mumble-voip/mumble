@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _LIB_H
-#define _LIB_H
+#ifndef MUMBLE_LIB_H_
+#define MUMBLE_LIB_H_
 
 #define _UNICODE
 #define  _WIN32_WINNT 0x0501
@@ -52,8 +52,11 @@ using namespace std;
 void __cdecl ods(const char *format, ...);
 
 struct Direct3D9Data {
+	// Offset from module address to Create method.
 	int iOffsetCreate;
+	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
+	// Filename of the module.
 	char cFileName[2048];
 };
 
@@ -117,10 +120,12 @@ class Pipe {
 extern void checkDXGIHook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 extern void checkOpenGLHook();
+extern void freeD3D9Hook(HMODULE hModule);
 
 extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
 extern HMODULE hSelf;
+extern BOOL bIsWin8;
 extern unsigned int uiAudioCount;
 extern bool bVideoHooked;
 

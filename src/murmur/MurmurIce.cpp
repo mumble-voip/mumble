@@ -1237,6 +1237,11 @@ static void impl_Server_setChannelState(const ::Murmur::AMD_Server_setChannelSta
 		newset << cLink;
 	}
 
+	if (!server->canNest(np, channel)) {
+		cb->ice_exception(::Murmur::NestingLimitException());
+		return;
+	}
+
 	if (! server->setChannelState(channel, np, qsName, newset, u8(state.description), state.position))
 		cb->ice_exception(::Murmur::InvalidChannelException());
 	else
@@ -1259,6 +1264,11 @@ static void impl_Server_addChannel(const ::Murmur::AMD_Server_addChannelPtr cb, 
 	NEED_SERVER;
 	::Channel *p, *nc;
 	NEED_CHANNEL_VAR(p, parent);
+
+	if (!server->canNest(p)) {
+		cb->ice_exception(::Murmur::NestingLimitException());
+		return;
+	}
 
 	QString qsName = u8(name);
 

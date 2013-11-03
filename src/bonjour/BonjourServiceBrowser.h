@@ -27,10 +27,12 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef BONJOURSERVICEBROWSER_H
-#define BONJOURSERVICEBROWSER_H
+#ifndef MUMBLE_BONJOURSERVICEBROWSER_H_
+#define MUMBLE_BONJOURSERVICEBROWSER_H_
 
 #include <dns_sd.h>
+
+#include <QtCore/QObject>
 
 #include "BonjourRecord.h"
 
@@ -66,4 +68,4 @@ class BonjourServiceBrowser : public QObject {
 		QString browsingType;
 };
 
-#endif // BONJOURSERVICEBROWSER_H
+#endif

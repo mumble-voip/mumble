@@ -32,93 +32,182 @@
 
 #include "UserEdit.h"
 
+#include <QItemSelectionModel>
+
+#include "Channel.h"
 #include "Global.h"
 #include "ServerHandler.h"
 #include "User.h"
+#include "Mumble.pb.h"
+#include "UserListModel.h"
 
-UserEdit::UserEdit(const MumbleProto::UserList &msg, QWidget *p) : QDialog(p) {
+
+UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *parent)
+	: QDialog(parent)
+	, m_model(new UserListModel(userList, this))
+	, m_filter(new UserListFilterProxyModel(this)) {
+
 	setupUi(this);
 
-	qlwUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+	const int userCount = userList.users_size();
+	setWindowTitle(tr("Registered users: %n account(s)", "", userCount));
 
-	for (int i=0;i<msg.users_size(); ++i) {
-		const MumbleProto::UserList_User &u = msg.users(i);
-		int id = u.user_id();
-		const QString &name = u8(u.name());
+	m_filter->setSourceModel(m_model);
+	qtvUserList->setModel(m_filter);
 
-		UserEditListItem *ueli = new UserEditListItem(name, id);
+	QItemSelectionModel *selectionModel = qtvUserList->selectionModel();
+	connect(selectionModel, SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+	        this, SLOT(onSelectionChanged(QItemSelection,QItemSelection)));
+	connect(selectionModel, SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
+	        this, SLOT(onCurrentRowChanged(QModelIndex,QModelIndex)));
 
-		qlwUserList->addItem(ueli);
-		qmUsers.insert(id, name);
+	qtvUserList->setFocus();
+	qtvUserList->setContextMenuPolicy(Qt::CustomContextMenu);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qtvUserList->header()->setSectionResizeMode(UserListModel::COL_NICK, QHeaderView::Stretch);
+	qtvUserList->header()->setSectionResizeMode(UserListModel::COL_INACTIVEDAYS, QHeaderView::ResizeToContents);
+	qtvUserList->header()->setSectionResizeMode(UserListModel::COL_LASTCHANNEL, QHeaderView::Stretch);
+#else
+	qtvUserList->header()->setResizeMode(UserListModel::COL_NICK, QHeaderView::Stretch);
+	qtvUserList->header()->setResizeMode(UserListModel::COL_INACTIVEDAYS, QHeaderView::ResizeToContents);
+	qtvUserList->header()->setResizeMode(UserListModel::COL_LASTCHANNEL, QHeaderView::Stretch);
+#endif
+
+	if (m_model->isLegacy()) {
+		qlInactive->hide();
+		qsbInactive->hide();
+		qcbInactive->hide();
 	}
+
+	qtvUserList->sortByColumn(UserListModel::COL_NICK, Qt::AscendingOrder);
 }
 
 void UserEdit::accept() {
-	QList<QListWidgetItem *> ql = qlwUserList->findItems(QString(), Qt::MatchStartsWith);
-	foreach(QListWidgetItem * qlwi, ql) {
-		const QString &name = qlwi->text();
-		int id = qlwi->data(Qt::UserRole).toInt();
-		if (qmUsers.value(id) != name) {
-			qmChanged.insert(id, name);
-		}
-	}
-
-	if (! qmChanged.isEmpty()) {
-		MumbleProto::UserList mpul;
-		QMap<int, QString>::const_iterator i;
-		for (i=qmChanged.constBegin(); i!=qmChanged.constEnd(); ++i) {
-			MumbleProto::UserList_User *u = mpul.add_users();
-			u->set_user_id(i.key());
-			if (! i.value().isEmpty())
-				u->set_name(u8(i.value()));
-		}
-		g.sh->sendMessage(mpul);
+	if (m_model->isUserListDirty()) {
+		MumbleProto::UserList userList = m_model->getUserListUpdate();
+		g.sh->sendMessage(userList);
 	}
 
 	QDialog::accept();
 }
 
-void UserEdit::on_qpbRemove_clicked() {
-	int idx = qlwUserList->currentRow();
-	if (idx >= 0) {
-		QListWidgetItem *qlwi = qlwUserList->takeItem(idx);
-		int id = qlwi->data(Qt::UserRole).toInt();
-		qmChanged.insert(id, QString());
-		delete qlwi;
-	}
+void UserEdit::on_qlSearch_textChanged(QString pattern) {
+	m_filter->setFilterWildcard(pattern);
 }
 
-void UserEdit::on_qlwUserList_customContextMenuRequested(const QPoint &point) {
+
+void UserEdit::on_qpbRename_clicked() {
+	QModelIndex current = qtvUserList->selectionModel()->currentIndex();
+	if (!current.isValid())
+		return;
+
+	QModelIndex nickIndex = current.sibling(current.row(), UserListModel::COL_NICK);
+	qtvUserList->edit(nickIndex);
+}
+
+void UserEdit::on_qpbRemove_clicked() {
+	m_filter->removeRowsInSelection(qtvUserList->selectionModel()->selection());
+}
+
+void UserEdit::on_qtvUserList_customContextMenuRequested(const QPoint &point) {
 	QMenu *menu = new QMenu(this);
 
-	QAction *action = menu->addAction(tr("Rename"));
-	connect(action, SIGNAL(triggered()), this, SLOT(renameTriggered()));
+	if (qtvUserList->selectionModel()->currentIndex().isValid()) {
+		QAction *renameAction = menu->addAction(tr("Rename"));
+		connect(renameAction, SIGNAL(triggered()),
+		        this, SLOT(on_qpbRename_clicked()));
 
-	menu->addSeparator();
+		menu->addSeparator();
+	}
 
-	action = menu->addAction(tr("Remove"));
-	connect(action, SIGNAL(triggered()), this, SLOT(on_qpbRemove_clicked()));
+	QAction *removeAction = menu->addAction(tr("Remove"));
+	connect(removeAction, SIGNAL(triggered()),
+	        this, SLOT(on_qpbRemove_clicked()));
 
-	menu->exec(qlwUserList->mapToGlobal(point));
+	menu->exec(qtvUserList->mapToGlobal(point));
 	delete menu;
 }
 
-void UserEdit::renameTriggered() {
-	QListWidgetItem *item = qlwUserList->currentItem();
-	if (item) {
-		qlwUserList->editItem(item);
+void UserEdit::onSelectionChanged(const QItemSelection& /*selected*/, const QItemSelection& /*deselected*/) {
+	const bool somethingSelected = !(qtvUserList->selectionModel()->selection().empty());
+	qpbRemove->setEnabled(somethingSelected);
+}
+
+void UserEdit::onCurrentRowChanged(const QModelIndex &current, const QModelIndex &) {
+	qpbRename->setEnabled(current.isValid());
+}
+
+void UserEdit::on_qsbInactive_valueChanged(int) {
+	updateInactiveDaysFilter();
+}
+
+void UserEdit::on_qcbInactive_currentIndexChanged(int) {
+	updateInactiveDaysFilter();
+}
+
+void UserEdit::updateInactiveDaysFilter() {
+	const int timespanUnit = qcbInactive->currentIndex();
+	const int timespanCount = qsbInactive->value();
+
+	int minimumInactiveDays = 0;
+	switch (timespanUnit) {
+		case TU_DAYS:
+			minimumInactiveDays = timespanCount;
+			break;
+		case TU_WEEKS:
+			minimumInactiveDays = timespanCount * 7;
+			break;
+		case TU_MONTHS:
+			minimumInactiveDays = timespanCount * 30;
+			break;
+		case TU_YEARS:
+			minimumInactiveDays = timespanCount * 365;
+			break;
+		default:
+			break;
 	}
+
+	m_filter->setFilterMinimumInactiveDays(minimumInactiveDays);
 }
 
-UserEditListItem::UserEditListItem(const QString &username, const int userid) : QListWidgetItem(username) {
-	setFlags(flags() | Qt::ItemIsEditable);
-	setData(Qt::UserRole, userid);
+
+UserListFilterProxyModel::UserListFilterProxyModel(QObject *parent)
+	: QSortFilterProxyModel(parent)
+	, m_minimumInactiveDays(0) {
+
+	setFilterKeyColumn(UserListModel::COL_NICK);
+	setFilterCaseSensitivity(Qt::CaseInsensitive);
+	setSortLocaleAware(true);
+	setDynamicSortFilter(true);
 }
 
-bool UserEditListItem::operator<(const QListWidgetItem &other) const {
-	// Avoid duplicating the User sorting code for a little more complexity
-	User first, second;
-	first.qsName = text();
-	second.qsName = other.text();
-	return User::lessThan(&first, &second);
+bool UserListFilterProxyModel::filterAcceptsRow(int source_row, const QModelIndex &source_parent) const {
+	if(!QSortFilterProxyModel::filterAcceptsRow(source_row, source_parent)) {
+		return false;
+	}
+
+	const QModelIndex inactiveDaysIdx = sourceModel()->index(source_row,
+	                                                         UserListModel::COL_INACTIVEDAYS,
+	                                                         source_parent);
+
+	bool ok;
+	const int inactiveDays = inactiveDaysIdx.data().toInt(&ok);
+
+	// If inactiveDaysIdx doesn't store an int the account hasn't been seen yet and mustn't be filtered
+	if (ok && inactiveDays < m_minimumInactiveDays)
+		return false;
+
+	return true;
 }
+
+void UserListFilterProxyModel::setFilterMinimumInactiveDays(int minimumInactiveDays) {
+	m_minimumInactiveDays = minimumInactiveDays;
+	invalidateFilter();
+}
+
+void UserListFilterProxyModel::removeRowsInSelection(const QItemSelection &selection) {
+	QItemSelection sourceSelection = mapSelectionToSource(selection);
+	qobject_cast<UserListModel*>(sourceModel())->removeRowsInSelection(sourceSelection);
+}
+

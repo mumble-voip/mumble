@@ -262,6 +262,8 @@ module Murmur
 	exception InvalidCallbackException extends MurmurException {};
 	/**  This is thrown when you supply the wrong secret in the calling context. */
 	exception InvalidSecretException extends MurmurException {};
+	/** This is thrown when the channel operation would excede the channel nesting limit */
+	exception NestingLimitException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
@@ -350,7 +352,8 @@ module Murmur
 		 *  @param certstrong True if certificate was valid and signed by a trusted CA.
 		 *  @param newname Set this to change the username from the supplied one.
 		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
-		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough).
+		 *  @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
+		 *          -3 for authentication failures where the data could (temporarily) not be verified.
 		 */
 		idempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);
 
@@ -613,7 +616,7 @@ module Murmur
 		 * @param state Channel state to set.
 		 * @see getChannelState
 		 */
-		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		idempotent void setChannelState(Channel state) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
 
 		/** Remove a channel and all its subchannels.
 		 * @param channelid ID of Channel. See {@link Channel.id}.
@@ -625,7 +628,7 @@ module Murmur
 		 * @param parent Channel ID of parent channel. See {@link Channel.id}.
 		 * @return ID of newly created channel.
 		 */
-		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException;
+		int addChannel(string name, int parent) throws ServerBootedException, InvalidChannelException, InvalidSecretException, NestingLimitException;
 
 		/** Send text message to channel or a tree of channels.
 		 * @param channelid Channel ID of channel to send to. See {@link Channel.id}.

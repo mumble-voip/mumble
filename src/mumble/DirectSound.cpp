@@ -37,6 +37,9 @@
 #include "User.h"
 #include "Global.h"
 
+// from os_win.cpp
+extern HWND MumbleHWNDForQWidget(QWidget *w);
+
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
@@ -225,10 +228,6 @@ void DXAudioOutput::run() {
 	LPDIRECTSOUNDBUFFER       pDSBOutput = NULL;
 	LPDIRECTSOUNDNOTIFY8       pDSNotify = NULL;
 
-	DWORD	dwBufferSize;
-	DWORD	dwLastWritePos;
-	DWORD	dwLastPlayPos;
-	DWORD	dwTotalPlayPos;
 	int iLastwriteblock;
 	LPVOID aptr1, aptr2;
 	DWORD nbytes1, nbytes2;
@@ -262,7 +261,7 @@ void DXAudioOutput::run() {
 	if (! pDS && FAILED(hr = DirectSoundCreate8(&DSDEVID_DefaultVoicePlayback, &pDS, NULL))) {
 		qWarning("DXAudioOutput: DirectSoundCreate failed: hr=0x%08lx", hr);
 		goto cleanup;
-	} else if (FAILED(hr = pDS->SetCooperativeLevel(g.mw->winId(), DSSCL_PRIORITY))) {
+	} else if (FAILED(hr = pDS->SetCooperativeLevel(MumbleHWNDForQWidget(g.mw), DSSCL_PRIORITY))) {
 		qWarning("DXAudioOutput: SetCooperativeLevel failed: hr=0x%08lx", hr);
 		goto cleanup;
 	} else if (FAILED(hr = pDS->CreateSoundBuffer(&dsbdesc, &pDSBPrimary, NULL))) {
@@ -386,7 +385,6 @@ void DXAudioOutput::run() {
 		goto cleanup;
 	}
 
-	dwBufferSize = nbytes1 + nbytes2;
 	if (aptr1)
 		ZeroMemory(aptr1, nbytes1);
 	if (aptr2)
@@ -401,10 +399,6 @@ void DXAudioOutput::run() {
 		qWarning("DXAudioOutputUser: Play failed: hr=0x%08lx", hr);
 		goto cleanup;
 	}
-
-	dwLastWritePos = 0;
-	dwLastPlayPos = 0;
-	dwTotalPlayPos = 0;
 
 	iLastwriteblock = (NBLOCKS - 1 + g.s.iOutputDelay) % NBLOCKS;
 
@@ -492,8 +486,6 @@ void DXAudioInput::run() {
 
 	DWORD dwBufferSize;
 	bool bOk;
-	DWORD dwReadyBytes = 0;
-	DWORD dwLastReadPos = 0;
 	DWORD dwReadPosition;
 	DWORD dwCapturePosition;
 
@@ -511,9 +503,6 @@ void DXAudioInput::run() {
 	bOk = false;
 
 	bool failed = false;
-	float safety = 2.0f;
-	bool didsleep = false;
-	bool firstsleep = false;
 
 	Timer t;
 
@@ -562,9 +551,13 @@ void DXAudioInput::run() {
 	if (FAILED(hr = pDSCaptureBuffer->Start(DSCBSTART_LOOPING))) {
 		qWarning("DXAudioInput: Start failed: hr=0x%08lx", hr);
 	} else {
+		DWORD dwReadyBytes = 0;
+		DWORD dwLastReadPos = 0;
+		float safety = 2.0f;
+
 		while (bRunning) {
-			firstsleep = true;
-			didsleep = false;
+			bool firstsleep = true;
+			bool didsleep = false;
 
 			do {
 				if (FAILED(hr = pDSCaptureBuffer->GetCurrentPosition(&dwCapturePosition, &dwReadPosition))) {

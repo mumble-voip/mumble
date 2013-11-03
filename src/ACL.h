@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ACL_H_
-#define ACL_H_
+#ifndef MUMBLE_ACL_H_
+#define MUMBLE_ACL_H_
 
 #include <QtCore/QHash>
 #include <QtCore/QObject>

@@ -1,7 +1,8 @@
 include(../../compiler.pri)
-TEMPLATE	=app
-CONFIG  += qt thread warn_on release qtestlib no_keywords console
-LANGUAGE	= C++
+TEMPLATE = app
+CONFIG += qt thread warn_on release qtestlib no_keywords console
+CONFIG -= app_bundle
+LANGUAGE = C++
 TARGET = Resample
 SOURCES = Resample.cpp Timer.cpp
 HEADERS = Timer.h

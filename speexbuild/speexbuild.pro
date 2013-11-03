@@ -37,6 +37,9 @@ win32 {
   DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
   SOURCES	*= mumble_speex_init.c
 
+  CONFIG -= static
+  CONFIG += shared
+
   CONFIG(sse2) {
     TARGET = speex.sse2
     DEFINES += _USE_SSE2

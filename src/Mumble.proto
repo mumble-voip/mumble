@@ -45,6 +45,7 @@ message Reject {
 		UsernameInUse = 5;
 		ServerFull = 6;
 		NoCertificate = 7;
+		AuthenticatorFail = 8;
 	}
 	optional RejectType type = 1;
 	optional string reason = 2;
@@ -145,6 +146,7 @@ message PermissionDenied {
 		MissingCertificate = 7;
 		UserName = 8;
 		ChannelFull = 9;
+		NestingLimit = 10;
 	}
 	optional uint32 permission = 1;
 	optional uint32 channel_id = 2;
@@ -217,6 +219,8 @@ message UserList {
 	message User {
 		required uint32 user_id = 1;
 		optional string name = 2;
+		optional string last_seen = 3;
+		optional uint32 last_channel = 4;
 	}
 	repeated User users = 1;
 }

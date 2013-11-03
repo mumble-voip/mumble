@@ -1,6 +1,7 @@
-TEMPLATE	=app
-CONFIG  += qt thread warn_on release qtestlib no_keywords
-LANGUAGE	= C++
+TEMPLATE = app
+CONFIG += qt thread warn_on release qtestlib no_keywords
+CONFIG -= app_bundle
+LANGUAGE = C++
 TARGET = ProtoBuf
 HEADERS = Message.h Timer.h
 PROTOS = ProtoBuf.proto

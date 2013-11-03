@@ -1,6 +1,6 @@
 #ifndef Q_MOC_RUN
-#ifndef _MURMUR_PCH_H
-#define _MURMUR_PCH_H
+#ifndef MUMBLE_MURMUR_MURMUR_PCH_H_
+#define MUMBLE_MURMUR_MURMUR_PCH_H_
 
 #define WIN32_LEAN_AND_MEAN
 
@@ -26,6 +26,9 @@
 
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QtWidgets>
+#endif
 #include <winsock2.h>
 #include <qos2.h>
 #include <windows.h>
@@ -62,7 +65,7 @@ extern "C" {
 #endif
 #include <pwd.h>
 #include <grp.h>
-#ifdef __FreeBSD__
+#if defined __FreeBSD__ || defined __OpenBSD__
 #include <netinet/in_systm.h>
 #endif
 #include <netinet/in.h>

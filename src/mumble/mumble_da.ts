@@ -47,7 +47,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanalen skal have et navn</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -507,7 +507,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+226"/>
+        <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
         <translation>%1 (version %2)</translation>
     </message>
@@ -683,7 +683,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>Tredje&amp;partslicenser</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -761,7 +761,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Hvis du trykker to gange på Tryk-for-snak-knappen inden for denne tid, vil den blive låst.</translation>
+        <translation>Hvis du trykker to gange på tryk-for-snak-knappen inden for denne tid, vil den blive låst.</translation>
     </message>
     <message>
         <location/>
@@ -990,23 +990,6 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     </message>
     <message>
         <location/>
-        <source>Idle AutoDeafen</source>
-        <translatorcomment>Pretty hard to shorten</translatorcomment>
-        <translation>Deaktivér mikrofon
-og lyd når ubenyttet</translation>
-    </message>
-    <message>
-        <location/>
-        <source>How long to remain idle before auto-deafen.</source>
-        <translation>Hvor længe computeren skal være ubenyttet, før mikrofon og lyd deaktiveres.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation>Dette indstiller en timer for, hvor længe computeren skal være ubenyttet. Hvis timeren udløber, uden at der bliver sendt noget lyd til serveren, vil din mikrofon og lyd blive deaktiveret.</translation>
-    </message>
-    <message>
-        <location/>
         <source>Exclusive mode</source>
         <translation>Eneretstilstand</translation>
     </message>
@@ -1048,62 +1031,92 @@ og lyd når ubenyttet</translation>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis en vindue der altid er øverst og har en tryk-tryk-for-snak knap i det</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis tryk-for-snak-vindue</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished">Diverse</translation>
+        <translation>Diverse</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Hørbart lydsignal når transmittering startes og stoppes</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Dette aktiverer transmissions-lydsignal.&lt;/b&gt;&lt;br /&gt;Aktivering af dette vil give dig en kort biplyd, når du starter og stopper transmittering.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydsignal</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bliver afspillet når transmittering starter</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"></translation>
+        <translation>Bliver afspillet når transmittering stopper</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Fasthold-tid</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiden hvor mikrofonen forbliver aktiv efter tryk-for-snak-knappen er sluppet</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverens maksimale netværksbåndbredde er kun %1 kbit/s. Lydkvaliteten blev automatisk justeret til %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Max forstærkning</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Idle action</source>
+        <translation>Inaktiv handling</translation>
+    </message>
+    <message>
+        <location/>
+        <source>minutes do</source>
+        <translation>minutter udfør</translation>
+    </message>
+    <message>
+        <location/>
+        <source>nothing</source>
+        <translation>intet</translation>
+    </message>
+    <message>
+        <location/>
+        <source>deafen</source>
+        <translation>deaktivér lyd</translation>
+    </message>
+    <message>
+        <location/>
+        <source>mute</source>
+        <translation>deaktivér mikrofon</translation>
+    </message>
+    <message>
+        <location/>
+        <source>after</source>
+        <translation>efter</translation>
     </message>
 </context>
 <context>
@@ -1124,12 +1137,12 @@ og lyd når ubenyttet</translation>
         <translation>Tryk for snak</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Audio Input</source>
         <translation>Lydindspilning</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1139,12 +1152,11 @@ og lyd når ubenyttet</translation>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
-        <location line="+18"/>
         <source>Off</source>
         <translation>Fra</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-12"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -1159,15 +1171,9 @@ og lyd når ubenyttet</translation>
         <translation>-%1 dB</translation>
     </message>
     <message>
-        <location line="+55"/>
-        <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
-        <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation>%1kbit/s (Lyd %2 %5, Placering %4, Tab %3)</translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <source>%1 min</source>
-        <translation>%1 min</translation>
+        <location line="+48"/>
+        <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
+        <translation>%1 kbit/s (Lyd %2, Placering %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -1459,7 +1465,7 @@ og lyd når ubenyttet</translation>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+165"/>
+        <location filename="AudioConfigDialog.cpp" line="+135"/>
         <source>None</source>
         <translation>Ingen</translation>
     </message>
@@ -1504,12 +1510,12 @@ og lyd når ubenyttet</translation>
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+212"/>
+        <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
         <translation>Vælg lydfil</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Invalid sound file</source>
         <translation>Ugyldig lydfil</translation>
     </message>
@@ -1928,28 +1934,13 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     </message>
     <message>
         <location/>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation>Med denne konfiguration vil Mumble bruge en &lt;b&gt;lav mængde båndbredde&lt;/b&gt;. Dette vil uundgåeligt resultere i høj forsinkelse og dårlig kvalitet. Vælg kun dette, hvis din forbindelse ikke kan klare de andre indstillinger. (Speex 16kbit/s, 60ms pr. pakke)</translation>
-    </message>
-    <message>
-        <location/>
         <source>Balanced</source>
         <translation>Balanceret</translation>
     </message>
     <message>
         <location/>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation>Dette er den &lt;b&gt;anbefalede standard&lt;/b&gt;-konfiguration. Det giver en god balance mellem kvalitet, forsinkelse og båndbredde-forbrug (CELT 40kbit/s, 20ms pr. pakke)</translation>
-    </message>
-    <message>
-        <location/>
         <source>High</source>
         <translation>Høj</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation>Det anbefales kun at bruge denne konfiguration i opsætninger, hvor båndbredde ikke er noget problem, fx til LAN. Det yder den laveste forsinkelse, som Mumble understøtter, og &lt;b&gt;høj kvalitet&lt;/b&gt;. (CELT 72kbit/s, 10ms pr. pakke)</translation>
     </message>
     <message>
         <location/>
@@ -2162,6 +2153,21 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <comment>For high contrast mode</comment>
         <translation>Dernæst skal du justere følgende skyder. De første få udtalelser, du siger, burde ende i det tomme område (definitivt tale). Når du snakker, burde du forblive inden for det stribede (kan være tale), og når du ikke snakker, burde alt være i det ternede (definitivt ikke tale).</translation>
     </message>
+    <message>
+        <location/>
+        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <translation>Med denne konfiguration bruger Mumble en &lt;b&gt;lav mængde båndbredde&lt;/b&gt;. Dette vil uundgåeligt resultere i høj forsinkelse og dårlig kvalitet. Vælg kun dette, hvis din forbindelse ikke kan håndtere de andre indstillinger. (16kbit/s, 60ms per pakke)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <translation>Dette er den &lt;b&gt;anbefalede standard&lt;/b&gt;-konfiguration. Denne giver en god balance mellem kvalitet, forsinkelse og båndbredde-forbrug. (40kbit/s, 20ms per pakke)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <translation>Det anbefales kun at bruge denne konfiguration i opsætninger, hvor båndbredde ikke er noget problem, fx til LAN. Denne giver den mindst mulige forsinkelse, som Mumble understøtter, og &lt;b&gt;høj kvalitet&lt;/b&gt;. (72kbit/s, 10ms per pakke)</translation>
+    </message>
 </context>
 <context>
     <name>BanEditor</name>
@@ -2244,7 +2250,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <translation>Udløbsdato</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(ingen)</translation>
     </message>
@@ -2322,7 +2328,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+435"/>
+        <location filename="main.cpp" line="+456"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -2805,7 +2811,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Indsæt og send</translation>
+        <translation>&amp;Indsæt og send</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2848,7 +2854,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorér lokalt (tekstbeskeder)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2869,7 +2875,7 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Acceptér ændringer</translation>
     </message>
@@ -2926,63 +2932,8 @@ Det er &lt;b&gt;kraftigt&lt;/b&gt; anbefalet at du &lt;a href=&quot;http://mumbl
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Avanceret</translation>
-    </message>
-</context>
-<context>
-    <name>ConfigDialogMac</name>
-    <message>
-        <location filename="ConfigDialog_macx.mm" line="+70"/>
-        <source>Accept changes</source>
-        <translation>Acceptér ændringer</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>Denne knap vil anvende nuværende indstillinger og vende tilbage til programmet.&lt;br /&gt;Indstillingerne vil blive gemt, når du forlader programmet.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reject changes</source>
-        <translation>Forkast ændringer</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>Denne knap vil forkaste alle ændringer og vende tilbage til programmet.&lt;br /&gt;Indstillingerne vil blive sat til deres tidligere positioner.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Apply changes</source>
-        <translation>Anvend ændringer</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will immediately apply all changes.</source>
-        <translation>Denne knap vil øjeblikkeligt anvende alle ændringer.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Undo changes for current page</source>
-        <translation>Fortryd ændringer på nuværende side</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Denne knap vil genskabe alle tidligere anvendte indstillinger for den nuværende side.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Restore defaults for current page</source>
-        <translation>Genskab standardindstillinger for nuværende side</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Denne knap vil genskabe indstillingerne for den nuværende side til deres oprindelige standardindstilling. Der vil ikke blive ændret på andre sider.&lt;br /&gt;For at genskabe alle standardindstillinger skal du bruge denne knap på hver enkelt side.</translation>
     </message>
 </context>
 <context>
@@ -3384,17 +3335,17 @@ Navn på serveren. Dette er, hvad serveren vil blive navngivet som i din serverl
         <translation>Standard DirectSounds stemmeindspilning</translation>
     </message>
     <message>
-        <location line="+461"/>
+        <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
         <translation>Åbning af valgte DirectSound indspilningsenhed mislykkedes. Ingen mikrofonopfangelse vil blive udført.</translation>
     </message>
     <message>
-        <location line="-79"/>
+        <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Åbning af valgte DirectSound indspilning mislykkedes. Standardenheden vil blive brugt.</translation>
     </message>
     <message>
-        <location line="+74"/>
+        <location line="+78"/>
         <source>Lost DirectSound input device.</source>
         <translation>Mistede DirectSound indspilningsenhed.</translation>
     </message>
@@ -3402,17 +3353,17 @@ Navn på serveren. Dette er, hvad serveren vil blive navngivet som i din serverl
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location line="-496"/>
+        <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
         <translation>Standard DirectSound lydafspilning</translation>
     </message>
     <message>
-        <location line="+247"/>
+        <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Åbning af valgte DirectSound afspilnings mislykkedes. Standardenhed vil blive brugt.</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="+73"/>
         <source>Lost DirectSound output device.</source>
         <translation>Mistede DirectSound afspilningsenhed.</translation>
     </message>
@@ -3425,7 +3376,7 @@ Navn på serveren. Dette er, hvad serveren vil blive navngivet som i din serverl
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Det mislykkedes Mumble at initialisere en database i nogen
@@ -3508,16 +3459,36 @@ som helst mulige placeringer.</translation>
         <source>&amp;Remove</source>
         <translation>&amp;Fjern</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan på nuværende tidspunkt kun bruge knapper på musen og tastatur-modifikationsknapper (Alt, Ctrl, Cmd, etc.) som globale genveje.&lt;/p&gt;&lt;p&gt;Hvis du ønsker større fleksibilitet, kan du aktivere &lt;span style=&quot; font-style:italic;&quot;&gt;Adgang for hjælpemiddelenheder&lt;/span&gt; i systemets tilgængelighedspræferencer. Vær imidlertid opmærksom på, at denne ændring også potentielt tillader ondsindede programmer, at læse hvad der blivet skrevet på tastaturet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open Accessibility Preferences</source>
+        <translation>Åben tilgængelighedspræferencer</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Skip</source>
+        <translation>Spring over</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation>Aktivér globale genveje</translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+673"/>
+        <location filename="GlobalShortcut.cpp" line="+721"/>
         <source>Shortcuts</source>
         <translation>Genveje</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+52"/>
         <source>Shortcut button combination.</source>
         <translation>Kombination af genvejsknapper.</translation>
     </message>
@@ -3722,7 +3693,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+229"/>
+        <location filename="Log.cpp" line="+200"/>
         <source>Debug</source>
         <translation>Fejlfinding</translation>
     </message>
@@ -3839,7 +3810,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 </translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+66"/>
         <source>link to %1</source>
         <translation>link til %1</translation>
     </message>
@@ -3867,7 +3838,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-539"/>
+        <location line="-440"/>
         <source>Toggle console for %1 events</source>
         <translation>Slå konsol til/fra for %1-hændelser</translation>
     </message>
@@ -4012,32 +3983,32 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis denne er slået til, vil tekstbeskeder, som du sender, blive læst op for dig med tekst-til-tale</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Læs egne beskeder op</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Chatlog</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"></translation>
+        <translation>Maksimal længde af chat</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"></translation>
+        <translation>Ubegrænset</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"></translation>
+        <translation> Linjer</translation>
     </message>
 </context>
 <context>
@@ -4084,7 +4055,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Brugergrænseflade</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Choose skin file</source>
         <translation>Vælg temafil</translation>
     </message>
@@ -4338,19 +4309,19 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug valgte genstand som mål for chatbaren</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2118"/>
+        <location line="+2150"/>
         <source>Root</source>
         <translation>Rod</translation>
     </message>
     <message>
-        <location line="-2066"/>
+        <location line="-2098"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryk-for-snak</translation>
@@ -4429,28 +4400,28 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+15"/>
-        <location line="+2217"/>
+        <location line="+2249"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2213"/>
+        <location line="-2244"/>
         <source>&amp;Window</source>
         <translation>&amp;Vindue</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+126"/>
+        <location line="+135"/>
         <source>Minimize</source>
         <translation>Minimér</translation>
     </message>
     <message>
-        <location line="-126"/>
+        <location line="-135"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+134"/>
         <source>Close</source>
         <translation>Luk</translation>
     </message>
@@ -4460,7 +4431,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Mumble har i øjeblikket forbindelse til en server. Vil du lukke eller minimere det?</translation>
     </message>
     <message>
-        <location line="-180"/>
+        <location line="-190"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Deaktivér din mikrofon</translation>
@@ -4502,14 +4473,14 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Hvisk/råb</translation>
     </message>
     <message>
-        <location line="+60"/>
-        <location line="+2259"/>
+        <location line="+61"/>
+        <location line="+2290"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ingen forbindelse oprettet&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1995"/>
+        <location line="-2006"/>
         <source>Clear</source>
         <translation>Ryd</translation>
     </message>
@@ -4623,7 +4594,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Besked til kanal %1</translation>
     </message>
     <message>
-        <location line="+541"/>
+        <location line="+552"/>
         <source>Connected.</source>
         <translation>Forbindelse oprettet.</translation>
     </message>
@@ -4666,12 +4637,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Billedformatet blev ikke genkendt.</translation>
     </message>
     <message>
-        <location line="-1648"/>
+        <location line="-1659"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Lydkanal er sendt over kontrolkanal.</translation>
     </message>
     <message>
-        <location line="-825"/>
+        <location line="-846"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Dette vil skifte tilstanden for overlægningen i spillet.</translation>
@@ -4680,17 +4651,17 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sammenkæd kanal</translation>
     </message>
     <message>
-        <location line="+783"/>
+        <location line="+804"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 deviation)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Kontrol kanal&lt;/h2&gt;&lt;p&gt;Krypteret med %1 bit %2&lt;br /&gt;%3 ms gennemsnitlig forsinkelse (%4 afvigelse)&lt;/p&gt;&lt;p&gt;Ekstern vært %5 (port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4734,12 +4705,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1327"/>
+        <location line="+1338"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Se certifikat</translation>
     </message>
     <message>
-        <location line="-1052"/>
+        <location line="-1063"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Skriv begrundelse</translation>
@@ -4784,19 +4755,19 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Sender besked til kanalen %1</translation>
     </message>
     <message>
-        <location line="+711"/>
+        <location line="+722"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne server bruger en ældre krypteringsstandard og er ikke længere understøttet af nyere versioner af Mumble.</translation>
     </message>
     <message>
-        <location line="-702"/>
+        <location line="-713"/>
         <source>Message to tree %1</source>
         <translation>Besked til træet %1</translation>
     </message>
     <message>
         <location line="-648"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Lydbåndbredde&lt;/h2&gt;&lt;p&gt;Maksimum %1 kbit/s&lt;br /&gt;Nuværende %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+648"/>
@@ -4840,7 +4811,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location line="+386"/>
+        <location line="+397"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL-verificering mislykkedes: %1</translation>
     </message>
@@ -4871,6 +4842,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+11"/>
+        <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
         <translation>Ugyldigt brugernavn</translation>
     </message>
@@ -4881,8 +4853,9 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+4"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Brugernavn er i brug</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4891,18 +4864,20 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+5"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished"></translation>
+        <translation>Forkert certifikat eller adgangskode</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"></translation>
+        <translation>Forkert certifikat eller adgangskode for registreret bruger. Hvis du er sikker på, at denne bruger er beskyttet af en adgangskode, prøv venligst igen.</translation>
     </message>
     <message>
         <location line="+7"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
         <translation>Forkert adgangskode</translation>
     </message>
@@ -4917,7 +4892,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Billeder (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
-        <location line="-2512"/>
+        <location line="-2544"/>
         <source>&amp;Channel</source>
         <translation>&amp;Kanal</translation>
     </message>
@@ -4985,21 +4960,6 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>Disconnects you from the server.</source>
         <translation>Afbryder din forbindelse til serveren.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban lists</source>
-        <translation>&amp;Bandlyste brugere</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Redigér listen over bandlyste brugere på serveren</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Dette lader dig redigere serverens liste over bandlyste IP-adresser.</translation>
     </message>
     <message>
         <location/>
@@ -5436,7 +5396,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation>Konfigurere certifikater for stærk autentificering</translation>
+        <translation>Konfigurér certifikater for stærk autentificering</translation>
     </message>
     <message>
         <location/>
@@ -5544,7 +5504,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Dette vil slå minimal tilstand til/fra, hvor log-vinduet og menuen er skjult.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+356"/>
+        <location filename="Messages.cpp" line="+281"/>
         <source>You muted and deafened %1.</source>
         <translation>Du deaktiverede mikrofon og lyd for %1.</translation>
     </message>
@@ -5604,7 +5564,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 har nu deaktiveret mikrofon og lyd.</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-120"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Du blev nægtet &lt;i&gt;%1&lt;/i&gt;-privilegier i %2.</translation>
     </message>
@@ -5615,7 +5575,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Velkomstbesked: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation>Din kontoinformation kan i øjeblikket ikke verificeres. Prøv igen senere</translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble: %1</translation>
     </message>
@@ -5668,6 +5633,12 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+4"/>
         <source>Channel is full.</source>
         <translation>Kanalen er fuld.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Channel nesting limit reached.</source>
+        <translatorcomment>Alternative: Grænsen for kanalens parentesstruktur er opnået.</translatorcomment>
+        <translation>Udbygningsgrænsen for kanalen opnået.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5727,27 +5698,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+457"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveren kræver minimum klientversion %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveren kræver, at placeringsbestemt lyd er aktiveret.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveren kræver, at placeringsbestemt lyd er deaktiveret.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveren kræver, at tryk-for-snak er aktiveret.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveren kræver, at tryk-for-snak er deaktiveret.</translation>
     </message>
     <message>
         <location line="-458"/>
@@ -5873,12 +5844,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kom ind i kanalen.</translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-358"/>
         <source>Server connection rejected: %1.</source>
         <translation>Forbindelse til server afvist: %1.</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Denied: %1.</source>
         <translation>Nægtet. %1.</translation>
     </message>
@@ -5898,7 +5869,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ukendt tilstand for flytning af kanaler i UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-261"/>
+        <location filename="main.cpp" line="-273"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5915,22 +5886,38 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Anvendelse: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; angiver en URL der oprettes forbindelse til efter opstart, i stedet for at vise
+serverforbindelse-vinduet, der har følgende format:
+mumble://[&lt;brugernavn&gt;[:&lt;adgangskode&gt;]@]&lt;adresse&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;underkanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+Version-forespørgselsparameteret skal være angivet for at påkalde den
+korrekte klientversion. Standardværdien er 1.2.0.
+
+Gyldige parametre er:
+  -h, --help    Viser denne hjælpetekst og afslutter.
+  -m, --multiple
+                Tillader at flere instanser af klienten startes.
+  -n, --noidentity
+                Tilbagehold indlæsningen af identitetsfiler (dvs. certifikater.)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Alternative: Påkaldelse</translatorcomment>
+        <translation>Opmærksomhed</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation>Velkommen til Mumble.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Springer over versionstjek i fejlfindingstilstand.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6035,26 +6022,41 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiér URL</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopierer et link til denne kanal til udklipsholderen.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorér beskeder</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorerer lokalt  brugerens tekst-chatbeskeder.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
+        <translation>Ser lydløst bort fra alle tekstbeskeder fra brugeren.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6351,16 +6353,6 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Det mislykkedes at oprette kommunikation med overlægningen på %2: %1. Der vil ikke være nogen overlægning tilgængelig.</translation>
     </message>
-    <message>
-        <location line="+252"/>
-        <source>Skipping overlay update in debug mode.</source>
-        <translation>Springer over opdateringer for overlægning i fejlfindingstilstand.</translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation>Downloadede ny eller opdateret overlægnings-support-fil til %1.</translation>
-    </message>
 </context>
 <context>
     <name>OverlayClient</name>
@@ -6377,7 +6369,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"></translation>
+        <translation>Snakkende og nyligt aktive</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6397,7 +6389,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurér tiden for værende nyligt aktiv (%1 sekunder)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6407,17 +6399,17 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortering</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfabetisk</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"></translation>
+        <translation>Seneste tilstandsændring</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6432,12 +6424,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurér tiden for værende nyligt aktiv</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal sekunder brugere forbliver aktive efter at have snakket:</translation>
     </message>
 </context>
 <context>
@@ -6460,7 +6452,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>For flere valgmuligheder, højreklik på en bruger.</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+223"/>
         <source>Overlay</source>
         <translation>Overlægning</translation>
     </message>
@@ -6473,17 +6465,6 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <location line="+2"/>
         <source>Choose application</source>
         <translation>Vælg program</translation>
-    </message>
-    <message>
-        <location line="+38"/>
-        <source>Mumble has deemed the installer valid.</source>
-        <translation>Mumble har vurderet installationsprogrammet til at være gyldigt.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mumble was unable to verify the authenticity of the installer.</source>
-        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation>Mumble var ikke i stand til at verificere gyldigheden af installationsprogrammet.</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -6602,11 +6583,6 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
     </message>
     <message>
         <location/>
-        <source>View Certificates</source>
-        <translation>Sé certifikater</translation>
-    </message>
-    <message>
-        <location/>
         <source>Load an overlay preset from file</source>
         <translation>Indlæs en forudindstillet overlægning fra en fil</translation>
     </message>
@@ -6654,6 +6630,21 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <location/>
         <source>Font</source>
         <translation>Skrifttype</translation>
+    </message>
+    <message>
+        <location/>
+        <source>To list exceptions, use a</source>
+        <translation>For at angive undtagelser, brug en</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay in all applicable programs except</source>
+        <translation>Vis overlægningen i alle relevante programmer undtagen</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay only in</source>
+        <translation>Vis kun overlægningen i</translation>
     </message>
 </context>
 <context>
@@ -7009,7 +7000,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Springer over pluginopdateringer i fejlfindingstilstand.</translation>
     </message>
@@ -7160,7 +7151,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+445"/>
+        <location filename="ServerHandler.cpp" line="+470"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP-pakker kan ikke blive sendt eller modtaget fra serveren. Skifter til TCP-tilstand.</translation>
     </message>
@@ -7180,7 +7171,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <translation>UDP-pakker kan igen blive sendt og modtaget fra serveren. Skifter tilbage til UDP-tilstand.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>Forbindelse fik timeout</translation>
     </message>
@@ -7236,7 +7227,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-501"/>
+        <location filename="GlobalShortcut.cpp" line="-558"/>
         <source>Unassigned</source>
         <translation>Ubenyttet</translation>
     </message>
@@ -7244,7 +7235,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+361"/>
+        <location line="+370"/>
         <source>On</source>
         <translation>Til</translation>
     </message>
@@ -7267,7 +7258,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-435"/>
+        <location line="-444"/>
         <source>Press Shortcut</source>
         <translation>Tryk genvej</translation>
     </message>
@@ -7291,6 +7282,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
     </message>
     <message>
         <location line="+5"/>
+        <location line="+6"/>
         <source>Subchannel #%1</source>
         <translation>Underkanal #%1</translation>
     </message>
@@ -7323,6 +7315,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <translation>Nuværende</translation>
     </message>
     <message>
+        <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
         <translation>Underkanal #%1</translation>
@@ -7342,7 +7335,7 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-259"/>
+        <location line="-268"/>
         <source>Off</source>
         <translation>Fra</translation>
     </message>
@@ -7590,27 +7583,27 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"></translation>
+        <translation>%1.(%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Understøttet</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke undersøttet</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke rapporteret</translation>
     </message>
     <message>
         <location line="+160"/>
         <source>%1 online (%2 idle)</source>
-        <translation>%1 online (%2 borte)</translation>
+        <translation>%1 online (%2 inaktiv)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7741,7 +7734,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorerer tekstbeskeder</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7803,7 +7796,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Nyeste downloadede version er korrupt og blev automatisk fjernet.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Downloader nyt snapshot fra %1 til %2</translation>
     </message>
@@ -7908,8 +7901,8 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>Digest (MD5): %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>Digest (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -8114,12 +8107,12 @@ Kontakt venligst din serveradministrator for yderligere information.</translatio
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"></translation>
+        <translation>Mumble tryk-for-snak</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryk for at snakke</translation>
     </message>
 </context>
 </TS>

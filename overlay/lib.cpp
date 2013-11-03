@@ -37,12 +37,15 @@ static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
 HMODULE hSelf = NULL;
+BOOL bIsWin8 = FALSE;
+
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
 static BOOL bBlackListed = FALSE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
+static HardHook hhFree;
 
 static SharedData *sd;
 
@@ -54,7 +57,7 @@ FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 
 	pNew = (IUnknown *) &vtbl;
 
-	ods("Allocated %p for %d", f, entries);
+	ods("Lib: FakeInterface: Allocated %p for %d number of entries", f, entries);
 	for (int i=0;i<entries;i++) {
 		DWORD offset = i * 4;
 		vtbl[i] = f;
@@ -109,7 +112,7 @@ void FakeInterface::replace(LONG offset, voidMemberFunc replacement) {
 		mov eax, replacement
 		mov p, eax
 	}
-	ods("That gave %p", p);
+	ods("Lib: FakeInterface: replace: That gave %p", p);
 	vtbl[offset] = p;
 }
 
@@ -121,7 +124,7 @@ void Mutex::init() {
 
 Mutex::Mutex() {
 	if (! TryEnterCriticalSection(&cs)) {
-		ods("CritFail");
+		ods("Lib: Mutex: CritFail - blocking until able to enter critical section");
 		EnterCriticalSection(&cs);
 	}
 }
@@ -144,7 +147,7 @@ void __cdecl ods(const char *format, ...) {
 
 void __cdecl checkForWPF() {
 	if (!bBlackListed && (GetModuleHandleW(L"wpfgfx_v0300.dll") || GetModuleHandleW(L"wpfgfx_v0400.dll"))) {
-		ods("Blacklisted for loading WPF library");
+		ods("Lib: Blacklisted for loading WPF library");
 		bBlackListed = TRUE;
 	}
 }
@@ -204,8 +207,8 @@ bool Pipe::sendMessage(const OverlayMsg &om) {
 	return false;
 }
 
-void Pipe::checkMessage(unsigned int w, unsigned int h) {
-	if (!w || ! h)
+void Pipe::checkMessage(unsigned int width, unsigned int height) {
+	if (!width || ! height)
 		return;
 
 	if (hSocket == INVALID_HANDLE_VALUE) {
@@ -219,6 +222,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		uiWidth = 0;
 		uiHeight = 0;
 
+		// initially, instantiate and send an OverlayMessage with the current process id
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_PID;
@@ -228,15 +232,17 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		if (!sendMessage(om))
 			return;
 
-		ods("Pipe: SentPid");
+		ods("Pipe: Process ID sent");
 	}
 
-	if ((uiWidth != w) || (uiHeight != h)) {
+	// if the passed width and height do not match the current overlays uiWidth and uiHeight, re-initialize
+	if ((uiWidth != width) || (uiHeight != height)) {
 		release();
 
-		uiWidth = w;
-		uiHeight = h;
+		uiWidth = width;
+		uiHeight = height;
 
+		// instantiate and send an initialization-OverlayMessage
 		OverlayMsg om;
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_INIT;
@@ -247,7 +253,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		if (!sendMessage(om))
 			return;
 
-		ods("Pipe: SentInit %d %d", w, h);
+		ods("Pipe: SentInitMsg with w h %d %d", uiWidth, uiHeight);
 	}
 
 	std::vector<RECT> blits;
@@ -257,7 +263,7 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 		DWORD dwBytesRead;
 
 		if (! PeekNamedPipe(hSocket, NULL, 0, NULL, &dwBytesLeft, NULL)) {
-			ods("Pipe: No peek");
+			ods("Pipe: Could not peek");
 			disconnect();
 			return;
 		}
@@ -402,11 +408,14 @@ void Pipe::checkMessage(unsigned int w, unsigned int h) {
 
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	LoadLibraryAType oLoadLibrary = (LoadLibraryAType) hhLoad.call;
 	hhLoad.restore();
-
 	HMODULE h = oLoadLibrary(lpFileName);
-//	ods("Library %s loaded to %p", lpFileName, h);
+	hhLoad.inject();
+
+	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
 		checkD3D9Hook();
@@ -414,17 +423,19 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 		checkOpenGLHook();
 	}
 
-	hhLoad.inject();
 	return h;
 }
 
 typedef HMODULE(__stdcall *LoadLibraryWType)(const wchar_t *);
 static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
 	LoadLibraryWType oLoadLibrary = (LoadLibraryWType) hhLoadW.call;
 	hhLoadW.restore();
-
 	HMODULE h = oLoadLibrary(lpFileName);
-	ods("Library %ls wloaded to %p", lpFileName, h);
+	hhLoadW.inject();
+
+	ods("Lib: Library %ls wloaded to %p", lpFileName, h);
 
 	checkForWPF();
 
@@ -434,8 +445,23 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 		checkOpenGLHook();
 	}
 
-	hhLoadW.inject();
 	return h;
+}
+
+typedef BOOL(__stdcall *FreeLibraryType)(HMODULE hModule);
+static BOOL WINAPI MyFreeLibrary(HMODULE hModule) {
+	ods("Lib: MyFreeLibrary %p", hModule);
+
+	//TODO: Move logic to HardHook.
+	// Call base without active hook in case of no trampoline.
+	FreeLibraryType oFreeLibrary = (FreeLibraryType) hhFree.call;
+	hhFree.restore();
+	BOOL r = oFreeLibrary(hModule);
+	hhFree.inject();
+
+	freeD3D9Hook(hModule);
+
+	return r;
 }
 
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
@@ -479,197 +505,252 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
+bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p);
+
+void dllmainProcAttach(char* procname) {
+	Mutex::init();
+
+	char *p = strrchr(procname, '\\');
+	if (!p) {
+		// No blacklisting if the file has no path
+	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
+		ods("Lib: Attached to self (own process). Blacklisted - no overlay injection.");
+		bBlackListed = TRUE;
+		bMumble = TRUE;
+	} else {
+		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
+			ods("Lib: Process %s is blacklisted - no overlay injection.");
+			return;
+		}
+	}
+
+
+	OSVERSIONINFOEX ovi;
+	memset(&ovi, 0, sizeof(ovi));
+	ovi.dwOSVersionInfoSize = sizeof(ovi);
+	GetVersionEx(reinterpret_cast<OSVERSIONINFO *>(&ovi));
+	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 9200));
+
+	ods("Lib: bIsWin8: %i", bIsWin8);
+
+
+	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
+	if (hHookMutex == NULL) {
+		ods("Lib: CreateMutex failed");
+		return;
+	}
+
+	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
+
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
+	if (hMapObject == NULL) {
+		ods("Lib: CreateFileMapping failed");
+		return;
+	}
+
+	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
+
+	sd = static_cast<SharedData *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
+
+	if (sd == NULL) {
+		ods("Lib: MapViewOfFile Failed");
+		return;
+	}
+
+	if (bInit)
+		memset(sd, 0, dwSharedSize);
+
+	unsigned char *raw = (unsigned char *) sd;
+	d3dd = reinterpret_cast<Direct3D9Data *>(raw + sizeof(SharedData));
+	dxgi = reinterpret_cast<DXGIData *>(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
+
+
+	if (! bMumble) {
+		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
+		hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
+		hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
+		hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
+
+		checkD3D9Hook(true);
+		checkDXGIHook(true);
+		checkOpenGLHook();
+		ods("Lib: Injected into %s", procname);
+	}
+}
+
+// Is the process black(listed)?
+bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
+	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
+
+	bool usewhitelist = false;
+	HKEY key = NULL;
+
+	char *buffer = new char[buffsize];
+
+	// check if we're using a whitelist or a blacklist
+	DWORD tmpsize = buffsize - 1;
+	bool success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
+	          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		usewhitelist = (_stricmp(buffer, "true") == 0);
+		// reset tmpsize to the buffers size (minus 1 char for str-termination), as it was changed by RegQuery
+		tmpsize = buffsize - 1;
+
+		// read the whitelist or blacklist (depending on which one we use)
+		DWORD ret;
+		while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
+			// Increase the buffsize according to the required size RegQuery wrote into tmpsize, so we can read the whole value
+			delete []buffer;
+			buffsize = tmpsize + 1;
+			buffer = new char[buffsize];
+		}
+
+		success = (ret == ERROR_SUCCESS);
+	}
+
+	if (key)
+		RegCloseKey(key);
+
+	if (success) {
+		buffer[tmpsize] = '\0';
+		unsigned int pos = 0;
+
+		if (usewhitelist) {
+			// check if process is whitelisted
+			bool onwhitelist = false;
+			while (pos < buffsize && buffer[pos] != 0) {
+				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
+					ods("Lib: Overlay enabled for whitelisted '%s'", buffer + pos);
+					onwhitelist = true;
+					break;
+				}
+				pos += strlen(buffer + pos) + 1;
+			}
+
+			if (!onwhitelist) {
+				ods("Lib: No whitelist entry found for '%s', auto-blacklisted", procname);
+				bBlackListed = TRUE;
+				return true;
+			}
+		} else {
+			// check if process is blacklisted
+			while (pos < buffsize && buffer[pos] != 0) {
+				if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
+					ods("Lib: Overlay blacklist entry found for '%s'", buffer + pos);
+					bBlackListed = TRUE;
+					return true;
+				}
+				pos += strlen(buffer + pos) + 1;
+			}
+		}
+	} else {
+		// If there is no list in the registry, fallback to using the default blacklist
+		ods("Lib: Overlay fallback to default blacklist");
+		int i = 0;
+		while (overlayBlacklist[i]) {
+			if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
+				ods("Lib: Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
+				bBlackListed = TRUE;
+				return true;
+			}
+			i++;
+		}
+	}
+
+	// Make sure to always free/destroy buffer & heap
+	delete []buffer;
+
+	// if the processname is already found to be blacklisted, we can stop here
+	if (bBlackListed)
+		return true;
+
+	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
+	// Same buffersize as procname; which we copy from.
+	char fname[1024 + 64];
+	p = fname + (p - procname);
+	strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
+
+	strcpy_s(p+1, 64, "nooverlay");
+	HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay disable %s found", fname);
+		bBlackListed = TRUE;
+		return true;
+	}
+
+	// check for "debugoverlay" file, which would enable overlay debugging
+	strcpy_s(p+1, 64, "debugoverlay");
+	h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h != INVALID_HANDLE_VALUE) {
+		CloseHandle(h);
+		ods("Lib: Overlay debug %s found", fname);
+		bDebug = TRUE;
+	}
+
+	// check for blacklisting for loading WPF library
+	checkForWPF();
+
+	if (bBlackListed)
+		return true;
+
+	return false;
+}
+
+void dllmainProcDetach() {
+
+	hhLoad.restore(true);
+	hhLoad.reset();
+	hhLoadW.restore(true);
+	hhLoadW.reset();
+	hhFree.restore(true);
+	hhFree.reset();
+
+	if (sd)
+		UnmapViewOfFile(sd);
+	if (hMapObject)
+		CloseHandle(hMapObject);
+	if (hHookMutex)
+		CloseHandle(hHookMutex);
+}
+
+void dllmainThreadAttach() {
+	static bool bTriedHook = false;
+	if (!bBlackListed && sd && ! bTriedHook) {
+		bTriedHook = true;
+		checkForWPF();
+
+		if (!bBlackListed) {
+			checkD3D9Hook();
+			checkDXGIHook();
+			checkOpenGLHook();
+			ods("Lib: Injected to thread");
+		}
+	}
+}
+
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
+	// 1024 for the procname, 64 additional for more logic in the buffer deep inside
 	char procname[1024+64];
 	GetModuleFileNameA(NULL, procname, 1024);
+	// Fix for windows XP; on length nSize does not include null-termination
+	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
+	procname[1023] = '\0';
+
 	switch (fdwReason) {
-		case DLL_PROCESS_ATTACH: {
-				Mutex::init();
-				char *p = strrchr(procname, '\\');
-				if (!p) {
-					// No blacklisting if the file has no path
-				} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
-					ods("Attached to self");
-					bBlackListed = TRUE;
-					bMumble = TRUE;
-				} else {
-					DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
-
-					bool usewhitelist;
-					HKEY key = NULL;
-
-					bool success;
-					char *buffer = new char[buffsize];
-
-					DWORD tmpsize = buffsize - 1;
-					success = (RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Mumble\\Mumble\\overlay", NULL, KEY_READ, &key) == ERROR_SUCCESS) &&
-					          (RegQueryValueExA(key, "usewhitelist", NULL, NULL, (LPBYTE)buffer, &tmpsize) == ERROR_SUCCESS);
-
-					if (success) {
-						buffer[tmpsize] = '\0';
-						usewhitelist = (_stricmp(buffer, "true") == 0);
-						tmpsize = buffsize - 1;
-
-						DWORD ret;
-						while ((ret = RegQueryValueExA(key, usewhitelist ? "whitelist" : "blacklist", NULL, NULL, (LPBYTE)buffer, &tmpsize)) == ERROR_MORE_DATA) {
-							// Increase the buffsize according to the required size RegQuery wrote into tmpszie so we can read the whole value
-							delete []buffer;
-							buffsize = tmpsize + 1;
-							buffer = new char[buffsize];
-						}
-
-						success = (ret == ERROR_SUCCESS);
-					}
-
-					if (key)
-						RegCloseKey(key);
-
-					if (success) {
-						buffer[tmpsize] = '\0';
-						unsigned int pos = 0;
-
-						if (usewhitelist) {
-							bool onwhitelist = false;
-							while (pos < buffsize && buffer[pos] != 0) {
-								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay enabled for whitelisted '%s'", buffer + pos);
-									onwhitelist = true;
-									break;
-								}
-								pos += strlen(buffer + pos) + 1;
-							}
-
-							if (!onwhitelist) {
-								ods("No whitelist entry found for '%s', auto-blacklisted", procname);
-								bBlackListed = TRUE;
-								break;
-							}
-						} else {
-							while (pos < buffsize && buffer[pos] != 0) {
-								if (_stricmp(procname, buffer + pos) == 0 || _stricmp(p+1, buffer + pos) == 0) {
-									fods("Overlay blacklist entry found for '%s'", buffer + pos);
-									bBlackListed = TRUE;
-									break;
-								}
-								pos += strlen(buffer + pos) + 1;
-							}
-						}
-					} else {
-						// If there is no list in the registry fallback to using the default blacklist
-						fods("Overlay fallback to default blacklist");
-						int i = 0;
-						while (overlayBlacklist[i]) {
-							if (_stricmp(procname, overlayBlacklist[i]) == 0 || _stricmp(p+1, overlayBlacklist[i])==0) {
-								fods("Overlay default blacklist entry found for '%s'", overlayBlacklist[i]);
-								bBlackListed = TRUE;
-								break;
-							}
-							i++;
-						}
-					}
-
-					// Make sure to always free/destroy buffer & heap
-					delete []buffer;
-
-					if (bBlackListed)
-						return TRUE;
-
-					char fname[sizeof(procname)];
-					p = fname + (p - procname);
-					strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
-
-					strcpy_s(p+1, 64, "nooverlay");
-					HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-					if (h != INVALID_HANDLE_VALUE) {
-						CloseHandle(h);
-						fods("Overlay disable %s found", fname);
-						bBlackListed = TRUE;
-						return TRUE;
-					}
-
-					strcpy_s(p+1, 64, "debugoverlay");
-					h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-					if (h != INVALID_HANDLE_VALUE) {
-						CloseHandle(h);
-						fods("Overlay debug %s found", fname);
-						bDebug = TRUE;
-					}
-
-					checkForWPF();
-					if (bBlackListed)
-						return TRUE;
-				}
-				ods("Lib: ProcAttach: %s", procname);
-
-				hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
-				if (hHookMutex == NULL) {
-					ods("Lib: CreateMutex failed");
-					return TRUE;
-				}
-
-				DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
-
-				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
-				if (hMapObject == NULL) {
-					ods("Lib: CreateFileMapping failed");
-					return TRUE;
-				}
-
-				bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
-
-				sd = (SharedData *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize);
-
-				if (sd == NULL) {
-					ods("MapViewOfFile Failed");
-					return TRUE;
-				}
-
-				if (bInit)
-					memset(sd, 0, dwSharedSize);
-
-				unsigned char *raw = (unsigned char *) sd;
-				d3dd = (Direct3D9Data *)(raw + sizeof(SharedData));
-				dxgi = (DXGIData *)(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
-
-
-				if (! bMumble) {
-					hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
-					hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
-
-					// Hm. Don't check D3D9 as apparantly it's creation causes problems in some applications.
-					checkD3D9Hook(true);
-					checkDXGIHook(true);
-					checkOpenGLHook();
-					ods("Injected into %s", procname);
-				}
-			}
+		case DLL_PROCESS_ATTACH:
+			ods("Lib: ProcAttach: %s", procname);
+			dllmainProcAttach(procname);
 			break;
-		case DLL_PROCESS_DETACH: {
-				ods("Lib: ProcDetach: %s", procname);
-				hhLoad.restore(true);
-				hhLoadW.restore(true);
-				if (sd)
-					UnmapViewOfFile(sd);
-				if (hMapObject)
-					CloseHandle(hMapObject);
-				if (hHookMutex)
-					CloseHandle(hHookMutex);
-			}
+		case DLL_PROCESS_DETACH:
+			ods("Lib: ProcDetach: %s", procname);
+			dllmainProcDetach();
 			break;
-		case DLL_THREAD_ATTACH: {
-				static bool bTriedHook = false;
-				if (!bBlackListed && sd && ! bTriedHook) {
-					bTriedHook = true;
-					checkForWPF();
-
-					if (!bBlackListed) {
-						checkD3D9Hook();
-						checkDXGIHook();
-						checkOpenGLHook();
-						ods("Injected to thread of %s", procname);
-					}
-				}
-			}
+		case DLL_THREAD_ATTACH:
+			ods("Lib: ThreadAttach: %s", procname);
+			dllmainThreadAttach();
 			break;
 		default:
 			break;

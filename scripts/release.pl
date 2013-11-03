@@ -30,7 +30,7 @@ sub adddir($$) {
 
 my %files;
 my $ver;
-my %filevars = ( 'sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
+my %filevars = ( 'sources' => 1, 'objective_sources' => 1, 'headers' => 1, 'rc_file' => 1, 'dist' => 1, 'forms' => 1, 'resources' => 1, 'precompiled_header' => 1, 'translations' => 1);
 
 system("rm mumble-*");
 chdir("scripts");
@@ -74,10 +74,16 @@ while (my $pro = shift @pro) {
           }
         }
         case "vpath" {
+          my $vdir = $basedir;
           if ($value eq '../$$SOURCEDIR/libcelt') {
-            my $vdir = $basedir;
             $vdir =~ s/-build/-src/;
             push @vpath, $vdir.'libcelt/';
+          } elsif ($value eq '../$$SOURCEDIR/lib') { # sbcelt lib
+            $vdir =~ s/-lib-build/-src/;
+            push @vpath, $vdir.'lib/';
+          } elsif ($value eq '../$$SOURCEDIR/helper') { # sbcelt helper
+            $vdir =~ s/-helper-build/-src/;
+            push @vpath, $vdir.'helper/';
           } else {
             push @vpath,map { "$basedir$_/"} map { s/\$\$PWD/./; $_;} split(/\s/, $value);
           }
@@ -140,6 +146,9 @@ foreach my $cver ('0.7.0', '0.11.0') {
   push @fulldirs, "celt-$cver-src";
   push @fulldirs, "celt-$cver-src/libcelt";
 }
+push @fulldirs, "sbcelt-src";
+push @fulldirs, "sbcelt-src/helper";
+push @fulldirs, "sbcelt-src/lib";
 push @fulldirs, "opus-src";
 push @fulldirs, "opus-src/celt";
 push @fulldirs, "opus-src/silk";

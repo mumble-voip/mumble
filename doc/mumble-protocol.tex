@@ -136,7 +136,7 @@ THIS DOCUMENTATION IS PROVIDED BY THE MUMBLE PROJECT "AS IS" AND ANY EXPRESS OR 
 \newpage
 
 \section{Introduction}
-This document is meant to be a reference for the Mumble VoIP 1.2.X server-client communication protocol. It reflects the state of the protocol implemented in the Mumble 1.2.2 client and might be outdated by the time you are reading this. Be sure to check for newer revisions of this document on our website \url{http://www.mumble.info} . At the moment this document is work in progress.
+This document is meant to be a reference for the Mumble VoIP 1.2.X server-client communication protocol. It reflects the state of the protocol implemented in the Mumble 1.2.4 client and might be outdated by the time you are reading this. Be sure to check for newer revisions of this document on our website \url{http://www.mumble.info} . At the moment this document is work in progress.
 
 \section{Overview}
 
@@ -178,9 +178,42 @@ Mumble has a shallow and easy to understand stack. Basically it uses Google's Pr
 	\label{fig:mumble_packet}
 \end{figure}
 
-The prefix consists out of the two bytes defining the type of the packet in the payload and 4 bytes stating the length of the payload in bytes followed by the payload itself. The following packet types are available in the current protocol and all but UDPTunnel are simple protobuf messages. If not mentioned otherwise all fields are little-endian encoded.
+The prefix consists out of the two bytes defining the type of the packet in the payload and 4 bytes stating the length of the payload in bytes followed by the payload itself. The following packet types are available in the current protocol and all but UDPTunnel are simple protobuf messages. If not mentioned otherwise all fields outside the protobuf encoding are big-endian.
 
-%FIGURE GOES HERE
+\begin{table}[H]\begin{center}
+	\caption{Packet types}\label{tbl:packettypes}
+
+	\begin{tabular}{ll}
+		Type & Payload \\
+		\hline
+		0  & Version \\
+		1  & UDPTunnel \\
+		2  & Authenticate \\
+		3  & Ping \\
+		4  & Reject \\
+		5  & ServerSync \\
+		6  & ChannelRemove \\
+		7  & ChannelState \\
+		8  & UserRemove \\
+		9  & UserState \\
+		10 & BanList \\
+		11 & TextMessage \\
+		12 & PermissionDenied \\
+		13 & ACL \\
+		14 & QueryUsers \\
+		15 & CryptSetup \\
+		16 & ContextActionModify \\
+		17 & ContextAction \\
+		18 & UserList \\
+		19 & VoiceTarget \\
+		20 & PermissionQuery \\
+		21 & CodecVersion \\
+		22 & UserStats \\
+		23 & RequestBlob \\
+		24 & ServerConfig \\
+		25 & SuggestConfig \\
+	\end{tabular}
+\end{center}\end{table}
 
 For raw representation of each packet type see the attached Mumble.proto file.
 
@@ -212,20 +245,33 @@ Once the TLS handshake is completed both sides should transmit their version inf
 \caption{Version message}\label{msg:conn:version}
 \end{center}\end{figure}
 
-The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0) so that major number takes two bytes and minor and patch numbers take one byte each. The structure is shown in figure \ref{fig:versionEncoding}. The release, os and os\_version fields are common strings containing additional information. This information is not interpreted in any way at the moment.
+The version field is a combination of major, minor and patch version numbers (e.g. 1.2.0) so that major number takes two bytes and minor and patch numbers take one byte each. The structure is shown in figure \ref{fig:versionEncoding}. The release, os and os\_version fields are common strings containing additional information.
 
-\begin{figure}[H]\begin{center}\begin{tabular}{|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|c|c|}
-
-\hline
-Major	& Minor	& Patch \\
-2B		& 1B	& 1B \\
-\hline
-
-\end{tabular}
-
-\caption{\texttt{version} field structure}\label{fig:versionEncoding}
-
+\begin{figure}[H]\begin{center}
+	\begin{tabular}{|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|c|c|}
+		\hline
+		Major	& Minor	& Patch \\
+		2B		& 1B	& 1B \\
+		\hline
+	\end{tabular}
+	\caption{\texttt{version} field structure}\label{fig:versionEncoding}
 \end{center}\end{figure}
+
+The version information may be used as part of the \texttt{SuggestConfig} checks, which usually refer to the standard client versions. The major changes between these versions are listed in table \ref{tbl:versionchanges}. The release, os and os\_version information is not interpreted in any way at the moment.
+
+\begin{table}[H]\begin{center}
+	\caption{Mumble version differences}\label{tbl:versionchanges}
+
+	\begin{tabular}{ll}
+		Version & Major changes \\
+		\hline
+		1.2.0 & CELT 0.7.0 codec support \\
+		1.2.2 & CELT 0.7.1 codec support \\
+		1.2.3 & CELT 0.11.0 codec support, priority speakers \\
+		1.2.4 & OPUS codec support, SuggestConfig message
+	\end{tabular}
+\end{center}\end{table}
+
 
 \subsection{Authenticate}
 Once the client has sent the version it should follow this with the Authenticate message. The message structure is described below in figure \ref{msg:conn:authenticate}. This message may be sent immediately after sending the version message. The client does not need to wait for the server version message.
@@ -246,7 +292,7 @@ The password must only be provided if the server is passworded, the client provi
 The third field contains a list of zero or more token strings which act as passwords that may give the client access to certain ACL groups without actually being a registered member in them, again see the server documentation for more information.
 
 \subsection{Crypt setup}
-Once the Version packets are exchanged the server will send a CryptSetup packet to the client. It contains the necessary cryptographic information for the OCB-AES128 encryption used in the UDP Voice channel. The packet is described in figure \label{msg:conn:cryptSetup}. The encryption itself is described later in section \ref{sect:udpEncryption}.
+Once the Version packets are exchanged the server will send a CryptSetup packet to the client. It contains the necessary cryptographic information for the OCB-AES128 encryption used in the UDP Voice channel. The packet is described in figure \ref{msg:conn:cryptSetup}. The encryption itself is described later in section \ref{sect:udpencryption}.
 
 \begin{figure}[H]\begin{center}
 \begin{mumbleMessage}{CryptSetup}
@@ -344,9 +390,10 @@ varint &:& timestamp & Timestamp for the client. \\
 \caption{UDP Ping packet}\label{fig:udpping}
 \end{center}\end{figure}
 
-If the client stops receiving replies to the UDP packets at some point or never receives the first one it should immediately start tunneling the voice communication through TCP as described in section \ref{sect:udptunnel}. When the server receives a tunneled packet over the TCP connection it must also stop using the UDP for communication. The client may continue sending UDP ping packets over the UDP channel and the server must echo these if it receives them. If the client later receives these echoes it may switch back to the UDP channel for voice communication. When the server receives a UDP voice communication packet from the client it should stop tunneling the packets as well.
+If the client stops receiving replies to the UDP packets at some point or never receives the first one it should immediately start tunneling the voice communication through TCP as described in section \ref{sect:udptunnel}. When the server receives a tunneled packet over the TCP connection it must also stop using the UDP for communication. The client may continue sending UDP ping packets over the UDP channel and the server must echo these if it receives them. If the client later receives these echoes it may switch back to the UDP channel for voice communication. When the server receives an UDP voice communication packet from the client it should stop tunneling the packets as well.
 
 \subsection{Data}
+\label{sect:udpdata}
 
 The voice data is transmitted in variable length packets that consist of header portion, followed by repeated data segments and an optional position part. The full packet structure is shown in figure \ref{fig:udpvoice}. The decrypted data should never be longer than 1020 bytes, this allows the use of 1024 byte UDP buffer even after the 4-byte encryption header is added to the packet during the encryption. The protocol transfers 64-bit integers using variable length encoding. This encoding is specified in section \ref{sect:varint}.
 
@@ -355,7 +402,7 @@ The voice data is transmitted in variable length packets that consist of header 
 \cline{2-4}
 \textbf{Header} & byte &:& type/target & Bit 1-3: Type, Bit 4-8: Target \\
 				\cline{2-4}
-				& varint &:& session & The session number of the source user \\
+				& varint &:& session & The session number of the source user (only from server) \\
 				\cline{2-4}
 				& varint &:& sequence & \\
 				\cline{2-4}
@@ -379,7 +426,9 @@ Optional		& float &:& Pos 2 & Uses PacketDataStream encoding \\
 \caption{UDP Voice packet}\label{fig:udpvoice}
 \end{center}\end{figure}
 
-The first byte of the header contains the packet type and additional target specifier. The type is stored in the first three bits and specifies the type and encoding of the packet. Current types are listed in table \ref{tbl:udptypes}. The remaining 5 bits specify additional packet-wide options. For voice packets the values specify the voice target as listed in table \ref{tbl:udptargets}.
+The first byte of the header contains the packet type and additional target specifier. The format of this byte is described below. If the voice packet comes from the server, the type is followed by a \texttt{varint} encoded value that specifies the session this voice packet originated from -- this information is added by the server and the client omits this field. The last segment in the header is a sequence number for the first audio frame of the packet. If there are for example two frames in the packet, the sequence field of the next packet should be incremented by two.
+
+The type is stored in the first three bits and specifies the type and encoding of the packet. Current types are listed in table \ref{tbl:udptypes}. The remaining 5 bits specify additional packet-wide options. For voice packets the values specify the voice target as listed in table \ref{tbl:udptargets}.
 
 \begin{table}[H]\begin{center}
 	\caption{UDP Types}\label{tbl:udptypes}
@@ -426,6 +475,8 @@ Normal talking can be heard by the users of the current channel and all linked c
 
 The variable length integer encoding is used to encode long, 64-bit, integers so that short values do not need the full 8 bytes to be transferred. The basic idea behind the encoding is prefixing the value with a length prefix and then removing the leading zeroes from the value. The positive numbers are always right justified. That is to say that the least significant bit in the encoded presentation matches the least significant bit in the decoded presentation. Table \ref{tbl:varint} contains the definitions of the different length prefixes. The encoded \texttt{x} bits are part of the decoded number while the \texttt{\_} signifies a unused bit. Encoding should be done by searching the first decoded description that fits the number that should be decoded, truncating it to the required bytes and combining it with the defined encoding prefix. 
 
+See the \texttt{quint64} shift operators in \url{https://github.com/mumble-voip/mumble/blob/master/src/PacketDataStream.h} for a reference implementation.
+
 \begin{table}[H]\begin{center}
 	\caption{\texttt{varint} prefixes}\label{tbl:varint}
 
@@ -440,7 +491,7 @@ The variable length integer encoding is used to encode long, 64-bit, integers so
 		\texttt{111101\_\_} + \texttt{long} (8 bytes) & 64-bit number \\
 \\
 		\texttt{111110\_\_} + \texttt{varint} & Negative \texttt{varint} \\
-		\texttt{111111xx} & Negative two byte number (-xx) \\
+		\texttt{111111xx} & Byte-inverted negative two byte number (~xx) \\
 	\end{tabular}
 \end{center}\end{table}
 
@@ -489,22 +540,14 @@ The variable length integer encoding is used to encode long, 64-bit, integers so
 \subsection{TCP tunnel}
 \label{sect:udptunnel}
 
-When the UDP packets are tunneled through the TCP tunnel they are prefixed with the TCP protocol header that contains the packet type and length and sent through the connection. (Figure \ref{fig:udptunnel}) These packets do not use protocol buffer messages.
+If the UDP channel isn't available the voice packets must be transmitted through the TCP socket. These messages use the normal TCP prefixing shown in figure \label{fig:mumble_packet}: 16-bit message type followed by 32-bit message length. However unlike other TCP messages, the UDP packets are not encoded as protocol buffer messages but instead the raw UDP packet described in chapter \label{sect:udpdata} should be written to the TCP socket directly.
 
-\begin{figure}[H]\begin{center}\begin{tabular}{|c|@{\hspace{0.5cm}}c@{\hspace{0.5cm}}|@{\hspace{3cm}}c@{\hspace{3cm}}|}
-
-\hline
-Type	& Length	& UDP Packet \\
-1B		& 3B		& 0-1020B \\
-\hline
-
-\end{tabular}
-\caption{UDP Voice packet}\label{fig:udptunnel}
-\end{center}\end{figure}
+When the packets are received it is safe to parse the type and length fields normally. If the type matches that of the UDP tunnel the rest of the message should be processed as an UDP packet without attempting a protocol buffer decoding.
 
 \subsection{Encryption}
+\label{sect:udpencryption}
 
-All the voice packets are encrypted once during transfer. The actual encryption depends on the used transport layer. If the packets are tunneled through TCP they are encrypted using the TLS that encrypts the whole TCP connection and if they are sent directly using UDP they must be encrypted using the OCB-AES128 encryption. The OCB-AES128 encryption is described in section \ref{sect:cryptostate}.
+All the packets are encrypted once during transfer. The actual encryption depends on the used transport layer. If the packets are tunneled through TCP they are encrypted using the TLS that encrypts the whole TCP connection and if they are sent directly using UDP they must be encrypted using the OCB-AES128 encryption. The OCB-AES128 encryption is described in section \ref{sect:cryptostate}.
 
 \subsection{Implementation notes}
 
@@ -793,6 +836,17 @@ ServerSync message is sent by the server when it has authenticated the user and 
 \mumbleMessageExItem{permissions}{uint64}{Opt.}{Current user permissions TODO: Confirm??}
 \end{mumbleMessageEx}
 
+\subsection{SuggestConfig}
+\label{msg:suggestConfig}
+
+Sent by the server to inform the clients of suggested client configuration specified by the server administrator.
+
+\begin{mumbleMessageEx}
+\mumbleMessageExItem{version}{uint32}{Opt.}{Suggested client version}
+\mumbleMessageExItem{positional}{bool}{Opt.}{True if the administrator suggests positional audio to be used on this server}
+\mumbleMessageExItem{push\_to\_talk}{bool}{Opt.}{True if the administrator suggests push to talk to be used on this server}
+\end{mumbleMessageEx}
+
 \subsection{TextMessage}
 \label{msg:textMessage}
 
@@ -946,6 +1000,8 @@ Sent by the client when it wants to register or clear whisper targets. See \ref{
 
 \section*{This document is WIP}
 SORRY BUT THIS DOCUMENT IS WORK IN PROGRESS. AT THE MOMENT IT LACKS A LOT OF IMPORTANT INFORMATION BUT WE HOPE TO BE ABLE TO FINISH THIS DOCUMENT SOMEDAY :-)
+
+We're getting there though! Currently the largest omission is the UDP channel encryption. Most other bits are there.
 
 \appendix
 \section{Appendix}

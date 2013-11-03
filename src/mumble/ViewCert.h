@@ -28,12 +28,18 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef VIEWCERT_H_
-#define VIEWCERT_H_
+#ifndef MUMBLE_MUMBLE_VIEWCERT_H_
+#define MUMBLE_MUMBLE_VIEWCERT_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
 #include <QtCore/QList>
-#include <QtGui/QDialog>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QDialog>
+#else
+# include <QtGui/QDialog>
+#endif
+
 #include <QtNetwork/QSslCertificate>
 
 class QListWidget;

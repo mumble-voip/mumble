@@ -62,14 +62,6 @@ void LogTextBrowser::scrollLogToBottom() {
 }
 
 
-/*!
-  \fn int ChatbarTextEdit::completeAtCursor()
-  The bar will try to complete the username, if the nickname
-  is already complete it will try to find a longer match. If
-  there is none it will cycle the nicknames alphabetically.
-  Nothing is done on mismatch.
-*/
-
 void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
 	inFocus(true);
 	QTextEdit::focusInEvent(qfe);
@@ -203,6 +195,12 @@ bool ChatbarTextEdit::event(QEvent *evt) {
 	return QTextEdit::event(evt);
 }
 
+/**
+ * The bar will try to complete the username, if the nickname
+ * is already complete it will try to find a longer match. If
+ * there is none it will cycle the nicknames alphabetically.
+ * Nothing is done on mismatch.
+ */
 unsigned int ChatbarTextEdit::completeAtCursor() {
 	// Get an alphabetically sorted list of usernames
 	unsigned int id = 0;

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ASIOINPUT_H_
-#define ASIOINPUT_H_
+#ifndef MUMBLE_MUMBLE_ASIOINPUT_H_
+#define MUMBLE_MUMBLE_ASIOINPUT_H_
 
 #include <QtCore/QList>
 #include <QtCore/QObject>

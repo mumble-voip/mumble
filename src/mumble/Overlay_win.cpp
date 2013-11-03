@@ -44,12 +44,12 @@ typedef void (__cdecl *PrepDXGIProc)();
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
-	QString path=QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 
-	qlOverlay = new QLibrary(this);
 	hpInstall = NULL;
 	hpRemove = NULL;
+	qlOverlay = new QLibrary(this);
 
+	QString path = QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
 		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("Failed to load overlay library. This means either that:\n"
@@ -60,22 +60,26 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	}
 
 	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)qlOverlay->resolve("GetOverlayMagicVersion");
-	if (! gompvp)
+	if (! gompvp) {
+		qWarning("The overlay librarys overlay protocol version could not be verified. Overlay will not be enabled.");
 		return;
+	}
 
-	if (gompvp() != OVERLAY_MAGIC_NUMBER)
+	if (gompvp() != OVERLAY_MAGIC_NUMBER) {
+		qWarning("Client overlay protocol version does not match the overlay library one. Overlay will not be enabled.");
 		return;
+	}
 
 	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
 	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
-	PrepProc pp = (PrepProc) qlOverlay->resolve("PrepareD3D9");
-	PrepDXGIProc pdxgi = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
+	PrepProc prepareProc9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
+	PrepDXGIProc prepareProc10 = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
 
-	if (pp)
-		pp();
+	if (prepareProc9)
+		prepareProc9();
 
-	if (pdxgi)
-		pdxgi();
+	if (prepareProc10)
+		prepareProc10();
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONNECTION_H_
-#define CONNECTION_H_
+#ifndef MUMBLE_CONNECTION_H_
+#define MUMBLE_CONNECTION_H_
 
 #include <QtCore/QtGlobal>
 #if QT_VERSION >= 0x040700
@@ -106,6 +106,8 @@ class Connection : public QObject {
 #endif
 };
 
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_DECLARE_METATYPE(QAbstractSocket::SocketError)
+#endif
 
 #endif

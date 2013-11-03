@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_DELEGATE
-#define _CONFIGDIALOG_DELEGATE
+#ifndef MUMBLE_MUMBLE_CONFIGDIALOG_DELEGATE_H_
+#define MUMBLE_MUMBLE_CONFIGDIALOG_DELEGATE_H_
 
 #include "ConfigDialog_macx.h"
 #include "ConfigWidget.h"
@@ -37,24 +37,10 @@
 
 @class NSToolbarItem;
 
-@interface ConfigDialogDelegate : NSObject {
-    ConfigDialogMac *configDialog;
-    QMap<unsigned int, ConfigWidget *> *widgetMap;
-
-    BOOL inExpertMode;
-    NSMutableDictionary *nameWidgetMapping;
-    NSMutableArray *identifiers;
-    NSToolbar *toolbarCache;
-}
-
-- (id) initWithConfigDialog:
-(ConfigDialogMac *)dialog andWidgetMap:
-(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:
-(BOOL)flag;
-- (void) selectItem:
-(ConfigWidget *)cw;
+@interface ConfigDialogDelegate : NSObject
+- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
+- (void) selectItem:(ConfigWidget *)cw;
 - (BOOL) expertMode;
-
 @end
 
-#endif /* _CONFIGDIALOG_DELEGATE */
+#endif

@@ -158,7 +158,15 @@ void SocketRPCClient::processXml() {
 				u.setHost(host);
 				u.setPort(port);
 				u.setUserName(user);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				QUrlQuery query;
+				query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+				u.setQuery(query);
+#else
 				u.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+#endif
+
 				QStringList path;
 				Channel *c = ClientUser::get(g.uiSession)->cChannel;
 				while (c->cParent) {
@@ -228,7 +236,7 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 }
 
 void SocketRPC::newConnection() {
-	while (1) {
+	while (true) {
 		QLocalSocket *qls = qlsServer->nextPendingConnection();
 		if (! qls)
 			break;

@@ -34,6 +34,7 @@ CONFIG(sbcelt) {
 } else {
 	CONFIG(static) {
 		CONFIG -= static
+		CONFIG += shared
 	}
 }
 

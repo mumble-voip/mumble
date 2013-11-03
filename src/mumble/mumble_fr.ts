@@ -131,7 +131,7 @@
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Définit si la LCA en haut de la chaîne des salons parents s&apos;applique à cet objet ou non. Seules les entrées qui sont marquées dans les parents comme &quot;Appliquer au sous-salons&quot; seront hérités.</translation>
+        <translation>Définit si la LCA en haut de la chaîne des salons parents s&apos;applique à cet objet ou non. Seules les entrées qui sont marquées dans les parents comme « Appliquer aux sous-salons » seront héritées.</translation>
     </message>
     <message>
         <location/>
@@ -205,7 +205,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
-Cette valeur vous permet de définir comment Mumble arrange les salons dans l&apos;arborescence. Un salon avec une valeur de &lt;b&gt;Position&lt;/b&gt; plus grande sera toujours placé en dessous de ceux qui ont une valeur plus petite, et inversement. Si la valeur de &lt;b&gt;Position&lt;/b&gt; est identique entre deux salons, ceux-ci seront triés par ordre alphabétique à partir de leurs noms.</translation>
+Cette valeur vous permet de définir comment Mumble arrange les salons dans l&apos;arborescence. Un salon avec une valeur de &lt;i&gt;Position&lt;/i&gt; plus grande sera toujours placé en dessous de ceux qui ont une valeur plus petite, et inversement. Si la valeur de &lt;i&gt;Position&lt;/i&gt; est identique entre deux salons, ceux-ci seront triés par ordre alphabétique à partir de leurs noms.</translation>
     </message>
     <message>
         <location/>
@@ -247,12 +247,12 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Saisir le nom de l&apos;utilisateur que vous souhaitez ajouter au groupe et cliquez sur Ajouter.</translation>
+        <translation>Saisissez le nom de l&apos;utilisateur que vous souhaitez ajouter au groupe et cliquez sur Ajouter.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Saisir le nom de l&apos;utilisateur que vous souhaitez retirer du groupe et cliquez sur Ajouter.</translation>
+        <translation>Saisissez le nom de l&apos;utilisateur que vous souhaitez retirer du groupe et cliquez sur Ajouter.</translation>
     </message>
     <message>
         <location/>
@@ -267,7 +267,7 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Déplace une entrée vers le haut dans la liste. Comme les entrées sont évaluées dans l&apos;ordre, cela peut changer la permission effective des utilisateurs. Vous ne pouvez pas déplacer une entrée héritée, si vous le nécessitez vraiment, vous aurez à dupliquer l&apos;entrée héritée.</translation>
+        <translation>Déplace une entrée vers le haut dans la liste. Comme les entrées sont évaluées dans l&apos;ordre, cela peut changer la permission effective des utilisateurs. Vous ne pouvez pas déplacer une entrée héritée, si vous en avez vraiment besoin, vous aurez à dupliquer l&apos;entrée héritée.</translation>
     </message>
     <message>
         <location/>
@@ -303,12 +303,12 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Le groupe sur lequel cette entrée s&apos;applique</translation>
+        <translation>Le groupe auquel cette entrée s&apos;applique</translation>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Utilisateur sur lequel cette entrée s&apos;applique</translation>
+        <translation>Utilisateur à qui cette entrée s&apos;applique</translation>
     </message>
     <message>
         <location/>
@@ -344,17 +344,17 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Accorde le privilège %1. Si un privilège est à la fois accordé et refusé, il est refusé.&lt;br /&gt;%2</translation>
+        <translation>Accorde le privilège %1. Si un privilège est à la fois accordé et refusé, il sera refusé.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Le canal doit avoir un nom</translation>
+        <translation>Le salon doit avoir un nom</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Retirer le privilège %1. Si le privilège est à la fois accordé et refusé, il est refusé.&lt;br /&gt;%2</translation>
+        <translation>Retire le privilège %1. Si le privilège est à la fois accordé et refusé, il sera refusé.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -364,7 +364,7 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Supprime le groupe sélectionné</translation>
+        <translation>Supprimer le groupe sélectionné</translation>
     </message>
     <message>
         <location/>
@@ -404,7 +404,7 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nom&lt;/b&gt;&lt;br/&gt;Saisir le nom du salon dans ce champ. Le nom doit être conforme aux restrictions imposées par le serveur auquel vous êtes connecté.</translation>
+        <translation>&lt;b&gt;Nom&lt;/b&gt;&lt;br /&gt;Saisir le nom du salon dans ce champ. Le nom doit être conforme aux restrictions imposées par le serveur auquel vous êtes connecté.</translation>
     </message>
     <message>
         <location/>
@@ -417,41 +417,41 @@ Quand cette case est cochée, le salon ainsi créé sera marqué comme temporair
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Groupe&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Groupe&lt;/b&gt;&lt;br /&gt;
 Ce sont tous les groupes actuellement définis pour ce salon. Pour créer un nouveau groupe, il suffit de saisir un nom et d&apos;appuyer sur Entrée.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Supprimer&lt;/b&gt;&lt;br/&gt;Efface le groupe actuellement sélectionné. Si le groupe était hérité, il ne sera pas retiré de la liste, mais toutes les modifications locales du groupe seront effacées.</translation>
+        <translation>&lt;b&gt;Supprimer&lt;/b&gt;&lt;br /&gt;Efface le groupe actuellement sélectionné. Si le groupe était hérité, il ne sera pas retiré de la liste, mais toutes les modifications locales du groupe seront effacées.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Hérite&lt;/b&gt;&lt;br/&gt;Permet à tous les membres du groupe d&apos;être hérités du groupe parent, si le groupe est marqué comme étant &lt;i&gt;Héritable&lt;i&gt; dans le salon parent.</translation>
+        <translation>&lt;b&gt;Hérite&lt;/b&gt;&lt;br /&gt;Permet à tous les membres du groupe d&apos;être hérités du groupe parent, si le groupe est marqué comme étant &lt;i&gt;Héritable&lt;/i&gt; dans le salon parent.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Héritable&lt;/b&gt;&lt;br/&gt;Indique que ce groupe peut être hérité par les sous-salons. Si le groupe est non héritable, les sous-salons sont libres de créer un nouveau groupe avec le même nom.</translation>
+        <translation>&lt;b&gt;Héritable&lt;/b&gt;&lt;br /&gt;Indique que ce groupe peut être hérité par les sous-salons. Si le groupe est non héritable, les sous-salons sont libres de créer un nouveau groupe avec le même nom.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Hérité&lt;/b&gt;&lt;br/&gt;Indique que le groupe est hérité du salon parent. Vous ne pouvez pas modifier cette option, elle n&apos;est qu&apos;informative.</translation>
+        <translation>&lt;b&gt;Hérité&lt;/b&gt;&lt;br /&gt;Indique que le groupe est hérité du salon parent. Vous ne pouvez pas modifier cette option, elle n&apos;est qu&apos;informative.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Membres&lt;/&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Membres&lt;/b&gt;&lt;br /&gt;
 Cette liste contient tous les membres ajoutés au groupe dans le salon actuel. Notez que cela n&apos;inclut pas les membres hérités par les salons de niveaux supérieurs. Ceux-ci peuvent être trouvés dans la liste des &lt;i&gt;Membres hérités&lt;/i&gt;. Pour éviter que cette liste ne soit héritée par les sous-salons, décochez &lt;i&gt;Héritable&lt;/i&gt; ou ajoutez manuellement les membres à la liste des &lt;i&gt;Membres exclus&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Membres exclus&lt;/b&gt;&lt;br/&gt;
+        <translation>&lt;b&gt;Membres exclus&lt;/b&gt;&lt;br /&gt;
 Contient une liste de membres dont l&apos;appartenance au groupe ne doit pas être héritée du salon parent.</translation>
     </message>
     <message>
@@ -464,12 +464,12 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Contrôle à quel groupe d&apos;utilisateurs cette entrée s&apos;applique.&lt;br /&gt;Notez que les groupes sont évalués dans le contexte du salon dans lequel l&apos;entrée est utilisée. Par exemple, la LCA du salon racine par défaut donne la permission d&apos;&lt;i&gt;écriture&lt;/i&gt; au groupe &lt;i&gt;admin&lt;/i&gt;. Cette entrée, si héritée par un salon, donnera à l&apos;utilisateur le privilège d&apos;écriture s&apos;il appartient au groupe &lt;i&gt;admin&lt;/i&gt; du salon, même s&apos;il n&apos;appartient pas au groupe &lt;i&gt;admin&lt;/i&gt; dans le salon de la LCA originelle.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;!&apos;, son appartenance est négative, et s&apos;il commence par un &apos;~&apos;, il est évalué dans le salon dans lequel la LCA a été définie, plutôt que dans le salon dans lequel la LCA est active.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;#&apos;, son contenu sera interprété comme un jeton d&apos;accès. Les utilisateurs doivent saisir ce qui suit le &apos;#&apos; dans leur liste de jetons d&apos;accès pour être valide. Cette méthode peut être utilisée pour un accès simple par mots de passe pour les utilisateurs non authentifiés.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;$&apos;, seulement les utilisateurs dont le hash du certificat, qui doit suivre le &apos;$&apos;, seront valides.&lt;br /&gt;Quelques groupes prédéfinis sont :&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tout le monde est concerné.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tous les utilisateurs authentifiés&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utilisateurs actuellement dans un sous-salon avec au moins &lt;i&gt;a&lt;/i&gt; parents commun, entre les salons &lt;i&gt;b&lt;/i&gt; et &lt;i&gt;c&lt;/i&gt;. Voir le site web pour une explication plus complète.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utilisateurs dans le salon (raccourci pour &lt;i&gt;sub,0,0,0&lt;/i&gt;)&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Utilisateurs en dehors du salon (raccourci pour &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Notez que ces entrées s&apos;appliquent soit à un utilisateur, soit à un groupe, mais pas aux deux.</translation>
+        <translation>Contrôle à quel groupe d&apos;utilisateurs cette entrée s&apos;applique.&lt;br /&gt;Notez que les groupes sont évalués dans le contexte du salon dans lequel l&apos;entrée est utilisée. Par exemple, la LCA du salon racine par défaut donne la permission d&apos;&lt;i&gt;écriture&lt;/i&gt; au groupe &lt;i&gt;admin&lt;/i&gt;. Cette entrée, si héritée par un salon, donnera à l&apos;utilisateur le privilège d&apos;écriture s&apos;il appartient au groupe &lt;i&gt;admin&lt;/i&gt; du salon, même s&apos;il n&apos;appartient pas au groupe &lt;i&gt;admin&lt;/i&gt; dans le salon de la LCA originelle.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;!&apos;, son appartenance est négative, et s&apos;il commence par un &apos;~&apos;, il est évalué dans le salon dans lequel la LCA a été définie, plutôt que dans le salon dans lequel la LCA est active.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;#&apos;, son contenu sera interprété comme un jeton d&apos;accès. Les utilisateurs doivent saisir ce qui suit le &apos;#&apos; dans leur liste de jetons d&apos;accès pour être valide. Cette méthode peut être utilisée pour un accès simple par mots de passe pour les utilisateurs non authentifiés.&lt;br /&gt;Si le nom d&apos;un groupe commence par &apos;$&apos;, seulement les utilisateurs dont le hachage du certificat, qui doit suivre le &apos;$&apos;, seront valides.&lt;br /&gt;Quelques groupes prédéfinis sont :&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Tout le monde est concerné.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Tous les utilisateurs authentifiés&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Utilisateurs actuellement dans un sous-salon avec au moins &lt;i&gt;a&lt;/i&gt; parents communs, entre les salons &lt;i&gt;b&lt;/i&gt; et &lt;i&gt;c&lt;/i&gt;. Voir le site web pour une explication plus complète.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Utilisateurs dans le salon (raccourci pour &lt;i&gt;sub,0,0,0&lt;/i&gt;)&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Utilisateurs en dehors du salon (raccourci pour &lt;i&gt;!sub,0,0,0&lt;/i&gt;).&lt;br /&gt;Notez que ces entrées s&apos;appliquent soit à un utilisateur, soit à un groupe, mais pas aux deux.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Mot de passe&lt;/b&gt;&lt;br /&gt;Ce champ vous permet de définir ou de changer aisément le mot de passe d&apos;un canal. Il utilise les jetons d&apos;accès de Mumble. Utilisez les LCAs et les groupes si vous avez besoin de plus de finesse dans le contrôle des accès.</translation>
+        <translation>&lt;b&gt;Mot de passe&lt;/b&gt;&lt;br /&gt;Ce champ vous permet de définir ou de changer aisément le mot de passe d&apos;un salon. Il utilise les jetons d&apos;accès de Mumble. Utilisez les LCAs et les groupes si vous avez besoin de plus de finesse dans le contrôle des accès.</translation>
     </message>
     <message>
         <location/>
@@ -523,8 +523,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Configurera les canaux d&apos;entrée pour l&apos;ASIO. Veuillez vous assurer que vous avez sélectionné au moins un canal comme micro et haut-parleurs. &lt;i&gt;Microphone&lt;/i&gt; indique l&apos;endroit où votre microphone est connecté, et &lt;i&gt;Haut-parleurs&lt;/i&gt;indique le canal qui joue &apos;&lt;i&gt;Ce que vous entendez&lt;/i&gt;&apos;.&lt;br/&gt;
-Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;&lt;i&gt;Mic L&lt;/l&gt;&apos; tandis que haut-parleur est &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; et &apos;&lt;i&gt;Lix R&lt;/i&gt;&apos;.</translation>
+        <translation>Configurera les canaux d&apos;entrée pour l&apos;ASIO. Veuillez vous assurer que vous avez sélectionné au moins un canal comme micro et haut-parleurs. &lt;i&gt;Microphone&lt;/i&gt; indique l&apos;endroit où votre microphone est connecté, et &lt;i&gt;Haut-parleurs&lt;/i&gt;indique le canal qui joue &apos;&lt;i&gt;Ce que vous entendez&lt;/i&gt;&apos;.&lt;br /&gt;Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;&lt;i&gt;Mic L&lt;/l&gt;&apos; tandis que haut-parleur est &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; et &apos;&lt;i&gt;Lix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <location/>
@@ -612,7 +611,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>Haut-parleurs</translation>
     </message>
     <message>
-        <location filename="ASIOInput.cpp" line="+226"/>
+        <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
         <translation>%1 (version %2)</translation>
     </message>
@@ -620,13 +619,13 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 échantillons tampon, avec %3 résolution exemple (%4 préféré) à %5 Hz</translation>
+        <translation>%1 -&gt; %2 échantillons tampons, avec %3 résolution exemple (%4 préféré) à %5 Hz</translation>
     </message>
     <message>
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>L&apos;initialisation de ASIO a échoué : %1</translation>
+        <translation>L&apos;initialisation d&apos;ASIO a échoué : %1</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -663,7 +662,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="About.cpp" line="+80"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;A propos de Mumble</translation>
+        <translation>&amp;À propos de Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -673,7 +672,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"></translation>
+        <translation>Licences tierces &amp;parties</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -696,7 +695,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation>Forme</translation>
     </message>
     <message>
         <location/>
@@ -758,7 +757,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Temps entre deux pressions</translation>
+        <translation>Délai entre deux pressions</translation>
     </message>
     <message>
         <location/>
@@ -773,7 +772,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Définit l&apos;amplitude comme méthode de détection de la voix.&lt;/b&gt;&lt;br/&gt;Dans ce mode, la force du signal d&apos;entrée sera utilisée pour détecter la voix.</translation>
+        <translation>&lt;b&gt;Définit l&apos;amplitude comme méthode de détection de la voix.&lt;/b&gt;&lt;br /&gt;Dans ce mode, la force du signal d&apos;entrée sera utilisée pour détecter la voix.</translation>
     </message>
     <message>
         <location/>
@@ -783,7 +782,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Maintient de la &amp;voix</translation>
+        <translation>Maintien de la &amp;voix</translation>
     </message>
     <message>
         <location/>
@@ -798,7 +797,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Définit la valeur pour la détection de la voix.&lt;/b&gt;&lt;br/&gt;Utilisez ce réglage avec la fenêtre de Statistiques Audio pour régler manuellement la valeur de détection de la voix. Toute valeur d&apos;entrée en dessous de &quot;Silence en deçà&quot; sera toujours considérée comme du silence. Les valeurs au-delà de &quot;Voix au-delà&quot; seront toujours considérées comme de la voix. Les valeurs intermédiaires seront considérées comme étant de la voix si vous êtes en train de parler, mais n&apos;activeront pas une nouvelle détection.</translation>
+        <translation>&lt;b&gt;Définit la valeur pour la détection de la voix.&lt;/b&gt;&lt;br /&gt;Utilisez ce réglage avec la fenêtre de Statistiques Audio pour régler manuellement la valeur de détection de la voix. Toute valeur d&apos;entrée en dessous de « Silence en deçà » sera toujours considérée comme du silence. Les valeurs au-delà de « Voix au-delà » seront toujours considérées comme de la voix. Les valeurs intermédiaires seront considérées comme étant de la voix si vous êtes en train de parler, mais n&apos;activeront pas une nouvelle détection.</translation>
     </message>
     <message>
         <location/>
@@ -848,7 +847,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Montre la bande passante maximale utilisée.&lt;/b&gt;&lt;br /&gt;Montre la bande maximale passante maximale utilisée par votre machine. Le débit binaire audio est le débit binaire maximum (puisqu&apos;un débit binaire variable est utilisé) pour les données seules. La position est le débit binaire utilisé pour les informations de position. L&apos;entête contient le système de trames et les entêtes des paquets IP. (IP ET UPD est de 75% de l&apos;entête).</translation>
+        <translation>&lt;b&gt;Montre la bande passante maximale utilisée.&lt;/b&gt;&lt;br /&gt;Montre la bande passante maximale utilisée par votre machine. Le débit binaire audio est le débit binaire maximum (puisqu&apos;un débit binaire variable est utilisé) pour les données seules. La position est le débit binaire utilisé pour les informations de position. L&apos;en-tête contient le système de trames et les en-têtes des paquets IP. (l&apos;IP et l&apos;UDP constituent 75 % de l&apos;en-tête).</translation>
     </message>
     <message>
         <location/>
@@ -873,7 +872,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Amplification de l&apos;entrée maximale.&lt;/b&gt;&lt;br /&gt;Mumble normalise le son de l&apos;entrée avant de le compresser, et l&apos;amplifie aussi fort qu&apos;il l&apos;est autorisé à le faire.&lt;br /&gt;Le niveau actuel est continuellement mis à jour selon votre modèle de parole actuel, mais il ne dépassera jamais le niveau spécifié ici.&lt;br /&gt;Si le &lt;i&gt;Volume du microphone&lt;/li&gt; des statistiques audio tourne autour de 100%, vous voudrez probablement le mettre à 2.0 ou à une valeur proche, mais si, comme la plupart des gens, vous n&apos;arrivez pas à atteindre 100%, définissez quelque chose de beaucoup plus haut.&lt;br /&gt;Idéalement, définissez le de manière à ce que &lt;i&gt;Volume du microphone * Facteur d&apos;amplification &gt;= 100&lt;/i&gt;, même si vous parlez vraiment doucement.&lt;br /&gt;&lt;br /&gt;Notez que mettre cette option au maximum ne causera aucun dégât, mais que Mumble risque d&apos;entendre d&apos;autres conversations, si vous le laissez à ce niveau.</translation>
+        <translation>&lt;b&gt;Amplification de l&apos;entrée maximale.&lt;/b&gt;&lt;br /&gt;Mumble normalise le son de l&apos;entrée avant de le compresser, et l&apos;amplifie aussi fort qu&apos;il l&apos;est autorisé à le faire.&lt;br /&gt;Le niveau actuel est continuellement mis à jour selon votre modèle de parole actuel, mais il ne dépassera jamais le niveau spécifié ici.&lt;br /&gt;Si le &lt;i&gt;Volume du microphone&lt;/li&gt; des statistiques audio tourne autour de 100 %, vous voudrez probablement le mettre à 2.0 ou à une valeur proche, mais si, comme la plupart des gens, vous n&apos;arrivez pas à atteindre 100 %, définissez quelque chose de beaucoup plus haut.&lt;br /&gt;Idéalement, définissez le de manière à ce que &lt;i&gt;Volume du microphone * Facteur d&apos;amplification &gt;= 100&lt;/i&gt;, même si vous parlez vraiment doucement.&lt;br /&gt;&lt;br /&gt;Notez que mettre cette option au maximum ne causera aucun dégât, mais que Mumble risque d&apos;entendre d&apos;autres conversations, si vous le laissez à ce niveau.</translation>
     </message>
     <message>
         <location/>
@@ -913,12 +912,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Si vous pressez la touche Appuyez-pour-parler deux fois dans cet intervalle de temps, cela la bloquera.</translation>
+        <translation>Si vous pressez la touche Appuyer-pour-parler (PTT, Push To Talk) deux fois dans cet intervalle de temps, cela la bloquera.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Temps entre deux pressions&lt;/b&gt;&lt;br/&gt;Si vous pressez la touche Appuyez-pour-parler deux fois durant l&apos;intervalle de temps configuré, cela la verrouillera. Mumble continuera à transmettre tant que la touche ne sera pas enfoncée une nouvelle fois.</translation>
+        <translation>&lt;b&gt;Délai entre deux pressions&lt;/b&gt;&lt;br /&gt;Si vous pressez la touche Appuyer-pour-parler deux fois durant l&apos;intervalle de temps configuré, cela la verrouillera. Mumble continuera à transmettre tant que la touche ne sera pas enfoncée une nouvelle fois.</translation>
     </message>
     <message>
         <location/>
@@ -958,7 +957,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Définit la détection vocale sur l&apos;utilisation du rapport Signal/Bruit.&lt;/b&gt;&lt;br/&gt;Dans ce mode, l&apos;entrée est analysée pour trouver ce qui ressemble à un signal clair, et la qualité de ce signal est utilisé comme base pour déterminer la détection vocale.</translation>
+        <translation>&lt;b&gt;Définit la détection vocale sur l&apos;utilisation du rapport Signal/Bruit.&lt;/b&gt;&lt;br /&gt;Dans ce mode, l&apos;entrée est analysée pour trouver ce qui ressemble à un signal clair, et la qualité de ce signal est utilisée comme base pour déterminer la détection vocale.</translation>
     </message>
     <message>
         <location/>
@@ -968,7 +967,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Définit la quantité de son à supprimer à appliquer.&lt;/b&gt;&lt;br/&gt;Plus la valeur est élevée, plus les bruits seront supprimés.</translation>
+        <translation>&lt;b&gt;Définit la quantité de son à supprimer à appliquer.&lt;/b&gt;&lt;br /&gt;Plus la valeur est élevée, plus les bruits seront supprimés.</translation>
     </message>
     <message>
         <location/>
@@ -989,22 +988,6 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
         <translation>&lt;b&gt;Détermine combien de temps la transmission devrait continuer après une pause.&lt;/b&gt;&lt;br /&gt;Choisissez une valeur supérieure si votre voix est coupée lorsque vous parlez (l&apos;icône située à côté de votre nom clignote alors très rapidement).&lt;br /&gt;Cela n&apos;a de sens que si vous utilisez la transmission selon l&apos;Activité Vocale.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Idle AutoDeafen</source>
-        <translation>Auto-absence
-(devenir sourd)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>How long to remain idle before auto-deafen.</source>
-        <translation>Combien de temps avant l&apos;absence automatique.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This sets an idle timer. If the timer expires without any audio being sent to the server, you are muted and deafened.</source>
-        <translation>Ceci règle les paramètres d&apos;absence. Si pendant cette durée il n&apos;y a eut aucun envoi audio vers le serveur, vous deviendrez sourd et muet.</translation>
     </message>
     <message>
         <location/>
@@ -1054,7 +1037,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Affciher la fenêtre appuyer-pour-parler</translation>
+        <translation>Afficher la fenêtre appuyer-pour-parler</translation>
     </message>
     <message>
         <location/>
@@ -1089,22 +1072,52 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"></translation>
+        <translation>Durée de maintien</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"></translation>
+        <translation>Délai pendant lequel le microphone restera ouvert après que la touche PTT ait été enfoncée</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+528"/>
+        <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"></translation>
+        <translation>La bande passante maximale du serveur est seulement de %1 kbit/s. La qualité audio a été ajustée automatiquement à %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"></translation>
+        <translation>Amplification max</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Idle action</source>
+        <translation>aucune action (idle)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>minutes do</source>
+        <translation>minutes effectuer l&apos;action suivante</translation>
+    </message>
+    <message>
+        <location/>
+        <source>nothing</source>
+        <translation>ne rien faire</translation>
+    </message>
+    <message>
+        <location/>
+        <source>deafen</source>
+        <translation>rendre sourd</translation>
+    </message>
+    <message>
+        <location/>
+        <source>mute</source>
+        <translation>rendre muet</translation>
+    </message>
+    <message>
+        <location/>
+        <source>after</source>
+        <translation>après</translation>
     </message>
 </context>
 <context>
@@ -1122,15 +1135,15 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation>Appuyez-pour-parler</translation>
+        <translation>Appuyer-pour-parler</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Audio Input</source>
         <translation>Entrée audio</translation>
     </message>
     <message>
-        <location line="+103"/>
+        <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
@@ -1140,12 +1153,11 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
-        <location line="+18"/>
         <source>Off</source>
         <translation>Éteint</translation>
     </message>
     <message>
-        <location line="-30"/>
+        <location line="-12"/>
         <source>%1 s</source>
         <translation>%1 s</translation>
     </message>
@@ -1160,15 +1172,9 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <translation>-%1 dB</translation>
     </message>
     <message>
-        <location line="+55"/>
-        <source>%1 kbit/s (Audio %2 %5, Position %4, Overhead %3)</source>
-        <oldsource>%1kbit/s (Audio %2 %5, Position %4, Overhead %3)</oldsource>
-        <translation>%1kbits/s (Audio %2 %5, Position %4, Entêtes %3)</translation>
-    </message>
-    <message>
-        <location line="-42"/>
-        <source>%1 min</source>
-        <translation>%1 min</translation>
+        <location line="+48"/>
+        <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
+        <translation>%1kbits/s (Audio %2, Position %4, En-têtes %3)</translation>
     </message>
 </context>
 <context>
@@ -1176,7 +1182,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation>Forme</translation>
     </message>
     <message>
         <location/>
@@ -1238,7 +1244,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;C&apos;est la valeur minimale de sécurité du tampon de gigue.&lt;/b&gt;&lt;br/&gt;Tout le son qui arrive est temporisé, et le tampon de gigue essaie de maintenir le tampon à la valeur minimale soutenable par votre réseau, la latence est donc maintenue au niveau le plus bas possible. Ce paramètre définit la taille minimale du tampon à utiliser. Si le début des phrases que vous entendez est vraiment mauvais, augmentez cette valeur.</translation>
+        <translation>&lt;b&gt;C&apos;est la valeur minimale de sécurité du tampon de gigue.&lt;/b&gt;&lt;br /&gt;Tout le son qui arrive est temporisé, et le tampon de gigue essaie de maintenir le tampon à la valeur minimale soutenable par votre réseau, la latence est donc maintenue au niveau le plus bas possible. Ce paramètre définit la taille minimale du tampon à utiliser. Si le début des phrases que vous entendez est vraiment mauvais, augmentez cette valeur.</translation>
     </message>
     <message>
         <location/>
@@ -1258,7 +1264,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Active l&apos;un des tests de boucle locale.&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Aucun&lt;/i&gt;- Test boucle locale désactivée.&lt;br/&gt;&lt;i&gt;Local&lt;/i&gt; - Émule un serveur local.&lt;br/&gt;&lt;i&gt;Serveur&lt;/i&gt; - Demande au serveur de retourner le son.&lt;br/&gt;Veuillez noter que si vous activez le test de boucle locale, aucun autre utilisateur ne vous entendra. Ce paramètre n&apos;est pas mémorisé en quittant.</translation>
+        <translation>&lt;b&gt;Active l&apos;un des tests de boucle locale.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Aucun&lt;/i&gt;- Test boucle locale désactivée.&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Émule un serveur local.&lt;br /&gt;&lt;i&gt;Serveur&lt;/i&gt; - Demande au serveur de retourner le son.&lt;br /&gt;Veuillez noter que si vous activez le test de boucle locale, aucun autre utilisateur ne vous entendra. Ce paramètre n&apos;est pas mémorisé en quittant.</translation>
     </message>
     <message>
         <location/>
@@ -1273,7 +1279,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Ceci ajuste le volume entrant de parole.&lt;/b&gt;&lt;br /&gt;Notez que si vous augmentez cette valeur au-delà de 100%, le son sera déformé.</translation>
+        <translation>&lt;b&gt;Ceci ajuste le volume entrant de parole.&lt;/b&gt;&lt;br /&gt;Notez que si vous augmentez cette valeur au-delà de 100 %, le son sera déformé.</translation>
     </message>
     <message>
         <location/>
@@ -1314,22 +1320,22 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms</oldsource>
-        <translation>&lt;b&gt;Définit la variance de la latence des paquets pour le test de boucle locale.&lt;/b&gt;&lt;br/&gt;Beaucoup de chemins audio contiennent une latence variable. Vous pouvez spécifier ici cette variance pour effectuer des tests de boucle locale. Par exemple, si vous la définissez à 15ms, un réseau avec une latence de 20-35 ms de ping ou de 80-90 ms de latence sera émulé. La majorité des connexions domestiques ont une variance proche de 5 ms.</translation>
+        <translation>&lt;b&gt;Définit la variance de la latence des paquets pour le test de boucle locale.&lt;/b&gt;&lt;br /&gt;Beaucoup de chemins audio contiennent une latence variable. Vous pouvez spécifier ici cette variance pour effectuer des tests de boucle locale. Par exemple, si vous la définissez à 15 ms, un réseau avec une latence de 20-35 ms de ping ou de 80-90 ms de latence sera émulé. La majorité des connexions domestiques ont une variance proche de 5 ms.</translation>
     </message>
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation>Paquet perdu</translation>
+        <translation>Perte de paquets</translation>
     </message>
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation>Paquet perdu pour le mode de boucle locale</translation>
+        <translation>Perte de paquets pour le mode de boucle locale</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Ceci définit la perte de paquets pour le mode de boucle locale.&lt;/b&gt;&lt;br /&gt;Ce sera le taux de paquets perdus. À moins que votre bande passante sortante soit atteinte ou qu&apos;il y ai un problème avec votre connexion réseau, ce sera 0%</translation>
+        <translation>&lt;b&gt;Ceci définit la perte de paquets pour le mode de boucle locale.&lt;/b&gt;&lt;br /&gt;Ce sera le taux de paquets perdus. À moins que votre bande passante sortante ne soit atteinte ou qu&apos;il n&apos;y ait un problème avec votre connexion réseau, ce sera 0 %</translation>
     </message>
     <message>
         <location/>
@@ -1350,7 +1356,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>Les &quot;haut-parleurs&quot; actuellement connectés sont un casque</translation>
+        <translation>Les « haut-parleurs » actuellement connectés sont un casque</translation>
     </message>
     <message>
         <location/>
@@ -1461,7 +1467,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+165"/>
+        <location filename="AudioConfigDialog.cpp" line="+135"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -1506,19 +1512,19 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
 <context>
     <name>AudioOutputSample</name>
     <message>
-        <location filename="AudioOutputSample.cpp" line="+212"/>
+        <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation>Choisir le fichier son</translation>
+        <translation>Choisissez le fichier son</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
         <source>Invalid sound file</source>
         <translation>Fichier son invalide</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Le fichier &apos;%1&apos; ne peut pas être utilisé par Mumble. Veuillez choisir un fichier avec un format et un encodage compatible.</translation>
+        <translation>Le fichier « %1 » ne peut pas être utilisé par Mumble. Veuillez choisir un fichier avec un format et un encodage compatible.</translation>
     </message>
 </context>
 <context>
@@ -1552,12 +1558,12 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Montre la puissance maximale de la dernière trame (20 ms) des haut-parleurs. Sauf si vous utilisez une méthode multicanal d&apos;échantillonnage (telles que l&apos;ASIO) des canaux des haut-parleurs configuré, cette valeur sera 0. Si vous avez une telle configuration, affichant toujours 0 pendant que vous entendez de le son d&apos;autres applications, c&apos;est que votre configuration ne fonctionne pas.</translation>
+        <translation>Montre la puissance maximale de la dernière trame (20 ms) des haut-parleurs. Sauf si vous utilisez une méthode multisalon d&apos;échantillonnage (telles que l&apos;ASIO) des canaux des haut-parleurs configurés, cette valeur sera 0. Si vous avez une telle configuration, affichant toujours 0 pendant que vous entendez le son d&apos;autres applications, c&apos;est que votre configuration ne fonctionne pas.</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Montre la puissance maximale de la dernière trame (20 ms) après tous les traitements. Idéalement, elle doit être de -96dB quand vous ne parlez pas. En réalité, un studio sonore atteindra -60 dB, et vous aurez joyeusement -20 dB ailleurs. Quand vous ne parlez pas, il devrait se trouver entre -5 et -10 dB.&lt;br/&gt;Si vous utiliser la suppression de l&apos;écho et que la valeur est de plus de -15 dB quand vous ne parlez pas, cela signfie que votre configuration ne fonctionne pas et vous dérangez les autres utilisateurs avec l&apos;écho.</translation>
+        <translation>Montre la puissance maximale de la dernière trame (20 ms) après tous les traitements. Idéalement, elle doit être de -96dB quand vous ne parlez pas. En réalité, un studio sonore atteindra -60 dB, et vous aurez joyeusement -20 dB ailleurs. Quand vous ne parlez pas, il devrait se trouver entre -5 et -10 dB.&lt;br /&gt;Si vous utiliser la suppression de l&apos;écho et que la valeur est de plus de -15 dB quand vous ne parlez pas, cela signifie que votre configuration ne fonctionne pas et vous dérangez les autres utilisateurs avec l&apos;écho.</translation>
     </message>
     <message>
         <location/>
@@ -1572,7 +1578,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>C&apos;est le rapport Signal/Bruit (SNR) de votre microphone de la dernière trame (20 ms). Il vous affiche comment votre voix est nettoyée des bruits.&lt;br/&gt;Si cette valeur est supérieure à 1.0, Il y a davantage de bruits que de signal vocal, et la qualité est donc réduite.&lt;br/&gt;Il n&apos;y a pas de limite supérieure à cette valeur, mais n&apos;espérez pas avoir de valeurs supérieures à 40-50 sans studio audio.</translation>
+        <translation>C&apos;est le rapport Signal/Bruit (SNR) de votre microphone de la dernière trame (20 ms). Il vous affiche comment votre voix est nettoyée des bruits.&lt;br /&gt;Si cette valeur est supérieure à 1.0, Il y a davantage de bruits que de signal vocal, et la qualité est donc réduite.&lt;br /&gt;Il n&apos;y a pas de limite supérieure à cette valeur, mais n&apos;espérez pas avoir de valeurs supérieures à 40-50 sans studio audio.</translation>
     </message>
     <message>
         <location/>
@@ -1582,7 +1588,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Il s&apos;agit de la probabilité que la trame précédente (20 ms) soit de la parole et non du bruit.&lt;br /&gt;La transmission de l&apos;activité vocale dépend de cette valeur. L&apos;astuce est que le milieu de la phrase est toujours détecté comme de la voix ; les problèmes sont les pauses entre les mots et le début des phrases. Il est difficile de distinguer un soupir d&apos;un mot commençant par &quot;h&quot;.&lt;br /&gt;Si c&apos;est écrit en gras, cela signifie que Mumble est en train de transmettre des données (si vous êtes connecté).</translation>
+        <translation>Il s&apos;agit de la probabilité que la trame précédente (20 ms) soit de la parole et non du bruit.&lt;br /&gt;La transmission de l&apos;activité vocale dépend de cette valeur. L&apos;astuce est que le milieu de la phrase est toujours détecté comme de la voix ; les problèmes sont les pauses entre les mots et le début des phrases. Il est difficile de distinguer un soupir d&apos;un mot commençant par « h ».&lt;br /&gt;Si c&apos;est écrit en gras, cela signifie que Mumble est en train de transmettre des données (si vous êtes connecté).</translation>
     </message>
     <message>
         <location/>
@@ -1592,7 +1598,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Temps entre la dernière pression double sur Appuyez-pour-Parler</translation>
+        <translation>Délai entre les deux derniers appuis sur Appuyer-pour-Parler</translation>
     </message>
     <message>
         <location/>
@@ -1602,7 +1608,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Montre le spectre de puissance du signal d&apos;entrée actuel (ligne rouge) et l&apos;estimation du bruit actuel (en bleu).&lt;br /&gt;Toutes les amplitudes sont multipliées par 30 pour montrer les parties intéressantes (quantité de signal par rapport au bruit dans chaque bande de fréquence).&lt;br /&gt;Ce n&apos;est intéressant que si vous voulez configurer finement les conditions de bruit de votre microphone. Dans de bonnes conditions, il devrait y avoir seulement un léger battement de bleu. Si le niveau de bleu dépasse la moitié sur la graphique, vous avez un envireonnement vraiment bruyant.</translation>
+        <translation>Montre le spectre de puissance du signal d&apos;entrée actuel (ligne rouge) et l&apos;estimation du bruit actuel (en bleu).&lt;br /&gt;Toutes les amplitudes sont multipliées par 30 pour montrer les parties intéressantes (quantité de signal par rapport au bruit dans chaque bande de fréquence).&lt;br /&gt;Ce n&apos;est intéressant que si vous voulez configurer finement les conditions de bruit de votre microphone. Dans de bonnes conditions, il devrait y avoir seulement un léger battement de bleu. Si le niveau de bleu dépasse la moitié sur la graphique, vous avez un environnement vraiment bruyant.</translation>
     </message>
     <message>
         <location/>
@@ -1612,7 +1618,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Montre le poids de la suppression de l&apos;écho, avec le temps en ordonnée et la fréquence en abscisse.&lt;br /&gt;Idéalement, celui-ci devrait être noir, indiquant qu&apos;aucun écho n&apos;existe. Plus communément, vous aurez une ou plusieurs bandes bleutées représentant le temps de retard de l&apos;écho. Vous devriez être capable de visualiser les poids mis à jour en temps réel.&lt;br /&gt;Notez que tant que vous n&apos;avez aucun signal où enlever l&apos;écho, vous ne verrez pas beaucoup de données utiles ici. Écoutez de la musique et les choses devraient se stabiliser.&lt;br /&gt;Vous pouvez choisir de voir la partie réelle ou imaginaire dans le domaine fréquentiel, ou alternativement le module et la phase des poids. Le plus utile de ces outils serait probablement le module, qui est l&apos;amplitude de l&apos;écho, qui montre la quantité de signal sortant supprimée à chaque instant. Les autres modes de visualisation sont principalement utiles pour les gens qui veulent régler les algorithmes d&apos;annulation de l&apos;écho.&lt;br /&gt;Remarque : si l&apos;image entière fluctue massivement en mode module, l&apos;algorithme de suppression de l&apos;écho n&apos;a pas réussi à trouver une corrélation entre les deux sources d&apos;entrée (haut-parleurs et microphone). Soit vous avez un retard très long sur l&apos;écho, soit une des sources d&apos;entrée est mal configurée.</translation>
+        <translation>Montre le poids de la suppression de l&apos;écho, avec le temps en ordonnée et la fréquence en abscisse.&lt;br /&gt;Idéalement, celui-ci devrait être noir, indiquant qu&apos;aucun écho n&apos;existe. Plus communément, vous aurez une ou plusieurs bandes bleutées représentant le temps de retard de l&apos;écho. Vous devriez être capable de visualiser les poids mis à jour en temps réel.&lt;br /&gt;Notez que tant que vous n&apos;avez aucun signal où enlever l&apos;écho, vous ne verrez pas beaucoup de données utiles ici. Écoutez de la musique et les choses devraient se stabiliser.&lt;br /&gt;Vous pouvez choisir de voir la partie réelle ou imaginaire dans le domaine fréquentiel, ou alternativement le module et la phase des poids. Le plus utile de ces outils serait probablement le module, qui est l&apos;amplitude de l&apos;écho, qui montre la quantité de signal sortant supprimée à chaque instant. Les autres modes de visualisation sont principalement utiles pour les gens qui veulent régler les algorithmes d&apos;annulation de l&apos;écho.&lt;br /&gt;Remarque : si l&apos;image entière fluctue massivement en mode module, cela signifie que l&apos;algorithme de suppression de l&apos;écho n&apos;a pas réussi à trouver une corrélation entre les deux sources d&apos;entrée (haut-parleurs et microphone). Soit vous avez un retard très long sur l&apos;écho, soit une des sources d&apos;entrée est mal configurée.</translation>
     </message>
     <message>
         <location filename="AudioStats.cpp" line="+387"/>
@@ -1633,7 +1639,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Montre la puissance maximale de la dernière trame (20 ms), c&apos;est la même valeur que vous trouverez normalement en &quot;puissance d&apos;entrée&quot;. Veuillez ignorer cette valeur et regarder plutôt la &lt;b&gt;puissance du micro&lt;/b&gt;, qui est beaucoup plus stable et ne tient pas compte des valeurs aberrantes.</translation>
+        <translation>Montre la puissance maximale de la dernière trame (20 ms), c&apos;est la même valeur que vous trouverez normalement en « puissance d&apos;entrée ». Veuillez ignorer cette valeur et regarder plutôt la &lt;b&gt;puissance du micro&lt;/b&gt;, qui est beaucoup plus stable et ne tient pas compte des valeurs aberrantes.</translation>
     </message>
     <message>
         <location/>
@@ -1648,7 +1654,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Montre à quel point le niveau de volume d&apos;entré courant est proche de l&apos;idéal. Pour ajuster le niveau de votre microphone, ouvrez le programme que vous utilisez pour ajuster le volume d&apos;enregistrement, et regardez la valeur ici pendant que vous parlez.&lt;br /&gt;&lt;b&gt;Parlez fort, comme lorsque vous êtes énervé d&apos;avoir été tué par un noob.&lt;/b&gt;&lt;br /&gt;Réglez le volume jusqu&apos;à ce que cette valeur soit proche de 100%, mais assurez-vous qu&apos;elle ne le dépasse pas. Si ça va au-delà, vous aurez probablement des coupure dans votre discussion, ce qui dégradera la qualité audio.</translation>
+        <translation>Montre à quel point le niveau de volume d&apos;entré courant est proche de l&apos;idéal. Pour ajuster le niveau de votre microphone, ouvrez le programme que vous utilisez pour ajuster le volume d&apos;enregistrement, et regardez la valeur ici pendant que vous parlez.&lt;br /&gt;&lt;b&gt;Parlez fort, comme lorsque vous êtes énervé d&apos;avoir été tué par un noob.&lt;/b&gt;&lt;br /&gt;Réglez le volume jusqu&apos;à ce que cette valeur soit proche de 100 %, mais assurez-vous qu&apos;elle ne le dépasse pas. Si ça va au-delà, vous aurez probablement des coupures dans votre discussion, ce qui dégradera la qualité audio.</translation>
     </message>
     <message>
         <location/>
@@ -1683,7 +1689,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Ceci affiche le niveau actuel des paramètres de détection de parole.&lt;/b&gt;&lt;br /&gt;Vous pouvez changer ses paramètres depuis les paramètres ou l&apos;assistant audio.</translation>
+        <translation>&lt;b&gt;Ceci affiche le niveau actuel des paramètres de détection de parole.&lt;/b&gt;&lt;br /&gt;Vous pouvez changer ces paramètres depuis les paramètres ou l&apos;assistant audio.</translation>
     </message>
     <message>
         <location/>
@@ -1736,7 +1742,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>Sélectionner le périphérique d&apos;entrée et de sortie à utiliser dans Mumble.</translation>
+        <translation>Sélectionnez le périphérique d&apos;entrée et de sortie à utiliser dans Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -1771,7 +1777,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Sélectionner la carte son a utiliser pour la sortie audio.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Sélectionner la carte son à utiliser pour la sortie audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1842,7 +1848,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Ensuite, vous devez ajuster les deux curseurs. Les premières syllabes des phares devraient se trouver dans la zone verte (voix confirmée). Tout en parlant, vous devriez rester à l&apos;intérieur du jaune (voix hypothétique), et lorsque vous ne parlez pas, tout devrait être dans le rouge (aucune voix).</translation>
+        <translation>Ensuite, vous devez ajuster les deux curseurs. Les premières syllabes des phrases devraient se trouver dans la zone verte (voix confirmée). Tout en parlant, vous devriez rester à l&apos;intérieur de la zone jaune (voix hypothétique), et lorsque vous ne parlez pas, tout devrait être dans le rouge (aucune voix).</translation>
     </message>
     <message>
         <location/>
@@ -1852,7 +1858,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>Changer le délai de sortie matériel à sa valeur minimale.</translation>
+        <translation>Modifiez le délai de sortie matérielle à sa valeur minimale.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
@@ -1873,7 +1879,7 @@ Par exemple, sur Audigy 2 ZS, une bonne sélection pour le microphone est &apos;
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Activer la position audio</translation>
+        <translation>Activer l&apos;audio positionnel</translation>
     </message>
     <message>
         <location/>
@@ -1889,8 +1895,12 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>&lt;p&gt;C&apos;est l&apos;assistant de configuration audio de Mumble. Il vous aidera à régler correctement les niveaux d&apos;entrée de votre carte son, ainsi que les paramètres corrects pour le traitement du son sous Mumble.&lt;/p&gt;
-&lt;p&gt;Notez que tant que cet assistant sera actif, le son sera joué localement pour vous permettre de l&apos;écouter et qu&apos;aucun son ne sera envoyé au serveur.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Ceci est l&apos;assistant de configuration audio de Mumble. Il vous aidera à régler correctement les niveaux d&apos;entrée de votre carte son, ainsi que les paramètres corrects pour le traitement du son sous Mumble.
+&lt;/p&gt;
+&lt;p&gt;
+Notez que tant que cet assistant sera actif, le son sera joué localement pour vous permettre de l&apos;écouter et qu&apos;aucun son ne sera envoyé au serveur.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1910,7 +1920,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>Ceci autorise Mumble à utiliser la position audio.</translation>
+        <translation>Ceci autorise Mumble à utiliser l&apos;audio positionnel pour positionner les voix.</translation>
     </message>
     <message>
         <location/>
@@ -1921,8 +1931,13 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Pour maintenir une latence à la valeur minimale, il est important de spécifier un tampon aussi petit que possible sur votre carte son. Cependant, plusieurs cartes sons rapportent qu&apos;elles nécessitent un tampon plus petit que nécessaire pour un fonctionnement correct, la seule façon de régler cette valeur est d&apos;essayer diverses valeurs.&lt;/p&gt;
-&lt;p&gt;Vous devez entendre une voix exemple. Déplacez le curseur sur la valeur la plus petite ne donnant &lt;b&gt;aucune&lt;/b&gt; interruption ni décalage de son. Veuillez noter que la suppression de l&apos;écho est désactivée durant ce test.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Pour maintenir une latence à la valeur minimale, il est important de spécifier un tampon aussi petit que possible sur votre carte son. Cependant, plusieurs cartes sons rapportent qu&apos;elles nécessitent un tampon plus petit que nécessaire pour un fonctionnement correct, donc la seule façon de régler cette valeur est d&apos;essayer diverses valeurs.
+&lt;/p&gt;
+&lt;p&gt;
+Vous devez entendre un échantillon de voix. Déplacez le curseur sur la valeur la plus petite ne donnant &lt;b&gt;aucune&lt;/b&gt; interruption ni décalage de son. Veuillez noter que la suppression de l&apos;écho est désactivée durant ce test.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1943,8 +1958,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Ouvrez votre panneau de configuration de la carte son, et allez aux paramètres d&apos;enregistrement. Veuillez vous assurer que le microphone est sélectionné comme périphérique actif avec le volume réglé au maximum. Si il y a une option permettant de &quot;Booster le microphone&quot;, assurez vous qu&apos;elle soit cochée.&lt;/p&gt;
-&lt;p&gt;Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuer le volume dans le panneau de contrôle sonore jusqu&apos;à ce que la barre ci-dessous reste le plus haut possible dans le bleu et le vert mais &lt;b&gt;pas&lt;/b&gt; dans la zone rouge quand vous parlez.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Ouvrez votre panneau de configuration de la carte son, et allez aux paramètres d&apos;enregistrement. Veuillez vous assurer que le microphone est sélectionné comme périphérique actif avec le volume réglé au maximum. S&apos;il existe une option permettant de « Booster le microphone », assurez-vous qu&apos;elle soit cochée.
+&lt;/p&gt;
+&lt;p&gt;
+Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dans le panneau de contrôle sonore jusqu&apos;à ce que la barre ci-dessous reste le plus haut possible dans le bleu et le vert mais &lt;b&gt;pas&lt;/b&gt; dans la zone rouge quand vous parlez.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1954,7 +1974,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation>Changer les paramètres de qualité et de notification.</translation>
+        <translation>Ajustez les paramètres de qualité et de notification.</translation>
     </message>
     <message>
         <location/>
@@ -1979,7 +1999,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Utiliser la synthèse vocal pour lire vos notifications et messages.</translation>
+        <translation>Utiliser la synthèse vocale pour lire vos notifications et messages.</translation>
     </message>
     <message>
         <location/>
@@ -2027,8 +2047,13 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Félicitations. Vous êtes prêt à bénéficier d&apos;une meilleure expérience sonore avec Mumble.&lt;/p&gt;
-&lt;p&gt;Mumble est en développement continu, et l&apos;équipe de développement veut se concentrer sur les options qui vont bénéficier au maximum d&apos;utilisateurs. Pour y parvenir, Mumble propose d&apos;envoyer des statistiques anonymes à propos de votre configuration aux développeurs. Ces statistiques sont essentiels pour les développements futurs, mais aussi pour s&apos;assurer que les fonctions que vous utilisez ne seront pas abandonnées.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Félicitations. Vous êtes prêt à bénéficier d&apos;une meilleure expérience sonore avec Mumble.
+&lt;/p&gt;
+&lt;p&gt;
+Mumble est développé de façon continue, et l&apos;équipe de développement veut se concentrer sur les options qui bénéficieront au plus grand nombre d&apos;utilisateurs. Pour y parvenir, Mumble propose d&apos;envoyer des statistiques anonymes à propos de votre configuration aux développeurs. Ces statistiques sont essentielles pour les développements futurs, mais aussi pour que les fonctions que vous utilisez ne soient pas abandonnées.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2043,7 +2068,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Soumettre des statistiques anonyme au projet Mumble</translation>
+        <translation>Soumettre des statistiques anonymes au projet Mumble</translation>
     </message>
     <message>
         <location/>
@@ -2062,23 +2087,8 @@ Mumble is under continuous development, and the development team wants to focus 
     </message>
     <message>
         <location/>
-        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (Speex 16kbit/s, 60ms per packet)</source>
-        <translation>Dans cette configuration, Mumble utilisera &lt;b&gt;peu de bande passante&lt;/b&gt;. Ceci impliquera une forte latence ainsi qu&apos;une mauvaise qualité. Choisissez ceci si votre connexion ne peut supporter les autres réglages. (Speex 16kbit/s, 60ms par paquet)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (CELT 40kbit/s, 20ms per packet)</source>
-        <translation>C&apos;est la configuration &lt;b&gt;par défaut et recommandée&lt;/b&gt;. Elle apporte un bon équilibre entre qualité, latence et utilisation de bande passante. (CELT 40kbit/s, 20ms par paquet)</translation>
-    </message>
-    <message>
-        <location/>
         <source>High</source>
         <translation>Haut</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (CELT 72kbit/s, 10ms per packet)</source>
-        <translation>Cette configuration n&apos;est recommandée que lorsque la bande passante n&apos;est pas un problème, comme en LAN. Elle apporte la plus faible latence supportée par Mumble et une &lt;b&gt;grande qualité&lt;/b&gt;. (CELT 72kbit/s, 10ms par paquet)</translation>
     </message>
     <message>
         <location/>
@@ -2103,7 +2113,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation>Augmenter le contraste</translation>
+        <translation>Utiliser des graphiques de contraste élevé</translation>
     </message>
     <message>
         <location/>
@@ -2128,7 +2138,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Ouvrez votre panneau de configuration de la carte son, et allez aux paramètres d&apos;enregistrement. Veuillez vous assurer que le microphone est sélectionné comme périphérique actif avec le volume réglé au maximum. Si il y a une option permettant de &quot;Booster le microphone&quot;, assurez vous qu&apos;elle soit cochée.
+Ouvrez votre panneau de configuration de la carte son, et allez aux paramètres d&apos;enregistrement. Veuillez vous assurer que le microphone est sélectionné comme périphérique actif avec le volume réglé au maximum. S&apos;il y a une option permettant de « Booster le microphone », assurez-vous qu&apos;elle soit cochée.
 &lt;/p&gt;
 &lt;p&gt;
 Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dans le panneau de contrôle sonore jusqu&apos;à ce que la barre ci-dessous reste le plus haut possible dans la zone hachurée avec des traits obliques et la zone vide mais &lt;b&gt;pas&lt;/b&gt; dans la zone hachurée avec des traits croisés quand vous parlez.
@@ -2145,7 +2155,22 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Ensuite, vous devez ajuster les deux curseurs. Les premières syllabes des phares devraient se trouver dans la zone vide (voix confirmée). Tout en parlant, vous devriez rester à l&apos;intérieur de la zone hachurée avec des traits obliques (voix hypothétique), et lorsque vous ne parlez pas, tout devrait être dans la zone hachurée avec des traits croisés (aucune voix).</translation>
+        <translation>Ensuite, vous devez ajuster les deux curseurs. Les premières syllabes des phrases devraient se trouver dans la zone vide (voix confirmée). Tout en parlant, vous devriez rester à l&apos;intérieur de la zone hachurée avec des traits obliques (voix hypothétique), et lorsque vous ne parlez pas, tout devrait être dans la zone hachurée avec des traits croisés (aucune voix).</translation>
+    </message>
+    <message>
+        <location/>
+        <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
+        <translation>Dans cette configuration Mumble utilisera &lt;b&gt;une quantité réduite de bande passante&lt;/b&gt;. Cela aura pour conséquence une latence plus importante et une qualité médiocre. Choisissez cette option seulement si votre connexion ne peut gérer les autres possibilités (16kbits/s, 60ms par paquet)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
+        <translation>C&apos;est la configuration &lt;b&gt;par défaut recommandée&lt;/b&gt;. Elle offre un bon équilibre entre la qualité, la latence et l&apos;utilisation de la bande passante. (40kbits/s, 20ms par paquet)</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
+        <translation>Cette configuration n&apos;est recommandée que lorsque la bande passante n&apos;est pas une contrainte, comme lors de l&apos;utilisation d&apos;un LAN. Elle offre la latence la plus faible supportée par Mumble ainsi qu&apos;une &lt;b&gt;qualité élevée&lt;/b&gt;. (72kbit/s, 10ms par paquet)</translation>
     </message>
 </context>
 <context>
@@ -2178,7 +2203,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location/>
         <source>Hash</source>
-        <translation>Hash</translation>
+        <translation>Hachage</translation>
     </message>
     <message>
         <location/>
@@ -2229,7 +2254,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Date d&apos;expiration</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location line="+41"/>
         <source>(none)</source>
         <translation>(aucun)</translation>
     </message>
@@ -2249,22 +2274,22 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location line="+6"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Impossible de valider le courriel.&lt;br/&gt;Saisissez une adresse de courriel valide (ou vide) pour continuer.</translation>
+        <translation>Impossible de valider le courriel.&lt;br /&gt;Saisissez une adresse de courriel valide (ou vide) pour continuer.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Une erreur est survenue durant la génération de votre certificat.&lt;br/&gt;Veuillez réessayer.</translation>
+        <translation>Une erreur est survenue durant la génération de votre certificat.&lt;br /&gt;Veuillez réessayer.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Votre certificat et votre clé ne peuvent pas être exportés au format PKCS#12. Il doit y avoir une erreur dans votre certificat.</translation>
+        <translation>Votre certificat et votre clé n&apos;ont pas pu être exportés au format PKCS#12. Il doit y avoir une erreur dans votre certificat.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Le fichier ne peut pas être ouvert en écriture. Veuillez utiliser un autre fichier.</translation>
+        <translation>Le fichier n&apos;a pas pu être ouvert en écriture. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2274,12 +2299,12 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>Le fichier ne peut pas être lu. Veuillez utiliser un autre fichier.</translation>
+        <translation>Le fichier n&apos;a pas pu être lu. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>Le fichier est vide ou ne peut être lu. Veuillez utiliser un autre fichier.</translation>
+        <translation>Le fichier est vide ou n&apos;a pu être lu. Veuillez utiliser un autre fichier.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2307,9 +2332,9 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+435"/>
+        <location filename="main.cpp" line="+456"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs auxquels vous êtes enregistrés.</translation>
+        <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
 </context>
 <context>
@@ -2482,9 +2507,14 @@ Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Vous avez déjà un certificat enregistré dans Mumble, et vous êtes sur le point de le remplacer.&lt;/p&gt;
-&lt;p&gt;Si vous êtes en train de le mettre à jour avec un certificat certifié par une autorité de confiance, et que les adresses de courriel correspondent, cette opération est sûre, et les serveurs auxquels vous vous connectez reconnaîtrons le certificat de votre adresse de courriel.&lt;/p&gt;
-&lt;p&gt;Si ce n&apos;est pas le cas, vous ne pourrez plus être reconnu par les serveurs auxquels vous vous êtes précédemment authentifiés. Si vous ne vous êtes enregistré sur aucun serveur, vous n&apos;avez pas de soucis à vous faire.&lt;/p&gt;
-&lt;p&gt;Êtes-vous sûr de vouloir remplacer votre certificat ?&lt;/p&gt;</translation>
+&lt;p&gt;Si vous êtes en train de le mettre à jour avec un certificat certifié par une autorité de confiance et que les adresses de courriel correspondent, cette opération est sûre et les serveurs auxquels vous vous connectez reconnaîtront le certificat de votre adresse de courriel.
+&lt;/p&gt;
+&lt;p&gt;Si ce n&apos;est pas le cas, vous ne pourrez plus être reconnu par les serveurs auprès desquels vous vous êtes précédemment authentifiés. Si vous ne vous êtes enregistré sur aucun serveur, vous n&apos;avez pas de soucis à vous faire.
+&lt;/p&gt;
+&lt;p&gt;
+Êtes-vous sûr de vouloir remplacer votre certificat ?
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2544,7 +2574,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble va maintenant générer un certificat pour l&apos;authentification forte avec les serveurs.&lt;/p&gt;&lt;p&gt;Si vous voulez, vous pouvez spécifier des informations additionnelles à enregistrer dans le certificat, qui seront présentées aux serveurs lors de vos connexions. Si vous fournissez une adresse de courriel valide, vous pouvez demander à une autorité de certification de vous délivrer un certificat courriel plus tard, qui permet une identification forte.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble va maintenant générer un certificat pour l&apos;authentification forte avec les serveurs.&lt;/p&gt;&lt;p&gt;Si vous voulez, vous pouvez spécifier des informations additionnelles à enregistrer dans le certificat qui seront présentées aux serveurs lors de vos connexions. Si vous fournissez une adresse de courriel valide, vous pouvez demander à une autorité de certification de vous délivrer un certificat de courriel plus tard, qui permet une identification forte.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2606,14 +2636,15 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>&lt;p&gt;Mumble utilise des certificats pour l&apos;authentification avec les serveurs. L&apos;utilisation de certificats permet d&apos;éviter les mots de passe, ainsi, vous n&apos;avez pas besoin de saisir de mot de passe pour vous connecter. Cela permet aussi de simplifier l&apos;enregistrement des utilisateurs.&lt;/p&gt;&lt;p&gt;Mumble peut fonctionner sans certificats, cependant, la majorité des serveurs vous en demanderont un.&lt;/p&gt;
 &lt;p&gt;
 Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;créer un certificat de confiance&lt;/a&gt;.
-&lt;/p&gt;</translation>
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Si vous perdez votre certificat, ce qui peut se produire si votre ordinateur est victime d&apos;une panne matérielle ou si vous réinstallez votre machine, vous ne pourrez plus vous authentifier sur aucun des serveurs sur lesquels vous vous étiez enregistré. Il est donc &lt;b&gt;obligatoire&lt;/b&gt; de faire une sauvegarde de votre certificat. Nous recommandons fortement de le sauvegarder sur un stockage amovible, tel une clé USB.&lt;/p&gt;
-&lt;p&gt;Notez que ce fichier ne sera pas chiffré, et que toute personne qui mettra la main dessus pourra se faire passer pour vous, prenez donc ceci en considération.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Si vous perdez votre certificat, ce qui peut se produire si votre ordinateur est victime d&apos;une panne matérielle ou si vous réinstallez votre machine, vous ne pourrez plus vous authentifier sur aucun des serveurs sur lesquels vous vous étiez enregistré. Il est donc &lt;b&gt;obligatoire&lt;/b&gt; de faire une sauvegarde de votre certificat. Nous recommandons fortement de le sauvegarder sur un stockage amovible comme une clef USB.&lt;/p&gt;
+&lt;p&gt;Notez que ce fichier ne sera pas chiffré et que toute personne qui mettra la main dessus pourra se faire passer pour vous, conservez-le donc précieusement.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2641,7 +2672,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Rend muet(te)/sourd(e)</translation>
+        <translation>Rend muet/sourd</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2666,7 +2697,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation>Représente l&apos;accès total au salon, incluant la capacité de changer les informations des groupes et des LCA. Ce privilège inclut tous les autres privilèges.</translation>
+        <translation>Représente l&apos;accès total au salon, incluant la capacité de changer les informations des groupes et des LCA (Listes de Contrôle d&apos;Accès, ACL en anglais). Ce privilège inclut tous les autres privilèges.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2676,12 +2707,12 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Représente la permission de rejoindre un salon. Si vous avez une structure de salons hiérarchique, vous voudriez peut être donner à tout le monde le droit de Traverser, mais restreindre le droit d&apos;Entrer dans le salon racine de votre hiérarchie.</translation>
+        <translation>Représente la permission de rejoindre un salon. Si vous avez une structure de salons hiérarchique, vous voudriez peut-être donner à tout le monde le droit de Traverser, mais restreindre le droit d&apos;Entrer dans le salon racine de votre hiérarchie.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Représente la permission de parler dans un salon. Un utilisateur sans ce droit va être supprimé par le serveur (vu comme muet) et ne sera pas capable de parler à moins que quelqu&apos;un ayant les droits nécessaires ne lui rende la parole.</translation>
+        <translation>Représente la permission de parler dans un salon. Un utilisateur sans ce droit va être supprimé par le serveur (vu comme muet) et ne sera pas capable de parler à moins que quelqu&apos;un ayant les droits nécessaires ne lui donne la parole.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2706,17 +2737,17 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation>Représente la permission de créer un sous-salon temporaire. L&apos;utilisateur créant le sous-salon sera ajouté au groupe admin du sous-salon. Les salons temporaires ne sont pas mémorisés et disparaissent dès que le dernier utilisateur le quitte.</translation>
+        <translation>Représente la permission de créer un sous-salon temporaire. L&apos;utilisateur créant le sous-salon sera ajouté au groupe admin du sous-salon. Les salons temporaires ne sont pas mémorisés et disparaissent dès que le dernier utilisateur les quitte.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Représente la permission de lier des salons. Les utilisateurs présents dans des salons liés s&apos;entendent mutuellement, aussi longtemps que l&apos;utilisateur a le privilège de parler dans le salon de celui qui écoute. Vous avez besoin du privilège de lien dans les deux salons pour créer un lien, mais seulement d&apos;un des deux pour le supprimer.</translation>
+        <translation>Représente la permission de lier des salons. Les utilisateurs présents dans des salons liés s&apos;entendent mutuellement, aussi longtemps que l&apos;utilisateur a le privilège de parler dans le salon de celui qui écoute. Vous avez besoin du privilège de lien dans les deux salons pour créer un lien, mais seulement dans l&apos;un des deux pour le supprimer.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation>Représente la permission d&apos;écrire des messages textuels à l&apos;autres utilisateurs dans ce salon.</translation>
+        <translation>Représente la permission d&apos;écrire des messages textuels à d&apos;autres utilisateurs dans ce salon.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2736,7 +2767,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation>Représente la permission de s&apos;enregistrer soi même sur le serveur.</translation>
+        <translation>Représente la permission de s&apos;enregistrer soi-même sur le serveur.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2785,7 +2816,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Coller et envoyer</translation>
+        <translation>Coller et env&amp;oyer</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2803,7 +2834,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation>Authentifié(e)</translation>
+        <translation>Authentifié</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2818,32 +2849,32 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>Muet(te) (serveur)</translation>
+        <translation>Muet (serveur)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation>Sourd(e) (serveur)</translation>
+        <translation>Sourd (serveur)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore localement (les messages textuels)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Muet(te) (local)</translation>
+        <translation>Muet (local)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>Devenir muet(te)</translation>
+        <translation>Muet (soi-même)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>Devenir sourd(e)</translation>
+        <translation>Sourd (soi-même)</translation>
     </message>
 </context>
 <context>
@@ -2855,66 +2886,11 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     </message>
     <message>
         <location/>
-        <location filename="ConfigDialogDelegate.mm" line="+142"/>
         <source>Advanced</source>
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+55"/>
-        <source>Accept changes</source>
-        <translation>Accepter les modifications</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>Ce bouton acceptera les préférences actuelles et retournera à l&apos;application.&lt;br /&gt;Les préférences seront sauvegardées sur votre disque dur quand vous quitterez l&apos;application.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Reject changes</source>
-        <translation>Annuler les modifications</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>Ce bouton annulera toutes les modifications et retournera à l&apos;application.&lt;br /&gt;Les paramètres seront restaurer à leurs états précédents.</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>Apply changes</source>
-        <translation>Appliquer les modifications</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will immediately apply all changes.</source>
-        <translation>Ce bouton appliquera immédiatement toutes les modifications.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Undo changes for current page</source>
-        <translation>Annuler les modifications apportées à la page courante</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Ce bouton revient sur tous les changements effectués sur la page en cours depuis la dernière sauvegarde de paramètres.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Restore defaults for current page</source>
-        <translation>Restaurer par défaut pour la page courante</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
-        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Ce bouton restaure les paramètres par défaut de la page courante seulement. Les autres pages ne sont pas modifiées.&lt;br/&gt;Pour restaurer tous les paramètres par défaut, vous devez utiliser ce bouton sur toutes les pages.</translation>
-    </message>
-</context>
-<context>
-    <name>ConfigDialogMac</name>
-    <message>
-        <location filename="ConfigDialog_macx.mm" line="+70"/>
+        <location filename="ConfigDialog.cpp" line="+57"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>
@@ -2962,7 +2938,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Ce boutton restaure les paramètres par défaut de la page courante seulement. Les autres pages ne sont pas modifiées.&lt;br/&gt;Pour restaurer tous les paramètres par défaut, vous devez utiliser ce boutton sur toutes les pages.</translation>
+        <translation>Ce bouton restaure les paramètres par défaut de la page courante seulement. Les autres pages ne sont pas modifiées.&lt;br /&gt;Pour restaurer tous les paramètres par défaut, vous devez utiliser ce bouton sur toutes les pages.</translation>
     </message>
 </context>
 <context>
@@ -3027,7 +3003,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation>Ping (80%)</translation>
+        <translation>Ping (80 %)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3038,7 +3014,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation>Ping (95%)</translation>
+        <translation>Ping (95 %)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3066,7 +3042,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <location filename="ConnectDialog.cpp" line="+293"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
-        <translation>&amp;Ajouter un nouveau...</translation>
+        <translation>&amp;Ajouter nouveau...</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+44"/>
@@ -3122,7 +3098,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation>Copier le lien favoris dans le presse papier</translation>
+        <translation>Copier le lien favori dans le presse papier</translation>
     </message>
     <message>
         <location/>
@@ -3138,7 +3114,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <location/>
         <location filename="ConnectDialog.cpp" line="-716"/>
         <source>&amp;Edit...</source>
-        <translation>&amp;Editer...</translation>
+        <translation>&amp;Éditer...</translation>
     </message>
     <message>
         <location/>
@@ -3353,19 +3329,19 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+555"/>
+        <location filename="DirectSound.cpp" line="+541"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Ouverture de l&apos;entrée son choisie impossible. Le périphérique par défaut sera utilisé.</translation>
     </message>
     <message>
-        <location line="-382"/>
+        <location line="-368"/>
         <source>Default DirectSound Voice Input</source>
         <translation>Entrée Voix par défaut</translation>
     </message>
     <message>
-        <location line="+461"/>
+        <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation>Ouverture de l&apos;entrée son choisie impossible. Aucune capture son depuis le microphone sera faite.</translation>
+        <translation>Ouverture de l&apos;entrée son choisie impossible. Aucune capture son depuis le microphone ne sera faite.</translation>
     </message>
     <message>
         <location line="-5"/>
@@ -3376,22 +3352,22 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>DXAudioOutput</name>
     <message>
-        <location line="-167"/>
+        <location line="-166"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
         <translation>Ouverture de la sortie son choisie impossible. Vous n&apos;entendrez aucun son.</translation>
     </message>
     <message>
-        <location line="-82"/>
+        <location line="-77"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
         <translation>Ouverture de la sortie son choisie impossible. Le périphérique par défaut sera utilisé.</translation>
     </message>
     <message>
-        <location line="-247"/>
+        <location line="-243"/>
         <source>Default DirectSound Voice Output</source>
         <translation>Sortie Voix par défaut</translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+316"/>
         <source>Lost DirectSound output device.</source>
         <translation>Périphérique de sortie perdu.</translation>
     </message>
@@ -3399,7 +3375,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+89"/>
+        <location filename="Database.cpp" line="+114"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble n&apos;a pas réussi à initialiser la base de données
@@ -3417,7 +3393,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+180"/>
         <source>Drag here</source>
-        <translation>Glisser ici</translation>
+        <translation>Cliquer ici pour déplacer</translation>
     </message>
 </context>
 <context>
@@ -3482,16 +3458,36 @@ of the possible locations.</source>
         <source>&amp;Remove</source>
         <translation>Supp&amp;rimer</translation>
     </message>
+    <message>
+        <location/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actuellement Mumble ne peut utiliser que les boutons de la souris et les touches de combinaison du clavier (Alt, Ctrl, Cmd, etc.) pour les raccourcis globaux.&lt;/p&gt;&lt;p&gt;Si vous désirez davantage de flexibilité, vous pouvez activer &lt;span style=&quot; font-style:italic;&quot;&gt;l&apos;accès des périphériques d&apos;aide&lt;/span&gt; dans les préférences d&apos;accessibilité du système. Toutefois, veuillez noter que cette modification permet aussi potentiellement aux applications malveillantes de lire ce qui est tapé sur votre clavier.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Open Accessibility Preferences</source>
+        <translation>Ouvrir les préférences d&apos;accessibilité</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Skip</source>
+        <translation>Ignorer</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable Global Shortcuts</source>
+        <translation>Activer les raccourcis globaux</translation>
+    </message>
 </context>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+673"/>
+        <location filename="GlobalShortcut.cpp" line="+721"/>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+52"/>
         <source>Shortcut button combination.</source>
         <translation>Combinaison de touches du raccourci.</translation>
     </message>
@@ -3499,7 +3495,7 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Combinaison de touches du raccourci global.&lt;/b&gt;&lt;br/&gt;Effectuez un clic dans ce champ puis pressez la combinaison de touches/boutons désirée que vous souhaitez attribuer. Double-cliquez pour effacer.</translation>
+        <translation>&lt;b&gt;Combinaison de touches du raccourci global.&lt;/b&gt;&lt;br /&gt;Effectuez un clic dans ce champ puis pressez la combinaison de touches/boutons désirée que vous souhaitez attribuer. Double-cliquez pour effacer.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3509,7 +3505,7 @@ of the possible locations.</source>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation>&lt;b&gt;Cache les touches pressées aux autres applications.&lt;/b&gt;&lt;br/&gt;Activer cette option cachera la touche (ou la dernière touche pour une combinaison) aux autres applications. Notez que toutes les touches ne peuvent pas être supprimées.</translation>
+        <translation>&lt;b&gt;Cache les touches pressées aux autres applications.&lt;/b&gt;&lt;br /&gt;Activer cette option cachera la touche (ou la dernière touche pour une combinaison) aux autres applications. Notez que toutes les touches ne peuvent pas être supprimées.</translation>
     </message>
 </context>
 <context>
@@ -3626,7 +3622,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation>Forme</translation>
     </message>
     <message>
         <location/>
@@ -3646,7 +3642,7 @@ of the possible locations.</source>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;C&apos;est la liste des périphériques LCD disponibles sur votre système. Il liste leur nom, mais inclut aussi la taille de l&apos;affichage. Mumble supporte l&apos;affichage simultané sur plusieurs LCD.&lt;/p&gt;
+        <translation>&lt;p&gt;C&apos;est la liste des périphériques LCD disponibles sur votre système.  Il liste leur nom, mais inclut aussi la taille de l&apos;affichage. Mumble supporte l&apos;affichage simultané sur plusieurs LCD.&lt;/p&gt;
 &lt;h3&gt;Taille :&lt;/h3&gt;
 &lt;p&gt;Ce champ décrit la taille d&apos;un périphérique LCD. La taille est donnée en pixels (pour les LCD graphiques) ou en caractères (pour les LCD texte).&lt;/p&gt;
 &lt;h3&gt;Activé :&lt;/h3&gt;
@@ -3677,8 +3673,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Cette option définie la taille minimale de la colonne dans la vue de utilisateur.&lt;/p&gt;
-&lt;p&gt;Si trop de personnes parlent en même temps, la vue utilisateur sera coupée en colonnes. Vous pouvez utiliser cette option pour spécifier un compromis entre le nombre d&apos;utilisateurs affichés sur le LCD, et la longueur des noms d&apos;utilisateurs.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Cette option définit la taille minimale de la colonne dans la vue de utilisateur.&lt;/p&gt;
+&lt;p&gt;Si trop de personnes parlent en même temps, la vue utilisateur sera coupée en colonnes. Vous pouvez utiliser cette option pour spécifier un compromis entre le nombre d&apos;utilisateurs affichés sur le LCD, et la longueur des noms d&apos;utilisateurs.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -3694,7 +3691,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+229"/>
+        <location filename="Log.cpp" line="+200"/>
         <source>Debug</source>
         <translation>Débogage</translation>
     </message>
@@ -3716,17 +3713,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation>Serveur Connecté</translation>
+        <translation>Connecté au serveur</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You self-muted/deafened</source>
-        <translation>Vous vous êtes rendu(e) sourd(e)/muet(te)</translation>
+        <translation>Vous vous êtes rendu sourd/muet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation>Les autres sont rendus sourd/muet</translation>
+        <translation>Un autre s&apos;est rendu sourd/muet</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3751,17 +3748,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation>Les paramètres d&apos;enregistrement d&apos;un utilisateur ont changés</translation>
+        <translation>Modif. des paramètres d&apos;enregistrement d&apos;un utilisateur</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>Un utilisateur expulsé (vous ou par vous)</translation>
+        <translation>Utilisateur expulsé (vous ou par vous)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation>Un utilisateur expulsé</translation>
+        <translation>Utilisateur expulsé</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3781,7 +3778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Un utilisateur arrive sur le salon</translation>
+        <translation>Un utilisateur arrive dans le salon</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3807,10 +3804,11 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation>[Date changée en %1]</translation>
+        <translation>[Date changée en %1]
+</translation>
     </message>
     <message>
-        <location line="+146"/>
+        <location line="+66"/>
         <source>link to %1</source>
         <translation>lien pour %1</translation>
     </message>
@@ -3838,7 +3836,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-539"/>
+        <location line="-440"/>
         <source>Toggle console for %1 events</source>
         <translation>Active/désactive la console pour les événements %1</translation>
     </message>
@@ -3860,36 +3858,35 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Chemin d&apos;accès au fichier son utilisé pour les notifications d&apos;évènements %1&lt;br/&gt;Cliquez une fois pour écouter&lt;br/&gt;Cliquez deux fois pour le modifier</translation>
+        <translation>Chemin d&apos;accès au fichier son utilisé pour les notifications d&apos;événements %1&lt;br /&gt;Cliquez une fois pour écouter&lt;br /&gt;Cliquez deux fois pour le modifier</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Active/désactive les messages sur la console pour les événements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les événements de %1 dans la fenêtre d&apos;historique.</translation>
+        <translation>Active/désactive les messages sur la console pour les événements %1.&lt;br /&gt;Si l&apos;option est activée, Mumble affichera tous les événements de %1 dans la fenêtre d&apos;historique.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Active/désactive les notifications sous forme de bulle pour les événements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble affichera tous les événements de %1 dans une bulle de notification.</translation>
+        <translation>Active/désactive les notifications sous forme de bulle pour les événements %1.&lt;br /&gt;Si l&apos;option est activée, Mumble affichera tous les événements de %1 dans une bulle de notification.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Chemin d&apos;accès au fichier son utilisé pour les notifications d&apos;évènements %1&lt;br/&gt;Cliquez une fois pour écouter&lt;br/&gt;Cliquez deux fois pour le modifier&lt;br/&gt;Veuillez vérifier que la notification sonore pour ces évènements est activée, ou ce paramètre n&apos;aura aucun effet.</translation>
+        <translation>Chemin d&apos;accès au fichier son utilisé pour les notifications d&apos;événements %1&lt;br /&gt;Cliquez une fois pour écouter&lt;br /&gt;Cliquez deux fois pour le modifier&lt;br /&gt;Veuillez vérifier que la notification sonore pour ces événements est activée, ou ce paramètre n&apos;aura aucun effet.</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Active/désactive la synthèse vocale pour les évènements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble utilisera la synthèse vocale pour vous lire tous les événements de %1. La synthèse vocale est aussi capable de lire le contenu des évènements, ce qui n&apos;est pas le cas des fichiers sonores. La synthèse vocale et les fichiers sonores ne peuvent pas être activés en même temps.
-</translation>
+        <translation>Active/désactive la synthèse vocale pour les événements %1.&lt;br /&gt;Si l&apos;option est activée, Mumble utilisera la synthèse vocale pour vous lire tous les événements de %1. La synthèse vocale est aussi capable de lire le contenu des événements, ce qui n&apos;est pas le cas des fichiers sonores. La synthèse vocale et les fichiers sonores ne peuvent pas être activés en même temps.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Active/désactive les notifications sonores pour les évènements %1.&lt;br/&gt;Si l&apos;option est activée, Mumble utilisera le fichier son que vous avez prédéfini pour vous indiquer tous les événements de %1. Les fichiers sonores et la synthèse vocale ne peuvent pas être activés en même temps.</translation>
+        <translation>Active/désactive les notifications sonores pour les événements %1.&lt;br /&gt;Si l&apos;option est activée, Mumble utilisera le fichier son que vous avez prédéfini pour vous indiquer tous les événements de %1. Les fichiers sonores et la synthèse vocale ne peuvent pas être activés en même temps.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -3919,17 +3916,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;C&apos;est le volume utilisé pour le mode synthèse.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;C&apos;est le volume utilisé pour la synthèse vocale.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation>Seuil de longueur</translation>
+        <translation>Seuil de taille</translation>
     </message>
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Seuil de longueur pour les messages de la synthèse vocale</translation>
+        <translation>Seuil de taille pour les messages de la synthèse vocale</translation>
     </message>
     <message>
         <location/>
@@ -3944,7 +3941,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Si cochée, vous n&apos;entendrez les chuchotements que des utilisateurs que vous avez ajouté à votre liste d&apos;amis.</translation>
+        <translation>Si cochée, vous n&apos;entendrez les chuchotements que des utilisateurs que vous avez ajoutés à votre liste d&apos;amis.</translation>
     </message>
     <message>
         <location/>
@@ -4033,12 +4030,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui"/>
         <source>Language to use (requires restart)</source>
-        <translation>Langue a utiliser (nécessite un redémarrage)</translation>
+        <translation>Langue à utiliser (nécessite un redémarrage)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation>&lt;b&gt;Défini quel langue Mumble devrait utiliser&lt;/b&gt;&lt;br /&gt;Vous devez redémarrer Mumble pour utiliser une nouvelle langue.</translation>
+        <translation>&lt;b&gt;Définit quel langue Mumble devrait utiliser&lt;/b&gt;&lt;br /&gt;Vous devez redémarrer Mumble pour utiliser une nouvelle langue.</translation>
     </message>
     <message>
         <location/>
@@ -4058,7 +4055,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Stacked</source>
-        <translation>Empilé</translation>
+        <translation>Empilée</translation>
     </message>
     <message>
         <location/>
@@ -4068,7 +4065,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Personnalisé</translation>
+        <translation>Personnalisée</translation>
     </message>
     <message>
         <location/>
@@ -4099,7 +4096,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation>Contrôle quand l&apos;application sera toujours au dessus.</translation>
+        <translation>Contrôle quand l&apos;application sera toujours au-dessus.</translation>
     </message>
     <message>
         <location/>
@@ -4124,7 +4121,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation>Afficher le nombre d&apos;utilisateurs dans chaque salon</translation>
+        <translation>Affiche le nombre d&apos;utilisateurs dans chaque salon</translation>
     </message>
     <message>
         <location/>
@@ -4142,17 +4139,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+132"/>
+        <location line="+133"/>
         <source>Choose skin file</source>
-        <translation>Choisir le fichier thème</translation>
+        <translation>Choisissez le fichier de thème</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation>&lt;b&gt;Définit le thème Mumble à utiliser.&lt;/b&gt;&lt;br/&gt;Ce thème est un fichier de style appliqué sur le style par défaut. Si il y a des icônes dans le même dossier que le style, celles-ci remplacent les icônes par défaut.</translation>
+        <translation>&lt;b&gt;Définit le thème Mumble à utiliser.&lt;/b&gt;&lt;br /&gt;Ce thème est un fichier de style appliqué sur le style par défaut. S&apos;il y a des icônes dans le même dossier que le style, celles-ci remplacent les icônes par défaut.</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-142"/>
+        <location filename="LookConfig.cpp" line="-143"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -4209,7 +4206,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation>Toujours au dessus</translation>
+        <translation>Toujours au-dessus</translation>
     </message>
     <message>
         <location/>
@@ -4224,12 +4221,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation>Liste les utilisateurs au dessus des sous-salons (redémarrage requis).</translation>
+        <translation>Liste les utilisateurs au-dessus des sous-salons (redémarrage requis).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Si cochée, les utilisateurs seront affichés au dessus des sous-salons dans l&apos;arborescence.&lt;/b&gt;&lt;br/&gt;Mumble doit être redémarré pour activer les changements.</translation>
+        <translation>&lt;b&gt;Si cochée, les utilisateurs seront affichés au-dessus des sous-salons dans l&apos;arborescence.&lt;/b&gt;&lt;br /&gt;Mumble doit être redémarré pour activer les changements.</translation>
     </message>
     <message>
         <location/>
@@ -4239,7 +4236,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Si cochée, vérifie si vous voulez quitter si vous êtes connecté.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Si cochée, vérifie que vous voulez quitter si vous êtes connecté.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4249,7 +4246,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>Cache la fenêtre principale de Mumble dans la barre des tâches quand il est réduit.</translation>
+        <translation>Cache la fenêtre principale de Mumble dans la barre des tâches quand elle est réduite.</translation>
     </message>
     <message>
         <location/>
@@ -4264,7 +4261,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Ce paramétrage détermine dans quelle situation l&apos;application restera toujours au dessus. Si vous sélectionnez &lt;i&gt;Jamais&lt;/i&gt;, l&apos;application ne restera jamais au dessus. &lt;i&gt;Toujours&lt;/i&gt; gardera toujours l&apos;application au dessus.&lt;i&gt;En vue minimale&lt;/i&gt; ne gardera l&apos;application au dessus que lorsque la vue minimale est activée / désactivée.</translation>
+        <translation>Ce paramétrage détermine dans quelle situation l&apos;application restera toujours au-dessus. Si vous sélectionnez &lt;i&gt;Jamais&lt;/i&gt;, l&apos;application ne restera jamais au-dessus. &lt;i&gt;Toujours&lt;/i&gt; gardera toujours l&apos;application au-dessus.&lt;i&gt;En vue minimale&lt;/i&gt; ne gardera l&apos;application au-dessus que lorsque la vue minimale est activée / désactivée.</translation>
     </message>
     <message>
         <location/>
@@ -4279,7 +4276,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation>Augmenter le contraste</translation>
+        <translation>Contraste élevé</translation>
     </message>
     <message>
         <location/>
@@ -4309,13 +4306,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;élément sélectionné comme cible de la barre de discussion</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-261"/>
+        <location filename="main.cpp" line="-273"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -4332,26 +4329,41 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisation : mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; spécifie une URL à laquelle une connexion sera établie après
+le démarrage au lieu de l&apos;affichage de la fenêtre de connexion et a la forme suivante :
+mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;soussalon&gt;...]][?version=&lt;x.y.z&gt;]
+
+Le paramètre de demande de version doit être réglé afin d&apos;invoquer
+la version correcte du client. Actuellement, la valeur par défaut est 1.2.0.
+
+Les options valides sont :
+  -h, --help    Afficher ce message d&apos;aide et quitter.
+  -m, --multiple
+                Autoriser le démarrage de multiples instances du client.
+  -n, --noidentity
+                Supprimer le chargement des fichiers d&apos;identité (par exemple des certificats)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"></translation>
+        <translation>Invocation</translation>
     </message>
     <message>
-        <location line="+192"/>
+        <location line="+194"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
     <message>
-        <location line="+63"/>
+        <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
         <translation>La vérification des nouvelles versions est omise en mode débogage.</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2118"/>
+        <location line="+2150"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -4393,22 +4405,7 @@ Valid options are:
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation>Vous avez été déconnecté du serveur.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&amp;Ban lists</source>
-        <translation>Liste des &amp;bannis</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Edit ban lists on server</source>
-        <translation>Éditer la liste des bannis du serveur</translation>
-    </message>
-    <message>
-        <location/>
-        <source>This lets you edit the server-side IP ban lists.</source>
-        <translation>Éditer la liste des IP bannies stockée sur le serveur.</translation>
+        <translation>Vous déconnecte du serveur.</translation>
     </message>
     <message>
         <location/>
@@ -4486,14 +4483,14 @@ Valid options are:
         <translation>Lier votre salon à un autre salon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2099"/>
+        <location filename="MainWindow.cpp" line="-2131"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation>C&apos;est la barre de dialogue&lt;br/&gt;Si vous saisissez du texte ici et pressez Entrée, le texte est envoyé à l&apos;utilisateur ou au salon sélectionné. Si rien n&apos;est sélectionné, le message est envoyé au salon actuel.</translation>
+        <translation>C&apos;est la barre de dialogue&lt;br /&gt;Si vous saisissez du texte ici et pressez Entrée, le texte est envoyé à l&apos;utilisateur ou au salon sélectionné. Si rien n&apos;est sélectionné, le message est envoyé au salon actuel.</translation>
     </message>
     <message>
         <location/>
@@ -4558,13 +4555,13 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation>&amp;Editer</translation>
+        <translation>&amp;Éditer</translation>
     </message>
     <message>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Lie votre salon actuel au salon sélectionné. Si des utilisateurs dans un salon ont la permission de parler dans l&apos;autre salon, les utilisateurs peuvent s&apos;entendre. C&apos;est une liaison permanente, et restera jusqu&apos;à ce qu&apos;ils soient manuellement déliés, ou que le serveur soit redémarré. Veuillez regarder le raccourcis pour Appuyez-pour-lier.</translation>
+        <translation>Lie votre salon actuel au salon sélectionné. Si des utilisateurs dans un salon ont la permission de parler dans l&apos;autre salon, les utilisateurs peuvent s&apos;entendre. C&apos;est une liaison permanente, et restera jusqu&apos;à ce qu&apos;elle soit manuellement déliée, ou que le serveur soit redémarré. Veuillez regarder le raccourcis pour Appuyer-pour-lier.</translation>
     </message>
     <message>
         <location/>
@@ -4604,32 +4601,32 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>Devenir &amp;muet(te)</translation>
+        <translation>Devenir &amp;muet</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Se rendre muet(te)</translation>
+        <translation>Se rendre muet</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Se rendre muet(te) ou non. Lorsque vous êtes muet(te), vous n&apos;envoyez pas de données au serveur. Enlever le mode muet alors que vous êtes en mode sourd enlèvera également le mode sourd.</translation>
+        <translation>Se rendre muet ou non. Lorsque vous êtes muet, vous n&apos;envoyez pas de données au serveur. Enlever le mode muet alors que vous êtes en mode sourd enlèvera également le mode sourd.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation>Devenir s&amp;ourd(e)</translation>
+        <translation>Devenir s&amp;ourd</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation>Se rendre sourd(e)</translation>
+        <translation>Se rendre sourd</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Se rendre sourd(e) ou non. Vous rendre sourd(e) vous rendra aussi muet(te).</translation>
+        <translation>Se rendre sourd ou non. Vous rendre sourd vous rendra aussi muet.</translation>
     </message>
     <message>
         <location/>
@@ -4654,7 +4651,7 @@ Valid options are:
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation>Affiche une petit fenêtre d&apos;information sur votre sortie audio actuelle.</translation>
+        <translation>Affiche une petite fenêtre d&apos;informations sur votre sortie audio actuelle.</translation>
     </message>
     <message>
         <location/>
@@ -4699,7 +4696,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;A propos</translation>
+        <translation>&amp;À propos</translation>
     </message>
     <message>
         <location/>
@@ -4764,7 +4761,7 @@ Valid options are:
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation>Ajoutera l&apos;utilisateur à vos amis, vous pourrez donc le reconnaitre sur ce serveur et sur les autres serveurs.</translation>
+        <translation>Ajoutera l&apos;utilisateur à vos amis, vous pourrez donc le reconnaître sur ce serveur et sur les autres serveurs.</translation>
     </message>
     <message>
         <location/>
@@ -4794,7 +4791,7 @@ Valid options are:
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation>Votre ami utilise un nom différent de celui que vous avez dans votre base. Ceci mettra à jour son nom.</translation>
+        <translation>Votre ami utilise un nom différent de celui que vous avez dans votre base de données. Ceci mettra à jour son nom.</translation>
     </message>
     <message>
         <location/>
@@ -4809,7 +4806,7 @@ Valid options are:
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Ouvre l&apos;éditeur des utilisateurs enregistrés, ce qui vous permettra de changer leur nom ou de supprimer leur enregistrement.</translation>
+        <translation>Ouvre l&apos;éditeur des utilisateurs enregistrés, ce qui vous permettra de modifier leurs noms ou de supprimer leurs comptes.</translation>
     </message>
     <message>
         <location/>
@@ -4849,7 +4846,7 @@ Valid options are:
     <message>
         <location filename="MainWindow.cpp" line="+77"/>
         <location line="+15"/>
-        <location line="+2217"/>
+        <location line="+2249"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4859,7 +4856,7 @@ Valid options are:
         <translation>Affiche toute l&apos;activité récente. Les connexions aux serveurs, les messages d&apos;erreurs et d&apos;informations sont affichés ici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2308"/>
+        <location filename="MainWindow.cpp" line="-2340"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -4877,7 +4874,7 @@ Valid options are:
         <location filename="MainWindow.cpp" line="+32"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation>Appuyez-pour-parler</translation>
+        <translation>Appuyer-pour-parler</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4889,7 +4886,7 @@ Valid options are:
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Configure le bouton Appuyez-pour-parler, et tant que vous presserez ce bouton, votre voix sera transmise.</translation>
+        <translation>Configure le bouton Appuyer-pour-parler, et tant que vous presserez ce bouton, votre voix sera transmise.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4928,7 +4925,7 @@ Valid options are:
         <translation>Activer/Désactiver l&apos;affichage de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+1120"/>
+        <location line="+1141"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -4941,37 +4938,37 @@ Valid options are:
     <message>
         <location filename="MainWindow.cpp" line="+268"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Êtes-vous sûr(e) de vouloir supprimer %1 ainsi que tous ses sous-salons ?</translation>
+        <translation>Êtes-vous sûr de vouloir supprimer %1 ainsi que tous ses sous-salons ?</translation>
     </message>
     <message>
         <location line="+229"/>
         <source>Unmuted and undeafened.</source>
-        <translation>N&apos;est pas sourd(e) et muet(te).</translation>
+        <translation>N&apos;est pas sourd et muet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>N&apos;est pas muet (te).</translation>
+        <translation>N&apos;est pas muet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>Muet(te).</translation>
+        <translation>Muet.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>Sourd(e) et muet(te).</translation>
+        <translation>Sourd et muet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>Sourd(e).</translation>
+        <translation>Sourd.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>N&apos;est pas sourd(e).</translation>
+        <translation>N&apos;est pas sourd.</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -4979,9 +4976,9 @@ Valid options are:
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+441"/>
         <source>Server connection failed: %1.</source>
-        <translation>La connexion au serveur à échoué : %1.</translation>
+        <translation>La connexion au serveur a échoué : %1.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4989,19 +4986,19 @@ Valid options are:
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location line="-1539"/>
+        <location line="-1550"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+327"/>
+        <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 vous a rendu la parole et l&apos;ouïe.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted and deafened %1.</source>
-        <translation>Vous avez rendu %1 sourd(e) et muet(te).</translation>
+        <translation>Vous avez rendu %1 sourd et muet.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5021,7 +5018,7 @@ Valid options are:
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%2 a rendu %1 sourd(e) et muet(te).</translation>
+        <translation>%2 a rendu %1 sourd et muet.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5036,25 +5033,25 @@ Valid options are:
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation>%1 s&apos;est déplacé(e) dans le salon %2.</translation>
+        <translation>%1 s&apos;est déplacé dans le salon %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation>%1 a été sorti(e) du salon %2 par %3.</translation>
+        <translation>%1 a été déplacé dans le salon %2 par %3.</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation>%1 a été déplacé(e) depuis le salon %2 par %3.</translation>
+        <translation>%1 a été déplacé depuis le salon %2 par %3.</translation>
     </message>
     <message>
         <location line="-161"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 est maintenant sourd(e) et muet(te).</translation>
+        <translation>%1 est maintenant sourd et muet.</translation>
     </message>
     <message>
-        <location line="-116"/>
+        <location line="-120"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Le privilège %1 vous est refusé dans %2.</translation>
     </message>
@@ -5065,7 +5062,12 @@ Valid options are:
         <translation>Message de bienvenue : %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-64"/>
+        <source>Your account information can not be verified currently. Please try again later</source>
+        <translation>Les informations de votre compte ne peuvent pas être vérifiées pour le moment. Veuillez réessayer plus tard</translation>
+    </message>
+    <message>
+        <location line="+49"/>
         <source>Mumble: %1</source>
         <translation>Mumble : %1</translation>
     </message>
@@ -5120,6 +5122,11 @@ Valid options are:
         <translation>Le salon est plein.</translation>
     </message>
     <message>
+        <location line="+4"/>
+        <source>Channel nesting limit reached.</source>
+        <translation>Limite d&apos;imbrication des canaux atteinte.</translation>
+    </message>
+    <message>
         <location line="+7"/>
         <source>Permission denied.</source>
         <translation>Autorisation refusée.</translation>
@@ -5132,12 +5139,12 @@ Valid options are:
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 est maintenant muet(te).</translation>
+        <translation>%1 est maintenant muet.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 n&apos;est plus muet(te).</translation>
+        <translation>%1 n&apos;est plus muet.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5212,12 +5219,12 @@ Valid options are:
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation>Le serveur requière la déactivation d&apos;appuyer-pour-parler.</translation>
+        <translation>Le serveur requière la désactivation d&apos;appuyer-pour-parler.</translation>
     </message>
     <message>
         <location line="-476"/>
         <source>You were muted by %1.</source>
-        <translation>%1 vous a rendu muet(te).</translation>
+        <translation>%1 vous a rendu muet.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5228,7 +5235,7 @@ Valid options are:
     <message>
         <location line="+5"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>Vous avez été rétabli(e) par %1.</translation>
+        <translation>Vous avez été rétabli par %1.</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -5253,17 +5260,17 @@ Valid options are:
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%2 a rendu %1 muet(te).</translation>
+        <translation>%2 a rendu %1 muet.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation>%1 a été rétabli(e) par %2.</translation>
+        <translation>%1 a été rétabli par %2.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%1 n&apos;est plus muet (%2).</translation>
+        <translation>%2 a rendu la voix à %1.</translation>
     </message>
     <message>
         <location line="+377"/>
@@ -5274,7 +5281,7 @@ Valid options are:
         <location line="-443"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>%1 vous a rendu sourd(e) et muet(te).</translation>
+        <translation>%1 vous a rendu sourd et muet.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -5289,40 +5296,40 @@ Valid options are:
     <message>
         <location line="+90"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>Vous avez été expulsé(e) du serveur par %1 : %2.</translation>
+        <translation>Vous avez été expulsé du serveur par %1 : %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 a été expulsé(e) du serveur par %1 : %2.</translation>
+        <translation>%3 a été expulsé du serveur par %1 : %2.</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Vous avez été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
+        <translation>Vous avez été expulsé et banni du serveur par %1 : %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 a été expulsé(e) et banni(e) du serveur par %1 : %2.</translation>
+        <translation>%3 a été expulsé et banni du serveur par %1 : %2.</translation>
     </message>
     <message>
         <location line="-64"/>
         <source>You were moved to %1 by %2.</source>
-        <translation>Vous avez été déplacé(e) dans le salon %1 par %2.</translation>
+        <translation>Vous avez été déplacé dans le salon %1 par %2.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>%1 entered channel.</source>
-        <translation>%1 est entré(e) dans le salon.</translation>
+        <translation>%1 est entré dans le salon.</translation>
     </message>
     <message>
-        <location line="-352"/>
+        <location line="-358"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connexion au serveur rejetée : %1.</translation>
     </message>
     <message>
-        <location line="+141"/>
+        <location line="+147"/>
         <source>Denied: %1.</source>
         <translation>Refusé : %1.</translation>
     </message>
@@ -5334,7 +5341,7 @@ Valid options are:
     <message>
         <location filename="MainWindow.cpp" line="+503"/>
         <source>Sending message to %1</source>
-        <translation>Envoi du message à %1</translation>
+        <translation>Envoi d&apos;un message à %1</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -5358,7 +5365,7 @@ Valid options are:
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Êtes-vous sûr(e) de vouloir réinitialiser le commentaire de l&apos;utilisateur %1 ?</translation>
+        <translation>Êtes-vous sûr de vouloir réinitialiser le commentaire de l&apos;utilisateur %1 ?</translation>
     </message>
     <message>
         <location line="+271"/>
@@ -5367,7 +5374,8 @@ Valid options are:
         <translation>À l&apos;arborescence %1 : %2</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+732"/>
+        <location filename="Messages.cpp" line="-165"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
@@ -5383,6 +5391,7 @@ Valid options are:
     </message>
     <message>
         <location line="+13"/>
+        <location filename="Messages.cpp" line="+9"/>
         <source>Wrong password</source>
         <translation>Mauvais mot de passe</translation>
     </message>
@@ -5392,7 +5401,7 @@ Valid options are:
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+364"/>
+        <location filename="Messages.cpp" line="+520"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -5404,7 +5413,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation>Assistant &amp;Audio</translation>
+        <translation>Assistant &amp;audio</translation>
     </message>
     <message>
         <location/>
@@ -5434,7 +5443,7 @@ Valid options are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>&amp;Information</source>
-        <translation>&amp;Information</translation>
+        <translation>&amp;Informations</translation>
     </message>
     <message>
         <location/>
@@ -5444,10 +5453,10 @@ Valid options are:
     <message>
         <location/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Ceci affiche des informations supplémentaires sur la connexion au serveur.</translation>
+        <translation>Ceci affiche des informations supplémentaires sur la connexion avec le serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1790"/>
+        <location filename="MainWindow.cpp" line="-1801"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -5510,20 +5519,22 @@ Valid options are:
     <message>
         <location line="+31"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;Bande passante audio&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Actuelle %2 kbit/s&lt;br /&gt;Codec : %3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1350"/>
+        <location line="+1361"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation>Ce serveur utilise un standard ancien du cryptage et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
     </message>
     <message>
         <location line="+24"/>
+        <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
         <translation>Nom d&apos;utilisateur en cours d&apos;utilisation</translation>
     </message>
     <message>
         <location line="+6"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
         <translation>Mauvais certificat ou mot de passe</translation>
     </message>
@@ -5542,23 +5553,23 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Images (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
-        <location line="-1622"/>
+        <location line="-1633"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canal de voix&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br/&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Salon vocal&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br /&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Mumble Server Information</source>
-        <translation>Information sur le serveur Mumble</translation>
+        <translation>Informations sur le serveur Mumble</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1327"/>
+        <location line="+1338"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1448"/>
+        <location line="-1459"/>
         <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrer en tant que %1</translation>
@@ -5596,7 +5607,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location line="+541"/>
+        <location line="+552"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
@@ -5608,7 +5619,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="-24"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes : &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand-même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et ne vous sera pas redemandé.)&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes : &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et la question ne vous sera pas posée à nouveau.)&lt;p&gt;</translation>
     </message>
     <message>
         <location line="+177"/>
@@ -5644,12 +5655,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1648"/>
+        <location line="-1659"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation>La voix est envoyée au dessus du canal de contrôle.</translation>
+        <translation>La voix est envoyée au-dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-825"/>
+        <location line="-846"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
@@ -5658,17 +5669,17 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation>Lier un canal</translation>
+        <translation>Lier un salon</translation>
     </message>
     <message>
-        <location line="+783"/>
+        <location line="+804"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.%2.%3.&lt;/p&gt; {2&gt;?} {2&gt;?} {1.?}</translation>
+        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br/&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;Chiffré en %2 %1 bits&lt;br /&gt;%3 ms de latence moyenne (déviation de %4)&lt;/p&gt;&lt;p&gt;Hôte distant %5 (port %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5703,7 +5714,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+0"/>
         <source>Resync</source>
-        <translation>Resynchronise</translation>
+        <translation>Resynchronisé</translation>
     </message>
     <message>
         <location line="+643"/>
@@ -5731,7 +5742,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Envoyer un message texte à tous les utilisateurs dans le salon.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1328"/>
+        <location filename="MainWindow.cpp" line="-1339"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches         ?</translation>
     </message>
@@ -5741,16 +5752,16 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="-125"/>
-        <location line="+126"/>
+        <location line="-134"/>
+        <location line="+135"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-182"/>
+        <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Se rendre muet(te)</translation>
+        <translation>Se rendre muet</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5768,7 +5779,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Se rendre sourd(e)</translation>
+        <translation>Se rendre sourd</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5780,7 +5791,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Se rendre sourd(e) ou non. Vous rendre sourd(e) vous rendra aussi muet(te).</translation>
+        <translation>Se rendre sourd ou non. Vous rendre sourd vous rendra aussi muet.</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -5789,7 +5800,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Chuchoter/Crier</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
@@ -5799,7 +5810,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-31"/>
+        <location line="-32"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Active/désactive l&apos;interface minimale</translation>
@@ -5823,23 +5834,23 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location filename="MainWindow.cpp" line="+3"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Augmenter volume (+10%)</translation>
+        <translation>Augmenter volume (+10 %)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Diminuer le volume (-10%)</translation>
+        <translation>Diminuer le volume (-10 %)</translation>
     </message>
     <message>
-        <location line="+67"/>
-        <location line="+2259"/>
+        <location line="+68"/>
+        <location line="+2290"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-1995"/>
+        <location line="-2006"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -5851,7 +5862,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location filename="UserModel.cpp" line="+1390"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur &quot;Ne rien faire&quot;, le salon n&apos;a donc pas été déplacé.</translation>
+        <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur « Ne rien faire », le salon n&apos;a donc pas été déplacé.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5865,7 +5876,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>&amp;Délier</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="-10"/>
+        <location filename="Messages.cpp" line="+513"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -5884,12 +5895,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation>Permet de choisir si l&apos;affichage minimale doit avoir une bordure pour déplacer ou redimensionner la fenêtre.</translation>
+        <translation>Permet de choisir si l&apos;affichage minimal doit avoir une bordure pour déplacer ou redimensionner la fenêtre.</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation>Envoyer le &amp;message</translation>
+        <translation>Envoyer un &amp;message</translation>
     </message>
     <message>
         <location/>
@@ -5904,7 +5915,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation>S&apos;en&amp;registrer</translation>
+        <translation>En&amp;registrer l&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
@@ -5924,7 +5935,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>View Comment</source>
-        <translation>Voir commentaire</translation>
+        <translation>Voir le commentaire</translation>
     </message>
     <message>
         <location/>
@@ -5944,7 +5955,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation>&amp;Soi</translation>
+        <translation>&amp;Soi-même</translation>
     </message>
     <message>
         <location/>
@@ -6014,22 +6025,37 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation>Copier un lien vers ce canal dans le presse-papiers.</translation>
+        <translation>Copier un lien vers ce salon dans le presse-papiers.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorer les messages</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorer localement les messages textuels de l&apos;utilisateur.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore simplement tous les messages textuels provenant de l&apos;utilisateur.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Ban list</source>
+        <translation>Liste des &amp;bannis</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Edit ban list on server</source>
+        <translation>Liste des utilisateurs bannis</translation>
+    </message>
+    <message>
+        <location/>
+        <source>This lets you edit the server-side IP ban list.</source>
+        <translation>Ceci permet d&apos;éditer liste des utilisateurs bannis du serveur.</translation>
     </message>
 </context>
 <context>
@@ -6058,7 +6084,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Activer le mode de compatibilité TCP&lt;/b&gt;.&lt;br /&gt;Cela permet d&apos;utiliser Mumble uniquement avec le protocole TCP pour communiquer avec le serveur. Cette initiative augmente l&apos;utilisation de la bande passante, et causer la perte de paquets  produira ainsi des pauses dans la communication. Donc ceci ne devrait être utilisée que si vous ne pouvez pas utiliser les paramètres par défaut (qui utilise pour la voix UDP et TCP pour le contrôle).</translation>
+        <translation>&lt;b&gt;Activer le mode de compatibilité TCP&lt;/b&gt;.&lt;br /&gt;Cela permet d&apos;utiliser Mumble uniquement avec le protocole TCP pour communiquer avec le serveur. Cette initiative augmente l&apos;utilisation de la bande passante, et provoque la perte de paquets, produisant des pauses dans la communication. Elle ne devrait donc être choisie que si vous ne pouvez pas utiliser les paramètres par défaut (qui utilise pour la voix UDP et TCP pour le contrôle).</translation>
     </message>
     <message>
         <location/>
@@ -6088,7 +6114,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation>Type de proxy a utiliser</translation>
+        <translation>Type de proxy à utiliser</translation>
     </message>
     <message>
         <location/>
@@ -6138,27 +6164,27 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>N&apos;envoie pas de certificat au serveur et ne sauve pas les mots de passe. (Option non enregistrée).</translation>
+        <translation>N&apos;envoie pas de certificat au serveur et ne sauvegarde pas les mots de passe. (Option non enregistrée).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Désactive les informations d&apos;identification du client.&lt;/b&gt;&lt;p&gt;Le client ne va pas s&apos;identifier à l&apos;aide d&apos;un certificat, même si celui-ci existe, et il ne mémorisera pas les mots de passes de la connexion. Cette option est principalement utilisée à des fins de tests et n&apos;est pas mémorisée.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Désactive les informations d&apos;identification du client.&lt;/b&gt;&lt;p&gt;Le client ne va pas s&apos;identifier à l&apos;aide d&apos;un certificat même si celui-ci existe, et il ne mémorisera pas les mots de passe de la connexion. Cette option est principalement utilisée à des fins de tests et n&apos;est pas mémorisée.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation>Désactiver l&apos;usage du certificat et mots de passes</translation>
+        <translation>Désactiver le certificat et l&apos;enregistrement des mots de passe</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Type de connexion via le proxy.&lt;/b&gt;&lt;br/&gt;Permet à Mumble de se connecter au travers d&apos;un proxy pour toutes les connexions sortantes. Notez que l&apos;usage du proxy force Mumble à utiliser le mode de compatibilité TCP, la voix est donc envoyée au dessus du canal de contrôle.</translation>
+        <translation>&lt;b&gt;Type de connexion via le proxy.&lt;/b&gt;&lt;br /&gt;Permet à Mumble de se connecter au travers d&apos;un proxy pour toutes les connexions sortantes. Notez que l&apos;usage du proxy force Mumble à utiliser le mode de compatibilité TCP, la voix est donc envoyée via le canal de contrôle.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Nom d&apos;hôte du proxy.&lt;/b&gt;&lt;br/&gt;Ce champ identifie le nom d&apos;hôte du proxy que vous souhaitez utiliser.</translation>
+        <translation>&lt;b&gt;Nom d&apos;hôte du proxy.&lt;/b&gt;&lt;br /&gt;Ce champ identifie le nom d&apos;hôte du proxy que vous souhaitez utiliser.</translation>
     </message>
     <message>
         <location/>
@@ -6173,7 +6199,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation>&lt;b&gt;Numéro du port du proxy.&lt;/b&gt;&lt;br /&gt;Ce champ spécifie le numéro de port du serveur proxy sur lequel il écoute.</translation>
+        <translation>&lt;b&gt;Numéro du port du proxy.&lt;/b&gt;&lt;br /&gt;Ce champ spécifie le numéro de port sur lequel le proxy écoute.</translation>
     </message>
     <message>
         <location/>
@@ -6188,7 +6214,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Nom d&apos;utilisateur à utiliser pour l&apos;authentification sur le proxy.&lt;/b&gt;&lt;br /&gt;Dans le cas ou le proxy n&apos;utilise pas d&apos;authentification, ou si vous voulez vous connecté en tant qu&apos;anonyme, laissez simplement le champ vide.</translation>
+        <translation>&lt;b&gt;Nom d&apos;utilisateur à utiliser pour l&apos;authentification sur le proxy.&lt;/b&gt;&lt;br /&gt;Dans le cas où le proxy n&apos;utilise pas d&apos;authentification, ou si vous voulez vous connecter en tant qu&apos;anonyme, laissez simplement le champ vide.</translation>
     </message>
     <message>
         <location/>
@@ -6203,7 +6229,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Mot de passe à utiliser pour l&apos;authentification sur le proxy .&lt;/b&gt;&lt;br /&gt;Dans le cas ou le proxy n&apos;utilise pas d&apos;authentification, ou si vous voulez vous connecté en tant qu&apos;anonyme, laissez simplement le champ vide.</translation>
+        <translation>&lt;b&gt;Mot de passe à utiliser pour l&apos;authentification sur le proxy.&lt;/b&gt;&lt;br /&gt;Dans le cas où le proxy n&apos;utilise pas d&apos;authentification, ou si vous voulez vous connecter en tant qu&apos;anonyme, laissez simplement le champ vide.</translation>
     </message>
     <message>
         <location/>
@@ -6260,12 +6286,12 @@ Empêche le client de télécharger les images intégrées dans les messages de 
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Envoyer des statistiques anonymes.&lt;/b&gt;&lt;br/&gt;Mumble dispose d&apos;une petite équipe de développement, et comme tel, doit concentrer son développement là où celui-ci est le plus nécessaire. En envoyant quelques statistiques, vous aidez le projet à déterminer où le développement doit se focaliser.</translation>
+        <translation>&lt;b&gt;Envoyer des statistiques anonymes.&lt;/b&gt;&lt;br /&gt;Mumble dispose d&apos;une petite équipe de développement, et doit donc concentrer son développement là où celui-ci est le plus nécessaire. En envoyant quelques statistiques, vous aidez le projet à déterminer où le développement doit se focaliser.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Soumettre des statistique anonyme au projet Mumble</translation>
+        <translation>Soumettre des statistiques anonymes au projet Mumble</translation>
     </message>
     <message>
         <location/>
@@ -6324,16 +6350,6 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location filename="Overlay.cpp" line="+104"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Échec lors de la création de la communication avec l&apos;overlay à %2 : %1. L&apos;overlay ne sera pas disponible.</translation>
-    </message>
-    <message>
-        <location line="+252"/>
-        <source>Skipping overlay update in debug mode.</source>
-        <translation>Passe la mise à jour de l&apos;overlay en mode débogage.</translation>
-    </message>
-    <message>
-        <location line="+61"/>
-        <source>Downloaded new or updated overlay support file to %1.</source>
-        <translation>Nouveau plugin téléchargé ou mis à jour vers %1.</translation>
     </message>
 </context>
 <context>
@@ -6440,16 +6456,16 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation>Pour redimensionner les utilisateurs, utilisez la molette au dessus de l&apos;un d&apos;eux.</translation>
+        <translation>Pour redimensionner les utilisateurs, utilisez la molette au-dessus de l&apos;un d&apos;eux.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation>Pour plus d&apos;options, faites un clic-droit sur un utilisateur.</translation>
+        <translation>Pour plus d&apos;options, faites un clic droit sur un utilisateur.</translation>
     </message>
     <message>
-        <location line="+224"/>
+        <location line="+223"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
@@ -6462,17 +6478,6 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location line="+2"/>
         <source>Choose application</source>
         <translation>Choisir l&apos;application</translation>
-    </message>
-    <message>
-        <location line="+38"/>
-        <source>Mumble has deemed the installer valid.</source>
-        <translation>Mumble a jugé le programme d&apos;installation valide.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Mumble was unable to verify the authenticity of the installer.</source>
-        <oldsource>Mumble was unable to validate authenticity of the installer.</oldsource>
-        <translation>Mumble n&apos;a pas pu vérifier l&apos;authenticité du programme d&apos;installation.</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -6494,7 +6499,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <location filename="Overlay.ui"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Définit si l&apos;overlay est actif ou pas. Cette option est vérifiée au lancement des applications, assurez-vous donc que Mumble fonctionne et que cette option soit activée avant de démarrer l&apos;application.&lt;br/&gt;Veuillez noter que si vous démarrez Mumble après le lancement de l&apos;application, ou si vous désactivez l&apos;overlay pendant que l&apos;application fonctionne, il n&apos;y a pas de manières sûre pour réactiver l&apos;overlay sans redémarrer l&apos;application.</translation>
+        <translation>Définit si l&apos;overlay est actif ou pas. Cette option est vérifiée au lancement des applications, assurez-vous donc que Mumble fonctionne et que cette option soit activée avant de démarrer l&apos;application.&lt;br /&gt;Veuillez noter que si vous démarrez Mumble après le lancement de l&apos;application, ou si vous désactivez l&apos;overlay pendant que l&apos;application fonctionne, il n&apos;y a pas de manière sûre pour réactiver l&apos;overlay sans redémarrer l&apos;application.</translation>
     </message>
     <message>
         <location/>
@@ -6576,11 +6581,6 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <location/>
-        <source>View Certificates</source>
-        <translation>Voir les certificats</translation>
-    </message>
-    <message>
-        <location/>
         <source>Load an overlay preset from file</source>
         <translation>Importe les préférences de l&apos;overlay depuis un fichier</translation>
     </message>
@@ -6628,6 +6628,21 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <location/>
         <source>Add...</source>
         <translation>Ajouter...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>To list exceptions, use a</source>
+        <translation>Pour lister les exceptions, utilisez une</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay in all applicable programs except</source>
+        <translation>Afficher l&apos;overlay dans tous les logiciels concernés sauf</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show the overlay only in</source>
+        <translation>Afficher l&apos;overlay seulement dans</translation>
     </message>
 </context>
 <context>
@@ -6725,7 +6740,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Sourd(e) ou muet(te)</translation>
+        <translation>Sourd ou muet</translation>
     </message>
     <message>
         <location/>
@@ -6928,7 +6943,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;A propos</translation>
+        <translation>&amp;À propos</translation>
     </message>
     <message>
         <location/>
@@ -6968,7 +6983,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation>Forme</translation>
     </message>
     <message>
         <location/>
@@ -6984,7 +6999,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+327"/>
+        <location filename="Plugins.cpp" line="+333"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
@@ -7135,14 +7150,14 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+445"/>
+        <location filename="ServerHandler.cpp" line="+470"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation>Les paquets UDP ne peuvent pas être envoyés au  serveur. Passage en mode TCP.</translation>
+        <translation>Les paquets UDP ne peuvent pas être envoyés au serveur. Passage en mode TCP.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7155,7 +7170,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Les paquets UDP peuvent être envoyés et reçus du serveur. Retour en mode UDP.</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+39"/>
         <source>Connection timed out</source>
         <translation>Délai de connexion dépassé</translation>
     </message>
@@ -7211,7 +7226,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-501"/>
+        <location filename="GlobalShortcut.cpp" line="-558"/>
         <source>Unassigned</source>
         <translation>Non assigné</translation>
     </message>
@@ -7219,7 +7234,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+361"/>
+        <location line="+370"/>
         <source>On</source>
         <translation>Activer</translation>
     </message>
@@ -7242,7 +7257,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-435"/>
+        <location line="-444"/>
         <source>Press Shortcut</source>
         <translation>Appuyer sur un raccourci clavier</translation>
     </message>
@@ -7266,6 +7281,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <location line="+5"/>
+        <location line="+6"/>
         <source>Subchannel #%1</source>
         <translation>Sous-salon #%1</translation>
     </message>
@@ -7298,6 +7314,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Actuel</translation>
     </message>
     <message>
+        <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
         <translation>Sous-salon #%1</translation>
@@ -7317,7 +7334,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-259"/>
+        <location line="-268"/>
         <source>Off</source>
         <translation>Désactiver</translation>
     </message>
@@ -7373,8 +7390,10 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
 </source>
-        <translation>&lt;b&gt;C&apos;est une liste éditable des jetons d&apos;accès du serveur actuel.&lt;/b&gt;&lt;br/&gt;
-Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée comme mot de passe pour une gestion simple des accès aux salons. Mumble mémorise les jetons que vous avez utilisé et les réutilisera la prochaine fois que vous vous reconnecterez, vous n&apos;aurez donc pas à les ressaisir à chaque fois.</translation>
+        <translation>&lt;b&gt;C&apos;est une liste éditable des jetons d&apos;accès du serveur actuel.&lt;/b&gt;
+&lt;br /&gt;
+Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée comme mot de passe pour une gestion simple des accès aux salons. Mumble mémorise les jetons que vous avez utilisé et les réutilisera la prochaine fois que vous vous reconnecterez, vous n&apos;aurez donc pas à les ressaisir à chaque fois.
+</translation>
     </message>
     <message>
         <location/>
@@ -7421,12 +7440,12 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation>Information d&apos;utilisateur</translation>
+        <translation>Informations d&apos;utilisateur</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation>Information de connexion</translation>
+        <translation>Informations de connexion</translation>
     </message>
     <message>
         <location/>
@@ -7506,7 +7525,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Resync</source>
-        <translation>Resynchronise</translation>
+        <translation>Resynchronisé</translation>
     </message>
     <message>
         <location/>
@@ -7521,7 +7540,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Connection time</source>
-        <translation>Temps de connexion</translation>
+        <translation>Durée de connexion</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+99"/>
@@ -7559,22 +7578,22 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1.%2.%3 (%4)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Supporté</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Non supporté</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished"></translation>
+        <translation>Non indiqué</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7602,6 +7621,11 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <source>Bandwidth</source>
         <comment>Label</comment>
         <translation>Bande passante</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ping deviation</source>
+        <translation>Déviation du ping</translation>
     </message>
 </context>
 <context>
@@ -7645,7 +7669,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation>Un salon qui est lié au votre. Les salons liés peuvent se parler l&apos;un-l&apos;autre.</translation>
+        <translation>Un salon qui est lié au vôtre. Les salons liés peuvent se parler l&apos;un à l&apos;autre.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7670,32 +7694,32 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>Muet(te) (s&apos;est rendu muet(te))</translation>
+        <translation>Muet (s&apos;est rendu muet)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>Muet(te) (manuellement par un admin)</translation>
+        <translation>Muet (manuellement par un admin)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Muet(te) (n&apos;a pas la permission de parler dans le salon actuel)</translation>
+        <translation>Muet (n&apos;a pas la permission de parler dans le salon actuel)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Muet(te) (vous l&apos;avez rendu muet(te), seulement sur votre machine)</translation>
+        <translation>Muet (vous l&apos;avez rendu muet, seulement sur votre machine)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation>Sourd(e) (s&apos;est rendu sourd(e))</translation>
+        <translation>Sourd (s&apos;est rendu sourd)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation>Sourd(e) (par un admin)</translation>
+        <translation>Sourd (par un admin)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7710,7 +7734,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore les messages textuels</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7740,7 +7764,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+721"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>Etes vous sur de vouloir déplacer ce salon ?</translation>
+        <translation>Êtes-vous sûr de vouloir déplacer ce salon ?</translation>
     </message>
     <message>
         <location line="+93"/>
@@ -7772,7 +7796,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Détection d&apos;un téléchargement corrompu d&apos;une nouvelle version. Suppression automatique.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
         <translation>Téléchargement du nouveau snapshot de %1 à %2</translation>
     </message>
@@ -7843,7 +7867,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <location line="-27"/>
         <location line="+28"/>
         <source>State: %1</source>
-        <translation>Pays : %1</translation>
+        <translation>État : %1</translation>
     </message>
     <message>
         <location line="-27"/>
@@ -7877,8 +7901,8 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <location line="+1"/>
-        <source>Digest (MD5): %1</source>
-        <translation>Digest (MD5) : %1</translation>
+        <source>Digest (SHA-1): %1</source>
+        <translation>Digest (SHA-1) : %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -7980,7 +8004,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Multicanal</translation>
+        <translation>Multisalon</translation>
     </message>
     <message>
         <location/>
@@ -8030,7 +8054,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation>Insère l&apos;heure courante</translation>
+        <translation>Insère l&apos;heure actuelle</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8067,7 +8091,7 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation>Downmix</translation>
+        <translation>Downmixage</translation>
     </message>
 </context>
 <context>
@@ -8083,7 +8107,7 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation>Mumble APP</translation>
+        <translation>Mumble PTT</translation>
     </message>
     <message>
         <location/>
