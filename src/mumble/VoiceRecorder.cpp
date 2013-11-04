@@ -41,12 +41,23 @@
 
 #include "../Timer.h"
 
-VoiceRecorder::RecordBuffer::RecordBuffer(const ClientUser *cu,
-        boost::shared_array<float> buffer, int samples, quint64 timestamp) :
-		cuUser(cu), fBuffer(buffer), iSamples(samples), uiTimestamp(timestamp) {
+VoiceRecorder::RecordBuffer::RecordBuffer(
+        const ClientUser *cu,
+        boost::shared_array<float> buffer,
+        int samples,
+        quint64 absoluteStartSample)
+
+    : cuUser(cu)
+    , fBuffer(buffer)
+    , iSamples(samples)
+    , absoluteStartSample(absoluteStartSample) {
+	
+	// Nothing
 }
 
-VoiceRecorder::RecordInfo::RecordInfo() : sf(NULL), uiLastPosition(0) {
+VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample)
+    : sf(NULL)
+    , lastWrittenAbsoluteSample(lastWrittenAbsoluteSample) {
 }
 
 VoiceRecorder::RecordInfo::~RecordInfo() {
@@ -56,9 +67,17 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 	}
 }
 
-VoiceRecorder::VoiceRecorder(QObject *p) : QThread(p), recordUser(new RecordUser()),
-		tTimestamp(new Timer()), iSampleRate(0), bRecording(false), bMixDown(false),
-		fmFormat(VoiceRecorderFormat::WAV), qdtRecordingStart(QDateTime::currentDateTime()) {
+VoiceRecorder::VoiceRecorder(QObject *p)
+    : QThread(p)
+    , recordUser(new RecordUser())
+    , tTimestamp(new Timer())
+    , iSampleRate(0)
+    , bRecording(false)
+    , bMixDown(false)
+    , fmFormat(VoiceRecorderFormat::WAV)
+    , qdtRecordingStart(QDateTime::currentDateTime()) {
+	
+	// Nothing
 }
 
 VoiceRecorder::~VoiceRecorder() {
@@ -260,7 +279,7 @@ void VoiceRecorder::run() {
 
 			// Create the file for this RecordInfo instance if it's not yet open.
 			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(index);
-			if (!ri->sf) {
+			if (ri->sf == NULL) {
 				QString filename = expandTemplateVariables(qsFileName, rb);
 
 				// Try to find a unique filename.
@@ -306,23 +325,23 @@ void VoiceRecorder::run() {
 			}
 
 			// Calculate the difference between the time of the current buffer and the time where we last wrote audio data for that user.
-			// Writes silence if the number of |missingSamples| is larger than a threshold of 100ms (to account for processing delay).
-			qint64 missingSamples = ((rb->uiTimestamp - ri->uiLastPosition) * iSampleRate) / 1000000 - rb->iSamples;
-			if (missingSamples > iSampleRate / 10) {
+			// Writes silence for all the missing samples.
+			const qint64 missingSamples = rb->absoluteStartSample - ri->lastWrittenAbsoluteSample;
+			if (missingSamples > 0) {
 				// Write |missingSamples| samples of silence.
-				boost::scoped_array<float> buffer(new float[1024]);
-				memset(buffer.get(), 0, sizeof(float) * 1024);
+				const float buffer[1024] = {};
+				
 				qint64 rest = missingSamples;
 				for (; rest > 1024; rest -= 1024)
-					sf_write_float(ri->sf, buffer.get(), 1024);
+					sf_write_float(ri->sf, buffer, 1024);
 
 				if (rest > 0)
-					sf_write_float(ri->sf, buffer.get(), rest);
+					sf_write_float(ri->sf, buffer, rest);
 			}
 
 			// Write the audio buffer and update the timestamp in |ri|.
 			sf_write_float(ri->sf, rb->fBuffer.get(), rb->iSamples);
-			ri->uiLastPosition = rb->uiTimestamp;
+			ri->lastWrittenAbsoluteSample = rb->absoluteStartSample + rb->iSamples;
 		}
 
 		qmSleepLock.unlock();
@@ -338,20 +357,21 @@ void VoiceRecorder::stop() {
 	qwcSleep.wakeAll();
 }
 
-void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples) {
+void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount) {
 	Q_ASSERT(!bMixDown || cu == NULL);
 
 	// Create a new RecordInfo object if this is a new user.
 	int index = bMixDown ? 0 : cu->uiSession;
 	if (!qhRecordInfo.contains(index)) {
-		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>();
+		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>(m_firstSampleAbsolute);
+		
 		qhRecordInfo.insert(index, ri);
 	}
 
 	{
 		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&qmBufferLock);
-		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(cu, buffer, samples, tTimestamp->elapsed());
+		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(cu, buffer, samples, absoluteSampleCount);
 		qlRecordBuffer << rb;
 	}
 
@@ -363,6 +383,12 @@ void VoiceRecorder::setSampleRate(int sampleRate) {
 	Q_ASSERT(!bRecording);
 
 	iSampleRate = sampleRate;
+}
+
+void VoiceRecorder::setFirstSampleAbsolute(quint64 firstSampleAbsolute) {
+	Q_ASSERT(!bRecording);
+	
+	m_firstSampleAbsolute = firstSampleAbsolute;
 }
 
 int VoiceRecorder::getSampleRate() const {

@@ -81,7 +81,10 @@ class VoiceRecorder : public QThread {
 		// Stores information about a recording buffer.
 		struct RecordBuffer {
 			// Constructs a new RecordBuffer object.
-			explicit RecordBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 timestamp);
+			explicit RecordBuffer(const ClientUser *cu,
+				                  boost::shared_array<float> buffer,
+				                  int samples,
+				                  quint64 absoluteStartSample);
 
 			// The user to which this buffer belongs.
 			const ClientUser *cuUser;
@@ -92,20 +95,20 @@ class VoiceRecorder : public QThread {
 			// The number of samples in the buffer.
 			int iSamples;
 
-			// Timestamp for the buffer.
-			quint64 uiTimestamp;
+			/// Absolute sample number at the start of this buffer
+			quint64 absoluteStartSample;
 		};
 
 		// Keep the recording state for one user.
 		struct RecordInfo {
-			explicit RecordInfo();
+			explicit RecordInfo(quint64 lastWrittenAbsoluteSample);
 			~RecordInfo();
 
 			// libsndfile's handle.
 			SNDFILE *sf;
 
-			// The timestamp where we last wrote audio data for this user.
-			quint64 uiLastPosition;
+			/// The last absolute sample we wrote for this users
+			quint64 lastWrittenAbsoluteSample;
 		};
 
 		// Hash which maps the |uiSession| of all users for which we have to keep a recording state to the corresponding RecordInfo object.
@@ -145,6 +148,8 @@ class VoiceRecorder : public QThread {
 		// The timestamp where the recording started.
 		const QDateTime qdtRecordingStart;
 
+		/// Absolute sample number which to consider the start of the recording
+		quint64 m_firstSampleAbsolute;
 
 		// Removes invalid characters in a path component.
 		QString sanitizeFilenameOrPathComponent(const QString &str) const;
@@ -166,11 +171,15 @@ class VoiceRecorder : public QThread {
 		// Stops the main loop.
 		void stop();
 
-		// Adds an audio buffer which contains |samples| audio samples to the recorder.
-		void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples);
+		/// Adds an audio buffer which contains |samples| audio samples to the recorder.
+		/// The audio data will be aligned using the given |absoluteSampleCount|
+		void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount);
 
 		// Sets the sample rate of the recorder. The sample rate can't change while the recoder is active.
 		void setSampleRate(int sampleRate);
+		
+		/// Sets the absolute sample number considered the first sample of the recording
+		void setFirstSampleAbsolute(quint64 firstSampleAbsolute);
 
 		// Returns the current sample rate of the encoder.
 		int getSampleRate() const;
