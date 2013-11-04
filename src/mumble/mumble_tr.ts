@@ -5489,7 +5489,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="-205"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Şu anda hesap bilgileriniz doğrulanamıyor. Lütfen daha sonra tekrar deneyin</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6002,17 +6002,17 @@ Geçerli seçenekler şunlardır:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Yasaklama listesi</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Sunucuda yasaklama listesini düzenle</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu, sunucuda IP yasaklama listesini düzenlemenize izin verir.</translation>
     </message>
 </context>
 <context>
