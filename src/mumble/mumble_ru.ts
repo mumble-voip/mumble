@@ -667,7 +667,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished">3я &amp;сторона лицензии</translation>
+        <translation>&amp;Лицензии 3-их лиц</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -682,7 +682,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Авторские права %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Голосовой чат для игроков&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Перевод: B0nuse &lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://Mumble.ru/&lt;/a&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Авторские права %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Голосовой чат для игроков&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1027,92 +1027,92 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished">Всегда отображать на переднем плане окно кнопки передачи речи</translation>
+        <translation>Всегда отображать на переднем плане окно с кнопкой передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished">Отображать окно кнопки передачи речи</translation>
+        <translation>Отображать окно передачи речи по кнопке</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished">Разное</translation>
+        <translation>Разное</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished">Звуковой сигнал при использовании кнопки передачи речи</translation>
+        <translation>Звуковой сигнал при передаче речи</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished">&lt;b&gt;Включить звуковое сопровождение кнопки передачи речи.&lt;/b&gt;&lt;br /&gt;Эта опция включит проигрывание короткого звука, когда Вы нажимаете и отпускаете кнопку для передачи речи.</translation>
+        <translation>&lt;b&gt;Включить звуковое сопровождение кнопки передачи речи.&lt;/b&gt;&lt;br /&gt;Эта опция включит проигрывание короткого звука, когда Вы нажимаете и отпускаете кнопку для передачи речи.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished">Звук PTT</translation>
+        <translation>Звук PTT</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished">Звучит перед началом передачи речи</translation>
+        <translation>Звучит перед началом передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished">Звучит после окончания передачи речи</translation>
+        <translation>Звучит после окончания передачи речи</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished">Время задержки</translation>
+        <translation>Время задержки</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished">Время, которое микрофон остается включенным после того, как кнопка передачи речи будет отпущена</translation>
+        <translation>Время, которое микрофон остается включенным после того, как кнопка передачи речи будет отпущена</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished">Максимальная пропускная способность сервера %1 кбит/с. Качество передачи речи установлено на %2 кбит/с (%3 мс)</translation>
+        <translation>Максимальная пропускная способность сервера %1 кбит/с. Качество передачи речи установлено на %2 кбит/с (%3 мс)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished">Макс. Усиление</translation>
+        <translation>Макс. усиление</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished">Простой</translation>
+        <translation>Простой</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished">минут сделать</translation>
+        <translation>минут сделать</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished">ничего</translation>
+        <translation>ничего</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished">заглушить</translation>
+        <translation>заглушить</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished">сделать немым</translation>
+        <translation>выключить микрофон</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished">после</translation>
+        <translation>после</translation>
     </message>
 </context>
 <context>
@@ -1239,7 +1239,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Здесь устанавливается минимальный безопасный размер аудио буфера.&lt;/b&gt;&lt;br /&gt;Весь входящий звук сначала буферизируется и аудио буфер продолжает откладывать данные в буфер до минимального количества, которое может выдержать Ваша сеть, чтобы задержка была минимальной. Это устанавливает минимальный размер буфера для использования. Если речь, которую Вы слышите, будет трещать и прерываться, увеличьте это значение.</translation>
+        <translation>&lt;b&gt;Здесь устанавливается минимальный безопасный размер аудио буфера.&lt;/b&gt;&lt;br /&gt;Весь входящий звук сначала буферизируется и аудио буфер продолжает выкладывать данные в буфер до минимального количества, которое может выдержать Ваша сеть, чтобы задержка была минимальной. Это устанавливает минимальный размер буфера для использования. Если речь, которую Вы слышите, будет трещать и прерываться, увеличьте это значение.</translation>
     </message>
     <message>
         <location/>
@@ -1915,7 +1915,7 @@ To keep latency to an absolute minimum, it&apos;s important to buffer as little 
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет Ваша звуковя карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.&lt;/p&gt;&lt;p&gt;Вы должны слышать голосовой образец. Установите ползунок на самое короткое время ожидания, которое &lt;b&gt;НЕ&lt;/b&gt; дает прерываний или колебания в звуке. Обратите внимание, что локальное эхо отключено во время этого теста.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Чтобы свести время задержки к абсолютному минимуму, необходимо передвинуть ползунок влево на самый минимум, насколько позволяет Ваша звуковя карта. Тем не менее, многие звуковые карты требуют гораздо меньшего буфера, с которым они могут фактически работать, поэтому единственный способ установить это значение - пробовать и ошибаться.&lt;/p&gt;&lt;p&gt;Вы должны слышать голосовой образец. Установите ползунок на самое короткое время ожидания, которое &lt;b&gt;НЕ&lt;/b&gt; дает прерываний или колебания в звуке. Обратите внимание, что локальное эхо выключено во время этого теста.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2033,7 +2033,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Отключить Текст-в-речь и использовать звуки.</translation>
+        <translation>Выключить Текст-в-речь и использовать звуки.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
@@ -2119,17 +2119,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished">В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Выбирайте ее только если Ваше соединение не позволяет пользоваться другими настройками. (16 кбис/с, 60 мс на пакет)</translation>
+        <translation>В этой конфигурации Mumble будет использовать &lt;b&gt;низкую пропускную способность канала&lt;/b&gt;. Это неизбежно приведет к высоким задержкам и низкому качеству звука. Выбирайте ее только если Ваше соединение не позволяет пользоваться другими настройками. (16 кбис/с, 60 мс на пакет)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished">Эта конфигурация &lt;b&gt;рекомендуется по-умолчанию&lt;/b&gt;. Она обеспечивает хороший баланс между качеством, задержками и использованием пропускной способности канала. (40 кбит/с, 20 мс на пакет)</translation>
+        <translation>Эта конфигурация &lt;b&gt;рекомендуется по умолчанию&lt;/b&gt;. Она обеспечивает хороший баланс между качеством, задержками и использованием пропускной способности канала. (40 кбит/с, 20 мс на пакет)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished">Эта конфигурация рекомендуется только для использования в условиях высокой пропускной способности канала, как в локальной сети. Данная конфигурация обеспечивает самую низкую задержку и &lt;b&gt;высокое качество&lt;/b&gt;, которое поддерживает Mumble. (72 кбит/с, 10 мс на пакет)</translation>
+        <translation>Эта конфигурация рекомендуется только при наличии хорошего канала (напр. локальная сеть). Данная конфигурация обеспечивает самую низкую задержку и &lt;b&gt;высокое качество&lt;/b&gt;, которое поддерживает Mumble. (72 кбит/с, 10 мс на пакет)</translation>
     </message>
 </context>
 <context>
@@ -2525,7 +2525,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Мамбл сгенерирует надежный сертификат для авторизации на серверах.&lt;/p&gt;&lt;p&gt;По желанию, Вы можете внести дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым Вы подключаетесь. Если Вы предоставите действительный e-mail адрес, Вы сможете улучшить его в дальнейшем на доверенный сертификат CA, который обеспечивает надежную идентификацию.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Мамбл сгенерирует надежный сертификат для авторизации на серверах.&lt;/p&gt;&lt;p&gt;По желанию, Вы можете внести дополнительную информацию, которая будет храниться в сертификате. Эта информация будет предоставлена серверам, к которым Вы подключаетесь. Если Вы предоставите настоящий e-mail адрес, Вы сможете улучшить его в дальнейшем на доверенный сертификат CA, который обеспечит надёжную идентификацию.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2540,7 +2540,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Ваш E-mail (например, mumble@mumble.ru)</translation>
+        <translation>Ваш E-mail (например, vasyapupkin@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -2550,7 +2550,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Ваше имя (например, Бонус Мамблович)</translation>
+        <translation>Ваше имя (например, Вася Пупкин)</translation>
     </message>
     <message>
         <location/>
@@ -2668,7 +2668,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Предоставляет разрешение заглушать или делать немыми других пользователей. Заглушенный пользователь останется заглушенным до тех пор, пока глушение не будет снято другим привелегированным пользователем, или пока не переподключится к серверу.</translation>
+        <translation>Даёт разрешение выключать голос или звук у других пользователей. Глушение останется у пользователя до снятия состояния другим привелегированным пользователем, или до переподключения к серверу.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2762,7 +2762,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished">Вставить и &amp;Отправить</translation>
+        <translation>Вставить и &amp;отправить</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2795,32 +2795,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>В онемении (сервером)</translation>
+        <translation>Микрофон выключен (сервер)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation>Заглушен (сервером)</translation>
+        <translation>Звук выключен (сервер)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished">Местное игонрирование (Текстовые сообщения)</translation>
+        <translation>Местное игнорирование (Текстовые сообщения)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Местное глушение</translation>
+        <translation>Не слушаю</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>В онемении (сам себя)</translation>
+        <translation>Микрофон выключен (сам)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>Заглушен (сам собой)</translation>
+        <translation>Звук выключен (сам)</translation>
     </message>
 </context>
 <context>
@@ -3115,7 +3115,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation>&lt;b&gt;Адрес&lt;/b&gt;&lt;br/&gt;Интернет адрес сервера. Может быть доменным именем или IPv4/IPv6 адресом, либо идентификатором службы Bonjour. Идентификаторы Bonjour должны иметь префикс &apos;@&apos;.</translation>
+        <translation>&lt;b&gt;Адрес&lt;/b&gt;&lt;br/&gt;Сетевой адрес сервера. Может быть доменным именем или IPv4/IPv6 адресом, либо идентификатором службы Bonjour. Идентификаторы Bonjour должны иметь префикс &apos;@&apos;.</translation>
     </message>
     <message>
         <location/>
@@ -3400,22 +3400,22 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если Вы хотите больше гибкости, Вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем Ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на Вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble может использовать только кнопки мыши и клавиши-модификаторы (Alt, Ctrl, Cmd, и т.д.) для Глобальных клавиш.&lt;/p&gt;&lt;p&gt;Если Вы хотите больше гибкости, Вы можете включить &lt;span style=&quot;font-style:italic;&quot;&gt;Доступ для вспомогательных устройств&lt;/span&gt; в системных настройках доступа. Тем не менее, обращаем Ваше внимание, что это изменение потенциально позволит вредоносным программам читать то, что напечатано на Вашей клавиатуре.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished">Открыть настройки доступа</translation>
+        <translation>Открыть настройки специальных возможностей</translation>
     </message>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished">Пропустить</translation>
+        <translation>Пропустить</translation>
     </message>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished">Включить Глобальные горячие клавиши</translation>
+        <translation>Включить глобальные горячие клавиши</translation>
     </message>
 </context>
 <context>
@@ -3913,32 +3913,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished">Если отмечено, то текстовые сообщения будут озвучены функцией Тест-в-Речь</translation>
+        <translation>Если отмечено, то текстовые сообщения будут озвучены функцией Текст-в-Речь</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished">Озвучивать сообщения</translation>
+        <translation>Озвучивать сообщения</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished">Окно чата</translation>
+        <translation>Окно чата</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished">Максимальный размер чата</translation>
+        <translation>Максимальная длина чата</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished">Неограничено</translation>
+        <translation>Неограничено</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"> линий</translation>
+        <translation> линий</translation>
     </message>
 </context>
 <context>
@@ -4238,7 +4238,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished">Использовать выделенный элемент как цель для сообщений чата</translation>
+        <translation>Использовать выделенный элемент как цель для сообщений чата</translation>
     </message>
 </context>
 <context>
@@ -4287,17 +4287,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>Наложить о&amp;немение</translation>
+        <translation>Выключить &amp;микрофон</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation>Заг&amp;лушить</translation>
+        <translation>Выключить &amp;звук</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Местное глушение</translation>
+        <translation>&amp;Не слушать пользователя</translation>
     </message>
     <message>
         <location/>
@@ -4387,32 +4387,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>Сделать себя &amp;немым</translation>
+        <translation>Выключить &amp;микрофон</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Сделать себя немым</translation>
+        <translation>Выключить микрофон</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Делает Вас немым или снимает онемение. При включении, Вы не сможете посылать данных на сервер (Вас не будут слышать). Снятие онемения также снимает глушение.</translation>
+        <translation>Выключает микрофон. При выключении невозможно посылать данные на сервер (Вас не будут слышать). Включение микрофона также включает звук.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation>Заглушить се&amp;бя</translation>
+        <translation>Выключить &amp;звук</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation>Заглушить себя</translation>
+        <translation>Выключить звук</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Заглушает или снимает глушение. При глушении, Вы не можете кого-либо слышать. Глушение себя также накладывает онемение.</translation>
+        <translation>Выключает звук. При выключении невозможно кого-либо слышать. Выключение звука также выключает микрофон.</translation>
     </message>
     <message>
         <location/>
@@ -4442,12 +4442,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation>Принудительно отключить плагин</translation>
+        <translation>Принудительно выключить плагин</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Позволяет отключить текущий плагин, что удобно при считываниии абсолютно неверных данных.</translation>
+        <translation>Позволяет выключить текущий плагин, что удобно при считываниии абсолютно неверных данных.</translation>
     </message>
     <message>
         <location/>
@@ -4684,13 +4684,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>Отключить плагин</translation>
+        <translation>Выключить плагин</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>Нажмите, чтобы сделать немым</translation>
+        <translation>Нажмите, чтобы выключить микрофон</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4702,13 +4702,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Включить Замещение</translation>
+        <translation>Включить табло</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Включение/Выключение замещения в игре.</translation>
+        <translation>Вкл/выкл табло в игре.</translation>
     </message>
     <message>
         <location line="+1141"/>
@@ -4729,32 +4729,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+229"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Онемение и глушение снято.</translation>
+        <translation>Звук и микрофон включены.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>Онемение снято.</translation>
+        <translation>Микрофон включен.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>Наложено онемение.</translation>
+        <translation>Микрофон выключен.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>В онемении и заглушен.</translation>
+        <translation>Звук и микрофон выключены.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>Заглушен.</translation>
+        <translation>Звук выключен.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Глушение снято.</translation>
+        <translation>Звук включен.</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -4779,47 +4779,47 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Messages.cpp" line="+356"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>%1 снял с Вас глушение и онемение.</translation>
+        <translation>%1 включил у Вас звук и микрофон.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted and deafened %1.</source>
-        <translation>Вы сделали немым и заглушили %1.</translation>
+        <translation>Вы выключили звук и микрофон у %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Вы сняли онемение и глушение с %1.</translation>
+        <translation>Вы включили звук и микрофон у %1.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>Вы сняли онемение с %1.</translation>
+        <translation>Вы включили звук у %1.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation>Вы наложили онемение на %1.</translation>
+        <translation>Вы выключили микрофон у %1.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%2 наложил онемение и глушение на %1.</translation>
+        <translation>%2 выключил звук и микрофон у %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%2 снял глушение и онемение с %1.</translation>
+        <translation>%2 включил звук и микрофон у %1.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 suppressed by %2.</source>
-        <translation>%2 наложил онемение на %1.</translation>
+        <translation>%2 выключил микрофон у %1.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation>%1 перешел в %2.</translation>
+        <translation>%1 перешёл в %2.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4834,7 +4834,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-161"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 сейчас в онемении и заглушен.</translation>
+        <translation>У %1 сейчас выключен звук и микрофон.</translation>
     </message>
     <message>
         <location line="-120"/>
@@ -4850,7 +4850,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-64"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"></translation>
+        <translation>Информация о Вашей учётной записи не может быть проверена. Попробуйте позже</translation>
     </message>
     <message>
         <location line="+49"/>
@@ -4910,7 +4910,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished">Достингут предел вложенности каналов.</translation>
+        <translation>Достигнут предел вложенности каналов.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4925,12 +4925,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 заглушен.</translation>
+        <translation>Микрофон выключен у %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>Снято глушение с %1.</translation>
+        <translation>Микрофон включен у %1.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -4992,78 +4992,78 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished">Сервер запрашивает, чтобы минимальная версия клиента была %1</translation>
+        <translation>Сервер запрашивает минимальную версию клиента %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished">Сервер запрашивает, чтобы Позиционирование звука было включено.</translation>
+        <translation>Сервер запрашивает, чтобы Позиционирование звука было включено.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished">Сервер запрашивает, чтобы Позиционирование звука было выключено.</translation>
+        <translation>Сервер запрашивает, чтобы Позиционирование звука было выключено.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished">Сервер запрашивает, чтобы Активация по кнопке была включена.</translation>
+        <translation>Сервер запрашивает, чтобы Активация по кнопке была включена.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished">Сервер запрашивает, чтобы Активация по кнопке была выключена.</translation>
+        <translation>Сервер запрашивает, чтобы Активация по кнопке была выключена.</translation>
     </message>
     <message>
         <location line="-476"/>
         <source>You were muted by %1.</source>
-        <translation>%1 наложил на Вас онемение.</translation>
+        <translation>%1 выключил у Вас микрофон.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation>На Вас наложено онемение.</translation>
+        <translation>У вас выключили микрофон.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>%1 снял с Вас онемение.</translation>
+        <translation>%1 включил у Вас микрофон.</translation>
     </message>
     <message>
         <location line="-16"/>
         <source>You were unmuted by %1.</source>
-        <translation>%1 снял с Вас онемение.</translation>
+        <translation>%1 включил у Вас микрофон.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation>Вы наложили онемение на %1.</translation>
+        <translation>Вы выключили микрофон у %1.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation>Вы сняли онемение с %1.</translation>
+        <translation>Вы включили микрофон у %1.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Вы сняли онемение с %1.</translation>
+        <translation>Вы включили микрофон у %1.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%2 наложил онемение на %1.</translation>
+        <translation>%2 включил микрофон у %1.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation>%2 снял онемение с %1.</translation>
+        <translation>%2 включил микрофон у %1.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%2 снял онемение с %1.</translation>
+        <translation>%2 включил микрофон у %1.</translation>
     </message>
     <message>
         <location line="+377"/>
@@ -5074,17 +5074,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-443"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>%1 наложил на Вас онемение и глушение.</translation>
+        <translation>%1 выключил у Вас звук и микрофон.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>You were undeafened by %1.</source>
-        <translation>%1 снял с Вас глушение.</translation>
+        <translation>%1 включил у Вас звук.</translation>
     </message>
     <message>
         <location line="+58"/>
         <source>%1 undeafened by %2.</source>
-        <translation>%2 снял глушение с %1.</translation>
+        <translation>%2 включил звук у %1.</translation>
     </message>
     <message>
         <location line="+90"/>
@@ -5099,7 +5099,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 выкинул Вас с сервера и забанил: %2.</translation>
+        <translation>%1 выкинул и забанил Вас на сервере: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5114,12 +5114,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+17"/>
         <source>%1 entered channel.</source>
-        <translation>%1 вошел на канал.</translation>
+        <translation>%1 вошёл на канал.</translation>
     </message>
     <message>
         <location line="-358"/>
         <source>Server connection rejected: %1.</source>
-        <translation>Попытка подключения отклонена: %1.</translation>
+        <translation>В подключении отказано: %1.</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -5144,15 +5144,15 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished">Использование: mumble [опции] [&lt;url&gt;]
+        <translation>Использование: mumble [ключи] [&lt;url&gt;]
 &lt;url&gt; означает адрес для подключения после запускаприложения  вместо вызова
-диалога подключенияи имеет следующий вид:
+диалога подключения и имеет следующий вид:
 mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;порт&gt;][/&lt;канал&gt;[/&lt;подканал&gt;...]][?version=&lt;x.y.z&gt;]
 
-Параметр &lt;x.y.z&gt; означает версию клиента для вызова
+Ключ &lt;x.y.z&gt; означает версию клиента для вызова
 нужной версии клиента. По-умолчанию это значение установлено в 1.2.0.
 
-Допустимые параметры:
+Допустимые ключи:
   -h, --help   Показать данную справку и выйти.
   -m, --multiple
                 Разрешить запуск нескольких клиентов.
@@ -5162,17 +5162,17 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished">Вызов</translation>
+        <translation>Вызов</translation>
     </message>
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation>Добро пожаловать в Mumble. Перевод и русскоязычная поддержка: B0nuse &lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://mumble.ru&lt;/a&gt; .</translation>
+        <translation>Добро пожаловать в Mumble.</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished">Пропускать проверку версии в режиме отладки.</translation>
+        <translation>Пропускать проверку версии в режиме отладки.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5284,32 +5284,32 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation>Кикнуть пользователя (с указанием причины)</translation>
+        <translation>Выкинуть пользователя (с указанием причины)</translation>
     </message>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Кикнуть выбранного пользователя с сервера. Вас попросят указать причину.</translation>
+        <translation>Выкинуть выбранного пользователя с сервера. Вас попросят указать причину.</translation>
     </message>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation>Наложить онемение</translation>
+        <translation>Выключить микрофон у пользователя</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Наложить или снять онемение с пользователя. Снятие онемения с заглушенного пользователя также снимет и глушение.</translation>
+        <translation>Включить или выключить микрофон у пользователя. Включение микрофона у пользователя также включит звук.</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation>Кикнуть и забанить пользователя (с указанием причины)</translation>
+        <translation>Выкинуть и забанить пользователя (с указанием причины)</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Кинуть и забанить выбранного пользователя с сервера. Вас попросят указать причину.</translation>
+        <translation>Выкинуть и забанить выбранного пользователя с сервера. Вас попросят указать причину.</translation>
     </message>
     <message>
         <location/>
@@ -5324,12 +5324,12 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation>Местное онемение</translation>
+        <translation>Не слушать пользователя</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Наложить или снять местное онемение. Используйте это на других пользователях в канале. Только Вы не будете слышать данного пользователя.</translation>
+        <translation>Не слушать пользователя. Используйте это на других пользователях в канале. Только Вы не будете слышать данного пользователя.</translation>
     </message>
     <message>
         <location/>
@@ -5469,7 +5469,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <location line="-1098"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Переключает состояние Замещения в игре.</translation>
+        <translation>Переключает состояние табло в игре.</translation>
     </message>
     <message>
         <location line="+744"/>
@@ -5526,26 +5526,26 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished">Данный сервер использует старые стандарты шифрования и больше не поддерживается новыми версиями Mumble.</translation>
+        <translation>Данный сервер использует старые стандарты шифрования и больше не поддерживается новыми версиями Mumble.</translation>
     </message>
     <message>
         <location line="+24"/>
         <location filename="Messages.cpp" line="-526"/>
         <source>Username in use</source>
-        <translation type="unfinished">Данное имя пользователя уже используется</translation>
+        <translation>Имя пользователя занято</translation>
     </message>
     <message>
         <location line="+6"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
-        <translation type="unfinished">Неверный сертификат или пароль</translation>
+        <translation>Неверный сертификат или пароль</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished">Неверный сертификат или пароль для зарегистрированного пользователя.
+        <translation>Неверный сертификат или пароль для зарегистрированного пользователя.
 Если Вы уверены, что данный пользователь защищен паролем, повторите 
 попытку. В противном случае, проверьте свой сертификат или смените имя пользователя.</translation>
     </message>
@@ -5601,12 +5601,12 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+83"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">Связать канал</translation>
+        <translation>Связать канал</translation>
     </message>
     <message>
         <location line="+804"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5651,7 +5651,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;Качество звука&lt;/h2&gt;&lt;p&gt;Максимально %1 кбит/с&lt;br /&gt;Текущее %2 кбит/с&lt;br /&gt;Кодек: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Качество звука&lt;/h2&gt;&lt;p&gt;Максимально %1 кбит/с&lt;br /&gt;Текущее %2 кбит/с&lt;br /&gt;Кодек: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+639"/>
@@ -5698,13 +5698,13 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-192"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Сделать себя немым</translation>
+        <translation>Выключить микрофон</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Наложить на себя онемение.</translation>
+        <translation>Установить статус микрофона.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5716,19 +5716,19 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Заглушить себя</translation>
+        <translation>Выключить звук</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Накладывает на Вас глушение.</translation>
+        <translation>Установить состояние звука.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Наложит/Снимет с Вас глушение. Если включить - на Вас также будет наложено онемение.</translation>
+        <translation>Включает/выключает звук. Если выключить - также выключится микрофон.</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -5955,37 +5955,37 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished">Копирует ссылку на данный канал в буфер обмена.</translation>
+        <translation>Копирует ссылку на данный канал в буфер обмена.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished">Игнорировать сообщения</translation>
+        <translation>Игнорировать сообщения</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished">Игнорировать локально сообщения пользователя.</translation>
+        <translation>Игнорировать локально сообщения пользователя.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished">Не показывать все текстовые сообщения от пользователя.</translation>
+        <translation>Не показывать текстовые сообщения от пользователя.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Список банов</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактировать список банов на сервере</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Позволяет изменить список банов по IP на сервере.</translation>
     </message>
 </context>
 <context>
@@ -6099,7 +6099,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Отключит отпрваку идентификационной информации на сервер.&lt;/b&gt;&lt;p&gt;Клиент не будет идентифицировать себя с помощью сертификата, даже если он имеется, и не будет кэшировать пароли для соединений. Это тестовая опция и она не сохраняется.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Выключит отправку идентификационной информации на сервер.&lt;/b&gt;&lt;p&gt;Клиент не будет идентифицировать себя с помощью сертификата, даже если он имеется, и не будет кэшировать пароли для соединений. Это тестовая опция и она не сохраняется.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6175,12 +6175,12 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation>&lt;b&gt;Отключить загрузку изображений&lt;/b&gt;&lt;br/&gt;Запрещает загрузку клиентом изображений, вставленных в сообщения чата с помощью тега img.</translation>
+        <translation>&lt;b&gt;Выключить загрузку изображений&lt;/b&gt;&lt;br/&gt;Запрещает загрузку клиентом изображений, вставленных в сообщения чата с помощью тега img.</translation>
     </message>
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation>Отключить загрузку изображений</translation>
+        <translation>Выключить загрузку изображений</translation>
     </message>
     <message>
         <location/>
@@ -6240,7 +6240,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>Загружать обновления плагинов и замещения при запуске</translation>
+        <translation>Загружать обновления плагинов и табло при запуске</translation>
     </message>
 </context>
 <context>
@@ -6278,7 +6278,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.cpp" line="+104"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation>Не возможно соединиться с замещением на %2: %1. Замещение не будет доступно.</translation>
+        <translation>Невозможно соединиться с табло на %2: %1. Табло будет недоступно.</translation>
     </message>
 </context>
 <context>
@@ -6296,7 +6296,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished">Разговор и постактив</translation>
+        <translation>Общаются и активны</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6316,7 +6316,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished">Настройка постактивного времени (%1 секунд)...</translation>
+        <translation>Настройка постактивного времени (%1 секунд)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6326,17 +6326,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished">Сортировка</translation>
+        <translation>Сортировка</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished">По алфавиту</translation>
+        <translation>По алфавиту</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished">Последнее изменение состояния</translation>
+        <translation>Последнее изменение состояния</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6351,12 +6351,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished">Настройка постактивного времени</translation>
+        <translation>Настройка постактивного времени</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished">Количество секунд, которое пользователи остаются активными после разговора:</translation>
+        <translation>Количество секунд, которое пользователи остаются активными после разговора:</translation>
     </message>
 </context>
 <context>
@@ -6369,12 +6369,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>Включить Замещение</translation>
+        <translation>Включить табло</translation>
     </message>
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation>Включить замещение.</translation>
+        <translation>Включить табло.</translation>
     </message>
     <message>
         <location filename="OverlayConfig.cpp" line="+80"/>
@@ -6396,7 +6396,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+223"/>
         <source>Overlay</source>
-        <translation>Замещение</translation>
+        <translation>Табло</translation>
     </message>
     <message>
         <location line="+75"/>
@@ -6411,24 +6411,24 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+87"/>
         <source>Load Overlay Presets</source>
-        <translation>Загрузить предустановки Замещения</translation>
+        <translation>Загрузить предустановки табло</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation>Предустановки Замещения Mumble (*.mumblelay)</translation>
+        <translation>Предустановки табло Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation>Сохранить предустановки Замещения</translation>
+        <translation>Сохранить предустановки табло</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Здесь можно включить или отключить Замещение. При включенном Замещении Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или Вы отключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение (игру) для включения или отключения Замещения.</translation>
+        <translation>Включает или выключает табло. При включенном табло Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или Вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения табло.</translation>
     </message>
     <message>
         <location/>
@@ -6458,50 +6458,50 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation>Удалить Замещение</translation>
+        <translation>Удалить табло</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation>Установка Замещения</translation>
+        <translation>Установка табло</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>Mumble обнаружил, что поддержка Замещения не установлена.
+        <translation>Mumble обнаружил, что поддержка табло не установлена.
 
-Нажмите на кнопку, чтобы установить Замещение.</translation>
+Нажмите на кнопку, чтобы установить табло.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation>Установить Замещение Mumble</translation>
+        <translation>Установить табло Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation>Обновление Замещения</translation>
+        <translation>Обновление табло</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>Mumble обнаружил старую версию Замещения.
+        <translation>Mumble обнаружил старую версию табло.
 
 Чтобы обновить эти файлы до их последних версий, нажмите на кнопку.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation>Обновить Замещение Mumble</translation>
+        <translation>Обновить табло Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation>Показывать FPS в замещении</translation>
+        <translation>Показывать FPS в табло</translation>
     </message>
     <message>
         <location/>
@@ -6511,7 +6511,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation>Загрузить предустановки Замещения из файла</translation>
+        <translation>Загрузить предустановки табло из файла</translation>
     </message>
     <message utf8="true">
         <location/>
@@ -6521,7 +6521,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation>Сохранить Ваши настройки Замещения в файл</translation>
+        <translation>Сохранить настройки табло в файл</translation>
     </message>
     <message utf8="true">
         <location/>
@@ -6536,7 +6536,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation>Установить шрифт в Замещении.</translation>
+        <translation>Установить шрифт в табло.</translation>
     </message>
     <message>
         <location/>
@@ -6546,7 +6546,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation>Установить цвет текста в Замещении.</translation>
+        <translation>Установить цвет текста в табло.</translation>
     </message>
     <message>
         <location/>
@@ -6561,17 +6561,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished">К списку исключений, используйте</translation>
+        <translation>Отобразить исключения</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished">Показывать замещение во всех соответствующих программах, кроме</translation>
+        <translation>Показывать табло во всех соответствующих программах, кроме</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished">Показывать замещение только в</translation>
+        <translation>Показывать табло только в</translation>
     </message>
 </context>
 <context>
@@ -6669,12 +6669,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Наложено онемение или заглушен</translation>
+        <translation>Выключензвук или микрофон</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation>Наложено онемение</translation>
+        <translation>Выключен микрофон</translation>
     </message>
     <message>
         <location/>
@@ -6689,7 +6689,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation>Редактор Замещения</translation>
+        <translation>Редактор табло</translation>
     </message>
 </context>
 <context>
@@ -6819,7 +6819,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Ошибка при загрузке библиотеки Замещения. Это означает:
+        <translation>Ошибка при загрузке библиотеки табло. Это означает, что:
 - либо библиотека (mumble_ol.dll) не была найдена в рабочем каталоге Mumble
 - либо Ваша операционная система старее, чем WinXP SP2</translation>
     </message>
@@ -7504,22 +7504,22 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished">%1 (%2)</translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished">Поддерживается</translation>
+        <translation>Поддерживается</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished">Не поддерживается</translation>
+        <translation>Не поддерживается</translation>
     </message>
     <message>
         <location line="-119"/>
         <source>Not Reported</source>
-        <translation type="unfinished">Неизвестно</translation>
+        <translation>Неизвестно</translation>
     </message>
     <message>
         <location line="+160"/>
@@ -7551,7 +7551,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished">Отклонение</translation>
+        <translation>Отклонение</translation>
     </message>
 </context>
 <context>
@@ -7620,32 +7620,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>Нем (вручную, сам себя)</translation>
+        <translation>Микрофон выключен (вручную, сам)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>Нем (вручную, администратором)</translation>
+        <translation>Микрофон выключен (вручную, администратором)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Нем (не имеет права говорить в текущем канале)</translation>
+        <translation>Микрофон выключен (не имеет права говорить в текущем канале)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Нем (Вами, только для вашего компьютера)</translation>
+        <translation>Микрофон выключен (Вами, только для вашего компьютера)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation>Заглушен (сам себя)</translation>
+        <translation>Звук выключен (собой)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation>Заглушен (администратором)</translation>
+        <translation>Звук выкл (администратором)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7660,7 +7660,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished">Игнорировать текстовые сообщения</translation>
+        <translation>Игнорируются текстовые сообщения</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8032,12 +8032,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished">Окно кнопки передачи речи</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished">Кнопка передачи речи</translation>
+        <translation>Говорить</translation>
     </message>
 </context>
 </TS>
