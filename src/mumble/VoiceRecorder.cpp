@@ -42,12 +42,12 @@
 #include "../Timer.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(
-        const ClientUser *cu,
+        int userIndex,
         boost::shared_array<float> buffer,
         int samples,
         quint64 absoluteStartSample)
 
-    : cuUser(cu)
+    : recordInfoIndex(userIndex)
     , fBuffer(buffer)
     , iSamples(samples)
     , absoluteStartSample(absoluteStartSample) {
@@ -55,8 +55,9 @@ VoiceRecorder::RecordBuffer::RecordBuffer(
 	// Nothing
 }
 
-VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample)
-    : sf(NULL)
+VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample, const QString& userName)
+    : userName(userName)
+    , sf(NULL)
     , lastWrittenAbsoluteSample(lastWrittenAbsoluteSample) {
 }
 
@@ -121,16 +122,11 @@ QString VoiceRecorder::sanitizeFilenameOrPathComponent(const QString &str) const
 	return res;
 }
 
-QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const {
+QString VoiceRecorder::expandTemplateVariables(const QString &path, const QString& userName) const {
 	// Split path into components
 	QString res;
 	QStringList comp = path.split(QLatin1Char('/'));
 	Q_ASSERT(!comp.isEmpty());
-
-	QString username(QLatin1String("Mixdown"));
-	// In mixdown mode |cuUser| is always NULL.
-	if (rb->cuUser)
-		username = rb->cuUser->qsName;
 
 	// Create a readable representation of the start date.
 	QString date(qdtRecordingStart.date().toString(Qt::ISODate));
@@ -150,7 +146,7 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 	//		%time		Inserts the current time
 	//		%host		Inserts the hostname
 	QHash<const QString, QString> vars;
-	vars.insert(QLatin1String("user"), username);
+	vars.insert(QLatin1String("user"), userName);
 	vars.insert(QLatin1String("date"), date);
 	vars.insert(QLatin1String("time"), time);
 	vars.insert(QLatin1String("host"), hostname);
@@ -195,6 +191,12 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, boost::share
 		}
 	}
 	return res;
+}
+
+int VoiceRecorder::indexForUser(const ClientUser *clientUser) const {
+	Q_ASSERT(!bMixDown || clientUser == NULL);
+	
+	return (bMixDown) ? 0 : clientUser->uiSession;
 }
 
 void VoiceRecorder::run() {
@@ -272,15 +274,13 @@ void VoiceRecorder::run() {
 				QMutexLocker l(&qmBufferLock);
 				rb = qlRecordBuffer.takeFirst();
 			}
-
-			// Use 0 as the |index| if multi channel recording is disabled.
-			int index = bMixDown ? 0 : rb->cuUser->uiSession;
-			Q_ASSERT(qhRecordInfo.contains(index));
-
+			
 			// Create the file for this RecordInfo instance if it's not yet open.
-			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(index);
+			
+			Q_ASSERT(qhRecordInfo.contains(rb->recordInfoIndex));
+			boost::shared_ptr<RecordInfo> ri = qhRecordInfo.value(rb->recordInfoIndex);
 			if (ri->sf == NULL) {
-				QString filename = expandTemplateVariables(qsFileName, rb);
+				QString filename = expandTemplateVariables(qsFileName, ri->userName);
 
 				// Try to find a unique filename.
 				{
@@ -320,8 +320,7 @@ void VoiceRecorder::run() {
 				}
 
 				// Store the username in the title attribute of the file (if supported by the format).
-				if (rb->cuUser)
-					sf_set_string(ri->sf, SF_STR_TITLE, qPrintable(rb->cuUser->qsName));
+				sf_set_string(ri->sf, SF_STR_TITLE, qPrintable(ri->userName));
 			}
 
 			// Calculate the difference between the time of the current buffer and the time where we last wrote audio data for that user.
@@ -357,13 +356,16 @@ void VoiceRecorder::stop() {
 	qwcSleep.wakeAll();
 }
 
-void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount) {
-	Q_ASSERT(!bMixDown || cu == NULL);
+void VoiceRecorder::addBuffer(const ClientUser *clientUser, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount) {
+	Q_ASSERT(!bMixDown || clientUser == NULL);
 
 	// Create a new RecordInfo object if this is a new user.
-	int index = bMixDown ? 0 : cu->uiSession;
+	const int index = indexForUser(clientUser);
+	
 	if (!qhRecordInfo.contains(index)) {
-		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>(m_firstSampleAbsolute);
+		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>(
+		            m_firstSampleAbsolute, bMixDown ? QLatin1String("Mixdown")
+		                                            : clientUser->qsName);
 		
 		qhRecordInfo.insert(index, ri);
 	}
@@ -371,7 +373,7 @@ void VoiceRecorder::addBuffer(const ClientUser *cu, boost::shared_array<float> b
 	{
 		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&qmBufferLock);
-		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(cu, buffer, samples, absoluteSampleCount);
+		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(index, buffer, samples, absoluteSampleCount);
 		qlRecordBuffer << rb;
 	}
 

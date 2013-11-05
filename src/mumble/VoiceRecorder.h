@@ -81,13 +81,13 @@ class VoiceRecorder : public QThread {
 		// Stores information about a recording buffer.
 		struct RecordBuffer {
 			// Constructs a new RecordBuffer object.
-			explicit RecordBuffer(const ClientUser *cu,
-				                  boost::shared_array<float> buffer,
-				                  int samples,
-				                  quint64 absoluteStartSample);
+			RecordBuffer(int recordInfoIndex,
+			             boost::shared_array<float> buffer,
+			             int samples,
+			             quint64 absoluteStartSample);
 
-			// The user to which this buffer belongs.
-			const ClientUser *cuUser;
+			/// Hashmap index for the user
+			const int recordInfoIndex;
 
 			// The buffer.
 			boost::shared_array<float> fBuffer;
@@ -101,14 +101,18 @@ class VoiceRecorder : public QThread {
 
 		// Keep the recording state for one user.
 		struct RecordInfo {
-			explicit RecordInfo(quint64 lastWrittenAbsoluteSample);
+			RecordInfo(quint64 lastWrittenAbsoluteSample, const QString& userName);
 			~RecordInfo();
 
-			// libsndfile's handle.
+			/// Name of the user being recorded
+			const QString userName;
+			
+			/// libsndfile's handle.
 			SNDFILE *sf;
 
 			/// The last absolute sample we wrote for this users
 			quint64 lastWrittenAbsoluteSample;
+			
 		};
 
 		// Hash which maps the |uiSession| of all users for which we have to keep a recording state to the corresponding RecordInfo object.
@@ -154,9 +158,12 @@ class VoiceRecorder : public QThread {
 		// Removes invalid characters in a path component.
 		QString sanitizeFilenameOrPathComponent(const QString &str) const;
 
-		// Expands the template variables in |path| using the information contained in |rb|.
-		QString expandTemplateVariables(const QString &path, boost::shared_ptr<RecordBuffer> rb) const;
+		/// Expands the template variables in |path| for the given |userName|.
+		QString expandTemplateVariables(const QString &path, const QString& userName) const;
 
+		/// Returns the RecordInfo hashmap index for the given user
+		int indexForUser(const ClientUser *clientUser) const;
+		
 	public:
 		// Error enum
 		enum Error { Unspecified, CreateDirectoryFailed, CreateFileFailed, InvalidSampleRate };
@@ -173,7 +180,7 @@ class VoiceRecorder : public QThread {
 
 		/// Adds an audio buffer which contains |samples| audio samples to the recorder.
 		/// The audio data will be aligned using the given |absoluteSampleCount|
-		void addBuffer(const ClientUser *cu, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount);
+		void addBuffer(const ClientUser *clientUser, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount);
 
 		// Sets the sample rate of the recorder. The sample rate can't change while the recoder is active.
 		void setSampleRate(int sampleRate);
