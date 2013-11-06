@@ -103,9 +103,9 @@ class AudioOutput : public QThread {
 		float *fSpeakerVolume;
 		bool *bSpeakerPositional;
 		/// Total number of samples mixed by this thread
-		quint64 mixedSampleCount;
+		quint64 m_mixedSampleCount;
 		/// Locked while mixing to protect mixedSampleCount
-		mutable QMutex mixingMutex;
+		mutable QMutex m_mixingMutex;
 	protected:
 		enum { SampleShort, SampleFloat } eSampleFormat;
 		volatile bool bRunning;

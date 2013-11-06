@@ -42,23 +42,23 @@
 #include "../Timer.h"
 
 VoiceRecorder::RecordBuffer::RecordBuffer(
-        int userIndex,
-        boost::shared_array<float> buffer,
-        int samples,
-        quint64 absoluteStartSample)
+		int recordInfoIndex_,
+		boost::shared_array<float> buffer_,
+		int samples_,
+		quint64 absoluteStartSample_)
 
-    : recordInfoIndex(userIndex)
-    , buffer(buffer)
-    , samples(samples)
-    , absoluteStartSample(absoluteStartSample) {
+	: recordInfoIndex(recordInfoIndex_)
+    , buffer(buffer_)
+    , samples(samples_)
+    , absoluteStartSample(absoluteStartSample_) {
 	
 	// Nothing
 }
 
-VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample, const QString& userName)
-    : userName(userName)
+VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample_, const QString& userName_)
+    : userName(userName_)
     , soundFile(NULL)
-    , lastWrittenAbsoluteSample(lastWrittenAbsoluteSample) {
+    , lastWrittenAbsoluteSample(lastWrittenAbsoluteSample_) {
 }
 
 VoiceRecorder::RecordInfo::~RecordInfo() {
@@ -68,14 +68,13 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 	}
 }
 
-VoiceRecorder::VoiceRecorder(QObject *parent)
-    : QThread(parent)
+VoiceRecorder::VoiceRecorder(QObject *parent_, const Config& config)
+    : QThread(parent_)
     , m_recordUser(new RecordUser())
     , m_timestamp(new Timer())
-    , m_sampleRate(0)
+	, m_config(config)
     , m_recording(false)
-    , m_mixDownMode(false)
-    , m_recordingFormat(VoiceRecorderFormat::WAV)
+    , m_abort(false)
     , m_recordingStartTime(QDateTime::currentDateTime()) {
 	
 	// Nothing
@@ -194,60 +193,116 @@ QString VoiceRecorder::expandTemplateVariables(const QString &path, const QStrin
 }
 
 int VoiceRecorder::indexForUser(const ClientUser *clientUser) const {
-	Q_ASSERT(!m_mixDownMode || clientUser == NULL);
+	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
 	
-	return (m_mixDownMode) ? 0 : clientUser->uiSession;
+	return (m_config.mixDownMode) ? 0 : clientUser->uiSession;
 }
 
 SF_INFO VoiceRecorder::createSoundFileInfo() const {
-	Q_ASSERT(m_sampleRate != 0);
+	Q_ASSERT(m_config.sampleRate != 0);
 
 	// Convert |fmFormat| to a SF_INFO structure for libsndfile.
 	SF_INFO sfinfo;
-	switch (m_recordingFormat) {
+	switch (m_config.recordingFormat) {
 		case VoiceRecorderFormat::WAV:
 		default:
 			sfinfo.frames = 0;
-			sfinfo.samplerate = m_sampleRate;
+			sfinfo.samplerate = m_config.sampleRate;
 			sfinfo.channels = 1;
 			sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_PCM_24;
 			sfinfo.sections = 0;
 			sfinfo.seekable = 0;
-			qWarning() << "VoiceRecorder: recording started to" << m_fileName << "@" << m_sampleRate << "hz in WAV format";
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate << "hz in WAV format";
 			break;
 #ifndef NO_VORBIS_RECORDING
 		case VoiceRecorderFormat::VORBIS:
 			sfinfo.frames = 0;
-			sfinfo.samplerate = m_sampleRate;
+			sfinfo.samplerate = m_config.sampleRate;
 			sfinfo.channels = 1;
 			sfinfo.format = SF_FORMAT_OGG | SF_FORMAT_VORBIS;
 			sfinfo.sections = 0;
 			sfinfo.seekable = 0;
-			qWarning() << "VoiceRecorder: recording started to" << m_fileName << "@" << m_sampleRate << "hz in OGG/Vorbis format";
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate << "hz in OGG/Vorbis format";
 			break;
 #endif
 		case VoiceRecorderFormat::AU:
 			sfinfo.frames = 0;
-			sfinfo.samplerate = m_sampleRate;
+			sfinfo.samplerate = m_config.sampleRate;
 			sfinfo.channels = 1;
 			sfinfo.format = SF_ENDIAN_CPU | SF_FORMAT_AU | SF_FORMAT_FLOAT;
 			sfinfo.sections = 0;
 			sfinfo.seekable = 0;
-			qWarning() << "VoiceRecorder: recording started to" << m_fileName << "@" << m_sampleRate << "hz in AU format";
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate << "hz in AU format";
 			break;
 		case VoiceRecorderFormat::FLAC:
 			sfinfo.frames = 0;
-			sfinfo.samplerate = m_sampleRate;
+			sfinfo.samplerate = m_config.sampleRate;
 			sfinfo.channels = 1;
 			sfinfo.format = SF_FORMAT_FLAC | SF_FORMAT_PCM_24;
 			sfinfo.sections = 0;
 			sfinfo.seekable = 0;
-			qWarning() << "VoiceRecorder: recording started to" << m_fileName << "@" << m_sampleRate << "hz in FLAC format";
+			qWarning() << "VoiceRecorder: recording started to" << m_config.fileName << "@" << m_config.sampleRate << "hz in FLAC format";
 			break;
 	}
 
 	Q_ASSERT(sf_format_check(&sfinfo));
 	return sfinfo;
+}
+
+bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_ptr<RecordInfo>& ri) {
+	if (ri->soundFile != NULL) {
+		// Nothing to do
+		return true;
+	}
+	
+	QString filename = expandTemplateVariables(m_config.fileName, ri->userName);
+
+	// Try to find a unique filename.
+	{
+		int cnt = 1;
+		QString nf(filename);
+		QFileInfo tfi(filename);
+		while (QFile::exists(nf)) {
+			nf = tfi.path()
+			        + QLatin1Char('/')
+			        + tfi.completeBaseName()
+			        + QString(QLatin1String(" (%1).")).arg(cnt)
+			        +  tfi.suffix();
+			
+			++cnt;
+		}
+		filename = nf;
+	}
+	qWarning() << "Recorder opens file" << filename;
+	QFileInfo fi(filename);
+
+	// Create the target path.
+	if (!QDir().mkpath(fi.absolutePath())) {
+		qWarning() << "Failed to create target directory: " << fi.absolutePath();
+		m_recording = false;
+		emit error(CreateDirectoryFailed, tr("Recorder failed to create directory '%1'").arg(fi.absolutePath()));
+		emit recording_stopped();
+		return false;
+	}
+
+#ifdef Q_OS_WIN
+	// This is needed for unicode filenames on Windows.
+	ri->soundFile = sf_wchar_open(filename.toStdWString().c_str(), SFM_WRITE, &soundFileInfo);
+#else
+	ri->soundFile = sf_open(qPrintable(filename), SFM_WRITE, &soundFileInfo);
+#endif
+	if (ri->soundFile == NULL) {
+		qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
+		m_recording = false;
+		emit error(CreateFileFailed, tr("Recorder failed to open file '%1'").arg(filename));
+		emit recording_stopped();
+		return false;
+	}
+
+	// Store the username in the title attribute of the file (if supported by the format).
+	sf_set_string(ri->soundFile, SF_STR_TITLE, qPrintable(ri->userName));
+
+	return true;
 }
 
 void VoiceRecorder::run() {
@@ -260,17 +315,18 @@ void VoiceRecorder::run() {
 	
 	m_recording = true;
 	emit recording_started();
+	
 	forever {
 		// Sleep until there is new data for us to process.
 		m_sleepLock.lock();
 		m_sleepCondition.wait(&m_sleepLock);
 
-		if (!m_recording || (g.sh && g.sh->uiVersion < 0201003)) {
+		if (!m_recording || m_abort || (g.sh && g.sh->uiVersion < 0201003)) {
 			m_sleepLock.unlock();
 			break;
 		}
 
-		while (!m_recordBuffer.isEmpty()) {
+		while (!m_abort && !m_recordBuffer.isEmpty()) {
 			boost::shared_ptr<RecordBuffer> rb;
 			{
 				QMutexLocker l(&m_bufferLock);
@@ -281,68 +337,40 @@ void VoiceRecorder::run() {
 			
 			Q_ASSERT(m_recordInfo.contains(rb->recordInfoIndex));
 			boost::shared_ptr<RecordInfo> ri = m_recordInfo.value(rb->recordInfoIndex);
-			if (ri->soundFile == NULL) {
-				QString filename = expandTemplateVariables(m_fileName, ri->userName);
-
-				// Try to find a unique filename.
-				{
-					int cnt = 1;
-					QString nf(filename);
-					QFileInfo tfi(filename);
-					while (QFile::exists(nf)) {
-						nf = tfi.path()
-						        + QLatin1Char('/')
-						        + tfi.completeBaseName()
-						        + QString(QLatin1String(" (%1).")).arg(cnt)
-						        +  tfi.suffix();
-						
-						++cnt;
-					}
-					filename = nf;
-				}
-				qWarning() << "Recorder opens file" << filename;
-				QFileInfo fi(filename);
-
-				// Create the target path.
-				if (!QDir().mkpath(fi.absolutePath())) {
-					qWarning() << "Failed to create target directory: " << fi.absolutePath();
-					m_recording = false;
-					emit error(CreateDirectoryFailed, tr("Recorder failed to create directory '%1'").arg(fi.absolutePath()));
-					emit recording_stopped();
-					return;
-				}
-
-#ifdef Q_OS_WIN
-				// This is needed for unicode filenames on Windows.
-				ri->soundFile = sf_wchar_open(filename.toStdWString().c_str(), SFM_WRITE, &soundFileInfo);
-#else
-				ri->soundFile = sf_open(qPrintable(filename), SFM_WRITE, &soundFileInfo);
-#endif
-				if (ri->soundFile == NULL) {
-					qWarning() << "Failed to open file for recorder: "<< sf_strerror(NULL);
-					m_recording = false;
-					emit error(CreateFileFailed, tr("Recorder failed to open file '%1'").arg(filename));
-					emit recording_stopped();
-					return;
-				}
-
-				// Store the username in the title attribute of the file (if supported by the format).
-				sf_set_string(ri->soundFile, SF_STR_TITLE, qPrintable(ri->userName));
+			
+			if (!ensureFileIsOpenedFor(soundFileInfo, ri)) {
+				return;
 			}
 
 			// Calculate the difference between the time of the current buffer and the time where we last wrote audio data for that user.
-			// Writes silence for all the missing samples.
+			// Writes silence for up to maxSamplesPerIteration samples.
 			const qint64 missingSamples = rb->absoluteStartSample - ri->lastWrittenAbsoluteSample;
+			Q_ASSERT(missingSamples >= 0);
+			
 			if (missingSamples > 0) {
+				static const qint64 maxSamplesPerIteration = m_config.sampleRate * 1; // 1s
+				
+				const bool requeue = missingSamples > maxSamplesPerIteration;
+				
 				// Write |missingSamples| samples of silence.
 				const float buffer[1024] = {};
 				
-				qint64 rest = missingSamples;
+				const qint64 silenceToWrite = std::min(missingSamples, maxSamplesPerIteration);
+				qint64 rest = silenceToWrite;
+				
 				for (; rest > 1024; rest -= 1024)
 					sf_write_float(ri->soundFile, buffer, 1024);
 
 				if (rest > 0)
 					sf_write_float(ri->soundFile, buffer, rest);
+				
+				if (requeue) {
+					ri->lastWrittenAbsoluteSample += silenceToWrite;
+					// Requeue the writing for this buffer to keep thread responsive
+					QMutexLocker l(&m_bufferLock);
+					m_recordBuffer << rb;
+					continue;
+				}
 			}
 
 			// Write the audio buffer and update the timestamp in |ri|.
@@ -352,14 +380,23 @@ void VoiceRecorder::run() {
 
 		m_sleepLock.unlock();
 	}
+	
 	m_recording = false;
+	{
+		QMutexLocker l(&m_bufferLock);
+		m_recordInfo.clear();
+		m_recordBuffer.clear();
+	}
+	
 	emit recording_stopped();
 	qWarning() << "VoiceRecorder: recording stopped";
 }
 
-void VoiceRecorder::stop() {
+void VoiceRecorder::stop(bool force) {
 	// Tell the main loop to terminate and wake up the sleep lock.
 	m_recording = false;
+	m_abort = force;
+	
 	m_sleepCondition.wakeAll();
 }
 
@@ -368,15 +405,16 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
                               int samples,
                               quint64 absoluteSampleCount) {
 	
-	Q_ASSERT(!m_mixDownMode || clientUser == NULL);
+	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
 
 	// Create a new RecordInfo object if this is a new user.
 	const int index = indexForUser(clientUser);
 	
 	if (!m_recordInfo.contains(index)) {
 		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>(
-		            m_firstSampleAbsolute, m_mixDownMode ? QLatin1String("Mixdown")
-		                                            : clientUser->qsName);
+		            m_config.firstSampleAbsolute,
+		            m_config.mixDownMode ? QLatin1String("Mixdown")
+		                                 : clientUser->qsName);
 		
 		m_recordInfo.insert(index, ri);
 	}
@@ -394,37 +432,6 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
 	m_sleepCondition.wakeAll();
 }
 
-void VoiceRecorder::setSampleRate(int sampleRate) {
-	Q_ASSERT(!m_recording);
-
-	m_sampleRate = sampleRate;
-}
-
-void VoiceRecorder::setFirstSampleAbsolute(quint64 firstSampleAbsolute) {
-	Q_ASSERT(!m_recording);
-	
-	m_firstSampleAbsolute = firstSampleAbsolute;
-}
-
-int VoiceRecorder::getSampleRate() const {
-	return m_sampleRate;
-}
-
-void VoiceRecorder::setFileName(QString fn) {
-	Q_ASSERT(!m_recording);
-	m_fileName = QDir::fromNativeSeparators(fn);
-}
-
-void VoiceRecorder::setMixDown(bool mixDown) {
-	Q_ASSERT(!m_recording);
-
-	m_mixDownMode = mixDown;
-}
-
-bool VoiceRecorder::getMixDown() const {
-	return m_mixDownMode;
-}
-
 quint64 VoiceRecorder::getElapsedTime() const {
 	return m_timestamp->elapsed();
 }
@@ -433,13 +440,8 @@ RecordUser &VoiceRecorder::getRecordUser() const {
 	return *m_recordUser;
 }
 
-void VoiceRecorder::setFormat(VoiceRecorderFormat::Format fm) {
-	Q_ASSERT(!m_recording);
-	m_recordingFormat = fm;
-}
-
-VoiceRecorderFormat::Format VoiceRecorder::getFormat() const {
-	return m_recordingFormat;
+bool VoiceRecorder::isInMixDownMode() const {
+	return m_config.mixDownMode;
 }
 
 QString VoiceRecorderFormat::getFormatDescription(VoiceRecorderFormat::Format fm) {

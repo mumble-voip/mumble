@@ -80,6 +80,8 @@
 #include <boost/typeof/typeof.hpp>
 #include <boost/weak_ptr.hpp>
 
+#include <algorithm>
+
 #ifdef Q_OS_WIN
 // Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).
 // This causes Windows headers that use COM interfaces to break. Internally, it's

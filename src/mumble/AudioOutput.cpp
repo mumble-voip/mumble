@@ -105,8 +105,8 @@ AudioOutput::AudioOutput()
     , fSpeakerVolume(NULL)
     , bSpeakerPositional(NULL)
     
-    , mixedSampleCount(0)
-    , mixingMutex()
+    , m_mixedSampleCount(0)
+    , m_mixingMutex()
     , eSampleFormat(SampleFloat)
     
     , bRunning(true)
@@ -364,17 +364,17 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
-	QMutexLocker mixingMutexLocker(&mixingMutex);
+	QMutexLocker mixingMutexLocker(&m_mixingMutex);
 	
 	QList<AudioOutputUser *> qlMix;
 	QList<AudioOutputUser *> qlDel;
 	
 	if (g.s.fVolume < 0.01f) {
-		mixedSampleCount += nsamp;
+		m_mixedSampleCount += nsamp;
 		return false;
 	}
 
-	const float adjustFactor = std::pow(10, -18.f / 20);
+	const float adjustFactor = std::pow(10.f , -18.f / 20);
 	const float mul = g.s.fVolume;
 	const unsigned int nchan = iChannels;
 	ServerHandlerPtr sh = g.sh;
@@ -512,9 +512,9 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 						recbuff[i] += pfBuffer[i] * volumeAdjustment;
 					}
 
-					if (!recorder->getMixDown()) {
+					if (!recorder->isInMixDownMode()) {
 						if (aos) {
-							recorder->addBuffer(aos->p, recbuff, nsamp, mixedSampleCount);
+							recorder->addBuffer(aos->p, recbuff, nsamp, m_mixedSampleCount);
 						} else {
 							// this should be unreachable
 							Q_ASSERT(false);
@@ -571,8 +571,8 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			}
 		}
 
-		if (recorder && recorder->getMixDown()) {
-			recorder->addBuffer(NULL, recbuff, nsamp, mixedSampleCount);
+		if (recorder && recorder->isInMixDownMode()) {
+			recorder->addBuffer(NULL, recbuff, nsamp, m_mixedSampleCount);
 		}
 
 		// Clip
@@ -589,7 +589,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
 	
-	mixedSampleCount += nsamp;
+	m_mixedSampleCount += nsamp;
 	
 	return (! qlMix.isEmpty());
 }
@@ -603,6 +603,6 @@ unsigned int AudioOutput::getMixerFreq() const {
 }
 
 quint64 AudioOutput::getMixedSampleCount() const {
-	QMutexLocker mixingMutexLocker(&mixingMutex);
-	return mixedSampleCount;
+	QMutexLocker mixingMutexLocker(&m_mixingMutex);
+	return m_mixedSampleCount;
 }
