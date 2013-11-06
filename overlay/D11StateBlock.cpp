@@ -30,21 +30,34 @@
 
 #include "D11StateBlock.h"
 
-HRESULT __stdcall D11StateBlock::QueryInterface(REFIID, LPVOID *)
+HRESULT __stdcall D11StateBlock::QueryInterface(REFIID riid, LPVOID * ppvObject)
 {
-	return 0;
+	if (ppvObject == NULL)
+		return E_POINTER;
+	*ppvObject = NULL;
+	if (riid == IID_IUnknown)
+	{
+		*ppvObject = (LPVOID)this;
+		AddRef();
+		return NOERROR;
+	}
+	return E_NOINTERFACE;
 }
 
 ULONG __stdcall D11StateBlock::AddRef()
 {
-	this->uiRefcount++;
-	return 0;
+	InterlockedIncrement(&uiRefcount);
+	return uiRefcount;
 }
 
 ULONG __stdcall D11StateBlock::Release()
 {
-	this->uiRefcount--;
-	return 0;
+	ULONG ulRefCount = InterlockedDecrement(&uiRefcount);
+	if (uiRefcount == 0)
+	{
+		delete this;
+	}
+	return ulRefCount;
 }
 
 void D11StateBlock::Capture()
@@ -110,7 +123,7 @@ void D11StateBlock::GetDeviceContext(ID3D11DeviceContext **ppDC)
 }
 
 D11StateBlock::D11StateBlock(ID3D11DeviceContext *pDC)
-	: pRasterizerState(0), uiSampleMask(0), uiRefcount(0)
+	: pRasterizerState(0), uiSampleMask(0), uiRefcount(1)
 	, Format(DXGI_FORMAT_UNKNOWN), Topology(D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED)
 	, pBlendState(0), pIndexBuffer(0), pInputLayout(0), uiOffset(0)
 	, pDepthStencilView(0) {
