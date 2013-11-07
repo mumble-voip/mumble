@@ -37,10 +37,9 @@
 #include <d3dx10math.h>
 #include <d3dx11.h>
 
-class D11StateBlock : protected IUnknown {
+class D11StateBlock {
 	private:
 		ID3D11DeviceContext *pDeviceContext;
-		ULONG uiRefcount;
 
 		ID3D11RasterizerState *pRasterizerState;
 		UINT uiNumViewports;
@@ -66,10 +65,6 @@ class D11StateBlock : protected IUnknown {
 		UINT uiOffsets[D3D11_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT];
 
 	public:
-		STDMETHOD(QueryInterface)(REFIID, LPVOID *);
-		STDMETHOD_(ULONG, AddRef)();
-		STDMETHOD_(ULONG, Release)();
-
 		void Capture();
 		void Apply();
 		void ReleaseObjects();
