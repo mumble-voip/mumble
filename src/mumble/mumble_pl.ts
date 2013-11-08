@@ -683,11 +683,11 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 &lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Polskie tłumaczenie:&lt;/b&gt;
 &lt;br /&gt;Michał Żukowski&lt;br /&gt;
-e-mail: &lt;a href=&quot;mailto:zuczeq@gmail.com?subject=Tłumaczenie Mumble v1.2.4&quot;&gt;zuczeq(malpka)gmail.com&lt;/a&gt;&lt;br /&gt;
+e-mail: &lt;a href=&quot;mailto:mumble@zuko.pl?subject=Tłumaczenie Mumble v1.2.5&quot;&gt;mumble(malpka)zuko.pl&lt;/a&gt;&lt;br /&gt;
 &lt;br /&gt;Bartek Sumowski&lt;br /&gt;
-e-mail: &lt;a href=&quot;mailto:bartek@sumowski.com?subject=Tłumaczenie Mumble v1.2.4&quot;&gt;info(malpka)sumple.pl&lt;/a&gt;&lt;br /&gt;
+e-mail: &lt;a href=&quot;mailto:info@sumple.pl?subject=Tłumaczenie Mumble v1.2.5&quot;&gt;info(malpka)sumple.pl&lt;/a&gt;&lt;br /&gt;
 &lt;br /&gt;Jakub M.&lt;br /&gt;
-e-mail: &lt;a href=&quot;mailto:trawa@terribus.pl?subject=Tłumaczenie Mumble v1.2.4&quot;&gt;trawa(malpka)terribus.pl&lt;/a&gt;&lt;br /&gt;
+e-mail: &lt;a href=&quot;mailto:trawa@terribus.pl?subject=Tłumaczenie Mumble v1.2.5&quot;&gt;trawa(malpka)terribus.pl&lt;/a&gt;&lt;br /&gt;
 &lt;/p&gt;
 &lt;p&gt;Błędy oraz sugestie odnośnie tłumaczenia prosimy zgłaszać na email tłumaczy.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Najlepszy komunikator głosowy dla graczy ;-)&lt;/b&gt;&lt;/p&gt;
@@ -1460,7 +1460,7 @@ e-mail: &lt;a href=&quot;mailto:trawa@terribus.pl?subject=Tłumaczenie Mumble v1
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Wyłaczność</translation>
+        <translation>Wyłączność</translation>
     </message>
 </context>
 <context>
@@ -4249,7 +4249,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <location filename="MainWindow.cpp" line="+182"/>
         <location line="+2150"/>
         <source>Root</source>
-        <translation>Źródło</translation>
+        <translation>Root</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5509,7 +5509,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;OSTRZEŻENIE:&lt;/b&gt; Ten serwer posiada obecnie inny certyfikat niż ten, który masz zachowany u siebie.</translation>
+        <translation>&lt;b&gt;OSTRZEŻENIE:&lt;/b&gt; Ten serwer posiada obecnie inny certyfikat niż ten, który został zapisany poprzednio.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5973,17 +5973,17 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista &amp;banów</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj listę banów na serwerze</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pozwala na edycję banów po stronie serwera.</translation>
     </message>
 </context>
 <context>
