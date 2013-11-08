@@ -201,6 +201,9 @@ int VoiceRecorder::indexForUser(const ClientUser *clientUser) const {
 SF_INFO VoiceRecorder::createSoundFileInfo() const {
 	Q_ASSERT(m_config.sampleRate != 0);
 
+	// When adding new formats make sure to properly configure needed additional
+	// behavior after opening the file handle (e.g. to enable clipping).
+	
 	// Convert |fmFormat| to a SF_INFO structure for libsndfile.
 	SF_INFO sfinfo;
 	switch (m_config.recordingFormat) {
@@ -301,6 +304,13 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_
 
 	// Store the username in the title attribute of the file (if supported by the format).
 	sf_set_string(ri->soundFile, SF_STR_TITLE, qPrintable(ri->userName));
+	
+	// Enable hard-clipping for non-float formats to prevent wrapping
+	if (!(soundFileInfo.format & SF_FORMAT_FLOAT) &&
+	    !(soundFileInfo.format & SF_FORMAT_VORBIS)) {
+		
+		sf_command(ri->soundFile, SFC_SET_CLIPPING, NULL, SF_TRUE);
+	}
 
 	return true;
 }
