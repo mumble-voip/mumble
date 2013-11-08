@@ -54,6 +54,9 @@ qtSymbols = [
 	'QCoreApplication',
 	'QString',
 	'QBasicAtomicInt',
+	'QByteArray',
+	'QListData',
+	'QArrayData',
 
 	# QtGui/QtWidgets
 	'QGroupBox',
@@ -92,6 +95,8 @@ qtSymbols = [
 	'QMouseEvent',
 	'QRectF',
 	'QPointF',
+	'QWindow',
+	'QGuiApplication',
 ]
 
 def processExports(f, libs, symbols):
@@ -112,6 +117,9 @@ def processExports(f, libs, symbols):
 		m = symbol_re.match(line)
 		if m is not None:
 			mangled, matchedsym = m.groups()
+			# Qt5: avoid LNK1237
+			if 'innerFunction' in mangled:
+				continue
 			f.write(mangled + '\r\n')
 
 def main():
@@ -133,7 +141,7 @@ def main():
 	suffix = ''
 	if kind == 'debug':
 		suffix = 'd'
-	libs = ['QtCore', 'QtGui', 'QtWidgets']
+	libs = ['QtCore', 'QtGui', 'Qt5Core', 'Qt5Gui', 'Qt5Widgets']
 	libs = ['%s%s.lib' % (lib, suffix) for lib in libs]
 	abslibs = [os.path.join(qtLibDir, lib) for lib in libs]
 	abslibs = [lib for lib in abslibs if os.path.exists(lib)]

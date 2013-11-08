@@ -141,9 +141,9 @@ macx {
 
 		# Qt 5.1 and greater want short-form OS X SDKs.
 		isEqual(QT_MAJOR_VERSION, 5) {
-			QMAKE_MAC_SDK = macosx10.8
+			QMAKE_MAC_SDK = macosx
 		} else {
-			QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path)
 		}
 
 		QMAKE_CC = $$system(xcrun -find clang)

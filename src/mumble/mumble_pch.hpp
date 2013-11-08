@@ -85,7 +85,9 @@
 // This causes Windows headers that use COM interfaces to break. Internally, it's
 // just defined as 'struct', so we'll do that here as well to make things work again
 // without too much hassle.
+#ifndef interface
 #define interface struct
+#endif
 
 #include <windows.h>
 #include <shellapi.h>

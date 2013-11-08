@@ -51,28 +51,28 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	QLabel *l;
 
 	l = new QLabel(tr("Name"));
-	grid->addWidget(l, 0, 0, 1, 1, Qt::AlignRight);
+	grid->addWidget(l, 0, 0, 1, 1, Qt::AlignLeft);
 
 	qlSubjectName = new QLabel();
 	qlSubjectName->setWordWrap(true);
 	grid->addWidget(qlSubjectName, 0, 1, 1, 1);
 
 	l = new QLabel(tr("Email"));
-	grid->addWidget(l, 1, 0, 1, 1, Qt::AlignRight);
+	grid->addWidget(l, 1, 0, 1, 1, Qt::AlignLeft);
 
 	qlSubjectEmail = new QLabel();
 	qlSubjectEmail->setWordWrap(true);
 	grid->addWidget(qlSubjectEmail, 1, 1, 1, 1);
 
 	l = new QLabel(tr("Issuer"));
-	grid->addWidget(l, 2, 0, 1, 1, Qt::AlignRight);
+	grid->addWidget(l, 2, 0, 1, 1, Qt::AlignLeft);
 
 	qlIssuerName = new QLabel();
 	qlIssuerName->setWordWrap(true);
 	grid->addWidget(qlIssuerName, 2, 1, 1, 1);
 
 	l = new QLabel(tr("Expiry Date"));
-	grid->addWidget(l, 3, 0, 1, 1, Qt::AlignRight);
+	grid->addWidget(l, 3, 0, 1, 1, Qt::AlignLeft);
 
 	qlExpiry = new QLabel();
 	qlExpiry->setWordWrap(true);

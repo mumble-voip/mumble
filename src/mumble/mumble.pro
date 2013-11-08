@@ -15,6 +15,20 @@ CONFIG(static) {
     CONFIG -= static
     CONFIG += shared qt_static mumble_dll
     DEFINES += USE_MUMBLE_DLL QT_SHARED
+    isEqual(QT_MAJOR_VERSION, 5) {
+      # Qt 5 uses an auto-generated .cpp file for importing plugins.
+      # However, it is only automatically enabled for TEMPLATE = app.
+      # Since we're building mumble_app.dll, we're not an app, but a library.
+      # This means we'll have to explicitly ask Qt to generate and build the
+      # plugin importer.
+      CONFIG += force_import_plugins
+
+      # Pretend we're inside a Qt build to get the Qt headers to dllexport correctly.
+      # This is achievable in Qt 4 by defining QT_SHARED, but in Qt 5 we have to
+      # hack our way around it. Even QT_SHARED will give us dllimport unless Qt thinks
+      # it's doing a Qt build.
+      DEFINES += QT_BUILD_CORE_LIB QT_BUILD_GUI_LIB QT_BUILD_WIDGETS_LIB QT_BUILD_NETWORK_LIB QT_BUILD_XML_LIB QT_BUILD_SQL_LIB QT_BUILD_SVG_LIB
+    }
 
     DEF_FILE = $${DESTDIR}/$${TARGET}.def
 
@@ -43,19 +57,13 @@ CONFIG(static) {
 QT		*= network sql xml svg
 isEqual(QT_MAJOR_VERSION, 5) {
   QT *= widgets
-  win32 {
-    # On Windows, we use QPlatformNativeInterface
-    # to get access to HWNDs.
-    QT *= gui-private
-  }
-
-  # On OS X, we can't yet use Cocoa integration
-  # because we don't yet integrate with QtMacExtras.
-  CONFIG += no-cocoa
+  # Allow native widget access.
+  win32:QT *= gui-private
+  macx:QT *= gui-private
 }
 
-HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
+HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h UserListModel.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
+SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp UserListModel.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_flags.qrc
@@ -417,6 +425,12 @@ CONFIG(static_qt_plugins) {
     QTPLUGIN += qicnsicon
     isEqual(QT_MAJOR_VERSION, 5) {
       QTPLUGIN += qcocoa
+    }
+  }
+
+  win32 {
+    isEqual(QT_MAJOR_VERSION, 5) {
+      QTPLUGIN += qwindows
     }
   }
 

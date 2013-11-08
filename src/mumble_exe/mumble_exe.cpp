@@ -35,16 +35,19 @@
 
 #include <string>
 
-#define ENV_BUF_MAX 1024
-
 typedef int (*DLL_MAIN)(HINSTANCE, HINSTANCE, LPSTR, int);
 #ifdef DEBUG
 typedef int (*DLL_DEBUG_MAIN)(int, char **);
 #endif
 
+// Alert shows a fatal error dialog and waits for the user to click OK.
+static void Alert(LPCWSTR title, LPCWSTR msg) {
+	MessageBox(NULL, msg, title, MB_OK|MB_ICONERROR);
+}
+
 // GetExecutableDirPath returns the directory that
 // mumble.exe resides in.
-std::wstring GetExecutableDirPath() {
+static std::wstring GetExecutableDirPath() {
 	wchar_t path[MAX_PATH];
 
 	if (GetModuleFileNameW(NULL, path, MAX_PATH) == 0)
@@ -59,28 +62,12 @@ std::wstring GetExecutableDirPath() {
 
 // ConfigureEnvironment prepares mumble.exe's environment to
 // run mumble_app.dll.
-bool ConfigureEnvironment() {
+static bool ConfigureEnvironment() {
 	std::wstring exe_path = GetExecutableDirPath();
 
 	// Remove the current directory from the DLL search path.
 	if (!SetDllDirectoryW(L""))
 		return false;
-
-	// Insert mumble.exe's directory as the first entry in the PATH
-	// environment variable.
-	{
-		wchar_t path_env[ENV_BUF_MAX];
-		DWORD res = GetEnvironmentVariableW(L"PATH", path_env, ENV_BUF_MAX);
-		if (res == 0 || res >= ENV_BUF_MAX) {
-			return false;
-		}
-
-		std::wstring new_path(exe_path);
-		new_path.append(L"\\;");
-		new_path.append(path_env);
-		if (!SetEnvironmentVariableW(L"PATH", new_path.c_str()))
-			return false;
-	}
 
 	// Set mumble.exe's directory as the current working directory.
 	if (!SetCurrentDirectoryW(exe_path.c_str()))
@@ -92,7 +79,7 @@ bool ConfigureEnvironment() {
 // GetAbsoluteMumbleAppDllPath returns the absolute path to
 // mumble_app.dll - the DLL containing the Mumble client
 // application code.
-std::wstring GetAbsoluteMumbleAppDllPath() {
+static std::wstring GetAbsoluteMumbleAppDllPath() {
 	std::wstring exe_path = GetExecutableDirPath();
 	if (exe_path.empty())
 		return std::wstring();
@@ -105,20 +92,28 @@ std::wstring GetAbsoluteMumbleAppDllPath() {
 
 #ifdef DEBUG
 int main(int argc, char **argv) {
-	if (!ConfigureEnvironment())
+	if (!ConfigureEnvironment()) {
+		Alert(L"Mumble Launcher Error -1", L"Unable to configure environment.");
 		return -1;
+	}
 
 	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath();
-	if (abs_dll_path.empty())
+	if (abs_dll_path.empty()) {
+		Alert(L"Mumble Launcher Error -2", L"Unable to find the absolute path of mumble_app.dll.");
 		return -2;
+	}
 
 	HMODULE dll = LoadLibraryExW(abs_dll_path.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
-	if (!dll)
+	if (!dll) {
+		Alert(L"Mumble Launcher Error -3", L"Failed to load mumble_app.dll.");
 		return -3;
+	}
 
 	DLL_DEBUG_MAIN entry_point = reinterpret_cast<DLL_DEBUG_MAIN>(GetProcAddress(dll, "main"));
-	if (!entry_point)
+	if (!entry_point) {
+		Alert(L"Mumble Launcher Error -4", L"Unable to find expected entry point ('main') in mumble_app.dll.");
 		return -4;
+	}
 
 	int rc = entry_point(argc, argv);
 
@@ -127,20 +122,28 @@ int main(int argc, char **argv) {
 #endif  // DEBUG
 
 int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE prevInstance, wchar_t *cmdArg, int cmdShow) {
-	if (!ConfigureEnvironment())
+	if (!ConfigureEnvironment()) {
+		Alert(L"Mumble Launcher Error -1", L"Unable to configure environment.");
 		return -1;
+	}
 
 	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath();
-	if (abs_dll_path.empty())
+	if (abs_dll_path.empty()) {
+		Alert(L"Mumble Launcher Error -2", L"Unable to find the absolute path of mumble_app.dll.");
 		return -2;
+	}
 
 	HMODULE dll = LoadLibraryExW(abs_dll_path.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
-	if (!dll)
+	if (!dll) {
+		Alert(L"Mumble Launcher Error -3", L"Failed to load mumble_app.dll.");
 		return -3;
+	}
 
 	DLL_MAIN entry_point = reinterpret_cast<DLL_MAIN>(GetProcAddress(dll, "MumbleMain"));
-	if (!entry_point)
+	if (!entry_point) {
+		Alert(L"Mumble Launcher Error -4", L"Unable to find expected entry point ('MumbleMain') in mumble_app.dll.");
 		return -4;
+	}
 
 	(void) cmdArg;
 	int rc = entry_point(instance, prevInstance, NULL, cmdShow);

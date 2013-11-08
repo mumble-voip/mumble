@@ -167,10 +167,10 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	connect(qmChannel, SIGNAL(aboutToShow()), this, SLOT(qmChannel_aboutToShow()));
 	connect(qteChat, SIGNAL(entered(QString)), this, SLOT(sendChatbarMessage(QString)));
 
-	// Fix context of all actions.
-	QList<QAction *> qla = findChildren<QAction *>();
-	foreach(QAction *a, qla)
-		a->setShortcutContext(Qt::ApplicationShortcut);
+
+	// Explicitely add actions to mainwindow so their shortcuts are available
+	// if only the main window is visible (e.g. minimal mode)
+	addActions(findChildren<QAction*>());
 
 	on_qmServer_aboutToShow();
 	on_qmSelf_aboutToShow();
@@ -218,10 +218,6 @@ void MainWindow::createActions() {
 	gsJoinChannel->setObjectName(QLatin1String("MetaChannel"));
 	gsJoinChannel->qsToolTip = tr("Use in conjunction with Whisper to.", "Global Shortcut");
 
-	gsHideChannel=new GlobalShortcut(this, idx++, tr("Hide Channel when Filtering", "Global Shortcut"));
-	gsHideChannel->setObjectName(QLatin1String("HideChannel"));
-	gsHideChannel->qsToolTip = tr("Mark the channel to be hidden when Filtering is active. Use in conjunction with Whisper to.", "Global Shortcut");
-
 	gsToggleOverlay=new GlobalShortcut(this, idx++, tr("Toggle Overlay", "Global Shortcut"), false);
 	gsToggleOverlay->setObjectName(QLatin1String("ToggleOverlay"));
 	gsToggleOverlay->qsToolTip = tr("Toggle state of in-game overlay.", "Global Shortcut");
@@ -250,9 +246,6 @@ void MainWindow::createActions() {
 
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
-
-	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
-	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
 
 #ifndef Q_OS_MAC
 	qstiIcon->show();
@@ -1609,7 +1602,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	// hiding the root is nonsense
 	if(c && c->cParent) {
 		qmChannel->addSeparator();
-		qmChannel->addAction(qaChannelHide);
+		qmChannel->addAction(qaChannelFilter);
 	}
 
 #ifndef Q_OS_MAC
@@ -1653,7 +1646,7 @@ void MainWindow::qmChannel_aboutToShow() {
 	}
 
 	if(c)
-		qaChannelHide->setChecked(c->bHidden);
+		qaChannelFilter->setChecked(c->bFiltered);
 
 	qaChannelAdd->setEnabled(add);
 	qaChannelRemove->setEnabled(remove);
@@ -1673,14 +1666,12 @@ void MainWindow::on_qaChannelJoin_triggered() {
 	}
 }
 
-void MainWindow::on_qaChannelHide_triggered() {
+void MainWindow::on_qaChannelFilter_triggered() {
 	Channel *c = getContextMenuChannel();
 	
 	if (c) {
-		QByteArray ba = c->qsName.toLocal8Bit();		
-
 		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-		um->toggleHidden(c);
+		um->toggleChannelFiltered(c);
 	}
 }
 
@@ -1898,7 +1889,7 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
-	qaChannelHide->setEnabled(true);
+	qaChannelFilter->setEnabled(true);
 	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
@@ -1934,7 +1925,7 @@ void MainWindow::on_qaFilterToggle_triggered() {
 	g.s.bFilterActive = qaFilterToggle->isChecked();
 
 	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-	um->toggleHidden(NULL); // force a UI refresh
+	um->toggleChannelFiltered(NULL); // force a UI refresh
 }
 
 void MainWindow::on_qaAudioMute_triggered() {
@@ -2046,7 +2037,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 		updateTrayIcon();
 
 		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-		um->toggleHidden(NULL); // force a UI refresh
+		um->toggleChannelFiltered(NULL); // force a UI refresh
 	}
 
 	delete dlg;
@@ -2306,16 +2297,6 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
-		if (gsHideChannel->active()) {
-			if (! st.bUsers) {
-				Channel *c = mapChannel(st.iChannel);
-				if (c) {
-					c->bHidden = !c->bHidden;
-				}
-				return;
-			}
-		}
-
 		qsCurrentTargets.insert(st);
 		updateTarget();
 
@@ -2324,17 +2305,6 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
-	}
-}
-
-void MainWindow::on_gsChannelFilter_down(QVariant v) {
-	int val = v.toInt();
-	if (((val > 0) && ! g.s.bFilterActive) ||
-	    ((val < 0) && g.s.bFilterActive) ||
-	    (val == 0)
-	) {
-		qaFilterToggle->setChecked(! qaFilterToggle->isChecked());
-		on_qaFilterToggle_triggered();
 	}
 }
 
@@ -2650,8 +2620,6 @@ void MainWindow::trayAboutToShow() {
 	if (top) {
 		qmTray->addAction(qaQuit);
 		qmTray->addSeparator();
-		qmTray->addAction(qaFilterToggle);
-		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
 		qmTray->addSeparator();
@@ -2661,8 +2629,6 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
-		qmTray->addSeparator();
-		qmTray->addAction(qaFilterToggle);
 		qmTray->addSeparator();
 		qmTray->addAction(qaQuit);
 	}
@@ -2815,6 +2781,14 @@ void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {
 }
 
 void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
+void MainWindow::on_qdwChat_visibilityChanged(bool) {
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
+void MainWindow::on_qdwLog_visibilityChanged(bool) {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 

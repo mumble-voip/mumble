@@ -353,7 +353,7 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					float &fPowerMin = p->fPowerMin;
 
 					float pow = 0.0f;
-					for (unsigned int i = 0; i < decodedSamples; ++i)
+					for (int i = 0; i < decodedSamples; ++i)
 						pow += pOut[i] * pOut[i];
 					pow = sqrtf(pow / static_cast<float>(decodedSamples));
 

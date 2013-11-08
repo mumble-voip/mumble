@@ -98,8 +98,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;
-		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel, *gsHideChannel;
-		GlobalShortcut *gsCycleTransmitMode, *gsChannelFilter;
+		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
+		GlobalShortcut *gsCycleTransmitMode;
 		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
@@ -210,7 +210,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
-		void on_qaChannelHide_triggered();
+		void on_qaChannelFilter_triggered();
 		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();
@@ -238,6 +238,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteLog_highlighted(const QUrl & link);
 		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
+		void on_qdwChat_visibilityChanged(bool);
+		void on_qdwLog_visibilityChanged(bool);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
@@ -246,7 +248,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsDeafSelf_down(QVariant);
 		void on_gsWhisper_triggered(bool, QVariant);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
-		void on_gsChannelFilter_down(QVariant v);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
 		void on_Icon_activated(QSystemTrayIcon::ActivationReason);

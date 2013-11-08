@@ -27,38 +27,31 @@
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="qlChannelName">
-         <property name="text">
-          <string>Name</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="qleChannelName">
-         <property name="toolTip">
-          <string>Enter the channel name here.</string>
-         </property>
-         <property name="whatsThis">
-          <string>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
+       <item row="5" column="0">
         <widget class="QLabel" name="qlChannelDescription">
          <property name="text">
           <string>Description</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="5" column="1">
+        <widget class="RichTextEditor" name="rteChannelDescription" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
         <widget class="QLabel" name="qlChannelPassword">
          <property name="text">
           <string>Password</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="6" column="1">
         <widget class="QLineEdit" name="qleChannelPassword">
          <property name="toolTip">
           <string>Enter the channel password here.</string>
@@ -68,21 +61,14 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="qcbChannelTemporary">
-         <property name="toolTip">
-          <string>Check to create a temporary channel.</string>
-         </property>
-         <property name="whatsThis">
-          <string>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
-When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</string>
-         </property>
+       <item row="7" column="0">
+        <widget class="QLabel" name="qlChannelPosition">
          <property name="text">
-          <string>Temporary</string>
+          <string>Position</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="7" column="1">
         <widget class="QSpinBox" name="qsbChannelPosition">
          <property name="maximumSize">
           <size>
@@ -102,20 +88,48 @@ This value enables you to change the way Mumble arranges the channels in the tre
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="qlChannelPosition">
+       <item row="10" column="1">
+        <widget class="QCheckBox" name="qcbChannelTemporary">
+         <property name="toolTip">
+          <string>Check to create a temporary channel.</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
+When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</string>
+         </property>
          <property name="text">
-          <string>Position</string>
+          <string>Temporary</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="RichTextEditor" name="rteChannelDescription" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>1</verstretch>
-          </sizepolicy>
+       <item row="3" column="1">
+        <layout class="QHBoxLayout" name="qwChannelProperties">
+         <item>
+          <widget class="QLineEdit" name="qleChannelName">
+           <property name="toolTip">
+            <string>Enter the channel name here.</string>
+           </property>
+           <property name="whatsThis">
+            <string>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="qlChannelID">
+           <property name="toolTip">
+            <string>ID of the channel.</string>
+           </property>
+           <property name="text">
+            <string>ChannelID</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="qlChannelName">
+         <property name="text">
+          <string>Name</string>
          </property>
         </widget>
        </item>
@@ -652,8 +666,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>qtwTab</tabstop>
-  <tabstop>qleChannelName</tabstop>
   <tabstop>qleChannelPassword</tabstop>
   <tabstop>qsbChannelPosition</tabstop>
   <tabstop>qcbChannelTemporary</tabstop>

@@ -397,22 +397,24 @@ static const char *licenseQtTranslations =
 
 
 static const char *licenseFilterSvg = 
-	"http://commons.wikimedia.org/wiki/File:Filter.svg\n"
+	"I, the copyright holder of this work, hereby publish it under the following\n"
+	"license:\n"
 	"\n"
-	"\n"
-	"I, the copyright holder of this work, hereby publish it under the following license:\n"
-	"w:en:Creative Commons\n"
-	"attribution share alike 	This file is licensed under the Creative Commons Attribution-Share Alike 3.0 Unported license. 	\n"
+	"This file is licensed under the Creative Commons Attribution-Share Alike 3.0\n"
+	"Unported license.\n"
 	"\n"
 	"    You are free:\n"
-	"\n"
 	"        to share – to copy, distribute and transmit the work\n"
 	"        to remix – to adapt the work\n"
-	"\n"
 	"    Under the following conditions:\n"
+	"        attribution – You must attribute the work in the manner specified by\n"
+	"        the author or licensor (but not in any way that suggests that they\n"
+	"        endorse you or your use of the work).\n"
+	"        share alike – If you alter, transform, or build upon this work, you may\n"
+	"        distribute the resulting work only under the same or similar license to\n"
+	"        this one.\n"
 	"\n"
-	"        attribution – You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).\n"
-	"        share alike – If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.";
+	"(Source: https://commons.wikimedia.org/wiki/File:Filter.svg#Licensing)";
 
 
 static const ThirdPartyLicense licenses3rdParties[] = {
@@ -430,7 +432,7 @@ static const ThirdPartyLicense licenses3rdParties[] = {
 #ifdef USING_BUNDLED_QT_TRANSLATIONS
 	ThirdPartyLicense("Additional Qt translations", "https://www.virtualbox.org/ticket/2018", licenseQtTranslations),
 #endif
-	ThirdPartyLicense("Filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
+	ThirdPartyLicense("filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
 	ThirdPartyLicense(),
 };
 
