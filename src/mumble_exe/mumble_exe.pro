@@ -20,7 +20,7 @@ win32 {
   }
 }
 
-SOURCES *= mumble_exe.cpp
+SOURCES *= mumble_exe.cpp Overlay.cpp
 
 !CONFIG(no-elevation) {
   CONFIG(release, debug|release) {
