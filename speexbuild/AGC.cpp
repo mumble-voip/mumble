@@ -77,7 +77,6 @@ int main(int argc, char **argv) {
 	iarg = 0;
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_VAD, &iarg);
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_DENOISE, &iarg);
-	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_AGC, &iarg);
 	speex_preprocess_ctl(spp, SPEEX_PREPROCESS_SET_DEREVERB, &iarg);
 
 	iarg = 1;
