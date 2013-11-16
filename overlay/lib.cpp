@@ -519,7 +519,7 @@ void dllmainProcAttach(char* procname) {
 		bMumble = TRUE;
 	} else {
 		if (dllmainProcAttachCheckProcessIsBlacklisted(procname, p)) {
-			ods("Lib: Process %s is blacklisted - no overlay injection.");
+			ods("Lib: Process %s is blacklisted - no overlay injection.", procname);
 			return;
 		}
 	}
