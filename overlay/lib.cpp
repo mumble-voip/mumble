@@ -749,10 +749,10 @@ static void dllmainThreadAttach() {
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 
 	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
-	GetModuleFileNameA(NULL, procname, PROCNAMEFILEPATH_BUFLEN);
+	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
 	// Fix for windows XP; on length nSize does not include null-termination
 	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
-	procname[1023] = '\0';
+	procname[PROCNAMEFILEPATH_BUFLEN - 1] = '\0';
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
@@ -783,15 +783,14 @@ bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &log
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
-		const int modulenamesize = MODULEFILEPATH_BUFLEN;
-		wchar_t modulename[modulenamesize];
-		GetModuleFileNameW(hModule, modulename, modulenamesize);
+		wchar_t modulename[MODULEFILEPATH_BUFLEN];
+		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
 		return _wcsicmp(modulename, refmodulepath) == 0;
 	}
 	return false;
 }
 
-int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
+int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
 
 	HMODULE hModule = NULL;
 
@@ -802,10 +801,10 @@ int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::strin
 
 	const bool bInit = refmodulepath[0] == '\0';
 	if (bInit) {
-		GetModuleFileNameW(hModule, refmodulepath, MODULEFILEPATH_BUFLEN);
+		GetModuleFileNameW(hModule, refmodulepath, refmodulepathLen);
 	} else {
 		wchar_t modulename[MODULEFILEPATH_BUFLEN];
-		GetModuleFileNameW(hModule, modulename, MODULEFILEPATH_BUFLEN);
+		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
 		if (_wcsicmp(modulename, refmodulepath) != 0) {
 			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
 			return -2;

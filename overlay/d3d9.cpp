@@ -915,7 +915,7 @@ void checkD3D9Hook(bool preonly) {
 static void hookD3D9(HMODULE hD3D, bool preonly) {
 
 	char procname[MODULEFILEPATH_BUFLEN];
-	GetModuleFileName(NULL, procname, MODULEFILEPATH_BUFLEN);
+	GetModuleFileName(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
 	ods("D3D9: hookD3D9 in App '%s'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
@@ -926,7 +926,7 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 
 	// Can we use the prepatch data?
 	wchar_t modulename[MODULEFILEPATH_BUFLEN];
-	GetModuleFileNameW(hD3D, modulename, MODULEFILEPATH_BUFLEN);
+	GetModuleFileNameW(hD3D, modulename, ARRAY_NUM_ELEMENTS(modulename));
 	if (_wcsicmp(d3dd->wcFileName, modulename) == 0) {
 		// The module seems to match the one we prepared d3dd for.
 
@@ -1010,7 +1010,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	if (hD3D != NULL) {
 
-		GetModuleFileNameW(hD3D, d3dd->wcFileName, MODULEFILEPATH_BUFLEN);
+		GetModuleFileNameW(hD3D, d3dd->wcFileName, ARRAY_NUM_ELEMENTS(d3dd->wcFileName));
 
 		std::string d3d9FnName("Direct3DCreate9");
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));
