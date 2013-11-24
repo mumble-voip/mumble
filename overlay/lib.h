@@ -125,20 +125,29 @@ class Pipe {
 		void disconnect();
 };
 
+// From lib.cpp
 extern void checkHooks(bool preonly = false);
+// From dxgi.cpp
 extern void checkDXGIHook(bool preonly = false);
+// From d3d10.cpp
 extern void checkDXGI10Hook(bool preonly = false);
+// From d3d9.cpp
 extern void checkD3D9Hook(bool preonly = false);
+// From opengl.cpp
 extern void checkOpenGLHook();
+// From d3d9.cpp
 extern void freeD3D9Hook(HMODULE hModule);
 
+// From d3d9.cpp
 extern Direct3D9Data *d3dd;
+// From dxgi.cpp
 extern DXGIData *dxgi;
+// From d3d10.cpp
 extern D3D10Data *d3d10;
+// From lib.cpp
 extern BOOL bIsWin8;
-extern unsigned int uiAudioCount;
-extern bool bVideoHooked;
 
+// From lib.cpp
 /// Checks if the module of the function pointer fnptr equals the module filepath
 /// of refmodulepath.
 ///
@@ -147,11 +156,12 @@ extern bool bVideoHooked;
 /// @param logPrefix Used for debug logging.
 /// @param fnName name of the method fnptr points to. used for debug logging
 /// @return true if the module filepath of the function pointer matches the reference one
-extern bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
+extern bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName);
 
+// From lib.cpp
 /// Checks fnptr is in a loaded module with module path refmodulepath.
 ///
 /// @return Offset as int or < 0 on failure.
-extern int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName);
+extern int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName);
 
 #endif

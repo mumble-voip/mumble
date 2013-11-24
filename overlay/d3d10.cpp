@@ -267,7 +267,7 @@ void D10State::init() {
 
 	pOrigStateBlock->Capture();
 
-	ID3D10Texture2D* pBackBuffer = NULL;
+	ID3D10Texture2D *pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
 	if (FAILED(hr))
 		ods("D3D10: pSwapChain->GetBuffer failure!");
@@ -440,7 +440,7 @@ void D10State::draw() {
 }
 
 // D3D10 specific logic for the Present function.
-extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
+HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 
 	ID3D10Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
@@ -466,8 +466,9 @@ extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 		pDevice->Release();
 	} else {
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-		// DXGI is used for multiple D3D versions. Thus, this is expected if
-		// another version is used (like D3D11).
+		// DXGI is used for multiple D3D versions. Thus, it is possible a device
+		// associated with the DXGISwapChain may very well not be a D3D10 one,
+		// in which case we can safely ignore it.
 		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
 		#endif
 	}
@@ -475,7 +476,7 @@ extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 	return hr;
 }
 
-extern void resizeD3D10(IDXGISwapChain *pSwapChain) {
+void resizeD3D10(IDXGISwapChain *pSwapChain) {
 	// Remove the D10State from our "cache" (= Invalidate)
 	SwapchainMap::iterator it = chains.find(pSwapChain);
 	if (it != chains.end()) {
@@ -531,7 +532,7 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 	hhRelease.setup(vfRelease, reinterpret_cast<voidFunc>(myRelease));
 }
 
-void hookD3D10(HMODULE hD3D10, bool preonly);
+static void hookD3D10(HMODULE hD3D10, bool preonly);
 
 void checkDXGI10Hook(bool preonly) {
 	static bool bCheckHookActive = false;
@@ -582,7 +583,7 @@ void hookD3D10(HMODULE hD3D10, bool preonly) {
 		unsigned char *raw = (unsigned char *) hD3D10;
 		HookAddRelease((voidFunc)(raw + d3d10->iOffsetAddRef), (voidFunc)(raw + d3d10->iOffsetRelease));
 	} else if (! preonly) {
-		ods("D3D11: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d10->wcFileName);
+		ods("D3D10: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3d10->wcFileName);
 	} else {
 		bHooked = false;
 	}
@@ -593,7 +594,7 @@ void hookD3D10(HMODULE hD3D10, bool preonly) {
 /// (This data can later be used for hooking / code injection.
 ///
 /// Adjusts the data behind the global variables dxgi and d3d10.
-void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
+void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData) {
 
 	if (!dxgi || !d3d10 || !pAdapter)
 		return;
@@ -657,7 +658,7 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			void ***vtbl = (void ***) pSwapChain;
 
 			void *pPresent = (*vtbl)[8];
-			int offset = GetFnOffsetInModule((const char*) pPresent, dxgi->wcFileName, "D3D10", "Present");
+			int offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pPresent), dxgi->wcFileName, "D3D10", "Present");
 			if (offset >= 0) {
 				if (initializeDXGIData) {
 					dxgi->iOffsetPresent = offset;
@@ -672,7 +673,7 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			}
 
 			void *pResize = (*vtbl)[13];
-			offset = GetFnOffsetInModule((const char*) pResize, dxgi->wcFileName, "D3D10", "ResizeBuffers");
+			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pResize), dxgi->wcFileName, "D3D10", "ResizeBuffers");
 			if (offset >= 0) {
 				if (initializeDXGIData) {
 					dxgi->iOffsetResize = offset;
@@ -689,14 +690,14 @@ void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData) {
 			vtbl = (void ***) pDevice;
 
 			void *pAddRef = (*vtbl)[1];
-			offset = GetFnOffsetInModule((const char*) pAddRef, d3d10->wcFileName, "D3D10", "AddRef");
+			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pAddRef), d3d10->wcFileName, "D3D10", "AddRef");
 			if (offset >= 0) {
 				d3d10->iOffsetAddRef = offset;
 				ods("D3D10: Successfully found AddRef offset: %ls: %d", d3d10->wcFileName, d3d10->iOffsetAddRef);
 			}
 
 			void *pRelease = (*vtbl)[2];
-			offset = GetFnOffsetInModule((const char*) pRelease, d3d10->wcFileName, "D3D10", "Release");
+			offset = GetFnOffsetInModule(reinterpret_cast<voidFunc>(pRelease), d3d10->wcFileName, "D3D10", "Release");
 			if (offset >= 0) {
 				d3d10->iOffsetRelease = offset;
 				ods("D3D10: Successfully found Release offset: %ls: %d", d3d10->wcFileName, d3d10->iOffsetRelease);

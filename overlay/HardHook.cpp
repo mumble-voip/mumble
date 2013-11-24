@@ -232,8 +232,8 @@ void *HardHook::cloneCode(void **porig) {
 	// Add a relative jmp back to the original code, to after the copied code
 	n[idx++] = 0xe9;
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
-	const int JUMPOP_OFFSET = 5;
-	int offs = o - n - JUMPOP_OFFSET;
+	const int JMP_OP_SIZE = 5;
+	int offs = o - n - JMP_OP_SIZE;
 	*iptr = offs;
 	idx += 4;
 

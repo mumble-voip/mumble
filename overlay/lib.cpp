@@ -508,10 +508,10 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p);
-void createSharedDataMap();
+static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
+static void createSharedDataMap();
 
-void dllmainProcAttach(char* procname) {
+static void dllmainProcAttach(char *procname) {
 	Mutex::init();
 
 	char *p = strrchr(procname, '\\');
@@ -533,7 +533,7 @@ void dllmainProcAttach(char* procname) {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionEx(reinterpret_cast<OSVERSIONINFO *>(&ovi));
-	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 9200));
+	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 9200));
 
 	ods("Lib: bIsWin8: %i", bIsWin8);
 
@@ -558,7 +558,7 @@ void dllmainProcAttach(char* procname) {
 }
 
 // Is the process black(listed)?
-bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
+static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p) {
 	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
 
 	bool usewhitelist = false;
@@ -681,7 +681,7 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	return false;
 }
 
-void createSharedDataMap() {
+static void createSharedDataMap() {
 	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data);
 
 	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
@@ -692,7 +692,7 @@ void createSharedDataMap() {
 
 	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
-	unsigned char * rawSharedPointer = static_cast<unsigned char *>(
+	unsigned char *rawSharedPointer = static_cast<unsigned char *>(
 			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
 	if (rawSharedPointer == NULL) {
@@ -716,7 +716,7 @@ void createSharedDataMap() {
 	rawSharedPointer += sizeof(D3D10Data);
 }
 
-void dllmainProcDetach() {
+static void dllmainProcDetach() {
 
 	hhLoad.restore(true);
 	hhLoad.reset();
@@ -733,7 +733,7 @@ void dllmainProcDetach() {
 		CloseHandle(hHookMutex);
 }
 
-void dllmainThreadAttach() {
+static void dllmainThreadAttach() {
 	static bool bTriedHook = false;
 	if (!bBlackListed && sd && ! bTriedHook) {
 		bTriedHook = true;
@@ -773,13 +773,13 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	return TRUE;
 }
 
-bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
+bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
 
 	HMODULE hModule = NULL;
 
 	BOOL success = GetModuleHandleEx(
 			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			fnptr, &hModule);
+			reinterpret_cast<LPCSTR>(fnptr), &hModule);
 	if (!success) {
 		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
 	} else {
@@ -791,7 +791,7 @@ bool IsFnInModule(const char* fnptr, wchar_t* refmodulepath, const std::string &
 	return false;
 }
 
-int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::string & logPrefix, const std::string & fnName) {
+int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
 
 	HMODULE hModule = NULL;
 
@@ -812,7 +812,7 @@ int GetFnOffsetInModule(const char* fnptr, wchar_t* refmodulepath, const std::st
 		}
 	}
 
-	unsigned char * fn = (unsigned char *) fnptr;
-	unsigned char * base = (unsigned char *) hModule;
+	unsigned char *fn = reinterpret_cast<unsigned char *>(fnptr);
+	unsigned char *base = reinterpret_cast<unsigned char *>(hModule);
 	return fn - base;
 }

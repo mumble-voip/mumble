@@ -47,6 +47,7 @@ typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT
 
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
+// From d3d10.cpp
 extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain);
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
@@ -67,6 +68,7 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	return hr;
 }
 
+// From d3d10.cpp
 extern void resizeD3D10(IDXGISwapChain *pSwapChain);
 
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
@@ -153,7 +155,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 	}
 }
 
-extern void PrepareDXGI10(IDXGIAdapter1* pAdapter, bool initializeDXGIData);
+// From d3d10.cpp
+extern void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData);
 
 /// This function is called by the Mumble client in Mumble's scope
 /// mainly to extract the offsets of various functions in the IDXGISwapChain

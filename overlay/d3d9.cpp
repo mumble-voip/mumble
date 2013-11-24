@@ -40,7 +40,7 @@ typedef HRESULT (WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD
 template<class T>
 class Stash {
 public:
-	Stash(T* variable, T newValue)
+	Stash(T *variable, T newValue)
 		: var(variable)
 		, value(*var) {
 		*variable = newValue;
@@ -50,7 +50,7 @@ public:
 	}
 
 private:
-	T* var;
+	T *var;
 	T value;
 };
 
@@ -108,7 +108,7 @@ DevState::DevState() {
 	timeT = clock();
 	frameCount = 0;
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].z = vertices[i].rhw = 1.0f;
@@ -206,7 +206,7 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 
 	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].rhw = 1.0f;
@@ -380,7 +380,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 
 typedef HRESULT(__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
-static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
+static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 *ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: SwapChain Present");
@@ -397,14 +397,14 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pS
 	// Call base without active hook in case of no trampoline.
 	SwapPresentType oSwapPresent = (SwapPresentType) hhSwapPresent.call;
 	hhSwapPresent.restore();
-	HRESULT hr = oSwapPresent(ids, pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion,dwFlags);
+	HRESULT hr = oSwapPresent(ids, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
 	hhSwapPresent.inject();
 
 	return hr;
 }
 
 typedef HRESULT(__stdcall *PresentType)(IDirect3DDevice9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *);
-static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) {
+static HRESULT __stdcall myPresent(IDirect3DDevice9 *idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride,CONST RGNDATA *pDirtyRegion) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present");
@@ -416,14 +416,14 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRe
 	// Call base without active hook in case of no trampoline.
 	PresentType oPresent = (PresentType) hhPresent.call;
 	hhPresent.restore();
-	HRESULT hr = oPresent(idd,pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
+	HRESULT hr = oPresent(idd, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
 	hhPresent.inject();
 
 	return hr;
 }
 
 typedef HRESULT(__stdcall *PresentExType)(IDirect3DDevice9Ex *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
-static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion, DWORD dwFlags) {
+static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex *idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present Ex");
@@ -440,7 +440,7 @@ static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSour
 }
 
 typedef HRESULT(__stdcall *ResetType)(IDirect3DDevice9 *, D3DPRESENT_PARAMETERS *);
-static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
+static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *param) {
 	ods("D3D9: Chaining Reset");
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -468,7 +468,7 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 }
 
 typedef HRESULT(__stdcall *ResetExType)(IDirect3DDevice9Ex *, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *);
-static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex * idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX * param2) {
+static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX *param2) {
 	ods("D3D9: Chaining ResetEx");
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -684,7 +684,7 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	return res;
 }
 
-IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9* device) {
+static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 
 	IDirect3DSwapChain9 *pSwap = NULL;
 	device->GetSwapChain(0, &pSwap);
@@ -714,7 +714,7 @@ IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9* device) {
 }
 
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
-static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
+static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	Mutex m;
 
 	ods("D3D9: Chaining CreateDevice");
@@ -734,7 +734,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
 
 	// Get real interface, please.
-	IDirect3DDevice9 * originalDevice = findOriginalDevice(idd);
+	IDirect3DDevice9 *originalDevice = findOriginalDevice(idd);
 	if (idd != originalDevice) {
 		ods("D3D9: Prepatched device, using original. %p => %p", idd, originalDevice);
 		idd = originalDevice;
@@ -789,7 +789,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 }
 
 typedef HRESULT(__stdcall *CreateDeviceExType)(IDirect3D9Ex *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *, IDirect3DDevice9Ex **);
-static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX* pFullscreenDisplayMode, IDirect3DDevice9Ex** ppReturnedDeviceInterface) {
+static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX *pFullscreenDisplayMode, IDirect3DDevice9Ex **ppReturnedDeviceInterface) {
 	Mutex m;
 	ods("D3D9: Chaining CreateDeviceEx");
 
@@ -883,7 +883,7 @@ static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
-void hookD3D9(HMODULE hD3D, bool preonly);
+static void hookD3D9(HMODULE hD3D, bool preonly);
 
 // @param preonly If rawpatching the createdevice-functions fails, don't try to
 //                patch Direct3DCreate9.
@@ -912,7 +912,7 @@ void checkD3D9Hook(bool preonly) {
 	bCheckHookActive = false;
 }
 
-void hookD3D9(HMODULE hD3D, bool preonly) {
+static void hookD3D9(HMODULE hD3D, bool preonly) {
 
 	char procname[MODULEFILEPATH_BUFLEN];
 	GetModuleFileName(NULL, procname, MODULEFILEPATH_BUFLEN);
@@ -1017,7 +1017,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		if (! d3dcreate9) {
 			ods(("D3D9: Library without " + d3d9FnName).c_str());
 		} else {
-			if (!IsFnInModule((const char*)d3dcreate9, d3dd->wcFileName, "D3D9", d3d9FnName)) {
+			if (!IsFnInModule(reinterpret_cast<voidFunc>(d3dcreate9), d3dd->wcFileName, "D3D9", d3d9FnName)) {
 				ods(("D3D9: " + d3d9FnName + " is not in D3D9 library").c_str());
 			} else {
 				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
@@ -1028,12 +1028,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					// in IDirect3D9. See d3d9.h of win-/D3D-API.
 					void *pCreate = (*vtbl)[16];
 
-					if (!IsFnInModule((const char*)pCreate, d3dd->wcFileName, "D3D9", "CreateDevice")) {
+					if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreate), d3dd->wcFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
 					} else {
-						unsigned char *b = (unsigned char *) pCreate;
-						unsigned char *a = (unsigned char *) hD3D;
-						d3dd->iOffsetCreate = b-a;
+						unsigned char *fn = reinterpret_cast<unsigned char *>(pCreate);
+						unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
+						d3dd->iOffsetCreate = fn - base;
 						ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
 					}
 					id3d9->Release();
@@ -1046,7 +1046,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		if (! d3dcreate9ex) {
 			ods(("D3D9: Library without " + d3d9exFnName).c_str());
 		} else {
-			if (!IsFnInModule((const char*)d3dcreate9ex, d3dd->wcFileName, "D3D9", d3d9exFnName)) {
+			if (!IsFnInModule(reinterpret_cast<voidFunc>(d3dcreate9ex), d3dd->wcFileName, "D3D9", d3d9exFnName)) {
 				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
 					IDirect3D9Ex *id3d9 = NULL;
@@ -1060,12 +1060,12 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						// CreateDevice. Maybe that one comes in anyway?
 						void *pCreateEx = (*vtbl)[20];
 
-						if (!IsFnInModule((const char*)pCreateEx, d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
+						if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreateEx), d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
-							unsigned char *b = (unsigned char *) pCreateEx;
-							unsigned char *a = (unsigned char *) hD3D;
-							d3dd->iOffsetCreateEx = b-a;
+							unsigned char *fn = reinterpret_cast<unsigned char *>(pCreateEx);
+							unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
+							d3dd->iOffsetCreateEx = fn - base;
 							ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
 						}
 
