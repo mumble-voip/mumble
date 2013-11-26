@@ -92,6 +92,13 @@ class DevState : public Pipe {
 		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
+/// Vtable offset; see d3d9.h of win-/D3D-API.
+/// 3 from IUnknown + 14 in IDirect3D9, 0-based => 16
+static const int VTABLE_OFFSET_ID3D_CREATEDEVICE = 16;
+/// Vtable offset; see d3d9.h of win-/D3D-API.
+/// Offset: 3 from IUnknown + 14 from IDirect3D9 + 4 in IDirect3D9Ex, 0-based => 20
+static const int VTABLE_OFFSET_ID3D_CREATEDEVICE_EX = 20;
+
 typedef map<IDirect3DDevice9 *, DevState *> DevMapType;
 static DevMapType devMap;
 static bool bHooked = false;
@@ -872,15 +879,17 @@ static void HookCreateRawEx(voidFunc vfCreate) {
 static void HookCreate(IDirect3D9 *pD3D) {
 	ods("D3D9: Injecting CreateDevice");
 
-	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
+	hhCreateDevice.setupInterface(pD3D, VTABLE_OFFSET_ID3D_CREATEDEVICE, reinterpret_cast<voidFunc>(myCreateDevice));
 }
 
 static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	ods("D3D9Ex: Injecting CreateDevice / CreateDeviceEx");
 
-	//TODO: Has this already been done now, in HookCreate ?
-	//hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
-	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
+	// Best effort hooking for the non-ex create method. If it was set up
+	// previously this setup call is safely ignored by the hook.
+	HookCreate(pD3D);
+
+	hhCreateDeviceEx.setupInterface(pD3D, VTABLE_OFFSET_ID3D_CREATEDEVICE_EX, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
 static void hookD3D9(HMODULE hD3D, bool preonly);
@@ -957,11 +966,11 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 		pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
 		if (d3dcreate9ex) {
 			ods("D3D9: Got %p for Direct3DCreate9Ex", d3dcreate9ex);
-			IDirect3D9Ex** pD3D11Device = 0;
-			HRESULT hr = d3dcreate9ex(D3D_SDK_VERSION, pD3D11Device);
+			IDirect3D9Ex** id3d9ex = 0;
+			HRESULT hr = d3dcreate9ex(D3D_SDK_VERSION, id3d9ex);
 			if (SUCCEEDED(hr)) {
-				HookCreateEx(*pD3D11Device);
-				(*pD3D11Device)->Release();
+				HookCreateEx(*id3d9ex);
+				(*id3d9ex)->Release();
 			} else {
 				switch (hr) {
 					case D3DERR_OUTOFVIDEOMEMORY:
@@ -1024,9 +1033,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 				if (id3d9) {
 					void ***vtbl = (void ***) id3d9;
 
-					// vtable offset: CreateDevice is 17th method (0 based 16th)
-					// in IDirect3D9. See d3d9.h of win-/D3D-API.
-					void *pCreate = (*vtbl)[16];
+					void *pCreate = (*vtbl)[VTABLE_OFFSET_ID3D_CREATEDEVICE];
 
 					if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreate), d3dd->wcFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
@@ -1053,12 +1060,7 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					d3dcreate9ex(D3D_SDK_VERSION, &id3d9);
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;
-						// vtable offset: CreateDeviceEx is 20th method (0 based 19th)
-						// in IDirect3D9Ex as declared in d3d9.h of win-/D3D-API,
-						// but is actually the 21th. TODO: How come?
-						// CreateDeviceEx defines one less method before-hand than
-						// CreateDevice. Maybe that one comes in anyway?
-						void *pCreateEx = (*vtbl)[20];
+						void *pCreateEx = (*vtbl)[VTABLE_OFFSET_ID3D_CREATEDEVICE_EX];
 
 						if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreateEx), d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
