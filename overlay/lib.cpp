@@ -752,7 +752,7 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
 	// Fix for windows XP; on length nSize does not include null-termination
 	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
-	procname[PROCNAMEFILEPATH_BUFLEN - 1] = '\0';
+	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
