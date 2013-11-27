@@ -48,6 +48,11 @@
 #include "opus.h"
 #endif
 
+// CELT_SET_VBR_RATE was renamed to CELT_SET_BITRATE in celt-0.11
+#ifndef CELT_SET_BITRATE
+#define CELT_SET_BITRATE(...) CELT_SET_VBR_RATE(__VA_ARGS__)
+#endif
+
 // Remember that we cannot use static member classes that are not pointers, as the constructor
 // for AudioInputRegistrar() might be called before they are initialized, as the constructor
 // is called from global initialization.
@@ -697,7 +702,7 @@ int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
 
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
-	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR_RATE(iAudioQuality));
+	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_BITRATE(iAudioQuality));
 	len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / (8 * 100), 127));
 	iBitrate = len * 100 * 8;
 
