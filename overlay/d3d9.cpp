@@ -37,6 +37,23 @@ Direct3D9Data *d3dd = NULL;
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
 typedef HRESULT (WINAPI *pDirect3DCreate9Ex)(UINT SDKVersion, IDirect3D9Ex **ppD3D) ;
 
+template<class T>
+class Stash {
+public:
+	Stash(T *variable, T newValue)
+		: var(variable)
+		, value(*var) {
+		*variable = newValue;
+	}
+	~Stash() {
+		*var = value;
+	}
+
+private:
+	T *var;
+	T value;
+};
+
 struct D3DTLVERTEX {
 	float    x, y, z, rhw; // Position
 	float    tu, tv;  // Texture coordinates
@@ -48,9 +65,12 @@ class DevState : public Pipe {
 		IDirect3DDevice9 *dev;
 		IDirect3DStateBlock9 *pSB;
 
+		/// Non-Win8: Initial ref count, directly after device creation.
+		/// Win8: Unused
 		LONG initRefCount;
 		LONG refCount;
-		// Thread-specific threadcount
+		/// Refcount of self (library). Used to make the overlay transparent
+		/// (invisible) to the outside.
 		LONG myRefCount;
 		DWORD dwMyThread;
 
@@ -66,14 +86,21 @@ class DevState : public Pipe {
 		void releaseData();
 		void releaseAll();
 		void draw();
-		void postDraw();
 
 		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		virtual void setRect();
 		virtual void newTexture(unsigned int width, unsigned int height);
 };
 
-static map<IDirect3DDevice9 *, DevState *> devMap;
+/// Vtable offset; see d3d9.h of win-/D3D-API.
+/// 3 from IUnknown + 14 in IDirect3D9, 0-based => 16
+static const int VTABLE_OFFSET_ID3D_CREATEDEVICE = 16;
+/// Vtable offset; see d3d9.h of win-/D3D-API.
+/// Offset: 3 from IUnknown + 14 from IDirect3D9 + 4 in IDirect3D9Ex, 0-based => 20
+static const int VTABLE_OFFSET_ID3D_CREATEDEVICE_EX = 20;
+
+typedef map<IDirect3DDevice9 *, DevState *> DevMapType;
+static DevMapType devMap;
 static bool bHooked = false;
 
 DevState::DevState() {
@@ -88,7 +115,7 @@ DevState::DevState() {
 	timeT = clock();
 	frameCount = 0;
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].z = vertices[i].rhw = 1.0f;
@@ -186,7 +213,7 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 
 	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
 
-	for (int i=0;i<4;++i) {
+	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].rhw = 1.0f;
@@ -247,11 +274,10 @@ void DevState::draw() {
 }
 
 void DevState::createCleanState() {
-	DWORD dwOldThread = dwMyThread;
-	if (dwOldThread) {
+	if (dwMyThread != 0) {
 		ods("D3D9: CreateCleanState from other thread.");
 	}
-	dwMyThread = GetCurrentThreadId();
+	Stash<DWORD> stashThread(&dwMyThread, GetCurrentThreadId());
 
 	if (pSB)
 		pSB->Release();
@@ -304,8 +330,6 @@ void DevState::createCleanState() {
 
 	pStateBlock->Apply();
 	pStateBlock->Release();
-
-	dwMyThread = dwOldThread;
 }
 
 static HardHook hhCreateDevice;
@@ -319,13 +343,14 @@ static HardHook hhPresentEx;
 static HardHook hhSwapPresent;
 
 static void doPresent(IDirect3DDevice9 *idd) {
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 
 	if (ds && ds->pSB) {
-		DWORD dwOldThread = ds->dwMyThread;
-		if (dwOldThread)
+		if (ds->dwMyThread != 0) {
 			ods("D3D9: doPresent from other thread");
-		ds->dwMyThread = GetCurrentThreadId();
+		}
+		Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
 
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
@@ -357,13 +382,12 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		pTarget->Release();
 
 //		ods("D3D9: Finished ref is %d %d", ds->myRefCount, ds->refCount);
-		ds->dwMyThread = dwOldThread;
 	}
 }
 
 
 typedef HRESULT(__stdcall *SwapPresentType)(IDirect3DSwapChain9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
-static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
+static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 *ids, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: SwapChain Present");
@@ -380,14 +404,14 @@ static HRESULT __stdcall mySwapPresent(IDirect3DSwapChain9 * ids, CONST RECT *pS
 	// Call base without active hook in case of no trampoline.
 	SwapPresentType oSwapPresent = (SwapPresentType) hhSwapPresent.call;
 	hhSwapPresent.restore();
-	HRESULT hr = oSwapPresent(ids, pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion,dwFlags);
+	HRESULT hr = oSwapPresent(ids, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
 	hhSwapPresent.inject();
 
 	return hr;
 }
 
 typedef HRESULT(__stdcall *PresentType)(IDirect3DDevice9 *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *);
-static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRect,CONST RECT* pDestRect,HWND hDestWindowOverride,CONST RGNDATA* pDirtyRegion) {
+static HRESULT __stdcall myPresent(IDirect3DDevice9 *idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride,CONST RGNDATA *pDirtyRegion) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present");
@@ -399,14 +423,14 @@ static HRESULT __stdcall myPresent(IDirect3DDevice9 * idd, CONST RECT* pSourceRe
 	// Call base without active hook in case of no trampoline.
 	PresentType oPresent = (PresentType) hhPresent.call;
 	hhPresent.restore();
-	HRESULT hr = oPresent(idd,pSourceRect,pDestRect,hDestWindowOverride,pDirtyRegion);
+	HRESULT hr = oPresent(idd, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
 	hhPresent.inject();
 
 	return hr;
 }
 
 typedef HRESULT(__stdcall *PresentExType)(IDirect3DDevice9Ex *, CONST RECT *, CONST RECT *, HWND, CONST RGNDATA *, DWORD);
-static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion, DWORD dwFlags) {
+static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex *idd, CONST RECT *pSourceRect, CONST RECT *pDestRect, HWND hDestWindowOverride, CONST RGNDATA *pDirtyRegion, DWORD dwFlags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
 	ods("D3D9: Device Present Ex");
@@ -415,26 +439,26 @@ static HRESULT __stdcall myPresentEx(IDirect3DDevice9Ex * idd, CONST RECT* pSour
 	doPresent(idd);
 
 	PresentExType oPresentEx = (PresentExType) hhPresentEx.call;
-
 	hhPresentEx.restore();
 	HRESULT hr = oPresentEx(idd, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
 	hhPresentEx.inject();
+
 	return hr;
 }
 
 typedef HRESULT(__stdcall *ResetType)(IDirect3DDevice9 *, D3DPRESENT_PARAMETERS *);
-static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *param) {
+static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *param) {
 	ods("D3D9: Chaining Reset");
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
-		DWORD dwOldThread = ds->dwMyThread;
-		if (dwOldThread)
+		if (ds->dwMyThread != 0) {
 			ods("D3D9: myReset from other thread");
-		ds->dwMyThread = GetCurrentThreadId();
+		}
+		Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
 
 		ds->releaseAll();
-		ds->dwMyThread = dwOldThread;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -451,18 +475,18 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 * idd, D3DPRESENT_PARAMETERS *
 }
 
 typedef HRESULT(__stdcall *ResetExType)(IDirect3DDevice9Ex *, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *);
-static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex * idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX * param2) {
+static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX *param2) {
 	ods("D3D9: Chaining ResetEx");
 
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
-		DWORD dwOldThread = ds->dwMyThread;
-		if (dwOldThread)
+		if (ds->dwMyThread) {
 			ods("D3D9: myResetEx from other thread");
-		ds->dwMyThread = GetCurrentThreadId();
+		}
+		Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
 
 		ds->releaseAll();
-		ds->dwMyThread = dwOldThread;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -479,22 +503,24 @@ static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex * idd, D3DPRESENT_PARAMETE
 }
 
 typedef ULONG(__stdcall *AddRefType)(IDirect3DDevice9 *);
+
 static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
-	// AddRef is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chaining AddRef");
-	#endif
-
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
+		// AddRef is called very often. Thus, we do not want to always log here.
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		ods("D3D9: Using own Refcount implementation for call to AddRef.");
+		#endif
+
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount++;
 		} else {
 			ds->refCount++;
 		}
-		return ds->refCount + ds->initRefCount;
+		return ds->initRefCount + ds->refCount;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -515,13 +541,14 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	Mutex m;
 
-	// AddRef is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chaining AddRef (Win8)");
-	#endif
-
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds && ds->dwMyThread == GetCurrentThreadId()) {
+		// AddRef is called very often. Thus, we do not want to always log here.
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		ods("D3D9: Using own Refcount implementation for call to AddRef (Win8).");
+		#endif
+
 		ds->myRefCount++;
 		return ds->refCount;
 	}
@@ -545,19 +572,21 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 }
 
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
+
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	Mutex m;
 
-	// Release is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chaining Release");
-	#endif
-
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
+		// Release is called very often. Thus, we do not want to always log here.
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		ods("D3D9: Using own Refcount implementation for call to Release.");
+		#endif
+
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
-			return ds->refCount + ds->initRefCount;
+			return ds->initRefCount + ds->refCount;
 		} else {
 			ds->refCount--;
 		}
@@ -566,24 +595,28 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 			ds->disconnect();
 		}
 
-		if (ds->refCount >= 0)
-			return ds->refCount + ds->initRefCount;
+		if (ds->refCount >= 0) {
+			return ds->initRefCount + ds->refCount;
+		}
 
 		ods("D3D9: Final release is following. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
 
-		DWORD dwOldThread = ds->dwMyThread;
-		if (dwOldThread)
+		if (ds->dwMyThread != 0) {
 			ods("D3D9: finalRelease from other thread");
-		ds->dwMyThread = GetCurrentThreadId();
+		}
 
-		ds->releaseAll();
+		// Codeblock for stashing threadid
+		{
+			Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
 
-		ds->dwMyThread = dwOldThread;
+			ds->releaseAll();
+		}
 
-		ods("D3D9: Final release. MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
+		ods("D3D9: Final release of %p. MyRefs = %d Tot = %d", idd, ds->myRefCount, ds->refCount);
 
-		devMap.erase(idd);
+		devMap.erase(it);
 		delete ds;
+		ds = NULL;
 	}
 
 	//TODO: Move logic to HardHook.
@@ -604,13 +637,14 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	Mutex m;
 
-	// Release is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chaining Release (Win8)");
-	#endif
-
-	DevState *ds = devMap[idd];
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
+		// Release is called very often. Thus, we do not want to always log here.
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		ods("D3D9: Using own Refcount implementation for call to Release.");
+		#endif
+
 		if (ds->dwMyThread == GetCurrentThreadId()) {
 			ds->myRefCount--;
 			return ds->refCount;
@@ -619,15 +653,21 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 			ds->disconnect();
 
 			ods("D3D9: Final release. MyRefs = %d, Tot = %d", ds->myRefCount, ds->refCount);
-			DWORD dwOldThread = ds->dwMyThread;
-			if (dwOldThread)
-				ods("D3D9: finalRelease from other thread");
-			ds->dwMyThread = GetCurrentThreadId();
-			ds->releaseAll();
-			ds->dwMyThread = dwOldThread;
-			ods("D3D9: Final release, MyRefs = %d Tot = %d", ds->myRefCount, ds->refCount);
 
-			devMap.erase(idd);
+			if (ds->dwMyThread != 0) {
+				ods("D3D9: finalRelease from other thread");
+			}
+
+			// Codeblock for stashing threadid
+			{
+				Stash<DWORD> stashThread(&(ds->dwMyThread), GetCurrentThreadId());
+
+				ds->releaseAll();
+			}
+
+			ods("D3D9: Final release of %p. MyRefs = %d Tot = %d", idd, ds->myRefCount, ds->refCount);
+
+			devMap.erase(it);
 			delete ds;
 			ds = NULL;
 		}
@@ -651,8 +691,37 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	return res;
 }
 
+static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
+
+	IDirect3DSwapChain9 *pSwap = NULL;
+	device->GetSwapChain(0, &pSwap);
+	if (pSwap) {
+
+		IDirect3DDevice9 *originalDevice = NULL;
+		if (SUCCEEDED(pSwap->GetDevice(&originalDevice))) {
+
+			if (originalDevice == device) {
+				// Found the original device. Release responsibility is passed
+				// to the caller.
+			} else {
+				device = findOriginalDevice(originalDevice);
+				originalDevice->Release();
+			}
+
+		} else {
+			ods("D3D9: Failed to recurse to find original device. Could not get Device from Swapchain.");
+		}
+
+		pSwap->Release();
+	} else {
+		ods("D3D9: Failed to recurse to find original device. Could not get Swapchain.");
+	}
+
+	return device;
+}
+
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
-static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
+static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	Mutex m;
 
 	ods("D3D9: Chaining CreateDevice");
@@ -672,27 +741,11 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
 
 	// Get real interface, please.
-	bool bfound = false;
-	do {
-		bfound = false;
-		IDirect3DSwapChain9 *pSwap = NULL;
-		idd->GetSwapChain(0, &pSwap);
-		if (pSwap) {
-			IDirect3DDevice9 *idorig = NULL;
-			if (SUCCEEDED(pSwap->GetDevice(&idorig))) {
-				if (idorig != idd) {
-					ods("D3D9: Prepatched device, using original. %p => %p", idorig, idd);
-					if (idd != *ppReturnedDeviceInterface)
-						idd->Release();
-					idd = idorig;
-					bfound = true;
-				} else {
-					idorig->Release();
-				}
-			}
-			pSwap->Release();
-		}
-	} while (bfound);
+	IDirect3DDevice9 *originalDevice = findOriginalDevice(idd);
+	if (idd != originalDevice) {
+		ods("D3D9: Prepatched device, using original. %p => %p", idd, originalDevice);
+		idd = originalDevice;
+	}
 
 	DevState *ds = new DevState;
 	ds->dev = idd;
@@ -700,9 +753,11 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap[idd] != NULL) {
-		ods("Device exists in devMap already - canceling injection into device");
+	DevMapType::iterator it = devMap.find(idd);
+	if (it != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
+
 		return hr;
 	}
 	devMap[idd] = ds;
@@ -736,11 +791,12 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 * id3d, UINT Adapter, D3DDEVT
 	}
 
 	ds->createCleanState();
+
 	return hr;
 }
 
 typedef HRESULT(__stdcall *CreateDeviceExType)(IDirect3D9Ex *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *, IDirect3DDevice9Ex **);
-static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX* pFullscreenDisplayMode, IDirect3DDevice9Ex** ppReturnedDeviceInterface) {
+static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX *pFullscreenDisplayMode, IDirect3DDevice9Ex **ppReturnedDeviceInterface) {
 	Mutex m;
 	ods("D3D9: Chaining CreateDeviceEx");
 
@@ -764,9 +820,11 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex * id3d, UINT Adapter, D3D
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
-	if (devMap[idd] != NULL) {
-		ods("Device exists in devMap already - canceling injection into device");
+	DevMapType::iterator it = devMap.find(idd);
+	if (it != devMap.end()) {
+		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
+
 		return hr;
 	}
 	devMap[idd] = ds;
@@ -821,17 +879,20 @@ static void HookCreateRawEx(voidFunc vfCreate) {
 static void HookCreate(IDirect3D9 *pD3D) {
 	ods("D3D9: Injecting CreateDevice");
 
-	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
+	hhCreateDevice.setupInterface(pD3D, VTABLE_OFFSET_ID3D_CREATEDEVICE, reinterpret_cast<voidFunc>(myCreateDevice));
 }
 
 static void HookCreateEx(IDirect3D9Ex *pD3D) {
 	ods("D3D9Ex: Injecting CreateDevice / CreateDeviceEx");
 
-	hhCreateDevice.setupInterface(pD3D, 16, reinterpret_cast<voidFunc>(myCreateDevice));
-	hhCreateDeviceEx.setupInterface(pD3D, 20, reinterpret_cast<voidFunc>(myCreateDeviceEx));
+	// Best effort hooking for the non-ex create method. If it was set up
+	// previously this setup call is safely ignored by the hook.
+	HookCreate(pD3D);
+
+	hhCreateDeviceEx.setupInterface(pD3D, VTABLE_OFFSET_ID3D_CREATEDEVICE_EX, reinterpret_cast<voidFunc>(myCreateDeviceEx));
 }
 
-void hookD3D9(HMODULE hD3D, bool preonly);
+static void hookD3D9(HMODULE hD3D, bool preonly);
 
 // @param preonly If rawpatching the createdevice-functions fails, don't try to
 //                patch Direct3DCreate9.
@@ -851,33 +912,41 @@ void checkD3D9Hook(bool preonly) {
 		if (! bHooked) {
 			hookD3D9(hD3D, preonly);
 		}
+	} else {
+		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
+		ods("D3D9: No D3D9.DLL found as loaded. No hooking at this point.");
+		#endif
 	}
 
 	bCheckHookActive = false;
 }
 
-void hookD3D9(HMODULE hD3D, bool preonly) {
-	const int procnamesize = 2048;
-	char procname[procnamesize];
-	GetModuleFileName(NULL, procname, procnamesize);
-	ods("D3D9: hookD3D9 in App %s", procname);
+static void hookD3D9(HMODULE hD3D, bool preonly) {
+
+	char procname[MODULEFILEPATH_BUFLEN];
+	GetModuleFileName(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
+	ods("D3D9: hookD3D9 in App '%s'", procname);
 
 	// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&HookCreate), &hSelf);
+	HMODULE hTempSelf = NULL;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&hookD3D9), &hTempSelf);
 
 	bHooked = true;
 
 	// Can we use the prepatch data?
-	GetModuleFileName(hD3D, procname, procnamesize);
-	if (_stricmp(d3dd->cFileName, procname) == 0) {
+	wchar_t modulename[MODULEFILEPATH_BUFLEN];
+	GetModuleFileNameW(hD3D, modulename, ARRAY_NUM_ELEMENTS(modulename));
+	if (_wcsicmp(d3dd->wcFileName, modulename) == 0) {
 		// The module seems to match the one we prepared d3dd for.
 
 		unsigned char *raw = (unsigned char *) hD3D;
 		HookCreateRaw((voidFunc)(raw + d3dd->iOffsetCreate));
-		if (d3dd->iOffsetCreateEx)
+		if (d3dd->iOffsetCreateEx) {
 			HookCreateRawEx((voidFunc)(raw + d3dd->iOffsetCreateEx));
+		}
+
 	} else if (! preonly) {
-		ods("D3D9: Interface changed, can't rawpatch.");
+		ods("D3D9: Interface changed, can't rawpatch. Current: %ls ; Previously: %ls", modulename, d3dd->wcFileName);
 
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, "Direct3DCreate9"));
 		if (d3dcreate9) {
@@ -894,8 +963,28 @@ void hookD3D9(HMODULE hD3D, bool preonly) {
 			ods("D3D9: Library without Direct3DCreate9?");
 		}
 
-		//TODO: hook for Direct3DCreate9Ex
-		// pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+		pDirect3DCreate9Ex d3dcreate9ex = reinterpret_cast<pDirect3DCreate9Ex>(GetProcAddress(hD3D, "Direct3DCreate9Ex"));
+		if (d3dcreate9ex) {
+			ods("D3D9: Got %p for Direct3DCreate9Ex", d3dcreate9ex);
+			IDirect3D9Ex** id3d9ex = 0;
+			HRESULT hr = d3dcreate9ex(D3D_SDK_VERSION, id3d9ex);
+			if (SUCCEEDED(hr)) {
+				HookCreateEx(*id3d9ex);
+				(*id3d9ex)->Release();
+			} else {
+				switch (hr) {
+					case D3DERR_OUTOFVIDEOMEMORY:
+						ods("D3D11: Direct3DCreate9Ex returned with out of memory error.");
+						break;
+					case D3DERR_NOTAVAILABLE:
+						ods("D3D11: Direct3DCreate9Ex is not available.");
+						break;
+					default:
+						ods("D3D11: Unexpected return result from Direct3DCreate9Ex");
+						break;
+				}
+			}
+		}
 	} else {
 		bHooked = false;
 	}
@@ -920,24 +1009,6 @@ void freeD3D9Hook(HMODULE hModule) {
 	}
 }
 
-// Checks if the module of the fnptr equals the name/path of the one saved in @global d3dd.
-bool IsFnInModule(char* refmodulepath, const char* fnptr, const std::string & textindicator) {
-	char modulename[2048];
-	// A handle to the module.
-	HMODULE hRef = NULL;
-
-	BOOL success = GetModuleHandleEx(
-			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-			fnptr, &hRef);
-	if (!success) {
-		ods(("D3D9: Failed to get module for " + textindicator).c_str());
-	} else {
-		GetModuleFileName(hRef, modulename, 2048);
-		return _stricmp(refmodulepath, modulename) == 0;
-	}
-	return false;
-}
-
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
@@ -948,29 +1019,28 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 
 	if (hD3D != NULL) {
 
-		GetModuleFileName(hD3D, d3dd->cFileName, 2048);
+		GetModuleFileNameW(hD3D, d3dd->wcFileName, ARRAY_NUM_ELEMENTS(d3dd->wcFileName));
 
 		std::string d3d9FnName("Direct3DCreate9");
 		pDirect3DCreate9 d3dcreate9 = reinterpret_cast<pDirect3DCreate9>(GetProcAddress(hD3D, d3d9FnName.c_str()));
 		if (! d3dcreate9) {
 			ods(("D3D9: Library without " + d3d9FnName).c_str());
 		} else {
-			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9, "D3D9")) {
+			if (!IsFnInModule(reinterpret_cast<voidFunc>(d3dcreate9), d3dd->wcFileName, "D3D9", d3d9FnName)) {
 				ods(("D3D9: " + d3d9FnName + " is not in D3D9 library").c_str());
 			} else {
 				IDirect3D9 *id3d9 = d3dcreate9(D3D_SDK_VERSION);
 				if (id3d9) {
 					void ***vtbl = (void ***) id3d9;
-					// vtable offset: CreateDevice is 17th method (0 based 16th)
-					// in IDirect3D9. See d3d9.h of win-/D3D-API.
-					void *pCreate = (*vtbl)[16];
 
-					if (!IsFnInModule(d3dd->cFileName, (const char*)pCreate, "CreateDevice")) {
+					void *pCreate = (*vtbl)[VTABLE_OFFSET_ID3D_CREATEDEVICE];
+
+					if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreate), d3dd->wcFileName, "D3D9", "CreateDevice")) {
 						ods("D3D9: CreateDevice is not in D3D9 library");
 					} else {
-						unsigned char *b = (unsigned char *) pCreate;
-						unsigned char *a = (unsigned char *) hD3D;
-						d3dd->iOffsetCreate = b-a;
+						unsigned char *fn = reinterpret_cast<unsigned char *>(pCreate);
+						unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
+						d3dd->iOffsetCreate = fn - base;
 						ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
 					}
 					id3d9->Release();
@@ -983,26 +1053,21 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 		if (! d3dcreate9ex) {
 			ods(("D3D9: Library without " + d3d9exFnName).c_str());
 		} else {
-			if (!IsFnInModule(d3dd->cFileName, (const char*)d3dcreate9ex, "D3D9")) {
+			if (!IsFnInModule(reinterpret_cast<voidFunc>(d3dcreate9ex), d3dd->wcFileName, "D3D9", d3d9exFnName)) {
 				ods(("D3D9: " + d3d9exFnName + " is not in D3D9 library").c_str());
 			} else {
 					IDirect3D9Ex *id3d9 = NULL;
 					d3dcreate9ex(D3D_SDK_VERSION, &id3d9);
 					if (id3d9) {
 						void ***vtbl = (void ***) id3d9;
-						// vtable offset: CreateDeviceEx is 20th method (0 based 19th)
-						// in IDirect3D9Ex as declared in d3d9.h of win-/D3D-API,
-						// but is actually the 21th. TODO: How come?
-						// CreateDeviceEx defines one less method before-hand than
-						// CreateDevice. Maybe that one comes in anyway?
-						void *pCreateEx = (*vtbl)[20];
+						void *pCreateEx = (*vtbl)[VTABLE_OFFSET_ID3D_CREATEDEVICE_EX];
 
-						if (!IsFnInModule(d3dd->cFileName, (const char*)pCreateEx, "CreateDeviceEx")) {
+						if (!IsFnInModule(reinterpret_cast<voidFunc>(pCreateEx), d3dd->wcFileName, "D3D9", "CreateDeviceEx")) {
 							ods("D3D9: CreateDeviceEx is not in D3D9 library");
 						} else {
-							unsigned char *b = (unsigned char *) pCreateEx;
-							unsigned char *a = (unsigned char *) hD3D;
-							d3dd->iOffsetCreateEx = b-a;
+							unsigned char *fn = reinterpret_cast<unsigned char *>(pCreateEx);
+							unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
+							d3dd->iOffsetCreateEx = fn - base;
 							ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
 						}
 

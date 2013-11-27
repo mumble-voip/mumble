@@ -36,7 +36,6 @@ static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
-HMODULE hSelf = NULL;
 BOOL bIsWin8 = FALSE;
 
 static BOOL bMumble = FALSE;
@@ -47,7 +46,7 @@ static HardHook hhLoad;
 static HardHook hhLoadW;
 static HardHook hhFree;
 
-static SharedData *sd;
+static SharedData *sd = NULL;
 
 FakeInterface::FakeInterface(IUnknown *orig, int entries) {
 	this->pOriginal = orig;
@@ -406,6 +405,13 @@ void Pipe::checkMessage(unsigned int width, unsigned int height) {
 		blit((*i).left, (*i).top, (*i).right - (*i).left, (*i).bottom - (*i).top);
 }
 
+static void checkHooks(bool preonly) {
+	checkD3D9Hook(preonly);
+	checkDXGIHook(preonly);
+	checkDXGI10Hook(preonly);
+	checkOpenGLHook();
+}
+
 typedef HMODULE(__stdcall *LoadLibraryAType)(const char *);
 static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	//TODO: Move logic to HardHook.
@@ -418,9 +424,7 @@ static HMODULE WINAPI MyLoadLibrary(const char *lpFileName) {
 	ods("Lib: Library %s loaded to %p", lpFileName, h);
 
 	if (! bBlackListed) {
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkOpenGLHook();
+		checkHooks();
 	}
 
 	return h;
@@ -440,9 +444,7 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	checkForWPF();
 
 	if (! bBlackListed) {
-		checkD3D9Hook();
-		checkDXGIHook();
-		checkOpenGLHook();
+		checkHooks();
 	}
 
 	return h;
@@ -486,6 +488,7 @@ extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
 		if (! sd->bHooked) {
+			HMODULE hSelf = NULL;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
 				ods("Lib: Failed to find myself");
@@ -505,9 +508,10 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
-bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p);
+static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
+static void createSharedDataMap();
 
-void dllmainProcAttach(char* procname) {
+static void dllmainProcAttach(char *procname) {
 	Mutex::init();
 
 	char *p = strrchr(procname, '\\');
@@ -529,7 +533,7 @@ void dllmainProcAttach(char* procname) {
 	memset(&ovi, 0, sizeof(ovi));
 	ovi.dwOSVersionInfoSize = sizeof(ovi);
 	GetVersionEx(reinterpret_cast<OSVERSIONINFO *>(&ovi));
-	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 9200));
+	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 9200));
 
 	ods("Lib: bIsWin8: %i", bIsWin8);
 
@@ -540,30 +544,7 @@ void dllmainProcAttach(char* procname) {
 		return;
 	}
 
-	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData);
-
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
-	if (hMapObject == NULL) {
-		ods("Lib: CreateFileMapping failed");
-		return;
-	}
-
-	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
-
-	sd = static_cast<SharedData *>(MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
-
-	if (sd == NULL) {
-		ods("Lib: MapViewOfFile Failed");
-		return;
-	}
-
-	if (bInit)
-		memset(sd, 0, dwSharedSize);
-
-	unsigned char *raw = (unsigned char *) sd;
-	d3dd = reinterpret_cast<Direct3D9Data *>(raw + sizeof(SharedData));
-	dxgi = reinterpret_cast<DXGIData *>(raw + sizeof(SharedData) + sizeof(Direct3D9Data));
-
+	createSharedDataMap();
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -571,15 +552,13 @@ void dllmainProcAttach(char* procname) {
 		hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
 		hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
 
-		checkD3D9Hook(true);
-		checkDXGIHook(true);
-		checkOpenGLHook();
+		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
 	}
 }
 
 // Is the process black(listed)?
-bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
+static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p) {
 	DWORD buffsize = MAX_PATH * 20; // Initial buffer size for registry operation
 
 	bool usewhitelist = false;
@@ -668,11 +647,14 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 
 	// check if there is a "nooverlay" file in the executables folder, which would disable/blacklist the overlay
 	// Same buffersize as procname; which we copy from.
-	char fname[1024 + 64];
-	p = fname + (p - procname);
-	strncpy_s(fname, sizeof(fname), procname, p - procname + 1);
+	char fname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
 
-	strcpy_s(p+1, 64, "nooverlay");
+	int pathlength = p - procname;
+	p = fname + pathlength;
+	strncpy_s(fname, sizeof(fname), procname, pathlength + 1);
+
+
+	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "nooverlay");
 	HANDLE h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
@@ -682,7 +664,7 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	}
 
 	// check for "debugoverlay" file, which would enable overlay debugging
-	strcpy_s(p+1, 64, "debugoverlay");
+	strcpy_s(p+1, PROCNAMEFILEPATH_EXTENDED_EXTLEN, "debugoverlay");
 	h = CreateFile(fname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (h != INVALID_HANDLE_VALUE) {
 		CloseHandle(h);
@@ -699,7 +681,42 @@ bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char* p) {
 	return false;
 }
 
-void dllmainProcDetach() {
+static void createSharedDataMap() {
+	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data);
+
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
+	if (hMapObject == NULL) {
+		ods("Lib: CreateFileMapping failed");
+		return;
+	}
+
+	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
+
+	unsigned char *rawSharedPointer = static_cast<unsigned char *>(
+			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
+
+	if (rawSharedPointer == NULL) {
+		ods("Lib: MapViewOfFile Failed");
+		return;
+	}
+
+	if (bInit)
+		memset(rawSharedPointer, 0, dwSharedSize);
+
+	sd = reinterpret_cast<SharedData *>(rawSharedPointer);
+	rawSharedPointer += sizeof(SharedData);
+
+	d3dd = reinterpret_cast<Direct3D9Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(Direct3D9Data);
+
+	dxgi = reinterpret_cast<DXGIData *>(rawSharedPointer);
+	rawSharedPointer += sizeof(DXGIData);
+
+	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(D3D10Data);
+}
+
+static void dllmainProcDetach() {
 
 	hhLoad.restore(true);
 	hhLoad.reset();
@@ -716,28 +733,26 @@ void dllmainProcDetach() {
 		CloseHandle(hHookMutex);
 }
 
-void dllmainThreadAttach() {
+static void dllmainThreadAttach() {
 	static bool bTriedHook = false;
 	if (!bBlackListed && sd && ! bTriedHook) {
 		bTriedHook = true;
 		checkForWPF();
 
 		if (!bBlackListed) {
-			checkD3D9Hook();
-			checkDXGIHook();
-			checkOpenGLHook();
-			ods("Lib: Injected to thread");
+			ods("Lib: Checking for hooks, potentially injecting");
+			checkHooks();
 		}
 	}
 }
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
-	// 1024 for the procname, 64 additional for more logic in the buffer deep inside
-	char procname[1024+64];
-	GetModuleFileNameA(NULL, procname, 1024);
+
+	char procname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
+	GetModuleFileNameA(NULL, procname, ARRAY_NUM_ELEMENTS(procname));
 	// Fix for windows XP; on length nSize does not include null-termination
 	// @see http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
-	procname[1023] = '\0';
+	procname[ARRAY_NUM_ELEMENTS(procname) - 1] = '\0';
 
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
@@ -756,4 +771,47 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 			break;
 	}
 	return TRUE;
+}
+
+bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName) {
+
+	HMODULE hModule = NULL;
+
+	BOOL success = GetModuleHandleEx(
+			GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+			reinterpret_cast<LPCSTR>(fnptr), &hModule);
+	if (!success) {
+		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
+	} else {
+		wchar_t modulename[MODULEFILEPATH_BUFLEN];
+		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
+		return _wcsicmp(modulename, refmodulepath) == 0;
+	}
+	return false;
+}
+
+int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName) {
+
+	HMODULE hModule = NULL;
+
+	if (! GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) fnptr, &hModule)) {
+		ods((logPrefix + ": Failed to get module for " + fnName).c_str());
+		return -1;
+	}
+
+	const bool bInit = refmodulepath[0] == '\0';
+	if (bInit) {
+		GetModuleFileNameW(hModule, refmodulepath, refmodulepathLen);
+	} else {
+		wchar_t modulename[MODULEFILEPATH_BUFLEN];
+		GetModuleFileNameW(hModule, modulename, ARRAY_NUM_ELEMENTS(modulename));
+		if (_wcsicmp(modulename, refmodulepath) != 0) {
+			ods((logPrefix + ": " + fnName + " functions module path does not match previously found. Now: '%ls', Previously: '%ls'").c_str(), modulename, refmodulepath);
+			return -2;
+		}
+	}
+
+	unsigned char *fn = reinterpret_cast<unsigned char *>(fnptr);
+	unsigned char *base = reinterpret_cast<unsigned char *>(hModule);
+	return fn - base;
 }

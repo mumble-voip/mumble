@@ -131,9 +131,6 @@ void *HardHook::cloneCode(void **porig) {
 	}
 
 	unsigned char *o = (unsigned char *) *porig;
-	unsigned char *n = (unsigned char *) pCode;
-	n += uiCode;
-	unsigned int idx = 0;
 
 	DWORD origProtect;
 	if (!VirtualProtect(o, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
@@ -161,14 +158,15 @@ void *HardHook::cloneCode(void **porig) {
 		}
 	}
 
+	unsigned char *n = (unsigned char *) pCode;
+	n += uiCode;
+	unsigned int idx = 0;
+
 	do {
 		unsigned char opcode = o[idx];
 		unsigned char a = o[idx+1];
 		unsigned char b = o[idx+2];
 		unsigned int extra = 0;
-
-		n[idx] = opcode;
-		++idx;
 
 		switch (opcode) {
 			case 0x50: // PUSH
@@ -210,14 +208,17 @@ void *HardHook::cloneCode(void **porig) {
 					break;
 				}
 
-				fods("HardHook: CloneCode failed; Unknown opcode at %d: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x",
-						idx-1, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
+				fods("HardHook: CloneCode failed; Unknown opcode %02x at %d: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x",
+						opcode, idx, o[0], o[1], o[2], o[3], o[4], o[5], o[6], o[7], o[8], o[9], o[10], o[11]);
 				DWORD tempProtect;
 				VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 				return NULL;
 				break;
 			}
 		}
+
+		n[idx] = opcode;
+		++idx;
 
 		for (unsigned int i = 0; i < extra; ++i)
 			n[idx+i] = o[idx+i];
@@ -228,10 +229,11 @@ void *HardHook::cloneCode(void **porig) {
 	DWORD tempProtect;
 	VirtualProtect(o, CODEPROTECTSIZE, origProtect, &tempProtect);
 
-	// Add a relative jmp back to the original code
+	// Add a relative jmp back to the original code, to after the copied code
 	n[idx++] = 0xe9;
 	int *iptr = reinterpret_cast<int *>(&n[idx]);
-	int offs = o - n - 5;
+	const int JMP_OP_SIZE = 5;
+	int offs = o - n - JMP_OP_SIZE;
 	*iptr = offs;
 	idx += 4;
 
@@ -269,14 +271,16 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 		bTrampoline = true;
 	} else {
 		// Could not create a trampoline. Use alternative method instead.
+		// This alternative method is dependant on the replacement code
+		// restoring before calling the original. Otherwise we get a jump recursion
 		bTrampoline = false;
 		call = func;
 	}
 
 	DWORD origProtect;
 	if (VirtualProtect(fptr, CODEPROTECTSIZE, PAGE_EXECUTE_READ, &origProtect)) {
-		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		replace[0] = 0x68; // PUSH immediate        1 Byte
+		unsigned char **iptr = reinterpret_cast<unsigned char **>(&replace[1]);
 		*iptr = nptr;      // (imm. value = nptr)   4 Byte
 		replace[5] = 0xc3; // RETN                  1 Byte
 
@@ -286,9 +290,6 @@ void HardHook::setup(voidFunc func, voidFunc replacement) {
 
 		baseptr = fptr;
 
-		//TODO: Why do we want to force, even without a trampoline?!? We may
-		//      break the x86 instructions.
-		//      This is only safe as long as we always restore before calling .call.
 		inject(true);
 
 		DWORD tempProtect;
@@ -397,7 +398,6 @@ void HardHook::check() {
 		// If they match the original code, inject our hook.
 		if (memcmp(baseptr, orig, CODEREPLACESIZE) == 0) {
 			fods("HardHook: Reinjecting hook into function %p", baseptr);
-			//TODO: Why do we want to force, even without a trampoline?!?
 			inject(true);
 		} else {
 			fods("HardHook: Function %p replaced by third party. Lost injected hook.");

@@ -340,25 +340,31 @@ static void doSwap(HDC hdc) {
 static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	ods("OpenGL: wglSwapBuffers");
 	doSwap(hdc);
+
 	hhwglSwapBuffers.restore();
 	BOOL ret=owglSwapBuffers(hdc);
 	hhwglSwapBuffers.inject();
+
 	return ret;
 }
 
 static BOOL __stdcall mySwapBuffers(HDC hdc) {
 	ods("OpenGL: SwapBuffers");
+
 	hhSwapBuffers.restore();
 	BOOL ret=oSwapBuffers(hdc);
 	hhSwapBuffers.inject();
+
 	return ret;
 }
 
 static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 	ods("OpenGL: SwapLayerBuffers %x",fuPlanes);
+
 	hhwglSwapLayerBuffers.restore();
 	BOOL ret=owglSwapLayerBuffers(hdc, fuPlanes);
 	hhwglSwapLayerBuffers.inject();
+
 	return ret;
 }
 
@@ -369,7 +375,7 @@ static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
 void checkOpenGLHook() {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
-		ods("Recursion in checkOpenGLHook");
+		ods("OpenGL: Recursion in checkOpenGLHook");
 		return;
 	}
 
@@ -385,7 +391,8 @@ void checkOpenGLHook() {
 			bHooked = true;
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hSelf);
+			HMODULE hTempSelf = NULL;
+			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hTempSelf);
 
 			INJECT(wglSwapBuffers);
 			// INJECT(wglSwapLayerBuffers);

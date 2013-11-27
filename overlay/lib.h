@@ -47,26 +47,37 @@
 
 #define lround(x) static_cast<long int>((x) + (((x) >= 0.0) ? 0.5 : -0.5))
 
+#define ARRAY_SIZE_BYTES(x) sizeof(x)
+#define ARRAY_NUM_ELEMENTS(x) (sizeof(x)/sizeof((x)[0]))
+
 using namespace std;
 
 void __cdecl ods(const char *format, ...);
 
+const int MODULEFILEPATH_BUFLEN = 2048;
+const int PROCNAMEFILEPATH_BUFLEN = 1024;
+const int PROCNAMEFILEPATH_EXTENDED_EXTLEN = 64;
+const int PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN = PROCNAMEFILEPATH_BUFLEN + PROCNAMEFILEPATH_EXTENDED_EXTLEN;
+
 struct Direct3D9Data {
-	// Offset from module address to Create method.
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetCreate;
-	// Offset from module address to CreateEx method.
 	int iOffsetCreateEx;
-	// Filename of the module.
-	char cFileName[2048];
 };
 
 struct DXGIData {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetPresent;
 	int iOffsetResize;
+};
+
+struct D3D10Data {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
 	int iOffsetAddRef;
 	int iOffsetRelease;
-	wchar_t wcDXGIFileName[2048];
-	wchar_t wcD3D10FileName[2048];
 };
 
 struct SharedData {
@@ -112,21 +123,48 @@ class Pipe {
 		virtual void setRect() = 0;
 		virtual void newTexture(unsigned int w, unsigned int h) = 0;
 		Pipe();
-		~Pipe();
+		virtual ~Pipe();
 	public:
 		void disconnect();
 };
 
+// From lib.cpp
+extern void checkHooks(bool preonly = false);
+// From dxgi.cpp
 extern void checkDXGIHook(bool preonly = false);
+// From d3d10.cpp
+extern void checkDXGI10Hook(bool preonly = false);
+// From d3d9.cpp
 extern void checkD3D9Hook(bool preonly = false);
+// From opengl.cpp
 extern void checkOpenGLHook();
+// From d3d9.cpp
 extern void freeD3D9Hook(HMODULE hModule);
 
+// From d3d9.cpp
 extern Direct3D9Data *d3dd;
+// From dxgi.cpp
 extern DXGIData *dxgi;
-extern HMODULE hSelf;
+// From d3d10.cpp
+extern D3D10Data *d3d10;
+// From lib.cpp
 extern BOOL bIsWin8;
-extern unsigned int uiAudioCount;
-extern bool bVideoHooked;
+
+// From lib.cpp
+/// Checks if the module of the function pointer fnptr equals the module filepath
+/// of refmodulepath.
+///
+/// @param fnptr
+/// @param refmodulepath the module path to compare against
+/// @param logPrefix Used for debug logging.
+/// @param fnName name of the method fnptr points to. used for debug logging
+/// @return true if the module filepath of the function pointer matches the reference one
+extern bool IsFnInModule(voidFunc fnptr, wchar_t *refmodulepath, const std::string &logPrefix, const std::string &fnName);
+
+// From lib.cpp
+/// Checks fnptr is in a loaded module with module path refmodulepath.
+///
+/// @return Offset as int or < 0 on failure.
+extern int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int refmodulepathLen, const std::string &logPrefix, const std::string &fnName);
 
 #endif
