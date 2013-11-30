@@ -473,7 +473,7 @@ static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (sd->bHooked) {
+		if (sd != NULL && sd->bHooked) {
 			if (hhookWnd) {
 				UnhookWindowsHookEx(hhookWnd);
 				hhookWnd = NULL;
@@ -487,7 +487,7 @@ extern "C" __declspec(dllexport) void __cdecl RemoveHooks() {
 extern "C" __declspec(dllexport) void __cdecl InstallHooks() {
 	DWORD dwWaitResult = WaitForSingleObject(hHookMutex, 1000L);
 	if (dwWaitResult == WAIT_OBJECT_0) {
-		if (! sd->bHooked) {
+		if (sd != NULL && ! sd->bHooked) {
 			HMODULE hSelf = NULL;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (char *) &InstallHooks, &hSelf);
 			if (hSelf == NULL) {
@@ -509,7 +509,7 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 }
 
 static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
-static void createSharedDataMap();
+static bool createSharedDataMap();
 
 static void dllmainProcAttach(char *procname) {
 	Mutex::init();
@@ -544,7 +544,8 @@ static void dllmainProcAttach(char *procname) {
 		return;
 	}
 
-	createSharedDataMap();
+	if(!createSharedDataMap())
+		return;
 
 	if (! bMumble) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
@@ -681,23 +682,24 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 	return false;
 }
 
-static void createSharedDataMap() {
+static bool createSharedDataMap() {
 	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data);
 
 	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
 	if (hMapObject == NULL) {
 		ods("Lib: CreateFileMapping failed");
-		return;
+		return false;
 	}
 
+	//Note: If the mapping exists dwSharedSize value will be ignored and existing handle returned
 	bool bInit = (GetLastError() != ERROR_ALREADY_EXISTS);
 
 	unsigned char *rawSharedPointer = static_cast<unsigned char *>(
 			MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, dwSharedSize));
 
 	if (rawSharedPointer == NULL) {
-		ods("Lib: MapViewOfFile Failed");
-		return;
+		ods("Lib: MapViewOfFile failed");
+		return false;
 	}
 
 	if (bInit)
@@ -714,6 +716,8 @@ static void createSharedDataMap() {
 
 	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
 	rawSharedPointer += sizeof(D3D10Data);
+	
+	return true;
 }
 
 static void dllmainProcDetach() {
