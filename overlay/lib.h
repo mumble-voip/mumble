@@ -80,6 +80,13 @@ struct D3D10Data {
 	int iOffsetRelease;
 };
 
+struct D3D11Data {
+	/// Filepath of the module the offsets are for.
+	wchar_t wcFileName[MODULEFILEPATH_BUFLEN];
+	int iOffsetAddRef;
+	int iOffsetRelease;
+};
+
 struct SharedData {
 	bool bHooked;
 };
@@ -134,6 +141,8 @@ extern void checkHooks(bool preonly = false);
 extern void checkDXGIHook(bool preonly = false);
 // From d3d10.cpp
 extern void checkDXGI10Hook(bool preonly = false);
+// From d3d11.cpp
+extern void checkDXGI11Hook(bool preonly = false);
 // From d3d9.cpp
 extern void checkD3D9Hook(bool preonly = false);
 // From opengl.cpp
@@ -147,6 +156,8 @@ extern Direct3D9Data *d3dd;
 extern DXGIData *dxgi;
 // From d3d10.cpp
 extern D3D10Data *d3d10;
+// From d3d11.cpp
+extern D3D11Data *d3d11;
 // From lib.cpp
 extern BOOL bIsWin8;
 

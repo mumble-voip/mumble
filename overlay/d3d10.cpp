@@ -61,12 +61,11 @@ struct SimpleVertex {
 
 class D10State: protected Pipe {
 	public:
-		LONG lHighMark;
+		ULONG lHighMark;
 
 		LONG initRefCount;
 		LONG refCount;
 		LONG myRefCount;
-		DWORD dwMyThread;
 
 		D3D10_VIEWPORT vp;
 
@@ -110,8 +109,6 @@ D10State::D10State(IDXGISwapChain *pSwapChain, ID3D10Device *pDevice) {
 	this->pDevice = pDevice;
 
 	lHighMark = initRefCount  = refCount = myRefCount = 0;
-	dwMyThread = 0;
-
 	ZeroMemory(&vp, sizeof(vp));
 
 	pOrigStateBlock = NULL;
@@ -264,8 +261,6 @@ bool D10State::init() {
 
 	HRESULT hr;
 
-	dwMyThread = GetCurrentThreadId();
-
 	D3D10_STATE_BLOCK_MASK StateBlockMask;
 	ZeroMemory(&StateBlockMask, sizeof(StateBlockMask));
 	hr = pD3D10StateBlockMaskEnableAll(&StateBlockMask);
@@ -321,6 +316,8 @@ bool D10State::init() {
 
 	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
 
+	// Settings for an "over" operation.
+	// https://en.wikipedia.org/w/index.php?title=Alpha_compositing&oldid=580659153#Description
 	D3D10_BLEND_DESC blend;
 	ZeroMemory(&blend, sizeof(blend));
 	blend.BlendEnable[0] = TRUE;
@@ -338,8 +335,7 @@ bool D10State::init() {
 		return false;
 	}
 	
-	float bf[4];
-	pDevice->OMSetBlendState(pBlendState, bf, 0xffffffff);
+	pDevice->OMSetBlendState(pBlendState, NULL, 0xffffffff);
 
 	hr = pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
 	if (FAILED(hr)) {
@@ -439,8 +435,6 @@ bool D10State::init() {
 
 	pBackBuffer->Release();
 
-	dwMyThread = 0;
-	
 	return true;
 }
 
@@ -482,8 +476,6 @@ void D10State::draw() {
 		timeT = t;
 	}
 
-	dwMyThread = GetCurrentThreadId();
-
 	checkMessage(vp.Width, vp.Height);
 
 	if (a_ucTexture && pSRView && (uiLeft != uiRight)) {
@@ -509,12 +501,10 @@ void D10State::draw() {
 		}
 		pOrigStateBlock->Apply();
 	}
-
-	dwMyThread = 0;
 }
 
 // D3D10 specific logic for the Present function.
-HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
+void presentD3D10(IDXGISwapChain *pSwapChain) {
 
 	ID3D10Device *pDevice = NULL;
 	HRESULT hr = pSwapChain->GetDevice(__uuidof(ID3D10Device), (void **) &pDevice);
@@ -534,7 +524,7 @@ HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 			if (!ds->init()) {
 				pDevice->Release();
 				delete ds;
-				return hr;
+				return;
 			}
 			
 			chains[pSwapChain] = ds;
@@ -552,8 +542,6 @@ HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 		ods("D3D10: Could not draw because ID3D10Device could not be retrieved.");
 		#endif
 	}
-
-	return hr;
 }
 
 void resizeD3D10(IDXGISwapChain *pSwapChain) {
@@ -572,13 +560,14 @@ static ULONG __stdcall myAddRef(ID3D10Device *pDevice) {
 	// Call base without active hook in case of no trampoline.
 	AddRefType oAddRef = (AddRefType) hhAddRef.call;
 	hhAddRef.restore();
-	LONG res = oAddRef(pDevice);
+	ULONG res = oAddRef(pDevice);
 	hhAddRef.inject();
 
 	Mutex m;
-	D10State *ds = devices[pDevice];
-	if (ds)
-		ds->lHighMark = res;
+	DeviceMap::iterator it = devices.find(pDevice);
+	if (it != devices.end()) {
+		it->second->lHighMark = res;
+	}
 
 	return res;
 }
@@ -592,16 +581,21 @@ static ULONG __stdcall myRelease(ID3D10Device *pDevice) {
 	hhRelease.inject();
 
 	Mutex m;
-	D10State *ds = devices[pDevice];
-	if (ds)
-		if (res < static_cast<ULONG>(ds->lHighMark / 2)) {
-			ods("D3D10: Deleting resources %d < .5 %d", res, ds->lHighMark);
-			devices.erase(ds->pDevice);
+	DeviceMap::iterator it = devices.find(pDevice);
+	if (it != devices.end()) {
+		D10State *ds = it->second;
+		// If we are receiving a lot of subsequent releases lets eagerly drop
+		// our state object. If the device presents something again a state
+		// object is created again just fine anyway.
+		if (res < ds->lHighMark / 2) {
+			ods("D3D10: Deleting resources %u < 0.5 * %u", res, ds->lHighMark);
+			devices.erase(it);
 			chains.erase(ds->pSwapChain);
 			delete ds;
 			ods("D3D10: Deleted");
 			ds = NULL;
 		}
+	}
 
 	return res;
 }

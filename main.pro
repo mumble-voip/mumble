@@ -39,6 +39,7 @@ CONFIG *= ordered debug_and_release
   }
 
   win32 {
+    SUBDIRS *= 3rdparty/fx11-build
     SUBDIRS *= overlay
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
