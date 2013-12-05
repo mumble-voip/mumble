@@ -92,7 +92,7 @@ class D10State: protected Pipe {
 
 		D10State(IDXGISwapChain *, ID3D10Device *);
 		virtual ~D10State();
-		void init();
+		bool init();
 		void draw();
 
 		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
@@ -250,10 +250,17 @@ void D10State::newTexture(unsigned int w, unsigned int h) {
 	}
 }
 
-void D10State::init() {
+bool D10State::init() {
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateEffectFromMemory);
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10CreateStateBlock);
 	static HMODREF(GetModuleHandleW(L"D3D10.DLL"), D3D10StateBlockMaskEnableAll);
+	
+	if (pD3D10CreateEffectFromMemory == NULL
+	    || pD3D10CreateStateBlock == NULL
+	    || pD3D10StateBlockMaskEnableAll == NULL) {
+		ods("D3D10: Could get handles for all required for state initialization");
+		return false;
+	}
 
 	HRESULT hr;
 
@@ -261,16 +268,36 @@ void D10State::init() {
 
 	D3D10_STATE_BLOCK_MASK StateBlockMask;
 	ZeroMemory(&StateBlockMask, sizeof(StateBlockMask));
-	pD3D10StateBlockMaskEnableAll(&StateBlockMask);
-	pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pOrigStateBlock);
-	pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pMyStateBlock);
+	hr = pD3D10StateBlockMaskEnableAll(&StateBlockMask);
+	if (FAILED(hr)) {
+		ods("D3D10: D3D10StateBlockMaskEnableAll failed");
+		return false;
+	}
+	
+	hr = pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pOrigStateBlock);
+	if (FAILED(hr)) {
+		ods("D3D10: D3D10CreateStateBlock for pOrigStateBlock failed");
+		return false;
+	}
+	
+	hr = pD3D10CreateStateBlock(pDevice, &StateBlockMask, &pMyStateBlock);
+	if (FAILED(hr)) {
+		ods("D3D10: D3D10CreateStateBlock for pMyStateBlock failed");
+		return false;
+	}
 
-	pOrigStateBlock->Capture();
+	hr = pOrigStateBlock->Capture();
+	if (FAILED(hr)) {
+		ods("D3D10: Failed to store original state block during init");
+		return false;
+	}
 
 	ID3D10Texture2D *pBackBuffer = NULL;
 	hr = pSwapChain->GetBuffer(0, __uuidof(*pBackBuffer), (LPVOID*)&pBackBuffer);
-	if (FAILED(hr))
+	if (FAILED(hr)) {
 		ods("D3D10: pSwapChain->GetBuffer failure!");
+		return false;
+	}
 
 	pDevice->ClearState();
 
@@ -287,8 +314,10 @@ void D10State::init() {
 	pDevice->RSSetViewports(1, &vp);
 
 	hr = pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRTV);
-	if (FAILED(hr))
-		ods("D3D10: pDevice->CreateRenderTargetView failure!");
+	if (FAILED(hr)) {
+		ods("D3D10: pDevice->CreateRenderTargetView failed!");
+		return false;
+	}
 
 	pDevice->OMSetRenderTargets(1, &pRTV, NULL);
 
@@ -303,14 +332,32 @@ void D10State::init() {
 	blend.BlendOpAlpha = D3D10_BLEND_OP_ADD;
 	blend.RenderTargetWriteMask[0] = D3D10_COLOR_WRITE_ENABLE_ALL;
 
-	pDevice->CreateBlendState(&blend, &pBlendState);
+	hr = pDevice->CreateBlendState(&blend, &pBlendState);
+	if (FAILED(hr)) {
+		ods("D3D10: pDevice->CreateBlendState failed!");
+		return false;
+	}
+	
 	float bf[4];
 	pDevice->OMSetBlendState(pBlendState, bf, 0xffffffff);
 
-	pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
+	hr = pD3D10CreateEffectFromMemory((void *) g_main, sizeof(g_main), 0, pDevice, NULL, &pEffect);
+	if (FAILED(hr)) {
+		ods("D3D10: D3D10CreateEffectFromMemory failed!");
+		return false;
+	}
 
 	pTechnique = pEffect->GetTechniqueByName("Render");
+	if (pTechnique == NULL) {
+		ods("D3D10: Could not get technique for name 'Render'");
+		return false;
+	}
+	
 	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
+	if (pDiffuseTexture == NULL) {
+		ods("D3D10: Could not get variable by name 'txDiffuse'");
+		return false;
+	}
 
 	pTexture = NULL;
 	pSRView = NULL;
@@ -324,10 +371,18 @@ void D10State::init() {
 
 	// Create the input layout
 	D3D10_PASS_DESC PassDesc;
-	pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
+	hr = pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
+	if (FAILED(hr)) {
+		ods("D3D10: Couldn't get pass description for technique");
+		return false;
+	}
+	
 	hr = pDevice->CreateInputLayout(layout, numElements, PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
-	if (FAILED(hr))
+	if (FAILED(hr)) {
 		ods("D3D10: pDevice->CreateInputLayout failure!");
+		return false;
+	}
+	
 	pDevice->IASetInputLayout(pVertexLayout);
 
 	D3D10_BUFFER_DESC bd;
@@ -337,9 +392,12 @@ void D10State::init() {
 	bd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
 	bd.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE;
 	bd.MiscFlags = 0;
+	
 	hr = pDevice->CreateBuffer(&bd, NULL, &pVertexBuffer);
-	if (FAILED(hr))
+	if (FAILED(hr)) {
 		ods("D3D10: pDevice->CreateBuffer failure!");
+		return false;
+	}
 
 	DWORD indices[] = {
 		0,1,3,
@@ -354,9 +412,12 @@ void D10State::init() {
 	D3D10_SUBRESOURCE_DATA InitData;
 	ZeroMemory(&InitData, sizeof(InitData));
 	InitData.pSysMem = indices;
+	
 	hr = pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer);
-	if (FAILED(hr))
+	if (FAILED(hr)) {
 		ods("D3D10: pDevice->CreateBuffer failure!");
+		return false;
+	}
 
 	// Set index buffer
 	pDevice->IASetIndexBuffer(pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -364,31 +425,44 @@ void D10State::init() {
 	// Set primitive topology
 	pDevice->IASetPrimitiveTopology(D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	pMyStateBlock->Capture();
-	pOrigStateBlock->Apply();
+	hr = pMyStateBlock->Capture();
+	if (FAILED(hr)) {
+		ods("D3D10: Failed to capture newly created state block");
+		return false;
+	}
+	
+	hr = pOrigStateBlock->Apply();
+	if (FAILED(hr)) {
+		ods("D3D10: Failed to restore original state block during init");
+		return false;
+	}
 
 	pBackBuffer->Release();
 
 	dwMyThread = 0;
+	
+	return true;
 }
 
 D10State::~D10State() {
-	pBlendState->Release();
-	pVertexBuffer->Release();
-	pIndexBuffer->Release();
-	pVertexLayout->Release();
-	pEffect->Release();
-	pRTV->Release();
-	if (pTexture)
-		pTexture->Release();
-	if (pSRView)
-		pSRView->Release();
+	if (pBlendState != NULL)    pBlendState->Release();
+	if (pVertexBuffer != NULL)  pVertexBuffer->Release();
+	if (pIndexBuffer != NULL)   pIndexBuffer->Release();
+	if (pVertexLayout != NULL)  pVertexLayout->Release();
+	if (pEffect != NULL)        pEffect->Release();
+	if (pRTV != NULL)           pRTV->Release();
+	if (pTexture != NULL)       pTexture->Release();
+	if (pSRView != NULL)        pSRView->Release();
 
-	pMyStateBlock->ReleaseAllDeviceObjects();
-	pMyStateBlock->Release();
+	if (pMyStateBlock) {
+		pMyStateBlock->ReleaseAllDeviceObjects();
+		pMyStateBlock->Release();
+	}
 
-	pOrigStateBlock->ReleaseAllDeviceObjects();
-	pOrigStateBlock->Release();
+	if (pOrigStateBlock) {
+		pOrigStateBlock->ReleaseAllDeviceObjects();
+		pOrigStateBlock->Release();
+	}
 }
 
 void D10State::draw() {
@@ -457,9 +531,15 @@ HRESULT presentD3D10(IDXGISwapChain *pSwapChain) {
 		if (ds == NULL) {
 			ods("D3D10: New state");
 			ds = new D10State(pSwapChain, pDevice);
+			if (!ds->init()) {
+				pDevice->Release();
+				delete ds;
+				return hr;
+			}
+			
 			chains[pSwapChain] = ds;
 			devices[pDevice] = ds;
-			ds->init();
+			
 		}
 
 		ds->draw();
