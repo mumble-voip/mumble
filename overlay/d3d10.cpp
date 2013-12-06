@@ -258,7 +258,7 @@ bool D10State::init() {
 	if (pD3D10CreateEffectFromMemory == NULL
 	    || pD3D10CreateStateBlock == NULL
 	    || pD3D10StateBlockMaskEnableAll == NULL) {
-		ods("D3D10: Could get handles for all required for state initialization");
+		ods("D3D10: Could not get handles for all required D3D10 state initialization functions");
 		return false;
 	}
 
