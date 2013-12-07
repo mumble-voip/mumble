@@ -98,6 +98,7 @@ public:
 	bool bOpus;
 	bool bAttenuateOthers;
 	bool bAllowHTML;
+	bool bAllowSavePassword;
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
 	bool bQuit;

@@ -138,6 +138,7 @@ class Server : public QThread {
 		int iMaxImageMessageLength;
 		int iOpusThreshold;
 		bool bAllowHTML;
+		bool bAllowSavePassword;
 		QString qsPassword;
 		QString qsWelcomeText;
 		bool bCertRequired;
