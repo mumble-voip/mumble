@@ -33,6 +33,8 @@
 #include "Log.h"
 #include "Global.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
+
 @interface MUUserNotificationCenterDelegate : NSObject
 @end
 
@@ -53,6 +55,8 @@ static NSString *Log_QString_to_NSString(const QString& string) {
 	return const_cast<NSString *>(reinterpret_cast<const NSString *>(CFStringCreateWithCharacters(kCFAllocatorDefault,
 	                                reinterpret_cast<const UniChar *>(string.unicode()), string.length())));
 }
+
+#endif
 
 extern bool qt_mac_execute_apple_script(const QString &script, AEDesc *ret);
 
@@ -84,6 +88,7 @@ static bool growl_available() {
 
 void Log::postNotification(MsgType mt, const QString &console, const QString &plain) {
 	QString title = msgName(mt);
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MOUNTAINLION) {
 		NSUserNotificationCenter *userNotificationCenter = [NSUserNotificationCenter defaultUserNotificationCenter];
 		if (userNotificationCenter.delegate == nil) {
@@ -95,7 +100,9 @@ void Log::postNotification(MsgType mt, const QString &console, const QString &pl
 		userNotification.title = [Log_QString_to_NSString(title) autorelease];
 		userNotification.informativeText = [Log_QString_to_NSString(plain) autorelease];
 		[userNotificationCenter scheduleNotification:userNotification];
-	} else {
+	} else
+#endif
+	{
 		QString qsScript = QString::fromLatin1(
 			"tell application \"GrowlHelperApp\"\n"
 			"	notify with name \"%1\" title \"%1\" description \"%2\" application name \"Mumble\"\n"
