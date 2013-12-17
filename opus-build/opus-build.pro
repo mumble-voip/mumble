@@ -44,10 +44,17 @@ win32 {
 
 unix {
   CONFIG += staticlib
-  # Build as C++ to ensure symbols are C++-mangled.
-  # This avoids symbol clashes with CELT 0.7 when
-  # building Mumble with CONFIG(sbcelt).
-  QMAKE_CFLAGS += -x c++
+  CONFIG(sbcelt) {
+    # Before Opus 1.1 we used to be able to build Opus
+    # as C++ code to get C++ name mangling for free,
+    # allowing us to statically build both libcelt
+    # and libopus into the same binary while avoiding
+    # symbol clashes between the two libraries.
+    #
+    # Stock Opus 1.1 doesn't build in C++ mode, so error
+    # out for now.
+    error(Mumble cannot be built in SBCELT mode with Opus 1.1 - aborting build.)
+  }
   INCLUDEPATH += ../$$BUILDDIR
 }
 
