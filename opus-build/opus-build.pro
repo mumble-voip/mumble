@@ -44,7 +44,10 @@ win32 {
 
 unix {
   CONFIG += staticlib
-  QMAKE_CFLAGS += -x c
+  # Build as C++ to ensure symbols are C++-mangled.
+  # This avoids symbol clashes with CELT 0.7 when
+  # building Mumble with CONFIG(sbcelt).
+  QMAKE_CFLAGS += -x c++
   INCLUDEPATH += ../$$BUILDDIR
 }
 
