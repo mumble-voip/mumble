@@ -28,13 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <initguid.h>
-#include <Global.h>
-#include <QMutexLocker>
-#include "MainWindow.h"
-#include <boost/thread/once.hpp>
+#include "mumble_pch.hpp"
 
+#include "Global.h"
+#include "MainWindow.h"
+
+#include <initguid.h>
 #include "WASAPINotificationClient.h"
+
+#include <QtCore/QMutexLocker>
+#include <boost/thread/once.hpp>
 
 HRESULT STDMETHODCALLTYPE WASAPINotificationClient::OnDefaultDeviceChanged(EDataFlow flow, ERole role, LPCWSTR pwstrDefaultDevice) {
 	const QString device = QString::fromWCharArray(pwstrDefaultDevice);

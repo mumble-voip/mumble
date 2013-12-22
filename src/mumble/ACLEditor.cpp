@@ -63,6 +63,8 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
+	qlChannelID->hide();
+
 	qleChannelName->setFocus();
 
 	pcaPassword = NULL;
@@ -90,6 +92,8 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	iId = mea.channel_id();
 	setWindowTitle(tr("Mumble - Edit %1").arg(Channel::get(iId)->qsName));
+
+	qlChannelID->setText(tr("ID: %1").arg(iId));
 
 	qleChannelName->setText(pChannel->qsName);
 	if (channelid == 0)

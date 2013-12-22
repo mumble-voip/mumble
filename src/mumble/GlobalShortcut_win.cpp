@@ -42,6 +42,9 @@
 
 #define DX_SAMPLE_BUFFER_SIZE 512
 
+// from os_win.cpp
+extern HWND MumbleHWNDForQWidget(QWidget *w);
+
 static uint qHash(const GUID &a) {
 	uint val = a.Data1 ^ a.Data2 ^ a.Data3;
 	for (int i=0;i<8;i++)
@@ -58,14 +61,13 @@ static HardHook hhSetForegroundWindow(reinterpret_cast<voidFunc>(::SetForeground
 typedef HWND(__stdcall *WindowFromPointType)(POINT);
 static HWND WINAPI HookWindowFromPoint(POINT p) {
 	if (g.ocIntercept)
-		return g.ocIntercept->qgv.winId();
+		return MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
 	hhWindowFromPoint.restore();
-
 	HWND hwnd = oWindowFromPoint(p);
-
 	hhWindowFromPoint.inject();
+
 	return hwnd;
 }
 
@@ -76,13 +78,19 @@ static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 
 	SetForegroundWindowType oSetForegroundWindow = (SetForegroundWindowType) hhSetForegroundWindow.call;
 	hhSetForegroundWindow.restore();
-
 	BOOL ret = oSetForegroundWindow(hwnd);
-
 	hhSetForegroundWindow.inject();
+
 	return ret;
 }
 
+/**
+ * Returns a platform specific GlobalShortcutEngine object.
+ *
+ * @see GlobalShortcutX
+ * @see GlobalShortcutMac
+ * @see GlobalShortcutWin
+ */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutWin();
 }
@@ -107,9 +115,6 @@ GlobalShortcutWin::~GlobalShortcutWin() {
 }
 
 void GlobalShortcutWin::run() {
-	HMODULE hSelf;
-	QTimer *timer;
-
 	if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, reinterpret_cast<void **>(&pDI), NULL))) {
 		qFatal("GlobalShortcutWin: Failed to create d8input");
 		return;
@@ -140,12 +145,13 @@ void GlobalShortcutWin::run() {
 		this->yieldCurrentThread();
 
 	if (bHook) {
+		HMODULE hSelf;
 		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (wchar_t *) &HookKeyboard, &hSelf);
 		hhKeyboard = SetWindowsHookEx(WH_KEYBOARD_LL, HookKeyboard, hSelf, 0);
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 	}
 
-	timer = new QTimer(this);
+	QTimer * timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
 
@@ -257,7 +263,10 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 		bool suppress = gsw->handleButton(ql, !(key->flags & LLKHF_UP));
 
 		if (! suppress && g.ocIntercept) {
-			HWND hwnd = g.ocIntercept->qgv.winId();
+			// In full-GUI-overlay always suppress
+			suppress = true;
+
+			HWND hwnd = MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -269,8 +278,6 @@ LRESULT CALLBACK GlobalShortcutWin::HookKeyboard(int nCode, WPARAM wParam, LPARA
 
 			if (! nomsg)
 				::PostMessage(hwnd, msg, w, l);
-
-			suppress = true;
 		}
 
 		if (suppress)
@@ -327,6 +334,9 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 		}
 
 		if (g.ocIntercept) {
+			// In full-GUI-overlay always suppress
+			suppress = true;
+
 			POINT p;
 			GetCursorPos(&p);
 
@@ -356,7 +366,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 
 			w |= (mouse->mouseData & 0xFFFF0000);
 
-			HWND hwnd = g.ocIntercept->qgv.winId();
+			HWND hwnd = MumbleHWNDForQWidget(&g.ocIntercept->qgv);
 
 			GUITHREADINFO gti;
 			ZeroMemory(&gti, sizeof(gti));
@@ -369,13 +379,11 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			::PostMessage(hwnd, msg, w, l);
 
 			QMetaObject::invokeMethod(g.ocIntercept, "updateMouse", Qt::QueuedConnection);
-
-			suppress = true;
 		}
 
 		bool down = false;
 		unsigned int btn = 0;
-		switch (wParam) {
+		switch (msg) {
 			case WM_LBUTTONDOWN:
 				down = true;
 			case WM_LBUTTONUP:
@@ -403,6 +411,7 @@ LRESULT CALLBACK GlobalShortcutWin::HookMouse(int nCode, WPARAM wParam, LPARAM l
 			ql << static_cast<unsigned int>((btn << 8) | 0x4);
 			ql << QVariant(QUuid(GUID_SysMouse));
 			bool wantsuppress = gsw->handleButton(ql, down);
+			// Do not suppress LBUTTONUP though (so suppression can be deactvated via mouse).
 			if (! suppress)
 				suppress = wantsuppress && (btn != 3);
 		}
@@ -470,7 +479,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 			id->qhTypeToOfs[dwType] = dwOfs;
 		}
 
-		if (FAILED(hr = id->pDID->SetCooperativeLevel(g.mw->winId(), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
+		if (FAILED(hr = id->pDID->SetCooperativeLevel(MumbleHWNDForQWidget(g.mw), DISCL_NONEXCLUSIVE|DISCL_BACKGROUND)))
 			qFatal("GlobalShortcutWin: SetCooperativeLevel: %lx", hr);
 
 		if (FAILED(hr = id->pDID->SetDataFormat(&df)))

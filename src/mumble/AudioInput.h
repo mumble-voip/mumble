@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef AUDIOINPUT_H_
-#define AUDIOINPUT_H_
+#ifndef MUMBLE_MUMBLE_AUDIOINPUT_H_
+#define MUMBLE_MUMBLE_AUDIOINPUT_H_
 
 #include <boost/shared_ptr.hpp>
 #include <speex/speex.h>

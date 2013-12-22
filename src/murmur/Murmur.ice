@@ -352,7 +352,8 @@ module Murmur
 		 *  @param certstrong True if certificate was valid and signed by a trusted CA.
 		 *  @param newname Set this to change the username from the supplied one.
 		 *  @param groups List of groups on the root channel that the user will be added to for the duration of the connection.
-		 *  @return UserID of authenticated user, -1 for authentication failures and -2 for unknown user (fallthrough).
+		 *  @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
+		 *          -3 for authentication failures where the data could (temporarily) not be verified.
 		 */
 		idempotent int authenticate(string name, string pw, CertificateList certificates, string certhash, bool certstrong, out string newname, out GroupNameList groups);
 

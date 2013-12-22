@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef UNIXMURMUR_H_
-#define UNIXMURMUR_H_
+#ifndef MUMBLE_MURMUR_UNIXMURMUR_H_
+#define MUMBLE_MURMUR_UNIXMURMUR_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QThread>

@@ -1,3 +1,8 @@
+/**
+ * Provided a target address spawns a specified number of senders/speakers,
+ * UDP-listeners and TCP-listeners.
+ */
+
 #include <QtCore>
 #include <QtNetwork>
 
@@ -87,7 +92,7 @@ Client::Client(QObject *p, QHostAddress qha, unsigned short prt, bool send, bool
 
 	MumbleProto::Version mpv;
 	mpv.set_release(u8(QLatin1String("1.2.1 Benchmark")));
-	mpv.set_version(0x010200);
+	mpv.set_version(0x010203);
 
 	sendMessage(mpv, MessageHandler::Version);
 
@@ -119,7 +124,7 @@ void Client::sendMessage(const ::google::protobuf::Message &msg, unsigned int ms
 
 	msg.SerializeToArray(uc + 6, len);
 
-	ssl->write(reinterpret_cast<const char *>(uc), len+6);
+	ssl->write(reinterpret_cast<const char *>(uc), len + 6);
 }
 
 void Client::ping() {
@@ -258,8 +263,8 @@ class Container : public QObject {
 		Q_OBJECT
 	public:
 		int sent;
-		int nsend, nudp, ntcp;
-		int isend, iudp, itcp;
+		int numsender, numudplistener, numtcplistener;
+		int isender, iudplistener, itcplistener;
 		bool live, forceping;
 		QHostAddress qha;
 		unsigned short port;
@@ -274,28 +279,27 @@ class Container : public QObject {
 };
 
 Container::Container(QHostAddress qha, unsigned short port, int numsend, int numudp, int numtcp) {
+	isender = iudplistener = itcplistener = 0;
+	live = false;
+	forceping = false;
+	sent = 0;
+
 	Timer t;
 
 	qWarning("Spawning %d speakers and %d listeners (%d UDP, %d TCP)", numsend, numudp+numtcp, numudp, numtcp);
 
-	nsend=numsend;
-	nudp=numudp;
-	ntcp=numtcp;
-
-	isend=iudp=itcp=0;
-
 	this->qha = qha;
 	this->port = port;
+
+	numsender = numsend;
+	numudplistener = numudp;
+	numtcplistener = numtcp;
+
 
 	connect(&qtTick, SIGNAL(timeout()), this, SLOT(tick()));
 	qtTick.start(0);
 
-	live = false;
-	forceping = false;
-
 	tickSpawn.restart();
-	sent = 0;
-
 }
 
 void Container::tick() {
@@ -319,7 +323,7 @@ void Container::tick() {
 			}
 			qWarning("Sent: %8d  Rcvd: %8lld  Lost: %8d   BW: %6.1fMbit/s", sent, totrcv / nrcv, (lost + nrcv - 1) / nrcv, (totrcv * 8.0 * 123.0) / (tickGo.elapsed() * 1.0));
 		} else {
-			qWarning("Spawned %3d/%3d", isend+iudp+itcp,nsend+nudp+ntcp);
+			qWarning("Spawned %3d/%3d", isender + iudplistener + itcplistener, numsender + numudplistener + numtcplistener);
 		}
 	}
 
@@ -330,26 +334,29 @@ void Container::tick() {
 		}
 	}
 	if (! live) {
-		if (isend < nsend) {
+		if (isender < numsender) {
+			// Spawn a sender
 			Client *c = new Client(this, qha, port, true, false);
 			speakers << c;
 			c->start();
 			clients << c;
-			isend++;
-		} else if (iudp < nudp) {
+			isender++;
+		} else if (iudplistener < numudplistener) {
+			// Spawn a listener which uses UDP
 			Client *c = new Client(this, qha, port, false, false);
 			c->start();
 			clients << c;
-			iudp++;
-		} else if (itcp < ntcp) {
+			iudplistener++;
+		} else if (itcplistener < numtcplistener) {
+			// Spawn a listener which uses TCP-only
 			Client *c = new Client(this, qha, port, false, true);
 			c->start();
 			clients << c;
-			itcp++;
+			itcplistener++;
 		} else {
 			live = true;
 			quint64 elapsed = tickSpawn.elapsed();
-			qWarning("Spawning took %lld ms (%lld us per client)", elapsed / 1000ULL, elapsed / (nsend+nudp+ntcp));
+			qWarning("Spawning took %lld ms (%lld us per client)", elapsed / 1000ULL, elapsed / (numsender+numudplistener+numtcplistener));
 			foreach(Client *c, clients)
 				c->rcvd = 0;
 			sent = 0;
@@ -372,15 +379,15 @@ int main(int argc, char **argv) {
 	qWarning("Maximum # sockets is %d", FD_SETSIZE);
 
 	if (argc != 6)
-		qFatal("Invalid # args");
+		qFatal("Invalid number of arguments. These need to be passed: <host address> <port> <numsend> <numudp> <numtcp>");
 
 	QHostAddress qha = QHostAddress(argv[1]);
 	int port = atoi(argv[2]);
-	int numsend = atoi(argv[3]);
-	int numudp = atoi(argv[4]);
-	int numtcp = atoi(argv[5]);
+	int numsender = atoi(argv[3]);
+	int numudplistener = atoi(argv[4]);
+	int numtcplistener = atoi(argv[5]);
 
-	Container c(qha, port, numsend, numudp, numtcp);
+	Container c(qha, port, numsender, numudplistener, numtcplistener);
 	c.go();
 	a.exec();
 }

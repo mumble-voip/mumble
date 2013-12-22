@@ -51,12 +51,19 @@ static ConfigRegistrar registrar(4000, LogConfigDialogNew);
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qtwMessages->header()->setSectionResizeMode(ColMessage, QHeaderView::Stretch);
+	qtwMessages->header()->setSectionResizeMode(ColConsole, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setSectionResizeMode(ColTTS, QHeaderView::ResizeToContents);
+	qtwMessages->header()->setSectionResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
+#else
 	qtwMessages->header()->setResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColNotification, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColTTS, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setResizeMode(ColStaticSound, QHeaderView::ResizeToContents);
+#endif
 
 	QTreeWidgetItem *twi;
 	for (int i = Log::firstMsgType; i <= Log::lastMsgType; ++i) {
@@ -181,9 +188,10 @@ void LogConfig::on_qtwMessages_itemDoubleClicked(QTreeWidgetItem * item, int col
 }
 
 void LogConfig::browseForAudioFile() {
-	QString file = AudioOutputSample::browseForSndfile();
+	QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
+	QString defaultpath(i->text(ColStaticSoundPath));
+	QString file = AudioOutputSample::browseForSndfile(defaultpath);
 	if (!file.isEmpty()) {
-		QTreeWidgetItem *i = qtwMessages->selectedItems()[0];
 		i->setText(ColStaticSoundPath, file);
 		i->setCheckState(ColStaticSound, Qt::Checked);
 	}

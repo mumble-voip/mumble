@@ -28,10 +28,15 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef RICHTEXTEDITOR_H_
-#define RICHTEXTEDITOR_H_
+#ifndef MUMBLE_MUMBLE_RICHTEXTEDITOR_H_
+#define MUMBLE_MUMBLE_RICHTEXTEDITOR_H_
 
-#include <QtGui/QTextEdit>
+#include <QtCore/QtGlobal>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QTextEdit>
+#else
+# include <QtGui/QTextEdit>
+#endif
 
 class RichTextHtmlEdit : public QTextEdit {
 	private:

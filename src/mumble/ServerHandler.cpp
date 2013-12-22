@@ -292,7 +292,11 @@ void ServerHandler::run() {
 	bUdp = false;
 
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qtsSock->setProtocol(QSsl::TlsV1_0);
+#else
 	qtsSock->setProtocol(QSsl::TlsV1);
+#endif
 	qtsSock->connectToHostEncrypted(qsHostName, usPort);
 
 	tTimestamp.restart();
@@ -547,7 +551,10 @@ void ServerHandler::serverConnectionConnected() {
 		qbaDigest = sha1(qsc.publicKey().toDer());
 		bUdp = Database::getUdp(qbaDigest);
 	} else {
-		bUdp = true;
+		// Shouldn't reach this
+		qCritical("Server must have a certificate. Dropping connection");
+		disconnect();
+		return;
 	}
 
 	MumbleProto::Version mpv;
@@ -763,7 +770,7 @@ void ServerHandler::sendChannelTextMessage(unsigned int channel, const QString &
 	} else {
 		mptm.add_channel_id(channel);
 
-		if (message_ == QString::fromAscii(g.ccHappyEaster + 10)) g.bHappyEaster = true;
+		if (message_ == QString::fromUtf8(g.ccHappyEaster + 10)) g.bHappyEaster = true;
 	}
 	mptm.set_message(u8(message_));
 	sendMessage(mptm);

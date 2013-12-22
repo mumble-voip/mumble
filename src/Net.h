@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef NET_H_
-#define NET_H_
+#ifndef MUMBLE_NET_H_
+#define MUMBLE_NET_H_
 
 #include <QtCore/QDateTime>
 #include <QtCore/QString>
@@ -60,7 +60,7 @@ struct HostAddress {
 	bool operator < (const HostAddress &) const;
 	bool operator == (const HostAddress &) const;
 
-	bool match(const HostAddress &, int) const;
+	bool match(const HostAddress &, int bits) const;
 
 	QString toString() const;
 

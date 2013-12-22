@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef WEBFETCH_H_
-#define WEBFETCH_H_
+#ifndef MUMBLE_MUMBLE_WEBFETCH_H_
+#define MUMBLE_MUMBLE_WEBFETCH_H_
 
 #include <QtCore/QByteArray>
 #include <QtCore/QMap>
@@ -38,8 +38,8 @@
 
 class QNetworkReply;
 
-/*!
- * \brief Utility class to fetch data from mumble servers.
+/**
+ * @brief Utility class to fetch data from mumble servers.
  *
  * This prefers regional servers, followed
  * by the global server, then finally the global backup server.

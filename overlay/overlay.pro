@@ -1,13 +1,13 @@
 include (../compiler.pri)
 
-VERSION = 1.2.4
+VERSION = 1.2.5
 TARGET_EXT = .dll
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
-SOURCES = lib.cpp d3d9.cpp d3d10.cpp ods.cpp opengl.cpp HardHook.cpp
+SOURCES = lib.cpp d3d9.cpp dxgi.cpp d3d10.cpp ods.cpp opengl.cpp HardHook.cpp
 HEADERS = lib.h ods.h HardHook.h overlay_blacklist.h
 EFFECTS = overlay.fx
 DIST = overlay.h overlay.fx HardHook.h
@@ -25,12 +25,12 @@ INCLUDEPATH *= "$$(DXSDK_DIR)Include"
 LIBS *= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -luuid -lole32 -luser32 -ladvapi32
 
 CONFIG(release, debug|release) {
-  DESTDIR       = ../release
+  DESTDIR = ../release
 }
 
 CONFIG(debug, debug|release) {
-  DESTDIR       = ../release
-  DEFINES	*= DEBUG
+  DESTDIR = ../debug
+  DEFINES *= DEBUG
 }
 
 fxc.output = ${QMAKE_FILE_BASE}.hex

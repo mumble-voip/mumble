@@ -68,7 +68,11 @@ Database::Database() {
 	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 #if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
 	datapaths << QDir::homePath() + QLatin1String("/.config/Mumble");
 #endif
@@ -86,6 +90,7 @@ Database::Database() {
 				found = db.open();
 			}
 
+			//TODO: If the above succeeds, but we also have a .mumble.sqlite, we open another DB!?
 			QFile f2(datapaths[i] + QLatin1String("/.mumble.sqlite"));
 			if (f2.exists()) {
 				db.setDatabaseName(f2.fileName());
@@ -160,6 +165,10 @@ Database::Database() {
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
+
+	//Note: A previous snapshot version created a table called 'hidden'
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `filtered_channels` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `server_cert_digest` TEXT NOT NULL, `channel_id` INTEGER NOT NULL)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `filtered_channels_entry` ON `filtered_channels`(`server_cert_digest`, `channel_id`)"));
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `pingcache` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hostname` TEXT, `port` INTEGER, `ping` INTEGER)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `pingcache_host_port` ON `pingcache`(`hostname`,`port`)"));
@@ -272,6 +281,34 @@ void Database::setLocalMuted(const QString &hash, bool muted) {
 	else
 		query.prepare(QLatin1String("DELETE FROM `muted` WHERE `hash` = ?"));
 	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+}
+
+bool Database::isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id) {
+	QSqlQuery query;
+	
+	query.prepare(QLatin1String("SELECT `channel_id` FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+	query.addBindValue(server_cert_digest);
+	query.addBindValue(channel_id);
+	execQueryAndLogFailure(query);
+
+	while (query.next()) {
+		return true;
+	}
+	return false;
+}
+
+void Database::setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, const bool hidden) {
+	QSqlQuery query;
+	
+	if (hidden)
+		query.prepare(QLatin1String("INSERT INTO `filtered_channels` (`server_cert_digest`, `channel_id`) VALUES (?, ?)"));
+	else
+		query.prepare(QLatin1String("DELETE FROM `filtered_channels` WHERE `server_cert_digest` = ? AND `channel_id` = ?"));
+
+	query.addBindValue(server_cert_digest);
+	query.addBindValue(channel_id);
+
 	execQueryAndLogFailure(query);
 }
 

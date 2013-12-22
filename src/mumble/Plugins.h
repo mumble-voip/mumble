@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef PLUGINS_H_
-#define PLUGINS_H_
+#ifndef MUMBLE_MUMBLE_PLUGINS_H_
+#define MUMBLE_MUMBLE_PLUGINS_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QMutex>

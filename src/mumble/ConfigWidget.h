@@ -29,11 +29,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONFIGWIDGET_H_
-#define CONFIGWIDGET_H_
+#ifndef MUMBLE_MUMBLE_CONFIGWIDGET_H_
+#define MUMBLE_MUMBLE_CONFIGWIDGET_H_
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QObject>
-#include <QtGui/QWidget>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QWidget> 
+#else 
+# include <QtGui/QWidget>
+#endif
 
 struct Settings;
 class ConfigDialog;

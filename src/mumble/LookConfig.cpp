@@ -134,6 +134,8 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbShowContextMenuInMenuBar, r.bShowContextMenuInMenuBar);
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
+	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
+	
 }
 
 void LookConfig::save() const {
@@ -174,6 +176,7 @@ void LookConfig::save() const {
 	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
+	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
 }
 
 void LookConfig::accept() const {
@@ -210,7 +213,26 @@ bool LookConfig::expert(bool b) {
 }
 
 void LookConfig::on_qpbSkinFile_clicked(bool) {
-	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), QString(), QLatin1String("*.qss"));
+	QString currentPath(qleCSS->text());
+	if (currentPath.isEmpty()) {
+		QDir p;
+		#if defined(Q_OS_WIN)
+			p.setPath(QApplication::applicationDirPath());
+		#else
+			p = g.qdBasePath;
+		#endif
+		currentPath = p.path();
+
+		p.cd(QString::fromLatin1("skins"));
+		if (p.exists() && p.isReadable()) {
+			currentPath = p.path();
+		}
+	}
+	QDir path(currentPath);
+	if (!path.exists() || !path.isReadable()) {
+		path.cdUp();
+	}
+	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), path.path(), QLatin1String("*.qss"));
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);
 	}

@@ -103,6 +103,9 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 		case MumbleProto::Reject_RejectType_WrongServerPW:
 			reason = tr("Wrong password");
 			break;
+		case MumbleProto::Reject_RejectType_AuthenticatorFail:
+			reason = tr("Your account information can not be verified currently. Please try again later");
+			break;
 		default:
 			break;
 	}
@@ -214,12 +217,12 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.s.bTTS = true;
 					quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);
 					g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
-					g.l->log(Log::PermissionDenied, QString::fromAscii(g.ccHappyEaster + 39).arg(u));
+					g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(u));
 					g.s.qmMessages[Log::PermissionDenied] = oflags;
 					g.s.bDeaf = bold;
 					g.s.bTTS = bold2;
-					g.mw->setWindowIcon(QIcon(QLatin1String(g.ccHappyEaster)));
-					g.mw->setStyleSheet(QString::fromAscii(g.ccHappyEaster + 82));
+					g.mw->setWindowIcon(QIcon(QString::fromUtf8(g.ccHappyEaster)));
+					g.mw->setStyleSheet(QString::fromUtf8(g.ccHappyEaster + 82));
 					qWarning() << "Happy Easter";
 				}
 			}
@@ -516,6 +519,8 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 		else
 			g.l->log((pSrc == pSelf) ? Log::YouKicked : Log::UserKicked, tr("%3 was kicked from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason).arg(Log::formatClientUser(pDst, Log::Target)));
 	} else {
+		if(pDst->cChannel == pSelf->cChannel)
+			g.l->log(Log::ChannelLeave, tr("%1 left channel.").arg(Log::formatClientUser(pDst, Log::Source)));
 		g.l->log(Log::UserLeave, tr("%1 disconnected.").arg(Log::formatClientUser(pDst, Log::Source)));
 	}
 	if (pDst != pSelf)
@@ -530,20 +535,31 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 	Channel *p = msg.has_parent() ? Channel::get(msg.parent()) : NULL;
 
 	if (!c) {
-		if (msg.has_parent() && p && msg.has_name()) {
+		// Addresses channel does not exist so create it
+		if (p && msg.has_name()) {
 			c = pmModel->addChannel(msg.channel_id(), p, u8(msg.name()));
 			c->bTemporary = msg.temporary();
-			p = NULL;
+			p = NULL; // No need to move it later
+
+			ServerHandlerPtr sh = g.sh;
+			if (sh)
+				c->bFiltered = Database::isChannelFiltered(sh->qbaDigest, c->iId);
+
 		} else {
+			qWarning("Server attempted state change on nonexistent channel");
 			return;
 		}
 	}
 
 	if (p) {
+		// Channel move
 		Channel *pp = p;
 		while (pp) {
-			if (pp == c)
+			if (pp == c) {
+				qWarning("Server asked to move a channel into itself or one of its children");
 				return;
+			}
+
 			pp = pp->cParent;
 		}
 		pmModel->moveChannel(c, p);
@@ -596,8 +612,15 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
 	Channel *c = Channel::get(msg.channel_id());
-	if (c && (c->iId != 0))
+	if (c && (c->iId != 0)) {
+		if (c->bFiltered) {
+			ServerHandlerPtr sh = g.sh;
+			if (sh)
+				Database::setChannelFiltered(sh->qbaDigest, c->iId, false);
+			c->bFiltered = false;
+		}
 		pmModel->removeChannel(c);
+	}
 }
 
 void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {

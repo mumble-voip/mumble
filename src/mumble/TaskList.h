@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef TASK_LIST_H_
-#define TASK_LIST_H_
+#ifndef MUMBLE_MUMBLE_TASK_LIST_H_
+#define MUMBLE_MUMBLE_TASK_LIST_H_
 
 class TaskList {
 	public:

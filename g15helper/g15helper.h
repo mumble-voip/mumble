@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef __G15_HELPER_H__
-#define __G15_HELPER_H__
+#ifndef MUMBLE_G15_HELPER_H_
+#define MUMBLE_G15_HELPER_H_
 
 #define G15_MAX_DEV         5
 #define G15_MAX_WIDTH       160
@@ -54,4 +54,4 @@ enum {
 	G15_ERR_DEINIT,
 };
 
-#endif /* __G15_HELPER_H__ */
+#endif

@@ -33,7 +33,11 @@
 #include "TextToSpeech.h"
 
 #ifdef USE_SPEECHD
-#include <libspeechd.h>
+# ifdef USE_SPEECHD_PKGCONFIG
+#  include <speech-dispatcher/libspeechd.h>
+# else
+#  include <libspeechd.h>
+# endif
 #endif
 
 #include "Global.h"

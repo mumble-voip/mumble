@@ -1,4 +1,5 @@
 /* Copyright (C) 2013, Steve Hill <github@cheesy.sackheads.org>
+   Copyright (C) 2013, Gabriel Risterucci <cleyfaye@gmail.com>
    Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
 
    All rights reserved.
@@ -39,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 {
 	// Zero out the structures
 	for (int i=0;i<3;i++)
-		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
+		avatar_pos[i]=avatar_front[i]=avatar_top[i]=camera_pos[i]=camera_front[i]=camera_top[i]=0.0f;
 
 	bool ok;
 
@@ -50,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (!ok) return false;
 
 	if (state == 0)
-             return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
+		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
 	struct
 	{
@@ -90,11 +91,34 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids)
 {
-	if (!initialize(pids, L"Borderlands2.exe"))
+	if (!initialize(pids, L"Borderlands2.exe")) {
 		return false;
+	}
 
 	char detected_version[32];
 
+	// Note for further versions:
+	// The "version" string above change. However, it looks like it will always start
+	// with "WILLOW2-". Everything after this can change between versions.
+	// Position vectors are read as triplet (X,Y,Z). The tree triplet are in this order:
+	// front, top, position.
+	// When entering the game, in Sanctuary (after liftoff), with the character Zero,
+	// the reading are the following (rounded):
+	// front.X = 0
+	// front.Y = 0
+	// front.Z = 1
+	// top.X = 0
+	// top.Y = 1
+	// top.Z = 0
+	// pos.X = -8109
+	// pos.Y = 3794
+	// pos.Z = 2930
+	// The "state" ptr is just a value that reliably alternate between 0 (in main menu)
+	// and 1 (not in main menu). There is a lot of value that keep reliably changing even 
+	// across restart, change of characters...
+	// Note that I couldn't find an address that would do this reliably with the game "pause" 
+	// menu, only the main menu (when you initially start the game, or completely exit your
+	// current game)
 	// 1.3.1
 	if (peekProc(pModule + 0x1E6D048, detected_version)
 		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") == 0)

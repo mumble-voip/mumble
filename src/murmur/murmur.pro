@@ -26,7 +26,7 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= ice
 }
 
-!CONFIG(no-dbus):!win32 {
+!CONFIG(no-dbus):!win32:!macx {
 	CONFIG *= dbus
 }
 
@@ -38,6 +38,9 @@ win32 {
   RC_FILE = murmur.rc
   CONFIG *= gui
   QT *= gui
+  isEqual(QT_MAJOR_VERSION, 5) {
+    QT *= widgets
+  }
   RESOURCES	*= murmur.qrc
   SOURCES *= Tray.cpp
   HEADERS *= Tray.h
@@ -74,7 +77,7 @@ ice {
 	win32 {
 		slice.commands = slice2cpp --checksum -I\"$$ICE_PATH/slice\" ${QMAKE_FILE_NAME}
 	} else {
-		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ -I/usr/share/Ice-3.3.1/slice/ -I/usr/share/Ice-3.4.2/slice/ ${QMAKE_FILE_NAME}
+		slice.commands = slice2cpp --checksum -I/usr/local/share/Ice -I/usr/share/Ice/slice -I/usr/share/slice -I/usr/share/Ice-3.4.1/slice/ -I/usr/share/Ice-3.3.1/slice/ -I/usr/share/Ice-3.4.2/slice/ -I/usr/share/Ice-3.5.0/slice/ -I/usr/share/Ice-3.5.1/slice/ ${QMAKE_FILE_NAME}
 	}
 	slice.input = SLICEFILES
 	slice.CONFIG *= no_link explicit_dependencies
@@ -99,7 +102,13 @@ ice {
 
 	win32 {
 		INCLUDEPATH *= "$$ICE_PATH/include"
-		QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
+		!CONFIG(static) {
+			QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
+		} else {
+			DEFINES *= ICE_STATIC_LIBS
+			QMAKE_LIBDIR *= $$ICE_PATH/lib $$BZIP2_PATH/lib
+			LIBS *= -llibbz2 -ldbghelp -liphlpapi -lrpcrt4
+		}
 	}
 
 	macx {

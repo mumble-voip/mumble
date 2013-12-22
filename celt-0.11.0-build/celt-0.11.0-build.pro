@@ -30,6 +30,7 @@ TARGET_VERSION_EXT = .$$VERSION
 
 CONFIG(static) {
 	CONFIG -= static
+	CONFIG += shared
 }
 
 QMAKE_CFLAGS -= -fPIE -pie

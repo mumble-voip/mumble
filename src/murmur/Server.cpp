@@ -853,20 +853,23 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 		msg.msg_controllen = CMSG_SPACE((u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct in6_pktinfo) : sizeof(struct in_pktinfo));
 
 		struct cmsghdr *cmsg = CMSG_FIRSTHDR(&msg);
-		if (u->saiTcpLocalAddress.ss_family == AF_INET6) {
+		HostAddress tcpha(u->saiTcpLocalAddress);
+		if (u->saiUdpAddress.ss_family == AF_INET6) {
 			cmsg->cmsg_level = IPPROTO_IPV6;
 			cmsg->cmsg_type = IPV6_PKTINFO;
 			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in6_pktinfo));
 			struct in6_pktinfo *pktinfo = reinterpret_cast<struct in6_pktinfo *>(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
-			pktinfo->ipi6_addr =  reinterpret_cast<struct sockaddr_in6 *>(& u->saiTcpLocalAddress)->sin6_addr;
+			memcpy(&pktinfo->ipi6_addr.s6_addr[0], &tcpha.qip6.c[0], sizeof(pktinfo->ipi6_addr.s6_addr));
 		} else {
 			cmsg->cmsg_level = IPPROTO_IP;
 			cmsg->cmsg_type = IP_PKTINFO;
 			cmsg->cmsg_len = CMSG_LEN(sizeof(struct in_pktinfo));
 			struct in_pktinfo *pktinfo = reinterpret_cast<struct in_pktinfo *>(CMSG_DATA(cmsg));
 			memset(pktinfo, 0, sizeof(*pktinfo));
-			pktinfo->ipi_spec_dst =  reinterpret_cast<struct sockaddr_in *>(& u->saiTcpLocalAddress)->sin_addr;
+			if (tcpha.isV6())
+				return;
+			pktinfo->ipi_spec_dst.s_addr = tcpha.hash[3];
 		}
 
 
@@ -1141,7 +1144,11 @@ void Server::newClient() {
 
 		u->setToS();
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		sock->setProtocol(QSsl::TlsV1_0);
+#else
 		sock->setProtocol(QSsl::TlsV1);
+#endif
 		sock->startServerEncryption();
 	}
 }
@@ -1165,10 +1172,31 @@ void Server::encrypted() {
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
+#else
 		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
+#endif
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
-			log(uSource, QString("Strong certificate for %1 <%2> (signed by %3)").arg(cert.subjectInfo(QSslCertificate::CommonName)).arg(uSource->qslEmail.join(", ")).arg(certs.first().issuerInfo(QSslCertificate::CommonName)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+			QString subject;
+			QString issuer;
+
+			QStringList subjectList = cert.subjectInfo(QSslCertificate::CommonName);
+			if (! subjectList.isEmpty()) {
+				subject = subjectList.first();
+			}
+
+			QStringList issuerList = certs.first().issuerInfo(QSslCertificate::CommonName);
+			if (! issuerList.isEmpty()) {
+				issuer = issuerList.first();
+			}
+#else
+			QString subject = cert.subjectInfo(QSslCertificate::CommonName);
+			QString issuer = certs.first().issuerInfo(QSslCertificate::CommonName);
+#endif
+			log(uSource, QString::fromUtf8("Strong certificate for %1 <%2> (signed by %3)").arg(subject).arg(uSource->qslEmail.join(", ")).arg(issuer));
 		}
 
 		foreach(const Ban &ban, qlBans) {
@@ -1798,6 +1826,8 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 		if (! text.contains(QLatin1Char('<')))
 			return false;
 
+		// Strip value from <img>s src attributes to check text-length only -
+		// we already ensured the img-length requirement is met
 		QString qsOut;
 		QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
 		QXmlStreamWriter qxsw(&qsOut);
@@ -1807,8 +1837,6 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 					return false;
 				case QXmlStreamReader::StartElement: {
 						if (qxsr.name() == QLatin1String("img")) {
-							QXmlStreamAttributes attr = qxsr.attributes();
-
 							qxsw.writeStartElement(qxsr.namespaceUri().toString(), qxsr.name().toString());
 							foreach(const QXmlStreamAttribute &a, qxsr.attributes())
 								if (a.name() != QLatin1String("src"))

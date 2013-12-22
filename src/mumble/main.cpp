@@ -54,18 +54,16 @@
 #include "VersionCheck.h"
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
-#include "FileEngine.h"
 #include "SocketRPC.h"
 
-#ifdef USE_STATIC
-// Keep in sync with mumble.pro QTPLUGIN list.
+#if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
 Q_IMPORT_PLUGIN(qsvg)
 Q_IMPORT_PLUGIN(qsvgicon)
-#ifdef Q_OS_MAC
-Q_IMPORT_PLUGIN(qicnsicon)
-#endif
+# ifdef Q_OS_MAC
+   Q_IMPORT_PLUGIN(qicnsicon)
+# endif
 #endif
 
 #ifdef BOOST_NO_EXCEPTIONS
@@ -79,14 +77,24 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
-class QAppMumble : public QApplication {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
+# define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
+#else
+# define QAPP_INHERIT_EVENT_FILTER
+#endif
+
+class QAppMumble : public QApplication QAPP_INHERIT_EVENT_FILTER {
 	public:
 		QUrl quLaunchURL;
 		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
 		void commitData(QSessionManager&);
 		bool event(QEvent *e);
 #ifdef Q_OS_WIN
+# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result);
+# else
 		bool winEventFilter(MSG *msg, long *result);
+# endif
 #endif
 };
 
@@ -112,6 +120,30 @@ bool QAppMumble::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
+# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
+	Q_UNUSED(eventType);
+	MSG *msg = reinterpret_cast<MSG *>(message);
+
+	if (QThread::currentThread() == thread()) {
+		if (Global::g_global_struct && g.ocIntercept) {
+			switch (msg->message) {
+				case WM_MOUSELEAVE:
+					*result = 0;
+					return true;
+				case WM_KEYDOWN:
+				case WM_KEYUP:
+				case WM_SYSKEYDOWN:
+				case WM_SYSKEYUP:
+					GlobalShortcutEngine::engine->prepareInput();
+				default:
+					break;
+			}
+		}
+	}
+	return false;
+}
+# else
 bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	if (QThread::currentThread() == thread()) {
 		if (Global::g_global_struct && g.ocIntercept) {
@@ -131,9 +163,14 @@ bool QAppMumble::winEventFilter(MSG *msg, long *result) {
 	}
 	return QApplication::winEventFilter(msg, result);
 }
+# endif
 #endif
 
+#if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
+extern "C" _declspec(dllexport) int main(int argc, char **argv) {
+#else
 int main(int argc, char **argv) {
+#endif
 	int res = 0;
 
 	QT_REQUIRE_VERSION(argc, argv, "4.4.0");
@@ -152,6 +189,10 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
+	a.installNativeEventFilter(&a);
+#endif
 
 	#ifdef USE_SBCELT
 	{
@@ -276,7 +317,7 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
-	// Check wheter we need to enable accessibility features
+	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
 	// Only windows for now. Could not find any information on how to query this for osx or linux
 	{
@@ -366,6 +407,9 @@ int main(int argc, char **argv) {
 	g.bc = new BonjourClient();
 #endif
 
+	//TODO: This already loads up the DLL and does some initial hooking, even
+	// when the OL is disabled. This should either not be done (object instantiation)
+	// or the dll loading and preparation be delayed to first use.
 	g.o = new Overlay();
 	g.o->setActive(g.s.os.bEnable);
 
@@ -393,8 +437,6 @@ int main(int argc, char **argv) {
 	// Plugins
 	g.p = new Plugins(NULL);
 	g.p->rescanPlugins();
-
-	MumbleFileEngineHandler *mfeh = new MumbleFileEngineHandler();
 
 	Audio::start();
 
@@ -426,7 +468,12 @@ int main(int argc, char **argv) {
 	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+#else
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));
+#endif
+
 		QFile qf(qd.absoluteFilePath(QLatin1String("MumbleAutomaticCertificateBackup.p12")));
 		if (qf.open(QIODevice::ReadOnly | QIODevice::Unbuffered)) {
 			Settings::KeyPair kp = CertWizard::importCert(qf.readAll());
@@ -494,8 +541,6 @@ int main(int argc, char **argv) {
 	if (sh)
 		sh->disconnect();
 
-	delete mfeh;
-
 	delete srpc;
 
 	g.sh.reset();
@@ -533,3 +578,21 @@ int main(int argc, char **argv) {
 #endif
 	return res;
 }
+
+#if defined(Q_OS_WIN) && defined(QT_NO_DEBUG)
+extern void qWinMain(HINSTANCE, HINSTANCE, LPSTR, int, int &, QVector<char *> &);
+
+extern "C" _declspec(dllexport) int MumbleMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR cmdArg, int cmdShow) {
+	Q_UNUSED(cmdArg);
+
+	QByteArray cmdParam = QString::fromWCharArray(GetCommandLine()).toLocal8Bit();
+	int argc = 0;
+
+	// qWinMain takes argv as a reference.
+	QVector<char *> argv;
+	qWinMain(instance, prevInstance, cmdParam.data(), cmdShow, argc, argv);
+
+	int result = main(argc, argv.data());
+	return result;
+}
+#endif

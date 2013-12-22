@@ -34,7 +34,7 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
           <property name="spacing">
-           <number>-1</number>
+           <number>6</number>
           </property>
           <property name="sizeConstraint">
            <enum>QLayout::SetDefaultConstraint</enum>
@@ -132,7 +132,7 @@
              </sizepolicy>
             </property>
             <property name="title">
-             <string>FPS Display</string>
+             <string>FPS and Clock Display</string>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
@@ -147,6 +147,16 @@
                  </property>
                  <property name="text">
                   <string>Show FPS counter</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="qcbShowTime">
+                 <property name="toolTip">
+                  <string>Display a clock in the overlay showing the current local time (system time).</string>
+                 </property>
+                 <property name="text">
+                  <string>Show Clock</string>
                  </property>
                 </widget>
                </item>
@@ -201,6 +211,12 @@
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>256</width>
+                 <height>100</height>
+                </size>
                </property>
                <property name="maximumSize">
                 <size>

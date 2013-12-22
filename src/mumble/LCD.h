@@ -29,8 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef LCD_H_
-#define LCD_H_
+#ifndef MUMBLE_MUMBLE_LCD_H_
+#define MUMBLE_MUMBLE_LCD_H_
 
 #include "ConfigDialog.h"
 #include "Timer.h"

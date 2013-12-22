@@ -28,16 +28,24 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CRASHREPORTER_H_
-#define CRASHREPORTER_H_
+#ifndef MUMBLE_MUMBLE_CRASHREPORTER_H_
+#define MUMBLE_MUMBLE_CRASHREPORTER_H_
 
 #include <QtCore/QObject>
 #include <QtCore/QEventLoop>
 #include <QtNetwork/QNetworkReply>
-#include <QtGui/QDialog>
-#include <QtGui/QProgressDialog>
-#include <QtGui/QLineEdit>
-#include <QtGui/QTextEdit>
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QDialog>
+# include <QtWidgets/QProgressDialog>
+# include <QtWidgets/QLineEdit>
+# include <QtWidgets/QTextEdit>
+#else
+# include <QtGui/QDialog>
+# include <QtGui/QProgressDialog>
+# include <QtGui/QLineEdit>
+# include <QtGui/QTextEdit>
+#endif
 
 class CrashReporter : QDialog {
 		Q_OBJECT

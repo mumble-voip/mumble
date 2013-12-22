@@ -28,38 +28,77 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef USEREDIT_H_
-#define USEREDIT_H_
+#ifndef MUMBLE_MUMBLE_USEREDIT_H_
+#define MUMBLE_MUMBLE_USEREDIT_H_
 
 #include "Message.h"
-
+#include "User.h"
 #include "ui_UserEdit.h"
 
+#include <QSortFilterProxyModel>
+
+class UserListModel;
+class UserListFilterProxyModel;
+
 namespace MumbleProto {
-class UserList;
+	class UserList;
+	class UserList_User;
 }
 
-class UserEditListItem : public QListWidgetItem {
-	public:
-		UserEditListItem(const QString &username, const int userid);
-		bool operator<(const QListWidgetItem & other) const;
-};
-
+///
+/// Dialog used for server-side registered user list editing.
+///
 class UserEdit : public QDialog, public Ui::UserEdit {
-	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserEdit)
-	protected:
-		QMap<int, QString> qmUsers;
-		QMap<int, QString> qmChanged;
 	public:
-		UserEdit(const MumbleProto::UserList &mpul, QWidget *p = NULL);
+		/// Constructs a dialog for editing the given userList.
+		UserEdit(const MumbleProto::UserList &userList, QWidget *parent = NULL);
+	
 	public slots:
 		void accept();
-	public slots:
+	
+		void on_qlSearch_textChanged(QString);
 		void on_qpbRemove_clicked();
-		void on_qlwUserList_customContextMenuRequested(const QPoint&);
-		void renameTriggered();
+		void on_qpbRename_clicked();
+		void on_qtvUserList_customContextMenuRequested(const QPoint&);
+		void onSelectionChanged(const QItemSelection& /*selected*/, const QItemSelection& /*deselected*/);
+		void onCurrentRowChanged(const QModelIndex & current, const QModelIndex &/*previous*/);
+		void on_qsbInactive_valueChanged(int);
+		void on_qcbInactive_currentIndexChanged(int);
+	
+	private:
+		enum TimespanUnits { TU_DAYS, TU_WEEKS, TU_MONTHS, TU_YEARS, COUNT_TU };
+	
+		/// Polls the inactive-filter controls for their current value and updates the model filter.
+		void updateInactiveDaysFilter();
+	
+		UserListModel *m_model;
+		UserListFilterProxyModel *m_filter;
 };
 
-#endif
+///
+/// Provides filtering and sorting capabilities for UserListModel instances to UserEdit.
+/// @see UserEdit
+/// @see UserListModel
+///
+class UserListFilterProxyModel : public QSortFilterProxyModel {
+	Q_OBJECT
+public:
+	explicit UserListFilterProxyModel(QObject *parent = NULL);
+
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+
+public slots:
+	/// Sets the amount of inactive days below which rows will get filterd by the proxy
+	void setFilterMinimumInactiveDays(int minimumInactiveDays);
+	/// Helper function for removing all rows involved in a given selection (must include COL_NICK).
+	void removeRowsInSelection(const QItemSelection& selection);
+
+private:
+	/// Every row with less inactive days will be filtered.
+	int m_minimumInactiveDays;
+};
+
+
+#endif // MUMBLE_MUMBLE_USEREDIT_H_

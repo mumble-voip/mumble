@@ -60,7 +60,7 @@ static LogEmitter le;
 
 static QStringList qlErrors;
 
-static void murmurMessageOutput(QtMsgType type, const char *msg) {
+static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -111,7 +111,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 #ifdef Q_OS_UNIX
 		if (detach) {
 			if (qlErrors.isEmpty())
-				qlErrors << QLatin1String(msg);
+				qlErrors << msg;
 			qlErrors << QString();
 			m = qlErrors.join(QLatin1String("\n"));
 			fprintf(stderr, "%s", qPrintable(m));
@@ -122,6 +122,17 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 		exit(0);
 	}
 }
+
+static void murmurMessageOutput(QtMsgType type, const char *msg) {
+	murmurMessageOutputQString(type, QString::fromUtf8(msg));
+}
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+static void murmurMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
+	Q_UNUSED(ctx);
+	murmurMessageOutputQString(type, msg);
+}
+#endif
 
 #ifdef USE_ICE
 void IceParse(int &argc, char *argv[]);
@@ -171,7 +182,9 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+#endif
 
 #ifdef Q_OS_WIN
 	{
@@ -188,9 +201,6 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	argc = a.argc();
-	argv = a.argv();
-
 	QString inifile;
 	QString supw;
 	bool wipeSsl = false;
@@ -201,23 +211,28 @@ int main(int argc, char **argv) {
 #endif
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qInstallMessageHandler(murmurMessageOutputWithContext);
+#else
 	qInstallMsgHandler(murmurMessageOutput);
+#endif
 
 #ifdef Q_OS_WIN
 	Tray tray(NULL, &le);
 #endif
 
-	for (int i=1;i<argc;i++) {
+	QStringList args = a.arguments();
+	for (int i = 1; i < args.size(); i++) {
 		bool bLast = false;
-		QString arg = QString(argv[i]).toLower();
+		QString arg = args.at(i).toLower();
 		if ((arg == "-supw")) {
 			detach = false;
-			if (i+1 < argc) {
+			if (i+1 < args.size()) {
 				i++;
-				supw = argv[i];
-				if (i+1 < argc) {
+				supw = args.at(i);
+				if (i+1 < args.size()) {
 					i++;
-					sunum = QString::fromLatin1(argv[i]).toInt();
+					sunum = args.at(i).toInt();
 				}
 				bLast = true;
 			} else {
@@ -231,15 +246,15 @@ int main(int argc, char **argv) {
 		} else if ((arg == "-readsupw")) {
 			detach = false;
 			readPw = true;
-			if (i+1 < argc) {
+			if (i+1 < args.size()) {
 				i++;
-				sunum = QString::fromLatin1(argv[i]).toInt();
+				sunum = args.at(i).toInt();
 			}
 			bLast = true;
 #endif
-		} else if ((arg == "-ini") && (i+1 < argc)) {
+		} else if ((arg == "-ini") && (i+1 < args.size())) {
 			i++;
-			inifile=argv[i];
+			inifile = args.at(i);
 		} else if ((arg == "-wipessl")) {
 			wipeSsl = true;
 		} else if ((arg == "-wipelogs")) {
@@ -250,7 +265,7 @@ int main(int argc, char **argv) {
 			bVerbose = true;
 		} else if ((arg == "-version") || (arg == "--version")) {
 			detach = false;
-			qFatal("%s -- %s", argv[0], MUMBLE_RELEASE);
+			qFatal("%s -- %s", qPrintable(args.at(0)), MUMBLE_RELEASE);
 		} else if ((arg == "-h") || (arg == "-help") || (arg == "--help")) {
 			detach = false;
 			qFatal("Usage: %s [-ini <inifile>] [-supw <password>]\n"
@@ -269,7 +284,7 @@ int main(int argc, char **argv) {
 			       "  -wipelogs        Remove all log entries from database.\n"
 			       "  -version         Show version information.\n"
 			       "If no inifile is provided, murmur will search for one in \n"
-			       "default locations.", argv[0]);
+			       "default locations.", qPrintable(args.at(0)));
 #ifdef Q_OS_UNIX
 		} else if (arg == "-limits") {
 			Meta::mp.read(inifile);
@@ -279,9 +294,9 @@ int main(int argc, char **argv) {
 #endif
 		} else {
 			detach = false;
-			qFatal("Unknown argument %s", argv[i]);
+			qFatal("Unknown argument %s", qPrintable(args.at(i)));
 		}
-		if (bLast && (i+1 != argc)) {
+		if (bLast && (i+1 != args.size())) {
 			detach = false;
 			qFatal("Password arguments must be last.");
 		}
@@ -477,7 +492,11 @@ int main(int argc, char **argv) {
 
 	delete meta;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	qInstallMessageHandler(NULL);
+#else
 	qInstallMsgHandler(NULL);
+#endif
 
 #ifdef Q_OS_UNIX
 	if (! Meta::mp.qsPid.isEmpty()) {

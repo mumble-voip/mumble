@@ -38,20 +38,6 @@
 #include "ServerUser.h"
 #include "Version.h"
 
-/*!
-  \fn void Server::setTempGroups(int userid, Channel *cChannel, const QStringList &groups)
-  Sets the list of temporary groups the given userid is a member of. If no channel is given root will
-  be targeted.
-
-  If userid is negative the absolute value is a session id. If it is positive it is a registration id.
-*/
-
-/*!
-  \fn void Server::clearTempGroups(User *user, Channel *cChannel = NULL, bool recurse = true)
-  Clears temporary group memberships for the given User. If no channel is given root will be targeted.
-  If recursion is activated all temporary memberships in related channels will also be cleared.
-*/
-
 void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name, const QString &comment) {
 	bool changed = false;
 
@@ -237,6 +223,12 @@ void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, co
 	}
 }
 
+/**
+ * Sets the list of temporary groups the given userid is a member of. If no channel is given root will
+ * be targeted.
+ *
+ * If userid is negative the absolute value is a session id. If it is positive it is a registration id.
+ */
 void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const QStringList &groups) {
 	if (! cChannel)
 		cChannel = qhChannels.value(0);
@@ -264,6 +256,10 @@ void Server::setTempGroups(int userid, int sessionId, Channel *cChannel, const Q
 		clearACLCache(p);
 }
 
+/**
+ * Clears temporary group memberships for the given User. If no channel is given root will be targeted.
+ * If recursion is activated all temporary memberships in related channels will also be cleared.
+ */
 void Server::clearTempGroups(User *user, Channel *cChannel, bool recurse) {
 	QList<Channel*> qlChans;
 	if (! cChannel)

@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CELTCODEC_H_
-#define CELTCODEC_H_
+#ifndef MUMBLE_MUMBLE_CELTCODEC_H_
+#define MUMBLE_MUMBLE_CELTCODEC_H_
 
 #include <stdint.h>
 #include <celt.h>

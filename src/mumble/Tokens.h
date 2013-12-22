@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef TOKENS_H_
-#define TOKENS_H_
+#ifndef MUMBLE_MUMBLE_TOKENS_H_
+#define MUMBLE_MUMBLE_TOKENS_H_
 
 #include "ui_Tokens.h"
 

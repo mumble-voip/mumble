@@ -1,8 +1,17 @@
 /* config.h.  Generated from config.h.in by configure.  */
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define if building universal (internal helper macro) */
-/* #undef AC_APPLE_UNIVERSAL_BUILD */
+/* Use ARM NEON optimizations */
+/* #undef ARM_HAVE_NEON */
+
+/* Use generic ARMv4 asm optimizations */
+/* #undef ARMv4_ASM */
+
+/* Use ARMv5E asm optimizations */
+/* #undef ARMv5E_ASM */
+
+/* Use ARMv6 asm optimizations */
+/* #undef ARMv6_ASM */
 
 /* Custom modes */
 /* #undef CUSTOM_MODES */
@@ -13,11 +22,8 @@
 /* Debug fixed-point implementation */
 /* #undef FIXED_DEBUG */
 
-/* Compile as fixed-point */
+/* Compile as fixed-point (for machines without a fast enough FPU) */
 /* #undef FIXED_POINT */
-
-/* Compile as floating-point */
-#define FLOATING_POINT /**/
 
 /* Float approximations */
 /* #undef FLOAT_APPROX */
@@ -26,19 +32,13 @@
 /* #undef FUZZING */
 
 /* Define to 1 if you have the <alloca.h> header file. */
-#define HAVE_ALLOCA_H 1
+/* #undef HAVE_ALLOCA_H */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #define HAVE_DLFCN_H 1
 
-/* Define to 1 if you have the <getopt.h> header file. */
-#define HAVE_GETOPT_H 1
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
-
-/* Define to 1 if you have the `m' library (-lm). */
-#define HAVE_LIBM 1
 
 /* Define to 1 if you have the `lrint' function. */
 #define HAVE_LRINT 1
@@ -80,53 +80,29 @@
 /* Define to 1 if your C compiler doesn't accept -c and -o together. */
 /* #undef NO_MINUS_C_MINUS_O */
 
-/* We're part of Opus */
+/* This is a build of OPUS */
 #define OPUS_BUILD /**/
 
-/* Version extra */
-#define OPUS_EXTRA_VERSION ""
-
-/* Version major */
-#define OPUS_MAJOR_VERSION 0
-
-/* Version micro */
-#define OPUS_MICRO_VERSION 8
-
-/* Version minor */
-#define OPUS_MINOR_VERSION 9
-
-/* Complete version string */
-#define OPUS_VERSION "0.9.8"
+/* Use run-time CPU capabilities detection */
+/* #undef OPUS_HAVE_RTCD */
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT ""
+#define PACKAGE_BUGREPORT "opus@xiph.org"
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME ""
+#define PACKAGE_NAME "opus"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING ""
+#define PACKAGE_STRING "opus 1.1-beta"
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME ""
+#define PACKAGE_TARNAME "opus"
 
 /* Define to the home page for this package. */
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION ""
-
-/* The size of `int', as computed by sizeof. */
-#define SIZEOF_INT 4
-
-/* The size of `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
-
-/* The size of `long long', as computed by sizeof. */
-#define SIZEOF_LONG_LONG 8
-
-/* The size of `short', as computed by sizeof. */
-#define SIZEOF_SHORT 2
+#define PACKAGE_VERSION "1.1-beta"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
@@ -135,19 +111,7 @@
 /* #undef USE_ALLOCA */
 
 /* Use C99 variable-size arrays */
-#define VAR_ARRAYS /**/
-
-/* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
-   significant byte first (like Motorola and SPARC, unlike Intel). */
-#if defined AC_APPLE_UNIVERSAL_BUILD
-# if defined __BIG_ENDIAN__
-#  define WORDS_BIGENDIAN 1
-# endif
-#else
-# ifndef WORDS_BIGENDIAN
-/* #  undef WORDS_BIGENDIAN */
-# endif
-#endif
+#define VAR_ARRAYS 1
 
 /* Define to empty if `const' does not conform to ANSI C. */
 /* #undef const */

@@ -28,14 +28,16 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SERVERHANDLER_H_
-#define SERVERHANDLER_H_
+#ifndef MUMBLE_MUMBLE_SERVERHANDLER_H_
+#define MUMBLE_MUMBLE_SERVERHANDLER_H_
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
-#include <boost/accumulators/statistics/mean.hpp>
-#include <boost/accumulators/statistics/variance.hpp>
-#include <boost/shared_ptr.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/accumulators/accumulators.hpp>
+# include <boost/accumulators/statistics/stats.hpp>
+# include <boost/accumulators/statistics/mean.hpp>
+# include <boost/accumulators/statistics/variance.hpp>
+# include <boost/shared_ptr.hpp>
+#endif
 
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>

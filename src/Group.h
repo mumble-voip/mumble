@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef GROUP_H_
-#define GROUP_H_
+#ifndef MUMBLE_GROUP_H_
+#define MUMBLE_GROUP_H_
 
 #include <QtCore/QSet>
 

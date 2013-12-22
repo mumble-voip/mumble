@@ -124,7 +124,11 @@ void MetaParams::read(QString fname) {
 		QStringList datapaths;
 
 #if defined(Q_OS_WIN)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#else
 		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#endif
 
 		size_t reqSize;
 		_wgetenv_s(&reqSize, NULL, 0, L"APPDATA");

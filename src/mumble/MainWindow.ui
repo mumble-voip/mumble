@@ -99,7 +99,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>50</height>
+     <height>93</height>
     </size>
    </property>
    <property name="features">
@@ -183,6 +183,8 @@
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
    <addaction name="qaConfigDialog"/>
+   <addaction name="separator"/>
+   <addaction name="qaFilterToggle"/>
   </widget>
   <action name="qaQuit">
    <property name="text">
@@ -200,7 +202,7 @@
   </action>
   <action name="qaServerConnect">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:categories/applications-internet.svg</normaloff>skin:categories/applications-internet.svg</iconset>
    </property>
    <property name="text">
@@ -235,13 +237,13 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>&amp;Ban lists</string>
+    <string>&amp;Ban list</string>
    </property>
    <property name="toolTip">
-    <string>Edit ban lists on server</string>
+    <string>Edit ban list on server</string>
    </property>
    <property name="whatsThis">
-    <string>This lets you edit the server-side IP ban lists.</string>
+    <string>This lets you edit the server-side IP ban list.</string>
    </property>
   </action>
   <action name="qaServerInformation">
@@ -249,7 +251,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:Information_icon.svg</normaloff>skin:Information_icon.svg</iconset>
    </property>
    <property name="text">
@@ -436,7 +438,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/audio-input-microphone.svg</normaloff>
      <normalon>skin:actions/audio-input-microphone-muted.svg</normalon>
      <activeon>skin:actions/audio-input-microphone-muted.svg</activeon>skin:actions/audio-input-microphone.svg</iconset>
@@ -459,7 +461,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:self_undeafened.svg</normaloff>
      <normalon>skin:deafened_self.svg</normalon>
      <activeon>skin:deafened_self.svg</activeon>skin:self_undeafened.svg</iconset>
@@ -515,7 +517,7 @@
   </action>
   <action name="qaConfigDialog">
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:config_basic.png</normaloff>skin:config_basic.png</iconset>
    </property>
    <property name="text">
@@ -529,6 +531,35 @@
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaFilterToggle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>skin:filter.svg</normaloff>
+     <normalon>skin:filter.svg</normalon>
+     <activeon>skin:filter.svg</activeon>skin:filter.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Filter on/off</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle the channel filter (Ctrl+F)</string>
+   </property>
+   <property name="whatsThis">
+    <string>Enable or disable the filtering of select channels.
+By default all empty channels will be filtered.
+You can mark additional channels for filtering from
+the channel's context menu.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
@@ -762,6 +793,14 @@
     <string>&amp;Join Channel</string>
    </property>
   </action>
+  <action name="qaChannelFilter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Hide Channel when Filtering</string>
+   </property>
+  </action>
   <action name="qaUserCommentView">
    <property name="text">
     <string>View Comment</string>
@@ -780,7 +819,7 @@
   </action>
   <action name="qaSelfComment">
    <property name="icon">
-    <iconset resource="mumble.qrc">
+    <iconset>
      <normaloff>skin:comment.svg</normaloff>skin:comment.svg</iconset>
    </property>
    <property name="text">
@@ -819,7 +858,7 @@
   </action>
   <action name="qaRecording">
    <property name="icon">
-    <iconset resource="mumble_tango.qrc">
+    <iconset>
      <normaloff>skin:actions/media-record.svg</normaloff>skin:actions/media-record.svg</iconset>
    </property>
    <property name="text">
@@ -847,9 +886,6 @@
    <header>CustomElements.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="mumble.qrc"/>
-  <include location="mumble_tango.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

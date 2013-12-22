@@ -29,10 +29,13 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef SERVER_H_
-#define SERVER_H_
+#ifndef MUMBLE_MURMUR_SERVER_H_
+#define MUMBLE_MURMUR_SERVER_H_
 
-#include <boost/function.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/function.hpp>
+#endif
+
 #include <QtCore/QEvent>
 #include <QtCore/QMutex>
 #include <QtCore/QTimer>
@@ -54,6 +57,7 @@
 #include "Message.h"
 #include "Mumble.pb.h"
 #include "Net.h"
+#include "User.h"
 #include "Timer.h"
 
 class BonjourServer;
@@ -333,6 +337,7 @@ class Server : public QThread {
 		QMap<int, QString> getRegistration(int id);
 		int registerUser(const QMap<int, QString> &info);
 		bool unregisterUserDB(int id);
+		QList<UserInfo> getRegisteredUsersEx();
 		QMap<int, QString > getRegisteredUsers(const QString &filter = QString());
 		bool setInfo(int id, const QMap<int, QString> &info);
 		bool setTexture(int id, const QByteArray &texture);

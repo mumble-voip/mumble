@@ -207,8 +207,8 @@ SoundFile* AudioOutputSample::loadSndfile(const QString &filename) {
 	return sf;
 }
 
-QString AudioOutputSample::browseForSndfile() {
-	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), QString(), QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
+QString AudioOutputSample::browseForSndfile(QString defaultpath) {
+	QString file = QFileDialog::getOpenFileName(NULL, tr("Choose sound file"), defaultpath, QLatin1String("*.wav *.ogg *.ogv *.oga *.flac"));
 	if (! file.isEmpty()) {
 		SoundFile *sf = AudioOutputSample::loadSndfile(file);
 		if (sf == NULL) {
@@ -237,7 +237,6 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 	unsigned int iInputFrames = static_cast<unsigned int>(ceilf(static_cast<float>(snum * sfHandle->samplerate()) / static_cast<float>(iOutSampleRate)));
 	unsigned int iInputSamples = iInputFrames * sfHandle->channels();
 
-	float *pOut;
 	bool mix = sfHandle->channels() > 1;
 	STACKVAR(float, fOut, iInputSamples);
 	STACKVAR(float, fMix, iInputFrames);
@@ -248,7 +247,7 @@ bool AudioOutputSample::needSamples(unsigned int snum) {
 		resizeBuffer(iBufferFilled + snum);
 
 		// If we need to resample or mix write to the buffer on stack
-		pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
+		float *pOut = (srs || mix) ? fOut : pfBuffer + iBufferFilled;
 
 		// Try to read all samples needed to satifsy this request
 		if ((read = sfHandle->read(pOut, iInputSamples)) < iInputSamples) {

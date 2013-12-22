@@ -32,6 +32,13 @@
 
 #include "GlobalShortcut_unix.h"
 
+/**
+ * Returns a platform specific GlobalShortcutEngine object.
+ *
+ * @see GlobalShortcutX
+ * @see GlobalShortcutMac
+ * @see GlobalShortcutWin
+ */
 GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutX();
 }
@@ -324,7 +331,7 @@ QString GlobalShortcutX::buttonName(const QVariant &v) {
 	if (!ok)
 		return QString();
 	if ((key < 0x118) || (key >= 0x128)) {
-		KeySym ks=XKeycodeToKeysym(QX11Info::display(), static_cast<KeyCode>(key), 0);
+		KeySym ks=XKeycodeToKeysym(display, static_cast<KeyCode>(key), 0);
 		if (ks == NoSymbol) {
 			return QLatin1String("0x")+QString::number(key,16);
 		} else {

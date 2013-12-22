@@ -28,15 +28,23 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef CONNECTDIALOG_H_
-#define CONNECTDIALOG_H_
+#ifndef MUMBLE_MUMBLE_CONNECTDIALOG_H_
+#define MUMBLE_MUMBLE_CONNECTDIALOG_H_
 
-#include <boost/accumulators/accumulators.hpp>
-#include <boost/accumulators/statistics/stats.hpp>
+#ifndef Q_MOC_RUN
+# include <boost/accumulators/accumulators.hpp>
+# include <boost/accumulators/statistics/stats.hpp>
+#endif
 
+#include <QtCore/QtGlobal>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-#include <QtGui/QTreeWidget>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QTreeWidget>
+#else
+# include <QtGui/QTreeWidget>
+#endif
+
 #include <QtNetwork/QHostInfo>
 
 #ifdef USE_BONJOUR

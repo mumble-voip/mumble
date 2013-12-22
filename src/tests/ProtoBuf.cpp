@@ -1,3 +1,7 @@
+/**
+ * Protobuf binding benchmarks (serialisation, deserialization, ...).
+ */
+
 #include <QtCore>
 #include <vector>
 #include "Timer.h"
