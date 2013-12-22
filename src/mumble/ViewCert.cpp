@@ -37,6 +37,13 @@ static QString decode_utf8_qssl_string(const QString &input) {
 	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
 }
 
+static QString decode_utf8_qssl_string(const QStringList &list) {
+	if (list.count() > 0) {
+		return decode_utf8_qssl_string(list.at(0));
+	}
+	return QString();
+}
+
 ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	qlCerts = cl;
 
@@ -80,8 +87,6 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 
 	QStringList l;
 	const QSslCertificate &c=qlCerts.at(idx);
-	const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = c.alternateSubjectNames();
-	QMultiMap<QSsl::AlternateNameEntryType, QString>::const_iterator i;
 
 	l << tr("Common Name: %1").arg(decode_utf8_qssl_string(c.subjectInfo(QSslCertificate::CommonName)));
 	l << tr("Organization: %1").arg(decode_utf8_qssl_string(c.subjectInfo(QSslCertificate::Organization)));
@@ -94,6 +99,15 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	l << tr("Serial: %1").arg(QString::fromLatin1(c.serialNumber().toHex()));
 	l << tr("Public Key: %1 bits %2").arg(c.publicKey().length()).arg((c.publicKey().algorithm() == QSsl::Rsa) ? tr("RSA") : tr("DSA"));
 	l << tr("Digest (SHA-1): %1").arg(QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = c.subjectAlternativeNames();
+	QMultiMap<QSsl::AlternativeNameEntryType, QString>::const_iterator i;
+#else
+	const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = c.alternateSubjectNames();
+	QMultiMap<QSsl::AlternateNameEntryType, QString>::const_iterator i;
+#endif
+
 	for (i=alts.constBegin(); i != alts.constEnd(); ++i) {
 		switch (i.key()) {
 			case QSsl::EmailEntry: {

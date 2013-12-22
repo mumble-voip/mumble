@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef DBUS_H_
-#define DBUS_H_
+#ifndef MUMBLE_MUMBLE_DBUS_H_
+#define MUMBLE_MUMBLE_DBUS_H_
 
 #include <QtDBus/QDBusAbstractAdaptor>
 

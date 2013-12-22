@@ -47,7 +47,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 }
 
 // Hide overlay config for Mac OS X universal builds
-#if !(defined(Q_OS_MAC) && !defined(QT_MAC_USE_COCOA))
+#if !defined(USE_MAC_UNIVERSAL)
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
@@ -73,7 +73,10 @@ void OverlayConfig::initDisplay() {
 
 	qgpiFpsLive = new QGraphicsPixmapItem();
 	qgpiFpsLive->setZValue(-2.0f);
-	refreshFpsLive();
+	qgpiTimeLive = new QGraphicsPixmapItem();
+	qgpiTimeLive->setZValue(-2.0f);
+ 	refreshFpsLive();
+	refreshTimeLive();
 
 	qgtiInstructions = new QGraphicsTextItem();
 	qgtiInstructions->setHtml(QString::fromLatin1("<ul><li>%1</li><li>%2</li><li>%3</li></ul>").arg(
@@ -94,6 +97,9 @@ void OverlayConfig::initDisplay() {
 
 	qgs.addItem(qgpiFpsLive);
 	qgpiFpsLive->show();
+
+	qgs.addItem(qgpiTimeLive);
+	qgpiTimeLive->show();
 
 	oug = new OverlayUserGroup(&s.os);
 	oug->bShowExamples = true;
@@ -121,6 +127,18 @@ void OverlayConfig::refreshFpsLive() {
 		qgpiFpsLive->setOffset((-bpFpsDemo.qpBasePoint + QPoint(0, bpFpsDemo.iAscent)) * fViewScale);
 	} else {
 		qgpiFpsLive->setPixmap(QPixmap());
+	}
+}
+
+void OverlayConfig::refreshTimeLive() {
+	if (s.os.bTime) {
+		bpTimeDemo = OverlayTextLine(QString::fromLatin1("%1").arg(QTime::currentTime().toString()), s.os.qfFps).createPixmap(s.os.qcFps);
+		qgpiTimeLive->setPixmap(bpTimeDemo);
+		qgpiTimeLive->setPos(s.os.qrfTime.topLeft() * fViewScale);
+		qgpiTimeLive->setPixmap(bpTimeDemo.scaled(bpTimeDemo.size() * fViewScale));
+		qgpiTimeLive->setOffset((-bpTimeDemo.qpBasePoint + QPoint(0, bpTimeDemo.iAscent)) * fViewScale);
+	} else {
+		qgpiTimeLive->setPixmap(QPixmap());
 	}
 }
 
@@ -218,7 +236,12 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 #elif defined(Q_OS_WIN)
 	HICON icon = ExtractIcon(qWinAppInst(), identifier.toStdWString().c_str(), 0);
 	if (icon) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
+		qiAppIcon = QIcon(qt_pixmapFromWinHICON(icon));
+#else
 		qiAppIcon = QIcon(QPixmap::fromWinHICON(icon));
+#endif
 		DestroyIcon(icon);
 	}
 #endif
@@ -264,6 +287,7 @@ void OverlayConfig::load(const Settings &r) {
 
 	loadCheckBox(qcbEnable, s.os.bEnable);
 	qcbShowFps->setChecked(s.os.bFps);
+	qcbShowTime->setChecked(s.os.bTime);
 	qgpFps->setEnabled(s.os.bEnable);
 
 	qlwBlacklist->clear();
@@ -312,6 +336,7 @@ QIcon OverlayConfig::icon() const {
 void OverlayConfig::save() const {
 	s.os.bEnable = qcbEnable->isChecked();
 	s.os.bFps = qcbShowFps->isChecked();
+	s.os.bTime = qcbShowTime->isChecked();
 
 	// Directly save overlay config
 	s.os.qslBlacklist.clear();
@@ -362,6 +387,7 @@ void OverlayConfig::resizeScene(bool force) {
 
 	fViewScale = static_cast<float>(qgpiScreen->pixmap().height()) / static_cast<float>(qpScreen.height());
 	refreshFpsLive();
+	refreshTimeLive();
 
 	QFont f = qgtiInstructions->font();
 	f.setPointSizeF(qgs.sceneRect().height() / 20.0f);
@@ -441,6 +467,12 @@ void OverlayConfig::on_qcbShowFps_stateChanged(int state) {
 	refreshFpsLive();
 }
 
+void OverlayConfig::on_qcbShowTime_stateChanged(int state) {
+	Q_UNUSED(state);
+	s.os.bTime = qcbShowTime->isChecked();
+	refreshTimeLive();
+}
+
 void OverlayConfig::on_qpbFpsFont_clicked() {
 	bool ok;
 	QFont new_font = QFontDialog::getFont(&ok, s.os.qfFps);
@@ -450,6 +482,7 @@ void OverlayConfig::on_qpbFpsFont_clicked() {
 
 		refreshFpsDemo();
 		refreshFpsLive();
+		refreshTimeLive();
 	}
 }
 
@@ -461,6 +494,7 @@ void OverlayConfig::on_qpbFpsColor_clicked() {
 
 		refreshFpsDemo();
 		refreshFpsLive();
+		refreshTimeLive();
 	}
 }
 

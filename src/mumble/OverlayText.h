@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef OVERLAYTEXT_H_
-#define OVERLAYTEXT_H_
+#ifndef MUMBLE_MUMBLE_OVERLAYTEXT_H_
+#define MUMBLE_MUMBLE_OVERLAYTEXT_H_
 
 //! Annotated QPixmap supplying a basepoint.
 class BasepointPixmap : public QPixmap {
@@ -37,7 +37,8 @@ class BasepointPixmap : public QPixmap {
 		//! Local coordinates of the base point.
 		QPoint qpBasePoint;
 		//@{
-		/*! Font ascent and descent.
+		/**
+		 * Font ascent and descent.
 		 * The pixmap may exceed those font metrics, so if you need to
 		 * transform rendered text properly, use these attributes.
 		 */

@@ -1,3 +1,8 @@
+/**
+ * Test-/Exampleprogram which links against the Mumble link plugin to send
+ * positional data.
+ */
+
 // Allow use of wcsncpy without warnings
 #define _CRT_SECURE_NO_WARNINGS
 

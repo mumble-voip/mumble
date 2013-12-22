@@ -31,7 +31,12 @@
 #ifndef MUMBLE_USER_H_
 #define MUMBLE_USER_H_
 
+#ifndef Q_MOC_RUN
+# include <boost/optional.hpp>
+#endif
+
 #include <QtCore/QByteArray>
+#include <QtCore/QDateTime>
 #include <QtCore/QString>
 
 class Channel;
@@ -58,6 +63,17 @@ class User {
 		virtual ~User() {};
 
 		static bool lessThan(const User *, const User *);
+};
+
+// for last seen
+struct UserInfo {
+	int user_id;
+	QString name;
+	boost::optional<int> last_channel;
+	QDateTime last_active;
+
+	UserInfo() : user_id(-1) {}
+	UserInfo(int id, QString uname) : user_id(id), name(uname) {}
 };
 
 #endif

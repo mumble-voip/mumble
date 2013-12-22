@@ -57,8 +57,16 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	url.setUserName(user);
 	url.setHost(host);
 	url.setPort(port);
+
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QUrlQuery query;
+	query.addQueryItem(QLatin1String("title"), name);
+	query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+	url.setQuery(query);
+#else
 	url.addQueryItem(QLatin1String("title"), name);
 	url.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
+#endif
 
 	QSettings settings(QLatin1String("HKEY_CLASSES_ROOT"), QSettings::NativeFormat);
 

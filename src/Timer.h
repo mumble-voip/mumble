@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef TIMER_H_
-#define TIMER_H_
+#ifndef MUMBLE_TIMER_H_
+#define MUMBLE_TIMER_H_
 
 #include <QtCore/QtGlobal>
 
@@ -46,11 +46,13 @@ class Timer {
 		quint64 restart();
 		bool isStarted() const;
 
-		/*! Compares the elapsed time, not the start time
+		/**
+		 * Compares the elapsed time, not the start time
 		 */
 		bool operator<(const Timer &other) const;
 
-		/*! Compares the elapsed time, not the start time
+		/**
+		 * Compares the elapsed time, not the start time
 		 */
 		bool operator>(const Timer &other) const;
 };

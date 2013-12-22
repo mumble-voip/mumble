@@ -1,3 +1,55 @@
+2013-05-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    aab9cdc  Server::sendMessage: encode the source IP of outgoing UDP
+	     packets to match the UDP socket's address family.
+
+2013-03-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    bc871f6  murmur.pro: add CONFIG(ermine) for the Ermine packaged build.
+
+2013-03-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    deeeb72  Swedish translation error (#973)
+
+2013-03-18
+  Martin von Gagern <Martin.vGagern@gmx.net>
+    d71b2fd  Ensure that the MAX macro is always defined.
+
+  bogie <priivet@gmail.com>
+    dab8157  Updated BF3 PA plugin to Endgame DLC(b1147186)
+
+2013-02-20
+  Zuko <zuczeq@gmail.com>
+    c00b44e  Minor fix in pl translation
+
+2013-02-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    b115a29  opus-build: build with CONFIG=staticlib on Unix as we do for
+	     our bundled Speex library.
+
+2013-01-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    1fa4e82  ConfigDialogDelegate: return fully standalone NSImage in
+	     QIcon_to_AutoreleasedNSImage.
+
+2013-01-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    c8b6d69  osxdist.py: create a tarball in addition to the XIP archive
+	     for OS X static Murmur.
+
+2013-01-19
+  bogie <priivet@gmail.com>
+    fed89ce  BF3 PA plugin update: fixed one value
+
+2013-01-16
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f4cc3f0  Fix mumble_ol.dll not being versioned under windows.
+
+2013-01-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1a9aec9  mklic.pl run to update in-client license display
+    8cbf176  Update changelog and LICENSE file.
+
 2013-01-14
   Stefan Hacker <dd0t@users.sourceforge.net>
     6d67d07  Default disable hide in tray also for Windows 8
@@ -20,6 +72,9 @@
 2013-01-11
   Stefan Hacker <dd0t@users.sourceforge.net>
     8678a0c  Introduce concept of NULL plugin to retract plugins.
+
+  Steve Hill <github@cheesy.sackheads.org>
+    4dcd700  Positional audio plugin for Borderlands 2 v1.3.1
 
   zapman <unknown>
     d9edcbf  Minor fixes for French translation

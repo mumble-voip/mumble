@@ -28,8 +28,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef _CONFIGDIALOG_DELEGATE
-#define _CONFIGDIALOG_DELEGATE
+#ifndef MUMBLE_MUMBLE_CONFIGDIALOG_DELEGATE_H_
+#define MUMBLE_MUMBLE_CONFIGDIALOG_DELEGATE_H_
 
 #include "ConfigDialog_macx.h"
 #include "ConfigWidget.h"
@@ -43,4 +43,4 @@
 - (BOOL) expertMode;
 @end
 
-#endif /* _CONFIGDIALOG_DELEGATE */
+#endif

@@ -1,10 +1,12 @@
+include(qt.pri)
+ 
 CONFIG *= warn_on
 
 win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
-	INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_49/"
+	INCLUDEPATH *= "$$BOOST_PATH/include" "$$BOOST_PATH/include/boost-1_49/"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib" "$$BOOST_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 	CONFIG(intelcpp) {
@@ -124,7 +126,7 @@ unix:!macx {
 }
 
 macx {
-	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_51_0 $$[QT_INSTALL_HEADERS]
+	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_54_0 $$[QT_INSTALL_HEADERS]
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	for(inc, $$list($$SYSTEM_INCLUDES)) {
@@ -136,7 +138,14 @@ macx {
 
 	!CONFIG(universal) {
 		CONFIG += no-pch
-		QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+
+		# Qt 5.1 and greater want short-form OS X SDKs.
+		isEqual(QT_MAJOR_VERSION, 5) {
+			QMAKE_MAC_SDK = macosx
+		} else {
+			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path)
+		}
+
 		QMAKE_CC = $$system(xcrun -find clang)
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
@@ -157,6 +166,7 @@ macx {
 		QMAKE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
 		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=10.4 -Xarch_i386 -mmmx -Xarch_i386 -msse -Xarch_i386 -msse2
+		DEFINES += USE_MAC_UNIVERSAL
 	}
 
 	QMAKE_LFLAGS += -Wl,-dead_strip -framework Cocoa -framework Carbon

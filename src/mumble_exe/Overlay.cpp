@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2013, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -28,33 +28,12 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef FILEENGINE_H_
-#define FILEENGINE_H_
-
-class MumbleFileEngineHandler : public QAbstractFileEngineHandler {
-	private:
-		Q_DISABLE_COPY(MumbleFileEngineHandler)
-	public:
-		MumbleFileEngineHandler();
-		QAbstractFileEngine *create(const QString &) const;
-};
-
-class MumbleImageFileEngine : public QAbstractFileEngine {
-	private:
-		Q_DISABLE_COPY(MumbleImageFileEngine)
-	protected:
-		QBuffer qbData;
-		QUrl quUrl;
-		QStringList qslPath;
-	public:
-		MumbleImageFileEngine(const QUrl &);
-		bool open(QIODevice::OpenMode);
-		bool close();
-		bool seek(qint64 offset);
-		qint64 pos() const;
-		qint64 size() const;
-		qint64 read(char *data, qint64 maxlen);
-		QString fileName(QAbstractFileEngine::FileName) const;
-};
-
-#endif
+// Used by the overlay to detect whether we injected into ourselves.
+//
+// This code also lives in Overlay_win.cpp, where it serves the same purpose.
+//
+// When running in "mumble_app.dll"-mode, it's convenient for this symbol to be
+// defined here in mumble.exe (alongside the symbol in mumble_app.dll) because that
+// allows older versions of mumble_ol.dll that are not "mumble_app.dll"-aware at all
+// to continue to work in that world.
+extern "C" __declspec(dllexport) void mumbleSelfDetection() {};

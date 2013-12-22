@@ -78,6 +78,12 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
 	qgpiFPS->show();
 
+	// Time
+	qgpiTime = new QGraphicsPixmapItem();
+	qgs.addItem(qgpiTime);
+	qgpiTime->setPos(g.s.os.qrfTime.x(), g.s.os.qrfTime.y());
+	qgpiTime->show();
+
 	qgpiLogo = NULL;
 
 	iOffsetX = iOffsetY = 0;
@@ -87,6 +93,7 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
 
 OverlayClient::~OverlayClient() {
 	delete qgpiFPS;
+	delete qgpiTime;
 	delete qgpiCursor;
 	delete qgpiLogo;
 
@@ -117,23 +124,40 @@ void OverlayClient::updateFPS() {
 	}
 }
 
-#ifndef QT_MAC_USE_COCOA
+void OverlayClient::updateTime() {
+	if (g.s.os.bTime) {
+		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
+		qgpiTime->setPixmap(pm);
+		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
+	} else {
+		qgpiTime->setPixmap(QPixmap());
+	}
+}
+
+#if !defined(Q_OS_MAC) || (defined(Q_OS_MAC) && defined(USE_MAC_UNIVERSAL))
 void OverlayClient::updateMouse() {
-#ifdef Q_OS_WIN
+#if defined(Q_OS_WIN)
 	QPixmap pm;
 
 	HICON c = ::GetCursor();
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 	if (c == NULL)
 		c = qgv.viewport()->cursor().handle();
+#endif
 
 	ICONINFO info;
 	ZeroMemory(&info, sizeof(info));
-	if (::GetIconInfo(c, &info)) {
+	if (c != NULL && ::GetIconInfo(c, &info)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		extern QPixmap qt_pixmapFromWinHBITMAP(HBITMAP bitmap, int format = 0);
+#else
+# define qt_pixmapFromWinHBITMAP(bmp) QPixmap::fromWinHBITMAP(bmp)
+#endif
 		if (info.hbmColor) {
-			pm = QPixmap::fromWinHBITMAP(info.hbmColor);
-			pm.setMask(QBitmap(QPixmap::fromWinHBITMAP(info.hbmMask)));
+			pm = qt_pixmapFromWinHBITMAP(info.hbmColor);
+			pm.setMask(QBitmap(qt_pixmapFromWinHBITMAP(info.hbmMask)));
 		} else {
-			QBitmap orig(QPixmap::fromWinHBITMAP(info.hbmMask));
+			QBitmap orig(qt_pixmapFromWinHBITMAP(info.hbmMask));
 			QImage img = orig.toImage();
 
 			int h = img.height() / 2;
@@ -174,7 +198,7 @@ void OverlayClient::updateMouse() {
 }
 #endif
 
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0) && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
 extern bool Q_GUI_EXPORT qt_use_native_dialogs;
 #endif
 
@@ -183,7 +207,7 @@ extern bool Q_GUI_EXPORT qt_use_native_dialogs;
 // that we're about to reparent.
 
 void OverlayClient::showGui() {
-#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+#if defined(QT3_SUPPORT) || (defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 	if (QCoreApplication::loopLevel() > 1)
 		return;
 #else
@@ -273,7 +297,7 @@ outer:
 
 	setupScene(true);
 
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0) && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
 	qt_use_native_dialogs = false;
 #endif
 
@@ -288,7 +312,7 @@ outer:
 }
 
 void OverlayClient::hideGui() {
-#if defined(QT3_SUPPORT) || defined(Q_WS_WIN)
+#if defined(QT3_SUPPORT) || (defined(Q_OS_WIN) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 	if (QCoreApplication::loopLevel() > 1) {
 		QCoreApplication::exit_loop();
 		QMetaObject::invokeMethod(this, "hideGui", Qt::QueuedConnection);
@@ -353,7 +377,7 @@ void OverlayClient::hideGui() {
 	setupScene(false);
 
 	qgv.setAttribute(Qt::WA_WState_Hidden, true);
-#if defined(Q_WS_WIN) || defined(Q_WS_MAC)
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0) && (defined(Q_OS_WIN) || defined(Q_OS_MAC))
 	qt_use_native_dialogs = true;
 #endif
 
@@ -375,14 +399,50 @@ void OverlayClient::scheduleDelete() {
 	hideGui();
 }
 
+void OverlayClient::readyReadMsgInit(unsigned int length) {
+	if (length != sizeof(OverlayMsgInit)) {
+		return;
+	}
+
+	OverlayMsgInit *omi = & omMsg.omi;
+
+	uiWidth = omi->uiWidth;
+	uiHeight = omi->uiHeight;
+	qrLast = QRect();
+
+	delete smMem;
+
+	smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
+	if (! smMem->data()) {
+		qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
+		delete smMem;
+		smMem = NULL;
+		return;
+	}
+	QByteArray key = smMem->name().toUtf8();
+	key.append(static_cast<char>(0));
+
+	OverlayMsg om;
+	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+	om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
+	om.omh.iLength = key.length();
+	memcpy(om.oms.a_cName, key.constData(), key.length());
+	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
+
+	setupRender();
+
+	Overlay *o = static_cast<Overlay *>(parent());
+	QTimer::singleShot(0, o, SLOT(updateOverlay()));
+}
+
 void OverlayClient::readyRead() {
-	while (1) {
+	while (true) {
 		unsigned int ready = qlsSocket->bytesAvailable();
 
 		if (omMsg.omh.iLength == -1) {
-			if (ready < sizeof(OverlayMsgHeader))
+			if (ready < sizeof(OverlayMsgHeader)) {
 				break;
-			else {
+			} else {
 				qlsSocket->read(omMsg.headerbuffer, sizeof(OverlayMsgHeader));
 				if ((omMsg.omh.uiMagic != OVERLAY_MAGIC_NUMBER) || (omMsg.omh.iLength < 0) || (omMsg.omh.iLength > static_cast<int>(sizeof(OverlayMsgShmem)))) {
 					disconnect();
@@ -402,38 +462,7 @@ void OverlayClient::readyRead() {
 
 			switch (omMsg.omh.uiType) {
 				case OVERLAY_MSGTYPE_INIT: {
-						if (length != sizeof(OverlayMsgInit))
-							break;
-
-						OverlayMsgInit *omi = & omMsg.omi;
-
-						uiWidth = omi->uiWidth;
-						uiHeight = omi->uiHeight;
-						qrLast = QRect();
-
-						delete smMem;
-
-						smMem = new SharedMemory2(this, uiWidth * uiHeight * 4);
-						if (! smMem->data()) {
-							qWarning() << "OverlayClient: Failed to create shared memory" << uiWidth << uiHeight;
-							delete smMem;
-							smMem = NULL;
-							break;
-						}
-						QByteArray key = smMem->name().toUtf8();
-						key.append(static_cast<char>(0));
-
-						OverlayMsg om;
-						om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-						om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
-						om.omh.iLength = key.length();
-						memcpy(om.oms.a_cName, key.constData(), key.length());
-						qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
-
-						setupRender();
-
-						Overlay *o = static_cast<Overlay *>(parent());
-						QTimer::singleShot(0, o, SLOT(updateOverlay()));
+						readyReadMsgInit(length);
 					}
 					break;
 				case OVERLAY_MSGTYPE_SHMEM: {
@@ -454,7 +483,7 @@ void OverlayClient::readyRead() {
 							break;
 
 						OverlayMsgFps *omf = & omMsg.omf;
-						fFps = omf ->fps;
+						fFps = omf->fps;
 						//qWarning() << "FPS: " << omf->fps;
 
 						Overlay *o = static_cast<Overlay *>(parent());
@@ -527,6 +556,7 @@ void OverlayClient::setupScene(bool show) {
 	}
 	ougUsers.updateUsers();
 	updateFPS();
+	updateTime();
 }
 
 void OverlayClient::setupRender() {
@@ -557,6 +587,7 @@ bool OverlayClient::update() {
 
 	ougUsers.updateUsers();
 	updateFPS();
+	updateTime();
 
 	if (qlsSocket->bytesToWrite() > 1024) {
 		return (t.elapsed() <= 5000000ULL);

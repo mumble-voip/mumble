@@ -32,7 +32,15 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#include <QMessageBox>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# if defined(Q_OS_WIN)
+#   include <qpa/qplatformnativeinterface.h>
+# endif
+# include <QtWidgets/QMessageBox>
+#else
+# include <QMessageBox>
+#endif
+
 #include <QPointer>
 #include <math.h>
 #include <float.h>
@@ -70,6 +78,26 @@ static struct {
 	std::string(), std::wstring()
 };
 
+#ifdef Q_OS_WIN
+static QWidget *QWidgetForHWND(HWND hwnd) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QList<QWidget *> windows = qApp->topLevelWidgets();
+	foreach (QWidget *w, windows) {
+		QWindow *window = w->windowHandle();
+		if (window == NULL || window->handle() == 0) {
+			continue;
+		}
+		HWND whwnd = static_cast<HWND>(qApp->platformNativeInterface()->nativeResourceForWindow("handle", window));
+		if (whwnd == hwnd) {
+			return w;
+		}
+	}
+	return NULL;
+#else
+	return QWidget::find(hwnd);
+#endif
+}
+#endif
 
 Manual::Manual(QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -242,12 +270,25 @@ static void unlock() {
 
 static void config(HWND h) {
 	if (mDlg) {
-		mDlg->setParent(QWidget::find(h), Qt::Dialog);
+#if defined(Q_OS_WIN)
+		mDlg->setParent(QWidgetForHWND(h), Qt::Dialog);
+#else
+		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
+#endif
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
 		mDlg->qpbUnhinge->setEnabled(true);
+#endif
 	} else {
-		mDlg = new Manual(QWidget::find(h));
+#if defined(Q_OS_WIN)
+		mDlg = new Manual(QWidgetForHWND(h));
+#else
+		mDlg = new Manual(reinterpret_cast<QWidget *>(h));
+#endif
 	}
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	mDlg->qpbUnhinge->setEnabled(false);
+#endif
 	mDlg->show();
 }
 
@@ -282,8 +323,16 @@ static const std::wstring longdesc() {
 static std::wstring description(L"Manual placement plugin");
 static std::wstring shortname(L"Manual placement");
 
-static void about(WId h) {
-	QMessageBox::about(QWidget::find(h), QString::fromStdWString(description), QString::fromStdWString(longdesc()));
+static void about(HWND h) {
+	QMessageBox::about(
+#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		QWidgetForHWND(h),
+#else
+		reinterpret_cast<QWidget *>(h),
+#endif
+		QString::fromStdWString(description),
+		QString::fromStdWString(longdesc())
+	);
 }
 
 static MumblePlugin manual = {

@@ -112,7 +112,7 @@ TextToSpeech::TextToSpeech(QObject *) {
 	 * http://lists.apple.com/archives/speech-dev/2005/Aug/msg00000.html
 	 */
 
-	int version = qMacVersion();
+	int version = QSysInfo::MacintoshVersion;
 	if (version != QSysInfo::MV_Unknown && version < QSysInfo::MV_LEOPARD) {
 		qWarning("Mac OS X 10.4 (Tiger) detected. Disabling Text-to-Speech because of a buggy implementation in 10.4.");
 		return;

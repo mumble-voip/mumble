@@ -37,8 +37,10 @@
 #include "Net.h"
 #include "ServerHandler.h"
 
-BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p) {
+BanEditor::BanEditor(const MumbleProto::BanList &msg, QWidget *p) : QDialog(p)
+	, maskDefaultValue(32) {
 	setupUi(this);
+	qlwBans->setFocus();
 
 	qlBans.clear();
 	for (int i=0;i < msg.bans_size(); ++i) {
@@ -83,6 +85,11 @@ void BanEditor::on_qlwBans_currentRowChanged() {
 	int idx = qlwBans->currentRow();
 	if (idx < 0)
 		return;
+
+	qpbAdd->setDisabled(true);
+	qpbUpdate->setEnabled(false);
+	qpbRemove->setEnabled(true);
+
 	const Ban &ban = qlBans.at(idx);
 
 	int maskbits = ban.iMask;
@@ -92,8 +99,8 @@ void BanEditor::on_qlwBans_currentRowChanged() {
 	if (! ban.haAddress.isV6())
 		maskbits -= 96;
 	qsbMask->setValue(maskbits);
-	qlUser->setText(ban.qsUsername);
-	qlHash->setText(ban.qsHash);
+	qleUser->setText(ban.qsUsername);
+	qleHash->setText(ban.qsHash);
 	qleReason->setText(ban.qsReason);
 	qdteStart->setDateTime(ban.qdtStart.toLocalTime());
 	qdteEnd->setDateTime(ban.qdtStart.toLocalTime().addSecs(ban.iDuration));
@@ -112,8 +119,8 @@ Ban BanEditor::toBan(bool &ok) {
 		b.iMask = qsbMask->value();
 		if (! b.haAddress.isV6())
 			b.iMask += 96;
-		b.qsUsername = qlUser->text();
-		b.qsHash = qlHash->text();
+		b.qsUsername = qleUser->text();
+		b.qsHash = qleHash->text();
 		b.qsReason = qleReason->text();
 		b.qdtStart = qdteStart->dateTime().toUTC();
 		const QDateTime &qdte = qdteEnd->dateTime();
@@ -128,8 +135,6 @@ Ban BanEditor::toBan(bool &ok) {
 }
 
 void BanEditor::on_qpbAdd_clicked() {
-	QHostAddress addr;
-
 	bool ok;
 
 	qdteStart->setDateTime(QDateTime::currentDateTime());
@@ -137,12 +142,13 @@ void BanEditor::on_qpbAdd_clicked() {
 	Ban b = toBan(ok);
 
 	if (ok) {
-		b.qsHash = QString();
-		b.qsUsername = QString();
 		qlBans << b;
 		refreshBanList();
 		qlwBans->setCurrentRow(qlBans.indexOf(b));
 	}
+
+	qlwBans->setCurrentRow(-1);
+	qleSearch->clear();
 }
 
 void BanEditor::on_qpbUpdate_clicked() {
@@ -163,6 +169,19 @@ void BanEditor::on_qpbRemove_clicked() {
 	if (idx >= 0)
 		qlBans.removeAt(idx);
 	refreshBanList();
+
+	qlwBans->setCurrentRow(-1);
+	qleUser->clear();
+	qleIP->clear();
+	qleReason->clear();
+	qsbMask->setValue(maskDefaultValue);
+	qleHash->clear();
+
+	qdteStart->setDateTime(QDateTime::currentDateTime());
+	qdteEnd->setDateTime(QDateTime::currentDateTime());
+
+	qpbRemove->setDisabled(true);
+	qpbAdd->setDisabled(true);
 }
 
 void BanEditor::refreshBanList() {
@@ -171,11 +190,86 @@ void BanEditor::refreshBanList() {
 	qSort(qlBans);
 
 	foreach(const Ban &ban, qlBans) {
-		int maskbits = ban.iMask;
 		const QHostAddress &addr=ban.haAddress.toAddress();
-		if (! ban.haAddress.isV6())
-			maskbits -= 96;
-		QString qs = QString::fromLatin1("%1/%2").arg(addr.toString()).arg(maskbits);
-		qlwBans->addItem(qs);
+		if (ban.qsUsername.isEmpty())
+			qlwBans->addItem(addr.toString());
+		else
+			qlwBans->addItem(ban.qsUsername);
 	}
+
+	int n = qlBans.count();
+	setWindowTitle(tr("Ban List - %n Ban(s)", "", n));
+}
+
+void BanEditor::on_qleSearch_textChanged(const QString & match)
+{
+	qlwBans->clearSelection();
+
+	qpbAdd->setDisabled(true);
+	qpbUpdate->setDisabled(true);
+	qpbRemove->setDisabled(true);
+
+	qleUser->clear();
+	qleIP->clear();
+	qleReason->clear();
+	qsbMask->setValue(maskDefaultValue);
+	qleHash->clear();
+
+	qdteStart->setDateTime(QDateTime::currentDateTime());
+	qdteEnd->setDateTime(QDateTime::currentDateTime());
+
+	foreach(QListWidgetItem *item, qlwBans->findItems(QString(), Qt::MatchContains)) {
+		if (!item->text().contains(match))
+			item->setHidden(true);
+		else
+			item->setHidden(false);
+	}
+}
+
+void BanEditor::on_qleIP_textChanged(QString )
+{
+	qpbAdd->setEnabled(qleIP->isModified());
+	if (qlwBans->currentRow() >= 0)
+		qpbUpdate->setEnabled(qleIP->isModified());
+}
+
+void BanEditor::on_qleReason_textChanged(QString )
+{
+	if (qlwBans->currentRow() >= 0)
+		qpbUpdate->setEnabled(qleReason->isModified());
+}
+
+void BanEditor::on_qdteEnd_editingFinished()
+{
+	qpbUpdate->setEnabled(!qleIP->text().isEmpty());
+	qpbRemove->setDisabled(true);
+}
+
+void BanEditor::on_qleUser_textChanged(QString )
+{
+	if (qlwBans->currentRow() >= 0)
+		qpbUpdate->setEnabled(qleUser->isModified());
+}
+
+void BanEditor::on_qleHash_textChanged(QString )
+{
+	if (qlwBans->currentRow() >= 0)
+		qpbUpdate->setEnabled(qleHash->isModified());
+}
+
+void BanEditor::on_qpbClear_clicked()
+{
+	qlwBans->setCurrentRow(-1);
+	qleUser->clear();
+	qleIP->clear();
+	qleReason->clear();
+	qsbMask->setValue(maskDefaultValue);
+	qleHash->clear();
+
+	qdteStart->setDateTime(QDateTime::currentDateTime());
+	qdteEnd->setDateTime(QDateTime::currentDateTime());
+
+	qpbAdd->setDisabled(true);
+	qpbUpdate->setDisabled(true);
+	qpbRemove->setDisabled(true);
 }
