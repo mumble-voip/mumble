@@ -32,6 +32,7 @@
 #define MUMBLE_MUMBLE_AUDIOINPUT_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/array.hpp>
 #include <speex/speex.h>
 #include <speex/speex_echo.h>
 #include <speex/speex_preprocess.h>
@@ -98,9 +99,11 @@ class AudioInput : public QThread {
 
 		OpusEncoder *opusState;
 		bool selectCodec();
-		int encodeOpusFrame(short *source, int size, unsigned char *buffer);
-		int encodeSpeexFrame(short *pSource, unsigned char *buffer);
-		int encodeCELTFrame(short *pSource, unsigned char *buffer);
+		
+		typedef boost::array<unsigned char, 960> EncodingOutputBuffer;
+		
+		int encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer);
+		int encodeCELTFrame(short *pSource, EncodingOutputBuffer& buffer);
 	protected:
 		MessageHandler::UDPMessageType umtType;
 		SampleFormat eMicFormat, eEchoFormat;
@@ -122,7 +125,9 @@ class AudioInput : public QThread {
 		CELTCodec *cCodec;
 		CELTEncoder *ceEncoder;
 
+		/// Encoded audio rate in bit/s
 		int iAudioQuality;
+		/// Number of 10ms audio "frames" per packet (!= frames in packet)
 		int iAudioFrames;
 
 		short *psMic;
