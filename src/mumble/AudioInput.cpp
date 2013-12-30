@@ -885,8 +885,7 @@ void AudioInput::encodeAudioFrame() {
 	}
 
 	if (encoded) {
-		flushCheck(QByteArray::fromRawData(
-		               reinterpret_cast<char*>(&buffer[0]), len), !bIsSpeech);
+		flushCheck(QByteArray(reinterpret_cast<char *>(&buffer[0]), len), !bIsSpeech);
 	}
 
 	if (! bIsSpeech)
