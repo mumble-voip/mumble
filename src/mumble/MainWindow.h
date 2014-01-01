@@ -130,7 +130,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void setShowDockTitleBars(bool doShow);
 		void updateTrayIcon();
-		void MainWindow::updateTransmitModeIcons();
+		void updateTransmitModeIcons();
 		QPair<QByteArray, QImage> openImageFile();
 		static const QString defaultStyleSheet;
 
