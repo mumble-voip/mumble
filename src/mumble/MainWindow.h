@@ -149,7 +149,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QList<QAction *> qlChannelActions;
 		QList<QAction *> qlUserActions;
 
-		QSet<ShortcutTarget> qsCurrentTargets;
+		QHash<ShortcutTarget, int> qmCurrentTargets;
 		QHash<QList<ShortcutTarget>, int> qmTargets;
 		QMap<int, int> qmTargetUse;
 		Channel *mapChannel(int idx) const;
@@ -247,6 +247,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsMuteSelf_down(QVariant);
 		void on_gsDeafSelf_down(QVariant);
 		void on_gsWhisper_triggered(bool, QVariant);
+		void addTarget(ShortcutTarget *);
+		void removeTarget(ShortcutTarget *);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
