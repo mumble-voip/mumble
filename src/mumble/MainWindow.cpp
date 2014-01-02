@@ -2119,6 +2119,15 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 void MainWindow::pttReleased() {
 	if (g.iPushToTalk > 0) {
 		g.iPushToTalk--;
+
+		// There is a condition where PTT key is pressed after or while Whisper key
+		// is released where the WhisperReleased() function will not be called to
+		// clean up the whisper targets.  Here we ensure that qsCurrentTargets is emptied
+		// properly whenever iPushToTalk == 0.
+		if (g.iPushToTalk == 0) {
+			qsCurrentTargets.clear();
+			updateTarget();
+		}
 	}
 }
 
@@ -2174,6 +2183,7 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 void MainWindow::updateTarget() {
 	g.iPrevTarget = g.iTarget;
+
 	if (qsCurrentTargets.isEmpty()) {
 		g.bCenterPosition = false;
 		g.iTarget = 0;
@@ -2335,15 +2345,13 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
-	if (g.iPushToTalk <= 0)
-		return;
+	if (g.iPushToTalk > 0) g.iPushToTalk--;
 
-	ShortcutTarget st = scdata.value<ShortcutTarget>();
-
-	g.iPushToTalk--;
-
-	qsCurrentTargets.remove(st);
-	updateTarget();
+	if (g.iPushToTalk == 0) {
+		ShortcutTarget st = scdata.value<ShortcutTarget>();
+		qsCurrentTargets.remove(st);
+		updateTarget();
+	}
 }
 
 void MainWindow::onResetAudio()
