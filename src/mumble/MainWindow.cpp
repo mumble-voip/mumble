@@ -2174,13 +2174,14 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 void MainWindow::updateTarget() {
 	g.iPrevTarget = g.iTarget;
-	if (qsCurrentTargets.isEmpty()) {
+
+	if (qmCurrentTargets.isEmpty()) {
 		g.bCenterPosition = false;
 		g.iTarget = 0;
 	} else {
 		bool center = false;
 		QList<ShortcutTarget> ql;
-		foreach(const ShortcutTarget &st, qsCurrentTargets) {
+		foreach(const ShortcutTarget &st, qmCurrentTargets.keys()) {
 			ShortcutTarget nt;
 			center = center || st.bForceCenter;
 			nt.bUsers = st.bUsers;
@@ -2297,7 +2298,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
-		qsCurrentTargets.insert(st);
+		addTarget(&st);
 		updateTarget();
 
 		g.iPushToTalk++;
@@ -2306,6 +2307,29 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
 	}
+}
+
+/* Add and remove ShortcutTargets from the qmCurrentTargets Map, which counts
+ * the number of push-to-talk events for a given ShortcutTarget.  If this number
+ * reaches 0, the ShortcutTarget is removed from qmCurrentTargets.
+ */
+void MainWindow::addTarget(ShortcutTarget *st)
+{
+	if (qmCurrentTargets.contains(*st)) {
+		qmCurrentTargets[*st] += 1;
+	else
+		qmCurrentTargets[*st] = 1;
+}
+
+void MainWindow::removeTarget(ShortcutTarget *st)
+{
+	if (!qmCurrentTargets.contains(*st))
+		return;
+
+	if (qmCurrentTargets[*st] == 1)
+		qmCurrentTargets.remove(*st);
+	else
+		qmCurrentTargets[*st] -= 1;
 }
 
 void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata) 
@@ -2342,7 +2366,7 @@ void MainWindow::whisperReleased(QVariant scdata) {
 
 	g.iPushToTalk--;
 
-	qsCurrentTargets.remove(st);
+	removeTarget(&st);
 	updateTarget();
 }
 
