@@ -130,6 +130,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void setShowDockTitleBars(bool doShow);
 		void updateTrayIcon();
+		void updateTransmitModeIcons();
 		QPair<QByteArray, QImage> openImageFile();
 		static const QString defaultStyleSheet;
 
@@ -184,6 +185,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qmSelf_aboutToShow();
 		void on_qaSelfComment_triggered();
 		void on_qaSelfRegister_triggered();
+		void on_qaSetTransmitModeContinous_triggered();
+		void on_qaSetTransmitModePushToTalk_triggered();
+		void on_qaSetTransmitModeVAD_triggered();
 		void qmUser_aboutToShow();
 		void on_qaUserCommentReset_triggered();
 		void on_qaUserCommentView_triggered();
