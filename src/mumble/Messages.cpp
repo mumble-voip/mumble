@@ -339,15 +339,51 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 
-	if (msg.has_deaf() || msg.has_mute() || msg.has_suppress() || msg.has_priority_speaker()) {
+	if (msg.has_priority_speaker()) {
+		if (pSelf && ((pDst->cChannel == pSelf->cChannel) || (pSrc == pSelf))) {
+			if ((pSrc == pDst) && (pSrc == pSelf)) {
+				if (pDst->bPrioritySpeaker) {
+					g.l->log(Log::YouMuted, tr("You revoked your priority speaker status."));
+				} else  {
+					g.l->log(Log::YouMuted, tr("You assumed priority speaker status."));
+				}
+			} else if ((pSrc != pSelf) && (pDst == pSelf) ) {
+				if (pDst->bPrioritySpeaker) {
+					g.l->log(Log::YouMutedOther, tr("%1 revoked your priority speaker status.").arg(Log::formatClientUser(pSrc, Log::Source)));
+				} else  {
+					g.l->log(Log::YouMutedOther, tr("%1 gave you priority speaker status.").arg(Log::formatClientUser(pSrc, Log::Source)));
+				}
+			} else if ((pSrc == pSelf) && (pSrc != pDst)) {
+				if (pDst->bPrioritySpeaker) {
+					g.l->log(Log::YouMutedOther, tr("You revoked priority speaker status for %1.").arg(Log::formatClientUser(pDst, Log::Target)));
+				} else  {
+					g.l->log(Log::YouMutedOther, tr("You gave priority speaker status to %1.").arg(Log::formatClientUser(pDst, Log::Target)));
+				}
+			} else if ((pSrc == pDst) && (pSrc != pSelf)) {
+				if (pDst->bPrioritySpeaker) {
+					g.l->log(Log::OtherMutedOther, tr("%1 revoked own priority speaker status.").arg(Log::formatClientUser(pSrc, Log::Source)));
+				} else {
+					g.l->log(Log::OtherMutedOther, tr("%1 assumed priority speaker status.").arg(Log::formatClientUser(pSrc, Log::Source)));
+				}
+			} else if ((pSrc != pSelf) && (pDst != pSelf)) {
+				if (pDst->bPrioritySpeaker) {
+					g.l->log(Log::OtherMutedOther, tr("%1 revoked priority speaker status for %2.").arg(Log::formatClientUser(pSrc, Log::Source), Log::formatClientUser(pDst, Log::Target)));
+				} else if (!pDst->bPrioritySpeaker) {
+					g.l->log(Log::OtherMutedOther, tr("%1 gave priority speaker status to %2.").arg(Log::formatClientUser(pSrc, Log::Source), Log::formatClientUser(pDst, Log::Target)));
+				}
+			}
+		}
+
+		pDst->setPrioritySpeaker(msg.priority_speaker());
+	}
+
+	if (msg.has_deaf() || msg.has_mute() || msg.has_suppress()) {
 		if (msg.has_mute())
 			pDst->setMute(msg.mute());
 		if (msg.has_deaf())
 			pDst->setDeaf(msg.deaf());
 		if (msg.has_suppress())
 			pDst->setSuppress(msg.suppress());
-		if (msg.has_priority_speaker())
-			pDst->setPrioritySpeaker(msg.priority_speaker());
 
 		if (pSelf && ((pDst->cChannel == pSelf->cChannel) || (pSrc == pSelf))) {
 			if (pDst == pSelf) {
