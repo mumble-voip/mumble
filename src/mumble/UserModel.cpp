@@ -470,11 +470,21 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 				}
 				break;
 			case Qt::BackgroundRole:
-				if ((c->iId == 0) && g.sh && g.sh->isStrong()) {
-					QColor qc(Qt::green);
-					qc.setAlpha(32);
-					return qc;
+				if (g.sh) {
+					if (c->iId == 0 && g.sh->isStrong()) {
+						QColor qc(Qt::green);
+						qc.setAlpha(32);
+						return qc;
+					} else if (g.s.bShowLinkedColored && g.uiSession) {
+						Channel *home = ClientUser::get(g.uiSession)->cChannel;
+						if (((c == home) || qsLinked.contains(c)) && \
+							(qsLinked.count() > 1)) {
+							QColor qc(g.s.qcShowLinkedColor);
+							return qc;
+						}		
+					}
 				}
+				
 				break;
 			default:
 				break;

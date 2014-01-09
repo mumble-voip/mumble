@@ -49,6 +49,7 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		void load(const Settings &r) Q_DECL_OVERRIDE;
 		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qpbSkinFile_clicked(bool);
+		void on_qpbShowLinkedColor_clicked(bool);
 };
 
 #endif

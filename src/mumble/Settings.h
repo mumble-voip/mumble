@@ -260,6 +260,8 @@ struct Settings {
 	bool bShowUserCount;
 	bool bChatBarUseSelection;
 	bool bFilterHidesEmptyChannels;
+	bool bShowLinkedColored;
+	QColor qcShowLinkedColor;
 	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
