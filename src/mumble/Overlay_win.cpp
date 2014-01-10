@@ -38,7 +38,6 @@
 
 typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
 typedef void (__cdecl *PrepProc)();
-typedef void (__cdecl *PrepDXGIProc)();
 
 // Used by the overlay to detect whether we injected into ourselves.
 //
@@ -77,13 +76,13 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
 	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
 	PrepProc prepareProc9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
-	PrepDXGIProc prepareProc10 = (PrepDXGIProc) qlOverlay->resolve("PrepareDXGI");
+	PrepProc prepareProcDXGI = (PrepProc) qlOverlay->resolve("PrepareDXGI");
 
 	if (prepareProc9)
 		prepareProc9();
 
-	if (prepareProc10)
-		prepareProc10();
+	if (prepareProcDXGI)
+		prepareProcDXGI();
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
