@@ -119,6 +119,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Note that I couldn't find an address that would do this reliably with the game "pause" 
 	// menu, only the main menu (when you initially start the game, or completely exit your
 	// current game)
+
 	// 1.3.1
 	if (peekProc(pModule + 0x1E6D048, detected_version)
 		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") == 0)
@@ -142,6 +143,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		vects_ptr = pModule + 0x1EAB650;
 		state_ptr = pModule + 0x1EABF68;
 		character_name_ptr_loc = pModule + 0x01EA5384;
+	}
+	// 1.7.0
+	else if (peekProc(pModule + 0x01ED53A8, detected_version)
+		&& strcmp(detected_version, "WILLOW2-PCALLIUM-55-CL770068") == 0)
+	{
+		vects_ptr = pModule + 0x1EE18E0;
+		state_ptr = pModule + 0x1EE21F8;
+		character_name_ptr_loc = pModule + 0x01EDB5B4;
 	}
 	else
 	{
@@ -167,7 +176,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
-static std::wstring description(L"Borderlands 2 (v1.5.0)");
+static std::wstring description(L"Borderlands 2 (v1.7.0)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
