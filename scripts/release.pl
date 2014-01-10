@@ -84,6 +84,9 @@ while (my $pro = shift @pro) {
           } elsif ($value eq '../$$SOURCEDIR/helper') { # sbcelt helper
             $vdir =~ s/-helper-build/-src/;
             push @vpath, $vdir.'helper/';
+          } elsif ($vdir eq '3rdparty/fx11-build/' and $value eq '../$$SOURCEDIR') { # fx11
+            $vdir =~ s/-build/-src/;
+            push @vpath, $vdir;
           } else {
             push @vpath,map { "$basedir$_/"} map { s/\$\$PWD/./; $_;} split(/\s/, $value);
           }
