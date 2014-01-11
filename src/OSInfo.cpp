@@ -334,7 +334,11 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	// Service Packs (may be empty)
 	static_assert(sizeof(TCHAR) == sizeof(wchar_t), "Expected Unicode TCHAR.");
-	osdispver.append(QString::fromWCharArray(ovi.szCSDVersion));
+	QString sp = QString::fromWCharArray(ovi.szCSDVersion);
+	if (!sp.isEmpty()) {
+		osdispver.append(QLatin1String(" "));
+		osdispver.append(sp);
+	}
 
 	// Architecture
 	if (ovi.dwMajorVersion >= 6) {
