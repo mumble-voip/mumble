@@ -738,6 +738,8 @@ void MainWindow::msgVersion(const MumbleProto::Version &msg) {
 		g.sh->qsOS = u8(msg.os());
 		if (msg.has_os_version())
 			g.sh->qsOSVersion = u8(msg.os_version());
+		if (msg.has_os_displayable_version())
+			g.sh->qsOSDisplayableVersion = u8(msg.os_displayable_version());
 	}
 }
 

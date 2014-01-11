@@ -99,6 +99,7 @@ class ServerUser : public Connection, public User {
 		QString qsRelease;
 		QString qsOS;
 		QString qsOSVersion;
+		QString qsOSDisplayableVersion;
 
 		std::string ssContext;
 		QString qsIdentity;
