@@ -31,6 +31,7 @@
 */ 
 
 #include "../mumble_plugin_win32.h"
+#include <algorithm>
 
 VOID *vects_ptr;
 VOID *state_ptr;
@@ -95,7 +96,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		return false;
 	}
 
-	char detected_version[32];
+	unsigned char detected_version[32];
 
 	// Note for further versions:
 	// The "version" string above change. However, it looks like it will always start
@@ -119,9 +120,19 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	// Note that I couldn't find an address that would do this reliably with the game "pause" 
 	// menu, only the main menu (when you initially start the game, or completely exit your
 	// current game)
+
+	// VERSION_EQ safely checks whether the content of `buf'
+	// (a buffer in the form of a C-style array of unsigned char)
+	// contains the byte-level content of the string literal `strlit'.
+	//
+	// The NUL terminator of the string literal is not considered in
+	// this equality check.
+#define VERSION_EQ(buf, strlit) \
+	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
+
 	// 1.3.1
 	if (peekProc(pModule + 0x1E6D048, detected_version)
-		&& strcmp(detected_version, "WILLOW2-PCSAGE-28-CL697606") == 0)
+		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-28-CL697606"))
 	{
 		vects_ptr = pModule + 0x1E792B0;
 		state_ptr = pModule + 0x1E79BC8;
@@ -129,7 +140,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 	// 1.4.0
 	else if (peekProc(pModule + 0x1E8D1D8, detected_version)
-		&& strcmp(detected_version, "WILLOW2-PCSAGE-77-CL711033") == 0)
+		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-77-CL711033"))
 	{
 		vects_ptr = pModule + 0x1E993F0;
 		state_ptr = pModule + 0x1E99D08;
@@ -137,7 +148,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	}
 	// 1.5.0
 	else if (peekProc(pModule + 0x01E9F338, detected_version)
-		&& strcmp(detected_version, "WILLOW2-PCLILAC-60-CL721220") == 0)
+		&& VERSION_EQ(detected_version, "WILLOW2-PCLILAC-60-CL721220"))
 	{
 		vects_ptr = pModule + 0x1EAB650;
 		state_ptr = pModule + 0x1EABF68;
