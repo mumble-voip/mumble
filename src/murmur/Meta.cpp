@@ -513,7 +513,7 @@ Meta::~Meta() {
 
 void Meta::getOSInfo() {
 	qsOS = OSInfo::getOS();
-	qsOSVersion = OSInfo::getOSVersion();
+	qsOSVersion = OSInfo::getOSDisplayableVersion();
 }
 
 void Meta::bootAll() {
