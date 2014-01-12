@@ -203,6 +203,7 @@ struct Settings {
 	float fOtherVolume;
 	bool bAttenuateOthersOnTalk;
 	bool bAttenuateOthers;
+	bool bAttenuateUsersOnPrioritySpeak;
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;

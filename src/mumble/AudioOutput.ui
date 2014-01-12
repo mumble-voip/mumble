@@ -334,6 +334,28 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="qgbPrioritySpeaker">
+     <property name="title">
+      <string>Priority Speaker</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="qcbAttenuateUsersOnPrioritySpeak">
+        <property name="toolTip">
+         <string>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</string>
+        </property>
+        <property name="text">
+         <string>Attenuate other users while talking as Priority Speaker.</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="qgbVolume">
      <property name="enabled">
       <bool>true</bool>

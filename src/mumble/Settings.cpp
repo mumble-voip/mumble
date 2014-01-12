@@ -265,6 +265,7 @@ Settings::Settings() {
 	fOtherVolume = 0.5f;
 	bAttenuateOthersOnTalk = false;
 	bAttenuateOthers = true;
+	bAttenuateUsersOnPrioritySpeak = false;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
@@ -563,6 +564,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(fOtherVolume, "audio/othervolume");
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
@@ -852,6 +854,7 @@ void Settings::save() {
 	SAVELOAD(fOtherVolume, "audio/othervolume");
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");

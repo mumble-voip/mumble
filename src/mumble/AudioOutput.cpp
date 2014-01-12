@@ -386,6 +386,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		++it;
 	}
 
+	if (!needAdjustment && g.s.bAttenuateUsersOnPrioritySpeak) {
+		const ClientUser *p = ClientUser::get(g.uiSession);
+		if (p && p->tsState == Settings::Talking && p->bPrioritySpeaker) {
+			needAdjustment = true;
+		}
+	}
+
 	if (! qlMix.isEmpty()) {
 		STACKVAR(float, speaker, iChannels*3);
 		STACKVAR(float, svol, iChannels);
