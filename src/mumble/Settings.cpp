@@ -643,7 +643,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
-	SAVELOAD(qsTimeFormat, "ui/timeformat");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
