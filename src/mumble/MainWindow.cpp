@@ -398,11 +398,15 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
 		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
-		mb.setDefaultButton(qpbMinimize);
-		mb.setEscapeButton(qpbMinimize);
+		QPushButton *qpbCancel = mb.addButton(tr("Cancel"), QMessageBox::RejectRole);
+		mb.setDefaultButton(qpbCancel);
+		mb.setEscapeButton(qpbCancel);
 		mb.exec();
-		if (mb.clickedButton() != qpbClose) {
+		if (mb.clickedButton() == qpbMinimize) {
 			showMinimized();
+			e->ignore();
+			return;
+		} else if (mb.clickedButton() == qpbCancel) {
 			e->ignore();
 			return;
 		}
