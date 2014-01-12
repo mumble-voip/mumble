@@ -321,6 +321,7 @@ Settings::Settings() {
 	bStateInTray = true;
 	bUsage = true;
 	bShowUserCount = false;
+	bDecreaseVolumeWhileSpeaking = true;
 	bChatBarUseSelection = false;
 	bFilterHidesEmptyChannels = true;
 	bFilterActive = false;
@@ -642,6 +643,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(qsStyle, "ui/style");
 	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(qsTimeFormat, "ui/timeformat");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
@@ -668,6 +670,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
+	SAVELOAD(bDecreaseVolumeWhileSpeaking, "ui/decreasevolumewhilespeaking");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");
@@ -954,6 +957,7 @@ void Settings::save() {
 	SAVELOAD(bStateInTray, "ui/stateintray");
 	SAVELOAD(bUsage, "ui/usage");
 	SAVELOAD(bShowUserCount, "ui/showusercount");
+	SAVELOAD(bDecreaseVolumeWhileSpeaking, "ui/decreasevolumewhilespeaking");
 	SAVELOAD(bChatBarUseSelection, "ui/chatbaruseselection");
 	SAVELOAD(bFilterHidesEmptyChannels, "ui/filterhidesemptychannels");
 	SAVELOAD(bFilterActive, "ui/filteractive");

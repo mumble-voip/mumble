@@ -173,6 +173,7 @@ void LookConfig::save() const {
 	s.bHideInTray = qcbHideTray->isChecked();
 	s.bStateInTray = qcbStateInTray->isChecked();
 	s.bShowUserCount = qcbShowUserCount->isChecked();
+	s.bDecreaseVolumeWhileSpeaking->isChecked();
 	s.bShowContextMenuInMenuBar = qcbShowContextMenuInMenuBar->isChecked();
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
@@ -209,6 +210,7 @@ bool LookConfig::expert(bool b) {
 	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
+	qcbDecreaseVolumeWhileSpeaking->setVisible(b);
 	return true;
 }
 

@@ -190,6 +190,7 @@ struct Settings {
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
+	bool bDecreaseVolumeWhileSpeaking;
 
 	// Idle auto actions
 	unsigned int iIdleTime;

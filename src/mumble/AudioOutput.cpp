@@ -386,7 +386,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		++it;
 	}
 
-	if (needAdjustment == false) {
+	if (needAdjustment == false && bDecreaseVolumeWhileSpeaking) {
 		ClientUser *p = ClientUser::get(g.uiSession);
 		if (p && p->tsState == Settings::Talking && p->bPrioritySpeaker) {
 			needAdjustment = true;
