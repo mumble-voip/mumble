@@ -1159,7 +1159,7 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 }
 
 void ConnectDialog::initList() {
-	if (bPublicInit || (qlPublicServers.count() > 0))
+	if (bPublicInit || (qlPublicServers.count() > 0) || g.s.bRestrictServerLookups)
 		return;
 
 	bPublicInit = true;

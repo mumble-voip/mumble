@@ -76,6 +76,19 @@
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="qcbRestrictServerLookups">
+        <property name="toolTip">
+         <string>Don't look for public Mumble servers on startup.</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This will prevent the client from finding public servers at startup.&lt;/b&gt;&lt;p&gt;The client will not retrieve any information about public Mumble servers. This option should only be enabled if you already know the hostname or IP address of the server you want to join.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Restrict server lookups</string>
+        </property>   
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="qcbSuppressIdentity">
         <property name="toolTip">
          <string>Don't send certificate to server and don't save passwords. (Not saved).</string>
