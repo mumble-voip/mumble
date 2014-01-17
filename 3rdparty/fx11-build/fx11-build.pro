@@ -4,11 +4,7 @@ BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 
 !exists(../$$SOURCEDIR/Effect.h) {
-	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
-	message("")
-	message("git submodule init")
-	message("git submodule update")
-	message("")
+	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
 	error("Aborting configuration")
 }
 
