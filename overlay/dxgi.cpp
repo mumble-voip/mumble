@@ -109,16 +109,15 @@ static void HookResizeRaw(voidFunc vfResize) {
 void hookDXGI(HMODULE hDXGI, bool preonly);
 
 void checkDXGIHook(bool preonly) {
-	static bool bCheckHookActive = false;
-	if (bCheckHookActive) {
+	static long active = 0;
+	long isAlreadyActive = InterlockedCompareExchange(&active, 1, 0);
+	if (isAlreadyActive == 1) {
 		ods("DXGI: Recursion in checkDXGIHook");
 		return;
 	}
 
 	if (dxgi->iOffsetPresent == 0 || dxgi->iOffsetResize == 0)
 		return;
-
-	bCheckHookActive = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 
@@ -132,7 +131,7 @@ void checkDXGIHook(bool preonly) {
 	#endif
 	}
 
-	bCheckHookActive = false;
+	InterlockedExchange(&active, 0);
 }
 
 /// @param hDXGI must be a valid module handle.

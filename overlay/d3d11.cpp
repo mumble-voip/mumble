@@ -608,8 +608,9 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 void hookD3D11(HMODULE hD3D11, bool preonly);
 
 void checkDXGI11Hook(bool preonly) {
-	static bool bCheckHookActive = false;
-	if (bCheckHookActive) {
+	static long active = 0;
+	long isAlreadyActive = InterlockedCompareExchange(&active, 1, 0);
+	if (isAlreadyActive == 1) {
 		ods("D3D11: Recursion in checkDXGI11Hook");
 		return;
 	}
@@ -617,8 +618,6 @@ void checkDXGI11Hook(bool preonly) {
 	if (d3d11->iOffsetAddRef == 0 || d3d11->iOffsetRelease == 0) {
 		return;
 	}
-
-	bCheckHookActive = true;
 
 	HMODULE hDXGI = GetModuleHandleW(L"DXGI.DLL");
 	HMODULE hD3D11 = GetModuleHandleW(L"D3D11.DLL");
@@ -637,7 +636,7 @@ void checkDXGI11Hook(bool preonly) {
 		#endif
 	}
 
-	bCheckHookActive = false;
+	InterlockedExchange(&active, 0);
 }
 
 /// @param hD3D11 must be a valid module handle

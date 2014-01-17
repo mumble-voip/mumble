@@ -898,13 +898,12 @@ static void hookD3D9(HMODULE hD3D, bool preonly);
 //                patch Direct3DCreate9.
 //                Should be true on PROC_ATTACH, and false on THREAD_ATTACH. (?)
 void checkD3D9Hook(bool preonly) {
-	static bool bCheckHookActive = false;
-	if (bCheckHookActive) {
+	static long active = 0;
+	long isAlreadyActive = InterlockedCompareExchange(&active, 1, 0);
+	if (isAlreadyActive == 1) {
 		ods("D3D9: Recursion in checkD3D9Hook");
 		return;
 	}
-
-	bCheckHookActive = true;
 
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
@@ -918,7 +917,7 @@ void checkD3D9Hook(bool preonly) {
 		#endif
 	}
 
-	bCheckHookActive = false;
+	InterlockedExchange(&active, 0);
 }
 
 static void hookD3D9(HMODULE hD3D, bool preonly) {

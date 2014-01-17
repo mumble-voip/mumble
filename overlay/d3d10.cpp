@@ -609,8 +609,9 @@ static void HookAddRelease(voidFunc vfAdd, voidFunc vfRelease) {
 static void hookD3D10(HMODULE hD3D10, bool preonly);
 
 void checkDXGI10Hook(bool preonly) {
-	static bool bCheckHookActive = false;
-	if (bCheckHookActive) {
+	static long active = 0;
+	long isAlreadyActive = InterlockedCompareExchange(&active, 1, 0);
+	if (isAlreadyActive == 1) {
 		ods("D3D10: Recursion in checkDXGI10Hook");
 		return;
 	}
@@ -618,8 +619,6 @@ void checkDXGI10Hook(bool preonly) {
 	if (d3d10->iOffsetAddRef == 0 || d3d10->iOffsetRelease == 0) {
 		return;
 	}
-
-	bCheckHookActive = true;
 
 	HMODULE hD3D10 = GetModuleHandleW(L"D3D10CORE.DLL");
 
@@ -637,7 +636,7 @@ void checkDXGI10Hook(bool preonly) {
 		#endif
 	}
 
-	bCheckHookActive = false;
+	InterlockedExchange(&active, 0);
 }
 
 /// @param hD3D10 must be a valid module handle
