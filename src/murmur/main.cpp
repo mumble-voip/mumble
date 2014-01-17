@@ -301,6 +301,9 @@ int main(int argc, char **argv) {
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
 			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
+			       "  -limits          Tests and shows how many file descriptors and threads can be created.\n"
+			       "                   The purpose of this option is to test how many clients Murmur can handle.\n"
+			       "                   Murmur will exit after this test.\n"
 #endif
 			       "  -v               Add verbose output.\n"
 #ifdef Q_OS_UNIX
