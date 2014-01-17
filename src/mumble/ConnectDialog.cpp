@@ -855,7 +855,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 #ifdef USE_BONJOUR
 	// Make sure the we got the objects we need, then wire them up
-	if (g.bc->bsbBrowser && g.bc->bsrResolver) {
+	if (g.bc->bsbBrowser && g.bc->bsrResolver && !g.s.bRestrictLANServerLookups) {
 		connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
 		        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
 		connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
@@ -1159,7 +1159,7 @@ void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 }
 
 void ConnectDialog::initList() {
-	if (bPublicInit || (qlPublicServers.count() > 0) || g.s.bRestrictServerLookups)
+	if (bPublicInit || (qlPublicServers.count() > 0) || g.s.bRestrictPublicServerLookups)
 		return;
 
 	bPublicInit = true;

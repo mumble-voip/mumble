@@ -66,7 +66,8 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbQoS, s.bQoS);
 	loadCheckBox(qcbAutoReconnect, s.bReconnect);
 	loadCheckBox(qcbAutoConnect, s.bAutoConnect);
-	loadCheckBox(qcbRestrictServerLookups, s.bRestrictServerLookups);
+	loadCheckBox(qcbRestrictPublicServerLookups, s.bRestrictPublicServerLookups);
+	loadCheckBox(qcbRestrictLANServerLookups, s.bRestrictLANServerLookups);
 	loadCheckBox(qcbSuppressIdentity, s.bSuppressIdentity);
 	loadComboBox(qcbType, s.ptProxyType);
 
@@ -99,7 +100,8 @@ void NetworkConfig::save() const {
 	s.bQoS = qcbQoS->isChecked();
 	s.bReconnect = qcbAutoReconnect->isChecked();
 	s.bAutoConnect = qcbAutoConnect->isChecked();
-	s.bRestrictServerLookups = qcbRestrictServerLookups->isChecked();
+	s.bRestrictPublicServerLookups = qcbRestrictPublicServerLookups->isChecked();
+	s.bRestrictLANServerLookups = qcbRestrictLANServerLookups->isChecked();
 	s.bSuppressIdentity = qcbSuppressIdentity->isChecked();
 
 	s.ptProxyType = static_cast<Settings::ProxyType>(qcbType->currentIndex());
@@ -168,7 +170,8 @@ void NetworkConfig::accept() const {
 bool NetworkConfig::expert(bool b) {
 	qcbTcpMode->setVisible(b);
 	qcbQoS->setVisible(b);
-	qcbRestrictServerLookups->setVisible(b);
+	qcbRestrictPublicServerLookups->setVisible(b);
+	qcbRestrictLANServerLookups->setVisible(b);
 	qgbProxy->setVisible(b);
 	qcbUsage->setVisible(b);
 
