@@ -454,6 +454,8 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 						g.l->log(Log::ChannelLeave, tr("%1 moved to %2.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)));
 					else
 						g.l->log(Log::ChannelLeave, tr("%1 moved to %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)).arg(Log::formatClientUser(pSrc, Log::Source)));
+				} else if (pSrc == pSelf) {
+					g.l->log(Log::ChannelJoin, tr("You moved %1 to %2.").arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatChannel(c)));
 				}
 			}
 
