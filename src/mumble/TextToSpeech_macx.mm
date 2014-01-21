@@ -113,8 +113,9 @@ void TextToSpeechPrivate::say(const QString &text) {
 	QByteArray byteArray = text.toUtf8();
 	NSString *message = [[NSString alloc] initWithBytes:byteArray.constData() length:byteArray.size() encoding:NSUTF8StringEncoding];
 
-	if (message == nil)
+	if (message == nil) {
 		return;
+	}
 
 	[m_synthesizerHelper appendMessage:message];
 	[message release];
