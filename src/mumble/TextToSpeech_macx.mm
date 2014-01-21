@@ -37,58 +37,56 @@
 #include "TextToSpeech.h"
 
 @interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
-{
-	NSSpeechSynthesizer *m_synthesizer;
-	QList<QByteArray> m_messages;
-}
 
  @property (nonatomic, readonly) NSSpeechSynthesizer *synthesizer;
 
-- (void)appendMessage:(QByteArray)message;
+- (void)appendMessage:(NSString *)message;
 
 - (void)processSpeech;
-- (void)speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)success;
+
+@end
+
+@interface MUSpeechSynthesizerPrivateHelper ()
+
+@property (nonatomic, retain) NSMutableArray *messages;
+@property (nonatomic, retain) NSSpeechSynthesizer *synthesizer;
 
 @end
 
 @implementation MUSpeechSynthesizerPrivateHelper
 
-@synthesize synthesizer = m_synthesizer;
-
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		m_synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-		m_synthesizer.delegate = self;
+		self.synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+		self.messages = [NSMutableArray array];
+		self.synthesizer.delegate = self;
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[m_synthesizer release];
+	self.synthesizer = nil;
+	self.messages = nil;
 	[super dealloc];
 }
 
-- (void)appendMessage:(QByteArray)message {
-	m_messages.append(message);
+- (void)appendMessage:(NSString *)message {
+	[self.messages insertObject:message atIndex:0];
 }
 
 - (void)processSpeech {
-	Q_ASSERT(!m_messages.isEmpty());
+	Q_ASSERT(self.messages.count == 0);
 	
-	QByteArray firstMessage = m_messages.takeFirst();
+	NSString *poppedMessage = [self.messages lastObject];
 
-	// Use NSMacOSRomanStringEncoding because "Apple Roman" is used in TextToSpeechPrivate::say
-	NSString *text = [[NSString alloc] initWithBytes:firstMessage.constData() length:firstMessage.size() encoding:NSMacOSRomanStringEncoding];
-	Q_ASSERT(text != nil);
-	if (text != nil) {
-		[m_synthesizer startSpeakingString:text];
-	}
-	[text release];
+	[self.synthesizer startSpeakingString:poppedMessage];
+
+	[self.messages removeLastObject];
 }
 
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)synthesizer didFinishSpeaking:(BOOL)success {
-	if (!m_messages.isEmpty()) {
+	if (self.messages.count != 0) {
 		[self processSpeech];
 	}
 }
@@ -114,18 +112,17 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 }
 
 void TextToSpeechPrivate::say(const QString &text) {
-	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
-	if (codec == NULL) {
-		qWarning("CODEC WAS NULL");
-	}
-	Q_ASSERT(codec != NULL);
+	QByteArray byteArray = text.toUtf8();
+	NSString *message = [[NSString alloc] initWithBytes:byteArray.constData() length:byteArray.size() encoding:NSUTF8StringEncoding];
 
-	if (codec != NULL) {
-		[m_synthesizerHelper appendMessage:codec->fromUnicode(text)];
+	if (message == nil)
+		return;
 
-		if (![m_synthesizerHelper.synthesizer isSpeaking]) {
-			[m_synthesizerHelper processSpeech];
-		}
+	[m_synthesizerHelper appendMessage:message];
+	[message release];
+
+	if (![m_synthesizerHelper.synthesizer isSpeaking]) {
+		[m_synthesizerHelper processSpeech];
 	}
 }
 
