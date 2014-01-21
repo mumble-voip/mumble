@@ -36,7 +36,7 @@
 #include "Global.h"
 #include "TextToSpeech.h"
 
-@interface MMSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
+@interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
 {
 	NSSpeechSynthesizer *m_synthesizer;
 	QList<QByteArray> m_messages;
@@ -51,7 +51,7 @@
 
 @end
 
-@implementation MMSpeechSynthesizerPrivateHelper
+@implementation MUSpeechSynthesizerPrivateHelper
 
 @synthesize synthesizer = m_synthesizer;
 
@@ -97,7 +97,7 @@
 
 class TextToSpeechPrivate {
 	public:
-		MMSpeechSynthesizerPrivateHelper *m_synthesizerHelper;
+		MUSpeechSynthesizerPrivateHelper *m_synthesizerHelper;
 
 		TextToSpeechPrivate();
 		~TextToSpeechPrivate();
@@ -106,7 +106,7 @@ class TextToSpeechPrivate {
 };
 
 TextToSpeechPrivate::TextToSpeechPrivate() {
-	m_synthesizerHelper = [[MMSpeechSynthesizerPrivateHelper alloc] init];
+	m_synthesizerHelper = [[MUSpeechSynthesizerPrivateHelper alloc] init];
 }
 
 TextToSpeechPrivate::~TextToSpeechPrivate() {
