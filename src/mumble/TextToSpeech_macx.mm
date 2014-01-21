@@ -31,56 +31,60 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#import <AppKit/AppKit.h>
+
 #include "mumble_pch.hpp"
 
 #include "Global.h"
 #include "TextToSpeech.h"
 
-@interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
-@property (nonatomic, readonly) NSSpeechSynthesizer *synthesizer;
+@interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate> {
+	NSMutableArray *m_messages;
+	NSSpeechSynthesizer *m_synthesizer;
+}
+- (NSSpeechSynthesizer *)synthesizer;
 - (void)appendMessage:(NSString *)message;
 - (void)processSpeech;
-@end
-
-@interface MUSpeechSynthesizerPrivateHelper ()
-@property (nonatomic, retain) NSMutableArray *messages;
-@property (nonatomic, retain) NSSpeechSynthesizer *synthesizer;
 @end
 
 @implementation MUSpeechSynthesizerPrivateHelper
 
 - (id)init {
 	if ((self = [super init])) {
-		self.synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
-		self.messages = [NSMutableArray array];
-		self.synthesizer.delegate = self;
+		m_synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+		m_messages = [[NSMutableArray alloc] init];
+		[m_synthesizer setDelegate:self];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	self.synthesizer = nil;
-	self.messages = nil;
+	[m_synthesizer release];
+	[m_messages release];
 	[super dealloc];
 }
 
+- (NSSpeechSynthesizer *)synthesizer {
+	return m_synthesizer;
+}
+
 - (void)appendMessage:(NSString *)message {
-	[self.messages insertObject:message atIndex:0];
+	[m_messages insertObject:message atIndex:0];
 }
 
 - (void)processSpeech {
-	Q_ASSERT(self.messages.count == 0);
+	Q_ASSERT([m_messages count] == 0);
 	
-	NSString *poppedMessage = [self.messages lastObject];
-	[self.synthesizer startSpeakingString:poppedMessage];
-	[self.messages removeLastObject];
+	NSString *poppedMessage = [m_messages lastObject];
+	[m_synthesizer startSpeakingString:poppedMessage];
+	[m_messages removeLastObject];
 }
 
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)synthesizer didFinishSpeaking:(BOOL)success {
 	Q_UNUSED(synthesizer);
 	Q_UNUSED(success);
 
-	if (self.messages.count != 0) {
+	if ([m_messages count] != 0) {
 		[self processSpeech];
 	}
 }
@@ -108,6 +112,7 @@ TextToSpeechPrivate::~TextToSpeechPrivate() {
 void TextToSpeechPrivate::say(const QString &text) {
 	QByteArray byteArray = text.toUtf8();
 	NSString *message = [[NSString alloc] initWithBytes:byteArray.constData() length:byteArray.size() encoding:NSUTF8StringEncoding];
+
 	if (message == nil) {
 		return;
 	}
@@ -115,15 +120,15 @@ void TextToSpeechPrivate::say(const QString &text) {
 	[m_synthesizerHelper appendMessage:message];
 	[message release];
 
-	if (![m_synthesizerHelper.synthesizer isSpeaking]) {
+	if (![[m_synthesizerHelper synthesizer] isSpeaking]) {
 		[m_synthesizerHelper processSpeech];
 	}
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
 	// Check for setVolume: availability. It's only available on 10.5+.
-	if ([m_synthesizerHelper.synthesizer respondsToSelector:@selector(setVolume:)]) {
-		[m_synthesizerHelper.synthesizer setVolume:volume / 100.0];
+	if ([[m_synthesizerHelper synthesizer] respondsToSelector:@selector(setVolume:)]) {
+		[[m_synthesizerHelper synthesizer] setVolume:volume / 100.0];
 	}
 }
 
