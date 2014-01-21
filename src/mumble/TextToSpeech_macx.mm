@@ -37,27 +37,20 @@
 #include "TextToSpeech.h"
 
 @interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
-
- @property (nonatomic, readonly) NSSpeechSynthesizer *synthesizer;
-
+@property (nonatomic, readonly) NSSpeechSynthesizer *synthesizer;
 - (void)appendMessage:(NSString *)message;
-
 - (void)processSpeech;
-
 @end
 
 @interface MUSpeechSynthesizerPrivateHelper ()
-
 @property (nonatomic, retain) NSMutableArray *messages;
 @property (nonatomic, retain) NSSpeechSynthesizer *synthesizer;
-
 @end
 
 @implementation MUSpeechSynthesizerPrivateHelper
 
 - (id)init {
-	self = [super init];
-	if (self != nil) {
+	if ((self = [super init])) {
 		self.synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
 		self.messages = [NSMutableArray array];
 		self.synthesizer.delegate = self;
@@ -79,13 +72,14 @@
 	Q_ASSERT(self.messages.count == 0);
 	
 	NSString *poppedMessage = [self.messages lastObject];
-
 	[self.synthesizer startSpeakingString:poppedMessage];
-
 	[self.messages removeLastObject];
 }
 
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)synthesizer didFinishSpeaking:(BOOL)success {
+	Q_UNUSED(synthesizer);
+	Q_UNUSED(success);
+
 	if (self.messages.count != 0) {
 		[self processSpeech];
 	}
@@ -127,7 +121,10 @@ void TextToSpeechPrivate::say(const QString &text) {
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
-	[m_synthesizerHelper.synthesizer setVolume:volume / 100.0];
+	// Check for setVolume: availability. It's only available on 10.5+.
+	if ([m_synthesizerHelper.synthesizer respondsToSelector:@selector(setVolume:)]) {
+		[m_synthesizerHelper.synthesizer setVolume:volume / 100.0];
+	}
 }
 
 TextToSpeech::TextToSpeech(QObject *) {
