@@ -236,8 +236,8 @@ unix {
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp
-    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
+    SOURCES *= SharedMemory_unix.cpp
+    OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
         DEFINES *= USE_COCOA
