@@ -1,6 +1,7 @@
 /* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
    Copyright (C) 2008-2011, Mikkel Krautz <mikkel@krautz.dk>
+   Copyright (C) 2014, Mayur Pawashe <zorgiepoo@gmail.com>
 
    All rights reserved.
 
@@ -35,89 +36,105 @@
 #include "Global.h"
 #include "TextToSpeech.h"
 
+@interface MMSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate>
+{
+	NSSpeechSynthesizer *m_synthesizer;
+	QList<QByteArray> m_messages;
+}
+
+ @property (nonatomic, readonly) NSSpeechSynthesizer *synthesizer;
+
+- (void)appendMessage:(QByteArray)message;
+
+- (void)processSpeech;
+- (void)speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)success;
+
+@end
+
+@implementation MMSpeechSynthesizerPrivateHelper
+
+@synthesize synthesizer = m_synthesizer;
+
+- (id)init {
+	self = [super init];
+	if (self != nil) {
+		m_synthesizer = [[NSSpeechSynthesizer alloc] initWithVoice:nil];
+		m_synthesizer.delegate = self;
+	}
+	return self;
+}
+
+- (void)dealloc {
+	[m_synthesizer release];
+	[super dealloc];
+}
+
+- (void)appendMessage:(QByteArray)message {
+	m_messages.append(message);
+}
+
+- (void)processSpeech {
+	Q_ASSERT(!m_messages.isEmpty());
+	
+	QByteArray firstMessage = m_messages.takeFirst();
+
+	// Use NSMacOSRomanStringEncoding because "Apple Roman" is used in TextToSpeechPrivate::say
+	NSString *text = [[NSString alloc] initWithBytes:firstMessage.constData() length:firstMessage.size() encoding:NSMacOSRomanStringEncoding];
+	Q_ASSERT(text != nil);
+	if (text != nil) {
+		[m_synthesizer startSpeakingString:text];
+	}
+	[text release];
+}
+
+- (void)speechSynthesizer:(NSSpeechSynthesizer *)synthesizer didFinishSpeaking:(BOOL)success {
+	if (!m_messages.isEmpty()) {
+		[self processSpeech];
+	}
+}
+
+@end
+
 class TextToSpeechPrivate {
 	public:
-		SpeechChannel scChannel;
-		QMutex qmLock;
-		Fixed fVolume;
-		QList<QByteArray> qlMessages;
-		bool bRunning;
+		MMSpeechSynthesizerPrivateHelper *m_synthesizerHelper;
 
 		TextToSpeechPrivate();
-		void ProcessSpeech();
+		~TextToSpeechPrivate();
 		void say(const QString &text);
 		void setVolume(int v);
 };
 
-static void speech_done_cb(SpeechChannel scChannel, void *udata) {
-	TextToSpeechPrivate *tts = reinterpret_cast<TextToSpeechPrivate *>(udata);
-
-	Q_ASSERT(scChannel == tts->scChannel);
-
-	DisposeSpeechChannel(tts->scChannel);
-
-	if (tts->qlMessages.isEmpty())
-		tts->bRunning = false;
-	else
-		tts->ProcessSpeech();
-}
-
 TextToSpeechPrivate::TextToSpeechPrivate() {
-	bRunning = false;
+	m_synthesizerHelper = [[MMSpeechSynthesizerPrivateHelper alloc] init];
 }
 
-void TextToSpeechPrivate::ProcessSpeech() {
-	QByteArray ba;
-
-	qmLock.lock();
-	ba = qlMessages.takeFirst();
-	qmLock.unlock();
-
-	NewSpeechChannel(NULL, &scChannel);
-	SetSpeechInfo(scChannel, soVolume, &fVolume);
-	SetSpeechInfo(scChannel, soRefCon, this);
-	SetSpeechInfo(scChannel, soSpeechDoneCallBack, reinterpret_cast<void *>(speech_done_cb));
-	SpeakText(scChannel, ba.constData(), ba.size());
+TextToSpeechPrivate::~TextToSpeechPrivate() {
+	[m_synthesizerHelper release];
 }
 
 void TextToSpeechPrivate::say(const QString &text) {
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
+	if (codec == NULL) {
+		qWarning("CODEC WAS NULL");
+	}
 	Q_ASSERT(codec != NULL);
 
-	qmLock.lock();
-	qlMessages.append(codec->fromUnicode(text));
-	qmLock.unlock();
+	if (codec != NULL) {
+		[m_synthesizerHelper appendMessage:codec->fromUnicode(text)];
 
-	if (!bRunning) {
-		ProcessSpeech();
-		bRunning = true;
+		if (![m_synthesizerHelper.synthesizer isSpeaking]) {
+			[m_synthesizerHelper processSpeech];
+		}
 	}
 }
 
 void TextToSpeechPrivate::setVolume(int volume) {
-	fVolume = FixRatio(volume, 100);
+	[m_synthesizerHelper.synthesizer setVolume:volume / 100.0];
 }
 
 TextToSpeech::TextToSpeech(QObject *) {
 	enabled = true;
-	d = NULL;
-
-	/* Determine which release of OS X we're running on. Tiger has a buggy implementation, and
-	 * therefore we'll just disable ourselves when we're running on that.
-	 *
-	 * What it comes down to, is that calling DisposeSpeechChannel() on Tiger will crash in certain
-	 * situations.
-	 *
-	 * For more information, see this thread on Apple's speech mailing list:
-	 * http://lists.apple.com/archives/speech-dev/2005/Aug/msg00000.html
-	 */
-
-	int version = QSysInfo::MacintoshVersion;
-	if (version != QSysInfo::MV_Unknown && version < QSysInfo::MV_LEOPARD) {
-		qWarning("Mac OS X 10.4 (Tiger) detected. Disabling Text-to-Speech because of a buggy implementation in 10.4.");
-		return;
-	}
-
 	d = new TextToSpeechPrivate();
 }
 
