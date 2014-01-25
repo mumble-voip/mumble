@@ -12,9 +12,7 @@ What is Murmur?
 
 Murmur is the server component of Mumble, an open-source voice chat utility.
 
-This package is a statically compiled version of Murmur for Linux. It is
-independent of your distribution's package manager, and is intended to be
-run as-is, or with minimal set up.
+This package is a statically compiled version of Murmur for OS X.
 
 
 Running Murmur
