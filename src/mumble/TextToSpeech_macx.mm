@@ -38,7 +38,7 @@
 #include "Global.h"
 #include "TextToSpeech.h"
 
-@interface MUSpeechSynthesizerPrivateHelper : NSObject <NSSpeechSynthesizerDelegate> {
+@interface MUSpeechSynthesizerPrivateHelper : NSObject {
 	NSMutableArray *m_messages;
 	NSSpeechSynthesizer *m_synthesizer;
 }
@@ -46,6 +46,11 @@
 - (void)appendMessage:(NSString *)message;
 - (void)processSpeech;
 @end
+
+#if !defined(USE_MAC_UNIVERSAL) && MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
+@interface MUSpeechSynthesizerPrivateHelper () <NSSpeechSynthesizerDelegate>
+@end
+#endif
 
 @implementation MUSpeechSynthesizerPrivateHelper
 
