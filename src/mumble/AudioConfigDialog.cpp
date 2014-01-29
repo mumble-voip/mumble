@@ -92,7 +92,7 @@ QString AudioInputDialog::title() const {
 }
 
 QIcon AudioInputDialog::icon() const {
-	return QIcon(QLatin1String("skin:config_basic.png"));
+	return QIcon(QLatin1String("skin:config_dsound.png"));
 }
 
 void AudioInputDialog::load(const Settings &r) {
@@ -432,7 +432,7 @@ QString AudioOutputDialog::title() const {
 }
 
 QIcon AudioOutputDialog::icon() const {
-	return QIcon(QLatin1String("skin:config_basic.png"));
+	return QIcon(QLatin1String("skin:config_dsound.png"));
 }
 
 void AudioOutputDialog::load(const Settings &r) {
