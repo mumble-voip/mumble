@@ -281,9 +281,9 @@ struct Settings {
 	bool bTCPCompat;
 	bool bReconnect;
 	bool bAutoConnect;
-        bool bRestrictPublicServerLookups;
-        bool bRestrictLANServerLookups;
 	bool bQoS;
+        bool bEnablePublicServerList;
+        bool bEnableLANServerList;
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;

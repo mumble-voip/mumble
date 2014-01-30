@@ -362,8 +362,8 @@ Settings::Settings() {
 	bQoS = true;
 	bReconnect = true;
 	bAutoConnect = false;
-        bRestrictPublicServerLookups = false;
-        bRestrictLANServerLookups = false;
+        bEnablePublicServerList = true;
+        bEnableLANServerList = true;
 	ptProxyType = NoProxy;
 	usProxyPort = 0;
 
@@ -629,8 +629,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
 	SAVELOAD(bAutoConnect, "net/autoconnect");
-        SAVELOAD(bRestrictPublicServerLookups, "net/restrictpublicserverlookups");
-        SAVELOAD(bRestrictLANServerLookups, "net/restrictlanserverlookups");
+	SAVELOAD(bEnablePublicServerList, "net/enablepublicserverlist");
+	SAVELOAD(bEnableLANServerList, "net/enablelanserverlist");
 	SAVELOAD(bSuppressIdentity, "net/suppress");
 	LOADENUM(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
@@ -920,8 +920,8 @@ void Settings::save() {
 	SAVELOAD(bQoS, "net/qos");
 	SAVELOAD(bReconnect, "net/reconnect");
 	SAVELOAD(bAutoConnect, "net/autoconnect");
-        SAVELOAD(bRestrictPublicServerLookups, "net/restrictinternetserverlookups");
-        SAVELOAD(bRestrictLANServerLookups, "net/restrictlanserverlookups");
+	SAVELOAD(bEnablePublicServerList, "net/enablepublicserverlist");
+	SAVELOAD(bEnableLANServerList, "net/enablelanserverlist");
 	SAVELOAD(ptProxyType, "net/proxytype");
 	SAVELOAD(qsProxyHost, "net/proxyhost");
 	SAVELOAD(usProxyPort, "net/proxyport");

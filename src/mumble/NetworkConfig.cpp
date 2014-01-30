@@ -66,9 +66,11 @@ void NetworkConfig::load(const Settings &r) {
 	loadCheckBox(qcbQoS, s.bQoS);
 	loadCheckBox(qcbAutoReconnect, s.bReconnect);
 	loadCheckBox(qcbAutoConnect, s.bAutoConnect);
-	loadCheckBox(qcbRestrictPublicServerLookups, s.bRestrictPublicServerLookups);
-	loadCheckBox(qcbRestrictLANServerLookups, s.bRestrictLANServerLookups);
 	loadCheckBox(qcbSuppressIdentity, s.bSuppressIdentity);
+
+	loadCheckBox(qcbEnablePublicServerList, s.bEnablePublicServerList);
+	loadCheckBox(qcbEnableLANServerList, s.bEnableLANServerList);
+
 	loadComboBox(qcbType, s.ptProxyType);
 
 	qleHostname->setText(r.qsProxyHost);
@@ -100,9 +102,10 @@ void NetworkConfig::save() const {
 	s.bQoS = qcbQoS->isChecked();
 	s.bReconnect = qcbAutoReconnect->isChecked();
 	s.bAutoConnect = qcbAutoConnect->isChecked();
-	s.bRestrictPublicServerLookups = qcbRestrictPublicServerLookups->isChecked();
-	s.bRestrictLANServerLookups = qcbRestrictLANServerLookups->isChecked();
 	s.bSuppressIdentity = qcbSuppressIdentity->isChecked();
+
+	s.bEnablePublicServerList = qcbEnablePublicServerList->isChecked();
+	s.bEnableLANServerList = qcbEnableLANServerList->isChecked();
 
 	s.ptProxyType = static_cast<Settings::ProxyType>(qcbType->currentIndex());
 	s.qsProxyHost = qleHostname->text();
@@ -170,10 +173,11 @@ void NetworkConfig::accept() const {
 bool NetworkConfig::expert(bool b) {
 	qcbTcpMode->setVisible(b);
 	qcbQoS->setVisible(b);
-	qcbRestrictPublicServerLookups->setVisible(b);
-	qcbRestrictLANServerLookups->setVisible(b);
 	qgbProxy->setVisible(b);
 	qcbUsage->setVisible(b);
+
+	qcbEnablePublicServerList->setVisible(b);
+	qcbEnableLANServerList->setVisible(b);
 
 	qgbMisc->setVisible(b); // For now Misc only contains elements visible in expert mode
 	qcbImageDownload->setVisible(b);
