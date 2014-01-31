@@ -148,8 +148,15 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		int size;
 		pds >> size;
 		size &= 0x1fff;
+		if (size == 0) {
+			return;
+		}
 
 		const QByteArray &qba = pds.dataBlock(size);
+		if (size != qba.size() || !pds.isValid()) {
+			return;
+		}
+
 		const unsigned char *packet = reinterpret_cast<const unsigned char*>(qba.constData());
 
 #ifdef USE_OPUS
