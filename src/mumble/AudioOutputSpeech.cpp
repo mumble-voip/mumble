@@ -342,6 +342,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 					                                   pOut,
 					                                   iAudioBufferSize,
 					                                   0);
+					if (decodedSamples < 0) {
+						decodedSamples = iFrameSize;
+						memset(pOut, 0, iFrameSize * sizeof(float));
+					}
 #endif
 				} else {
 					if (qba.isEmpty()) {
@@ -391,6 +395,10 @@ bool AudioOutputSpeech::needSamples(unsigned int snum) {
 				} else if (umtType == MessageHandler::UDPVoiceOpus) {
 #ifdef USE_OPUS
 					decodedSamples = opus_decode_float(opusState, NULL, 0, pOut, iFrameSize, 0);
+					if (decodedSamples < 0) {
+						decodedSamples = iFrameSize;
+						memset(pOut, 0, iFrameSize * sizeof(float));
+					}
 #endif
 				} else {
 					speex_decode(dsSpeex, NULL, pOut);
