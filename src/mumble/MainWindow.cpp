@@ -1947,9 +1947,9 @@ void MainWindow::on_qaAudioMute_triggered() {
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
-		g.l->log(Log::SelfMute, tr("Unmuted and undeafened."));
+		g.l->log(Log::SelfUndeaf, tr("Unmuted and undeafened."));
 	} else if (! g.s.bMute) {
-		g.l->log(Log::SelfMute, tr("Unmuted."));
+		g.l->log(Log::SelfUnmute, tr("Unmuted."));
 	} else {
 		g.l->log(Log::SelfMute, tr("Muted."));
 	}
@@ -1982,12 +1982,12 @@ void MainWindow::on_qaAudioDeaf_triggered() {
 		bAutoUnmute = true;
 		g.s.bMute = true;
 		qaAudioMute->setChecked(true);
-		g.l->log(Log::SelfMute, tr("Muted and deafened."));
+		g.l->log(Log::SelfDeaf, tr("Muted and deafened."));
 	} else if (g.s.bDeaf) {
-		g.l->log(Log::SelfMute, tr("Deafened."));
+		g.l->log(Log::SelfDeaf, tr("Deafened."));
 		bAutoUnmute = false;
 	} else {
-		g.l->log(Log::SelfMute, tr("Undeafened."));
+		g.l->log(Log::SelfUndeaf, tr("Undeafened."));
 	}
 
 	if (g.sh) {

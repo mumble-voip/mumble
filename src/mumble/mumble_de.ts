@@ -3741,7 +3741,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+200"/>
+        <location filename="Log.cpp" line="+216"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -3772,8 +3772,8 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+6"/>
-        <source>You self-muted/deafened</source>
-        <translation>Selbst stumm/taub gestellt</translation>
+        <source>You self-muted</source>
+        <translation>Selbst stumm gestellt</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3797,7 +3797,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Textnachricht</translation>
     </message>
     <message>
-        <location line="-13"/>
+        <location line="+1"/>
+        <source>You self-unmuted</source>
+        <translation>Selbst stumm abgestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-deafened</source>
+        <translation>Selbst taub gestellt</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-undeafened</source>
+        <translation>Selbst taub abgestellt</translation>
+    </message>
+    <message>
+        <location line="-16"/>
         <source>User Joined Server</source>
         <translation>Benutzer betrat den Server</translation>
     </message>
@@ -3842,7 +3857,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Benutzer verließ den Kanal</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+62"/>
         <source>the server</source>
         <translation>den Server</translation>
     </message>
