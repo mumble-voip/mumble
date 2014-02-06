@@ -1362,6 +1362,10 @@ void ConnectDialog::timeTick() {
 void ConnectDialog::startDns(ServerItem *si) {
 	QString host = si->qsHostname.toLower();
 
+	QNetworkProxy currProxy = QNetworkProxy::applicationProxy();
+	if (currProxy.capabilites() & QNetworkProxy::HostNameLookupCapability) return;
+		
+	}
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
 		if (! qha.isNull())
