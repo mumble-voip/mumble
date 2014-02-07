@@ -1,3 +1,13 @@
+2014-01-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    269e93e  mumble: fix Mumble-SA-2014-002 (CVE-2014-0045).
+    7e31c32  mumble: fix Mumble-SA-2014-001 (CVE-2014-0044).
+    f5ebe9d  Bump version to 1.2.5
+
+2013-06-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5ff038e  Update changelog
+
 2013-05-31
   Mikkel Krautz <mikkel@krautz.dk>
     aab9cdc  Server::sendMessage: encode the source IP of outgoing UDP
