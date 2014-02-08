@@ -136,7 +136,14 @@ macx {
 
 	!CONFIG(universal) {
 		CONFIG += no-pch
-		QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+		QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path 2>/dev/null)
+		isEmpty(QMAKE_MAC_SDK) {
+			QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+			!exists($$QMAKE_MAC_SDK) {
+				message("Unable to find usable OS X SDK")
+				error("Aborting build")
+			}
+		}
 		QMAKE_CC = $$system(xcrun -find clang)
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
