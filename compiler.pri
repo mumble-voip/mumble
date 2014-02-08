@@ -143,7 +143,14 @@ macx {
 		isEqual(QT_MAJOR_VERSION, 5) {
 			QMAKE_MAC_SDK = macosx
 		} else {
-			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path)
+			QMAKE_MAC_SDK = $$system(xcrun --sdk macosx --show-sdk-path 2>/dev/null)
+			isEmpty(QMAKE_MAC_SDK) {
+				QMAKE_MAC_SDK = $$system(xcode-select --print-path)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.8.sdk
+				!exists($$QMAKE_MAC_SDK) {
+					message("Unable to find usable OS X SDK")
+					error("Aborting build")
+				}
+			}
 		}
 
 		QMAKE_CC = $$system(xcrun -find clang)
