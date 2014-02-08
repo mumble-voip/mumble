@@ -23,8 +23,8 @@ macx {
   CONFIG += x86
   SOURCES = g15helper_macx.c
   LIBS *= -llgLcd
-  QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/../lglcd/SDK/lib/
-  INCLUDEPATH *= $$(MUMBLE_PREFIX)/../lglcd/SDK/Src/
+  QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/../LCDSDK/lib/
+  INCLUDEPATH *= $$(MUMBLE_PREFIX)/../LCDSDK/Src/
   QMAKE_LFLAGS += -framework CoreFoundation -sectcreate __TEXT __info_plist g15helper.plist
   DEFINES *= APPLE
   DIST = g15helper.plist
