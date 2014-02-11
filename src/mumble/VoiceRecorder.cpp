@@ -48,17 +48,17 @@ VoiceRecorder::RecordBuffer::RecordBuffer(
 		quint64 absoluteStartSample_)
 
 	: recordInfoIndex(recordInfoIndex_)
-    , buffer(buffer_)
-    , samples(samples_)
-    , absoluteStartSample(absoluteStartSample_) {
+	, buffer(buffer_)
+	, samples(samples_)
+	, absoluteStartSample(absoluteStartSample_) {
 	
 	// Nothing
 }
 
-VoiceRecorder::RecordInfo::RecordInfo(quint64 lastWrittenAbsoluteSample_, const QString& userName_)
+VoiceRecorder::RecordInfo::RecordInfo(const QString& userName_)
     : userName(userName_)
     , soundFile(NULL)
-    , lastWrittenAbsoluteSample(lastWrittenAbsoluteSample_) {
+    , lastWrittenAbsoluteSample(0) {
 }
 
 VoiceRecorder::RecordInfo::~RecordInfo() {
@@ -75,7 +75,8 @@ VoiceRecorder::VoiceRecorder(QObject *parent_, const Config& config)
 	, m_config(config)
     , m_recording(false)
     , m_abort(false)
-    , m_recordingStartTime(QDateTime::currentDateTime()) {
+    , m_recordingStartTime(QDateTime::currentDateTime())
+    , m_absoluteSampleEstimation(0) {
 	
 	// Nothing
 }
@@ -352,17 +353,15 @@ void VoiceRecorder::run() {
 				return;
 			}
 
-			// Calculate the difference between the time of the current buffer and the time where we last wrote audio data for that user.
-			// Writes silence for up to maxSamplesPerIteration samples.
 			const qint64 missingSamples = rb->absoluteStartSample - ri->lastWrittenAbsoluteSample;
-			Q_ASSERT(missingSamples >= 0);
 			
-			if (missingSamples > 0) {
+			static const qint64 heuristicSilenceThreshold = m_config.sampleRate / 10; // 100ms
+			if (missingSamples > heuristicSilenceThreshold) {
 				static const qint64 maxSamplesPerIteration = m_config.sampleRate * 1; // 1s
 				
 				const bool requeue = missingSamples > maxSamplesPerIteration;
 				
-				// Write |missingSamples| samples of silence.
+				// Write |missingSamples| samples of silence up to |maxSamplesPerIteration|
 				const float buffer[1024] = {};
 				
 				const qint64 silenceToWrite = std::min(missingSamples, maxSamplesPerIteration);
@@ -374,18 +373,19 @@ void VoiceRecorder::run() {
 				if (rest > 0)
 					sf_write_float(ri->soundFile, buffer, rest);
 				
+				ri->lastWrittenAbsoluteSample += silenceToWrite;
+				
 				if (requeue) {
-					ri->lastWrittenAbsoluteSample += silenceToWrite;
 					// Requeue the writing for this buffer to keep thread responsive
 					QMutexLocker l(&m_bufferLock);
-					m_recordBuffer << rb;
+					m_recordBuffer.prepend(rb);
 					continue;
 				}
 			}
 
 			// Write the audio buffer and update the timestamp in |ri|.
 			sf_write_float(ri->soundFile, rb->buffer.get(), rb->samples);
-			ri->lastWrittenAbsoluteSample = rb->absoluteStartSample + rb->samples;
+			ri->lastWrittenAbsoluteSample += rb->samples;
 		}
 
 		m_sleepLock.unlock();
@@ -410,10 +410,15 @@ void VoiceRecorder::stop(bool force) {
 	m_sleepCondition.wakeAll();
 }
 
+void VoiceRecorder::prepareBufferAdds() {
+	// Should be ms accurat
+	m_absoluteSampleEstimation =
+	        (m_timestamp->elapsed() / 1000) * (m_config.sampleRate / 1000);
+}
+
 void VoiceRecorder::addBuffer(const ClientUser *clientUser,
                               boost::shared_array<float> buffer,
-                              int samples,
-                              quint64 absoluteSampleCount) {
+                              int samples) {
 	
 	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
 
@@ -422,7 +427,6 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
 	
 	if (!m_recordInfo.contains(index)) {
 		boost::shared_ptr<RecordInfo> ri = boost::make_shared<RecordInfo>(
-		            m_config.firstSampleAbsolute,
 		            m_config.mixDownMode ? QLatin1String("Mixdown")
 		                                 : clientUser->qsName);
 		
@@ -433,7 +437,7 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
 		// Save the buffer in |qlRecordBuffer|.
 		QMutexLocker l(&m_bufferLock);
 		boost::shared_ptr<RecordBuffer> rb = boost::make_shared<RecordBuffer>(
-		            index, buffer, samples, absoluteSampleCount);
+		            index, buffer, samples, m_absoluteSampleEstimation);
 		
 		m_recordBuffer << rb;
 	}

@@ -103,12 +103,6 @@ class VoiceRecorder : public QThread {
 
 			/// The current recording format.
 			VoiceRecorderFormat::Format recordingFormat;
-
-			/// The timestamp where the recording started.
-			QDateTime recordingStartTime;
-
-			/// Absolute sample number which to consider the start of the recording
-			quint64 firstSampleAbsolute;
 		};
 
 		/// Creates a new VoiceRecorder instance.
@@ -122,10 +116,14 @@ class VoiceRecorder : public QThread {
 		/// @param force If true buffers are discarded. Otherwise the thread will not stop before writing everything.
 		void stop(bool force = false);
 
+		/// Remembers the current time for a set of coming addBuffer calls
+		void prepareBufferAdds();
+		
 		/// Adds an audio buffer which contains |samples| audio samples to the recorder.
-		/// The audio data will be aligned using the given |absoluteSampleCount|
+		/// The audio data will be assumed to be recorded at the time
+		/// prepareBufferAdds was last called.
 		/// @param clientUser User for which to add the audio data. NULL in mixdown mode.
-		void addBuffer(const ClientUser *clientUser, boost::shared_array<float> buffer, int samples, quint64 absoluteSampleCount);
+		void addBuffer(const ClientUser *clientUser, boost::shared_array<float> buffer, int samples);
 		
 		/// Returns the elapsed time since the recording started.
 		quint64 getElapsedTime() const;
@@ -169,7 +167,7 @@ signals:
 
 		/// Stores the recording state for one user.
 		struct RecordInfo {
-			RecordInfo(quint64 lastWrittenAbsoluteSample_, const QString& userName_);
+			RecordInfo(const QString& userName_);
 			~RecordInfo();
 
 			/// Name of the user being recorded
@@ -230,6 +228,9 @@ signals:
 
 		/// The timestamp where the recording started.
 		const QDateTime m_recordingStartTime;
+		
+		/// Absolute sample position to assume for buffer adds
+		quint64 m_absoluteSampleEstimation;
 };
 
 typedef boost::shared_ptr<VoiceRecorder> VoiceRecorderPtr;

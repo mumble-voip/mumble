@@ -105,8 +105,6 @@ AudioOutput::AudioOutput()
     , fSpeakerVolume(NULL)
     , bSpeakerPositional(NULL)
     
-    , m_mixedSampleCount(0)
-    , m_mixingMutex()
     , eSampleFormat(SampleFloat)
     
     , bRunning(true)
@@ -364,13 +362,10 @@ void AudioOutput::initializeMixer(const unsigned int *chanmasks, bool forceheadp
 }
 
 bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
-	QMutexLocker mixingMutexLocker(&m_mixingMutex);
-	
 	QList<AudioOutputUser *> qlMix;
 	QList<AudioOutputUser *> qlDel;
 	
 	if (g.s.fVolume < 0.01f) {
-		m_mixedSampleCount += nsamp;
 		return false;
 	}
 
@@ -419,6 +414,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		if (recorder) {
 			recbuff = boost::shared_array<float>(new float[nsamp]);
 			memset(recbuff.get(), 0, sizeof(float) * nsamp);
+			recorder->prepareBufferAdds();
 		}
 
 		for (unsigned int i=0;i<iChannels;++i)
@@ -514,7 +510,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 					if (!recorder->isInMixDownMode()) {
 						if (aos) {
-							recorder->addBuffer(aos->p, recbuff, nsamp, m_mixedSampleCount);
+							recorder->addBuffer(aos->p, recbuff, nsamp);
 						} else {
 							// this should be unreachable
 							Q_ASSERT(false);
@@ -572,7 +568,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		}
 
 		if (recorder && recorder->isInMixDownMode()) {
-			recorder->addBuffer(NULL, recbuff, nsamp, m_mixedSampleCount);
+			recorder->addBuffer(NULL, recbuff, nsamp);
 		}
 
 		// Clip
@@ -589,8 +585,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	foreach(AudioOutputUser *aop, qlDel)
 		removeBuffer(aop);
 	
-	m_mixedSampleCount += nsamp;
-	
 	return (! qlMix.isEmpty());
 }
 
@@ -602,7 +596,3 @@ unsigned int AudioOutput::getMixerFreq() const {
 	return iMixerFreq;
 }
 
-quint64 AudioOutput::getMixedSampleCount() const {
-	QMutexLocker mixingMutexLocker(&m_mixingMutex);
-	return m_mixedSampleCount;
-}
