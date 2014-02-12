@@ -422,6 +422,9 @@ void VoiceRecorder::addBuffer(const ClientUser *clientUser,
 	
 	Q_ASSERT(!m_config.mixDownMode || clientUser == NULL);
 
+	if (!m_recording)
+		return;
+	
 	// Create a new RecordInfo object if this is a new user.
 	const int index = indexForUser(clientUser);
 	
