@@ -2650,11 +2650,7 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
-		qmTray->addSeparator();
-		qmTray->addAction(qaHelpAbout);
 	} else {
-		qmTray->addAction(qaHelpAbout);
-		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addSeparator();
