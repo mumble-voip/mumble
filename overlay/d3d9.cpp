@@ -354,8 +354,24 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
-		idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
-		idd->GetRenderTarget(0, &pRenderTarget);
+		HRESULT hres = idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
+		if (FAILED(hres)) {
+			if (hres == D3DERR_INVALIDCALL) {
+				ods("D3D9: IDirect3DDevice9::GetBackBuffer failed. BackBuffer index equals or exceeds the total number of back buffers");
+			} else {
+				ods("D3D9: IDirect3DDevice9::GetBackBuffer failed");
+			}
+		}
+		hres = idd->GetRenderTarget(0, &pRenderTarget);
+		if (FAILED(hres)) {
+			if (hres == D3DERR_NOTFOUND) {
+				ods("D3D9: IDirect3DDevice9::GetRenderTarget failed. There is no render target with the specified index");
+			} else if (hres == D3DERR_INVALIDCALL) {
+				ods("D3D9: IDirect3DDevice9::GetRenderTarget failed. One of the passed arguments was invalid");
+			} else {
+				ods("D3D9: IDirect3DDevice9::GetRenderTarget failed");
+			}
+		}
 
 		// Present is called for each frame. Thus, we do not want to always log here.
 		#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
@@ -368,8 +384,12 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		ds->pSB->Apply();
 
-		if (pTarget != pRenderTarget)
-			idd->SetRenderTarget(0, pTarget);
+		if (pTarget != pRenderTarget) {
+			hres = idd->SetRenderTarget(0, pTarget);
+			if (FAILED(hres)) {
+				ods("D3D9: IDirect3DDevice9::SetRenderTarget failed");
+			}
+		}
 
 		idd->BeginScene();
 		ds->draw();
