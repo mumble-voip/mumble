@@ -74,7 +74,7 @@
         <translation>ID Utilisateur</translation>
     </message>
     <message>
-        <location filename="ACLEditor.cpp" line="+105"/>
+        <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
         <translation>Refuser</translation>
     </message>
@@ -326,20 +326,25 @@ Ajouter un nouveau groupe.</translation>
         <translation>Refuser %1</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location line="-66"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - Ajouter un salon</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+165"/>
+        <location line="+24"/>
+        <location line="+167"/>
         <source>Failed: Invalid channel</source>
         <translation>Échec : Salon invalide</translation>
     </message>
     <message>
-        <location line="-153"/>
+        <location line="-155"/>
         <source>Mumble - Edit %1</source>
         <translation>Mumble - Éditer %1</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>ID: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+37"/>
@@ -475,6 +480,16 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
         <translation>Cela montre toutes les entrées actives sur ce salon. Le nombre de salons hérités est en italique. &lt;br /&gt;Les LCAs sont évalués de haut en bas, ce qui signifie que la priorité augmente à mesure que vous déplacez vers le bas de la liste.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>ID of the channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>ChannelID</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1463,11 +1478,31 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <source>Exclusive</source>
         <translation>Exclusif</translation>
     </message>
+    <message>
+        <location/>
+        <source>Priority Speaker</source>
+        <translation type="unfinished">Parole prioritaire</translation>
+    </message>
+    <message>
+        <location/>
+        <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Attenuate other users while talking as Priority Speaker.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+135"/>
+        <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -1487,7 +1522,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <translation>Sortie audio</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -2230,6 +2265,119 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <source>&amp;Mask</source>
         <translation>&amp;Masque</translation>
     </message>
+    <message>
+        <location/>
+        <source>Ban List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Search field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Who are you looking for?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reason for the ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ban end date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Certificate hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No certificate hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Banned users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is a list with banned users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to add a new ban.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to update ban information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to remove user from the ban list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Clear all fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This button clears all fields. Use it if you want to add a new ban.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Clear</source>
+        <translation type="unfinished">Effacer</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="BanEditor.cpp" line="+201"/>
+        <source>Ban List - %n Ban(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>CertView</name>
@@ -2254,12 +2402,12 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Date d&apos;expiration</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+43"/>
         <source>(none)</source>
         <translation>(aucun)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+19"/>
         <source>Self-signed</source>
         <translation>Auto-signé</translation>
     </message>
@@ -2332,7 +2480,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+456"/>
+        <location filename="main.cpp" line="+500"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -2813,7 +2961,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+108"/>
+        <location filename="CustomElements.cpp" line="+100"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>Coller et env&amp;oyer</translation>
@@ -2890,7 +3038,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
         <translation>Avancé</translation>
     </message>
     <message>
-        <location filename="ConfigDialog.cpp" line="+57"/>
+        <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
         <translation>Accepter les modifications</translation>
     </message>
@@ -2944,29 +3092,29 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+766"/>
+        <location filename="ConnectDialog.cpp" line="+788"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connexion</translation>
     </message>
     <message>
-        <location line="+140"/>
+        <location line="+147"/>
         <source>Connecting to %1</source>
         <translation>Connexion à %1</translation>
     </message>
     <message>
-        <location line="-515"/>
-        <location line="+515"/>
+        <location line="-538"/>
+        <location line="+538"/>
         <source>Enter username</source>
         <translation>Entrer le nom d&apos;utilisateur</translation>
     </message>
     <message>
-        <location line="-515"/>
+        <location line="-538"/>
         <source>Adding host %1</source>
         <translation>Ajout de l&apos;hôte %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+61"/>
+        <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
         <translation>Nom du serveur</translation>
     </message>
@@ -3039,19 +3187,19 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="+293"/>
+        <location filename="ConnectDialog.cpp" line="+299"/>
         <source>&amp;Add New...</source>
         <oldsource>Add New...</oldsource>
         <translation>&amp;Ajouter nouveau...</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="+44"/>
+        <location filename="ConnectDialog.cpp" line="+51"/>
         <source>&amp;Filters</source>
         <oldsource>Filters</oldsource>
         <translation>&amp;Filtres</translation>
     </message>
     <message>
-        <location line="+678"/>
+        <location line="+684"/>
         <source>Failed to fetch server list</source>
         <translation>Impossible de récupérer la liste des serveurs</translation>
     </message>
@@ -3112,7 +3260,7 @@ Il est &lt;b&gt;fortement&lt;/b&gt; conseillé de &lt;a href=&quot;http://mumble
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-716"/>
+        <location filename="ConnectDialog.cpp" line="-729"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Éditer...</translation>
     </message>
@@ -3329,7 +3477,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+541"/>
+        <location filename="DirectSound.cpp" line="+544"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
         <translation>Ouverture de l&apos;entrée son choisie impossible. Le périphérique par défaut sera utilisé.</translation>
     </message>
@@ -3375,7 +3523,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+114"/>
+        <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>Mumble n&apos;a pas réussi à initialiser la base de données
@@ -3391,7 +3539,7 @@ of the possible locations.</source>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+180"/>
+        <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
         <translation>Cliquer ici pour déplacer</translation>
     </message>
@@ -3482,7 +3630,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+721"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Raccourcis</translation>
     </message>
@@ -3594,7 +3742,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+339"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+346"/>
         <source>Mouse %1</source>
         <translation>Souris %1</translation>
     </message>
@@ -3691,7 +3839,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+200"/>
+        <location filename="Log.cpp" line="+208"/>
         <source>Debug</source>
         <translation>Débogage</translation>
     </message>
@@ -3836,7 +3984,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-440"/>
+        <location line="-441"/>
         <source>Toggle console for %1 events</source>
         <translation>Active/désactive la console pour les événements %1</translation>
     </message>
@@ -4139,7 +4287,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+155"/>
         <source>Choose skin file</source>
         <translation>Choisissez le fichier de thème</translation>
     </message>
@@ -4149,7 +4297,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;Définit le thème Mumble à utiliser.&lt;/b&gt;&lt;br /&gt;Ce thème est un fichier de style appliqué sur le style par défaut. S&apos;il y a des icônes dans le même dossier que le style, celles-ci remplacent les icônes par défaut.</translation>
     </message>
     <message>
-        <location filename="LookConfig.cpp" line="-143"/>
+        <location filename="LookConfig.cpp" line="-165"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
@@ -4308,11 +4456,16 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Use selected item as the chat bar target</source>
         <translation>Utiliser l&apos;élément sélectionné comme cible de la barre de discussion</translation>
     </message>
+    <message>
+        <location/>
+        <source>Filter automatically hides empty channels</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="main.cpp" line="-273"/>
+        <location filename="main.cpp" line="-276"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -4357,13 +4510,13 @@ Les options valides sont :
         <translation>Bienvenue sur Mumble.</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
         <translation>La vérification des nouvelles versions est omise en mode débogage.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2150"/>
+        <location filename="MainWindow.cpp" line="+138"/>
+        <location line="+2280"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
@@ -4483,7 +4636,7 @@ Les options valides sont :
         <translation>Lier votre salon à un autre salon</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2131"/>
+        <location filename="MainWindow.cpp" line="-2259"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -4844,9 +4997,9 @@ Les options valides sont :
         <translation>Se connecte au site web de Mumble, vérifie si une nouvelle version est disponible, et vous propose un lien de téléchargement approprié le cas échéant.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+77"/>
-        <location line="+15"/>
-        <location line="+2249"/>
+        <location filename="MainWindow.cpp" line="+78"/>
+        <location line="+19"/>
+        <location line="+2372"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
@@ -4856,7 +5009,7 @@ Les options valides sont :
         <translation>Affiche toute l&apos;activité récente. Les connexions aux serveurs, les messages d&apos;erreurs et d&apos;informations sont affichés ici.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-2340"/>
+        <location filename="MainWindow.cpp" line="-2468"/>
         <source>&amp;Channel</source>
         <translation>&amp;Salon</translation>
     </message>
@@ -4913,7 +5066,7 @@ Les options valides sont :
         <translation>Rejoindre le salon</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
         <translation>Activer/désactiver l&apos;overlay</translation>
@@ -4925,7 +5078,7 @@ Les options valides sont :
         <translation>Activer/Désactiver l&apos;affichage de l&apos;overlay.</translation>
     </message>
     <message>
-        <location line="+1141"/>
+        <location line="+1167"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -4936,12 +5089,12 @@ Les options valides sont :
         <translation>Mumble</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="+268"/>
+        <location filename="MainWindow.cpp" line="+298"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Êtes-vous sûr de vouloir supprimer %1 ainsi que tous ses sous-salons ?</translation>
     </message>
     <message>
-        <location line="+229"/>
+        <location line="+243"/>
         <source>Unmuted and undeafened.</source>
         <translation>N&apos;est pas sourd et muet.</translation>
     </message>
@@ -4971,12 +5124,12 @@ Les options valides sont :
         <translation>N&apos;est pas sourd.</translation>
     </message>
     <message>
-        <location line="+89"/>
+        <location line="+92"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location line="+441"/>
+        <location line="+495"/>
         <source>Server connection failed: %1.</source>
         <translation>La connexion au serveur a échoué : %1.</translation>
     </message>
@@ -4986,12 +5139,12 @@ Les options valides sont :
         <translation>Déconnecté du serveur.</translation>
     </message>
     <message>
-        <location line="-1550"/>
+        <location line="-1651"/>
         <source>Reconnecting.</source>
         <translation>Reconnexion.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+356"/>
+        <location filename="Messages.cpp" line="+353"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 vous a rendu la parole et l&apos;ouïe.</translation>
     </message>
@@ -5051,7 +5204,7 @@ Les options valides sont :
         <translation>%1 est maintenant sourd et muet.</translation>
     </message>
     <message>
-        <location line="-120"/>
+        <location line="-117"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>Le privilège %1 vous est refusé dans %2.</translation>
     </message>
@@ -5092,7 +5245,7 @@ Les options valides sont :
         <translation>Refusé : Message texte trop long.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Refusé : Opération non permise dans les salons temporaires.</translation>
     </message>
@@ -5177,12 +5330,17 @@ Les options valides sont :
         <translation>%1 enregistre</translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+47"/>
+        <source>%1 left channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>%1 disconnected.</source>
         <translation>%1 déconnecté.</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+114"/>
         <source>(Tree) </source>
         <translation>(Arborescence) </translation>
     </message>
@@ -5222,7 +5380,7 @@ Les options valides sont :
         <translation>Le serveur requière la désactivation d&apos;appuyer-pour-parler.</translation>
     </message>
     <message>
-        <location line="-476"/>
+        <location line="-496"/>
         <source>You were muted by %1.</source>
         <translation>%1 vous a rendu muet.</translation>
     </message>
@@ -5273,12 +5431,12 @@ Les options valides sont :
         <translation>%2 a rendu la voix à %1.</translation>
     </message>
     <message>
-        <location line="+377"/>
+        <location line="+397"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
-        <location line="-443"/>
+        <location line="-463"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 vous a rendu sourd et muet.</translation>
@@ -5324,12 +5482,12 @@ Les options valides sont :
         <translation>%1 est entré dans le salon.</translation>
     </message>
     <message>
-        <location line="-358"/>
+        <location line="-355"/>
         <source>Server connection rejected: %1.</source>
         <translation>Connexion au serveur rejetée : %1.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+144"/>
         <source>Denied: %1.</source>
         <translation>Refusé : %1.</translation>
     </message>
@@ -5345,20 +5503,20 @@ Les options valides sont :
     </message>
     <message>
         <location line="+12"/>
-        <location line="+79"/>
+        <location line="+83"/>
         <location line="+4"/>
-        <location line="+233"/>
+        <location line="+259"/>
         <source>To %1: %2</source>
         <translation>À %1 : %2</translation>
     </message>
     <message>
-        <location line="-316"/>
-        <location line="+83"/>
+        <location line="-346"/>
+        <location line="+87"/>
         <source>Message to %1</source>
         <translation>Message à %1</translation>
     </message>
     <message>
-        <location line="-56"/>
+        <location line="-60"/>
         <source>View comment on user %1</source>
         <translation>Voir le commentaire de l&apos;utilisateur %1</translation>
     </message>
@@ -5368,14 +5526,14 @@ Les options valides sont :
         <translation>Êtes-vous sûr de vouloir réinitialiser le commentaire de l&apos;utilisateur %1 ?</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+301"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation>À l&apos;arborescence %1 : %2</translation>
     </message>
     <message>
-        <location line="+732"/>
-        <location filename="Messages.cpp" line="-165"/>
+        <location line="+803"/>
+        <location filename="Messages.cpp" line="-162"/>
         <source>Invalid username</source>
         <translation>Nom d&apos;utilisateur invalide</translation>
     </message>
@@ -5401,7 +5559,7 @@ Les options valides sont :
         <translation>Mauvais mot de passe de serveur pour un utilisateur non enregistré, veuillez essayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+520"/>
+        <location filename="Messages.cpp" line="+537"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -5456,7 +5614,7 @@ Les options valides sont :
         <translation>Ceci affiche des informations supplémentaires sur la connexion avec le serveur.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1801"/>
+        <location filename="MainWindow.cpp" line="-1918"/>
         <source>Opening URL %1</source>
         <translation>Ouvrir l&apos;URL %1</translation>
     </message>
@@ -5481,12 +5639,12 @@ Les options valides sont :
         <translation>Le schéma d&apos;URL n&apos;est pas &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>Cette version de Mumble ne peut pas manipuler les URLs pour Mumble version %1.%2.%3</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+35"/>
         <source>Connecting to %1</source>
         <translation>Connexion à %1</translation>
     </message>
@@ -5497,7 +5655,7 @@ Les options valides sont :
     </message>
     <message>
         <location line="+14"/>
-        <location line="+192"/>
+        <location line="+197"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -5522,13 +5680,18 @@ Les options valides sont :
         <translation>&lt;h2&gt;Bande passante audio&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Actuelle %2 kbit/s&lt;br /&gt;Codec : %3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1361"/>
+        <location line="+1252"/>
+        <source>Cycled Transmit Mode to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+210"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation>Ce serveur utilise un standard ancien du cryptage et n&apos;est plus supporté par les versions modernes de Mumble.</translation>
     </message>
     <message>
         <location line="+24"/>
-        <location filename="Messages.cpp" line="-526"/>
+        <location filename="Messages.cpp" line="-543"/>
         <source>Username in use</source>
         <translation>Nom d&apos;utilisateur en cours d&apos;utilisation</translation>
     </message>
@@ -5548,12 +5711,12 @@ Si vous êtes sûr que cet utilisateur est protégé par un mot de passe
 veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;utilisateur.</translation>
     </message>
     <message>
-        <location line="+230"/>
+        <location line="+247"/>
         <source>Images (*.png *.jpg *.jpeg *.svg)</source>
         <translation>Images (*.png *.jpg *.jpeg *.svg)</translation>
     </message>
     <message>
-        <location line="-1633"/>
+        <location line="-1751"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Salon vocal&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br /&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
@@ -5564,12 +5727,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1338"/>
+        <location line="+1439"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1459"/>
+        <location line="-1560"/>
         <location line="+354"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrer en tant que %1</translation>
@@ -5601,13 +5764,13 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Bannissement de l&apos;utilisateur %1</translation>
     </message>
     <message>
-        <location line="+113"/>
-        <location line="+237"/>
+        <location line="+117"/>
+        <location line="+263"/>
         <source>Message to channel %1</source>
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location line="+552"/>
+        <location line="+623"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
@@ -5634,7 +5797,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>&lt;center&gt;Saisir un message pour l&apos;utilisateur &apos;%1&apos; ici&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+122"/>
         <source>Choose image file</source>
         <translation>Choisir un fichier image</translation>
     </message>
@@ -5655,12 +5818,19 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1659"/>
+        <location line="-1777"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au-dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-846"/>
+        <location line="-877"/>
+        <location line="+26"/>
+        <source>Use in conjunction with Whisper to.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-21"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Ceci changera l&apos;état de l&apos;overlay.</translation>
@@ -5672,7 +5842,18 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Lier un salon</translation>
     </message>
     <message>
-        <location line="+804"/>
+        <location line="+4"/>
+        <source>Cycle Transmit Mode</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+154"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+672"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.&lt;/p&gt;</translation>
     </message>
@@ -5717,7 +5898,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Resynchronisé</translation>
     </message>
     <message>
-        <location line="+643"/>
+        <location line="+673"/>
         <source>Sending message to channel %1</source>
         <translation>Envoie un message au salon %1</translation>
     </message>
@@ -5742,7 +5923,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Envoyer un message texte à tous les utilisateurs dans le salon.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="-1339"/>
+        <location filename="MainWindow.cpp" line="-1389"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches         ?</translation>
     </message>
@@ -5752,13 +5933,13 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Fermer</translation>
     </message>
     <message>
-        <location line="-134"/>
-        <location line="+135"/>
+        <location line="-136"/>
+        <location line="+137"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-192"/>
+        <location line="-199"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet</translation>
@@ -5794,13 +5975,13 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Se rendre sourd ou non. Vous rendre sourd vous rendra aussi muet.</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
         <translation>Chuchoter/Crier</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+21"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
@@ -5810,7 +5991,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="-32"/>
+        <location line="-36"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
         <translation>Active/désactive l&apos;interface minimale</translation>
@@ -5843,14 +6024,14 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Diminuer le volume (-10 %)</translation>
     </message>
     <message>
-        <location line="+68"/>
-        <location line="+2290"/>
+        <location line="+74"/>
+        <location line="+2411"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2006"/>
+        <location line="-2123"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -5860,7 +6041,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Historique</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1390"/>
+        <location filename="UserModel.cpp" line="+1417"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Votre option &apos;Faire glisser le salon&apos; est définie sur « Ne rien faire », le salon n&apos;a donc pas été déplacé.</translation>
     </message>
@@ -5876,7 +6057,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>&amp;Délier</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+513"/>
+        <location filename="Messages.cpp" line="+530"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6056,6 +6237,34 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
         <translation>Ceci permet d&apos;éditer liste des utilisateurs bannis du serveur.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Filter on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Toggle the channel filter (Ctrl+F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable or disable the filtering of select channels.
+By default all empty channels will be filtered.
+You can mark additional channels for filtering from
+the channel&apos;s context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Hide Channel when Filtering</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6448,7 +6657,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Activer l&apos;overlay.</translation>
     </message>
     <message>
-        <location filename="OverlayConfig.cpp" line="+80"/>
+        <location filename="OverlayConfig.cpp" line="+83"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Pour déplacer des utilisateurs, glissez-déplacez le petit point rouge.</translation>
     </message>
@@ -6465,12 +6674,12 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Pour plus d&apos;options, faites un clic droit sur un utilisateur.</translation>
     </message>
     <message>
-        <location line="+223"/>
+        <location line="+244"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+77"/>
         <source>Choose executable</source>
         <translation>Choisir le fichier exécutable</translation>
     </message>
@@ -6480,7 +6689,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Choisir l&apos;application</translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+95"/>
         <source>Load Overlay Presets</source>
         <translation>Charger les préférences de l&apos;overlay</translation>
     </message>
@@ -6601,11 +6810,6 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <location/>
-        <source>FPS Display</source>
-        <translation>Affichage des FPS</translation>
-    </message>
-    <message>
-        <location/>
         <source>Set the overlay font.</source>
         <translation>Règle la police de l&apos;overlay.</translation>
     </message>
@@ -6643,6 +6847,21 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <location/>
         <source>Show the overlay only in</source>
         <translation>Afficher l&apos;overlay seulement dans</translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS and Clock Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Display a clock in the overlay showing the current local time (system time).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show Clock</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6888,7 +7107,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+55"/>
+        <location filename="Overlay_win.cpp" line="+58"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -6906,7 +7125,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     </message>
     <message>
         <location/>
-        <location filename="Plugins.cpp" line="+78"/>
+        <location filename="Plugins.cpp" line="+88"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
@@ -6971,12 +7190,12 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Affiche la page de configuration du plugin si elle existe.</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+56"/>
+        <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
         <translation>Le plugin n&apos;a pas de fonction « configure » (configurer).</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+21"/>
         <source>Plugin has no about function.</source>
         <translation>Le plugin n&apos;a pas de fonction « about » (à propos).</translation>
     </message>
@@ -6999,7 +7218,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+333"/>
+        <location filename="Plugins.cpp" line="+350"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Passe la mise à jour des plugins en mode débogage.</translation>
     </message>
@@ -7015,7 +7234,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>Échec de l&apos;installation du nouveau plugin dans %1.</translation>
     </message>
     <message>
-        <location line="-257"/>
+        <location line="-273"/>
         <source>%1 lost link.</source>
         <translation>%1 est désactivé.</translation>
     </message>
@@ -7049,7 +7268,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+244"/>
+        <location filename="RichTextEditor.cpp" line="+255"/>
         <source>Failed to load image</source>
         <translation>Impossible de charger l&apos;image</translation>
     </message>
@@ -7150,7 +7369,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+470"/>
+        <location filename="ServerHandler.cpp" line="+474"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>
@@ -7178,7 +7397,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-633"/>
         <source>Favorite</source>
         <translation>Favoris</translation>
     </message>
@@ -7226,7 +7445,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-558"/>
+        <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
         <translation>Non assigné</translation>
     </message>
@@ -7234,7 +7453,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+370"/>
+        <location line="+376"/>
         <source>On</source>
         <translation>Activer</translation>
     </message>
@@ -7257,7 +7476,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-444"/>
+        <location line="-450"/>
         <source>Press Shortcut</source>
         <translation>Appuyer sur un raccourci clavier</translation>
     </message>
@@ -7294,7 +7513,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <translation>...</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>, </source>
         <translation>, </translation>
     </message>
@@ -7334,7 +7553,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-268"/>
+        <location line="-271"/>
         <source>Off</source>
         <translation>Désactiver</translation>
     </message>
@@ -7425,14 +7644,53 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+99"/>
+        <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="UserEdit.cpp" line="-5"/>
+        <location/>
+        <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
         <translation>Renommer</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Who are you looking for?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Inactive for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="UserEdit.cpp" line="-64"/>
+        <source>Registered users: %n account(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7543,7 +7801,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Durée de connexion</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+99"/>
+        <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
         <translation>%1sem</translation>
     </message>
@@ -7568,7 +7826,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>%1s</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
         <translation>, </translation>
@@ -7591,12 +7849,12 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Non supporté</translation>
     </message>
     <message>
-        <location line="-119"/>
+        <location line="-123"/>
         <source>Not Reported</source>
         <translation>Non indiqué</translation>
     </message>
     <message>
-        <location line="+160"/>
+        <location line="+164"/>
         <source>%1 online (%2 idle)</source>
         <translation>%1 en ligne (%2 au repos)</translation>
     </message>
@@ -7629,9 +7887,42 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
 </context>
 <context>
+    <name>UserListModel</name>
+    <message>
+        <location filename="UserListModel.cpp" line="+83"/>
+        <source>Nick</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inactive days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Last seen: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Never</source>
+        <translation type="unfinished">Jamais</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Channel id: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-823"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>C&apos;est un utilisateur connecté au serveur. L&apos;icône à gauche de l&apos;utilisateur indique s&apos;il parle ou pas :</translation>
     </message>
@@ -7737,7 +8028,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Ignore les messages textuels</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
         <translation>Affiche l&apos;attribut du salon, si disponible :</translation>
     </message>
@@ -7752,6 +8043,11 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Le salon a un commentaire que vous avez déjà lu. (Cliquer pour afficher)</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>Channel will be hidden when filtering is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+18"/>
         <source>Name</source>
         <translation>Nom</translation>
@@ -7762,12 +8058,12 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Attributs</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+736"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Êtes-vous sûr de vouloir déplacer ce salon ?</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Ne peut pas effectuer ce déplacement automatiquement, veuillez réinitialiser les indicateurs de position, ou l&apos;ajuster manuellement.</translation>
@@ -7776,7 +8072,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+128"/>
+        <location filename="VersionCheck.cpp" line="+143"/>
         <source>Upgrade Mumble</source>
         <translation>Mettre Mumble à jour</translation>
     </message>
@@ -7815,7 +8111,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+43"/>
+        <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
         <translation>Détail de la chaîne de certificats</translation>
     </message>
@@ -7835,42 +8131,42 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>%1 %2</translation>
     </message>
     <message>
-        <location line="+31"/>
-        <location line="+28"/>
+        <location line="+29"/>
+        <location line="+37"/>
         <source>Common Name: %1</source>
         <translation>Nom courant : %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Organization: %1</source>
         <translation>Organisation : %1</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-36"/>
         <source>Subunit: %1</source>
         <translation>Nom d&apos;unité : %1</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+28"/>
+        <location line="+37"/>
         <source>Country: %1</source>
         <translation>Pays : %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Locality: %1</source>
         <translation>Localité : %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>State: %1</source>
         <translation>État : %1</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-36"/>
         <source>Valid from: %1</source>
         <translation>Valide depuis : %1</translation>
     </message>
@@ -7905,7 +8201,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Digest (SHA-1) : %1</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Email: %1</source>
         <translation>Courriel : %1</translation>
     </message>
@@ -7928,22 +8224,17 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+186"/>
-        <source>Invalid sample rate given to recorder</source>
-        <translation>Taux d&apos;échantillonnage donné à l&apos;enregistreur incorrect</translation>
-    </message>
-    <message>
-        <location line="+98"/>
+        <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
         <translation>L&apos;enregistreur n&apos;a pas pu créer le répertoire &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Recorder failed to open file &apos;%s&apos;</source>
-        <translation>L&apos;enregistreur n&apos;a pas pu ouvrir le fichier &apos;%s&apos;</translation>
+        <source>Recorder failed to open file &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+166"/>
         <source>.wav - Uncompressed</source>
         <translation>.wave - Non compressé</translation>
     </message>
@@ -7967,12 +8258,11 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+101"/>
-        <location line="+33"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+134"/>
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+136"/>
+        <location line="+143"/>
         <source>Recorder</source>
         <translation>Enregistreur</translation>
     </message>
@@ -7993,6 +8283,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <location/>
+        <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
         <translation>&amp;Arrêter</translation>
     </message>
@@ -8032,12 +8323,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>&amp;Parcourir...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-195"/>
-        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
-        <translation>Fermer l&apos;enregistreur arrêtera l&apos;enregistrement en cours. Voulez-vous vraiment fermer l&apos;enregistreur ?</translation>
-    </message>
-    <message>
-        <location line="-31"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-212"/>
         <source>Valid variables are:</source>
         <translation>Les variables valides sont :</translation>
     </message>
@@ -8062,7 +8348,17 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Insère le nom d&apos;hôte</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+26"/>
+        <source>Recorder still running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
         <translation>Impossible de débuter l&apos;enregistrement. Vous n&apos;êtes connecté à aucun serveur.</translation>
     </message>
@@ -8084,7 +8380,12 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
         <translation>Merci de choisir un format d&apos;enregistrement.</translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+73"/>
+        <source>Stopping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source>Select target directory</source>
         <translation>Sélectionnez le répertoire de destination</translation>
     </message>

@@ -4,9 +4,14 @@
 <context>
     <name>ACLEditor</name>
     <message>
-        <location filename="ACLEditor.cpp" line="+92"/>
+        <location filename="ACLEditor.cpp" line="+94"/>
         <source>Mumble - Edit %1</source>
         <translation>Mumble - Szerkesztés: %1</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>ID: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
@@ -34,13 +39,13 @@
         <translation>Tilt: %1</translation>
     </message>
     <message>
-        <location line="-62"/>
+        <location line="-66"/>
         <source>Mumble - Add channel</source>
         <translation>Mumble - Csatorna hozzáadása</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+165"/>
+        <location line="+24"/>
+        <location line="+167"/>
         <source>Failed: Invalid channel</source>
         <translation>Hiba: Érvénytelen csatorna</translation>
     </message>
@@ -466,6 +471,16 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>ID of the channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>ChannelID</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1448,11 +1463,31 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>Exclusive</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Priority Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Attenuate other users while talking as Priority Speaker.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
     <message>
-        <location filename="AudioConfigDialog.cpp" line="+135"/>
+        <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
         <translation>Nincs</translation>
     </message>
@@ -1472,7 +1507,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>Hangkimenet</translation>
     </message>
     <message>
-        <location line="+106"/>
+        <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -2198,6 +2233,118 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <source>&amp;Remove</source>
         <translation>&amp;Eltávolítás</translation>
     </message>
+    <message>
+        <location/>
+        <source>Ban List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Search field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Who are you looking for?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reason for the ban</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No reason</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ban end date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Certificate hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>No certificate hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Banned users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This is a list with banned users.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to add a new ban.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to update ban information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Use this button if you want to remove user from the ban list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Clear all fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>This button clears all fields. Use it if you want to add a new ban.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Clear</source>
+        <translation type="unfinished">Töröl</translation>
+    </message>
+    <message numerus="yes">
+        <location filename="BanEditor.cpp" line="+201"/>
+        <source>Ban List - %n Ban(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>CertView</name>
@@ -2222,12 +2369,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Lejárat dátuma</translation>
     </message>
     <message>
-        <location line="+41"/>
+        <location line="+43"/>
         <source>(none)</source>
         <translation>(semmi)</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+19"/>
         <source>Self-signed</source>
         <translation>saját aláírású</translation>
     </message>
@@ -2300,7 +2447,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble felhasználó</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+456"/>
+        <location filename="main.cpp" line="+500"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Tanúsítvány lejár:&lt;/b&gt; Az ön tanúsítványa nem sokára lejár. Meg kell újitsa, vagy nem lesz képes többet bejelentkezni azokra a szerverekre, ahol regisztrálva van.</translation>
     </message>
@@ -2779,7 +2926,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+108"/>
+        <location filename="CustomElements.cpp" line="+100"/>
         <source>Paste and &amp;Send</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2845,7 +2992,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="ConfigDialog.cpp" line="+57"/>
+        <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
         <translation>Változások elfogadása</translation>
     </message>
@@ -2908,12 +3055,12 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+391"/>
+        <location filename="ConnectDialog.cpp" line="+397"/>
         <source>Adding host %1</source>
         <translation>Gép hozzáadása: %1</translation>
     </message>
     <message>
-        <location line="+62"/>
+        <location line="+72"/>
         <source>Hostname</source>
         <translation>Gépnév</translation>
     </message>
@@ -2974,7 +3121,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
         <translation>Verzió</translation>
     </message>
     <message>
-        <location line="+337"/>
+        <location line="+350"/>
         <source>&amp;Filters</source>
         <translation>&amp;Szűrők</translation>
     </message>
@@ -2984,13 +3131,13 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
         <translation>Kapcsolódás: %1</translation>
     </message>
     <message>
-        <location line="-515"/>
-        <location line="+515"/>
+        <location line="-538"/>
+        <location line="+538"/>
         <source>Enter username</source>
         <translation>Adja meg a felhasználónevet</translation>
     </message>
     <message>
-        <location line="+584"/>
+        <location line="+590"/>
         <source>Failed to fetch server list</source>
         <translation>Szerverlista betöltése nem sikerült</translation>
     </message>
@@ -3001,7 +3148,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-1038"/>
+        <location filename="ConnectDialog.cpp" line="-1057"/>
         <source>Servername</source>
         <translation>Szervernév</translation>
     </message>
@@ -3023,7 +3170,7 @@ Biztos abban, hogy le akarja cserélni a tanúsítványát?
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="+300"/>
+        <location filename="ConnectDialog.cpp" line="+306"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Szerkeszt...</translation>
     </message>
@@ -3287,7 +3434,7 @@ Password to be sent to the server on connect. This password is needed when conne
 <context>
     <name>DXAudioInput</name>
     <message>
-        <location filename="DirectSound.cpp" line="+173"/>
+        <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
         <translation>Alapértelmezett DirectSound hangbemenet</translation>
     </message>
@@ -3333,7 +3480,7 @@ Password to be sent to the server on connect. This password is needed when conne
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+114"/>
+        <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation>A Mumble nem tudta betölteni az adatbázist
@@ -3348,7 +3495,7 @@ egyik lehetséges útvonalon sem.</translation>
 <context>
     <name>DockTitleBar</name>
     <message>
-        <location filename="CustomElements.cpp" line="+180"/>
+        <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3439,7 +3586,7 @@ egyik lehetséges útvonalon sem.</translation>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+721"/>
+        <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
         <translation>Gyorsbillentyű</translation>
     </message>
@@ -3550,7 +3697,7 @@ egyik lehetséges útvonalon sem.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+339"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+346"/>
         <source>Mouse %1</source>
         <translation>Egér %1</translation>
     </message>
@@ -3648,7 +3795,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+200"/>
+        <location filename="Log.cpp" line="+208"/>
         <source>Debug</source>
         <translation>Hibakereső</translation>
     </message>
@@ -3883,7 +4030,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Csak barát suttogását hallgatja</translation>
     </message>
     <message>
-        <location filename="Log.cpp" line="-145"/>
+        <location filename="Log.cpp" line="-146"/>
         <source>Toggle console for %1 events</source>
         <translation>Ki/bekapcsolja a konzolt a(z) %1 eseményekhez</translation>
     </message>
@@ -4007,7 +4154,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Felhasználói felület</translation>
     </message>
     <message>
-        <location line="+133"/>
+        <location line="+155"/>
         <source>Choose skin file</source>
         <translation>Válasszon bőrfájlt</translation>
     </message>
@@ -4261,17 +4408,22 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <source>Use selected item as the chat bar target</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location/>
+        <source>Filter automatically hides empty channels</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+182"/>
-        <location line="+2150"/>
+        <location filename="MainWindow.cpp" line="+138"/>
+        <location line="+2280"/>
         <source>Root</source>
         <translation>Gyökér</translation>
     </message>
     <message>
-        <location line="-2098"/>
+        <location line="-2226"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Beszédhez-nyomd</translation>
@@ -4301,7 +4453,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Csatlakozás a csatornához</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
         <translation>Overlay átkapcsolása</translation>
@@ -4331,29 +4483,29 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+15"/>
-        <location line="+2249"/>
+        <location line="+19"/>
+        <location line="+2372"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2244"/>
+        <location line="-2367"/>
         <source>&amp;Window</source>
         <translation>&amp;Ablak</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+135"/>
+        <location line="+137"/>
         <source>Minimize</source>
         <translation>Minimalizál</translation>
     </message>
     <message>
-        <location line="-135"/>
+        <location line="-137"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+134"/>
+        <location line="+136"/>
         <source>Close</source>
         <translation>Bezárás</translation>
     </message>
@@ -4363,7 +4515,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A Mumble egy szerverrel van kapcsolatban. A programot be szeretné zárni vagy csak minimalizálni?</translation>
     </message>
     <message>
-        <location line="+193"/>
+        <location line="+197"/>
         <source>Clear</source>
         <translation>Töröl</translation>
     </message>
@@ -4378,7 +4530,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A webcím protokollja nem &apos;mumble&apos;</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+61"/>
         <source>Connecting to %1</source>
         <translation>Kapcsolódás: %1</translation>
     </message>
@@ -4388,7 +4540,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Adja meg a felhasználónevet</translation>
     </message>
     <message>
-        <location line="+216"/>
+        <location line="+221"/>
         <source>Reconnecting.</source>
         <translation>Újrakapcsolódás.</translation>
     </message>
@@ -4449,18 +4601,18 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1338"/>
+        <location line="+1439"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Tanúsítvány megtekintése</translation>
     </message>
     <message>
-        <location line="-1063"/>
+        <location line="-1164"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Adja meg az okot</translation>
     </message>
     <message>
-        <location line="-1223"/>
+        <location line="-1250"/>
         <source>&amp;User</source>
         <translation>&amp;Felhasználó</translation>
     </message>
@@ -4513,7 +4665,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Ezzel beállíthatja vagy átválthatja az ön hangszóróinak ki-, illetve bekapcsolt állapotát. Ha ezt bekapcsolja, akkor egyúttal engedélyezi a saját maga némítását is.</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+14"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
         <translation>Átváltja a játék közbeni kijelző (overlay) állapotát.</translation>
@@ -4536,13 +4688,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+58"/>
-        <location line="+2290"/>
+        <location line="+64"/>
+        <location line="+2411"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1975"/>
+        <location line="-2092"/>
         <source>File does not exist</source>
         <translation>A fájl nem létezik</translation>
     </message>
@@ -4557,13 +4709,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Beállítások összefésülve a fájlból.</translation>
     </message>
     <message>
-        <location line="+27"/>
+        <location line="+32"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
         <translation>A Mumble jelen verziója nem képes kezelni a %1.%2.%3 verziójú Mumble címeket</translation>
     </message>
     <message>
-        <location line="+43"/>
-        <location line="+192"/>
+        <location line="+49"/>
+        <location line="+197"/>
         <source>Connecting to server %1.</source>
         <translation>%1 szerverhez kapcsolódás.</translation>
     </message>
@@ -4585,7 +4737,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>&lt;p&gt;Ön éppen regisztrálja magát ezen a szerveren. Ez a művelet nem vonható vissza, és az ön felhasználó neve többet már nem módosítható. Ezen a szerveren önt ezentúl &apos;%1&apos; néven fogják ismerni.&lt;/p&gt;&lt;p&gt;Biztos abban, hogy regisztrálni akarja magát?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+1122"/>
+        <location line="+1223"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4600,7 +4752,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1550"/>
+        <location line="-1651"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nincs fordításról vagy operációs rendszer verziójáról információ&lt;/p&gt;</translation>
     </message>
@@ -4646,20 +4798,20 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+12"/>
-        <location line="+79"/>
+        <location line="+83"/>
         <location line="+4"/>
-        <location line="+233"/>
+        <location line="+259"/>
         <source>To %1: %2</source>
         <translation>%1 felhasználónak: %2</translation>
     </message>
     <message>
-        <location line="-316"/>
-        <location line="+83"/>
+        <location line="-346"/>
+        <location line="+87"/>
         <source>Message to %1</source>
         <translation>Üzenet %1 felhasználónak</translation>
     </message>
     <message>
-        <location line="-56"/>
+        <location line="-60"/>
         <source>View comment on user %1</source>
         <translation>%1 felhasználó megjegyzésének megtekintése</translation>
     </message>
@@ -4669,18 +4821,18 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Biztos benne, hogy törli a %1 felhasználó megjegyzését?</translation>
     </message>
     <message>
-        <location line="+36"/>
-        <location line="+237"/>
+        <location line="+40"/>
+        <location line="+263"/>
         <source>Message to channel %1</source>
         <translation>Üzenet a %1 csatornába</translation>
     </message>
     <message>
-        <location line="+552"/>
+        <location line="+623"/>
         <source>Connected.</source>
         <translation>Kapcsolódva.</translation>
     </message>
     <message>
-        <location line="+420"/>
+        <location line="+437"/>
         <source>Choose image file</source>
         <translation>Válasszon kép fájlt</translation>
     </message>
@@ -4706,12 +4858,30 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A kép formátuma nem felismerhető.</translation>
     </message>
     <message>
-        <location line="-1078"/>
+        <location line="-1166"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
         <translation>Biztos abban, hogy törli %1 csatornát és az összes alcsatornáját?</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="-1488"/>
+        <location line="+26"/>
+        <source>Use in conjunction with Whisper to.</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Cycle Transmit Mode</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+154"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1377"/>
         <source>Sending message to channel %1</source>
         <translation>Üzenet küldése %1 csatornába</translation>
     </message>
@@ -4726,7 +4896,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+163"/>
         <source>Unmuted and undeafened.</source>
         <translation>Mikrofon és hangszóró bekapcsolva.</translation>
     </message>
@@ -4756,12 +4926,17 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Hangszóró bekapcsolva.</translation>
     </message>
     <message>
-        <location line="+89"/>
+        <location line="+92"/>
         <source>About Qt</source>
         <translation>Qt névjegye</translation>
     </message>
     <message>
-        <location line="+397"/>
+        <location line="+279"/>
+        <source>Cycled Transmit Mode to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+172"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL ellenőrzés hibát jelzett: %1</translation>
     </message>
@@ -4842,7 +5017,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
     </message>
     <message>
-        <location line="-2322"/>
+        <location line="-2450"/>
         <source>&amp;Channel</source>
         <translation>&amp;Csatorna</translation>
     </message>
@@ -5518,7 +5693,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ezzel válthatja a minimális nézet módot, amelyben a napló ablaka és a menü nem látszik.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+208"/>
+        <location filename="Messages.cpp" line="+205"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 most némítva és hangszórói kikapcsolva.</translation>
     </message>
@@ -5578,7 +5753,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kidobta és kitiltotta önt a szerverről: %2.</translation>
     </message>
     <message>
-        <location line="-406"/>
+        <location line="-403"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>A belépési adatok ellenőrzése jelenleg sikertelen volt, kérem próbálkozzon újra később</translation>
     </message>
@@ -5619,7 +5794,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Megtagadva: Túl hosszú szöveg.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
         <translation>Megtagadva: Az ideiglenes csatornában nem engedélyezett a művelet.</translation>
     </message>
@@ -5794,12 +5969,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 kidobta és kitiltotta a szerverről %3 felhasználót: %2.</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+5"/>
+        <source>%1 left channel.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>%1 disconnected.</source>
         <translation>%1 lekapcsolódott.</translation>
     </message>
     <message>
-        <location line="+96"/>
+        <location line="+114"/>
         <source>(Tree) </source>
         <translation>(Fa) </translation>
     </message>
@@ -5844,27 +6024,27 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-365"/>
+        <location line="-385"/>
         <source>%1 entered channel.</source>
         <translation>%1 csatlakozott a csatornához.</translation>
     </message>
     <message>
-        <location line="-358"/>
+        <location line="-355"/>
         <source>Server connection rejected: %1.</source>
         <translation>A kapcsolódást a szerver visszautasította: %1.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+144"/>
         <source>Denied: %1.</source>
         <translation>Megtagadva: %1.</translation>
     </message>
     <message>
-        <location line="+364"/>
+        <location line="+384"/>
         <source>Message from %1</source>
         <translation>Üzenetet küldött %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1390"/>
+        <location filename="UserModel.cpp" line="+1417"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>Az ön Csatorna húzása &quot;Ne tegyen semmit&quot;-re van állítva, így a csatorna nem lett mozgatva.</translation>
     </message>
@@ -5874,7 +6054,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ismeretlen Csatorna húzási mód a UserModel::dropMimeData beállításokban.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-273"/>
+        <location filename="main.cpp" line="-276"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -5904,7 +6084,7 @@ Valid options are:
         <translation>Üdvözli a Mumble.</translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5983,6 +6163,34 @@ Valid options are:
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Filter on/off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Toggle the channel filter (Ctrl+F)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Enable or disable the filtering of select channels.
+By default all empty channels will be filtered.
+You can mark additional channels for filtering from
+the channel&apos;s context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Ctrl+F</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>&amp;Hide Channel when Filtering</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6361,7 +6569,7 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+80"/>
+        <location filename="OverlayConfig.cpp" line="+83"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6376,12 +6584,12 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+223"/>
+        <location line="+244"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+75"/>
+        <location line="+77"/>
         <source>Choose executable</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6391,7 +6599,7 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+87"/>
+        <location line="+95"/>
         <source>Load Overlay Presets</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6454,11 +6662,6 @@ Megakadályozza a klienst, hogy olyan képeket töltsön le, amelyek a csevegés
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location/>
-        <source>FPS Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6563,6 +6766,21 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>FPS and Clock Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Display a clock in the overlay showing the current local time (system time).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show Clock</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6807,7 +7025,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+55"/>
+        <location filename="Overlay_win.cpp" line="+58"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -6820,17 +7038,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+78"/>
+        <location filename="Plugins.cpp" line="+88"/>
         <source>Plugins</source>
         <translation>Pluginok</translation>
     </message>
     <message>
-        <location filename="Plugins.cpp" line="+56"/>
+        <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
         <translation>A pluginnak nincs beállítási funkciója.</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+21"/>
         <source>Plugin has no about function.</source>
         <translation>A pluginnak nincs névjegye.</translation>
     </message>
@@ -6918,7 +7136,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+234"/>
+        <location filename="Plugins.cpp" line="+235"/>
         <source>%1 lost link.</source>
         <translation>%1 elveszett kapcsolat.</translation>
     </message>
@@ -6928,7 +7146,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>%1 kapcsolva.</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+41"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7033,7 +7251,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>Kép beillesztése</translation>
     </message>
     <message>
-        <location filename="RichTextEditor.cpp" line="+244"/>
+        <location filename="RichTextEditor.cpp" line="+255"/>
         <source>Failed to load image</source>
         <translation>Kép betöltése nem sikerült</translation>
     </message>
@@ -7069,7 +7287,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+470"/>
+        <location filename="ServerHandler.cpp" line="+474"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>A szerver felé nem küldhető vagy a szervertől nem fogadható UDP csomag. TCP módra váltok.</translation>
     </message>
@@ -7097,7 +7315,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-611"/>
+        <location filename="ConnectDialog.cpp" line="-633"/>
         <source>Favorite</source>
         <translation>Kedvencek</translation>
     </message>
@@ -7145,7 +7363,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-558"/>
+        <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
         <translation>Nincs megadva</translation>
     </message>
@@ -7153,7 +7371,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutDelegate</name>
     <message>
-        <location line="+370"/>
+        <location line="+376"/>
         <source>On</source>
         <translation>Be</translation>
     </message>
@@ -7176,7 +7394,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutKeyWidget</name>
     <message>
-        <location line="-444"/>
+        <location line="-450"/>
         <source>Press Shortcut</source>
         <translation>Nyomd meg a gyorsbillentyűt</translation>
     </message>
@@ -7213,7 +7431,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>...</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="+41"/>
         <source>, </source>
         <translation>, </translation>
     </message>
@@ -7252,7 +7470,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutToggleWidget</name>
     <message>
-        <location line="-268"/>
+        <location line="-271"/>
         <source>Off</source>
         <translation>Ki</translation>
     </message>
@@ -7342,14 +7560,52 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+99"/>
+        <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
         <translation>Eltávolítás</translation>
     </message>
     <message>
-        <location filename="UserEdit.cpp" line="-5"/>
+        <location/>
+        <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
         <translation>Átnevezés</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Who are you looking for?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Months</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Years</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location/>
+        <source>Inactive for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="UserEdit.cpp" line="-64"/>
+        <source>Registered users: %n account(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -7472,7 +7728,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>Sávszélesség</translation>
     </message>
     <message>
-        <location filename="UserInformation.cpp" line="+58"/>
+        <location filename="UserInformation.cpp" line="+65"/>
         <source>Not Reported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7502,7 +7758,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>%1mp</translation>
     </message>
     <message>
-        <location line="+29"/>
+        <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
         <translation>, </translation>
@@ -7545,9 +7801,42 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     </message>
 </context>
 <context>
+    <name>UserListModel</name>
+    <message>
+        <location filename="UserListModel.cpp" line="+83"/>
+        <source>Nick</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Inactive days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Last seen: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Never</source>
+        <translation type="unfinished">Soha</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Channel id: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-806"/>
+        <location filename="UserModel.cpp" line="-823"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>Ez egy szerverhez kapcsolódott felhasználó. A felhasználó baloldalán levő ikon mutatja, hogy éppen beszél vagy sem:</translation>
     </message>
@@ -7652,7 +7941,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
         <translation>Mutatja a csatorna jelzéseit, ha vannak:</translation>
     </message>
@@ -7667,6 +7956,11 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>A csatorna megjegyzését már látta (megnézéshez kattintson rá)</translation>
     </message>
     <message>
+        <location line="+1"/>
+        <source>Channel will be hidden when filtering is enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+18"/>
         <source>Name</source>
         <translation>Név</translation>
@@ -7677,12 +7971,12 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>Jelzések</translation>
     </message>
     <message>
-        <location line="+721"/>
+        <location line="+736"/>
         <source>Are you sure you want to drag this channel?</source>
         <translation>Biztos benne, hogy ebbe a csatornába szeretné húzni?</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
         <translation>Ezt a mozgatást nem tudom automatikusan végrehajtani, kérem a sorszámozást hozza alaphelyzetbe vagy állítsa be kézileg.</translation>
@@ -7691,7 +7985,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+128"/>
+        <location filename="VersionCheck.cpp" line="+143"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7729,7 +8023,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
 <context>
     <name>ViewCert</name>
     <message>
-        <location filename="ViewCert.cpp" line="+43"/>
+        <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
         <translation>Tanúsítványlánc részletei</translation>
     </message>
@@ -7749,42 +8043,42 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>Tanúsítvány részletei</translation>
     </message>
     <message>
-        <location line="+28"/>
-        <location line="+28"/>
+        <location line="+26"/>
+        <location line="+37"/>
         <source>Common Name: %1</source>
         <translation>Közös név: %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Organization: %1</source>
         <translation>Szervezet: %1</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-36"/>
         <source>Subunit: %1</source>
         <translation>Alegység: %1</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location line="+28"/>
+        <location line="+37"/>
         <source>Country: %1</source>
         <translation>Ország: %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>Locality: %1</source>
         <translation>Helység: %1</translation>
     </message>
     <message>
-        <location line="-27"/>
-        <location line="+28"/>
+        <location line="-36"/>
+        <location line="+37"/>
         <source>State: %1</source>
         <translation>Állam: %1</translation>
     </message>
     <message>
-        <location line="-27"/>
+        <location line="-36"/>
         <source>Valid from: %1</source>
         <translation>Érvényesség kezdete: %1</translation>
     </message>
@@ -7819,7 +8113,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation>kivonat (MD%): %1</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+13"/>
         <source>Email: %1</source>
         <translation>Email: %1</translation>
     </message>
@@ -7842,22 +8136,17 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
 <context>
     <name>VoiceRecorder</name>
     <message>
-        <location filename="VoiceRecorder.cpp" line="+186"/>
-        <source>Invalid sample rate given to recorder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+98"/>
+        <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
-        <source>Recorder failed to open file &apos;%s&apos;</source>
+        <source>Recorder failed to open file &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+109"/>
+        <location line="+166"/>
         <source>.wav - Uncompressed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7881,12 +8170,11 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     <name>VoiceRecorderDialog</name>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
-        <location filename="VoiceRecorderDialog.cpp" line="+101"/>
-        <location line="+33"/>
+        <location filename="VoiceRecorderDialog.cpp" line="+134"/>
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+136"/>
+        <location line="+143"/>
         <source>Recorder</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7907,6 +8195,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
     </message>
     <message>
         <location/>
+        <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7951,7 +8240,7 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-226"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-212"/>
         <source>Valid variables are:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7976,8 +8265,13 @@ A hozzáférési token egy szöveges karaktersorozat, amely jelszóként haszná
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+27"/>
-        <source>Closing the recorder will stop your current recording. Do you really want to close the recorder?</source>
+        <location line="+26"/>
+        <source>Recorder still running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8002,7 +8296,12 @@ Please contact your server administrator for further information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+95"/>
+        <location line="+73"/>
+        <source>Stopping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
         <source>Select target directory</source>
         <translation type="unfinished"></translation>
     </message>
