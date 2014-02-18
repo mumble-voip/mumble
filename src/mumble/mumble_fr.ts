@@ -344,7 +344,7 @@ Ajouter un nouveau groupe.</translation>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ID : %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -484,12 +484,12 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>ID du salon.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"></translation>
+        <translation>ID du salon</translation>
     </message>
 </context>
 <context>
@@ -1481,22 +1481,22 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished">Parole prioritaire</translation>
+        <translation>Parole prioritaire</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Si coché, Mumble diminue le volume des autres utilisateurs lorsque vous parlez avec le status &quot;Parole Prioritaire&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Atténue le son des autres lorsque vous parlez avec le statut &quot;Parole Prioritaire&quot;.&lt;/b&gt;&lt;br /&gt;Mumble supporte la réduction de volume lorsque vous avez le statut &lt;i&gt;Parole Prioritaire&lt;/i&gt; pour vous éviter d&apos;être dérangé. Cocher cette case activera cette fonctionnalité.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atténue le son des autres utilisateurs lorsque vous parlez avec le statut &quot;Parole Prioritaire&quot;.</translation>
     </message>
 </context>
 <context>
@@ -2268,114 +2268,114 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste des Bannis</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Champs de recherche</translation>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci est le champs de recherche. Utilisez-le pour trouver des utilisateurs bannis par leur nom d&apos;utilisateur.</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Qui recherchez-vous ?</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de pseudo</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse IP</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas d&apos;adresse IP</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Raison du bannissement</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de raison</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"></translation>
+        <translation>Date de fin du bannissement</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>Date de fin du bannissement. Si vous spécifiez la même date pour le début et la fin, le bannissement sera permanent.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Hash du certificat</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de hash de certificat</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisateurs bannis</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ceci est une liste des utilisateurs bannis.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez ce bouton si vous voulez ajouter un nouveau bannissement.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez ce bouton si vous voulez mettre à jour un bannissement.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisez ce bouton si vous voulez supprimer un bannissement.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Vider tous les champs</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce bouton vide tous les champs. Utilisez le si vous voulez ajouter un nouveau bannissement.</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished">Effacer</translation>
+        <translation>Effacer</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Liste des Bannis - %n Banni</numerusform>
+            <numerusform>Liste des Bannis - %n Bannis</numerusform>
         </translation>
     </message>
 </context>
@@ -4459,7 +4459,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Le filtrage masque automatiquement les salons vides</translation>
     </message>
 </context>
 <context>
@@ -5332,7 +5332,7 @@ Les options valides sont :
     <message>
         <location line="+47"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 a quitté le salon.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5827,7 +5827,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser en conjonction avec &quot;Chuchoter à&quot;.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -5850,7 +5850,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+154"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location line="+672"/>
@@ -6241,12 +6241,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtre on/off</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Dé)active le filtrage de salon (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6259,12 +6259,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Masquer le salon lors du filtrage</translation>
     </message>
 </context>
 <context>
@@ -6793,7 +6793,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <source>Load an overlay preset from file</source>
         <translation>Importe les préférences de l&apos;overlay depuis un fichier</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location/>
         <source>Load…</source>
         <translation>Importer...</translation>
@@ -6803,7 +6803,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <source>Save your overlay settings to file</source>
         <translation>Exporte vos préférences de l&apos;overlay dans un fichier</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location/>
         <source>Save…</source>
         <translation>Exporter...</translation>
@@ -6851,17 +6851,17 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"></translation>
+        <translation>FPS et Affichage de l&apos;Horloge</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"></translation>
+        <translation>Affiche une horloge dans l&apos;overlay contenant l&apos;heure locale (heure système).</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher l&apos;horloge</translation>
     </message>
 </context>
 <context>
@@ -7657,39 +7657,39 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Qui cherchez-vous ?</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Jours</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Semaines</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Mois</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Années</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"></translation>
+        <translation>Inactif depuis</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Utilisateurs enregistrés: %n compte</numerusform>
+            <numerusform>Utilisateurs enregistrés: %n comptes</numerusform>
         </translation>
     </message>
 </context>
@@ -7891,32 +7891,32 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom d&apos;utilisateur</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"></translation>
+        <translation>Jours d&apos;inactivités</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Dernier salon</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vu dernièrement : %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished">Jamais</translation>
+        <translation>Jamais</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Id du salon : %1</translation>
     </message>
 </context>
 <context>
@@ -8045,7 +8045,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Le salon sera masqué lors du filtrage</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8231,7 +8231,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;enregistreur n&apos;a pas réussi à ouvrir le fichier &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8350,12 +8350,12 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrement en cours</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>Fermer l&apos;enregistreur sans l&apos;arrêter peut corrompre le fichier audio. Voulez-vous vraiment fermer l&apos;enregistreur ?</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8382,7 +8382,7 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>Arrêt</translation>
     </message>
     <message>
         <location line="+28"/>
