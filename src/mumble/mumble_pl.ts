@@ -345,7 +345,7 @@ Add a new group.</source>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -475,12 +475,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>ID kanału.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"></translation>
+        <translation>ChannelID</translation>
     </message>
 </context>
 <context>
@@ -1480,22 +1480,22 @@ e-mail: &lt;a href=&quot;mailto:trawa@terribus.pl?subject=Tłumaczenie Mumble v1
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished">Nadrzędny mówca</translation>
+        <translation>Nadrzędny mówca</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
+        <translation>Po włączeniu Mumble obniżY głośność mowy innych użytkowników podczas twojej mowy jako &quot;Nadrzędny mówca&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Przycisz innych użytkowników podczas mowy jako Nadrzędny mówca.&lt;/b&gt;&gt;&lt;br /&gt;Mumble wspiera obniżanie głośności mowy innych użytkowników podczas, gdy ty mówisz jako &lt;i&gt;Nadrzędny mówca&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przyciszaj innych użytkowników podczas mowy jako nadrzędny mówca.</translation>
     </message>
 </context>
 <context>
@@ -2232,115 +2232,115 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista banów</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole wyszukiwania</translation>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole wyszukiwania. Użyj go, aby szybko odnaleźć wpisany pseudonim na liście banów.</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Kogo szukasz?</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak pseudonimu</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adres IP</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak adresu IP</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>Powód bana</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>Bez powodu</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data końca bana</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>Data końca bana. Jeżeli data poczatku i końca bana będzie taka sama to ban będzie permanentny (nigdy nie wygaśnie).</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Hash certyfiaktu</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak hashu certyfikatu</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>Zbanowani</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista zbanowanych użytkowników.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj tego przycisku, gdy chcesz dodać nowego bana.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj tego przycisku, gdy chcesz dokonać edycji bana.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj tego przycisku, gdy chcesz usunąć bana.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyczyść wszystkie pola</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ten przycisk czyści wszystkie pola. Użyj go, gdy chcesz dodać nowego bana.</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished">Wyczyść</translation>
+        <translation>Wyczyść</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Lista banów - %n ban</numerusform>
+            <numerusform>Lista banów - %n bany</numerusform>
+            <numerusform>Lista banów - %n banów</numerusform>
         </translation>
     </message>
 </context>
@@ -4394,7 +4394,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatycznie ukrywaj puste kanały</translation>
     </message>
 </context>
 <context>
@@ -4984,7 +4984,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     <message>
         <location line="+47"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 opuścił kanał.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5397,7 +5397,7 @@ Dostępne opcje:
     <message>
         <location line="+654"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Przełączono  sposób transmisji głosu na %1</translation>
     </message>
     <message>
         <location line="+210"/>
@@ -5757,7 +5757,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Należy używać w połączeniu z szeptem.</translation>
     </message>
     <message>
         <location line="-5"/>
@@ -5775,7 +5775,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>Przełączaj sposób transmisji głosu</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -5787,7 +5787,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location line="-2317"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Anuluj</translation>
     </message>
     <message>
         <location line="+225"/>
@@ -6170,12 +6170,12 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Filtr włączony/wyłączony</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>Przełącz filtrowanie kanałów (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6183,17 +6183,20 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza lub wyłącza filtrowanie wskazanych kanałów z listy.
+Domyślnie wszystkie puste kanały są filtrowane.
+Dodatkowo można wskazać z menu kontekstowego które 
+kanały mają być filtrowane.</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ukryj kanał podczas filtrowania</translation>
     </message>
 </context>
 <context>
@@ -6778,17 +6781,17 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlanie FPS i Zegara</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetla akualny lokalny (systemowy) czas w nakładce.</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyświetlaj zegar</translation>
     </message>
 </context>
 <context>
@@ -7579,40 +7582,40 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>Kogo szukasz?</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>Dni</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>Tygodni</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>Miesięcy</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>Lat</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieaktywny przez</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Zarejestrowani użytkownicy: %n konto</numerusform>
+            <numerusform>Zarejestrowani użytkownicy: %n kont</numerusform>
+            <numerusform>Zarejestrowani użytkownicy: %n konta</numerusform>
         </translation>
     </message>
 </context>
@@ -7814,32 +7817,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudonim</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"></translation>
+        <translation>Dni od ostatniej aktywności</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatni kanał</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatnio widziany: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished">Nigdy</translation>
+        <translation>Nigdy</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ID kanału: %1</translation>
     </message>
 </context>
 <context>
@@ -7968,7 +7971,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Kanał będzie ukryty, gdy filtrowanie będzie włączone</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8154,7 +8157,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Rejestrator nie był w stanie otworzyć pliku &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8273,12 +8276,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"></translation>
+        <translation>Rejestrator jest wciąż uruchomiony</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamknięcie rejestratora bez uprzedniego zatrzymania spowoduje utratę niezapisanego nagrania. Czy na pewno chcesz zamknąć rejestrator?</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8304,7 +8307,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>Zatrzymywanie</translation>
     </message>
     <message>
         <location line="+28"/>
