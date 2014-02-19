@@ -63,6 +63,8 @@ static const char *overlayBlacklist[] = {
 	"Steam.exe", // Prevent invisible hooking
 	"RzSynapse.exe", // Prevent invisible hooking - Razer Synapse (settings online synchronization)
 	"IpOverUsbSvc.exe", // Windows Phone IP over USB Transport
+	"Origin.exe", // EA Origin
+	"HydraSysTray.exe", // Razer Hydra system tray
 	NULL
 };
 
