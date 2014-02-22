@@ -33,7 +33,7 @@
 #include "GlobalShortcut_win.h"
 
 #include "MainWindow.h"
-#include "Overlay.h"
+#include "OverlayClient.h"
 #include "Global.h"
 #include "../../overlay/HardHook.h"
 

@@ -51,7 +51,7 @@
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
-#include "Overlay.h"
+#include "OverlayClient.h"
 #include "Plugins.h"
 #include "PTTButtonWidget.h"
 #include "ServerHandler.h"

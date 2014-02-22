@@ -32,6 +32,7 @@
 
 #include "Overlay.h"
 
+#include "OverlayClient.h"
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"

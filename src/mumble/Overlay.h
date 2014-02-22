@@ -33,28 +33,19 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QUrl>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-# include <QtWidgets/QGraphicsItem>
-#else
-# include <QtGui/QGraphicsItem>
-#endif
-
-
 #include <QtNetwork/QLocalSocket>
 
 #include "ConfigDialog.h"
 #include "OverlayText.h"
-#include "SharedMemory.h"
-#include "Timer.h"
 #include "../../overlay/overlay.h"
 
-#include "ui_Overlay.h"
 #include "ui_OverlayEditor.h"
 
 class ClientUser;
 class Overlay;
-class QLibrary;
 class QLocalServer;
+class OverlayClient;
+class OverlayConfig;
 
 struct OverlayAppInfo {
 	QString qsDisplayName;
@@ -79,228 +70,6 @@ class OverlayGroup : public QGraphicsItem {
 		QRectF boundingRect() const;
 };
 
-class OverlayUser : public OverlayGroup {
-	private:
-		Q_DISABLE_COPY(OverlayUser)
-	public:
-		enum { Type = UserType + 1 };
-	protected:
-		QGraphicsPixmapItem *qgpiMuted, *qgpiDeafened;
-		QGraphicsPixmapItem *qgpiAvatar;
-		QGraphicsPixmapItem *qgpiName[4];
-		QGraphicsPixmapItem *qgpiChannel;
-		QGraphicsPathItem *qgpiBox;
-
-		OverlaySettings *os;
-
-		unsigned int uiSize;
-		ClientUser *cuUser;
-		Settings::TalkState tsColor;
-
-		QString qsName;
-		QString qsChannelName;
-		QByteArray qbaAvatar;
-
-		void setup();
-
-	public:
-		OverlayUser(ClientUser *cu, unsigned int uiSize, OverlaySettings *osptr);
-		OverlayUser(Settings::TalkState ts, unsigned int uiSize, OverlaySettings *osptr);
-		void updateUser();
-		void updateLayout();
-
-		int type() const;
-		static QRectF scaledRect(const QRectF &qr, qreal scale);
-		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
-};
-
-class OverlayUserGroup : public QObject, public OverlayGroup {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayUserGroup);
-	public:
-		enum { Type = UserType + 3 };
-	protected:
-		OverlaySettings *os;
-
-		QMap<QObject *, OverlayUser *> qmUsers;
-		QList<OverlayUser *> qlExampleUsers;
-
-		QGraphicsEllipseItem *qgeiHandle;
-
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-		void wheelEvent(QGraphicsSceneWheelEvent *);
-		bool sceneEventFilter(QGraphicsItem *, QEvent *);
-	protected slots:
-		void userDestroyed(QObject *);
-		void moveUsers();
-	public:
-		bool bShowExamples;
-
-		OverlayUserGroup(OverlaySettings *);
-		~OverlayUserGroup();
-
-		int type() const;
-	public slots:
-		void reset();
-		void updateUsers();
-		void updateLayout();
-};
-
-class OverlayEditorScene : public QGraphicsScene {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayEditorScene)
-
-	protected:
-		QGraphicsItem *qgiGroup;
-
-		QGraphicsPixmapItem *qgpiMuted;
-		QGraphicsPixmapItem *qgpiAvatar;
-		QGraphicsPixmapItem *qgpiName;
-		QGraphicsPixmapItem *qgpiChannel;
-		QGraphicsPathItem *qgpiBox;
-		QGraphicsRectItem *qgriSelected;
-		QGraphicsPixmapItem *qgpiSelected;
-		int iDragCorner;
-
-		Qt::WindowFrameSection wfsHover;
-
-		unsigned int uiSize;
-
-		void setup();
-
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-		void mousePressEvent(QGraphicsSceneMouseEvent *);
-		void mouseMoveEvent(QGraphicsSceneMouseEvent *);
-		void mouseReleaseEvent(QGraphicsSceneMouseEvent *);
-		void updateCursorShape(const QPointF &point);
-
-		void drawBackground(QPainter *, const QRectF &);
-
-		QGraphicsPixmapItem *childAt(const QPointF &);
-		QRectF selectedRect() const;
-
-		static Qt::WindowFrameSection rectSection(const QRectF &rect, const QPointF &point, qreal dist = 3.0f);
-	public:
-		Settings::TalkState tsColor;
-		unsigned int uiZoom;
-		OverlaySettings os;
-
-		OverlayEditorScene(const OverlaySettings &, QObject *p = NULL);
-	public slots:
-		void resync();
-		void updateSelected();
-
-		void updateMuted();
-		void updateUserName();
-		void updateChannel();
-		void updateAvatar();
-
-		void moveMuted();
-		void moveUserName();
-		void moveChannel();
-		void moveAvatar();
-		void moveBox();
-};
-
-class OverlayEditor : public QDialog, public Ui::OverlayEditor {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayEditor)
-	protected:
-		QGraphicsItem *qgiPromote;
-		OverlayEditorScene oes;
-		OverlaySettings *os;
-
-		void enterEvent(QEvent *);
-		void leaveEvent(QEvent *);
-	public:
-		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL, OverlaySettings *osptr = NULL);
-		~OverlayEditor();
-	signals:
-		void applySettings();
-	public slots:
-		void reset();
-		void apply();
-		void accept();
-
-		void on_qrbPassive_clicked();
-		void on_qrbTalking_clicked();
-		void on_qrbWhisper_clicked();
-		void on_qrbShout_clicked();
-
-		void on_qcbAvatar_clicked();
-		void on_qcbUser_clicked();
-		void on_qcbChannel_clicked();
-		void on_qcbMutedDeafened_clicked();
-		void on_qcbBox_clicked();
-
-		void on_qsZoom_valueChanged(int);
-};
-
-class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayConfig)
-
-		void initDisplay();
-		void refreshFpsDemo();
-		void refreshFpsLive();
-		void refreshTimeLive();
-	protected:
-		QPixmap qpScreen;
-		QGraphicsPixmapItem *qgpiScreen;
-		QGraphicsScene qgs;
-		QGraphicsScene qgsFpsPreview;
-		BasepointPixmap bpFpsDemo;
-		BasepointPixmap bpTimeDemo;
-		QGraphicsPixmapItem *qgpiFpsDemo;
-		QGraphicsPixmapItem *qgpiFpsLive;
-		QGraphicsPixmapItem *qgpiTimeLive;
-		OverlayUserGroup *oug;
-		QGraphicsTextItem *qgtiInstructions;
-
-		float fViewScale;
-
-		bool eventFilter(QObject *, QEvent *);
-
-		bool supportsInstallableOverlay();
-		bool isInstalled();
-		bool needsUpgrade();
-		bool installFiles();
-		bool uninstallFiles();
-		bool supportsCertificates();
-		bool installerIsValid();
-		void showCertificates();
-
-		QString applicationIdentifierForPath(const QString &path);
-		OverlayAppInfo applicationInfoForId(const QString &identifier);
-	protected slots:
-		void on_qpbInstall_clicked();
-		void on_qpbUninstall_clicked();
-		void on_qpbAdd_clicked();
-		void on_qpbRemove_clicked();
-		void on_qrbBlacklist_toggled(bool);
-		void on_qcbEnable_stateChanged(int);
-		void on_qcbShowFps_stateChanged(int);
-		void on_qcbShowTime_stateChanged(int);
-		void on_qpbFpsFont_clicked();
-		void on_qpbFpsColor_clicked();
-		void on_qpbLoadPreset_clicked();
-		void on_qpbSavePreset_clicked();
-		void resizeScene(bool force=false);
-	public:
-		OverlayConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
-	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
-};
-
 class OverlayMouse : public QGraphicsPixmapItem {
 	private:
 		Q_DISABLE_COPY(OverlayMouse)
@@ -308,67 +77,6 @@ class OverlayMouse : public QGraphicsPixmapItem {
 		bool contains(const QPointF &) const;
 		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const;
 		OverlayMouse(QGraphicsItem * = NULL);
-};
-
-class OverlayClient : public QObject {
-		friend class Overlay;
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(OverlayClient)
-	protected:
-		OverlayMsg omMsg;
-		QLocalSocket *qlsSocket;
-		SharedMemory2 *smMem;
-		QRect qrLast;
-		Timer t;
-
-		unsigned int fFps;
-		int iOffsetX, iOffsetY;
-		QGraphicsPixmapItem *qgpiCursor;
-		QGraphicsPixmapItem *qgpiLogo;
-		QGraphicsPixmapItem *qgpiFPS;
-		QGraphicsPixmapItem *qgpiTime;
-
-		quint64 uiPid;
-		QGraphicsScene qgs;
-		OverlayUserGroup ougUsers;
-
-#ifdef Q_OS_MAC
-		QMap<Qt::CursorShape, QPixmap> qmCursors;
-#endif
-
-		bool bWasVisible;
-		bool bDelete;
-
-		void setupRender();
-		void setupScene(bool show);
-
-		bool eventFilter(QObject *, QEvent *);
-
-		void readyReadMsgInit(unsigned int length);
-
-		QList<QRectF> qlDirty;
-	protected slots:
-		void readyRead();
-		void changed(const QList<QRectF> &);
-		void render();
-	public:
-		QGraphicsView qgv;
-		unsigned int uiWidth, uiHeight;
-		int iMouseX, iMouseY;
-
-		OverlayClient(QLocalSocket *, QObject *);
-		~OverlayClient();
-		void reset();
-	public slots:
-		void showGui();
-		void hideGui();
-		void scheduleDelete();
-		void updateMouse();
-		void updateFPS();
-		void updateTime();
-		bool update();
-		void openEditor();
 };
 
 class OverlayPrivate : public QObject {
