@@ -33,6 +33,8 @@
 
 #include "Overlay.h"
 
+class OverlayUser;
+
 class OverlayUserGroup : public QObject, public OverlayGroup {
 	private:
 		Q_OBJECT
