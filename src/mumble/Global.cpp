@@ -92,6 +92,7 @@ Global::Global() {
 #endif
 
 	bAttenuateOthers = false;
+	prioritySpeakerActiveOverride = false;
 
 	bAllowHTML = true;
 	uiMessageLength = 5000;

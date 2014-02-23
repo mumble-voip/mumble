@@ -374,11 +374,14 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 	const unsigned int nchan = iChannels;
 	ServerHandlerPtr sh = g.sh;
 	VoiceRecorderPtr recorder;
-	if (sh)
+	if (sh) {
 		recorder = g.sh->recorder;
+	}
 
 	qrwlOutputs.lockForRead();
-	bool needAdjustment = false;
+	
+	bool prioritySpeakerActive = false;
+	
 	QMultiHash<const ClientUser *, AudioOutputUser *>::const_iterator it = qmOutputs.constBegin();
 	while (it != qmOutputs.constEnd()) {
 		AudioOutputUser *aop = it.value();
@@ -386,18 +389,17 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			qlDel.append(aop);
 		} else {
 			qlMix.append(aop);
-			// Set a flag if there is a priority speaker
-			if (it.key() && it.key()->bPrioritySpeaker)
-				needAdjustment = true;
+			
+			const ClientUser *user = it.key();
+			if (user && user->bPrioritySpeaker) {
+				prioritySpeakerActive = true;
+			}
 		}
 		++it;
 	}
 
-	if (!needAdjustment && g.s.bAttenuateUsersOnPrioritySpeak) {
-		const ClientUser *p = ClientUser::get(g.uiSession);
-		if (p && p->tsState == Settings::Talking && p->bPrioritySpeaker) {
-			needAdjustment = true;
-		}
+	if (g.prioritySpeakerActiveOverride) {
+		prioritySpeakerActive = true;
 	}
 
 	if (! qlMix.isEmpty()) {
@@ -489,14 +491,16 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
 
-			// We have at least one priority speaker
-			if (needAdjustment) {
-				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
-				// Exclude whispering people
-				if (aos && (aos->p->tsState == Settings::Talking || aos->p->tsState == Settings::Shouting)) {
-					// Adjust all non-priority speakers
-					if (!aos->p->bPrioritySpeaker)
+			if (prioritySpeakerActive) {
+				AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+				if (speech) {
+					const ClientUser* user = speech->p;
+					
+					if (user->tsState != Settings::Whispering
+					    && !user->bPrioritySpeaker) {
+						
 						volumeAdjustment = adjustFactor;
+					}
 				}
 			}
 

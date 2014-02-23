@@ -97,6 +97,9 @@ public:
 	bool bPreferAlpha;
 	bool bOpus;
 	bool bAttenuateOthers;
+	/// If set the AudioOutput::mix will forcefully adjust the volume of all
+	/// non-priority speakers.
+	bool prioritySpeakerActiveOverride;
 	bool bAllowHTML;
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
