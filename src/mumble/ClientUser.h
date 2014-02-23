@@ -107,8 +107,10 @@ class ClientUser : public QObject, public User {
 		void setPrioritySpeaker(bool priority);
 		void setRecording(bool recording);
 	signals:
-		void talkingChanged();
-		void muteDeafChanged();
+		void talkingStateChanged();
+		void muteDeafStateChanged();
+		void prioritySpeakerStateChanged();
+		void recordingStateChanged();
 };
 
 QDataStream &operator<<(QDataStream &, const ClientUser::JitterRecord &);

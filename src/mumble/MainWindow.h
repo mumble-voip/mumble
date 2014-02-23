@@ -262,7 +262,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void context_triggered();
 		void updateTarget();
 		void updateMenuPermissions();
-		void talkingChanged();
+		/// Handles state changes like talking mode changes and mute/unmute
+		/// or priority speaker flag changes for the gui user
+		void userStateChanged();
 		void destroyUserInformation();
 		void trayAboutToShow();
 		void sendChatbarMessage(QString msg);

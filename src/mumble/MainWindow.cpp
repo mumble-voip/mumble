@@ -1897,7 +1897,7 @@ void MainWindow::updateMenuPermissions() {
 	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
-void MainWindow::talkingChanged() {
+void MainWindow::userStateChanged() {
 	if (g.s.bStateInTray) {
 		updateTrayIcon();
 	}

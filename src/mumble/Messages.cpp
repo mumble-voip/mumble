@@ -150,9 +150,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 		GlobalShortcutEngine::engine->bNeedRemap = true;
 	}
 
-	ClientUser *p=ClientUser::get(g.uiSession);
-	connect(p, SIGNAL(talkingChanged()), this, SLOT(talkingChanged()));
-
+	const ClientUser *user = ClientUser::get(g.uiSession);
+	connect(user, SIGNAL(talkingStateChanged()), this, SLOT(userStateChanged()));
+	connect(user, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
+	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
+	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
+	
 	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName));
 
 	// Update QActions and menues
