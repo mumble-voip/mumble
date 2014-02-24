@@ -34,6 +34,11 @@
 #include <QtCore/QtGlobal>
 #include <QtCore/QUrl>
 #include <QtNetwork/QLocalSocket>
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include <QtWidgets/QGraphicsItem>
+#else
+# include <QtGui/QGraphicsItem>
+#endif
 
 #include "ConfigDialog.h"
 #include "OverlayText.h"

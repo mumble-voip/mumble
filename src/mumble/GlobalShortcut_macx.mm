@@ -33,7 +33,7 @@
 #import <Carbon/Carbon.h>
 
 #include "GlobalShortcut_macx.h"
-#include "Overlay.h"
+#include "OverlayClient.h"
 
 #define MOD_OFFSET   0x10000
 #define MOUSE_OFFSET 0x20000
