@@ -32,11 +32,6 @@
 #define MUMBLE_MUMBLE_OVERLAYCLIENT_H_
 
 #include <QtCore/QUrl>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-# include <QtWidgets/QGraphicsItem>
-#else
-# include <QtGui/QGraphicsItem>
-#endif
 #include <QtNetwork/QLocalSocket>
 
 #include "Timer.h"

@@ -33,7 +33,8 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 #import <Cocoa/Cocoa.h>
 #include <Carbon/Carbon.h>
-#include "Overlay.h"
+#include "OverlayConfig.h"
+#include "OverlayClient.h"
 #include "Global.h"
 #include "MainWindow.h"
 
