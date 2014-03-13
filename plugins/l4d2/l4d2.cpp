@@ -73,11 +73,25 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 
 	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
 		return false;
+	/*
+	Some hints to make things easier next time valve updates this game:
+	use Cheat Engine (non-network single player or non VAC-secured servers to be safe)
+	type is Float
+	use unknown initial value
+	use value unchanged/ value changed
+	speed things up by limiting the scan range to 40000000 to 90000000 (hex number)
+	you need addresses relative to client.dll. You can get address by double clicking on the address.
+	
+	pos: float likely in a range of 0 to 10000 (changes if you move. constant if you view around)
+	rot: float in range of -180 to 180. If you look up the value is -89.0 . If you look down it is 89.0 (changes if you viewaround. constant if you only move)
+	state: single player: search for loopback. Go back to menu. There is likely only one instance which has the string when having a game running and empty when not running a game.
+	context: same as state appearantly
 
-	posptr = pModule + 0x856FE8;
-	rotptr = pModule + 0x856FF4;
-	stateptr = pModule + 0x831A24;
-	contextptr = pModule + 0x831A24;
+	*/
+	posptr = pModule + 0x818950;
+	rotptr = pModule + 0x7D0D18;
+	stateptr = pModule + 0x8169BC;
+	contextptr = pModule + 0x8169BC;
 	
 	float pos[3];
 	float rot[3];
@@ -151,10 +165,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 build 5338 with context support. No identity support yet.");
+	return std::wstring(L"Supports L4D2 version 2.1.3.5 with context support. No identity support yet.");
 }
 
-static std::wstring description(L"Left 4 Dead 2 (Build 5338)");
+static std::wstring description(L"Left 4 Dead 2 (version 2.1.3.5)");
 static std::wstring shortname(L"Left 4 Dead 2");
 
 static int trylock1() {
