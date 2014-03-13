@@ -309,9 +309,14 @@ struct Settings {
 	RecordingMode rmRecordingMode;
 	int iRecordingFormat;
 
-	// Codec kill-switch
+	// Special configuration options not exposed to UI
+	
+	/// Codec kill-switch
 	bool bDisableCELT;
-
+	
+	/// Disables the "Public Internet" section in the connect dialog if set.
+	bool disablePublicList;
+	
 	// Config updates
 	unsigned int uiUpdateCounter;
 
