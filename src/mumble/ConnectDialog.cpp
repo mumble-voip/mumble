@@ -93,18 +93,25 @@ ServerView::ServerView(QWidget *p) : QTreeWidget(p) {
 	siLAN = NULL;
 #endif
 
-	siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
-	siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
-	addTopLevelItem(siPublic);
-
-	siPublic->setExpanded(false);
-
-	qmContinentNames.insert(QLatin1String("af"), tr("Africa"));
-	qmContinentNames.insert(QLatin1String("as"), tr("Asia"));
-	qmContinentNames.insert(QLatin1String("na"), tr("North America"));
-	qmContinentNames.insert(QLatin1String("sa"), tr("South America"));
-	qmContinentNames.insert(QLatin1String("eu"), tr("Europe"));
-	qmContinentNames.insert(QLatin1String("oc"), tr("Oceania"));
+	if (!g.s.disablePublicList) {
+		siPublic = new ServerItem(tr("Public Internet"), ServerItem::PublicType);
+		siPublic->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+		addTopLevelItem(siPublic);
+		
+		
+		siPublic->setExpanded(false);
+	
+		qmContinentNames.insert(QLatin1String("af"), tr("Africa"));
+		qmContinentNames.insert(QLatin1String("as"), tr("Asia"));
+		qmContinentNames.insert(QLatin1String("na"), tr("North America"));
+		qmContinentNames.insert(QLatin1String("sa"), tr("South America"));
+		qmContinentNames.insert(QLatin1String("eu"), tr("Europe"));
+		qmContinentNames.insert(QLatin1String("oc"), tr("Oceania"));
+	} else {
+		qWarning()<< "Public list disabled";
+		
+		siPublic = NULL;
+	}
 }
 
 ServerView::~ServerView() {
@@ -878,8 +885,11 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	connect(qusSocket4, SIGNAL(readyRead()), this, SLOT(udpReply()));
 	connect(qusSocket6, SIGNAL(readyRead()), this, SLOT(udpReply()));
 
-	if (qtwServers->siFavorite->isHidden() && (!qtwServers->siLAN || qtwServers->siLAN->isHidden()))
+	if (qtwServers->siFavorite->isHidden()
+	    && (!qtwServers->siLAN || qtwServers->siLAN->isHidden())
+	    && qtwServers->siPublic != NULL) {
 		qtwServers->siPublic->setExpanded(true);
+	}
 
 	iPingIndex = -1;
 	qtPingTick->start(50);
@@ -1147,7 +1157,7 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 }
 
 void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
-	if (item == qtwServers->siPublic) {
+	if (qtwServers->siPublic != NULL && item == qtwServers->siPublic) {
 		initList();
 		fillList();
 	}
