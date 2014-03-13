@@ -283,6 +283,8 @@ struct Settings {
 	bool bReconnect;
 	bool bAutoConnect;
 	bool bQoS;
+        bool bEnablePublicServerList;
+        bool bEnableLANServerList;
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;

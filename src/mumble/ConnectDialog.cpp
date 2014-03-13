@@ -855,7 +855,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 
 #ifdef USE_BONJOUR
 	// Make sure the we got the objects we need, then wire them up
-	if (g.bc->bsbBrowser && g.bc->bsrResolver) {
+	if (g.bc->bsbBrowser && g.bc->bsrResolver && g.s.bEnableLANServerList) {
 		connect(g.bc->bsbBrowser, SIGNAL(error(DNSServiceErrorType)),
 		        this, SLOT(onLanBrowseError(DNSServiceErrorType)));
 		connect(g.bc->bsbBrowser, SIGNAL(currentBonjourRecordsChanged(const QList<BonjourRecord> &)),
@@ -1148,8 +1148,10 @@ void ConnectDialog::on_qtwServers_currentItemChanged(QTreeWidgetItem *item, QTre
 
 void ConnectDialog::on_qtwServers_itemExpanded(QTreeWidgetItem *item) {
 	if (item == qtwServers->siPublic) {
-		initList();
-		fillList();
+		if (g.s.bEnablePublicServerList) {
+			initList();
+			fillList();
+		}
 	}
 
 	ServerItem *p = static_cast<ServerItem *>(item);
@@ -1360,6 +1362,10 @@ void ConnectDialog::timeTick() {
 void ConnectDialog::startDns(ServerItem *si) {
 	QString host = si->qsHostname.toLower();
 
+	QNetworkProxy currProxy = QNetworkProxy::applicationProxy();
+	if (currProxy.capabilites() & QNetworkProxy::HostNameLookupCapability) return;
+		
+	}
 	if (si->qlAddresses.isEmpty()) {
 		QHostAddress qha(si->qsHostname);
 		if (! qha.isNull())

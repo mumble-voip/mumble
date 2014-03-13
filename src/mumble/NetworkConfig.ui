@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>576</width>
-    <height>567</height>
+    <height>867</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,6 +85,47 @@
         </property>
         <property name="text">
          <string>Suppress certificate and password storage</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="qgbServerLists">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Server lists</string>
+     </property>
+     <layout class="QVBoxLayout">
+      <item>
+       <widget class="QCheckBox" name="qcbEnablePublicServerList">
+        <property name="toolTip">
+         <string>This option enables the public server list in Mumble's connect dialog</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Enable public server list&lt;/b&gt;.&lt;br /&gt;Turning this option off will prevent Mumble from sending automatic UDP and DNS network traffic related to public server lookups.</string>
+        </property>
+        <property name="text">
+         <string>Enable public server list</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbEnableLANServerList">
+        <property name="toolTip">
+         <string>This option enables the LAN server list in Mumble's connect dialog</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Enable LAN server list&lt;/b&gt;.&lt;br /&gt;Turning this option off will prevent Mumble from sending automatic DHCP queries to look for servers on the local network.</string>
+        </property>
+        <property name="text">
+         <string>Enable LAN server list</string>
         </property>
        </widget>
       </item>
