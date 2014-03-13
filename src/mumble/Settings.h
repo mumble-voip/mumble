@@ -317,6 +317,9 @@ struct Settings {
 	/// Disables the "Public Internet" section in the connect dialog if set.
 	bool disablePublicList;
 	
+	/// Removes the add and edit options in the connect dialog if set.
+	bool disableConnectDialogEditing;
+	
 	// Config updates
 	unsigned int uiUpdateCounter;
 
