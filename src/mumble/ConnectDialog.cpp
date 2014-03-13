@@ -800,12 +800,16 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 	connect(qpbAdd, SIGNAL(clicked()), qaFavoriteAddNew, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbAdd, QDialogButtonBox::ActionRole);
 
+	
 	qpbEdit = new QPushButton(tr("&Edit..."), this);
 	qpbEdit->setEnabled(false);
 	qpbEdit->setDefault(false);
 	qpbEdit->setAutoDefault(false);
 	connect(qpbEdit, SIGNAL(clicked()), qaFavoriteEdit, SIGNAL(triggered()));
 	qdbbButtonBox->addButton(qpbEdit, QDialogButtonBox::ActionRole);
+	
+	qpbAdd->setHidden(g.s.disableConnectDialogEditing);
+	qpbEdit->setHidden(g.s.disableConnectDialogEditing);
 	
 	qtwServers->sortItems(1, Qt::AscendingOrder);
 
@@ -1117,20 +1121,30 @@ void ConnectDialog::on_qtwServers_customContextMenuRequested(const QPoint &mpos)
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->itemAt(mpos));
 	qmPopup->clear();
 
-	if (si && si->bParent)
+	if (si != NULL && si->bParent) {
 		si = NULL;
-
-	if (si && (si->itType == ServerItem::FavoriteType)) {
-		qmPopup->addAction(qaFavoriteEdit);
-		qmPopup->addAction(qaFavoriteRemove);
-	} else if (si) {
-		qmPopup->addAction(qaFavoriteAdd);
 	}
-	if (si && ! si->qsUrl.isEmpty())
-		qmPopup->addAction(qaUrl);
+	
+	if (si != NULL) {
 
-	if (! qmPopup->isEmpty())
+		if (!g.s.disableConnectDialogEditing) {
+			if (si->itType == ServerItem::FavoriteType) {
+				qmPopup->addAction(qaFavoriteEdit);
+				qmPopup->addAction(qaFavoriteRemove);
+			} else if (si) {
+				qmPopup->addAction(qaFavoriteAdd);
+			}
+		}
+		
+		if (!si->qsUrl.isEmpty()) {
+			qmPopup->addAction(qaUrl);
+		}
+	}
+	
+	if (! qmPopup->isEmpty()) {
 		qmPopup->addSeparator();
+	}
+	
 	qmPopup->addMenu(qmFilters);
 
 	qmPopup->popup(qtwServers->viewport()->mapToGlobal(mpos), NULL);

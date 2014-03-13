@@ -387,6 +387,7 @@ Settings::Settings() {
 	// Special configuration options not exposed to UI
 	bDisableCELT = false;
 	disablePublicList = false;
+	disableConnectDialogEditing = false;
 	
 	// Config updates
 	uiUpdateCounter = 0;
@@ -694,6 +695,7 @@ void Settings::load(QSettings* settings_ptr) {
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
+	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 	
 
 	// LCD
@@ -983,6 +985,7 @@ void Settings::save() {
 	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
+	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
