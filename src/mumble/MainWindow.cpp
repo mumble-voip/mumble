@@ -247,9 +247,6 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
-	gsChannelFilter=new GlobalShortcut(this, idx++, tr("Channel Filter", "Global Shortcut"), false, 0);
-	gsChannelFilter->setObjectName(QLatin1String("gsChannelFilter"));
-
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -351,7 +348,22 @@ void MainWindow::setupGui()  {
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
-	updateTransmitModeIcons();
+
+	// QtCreator and uic.exe do not allow adding arbitrary widgets
+	// such as a QComboBox to a QToolbar, even though they are supported.
+	qcbTransmitMode = new QComboBox(qtIconToolbar);
+	qcbTransmitMode->addItem(tr("Continuous"));
+	qcbTransmitMode->addItem(tr("Voice Activity"));
+	qcbTransmitMode->addItem(tr("Push-to-Talk"));
+
+	qcbTransmitMode->setVisible(true);
+
+	QAction *qaSeperator = qtIconToolbar->insertSeparator(qaConfigDialog);
+	qtIconToolbar->insertWidget(qaSeperator, qcbTransmitMode);
+
+	connect(qcbTransmitMode, SIGNAL(activated(int)), this, SLOT(on_qcbTransmitMode_activated(int)));
+
+	updateTransmitModeComboBox();
 
 #ifdef USE_COCOA
 	setWindowOpacity(1.0f);
@@ -362,6 +374,7 @@ void MainWindow::setupGui()  {
 	qApp->processEvents();
 #endif
 #endif
+
 }
 
 // Sets whether or not to show the title bars on the MainWindow's
@@ -501,24 +514,18 @@ void MainWindow::updateTrayIcon() {
 	}
 }
 
-void MainWindow::updateTransmitModeIcons() {
+void MainWindow::updateTransmitModeComboBox() {
 
 	switch (g.s.atTransmit)
 	{
 		case Settings::Continous:
-			qaSetTransmitModeContinous->setChecked(true);
-			qaSetTransmitModePushToTalk->setChecked(false);
-			qaSetTransmitModeVAD->setChecked(false);
+			qcbTransmitMode->setCurrentIndex(0);
 			return;
 		case Settings::VAD:
-			qaSetTransmitModeContinous->setChecked(false);
-			qaSetTransmitModePushToTalk->setChecked(false);
-			qaSetTransmitModeVAD->setChecked(true);
+			qcbTransmitMode->setCurrentIndex(1);
 			return;
 		case Settings::PushToTalk:
-			qaSetTransmitModeContinous->setChecked(false);
-			qaSetTransmitModePushToTalk->setChecked(true);
-			qaSetTransmitModeVAD->setChecked(false);
+			qcbTransmitMode->setCurrentIndex(2);
 			return;
 	}
 
@@ -1024,28 +1031,23 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		g.sh->registerUser(p->uiSession);
 }
 
-void MainWindow::on_qaSetTransmitModeContinous_triggered() {
-	g.s.atTransmit = Settings::Continous;
+void MainWindow::on_qcbTransmitMode_activated(int index) {
+	switch(index) {
+		case 0:  // Continuous
+			g.s.atTransmit = Settings::Continous;
+			g.l->log(Log::Information, tr("Transmit Mode set to Continous"));
+			return;
 
-	g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
+		case 1:  // Voice Activity
+			g.s.atTransmit = Settings::VAD;
+			g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
+			return;
 
-	updateTransmitModeIcons();
-}
-
-void MainWindow::on_qaSetTransmitModePushToTalk_triggered() {
-	g.s.atTransmit = Settings::PushToTalk;
-
-	g.l->log(Log::Information, tr("Transmit Mode set to Push to Talk"));
-
-	updateTransmitModeIcons();
-}
-
-void MainWindow::on_qaSetTransmitModeVAD_triggered() {
-	g.s.atTransmit = Settings::VAD;
-
-	g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
-
-	updateTransmitModeIcons();
+		case 2:  // Push-to-Talk
+			g.s.atTransmit = Settings::PushToTalk;
+			g.l->log(Log::Information, tr("Transmit Mode set to Push-to-Talk"));
+			return;
+	}
 }
 
 void MainWindow::on_qmServer_aboutToShow() {
@@ -2099,6 +2101,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
+		updateTransmitModeComboBox();
 		updateTrayIcon();
 
 		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
@@ -2422,7 +2425,7 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
 
-	updateTransmitModeIcons();
+	updateTransmitModeComboBox();
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
