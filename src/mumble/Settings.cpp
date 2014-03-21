@@ -371,6 +371,8 @@ Settings::Settings() {
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
 
+	bShowTransmitModeComboBox = false;
+
 	// Accessibility
 	bHighContrast = false;
 
@@ -677,6 +679,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
+	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 
@@ -964,6 +967,7 @@ void Settings::save() {
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
+	SAVELOAD(bShowTransmitModeComboBox, "ui/transmitmodecombobox");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
 	SAVELOAD(iMaxLogBlocks, "ui/MaxLogBlocks");
 

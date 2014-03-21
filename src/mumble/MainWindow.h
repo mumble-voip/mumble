@@ -160,6 +160,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		PTTButtonWidget *qwPTTButtonWidget;
 
 		QComboBox *qcbTransmitMode;
+		QAction *qaTransmitMode;
+		QAction *qaTransmitModeSeparator;
 
 		void createActions();
 		void setupGui();

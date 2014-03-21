@@ -324,6 +324,22 @@ void MainWindow::setupGui()  {
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
+	// QtCreator and uic.exe do not allow adding arbitrary widgets
+	// such as a QComboBox to a QToolbar, even though they are supported.
+	qcbTransmitMode = new QComboBox(qtIconToolbar);
+	qcbTransmitMode->setObjectName(QLatin1String("qcbTransmitMode"));
+	qcbTransmitMode->addItem(tr("Continuous"));
+	qcbTransmitMode->addItem(tr("Voice Activity"));
+	qcbTransmitMode->addItem(tr("Push-to-Talk"));
+
+	qaTransmitModeSeparator = qtIconToolbar->insertSeparator(qaConfigDialog);
+	qaTransmitMode = qtIconToolbar->insertWidget(qaTransmitModeSeparator, qcbTransmitMode);
+
+	// TODO:  Figure out why this signal would not auto-register.
+	connect(qcbTransmitMode, SIGNAL(activated(int)), this, SLOT(on_qcbTransmitMode_activated(int)));
+
+	updateTransmitModeComboBox();
+
 #ifndef Q_OS_MAC
 	setupView(false);
 #endif
@@ -348,22 +364,6 @@ void MainWindow::setupGui()  {
 	qstiIcon->setContextMenu(qmTray);
 
 	updateTrayIcon();
-
-	// QtCreator and uic.exe do not allow adding arbitrary widgets
-	// such as a QComboBox to a QToolbar, even though they are supported.
-	qcbTransmitMode = new QComboBox(qtIconToolbar);
-	qcbTransmitMode->addItem(tr("Continuous"));
-	qcbTransmitMode->addItem(tr("Voice Activity"));
-	qcbTransmitMode->addItem(tr("Push-to-Talk"));
-
-	qcbTransmitMode->setVisible(true);
-
-	QAction *qaSeperator = qtIconToolbar->insertSeparator(qaConfigDialog);
-	qtIconToolbar->insertWidget(qaSeperator, qcbTransmitMode);
-
-	connect(qcbTransmitMode, SIGNAL(activated(int)), this, SLOT(on_qcbTransmitMode_activated(int)));
-
-	updateTransmitModeComboBox();
 
 #ifdef USE_COCOA
 	setWindowOpacity(1.0f);
@@ -915,6 +915,16 @@ void MainWindow::setupView(bool toggle_minimize) {
 		resize(geometry().width()-newgeom.width()+geom.width(),
 		       geometry().height()-newgeom.height()+geom.height());
 		move(geom.x(), geom.y());
+	}
+
+	// Display the Transmit Mode Dropdown, if configured to do so, otherwise
+	// hide it.
+	if (g.s.bShowTransmitModeComboBox) {
+		qaTransmitMode->setVisible(true);
+		qaTransmitModeSeparator->setVisible(true);
+	} else {
+		qaTransmitMode->setVisible(false);
+		qaTransmitModeSeparator->setVisible(false);
 	}
 
 	show();

@@ -295,6 +295,8 @@ struct Settings {
 	KeyPair kpCertificate;
 	bool bSuppressIdentity;
 
+	bool bShowTransmitModeComboBox;
+
 	// Accessibility
 	bool bHighContrast;
 
