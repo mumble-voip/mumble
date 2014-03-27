@@ -8,6 +8,9 @@ use POSIX;
 my $ver;
 
 system("rm mumble-*");
+chdir("scripts");
+system("bash mkini.sh");
+chdir("..");
 
 if ($#ARGV < 0) {
   open(F, "git describe origin/master|") or croak "Failed to get version string";
