@@ -106,6 +106,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	bAttenuating = false;
 	iRemainingOperations = 0;
 	bPulseIsGood = false;
+	iSinkId = -1;
 
 	pam = pa_threaded_mainloop_new();
 	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
@@ -245,6 +246,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qsOutputCache = odev;
 
 			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, NULL, NULL);
+			pa_context_get_sink_info_by_name(pacContext, qPrintable(odev), sink_info_callback, this);
 		}
 	}
 
@@ -429,14 +431,25 @@ void PulseAudioSystem::source_callback(pa_context *, const pa_source_info *i, in
 		pas->qhInput.insert(QLatin1String(i->name), QLatin1String(i->description));
 }
 
-void PulseAudioSystem::server_callback(pa_context *, const pa_server_info *i, void *userdata) {
+void PulseAudioSystem::server_callback(pa_context *c, const pa_server_info *i, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	pas->qsDefaultInput = QLatin1String(i->default_source_name);
 	pas->qsDefaultOutput = QLatin1String(i->default_sink_name);
 
+	pa_context_get_sink_info_by_name(c, i->default_sink_name, sink_info_callback, userdata);
+
 	pas->bServerDone = true;
 	pas->wakeup();
+}
+
+void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, int eol, void *userdata) {
+  PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+
+  if( !i || eol )
+    return;
+
+  pas->iSinkId = i->index;
 }
 
 void PulseAudioSystem::stream_callback(pa_stream *s, void *userdata) {
@@ -599,6 +612,9 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	if (eol == 0) {
+	  	//If the target input does not reside on the same sink, skip it
+		if (pas->iSinkId > -1 && int(i->sink) != pas->iSinkId )
+			return;
 		// ensure we're not attenuating ourselves!
 		if (strcmp(i->name, mumble_sink_input) != 0) {
 			// create a new entry
