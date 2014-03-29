@@ -208,7 +208,6 @@ size_t Channel::getLevel() const {
 	return i;
 }
 
-
 size_t Channel::getDepth() const {
 	if(qlChannels.empty()) {
 		return 0;
@@ -220,4 +219,23 @@ size_t Channel::getDepth() const {
 	}
 
 	return result;
+}
+
+QString Channel::getPath() const {
+	QString out;
+
+	const Channel *tmp = this;
+	while (tmp->cParent) {
+		// Skip the root channel.
+		if (tmp->iId == 0) {
+			break;
+		}
+
+		out.prepend(QString::fromLatin1("/"));
+		out.prepend(tmp->qsName);
+
+		tmp = tmp->cParent;
+	}
+
+	return out;
 }

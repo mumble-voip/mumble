@@ -462,6 +462,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 			if (pDst == pSelf) {
 				g.mw->updateChatBar();
+				qsDesiredChannel = c->getPath();
 			}
 
 			if (log && (pDst != pSelf) && (pDst->cChannel == pSelf->cChannel)) {

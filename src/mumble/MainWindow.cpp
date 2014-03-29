@@ -713,8 +713,9 @@ void MainWindow::openUrl(const QUrl &url) {
 		QString oHost, oUser, oPw;
 		unsigned short oport;
 		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
+		ClientUser *p = ClientUser::get(g.uiSession);
 
-		if ((user.isEmpty() || (user == oUser)) &&
+		if ((user.isEmpty() || (p && p->iId >= 0) || (user == oUser)) &&
 		        (host.isEmpty() || ((host == oHost) && (port == oport)))) {
 			findDesiredChannel();
 			return;
@@ -2358,31 +2359,7 @@ void MainWindow::serverConnected() {
 #endif
 }
 
-static QString getPathToChannel(Channel *c) {
-	QString out;
-
-	if (!c)
-		return out;
-
-	Channel *tmp = c;
-	while (tmp->cParent) {
-		// skip root channel
-		if (tmp->iId == 0)
-			break;
-
-		out.prepend(QString::fromLatin1("/"));
-		out.prepend(tmp->qsName);
-
-		tmp = tmp->cParent;
-	}
-
-	return out;
-}
-
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
-	if (g.uiSession)
-		qsDesiredChannel = getPathToChannel(ClientUser::get(g.uiSession)->cChannel);
-
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	g.bAttenuateOthers = false;
