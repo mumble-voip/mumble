@@ -692,8 +692,9 @@ void MainWindow::openUrl(const QUrl &url) {
 		QString oHost, oUser, oPw;
 		unsigned short oport;
 		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
+		ClientUser *p = ClientUser::get(g.uiSession);
 
-		if ((user.isEmpty() || (user == oUser)) &&
+		if ((user.isEmpty() || (p && p->iId >= 0) || (user == oUser)) &&
 		        (host.isEmpty() || ((host == oHost) && (port == oport)))) {
 			findDesiredChannel();
 			return;
