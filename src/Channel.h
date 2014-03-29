@@ -88,6 +88,7 @@ class Channel : public QObject {
 
 		size_t getLevel() const;
 		size_t getDepth() const;
+		QString getPath() const;
 
 		void addChannel(Channel *c);
 		void removeChannel(Channel *c);
