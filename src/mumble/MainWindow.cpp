@@ -718,6 +718,7 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	g.s.qsLastServer = name;
 	rtLast = MumbleProto::Reject_RejectType_None;
+	bRetryServer = true;
 	qaServerDisconnect->setEnabled(true);
 	g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(host, Log::Server)));
 	g.sh->setConnectionInfo(host, port, user, pw);
@@ -915,6 +916,7 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 		recreateServerHandler();
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
+		bRetryServer = true;
 		qaServerDisconnect->setEnabled(true);
 		g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer, Log::Server)));
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
@@ -2611,7 +2613,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			on_Reconnect_timeout();
 		} else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
 			qaServerDisconnect->setEnabled(true);
-			qtReconnect->start();
+			if (bRetryServer) {
+				qtReconnect->start();
+			}
 		}
 	}
 	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
