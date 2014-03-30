@@ -612,7 +612,7 @@ void LogDocument::receivedHead() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 	QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
 	if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
-		qWarning() << "Image "<< rep->url().toString() <<" (" << length.toInt() << " byte) to big, request aborted. ";
+		qWarning() << "Image "<< rep->url().toString() <<" (" << length.toInt() << " byte) too big, request aborted. ";
 		rep->abort();
 	}
 }
