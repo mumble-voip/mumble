@@ -43,6 +43,7 @@
  <file alias="Critical.ogg">../../samples/Critical.ogg</file>
  <file alias="PermissionDenied.ogg">../../samples/PermissionDenied.ogg</file>
  <file alias="SelfMutedDeafened.ogg">../../samples/SelfMutedDeafened.ogg</file>
+ <file alias="SelfUnMutedDeafened.ogg">../../samples/SelfUnMutedDeafened.ogg</file>
  <file alias="ServerConnected.ogg">../../samples/ServerConnected.ogg</file>
  <file alias="ServerDisconnected.ogg">../../samples/ServerDisconnected.ogg</file>
  <file alias="TextMessage.ogg">../../samples/TextMessage.ogg</file>

@@ -3801,6 +3801,11 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+1"/>
+        <source>You self-unmuted/undeafened</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Other self-muted/deafened</source>
         <translation type="unfinished"></translation>
     </message>

@@ -414,6 +414,7 @@ Settings::Settings() {
 	qmMessageSounds[Log::CriticalError] = QLatin1String(":/Critical.ogg");
 	qmMessageSounds[Log::PermissionDenied] = QLatin1String(":/PermissionDenied.ogg");
 	qmMessageSounds[Log::SelfMute] = QLatin1String(":/SelfMutedDeafened.ogg");
+	qmMessageSounds[Log::SelfUnMute] = QLatin1String(":/SelfUnMutedDeafened.ogg");
 	qmMessageSounds[Log::ServerConnected] = QLatin1String(":/ServerConnected.ogg");
 	qmMessageSounds[Log::ServerDisconnected] = QLatin1String(":/ServerDisconnected.ogg");
 	qmMessageSounds[Log::TextMessage] = QLatin1String(":/TextMessage.ogg");
