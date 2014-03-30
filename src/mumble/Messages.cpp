@@ -509,6 +509,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	QString reason = u8(msg.reason());
 
 	if (pDst == pSelf) {
+		bRetryServer = false;
 		if (msg.ban())
 			g.l->log(Log::YouKicked, tr("You were kicked and banned from the server by %1: %2.").arg(Log::formatClientUser(pSrc, Log::Source)).arg(reason));
 		else
