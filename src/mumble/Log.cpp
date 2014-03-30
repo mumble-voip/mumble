@@ -217,6 +217,7 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "User kicked (you or by you)"),
 	QT_TRANSLATE_NOOP("Log", "User kicked"),
 	QT_TRANSLATE_NOOP("Log", "You self-muted/deafened"),
+	QT_TRANSLATE_NOOP("Log", "You self-unmuted/undeafened"),
 	QT_TRANSLATE_NOOP("Log", "Other self-muted/deafened"),
 	QT_TRANSLATE_NOOP("Log", "User muted (you)"),
 	QT_TRANSLATE_NOOP("Log", "User muted (by you)"),

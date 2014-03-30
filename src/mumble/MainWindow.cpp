@@ -1957,9 +1957,9 @@ void MainWindow::on_qaAudioMute_triggered() {
 	if (! g.s.bMute && g.s.bDeaf) {
 		g.s.bDeaf = false;
 		qaAudioDeaf->setChecked(false);
-		g.l->log(Log::SelfMute, tr("Unmuted and undeafened."));
+		g.l->log(Log::SelfUnMute, tr("Unmuted and undeafened."));
 	} else if (! g.s.bMute) {
-		g.l->log(Log::SelfMute, tr("Unmuted."));
+		g.l->log(Log::SelfUnMute, tr("Unmuted."));
 	} else {
 		g.l->log(Log::SelfMute, tr("Muted."));
 	}
