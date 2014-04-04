@@ -34,8 +34,8 @@
 #include <string>
 #include <map>
 
-#define MUMBLE_PLUGIN_MAGIC 0xd63ab7f0
-#define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7ff
+#define MUMBLE_PLUGIN_MAGIC 0xd63ab7c0
+#define MUMBLE_PLUGIN_MAGIC_2 0xd63ab7cf
 #define MUMBLE_PLUGIN_VERSION 2
 
 typedef struct _MumblePlugin {
