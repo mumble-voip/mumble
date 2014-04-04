@@ -70,6 +70,16 @@ PluginInfo::PluginInfo() {
 	p2 = NULL;
 }
 
+struct PluginFetchMeta {
+	QString hash;
+	QString path;
+	PluginFetchMeta(const QString &hash = QString(), const QString &path = QString());
+};
+
+PluginFetchMeta::PluginFetchMeta(const QString &hash, const QString &path) : hash(hash), path(path) {
+}
+
+
 PluginConfig::PluginConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
@@ -527,7 +537,7 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 	bool rescan = false;
 	const QString &path = url.path();
 	if (path == QLatin1String("/plugins.php")) {
-		qmPluginHash.clear();
+		qmPluginFetchMeta.clear();
 		QDomDocument doc;
 		doc.setContent(data);
 
@@ -539,7 +549,8 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 				if (e.tagName() == QLatin1String("plugin")) {
 					QString name = QFileInfo(e.attribute(QLatin1String("name"))).fileName();
 					QString hash = e.attribute(QLatin1String("hash"));
-					qmPluginHash.insert(name, hash);
+					QString path = e.attribute(QLatin1String("path"));
+					qmPluginFetchMeta.insert(name, PluginFetchMeta(hash, path));
 				}
 			}
 			n = n.nextSibling();
@@ -552,7 +563,8 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 		foreach(const QFileInfo &libinfo, libs) {
 			QString libname = libinfo.absoluteFilePath();
 			QString filename = libinfo.fileName();
-			QString wanthash = qmPluginHash.value(filename);
+			PluginFetchMeta pfm = qmPluginFetchMeta.value(filename);
+			QString wanthash = pfm.hash;
 			if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
 				QFile f(libname);
 				if (wanthash.isEmpty()) {
@@ -575,7 +587,7 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 							}
 						}
 						// Mark for removal from userplugins
-						qmPluginHash.insert(filename, QString());
+						qmPluginFetchMeta.insert(filename, PluginFetchMeta());
 					}
 				}
 			}
@@ -586,7 +598,8 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 			foreach(const QFileInfo &libinfo, libs) {
 				QString libname = libinfo.absoluteFilePath();
 				QString filename = libinfo.fileName();
-				QString wanthash = qmPluginHash.value(filename);
+				PluginFetchMeta pfm = qmPluginFetchMeta.value(filename);
+				QString wanthash = pfm.hash;
 				if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
 					QFile f(libname);
 					if (wanthash.isEmpty()) {
@@ -600,25 +613,31 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 						QString h = QLatin1String(sha1(f.readAll()).toHex());
 						f.close();
 						if (h == wanthash) {
-							qmPluginHash.remove(filename);
+							qmPluginFetchMeta.remove(filename);
 						}
 					}
 				}
 			}
 		}
-		QMap<QString, QString>::const_iterator i;
-		for (i = qmPluginHash.constBegin(); i != qmPluginHash.constEnd(); ++i) {
-			if (! i.value().isEmpty()) {
+		QMap<QString, PluginFetchMeta>::const_iterator i;
+		for (i = qmPluginFetchMeta.constBegin(); i != qmPluginFetchMeta.constEnd(); ++i) {
+			PluginFetchMeta pfm = i.value();
+			if (! pfm.hash.isEmpty()) {
 				QUrl url;
-				url.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
+				if (pfm.path.isEmpty()) {
+					url.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
+				} else {
+					url.setPath(pfm.path);
+				}
 
 				WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
 			}
 		}
 	} else {
 		QString fname = QFileInfo(path).fileName();
-		if (qmPluginHash.contains(fname)) {
-			if (qmPluginHash.value(fname) == QLatin1String(sha1(data).toHex())) {
+		if (qmPluginFetchMeta.contains(fname)) {
+			PluginFetchMeta pfm = qmPluginFetchMeta.value(fname);
+			if (pfm.hash == QLatin1String(sha1(data).toHex())) {
 				bool verified = true;
 #ifdef Q_OS_WIN
 				verified = false;

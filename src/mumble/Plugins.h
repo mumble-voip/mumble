@@ -66,6 +66,8 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		void on_qtwPlugins_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
 };
 
+struct PluginFetchMeta;
+
 class Plugins : public QObject {
 		friend class PluginConfig;
 	private:
@@ -79,7 +81,7 @@ class Plugins : public QObject {
 		PluginInfo *prevlocked;
 		void clearPlugins();
 		int iPluginTry;
-		QMap<QString, QString> qmPluginHash;
+		QMap<QString, PluginFetchMeta> qmPluginFetchMeta;
 		QString qsSystemPlugins;
 		QString qsUserPlugins;
 #ifdef Q_OS_WIN
