@@ -195,7 +195,7 @@ void PluginConfig::refillPluginList() {
 		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
 		i->setText(0, pi->description);
 		if (pi->p->longdesc)
-			i->setToolTip(0, QString::fromStdWString(pi->p->longdesc()));
+			i->setToolTip(0, Qt::escape(QString::fromStdWString(pi->p->longdesc())));
 		i->setData(0, Qt::UserRole, pi->filename);
 	}
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
@@ -411,7 +411,7 @@ void Plugins::on_Timer_timeout() {
 	QReadLocker lock(&qrwlPlugins);
 
 	if (prevlocked) {
-		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname));
+		g.l->log(Log::Information, tr("%1 lost link.").arg(Qt::escape(prevlocked->shortname)));
 		prevlocked = NULL;
 	}
 
@@ -485,7 +485,7 @@ void Plugins::on_Timer_timeout() {
 	if (pi->enabled) {
 		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
 			pi->shortname = QString::fromStdWString(pi->p->shortname);
-			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
+			g.l->log(Log::Information, tr("%1 linked.").arg(Qt::escape(pi->shortname)));
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;
@@ -685,15 +685,15 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 					if (f.open(QIODevice::WriteOnly)) {
 						f.write(data);
 						f.close();
-						g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName()));
+						g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
 					} else {
 						f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
 						if (f.open(QIODevice::WriteOnly)) {
 							f.write(data);
 							f.close();
-							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName()));
+							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
 						} else {
-							g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(f.fileName()));
+							g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(Qt::escape(f.fileName())));
 						}
 					}
 
