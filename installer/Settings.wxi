@@ -64,6 +64,10 @@
     <?define ZlibDir = "$(env.MumbleZlibDir)" ?>
   <?endif ?>
   
+  <!--
+    Note: in order to use merge modules with MSVS 2013 (VCRedist 12.0),
+    you need to bump the InstallerVersion in Product.wxs to 405.
+  -->
   <?ifndef env.MumbleMergeModuleDir ?>
     <?ifndef env.MumbleNoMergeModule ?>
       <?define MergeModuleDir = "C:\Program Files (x86)\Common Files\Merge Modules" ?>
