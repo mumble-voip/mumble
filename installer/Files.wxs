@@ -109,12 +109,15 @@
         </Component>
       <?endif ?>
 
-      <?ifdef RedistDirVC10 ?>
-      <Component Id="msvcp100.dll">
-        <File Source="$(var.RedistDirVC10)\msvcp100.dll" KeyPath="yes" />
+      <?ifdef RedistDirVC12 ?>
+      <Component Id="msvcp120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
       </Component>
-      <Component Id="msvcr100.dll">
-        <File Source="$(var.RedistDirVC10)\msvcr100.dll" KeyPath="yes" />
+      <Component Id="msvcr120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="vccorlib120.dll">
+        <File Source="$(var.RedistDirVC12)\vccorlib120.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
     </DirectoryRef>

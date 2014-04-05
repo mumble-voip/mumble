@@ -72,6 +72,18 @@
     <?define MergeModuleDir = "$(env.MumbleMergeModuleDir)" ?>
   <?endif ?>
 
+  <!-- If the MumbleNoMergeModule env var is set, prefer embedding the .DLLs directly into the installer. -->
+  <?ifdef env.MumbleNoMergeModule ?>
+    <!-- But, if the MumbleNoEmbedVCRedist env var is set, don't embed them anyway. -->
+    <?ifndef env.MumbleNoEmbedVCRedist ?>
+       <?ifndef env.MumbleRedistDirVC12 ?>
+         <?define RedistDirVC12 = "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\redist\x86\Microsoft.VC120.CRT" ?>
+       <?else ?>
+         <?define RedistDirVC12 = "$(env.MumbleRedistDirVC12)" ?>
+       <?endif ?>
+    <?endif ?>
+  <?endif ?>
+
   <!-- Environment flags to disable features. Value doesn't matter -->
   <?ifdef env.MumbleSSE ?>
     <?define SSE = true ?>
