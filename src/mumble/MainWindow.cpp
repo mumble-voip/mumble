@@ -619,7 +619,7 @@ static void recreateServerHandler() {
 }
 
 void MainWindow::openUrl(const QUrl &url) {
-	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
+	g.l->log(Log::Information, tr("Opening URL %1").arg(Qt::escape(url.toString())));
 	if (url.scheme() == QLatin1String("file")) {
 		QFile f(url.toLocalFile());
 		if (! f.exists() || ! f.open(QIODevice::ReadOnly)) {
@@ -2540,7 +2540,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
-			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString()));
+			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(Qt::escape(e.errorString())));
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
@@ -2584,7 +2584,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 
 		if (! reason.isEmpty()) {
-			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(Qt::escape(reason)));
 		}  else {
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
@@ -2743,7 +2743,7 @@ void MainWindow::updateChatBar() {
 void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
-		g.l->log(Log::Information, mbe->msg);
+		g.l->log(Log::Information, Qt::escape(mbe->msg));
 		return;
 	} else if (evt->type() == OU_QEVENT) {
 		OpenURLEvent *oue=static_cast<OpenURLEvent *>(evt);

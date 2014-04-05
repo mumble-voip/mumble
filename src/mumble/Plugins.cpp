@@ -401,7 +401,7 @@ void Plugins::on_Timer_timeout() {
 	QReadLocker lock(&qrwlPlugins);
 
 	if (prevlocked) {
-		g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname));
+		g.l->log(Log::Information, tr("%1 lost link.").arg(Qt::escape(prevlocked->shortname)));
 		prevlocked = NULL;
 	}
 
@@ -475,7 +475,7 @@ void Plugins::on_Timer_timeout() {
 	if (pi->enabled) {
 		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
 			pi->shortname = QString::fromStdWString(pi->p->shortname);
-			g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname));
+			g.l->log(Log::Information, tr("%1 linked.").arg(Qt::escape(pi->shortname)));
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;

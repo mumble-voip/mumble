@@ -110,7 +110,7 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 			break;
 	}
 
-	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(reason));
+	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(Qt::escape(reason)));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
@@ -242,7 +242,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
 				if (msg.has_name())
-					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name())));
+					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(Qt::escape(u8(msg.name()))));
 				else
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
 			}
@@ -257,7 +257,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		default: {
 				if (msg.has_reason())
-					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
+					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
 				else
 					g.l->log(Log::PermissionDenied, tr("Permission denied."));
 			}
@@ -506,7 +506,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
-	QString reason = u8(msg.reason());
+	QString reason = Qt::escape(u8(msg.reason()));
 
 	if (pDst == pSelf) {
 		if (msg.ban())
