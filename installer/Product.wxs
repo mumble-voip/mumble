@@ -52,7 +52,7 @@
         </Directory>
 
         <?ifdef MergeModuleDir ?>
-          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC100_CRT_x86.msm" DiskId="1" Language="1033" />
+          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC120_CRT_x86.msm" DiskId="1" Language="1033" />
         <?endif ?>
       </Directory>
 
