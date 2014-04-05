@@ -2,7 +2,7 @@
 <Include>
   <?define ProductName = "Mumble" ?>
   <?define ProductManufacturer = "Thorvald Natvig" ?>
-  <?define ProductVersion = "1.2.5" ?>
+  <?define ProductVersion = "1.3.0" ?>
 
   <!-- Enable the StaticBuild option if we detect MUMBLE_PREFIX in the environment -->
   <?ifdef env.MUMBLE_PREFIX ?>
