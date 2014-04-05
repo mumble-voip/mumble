@@ -991,7 +991,7 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		return;
 
 	QMessageBox::StandardButton result;
-	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 
 	if (result == QMessageBox::Yes)
 		g.sh->registerUser(p->uiSession);
@@ -1345,9 +1345,9 @@ void MainWindow::on_qaUserRegister_triggered() {
 	QMessageBox::StandardButton result;
 
 	if (session == g.uiSession)
-		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 	else
-		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 
 	if (result == QMessageBox::Yes) {
 		p = ClientUser::get(session);
@@ -1483,7 +1483,7 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	unsigned int session = p->uiSession;
 
 	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
-	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
+	                                tr("Are you sure you want to reset the comment of user %1?").arg(Qt::escape(p->qsName)),
 	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
 		g.sh->setUserComment(session, QString());
@@ -1704,7 +1704,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 	int id = c->iId;
 
-	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(Qt::escape(c->qsName)), QMessageBox::Yes, QMessageBox::No);
 
 	c = Channel::get(id);
 	if (!c)
@@ -2731,10 +2731,10 @@ void MainWindow::updateChatBar() {
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(Qt::escape(c->qsName)));
 	} else {
 		// User target
-		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(Qt::escape(p->qsName)));
 	}
 
 	updateMenuPermissions();

@@ -156,7 +156,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 	
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
 
 	// Update QActions and menues
 	on_qmServer_aboutToShow();
