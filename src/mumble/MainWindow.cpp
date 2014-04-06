@@ -1242,12 +1242,6 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
-
-		qaUserMute->setEnabled(false);
-		qaUserDeaf->setEnabled(false);
-		qaUserPrioritySpeaker->setEnabled(false);
-		qaUserLocalMute->setEnabled(false);
-		qaUserLocalIgnore->setEnabled(false);
 	} else {
 		qaUserKick->setEnabled(! self);
 		qaUserBan->setEnabled(! self);
@@ -1884,6 +1878,7 @@ void MainWindow::updateMenuPermissions() {
 	} else {
 		qaUserMute->setEnabled(false);
 		qaUserDeaf->setEnabled(false);
+		qaUserPrioritySpeaker->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserInformation->setEnabled(false);
 	}
