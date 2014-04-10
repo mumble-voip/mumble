@@ -2722,7 +2722,7 @@ void MainWindow::updateChatBar() {
 void MainWindow::customEvent(QEvent *evt) {
 	if (evt->type() == MB_QEVENT) {
 		MessageBoxEvent *mbe=static_cast<MessageBoxEvent *>(evt);
-		g.l->log(Log::Information, mbe->msg);
+		g.l->log(Log::Information, Qt::escape(mbe->msg));
 		return;
 	} else if (evt->type() == OU_QEVENT) {
 		OpenURLEvent *oue=static_cast<OpenURLEvent *>(evt);
