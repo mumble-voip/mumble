@@ -2406,7 +2406,6 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <source>Ban List - %n Ban(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -4763,7 +4762,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="-2"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <translation>אל %1 (עץ): %2</translation>
     </message>
     <message>
@@ -4935,8 +4934,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אל %1: %2&lt;/p&gt;</translation>
+        <source>To %1: </source>
+        <translation type="unfinished">אל %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5910,8 +5909,8 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+201"/>
@@ -7712,7 +7711,6 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>

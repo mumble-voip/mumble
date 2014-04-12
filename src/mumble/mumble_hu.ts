@@ -4801,8 +4801,8 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>%1 felhasználónak: %2</translation>
+        <source>To %1: </source>
+        <translation>%1 felhasználónak: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -4892,7 +4892,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+0"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5990,8 +5990,8 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+174"/>

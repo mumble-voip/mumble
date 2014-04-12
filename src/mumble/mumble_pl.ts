@@ -5003,8 +5003,8 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5493,8 +5493,8 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>Do %1: %2</translation>
+        <source>To %1: </source>
+        <translation>Do %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5514,9 +5514,9 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     </message>
     <message>
         <location line="+301"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>(Do drzewa kanałów) %1: %2</translation>
+        <translation>(Do drzewa kanałów) %1: </translation>
     </message>
     <message>
         <location line="+625"/>

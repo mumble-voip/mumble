@@ -641,8 +641,8 @@ void MainWindow::msgTextMessage(const MumbleProto::TextMessage &msg) {
 		target += tr("(Channel) ");
 	}
 
-	g.l->log(Log::TextMessage, tr("%2%1: %3").arg(name).arg(target).arg(u8(msg.message())),
-	         tr("Message from %1").arg(plainName));
+	g.l->log(Log::TextMessage, u8(msg.message()), tr("Message from %1").arg(plainName),
+		false, tr("%2%1: ").arg(name).arg(target));
 }
 
 void MainWindow::msgACL(const MumbleProto::ACL &msg) {

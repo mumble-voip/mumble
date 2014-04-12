@@ -2377,8 +2377,6 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <source>Ban List - %n Ban(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -5135,8 +5133,8 @@ Platné možnosti jsou:
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>Pro %1: %2</translation>
+        <source>To %1: </source>
+        <translation>Pro %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5566,8 +5564,8 @@ Platné možnosti jsou:
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5792,9 +5790,9 @@ Platné možnosti jsou:
     </message>
     <message>
         <location line="+301"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>Do %1 (Strom): %2</translation>
+        <translation>Do %1 (Strom): </translation>
     </message>
     <message>
         <location line="+574"/>
@@ -7689,8 +7687,6 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>

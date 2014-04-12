@@ -5199,7 +5199,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
+        <source>%2%1: </source>
         <translation></translation>
     </message>
     <message>
@@ -5416,8 +5416,8 @@ Valid options are:
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>%1 宛: %2</translation>
+        <source>To %1: </source>
+        <translation>%1 宛: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5437,9 +5437,9 @@ Valid options are:
     </message>
     <message>
         <location line="+301"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>(ツリー） %1宛: %2</translation>
+        <translation>(ツリー） %1宛: </translation>
     </message>
     <message>
         <location line="+803"/>

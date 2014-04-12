@@ -419,7 +419,7 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	}
 }
 
-void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage) {
+void Log::log(MsgType mt, const QString &console, const QString &terse, bool ownMessage, const QString &prefix) {
 	QDateTime dt = QDateTime::currentDateTime();
 
 	int ignore = qmIgnore.value(mt);
@@ -460,6 +460,9 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.insertBlock();
 		}
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate)), Log::Time));
+		if (!prefix.isNull()) {
+			tc.insertHtml(prefix);
+		}
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);

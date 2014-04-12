@@ -2368,7 +2368,6 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <source>Ban List - %n Ban(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -5177,8 +5176,8 @@ Las opciones válidas son:
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5398,8 +5397,8 @@ Las opciones válidas son:
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>A %1: %2</translation>
+        <source>To %1: </source>
+        <translation>A %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5777,9 +5776,9 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     </message>
     <message>
         <location line="+301"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>Al (Árbol) %1: %2</translation>
+        <translation>Al (Árbol) %1: </translation>
     </message>
     <message>
         <location line="+574"/>
@@ -7676,7 +7675,6 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>

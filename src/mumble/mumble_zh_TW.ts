@@ -4704,7 +4704,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="-2"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
         <translation type="unfinished"></translation>
     </message>
@@ -4713,9 +4713,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
         <oldsource>%1: %2</oldsource>
-        <translation type="unfinished">發送給 %1: %2</translation>
+        <source>To %1: </source>
+        <translation type="unfinished">發送給 %1: </translation>
     </message>
     <message>
         <location line="-716"/>
@@ -5772,7 +5772,7 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
+        <source>%2%1: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>

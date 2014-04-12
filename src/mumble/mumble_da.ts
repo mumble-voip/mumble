@@ -2371,7 +2371,6 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <source>Ban List - %n Ban(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -4878,8 +4877,8 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>Til %1: %2</translation>
+        <source>To %1: </source>
+        <translation>Til %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -4942,9 +4941,9 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     </message>
     <message>
         <location line="+678"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>Til %1 (træ): %2</translation>
+        <translation>Til %1 (træ): </translation>
     </message>
     <message>
         <location line="+163"/>
@@ -5935,8 +5934,8 @@ Otherwise abort and check your certificate and username.</source>
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="-281"/>
@@ -7688,7 +7687,6 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>

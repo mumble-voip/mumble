@@ -5351,8 +5351,8 @@ Les options valides sont :
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1 : %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1 : </translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5506,8 +5506,8 @@ Les options valides sont :
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>À %1 : %2</translation>
+        <source>To %1: </source>
+        <translation>À %1 : </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -5527,9 +5527,9 @@ Les options valides sont :
     </message>
     <message>
         <location line="+301"/>
-        <source>To %1 (Tree): %2</source>
+        <source>To %1 (Tree): </source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>À l&apos;arborescence %1 : %2</translation>
+        <translation>À l&apos;arborescence %1 : </translation>
     </message>
     <message>
         <location line="+803"/>
