@@ -4801,7 +4801,6 @@ certificato ed il nome utente.</translation>
     <message>
         <location line="-2"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation type="unfinished">Per il canale %1 e sottocanali: </translation>
     </message>
     <message>
@@ -4809,7 +4808,6 @@ certificato ed il nome utente.</translation>
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <oldsource>%1: %2</oldsource>
         <source>To %1: </source>
         <translation>Per %1: </translation>
     </message>

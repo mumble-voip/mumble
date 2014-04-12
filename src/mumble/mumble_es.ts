@@ -5777,7 +5777,6 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>Al (Árbol) %1: </translation>
     </message>
     <message>

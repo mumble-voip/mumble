@@ -5567,7 +5567,6 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>An %1 (Baum): </translation>
     </message>
     <message>
@@ -5575,7 +5574,6 @@ Falls nicht, brechen Sie ab und überprüfen Sie Ihr Zertifikat und Ihren Benutz
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <oldsource>%1: %2</oldsource>
         <source>To %1: </source>
         <translation>An %1: </translation>
     </message>

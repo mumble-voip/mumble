@@ -4935,7 +4935,6 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+0"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>Para %1 (Árvore): </translation>
     </message>
     <message>

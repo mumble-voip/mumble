@@ -5378,7 +5378,6 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>Для %1 (Дерево): </translation>
     </message>
     <message>

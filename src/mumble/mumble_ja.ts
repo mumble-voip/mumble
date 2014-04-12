@@ -5438,7 +5438,6 @@ Valid options are:
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>(ツリー） %1宛: </translation>
     </message>
     <message>

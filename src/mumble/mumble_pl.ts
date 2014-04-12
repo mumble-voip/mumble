@@ -5515,7 +5515,6 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>(Do drzewa kanałów) %1: </translation>
     </message>
     <message>

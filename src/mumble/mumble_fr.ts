@@ -5528,7 +5528,6 @@ Les options valides sont :
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>À l&apos;arborescence %1 : </translation>
     </message>
     <message>

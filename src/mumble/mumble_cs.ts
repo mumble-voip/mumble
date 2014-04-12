@@ -5791,7 +5791,6 @@ Platné možnosti jsou:
     <message>
         <location line="+301"/>
         <source>To %1 (Tree): </source>
-        <oldsource>(Tree) %1: %2</oldsource>
         <translation>Do %1 (Strom): </translation>
     </message>
     <message>
