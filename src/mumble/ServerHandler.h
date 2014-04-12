@@ -139,6 +139,7 @@ class ServerHandler : public QThread {
 		void sendUserTextMessage(unsigned int uiSession, const QString &message_);
 		void sendChannelTextMessage(unsigned int channel, const QString &message_, bool tree);
 		void setUserComment(unsigned int uiSession, const QString &comment);
+		void setUserTexture(unsigned int uiSession, const QByteArray &qba);
 		void removeChannel(unsigned int channel);
 		void addChannelLink(unsigned int channel, unsigned int link);
 		void removeChannelLink(unsigned int channel, unsigned int link);

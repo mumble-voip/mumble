@@ -681,46 +681,7 @@ void ServerHandler::createChannel(unsigned int parent_, const QString &name, con
 }
 
 void ServerHandler::setTexture(const QByteArray &qba) {
-	QByteArray texture;
-	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
-		texture = qba;
-	} else {
-		QByteArray raw = qba;
-		QBuffer qb(& raw);
-		qb.open(QIODevice::ReadOnly);
-		QImageReader qir;
-		if (qba.startsWith("<?xml"))
-			qir.setFormat("svg");
-		qir.setDevice(&qb);
-
-		QSize sz = qir.size();
-		sz.scale(600, 60, Qt::KeepAspectRatio);
-		qir.setScaledSize(sz);
-
-		QImage tex = qir.read();
-
-		if (tex.isNull())
-			return;
-
-		qWarning() << tex.width() << tex.height();
-
-		raw = QByteArray(600*60*4, 0);
-		QImage img(reinterpret_cast<unsigned char *>(raw.data()), 600, 60, QImage::Format_ARGB32);
-
-		QPainter imgp(&img);
-		imgp.setRenderHint(QPainter::Antialiasing);
-		imgp.setRenderHint(QPainter::TextAntialiasing);
-		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
-		imgp.drawImage(0, 0, tex);
-
-		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4));
-	}
-	MumbleProto::UserState mpus;
-	mpus.set_texture(blob(texture));
-	sendMessage(mpus);
-
-	if (! texture.isEmpty())
-		Database::setBlob(sha1(texture), texture);
+	setUserTexture(0, qba);
 }
 
 void ServerHandler::requestBanList() {
@@ -781,6 +742,52 @@ void ServerHandler::setUserComment(unsigned int uiSession, const QString &commen
 	mpus.set_session(uiSession);
 	mpus.set_comment(u8(comment));
 	sendMessage(mpus);
+}
+
+void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba) {
+	QByteArray texture;
+	if ((uiVersion >= 0x010202) || qba.isEmpty()) {
+		texture = qba;
+	} else {
+		QByteArray raw = qba;
+		QBuffer qb(& raw);
+		qb.open(QIODevice::ReadOnly);
+		QImageReader qir;
+		if (qba.startsWith("<?xml"))
+			qir.setFormat("svg");
+		qir.setDevice(&qb);
+
+		QSize sz = qir.size();
+		sz.scale(600, 60, Qt::KeepAspectRatio);
+		qir.setScaledSize(sz);
+
+		QImage tex = qir.read();
+
+		if (tex.isNull())
+			return;
+
+		qWarning() << tex.width() << tex.height();
+
+		raw = QByteArray(600*60*4, 0);
+		QImage img(reinterpret_cast<unsigned char *>(raw.data()), 600, 60, QImage::Format_ARGB32);
+
+		QPainter imgp(&img);
+		imgp.setRenderHint(QPainter::Antialiasing);
+		imgp.setRenderHint(QPainter::TextAntialiasing);
+		imgp.setCompositionMode(QPainter::CompositionMode_SourceOver);
+		imgp.drawImage(0, 0, tex);
+
+		texture = qCompress(QByteArray(reinterpret_cast<const char *>(img.bits()), 600*60*4));
+	}
+	MumbleProto::UserState mpus;
+	if (uiSession > 0) {
+		mpus.set_session(uiSession);
+	}
+	mpus.set_texture(blob(texture));
+	sendMessage(mpus);
+
+	if (! texture.isEmpty())
+		Database::setBlob(sha1(texture), texture);
 }
 
 void ServerHandler::removeChannel(unsigned int channel) {
