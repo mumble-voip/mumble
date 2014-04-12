@@ -29,6 +29,7 @@
 */
 
 #include <QStringList>
+#include <QTextDocument>
 
 #include "UserListModel.h"
 #include "Channel.h"
