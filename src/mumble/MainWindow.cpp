@@ -1131,11 +1131,11 @@ void MainWindow::on_qaServerTexture_triggered() {
 	const QImage &img = choice.second;
 
 	if ((img.height() <= 1024) && (img.width() <= 1024))
-		g.sh->setTexture(choice.first);
+		g.sh->setUserTexture(g.uiSession, choice.first);
 }
 
 void MainWindow::on_qaServerTextureRemove_triggered() {
-	g.sh->setTexture(QByteArray());
+	g.sh->setUserTexture(g.uiSession, QByteArray());
 }
 
 void MainWindow::on_qaServerTokens_triggered() {
@@ -1193,6 +1193,7 @@ void MainWindow::qmUser_aboutToShow() {
 	else {
 		qmUser->addAction(qaUserCommentView);
 		qmUser->addAction(qaUserCommentReset);
+		qmUser->addAction(qaUserTextureReset);
 	}
 
 	qmUser->addAction(qaUserTextMessage);
@@ -1244,6 +1245,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
+		qaUserTextureReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
 		qaUserKick->setEnabled(! self);
@@ -1252,6 +1254,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(! self);
 		qaUserLocalIgnore->setEnabled(! self);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
@@ -1490,6 +1493,22 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
 		g.sh->setUserComment(session, QString());
+	}
+}
+
+void MainWindow::on_qaUserTextureReset_triggered() {
+	ClientUser *p = getContextMenuUser();
+
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
+	                                tr("Are you sure you want to reset the avatar of user %1?").arg(Qt::escape(p->qsName)),
+	                                QMessageBox::Yes, QMessageBox::No);
+	if (ret == QMessageBox::Yes) {
+		g.sh->setUserTexture(session, QByteArray());
 	}
 }
 
