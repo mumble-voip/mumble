@@ -1477,6 +1477,19 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					QMap<int, QString> info;
 					info.insert(ServerDB::User_Name, name);
 					setInfo(id, info);
+
+					MumbleProto::UserState mpus;
+					foreach(ServerUser *u, qhUsers) {
+						if (u->iId == id) {
+							u->qsName = name;
+							mpus.set_session(u->uiSession);
+							break;
+						}
+					}
+					if (mpus.has_session()) {
+						mpus.set_name(u8(name));
+						sendAll(mpus);
+					}
 				} else {
 					MumbleProto::PermissionDenied mppd;
 					mppd.set_type(MumbleProto::PermissionDenied_DenyType_UserName);

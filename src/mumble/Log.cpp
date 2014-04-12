@@ -266,7 +266,7 @@ QString Log::formatChannel(::Channel *c) {
 	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(Qt::escape(c->qsName)).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
-QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
+QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName) {
 	QString className;
 	if (t == Log::Target) {
 		className = QString::fromLatin1("target");
@@ -275,7 +275,7 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
 	}
 
 	if (cu) {
-		QString name = Qt::escape(cu->qsName);
+		QString name = Qt::escape(displayName.isNull() ? cu->qsName : displayName);
 		if (cu->qsHash.isEmpty()) {
 			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
