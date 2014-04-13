@@ -388,16 +388,23 @@ static void resetHooks() {
 	resetDeviceHooks();
 }
 
-
 static void doPresent(IDirect3DDevice9 *idd) {
-	DevMapType::iterator it = devMap.find(idd);
-	DevState *ds = it != devMap.end() ? it->second : NULL;
+	bool stateBlockAvailable = false;
+	// Mutex block - Shared resource devMap
+	{
+		// Shared resource devMap
+		Mutex m;
 
-	if (ds && ds->pSB) {
-		if (idd != ds->getDevice()) {
+		DevMapType::iterator it = devMap.find(idd);
+		DevState *ds = it != devMap.end() ? it->second : NULL;
+		stateBlockAvailable = ds != NULL && ds->pSB != NULL;
+
+		if (ds != NULL && idd != ds->getDevice()) {
 			ods("D3D9: Presenting on a different device than DevState has");
 		}
+	}
 
+	if (stateBlockAvailable) {
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
 		HRESULT hres = idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
@@ -442,12 +449,20 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			return;
 		}
 
-		hres = ds->pSB->Apply();
-		if (FAILED(hres)) {
-			pStateBlock->Release();
-			pRenderTarget->Release();
-			pTarget->Release();
-			return;
+		// Mutex block - Shared resource devMap
+		{
+			Mutex m;
+
+			DevMapType::iterator it = devMap.find(idd);
+			DevState *ds = it != devMap.end() ? it->second : NULL;
+			if (ds != NULL) {
+				hres = ds->pSB->Apply();
+			}
+			if (ds == NULL || FAILED(hres)) {
+				pStateBlock->Release();
+				pRenderTarget->Release();
+				return;
+			}
 		}
 
 		if (pTarget != pRenderTarget) {
@@ -462,8 +477,12 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			// This should probably be made safe with Mutex as well. But draw
 			// can lead to Mutex locks further down the code path, hence we can
 			// not do so here.
-			ds->draw();
-			hres = idd->EndScene();
+			DevMapType::iterator it = devMap.find(idd);
+			DevState *ds = it != devMap.end() ? it->second : NULL;
+			if (ds != NULL) {
+				ds->draw();
+				hres = idd->EndScene();
+			}
 		}
 
 		// Restore original state
