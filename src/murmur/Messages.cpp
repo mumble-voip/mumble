@@ -492,6 +492,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	msg.set_session(pDstServerUser->uiSession);
 	msg.set_actor(uSource->uiSession);
 
+	if (msg.has_name()) {
+		PERM_DENIED_TYPE(UserName);
+		return;
+	}
+
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());
 		if (!c || (c == pDstServerUser->cChannel))
