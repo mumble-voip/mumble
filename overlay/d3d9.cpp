@@ -687,16 +687,17 @@ static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 	IDirect3DSwapChain9 *pSwap = NULL;
 	device->GetSwapChain(0, &pSwap);
 	if (pSwap) {
-
 		IDirect3DDevice9 *originalDevice = NULL;
 		if (SUCCEEDED(pSwap->GetDevice(&originalDevice))) {
-
 			if (originalDevice == device) {
 				// Found the original device. Release responsibility is passed
 				// to the caller.
-			} else {
-				device = findOriginalDevice(originalDevice);
+				// No ref for ourselves. We hook and catch calls to Release of
+				// the device itself.
 				originalDevice->Release();
+			} else {
+				device->Release();
+				device = findOriginalDevice(originalDevice);
 			}
 
 		} else {
