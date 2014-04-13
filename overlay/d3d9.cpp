@@ -596,29 +596,6 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	return res;
 }
 
-static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	AddRefType oAddRef = (AddRefType) hhAddRef.call;
-	hhAddRef.restore();
-	ULONG res = oAddRef(idd);
-	hhAddRef.inject();
-
-	// Shared resource devMap
-	Mutex m;
-
-	DevMapType::iterator it = devMap.find(idd);
-	if (it != devMap.end()) {
-		it->second->refCount = res;
-	}
-
-	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
-		ods("D3D9: Chained AddRef of %p with result %d", idd, res);
-	}
-
-	return res;
-}
-
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 
 static ULONG updateRef(IDirect3DDevice9 *idd, ULONG refCount) {
@@ -705,23 +682,6 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	return res;
 }
 
-static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	ReleaseType oRelease = (ReleaseType) hhRelease.call;
-	hhRelease.restore();
-	ULONG res = oRelease(idd);
-	hhRelease.inject();
-
-	res = updateRef(idd, res);
-
-	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
-		ods("D3D9: Chained Release of %p with result %d", idd, res);
-	}
-
-	return res;
-}
-
 static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 	assert(device != NULL);
 	IDirect3DSwapChain9 *pSwap = NULL;
@@ -790,13 +750,8 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 	const unsigned int offsetRelease = 2;
 	const unsigned int offsetReset = 16;
 	const unsigned int offsetPresent = 17;
-	if (bIsWin8) {
-		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myWin8AddRef));
-		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myWin8Release));
-	} else {
-		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
-		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
-	}
+	hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
+	hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
 	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 
@@ -855,13 +810,9 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 	// On IDirect3DDevice9Ex
 	const unsigned int offsetPresentEx = 121;
 	const unsigned int offsetResetEx = 132;
-	if (bIsWin8) {
-		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myWin8AddRef));
-		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myWin8Release));
-	} else {
-		hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
-		hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
-	}
+	hhAddRef.setupInterface(idd, offsetAddref, reinterpret_cast<voidFunc>(myAddRef));
+	hhRelease.setupInterface(idd, offsetRelease, reinterpret_cast<voidFunc>(myRelease));
+
 	hhReset.setupInterface(idd, offsetReset, reinterpret_cast<voidFunc>(myReset));
 	hhResetEx.setupInterface(idd, offsetResetEx, reinterpret_cast<voidFunc>(myResetEx));
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));

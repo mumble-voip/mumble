@@ -36,8 +36,6 @@ static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
 
-BOOL bIsWin8 = FALSE;
-
 static BOOL bMumble = FALSE;
 static BOOL bDebug = FALSE;
 static BOOL bBlackListed = FALSE;
@@ -528,16 +526,6 @@ static void dllmainProcAttach(char *procname) {
 			return;
 		}
 	}
-
-
-	OSVERSIONINFOEX ovi;
-	memset(&ovi, 0, sizeof(ovi));
-	ovi.dwOSVersionInfoSize = sizeof(ovi);
-	GetVersionEx(reinterpret_cast<OSVERSIONINFO *>(&ovi));
-	bIsWin8 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) && (ovi.dwBuildNumber >= 9200));
-
-	ods("Lib: bIsWin8: %i", bIsWin8);
-
 
 	hHookMutex = CreateMutex(NULL, false, "MumbleHookMutex");
 	if (hHookMutex == NULL) {
