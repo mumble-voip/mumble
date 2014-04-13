@@ -562,6 +562,16 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
+		if (uSource != pDstServerUser) {
+			if (! hasPermission(uSource, root, ChanACL::Move)) {
+				PERM_DENIED(uSource, root, ChanACL::Move);
+				return;
+			}
+			if (msg.texture().length() > 0) {
+				PERM_DENIED_TYPE(TextTooLong);
+				return;
+			}
+		}
 	}
 
 
@@ -578,7 +588,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	// Prevent self-targeting state changes from being applied to others
-	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording()))
+	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording()))
 		return;
 
 	/*
@@ -588,13 +598,13 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_texture()) {
 		QByteArray qba = blob(msg.texture());
-		if (uSource->iId > 0) {
+		if (pDstServerUser->iId > 0) {
 			// For registered users store the texture we just received in the database
-			if (! setTexture(uSource->iId, qba))
+			if (! setTexture(pDstServerUser->iId, qba))
 				return;
 		} else {
 			// For unregistered users or SuperUser only get the hash
-			hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, qba);
+			hashAssign(pDstServerUser->qbaTexture, pDstServerUser->qbaTextureHash, qba);
 		}
 
 		// The texture will be sent out later in this function

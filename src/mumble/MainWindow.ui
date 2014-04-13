@@ -788,6 +788,14 @@ the channel's context menu.</string>
     <string>Reset the comment of the selected user.</string>
    </property>
   </action>
+  <action name="qaUserTextureReset">
+   <property name="text">
+    <string>Reset &amp;Avatar</string>
+   </property>
+   <property name="toolTip">
+    <string>Reset the avatar of the selected user.</string>
+   </property>
+  </action>
   <action name="qaChannelJoin">
    <property name="text">
     <string>&amp;Join Channel</string>
