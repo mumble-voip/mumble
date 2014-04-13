@@ -76,9 +76,11 @@ class DevState : public Pipe {
 		unsigned int frameCount;
 
 		DevState(IDirect3DDevice9 *device);
+		~DevState();
 
 		IDirect3DDevice9* getDevice() { return dev; }
 
+		DWORD releaseDevice();
 		void createCleanState();
 		void releaseStateBlock();
 		void releaseTexture();
@@ -108,8 +110,7 @@ DevState::DevState(IDirect3DDevice9 *device) {
 	texTexture = NULL;
 	dev = device;
 
-	dev->AddRef();
-	refCount = dev->Release();
+	refCount = dev->AddRef();
 
 	timeT = clock();
 	frameCount = 0;
@@ -119,6 +120,22 @@ DevState::DevState(IDirect3DDevice9 *device) {
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].z = vertices[i].rhw = 1.0f;
 	}
+}
+
+DevState::~DevState() {
+	releaseAll();
+	releaseDevice();
+	ods("Deleted DevState with final refCount %d", refCount);
+}
+
+DWORD DevState::releaseDevice() {
+	if (dev) {
+		refCount = dev->Release();
+		dev = NULL;
+	} else {
+		ods("D3D9: DevState::releaseDevice called but nothing to release ...");
+	}
+	return refCount;
 }
 
 void DevState::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
