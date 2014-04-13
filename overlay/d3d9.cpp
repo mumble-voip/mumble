@@ -537,6 +537,9 @@ typedef HRESULT(__stdcall *ResetType)(IDirect3DDevice9 *, D3DPRESENT_PARAMETERS 
 static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *param) {
 	ods("D3D9: Chaining Reset");
 
+	// Shared resource devMap
+	Mutex m;
+
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
 	if (ds) {
@@ -564,6 +567,9 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *p
 typedef HRESULT(__stdcall *ResetExType)(IDirect3DDevice9Ex *, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *);
 static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETERS *param, D3DDISPLAYMODEEX *param2) {
 	ods("D3D9: Chaining ResetEx");
+
+	// Shared resource devMap
+	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
@@ -809,11 +815,10 @@ static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
 static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
-	Mutex m;
-
 	ods("D3D9: Chaining CreateDevice");
 
-//	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
+	// Shared resource devMap
+	Mutex m;
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -885,10 +890,10 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 
 typedef HRESULT(__stdcall *CreateDeviceExType)(IDirect3D9Ex *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *, IDirect3DDevice9Ex **);
 static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX *pFullscreenDisplayMode, IDirect3DDevice9Ex **ppReturnedDeviceInterface) {
-	Mutex m;
 	ods("D3D9: Chaining CreateDeviceEx");
 
-//	BehaviorFlags &= ~D3DCREATE_PUREDEVICE;
+	// Shared resource devMap
+	Mutex m;
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
