@@ -29,8 +29,11 @@
 */
 
 #include "lib.h"
+#include <assert.h>
 #include <d3d9.h>
 #include <time.h>
+
+static const unsigned int DEBUG_OUTPUT_MAX_REFCOUNT = 7;
 
 Direct3D9Data *d3dd = NULL;
 
@@ -62,7 +65,6 @@ static const DWORD D3DFVF_TLVERTEX = D3DFVF_XYZRHW | D3DFVF_TEX1;
 
 class DevState : public Pipe {
 	public:
-		IDirect3DDevice9 *dev;
 		IDirect3DStateBlock9 *pSB;
 
 		/// Non-Win8: Initial ref count, directly after device creation.
@@ -80,16 +82,21 @@ class DevState : public Pipe {
 		clock_t timeT;
 		unsigned int frameCount;
 
-		DevState();
+		DevState(IDirect3DDevice9 *device);
+
+		IDirect3DDevice9* getDevice() { return dev; }
 
 		void createCleanState();
-		void releaseData();
+		void releaseStateBlock();
+		void releaseTexture();
 		void releaseAll();
 		void draw();
 
 		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		virtual void setRect();
 		virtual void newTexture(unsigned int width, unsigned int height);
+	private:
+		IDirect3DDevice9 *dev;
 };
 
 /// Vtable offset; see d3d9.h of win-/D3D-API.
@@ -103,14 +110,14 @@ typedef map<IDirect3DDevice9 *, DevState *> DevMapType;
 static DevMapType devMap;
 static bool bHooked = false;
 
-DevState::DevState() {
-	dev = NULL;
+DevState::DevState(IDirect3DDevice9 *device) {
 	pSB = NULL;
+	texTexture = NULL;
+	dev = device;
 	dwMyThread = 0;
 	initRefCount = 0;
 	refCount = 0;
 	myRefCount = 0;
-	texTexture = NULL;
 
 	timeT = clock();
 	frameCount = 0;
@@ -119,15 +126,6 @@ DevState::DevState() {
 		vertices[i].x = vertices[i].y = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].z = vertices[i].rhw = 1.0f;
-	}
-}
-
-void DevState::releaseData() {
-	ods("D3D9: Release Data");
-
-	if (texTexture) {
-		texTexture->Release();
-		texTexture = NULL;
 	}
 }
 
@@ -206,10 +204,7 @@ void DevState::setRect() {
 void DevState::newTexture(unsigned int width, unsigned int height) {
 	ods("D3D9: New texture %d x %d", width, height);
 
-	if (texTexture) {
-		texTexture->Release();
-		texTexture = NULL;
-	}
+	releaseTexture();
 
 	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
 
@@ -218,14 +213,38 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].rhw = 1.0f;
 	}
+	ods("D3D9: New texture created; device %p", dev);
 }
+
+void DevState::releaseTexture() {
+	if (texTexture != NULL) {
+		ods("D3D9: Releasing texture");
+		ULONG res = texTexture->Release();
+		texTexture = NULL;
+		assert(res == 0);
+		if (res > 0) {
+			ods("D3D9: Released texture, but apparently it is still referenced.");
+		}
+	}
+}
+
+void DevState::releaseStateBlock() {
+	if (pSB != NULL) {
+		ods("D3D9: Releasing stateblock");
+		ULONG res = pSB->Release();
+		pSB = NULL;
+		assert(res == 0);
+		if (res > 0) {
+			ods("D3D9: Released state block, but apparently it is still referenced.");
+		}
+	}
+}
+
 
 void DevState::releaseAll() {
 	ods("D3D9: Release All");
-	releaseData();
-	if (pSB)
-		pSB->Release();
-	pSB = NULL;
+	releaseTexture();
+	releaseStateBlock();
 }
 
 void DevState::draw() {
@@ -274,30 +293,24 @@ void DevState::draw() {
 }
 
 void DevState::createCleanState() {
+	assert(dev != NULL);
+	ods("D3D9: createCleanState; device %p", dev);
 	if (dwMyThread != 0) {
 		ods("D3D9: CreateCleanState from other thread.");
 	}
 	Stash<DWORD> stashThread(&dwMyThread, GetCurrentThreadId());
 
-	if (pSB)
-		pSB->Release();
-	pSB = NULL;
-
 	IDirect3DStateBlock9* pStateBlock = NULL;
-	dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
-	if (! pStateBlock)
+	if (FAILED(dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock)) || pStateBlock == NULL)
 		return;
 
 	pStateBlock->Capture();
 
-	dev->CreateStateBlock(D3DSBT_ALL, &pSB);
-	if (! pSB) {
+	releaseStateBlock();
+	if (FAILED(dev->CreateStateBlock(D3DSBT_ALL, &pSB)) || pSB == NULL) {
 		pStateBlock->Release();
 		return;
 	}
-
-	D3DVIEWPORT9 vp;
-	dev->GetViewport(&vp);
 
 	dev->SetVertexShader(NULL);
 	dev->SetPixelShader(NULL);
@@ -342,11 +355,41 @@ static HardHook hhPresent;
 static HardHook hhPresentEx;
 static HardHook hhSwapPresent;
 
+static void restoreDeviceHooks() {
+	hhReset.restore(true);
+	hhResetEx.restore(true);
+	hhAddRef.restore(true);
+	hhRelease.restore(true);
+	hhPresent.restore(true);
+	hhPresentEx.restore(true);
+	hhSwapPresent.restore(true);
+}
+
+static void resetDeviceHooks() {
+	hhReset.reset();
+	hhResetEx.reset();
+	hhAddRef.reset();
+	hhRelease.reset();
+	hhPresent.reset();
+	hhPresentEx.reset();
+	hhSwapPresent.reset();
+}
+
+static void resetHooks() {
+	hhCreateDevice.reset();
+	hhCreateDeviceEx.reset();
+	resetDeviceHooks();
+}
+
+
 static void doPresent(IDirect3DDevice9 *idd) {
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
 
 	if (ds && ds->pSB) {
+		if (idd != ds->getDevice()) {
+			ods("D3D9: Presenting on a different device than DevState has");
+		}
 		if (ds->dwMyThread != 0) {
 			ods("D3D9: doPresent from other thread");
 		}
@@ -361,6 +404,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			} else {
 				ods("D3D9: IDirect3DDevice9::GetBackBuffer failed");
 			}
+			return;
 		}
 		hres = idd->GetRenderTarget(0, &pRenderTarget);
 		if (FAILED(hres)) {
@@ -371,6 +415,8 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			} else {
 				ods("D3D9: IDirect3DDevice9::GetRenderTarget failed");
 			}
+			pTarget->Release();
+			return;
 		}
 
 		// Present is called for each frame. Thus, we do not want to always log here.
@@ -379,10 +425,27 @@ static void doPresent(IDirect3DDevice9 *idd) {
 		#endif
 
 		IDirect3DStateBlock9* pStateBlock = NULL;
-		idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
-		pStateBlock->Capture();
+		hres = idd->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
+		if (FAILED(hres)) {
+			pRenderTarget->Release();
+			pTarget->Release();
+			return;
+		}
+		hres = pStateBlock->Capture();
+		if (FAILED(hres)) {
+			pStateBlock->Release();
+			pRenderTarget->Release();
+			pTarget->Release();
+			return;
+		}
 
-		ds->pSB->Apply();
+		hres = ds->pSB->Apply();
+		if (FAILED(hres)) {
+			pStateBlock->Release();
+			pRenderTarget->Release();
+			pTarget->Release();
+			return;
+		}
 
 		if (pTarget != pRenderTarget) {
 			hres = idd->SetRenderTarget(0, pTarget);
@@ -391,17 +454,21 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			}
 		}
 
-		idd->BeginScene();
-		ds->draw();
-		idd->EndScene();
+		hres = idd->BeginScene();
+		if (SUCCEEDED(hres)) {
+			// This should probably be made safe with Mutex as well. But draw
+			// can lead to Mutex locks further down the code path, hence we can
+			// not do so here.
+			ds->draw();
+			hres = idd->EndScene();
+		}
 
-		pStateBlock->Apply();
+		// Restore original state
+		hres = pStateBlock->Apply();
+
 		pStateBlock->Release();
-
 		pRenderTarget->Release();
 		pTarget->Release();
-
-//		ods("D3D9: Finished ref is %d %d", ds->myRefCount, ds->refCount);
 	}
 }
 
@@ -525,6 +592,7 @@ static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETER
 typedef ULONG(__stdcall *AddRefType)(IDirect3DDevice9 *);
 
 static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
+	// Shared resource devMap
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -550,15 +618,15 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	ULONG res = oAddRef(idd);
 	hhAddRef.inject();
 
-	// AddRef is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chained AddRef with result %d", res);
-	#endif
+	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
+		ods("D3D9: Chained AddRef of %p with result %d", idd, res);
+	}
 
 	return res;
 }
 
 static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
+	// Shared resource devMap
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -583,10 +651,9 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 	if (ds)
 		ds->refCount = res;
 
-	// AddRef is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chained AddRef (Win8) with result %d", res);
-	#endif
+	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
+		ods("D3D9: Chained AddRef of %p with result %d", idd, res);
+	}
 
 	return res;
 }
@@ -594,6 +661,7 @@ static ULONG __stdcall myWin8AddRef(IDirect3DDevice9 *idd) {
 typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
+	// Shared resource devMap
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -646,15 +714,15 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	ULONG res = oRelease(idd);
 	hhRelease.inject();
 
-	// Release is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chained Release with result %d", res);
-	#endif
+	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
+		ods("D3D9: Chained Release of %p with result %d", idd, res);
+	}
 
 	return res;
 }
 
 static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
+	// Shared resource devMap
 	Mutex m;
 
 	DevMapType::iterator it = devMap.find(idd);
@@ -703,16 +771,15 @@ static ULONG __stdcall myWin8Release(IDirect3DDevice9 *idd) {
 	if (ds)
 		ds->refCount = res;
 
-	// Release is called very often. Thus, we do not want to always log here.
-	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("D3D9: Chained Release (Win8) with result: %d", res);
-	#endif
+	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
+		ods("D3D9: Chained Release of %p with result %d", idd, res);
+	}
 
 	return res;
 }
 
 static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
-
+	assert(device != NULL);
 	IDirect3DSwapChain9 *pSwap = NULL;
 	device->GetSwapChain(0, &pSwap);
 	if (pSwap) {
@@ -759,6 +826,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 		return hr;
 
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
+	assert(idd != NULL);
 
 	// Get real interface, please.
 	IDirect3DDevice9 *originalDevice = findOriginalDevice(idd);
@@ -767,15 +835,14 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 		idd = originalDevice;
 	}
 
-	DevState *ds = new DevState;
-	ds->dev = idd;
+	DevState *ds = new DevState(idd);
 
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
-		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
+		ods("Device %p exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", idd, it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
 
 		return hr;
@@ -812,6 +879,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 
 	ds->createCleanState();
 
+	ods("D3D9: Chained CreateDevice, created %p", idd);
 	return hr;
 }
 
@@ -833,16 +901,16 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 		return hr;
 
 	IDirect3DDevice9Ex *idd = *ppReturnedDeviceInterface;
+	assert(idd != NULL);
 
-	DevState *ds = new DevState;
-	ds->dev = idd;
+	DevState *ds = new DevState(idd);
 
 	idd->AddRef();
 	ds->initRefCount = idd->Release();
 
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
-		ods("Device exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", it->second->dwMyThread, GetCurrentThreadId());
+		ods("Device %p exists in devMap already - canceling injection into device. Thread prev: %d ; new: %d", idd, it->second->dwMyThread, GetCurrentThreadId());
 		delete ds;
 
 		return hr;
@@ -883,6 +951,8 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 	}
 
 	ds->createCleanState();
+
+	ods("D3D9: Chained CreateDeviceEx, created %p", idd);
 	return hr;
 }
 
@@ -916,7 +986,7 @@ static void hookD3D9(HMODULE hD3D, bool preonly);
 
 // @param preonly If rawpatching the createdevice-functions fails, don't try to
 //                patch Direct3DCreate9.
-//                Should be true on PROC_ATTACH, and false on THREAD_ATTACH. (?)
+//                Should be true on PROC_ATTACH, and false on THREAD_ATTACH and libloads. (?)
 void checkD3D9Hook(bool preonly) {
 	static bool bCheckHookActive = false;
 	if (bCheckHookActive) {
@@ -924,7 +994,7 @@ void checkD3D9Hook(bool preonly) {
 		return;
 	}
 
-	bCheckHookActive = true;
+	Stash<bool> checkHookActiveStash(&bCheckHookActive, true);
 
 	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
 
@@ -937,8 +1007,6 @@ void checkD3D9Hook(bool preonly) {
 		ods("D3D9: No D3D9.DLL found as loaded. No hooking at this point.");
 		#endif
 	}
-
-	bCheckHookActive = false;
 }
 
 static void hookD3D9(HMODULE hD3D, bool preonly) {
@@ -1015,15 +1083,7 @@ void freeD3D9Hook(HMODULE hModule) {
 	if (bHooked && !hD3D) {
 		ods("D3D9: Freeing hooks for module %p", hModule);
 
-		hhCreateDevice.reset();
-		hhCreateDeviceEx.reset();
-		hhReset.reset();
-		hhResetEx.reset();
-		hhAddRef.reset();
-		hhRelease.reset();
-		hhPresent.reset();
-		hhPresentEx.reset();
-		hhSwapPresent.reset();
+		resetHooks();
 
 		bHooked = false;
 	}
