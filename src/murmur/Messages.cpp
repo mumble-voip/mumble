@@ -492,6 +492,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	msg.set_session(pDstServerUser->uiSession);
 	msg.set_actor(uSource->uiSession);
 
+	if (msg.has_name()) {
+		PERM_DENIED_TYPE(UserName);
+		return;
+	}
+
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());
 		if (!c || (c == pDstServerUser->cChannel))
@@ -1477,6 +1482,19 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					QMap<int, QString> info;
 					info.insert(ServerDB::User_Name, name);
 					setInfo(id, info);
+
+					MumbleProto::UserState mpus;
+					foreach(ServerUser *u, qhUsers) {
+						if (u->iId == id) {
+							u->qsName = name;
+							mpus.set_session(u->uiSession);
+							break;
+						}
+					}
+					if (mpus.has_session()) {
+						mpus.set_name(u8(name));
+						sendAll(mpus);
+					}
 				} else {
 					MumbleProto::PermissionDenied mppd;
 					mppd.set_type(MumbleProto::PermissionDenied_DenyType_UserName);

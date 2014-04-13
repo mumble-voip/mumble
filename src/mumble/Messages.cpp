@@ -479,7 +479,13 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		}
 	}
 	if (msg.has_name()) {
-		pmModel->renameUser(pDst, u8(msg.name()));
+		QString oldName = pDst->qsName;
+		QString newName = u8(msg.name());
+		pmModel->renameUser(pDst, newName);
+		if (! oldName.isNull() && oldName != newName) {
+			g.l->log(Log::Information, tr("%1 renamed to %2").arg(Log::formatClientUser(pDst, Log::Target, oldName),
+				Log::formatClientUser(pDst, Log::Target)));
+		}
 	}
 	if (msg.has_texture_hash()) {
 		pDst->qbaTextureHash = blob(msg.texture_hash());
