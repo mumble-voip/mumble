@@ -90,6 +90,53 @@ LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 		twi->setWhatsThis(ColStaticSound, tr("Click here to toggle sound notification for %1 events.<br />If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.").arg(messageName));
 		twi->setWhatsThis(ColStaticSoundPath, tr("Path to sound file used for sound notifications in the case of %1 events.<br />Single click to play<br />Double-click to change<br />Ensure that sound notifications for these events are enabled or this field will not have any effect.").arg(messageName));
 	}
+
+	QMenu *sm;
+	qmTimeFormatList = new QMenu(qtbTimeFormatList);
+
+	sm = qmTimeFormatList->addMenu(tr("Hour"));
+	sm->addAction(tr("Without leading zero (0-23 or 1-12)"))->setData(tr("h"));
+	sm->addAction(tr("With leading zero (00-23 or 01-12)"))->setData(tr("hh"));
+	sm->addAction(tr("AM/PM"))->setData(tr("AP"));
+	sm->addAction(tr("am/pm"))->setData(tr("ap"));
+
+	sm = qmTimeFormatList->addMenu(tr("Minute"));
+	sm->addAction(tr("Without leading zero (0-59)"))->setData(tr("m"));
+	sm->addAction(tr("With leading zero (00-59)"))->setData(tr("mm"));
+
+	sm = qmTimeFormatList->addMenu(tr("Second"));
+	sm->addAction(tr("Without leading zero (0-59)"))->setData(tr("s"));
+	sm->addAction(tr("With leading zero (00-59)"))->setData(tr("ss"));
+
+	qmTimeFormatList->addSeparator();
+
+	sm = qmTimeFormatList->addMenu(tr("Day"));
+	sm->addAction(tr("Without leading zero (1-31)"))->setData(tr("d"));
+	sm->addAction(tr("With leading zero (01-31)"))->setData(tr("dd"));
+	sm->addAction(tr("Abbreviated name (e.g. Mon)"))->setData(tr("ddd"));
+	sm->addAction(tr("Complete name (e.g. Monday)"))->setData(tr("dddd"));
+
+	sm = qmTimeFormatList->addMenu(tr("Month"));
+	sm->addAction(tr("Without leading zero (1-12)"))->setData(tr("M"));
+	sm->addAction(tr("With leading zero (01-12)"))->setData(tr("MM"));
+	sm->addAction(tr("Abbreviated name (e.g. Jan)"))->setData(tr("MMM"));
+	sm->addAction(tr("Complete name (e.g.g January)"))->setData(tr("MMMM"));
+
+	sm = qmTimeFormatList->addMenu(tr("Year"));
+	sm->addAction(tr("Two digit (e.g. 14)"))->setData(tr("yy"));
+	sm->addAction(tr("Four digit (e.g. 2014)"))->setData(tr("yyyy"));
+
+	qmTimeFormatList->addSeparator();
+
+	qmTimeFormatList->addAction(tr("Hyphen (-)"))->setData(tr("-"));
+	qmTimeFormatList->addAction(tr("Colon (:)"))->setData(tr(":"));
+	qmTimeFormatList->addAction(tr("Space ( )"))->setData(tr(" "));
+
+	qtbTimeFormatList->setMenu(qmTimeFormatList);
+}
+
+LogConfig::~LogConfig() {
+	delete qmTimeFormatList;
 }
 
 QString LogConfig::title() const {
@@ -113,6 +160,7 @@ void LogConfig::load(const Settings &r) {
 		i->setText(ColStaticSoundPath, r.qmMessageSounds.value(mt));
 	}
 	qsbMaxBlocks->setValue(r.iMaxLogBlocks);
+	qleTimeFormat->setText(r.qsLogTimeFormat);
 
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
@@ -138,6 +186,7 @@ void LogConfig::save() const {
 		s.qmMessageSounds[mt] = i->text(ColStaticSoundPath);
 	}
 	s.iMaxLogBlocks = qsbMaxBlocks->value();
+	s.qsLogTimeFormat = qleTimeFormat->text();
 
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
@@ -152,6 +201,20 @@ void LogConfig::accept() const {
 
 bool LogConfig::expert(bool) {
 	return false;
+}
+
+void LogConfig::on_qtbTimeFormatList_triggered(QAction *action) {
+	int start, end;
+	QString format = action->data().toString();
+	if (qleTimeFormat->hasSelectedText()) {
+		start = qleTimeFormat->selectionStart();
+		end = qleTimeFormat->selectedText().length();
+	} else {
+		start = qleTimeFormat->cursorPosition();
+		end = 0;
+	}
+	qleTimeFormat->setText(qleTimeFormat->text().replace(start, end, format));
+	qleTimeFormat->setCursorPosition(start + format.length());
 }
 
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
@@ -459,7 +522,10 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate)), Log::Time));
+		QString timestamp = g.s.qsLogTimeFormat.isEmpty()
+			? dt.time().toString(Qt::DefaultLocaleShortDate)
+			: Qt::escape(dt.toString(g.s.qsLogTimeFormat));
+		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(timestamp), Log::Time));
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);

@@ -203,24 +203,41 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="0" column="3">
+       <widget class="QLabel" name="qlTimeFormat">
+        <property name="text">
+         <string>Custom time format</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>8</width>
-          <height>16</height>
-         </size>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="qleTimeFormat">
+        <property name="placeholderText">
+         <string>Type to override default</string>
         </property>
-       </spacer>
+        <property name="maxLength">
+         <number>100</number>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QToolButton" name="qtbTimeFormatList">
+        <property name="popupMode">
+         <enum>QToolButton::InstantPopup</enum>
+        </property>
+        <property name="icon">
+         <iconset resource="mumble_tango.qrc">
+          <normaloff>skin:actions/list-add.svg</normaloff>skin:actions/list-add.svg</iconset>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="mumble_tango.qrc"/>
+ </resources>
  <connections/>
 </ui>

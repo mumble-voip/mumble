@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg6431" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" sodipodi:docname="list-add.svg" xmlns:sodipodi="http://inkscape.sourceforge.net/DTD/sodipodi-0.dtd" height="48px" sodipodi:version="0.32" width="48px" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" sodipodi:docbase="/home/jimmac/src/cvs/tango-icon-theme/scalable/actions" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs id="defs6433">
+  <linearGradient id="linearGradient4975" y2="48.548" gradientUnits="userSpaceOnUse" x2="45.919" gradientTransform="translate(-18.018 -13.571)" y1="36.423" x1="34.893">
+   <stop id="stop1324" stop-color="#729fcf" offset="0"/>
+   <stop id="stop1326" stop-color="#5187d6" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient7922" y2="34.977" gradientUnits="userSpaceOnUse" x2="27.901" y1="22.852" x1="16.875">
+   <stop id="stop7918" stop-color="#fff" offset="0"/>
+   <stop id="stop7920" stop-color="#fff" stop-opacity=".34021" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient2097" gradientUnits="userSpaceOnUse" cy="35.127" cx="23.071" gradientTransform="matrix(.91481 .012650 -.0082150 .21356 2.2539 27.189)" r="10.319">
+   <stop id="stop2093" offset="0"/>
+   <stop id="stop2095" stop-opacity="0" offset="1"/>
+  </radialGradient>
+ </defs>
+ <sodipodi:namedview id="base" bordercolor="#666666" pagecolor="#ffffff" showgrid="false" borderopacity="0.15686275" showguides="true"/>
+ <metadata id="metadata6436">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>Add</dc:title>
+    <dc:date>2006-01-04</dc:date>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Andreas Nilsson</dc:title>
+     </cc:Agent>
+    </dc:creator>
+    <dc:source>http://tango-project.org</dc:source>
+    <dc:subject>
+     <rdf:Bag>
+      <rdf:li>add</rdf:li>
+      <rdf:li>plus</rdf:li>
+     </rdf:Bag>
+    </dc:subject>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/by-sa/2.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/by-sa/2.0/">
+    <cc:permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/Attribution"/>
+    <cc:permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <cc:requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g id="layer1">
+  <path id="path1361" sodipodi:rx="10.319340" sodipodi:ry="2.3201940" sodipodi:type="arc" d="m33.278 34.941a10.319 2.3202 0 1 1 -20.638 0 10.319 2.3202 0 1 1 20.638 0z" opacity=".2" transform="matrix(1.5505 0 0 1.293 -11.597 -8.1782)" sodipodi:cy="34.940620" sodipodi:cx="22.958872" fill="url(#radialGradient2097)"/>
+  <path id="text1314" d="m27.514 37.543v-9.027l9.979-0.04v-6.996h-9.97l-0.009-9.96-7.016 0.011 0.005 9.931-9.99 0.074-0.036 6.969 10.034-0.029 0.007 9.04 6.996 0.027z" sodipodi:nodetypes="ccccccccccccc" stroke="#3465a4" stroke-width="1px" fill="#75a1d0"/>
+  <path id="path7076" opacity=".40860" d="m26.499 36.534v-9.034h10.002l-0.006-5.025h-9.987v-9.995l-4.995 0.018 0.009 9.977-10.026 0.018-0.027 4.973 10.064 0.009-0.013 9.028 4.979 0.031z" sodipodi:nodetypes="ccccccccccccc" stroke="url(#linearGradient7922)" stroke-width="1px" fill="url(#linearGradient4975)"/>
+  <path id="path7914" opacity=".31183" d="m11 25c0 1.938 25.984-0.969 25.984-0.031v-3l-9.984 0.031v-9.965h-6v9.965h-10v3z" fill-rule="evenodd" sodipodi:nodetypes="ccccccccc" fill="#fff"/>
+ </g>
+</svg>

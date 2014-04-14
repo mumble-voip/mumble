@@ -45,9 +45,11 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LogConfig)
+		QMenu *qmTimeFormatList;
 	public:
 		enum Column { ColMessage, ColConsole, ColNotification, ColTTS, ColStaticSound, ColStaticSoundPath };
 		LogConfig(Settings &st);
+		~LogConfig();
 		virtual QString title() const;
 		virtual QIcon icon() const;
 	public slots:
@@ -56,6 +58,7 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 		virtual void load(const Settings &);
 		virtual bool expert(bool);
 
+		void on_qtbTimeFormatList_triggered(QAction *action);
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemDoubleClicked(QTreeWidgetItem*, int);
