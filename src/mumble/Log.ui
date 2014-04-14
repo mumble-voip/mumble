@@ -206,7 +206,7 @@
       <item row="0" column="3">
        <widget class="QLabel" name="qlTimeFormat">
         <property name="text">
-         <string>Custom time format</string>
+         <string>Custom timestamp format</string>
         </property>
        </widget>
       </item>
