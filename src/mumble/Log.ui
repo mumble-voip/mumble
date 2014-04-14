@@ -225,6 +225,9 @@
         <property name="popupMode">
          <enum>QToolButton::InstantPopup</enum>
         </property>
+        <property name="toolTip">
+         <string>Insert an element into your custom timestamp format</string>
+        </property>
         <property name="icon">
          <iconset resource="mumble_tango.qrc">
           <normaloff>skin:actions/list-add.svg</normaloff>skin:actions/list-add.svg</iconset>
