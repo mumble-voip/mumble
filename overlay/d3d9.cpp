@@ -79,7 +79,6 @@ class DevState : public Pipe {
 
 		IDirect3DDevice9* getDevice() { return dev; }
 
-		DWORD releaseDevice();
 		void createCleanState();
 		void releaseStateBlock();
 		void releaseTexture();
@@ -91,6 +90,7 @@ class DevState : public Pipe {
 		virtual void newTexture(unsigned int width, unsigned int height);
 	private:
 		IDirect3DDevice9 *dev;
+		DWORD releaseDevice();
 };
 
 /// Vtable offset; see d3d9.h of win-/D3D-API.
