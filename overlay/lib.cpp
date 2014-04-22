@@ -30,6 +30,7 @@
 
 #include "lib.h"
 
+#include <assert.h>
 #include "overlay_blacklist.h"
 
 static HANDLE hMapObject = NULL;
@@ -140,6 +141,21 @@ void __cdecl ods(const char *format, ...) {
 	va_start(args, format);
 	_ods_out(format, &args);
 	va_end(args);
+}
+
+void __cdecl odsAssertFn(const wchar_t * message, const wchar_t *file, unsigned line, const char *failureFormattext, ...) {
+	va_list args;
+	va_start(args, failureFormattext);
+	_ods_out(failureFormattext, &args);
+	va_end(args);
+
+#ifndef DEBUG
+	if (bDebug) {
+#endif
+		_wassert(message, file, line);
+#ifndef DEBUG
+	}
+#endif
 }
 
 void __cdecl checkForWPF() {

@@ -54,6 +54,9 @@ using namespace std;
 
 void __cdecl ods(const char *format, ...);
 
+#define odsAssert(expectedCondition, failureFormattext, ...) (void)( (!!(expectedCondition)) || (odsAssertFn(_CRT_WIDE(#expectedCondition), _CRT_WIDE(__FILE__), __LINE__, failureFormattext, __VA_ARGS__), 0) )
+void __cdecl odsAssertFn(const wchar_t * message, const wchar_t *file, unsigned line, const char *failureFormattext, ...);
+
 const int MODULEFILEPATH_BUFLEN = 2048;
 const int PROCNAMEFILEPATH_BUFLEN = 1024;
 const int PROCNAMEFILEPATH_EXTENDED_EXTLEN = 64;

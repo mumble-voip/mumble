@@ -29,7 +29,6 @@
 */
 
 #include "lib.h"
-#include <assert.h>
 #include <d3d9.h>
 #include <time.h>
 
@@ -230,7 +229,7 @@ void DevState::releaseTexture() {
 		ods("D3D9: Releasing texture");
 		ULONG res = texTexture->Release();
 		texTexture = NULL;
-		assert(res == 0);
+		odsAssert(res == 0, "D3D9: Assertion error: DevState::releaseTexture released texture but resulting refcount was not 0.");
 		if (res > 0) {
 			ods("D3D9: Released texture, but apparently it is still referenced.");
 		}
@@ -242,10 +241,7 @@ void DevState::releaseStateBlock() {
 		ods("D3D9: Releasing stateblock");
 		ULONG res = pSB->Release();
 		pSB = NULL;
-		assert(res == 0);
-		if (res > 0) {
-			ods("D3D9: Released state block, but apparently it is still referenced.");
-		}
+		odsAssert(res == 0, "D3D9: Assertion error: DevState::releaseStateBlock released object but resulting refcount was not 0.");
 	}
 }
 
@@ -302,7 +298,7 @@ void DevState::draw() {
 }
 
 void DevState::createCleanState() {
-	assert(dev != NULL);
+	odsAssert(dev != NULL, "D3D9: Assertion error: DevState::createCleanState called without assigned device.");
 	ods("D3D9: createCleanState; device %p refcount (before) %d", dev, refCount);
 
 	IDirect3DStateBlock9* pStateBlock = NULL;
@@ -317,7 +313,7 @@ void DevState::createCleanState() {
 		pStateBlock->Release();
 		return;
 	}
-	assert(refCount == refCountBefore + 1);
+	odsAssert(refCount == refCountBefore + 1, "D3D9: Assertion error: Device refcount did not increase when creating the state block.");
 
 	dev->SetVertexShader(NULL);
 	dev->SetPixelShader(NULL);
@@ -649,7 +645,7 @@ static ULONG updateRef(IDirect3DDevice9 *idd, ULONG refCount) {
 		DevState* ds = it != devMap.end() ? it->second : NULL;
 		if (ds) {
 			ods("D3D9: Recursion in release of device %p - setting DeviceState %p refcount from %d to %d", idd, ds, ds->refCount, refCount);
-			assert(ds->refCount >= 1 || ds->refCount <= 4);
+			odsAssert(ds->refCount >= 1 || ds->refCount <= 4, "D3D9: Assertion error: Recursion in updateRef with device refcount outside of expected range.");
 			ds->refCount = refCount;
 		} else {
 			ods("D3D9: Recursion in release of device %p, but no DeviceState metadata - new refcount %d", idd, refCount);
@@ -673,14 +669,13 @@ static ULONG updateRef(IDirect3DDevice9 *idd, ULONG refCount) {
 		if (ds->texTexture != NULL) {
 			++ownRefCount;
 		}
-		assert(ownRefCount >= 1 || ownRefCount <= 3);
 		if (refCount == ownRefCount) {
 			ods("D3D9: Final release of %p with refcount %d ...", idd, ds->refCount);
 
 			ds->disconnect();
 
 			// May be 1 without pSB and texture, 2 with pSB, or 3 with both.
-			assert(ds->refCount >= 1 || ds->refCount <= 3);
+			odsAssert(ownRefCount >= 1 || ownRefCount <= 3, "D3D9: Assertion error: updateRef with device refcount outside of expected range.");
 			ds->releaseAll();
 
 			if (ds->refCount == 1) {
@@ -719,7 +714,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 }
 
 static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
-	assert(device != NULL);
+	odsAssert(device != NULL, "D3D9: Assertion error: findOriginalDevice called for NULL.");
 	IDirect3DSwapChain9 *pSwap = NULL;
 	device->GetSwapChain(0, &pSwap);
 	if (pSwap) {
@@ -766,7 +761,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 		return hr;
 
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
-	assert(idd != NULL);
+	odsAssert(idd != NULL, "D3D9: Assertion error: CreateDevice returned NULL.");
 
 	// Get real interface, please.
 	IDirect3DDevice9 *originalDevice = findOriginalDevice(idd);
@@ -830,7 +825,7 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 		return hr;
 
 	IDirect3DDevice9Ex *idd = *ppReturnedDeviceInterface;
-	assert(idd != NULL);
+	odsAssert(idd != NULL, "D3D9: Assertion error: CreateDevice returned NULL.");
 
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
