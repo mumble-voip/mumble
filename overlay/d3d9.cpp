@@ -302,14 +302,17 @@ void DevState::createCleanState() {
 	ods("D3D9: createCleanState; device %p refcount (before) %d", dev, refCount);
 
 	IDirect3DStateBlock9* pStateBlock = NULL;
-	if (FAILED(dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock)) || pStateBlock == NULL)
+	HRESULT hres = dev->CreateStateBlock(D3DSBT_ALL, &pStateBlock);
+	if (FAILED(hres) || pStateBlock == NULL) {
 		return;
+	}
 
 	pStateBlock->Capture();
 
 	releaseStateBlock();
 	ULONG refCountBefore = refCount;
-	if (FAILED(dev->CreateStateBlock(D3DSBT_ALL, &pSB)) || pSB == NULL) {
+	hres = dev->CreateStateBlock(D3DSBT_ALL, &pSB);
+	if (FAILED(hres) || pSB == NULL) {
 		pStateBlock->Release();
 		return;
 	}
@@ -478,11 +481,17 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			if (ds != NULL) {
 				ds->draw();
 				hres = idd->EndScene();
+				if (FAILED(hres)) {
+					ods("D3D9: Failure in doPresent: Could not IDirect3DDevice9::EndScene(). Continuing anyway.");
+				}
 			}
 		}
 
 		// Restore original state
 		hres = pStateBlock->Apply();
+		if (FAILED(hres)) {
+			ods("D3D9: Failure in doPresent: Could not restore original state. Continuing anyway.");
+		}
 
 		pStateBlock->Release();
 		pRenderTarget->Release();
