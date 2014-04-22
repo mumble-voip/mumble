@@ -31,7 +31,11 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYEDITORSCENE_H_
 #define MUMBLE_MUMBLE_OVERLAYEDITORSCENE_H_
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#include <QtWidgets/QGraphicsScene>
+#else
 #include <QtGui/QGraphicsScene>
+#endif
 
 #include "Settings.h"
 
