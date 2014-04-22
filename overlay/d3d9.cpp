@@ -723,34 +723,43 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 	return res;
 }
 
+/// Through the passed devices SwapChain, find the original device.
+/// Increments the refCount of the returned device, meaning it has to be
+/// released at some point.
 static IDirect3DDevice9* findOriginalDevice(IDirect3DDevice9 *device) {
 	odsAssert(device != NULL, "D3D9: Assertion error: findOriginalDevice called for NULL.");
 	IDirect3DSwapChain9 *pSwap = NULL;
-	device->GetSwapChain(0, &pSwap);
-	if (pSwap) {
+	HRESULT hres = device->GetSwapChain(0, &pSwap);
+	if (FAILED(hres)) {
+		ods("D3D9: Failed to recurse to find original device. Could not get Swapchain.");
+	} else {
 		IDirect3DDevice9 *originalDevice = NULL;
-		if (SUCCEEDED(pSwap->GetDevice(&originalDevice))) {
-			if (originalDevice == device) {
-				// Found the original device. Release responsibility is passed
-				// to the caller.
-				// No ref for ourselves. We hook and catch calls to Release of
-				// the device itself.
+		hres = pSwap->GetDevice(&originalDevice);
+		if (FAILED(hres)) {
+			ods("D3D9: Failed to recurse to find original device. Could not get Device from Swapchain.");
+		} else {
+			if (originalDevice != device) {
+				device = findOriginalDevice(originalDevice);
 				originalDevice->Release();
 			} else {
-				device->Release();
-				device = findOriginalDevice(originalDevice);
+				// The swapchain device matches our parameter, meaning we found
+				// the original - which we return.
 			}
-
-		} else {
-			ods("D3D9: Failed to recurse to find original device. Could not get Device from Swapchain.");
 		}
-
 		pSwap->Release();
-	} else {
-		ods("D3D9: Failed to recurse to find original device. Could not get Swapchain.");
 	}
 
 	return device;
+}
+
+/// Through the passed devices SwapChain, find the original device.
+static IDirect3DDevice9* getOriginalDevice(IDirect3DDevice9 *device) {
+	IDirect3DDevice9 *originalDevice = findOriginalDevice(device);
+	if (device != originalDevice) {
+		ods("D3D9: Prepatched device, using original. %p => %p", device, originalDevice);
+	}
+	device->Release();
+	return originalDevice;
 }
 
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
@@ -773,12 +782,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
 	odsAssert(idd != NULL, "D3D9: Assertion error: CreateDevice returned NULL.");
 
-	// Get real interface, please.
-	IDirect3DDevice9 *originalDevice = findOriginalDevice(idd);
-	if (idd != originalDevice) {
-		ods("D3D9: Prepatched device, using original. %p => %p", idd, originalDevice);
-		idd = originalDevice;
-	}
+	idd = getOriginalDevice(idd);
 
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
