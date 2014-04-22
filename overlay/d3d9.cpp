@@ -726,7 +726,7 @@ static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
 /// Through the passed devices SwapChain, find the original device.
 /// Increments the refCount of the returned device, meaning it has to be
 /// released at some point.
-static void getOriginalDevice(IDirect3DDevice9 **device) {
+static void getOriginalDevice(IDirect3DDevice9 **device, IDirect3DDevice9* createdDevice) {
 	odsAssert(device != NULL, "D3D9: Assertion error: getOriginalDevice called for NULL.");
 
 	(*device)->AddRef();
@@ -745,7 +745,6 @@ static void getOriginalDevice(IDirect3DDevice9 **device) {
 			} else {
 				if (originalDevice != *device) {
 					mismatch = true;
-					ods("D3D9: Prepatched device, using original. %p => %p", *device, originalDevice);
 					(*device)->Release();
 					*device = originalDevice;
 				} else {
@@ -758,6 +757,9 @@ static void getOriginalDevice(IDirect3DDevice9 **device) {
 			pSwap->Release();
 		}
 	} while (mismatch);
+	if (*device != createdDevice) {
+		ods("D3D9: Prepatched device, using original. %p => %p", createdDevice, *device);
+	}
 }
 
 typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, IDirect3DDevice9 **);
@@ -780,7 +782,7 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 	IDirect3DDevice9 *idd = *ppReturnedDeviceInterface;
 	odsAssert(idd != NULL, "D3D9: Assertion error: CreateDevice returned NULL.");
 
-	getOriginalDevice(&idd);
+	getOriginalDevice(&idd, *ppReturnedDeviceInterface);
 
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
