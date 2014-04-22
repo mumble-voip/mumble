@@ -460,6 +460,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			if (ds == NULL || FAILED(hres)) {
 				pStateBlock->Release();
 				pRenderTarget->Release();
+				pTarget->Release();
 				return;
 			}
 		}
@@ -480,10 +481,10 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			DevState *ds = it != devMap.end() ? it->second : NULL;
 			if (ds != NULL) {
 				ds->draw();
-				hres = idd->EndScene();
-				if (FAILED(hres)) {
-					ods("D3D9: Failure in doPresent: Could not IDirect3DDevice9::EndScene(). Continuing anyway.");
-				}
+			}
+			hres = idd->EndScene();
+			if (FAILED(hres)) {
+				ods("D3D9: Failure in doPresent: Could not IDirect3DDevice9::EndScene(). Continuing anyway.");
 			}
 		}
 
