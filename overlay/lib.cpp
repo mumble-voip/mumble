@@ -120,6 +120,10 @@ void Mutex::init() {
 	InitializeCriticalSection(&cs);
 }
 
+void Mutex::deinit() {
+	DeleteCriticalSection(&cs);
+}
+
 Mutex::Mutex() {
 	if (! TryEnterCriticalSection(&cs)) {
 		ods("Lib: Mutex: CritFail - blocking until able to enter critical section");
@@ -743,6 +747,8 @@ static void dllmainProcDetach() {
 		CloseHandle(hMapObject);
 	if (hHookMutex)
 		CloseHandle(hHookMutex);
+
+	Mutex::deinit();
 }
 
 static void dllmainThreadAttach() {

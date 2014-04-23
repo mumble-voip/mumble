@@ -110,6 +110,7 @@ class Mutex {
 		static CRITICAL_SECTION cs;
 	public:
 		static void init();
+		static void deinit();
 		Mutex();
 		~Mutex();
 };
