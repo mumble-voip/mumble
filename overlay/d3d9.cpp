@@ -67,6 +67,8 @@ class DevState : public Pipe {
 		IDirect3DStateBlock9 *pSB;
 
 		ULONG refCount;
+		/// Count of references this DevState logic holds.
+		ULONG ownRefCount;
 
 		D3DTLVERTEX vertices[4];
 		LPDIRECT3DTEXTURE9 texTexture;
@@ -74,9 +76,10 @@ class DevState : public Pipe {
 		clock_t timeT;
 		unsigned int frameCount;
 
-		DevState(IDirect3DDevice9 *device);
+		DevState();
 		~DevState();
 
+		void init(IDirect3DDevice9 *device);
 		IDirect3DDevice9* getDevice() { return dev; }
 
 		void createCleanState();
@@ -93,6 +96,38 @@ class DevState : public Pipe {
 		DWORD releaseDevice();
 };
 
+class D3D9StateAccess : Mutex {
+public:
+	/// Whether Should only be called
+	static bool isActive();
+	D3D9StateAccess(bool trackLock = true);
+	~D3D9StateAccess();
+
+private:
+	static unsigned short activeCount;
+	bool trackActiveCount;
+};
+
+unsigned short D3D9StateAccess::activeCount = 0;
+/// @param trackLock Whether to track the lock as active. For normal use, this
+/// will be true. However, for the ones reading the active state, this will be
+/// false.
+D3D9StateAccess::D3D9StateAccess(bool trackLock) : Mutex(), trackActiveCount(trackLock) {
+	if (trackActiveCount) {
+		// The critical section is being entered in the parent class constructor,
+		// which is executed before this code. Hence, setting active true now is valid.
+		++activeCount;
+	}
+}
+D3D9StateAccess::~D3D9StateAccess() {
+	if (trackActiveCount) {
+		--activeCount;
+	}
+}
+bool D3D9StateAccess::isActive() {
+	return activeCount > 0;
+}
+
 /// Vtable offset; see d3d9.h of win-/D3D-API.
 /// 3 from IUnknown + 14 in IDirect3D9, 0-based => 16
 static const int VTABLE_OFFSET_ID3D_CREATEDEVICE = 16;
@@ -104,12 +139,12 @@ typedef map<IDirect3DDevice9 *, DevState *> DevMapType;
 static DevMapType devMap;
 static bool bHooked = false;
 
-DevState::DevState(IDirect3DDevice9 *device) {
+DevState::DevState() {
 	pSB = NULL;
 	texTexture = NULL;
-	dev = device;
-
-	refCount = dev->AddRef();
+	dev = NULL;
+	refCount = 0;
+	ownRefCount = 0;
 
 	timeT = clock();
 	frameCount = 0;
@@ -125,6 +160,13 @@ DevState::~DevState() {
 	releaseAll();
 	releaseDevice();
 	ods("Deleted DevState with final refCount %d", refCount);
+}
+
+void DevState::init(IDirect3DDevice9 *device) {
+	dev = device;
+	refCount = dev->AddRef();
+	ownRefCount = 1;
+	ods("D3D9: Initialized DevState for device %p with refCount %d", device, refCount);
 }
 
 DWORD DevState::releaseDevice() {
@@ -406,22 +448,20 @@ static void resetHooks() {
 }
 
 static void doPresent(IDirect3DDevice9 *idd) {
-	bool stateBlockAvailable = false;
-	// Mutex block - Shared resource devMap
-	{
-		// Shared resource devMap
-		Mutex m;
+	// Shared resource devMap
+	D3D9StateAccess m;
 
-		DevMapType::iterator it = devMap.find(idd);
-		DevState *ds = it != devMap.end() ? it->second : NULL;
-		stateBlockAvailable = ds != NULL && ds->pSB != NULL;
-
-		if (ds != NULL && idd != ds->getDevice()) {
-			ods("D3D9: Presenting on a different device than DevState has");
-		}
+	DevMapType::iterator it = devMap.find(idd);
+	DevState *ds = it != devMap.end() ? it->second : NULL;
+	if (ds == NULL) {
+		return;
 	}
 
-	if (stateBlockAvailable) {
+	if (idd != ds->getDevice()) {
+		ods("D3D9: Presenting on a different device than DevState has");
+	}
+
+	if (ds->pSB != NULL) {
 		IDirect3DSurface9 *pTarget = NULL;
 		IDirect3DSurface9 *pRenderTarget = NULL;
 		HRESULT hres = idd->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pTarget);
@@ -466,21 +506,13 @@ static void doPresent(IDirect3DDevice9 *idd) {
 			return;
 		}
 
-		// Mutex block - Shared resource devMap
-		{
-			Mutex m;
-
-			DevMapType::iterator it = devMap.find(idd);
-			DevState *ds = it != devMap.end() ? it->second : NULL;
-			if (ds != NULL) {
-				hres = ds->pSB->Apply();
-			}
-			if (ds == NULL || FAILED(hres)) {
-				pStateBlock->Release();
-				pRenderTarget->Release();
-				pTarget->Release();
-				return;
-			}
+		hres = ds->pSB->Apply();
+		if (FAILED(hres)) {
+			ods("D3D9: Applying the StateBlock in doPresent failed.");
+			pStateBlock->Release();
+			pRenderTarget->Release();
+			pTarget->Release();
+			return;
 		}
 
 		if (pTarget != pRenderTarget) {
@@ -492,14 +524,7 @@ static void doPresent(IDirect3DDevice9 *idd) {
 
 		hres = idd->BeginScene();
 		if (SUCCEEDED(hres)) {
-			// This should probably be made safe with Mutex as well. But draw
-			// can lead to Mutex locks further down the code path, hence we can
-			// not do so here.
-			DevMapType::iterator it = devMap.find(idd);
-			DevState *ds = it != devMap.end() ? it->second : NULL;
-			if (ds != NULL) {
-				ds->draw();
-			}
+			ds->draw();
 			hres = idd->EndScene();
 			if (FAILED(hres)) {
 				ods("D3D9: Failure in doPresent: Could not IDirect3DDevice9::EndScene(). Continuing anyway.");
@@ -584,7 +609,7 @@ static HRESULT __stdcall myReset(IDirect3DDevice9 *idd, D3DPRESENT_PARAMETERS *p
 	ods("D3D9: Chaining Reset");
 
 	// Shared resource devMap
-	Mutex m;
+	D3D9StateAccess m;
 
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
@@ -610,7 +635,7 @@ static HRESULT __stdcall myResetEx(IDirect3DDevice9Ex *idd, D3DPRESENT_PARAMETER
 	ods("D3D9: Chaining ResetEx");
 
 	// Shared resource devMap
-	Mutex m;
+	D3D9StateAccess m;
 
 	DevMapType::iterator it = devMap.find(idd);
 	DevState *ds = it != devMap.end() ? it->second : NULL;
@@ -642,11 +667,20 @@ static ULONG __stdcall myAddRef(IDirect3DDevice9 *idd) {
 	hhAddRef.inject();
 
 	// Shared resource devMap
-	Mutex m;
+	D3D9StateAccess m(false);
 
 	DevMapType::iterator it = devMap.find(idd);
-	if (it != devMap.end()) {
-		it->second->refCount = res;
+	if (it == devMap.end()) {
+		ods("D3D9: AddRef called for device %p, which is not in devMap.", idd);
+	} else {
+		DevState *devState = it->second;
+		devState->refCount = res;
+		if (D3D9StateAccess::isActive()) {
+			++devState->ownRefCount;
+			if (devState->ownRefCount < DEBUG_OUTPUT_MAX_REFCOUNT) {
+				ods("D3D9: Set ownRefCount for device %p to %d", idd, devState->ownRefCount);
+			}
+		}
 	}
 
 	if (res <= DEBUG_OUTPUT_MAX_REFCOUNT) {
@@ -660,68 +694,61 @@ typedef ULONG(__stdcall *ReleaseType)(IDirect3DDevice9 *);
 
 static ULONG updateRef(IDirect3DDevice9 *idd, ULONG refCount) {
 	// Shared resource devMap and DevState
-	Mutex m;
-
-	static bool recursion = false;
-	if (recursion) {
-		// We know that we will recurse only when we are freeing all of our
-		// stuff. Being in control of the implementation below we can be sure
-		// that this is only called when the state object is still valid
-		// (not completely deleted yet). We also know that we already have a
-		// mutex lock.
-		DevMapType::iterator it = devMap.find(idd);
-		DevState* ds = it != devMap.end() ? it->second : NULL;
-		if (ds) {
-			ods("D3D9: Recursion in release of device %p - setting DeviceState %p refcount from %d to %d", idd, ds, ds->refCount, refCount);
-			odsAssert(ds->refCount >= 1 || ds->refCount <= 4, "D3D9: Assertion error: Recursion in updateRef with device refcount outside of expected range.");
-			ds->refCount = refCount;
-		} else {
-			ods("D3D9: Recursion in release of device %p, but no DeviceState metadata - new refcount %d", idd, refCount);
-		}
-		return refCount;
-	}
-	Stash<bool> rec(&recursion, true);
+	D3D9StateAccess m(false);
 
 	DevMapType::iterator it = devMap.find(idd);
 	DevState* ds = it != devMap.end() ? it->second : NULL;
+	if (ds == NULL) {
+		// If this happens, we somehow missed the device creation!?
+		// (Or at some point lost the meta-data but kept the release hook.)
+		ods("D3D9: updateRef called for device %p, which is not in devMap.", idd);
+		return refCount;
+	}
 
-	if (ds) {
-		ds->refCount = refCount;
+	ds->refCount = refCount;
 
-		// If we are the only one left having references then this is the final
-		// release from the outside world and we shall free all of our own stuff.
-		DWORD ownRefCount = 1;
-		if (ds->pSB != NULL) {
-			++ownRefCount;
+	if (D3D9StateAccess::isActive()) {
+		if (ds->ownRefCount < DEBUG_OUTPUT_MAX_REFCOUNT) {
+			ods("D3D9: --ownRefCount for device %p from %d", idd, ds->ownRefCount);
 		}
-		if (ds->texTexture != NULL) {
-			++ownRefCount;
-		}
-		if (refCount == ownRefCount) {
-			ods("D3D9: Final release of %p with refcount %d ...", idd, ds->refCount);
+		--ds->ownRefCount;
+	}
 
-			ds->disconnect();
+	static bool recursion = false;
+	if (recursion) {
+		// A recursion here means we are freeing our own stuff.
+		ods("D3D9: Recursion in release of device %p - ownRefCount %d", idd, ds->ownRefCount);
+		return ds->refCount;
+	}
+	Stash<bool> rec(&recursion, true);
 
-			// May be 1 without pSB and texture, 2 with pSB, or 3 with both.
-			odsAssert(ownRefCount >= 1 || ownRefCount <= 3, "D3D9: Assertion error: updateRef with device refcount outside of expected range.");
-			ds->releaseAll();
+	// If we are the only one left having references then this is the final
+	// release from the outside world and we shall free all of our own stuff.
+	if (ds->refCount == ds->ownRefCount) {
+		ods("D3D9: Final release of %p with refcount %d ...", idd, ds->refCount);
+		// A second access lock because we do want to track it now, as we
+		// execute logic that may change the refcount.
+		D3D9StateAccess m;
 
-			if (ds->refCount == 1) {
-				restoreDeviceHooks();
+		ds->disconnect();
 
-				devMap.erase(it);
-				delete ds;
-				ds = NULL;
+		ds->releaseAll();
 
-				resetDeviceHooks();
-				return 0;
-			} else {
-				return ds->refCount;
-			}
+		if (ds->refCount == 1) {
+			restoreDeviceHooks();
+
+			devMap.erase(it);
+			delete ds;
+			ds = NULL;
+
+			resetDeviceHooks();
+			return 0;
+		} else {
+			return ds->refCount;
 		}
 	}
 
-	return refCount;
+	return ds->refCount;
 }
 
 static ULONG __stdcall myRelease(IDirect3DDevice9 *idd) {
@@ -784,9 +811,6 @@ typedef HRESULT(__stdcall *CreateDeviceType)(IDirect3D9 *, UINT, D3DDEVTYPE, HWN
 static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, IDirect3DDevice9 **ppReturnedDeviceInterface) {
 	ods("D3D9: Chaining CreateDevice");
 
-	// Shared resource devMap
-	Mutex m;
-
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
 	CreateDeviceType oCreateDevice = (CreateDeviceType) hhCreateDevice.call;
@@ -802,11 +826,17 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 
 	getOriginalDevice(&idd, *ppReturnedDeviceInterface);
 
+	// Shared resource devMap
+	D3D9StateAccess m(false);
+
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
 		ods("Device %p exists in devMap already - canceling injection into device.", idd);
 		return hr;
 	}
+
+	DevState *ds = new DevState();
+	devMap[idd] = ds;
 
 	// The offsets are dependent on the declaration order of the struct.
 	// See IDirect3DDevice9 (2nd, 3rd, 17th, 18th functions)
@@ -820,31 +850,29 @@ static HRESULT __stdcall myCreateDevice(IDirect3D9 *id3d, UINT Adapter, D3DDEVTY
 	hhPresent.setupInterface(idd, offsetPresent, reinterpret_cast<voidFunc>(myPresent));
 
 	IDirect3DSwapChain9 *pSwap = NULL;
-	idd->GetSwapChain(0, &pSwap);
-	if (pSwap) {
+	hr = idd->GetSwapChain(0, &pSwap);
+	if (FAILED(hr) || pSwap == NULL) {
+		ods("D3D9: Failed to get swapchain for hooking");
+	} else {
 		// The offset is dependent on the declaration order of the struct.
 		// See IDirect3DSwapChain9 (Present is the fourth function)
 		const unsigned int offsetPresent = 3;
 		hhSwapPresent.setupInterface(pSwap, offsetPresent, reinterpret_cast<voidFunc>(mySwapPresent));
 		pSwap->Release();
-	} else {
-		ods("D3D9: Failed to get swapchain");
 	}
 
-	DevState *ds = new DevState(idd);
-	devMap[idd] = ds;
+	// Shared resource devMap
+	D3D9StateAccess mInner;
+	ds->init(idd);
 	ds->createCleanState();
 
-	ods("D3D9: Chained CreateDevice, created %p", idd);
+	ods("D3D9: Chained CreateDevice, created %p with refCount %d and ownRefCount %d", idd, ds->refCount, ds->ownRefCount);
 	return hr;
 }
 
 typedef HRESULT(__stdcall *CreateDeviceExType)(IDirect3D9Ex *, UINT, D3DDEVTYPE, HWND, DWORD, D3DPRESENT_PARAMETERS *, D3DDISPLAYMODEEX *, IDirect3DDevice9Ex **);
 static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS *pPresentationParameters, D3DDISPLAYMODEEX *pFullscreenDisplayMode, IDirect3DDevice9Ex **ppReturnedDeviceInterface) {
 	ods("D3D9: Chaining CreateDeviceEx");
-
-	// Shared resource devMap
-	Mutex m;
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -859,11 +887,17 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 	IDirect3DDevice9Ex *idd = *ppReturnedDeviceInterface;
 	odsAssert(idd != NULL, "D3D9: Assertion error: CreateDevice returned NULL.");
 
+	// Shared resource devMap
+	D3D9StateAccess m(false);
+
 	DevMapType::iterator it = devMap.find(idd);
 	if (it != devMap.end()) {
 		ods("Device %p exists in devMap already - canceling injection into device.", idd);
 		return hr;
 	}
+
+	DevState *ds = new DevState();
+	devMap[idd] = ds;
 
 	// The offsets are dependent on the declaration order of the struct.
 	// See IDirect3DDevice9 (2nd, 3rd, 17th, 18th functions)
@@ -884,21 +918,22 @@ static HRESULT __stdcall myCreateDeviceEx(IDirect3D9Ex *id3d, UINT Adapter, D3DD
 
 	IDirect3DSwapChain9 *pSwap = NULL;
 	idd->GetSwapChain(0, &pSwap);
-	if (pSwap) {
+	if (FAILED(hr) || pSwap == NULL) {
+		ods("D3D9: Failed to get swapchain for hooking (DevEx)");
+	} else {
 		// The offset is dependent on the declaration order of the struct.
 		// See IDirect3DSwapChain9 (Present is the fourth function)
 		const unsigned int offsetPresent = 3;
 		hhSwapPresent.setupInterface(pSwap, offsetPresent, reinterpret_cast<voidFunc>(mySwapPresent));
 		pSwap->Release();
-	} else {
-		ods("D3D9: Failed to get swapchain for DevEx");
 	}
 
-	DevState *ds = new DevState(idd);
-	devMap[idd] = ds;
+	// Shared resource devMap
+	D3D9StateAccess mInner;
+	ds->init(idd);
 	ds->createCleanState();
 
-	ods("D3D9: Chained CreateDeviceEx, created %p", idd);
+	ods("D3D9: Chained CreateDeviceEx, created %p with refCount %d and ownRefCount %d", idd, ds->refCount, ds->ownRefCount);
 	return hr;
 }
 
