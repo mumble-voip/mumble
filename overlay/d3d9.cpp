@@ -83,7 +83,7 @@ class DevState : public Pipe {
 		void releaseStateBlock();
 		void releaseTexture();
 		void releaseAll();
-		void draw();
+		bool draw();
 
 		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
 		virtual void setRect();
@@ -214,14 +214,18 @@ void DevState::newTexture(unsigned int width, unsigned int height) {
 
 	releaseTexture();
 
-	dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
+	HRESULT hres = dev->CreateTexture(uiWidth, uiHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, &texTexture, NULL);
+	if (FAILED(hres)) {
+		ods("D3D9: New texture creation failed");
+	} else {
+		ods("D3D9: New texture created; device %p refcount %d", dev, refCount);
+	}
 
 	for (int i = 0; i < 4; ++i) {
 		vertices[i].x = vertices[i].y = vertices[i].z = 0.0f;
 		vertices[i].tu = vertices[i].tv = 0.0f;
 		vertices[i].rhw = 1.0f;
 	}
-	ods("D3D9: New texture created; device %p refcount %d", dev, refCount);
 }
 
 void DevState::releaseTexture() {
@@ -252,7 +256,7 @@ void DevState::releaseAll() {
 	releaseStateBlock();
 }
 
-void DevState::draw() {
+bool DevState::draw() {
 	clock_t t = clock();
 	float elapsed = static_cast<float>(t - timeT) / CLOCKS_PER_SEC;
 	++frameCount;
@@ -270,12 +274,16 @@ void DevState::draw() {
 	}
 
 	D3DVIEWPORT9 vp;
-	dev->GetViewport(&vp);
+	HRESULT hres = dev->GetViewport(&vp);
+	if (FAILED(hres)) {
+		ods("D3D9: DevState::draw(): Failed to get viewport for device.");
+		return false;
+	}
 
 	checkMessage(vp.Width, vp.Height);
 
 	if (! a_ucTexture || (uiLeft == uiRight))
-		return;
+		return false;
 
 	if (! texTexture) {
 		unsigned int l, r, t, b;
@@ -293,8 +301,18 @@ void DevState::draw() {
 		setRect();
 	}
 
-	dev->SetTexture(0, texTexture);
-	dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
+	hres = dev->SetTexture(0, texTexture);
+	if (FAILED(hres)) {
+		ods("D3D9: DevState::draw(): Failed to set texture on device.");
+		return false;
+	}
+	hres = dev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(D3DTLVERTEX));
+	if (FAILED(hres)) {
+		ods("D3D9: DevState::draw(): Failed to draw primitive on device.");
+		return false;
+	}
+
+	return true;
 }
 
 void DevState::createCleanState() {
