@@ -1,4 +1,5 @@
-/* Copyright (C) 2009-2010, deKarl <dekarl@users.sourceforge.net>
+/* Copyright (C) 2010-2014, Jamie Fraser <jamie.f@mumbledog.com>
+   Copyright (C) 2009-2010, deKarl <dekarl@users.sourceforge.net>
    Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
 
    All rights reserved.
@@ -49,10 +50,10 @@ uint64_t g_playerGUID;
  * call each value, to ease in upgrading. "[_]" means the value name may or may not
  * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0x009BE678; // ClientConnection or CurMgrPointer
-static size_t off_ObjectManager=0x463C; // objectManager or CurMgrOffset
-static uint32_t ptr_WorldFrame=0x00AD7870; // Camera[_]Pointer
-static size_t off_CameraOffset=0x80D0; // Camera[_]Offset
+static uint32_t ptr_ClientConnection=0xEC4140; // ClientConnection or CurMgrPointer
+static size_t off_ObjectManager=0x462C; // objectManager or CurMgrOffset
+static uint32_t ptr_WorldFrame=0xD6496C; // Camera[_]Pointer
+static size_t off_CameraOffset=0x8208; // Camera[_]Offset
 
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
@@ -171,13 +172,13 @@ uint32_t getPlayerBase() {
 	gClientConnection=getInt32((uint32_t)pModule + ptr_ClientConnection);
 	sCurMgr=getInt32(gClientConnection + off_ObjectManager);
 	if (sCurMgr != 0) {
-		playerGUID=getInt64(sCurMgr+0xC8); // localGUID
+		playerGUID=getInt64(sCurMgr+0xE8); // localGUID
 		if (playerGUID != 0) {
 			g_playerGUID = playerGUID;
-			curObj=getInt32(sCurMgr+0xC0); // firstObject
+			curObj=getInt32(sCurMgr+0xCC); // firstObject
 			while (curObj != 0) {
-				nextObj=getInt32(curObj + 0x3C); // nextObject
-				GUID=getInt64(curObj + 0x30);
+				nextObj=getInt32(curObj + 0x34); // nextObject
+				GUID=getInt64(curObj + 0x28);
 				if (playerGUID == GUID) {
 					playerBase = curObj;
 					break;
@@ -193,10 +194,10 @@ uint32_t getPlayerBase() {
 	return playerBase;
 }
 
-static const unsigned long nameStorePtr        = 0x009BE6B8 + 0x8;  // Player name database
-static const unsigned long nameMaskOffset      = 0x024;  // Offset for the mask used with GUID to select a linked list
-static const unsigned long nameBaseOffset      = 0x01c;  // Offset for the start of the name linked list
-static const unsigned long nameStringOffset    = 0x020;  // Offset to the C string in a name structure
+static const unsigned long nameStorePtr        = 0xC86358;  // Player name database
+static const unsigned long nameMaskOffset      = 0x02c;  // Offset for the mask used with GUID to select a linked list
+static const unsigned long nameBaseOffset      = 0x020;  // Offset for the start of the name linked list
+static const unsigned long nameStringOffset    = 0x021;  // Offset to the C string in a name structure
 
 void getPlayerName(std::wstring &identity) {
 	unsigned long mask, base, offset, current, shortGUID, testGUID;
@@ -227,6 +228,7 @@ void getPlayerName(std::wstring &identity) {
 		testGUID=getInt32(current);
 	}
 	getWString(current + nameStringOffset, identity);
+	//printf("%ls\n", identity.data());
 }
 
 void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
@@ -314,7 +316,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			/* GUID of actor changed, likely a character and/or realm change */
 			wow.refresh();
 		}
-		peekGUID=getInt64(p_playerBase+0x30);
+		peekGUID=getInt64(p_playerBase+0x28);
 		if (g_playerGUID != peekGUID) {
 			/* no? we are still getting the expected GUID for our avatar, but we don't have it's current position */
 			return true;
@@ -334,7 +336,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// ... which isn't a right-hand coordinate system.
 
 	float pos[3];
-	ok = ok && peekProc((BYTE *) p_playerBase + 0x790, pos, sizeof(float)*3);
+	ok = ok && peekProc((BYTE *) p_playerBase + 0x838, pos, sizeof(float)*3);
 	if (! ok) {
 		if (g_playerGUID == 0xffffffffffffffff) {
 			return false;
@@ -353,12 +355,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[2] = pos[0];
 
 	float heading=0.0;
-	ok = ok && peekProc((BYTE *) p_playerBase + 0x7A0, &heading, sizeof(heading));
+	ok = ok && peekProc((BYTE *) p_playerBase + 0x848, &heading, sizeof(heading));
 	if (! ok)
 		return false;
 
 	float pitch=0.0;
-	ok = ok && peekProc((BYTE *) p_playerBase + 0x7A4, &pitch, sizeof(pitch));
+	ok = ok && peekProc((BYTE *) p_playerBase + 0x84C, &pitch, sizeof(pitch));
 	if (! ok)
 		return false;
 
@@ -378,7 +380,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (! ok)
 		return false;
 
-	//	printf("P %f %f %f -- %f %f %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2]);
+	//printf("P %f %f %f -- %f %f %f \n", avatar_pos[0], avatar_pos[1], avatar_pos[2], avatar_front[0], avatar_front[1], avatar_front[2]);
+	//printf("C %f %f %f -- %f %f %f \n", camera_pos[0], camera_pos[1], camera_pos[2], camera_front[0], camera_front[1], camera_front[2]);
 
 	// is it a unit length vector?
 	if (fabs((avatar_front[0]*avatar_front[0]+avatar_front[1]*avatar_front[1]+avatar_front[2]*avatar_front[2])-1.0)>0.5) {
@@ -396,7 +399,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	if (! initialize(pids, L"Wow.exe", L"WoW.exe"))
+	if (! initialize(pids, L"Wow.exe"))
 		return false;
 
 	p_playerBase=getPlayerBase();
@@ -404,7 +407,6 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 		std::string context;
 		std::wstring identity;
-
 		if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
 			return true;
 	}
@@ -414,10 +416,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 4.2.2 (15050), with identity support.");
+	return std::wstring(L"Supports World of Warcraft 5.4.7 (18019), with identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 4.2.2 (15050)");
+static std::wstring description(L"World of Warcraft 5.4.7 (18019)");
 
 static std::wstring shortname(L"World of Warcraft");
 
