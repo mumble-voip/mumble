@@ -41,7 +41,23 @@ close(F);
 
 print "Compressing tree\n";
 my $ballname = "mumble-${ver}";
-my $exclusions = "--exclude=*/.git* --exclude=${ballname}.*";
+my $exclusions = join(" --exclude=", ("",
+     "*/.git*",
+     # Exclude the archive we are currently writing to
+     "${ballname}.*",
+     # Exclude files with Debian FSG licensing issues (#1230)
+     "${ballname}/speex/doc/draft-herlein-avt-rtp-speex-00.txt",
+     "${ballname}/speex/doc/draft-herlein-speex-rtp-profile-02.txt",
+     "${ballname}/speex/doc/draft-herlein-speex-rtp-profile-03.txt",
+     "${ballname}/speex/doc/draft-ietf-avt-rtp-speex-00.txt",
+     "${ballname}/speex/doc/draft-ietf-avt-rtp-speex-01-tmp.txt",
+     "${ballname}/speex/doc/draft-ietf-avt-rtp-speex-05-tmp.txt",
+     "${ballname}/speex/doc/manual.lyx",
+     "${ballname}/celt-0.11.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt",
+     "${ballname}/celt-0.7.0-src/doc/ietf/draft-valin-celt-rtp-profile-01.txt"
+    )
+);
+
 
 system("mkdir ${ballname}") == 0 or croak "Could not create target directory ${ballname}";
 system("mv * ${ballname}/");
