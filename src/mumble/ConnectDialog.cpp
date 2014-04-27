@@ -462,8 +462,12 @@ QVariant ServerItem::data(int column, int role) const {
 		} else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
 			foreach(const QHostAddress &qha, qlAddresses)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qsl << qha.toString().toHtmlEscaped();
+#else
 				qsl << Qt::escape(qha.toString());
-
+#endif
+        
 			double ploss = 100.0;
 
 			if (uiSent > 0)
@@ -472,18 +476,31 @@ QVariant ServerItem::data(int column, int role) const {
 			QString qs;
 			qs +=
 			    QLatin1String("<table>") +
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+          QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName.toHtmlEscaped()) +
+          QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname.toHtmlEscaped());
+#else
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), Qt::escape(qsName)) +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), Qt::escape(qsHostname));
+#endif
 
 			if (! qsBonjourHost.isEmpty())
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost.toHtmlEscaped());
+#else
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), Qt::escape(qsBonjourHost));
-
+#endif
+        
 			qs +=
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
 
 			if (! qsUrl.isEmpty())
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), qsUrl.toHtmlEscaped());
+#else
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), Qt::escape(qsUrl));
+#endif
 
 			if (uiSent > 0) {
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));

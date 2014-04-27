@@ -619,7 +619,11 @@ static void recreateServerHandler() {
 }
 
 void MainWindow::openUrl(const QUrl &url) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString().toHtmlEscaped()));
+#else  
 	g.l->log(Log::Information, tr("Opening URL %1").arg(Qt::escape(url.toString())));
+#endif
 	if (url.scheme() == QLatin1String("file")) {
 		QFile f(url.toLocalFile());
 		if (! f.exists() || ! f.open(QIODevice::ReadOnly)) {
@@ -994,8 +998,12 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		return;
 
 	QMessageBox::StandardButton result;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName.toHtmlEscaped()), QMessageBox::Yes|QMessageBox::No);
+#else
 	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
-
+#endif
+  
 	if (result == QMessageBox::Yes)
 		g.sh->registerUser(p->uiSession);
 }
@@ -1078,8 +1086,13 @@ void MainWindow::on_qaServerInformation_triggered() {
 	if (g.sh->qsRelease.isEmpty() || g.sh->qsOS.isEmpty() || g.sh->qsOSVersion.isEmpty()) {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
 	} else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
+    .arg(g.sh->qsRelease.toHtmlEscaped(), g.sh->qsOS.toHtmlEscaped(), g.sh->qsOSVersion.toHtmlEscaped()));
+#else
 		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
 		                 .arg(Qt::escape(g.sh->qsRelease), Qt::escape(g.sh->qsOS), Qt::escape(g.sh->qsOSVersion)));
+#endif
 	}
 
 	QString host, uname, pw;
@@ -1087,12 +1100,21 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	g.sh->getConnectionInfo(host,port,uname,pw);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),
+                    qsc.name().toHtmlEscaped(),
+	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
+	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
+	                  host,
+	                  QString::number(port));
+#else
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),
 	                  Qt::escape(qsc.name()),
 	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
 	                  host,
 	                  QString::number(port));
+#endif
 	QString qsVoice, qsCrypt, qsAudio;
 
 	if (NetworkConfig::TcpModeEnabled()) {
@@ -1351,10 +1373,18 @@ void MainWindow::on_qaUserRegister_triggered() {
 	QMessageBox::StandardButton result;
 
 	if (session == g.uiSession)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName.toHtmlEscaped()), QMessageBox::Yes|QMessageBox::No);
+#else
 		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
+#endif
 	else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName.toHtmlEscaped()), QMessageBox::Yes|QMessageBox::No);
+#else
 		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
-
+#endif
+  
 	if (result == QMessageBox::Yes) {
 		p = ClientUser::get(session);
 		if (! p)
@@ -1488,9 +1518,15 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 
 	unsigned int session = p->uiSession;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
+	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName.toHtmlEscaped()),
+	                                QMessageBox::Yes, QMessageBox::No);
+#else
 	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
 	                                tr("Are you sure you want to reset the comment of user %1?").arg(Qt::escape(p->qsName)),
 	                                QMessageBox::Yes, QMessageBox::No);
+#endif
 	if (ret == QMessageBox::Yes) {
 		g.sh->setUserComment(session, QString());
 	}
@@ -1504,9 +1540,15 @@ void MainWindow::on_qaUserTextureReset_triggered() {
 
 	unsigned int session = p->uiSession;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
+	                                tr("Are you sure you want to reset the avatar of user %1?").arg(p->qsName.toHtmlEscaped()),
+	                                QMessageBox::Yes, QMessageBox::No);
+#else
 	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
 	                                tr("Are you sure you want to reset the avatar of user %1?").arg(Qt::escape(p->qsName)),
 	                                QMessageBox::Yes, QMessageBox::No);
+#endif
 	if (ret == QMessageBox::Yes) {
 		g.sh->setUserTexture(session, QByteArray());
 	}
@@ -1726,8 +1768,12 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 	int id = c->iId;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName.toHtmlEscaped()), QMessageBox::Yes, QMessageBox::No);
+#else
 	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(Qt::escape(c->qsName)), QMessageBox::Yes, QMessageBox::No);
-
+#endif
+  
 	c = Channel::get(id);
 	if (!c)
 		return;
@@ -2540,7 +2586,11 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString().toHtmlEscaped()));
+#else
 			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(Qt::escape(e.errorString())));
+#endif    
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
@@ -2551,8 +2601,12 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 			QStringList qsl;
 			foreach(QSslError e, g.sh->qlErrors)
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString().toHtmlEscaped());
+#else
 				qsl << QString::fromLatin1("<li>%1</li>").arg(Qt::escape(e.errorString()));
-
+#endif
+        
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
 			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
 			                   "<p>Do you wish to accept this certificate anyway?<br />(It will also be stored so you won't be asked this again.)</p>"
@@ -2584,7 +2638,11 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 
 		if (! reason.isEmpty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+      g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason.toHtmlEscaped()));
+#else
 			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(Qt::escape(reason)));
+#endif
 		}  else {
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
@@ -2733,10 +2791,18 @@ void MainWindow::updateChatBar() {
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName.toHtmlEscaped()));
+#else
 		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(Qt::escape(c->qsName)));
+#endif
 	} else {
 		// User target
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName.toHtmlEscaped()));
+#else
 		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(Qt::escape(p->qsName)));
+#endif    
 	}
 
 	updateMenuPermissions();

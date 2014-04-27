@@ -184,7 +184,11 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							file.remove();
 						}
 					} else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString().toHtmlEscaped(), filename.toHtmlEscaped()));
+#else
 						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(Qt::escape(fetch.toString()), Qt::escape(filename)));
+#endif
 						WebFetch::fetch(fetch, this, SLOT(fetched(QByteArray,QUrl)));
 						return;
 					}

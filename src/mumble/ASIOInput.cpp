@@ -268,7 +268,11 @@ void ASIOConfig::on_qpbQuery_clicked() {
 			char err[255];
 			iasio->getErrorMessage(err);
 			SleepEx(10, false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+			QMessageBox::critical(this, QLatin1String("Mumble"), tr("ASIO Initialization failed: %1").arg(QString(QLatin1String(err)).toHtmlEscaped()), QMessageBox::Ok, QMessageBox::NoButton);
+#else
 			QMessageBox::critical(this, QLatin1String("Mumble"), tr("ASIO Initialization failed: %1").arg(Qt::escape(QLatin1String(err))), QMessageBox::Ok, QMessageBox::NoButton);
+#endif
 		}
 		iasio->Release();
 	} else {
@@ -293,7 +297,11 @@ void ASIOConfig::on_qpbConfig_clicked() {
 			char err[255];
 			iasio->getErrorMessage(err);
 			SleepEx(10, false);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+			QMessageBox::critical(this, QLatin1String("Mumble"), tr("ASIO Initialization failed: %1").arg(QString(QLatin1Strinasdg(err)).toHtmlEscaped()), QMessageBox::Ok, QMessageBox::NoButton);
+#else
 			QMessageBox::critical(this, QLatin1String("Mumble"), tr("ASIO Initialization failed: %1").arg(Qt::escape(QLatin1String(err))), QMessageBox::Ok, QMessageBox::NoButton);
+#endif
 		}
 		iasio->Release();
 	} else {
