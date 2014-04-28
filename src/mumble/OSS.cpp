@@ -243,9 +243,9 @@ void OSSInput::run() {
 	eMicFormat = SampleShort;
 	initializeMixer();
 
-	short buffer[iMicLength];
-
 	while (bRunning) {
+		short buffer[iMicLength];
+
 		int len = static_cast<int>(iMicLength * iMicChannels * sizeof(short));
 		ssize_t l = read(fd, buffer, len);
 		if (l != len) {
