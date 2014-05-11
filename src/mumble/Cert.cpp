@@ -54,6 +54,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(l, 0, 0, 1, 1, Qt::AlignLeft);
 
 	qlSubjectName = new QLabel();
+	qlSubjectName->setTextFormat(Qt::PlainText);
 	qlSubjectName->setWordWrap(true);
 	grid->addWidget(qlSubjectName, 0, 1, 1, 1);
 
@@ -61,6 +62,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(l, 1, 0, 1, 1, Qt::AlignLeft);
 
 	qlSubjectEmail = new QLabel();
+	qlSubjectEmail->setTextFormat(Qt::PlainText);
 	qlSubjectEmail->setWordWrap(true);
 	grid->addWidget(qlSubjectEmail, 1, 1, 1, 1);
 
@@ -68,6 +70,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(l, 2, 0, 1, 1, Qt::AlignLeft);
 
 	qlIssuerName = new QLabel();
+	qlIssuerName->setTextFormat(Qt::PlainText);
 	qlIssuerName->setWordWrap(true);
 	grid->addWidget(qlIssuerName, 2, 1, 1, 1);
 
@@ -75,6 +78,7 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(l, 3, 0, 1, 1, Qt::AlignLeft);
 
 	qlExpiry = new QLabel();
+	qlExpiry->setTextFormat(Qt::PlainText);
 	qlExpiry->setWordWrap(true);
 	grid->addWidget(qlExpiry, 3, 1, 1, 1);
 
