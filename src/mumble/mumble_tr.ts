@@ -4878,8 +4878,8 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <location line="+83"/>
         <location line="+4"/>
         <location line="+259"/>
-        <source>To %1: %2</source>
-        <translation>Şuna: %1: %2</translation>
+        <source>To %1: </source>
+        <translation>Şuna: %1: </translation>
     </message>
     <message>
         <location line="-346"/>
@@ -4909,8 +4909,8 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     </message>
     <message>
         <location line="+0"/>
-        <source>To %1 (Tree): %2</source>
-        <translation>Şuna: %1 (Ağaç): %2</translation>
+        <source>To %1 (Tree): </source>
+        <translation>Şuna: %1 (Ağaç): </translation>
     </message>
     <message>
         <location line="+163"/>
@@ -5841,8 +5841,8 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <source>%2%1: </source>
+        <translation>%2%1: </translation>
     </message>
     <message>
         <location line="+201"/>
