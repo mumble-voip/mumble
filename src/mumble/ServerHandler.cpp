@@ -662,10 +662,9 @@ void ServerHandler::requestUserStats(unsigned int uiSession, bool statsOnly) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::joinChannel(unsigned int channel) {
+void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel) {
 	MumbleProto::UserState mpus;
-	// TODO: remove global uiSession reference
-	mpus.set_session(g.uiSession);
+	mpus.set_session(uiSession);
 	mpus.set_channel_id(channel);
 	sendMessage(mpus);
 }
