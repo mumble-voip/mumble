@@ -755,7 +755,7 @@ void MainWindow::findDesiredChannel() {
 	}
 	if (found) {
 		if (chan != ClientUser::get(g.uiSession)->cChannel) {
-			g.sh->joinChannel(chan->iId);
+			g.sh->joinChannel(g.uiSession, chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
 	} else if (g.uiSession) {
@@ -1689,7 +1689,7 @@ void MainWindow::on_qaChannelJoin_triggered() {
 	Channel *c = getContextMenuChannel();
 
 	if (c) {
-		g.sh->joinChannel(c->iId);
+		g.sh->joinChannel(g.uiSession, c->iId);
 	}
 }
 
@@ -2316,7 +2316,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
-					g.sh->joinChannel(c->iId);
+					g.sh->joinChannel(g.uiSession, c->iId);
 				}
 				return;
 			}
