@@ -78,7 +78,6 @@ CertView::CertView(QWidget *p) : QGroupBox(p) {
 	grid->addWidget(l, 3, 0, 1, 1, Qt::AlignLeft);
 
 	qlExpiry = new QLabel();
-	qlExpiry->setTextFormat(Qt::PlainText);
 	qlExpiry->setWordWrap(true);
 	grid->addWidget(qlExpiry, 3, 1, 1, 1);
 
@@ -121,7 +120,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 			qlSubjectEmail->setText(tr("(none)"));
 
 		if (qscCert.expiryDate() <= QDateTime::currentDateTime())
-			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(qscCert.expiryDate().toString(Qt::SystemLocaleDate)));
+			qlExpiry->setText(QString::fromLatin1("<font color=\"red\"><b>%1</b></font>").arg(Qt::escape(qscCert.expiryDate().toString(Qt::SystemLocaleDate))));
 		else
 			qlExpiry->setText(qscCert.expiryDate().toString(Qt::SystemLocaleDate));
 
