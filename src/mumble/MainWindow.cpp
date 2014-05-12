@@ -1091,7 +1091,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 	                  Qt::escape(qsc.name()),
 	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
-	                  host,
+	                  Qt::escape(host),
 	                  QString::number(port));
 	QString qsVoice, qsCrypt, qsAudio;
 
