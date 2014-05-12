@@ -88,7 +88,7 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 	rtLast = msg.type();
 
-	QString reason(u8(msg.reason()));;
+	QString reason;
 
 	switch (rtLast) {
 		case MumbleProto::Reject_RejectType_InvalidUsername:
@@ -107,10 +107,11 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 			reason = tr("Your account information can not be verified currently. Please try again later");
 			break;
 		default:
+			reason = Qt::escape(u8(msg.reason()));
 			break;
 	}
 
-	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(Qt::escape(reason)));
+	g.l->log(Log::ServerDisconnected, tr("Server connection rejected: %1.").arg(reason));
 	g.l->setIgnore(Log::ServerDisconnected, 1);
 }
 
