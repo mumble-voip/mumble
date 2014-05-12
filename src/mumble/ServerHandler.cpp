@@ -786,6 +786,13 @@ void ServerHandler::setUserTexture(unsigned int uiSession, const QByteArray &qba
 	}
 }
 
+void ServerHandler::setTokens(const QStringList &tokens) {
+	MumbleProto::Authenticate msg;
+	foreach(const QString &qs, tokens)
+		msg.add_tokens(u8(qs));
+	sendMessage(msg);
+}
+
 void ServerHandler::removeChannel(unsigned int channel) {
 	MumbleProto::ChannelRemove mpcr;
 	mpcr.set_channel_id(channel);
