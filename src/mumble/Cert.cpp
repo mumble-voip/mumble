@@ -116,7 +116,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		qlSubjectName->setText(tmpName);
 
 		if (emails.count() > 0)
-			qlSubjectEmail->setText(emails.join(QLatin1String("<br />")));
+			qlSubjectEmail->setText(emails.join(QLatin1String("\n")));
 		else
 			qlSubjectEmail->setText(tr("(none)"));
 
