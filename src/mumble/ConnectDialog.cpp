@@ -663,7 +663,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	mime->setUrls(urls);
 
 	mime->setText(qs);
-	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(name));
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(Qt::escape(name)));
 
 	return mime;
 }
