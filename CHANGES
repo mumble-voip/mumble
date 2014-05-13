@@ -1,5 +1,12 @@
+2014-05-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    f49185d  Bump version to 1.2.6
+    e30d7ac  mumble: fix Mumble-SA-2014-006.
+    c7aecb2  mumble: fix Mumble-SA-2014-005.
+
 2014-01-31
   Mikkel Krautz <mikkel@krautz.dk>
+    c3c13f9  Update changelog
     269e93e  mumble: fix Mumble-SA-2014-002 (CVE-2014-0045).
     7e31c32  mumble: fix Mumble-SA-2014-001 (CVE-2014-0044).
     f5ebe9d  Bump version to 1.2.5
