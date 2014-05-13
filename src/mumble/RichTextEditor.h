@@ -33,6 +33,8 @@
 
 #include <QtGui/QTextEdit>
 
+class LogDocument;
+
 class RichTextHtmlEdit : public QTextEdit {
 	private:
 		Q_OBJECT
@@ -41,6 +43,8 @@ class RichTextHtmlEdit : public QTextEdit {
 		void insertFromMimeData(const QMimeData *source);
 	public:
 		RichTextHtmlEdit(QWidget *p);
+	private:
+		LogDocument *m_document;
 };
 
 #include "ui_RichTextEditor.h"
@@ -87,6 +91,11 @@ class RichTextEditor : public QTabWidget, Ui::RichTextEditor {
 		void on_qteRichText_cursorPositionChanged();
 		void on_qteRichText_currentCharFormatChanged();
 		void onCurrentChanged(int);
+};
+
+class RichTextImage {
+	public:
+		static bool isValidImage(const QByteArray &buf, QByteArray &fmt);
 };
 
 #endif

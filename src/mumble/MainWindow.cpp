@@ -54,6 +54,7 @@
 #include "Overlay.h"
 #include "Plugins.h"
 #include "PTTButtonWidget.h"
+#include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "TextMessage.h"
 #include "Tokens.h"
@@ -2743,7 +2744,7 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath))
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg *.svg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg)"));
 
 	if (fname.isNull())
 		return retval;
@@ -2763,7 +2764,17 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QBuffer qb(&qba);
 	qb.open(QIODevice::ReadOnly);
 
-	QImageReader qir(&qb, fi.suffix().toUtf8());
+	QImageReader qir;
+	qir.setAutoDetectImageFormat(false);
+
+	QByteArray fmt;
+	if (!RichTextImage::isValidImage(qba, fmt)) {
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));
+		return retval;
+	}
+
+	qir.setFormat(fmt);
+	qir.setDevice(&qb);
 
 	QImage img = qir.read();
 	if (img.isNull()) {

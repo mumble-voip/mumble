@@ -43,6 +43,7 @@
 #include "NetworkConfig.h"
 #include "OSInfo.h"
 #include "PacketDataStream.h"
+#include "RichTextEditor.h"
 #include "SSL.h"
 #include "User.h"
 
@@ -679,11 +680,19 @@ void ServerHandler::setTexture(const QByteArray &qba) {
 		texture = qba;
 	} else {
 		QByteArray raw = qba;
+
 		QBuffer qb(& raw);
 		qb.open(QIODevice::ReadOnly);
+
 		QImageReader qir;
-		if (qba.startsWith("<?xml"))
-			qir.setFormat("svg");
+		qir.setDecideFormatFromContent(false);
+
+		QByteArray fmt;
+		if (!RichTextImage::isValidImage(qba, fmt)) {
+			return;
+		}
+
+		qir.setFormat(fmt);
 		qir.setDevice(&qb);
 
 		QSize sz = qir.size();

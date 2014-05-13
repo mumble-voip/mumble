@@ -100,29 +100,23 @@ class Log : public QObject {
 		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
 };
 
-class ValidDocument : public QTextDocument {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ValidDocument)
-	protected:
-		QStringList qslValidImage;
-		bool bValid;
-		QVariant loadResource(int, const QUrl &);
-	public:
-		ValidDocument(bool httpimages, QObject *p = NULL);
-		bool isValid() const;
-};
-
 class LogDocument : public QTextDocument {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LogDocument)
 	public:
 		LogDocument(QObject *p = NULL);
-		QVariant loadResource(int, const QUrl &);
+		virtual QVariant loadResource(int, const QUrl &);
+		void setAllowHTTPResources(bool allowHttpResources);
+		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
+		bool isValid();
 	public slots:
 		void receivedHead();
 		void finished();
+	private:
+		bool m_allowHTTPResources;
+		bool m_valid;
+		bool m_onlyLoadDataURLs;
 };
 
 #endif
