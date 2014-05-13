@@ -439,7 +439,7 @@ QVariant ServerItem::data(int column, int role) const {
 		} else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
 			foreach(const QHostAddress &qha, qlAddresses)
-				qsl << qha.toString();
+				qsl << Qt::escape(qha.toString());
 
 			double ploss = 100.0;
 
@@ -449,18 +449,18 @@ QVariant ServerItem::data(int column, int role) const {
 			QString qs;
 			qs +=
 			    QLatin1String("<table>") +
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), qsName) +
-			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), qsHostname);
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Servername"), Qt::escape(qsName)) +
+			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Hostname"), Qt::escape(qsHostname));
 
 			if (! qsBonjourHost.isEmpty())
-				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), qsBonjourHost);
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Bonjour name"), Qt::escape(qsBonjourHost));
 
 			qs +=
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Port")).arg(usPort) +
 			    QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Addresses"), qsl.join(QLatin1String(", ")));
 
 			if (! qsUrl.isEmpty())
-				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), qsUrl);
+				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Website"), Qt::escape(qsUrl));
 
 			if (uiSent > 0) {
 				qs += QString::fromLatin1("<tr><th align=left>%1</th><td>%2</td></tr>").arg(ConnectDialog::tr("Packet loss"), QString::fromLatin1("%1% (%2/%3)").arg(ploss, 0, 'f', 1).arg(uiRecv).arg(uiSent));
@@ -634,7 +634,7 @@ QMimeData *ServerItem::toMimeData(const QString &name, const QString &host, unsi
 	mime->setUrls(urls);
 
 	mime->setText(qs);
-	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(name));
+	mime->setHtml(QString::fromLatin1("<a href=\"%1\">%2</a>").arg(qs).arg(Qt::escape(name)));
 
 	return mime;
 }

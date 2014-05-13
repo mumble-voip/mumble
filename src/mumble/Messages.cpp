@@ -88,7 +88,7 @@ void MainWindow::msgBanList(const MumbleProto::BanList &msg) {
 void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 	rtLast = msg.type();
 
-	QString reason(u8(msg.reason()));;
+	QString reason;
 
 	switch (rtLast) {
 		case MumbleProto::Reject_RejectType_InvalidUsername:
@@ -104,6 +104,7 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 			reason = tr("Wrong password");
 			break;
 		default:
+			reason = Qt::escape(u8(msg.reason()));
 			break;
 	}
 
@@ -150,7 +151,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	ClientUser *p=ClientUser::get(g.uiSession);
 	connect(p, SIGNAL(talkingChanged()), this, SLOT(talkingChanged()));
 
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName));
+	qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
 
 	// Update QActions and menues
 	on_qmServer_aboutToShow();
@@ -214,7 +215,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.s.bTTS = true;
 					quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);
 					g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
-					g.l->log(Log::PermissionDenied, QString::fromAscii(g.ccHappyEaster + 39).arg(u));
+					g.l->log(Log::PermissionDenied, QString::fromAscii(g.ccHappyEaster + 39).arg(Qt::escape(u)));
 					g.s.qmMessages[Log::PermissionDenied] = oflags;
 					g.s.bDeaf = bold;
 					g.s.bTTS = bold2;
@@ -239,7 +240,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
 				if (msg.has_name())
-					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name())));
+					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(Qt::escape(u8(msg.name()))));
 				else
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
 			}
@@ -254,7 +255,7 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		default: {
 				if (msg.has_reason())
-					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason())));
+					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
 				else
 					g.l->log(Log::PermissionDenied, tr("Permission denied."));
 			}
@@ -503,7 +504,7 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
-	QString reason = u8(msg.reason());
+	QString reason = Qt::escape(u8(msg.reason()));
 
 	if (pDst == pSelf) {
 		if (msg.ban())
