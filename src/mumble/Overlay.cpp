@@ -41,6 +41,7 @@
 #include "MainWindow.h"
 #include "Message.h"
 #include "OverlayText.h"
+#include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "User.h"
 #include "WebFetch.h"
@@ -273,15 +274,21 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 			qb.open(QIODevice::ReadOnly);
 
 			QImageReader qir;
-			if (cp->qbaTexture.startsWith("<?xml"))
-				qir.setFormat("svg");
-			qir.setDevice(&qb);
-			if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
-				valid = false;
+			qir.setAutoDetectImageFormat(false);
+
+			QByteArray fmt;
+			if (RichTextImage::isValidImage(cp->qbaTexture, fmt)) {
+				qir.setFormat(fmt);
+				qir.setDevice(&qb);
+				if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
+					valid = false;
+				} else {
+					cp->qbaTextureFormat = qir.format();
+					QImage qi = qir.read();
+					valid = ! qi.isNull();
+				}
 			} else {
-				cp->qbaTextureFormat = qir.format();
-				QImage qi = qir.read();
-				valid = ! qi.isNull();
+				valid = false;
 			}
 		}
 		if (! valid) {
