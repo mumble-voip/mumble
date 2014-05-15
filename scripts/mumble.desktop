@@ -15,4 +15,5 @@ Type=Application
 StartupNotify=false
 MimeType=x-scheme-handler/mumble
 Categories=Network;Chat;Qt;
+Keywords=VoIP;Messaging;Voice Chat;Secure Communication
 Version=1.0
