@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
+    <width>655</width>
     <height>611</height>
    </rect>
   </property>
@@ -311,6 +311,13 @@
        <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
          <string>Filter automatically hides empty channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbStatusIconReplace">
+        <property name="text">
+         <string>Replace speech idicator with status icon</string>
         </property>
        </widget>
       </item>
