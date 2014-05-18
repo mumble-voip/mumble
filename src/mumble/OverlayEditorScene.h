@@ -31,7 +31,7 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYEDITORSCENE_H_
 #define MUMBLE_MUMBLE_OVERLAYEDITORSCENE_H_
 
-#include <QtGui/QGraphicsScene>
+#include <QGraphicsScene>
 
 #include "Settings.h"
 
