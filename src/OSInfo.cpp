@@ -87,11 +87,11 @@ QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 
 QString OSInfo::getOS() {
 #if defined(Q_OS_WIN)
-    return QLatin1String("Win");
+	return QLatin1String("Win");
 #elif defined(Q_OS_MAC)
-    return QLatin1String("OSX");
+	return QLatin1String("OSX");
 #else
-    return QLatin1String("X11");
+	return QLatin1String("X11");
 #endif
 }
 
@@ -127,7 +127,7 @@ QString OSInfo::getOSVersion() {
 	const NXArchInfo *ai = local ? NXGetArchInfoFromCpuType(local->cputype, CPU_SUBTYPE_MULTIPLE) : NULL;
 	const char *arch = ai ? ai->name : "unknown";
 
-    os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
+	os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
@@ -355,40 +355,40 @@ QString OSInfo::getOSDisplayableVersion() {
 
 	return osdispver;
 #elif defined(Q_OS_MAC)
-    QString osdispver = QLatin1String("OS X");
-    QString osver;
-    SInt32  vMajor, vMinor, vBugfix;
+	QString osdispver = QLatin1String("OS X");
+	QString osver;
+	SInt32  vMajor, vMinor, vBugfix;
 
-    if (noErr != Gestalt(gestaltSystemVersionMajor, &vMajor) || noErr != Gestalt(gestaltSystemVersionMinor, &vMinor) || noErr != Gestalt(gestaltSystemVersionBugFix, &vBugfix))
-        return OSInfo::getOSVersion();
+	if (noErr != Gestalt(gestaltSystemVersionMajor, &vMajor) || noErr != Gestalt(gestaltSystemVersionMinor, &vMinor) || noErr != Gestalt(gestaltSystemVersionBugFix, &vBugfix))
+		return OSInfo::getOSVersion();
 
-    osver.sprintf(" (%i.%i.%i)", vMajor, vMinor, vBugfix);
+	osver.sprintf(" (%i.%i.%i)", vMajor, vMinor, vBugfix);
 
-    switch(vMinor)
-    {
-        case 0:
-            osdispver.append(QLatin1String(" Cheetah"));
-        case 1:
-            osdispver.append(QLatin1String(" Puma"));
-        case 2:
-            osdispver.append(QLatin1String(" Jaguar"));
-        case 3:
-            osdispver.append(QLatin1String(" Panther"));
-        case 4:
-            osdispver.append(QLatin1String(" Tiger"));
-        case 5:
-            osdispver.append(QLatin1String(" Leopard"));
-        case 6:
-            osdispver.append(QLatin1String(" Snow Leopard"));
-        case 7:
-            osdispver.append(QLatin1String(" Lion"));
-        case 8:
-            osdispver.append(QLatin1String(" Mountain Lion"));
-        case 9:
-            osdispver.append(QLatin1String(" Mavericks"));
-    }
+	switch(vMinor)
+	{
+	case 0:
+		osdispver.append(QLatin1String(" Cheetah"));
+	case 1:
+		osdispver.append(QLatin1String(" Puma"));
+	case 2:
+		osdispver.append(QLatin1String(" Jaguar"));
+	case 3:
+		osdispver.append(QLatin1String(" Panther"));
+	case 4:
+		osdispver.append(QLatin1String(" Tiger"));
+	case 5:
+		osdispver.append(QLatin1String(" Leopard"));
+	case 6:
+		osdispver.append(QLatin1String(" Snow Leopard"));
+	case 7:
+		osdispver.append(QLatin1String(" Lion"));
+	case 8:
+		osdispver.append(QLatin1String(" Mountain Lion"));
+	case 9:
+		osdispver.append(QLatin1String(" Mavericks"));
+	}
 
-    return osdispver.append(osver);
+	return osdispver.append(osver);
 #else
 	return OSInfo::getOSVersion();
 #endif
