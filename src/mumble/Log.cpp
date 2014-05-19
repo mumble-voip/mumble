@@ -253,6 +253,9 @@ const QStringList Log::allowedSchemes() {
 	qslAllowedSchemeNames << QLatin1String("mailto");
 	qslAllowedSchemeNames << QLatin1String("xmpp");
 	qslAllowedSchemeNames << QLatin1String("skype");
+	qslAllowedSchemeNames << QLatin1String("teamspeak");
+	qslAllowedSchemeNames << QLatin1String("ts3server");
+	qslAllowedSchemeNames << QLatin1String("ventrilo");
 
 	return qslAllowedSchemeNames;
 }
