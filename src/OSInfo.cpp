@@ -87,11 +87,13 @@ QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 
 QString OSInfo::getOS() {
 #if defined(Q_OS_WIN)
-	return QLatin1String("Win");
+    return QLatin1String("Win");
 #elif defined(Q_OS_MAC)
-	return QLatin1String("OSX");
+    return QLatin1String("OS X");
+#elif defined(Q_OS_LINUX)
+    return QLatin1String("Linux");
 #else
-	return QLatin1String("X11");
+    return QLatin1String("Unix");
 #endif
 }
 
@@ -126,8 +128,33 @@ QString OSInfo::getOSVersion() {
 	const NXArchInfo *local = NXGetLocalArchInfo();
 	const NXArchInfo *ai = local ? NXGetArchInfoFromCpuType(local->cputype, CPU_SUBTYPE_MULTIPLE) : NULL;
 	const char *arch = ai ? ai->name : "unknown";
+    const char *name = NULL;
 
-	os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
+    switch(minor)
+    {
+        case 0:
+            name = "Cheetah";
+        case 1:
+            name = "Puma";
+        case 2:
+            name = "Jaguar";
+        case 3:
+            name = "Panther";
+        case 4:
+            name = "Tiger";
+        case 5:
+            name = "Leopard";
+        case 6:
+            name = "Snow Leopard";
+        case 7:
+            name = "Lion";
+        case 8:
+            name = "Mountain Lion";
+        case 9:
+            name = "Mavericks";
+    }
+
+    os.sprintf("%i.%i.%i %s", major, minor, bugfix, !name ? arch : name);
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
