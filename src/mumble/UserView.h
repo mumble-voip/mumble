@@ -80,7 +80,11 @@ class UserView : public QTreeView {
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &roles = QVector<int>());
+#else
 		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+#endif
 		void updateChannel(const QModelIndex &index);
 };
 
