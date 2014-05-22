@@ -18,7 +18,7 @@ pbh.input = PROTOBUF
 pbh.CONFIG *= no_link explicit_dependencies target_predeps
 
 pb.output = ${QMAKE_FILE_BASE}.pb.cc
-pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+pb.commands = protoc --cpp_out=. -I$$PWD $$PWD/${QMAKE_FILE_BASE}.proto
 pb.input = PROTOBUF
 pb.CONFIG *= no_link explicit_dependencies
 pb.variable_out = SOURCES

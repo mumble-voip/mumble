@@ -383,6 +383,17 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 							return qiTalkingShout;
 						case Settings::Passive:
 						default:
+							if(g.s.bStatusIconReplace)
+							{
+								if (p->bDeaf)
+									return qiDeafenedServer;
+								else if(p->bSelfDeaf)
+									return qiDeafenedSelf;
+								else if(p->bMute)
+									return qiMutedServer;
+								else if(p->bSelfMute)
+									return qiMutedSelf;
+							}
 							return qiTalkingOff;
 					}
 				break;
@@ -406,25 +417,38 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiPrioritySpeaker;
 				if (p->bRecording)
 					l << qiRecording;
-				if (p->bMute)
+				if (! g.s.bStatusIconReplace && p->bMute)
 					l << qiMutedServer;
 				if (p->bSuppress)
 					l << qiMutedSuppressed;
-				if (p->bSelfMute)
+				if (! g.s.bStatusIconReplace && p->bSelfMute)
 					l << qiMutedSelf;
 				if (p->bLocalMute)
 					l << qiMutedLocal;
 				if (p->bLocalIgnore)
 					l << qiIgnoredLocal;
-				if (p->bDeaf)
+				if (! g.s.bStatusIconReplace && p->bDeaf)
 					l << qiDeafenedServer;
-				if (p->bSelfDeaf)
+				if (! g.s.bStatusIconReplace && p->bSelfDeaf)
 					l << qiDeafenedSelf;
 				if (p->iId >= 0)
 					l << qiAuthenticated;
 				if (! p->qsFriendName.isEmpty())
 					l << qiFriend;
 				return l;
+			case Qt::ForegroundRole:
+				if(g.s.bUseColorsInTree)
+				{
+					if (p->bLocalMute || p->bLocalIgnore) {
+						QColor qc(Qt::red);
+						return qc;
+					}
+					else if (! p->qsFriendName.isEmpty()) {
+						QColor qc(Qt::darkGreen);
+						return qc;
+					}
+				}
+				break;
 			default:
 				break;
 		}

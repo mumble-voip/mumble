@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>644</width>
+    <width>655</width>
     <height>611</height>
    </rect>
   </property>
@@ -91,7 +91,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="8" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -311,6 +311,20 @@
        <widget class="QCheckBox" name="qcbFilterHidesEmptyChannels">
         <property name="text">
          <string>Filter automatically hides empty channels</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbStatusIconReplace">
+        <property name="text">
+         <string>Replace speech indicator with status icon</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QCheckBox" name="qcbUseColorsInTree">
+        <property name="text">
+         <string>Use colors for friends and ignored users</string>
         </property>
        </widget>
       </item>

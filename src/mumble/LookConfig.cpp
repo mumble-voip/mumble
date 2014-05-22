@@ -135,7 +135,8 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
-	
+	loadCheckBox(qcbStatusIconReplace, r.bStatusIconReplace);
+	loadCheckBox(qcbUseColorsInTree, r.bUseColorsInTree);
 }
 
 void LookConfig::save() const {
@@ -177,6 +178,8 @@ void LookConfig::save() const {
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
+	s.bStatusIconReplace = qcbStatusIconReplace->isChecked();
+	s.bUseColorsInTree = qcbUseColorsInTree->isChecked();
 }
 
 void LookConfig::accept() const {

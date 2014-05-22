@@ -354,6 +354,41 @@ QString OSInfo::getOSDisplayableVersion() {
 	osdispver.append(osv);
 
 	return osdispver;
+#elif defined(Q_OS_MAC)
+	QString osdispver = QLatin1String("OS X");
+	QString osver;
+	SInt32  vMajor, vMinor, vBugfix;
+
+	if (noErr != Gestalt(gestaltSystemVersionMajor, &vMajor) || noErr != Gestalt(gestaltSystemVersionMinor, &vMinor) || noErr != Gestalt(gestaltSystemVersionBugFix, &vBugfix))
+		return OSInfo::getOSVersion();
+
+	osver.sprintf(" (%i.%i.%i)", vMajor, vMinor, vBugfix);
+
+	switch(vMinor)
+	{
+	case 0:
+		osdispver.append(QLatin1String(" Cheetah"));
+	case 1:
+		osdispver.append(QLatin1String(" Puma"));
+	case 2:
+		osdispver.append(QLatin1String(" Jaguar"));
+	case 3:
+		osdispver.append(QLatin1String(" Panther"));
+	case 4:
+		osdispver.append(QLatin1String(" Tiger"));
+	case 5:
+		osdispver.append(QLatin1String(" Leopard"));
+	case 6:
+		osdispver.append(QLatin1String(" Snow Leopard"));
+	case 7:
+		osdispver.append(QLatin1String(" Lion"));
+	case 8:
+		osdispver.append(QLatin1String(" Mountain Lion"));
+	case 9:
+		osdispver.append(QLatin1String(" Mavericks"));
+	}
+
+	return osdispver.append(osver);
 #else
 	return OSInfo::getOSVersion();
 #endif

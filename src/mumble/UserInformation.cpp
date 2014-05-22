@@ -58,7 +58,7 @@ UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) 
 
 	qtTimer = new QTimer(this);
 	connect(qtTimer, SIGNAL(timeout()), this, SLOT(tick()));
-	qtTimer->start(6000);
+    qtTimer->start(1000);
 
 	qgbConnection->setVisible(false);
 

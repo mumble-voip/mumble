@@ -111,7 +111,11 @@ LCDConfig::LCDConfig(Settings &st) : ConfigWidget(st) {
 		qtwi->setFlags(Qt::ItemIsEnabled |Qt::ItemIsUserCheckable);
 
 		qtwi->setText(0, d->name());
-		qtwi->setToolTip(0, Qt::escape(d->name()));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+        qtwi->setToolTip(0, d->name().toHtmlEscaped());
+#else
+        qtwi->setToolTip(0, Qt::escape(d->name()));
+#endif
 
 		QSize lcdsize = d->size();
 		QString qsSize = QString::fromLatin1("%1x%2").arg(lcdsize.width()).arg(lcdsize.height());
