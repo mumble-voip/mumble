@@ -435,7 +435,20 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 					l << qiAuthenticated;
 				if (! p->qsFriendName.isEmpty())
 					l << qiFriend;
-			return l;
+				return l;
+			case Qt::ForegroundRole:
+				if(g.s.bUseColorsInTree)
+				{
+					if (p->bLocalMute || p->bLocalIgnore) {
+						QColor qc(Qt::red);
+						return qc;
+					}
+					else if (! p->qsFriendName.isEmpty()) {
+						QColor qc(Qt::darkGreen);
+						return qc;
+					}
+				}
+				break;
 			default:
 				break;
 		}
