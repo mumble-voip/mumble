@@ -50,9 +50,9 @@ uint64_t g_playerGUID;
  * call each value, to ease in upgrading. "[_]" means the value name may or may not
  * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0xEC4140; // ClientConnection or CurMgrPointer
+static uint32_t ptr_ClientConnection=0xEC4628; // ClientConnection or CurMgrPointer
 static size_t off_ObjectManager=0x462C; // objectManager or CurMgrOffset
-static uint32_t ptr_WorldFrame=0xD6496C; // Camera[_]Pointer
+static uint32_t ptr_WorldFrame=0xD64E5C; // Camera[_]Pointer
 static size_t off_CameraOffset=0x8208; // Camera[_]Offset
 
 uint32_t getInt32(uint32_t ptr) {
@@ -200,6 +200,16 @@ static const unsigned long nameBaseOffset      = 0x020;  // Offset for the start
 static const unsigned long nameStringOffset    = 0x021;  // Offset to the C string in a name structure
 
 void getPlayerName(std::wstring &identity) {
+	/*
+	** All the OwnedCore guys seem to be just pulling it from a simple pointer
+	** instead of traversing through the NameStore, and since no one's updated
+	** nameStorePtr yet I figured I'd try just doing it this way.
+	*/
+	getWString((uint32_t)pModule +0xEC4668, identity);
+	return;
+
+	/*
+	** Old code below:
 	unsigned long mask, base, offset, current, shortGUID, testGUID;
 
 	mask = getInt32((uint32_t)pModule + nameStorePtr + nameMaskOffset);
@@ -228,6 +238,7 @@ void getPlayerName(std::wstring &identity) {
 		testGUID=getInt32(current);
 	}
 	getWString(current + nameStringOffset, identity);
+*/
 	//printf("%ls\n", identity.data());
 }
 
@@ -416,10 +427,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 5.4.7 (18019), with identity support.");
+	return std::wstring(L"Supports World of Warcraft 5.4.7 (18291), with identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 5.4.7 (18019)");
+static std::wstring description(L"World of Warcraft 5.4.7 (18291)");
 
 static std::wstring shortname(L"World of Warcraft");
 
