@@ -324,6 +324,10 @@ struct Settings {
 	float dPacketLoss;
 	float dMaxPacketDelay;
 
+	// Kick/Ban Reasons
+	bool bEnableRanKBMsgs;
+	QStringList qslKickBanReasons;
+
 	bool doEcho() const;
 	bool doPositionalAudio() const;
 

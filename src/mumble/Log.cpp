@@ -119,6 +119,12 @@ void LogConfig::load(const Settings &r) {
 	qsbThreshold->setValue(r.iTTSThreshold);
 	qcbReadBackOwn->setChecked(r.bTTSMessageReadBack);
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
+
+	qcbEnableranmsgs->setChecked(r.bEnableRanKBMsgs);
+	qlwReasons->addItems(r.qslKickBanReasons);
+	for(int i=0; i<qlwReasons->count(); i++) {
+		qlwReasons->item(i)->setFlags(qlwReasons->item(i)->flags() | Qt::ItemIsEditable);
+	}
 }
 
 void LogConfig::save() const {
@@ -144,6 +150,12 @@ void LogConfig::save() const {
 	s.iTTSThreshold=qsbThreshold->value();
 	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
 	s.bWhisperFriends = qcbWhisperFriends->isChecked();
+
+	s.bEnableRanKBMsgs = qcbEnableranmsgs->isChecked();
+	s.qslKickBanReasons.clear();
+	for (int i=0; i<qlwReasons->count(); i++) {
+		s.qslKickBanReasons.append(qlwReasons->item(i)->text());
+	}
 }
 
 void LogConfig::accept() const {
@@ -690,4 +702,22 @@ void LogDocument::finished() {
 	}
 
 	rep->deleteLater();
+}
+
+void LogConfig::on_qpb_add_clicked() {
+	QString messageText = QInputDialog::getText(this, tr("Add reason"),tr("Input text for the new reason:"));
+
+	if (messageText.isNull())
+		return;
+
+	QListWidgetItem *newMessage = new QListWidgetItem;
+	newMessage->setText(messageText);
+
+	int row = qlwReasons->row(qlwReasons->currentItem());
+	newMessage->setFlags (newMessage->flags() | Qt::ItemIsEditable);
+	qlwReasons->insertItem(row, newMessage);
+}
+
+void LogConfig::on_qpb_remove_clicked() {
+	qDeleteAll(qlwReasons->selectedItems());
 }
