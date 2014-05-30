@@ -119,4 +119,11 @@ class LogDocument : public QTextDocument {
 		bool m_onlyLoadDataURLs;
 };
 
+class LogDocumentResourceAddedEvent : public QEvent {
+	public:
+		static const QEvent::Type Type = static_cast<QEvent::Type>(20145);
+
+		LogDocumentResourceAddedEvent();
+};
+
 #endif
