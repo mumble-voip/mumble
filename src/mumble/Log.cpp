@@ -679,6 +679,9 @@ void LogDocument::finished() {
 					if (qte != NULL) {
 						QEvent *e = new QEvent(QEvent::FontChange);
 						QApplication::postEvent(qte, e);
+
+						e = new LogDocumentResourceAddedEvent();
+						QApplication::postEvent(qte, e);
 					}
 				} else {
 					m_valid = false;
@@ -690,4 +693,8 @@ void LogDocument::finished() {
 	}
 
 	rep->deleteLater();
+}
+
+LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent()
+	: QEvent(LogDocumentResourceAddedEvent::Type) {
 }
