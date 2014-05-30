@@ -50,6 +50,7 @@ class LogTextBrowser : public QTextBrowser {
 		Q_DISABLE_COPY(LogTextBrowser)
 	protected:
 		virtual void resizeEvent(QResizeEvent *e);
+		virtual bool event(QEvent *e);
 	public:
 		LogTextBrowser(QWidget *p = NULL);
 

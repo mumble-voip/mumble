@@ -45,6 +45,13 @@ void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	QTextBrowser::resizeEvent(e);
 }
 
+bool LogTextBrowser::event(QEvent *e) {
+	if (e->type() == QEvent::User) {
+		scrollLogToBottom();
+	}
+	QTextBrowser::event(e);
+}
+
 int LogTextBrowser::getLogScroll() {
 	return verticalScrollBar()->value();
 }
