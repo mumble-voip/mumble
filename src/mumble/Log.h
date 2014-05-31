@@ -124,7 +124,6 @@ class LogDocumentAddResourceEvent : public QEvent {
 		static const QEvent::Type Type = static_cast<QEvent::Type>(20145);
 
 		LogDocumentAddResourceEvent();
-
 };
 
 #endif
