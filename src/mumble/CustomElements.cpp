@@ -47,7 +47,7 @@ void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 }
 
 bool LogTextBrowser::event(QEvent *e) {
-	if (e->type() == LogDocumentAddResourceEvent::Type) {
+	if (e->type() == LogDocumentResourceAddedEvent::Type) {
 		scrollLogToBottom();
 	}
 	QTextBrowser::event(e);

@@ -680,7 +680,7 @@ void LogDocument::finished() {
 						QEvent *e = new QEvent(QEvent::FontChange);
 						QApplication::postEvent(qte, e);
 
-						e = new LogDocumentAddResourceEvent();
+						e = new LogDocumentResourceAddedEvent();
 						QApplication::postEvent(qte, e);
 					}
 				} else {
@@ -695,6 +695,6 @@ void LogDocument::finished() {
 	rep->deleteLater();
 }
 
-LogDocumentAddResourceEvent::LogDocumentAddResourceEvent()
-	: QEvent(LogDocumentAddResourceEvent::Type) {
+LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent()
+	: QEvent(LogDocumentResourceAddedEvent::Type) {
 }
