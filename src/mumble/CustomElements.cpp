@@ -36,6 +36,7 @@
 #include "ClientUser.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "Log.h"
 
 
 LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
@@ -46,7 +47,7 @@ void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 }
 
 bool LogTextBrowser::event(QEvent *e) {
-	if (e->type() == QEvent::User) {
+	if (e->type() == LogDocumentAddResourceEvent::Type) {
 		scrollLogToBottom();
 	}
 	QTextBrowser::event(e);
