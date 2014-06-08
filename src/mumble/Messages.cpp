@@ -107,7 +107,11 @@ void MainWindow::msgReject(const MumbleProto::Reject &msg) {
 			reason = tr("Your account information can not be verified currently. Please try again later");
 			break;
 		default:
-			reason = Qt::escape(u8(msg.reason()));
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				reason = u8(msg.reason()).toHtmlEscaped();
+			#else
+				reason = Qt::escape(u8(msg.reason()));
+			#endif
 			break;
 	}
 
@@ -119,7 +123,7 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	g.sh->sendPing(); // Send initial ping to establish UDP connection
 
 	g.uiSession = msg.session();
-	g.pPermissions = static_cast<ChanACL::Permissions>(msg.permissions());
+	g.pPermissions = static_cast<ChanACL::Perm>(msg.permissions());
 	g.l->clearIgnore();
 	g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
 	pmModel->ensureSelfVisible();
@@ -157,7 +161,11 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	connect(user, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
 	connect(user, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 	
-	qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		qstiIcon->setToolTip(tr("Mumble: %1").arg(Channel::get(0)->qsName.toHtmlEscaped()));
+	#else
+		qstiIcon->setToolTip(tr("Mumble: %1").arg(Qt::escape(Channel::get(0)->qsName)));
+	#endif
 
 	// Update QActions and menues
 	on_qmServer_aboutToShow();
@@ -218,7 +226,11 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 					g.s.bTTS = true;
 					quint32 oflags = g.s.qmMessages.value(Log::PermissionDenied);
 					g.s.qmMessages[Log::PermissionDenied] = (oflags | Settings::LogTTS) & (~Settings::LogSoundfile);
-					g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(Qt::escape(g.s.qsUsername)));
+					#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+						g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(g.s.qsUsername.toHtmlEscaped()));
+					#else
+						g.l->log(Log::PermissionDenied, QString::fromUtf8(g.ccHappyEaster + 39).arg(Qt::escape(g.s.qsUsername)));
+					#endif
 					g.s.qmMessages[Log::PermissionDenied] = oflags;
 					g.s.bDeaf = bold;
 					g.s.bTTS = bold2;
@@ -243,7 +255,11 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		case MumbleProto::PermissionDenied_DenyType_UserName: {
 				if (msg.has_name())
-					g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(Qt::escape(u8(msg.name()))));
+					#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+						g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(u8(msg.name()).toHtmlEscaped()));
+					#else
+						g.l->log(Log::PermissionDenied, tr("Invalid username: %1.").arg(Qt::escape(u8(msg.name()))));
+					#endif
 				else
 					g.l->log(Log::PermissionDenied, tr("Invalid username."));
 			}
@@ -258,7 +274,11 @@ void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
 			break;
 		default: {
 				if (msg.has_reason())
-					g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
+					#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+						g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(u8(msg.reason()).toHtmlEscaped()));
+					#else
+						g.l->log(Log::PermissionDenied, tr("Denied: %1.").arg(Qt::escape(u8(msg.reason()))));
+					#endif
 				else
 					g.l->log(Log::PermissionDenied, tr("Permission denied."));
 			}
@@ -514,7 +534,11 @@ void MainWindow::msgUserRemove(const MumbleProto::UserRemove &msg) {
 	ACTOR_INIT;
 	SELF_INIT;
 
-	QString reason = Qt::escape(u8(msg.reason()));
+	#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		QString reason = u8(msg.reason()).toHtmlEscaped();
+	#else
+		QString reason = Qt::escape(u8(msg.reason()));
+	#endif
 
 	if (pDst == pSelf) {
 		bRetryServer = false;

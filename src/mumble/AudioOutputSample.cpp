@@ -212,9 +212,15 @@ QString AudioOutputSample::browseForSndfile(QString defaultpath) {
 	if (! file.isEmpty()) {
 		SoundFile *sf = AudioOutputSample::loadSndfile(file);
 		if (sf == NULL) {
-			QMessageBox::critical(NULL,
-			                      tr("Invalid sound file"),
-			                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(Qt::escape(file)));
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				QMessageBox::critical(NULL,
+				                      tr("Invalid sound file"),
+				                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(file.toHtmlEscaped()));
+			#else
+				QMessageBox::critical(NULL,
+				                      tr("Invalid sound file"),
+				                      tr("The file '%1' cannot be used by Mumble. Please select a file with a compatible format and encoding.").arg(Qt::escape(file)));
+			#endif
 			return QString();
 		}
 		delete sf;

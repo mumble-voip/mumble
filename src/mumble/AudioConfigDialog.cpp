@@ -370,7 +370,11 @@ void AudioInputDialog::on_qcbSystem_currentIndexChanged(int) {
 
 		foreach(audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
-			qcbDevice->setItemData(idx, Qt::escape(d.first), Qt::ToolTipRole);
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
+			#else
+				qcbDevice->setItemData(idx, Qt::escape(d.first), Qt::ToolTipRole);
+			#endif
 			++idx;
 		}
 
@@ -516,7 +520,11 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 
 		foreach(audioDevice d, ql) {
 			qcbDevice->addItem(d.first, d.second);
-			qcbDevice->setItemData(idx, Qt::escape(d.first), Qt::ToolTipRole);
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				qcbDevice->setItemData(idx, d.first.toHtmlEscaped(), Qt::ToolTipRole);
+			#else
+				qcbDevice->setItemData(idx, Qt::escape(d.first), Qt::ToolTipRole);
+			#endif
 			++idx;
 		}
 		bool canmute = aor->canMuteOthers();

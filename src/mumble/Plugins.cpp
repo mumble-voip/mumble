@@ -195,7 +195,11 @@ void PluginConfig::refillPluginList() {
 		i->setCheckState(1, pi->enabled ? Qt::Checked : Qt::Unchecked);
 		i->setText(0, pi->description);
 		if (pi->p->longdesc)
-			i->setToolTip(0, Qt::escape(QString::fromStdWString(pi->p->longdesc())));
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				i->setToolTip(0, QString::fromStdWString(pi->p->longdesc()).toHtmlEscaped());
+			#else
+				i->setToolTip(0, Qt::escape(QString::fromStdWString(pi->p->longdesc())));
+			#endif
 		i->setData(0, Qt::UserRole, pi->filename);
 	}
 	qtwPlugins->setCurrentItem(qtwPlugins->topLevelItem(0));
@@ -411,7 +415,11 @@ void Plugins::on_Timer_timeout() {
 	QReadLocker lock(&qrwlPlugins);
 
 	if (prevlocked) {
-		g.l->log(Log::Information, tr("%1 lost link.").arg(Qt::escape(prevlocked->shortname)));
+		#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+			g.l->log(Log::Information, tr("%1 lost link.").arg(prevlocked->shortname.toHtmlEscaped()));
+		#else
+			g.l->log(Log::Information, tr("%1 lost link.").arg(Qt::escape(prevlocked->shortname)));
+		#endif
 		prevlocked = NULL;
 	}
 
@@ -485,7 +493,11 @@ void Plugins::on_Timer_timeout() {
 	if (pi->enabled) {
 		if (pi->p2 ? pi->p2->trylock(pids) : pi->p->trylock()) {
 			pi->shortname = QString::fromStdWString(pi->p->shortname);
-			g.l->log(Log::Information, tr("%1 linked.").arg(Qt::escape(pi->shortname)));
+			#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+				g.l->log(Log::Information, tr("%1 linked.").arg(pi->shortname.toHtmlEscaped()));
+			#else
+				g.l->log(Log::Information, tr("%1 linked.").arg(Qt::escape(pi->shortname)));
+			#endif
 			pi->locked = true;
 			bUnlink = false;
 			locked = pi;
@@ -685,15 +697,25 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 					if (f.open(QIODevice::WriteOnly)) {
 						f.write(data);
 						f.close();
-						g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
+						#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+						#else
+							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
+						#endif
 					} else {
 						f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
 						if (f.open(QIODevice::WriteOnly)) {
 							f.write(data);
 							f.close();
-							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
-						} else {
-							g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(Qt::escape(f.fileName())));
+							#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+								g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+							} else {
+								g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(f.fileName().toHtmlEscaped()));
+							#else
+								g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
+							} else {
+								g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(Qt::escape(f.fileName())));
+							#endif
 						}
 					}
 
