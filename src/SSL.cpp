@@ -147,4 +147,28 @@ void MumbleSSL::addSystemCA() {
 	// Don't perform on-demand loading of root certificates
 	QSslSocket::addDefaultCaCertificates(QSslSocket::systemCaCertificates());
 #endif
+
+#ifdef Q_OS_WIN
+	// Work around issue #1271.
+	// Skype's click-to-call feature creates an enormous
+	// amount of certificates in the Root CA store.
+	{
+		QSslConfiguration sslCfg = QSslConfiguration::defaultConfiguration();
+		QList<QSslCertificate> caList = sslCfg.caCertificates();
+
+		QList<QSslCertificate> filteredCaList;
+		foreach (QSslCertificate cert, caList) {
+			QString ou = cert.subjectInfo(QSslCertificate::Organization);
+			if (ou.contains(QLatin1String("Skype"), Qt::CaseInsensitive)) {
+				continue;
+			}
+			filteredCaList.append(cert);
+		}
+
+		sslCfg.setCaCertificates(filteredCaList);
+		QSslConfiguration::setDefaultConfiguration(sslCfg);
+
+		qWarning("SSL: CA certificate filter applied. Filtered size: %i, original size: %i", filteredCaList.size(), caList.size());
+	}
+#endif
 }
