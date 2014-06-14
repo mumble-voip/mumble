@@ -243,6 +243,7 @@ bool CertWizard::validateCurrentPage() {
 			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for writing. Please use another file."), qleExportFile);
 			return false;
 		}
+		f.setPermissions(QFile::ReadOwner | QFile::WriteOwner);
 		qint64 written = f.write(qba);
 		f.close();
 		if (written != qba.length()) {
