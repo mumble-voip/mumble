@@ -243,6 +243,10 @@ bool CertWizard::validateCurrentPage() {
 			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file could not be opened for writing. Please use another file."), qleExportFile);
 			return false;
 		}
+		if (! f.setPermissions(QFile::ReadOwner | QFile::WriteOwner)) {
+			QToolTip::showText(qleExportFile->mapToGlobal(QPoint(0,0)), tr("The file's permissions could not be set. No certificate and key has been written. Please use another file."), qleExportFile);
+			return false;
+		}
 		qint64 written = f.write(qba);
 		f.close();
 		if (written != qba.length()) {
