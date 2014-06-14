@@ -1,5 +1,20 @@
+2014-06-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    aef3509  Add CA certificate filter to MumbleSSL::addSystemCA() to work
+	     around issue 1271.
+
+2014-06-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    ba4fde3  Bump version to 1.2.7
+
+2014-05-30
+  Tim Cooper <tim.cooper@layeh.com>
+    75cf9de  Fix issue where the chat box does not scroll down when an
+	     image is loaded (#1258)
+
 2014-05-13
   Mikkel Krautz <mikkel@krautz.dk>
+    07dc8ca  Update changelog
     f49185d  Bump version to 1.2.6
     e30d7ac  mumble: fix Mumble-SA-2014-006.
     c7aecb2  mumble: fix Mumble-SA-2014-005.
@@ -10,6 +25,11 @@
     269e93e  mumble: fix Mumble-SA-2014-002 (CVE-2014-0045).
     7e31c32  mumble: fix Mumble-SA-2014-001 (CVE-2014-0044).
     f5ebe9d  Bump version to 1.2.5
+
+2013-12-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    8323bd4  mumble: allow Log_macx.mm to build against the OS X 10.4 SDK
+	     (for universal builds).
 
 2013-06-01
   Stefan Hacker <dd0t@users.sourceforge.net>
