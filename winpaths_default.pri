@@ -17,6 +17,12 @@ BONJOUR_PATH = %PROGRAMFILES%/Bonjour SDK
 ASIO_PATH = /dev/asio
 G15SDK_PATH = /dev/G15SDK/LCDSDK
 
+# Include buildenv file is MUMBLE_PREFIX is set
+MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
+!isEmpty(MUMBLE_PREFIX) {
+	include(winpaths_buildenv.pri)
+}
+
 # Include custom file if it exists
 exists(winpaths_custom.pri) {
 	include(winpaths_custom.pri)
