@@ -163,6 +163,10 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		showcon = true;
 		HostAddress ha(msg.address());
 		qlAddress->setText(ha.toString());
+
+        QHostInfo hi = QHostInfo::fromName(ha.toString());
+        QString domainName = hi.hostName();
+        qlDomainName->setText(domainName);
 	}
 	if (msg.has_version()) {
 		showcon = true;
