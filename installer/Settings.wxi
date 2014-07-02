@@ -52,6 +52,14 @@
     <?define IceDir = "$(env.MumbleIceDir)" ?>
   <?endif ?>
   
+  <?ifndef env.MumbleBzip2Dir ?>
+    <?ifdef IceDir ?>
+      <?define Bzip2Dir = "$(var.IceDir)" ?>
+    <?endif ?>
+  <?else ?>
+    <?define Bzip2Dir = "$(env.MumbleBzip2Dir)" ?>
+  <?endif ?>
+
   <?ifndef env.MumbleOpenSslDir ?>
     <?define OpenSslDir = "\dev\openssl" ?>
   <?else ?>
