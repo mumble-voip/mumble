@@ -50,7 +50,7 @@
   <?ifndef env.MumbleOpenSslDir ?>
     <?define OpenSslDir = "\dev\openssl" ?>
   <?else ?>
-    <?define OpenSslDir = "$(MumbleOpenSslDir)" ?>
+    <?define OpenSslDir = "$(env.MumbleOpenSslDir)" ?>
   <?endif ?>
 
   <?ifndef env.MumbleZlibDir ?>
