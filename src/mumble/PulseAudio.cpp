@@ -474,9 +474,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->iMicFreq = pss->rate;
 			pai->iMicChannels = pss->channels;
 			if (pss->format == PA_SAMPLE_FLOAT32NE)
-				pai->eMicFormat = AudioInput::SampleFloat;
+				pai->eMicFormat = PulseAudioInput::SampleFloat;
 			else
-				pai->eMicFormat = AudioInput::SampleShort;
+				pai->eMicFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
 		pai->addMic(data, length / pai->iMicSampleSize);
@@ -486,9 +486,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->iEchoFreq = pss->rate;
 			pai->iEchoChannels = pss->channels;
 			if (pss->format == PA_SAMPLE_FLOAT32NE)
-				pai->eEchoFormat = AudioInput::SampleFloat;
+				pai->eEchoFormat = PulseAudioInput::SampleFloat;
 			else
-				pai->eEchoFormat = AudioInput::SampleShort;
+				pai->eEchoFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
 		pai->addEcho(data, length / pai->iEchoSampleSize);
@@ -520,9 +520,9 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pao->pss = *pss;
 		pao->pcm = *pcm;
 		if (pss->format == PA_SAMPLE_FLOAT32NE)
-			pao->eSampleFormat = AudioOutput::SampleFloat;
+			pao->eSampleFormat = PulseAudioOutput::SampleFloat;
 		else
-			pao->eSampleFormat = AudioOutput::SampleShort;
+			pao->eSampleFormat = PulseAudioOutput::SampleShort;
 		pao->iMixerFreq = pss->rate;
 		pao->iChannels = pss->channels;
 		unsigned int chanmasks[pss->channels];
