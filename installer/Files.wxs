@@ -170,7 +170,7 @@
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="bzip2.dll">
-        <File Source="$(var.IceDir)\bzip2.dll" KeyPath="yes" />
+        <File Source="$(var.Bzip2Dir)\bzip2.dll" KeyPath="yes" />
       </Component>
       <Component Id="ice34.dll">
         <File Source="$(var.IceDir)\ice34.dll" KeyPath="yes" />
