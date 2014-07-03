@@ -47,6 +47,7 @@
 #include <QtNetwork/QHostAddress>
 #include <QtNetwork/QSslCipher>
 #include <QtNetwork/QSslError>
+#include <QtNetwork/QDnsLookup>
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -91,10 +92,13 @@ class ServerHandler : public QThread {
 		DWORD dwFlowUDP;
 #endif
 
+		int iCurrentSrvRecord;
+		QDnsLookup *qdlSrvLookup;
 		QHostAddress qhaRemote;
 		QUdpSocket *qusUdp;
 		QMutex qmUdp;
 
+		void tryNextSrvRecord();
 		void handleVoicePacket(unsigned int msgFlags, PacketDataStream &pds, MessageHandler::UDPMessageType type);
 	public:
 		Timer tTimestamp;
@@ -154,6 +158,7 @@ class ServerHandler : public QThread {
 		void connected();
 	protected slots:
 		void message(unsigned int, const QByteArray &);
+		void handleSrvRecords();
 		void serverConnectionConnected();
 		void serverConnectionTimeoutOnConnect();
 		void serverConnectionStateChanged(QAbstractSocket::SocketState);
