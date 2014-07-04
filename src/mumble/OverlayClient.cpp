@@ -428,6 +428,7 @@ void OverlayClient::readyReadMsgInit(unsigned int length) {
 	om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 	om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
 	om.omh.iLength = key.length();
+	Q_ASSERT(sizeof(om.oms.a_cName) >= key.length()); // Name should be auto-generated and short
 	memcpy(om.oms.a_cName, key.constData(), key.length());
 	qlsSocket->write(om.headerbuffer, sizeof(OverlayMsgHeader) + om.omh.iLength);
 
