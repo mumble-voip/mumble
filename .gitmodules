@@ -3,7 +3,7 @@
 	url = git://git.xiph.org/speex.git/
 [submodule "celt-0.7.0-src"]
 	path = celt-0.7.0-src
-	url = git://git.xiph.org/celt.git/
+	url = https://github.com/mumble-voip/celt-0.7.0.git
 [submodule "celt-0.11.0-src"]
 	path = celt-0.11.0-src
 	url = git://git.xiph.org/celt.git/
