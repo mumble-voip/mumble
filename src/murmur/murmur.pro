@@ -106,7 +106,13 @@ ice {
 			QMAKE_LIBDIR *= "$$ICE_PATH/lib/vc100"
 		} else {
 			DEFINES *= ICE_STATIC_LIBS
-			QMAKE_LIBDIR *= $$ICE_PATH/lib $$BZIP2_PATH/lib
+			QMAKE_LIBDIR *= $$BZIP2_PATH/lib
+			equals(QMAKE_TARGET.arch, x86) {
+				QMAKE_LIBDIR *= $$ICE_PATH/lib
+			}
+			equals(QMAKE_TARGET.arch, x86_64) {
+				QMAKE_LIBDIR *= $$ICE_PATH/lib/x64
+			}
 			LIBS *= -llibbz2 -ldbghelp -liphlpapi -lrpcrt4
 		}
 	}

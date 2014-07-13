@@ -107,10 +107,17 @@ FakeInterface::~FakeInterface() {
 
 void FakeInterface::replace(LONG offset, voidMemberFunc replacement) {
 	void *p = NULL;
+#if defined(_M_X86)
 	_asm {
 		mov eax, replacement
 		mov p, eax
 	}
+#elif defined(_M_X64)
+	// Crash.
+	ods("Lib: unimplemented FakeInterface::replace on x64. crashing...");
+	char *c = NULL;
+	*c = 0;
+#endif
 	ods("Lib: FakeInterface: replace: That gave %p", p);
 	vtbl[offset] = p;
 }

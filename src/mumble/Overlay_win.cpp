@@ -49,6 +49,10 @@ typedef void (__cdecl *PrepProc)();
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
+#ifdef Q_OS_WIN64
+	qWarning("Overlay: suppressing OverlayPrivateWin initialization on x64");
+	return;
+#endif
 
 	hpInstall = NULL;
 	hpRemove = NULL;

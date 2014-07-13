@@ -9,6 +9,42 @@ win32 {
 	INCLUDEPATH *= "$$BOOST_PATH/include" "$$BOOST_PATH/include/boost-1_49/"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib" "$$BOOST_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
+
+	# Sanity check that DXSDK_DIR, LIB and INCLUDE are properly set up.
+	#
+	# On Windows/x86, we build using the VS2013 v120_xp toolchain, which targets
+	# a slightly modified Win7 SDK that still allows building for Windows XP. In that
+	# environment, we must use the "external" DirectX SDK (June 2010). This SDK is
+	# specified via the SXSDK_DIR.
+	#
+	# On Windows/amd64, we build using the VS2013 v120 platform, and we target the
+	# Windows 8.1 SDK. In this setup, we use the DirectX SDK included with the Windows
+	# 8.1 SDK, but only to a point. The bundled SDK does not include all things that
+	# we depend on for the overlay, such as d3dx{9,10,11}. To overcome this, we use
+	# both SDKs: the one bundled with the Windows 8.1 SDK for most libraries, and the
+	# external June 2010 variant for the things that are not in the Windows 8.1 SDK
+	# variant of the DirectX SDK. This is the approach recommended by Microsoft:
+	# http://msdn.microsoft.com/en-us/library/windows/desktop/ee663275(v=vs.85).aspx
+	# (see step 5).
+	#
+	# Because of these things, the Windows build currently expects the build environment
+	# to properly set up the LIB and INCLUDE environment variables, with correct ordering
+	# of the Windows SDK and DirectX depending on the platform we're targetting.
+	# It's tough to check these things with qmake, we'll have to do with a simple sanity
+	# check for the presence of the variables.
+	DXSDK_DIR_VAR=$$(DXSDK_DIR)
+	INCLUDE_VAR=$$(INCLUDE)
+	LIB_VAR=$$(LIB)
+	isEmpty(DXSDK_DIR_VAR) {
+		error("Missing DXSDK_DIR environment variable. Are you missing the DirectX SDK (June 2010)?")
+	}
+	isEmpty(LIB_VAR) {
+		error("The LIB environment variable is not set. Are you not in a build environment?")
+	}
+	isEmpty(INCLUDE_VAR) {
+		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
+	}
+
 	CONFIG(intelcpp) {
 		DEFINES *= USE_INTEL_IPP
 		DEFINES *= RESTRICT=restrict
@@ -47,7 +83,10 @@ win32 {
 	} else {
 		QMAKE_CFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
 		QMAKE_CXXFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
-		QMAKE_LFLAGS_RELEASE *= /SafeSEH /NXCOMPAT /DYNAMICBASE
+		QMAKE_LFLAGS_RELEASE *= /NXCOMPAT /DYNAMICBASE
+		equals(QMAKE_TARGET.arch, x86) {
+			QMAKE_LFLAGS_RELEASE -= /SafeSEH
+		}
 
 		# MSVS 2012 and 2013's cl.exe will generate SSE2 code by default,
 		# unless an explict arch is set.
