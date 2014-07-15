@@ -500,7 +500,11 @@ void Plugins::checkUpdates() {
 	QList<QPair<QString, QString> > queryItems;
 	queryItems << qMakePair(QString::fromUtf8("ver"), QString::fromUtf8(QUrl::toPercentEncoding(QString::fromUtf8(MUMBLE_RELEASE))));
 #if defined(Q_OS_WIN)
+# if defined(Q_OS_WIN64)
+	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("WinX64"));
+# else
 	queryItems << qMakePair(QString::fromUtf8("os"), QString::fromUtf8("Win32"));
+# endif
 	queryItems << qMakePair(QString::fromUtf8("abi"), QString::fromUtf8(MUMTEXT(_MSC_VER)));
 #elif defined(Q_OS_MAC)
 # if defined(USE_MAC_UNIVERSAL)
