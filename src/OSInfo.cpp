@@ -87,7 +87,11 @@ QString OSInfo::getMacHash(const QList<QHostAddress> &qlBind) {
 
 QString OSInfo::getOS() {
 #if defined(Q_OS_WIN)
+# if defined(Q_OS_WIN64)
+	return QLatin1String("WinX64");
+# else
 	return QLatin1String("Win");
+# endif
 #elif defined(Q_OS_MAC)
 	return QLatin1String("OSX");
 #else
