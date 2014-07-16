@@ -107,7 +107,7 @@
       <Component Id="manual.dll">
         <File Source="$(var.SourceDir)\release\plugins\manual.dll" KeyPath="yes" />
       </Component>
-	  <Component Id="sr.dll">
+      <Component Id="sr.dll">
         <File Source="$(var.SourceDir)\release\plugins\sr.dll" KeyPath="yes" />
       </Component>
       <Component Id="sto.dll">
