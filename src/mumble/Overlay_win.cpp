@@ -49,14 +49,14 @@ typedef void (__cdecl *PrepProc)();
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
+	hpInstall = NULL;
+	hpRemove = NULL;
+	qlOverlay = new QLibrary(this);
+
 #ifdef Q_OS_WIN64
 	qWarning("Overlay: suppressing OverlayPrivateWin initialization on x64");
 	return;
 #endif
-
-	hpInstall = NULL;
-	hpRemove = NULL;
-	qlOverlay = new QLibrary(this);
 
 	QString path = QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 	qlOverlay->setFileName(path);
