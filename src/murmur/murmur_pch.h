@@ -58,6 +58,7 @@ extern "C" {
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <syslog.h>
 #ifdef Q_OS_LINUX
 #include <linux/types.h> // needed to work around evil magic stuff in capability.h
 #include <sys/capability.h>
