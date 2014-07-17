@@ -50,7 +50,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 }
 
 // Hide overlay config for Mac OS X universal builds
-#if !defined(USE_MAC_UNIVERSAL)
+#if !defined(USE_MAC_UNIVERSAL) && !defined(Q_OS_WIN64)
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
