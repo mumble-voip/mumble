@@ -71,6 +71,7 @@ MetaParams::MetaParams() {
 	bBonjour = true;
 	bAllowPing = true;
 	bCertRequired = false;
+	bForceExternalAuth = false;
 
 	iBanTries = 10;
 	iBanTimeframe = 120;
@@ -269,6 +270,7 @@ void MetaParams::read(QString fname) {
 	iMaxUsersPerChannel = typeCheckedFromSettings("usersperchannel", iMaxUsersPerChannel);
 	qsWelcomeText = typeCheckedFromSettings("welcometext", qsWelcomeText);
 	bCertRequired = typeCheckedFromSettings("certrequired", bCertRequired);
+	bForceExternalAuth = typeCheckedFromSettings("forceExternalAuth", bForceExternalAuth);
 
 	qsDatabase = typeCheckedFromSettings("database", qsDatabase);
 
@@ -474,6 +476,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("username"),qrUserName.pattern());
 	qmConfig.insert(QLatin1String("channelname"),qrChannelName.pattern());
 	qmConfig.insert(QLatin1String("certrequired"), bCertRequired ? QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("forceExternalAuth"), bForceExternalAuth ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("suggestversion"), qvSuggestVersion.isNull() ? QString() : qvSuggestVersion.toString());
 	qmConfig.insert(QLatin1String("suggestpositional"), qvSuggestPositional.isNull() ? QString() : qvSuggestPositional.toString());
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());

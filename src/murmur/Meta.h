@@ -67,6 +67,7 @@ public:
 	QString qsPassword;
 	QString qsWelcomeText;
 	bool bCertRequired;
+	bool bForceExternalAuth;
 
 	int iBanTries;
 	int iBanTimeframe;
