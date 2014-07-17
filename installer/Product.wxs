@@ -126,7 +126,6 @@
       <?ifdef RedistDirVC12 ?>
         <ComponentRef Id="msvcp120.dll" />
         <ComponentRef Id="msvcr120.dll" />
-        <ComponentRef Id="vccorlib120.dll" />
       <?endif ?>
     </ComponentGroup>
 

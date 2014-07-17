@@ -116,9 +116,6 @@
       <Component Id="msvcr120.dll">
         <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
       </Component>
-      <Component Id="vccorlib120.dll">
-        <File Source="$(var.RedistDirVC12)\vccorlib120.dll" KeyPath="yes" />
-      </Component>
       <?endif ?>
     </DirectoryRef>
   </Fragment>
