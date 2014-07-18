@@ -83,7 +83,7 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 			level = LOG_ALERT;
 			break;
 		}
-		syslog(level, qPrintable(msg));
+		syslog(level, "%s", qPrintable(msg));
 		return;
 	}
 #endif
