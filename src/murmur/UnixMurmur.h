@@ -66,6 +66,8 @@ class UnixMurmur : public QObject {
 		void handleSigHup();
 		void handleSigTerm();
 	public:
+		bool logToSyslog;
+
 		void setuid();
 		void initialcap();
 		void finalcap();
