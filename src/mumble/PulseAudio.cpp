@@ -455,8 +455,16 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	size_t length = bytes;
-	const void *data;
+	const void *data = NULL;
 	pa_stream_peek(s, &data, &length);
+	if (data == NULL && length > 0) {
+		qWarning("PulseAudio: pa_stream_peek reports no data at current read index.");
+	} else if (data == NULL && length == 0) {
+		qWarning("PulseAudio: pa_stream_peek reports empty memblockq.");
+	} else if (data == NULL || length == 0) {
+		qWarning("PulseAudio: invalid pa_stream_peek state encountered.");
+		return;
+	}
 
 	AudioInputPtr ai = g.ai;
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
@@ -479,7 +487,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				pai->eMicFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		pai->addMic(data, length / pai->iMicSampleSize);
+		if (data != NULL) {
+			pai->addMic(data, length / pai->iMicSampleSize);
+		}
 	} else if (s == pas->pasSpeaker) {
 		if (!pa_sample_spec_equal(pss, &pai->pssEcho)) {
 			pai->pssEcho = *pss;
@@ -491,7 +501,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 				pai->eEchoFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		pai->addEcho(data, length / pai->iEchoSampleSize);
+		if (data != NULL) {
+			pai->addEcho(data, length / pai->iEchoSampleSize);
+		}
 	}
 
 	pa_stream_drop(s);
