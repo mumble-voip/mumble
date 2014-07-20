@@ -39,8 +39,8 @@ root=$(mktemp -d -t mumble-overlay-installer)
 /usr/bin/xar -f release/synth.pkg -x -C ${root}
 mkdir -p ${root}/Resources
 cp icons/mumble.osx.installer.png ${root}/Resources/bg.png
-VERSION=`defaults read $(pwd)/macx/osax/osax MumbleOverlayVersion`
-MINCLIENT=`defaults read $(pwd)/macx/osax/osax MumbleOverlayMinMumbleVersion`
+VERSION=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayVersion"`
+MINCLIENT=`defaults read "${PWD}/macx/osax/osax" "MumbleOverlayMinMumbleVersion"`
 echo "<upgrade version=\"${VERSION}\" minclient=\"${MINCLIENT}\" />" > ${root}/upgrade.xml
 
 sed -i '' -e 's,<installer-gui-script minSpecVersion="1">,<installer-gui-script minSpecVersion="1"><title>Mumble Overlay</title><background mime-type="image/png" file="bg.png" />,' ${root}/Distribution
