@@ -469,7 +469,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	AudioInputPtr ai = g.ai;
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
 	if (! pai) {
-		pa_stream_drop(s);
+		if (length > 0) {
+			pa_stream_drop(s);
+		}
 		pas->wakeup();
 		return;
 	}
@@ -506,7 +508,9 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 		}
 	}
 
-	pa_stream_drop(s);
+	if (length > 0) {
+		pa_stream_drop(s);
+	}
 }
 
 void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata) {
