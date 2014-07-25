@@ -29,6 +29,7 @@
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
 #endif
 #include <QtSvg/QtSvg>

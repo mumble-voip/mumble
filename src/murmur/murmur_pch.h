@@ -27,6 +27,7 @@
 #ifdef Q_OS_WIN
 #include <QtGui/QtGui>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
 #endif
 #include <winsock2.h>
