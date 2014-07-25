@@ -428,9 +428,10 @@ CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
   QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
   macx {
-    QTPLUGIN += qicnsicon
     isEqual(QT_MAJOR_VERSION, 5) {
-      QTPLUGIN += qcocoa
+      QTPLUGIN += qicns qcocoa
+    } else {
+      QTPLUGIN += qicnsicon
     }
   }
 
