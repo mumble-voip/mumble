@@ -28,8 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QStringList>
-#include <QTextDocument>
+#include "mumble_pch.hpp"
 
 #include "UserListModel.h"
 #include "Channel.h"
