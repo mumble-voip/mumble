@@ -113,6 +113,7 @@ int UnixMurmur::iTermFd[2];
 
 UnixMurmur::UnixMurmur() {
 	bRoot = true;
+	logToSyslog = false;
 
 	if (geteuid() != 0 && getuid() != 0) {
 		bRoot = false;
