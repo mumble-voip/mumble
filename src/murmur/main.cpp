@@ -339,7 +339,7 @@ int main(int argc, char **argv) {
 	// need to open log file early so log dir can be root owned:
 	// http://article.gmane.org/gmane.comp.security.oss.general/4404
 #ifdef Q_OS_UNIX
-	unixhandler.logToSyslog = Meta::mp.qsLogfile == "syslog";
+	unixhandler.logToSyslog = Meta::mp.qsLogfile == QLatin1String("syslog");
 	if (detach && ! Meta::mp.qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
 #else
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
