@@ -35,6 +35,9 @@
 #include "MainWindow.h"
 #include "Global.h"
 
+// From os_win.cpp.
+extern HWND MumbleHWNDForQWidget(QWidget *w);
+
 class ASIOAudioInputRegistrar : public AudioInputRegistrar {
 	public:
 		ASIOAudioInputRegistrar();
@@ -202,7 +205,7 @@ void ASIOConfig::on_qpbQuery_clicked() {
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		if (iasio->init(winId())) {
+		if (iasio->init(MumbleHWNDForQWidget(this))) {
 			SleepEx(10, false);
 			char buff[512];
 			memset(buff, 0, 512);
@@ -284,7 +287,7 @@ void ASIOConfig::on_qpbConfig_clicked() {
 	CLSIDFromString(const_cast<wchar_t *>(reinterpret_cast<const wchar_t *>(qsCls.utf16())), &clsid);
 	if (CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, clsid, reinterpret_cast<void **>(&iasio)) == S_OK) {
 		SleepEx(10, false);
-		if (iasio->init(winId())) {
+		if (iasio->init(MumbleHWNDForQWidget(this))) {
 			SleepEx(10, false);
 			iasio->controlPanel();
 			SleepEx(10, false);
