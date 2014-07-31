@@ -19,8 +19,16 @@ win32 {
 }
 
 macx {
-  CONFIG -= app_bundle x86_64
-  CONFIG += x86
+  CONFIG -= app_bundle
+  isEqual(QT_MAJOR_VERSION, 5) {
+    QMAKE_CFLAGS += -arch i386
+    QMAKE_OBJECTIVE_CFLAGS += -arch i386
+    QMAKE_CXXFLAGS += -arch i386
+    QMAKE_LFLAGS += -arch i386
+  } else {
+    CONFIG -= x86_64
+    CONFIG += x86
+  }
   SOURCES = g15helper_macx.c
   LIBS *= -llgLcd
   QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/../LCDSDK/lib/
