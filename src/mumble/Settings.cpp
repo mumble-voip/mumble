@@ -242,7 +242,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 
 			qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
 			qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-			qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
+			qaAvatar = Qt::AlignCenter;
 			qaChannel = Qt::AlignLeft | Qt::AlignTop;
 			break;
 	}
