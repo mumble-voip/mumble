@@ -7,7 +7,7 @@ use Data::Dumper;
 use Date::Parse;
 use Text::Wrap qw(wrap fill);
 
-open(LOG, "git log origin/master --date=short --pretty=format:'%h%x00%an%x00%ae%x00%ad%x00%s'|");
+open(LOG, "git log --date=short --pretty=format:'%h%x00%an%x00%ae%x00%ad%x00%s'|");
 my %dates;
 my %authors;
 my $lsub = '';
