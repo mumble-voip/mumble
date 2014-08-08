@@ -34,16 +34,6 @@
 
 #include "Global.h"
 
-#if OPENSSL_VERSION_NUMBER < 0x0090800fL
-/* In OpenSSL version 0.9.8, some functions dealing with output buffers
-   had the const specifier added to their buffers. This hack mostly
-   applies to the OS X port, where we rely on the vendor-provided
-   OpenSSL libraries. */
-#define SSL_OUTBUF(x) const_cast<unsigned char **>(x)
-#else
-#define SSL_OUTBUF(x) x
-#endif
-
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
 CertView::CertView(QWidget *p) : QGroupBox(p) {
@@ -532,11 +522,11 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 	QByteArray qba;
 
 	p = reinterpret_cast<const unsigned char *>(key.constData());
-	pkey = d2i_AutoPrivateKey(NULL, SSL_OUTBUF(&p), key.length());
+	pkey = d2i_AutoPrivateKey(NULL, &p, key.length());
 
 	if (pkey) {
 		p = reinterpret_cast<const unsigned char *>(crt.constData());
-		x509 = d2i_X509(NULL, SSL_OUTBUF(&p), crt.length());
+		x509 = d2i_X509(NULL, &p, crt.length());
 
 		if (x509 && X509_check_private_key(x509, pkey)) {
 			X509_keyid_set1(x509, NULL, 0);
@@ -551,25 +541,12 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				crt = cert.toDer();
 				p = reinterpret_cast<const unsigned char *>(crt.constData());
 
-				c = d2i_X509(NULL, SSL_OUTBUF(&p), crt.length());
+				c = d2i_X509(NULL, &p, crt.length());
 				if (c)
 					sk_X509_push(certs, c);
 			}
 
-			int nid = -1;
-#if OPENSSL_VERSION_NUMBER < 0x0090800fL
-			/* OpenSSL versions prior to 0.9.8 doesn't allow passing -1 for the
-			 * nid_key and nid_cert parameters. Passing -1 means that no encryption
-			 * should be used.
-			 *
-			 * For 0.9.7 compatibility, we pass 0, which makes OpenSSL choose the best
-			 * fit encryption scheme itself. Since we use an empty passphrase, it doesn't
-			 * really matter. */
-			nid = 0;
-#endif
-
-			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, nid, nid, 0, 0, 0);
-
+			pkcs = PKCS12_create(SSL_STRING(""), SSL_STRING("Mumble Identity"), pkey, x509, certs, -1, -1, 0, 0, 0);
 			if (pkcs) {
 				long size;
 				mem = BIO_new(BIO_s_mem());
