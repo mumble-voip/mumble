@@ -514,7 +514,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+225"/>
+        <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2340,17 +2340,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Email</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Issuer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Expiry Date</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2368,17 +2368,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+90"/>
-        <source>Resolving domain %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2390,6 +2385,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2413,7 +2413,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Select file to export certificate to</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2423,12 +2423,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>Unable to resolve domain.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+86"/>
         <source>Mumble User</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2901,7 +2896,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+100"/>
+        <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation type="unfinished"></translation>
@@ -3765,7 +3760,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+208"/>
+        <location filename="Log.cpp" line="+209"/>
         <source>Debug</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3870,7 +3865,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3909,7 +3904,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-442"/>
+        <location line="-452"/>
         <source>Toggle console for %1 events</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4390,7 +4385,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+138"/>
+        <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2314"/>
         <source>Root</source>
         <translation type="unfinished"></translation>
@@ -4696,28 +4691,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Failed to load image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-27"/>
         <source>Could not open file for reading.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Image format not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1786"/>
+        <location line="-1796"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5002,6 +4994,11 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+241"/>
+        <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5572,7 +5569,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+281"/>
+        <location filename="Messages.cpp" line="+282"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5632,12 +5629,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-205"/>
+        <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
         <translation type="unfinished"></translation>
@@ -6483,7 +6480,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+105"/>
+        <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7028,7 +7025,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+60"/>
+        <location filename="Overlay_win.cpp" line="+64"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7137,7 +7134,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+350"/>
+        <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7153,7 +7150,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-282"/>
+        <location line="-286"/>
         <source>%1 lost link.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7174,7 +7171,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+756"/>
+        <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7187,7 +7184,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+255"/>
+        <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7288,7 +7285,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+474"/>
+        <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7508,7 +7505,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+72"/>
+        <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7804,7 +7801,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="UserListModel.cpp" line="+84"/>
+        <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7987,7 +7984,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+143"/>
+        <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"></translation>
     </message>
