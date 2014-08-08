@@ -1,3 +1,36 @@
+2014-08-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    82c483e  scripts: modify git2cl.pl to work on the currently checked-out
+	     branch rather than origin/master.
+
+2014-07-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    0bf4aa3  PulseAudio: don't call pa_stream_drop() for empty
+	     pa_stream_peek().
+
+2014-07-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    633f905  PulseAudio: stricter pa_stream_peek() validation.
+
+2014-07-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    76f6870  PulseAudio: fix access to protected enums in AudioInput and
+	     AudioOutput.
+    9529651  installer: add the ability to use a custom bzip2 directory in
+	     the Win32 installer.
+    8609912  installer: fix ability to use a custom OpenSslDir when
+	     building the Win32 installer.
+
+2014-06-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    196a6f7  Allow building 1.2.x on Windows with
+	     mumble-releng/buildenv/1.2.x/win32
+
+2014-06-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    414494d  Bump version to 1.2.8
+    173ec2b  Update changelog
+
 2014-06-13
   Mikkel Krautz <mikkel@krautz.dk>
     aef3509  Add CA certificate filter to MumbleSSL::addSystemCA() to work
@@ -30,6 +63,15 @@
   Mikkel Krautz <mikkel@krautz.dk>
     8323bd4  mumble: allow Log_macx.mm to build against the OS X 10.4 SDK
 	     (for universal builds).
+
+2013-08-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    228f844  mumble: fix VoiceRecorderDialog build on Apple clang-500.1.70.
+
+2013-06-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    9c06ecf  bonjour: use Qt::AutoConnection for BonjourServiceResolver's
+	     QSocketNotifier slot.
 
 2013-06-01
   Stefan Hacker <dd0t@users.sourceforge.net>
