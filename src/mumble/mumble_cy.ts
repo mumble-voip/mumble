@@ -4,43 +4,43 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Atal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Caniatau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Caniatau &amp;1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Gwadu %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Ychwanegu sianel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Methwyd: Sianel annilys</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Golygu &amp;1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation>ID: &amp;1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
@@ -50,7 +50,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Rhaid i&apos;r sianel gael enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-131"/>
@@ -60,42 +60,42 @@
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>Deialog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Gosodwch enw&apos;r sianel yn yr fan hyn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Disgrifiad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Cyfrinair</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Rhowch gyfrinair y sianel yn y fan hon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Ticiwch er mwyn creu sianel dros dro.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Dros dro</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -113,102 +113,102 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation>Lleoliad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>&amp;Grwpiau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation>Grŵp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>Rhestr o&apos;r holl grwpiau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Dileu&apos;r grŵp dethol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Dileu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Etifeddu aelodau&apos;r grŵp o&apos;r rhiant</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation>Etifeddu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Gwneud yr grŵp yn etifeddadwy i is-sianeli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>Etifeiddadwy</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Roedd y grŵp wedi ei etifeddu o sianel rhiant</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>Wedi ei etifeddu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation>Aelodau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Ychwanegu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Ychwanegu aelod i&apos;r grŵp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Dileu aelod o&apos;r grŵp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>ACLs gweithgar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Rhestr o gofnodion</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Etifeddu ACL yr rhiant?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -218,12 +218,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Etifeddu ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>Symud yr cofnod i fyny</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -233,12 +233,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>&amp;I Fyny</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Symyd yr cofnod i lawr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -248,12 +248,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>&amp;I Lawr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Ychwanegu cofnod newydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -263,120 +263,119 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Ychwanegu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Dileu&apos;r cofnod</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Mae hyn yn dileu&apos;r cofnod a detholwyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Dileu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation>Cyd-destun</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>Dyla&apos;r cofnod bod yn berthnasol i&apos;r sianel hon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Mae hyn yn achosi i&apos;r cofnod bod yn berthnasol i&apos;r sianel hon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>Yn berthansol i&apos;r sianel hon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Dyla&apos;r cofnod bod yn berthansol i is-sianeli.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>Ychwanegu grŵp newydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Ychwanegu&lt;/b&gt;&lt;br/&gt;
-Ychwanegu grŵp newydd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation>Aelodau a etifeddwyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Yn cynnwys rhestr o aelodau a ychwanegwyd i&apos;r grŵp gan yr sianel hon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Yn cynnwys rhestr o aelodau a ni fyd yn etifeddu ei aelodaeth grŵp o&apos;r sianel rhiant.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Yn cynnwys y rhestr o aelodau a etifeddwyd gan sianeli eraill.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Teipiwch enw defnyddiwr rydach yn dymuno ychwanegu i&apos;r grŵp a phwyswch Ychwanegu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Teipiwch enw defnyddiwr rydach yn dymuno tynnu o&apos;r grŵp a phwyswch Ychwanegu.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Eithrio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>Aelodau wedi&apos;i hallgau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Mae hyn yn achosi i&apos;r cofnod bod yn berthnasol i is-sianeli y sianel hon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Yn berthnasol i is-sianeli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>Hawliau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation>Defnyddiwr/Grŵp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -386,7 +385,7 @@ Ychwanegu grŵp newydd.</translation>
     <message>
         <location/>
         <source>User ID</source>
-        <translation>ID yr defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -401,7 +400,7 @@ Ychwanegu grŵp newydd.</translation>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>&amp;Priodweddau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -476,12 +475,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>ID yr sianel.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation>IDSianel</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -489,12 +488,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation>Cerdyn Diofyn ALSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Methodd agor yr Mewnbwn ALSA a dewiswyd: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -502,12 +501,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation>Cerdyn Diofyn ALSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Methodd agor yr Mewnbwn ALSA a dewiswyd: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -515,7 +514,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
-        <translation>%1 (fersiwn %2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -538,52 +537,52 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation>ASIO</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation>Ffurflen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Dewis dyfais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Dyfais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation>Dyfais i ddefnyddio fel meicroffon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Mae hyn yn dewis pa ddyfais i ymholi. Rydach dal angen ymholi&apos;r ddyfais a dewis pa sianel i&apos;w ddefnyddio.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>Ymholi&apos;r ddyfais a dewiswyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Mae hyn yn ymholi&apos;r ddyfais a dewiswyd ar gyfer sianeli. Byddwch yn ymwybodol bod llawer o yrwyr ASIO yn debygol o gau&apos;r rhaglen neu&apos;r system os rydach yn ei ymholi.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>&amp;Ymholi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>Ffurfweddwch y ddyfais a dewiswyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -623,32 +622,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Channels</source>
-        <translation>Sianeli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation>Meicroffon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation>Heb eu defnyddio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation>Seinyddion</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -656,7 +655,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Yr ydach angen o leiaf un meicroffon ac un ffynhonnell seinydd i allu defnyddio ASIO. Os rydach angen samplu meicroffon yn unig, defnyddiwch DirectSound.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+104"/>
@@ -669,22 +668,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Am Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Hawlfraint %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Gwasanaeth sgwrs-llais ar gyfer chwaraewyr gemau&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Am Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Trwydded</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -694,7 +693,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>Iawn</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -702,42 +701,42 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>Ffurf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Rhyngwyneb</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>System</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Dull mewnbwn ar gyfer sain</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Hwn yw&apos;r dull mewnbwn ar gyfer sain.&lt;/b&gt;&lt;br /&gt;Fwyaf tebygol fyddech eisio defnyddio DirectSound.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Dyfais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation>Dyfais mewnbwn ar gyfer sain</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Hwn yw&apos;r dull mewnbwn ar gyfer sain.&lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -797,12 +796,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation>I Ffwrdd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>Ymlaen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -817,7 +816,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signal i Sŵn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -832,7 +831,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Llais &amp;Dal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -842,7 +841,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation>Distawrwydd o dan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -852,7 +851,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation>Llais os yw&apos;n uwch</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -862,12 +861,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Compression</source>
-        <translation>Cywasgu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation>&amp;Ansawdd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -882,7 +881,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Sain bob paced</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -952,17 +951,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Mixed</source>
-        <translation>Wedi ei gymysgu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Aml-sianel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Echo</source>
-        <translation>Adlais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1683,7 +1682,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation>Synhwyro Llais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1751,12 +1750,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Finished</source>
-        <translation>Wedi gorffen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Mwynhewch defnyddio Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1776,12 +1775,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>System</source>
-        <translation>System</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Dull mewnbwn ar gyfer sain</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1791,12 +1790,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation>Dyfais</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation>Dyfais mewnbwn i&apos;w ddefnyddio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1826,7 +1825,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>Dull allbwn ar gyfer sain</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1836,7 +1835,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Output device to use</source>
-        <translation>Dyfais allbwn i&apos;w ddefnyddio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1867,12 +1866,12 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>Input Device</source>
-        <translation>Dyfais mewnbwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation>Dyfais allbwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1935,7 +1934,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation>Defnyddio clustffonau yn lle seinyddion</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1951,7 +1950,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation>Defnyddio clustffonau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1996,7 +1995,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation>Cymhareb Signal-i-Sain</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2022,37 +2021,37 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation>Gwthio I Siarad:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation>Ansawdd &amp; Hysbysiadau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation>Newid dewisiadau ansawdd a hysbysiadau.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation>Dewisiadau ansawdd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation>Isel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation>Cytbwys</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation>Dewisiadau hysbysiadau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2067,7 +2066,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation>%1 me</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2082,7 +2081,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation>Uchel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2171,32 +2170,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation>&amp;Cyfeiriad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation>&amp;Cuddio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reason</source>
-        <translation>Rheswm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation>Cychwyn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation>Gorffen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation>Defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2206,17 +2205,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Ychwanegu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation>&amp;Diweddaru</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Tynnu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2236,7 +2235,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation>Beth rydach yn chwilio amdano?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2246,12 +2245,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>IP address</source>
-        <translation>Cyfeiriad IP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation>Dim cyfeiriad IP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2261,7 +2260,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No reason</source>
-        <translation>Dim rheswm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2321,7 +2320,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear</source>
-        <translation>Clirio</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
@@ -2334,12 +2333,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+53"/>
         <source>Name</source>
-        <translation>Enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Email</source>
-        <translation>Ebost</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -2354,7 +2353,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation>(dim)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+19"/>
@@ -2427,7 +2426,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+43"/>
         <source>Mumble User</source>
-        <translation>Defnyddiwr Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="main.cpp" line="+500"/>
@@ -2551,17 +2550,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation>Agor...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Cyfrinair</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>Cyfrinair ar gyfer y ffeil PKCS#12</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2624,7 +2623,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>Tystysgrif Newydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2649,7 +2648,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>Cadw Fel...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2669,17 +2668,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation>Enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation>E-bost</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Eich cyfeiriad e-bost (e.e. johndoe@mumble.info)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2689,7 +2688,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Eich enw (e.e. John Doe)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2699,7 +2698,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation>Gorffen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2737,7 +2736,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation>Dim</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -2762,7 +2761,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation>Creu sianel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -2862,7 +2861,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation>Symud</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
@@ -2914,7 +2913,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation>Ffrind</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -3023,7 +3022,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Advanced</source>
-        <translation>Uwch</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3031,7 +3030,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation>Cysylltu i %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-545"/>
@@ -3063,17 +3062,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation>Porth</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation>Cyfeiriad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Gwefan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -3089,7 +3088,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation>%1 me</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -3120,12 +3119,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation>Defnyddwyr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation>Fersiwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1051"/>
@@ -3145,7 +3144,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation>Tynnu o Ffefrynau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3170,7 +3169,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation>&amp;Copio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3180,7 +3179,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation>&amp;Gludo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3235,7 +3234,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation>Enw&apos;r gweinydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3291,17 +3290,17 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation>Label</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation>Ychwanegu Gweinydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation>Cyfrinair</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3317,7 +3316,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation>Dangos cyfrinair</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5783,7 +5782,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation>%1 wedi&apos;i ailenwi i %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+45"/>
@@ -6293,7 +6292,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translation>Defnyddio Ansawdd o Wasanaeth</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6353,7 +6352,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Cyfrinair</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6368,7 +6367,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Amrywiol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6384,7 +6383,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation>Analluogi lawrlwytho lluniau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6439,7 +6438,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation>Ailgysylltu i&apos;r gweinydd olaf ar gychwyn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6459,7 +6458,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation>Yn siarad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -6471,13 +6470,13 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation>Gweiddi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation>Sianel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+105"/>
@@ -6525,7 +6524,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation>Colofnau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
@@ -6535,7 +6534,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation>Yn ôl yr wyddor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -6545,7 +6544,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation>Golygu...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -6580,7 +6579,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation>Ar gyfer fwy o opsiynau, gwnewch glic dde fel defnyddiwr.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+244"/>
@@ -6595,7 +6594,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation>Dewis rhaglen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+95"/>
@@ -6616,7 +6615,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Opsiynau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6711,7 +6710,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load…</source>
-        <translation>Llwytho...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6721,7 +6720,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save…</source>
-        <translation>Cadw...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6736,22 +6735,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Color</source>
-        <translation>Lliw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation>Ychwanegu...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Tynnu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation>Ffont</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6781,7 +6780,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation>Dangod Cloc</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6794,7 +6793,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation>Nid yw&apos;r defnyddiwr yn siarad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6809,7 +6808,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Talking</source>
-        <translation>Yn siarad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6834,12 +6833,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Zoom</source>
-        <translation>Chwyddo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation>Ffactor Chwyddo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6854,17 +6853,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Avatar</source>
-        <translation>Afatar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation>Enw&apos;r Defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation>Enw Defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6874,7 +6873,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel</source>
-        <translation>Sianel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6928,7 +6927,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-5"/>
@@ -6943,38 +6942,38 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation>Chwith</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation>Canol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation>Dde</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation>Top</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation>Gwaelod</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation>Lliw...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation>Ffont...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -7014,12 +7013,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation>Dewis lliw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation>Dewis ffont</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7058,7 +7057,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Options</source>
-        <translation>Opsiynau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7103,7 +7102,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;Gwybodaeth</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7123,12 +7122,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name</source>
-        <translation>Enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>Wedi&apos;i alluogi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7165,7 +7164,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation>Dyfais Diofyn</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7186,7 +7185,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+255"/>
         <source>Failed to load image</source>
-        <translation>Methodd llwytho&apos;r delwedd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -7196,7 +7195,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation>Mae&apos;r neges rhy hir.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
@@ -7206,47 +7205,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Source Text</source>
-        <translation>Testyn Gwreiddiol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation>&amp;Print Trwm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation>Ctrl+B</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation>&amp;Italig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Italic</source>
-        <translation>Italig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Underline</source>
-        <translation>Tanlinellu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation>Ctrl+U</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation>Lliw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7256,7 +7255,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation>Ctrl+L</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7269,17 +7268,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>Ychwanegu Cysylltiad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation>URL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation>Testyn</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7315,47 +7314,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation>Ffefrynu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation>LAN</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation>Rhyngwyd Cyhoeddus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation>Affrica</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation>Asia</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation>Gogledd America</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation>De America</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation>Ewrop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation>Ynysoedd y De</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7371,12 +7370,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation>Ymlaen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation>I ffwrdd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -7402,12 +7401,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation>Tardd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation>Rhiant</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -7426,22 +7425,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation>,</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation>Tardd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation>Rhiant</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -7463,7 +7462,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation>Gwag</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7471,7 +7470,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation>I ffwrdd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -7481,7 +7480,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation>Ymlaen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7507,12 +7506,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+72"/>
         <source>Empty Token</source>
-        <translation>Tocyn Gwag</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Tocynnau Mynediad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7530,12 +7529,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Add a token</source>
-        <translation>Ychwanegwch tocyn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Ychwanegu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7545,7 +7544,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Tynnu</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7553,19 +7552,19 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation>Defnyddwyr Cofrestredig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
-        <translation>Tynnu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation>Ail-enwi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7575,22 +7574,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Days</source>
-        <translation>Dydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation>Wythnos</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation>Mis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation>Blwyddyn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7608,42 +7607,42 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation>Gwybodaeth Am Y Defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation>Gwybodaeth Am Y Cysylltiad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation>Fersiwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation>OS</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation>Tystysgrif</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation>Cyfeiriad IP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation>Fersiynau CELT</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation>Manylion...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7678,17 +7677,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Good</source>
-        <translation>Da</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation>Hwyr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation>Wedi&apos;i golli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7708,45 +7707,45 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Connection time</source>
-        <translation>Amser a chysylltwyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation>%1w</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation>%1d</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation>%1h</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation>%1m</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation>,</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation>%1 (%2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
@@ -7766,29 +7765,29 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation>%1 ar-lein (%2 yn segur)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation>%1 ar-lein</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation>Lled Band</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation>Lled Band</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7801,7 +7800,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+84"/>
         <source>Nick</source>
-        <translation>Nick</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -7811,17 +7810,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation>Sianel olaf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation>Gwelwyd diwethaf: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation>Byth</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -7855,7 +7854,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation>Ddim yn siarad.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
@@ -7885,7 +7884,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>On your friend list</source>
-        <translation>Ar eich rhestr ffrindiau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -7935,7 +7934,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation>Yn Anwybyddu Negeseuon Testun</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
@@ -7960,17 +7959,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation>Enw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation>Fflagiau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>Ydach yn siwr rydach eisio llusgo&apos;r sianel hyn?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+94"/>
@@ -7984,12 +7983,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+143"/>
         <source>Upgrade Mumble</source>
-        <translation>Uwchraddio Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>Cafodd fersiwn newydd o Mumble ei darganfod a&apos;i lawrlwytho&apos;n awtomatig. Mae&apos;n argymelladwy eich bod yn uwchraddio i&apos;r fersiwn hon, neu lawr-raddio i&apos;r fersiwn cadarn fwyaf diweddar. Ydach eisio cychwyn yr gosodwr rwan?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
@@ -8033,18 +8032,18 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation>%1 %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation>Manylion tystysgrif</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation>Enw Cyffredin: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
@@ -8061,29 +8060,29 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation>Gwlad: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Locality: %1</source>
-        <translation>Ardal: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation>Talaith: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation>Dilys o: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation>Dilys tan: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -8098,12 +8097,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+0"/>
         <source>RSA</source>
-        <translation>RSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>DSA</source>
-        <translation>DSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -8113,22 +8112,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+13"/>
         <source>Email: %1</source>
-        <translation>E-bost: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation>DNS: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation>Cyhoeddwyd gan:</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation>Enw&apos;r Uned: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8136,32 +8135,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation>Methodd y recordydd creu&apos;r lleoliad &apos;%1&apos;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation>Methodd yr recordydd agor yr ffeil &apos;%1&apos;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation>.wav - Heb ei chywasgu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation>.ogg (Vorbis) - Wedi&apos;i chywasgu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation>.au - Heb ei chywasgu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation>.flac - Cywasgu heb golled</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8174,33 +8173,33 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+143"/>
         <source>Recorder</source>
-        <translation>Recordydd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation>Rheoli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation>00:00:00</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation>&amp;Dechrau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation>S&amp;top</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation>Modd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -8210,27 +8209,27 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Output</source>
-        <translation>Allbwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation>Fformat allbwn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation>Lleoliad targed</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation>Enw&apos;r ffeil</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Pori</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-212"/>
@@ -8240,27 +8239,27 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation>Yn mewnosod enw&apos;r defnyddiwr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation>Yn mewnosod yr dyddiad cyfredol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation>Yn mewnosod yr amser cyfredol</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation>Yn mewnosod yr enw lletywr</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation>Mae&apos;r recordydd dal yn rhedeg</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -8270,14 +8269,13 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation>Methy cychwyn recordio. Heb cysylltu i gweinydd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Mae&apos;r gweinydd rydach wedi ei gysylltu ag ar y funud yn fersiwn 1.2.2 neu hyn. Oherwydd rhesymau preifatrwydd, nid yw recordio yn bosib ar fersiynau hyn na 1.2.3.
-Cysylltwch â gweinyddwr y gweinydd ar gyfer gwybodaeth bellach.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -8287,12 +8285,12 @@ Cysylltwch â gweinyddwr y gweinydd ar gyfer gwybodaeth bellach.</translation>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation>Dewisiwch fformat recordio.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation>Stopio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+28"/>
@@ -8310,7 +8308,7 @@ Cysylltwch â gweinyddwr y gweinydd ar gyfer gwybodaeth bellach.</translation>
     <message>
         <location filename="WASAPI.cpp" line="+184"/>
         <source>Default Device</source>
-        <translation>Dyfais Diofyn</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8318,12 +8316,12 @@ Cysylltwch â gweinyddwr y gweinydd ar gyfer gwybodaeth bellach.</translation>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation>PTT Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation>Gwthio i siarad</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -4,104 +4,103 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Nekte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Tilltat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Tillat %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Nekte %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Legg til Kanal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Ugyldig Kanal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Rediger %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation>ID: %1
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dette Gir %1 Privilegium. Hvis et privilegium er både tillat og benektet, Det er Benektet.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Kanalen må ha et navn.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dette Tilbakekaller %1 Privilegium. Hvis et privilegium er både tillat og benektet, er det avslått.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>Dialog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Navn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Skriv inn navnet på kanalen her. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Beskrivelse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Passord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Skriv inn kanal passord her.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Sjekk for å skape en middlertidlig kanal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Midlertidig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation>Kanal posisjonering anlegget verdi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -109,393 +108,379 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Stilling&lt;/b&gt;&lt;br/&gt;
-Denne verdien gjør det mulig å endre måten Mumble arrangerer kanalene i treet. En kanal med en høyere &lt;i&gt;Stilling&lt;/i&gt; verdi vil alltid bli plassert under ett med en lavere verdi, og den andre veien rundt. Hvis &lt;i&gt;Stilling&lt;/i&gt; verdi på to kanaler er lik de vil få sortert alfabetisk etter navn.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation>Stilling</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>&amp;Grupper</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation>Gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>Liste over grupper</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Fjern valgt gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Fjern</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Arv gruppemedlemmer fra foreldre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation>Arv</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Gjør gruppen arvelig til underkanaler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>Arvelig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Gruppen ble arvet fra foreldre kanal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>Arvet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation>medlemmer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Legg til</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Legg til medlemm i gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Fjern medlemm fra gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>aktive ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Liste over oppføringer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Arv ACL av foreldrene?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Dette angir om ACL opp kjeden av foreldre kanaler eller ikke blir brukt på dette objektet. Bare de oppføringene som er merket i den overordnede som &quot;Bruk på underkanaler&quot; vil bli arvet.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>arv ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>Flytt oppføring opp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dette flytter opp oppføringen i listen. Som oppføringer evalueres i orden, kan dette endre effektiv tillatelser til brukerne. Du kan ikke flytte en oppføring ovenfor en arvelig oppføring, hvis du virkelig trenger at du må kopiere den arvede oppføring.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>&amp;Up</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Flytt oppføring Ned</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Dette flyttetr Oppføringen nedover på listen. Som oppføringer evalueres i orden, kan dette endre effektiv tillatelser til brukerne.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>&amp;Down</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Legg til ny oppføring</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Dette legger en ny oppføring, i utgangspunktet satt med ingen tillatelser og bruke til alt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Add</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Fjern oppføring</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Dette fjerner den valgte oppføringen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Remove</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation>kontekst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>oppføringen bør gjelde for denne kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Dette gjør at oppføringen anvendelse på denne kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>Gjelder for denne kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>oppføringen bør gjelde for underkanaler.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>Legg til ny Gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Legg til&lt;/b&gt;&lt;br/&gt;
-Legg til en ny gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation>arvet medlemmer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Inneholder listen over medlemmer lagt til gruppen av denne kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Inneholder en liste over medlemmer som har medlemskap i gruppen vil ikke være arvet fra den overordnede kanal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Inneholder listen over medlemmer arvet av andre kanaler.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Skriv inn navnet på en bruker du ønsker og legge til i gruppen, og klikk på Legg til.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Skriv inn navnet på en bruker du ønsker å fjerne fra gruppen, og klikk på Legg til.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Utelukk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>utelukket medlemmer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Dette gjør at oppføringen anvendelse på under-kanaler i denne kanal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Gjelder underkanaler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>tillatelser</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation>Bruker / Gruppe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Gruppe denne oppføringen gjelder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation>bruker-ID</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Bruker denne oppføringen gjelder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Dette kontrollerer hvilken bruker dette innlegget gjelder. Bare skriv inn brukernavnet og trykk enter til spørre serveren for en kamp.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>og Egenskaper</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Navn&lt;/ b&gt;&lt;br /&gt;Skriv inn navnet på kanalen i dette feltet. Navnet må være i samsvar med den begrensning pålagt av serveren du er koblet til.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Midlertidig&lt;/ b&gt;&lt;br /&gt; 
-Når sjekket kanal opprettet vil bli markert som midlertidig. Dette betyr at når den siste spilleren forlater den kanalen vil automatisk bli slettet av serveren.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Gruppe&lt;/b&gt;&lt;br /&gt;
-  Disse er alle gruppene øyeblikket er definert for kanalen. For å opprette en ny gruppe, bare skriv inn navn og trykk enter.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Fjern&lt;/ b&gt;&lt;br /&gt;Dette fjerner den valgte gruppen. Dersom gruppen ble arvet, vil det ikke bli fjernet fra listen, men all lokal informasjon om gruppen vil bli slettet.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Arv&lt;/ b&gt;&lt;br /&gt;Dette arver alle medlemmene i gruppen fra det overordnede, hvis gruppen er merket som &lt;i&gt;arvbare&lt;/i&gt; i moderkanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;arvbare&lt;/ b&gt;&lt;br /&gt;Dette gjør denne gruppen arve til underkanaler. Dersom gruppen er ikke arvelig, underkanaler er fortsatt gratis til opprette en ny gruppe med samme navn.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Arvet&lt;/b&gt;&lt;br /&gt;Dette indikerer at gruppen ble arvet fra moderkanalen. Du kan ikke endre dette flagget, det er bare for informasjon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Medlemmer&lt;/b&gt;&lt;br /&gt; 
-Denne listen inneholder alle medlemmer som ble lagt til gruppen ved den aktuelle kanalen. Vær oppmerksom på at dette ikke inkluderer medlemmer arvet av høyere nivåer av kanalen treet. Disse kan bli funnet i de &lt;i&gt;Arvet medlemmer&lt;/i&gt; liste. For å forhindre denne listen som skal arves av lavere nivå kanaler uncheck &lt;i&gt;arve&lt;/i&gt; eller manuelt legge medlemmene til &lt;i&gt;utelukket medlemmer&lt;/i&gt; liste.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;utelukket medlemmer&lt;/ b&gt;&lt;br /&gt;
-Inneholder en liste over medlemmer som har medlemskap i gruppen vil ikke være arvet fra den overordnede kanal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Arvet medlemmer&lt;/ b&gt;&lt;br /&gt;
-Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved &lt;i&gt;Arv&lt;/i&gt; for å hindre arv fra høyere nivå kanaler.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dette bestemmer hvilken gruppe brukere denne oppføringen gjelder for.&lt;br /&gt;Merk at gruppen er vurdert i sammenheng med den kanalen posten brukes i. For eksempel standard ACL på rot kanalen gir &lt;i&gt;Skriv&lt;/i&gt; tillatelse til &lt;i&gt;admin&lt;/i&gt; gruppen . Dette innlegget , hvis arvet av en kanal , vil gi en bruker skriverettigheter om han tilhører den &lt;i&gt;admin&lt;/i&gt; gruppen i denne kanalen , selv om han ikke tilhører den &lt;i&gt;admin&lt;/i&gt; gruppe i kanalen der ACL oppsto . &lt;br /&gt; Hvis et gruppenavn som begynner på &apos; ! &apos; , er sitt medlemskap opphevet , og hvis den starter med &apos;~ &apos; , vil den bli vurdert i kanalen ACL ble definert i , snarere enn kanalen ACL er aktive i.&lt;br /&gt;Hvis et gruppenavn som begynner med &apos;# &apos; , blir det tolket som en tilgang token . Brukere må ha angitt hva følger &quot; # &quot; i sin liste over tilgangs tokens å matche. Dette kan brukes til veldig enkle passord tilgang til kanaler for ikke- godkjente brukere . &lt;br /&gt;Hvis et gruppenavn som begynner med &apos;$ &apos; , det vil bare matche brukere med sertifikat hash stemmer med det følger &quot; $ &quot;. &lt;Br / &gt;noen spesielle forhåndsdefinerte grupper er:&lt;br /&gt;&lt;b&gt;alle&lt;/b&gt; - Alle vil matche &lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle godkjente brukere vil matche&lt;br /&gt;&lt; b&gt;sub,a,b,c&lt;/b&gt; - Bruker for tiden i en underkanal minimum &lt;i&gt;en&lt;/i&gt; vanlige foreldre , og mellom &lt;i&gt;b&lt;/i&gt; og &lt;i&gt;c&lt;/i&gt; kanaler nedover kjeden. Se nettsiden for mer omfattende dokumentasjon på dette.&lt;br /&gt;&lt;b&gt;i&lt;/b&gt; - . Brukere som i kanalen vil matche ( bekvemmelighet for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br/&gt;&lt;b&gt;ut&lt;/b&gt; - . brukere utenfor kanalen vil matche ( praktisk for &apos;&lt;i&gt;!sub,0,0,0 &lt;/i&gt; &apos;).&lt;br /&gt; Merk at en entry gjelder enten en bruker eller en gruppe, ikke begge deler .
-
-
-
-
-
-
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Passord&lt;/b&gt;&lt;br /&gt;Dette feltet lar deg enkelt stille inn og endre passordet til en kanal. Den bruker Mumble tilgangs tokens har i bakgrunnen. Bruk ACL og grupper hvis du trenger mer finkornet og kraftig adgangskontroll.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Dette viser alle oppføringene aktive på denne kanalen. Oppføringer arvet fra foreldre kanaler vil bli vist i kursiv.&lt;br /&gt;ACL evalueres topp til bunn, noe som betyr prioriterte øker når du beveger deg nedover i listen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>ID av kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation>KanalID</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -503,12 +488,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation>Standard ALSA-kort</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Åpning valgt ALSA Input mislyktes:% 1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -516,12 +501,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation>Standard ALSA-kort</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Åpning valgt ALSA Utgang mislyktes:% 1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -529,140 +514,140 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
-        <translation>% 1 (versjon% 2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 prøver buffer, med %3 prøve oppløsning (%4 foretrukket) på %5 Hz</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>ASIO initialisering mislyktes: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Kunne ikke instantiate ASIO-driver</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation>ASIO</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Enhetsvalg</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Enhet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation>Enhet til bruk for mikrofon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Dette velger hvilken enhet til å spørre. Du trenger fortsatt å faktisk spørre enheten og velge hvilke kanaler du vil bruke.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>Spørring valgte enheten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dette spør valgte enheten for kanaler. Vær oppmerksom på at mange ASIO-drivere er buggy til det ekstreme, og spør dem kan føre til krasj av enten applikasjonen eller systemet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>&amp;spørring</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>Konfigurer valgte enheten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dette konfigurerer den valgte enheten. Vær oppmerksom på at mange ASIO-drivere er buggy til det ekstreme, og spør dem kan føre til krasj av enten applikasjonen eller systemet.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp; Konfigurer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation>Egenskapene</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation>Driver navn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation>bufferstørrelse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Dette vil konfigurere inngangskanaler for ASIO. Sørg for at du velge minst én kanal som mikrofon og høyttaler. &lt;i&gt;Mikrofon&lt;/i&gt; bør være der mikrofonen er festet, og &lt;i&gt;Speaker&lt;/i&gt; skal være en kanal som prøver &apos;&lt;i&gt;Hva hører du&lt;/i&gt; &quot;. &lt;br /&gt; For eksempel , på Audigy 2 ZS, ville et godt utvalg for mikrofon være &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; mens Speaker bør være &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; og &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation>Konfigurere inngangskanaler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation>kanaler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation>mikrofon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation>ubrukt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation>høyttalere</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -670,12 +655,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Du må velge minst en mikrofon og en høyttaler kilde å bruke ASIO. Hvis du bare trenger mikrofon prøvetaking, bruker Directsound.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Åpning valgt ASIO-enhet mislyktes. Ingen innspill vil bli gjort.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -683,32 +668,32 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Om Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt; &lt;b&gt;En stemme-chat verktøy for spillere&lt;/b&gt;&lt;/p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/ a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Om Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Lisens</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>3rd &amp;Parts lisenser</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -716,427 +701,427 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>System</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>innspill metode for lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dette er input metoden til bruke for lyd.&lt;/b&gt;&lt;br /&gt;Mest sannsynlig du vil bruke Directsound.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>enhet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation>Inputenheter for lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dette er inngangsenheten som skal brukes til lyd.&lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation>overføring</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation>&amp;overføre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Når skal overføre tale</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Dette stiller når talen skal overføres&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuerlig&lt;/ i&gt; -. Hele tiden &lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - Når du snakker tydelig . &lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - Når du holder nede tastene stilles inn under &lt;i&gt;Snarveier &lt;/i&gt;.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Dobbel Trykk Tid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Hvis du trykker på TOS-tasten to ganger i denne tiden vil det bli låst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;DoublePush Tid&lt;/b&gt;&lt;br /&gt; Hvis du trykker på push-to-talk knappen to ganger i løpet av den konfigurerte tidsintervall det vil være låst. Mumble vil holde overføring til du treffer en gang til til låse opp TOS igjen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Reset lyd kø for å standard</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Still banene for filene til standardinnstillingene.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Bla etter på lydfil</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Bla etter av lydfil</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Off</source>
-        <translation>Av</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>på</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation>Forhåndsvise lydsignaler</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Bruk SNR basert tale gjenkjenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signal til støy</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Dette setter deteksjon tale til bruke Amplitude.&lt;/b&gt;&lt;br /&gt;I denne modusen, er den rå styrken på inngangssignalet brukes til å oppdage tale.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation>Utslag</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Tale &amp; Vent</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation>Hvor lenge til å Fortsette etter stillhet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation>stillhet Nedenfor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Dette setter satt grense for stemmegjenkjenning .&lt;/b&gt;&lt;br /&gt;Bruk denne sammen med Audio Statistikk vinduet for å manuelt stille satt grense for påvisning tale. Skriv inn verdier under &quot;Silence Under&quot; alltid regne som stillhet. Verdier over &quot;tale Ovenfor&quot; alltid telle som stemme. Verdier i mellom vil telle som stemme hvis du allerede snakker, men vil ikke utløse en ny oppdagelse.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation>tale Ovenfor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation>Signal verdier over dette telle som stemmen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Compression</source>
-        <translation>kompresjon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation>&amp;kvalitet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kvaliteten på komprimering (peak båndbredde)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Dette setter kvaliteten på komprimeringen.&lt;/b&gt;&lt;br /&gt;Dette bestemmer hvor mye båndbredde Mumble er lov til å bruke for utgående lyd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Audio per pakke</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation>Hvor mange lydrammer å sende per pakke</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Dette velger hvor mange lydrammer bør settes i En pakke.&lt;/b&gt;&lt;br /&gt;Økende dette vil øke latency av stemmen din, men vil også redusere krav til båndbredde.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dette viser peak utgående båndbredden som brukes.&lt;/b&gt;&lt;br /&gt;Dette viser peak båndbredde sendes ut fra maskinen din. Audio bitrate er den maksimale bithastigheten (som vi bruker VBR) for lyddata alene. Posisjon er den bithastighet som brukes for posisjonsinformasjon . Overhead er vår framing og IP-pakker (IP og UDP er 75% av dette overhead).</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation>lydprosessering</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation>støy Demping</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation>støy Demping</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Dette setter mengden støy undertrykkelse til å søke.&lt;/b&gt;&lt;br /&gt;Jo høyere verdi, desto mer aggressivt stasjonær støy vil bli undertrykt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maksimal forsterkning av innspill lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Maksimal forsterkning av innspill.&lt;/b&gt;&lt;br /&gt;Mumble normaliserer volumet innspill før komprimere, og dette bestemmer hvor mye det er lov til å forsterke.&lt;br /&gt;Det faktiske nivået oppdateres kontinuerlig basert på din nåværende tale mønster , men det vil aldri gå over nivået som er angitt her.&lt;br /&gt; Hvis &lt;i&gt;Mikrofon lydstyrke&lt;/i&gt;nivået på lyden statistikk sveve rundt 100%, har du sannsynligvis ønsker å sette denne til 2,0 eller så, men hvis , som de fleste mennesker, er du ikke i stand til å nå 100%, settes dette til noe mye høyere.&lt;br /&gt;Ideelt sett den så&lt;i&gt;Mikrofon Lydstyrke* Forsterkningsfaktor&gt; = 100&lt;/i&gt;, selv når du er snakker veldig myk.&lt;br/&gt;&lt;br /&gt;Merk at det er ingen skade i å sette dette til maksimum, men Mumble vil begynne å plukke opp andre samtaler hvis du lar den stå til auto-tune til det nivået.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>Nåværende tale gjenkjenning sjanse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation>Avbryt ekko fra høyttalere</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Aktivering av denne vil avbryte ekkoet fra høyttalerne. Blandet har lav CPU effekt, men bare fungerer bra hvis høyttalerne er like høyt og like langt fra mikrofonen. Multichannel ekkokansellering gir mye bedre ekkokansellering, men til en høyere CPU kostnad.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>deaktivert</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mixed</source>
-        <translation>blandet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>multikanal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Echo</source>
-        <translation>Ekko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Denne oppdagelsen sett tale for å bruke signal til støyforhold.&lt;/b&gt;&lt;br /&gt;I denne modusen, blir inngangs analysert for noe som likner et klart signal, og klarhet i at signalet brukes til å utløse deteksjon tale.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Dette viser de gjeldende innstillingene deteksjons tale.&lt;/b&gt;&lt;br /&gt;kan du endre innstillingene fra dialogboksen Innstillinger eller fra lydveiviseren.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation>Signal verdier under denne tellingen som stillhet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation>Maksimal båndbredde brukes til å sende lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Bruk Utslag basert tale gjenkjenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Dette velger hvor lenge etter en opplevd stopp i tale overføring bør fortsette.&lt;/b&gt;&lt;br /&gt;Sett denne høyere hvis stemmen din bryter opp når du snakker (sett av en blinke raskt stemme ikonet ved siden av navnet ditt).</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>eksklusiv modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Dette åpner enheten i eksklusiv modus.&lt;/b&gt;&lt;br /&gt;Ingen andre programmet vil være i stand til å bruke enheten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>eksklusiv</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>Tilbakestill</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>Bla gjennom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>Bla gjennom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation>Forhåndsvisning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;Forhåndsvisning&lt;/b&gt;&lt;br/&gt;Spiller av gjeldende&lt;i&gt;på&lt;/i&gt;lyd etterfulgt av gjeldende&lt;i&gt;av&lt;/i&gt;lyd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Viser en alltid på øverste vinduet med en Trykk og snakk knappen i den</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Vis Trykk og snakk vindu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Diverse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Hørbar lyd kø når du starter eller stopper for å overføre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Dette muliggjør overføring lydsignaler.&lt;/b&gt;&lt;br /&gt;Innstilling dette vil gi deg en kort lyd pip når du starter og stopper sending.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation>Lyd Kø</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation>Blir spilt når du begynner å overføre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>Blir spilt når du Stopper å overføre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation>hold Tid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>Tid mikrofonen forblir åpen etter TOS-tasten er sluppet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>Server maksimal båndbredde er bare %1 kbit/s. lyd kvalitet auto-justert til %2 kbit/s (%3 ms)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation>Maks. forsterkning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>Idle handling</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation>minutter gjør</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation>Ingenting</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation>overdøve</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation>Lyd av</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation>Etter</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1144,56 +1129,56 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation>kontinuerlig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation>stemme aktivitet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation>Trykk og snakk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation>lyd Inndata</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation>Av</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation>%1 s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>-%1 dB</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1 kbit/s (lyd %2Posisjon %4, Overhead %3)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1201,113 +1186,113 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>system</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>Utgang metode for lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation>&lt;b&gt;Dette er utgangsmetode som skal brukes til lyd.&lt;/b&gt;&lt;br /&gt;Mest sannsynlig du vil bruke Directsound.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>enhet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>Utdataenhet for lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dette er ut-enheten som skal brukes til lyd.&lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Posisjonens lyd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation>Lydutgang</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Standard Jitter Buffer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Sikkerhetsmargin for jitter buffer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Dette setter minimumssikkerhetsmargin for jitter buffer.&lt;/b&gt;&lt;br /&gt;All innkommende lyd er bufret, og jitter buffer prøver hele tiden å presse buffer til minimum bærekraftig av nettverket, slik ventetid kan være så lavt som mulig. Dette setter minimum bufferstørrelse som skal brukes. Hvis starten av setningene du hører er veldig nervøs, øker denne verdien.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minsteavstand til brukeren før lyden mengden reduseres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Dette setter minimumsavstand for lyd beregninger. Volumet av andre brukere &apos;tale vil ikke avta før de er minst så langt unna deg.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Dette setter den maksimale avstanden for lyd beregninger. Når lenger unna enn dette, vil andre brukere &apos;tale volumet ikke reduseres ytterligere.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Dette gjør at en av loopback test moduser&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; -. Loopback deaktivert&lt;br/&gt;&lt;i&gt;Lokal&lt;/i&gt; - ligne en lokal server.&lt;br /&gt;&lt;i&gt;server&lt;/i&gt; -. Request loopback fra serveren.&lt;br /&gt;Vær oppmerksom enn når loopback er aktivert, vil ingen andre brukere høre stemmen din. Denne innstillingen er ikke lagret på søknad exit.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Volum</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation>Volumet av innkommende tale</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Dette justerer volumet av innkommende tale.&lt;/b&gt;&lt;br /&gt;Merk at hvis du øker dette utover 100%, vil lyden bli forvrengt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation>utgang Delay</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Mengden data som buffer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>

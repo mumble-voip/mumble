@@ -4,22 +4,22 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Malpermesi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Permesi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Permesi na %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Malpermesi na %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-66"/>
@@ -30,72 +30,72 @@
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Malsukcesis: Nevalida kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumblo - Ŝanĝi na %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation>identigilo: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Tiu koncedas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>La kanalo devas havi nomon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Tiu forprenas la privilegion %1. Se privilegio estas kaj permesata kaj malpermesata, ĝi estas malpermesata.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>Dialogo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Entajpu la kanal-nomon ĉi tien!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Priskribo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Entajpu la kanal-pasvorton ĉi tien!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Kontroli por krei provizoran kanalon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Kelkatempa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -108,104 +108,102 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Pozicio&lt;/b&gt;&lt;br/&gt;
-Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo. Kanalo kun pli alta   &lt;i&gt;Pozicia&lt;/i&gt; valoro ĉiam estos metita sub alian kun pli malalta valoro, samo validas se male. Se la &lt;i&gt;Pozicia&lt;/i&gt; valoro de du kanaloj estas egalaj, ili nome ordiĝos laŭalfabete.
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation>Pozicio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>&amp;Grupoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation>Grupo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>Listo da grupoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Forigi la elektitan grupon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Heredi grup-anojn de patra objekto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation>Heredi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Igi grupon heredebla al sub-kanaloj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>Neheredebla</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Grupo estis heredita de patra kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>Heredita</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation>Membroj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Aldoni anon al grupo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Forigi anon de grupo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>Aktivaj ACLoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Listo da eroj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -235,12 +233,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>Su&amp;pren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Movi elementon suben</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -250,12 +248,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>Su&amp;ben</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Aldoni novan elementon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -265,12 +263,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Forigi ero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -280,12 +278,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation>Kunteksto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -311,14 +309,13 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>aldoni novan gupon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Aldoni&lt;/b&gt;&lt;br/&gt;
-Aldoni novan grupon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -333,52 +330,52 @@ Aldoni novan grupon</translation>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Enhavas liston da anoj kies grup-aneco ne estos heredita de patra kanalo.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Enhavas la liston da anoj, kiuj estis hereditaj de aliaj kanaloj.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Entajpu la nomon de uzanto, kiun vi volas aldoni al grupon kaj klaku Aldoni!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Entajpu la nomon de uzanto, kiun vi volas forigi de grupo kaj klaku Aldoni!</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Bari</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>Baritaj membroj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Tiu igos la eron efektivigi al la sub-kanaloj de tiu kanalo.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Efektivigas al sub-kanaloj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>Permesoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation>Uzanto/Grupo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -388,7 +385,7 @@ Aldoni novan grupon</translation>
     <message>
         <location/>
         <source>User ID</source>
-        <translation>Uzant-identigilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -398,17 +395,17 @@ Aldoni novan grupon</translation>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Tiu kontrolas al kiu uzanto tiu ero efektivigas. Simple entajpu la uzant-nomon kaj presu la enig-klavon por igi la servilon serĉi kongruon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>&amp;Atributoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nomo&lt;/b&gt;&lt;br /&gt;Entajpu la kanal-nomon en tiun areon. La nomo devas obei la regulojn de la servilo, al kiu vi konektatas.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -483,7 +480,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation>Kanal-ID</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -517,7 +514,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+225"/>
         <source>%1 (version %2)</source>
-        <translation>%1 (versiono %2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -555,7 +552,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation>Aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -595,17 +592,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Agordi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation>Ebleco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation>Pelil-nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -625,32 +622,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Channels</source>
-        <translation>Kanaloj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation>Mikrofono</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation>Neuzata</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation>Parolantoj</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -671,7 +668,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Pri Mumblo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+30"/>
@@ -681,12 +678,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Pri Mumblo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Permesilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -696,7 +693,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>Konfirmi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -709,12 +706,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interfaco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Sistemo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -729,7 +726,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation>Aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -744,17 +741,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Transmission</source>
-        <translation>Transsendo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation>&amp;Transsendi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Kiam transsendi vian voĉon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -799,12 +796,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation>Elŝalti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>Enŝalti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -829,7 +826,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation>amplitudo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -864,12 +861,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Compression</source>
-        <translation>Densigo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation>&amp;Kvalito</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -949,7 +946,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>Elŝaltite</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -999,7 +996,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>Ekskluziva reĝimo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1009,27 +1006,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Ekskluzive</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>R&amp;eŝargi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Foliumi...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>F&amp;oliumi...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation>&amp;Antaŭrigardo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1109,7 +1106,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>nothing</source>
-        <translation>nenio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1124,7 +1121,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>after</source>
-        <translation>post</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1154,7 +1151,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-9"/>
@@ -1166,17 +1163,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation>%1 s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>-%1 dB</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+48"/>
@@ -1194,12 +1191,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interfaco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Sistemo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1215,7 +1212,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation>Aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1275,12 +1272,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Laŭteco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation>Laŭteco de venanta voĉo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1452,12 +1449,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while you talk</source>
-        <translation>dum vi parolas</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation>Ekskluziva reĝimo, ne rekomendita.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1467,7 +1464,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Ekskluzive</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1495,29 +1492,29 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation>Neniu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation>Loke</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation>Servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation>Son-eligo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-16"/>
@@ -1526,13 +1523,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation>%1 %</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation>%1 m</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1540,12 +1537,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation>Eleki sondosieron</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation>Nevalida sondosiero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -1559,7 +1556,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="AudioStats.cpp" line="+387"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation>&gt;1000 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
@@ -1738,32 +1735,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation>Son-agordi-asistanto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Introduction</source>
-        <translation>Enkonduko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Bonvenon al la son-asistanto de Mumblo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Finished</source>
-        <translation>Finita</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Ĝuu uzi Mumblon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Aprarat-elekto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1778,7 +1775,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>System</source>
-        <translation>Sistemo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1793,7 +1790,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation>Aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1869,12 +1866,12 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>Input Device</source>
-        <translation>Enig-aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation>Elig-aparato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1953,7 +1950,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation>Uzi kapaŭskultilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2044,7 +2041,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Low</source>
-        <translation>Malalta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2069,7 +2066,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2084,12 +2081,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation>Alta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Propre</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2173,7 +2170,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation>&amp;Adreso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2183,42 +2180,42 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason</source>
-        <translation>Kialo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation>Eki</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation>Fino</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation>Uzanto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation>Haketo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation>Ĝ&amp;isdatigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2228,7 +2225,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Search field</source>
-        <translation>Serĉ-kampo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2243,32 +2240,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No nickname</source>
-        <translation>Neniu kromnomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation>IP adreso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation>Neniu IP adreso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation>Kialo por forbari</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation>Neniu kialo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation>Dato de la forbara fino</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2288,7 +2285,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Banned users</source>
-        <translation>Forbaritaj uzantoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2313,7 +2310,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation>Vakigi ĉiuj kampojn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2323,7 +2320,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear</source>
-        <translation>Vakigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
@@ -2336,12 +2333,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+53"/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Email</source>
-        <translation>Retpoŝto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -2356,7 +2353,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation>(neniu)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+19"/>
@@ -2429,7 +2426,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+43"/>
         <source>Mumble User</source>
-        <translation>Mumblo-uzanto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="main.cpp" line="+500"/>
@@ -2467,57 +2464,57 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Aktuala atestilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>Krei novan atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Tio kreos novan atestilon.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>Enporti atestilon de dosiero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Tio enportos atestilon de dosiero.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation>Enporti atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Elporti atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Tio elportos atestilon de dosiero.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation>Elporti aktualan atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Enporti atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation>Enporto de atestilo de tipo PKCS #12</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2528,12 +2525,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import from</source>
-        <translation>Enporti de</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Dosiernomo por enporti de</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2543,7 +2540,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>Elektu dosieron por enporti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2553,17 +2550,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation>Malfermi...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>pasvorto por PKCS#12 dosiero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2588,7 +2585,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>Anstataŭigi atestilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2616,7 +2613,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New certificate</source>
-        <translation>Nova atestilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2636,7 +2633,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Export to</source>
-        <translation>Elporti al</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2651,7 +2648,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>Konservi kiel...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2671,12 +2668,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation>Retpoŝto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2701,7 +2698,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation>Fini</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2716,7 +2713,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>Aŭtomata kreo de atestilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2739,7 +2736,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation>Neniu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -2859,27 +2856,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation>Flustri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation>Movi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation>Tekst-mesaĝo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation>Forpeli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation>Forbari</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -2916,7 +2913,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation>Amiko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -2989,7 +2986,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Apliki ŝanĝojn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -3025,7 +3022,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Advanced</source>
-        <translation>Altnivele</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3039,7 +3036,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="-545"/>
         <location line="+545"/>
         <source>Enter username</source>
-        <translation>enigi uzantonomon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-545"/>
@@ -3050,7 +3047,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation>Servilnomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
@@ -3065,17 +3062,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation>Pordo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation>Adresoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Retejo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -3091,7 +3088,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -3111,23 +3108,23 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Konekti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation>&amp;Filtriloj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation>Uzantoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation>Versio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1051"/>
@@ -3152,7 +3149,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation>Aldoni propran servilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3162,17 +3159,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation>Montri ĉiujn servilojn kun uzantoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation>Montri ĉiujn servilojn</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopii</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3182,7 +3179,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation>&amp;Glui</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3193,13 +3190,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <location filename="ConnectDialog.cpp" line="-745"/>
         <source>&amp;Edit...</source>
-        <translation>%Redakti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation>&amp;Aldoni novan...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3242,7 +3239,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation>A&amp;dreso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3261,7 +3258,7 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation>&amp;Pordo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3277,7 +3274,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation>&amp;Uzantnomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3293,17 +3290,17 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation>Etikedo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation>Aldoni servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation>pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3319,7 +3316,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation>Montri pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3333,7 +3330,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation>Defaŭlta aparato</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3520,7 +3517,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3535,7 +3532,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3550,7 +3547,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation>Forlasi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3622,12 +3619,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3675,7 +3672,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="+346"/>
         <source>Mouse %1</source>
-        <translation>Muso %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3683,7 +3680,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="+282"/>
         <source>Not connected</source>
-        <translation>Nekonektite</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3706,12 +3703,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Devices</source>
-        <translation>Aparatoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3726,12 +3723,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Size</source>
-        <translation>Grando</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>Enŝaltite</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3771,27 +3768,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation>Kritike</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning</source>
-        <translation>Averto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation>Informo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation>Servilo konektiĝis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation>Servilo malkonektiĝis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -3811,7 +3808,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Text Message</source>
-        <translation>Tekst-mesaĝo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
@@ -3866,7 +3863,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>the server</source>
-        <translation>la servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+117"/>
@@ -3963,17 +3960,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui"/>
         <source>Messages</source>
-        <translation>Mesaĝoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Message</source>
-        <translation>Mesaĝo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Console</source>
-        <translation>Konsolo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3988,12 +3985,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation>Son-dosiero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation>Vojo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4003,7 +4000,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Laŭteco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4073,12 +4070,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation>Nelimigite</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation>Linioj</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -4087,47 +4084,47 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="LookConfig.cpp" line="+55"/>
         <location line="+11"/>
         <source>System default</source>
-        <translation>Sistema defaŭlto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>None</source>
-        <translation>Neniu</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation>Nur kun uzantoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation>Ĉiuj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation>Demandi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation>Fari nenion</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation>Movi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation>Uzanto-interfaco</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+155"/>
         <source>Choose skin file</source>
-        <translation>Elektu fasondosiero</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
@@ -4167,7 +4164,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language</source>
-        <translation>Lingvo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4223,7 +4220,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Style</source>
-        <translation>Stilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4238,7 +4235,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Skin</source>
-        <translation>Fasono</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4303,12 +4300,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Never</source>
-        <translation>Neniam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation>Ĉiam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4353,7 +4350,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Application</source>
-        <translation>Aplikaĵo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4373,7 +4370,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Foliumi...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4469,14 +4466,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation>Mumblo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
         <location line="+2384"/>
         <source>Mumble -- %1</source>
-        <translation>Mumblo -- %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-2379"/>
@@ -4497,7 +4494,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+136"/>
         <source>Close</source>
-        <translation>Fermi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-1"/>
@@ -4556,7 +4553,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-2135"/>
         <source>Clear</source>
-        <translation>Vakigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+27"/>
@@ -4596,7 +4593,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Enter username</source>
-        <translation>Enigu uzantonomon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
@@ -4670,7 +4667,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+635"/>
         <source>Connected.</source>
-        <translation>Konektite.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+135"/>
@@ -4723,12 +4720,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-940"/>
         <source>&amp;User</source>
-        <translation>&amp;Uzanto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Channel</source>
-        <translation>&amp;Kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+59"/>
@@ -4758,7 +4755,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+154"/>
         <source>Cancel</source>
-        <translation>Nuligi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+570"/>
@@ -4783,17 +4780,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>To Server</source>
-        <translation>Al servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>From Server</source>
-        <translation>De servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Good</source>
-        <translation>Bone</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -4830,12 +4827,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-1168"/>
         <location line="+19"/>
         <source>Enter reason</source>
-        <translation>Enigu kialon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+22"/>
         <source>Sending message to %1</source>
-        <translation>Sendi mesaĝion al %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+12"/>
@@ -4843,13 +4840,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <location line="+259"/>
         <source>To %1: %2</source>
-        <translation>Al %1: %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-362"/>
         <location line="+103"/>
         <source>Message to %1</source>
-        <translation>Mesaĝo al %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-60"/>
@@ -4859,7 +4856,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation>Ĉu vi certas, ke vi volas rekomencigi la avataron de uzanto %1?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+221"/>
@@ -4915,7 +4912,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+92"/>
         <source>About Qt</source>
-        <translation>Pri Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+279"/>
@@ -4961,7 +4958,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+11"/>
         <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
-        <translation>Nevalida uzantonomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -4996,7 +4993,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+7"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
-        <translation>malĝusta pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -5006,12 +5003,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation>Ag&amp;ordi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Help</source>
-        <translation>&amp;Helpo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5056,7 +5053,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Disconnect</source>
-        <translation>&amp;Malkonekti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5071,7 +5068,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Information</source>
-        <translation>&amp;Informo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5086,17 +5083,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation>&amp;Forpeli</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Silentigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation>&amp;Forbari</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5111,22 +5108,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Send a Text Message</source>
-        <translation>Sendi tekst-mesaĝon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Sends a text message to another user.</source>
-        <translation>Sendas tekst-mesaĝon al alia uzanto.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new channel</source>
-        <translation>Aldoni novan kanalon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5136,12 +5133,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove channel</source>
-        <translation>Forigi kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5236,7 +5233,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation>&amp;Redakti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5353,7 +5350,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation>&amp;Agordoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5368,7 +5365,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation>&amp;Son-asistanto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5398,12 +5395,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;Pri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation>Informoj pri Mumblo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5428,12 +5425,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation>Pri &amp;Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation>Informo pri Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5488,7 +5485,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation>Aldoni &amp;amikon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5503,7 +5500,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation>&amp;Forigi &amp;amikon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5644,7 +5641,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-15"/>
         <source>Mumble: %1</source>
-        <translation>Mumble: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+36"/>
@@ -5785,7 +5782,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation>%1 renomita al %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+45"/>
@@ -5802,7 +5799,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation>Servilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -5812,12 +5809,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation>(Kanalo)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation>%2%1: %3</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+201"/>
@@ -5973,7 +5970,7 @@ Valid options are:
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation>Bonvenon al Mumblo.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+76"/>
@@ -5983,7 +5980,7 @@ Valid options are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation>Kaŝi kadron</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6028,7 +6025,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation>&amp;Eniri kanalon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6048,7 +6045,7 @@ Valid options are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation>S&amp;ervilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6176,7 +6173,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation>Ctrl+F</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6186,12 +6183,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation>Rekomencigi &amp;Avatar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation>Rekomencigi la avataron de la elektita uzanto.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6199,7 +6196,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation>Reto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+36"/>
@@ -6209,7 +6206,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
-        <translation>Konekto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6240,12 +6237,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation>Prokurilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation>Tajpi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6260,22 +6257,22 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation>HTTP(S)-prokurilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation>SOCKS5-prokurilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation>Komputilonomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation>Komputilonomo de la prokurilo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6340,7 +6337,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username</source>
-        <translation>Uzantonomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6355,14 +6352,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password</source>
-        <translation>pasvorto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation>pasvorto por prokuriloaûtentikeco
-
-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6457,31 +6452,31 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation>Silenta</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation>Parolado</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation>Flustri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation>Krii</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation>Kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+105"/>
@@ -6494,7 +6489,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
-        <translation>Filtri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -6549,7 +6544,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation>Redakti...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -6620,7 +6615,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Opcioj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6641,7 +6636,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Layout</source>
-        <translation>Aranĝo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6651,12 +6646,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation>Nigralisto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation>Blankalisto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6715,7 +6710,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load…</source>
-        <translation>Ŝargi..</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6725,7 +6720,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save…</source>
-        <translation>Konservi...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6740,22 +6735,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Color</source>
-        <translation>Koloro</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation>Aldoni…</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation>Tiparo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6785,7 +6780,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation>Montri horloĝon</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6793,7 +6788,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation>Stato</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6858,7 +6853,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Avatar</source>
-        <translation>Avataro</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6868,7 +6863,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Username</source>
-        <translation>Uzantnomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6878,7 +6873,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel</source>
-        <translation>Kanalo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6921,7 +6916,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation>Avataro kaj Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -6932,7 +6927,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-5"/>
@@ -7062,7 +7057,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Options</source>
-        <translation>Opcioj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7107,7 +7102,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;Pri</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7122,12 +7117,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Agordi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7210,47 +7205,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Source Text</source>
-        <translation>Font-texto</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation>&amp;Grase</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation>Ctrl+B</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation>&amp;Kursive</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Italic</source>
-        <translation>Kursive</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Underline</source>
-        <translation>Substrekite</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation>Ctrl+U</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation>Koloro</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7260,12 +7255,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation>Ctrl+L</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation>Enmeti bildon</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7273,17 +7268,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>Aldoni ligilon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation>URL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation>Teksto</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7324,7 +7319,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation>LAN</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
@@ -7334,27 +7329,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation>Afriko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation>Asio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation>Nord-ameriko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation>Sud-ameriko</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation>Eŭropo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -7375,17 +7370,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation>En</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation>El</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>Ŝalti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -7430,12 +7425,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation>…</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation>,</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -7461,13 +7456,13 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation>Nevalide</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation>Malplene</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7475,17 +7470,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation>El</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>Ŝalti</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation>En</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7493,7 +7488,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.h" line="+45"/>
         <source>Enter text</source>
-        <translation>Enigu tekston</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="TextMessage.ui"/>
@@ -7539,7 +7534,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Aldoni</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7549,7 +7544,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Forigi</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7563,13 +7558,13 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
-        <translation>Forigi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation>Alinomi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7579,22 +7574,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Days</source>
-        <translation>Tagoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation>Semajnoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation>Monatoj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation>Jaroj</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7622,7 +7617,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Version</source>
-        <translation>Versio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7637,7 +7632,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>IP Address</source>
-        <translation>IP-adreso</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7647,7 +7642,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Details...</source>
-        <translation>Detaloj...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7682,7 +7677,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Good</source>
-        <translation>Bone</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7717,50 +7712,50 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation>%1sem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation>%1t</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation>%1h</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation>%1m</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation>, </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation>%1 (%2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation>Suptenate</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation>Nesuptenate</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-123"/>
@@ -7775,7 +7770,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation>%1 konektita</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -7805,7 +7800,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+84"/>
         <source>Nick</source>
-        <translation>Kromnomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -7825,7 +7820,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation>Neniam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -7964,7 +7959,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation>Nomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -8037,7 +8032,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation>%1 %2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
@@ -8065,7 +8060,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation>Lando: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
@@ -8077,7 +8072,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation>Ŝtato: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
@@ -8117,12 +8112,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+13"/>
         <source>Email: %1</source>
-        <translation>Retpoŝto: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation>DNS: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
@@ -8188,7 +8183,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation>00:00:00</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -8204,7 +8199,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Mode</source>
-        <translation>Reĝimo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -8214,7 +8209,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Output</source>
-        <translation>Eligo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -8229,12 +8224,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Filename</source>
-        <translation>Dosiernomo</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Foliumi</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-212"/>
@@ -8300,7 +8295,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+28"/>
         <source>Select target directory</source>
-        <translation>Elekti celdosieron</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
@@ -8313,7 +8308,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="WASAPI.cpp" line="+184"/>
         <source>Default Device</source>
-        <translation>Defaŭlta aparato</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8321,12 +8316,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation>Mumble PPP</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation>Puŝi por paroli</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>
