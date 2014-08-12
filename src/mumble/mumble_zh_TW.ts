@@ -515,7 +515,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+225"/>
+        <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
         <translation>%1 (版本 %2)</translation>
     </message>
@@ -2365,17 +2365,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>姓名</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Email</source>
         <translation>電子郵件</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Issuer</source>
         <translation>發行人</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Expiry Date</source>
         <translation>有效期限</translation>
     </message>
@@ -2393,17 +2393,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+90"/>
-        <source>Resolving domain %1.</source>
-        <translation>解析網址 %1 中。</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>無法驗證電子郵件。&lt;br /&gt;輸入正確的電子信箱地址或留白繼續下一步。</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
         <translation>產生憑證時發生錯誤。&lt;br /&gt;請重試。</translation>
     </message>
@@ -2416,6 +2411,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
         <translation>無法寫入，請選擇其他檔案。</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -2438,7 +2438,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>檔案不含有效憑證與金鑰，請選擇其他檔案。</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Select file to export certificate to</source>
         <translation>選擇導出憑證到</translation>
     </message>
@@ -2448,12 +2448,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>選擇匯入憑證自</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>Unable to resolve domain.</source>
-        <translation>無法分析網址。</translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+86"/>
         <source>Mumble User</source>
         <translation>Mumble 使用者</translation>
     </message>
@@ -2930,7 +2925,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+100"/>
+        <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>貼上與送出(&amp;S)</translation>
@@ -3799,7 +3794,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+208"/>
+        <location filename="Log.cpp" line="+209"/>
         <source>Debug</source>
         <translation>除錯</translation>
     </message>
@@ -3904,7 +3899,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>伺服器</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ 顯示的文字物件太大 ]]</translation>
     </message>
@@ -3943,7 +3938,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-442"/>
+        <location line="-452"/>
         <source>Toggle console for %1 events</source>
         <translation>為 %1 事件啟用控制台</translation>
     </message>
@@ -4424,7 +4419,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+138"/>
+        <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2314"/>
         <source>Root</source>
         <translation>根</translation>
@@ -4730,28 +4725,25 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>選擇圖檔</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation>圖檔 (*.png *.jpg *.jpeg *.svg)</translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Failed to load image</source>
         <translation>讀取圖檔失敗</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-27"/>
         <source>Could not open file for reading.</source>
         <translation>無法讀取開啟的檔案。</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Image format not recognized.</source>
         <translation>無法辨識圖檔格式。</translation>
     </message>
     <message>
-        <location line="-1786"/>
+        <location line="-1796"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道透過控制頻道發送。</translation>
     </message>
@@ -5037,6 +5029,11 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>未註冊使用者的伺服器密碼錯誤，請重試。</translation>
+    </message>
+    <message>
+        <location line="+241"/>
+        <source>Images (*.png *.jpg *.jpeg)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5606,7 +5603,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>這將啟用簡潔視窗模式，該模式將隱藏日誌欄與選單。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+281"/>
+        <location filename="Messages.cpp" line="+282"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5666,12 +5663,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 現在被沉默和靜音.</translation>
     </message>
     <message>
-        <location line="-205"/>
+        <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>您的帳戶信息目前無法確認，請稍候重試</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
         <translation>歡迎訊息：%1</translation>
@@ -6517,7 +6514,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>頻道</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+105"/>
+        <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation type="unfinished"/>
     </message>
@@ -7062,7 +7059,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+60"/>
+        <location filename="Overlay_win.cpp" line="+64"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7171,7 +7168,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+350"/>
+        <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>在除錯模式忽略外掛更新訊息。</translation>
     </message>
@@ -7187,7 +7184,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>安裝 %1 外掛失敗。</translation>
     </message>
     <message>
-        <location line="-282"/>
+        <location line="-286"/>
         <source>%1 lost link.</source>
         <translation>%1 連接遺失。</translation>
     </message>
@@ -7208,7 +7205,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+756"/>
+        <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
         <translation>預設輸入</translation>
     </message>
@@ -7221,7 +7218,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+255"/>
+        <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
         <translation>讀取圖片失敗</translation>
     </message>
@@ -7322,7 +7319,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+474"/>
+        <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"/>
     </message>
@@ -7542,7 +7539,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+72"/>
+        <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
         <translation type="unfinished"/>
     </message>
@@ -7836,7 +7833,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="UserListModel.cpp" line="+84"/>
+        <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
         <translation type="unfinished"/>
     </message>
@@ -8019,7 +8016,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+143"/>
+        <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"/>
     </message>

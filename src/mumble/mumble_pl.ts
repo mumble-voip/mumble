@@ -513,7 +513,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+225"/>
+        <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
         <translation>%1 (wersja %2)</translation>
     </message>
@@ -2356,17 +2356,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Nazwa</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Issuer</source>
         <translation>Wystawiony przez</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Expiry Date</source>
         <translation>Data wygaśnięcia</translation>
     </message>
@@ -2384,17 +2384,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+90"/>
-        <source>Resolving domain %1.</source>
-        <translation>Rozwijanie nazwy domeny %1.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>Nie można zweryfikować adresu email.&lt;br /&gt;Podaj właściwy (lub żaden) adres email, aby kontynuować.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
         <translation>Wystąpił błąd podczas generowania twojego certyfikatu.&lt;br /&gt;Prosimy spróbować później.</translation>
     </message>
@@ -2407,6 +2402,11 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
         <translation>Plik nie mógł zostać otwarty w celu zapisania. Prosimy użyć innego pliku.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -2429,7 +2429,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Plik nie zawierał poprawnego certyfikatu i klucza. Prosimy użyć innego pliku.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Select file to export certificate to</source>
         <translation>Wybierz plik, do którego zostanie wyeksportowany certyfikat</translation>
     </message>
@@ -2439,12 +2439,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Wybierz plik, z którego importować certyfikat</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>Unable to resolve domain.</source>
-        <translation>Nie udało się odczytać nazwy domeny.</translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+86"/>
         <source>Mumble User</source>
         <translation>Użytkownik Mumble</translation>
     </message>
@@ -2918,7 +2913,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+100"/>
+        <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>Wklej i &amp;wyślij</translation>
@@ -3787,7 +3782,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+208"/>
+        <location filename="Log.cpp" line="+209"/>
         <source>Debug</source>
         <translation>Debug</translation>
     </message>
@@ -3892,7 +3887,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>serwer</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Obiekt tekstowy jest zbyt duży, aby go wyświetlić ]]</translation>
     </message>
@@ -3931,7 +3926,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-442"/>
+        <location line="-452"/>
         <source>Toggle console for %1 events</source>
         <translation>Włącz konsolę dla zdarzeń: %1</translation>
     </message>
@@ -4412,7 +4407,7 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+138"/>
+        <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2314"/>
         <source>Root</source>
         <translation>Root</translation>
@@ -4718,28 +4713,25 @@ Te pole opisuje rozmiar urządzenia LCD. Rozmiar jest podany w pikselach lub w z
         <translation>Wybierz plik obrazka</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation>Obrazy (*.png *.jpg *.jpeg *.svg)</translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Failed to load image</source>
         <translation>Nie udało się załadować obrazka</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-27"/>
         <source>Could not open file for reading.</source>
         <translation>Nie udało się otworzyć pliku do odczytu.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Image format not recognized.</source>
         <translation>Nieznany format obrazka.</translation>
     </message>
     <message>
-        <location line="-1786"/>
+        <location line="-1796"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Dane głosowe są wysyłane przez kanał kontrolny.</translation>
     </message>
@@ -5027,6 +5019,11 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Podałeś złe hasło dla niezarejestrowanych użytkowników, spróbuj jeszcze raz.</translation>
+    </message>
+    <message>
+        <location line="+241"/>
+        <source>Images (*.png *.jpg *.jpeg)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5596,7 +5593,7 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <translation>Przełącza na widok minimalny, gdzie okno z dziennikiem i menu są ukryte.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+281"/>
+        <location filename="Messages.cpp" line="+282"/>
         <source>You muted and deafened %1.</source>
         <translation>Ogłuszyłeś oraz wyciszyłeś %1.</translation>
     </message>
@@ -5656,12 +5653,12 @@ W przeciwnym razie proszę przerwać i sprawdzić swój certyfikat oraz nazwę u
         <translation>%1 jest teraz ogłuszony oraz wyciszony.</translation>
     </message>
     <message>
-        <location line="-205"/>
+        <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>Dane konta nie mogą zostać zweryfikowane obecnie. Spróbuj ponownie później</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
         <translation>Wiadomość powitalna: %1</translation>
@@ -6522,7 +6519,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Kanał</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+105"/>
+        <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Tworzenie komunikacji z nakładką nie powiodło się w %2: %1. Nakładka będzie niedostępna.</translation>
     </message>
@@ -7072,7 +7069,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+60"/>
+        <location filename="Overlay_win.cpp" line="+64"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7183,7 +7180,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+350"/>
+        <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Pomijanie aktualizacji wtyczek w trybie debugowania.</translation>
     </message>
@@ -7199,7 +7196,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
         <translation>Nie udało się zainstalować nowego pluginu do %1.</translation>
     </message>
     <message>
-        <location line="-282"/>
+        <location line="-286"/>
         <source>%1 lost link.</source>
         <translation>%1 utracił połączenie.</translation>
     </message>
@@ -7220,7 +7217,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+756"/>
+        <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
         <translation>Domyślne wejście</translation>
     </message>
@@ -7233,7 +7230,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+255"/>
+        <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
         <translation>Nie udało się załadować obrazka</translation>
     </message>
@@ -7334,7 +7331,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+474"/>
+        <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Pakiety UDP nie mogły zostać wysłane lub odebrane z serwera. Nastąpiła zmiana na tryb TCP.</translation>
     </message>
@@ -7554,7 +7551,7 @@ Aby uaktualnić pliki do najnowszych wersji, kliknij na przycisk poniżej.</tran
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+72"/>
+        <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
         <translation>Puste hasło</translation>
     </message>
@@ -7848,7 +7845,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="UserListModel.cpp" line="+84"/>
+        <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
         <translation>Pseudonim</translation>
     </message>
@@ -8031,7 +8028,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+143"/>
+        <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
         <translation>Aktualizacja Mumble</translation>
     </message>

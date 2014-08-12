@@ -519,7 +519,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+225"/>
+        <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
         <translation>%1 (versão %2)</translation>
     </message>
@@ -2375,17 +2375,17 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Nome</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Email</source>
         <translation>Email</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Issuer</source>
         <translation>Emissor</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Expiry Date</source>
         <translation>Data de Expiração</translation>
     </message>
@@ -2403,17 +2403,12 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+90"/>
-        <source>Resolving domain %1.</source>
-        <translation>Resolvendo domínio %1.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>Impossível validar email.&lt;br /&gt;Especifique um email válido (ou em banco) para continuar.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
         <translation>Houve um erro gerando seu certificado.&lt;br /&gt;Por favor tente novamente.</translation>
     </message>
@@ -2426,6 +2421,11 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
         <translation>O arquivo não pôde ser aberto para escrita. Por favor use outro.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -2448,7 +2448,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>O arquivo não continha um certificado e chave válidos. Por favor use outro.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Select file to export certificate to</source>
         <translation>Selecione o arquivo para o qual exportar o certificado</translation>
     </message>
@@ -2458,12 +2458,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Selecione o arquivo do qual importar o certificado</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>Unable to resolve domain.</source>
-        <translation>Impossível resolver o domínio.</translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+86"/>
         <source>Mumble User</source>
         <translation>Usuário do Mumble</translation>
     </message>
@@ -2948,7 +2943,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+100"/>
+        <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
         <translation>Colar e &amp;Enviar</translation>
@@ -3824,7 +3819,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+208"/>
+        <location filename="Log.cpp" line="+209"/>
         <source>Debug</source>
         <translation>Depuração</translation>
     </message>
@@ -3929,7 +3924,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>o servidor</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ Objeto de texto muito grande para mostrar ]]</translation>
     </message>
@@ -3969,7 +3964,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-442"/>
+        <location line="-452"/>
         <source>Toggle console for %1 events</source>
         <translation>Alternar console para eventos %1</translation>
     </message>
@@ -4450,7 +4445,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+138"/>
+        <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2314"/>
         <source>Root</source>
         <translation>Raiz</translation>
@@ -4756,28 +4751,25 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Escolher um arquivo de imagem</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation>Imagens (*.png *.jpg *.jpeg *.svg)</translation>
-    </message>
-    <message>
         <location line="+7"/>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Failed to load image</source>
         <translation>Falha ao carregar imagem</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-27"/>
         <source>Could not open file for reading.</source>
         <translation>Não pude abrir o arquivo para leitura.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Image format not recognized.</source>
         <translation>Formato de imagem não reconhecido.</translation>
     </message>
     <message>
-        <location line="-1786"/>
+        <location line="-1796"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Canal de voz é enviado pelo canal de controle.</translation>
     </message>
@@ -5066,6 +5058,11 @@ seu certificado e nome de usuário.</translation>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
         <translation>Senha de servidor errada para conta de usuário não registrada, por favor tente novamente.</translation>
+    </message>
+    <message>
+        <location line="+241"/>
+        <source>Images (*.png *.jpg *.jpeg)</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5635,7 +5632,7 @@ seu certificado e nome de usuário.</translation>
         <translation>Alterna o modo mínimo, em que a janela de registro e o menu são escondidos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+281"/>
+        <location filename="Messages.cpp" line="+282"/>
         <source>You muted and deafened %1.</source>
         <translation>Você emudeceu e ensurdeceu %1.</translation>
     </message>
@@ -5695,12 +5692,12 @@ seu certificado e nome de usuário.</translation>
         <translation>%1 agora está mudo e surdo.</translation>
     </message>
     <message>
-        <location line="-205"/>
+        <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>A informação da sua conta não pode ser verificada de momento. Por favor tente mais tarde</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
         <translation>Mensagem de boas-vindas: %1</translation>
@@ -6566,7 +6563,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Canal</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+105"/>
+        <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>Falha ao cruzar comunicação com sobreimpressão em %2: %1. Nenhuma sobreimpressão estará disponível.</translation>
     </message>
@@ -7115,7 +7112,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+60"/>
+        <location filename="Overlay_win.cpp" line="+64"/>
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
@@ -7226,7 +7223,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+350"/>
+        <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>Pulando atualização de complementos no modo de depuração.</translation>
     </message>
@@ -7242,7 +7239,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
         <translation>Falha ao instalar a novo complemento para %1.</translation>
     </message>
     <message>
-        <location line="-282"/>
+        <location line="-286"/>
         <source>%1 lost link.</source>
         <translation>%1 perdeu vínculo.</translation>
     </message>
@@ -7263,7 +7260,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+756"/>
+        <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
         <translation>Entrada padrão</translation>
     </message>
@@ -7276,7 +7273,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+255"/>
+        <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
         <translation>Falha ao carregar imagem</translation>
     </message>
@@ -7377,7 +7374,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+474"/>
+        <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Pacotes UDP não podem ser enviados ou recebidos do servidor. Alternando para modo TCP.</translation>
     </message>
@@ -7597,7 +7594,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+72"/>
+        <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
         <translation>Credencial vazia</translation>
     </message>
@@ -7893,7 +7890,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
 <context>
     <name>UserListModel</name>
     <message>
-        <location filename="UserListModel.cpp" line="+84"/>
+        <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
         <translation>Apelido</translation>
     </message>
@@ -8076,7 +8073,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+143"/>
+        <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
         <translation>Atualizar o Mumble</translation>
     </message>
