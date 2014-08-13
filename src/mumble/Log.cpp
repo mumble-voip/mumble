@@ -543,28 +543,30 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 	}
 
-	// Omit scope and/or author from TextMessage TTS if flags request it
-	if (mt == TextMessage) {
+	// Omit scope and/or author from TextMessage TTS readout if flags request it
+	if ((!g.s.bTTSReadMsgAuthor || !g.s.bTTSReadMsgScope) && (mt == TextMessage)) {
 		// Identify the cutoff points for the scope and author in the QString
 		int authorCut = 0;
 		int	scopeCut = 0;
 		if (ownMessage) {
-			scopeCut = plain.indexOf(QLatin1String(": "), 0) + 2;
-			authorCut = scopeCut;
+			scopeCut = plain.indexOf(QLatin1String(": "), 0) + 2;	// no author - everything before ': ' is scope
+			authorCut = scopeCut;		// set author cutoff to be identical to scope cutoff. Field has length 0.
 		}
 		else {
-			scopeCut = plain.indexOf(QLatin1String(") "), 0) + 2;
-			authorCut = plain.indexOf(QLatin1String(": "), 0) + 2;
+			scopeCut = plain.indexOf(QLatin1String(") "), 0) + 2;  
+			authorCut = plain.indexOf(QLatin1String(": "), 0) + 2; 
 		}
-			
-		if (!g.s.bTTSReadMsgAuthor) {
-			if (!g.s.bTTSReadMsgScope) 
-				plain.remove(0, authorCut);
-			else 
-				plain.remove(scopeCut, authorCut-scopeCut);
+		
+		// In the expected TextMessage formatting, the author/scope are separated from the message body by ': '.
+		// If ': ' is not found, indexOf will have returned -1, in which case plain is left unchanged.
+		if (!(authorCut == -1) && !(scopeCut == -1)) {
+			if (!g.s.bTTSReadMsgAuthor && !g.s.bTTSReadMsgScope) 
+				plain.remove(0, authorCut);						// remove both msg author and scope 
+			if (!g.s.bTTSReadMsgAuthor && g.s.bTTSReadMsgScope)
+				plain.remove(scopeCut, authorCut-scopeCut);		// remove just the msg author - if authorCut==scopeCut, does nothing
+			if (g.s.bTTSReadMsgAuthor && !g.s.bTTSReadMsgScope) 
+				plain.remove(0, scopeCut);						// remove just the msg scope 
 		}
-		else if (!g.s.bTTSReadMsgScope) 
-			plain.remove(0, scopeCut);
 	}
 	// TTS threshold limiter.
 	if (plain.length() <= g.s.iTTSThreshold)
