@@ -118,6 +118,8 @@ void LogConfig::load(const Settings &r) {
 	loadSlider(qsVolume, r.iTTSVolume);
 	qsbThreshold->setValue(r.iTTSThreshold);
 	qcbReadBackOwn->setChecked(r.bTTSMessageReadBack);
+	qcbReadMsgScope->setChecked(r.bTTSReadMsgScope);
+	qcbReadMsgAuthor->setChecked(r.bTTSReadMsgAuthor);
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
 }
 
@@ -143,6 +145,8 @@ void LogConfig::save() const {
 	s.iTTSVolume=qsVolume->value();
 	s.iTTSThreshold=qsbThreshold->value();
 	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
+	s.bTTSReadMsgScope = qcbReadMsgScope->isChecked();
+	s.bTTSReadMsgAuthor = qcbReadMsgAuthor->isChecked();
 	s.bWhisperFriends = qcbWhisperFriends->isChecked();
 }
 
@@ -539,6 +543,29 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		}
 	}
 
+	// Omit scope and/or author from TextMessage TTS if flags request it
+	if (mt == TextMessage) {
+		// Identify the cutoff points for the scope and author in the QString
+		int authorCut = 0;
+		int	scopeCut = 0;
+		if (ownMessage) {
+			scopeCut = plain.indexOf(QLatin1String(": "), 0) + 2;
+			authorCut = scopeCut;
+		}
+		else {
+			scopeCut = plain.indexOf(QLatin1String(") "), 0) + 2;
+			authorCut = plain.indexOf(QLatin1String(": "), 0) + 2;
+		}
+			
+		if (!g.s.bTTSReadMsgAuthor) {
+			if (!g.s.bTTSReadMsgScope) 
+				plain.remove(0, authorCut);
+			else 
+				plain.remove(scopeCut, authorCut-scopeCut);
+		}
+		else if (!g.s.bTTSReadMsgScope) 
+			plain.remove(0, scopeCut);
+	}
 	// TTS threshold limiter.
 	if (plain.length() <= g.s.iTTSThreshold)
 		tts->say(plain);

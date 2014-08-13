@@ -258,6 +258,8 @@ Settings::Settings() {
 	bMute = bDeaf = false;
 	bTTS = true;
 	bTTSMessageReadBack = false;
+	bTTSReadMsgScope = true;
+	bTTSReadMsgAuthor = true;
 	iTTSVolume = 75;
 	iTTSThreshold = 250;
 	iQuality = 40000;
