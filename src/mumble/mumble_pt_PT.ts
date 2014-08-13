@@ -2422,7 +2422,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>As permissões do ficheiro não puderam ser definidas. Nenhum certificado e chave foram escritos. Por favor use outro ficheiro. </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5057,7 +5057,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+241"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>Imagens (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5339,7 +5339,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Isto repõe o pré-processador de áudio, incluindo anulação de ruídos, ganho automático e deteção de atividade vocal. Se algo piorar subitamente o ambiente de áudio (como deixar cair o microfone) e se for temporário, use isto para evitar ter que esperar que o pré-processador se reajuste.</translation>
+        <translation>Isto repõe o preprocessador de áudio, incluindo anulação de ruídos, ganho automático e deteção de atividade vocal. Se algo piorar subitamente o ambiente de áudio (como deixar cair o microfone) e se for temporário, use isto para evitar ter que esperar que o preprocessador se reajuste.</translation>
     </message>
     <message>
         <location/>
@@ -6461,7 +6461,7 @@ Evita que o cliente transfira imagens embutidas em mensagens de texto com a marc
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation>Desativar tranferencia de imagens</translation>
+        <translation>Desativar transferência de imagens</translation>
     </message>
     <message>
         <location/>

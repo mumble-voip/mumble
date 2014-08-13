@@ -2444,7 +2444,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Dateiberechtigungen konnten nicht gesetzt werden. Zertifikat und Schlüssel wurden nicht geschrieben. Bitte verwenden Sie eine andere Datei.</translation>
     </message>
     <message>
         <location line="+6"/>
