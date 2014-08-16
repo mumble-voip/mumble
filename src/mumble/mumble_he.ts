@@ -1,33 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="he" sourcelanguage="en">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="he" version="2.1">
 <context>
     <name>ACLEditor</name>
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translatorcomment>דחה</translatorcomment>
-        <translation type="unfinished">מנע</translation>
+        <translation>אסור</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished">אפשר</translation>
+        <translation>התר</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished">אפשר %1</translation>
+        <translation>התר %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished">אסור %1</translation>
+        <translation>אסור %1</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished">ממבל - הוסף ערוץ</translation>
+        <translation>‫Mumble - הוסף ערוץ</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -38,32 +35,32 @@
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>ממבל - ערוך %1</translation>
+        <translation>Mumble - ערוך %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>מזהה: %1</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>אפשרות זו מקנה את הרשאת ה-%1. אם הרשאה מסוימת מאופשרת ואסורה בו-זמנית, היא תבוטל.&lt;br/&gt;%2</translation>
+        <translation>אפשרות זו מקנה הרשאת %1. אם הרשאה הינה מותרת וגם אסורה בו-זמנית, היא תבוטל.&lt;br/&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>חובה לתת שם לערוץ</translation>
+        <translation>ערוץ מוכרח להכיל שם</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>פעולה זו מבטלת את הרשאת ה%1. אם הרשאה מסוימת מאופשרת ומבוטלת בו זמנית, היא תבוטל.&lt;/br&gt;%2</translation>
+        <translation>פעולה זו מבטלת הרשאת %1. אם הרשאה הינה מאופשרת וגם מבוטלת בו-זמנית, היא תבוטל.&lt;/br&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>עריכת ערוץ</translation>
+        <translation>דו שיח</translation>
     </message>
     <message>
         <location/>
@@ -73,7 +70,7 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>הכנס את שם הערוץ כאן.</translation>
+        <translation>הזן את שם הערוץ כאן.</translation>
     </message>
     <message>
         <location/>
@@ -83,17 +80,17 @@
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished">סיסמא</translation>
+        <translation>סיסמא</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>הכנס את סיסמאת הערוץ כאן.</translation>
+        <translation>הזן סיסמת ערוץ כאן.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>סמן זאת כדי ליצור ערוץ זמני.</translation>
+        <translation>סמן כדי ליצור ערוץ זמני.</translation>
     </message>
     <message>
         <location/>
@@ -112,7 +109,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;מיקום&lt;/b&gt;&lt;/br&gt;
-ערך זה מאפשר לך לשנות את הדרך שבה ממבל מארגנת את הערוצים ברשימת הערוצים. ערוץ בעל ערך &lt;i&gt;מיקום&lt;/i&gt;גדול יותר ימוקם תמיד מתחת לערוץ בעל ערך מיקום נמוך יותר, ולהפך. אם ערך ה&lt;i&gt;מיקום&lt;/i&gt; עבור שני ערוצים זהה, הם ימוקמו לפי סדר אלפבתי.</translation>
+ערך זה מאפשר לך לשנות את הדרך שבה Mumble מארגנת את הערוצים ברשימת הערוצים. ערוץ בעל ערך &lt;i&gt;מיקום&lt;/i&gt;גדול יותר ימוקם תמיד מתחת לערוץ בעל ערך מיקום נמוך יותר, ולהפך. אם ערך ה&lt;i&gt;מיקום&lt;/i&gt; עבור שני ערוצים זהה, הם ימוקמו לפי סדר אלפבתי.</translation>
     </message>
     <message>
         <location/>
@@ -132,50 +129,47 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>רשימת קבוצות</translation>
+        <translation>רשימה של קבוצות</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>הסר את הקבוצה שנבחרה</translation>
+        <translation>הסר קבוצה נבחרת</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation>הסרה</translation>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translatorcomment>כל התרגומים שקשורים להורשה אולי יצטרכו להשתנות בעתיד. אלה תרגומים בעיתיים והפתרון נורא מאולץ. אם מישהו/מישהי אי פעם יבואו אחריי וירצו לתרגם מחדש, בהצלחה לכם!
-~Sonic</translatorcomment>
-        <translation>כלול גם חברי קבוצה מקבוצת האב</translation>
+        <translation>הורש חברי קבוצה מן הורה</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translatorcomment>קשה מאוד לתרגם את הפועל הזה: התרגום יוצא &quot;רש&quot; (מלשון לרשת) אבל זה לא נשמע טוב... אם למישהו יהיה רעיון בעתיד הוא מוזמן לתקן. ~Sonic</translatorcomment>
-        <translation>קבל בירושה</translation>
+        <translation>הורש</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>אפשר לקבוצה לעבור בתורשה לערוצי-משנה</translation>
+        <translation>הפוך קבוצה לברת הרשה לערוצי משנה</translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>ניתנת להורשה</translation>
+        <translation>בר הורשה</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>הקבוצה הזאת עברה בתורשה מערוץ האב</translation>
+        <translation>קבוצה עברה בירושה מן ערוץ הורה</translation>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>עברה בתורשה</translation>
+        <translation>תורשתי</translation>
     </message>
     <message>
         <location/>
@@ -185,17 +179,17 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">הוסף</translation>
+        <translation>הוספה</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>הוסף חבר לקבוצה</translation>
+        <translation>הוסף חבר אל קבוצה</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>מחק חבר מן הקבוצה</translation>
+        <translation>הסר חבר מן קבוצה</translation>
     </message>
     <message>
         <location/>
@@ -205,7 +199,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>הרשאות פעילות</translation>
+        <translation>‏ACL־ים פעילים</translation>
     </message>
     <message>
         <location/>
@@ -230,7 +224,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>הזז את הרשומה למעלה</translation>
+        <translation>הזז רשומה מעלה</translation>
     </message>
     <message>
         <location/>
@@ -240,12 +234,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>&amp;העלה</translation>
+        <translation>מ&amp;עלה</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>הזז את הרשומה למטה</translation>
+        <translation>הזז רשומה מטה</translation>
     </message>
     <message>
         <location/>
@@ -255,7 +249,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>&amp;הורד</translation>
+        <translation>מ&amp;טה</translation>
     </message>
     <message>
         <location/>
@@ -270,7 +264,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;הוסף</translation>
+        <translation>הוס&amp;ף</translation>
     </message>
     <message>
         <location/>
@@ -285,7 +279,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">&amp;הסר</translation>
+        <translation>הס&amp;ר</translation>
     </message>
     <message>
         <location/>
@@ -306,7 +300,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>מיושם בערוץ זה</translation>
+        <translation>מיושם לערוץ זה</translation>
     </message>
     <message>
         <location/>
@@ -316,7 +310,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>הוסף קבוצה חדשה</translation>
+        <translation>הוספת קבוצה חדשה</translation>
     </message>
     <message>
         <location/>
@@ -348,25 +342,22 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>הכנס את שמו של המשתמש שברצונך להוסיף לקבוצה ולחץ על &quot;הוסף&quot;.</translation>
+        <translation>הכנס את שמו של המשתמש אותו ברצונך להוסיף לקבוצה ולחץ על &quot;הוסף&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translatorcomment>&quot;הוסף&quot;? זה לא אומר להיות &quot;הסר?&quot; ~Sonic
-Shouldn&apos;t that be &quot;Remove&quot; instead of &quot;Add&quot;? ~Sonic</translatorcomment>
-        <translation>הכנס את שמו של המשתמש שברצונך להסיר מן הקבוצה ולחץ על &quot;הוסף&quot;.</translation>
+        <translation>הכנס את שמו של המשתמש אותו ברצונך להסיר מן הקבוצה ולחץ על &quot;הוסף&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translatorcomment>אין לי מושג איך לתרגם את זה במילה אחת... ~Sonic</translatorcomment>
-        <translation>אל תכלול</translation>
+        <translation>הוצאה</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>חברים שאינם כלולים</translation>
+        <translation>חברים מוצאים</translation>
     </message>
     <message>
         <location/>
@@ -396,7 +387,7 @@ Shouldn&apos;t that be &quot;Remove&quot; instead of &quot;Add&quot;? ~Sonic</tr
     <message>
         <location/>
         <source>User ID</source>
-        <translation>מזהה משתמש</translation>
+        <translation>ID משתמש</translation>
     </message>
     <message>
         <location/>
@@ -420,15 +411,8 @@ Shouldn&apos;t that be &quot;Remove&quot; instead of &quot;Add&quot;? ~Sonic</tr
     </message>
     <message>
         <location/>
-        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translatorcomment>מפתחות-גישה... טוב נו, אין לי תרגום יותר טוב... ~Sonic</translatorcomment>
-        <translation>&lt;b&gt;סיסמא&lt;/b&gt;&lt;br /&gt;שדה זה מאפשר לך להגדיר בקלות את סיסמאת הערוץ. הגדרה זו משתמשת בתכונת &quot;מפתחות-גישה&quot; של ממבל. ניתן להשתמש במערכת ההרשאות והקבוצות אם יש צורך בשליטה מדויקת יותר על הגישות לערוץ.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translatorcomment>שחקן? ~Sonic</translatorcomment>
         <translation>&lt;b&gt;זמני&lt;/b&gt;&lt;br /&gt;
 יוצר את הערוץ כזמני. ערוצים זמניים נמחקים אוטומטית ברגע שהשחקן האחרון עוזב אותם.</translation>
     </message>
@@ -483,24 +467,28 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location/>
+        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
+        <translation>אפשרות זו שולטת בקבוצת המשתמשים שעבורה תיושם הרשומה הזו.&lt;br /&gt;שימו לב שהיישום יהיה רק על הקבוצה שמוגדרת בערוץ הנבחר. למשל: רשימת ההרשאות ברירת המחדל בערוץ השורש מעניקה הרשאת &lt;i&gt;כתיבה&lt;/i&gt; לקבוצת &lt;i&gt;admin&lt;/i&gt;. הרשומה הזו, אם תועבר בתורשה לערוץ אחר, תיתן למשתמש הרשאת כתיבה אם הוא שייך לקבוצת האדמין של הערוץ הזה, גם אם הוא לא שייך לקבוצת האדמין בערוץ שממנו נורשה ההרשאה.&lt;br /&gt;אם שמה של קבוצה מסוימת מתחיל ב&apos;!&apos;, החברות בה מתהפכת, ואם הוא מתחיל &apos;~&apos;, ההרשאות שלה ייושמו בערוץ שממנו מגיעות ההרשאות, ולא בערוץ שבו הן מופעלות.&lt;br /&gt;אם שם הקבוצה מתחיל ב&apos;#&apos;, היא מפורשת כמפתח גישה. המשתמש חייב להכניס את מה שבא לאחר ה&apos;#&apos; ברשימת הסיסמאות שלהם כדי להתאים. זה יכול לשמש כגישה מבוססת סיסמא בסיסית מאוד לערוצים עבור משתמשים לא רשומים או לא מזוהים.&lt;br /&gt;אם שמה של קבוצה מתחיל &apos;$&apos;, היא תתאים רק למשתמשים שהצפנת תעודות האבטחה שלהם מתאימה למה שבא לאחר ה&apos;$&apos;.&lt;br /&gt;מספר קבוצות מיוחדות הוגדרו מראש, ואלו הן:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - כל המשתמשים נכללים בה.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - כל המשתמשים הרשומים יתאימו לה.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - משתמשים בתת ערוץ בעומק מינמלי של &lt;i&gt;a&lt;/i&gt; ובין &lt;i&gt;b&lt;/i&gt; ל-&lt;i&gt;c&lt;/i&gt; בשרשרת הערוצים. הכנסו לאתר Mumble לעוד מידע על קבוצה זו.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - משתמשים שמצאים ברגע זה בערוץ יתאימו (שימושי עבור קבוצת sub).&lt;br /&gt;&lt;b&gt;&lt;/b&gt; - משתמשים מחוץ לערוץ ברגע זה יתאימו (שימושי עבורי קבוצת sub).&lt;br /&gt;שימו לב שהרשומה תיושם למשתמש או לקבוצה, אך לא לשניהם.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
+        <translation>&lt;b&gt;סיסמא&lt;/b&gt;&lt;br /&gt;שדה זה מאפשר לך להגדיר בקלות את סיסמאת הערוץ. הגדרה זו משתמשת בתכונת &quot;מפתחות-גישה&quot; של Mumble. ניתן להשתמש במערכת ההרשאות והקבוצות אם יש צורך בשליטה מדויקת יותר על הגישות לערוץ.</translation>
+    </message>
+    <message>
+        <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
         <translation>מראה את כל הרשומות הפעילות בערוץ זה. רשומות שנורשו מערוצי אב יוצגו בכתב נטוי. ההרשאות נקראות מלמעלה למטה, כך שעדיפותן גדלה ככל שמתקדמים ברשימה.</translation>
     </message>
     <message>
         <location/>
-        <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translatorcomment>אההה! מה זה?! ~Sonic</translatorcomment>
-        <translation>אפשרות זו שולטת בקבוצת המשתמשים שעבורה תיושם הרשומה הזו.&lt;br /&gt;שימו לב שהיישום יהיה רק על הקבוצה שמוגדרת בערוץ הנבחר. למשל: רשימת ההרשאות ברירת המחדל בערוץ השורש מעניקה הרשאת &lt;i&gt;כתיבה&lt;/i&gt; לקבוצת &lt;i&gt;admin&lt;/i&gt;. הרשומה הזו, אם תועבר בתורשה לערוץ אחר, תיתן למשתמש הרשאת כתיבה אם הוא שייך לקבוצת האדמין של הערוץ הזה, גם אם הוא לא שייך לקבוצת האדמין בערוץ שממנו נורשה ההרשאה.&lt;br /&gt;אם שמה של קבוצה מסוימת מתחיל ב&apos;!&apos;, החברות בה מתהפכת, ואם הוא מתחיל &apos;~&apos;, ההרשאות שלה ייושמו בערוץ שממנו מגיעות ההרשאות, ולא בערוץ שבו הן מופעלות.&lt;br /&gt;אם שם הקבוצה מתחיל ב&apos;#&apos;, היא מפורשת כמפתח גישה. המשתמש חייב להכניס את מה שבא לאחר ה&apos;#&apos; ברשימת הסיסמאות שלהם כדי להתאים. זה יכול לשמש כגישה מבוססת סיסמא בסיסית מאוד לערוצים עבור משתמשים לא רשומים או לא מזוהים.&lt;br /&gt;אם שמה של קבוצה מתחיל &apos;$&apos;, היא תתאים רק למשתמשים שהצפנת אישורי האבטחה שלהם מתאימה למה שבא לאחר ה&apos;$&apos;.&lt;br /&gt;מספר קבוצות מיוחדות הוגדרו מראש, ואלו הן:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - כל המשתמשים נכללים בה.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - כל המשתמשים הרשומים יתאימו לה.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - משתמשים בתת ערוץ בעומק מינמלי של &lt;i&gt;a&lt;/i&gt; ובין &lt;i&gt;b&lt;/i&gt; ל-&lt;i&gt;c&lt;/i&gt; בשרשרת הערוצים. הכנסו לאתר ממבל לעוד מידע על קבוצה זו.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - משתמשים שמצאים ברגע זה בערוץ יתאימו (שימושי עבור קבוצת sub).&lt;br /&gt;&lt;b&gt;&lt;/b&gt; - משתמשים מחוץ לערוץ ברגע זה יתאימו (שימושי עבורי קבוצת sub).&lt;br /&gt;שימו לב שהרשומה תיושם למשתמש או לקבוצה, אך לא לשניהם.</translation>
-    </message>
-    <message>
-        <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>מזהה של הערוץ.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"></translation>
+        <translation>מזהה ערוץ</translation>
     </message>
 </context>
 <context>
@@ -508,7 +496,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation>כרטיס ברירת מחדל של ALSA</translation>
+        <translation>כרטיס ALSA משתמט</translation>
     </message>
     <message>
         <location line="+191"/>
@@ -521,7 +509,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation>כרטיס ברירת מחדל של ALSA‏‎</translation>
+        <translation>כרטיס ALSA משתמט</translation>
     </message>
     <message>
         <location line="+325"/>
@@ -532,16 +520,15 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+225"/>
+        <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
-        <translation>%1 (גרסה %2)</translation>
+        <translation>%1 (גירסא %2)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translatorcomment>מה זה הדבר הזה לעזאזל?! ~Sonic</translatorcomment>
-        <translation>%1 -&gt; %2 דגימות באפר, עם %3 רזולוצית דגימה (%4 מועדף) ב-%5 הרטץ</translation>
+        <translation>%1 -&gt; %2 דגימות אגירה, עם %3 רזולוצית דגימה (%4 מועדף) ב-%5 הרץ</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -568,17 +555,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished">בחירת התקן</translation>
+        <translation>בחירת התקן</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן&lt;/p&gt;</translation>
+        <translation>התקן</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation>התקן שישמש כמיקרופון</translation>
+        <translation>התקן לשימוש עבור מיקרופון</translation>
     </message>
     <message>
         <location/>
@@ -588,7 +575,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>בצע תשאול להתקן הנבחר</translation>
+        <translation>תחקור התקן נבחר</translation>
     </message>
     <message>
         <location/>
@@ -599,12 +586,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>&amp;תשאל</translation>
+        <translation>&amp;שאילתא</translation>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>הגדר את ההתקן הנבחר</translation>
+        <translation>הגדרת התקן נבחר</translation>
     </message>
     <message>
         <location/>
@@ -614,7 +601,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;הגדר</translation>
+        <translation>&amp;תצורה</translation>
     </message>
     <message>
         <location/>
@@ -624,12 +611,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Driver name</source>
-        <translation>שם מנהל ההתקן</translation>
+        <translation>שם מנהל התקן</translation>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation>גודל הבאפר</translation>
+        <translation>שיעור אגירה</translation>
     </message>
     <message>
         <location/>
@@ -639,7 +626,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation>הגדר את ערוצי הקלט</translation>
+        <translation>הגדרת ערוצי קלט</translation>
     </message>
     <message>
         <location/>
@@ -654,17 +641,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
-    </message>
-    <message>
-        <location/>
-        <source>-&gt;</source>
         <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
+        <source>-&gt;</source>
+        <translation>&lt;-</translation>
+    </message>
+    <message>
+        <location/>
         <source>Unused</source>
-        <translation>לא בשמוש</translation>
+        <translation>לא בשימוש</translation>
     </message>
     <message>
         <location/>
@@ -690,41 +677,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>אודות ממבל</translation>
+        <translation>אודות Mumble</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translatorcomment>התרגום לעברית נכתב על ידי Opalium / Sonic.
-התרגום נכתב עבור גרסא 1.2.4 (בטא).
-
-כמה הסברים בנוגע לתרגום שלי, לאלה שיבואו אחריי יום אחד:
-1. כשכתבתי את התרגום ניסיתי להמנע ממצב של שימוש בלשון זכר. במקום זאת השתמשתי בלשון רבים בכל מקום שהייתי יכול.
-2. מכיוון שעברית נכתבת מימין לשמאל, נוצרה בעיה של יישור הטקסט. ברוב המקרים לא הייתה ברירה אלא להשתמש בפרמטר dir של HTML. הבעיה היא שברגע שהשתמשתי בו, הכלי תרגום התלונן שהמשפט לא מסתיים בפיסוק הנכון (כי תגית הסיום באה אחרי הנקודה בסוף) ולכן הוא סימן את התרגום בצהוב ולא בירוק. אין לי ממש מה לעשות עם זה, אז זה הפתרון הכי קרוב כנראה.
-3. יש מילים שאי אפשר לתרגם לאנגלית, או שהתרגום שלהם נורא מסובך. במקרים כאלה העדפתי לנסות ולכתוב את המשפט מחדש בעברית במקום לתרגם אחד לאחד מהמקור, או במקרה של מילים - למצוא מושג מתאים חדש. כשתרגמתי מושגים, המטרה הייתה לתרגם בצורה הקצרה ביותר - כמה שפחות מילים. למשל: את Overlay תרגמתי ל&quot;ממשק-המשחק&quot;.
-4. ניסיתי להשתמש במשלב לשוני לא מאוד גבוה - בכל זאת, המשתמש צריך להבין את התרגום.
-
-שמחתי מאוד לקחת חלק בפרוייקט ממבל. אם אתם מכירים אנשים שיכולים גם הם לעזור - ולא רק בתרגום - לכו על זה! כל עזרה משתלמת בסופו של דבר לכולנו.זה כוחו של קוד פתוח.
-והכי חשוב - למתרגמים שיבואו אחריי יום אחד - שיהיה המון בהצלחה. :-)
-
-~Opalium - TheOpalium@Gmail.com
-26/01/2013</translatorcomment>
-        <translation>&lt;h3&gt;ממבל (%1)&lt;/h3&gt;&lt;p dir=&quot;RTL&quot;&gt;כל הזכויות שמורות לטורבאלד נאטביג (Thorvald Natvig), שנת %3&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;כלי צ&apos;אט קולי עבור גיימרים&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;התרגום לעברית נכתב על ידי Opalium / Sonic&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p dir=&quot;RTL&quot;&gt;כל הזכויות שמורות לת׳ורבאלד נאטביג (Thorvald Natvig), שנת %3&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;כלי צ&apos;אט קולי עבור גיימרים&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;התרגום לעברית נכתב על ידי Opalium / Sonic&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;אודות ממבל</translation>
+        <translation>&amp;אודות Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;רישיון</translation>
+        <translation>&amp;רשיון</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>&amp;רישיונות צד שלישי</translation>
+        <translation>רשיונות &amp;צד ג&apos;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -737,37 +710,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>קלט קול</translation>
+        <translation>טופס</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished">ממשק</translation>
+        <translation>ממשק</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מערכת&lt;/p&gt;</translation>
+        <translation>מערכת</translation>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שיטת הקלט עבור צלילים&lt;/p&gt;</translation>
+        <translation>שיטת קלט לשמע</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זוהי השיטה לקילטת קול.&lt;/b&gt;&lt;br /&gt;רוב הסיכויים שתרצו להשתמש ב-DirectSound.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;זוהי שיטת הקלט עבור שמע שבה תרצה להשתמש.&lt;/b&gt;&lt;br /&gt;כנראה שתרצו להשתמש בשיטת DirectSound.</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן&lt;/p&gt;</translation>
+        <translation>התקן</translation>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן קלט עבור קול&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;התקן קלט עבור שמע&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -777,42 +750,42 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished">שידור</translation>
+        <translation>שידור</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished">&amp;שדר</translation>
+        <translation>&amp;שדר</translation>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מתי לשדר את הקול שלך&lt;/p&gt;</translation>
+        <translation>מתי לשדר את הדיבור שלך</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;קבע מתי לשדר את הדיבור שלך&lt;/b&gt;&lt;br /&gt;&lt;i&gt;מתמשך&lt;/i&gt; - כל הזמן&lt;br /&gt;&lt;i&gt;זיהוי קול&lt;/i&gt; - כאשר אתה מדבר ברור&lt;br /&gt;&lt;i&gt;לחץ כדי לדבר&lt;/i&gt; - כשאתה מחזיק את מקש הקיצור שנקבע תחת &lt;i&gt;קיצורים&lt;/i&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת מתי לשדר את הדיבור שלך.&lt;/b&gt; &lt;br /&gt;&lt;i&gt;מתמשך&lt;/i&gt; - כל הזמן&lt;br /&gt;&lt;i&gt;פעילות קולית&lt;/i&gt; - כאשר אתם מדברים.&lt;br /&gt;&lt;i&gt;לחץ כדי לדבר&lt;/i&gt; - כאשר אתם מחזיקים את מקש הדיבור שנקבע בהגדרות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation type="unfinished">זמן לחיצה כפולה</translation>
+        <translation>זמן לחיצה כפולה</translation>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished">אם תלחץ על לחצן הדיבור פעמיים בפרק הזמן הזה הוא יינעל.</translation>
+        <translation>אם תקישו פעמיים על מקש הדיבור בפרק הזמן שתקבעו כאן, הוא יינעל.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זמן לחיצה כפולה&lt;/b&gt;&lt;br /&gt;אם תלחץ על לחצן הדיבור פעמיים בטווח הזמן שהוגדר הלחצן יינעל. ממבל תמשיך לשדר עד שתלחץ על הלחצן שוב כדי לשחרר את לחצן הדיבור.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זמן הלחיצה הכפולה&lt;/b&gt;&lt;br /&gt;אם תלחץ על לחצן הדיבור פעמיים בטווח הזמן שהוגדר הלחצן יינעל. Mumble ימשיך לשדר עד שתלחץ על הלחצן שוב כדי לשחרר את לחצן הדיבור מחדש.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפס את צלילי הסמן לברירת המחדל&lt;/p&gt;</translation>
+        <translation>החזר את איתות השמע לברירת המחדל</translation>
     </message>
     <message>
         <location/>
@@ -832,12 +805,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished">עזיבה</translation>
+        <translation>מבוטל</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished">לחיצה</translation>
+        <translation>לחיצה</translation>
     </message>
     <message>
         <location/>
@@ -877,7 +850,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translatorcomment>אוי ואבוי... ז ה היה קשה... ~Sonic</translatorcomment>
         <translation>עוצמת שקט</translation>
     </message>
     <message>
@@ -898,58 +870,57 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Compression</source>
-        <translation type="unfinished">דחיסה</translation>
+        <translation>דחיסה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished">&amp;איכות</translation>
+        <translation>&amp;איכות</translation>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;איכות הדחיסה (בשיא רוחב הפס)&lt;/p&gt;</translation>
+        <translation>איכות הדחיסה (בשיא רוחב הפס)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה.&lt;/b&gt;&lt;br /&gt;כאן נקבע בכמה רוחב פס מותר לממבל להשתמש לשידור יוצא.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה&lt;/b&gt;&lt;br /&gt;זה יקבע בכמה רוחב פס מותר לממבל להשתמש עבור שידור שמע.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation type="unfinished">אותות לחבילה</translation>
+        <translation>שמע בכל חבילה</translation>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמה מסגרות קול יישלחו בכל חבילה&lt;/p&gt;</translation>
+        <translation>כמה יחידות שמע לשלוח בכל חבילת מידע</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;אפשרות זו קובעת כמה מסגרות קול יכללו בחבילהאחת.&lt;/b&gt;&lt;br /&gt;הגדלת הערך הז יגדיל את השהיית השידור שלכם, אך יפחית את צריכת רוחב הפס.</translation>
+        <translation>&lt;b&gt;אפשרות זו קובעת כמה מסגרות קול יכללו בחבילהאחת.&lt;/b&gt;&lt;br /&gt;הגדלת הערך הז יגדיל את האחזור של הקול שלכם, אך יפחית צריכת רוחב פס.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translatorcomment>סיכומית?! מה עשיתי...</translatorcomment>
         <translation>&lt;b&gt;אפשרות זו מראה את רוחב הפס שנמצא בשימוש בשיא.&lt;/b&gt;&lt;br /&gt;מראה את תפוסת רוחב הפס של שידור הקול שלכם. קצב סיביות הקול הוא קצב הסיביות המקסימלי (כיוון שאנו משתמשים ב-VBR) של נתוני הקול בלבד. מיקום הוא קצב הסיביות של מידע המיקום. סיכומית היא כמות המסגרות והתחיליות של חבילות ה-IP (IP ו-UDP הם 75% מהסיכומית).</translation>
     </message>
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation type="unfinished">עיבוד צלילים</translation>
+        <translation>עיבוד שמע</translation>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation type="unfinished">דיכוי רעש</translation>
+        <translation>דיכוי רעש</translation>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation type="unfinished">דיכוי רעש</translation>
+        <translation>דיכוי רעש</translation>
     </message>
     <message>
         <location/>
@@ -959,12 +930,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגברה מקסימלית של צליל הקלט&lt;/p&gt;</translation>
+        <translation>הגברה מקסימלית של קלט השמע</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;הגברה מקסימלית עבור קלט.&lt;/b&gt;&lt;br /&gt;ממבל מאזן את עוצמת הקלט לפני הדחיסה, והגדרה זו קובעת עד כמה מותר להגביר.&lt;br /&gt;העוצמה בפועל מתעדכנת באופן מתמשך לפי הדיבור שלכם, אך היא לעולם לא תעלה מעל לערך שהוגדר כאן.&lt;br /&gt;אם &lt;i&gt;עוצמתיות המיקרופון&lt;/i&gt; של סטטיסטיקות הקול שואפת ל-100%, כנראה שתרצו להגדיר את הערך הזה לבערך 2.0, אך עבור רוב האנשים אין אפשרות להגיע ל-100, ולכן כדאי להגדיר ערך גבוה הרבה יותר.&lt;br /&gt;באופן אידאלי, הנוסחא המומלצת לקביעת הערך היא &lt;i&gt;עוצמתיות מיקרופון * ערך ההגברה &gt;= 100&lt;/i&gt;, אפילו אם אתם מדברים נורא חלש.&lt;br /&gt;&lt;br /&gt;שימו לב שקביעת ערך מקסימלי כאן לא תגרום לנזק, אך ממבל יתחיל להגביר מאוד גם שיחות אחרות אם תשאירו את הערך הזה למקסימום.</translation>
+        <translation>&lt;b&gt;הגברה מקסימלית עבור קלט.&lt;/b&gt;&lt;br /&gt;Mumble מאזן את עוצמת הקלט לפני הדחיסה, והגדרה זו קובעת עד כמה מותר להגביר.&lt;br /&gt;העוצמה בפועל מתעדכנת באופן מתמשך לפי הדיבור שלכם, אך היא לעולם לא תעלה מעל לערך שהוגדר כאן.&lt;br /&gt;אם &lt;i&gt;עוצמתיות המיקרופון&lt;/i&gt; של סטטיסטיקות הקול שואפת ל-100%, כנראה שתרצו להגדיר את הערך הזה לערך 2.0, אך עבור רוב האנשים אין אפשרות להגיע ל-100, ולכן כדאי להגדיר ערך גבוה הרבה יותר.&lt;br /&gt;באופן אידאלי, הנוסחא המומלצת לקביעת הערך היא &lt;i&gt;עוצמתיות מיקרופון * ערך ההגברה &gt;= 100&lt;/i&gt;, אפילו אם אתם מדברים נורא חלש.&lt;br /&gt;&lt;br /&gt;שימו לב שקביעת ערך מקסימלי כאן לא תגרום לנזק, אך Mumble יתחיל להגביר מאוד גם שיחות אחרות אם תשאירו את הערך הזה למקסימום.</translation>
     </message>
     <message>
         <location/>
@@ -974,7 +945,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation type="unfinished">בטל הד מהרמקולים</translation>
+        <translation>ביטול הד מן רמקולים</translation>
     </message>
     <message>
         <location/>
@@ -984,22 +955,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Disabled</source>
-        <translation type="unfinished">מבוטל</translation>
+        <translation>מבוטל</translation>
     </message>
     <message>
         <location/>
         <source>Mixed</source>
-        <translation>מצב ערבול</translation>
+        <translation>מעורבל</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>מצב רב-ערוצי</translation>
+        <translation>רב ערוצי</translation>
     </message>
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished">הד</translation>
+        <translation>הד</translation>
     </message>
     <message>
         <location/>
@@ -1034,7 +1005,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>מצב בלעדיות</translation>
+        <translation>מצב בלעדי</translation>
     </message>
     <message>
         <location/>
@@ -1049,27 +1020,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>אפ&amp;ס</translation>
+        <translation>&amp;אפס</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>סיי&amp;ר...</translation>
+        <translation>&amp;עיון...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>סי&amp;יר...</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;השמעה מקדימה&lt;/b&gt;&lt;br/&gt;משמיע את צליל ה&lt;i&gt;לחיצה&lt;/i&gt; הנוכחי ומיד אחריו את צליל ה&lt;i&gt;עזיבה&lt;/i&gt;.</translation>
+        <translation>&amp;עיון...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
         <translation>ת&amp;צוגה מקדימה</translation>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
+        <translation>&lt;b&gt;השמעה מקדימה&lt;/b&gt;&lt;br/&gt;משמיע את צליל ה&lt;i&gt;לחיצה&lt;/i&gt; הנוכחי ומיד אחריו את צליל ה&lt;i&gt;עזיבה&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
@@ -1089,7 +1060,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>סמן קול שמשמיע צליל כשהשידור מתחיל ומפסיק</translation>
+        <translation>סמן קול שמשמיע צליל כאשר השידור מתחיל ומפסיק</translation>
     </message>
     <message>
         <location/>
@@ -1124,17 +1095,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>רוחב הפס של תעבורת הרשת של השרת הוא רק %1 ק&quot;ב/ש. איכות הקול כוונה אוטומטית ל-%2 ק&quot;ב/ש (%3 מ&quot;ש)</translation>
+        <translation>רוחב הפס של תעבורת הרשת של השרת הוא רק %1 קב&quot;ש. איכות הקול כוונה אוטומטית ל-%2 קב&quot;ש (%3 מ&quot;ש)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation>העצמת קול מירבית</translation>
+        <translation>הגברה מרבית</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>בעת חוסר פעילות</translation>
+        <translation>פעולה עצלה</translation>
     </message>
     <message>
         <location/>
@@ -1167,56 +1138,56 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished">מתמשך</translation>
+        <translation>מתמשך</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished">פעילות קול</translation>
+        <translation>פעילות קול</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished">לחץ כדי לדבר</translation>
+        <translation>לחץ כדי לדבר</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation type="unfinished">‏צליל קלט</translation>
+        <translation>קלט שמע</translation>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation>%1 מ&quot;ש</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished">כבוי</translation>
+        <translation>כבוי</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation type="unfinished">%1 ש&apos;</translation>
+        <translation>%1 ש</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished">%1 ק&quot;ב/ש</translation>
+        <translation>%1 קב&quot;ש</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>-%1 דציבל</translation>
+        <translation>-%1 דציבלים</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1 ק&quot;ב/ש (קולי %2, מיקום %4, סיכומית %3)</translation>
+        <translation>%1 קב&quot;ש (קולי %2, מיקום %4, סיכומית %3)</translation>
     </message>
 </context>
 <context>
@@ -1224,22 +1195,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation>הגדרות פלט</translation>
+        <translation>טופס</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished">ממשק</translation>
+        <translation>ממשק</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מערכת&lt;/p&gt;</translation>
+        <translation>מערכת</translation>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שיטת הפלט עבור צלילים&lt;/p&gt;</translation>
+        <translation>שיטת פלט עבור שמע</translation>
     </message>
     <message>
         <location/>
@@ -1250,12 +1221,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן&lt;/p&gt;</translation>
+        <translation>התקן</translation>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>התקן הפלט עבור קול</translation>
+        <translation>התקן פלט עבור קול</translation>
     </message>
     <message>
         <location/>
@@ -1265,63 +1236,62 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished">צליל מבוסס מיקום</translation>
+        <translation>שמע מיקומי</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished">צליל פלט</translation>
+        <translation>פלט שמע</translation>
     </message>
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translatorcomment>ג&apos;יטר...</translatorcomment>
-        <translation>באפר רי&amp;צוד עיקרי</translation>
+        <translation>אגירת רי&amp;צוד עיקרית</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>שולי ביטחון עבור באפר הריצוד</translation>
+        <translation>שולי ביטחון עבור אגירת ריצוד</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;אפשרות זו מגדירה את שולי הביטחון עבור באפר הריצוד.&lt;/b&gt;&lt;br /&gt;כל הצלילים הנכנסים נאגרים, ובאפר הריצוד מנסה באופן מתמשך להקטין את המאגר הזה למינימום האפשרי ברשת שלך, כך שההשהייה בדיבור תהיה קטנה ככל האפשר. אפשרות זו מגדירה את גודל הבאפר המינימלי לשימוש. אם תחילת הדיבור של משתמשים אחרים מקוטעת, יש להגדיל את הערך הזה.</translation>
+        <translation>&lt;b&gt;אפשרות זו מגדירה את שולי הביטחון עבור אגירת הריצוד.&lt;/b&gt;&lt;br /&gt;כל הצלילים הנכנסים נאגרים, ואגירת הריצוד מנסה באופן מתמשך להקטין את המאגר הזה למינימום האפשרי ברשת שלך, כך שאחזור בדיבור יהיה קטן ככל האפשר. אפשרות זו מגדירה את גודל האגירה המינימלי לשימוש. אם תחילת הדיבור של משתמשים אחרים מקוטעת, יש להגדיל את הערך הזה.</translation>
     </message>
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;המרחק המינימלי למשתמש לפני שעוצמת הקול יורדת&lt;/p&gt;</translation>
+        <translation>מרחק מינימלי עד משתמש אחר טרם ירידה בעוצמת קול</translation>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה קובע את המרחק המינימלי לחישוב קולות. עוצמת הדיבור של משתמשים אחרים לא תופחת עד שהם יהיו לפחות במרחק הזה ממך.&lt;/p&gt;</translation>
+        <translation>אפשרות זו קובעת את המרחק המינימלי לחישובי קול. עוצמת הקול של הדיבור של המשתמש האחר לא יונמך עד אשר המרחק בינכם יהיה לפחות הערך שנקבע כאן.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו קובעת את המרחק המקסימלי לחישוב קולות. כשהמרחק גדול יותר מערך זה, עוצמת הדיבור של משתמשים אחרים לא תופחת עוד. &lt;/p&gt;</translation>
+        <translation>אפשרות זו קובעת את המרחק המקסימלי לחישובי קול. עוצמת הקול של שחקן אחר לא תונמך יותר כאשר המרחק ממנו גדול מהערך הזה.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;אפשרות זו מפעילה את אחד ממצבי בדיקת ההחזר.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;ללא&lt;/i&gt; - ביטול מצב ההחזר&lt;br /&gt;&lt;i&gt;מקומי&lt;/i&gt; - הדמייה של שרת מקומי.&lt;br /&gt;&lt;i&gt;שרת&lt;/i&gt; - מנסה לקבל החזר מן השרת.&lt;br /&gt;שימו לב שבמידה וההחזר מופעל, משתמשים אחרים לא ישמעו את קולכם.ההגדרה הזו אינה נשמרת כאשר יוצאים מממבל.</translation>
+        <translation>&lt;b&gt;אפשרות זו מפעילה את אחד ממצבי בדיקת ההחזר.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;ללא&lt;/i&gt; - ביטול מצב ההחזר&lt;br /&gt;&lt;i&gt;מקומי&lt;/i&gt; - הדמייה של שרת מקומי.&lt;br /&gt;&lt;i&gt;שרת&lt;/i&gt; - מנסה לקבל החזר מן השרת.&lt;br /&gt;שימו לב שבמידה וההחזר מופעל, משתמשים אחרים לא ישמעו את קולכם.ההגדרה הזו אינה נשמרת כאשר יוצאים מתוך Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמה&lt;/p&gt;</translation>
+        <translation>עוצמת קול</translation>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמת קול נכנס&lt;/p&gt;</translation>
+        <translation>עוצמת קול של דיבור נכנס</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרו זו משנה את עוצמת הקול שמגיע ממשתמשיםאחרים.&lt;/b&gt;&lt;br /&gt;שים לב שאם הערך גבוהה מ-100%, ייתכנו עיוותים בקול.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את עוצמת הקול של דיבור נכנס&lt;/b&gt;&lt;br /&gt;שימו לב שאם תעלו ערך זה מעל 100%, איכות הקול כנראה תושפע לרעה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1331,76 +1301,73 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translatorcomment>באפר הוא סוג של מאגר בזיכרון, ככה שעיבוד זאת לא מילה מתאימה כל כך. ~Sonic</translatorcomment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמות המידע לאגירה&lt;/p&gt;</translation>
+        <translation>כמות נתונים לאגירה</translation>
     </message>
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סמן זאת אם אתה משתמש באוזניות עבור פלט&lt;/p&gt;</translation>
+        <translation>הרמקולים המחוברים הם למעשה אוזניות</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translatorcomment>פקטור... מילה בעייתית. ~Sonic</translatorcomment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ערך להפחתת עוצמת הקול&lt;/p&gt;</translation>
+        <translation>הערך להפחתת עוצמת הקול</translation>
     </message>
     <message>
         <location/>
         <source>Bloom</source>
-        <translatorcomment>לבלוב בתרגום חופשי, אבל במקרה הזה מדוברבסוג של הגברה של הקול. ~Sonic</translatorcomment>
-        <translation type="unfinished">הגברה</translation>
+        <translation>הגברה</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ערך להעלאת עוצמת הקול&lt;/p&gt;</translation>
+        <translation>ערך עבור הגברת עוצמת הקול</translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בכמה תעלה עוצמת הקול עבור מקורות שנמצאים ממש קרוב?&lt;/p&gt;</translation>
+        <translation>בכמה תעלה עוצמת הקול עבור מקורות קרובים מאוד?</translation>
     </message>
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סימון אפשרות זו מציין שאין לך רמקולים מחוברים, רק אוזניות. זה חשוב מכיוון שרמקולים נמצאים בדרך כלל קדימה מאוזניו של המשתמש, בעוד שאוזניות נמצאות בדיוק מצידי הראש.&lt;/p&gt;</translation>
+        <translation>סימון אפשרות זו משמעו שאין ברשותכם רמקולים, רק אוזניות. זה עניין חשוב, כיוון שרמקולים בדרך נמצאים מלפני המשתמש, בעוד שאוזניות נמצאות היישר מצדדי הראש.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו קובעת את כמות המידע לעיבוד מקדים במעבד הפלט. נסו ערכים שונים וקבעו את הערך הנמוך ביותר שלא גורם לריצוד משמעותי בצליל.&lt;/p&gt;</translation>
+        <translation>אפשרות זו קובעת את כמות הנתונים לאחסון במאגר הזמני לפני שחרור הפלט. נסו ערכים שונים ובחרו את הערך הכי נמוך שאינו גורם לרעידות והפרעות בשמע.</translation>
     </message>
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished">אוזניות</translation>
+        <translation>אוזניות</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished">מרחק מינימלי</translation>
+        <translation>מרחק מינימלי</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished">מרחק מקסימלי</translation>
+        <translation>מרחק מקסימלי</translation>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מרחק מקסימלי, מעבר לו עוצמת הדיבור לא תפחת&lt;/p&gt;</translation>
+        <translation>המרחק מקסימלי שאחריו עוצמת הקול לא תונמך עוד</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished">עוצמה מינימלית</translation>
+        <translation>עוצמת קול מינימלית</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מהי העוצמה עבור משתמשים במרחק המקסימלי?&lt;/p&gt;</translation>
+        <translation>מה תהיה עוצמת הקול במרחק המקסימלי?</translation>
     </message>
     <message>
         <location/>
@@ -1410,23 +1377,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Delay Variance</source>
-        <translation>השהייה</translation>
+        <translation>שוני שהייה</translation>
     </message>
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation>השוני בהשהיית החבילה</translation>
+        <translation>שוני באחזור של חבילת מידע</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;אפשרות זו מגדירה את השהיית החיבור בעת בדיקת החזר.&lt;/b&gt;&lt;br /&gt;רוב תשתיות הקול מכילות כמות מסוימת של השהייה.אפשרות זו מאפשרת לכם לקבוע השהיית קול נוספתעל ההשהייה שכבר יש ברשת שלכם עבור בדיקת ההחזר. לדוגמה, אם תגדירו את הערך ל-15 מ&quot;ש, תיווצר הדמייה של רשת עם פינג של 25-30 מ&quot;ש או של 80-95 מ&quot;ש בהתאם למצב הרשת. רוב הרשתות הביתיות מכילות כ-5 מ&quot;ש של השהייה נוספת.</translation>
+        <translation>&lt;b&gt;אפשרות זו מגדירה את שוני האחזור עבור בדיקת החזר.&lt;/b&gt;&lt;br /&gt;רוב תשתיות הקול מכילות כמות מסוימת של השהייה.אפשרות זו מאפשרת לכם לקבוע השהיית קול נוספת על האחזור שכבר קיים ברשת שלכם עבור בדיקת ההחזר. לדוגמה, אם תגדירו את הערך ל-15 מ&quot;ש, תיווצר הדמייה של רשת עם פינג של 25-30 מ&quot;ש או של 80-95 מ&quot;ש בהתאם למצב הרשת. רוב הרשתות הביתיות מכילות כ-5 מ&quot;ש של השהייה נוספת.</translation>
     </message>
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation>איבוד מידע</translation>
+        <translation>איבוד חבילת מידע</translation>
     </message>
     <message>
         <location/>
@@ -1451,53 +1418,52 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished">הנמך תוכנות אחרות ב...</translation>
+        <translation>החלשת אפליקציות בשיעור של...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החלשת הקול של תוכנות אחרות בזמן דיבור&lt;/p&gt;</translation>
+        <translation>הנמכת תוכניות אחרות בזמן דיבור</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת הקול של תוכנות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה יונמכו התוכנות האחרות אם אפשרות זו פעילה.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכניות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה תונמך עוצמת הקול של תוכניות אחרות כשאפשרות זו מופעלת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, ממבל ינמיך את העוצמה של תוכנות אחרות בזמן שמשתמשים אחרים מדברים&lt;/p&gt;</translation>
+        <translation>כאשר מסומן, Mumble ינמיך את עוצמת הקול של יישומים אחרים בזמן שמשתמשים אחרים מדברים</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכנות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בעת דיבור נכנס או יוצא. סימון התיבה גורם לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן דיבור נכנס או יוצא. סימון התיבה יגרום לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>while other users talk</source>
-        <translatorcomment>חיסכון במקום, בכל זאת - יש גודל לממשק. ~Sonic</translatorcomment>
-        <translation type="unfinished">כשאחרים מדברים</translation>
+        <translation>כאשר משתמשים אחרים מדברים</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מסומן, ממבל ינמיך את העוצמה של תוכנות אחרות בזמן שאתה מדבר&lt;/p&gt;</translation>
+        <translation>כאשר מסומן, Mumble ינמיך את עוצמת הקול של יישומים אחרים בזמן שאתה מדבר</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכנות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בעת דיבור נכנס או יוצא. סימון התיבה גורם לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכניות אחרות בעת דיבור נכנס או יוצא. סימון התיבה יגרום לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished">כשאתה מדבר</translation>
+        <translation>כאשר אתה מדבר</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation>מצב בלעדיות, לא מומלץ.</translation>
+        <translation>מצב בלעדי, לא מומלץ.</translation>
     </message>
     <message>
         <location/>
@@ -1507,27 +1473,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>בלעדיות</translation>
+        <translation>בלעדי</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished">מועדף דיבור</translation>
+        <translation>מועדף דיבור</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"></translation>
+        <translation>כאשר מסומן, Mumble ינמיך את עוצמת הקול של משתמשים אחרים בזמן שאתם מדברים בתנאי שיש לכם את המצב :מועדפי דיבור&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת משתמשים אחרים בזמן דיבור כמועדף דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומכת בהנמכת עוצמת הקול של משתמשים אחרים כאשר אתם מדברים בתור &lt;i&gt;מועדפי דיבור&lt;/i&gt; כדי למנוע מאחרים להפריע לכם. סימון תיבה זו יפעיל את האפשרות הזו.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"></translation>
+        <translation>הנמך משתמשים אחרים בזמן דיבור כמועדף דיבור.</translation>
     </message>
 </context>
 <context>
@@ -1535,7 +1501,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation type="unfinished">ללא</translation>
+        <translation>ללא</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1545,19 +1511,19 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished">שרת</translation>
+        <translation>שרת</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished">פלט צלילים</translation>
+        <translation>פלט שמע</translation>
     </message>
     <message>
         <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation>%1 מ&quot;ש</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -1572,7 +1538,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished">%1 מטר</translation>
+        <translation>%1 מ</translation>
     </message>
 </context>
 <context>
@@ -1580,17 +1546,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation>בחר קובץ קול</translation>
+        <translation>בחר קובץ צליל</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation>קובץ קול לא תקין</translation>
+        <translation>קובץ צליל לא תקין</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>לא ניתן להשתמש בקובץ %1 עם ממבל. אנא בחרו קובץ בעל פורמט וקידוד נתמכים.</translation>
+        <translation>לא ניתן להשתמש בקובץ %1 עם Mumble. אנא בחרו קובץ בעל פורמט וקידוד נתמכים.</translation>
     </message>
 </context>
 <context>
@@ -1634,18 +1600,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
-        <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</oldsource>
+        <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
         <translation>מראה את העוצמה המירבית של הרמקולים במסגרת הזמן האחרונה (20 מ&quot;ש). כל עוד אינכם משתמשים בשיטת דגימה רב-ערוצית (כמו ASIO) שמוגדרים בה רמקולים, הערך הזה יהיה 0. אם הגדרתם שיטה כזו אך הערך הוא עדיין 0 כאשר מושמע קול מתוכניות אחרות, ההגדרות שלכם אינן תקינות.</translation>
     </message>
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>רמה נקייה מקסימלית</translation>
+        <translation>שיא רמה נקייה</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translatorcomment>לחרפן... חחח, הייתי חייב. מצטער. ~Sonic</translatorcomment>
         <translation>מראה את העוצמה המירבית במסגרת הזמן האחרונה (20 מ&quot;ש) לאחר כל תהליכי העיבוד.באופן אידאלי, הערך צרך להיות -96dB כשאינכם מדברים. במציאות, אולפן הקלטות יקבל ערך של כ-60 dB ואתם אמורים לקבל כ-20 dB במצב טוב. כשאתם מדברים, העוצמה צריכה לעלות לערך בין -5 ו-10 dB.&lt;br /&gt;אם אתם משתמשים בביטול הד אקוסטי, והערך הזה עולה מעל ל-15 dB כשאינכם מדברים, ההגדרות שלם אינן תקינות ואתם עלולים לחרפן משתמשים אחרים עם הדים עוצמתיים.</translation>
     </message>
     <message>
@@ -1671,7 +1636,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished">יחס אות-לרעש</translation>
+        <translation>יחס אות-לרעש</translation>
     </message>
     <message>
         <location/>
@@ -1696,7 +1661,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>זהו הסיכוי שהאות במסגרת הזמן האחרונה (20 מ&quot;ש) היה דיבור ולא רעש רקע.&lt;br /&gt;הפעלה קולית של המיקרופון תלויה בנכונות הערך הזה. אמצע המשפט שלכם תמיד יזוהה כדיבור; הבעיה היא ההפסקה בין המילים והתחלת הדיבור. קשה לזהות במדויק מתי המשתמש מדבר ומתי לא, כמו להבדיל בין אנחה לבין מילה שמתחילה באות ה&apos;.&lt;br /&gt;אם הערך מודגש, סימן שממבל משדרת את קולכם כרגע (אם אתם מחוברים לשרת).</translation>
+        <translation>זהו הסיכוי שהאות במסגרת הזמן האחרונה (20 מ&quot;ש) היה דיבור ולא רעש רקע.&lt;br /&gt;הפעלה קולית של המיקרופון תלויה בנכונות הערך הזה. אמצע המשפט שלכם תמיד יזוהה כדיבור; הבעיה היא ההפסקה בין המילים והתחלת הדיבור. קשה לזהות במדויק מתי המשתמש מדבר ומתי לא, כמו להבדיל בין אנחה לבין מילה שמתחילה באות ה&apos;.&lt;br /&gt;אם הערך מודגש, סימן ש-Mumble משדרת את קולכם כרגע (אם אתם מחוברים לשרת).</translation>
     </message>
     <message>
         <location/>
@@ -1741,7 +1706,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translatorcomment>זה כבר נהיה מגוחך... ~Sonic</translatorcomment>
         <translation>מרחב עוצמות אות ורעש</translation>
     </message>
     <message>
@@ -1767,7 +1731,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translatorcomment>חצי ממה שכתוב פה לא הבנתי, אז היית חייב לאלתר. מצטער. ~Sonic</translatorcomment>
         <translation>ערך זה מראה את משקלו של מבטל ההד האקוסטי, כשציר הזמן החיובי הוא כלפי מטה והשכיחות כלפי צד ימין.&lt;br /&gt;במצב אידאלי, הגרף אמור להיות שחור לחלוטין, מה שמראה שאיןהד כלל. מצב נפוץ יותר הוא שיש פס אופקי אחד או יותר של צבע כחלחל שמראה את ההד המעוכב. אתם אמורים לראות את התונים מתעדכנים בזמן אמת.&lt;br /&gt;שימו לב שאם אין לכם בעיות עם הדים, אתם לא תמצאו כאן מידע שימושי. נגנו קצת מוזיקה והמצב יתייצב.&lt;br /&gt;אתם יכולים לבחור לראות את החלקים האמיתיים או הדמיוניים של ציר השכיחות, או לחלופין את המודולים המחושבים. רוב הסיכויים שהמודולים המחושבים יהיו המידע השימושי יותר, שכן הם למעשה משרעת ההד, ומראים כמה מהקול נמחק בפעימה. שאר התצוגות שימושיות רק למי שרוצה לתקן את אלגוריתם ביטול ההד.&lt;br /&gt;שימו לב: אם התמונה זזה במהירות כשאתם צופים במודולים, זה אומר שמבטל ההד האקוסטי לא מצליח למצוא כל תיאום בין המיקרופון והרמקולים. במצב כזה, כנראה שיש השהייה ארוכה של ההד, או שאחד מההתקנים אינו מוגדר כראוי.</translation>
     </message>
     <message>
@@ -1781,124 +1744,123 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished">אשף כיוון צלילים</translation>
+        <translation>אשף כיוון צלילים</translation>
     </message>
     <message>
         <location/>
         <source>Introduction</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מבוא&lt;/p&gt;</translation>
+        <translation>מבוא</translation>
     </message>
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לאשף כיוון הצלילים של ממבל&lt;/p&gt;</translation>
+        <translation>ברוך בואך אל אשף כיוון השמע של Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Finished</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיום&lt;/p&gt;</translation>
+        <translation>מוגמר</translation>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מקווים שתהנו מממבל!&lt;/p&gt;</translation>
+        <translation>המשך שימוש נעים בתוכנית Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בחירת התקן&lt;/p&gt;</translation>
+        <translation>בחירת התקן</translation>
     </message>
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בחירת התקני הקלט והפלט לשימוש עם ממבל.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;בחירת התקני הקלט והפלט לשימוש עם ממבל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה ההתקן שהמיקרופון שלך מחובר אליו.&lt;/p&gt;</translation>
+        <translation>זהו ההתקן שהמיקרופון שלך מחובר אליו.</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מערכת&lt;/p&gt;</translation>
+        <translation>מערכת</translation>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שיטת קליטת הצלילים&lt;/p&gt;</translation>
+        <translation>שיטת קלט לשמע</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זוהי השיטה לקליטת קול.&lt;/b&gt;&lt;br /&gt;רוב הסיכויים שתרצו להשתמש ב DirectSound.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זוהי השיטה לקליטת קול.&lt;/b&gt;&lt;br /&gt;רוב הסיכויים שתרצו להשתמש ב-DirectSound.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן&lt;/p&gt;</translation>
+        <translation>התקן</translation>
     </message>
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן הקלט שייעשה בו שימוש&lt;/p&gt;</translation>
+        <translation>התקן קלט לשימוש</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור קלט הקול&lt;/b&gt;&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור קלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Cancel echo from headset or speakers</source>
-        <translatorcomment>headset</translatorcomment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מבטל הד אקוסטי מהרמקולים או מהאוזניות&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;בטל הד אקוסטי מהרמקולים או מהאוזניות&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished">השתמש בביטול הד</translation>
+        <translation>ביטול הד</translation>
     </message>
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מפעיל את מבטל ההדים על צלילים יוצאים, שיכול לעזור גם עם רמקולים וגם עם אוזניות.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מפעילה את מבטל ההדים על צלילים יוצאים, שיכול לעזור גם עם רמקולים וגם עם אוזניות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זהו ההתקן שאליו מחוברים הרמקולים או האוזניות.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;זהו ההתקן שאליו מחוברים הרמקולים או האוזניות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שיטת פלט הצלילים&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שיטת פלט השמע&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זוהי השיטה לפלט הקול.&lt;/b&gt;&lt;br /&gt;רוב הסיכויים שתרצו להשתמש ב DirectSound.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;זוהי השיטה לפלט הקול.&lt;/b&gt;&lt;br /&gt;רוב הסיכויים שתרצו להשתמש ב DirectSound.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Output device to use</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התקן הפלט שייעשה בו שימוש&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;התקן הפלט לשימוש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור פלט הקול&lt;/b&gt;&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;בוחר באיזה כרטיס קול להשתמש עבור פלט הקול.&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation type="unfinished">הפעל צליל מבוסס מיקום</translation>
+        <translation>הפעל צליל מבוסס מיקום</translation>
     </message>
     <message>
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מאפשר מיקום של צלילים&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מאפשר מיקום של צלילים&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1908,49 +1870,48 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;
-זהו אשף כיוון הצלילים של ממבל. האשף יעזור לכם להגדיר את רמות הקלט הנכונות עבור כרטיס הקול שלכם, וגם את הערכים הנכונים לעיבוד הקול בממבל.
+        <translation>&lt;p&gt;
+זהו אשף כיוון הצלילים עבור Mumble. הוא יעזור לך להכניס את דרגות הקלט הנכונות עבור כרטיס הקול שלך, וגם את ההגדרות הנכונות לעיבוד הקול בתוך Mumble.
 &lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;
-שימו לב בבקשה שכל עוד האשף פועל, קולכם יוחזר אליכם באופן מקומי כדי שתוכל להקשיב לו, ושום דבר לא ישלח אל השרת.
+&lt;p&gt;
+בבקשה לשים לב כי כל עוד האשף  פועל, הקול יועבד מקומית במערכת ויחזור אליך כדי שתוכל להקשיב לו, ושום דבר לא ישלח אל השרת.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <location/>
         <source>Input Device</source>
-        <translation type="unfinished">התקן קלט</translation>
+        <translation>התקן קלט</translation>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation type="unfinished">התקן פלט</translation>
+        <translation>התקן פלט</translation>
     </message>
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מאפשרת לממבל להשתמש בצלילים מבוססי מיקום כדי למקם קולות בתאם למרחקם ממכם.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מאפשרת לממבל להשתמש בצלילים מבוססי מיקום כדי למקם קולות בתאם למרחקם ממכם.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;
-To keep latency to an absolute minimum, it&apos;s important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
+To keep latency to an absolute minimum, it's important to buffer as little audio as possible on the soundcard. However, many soundcards report that they require a much smaller buffer than what they can actually work with, so the only way to set this value is to try and fail.
 &lt;/p&gt;
 &lt;p&gt;
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כדי לשמור על השהיית צליל קטנה ככל האפשר, חשוב שכרטיס הקול יאגור כמה שפחות צלילים. הבעיה היא שהרבה כרטיסי קול מדווחים שהם דורשים מאגר מידע קטן הרבה יותר ממה שהם באמת מסוגלים להכיל, כך שהדרך היחידה לקבוע זאת היא ניסיון וטעייה.
+        <translation>&lt;p&gt;כדי לשמור על אחזור קטן ככל האפשר, זה חשוב שכרטיס הקול יעבד כמה שפחות צלילים. לעומת זאת, הרבה כרטיסי קול מדווחים שהם דורשים מעט מדי מידע ממה שהם מסוגלים לעבד, כך שהדרך היחידה לקבוע זאת היא ניסיון ותהייה.
 &lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;
-אתם אמורים לשמוע דוגמית קול. הזיזו את המחוון לערך הנמוך ביותר &lt;b&gt;שלא&lt;/b&gt; גורם לקטיעות או ריצוד/רעידות בצליל. שים לב שההד המקומי מבוטל בזמן בדיקה זו.
+&lt;p&gt;
+אתם אמורים לשמוע דוגמית קול. הזיזו את הכוון לערך הנמוך ביותר &lt;b&gt;שלא&lt;/b&gt; יוצר הפרעות או תקיעות בצליל. נא לשים לב שההד המקומי מבוטל בזמן מבחן זה.
 &lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translatorcomment>באפר זה מאגר, לא מעבד. ~Sonic</translatorcomment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כמות המידע לאגירה&lt;/p&gt;</translation>
+        <translation>כמות של נתונים לאגירה</translation>
     </message>
     <message>
         <location/>
@@ -1960,29 +1921,28 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
 &lt;/p&gt;
 &lt;p&gt;
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;
-פתחו את בקרת עוצמת השמע שלכם ועברו להגדרות ההקלטה. ודאו שהמיקרופון מסומן כקלט הפעיל עם עוצמת ההקלטה המקסימלית. אם קיימת אפשרות בשם &quot;Microphone Boost&quot; (הגברת מיקרופון),ודאו שהיא מסומנת.
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;
+פתחו את הגדרות השמע של המחשב שלכם ועברו להגדרות הקלט. וודאו שהמיקרופון שלכם פועל ושעוצמת ההקלטה שלו מקסימלית. אם קיימת אפשרות בשם &quot;הגברת מיקרופון&quot; (Microphone Boost), וודאו שהיא מסומנת גם כן.
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
-כעת דברו חזק, כאילו שאתם עצבניים או נרגשים. הורידו את העוצמה בחלון בקרת העוצמה עד שהפס שלפניכם נשאר גבוה ככל האפשר באזור הכחול או הירוק אבל &lt;b&gt;לא&lt;/b&gt; באזור האדום בזמן שאתם מדברים.
-&lt;/p&gt;
-</translation>
+כעת דברו בקול רם, כאילו שאתם עצבניים או נרגשים. הנמיכו את עוצמת ההקלטה בהגדרות הקלט של המחשב עד שהפס שבחלון זה מגיע כמה שיותר רחוק באזור הירוק והכחול, אך &lt;b&gt;לא&lt;/b&gt; באזור האדום בזמן שאתם מדברים.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;צליל מבוסס מיקום&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;צליל מבוסס מיקום&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כיוון היחלשות הקולות בממקם הצלילים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;כוונון הנמכת הקול עבור צליל מבוסס מיקום.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1993,18 +1953,17 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;
-ממבל תומך בצליל מבוסס מיקום במשחקים מסויימים, וימקם את קולם של השחקנים האחרים ביחס למיקום שלהם במשחק. בהתאם למיקום שלהם, עוצמת הקול תשתנה בין הרמקולים כדי לדמות את הכיוון והמרחק שבו השחקנים נמצאים. מיקום שכזה תלוי בהגדרות נכונות של הרמקולים במערכת ההפעלה, ולכן נעשית כאן בדיקה.
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;
+ממבל תומכת בצליל מבוסס מיקום עבור משחקים מסוימים, ותמקם את הצליל של משתמשים אחרים בהתאם למיקומם במשחק. לפי מיקום זה, עוצמת הקול של המשתמש תשתנה בין שני זוגות הרמקולים או האוזניות כדי ליצור אשליה של דיבור ממקום אחר. אפשרות זו דורשת הגדרה נכונה של הרמקולים במערכת ההפעלה, ולכן נבצע כאן בדיקה.
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
-הגרף שלמטה מראה את המיקום &lt;font color=&quot;red&quot;&gt;שלך&lt;/font&gt;, ה&lt;font color=&quot;yellow&quot;&gt;רמקולים&lt;/font&gt; ואת &lt;font color=&quot;green&quot;&gt;מקור הקול הנע&lt;/font&gt; כמו שנראה מלמעלה. אתה אמור לשמוע את הקול זז בין הערוצים/אפיקים.
-&lt;/p&gt;
-</translation>
+בתרשים למטה מוצג המיקום font color=&quot;red&quot;&gt;שלכם&lt;/font&gt;, של &lt;font color=&quot;yellow&quot;&gt;הרמקולים&lt;/font&gt; ושל &lt;font color=&quot;green&quot;&gt;מקור הקול הנע&lt;/font&gt;, במבט מלמעלה. אם הכל מוגדר כראוי, אתם אמורים לשמוע את הצליל משתנה לפי מיקומו מסביבכם.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;השתמש באוזניות במקום ברמקולים&lt;/p&gt;</translation>
+        <translation>השתמש באוזניות במקום ברמקולים</translation>
     </message>
     <message>
         <location/>
@@ -2012,30 +1971,30 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 Congratulations. You should now be ready to enjoy a richer sound experience with Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren&apos;t deprecated.
+Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren't deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מזל טוב! עכשיו אתם מוכנים להנות מאיכות קול עשירה יותר עם ממבל.
+        <translation>&lt;p&gt;מזל טוב! כעת באפשרותך להנות מחווית קול עשירה יותר עם Mumble.
 &lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;
-תהליך הפיתוח של ממבל הוא תהליך מתמשך, וצוות הפיתוח שואף להתמקד בתכונות שיועילו לרוב המשתמשים. לשם כך, ממבל תומך בשליחת סטטיסטיקות אנונימיות לגבי הגדרות הממבל שלכם למפתחים. הסטטיסטיקות הללו חיוניות לפיתוח, וגם מבטיחות שהאפשרויות שבהן אתם משתמשים לא יבוטלו בעתיד. נודה לכם מאוד אם תסכימו לשלוח לנו את המידע הזה.
+&lt;p&gt;
+תהליך הפיתוח של Mumble נמשך כל הזמן, וצוות הפיתוח רוצה להתמקד על אפשרויות שיועילו לרוב המשתמשים. בשביל זה, Mumble תומך בשליחת סטטיסטיקות אנונימיות לגבי הגדרות התצורה שלך אל המפתחים. הסטטיסטיקות הללו חיוניות לפיתוח, וגם מבטיחות שהאפשרויות שבהן אתה משתמש לא יבוטלו בעתיד.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation type="unfinished">השתמש באוזניות</translation>
+        <translation>השתמש באוזניות</translation>
     </message>
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מורה לממבל להתעלם מהגדרות הרמקול של מערכת ההפעלה ומגדירה במקום את המיקום לאוזניות.&lt;/p&gt;</translation>
+        <translation>אפשרות זו תתעלם מהגדרות מערכת ההפעלה עבור הרמקולים ותשתמש בהגדרות המתאימות לאוזניות במקום.</translation>
     </message>
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כיוון קול&lt;/p&gt;</translation>
+        <translation>כיוון עצמת קול</translation>
     </message>
     <message>
         <location/>
@@ -2046,141 +2005,138 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כעת דברו חלש, כאילו שאתם מדברים באמצע הלילה ולא רוצים להפריע לאף אחד. התאימו את המחוון כך שהפס יזוז אל תוך החלק הירוק בזמן שאתם מדברים, אבל ישאר כחול כאשר אתם שותקים.&lt;/p&gt;</translation>
+        <translation>כעת דברו חלש, כאילו אתם מדברים באמצע הלילה ולא רוצים להעיר אף אחד. הזיזו את המחוון שלמטה כך שהמד יגיע אל האזור הירוק כאשר אתם מדברים, אך ישאר באזור הכחול כאשר אתם שותקים.</translation>
     </message>
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זיהוי דיבור והפעלה קולית&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הפעלה קולית&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשר לממבל להבין מתי אתה מדבר ומתי אתה שותק.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשר לממבל להבין מתי אתם מדברים ומתי אתם שותקים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;זה יאפשר לממבל להבין מתי אתה מדבר. הצעד הראשון הוא לבחור באיזה ערך להשתמש.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;זה יאפשר ל-Mumble להבין מתי אתה מדבר. הצעד הראשון הוא לבחור באיזה ערך להשתמש.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Raw amplitude from input</source>
-        <translatorcomment>בחייאת, מה זה משרעת גולמית? ~Sonic</translatorcomment>
-        <translation type="unfinished">עוצמת קול מן הקלט</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;עוצמת קול מן הקלט&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translatorcomment>רעש, לא קול. ~Sonic</translatorcomment>
-        <translation type="unfinished">יחס אות-לרעש</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;יחס אות-לרעש&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
-        <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כעת אתם צריכים לכוון את המחוון הבא. ההברות הראשונות שאתם אומרים צריכות להגיע לחלק הירוק (דיבור וודאי). בזמן שאתם מדברים, הפס צריך להישאר בחלק הצהוב (סיכוי לדיבור) וכשאתם לא מדברים, הפס צריך ליהיות בחלק האדום (שתיקה וודאית).&lt;/p&gt;</translation>
+        <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;כעת אתם צריכים לכוון את המחוון הבא. ההברות הראשונות שאתם אומרים צריכות להגיע לחלק הירוק (דיבור וודאי). בזמן שאתם מדברים, הפס צריך להישאר בחלק הצהוב (דיבור אפשרי) וכשאתם לא מדברים, הפס צריך להישאר בחלק האדום (שתיקה וודאית).&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Device tuning</source>
-        <translation type="unfinished">כיונון התקן</translation>
+        <translation>כיונון התקן</translation>
     </message>
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שינוי השהיית פלט החומרה לערך המינימלי.&lt;/p&gt;</translation>
+        <translation>שינוי שהיות פלט חומרה אל ערכם הקטן ביותר.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished">שלח סטטיסטיקות אנונימיות לפרוייקט ממבל</translation>
+        <translation>שלח סטטיסטיקות אנונימיות אל הפרוייקט Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished">לחץ-כדי-לדבר:</translation>
+        <translation>לחץ כדי לדבר:</translation>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;איכות קול &amp; התראות&lt;/p&gt;</translation>
+        <translation>איכות וגם התראות</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התאמת הגדרות איכות והתראות.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הגדרות איכות והתראות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished">הגדרות איכות קול</translation>
+        <translation>הגדרות איכות</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished">נמוכה</translation>
+        <translation>נמוכה</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished">מאוזנת</translation>
+        <translation>מאוזנת</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished">הגדרות התראה</translation>
+        <translation>הגדרות התראה</translation>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished">השתמש בתכונת טקסט-לדיבור של המחשב שלך כדי להקריא לך הודעות והתראות.</translation>
+        <translation>השתמש בתכונת טקסט-לדיבור של המחשב שלך כדי להקריא לך הודעות והתראות.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished">בטל את תכונת טקסט-לדיבור והשתמש בצלילים במקומה.</translation>
+        <translation>בטל את תכונת טקסט-לדיבור והשתמש בצלילים במקומה.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation>%1 מ&quot;ש</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished">הנמך תוכניות אחרות בזמן שמשתמשים אחרים מדברים</translation>
+        <translation>הנמך תוכניות אחרות בזמן שמשתמשים אחרים מדברים</translation>
     </message>
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished">גבוהה</translation>
+        <translation>גבוהה</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished">מותאמת אישית</translation>
+        <translation>מותאמת</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translatorcomment>שלא יתבלבלו ויחשבו שיש לשמור את ההגדרות או לשמור לדיסק</translatorcomment>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;כבר הגדרתם איכות קול מותאמת אישית. בחר באפשרות הזאת כדי להמשיך ולהשתמש בה.&lt;/p&gt;</translation>
+        <translation>כבר קבעת תצורת איכות מותאמת בתוך Mumble. בחר את אפשרות זו כדי להמשיך ולהשתמש בה.</translation>
     </message>
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מאפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך. הכוונה היא שברגע שמישהו מתחיל לדבר אליך בממבל, הצלילים של כל שאר התוכניות (כמו נגני מוזיקה) יונמכו כדי שיהיה אפשר לשמוע אותם טוב יותר.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מאפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך. הכוונה היא שברגע שמישהו מתחיל לדבר אליך בממבל, העוצמה של כל שאר התוכניות (כמו נגני מוזיקה) יונמכו כדי שיהיה אפשר לשמוע אותם טוב יותר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;יישם כמה ייעולים לניגודיות גבוהה למשתמשים כבדי ראייה&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הפעל מצב ניגודיות תצוגה גבוהה למשתמשים כבדי ראייה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2195,14 +2151,20 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>&lt;p&gt;
-Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s checked.
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
 &lt;/p&gt;
 &lt;p&gt;
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the crisscrossed zone while you speak.
 &lt;/p&gt;
 </source>
+        <oldsource>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there's an option to enable a &quot;Microphone boost&quot; make sure it's checked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</oldsource>
         <comment>For high contrast mode</comment>
-        <translatorcomment>אזור מזוגזג... חעחע. ~Sonic</translatorcomment>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;
 פתחו את בקרת עוצמת השמע שלכם ועברו להגדרות ההקלטה. ודאו שהמיקרופון מסומן כקלט הפעיל עם עוצמת ההקלטה המקסימלית. אם קיימת אפשרות בשם &quot;Microphone Boost&quot; (הגברת מיקרופון),ודאו שהיא מסומנת.
 &lt;/p&gt;
@@ -2226,17 +2188,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>כשהגדרה זו פעילה, ממבל ישתמש ב&lt;b&gt;כמות נמוכה מרוחב הפס&lt;/b&gt;. אפשרות זו תובילבוודאות להשהיות ארוכות ולאיכות קול ירודה. השתמשו בה רק אם החיבור שלכם לא עומד בשאר ההגדרות. (16 קב&quot;ש, 60 מ&quot;ש לחבילה)</translation>
+        <translation>כשהגדרה זו פעילה, Mumble ישתמש ב&lt;b&gt;כמות נמוכה מרוחב הפס&lt;/b&gt;. אפשרות זו תוביל בוודאות לאחזור ארוך ולאיכות קול ירודה. השתמשו בה רק אם החיבור שלכם לא עומד בשאר ההגדרות. (16 קב&quot;ש, 60 מ&quot;ש לכל חבילה)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation>זוהי &lt;b&gt;הגדרת ברירת המחדל המומלצת&lt;/b&gt;. היא מספקת איזון טוב בין איכות, השהייה ושימוש ברוחב פס</translation>
+        <translation>זוהי &lt;b&gt;הגדרת ברירת המחדל המומלצת&lt;/b&gt;. היא מספקת איזון טוב בין איכות, אחזור וניצול רוחב פס. (40 קב&quot;ש, 20 מ&quot;ש לכל חבילה)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>ההגדרה הזאת מומלצת רק במקרים שבהם רוחב פס אינו יכול להוות בעיה, כמו רשת מקומית (LAN). היא מספקת את ההשהייה הנמוכה ביותר שממבל תומך בה ו&lt;b&gt;איכות גבוהה&lt;/b&gt;. (72 קב&quot;ש, 10 10 מ&quot;ש לחבילה)</translation>
+        <translation>ההגדרה הזאת מומלצת רק במקרים שבהם רוחב פס אינו יכול להוות בעיה, כמו רשת מקומית (LAN). היא מספקת את האחזור הנמוך ביותר על ידי Mumble תומך בה ו&lt;b&gt;איכות גבוהה&lt;/b&gt;. (72 קב&quot;ש, 10 10 מ&quot;ש לחבילה)</translation>
     </message>
 </context>
 <context>
@@ -2244,170 +2206,167 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished">ממבל - ערוך השעיות</translation>
+        <translation>‫Mumble - ערוך מנודים</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation type="unfinished">&amp;כתובת</translation>
+        <translation>&amp;כתובת</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation>&amp;מיסוך</translation>
+        <translation>&amp;מסיכה</translation>
     </message>
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיבה&lt;/p&gt;</translation>
+        <translation>סיבה</translation>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התחלה&lt;/p&gt;</translation>
+        <translation>התחלה</translation>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיום&lt;/p&gt;</translation>
+        <translation>סוף</translation>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;משתמש&lt;/p&gt;</translation>
+        <translation>משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation>הצפנה</translation>
+        <translation>ערבול</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished">הו&amp;סף</translation>
+        <translation>הוס&amp;ף</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished">&amp;עדכן</translation>
+        <translation>&amp;עדכן</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">הס&amp;ר</translation>
+        <translation>הס&amp;ר</translation>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"></translation>
+        <translation>רשימת נידוי</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"></translation>
+        <translation>שדה חיפוש</translation>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"></translation>
+        <translation>זהו שדה החיפוש. השתמש בזה כדי למצוא מנודים אשר להם שם משתמש זה הוגדת בתוך השדה שם משתמש.</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>את מי אתה מחפש?</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"></translation>
+        <translation>אין שם כינוי</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>כתובת IP</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>אין כתובת IP</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"></translation>
+        <translation>סיבה לנידוי</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"></translation>
+        <translation>אין סיבה</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"></translation>
+        <translation>תאריך סיום נידוי</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"></translation>
+        <translation>תאריך סיום נידוי. אם תקבע את אותו תאריך לתחילה ולסוף, הנידוי יהיה לצמיתה (זה לא תיפקע).</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>מערבל תעודה</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"></translation>
+        <translation>אין מערבל תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"></translation>
+        <translation>משתמשים מנודים</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;זוהי רשימת המשתמשים החסומים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;לחצו כאן אם תרצו להוסיף חסימה חדשה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;לחצו כאן אם תרצו לעדכן נתוני חסימה מסוימת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;לחצו כאן אם ברצונכם להסיר משתמש מסוים מרשימת החסומים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"></translation>
+        <translation>טהר את כל השדות</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;כפתור זה מנקה את כל השדות. לחצו כאן אם ברצונכם להוסיף חסימה חדשה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished">נקה</translation>
+        <translation>טהר</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation><numerusform>רשימת נידוי - מנודה %n</numerusform><numerusform>רשימת נידוי - %n מנודים</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2418,19 +2377,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>שם</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Email</source>
         <translation>דוא&quot;ל</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Issuer</source>
-        <translation>ספק</translation>
+        <translation>מנפיק</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>Expiry Date</source>
-        <translation>תאריך פקיעת תוקף</translation>
+        <translation>תאריך פקיעה</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -2440,35 +2399,35 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation>חתימה-עצמית</translation>
+        <translation>חתומה באופן עצמי</translation>
     </message>
 </context>
 <context>
     <name>CertWizard</name>
     <message>
-        <location line="+90"/>
-        <source>Resolving domain %1.</source>
-        <translation>מפענח את הדומיין %1.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
+        <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
         <translation>לא ניתן לאמת את כתובת הדוא&quot;ל. הכניסו כתובת חוקית (או השאר ריק) כדי להמשיך.</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>חלה תקלה בתהליך יצירת אישור האבטחה שלכם.&lt;br /&gt; נסו שנית מאוחר יותר.</translation>
+        <translation>חלה תקלה בתהליך יצירת תעודת האבטחה שלכם.&lt;br /&gt; אאנא נסו שוב.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>לא ניתן לייצא את אישור האבטחה והמפתח לפורמט PKCS#12. ייתכן שיש שגיאה באישור.</translation>
+        <translation>לא ניתן לייצא את תעודת האבטחה והמפתח לפורמט PKCS#12. ייתכן כי יש שגיאה בתוך התעודה שלכם.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
         <translation>לא ניתן לפתוח את הקובץ לכתיבה. בחרו קובץ אחר בבקשה.</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
+        <translation>הרשאות הקובץ לא היו ניתנות לקביעה. לא נכתבו תעודה וגם מפתח. אנא השתמש בקובץ אחר.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2488,32 +2447,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>הקובץ אינו מכיל אישור אבטחה ומפתח תקינים. בחרו קובץ אחר בבקשה.</translation>
+        <translation>הקובץ אינו מכיל תעודת אבטחה ומפתח תקינים. בחרו קובץ אחר בבקשה.</translation>
     </message>
     <message>
-        <location line="+22"/>
+        <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation>בחרו קובץ שאליו ייוצא האישור</translation>
+        <translation>בחרו קובץ שאליו תיוצא התעודה</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation>בחרו קובץ שממנו ייובא האישור</translation>
+        <translation>בחרו קובץ שממנו תיובא התעודה</translation>
     </message>
     <message>
-        <location line="+57"/>
-        <source>Unable to resolve domain.</source>
-        <translation>לא ניתן לפענח את הדומיין.</translation>
-    </message>
-    <message>
-        <location line="+43"/>
+        <location line="+86"/>
         <source>Mumble User</source>
-        <translation>משתמש ממבל</translation>
+        <translation>משתמש Mumble</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+500"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;פקיעת אישור האבטחה:&lt;/b&gt; תוקפו של אישור האבטחה שלכם עומד לפקוע. עליכם לחדש אותו או שלא תוכלו להתחבר יותר אל השרתים שאתם רשומים בהם.</translation>
+        <translation>&lt;b&gt;פקיעת תעודה:&lt;/b&gt; תוקפה של תעודת האבטחה שלכם עומד לפקוע. עליכם לחדש אותה או שלא תוכלו להתחבר יותר אל השרתים שאתם רשומים בהם.</translation>
     </message>
 </context>
 <context>
@@ -2521,239 +2475,239 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>ניהול אישור אבטחה</translation>
+        <translation>ניהול תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>הזדהות בעזרת אישור אבטחה</translation>
+        <translation>אימות תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation>הזדהות מול שרתים ללא סיסמאות</translation>
+        <translation>אימות עם שרתים ללא שימוש בסיסמאות</translation>
     </message>
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation>אישור נוכחי</translation>
+        <translation>תעודה נוכחית</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>זהו האישור שממבל משתמש בו כרגע.</translation>
+        <translation>זוהי התעודה בה Mumble משתמש כעת.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>אישור נוכחי</translation>
+        <translation>תעודה נוכחית</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>צור אישור אבטחה חדש</translation>
+        <translation>יצירת תעודה חדשה</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>אפשרות זו תיצור אישור אבטחה חדש.</translation>
+        <translation>זו תיצור תעודה חדשה.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>ייבא אישור מקובץ</translation>
+        <translation>ייבוא תעודה מתוך קובץ</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>אפשרות זו תייבא אישור אבטחה מקובץ.</translation>
+        <translation>זו תייבא תעודה מתוך קובץ.</translation>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation>ייבא אישור אבטחה</translation>
+        <translation>ייבוא תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>ייצא אישור אבטחה</translation>
+        <translation>ייצוא תעודה</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>אפשרות זו תייצא אישור אבטחה לקובץ.</translation>
+        <translation>זו תייצא תעודה אל קובץ.</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation>ייצא אישור אבטחה נוכחי</translation>
+        <translation>ייצוא תעודה נוכחית</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>ייבא אישור אבטחה</translation>
+        <translation>ייבוא תעודה</translation>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation>ייבוא אישור מסוג PKCS #12</translation>
+        <translation>ייבוא תעודת PKCS #12</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;ממבל יכול ליבא אישורי אבטחה ששמורים בפורמט PKCS #12. זהו הפורמט שבו שמורים אישורים שיוצאו מממבל, וגם מפיירפוקס, אינטרנט אקספלורר, אופרה וכו&apos;.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם הקובץ מוגן בססמא,תצטרך לספק גם את הסיסמא כדי לייבא את האישור.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;rtl&quot;&gt;Mumble יכול לייבא תעודות שמאוכסנות בפורמט PKCS #12. זהו הפורמט שבשימוש כאשר מייבאים מפתח מתוך Mumble, וגם כאשר מייבאים מפתחות מתוך Firefox, Internet Explorer, Opera ואחרים&lt;/p&gt;&lt;p&gt;במידה והקובץ הינו מוגן סיסמה, יהיה עליך לעשות שימוש בסיסמה כדי לייבא את הסיסמה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Import from</source>
-        <translation>קובץ הייבוא</translation>
+        <translation>ייבוא מן</translation>
     </message>
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>שם הקובץ שממנו יבוצע הייבוא</translation>
+        <translation>שם קובץ לייבא ממנו</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>זהו שם הקובץ ממנו תרצו לייבא את האישור.</translation>
+        <translation>זהו שם הקובץ ממנו תרצו לייבא תעודה.</translation>
     </message>
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>בחר קובץ לייבוא</translation>
+        <translation>בחירת קובץ לייבא ממנו</translation>
     </message>
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>כפתור זה פותח תיבת דו-שיח לבחירת הקובץ שממנו ייובא האישור.</translation>
+        <translation>כפתור זה פותח תיבת דו-שיח לבחירת הקובץ שממנו תיובא תעודה.</translation>
     </message>
     <message>
         <location/>
         <source>Open...</source>
-        <translation>פתח...</translation>
+        <translation>פתיחה...</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished">סיסמא</translation>
+        <translation>סיסמה</translation>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>סיסמא לקובץ ה-PKCS #12</translation>
+        <translation>סיסמה עבור קובץ PKCS#12</translation>
     </message>
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>זוהי הסיסמא לקובץ ה-PKCS #12 שמכיל את האישור לייבוא.</translation>
+        <translation>זוהי הסיסמא לקובץ ה-PKCS #12 שמכיל את התעודה לייבוא.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation>אישור לייבוא</translation>
+        <translation>תעודה לייבוא</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation>זהו האישור שאתם מייבאים.</translation>
+        <translation>זוהי התעודה שאתם מייבאים.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation>נתוני האישור</translation>
+        <translation>פרטי תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>החלף אישור</translation>
+        <translation>החלפת תעודה</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>האם להחליף את האישור הקיים באחד חדש?</translation>
+        <translation>להחליף תעודה קיימת עם אחת חדשה?</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
 &lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognize the strong certificate for your email address.
 &lt;/p&gt;
-&lt;p&gt;If this is not the case, you will no longer be recognized by any server you previously have authenticated with. If you haven&apos;t been registered on any server yet, this is nothing to worry about.
+&lt;p&gt;If this is not the case, you will no longer be recognized by any server you previously have authenticated with. If you haven't been registered on any server yet, this is nothing to worry about.
 &lt;/p&gt;
 &lt;p&gt;
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;יש לכם כבר אישור אבטחה שממבל משתמש בו, ואתם עומדים להחליף אותו.&lt;/p&gt;
-&lt;p&gt;אם אתם משדרגים לאישור אבטחה שהונפק על ידי מנפיק מורשה וכתובת הדוא&quot;ל זהה לכתובת הדואר הנוכחית, אין מה לדאוג, שכן השרתים שבהם אתם רשומים ימשיכו לזהות אתכם ואת אישור האבטחה המורשה.
+        <translation>&lt;p&gt;יש לכם כבר תעודת אבטחה ש-Mumble משתמש בו, ואתם עומדים להחליף אותו.&lt;/p&gt;
+&lt;p&gt;אם אתם משדרגים לתעודת אבטחה שהונפק על ידי מנפיק מורשה וכתובת הדוא&quot;ל זהה לכתובת הדואר הנוכחית, אין מה לדאוג, שכן השרתים שבהם אתם רשומים ימשיכו לזהות אתכם ואת תעודת האבטחה המורשה.
 &lt;/p&gt;
-&lt;p&gt;אם זה לא המצב, אתם לא תזוהו יותר על ידי השרתים שכבר הזדהתם בפניהם. אם עוד לא נרשמתם לאף שרת, אין ממה לדאוג.
+&lt;p&gt;אם זה לא המצב, אתה לא תזוהה יותר על ידי השרתים שכבר הזדהת בפניהם. אם עוד לא נרשמת לאף שרת, אין ממה לדאוג.
 &lt;/p&gt;
 &lt;p&gt;
-האם אתם בטוחים שברצונכם להחליף את אישור האבטחה שלכם?
+האם אתה בטוח כי ברצונך להחליף את תעודת האבטחה שלך?
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>זהו האישור שממבל משתמש בו כרגע. הוא יוחלף.</translation>
+        <translation>זוהי התעודה אשר Mumble משתמש בה כרגע. תעודה זו תוחלף.</translation>
     </message>
     <message>
         <location/>
         <source>New certificate</source>
-        <translation>אישור אבטחה חדש</translation>
+        <translation>תעודה חדשה</translation>
     </message>
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation>זהו אישור האבטחה החדש שיחליף את הישן.</translation>
+        <translation>זוהי תעודת האבטחה החדשה אשר תחליף את זו הישנה.</translation>
     </message>
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>אישור אבטחה חדש</translation>
+        <translation>תעודה חדשה</translation>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation>צור גיבוי של אישור האבטחה שלך</translation>
+        <translation>הכן גיבוי של תעודתך</translation>
     </message>
     <message>
         <location/>
         <source>Export to</source>
-        <translation>ייצא אל</translation>
+        <translation>יצא אל</translation>
     </message>
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation>שם הקובץ לייצוא</translation>
+        <translation>שם קובץ לייצא אליו</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation>זהו שם הקובץ שאליו תרצו לייצא את האישור.</translation>
+        <translation>זהו שם הקובץ שאליו תרצו לייצא את התעודה.</translation>
     </message>
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>שמור בשם...</translation>
+        <translation>שמירה בתור...</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>זהו האישור שממבל משתמש בו כרגע. הוא ייוצא.</translation>
+        <translation>זוהי התעודה אשר Mumble משתמש בה כרגע. תעודה זו תיוצא.</translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>צור אישור אבטחה חדש להזדהות מאובטחת</translation>
+        <translation>הלחנת תעודה חדשה לאימות חזק</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;ממבל יצור עכשיו אישור אבטחה להזדהות מול שרתים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו, אתם רשאים לספק פרטים נוספים שיישמרו באישור, שיוצגו בפני השרתים שאתם מזדהים בפניהם. אם תספקו כתובת דוא&quot;ל תקינה, תוכל לשדרג את האישור שלך לאישור CA בהמשך, שמספק אבטחה חזקה במיוחד.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;rtl&quot;&gt;‫Mumble יחולל כעת תעודה חזקה עבור אימות עם שרתים.&lt;/p&gt;&lt;p&gt;באם רצונך בכך, באפשרותך לספק מידע נוסף לאחסון בתעודה, שיוצג לשרתים בעת התחברותך. אם תסופק כתובת דוא&quot;ל תקפה, תהיה ביכולתך לשדרג אל תעודת דוא&quot;ל מונפקת CA אחר כך, המספקת זהות חזקה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2768,23 +2722,22 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>כתובת הדוא&quot;ל שלכם (לדוגמא: johndoe@mumble.info)</translation>
+        <translation>כתובת הדוא&quot;ל שלך (למשל johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>זוהי כתובת הדוא&quot;ל שלכם. מומלץ מאוד לספק כתובת תקינה, כיוון שכך תוכלו לשדרג לאישור אבטחה משודרג ללא בעיות זיהוי.</translation>
+        <translation>זוהי כתובת הדוא&quot;ל שלכם. מומלץ מאוד לספק כתובת תקינה, כיוון שכך תוכלו לשדרג לתעודת אבטחה משודרגת ללא בעיות זיהוי.</translation>
     </message>
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translatorcomment>נכון שזה בדיוק מה שהיה צריך? ~Sonic</translatorcomment>
-        <translation>שמכם (למשל: שראל ישראלי)</translation>
+        <translation>שמך (למשל John Doe)</translation>
     </message>
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>זהו שמכם, והוא ירשם באישור האבטחה. שדה זה הוא בחירה בלבד, וניתן לוותר עליו.</translation>
+        <translation>זהו שמכם, והוא ירשם בתעודת האבטחה. שדה זה הוא בחירה בלבד, וניתן לוותר עליו.</translation>
     </message>
     <message>
         <location/>
@@ -2794,29 +2747,28 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>הזדהות מבוססת אישור אבטחה מוכנה לשימוש</translation>
+        <translation>תעודה מבוססת אימות הינה מוכנה לשימוש</translation>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>מקווים שתהנו מהשימוש באבטחה מוגברת בממבל.</translation>
+        <translation>המשך שימוש נעים בתוכנית Mumble בעזרת אימות חזק.</translation>
     </message>
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>יצירת אישור אבטחה אוטומטית
-</translation>
+        <translation>יצירה אוטומטית של תעודה</translation>
     </message>
     <message>
         <location/>
-        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don&apos;t need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
+        <source>&lt;p&gt;Mumble can use certificates to authenticate with servers. Using certificates avoids passwords, meaning you don't need to disclose any password to the remote site. It also enables very easy user registration.&lt;/p&gt;&lt;p&gt;While Mumble can work without certificates, the majority of servers will expect you to have one.&lt;/p&gt;
 &lt;p&gt;
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;ממבל יכול להשתמש באישורי אבטחה כדי להזדהות בפני שרתים. שימוש באישורי אבטחה מחליף את השימוש בסיסמאות, כך שאין צורך להשתמש ולחשוף סיסמאות בפני השרת. הוא גם מאפשר רישום משתמשים קל במיוחד.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;ממבל יכול לפעול גם ללא אישור אבטחה, אך רוב שרתי הממבל בימינו מחייבים שימוש באישור כזה.&lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;
-&lt;b&gt;מומלץ מאוד&lt;/b&gt; לקחת מספר דקות כדי &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;ליצור אישור אבטחה משודרג&lt;/a&gt;.
+        <translation>&lt;p dir=&quot;rtl&quot;&gt;ביכולתו של Mumble לעשות שימוש בתעודות כדי להתאמת עם שרתים. שימוש בתעודות מונע שימוש בסיסמאות, מה שאומר שאין לך הצורך לחשוף שום סיסמה לאתר המרוחק. זה גם מאפשר רישום משתמש מאוד קל.&lt;/p&gt;&lt;p&gt;בעוד שביכולתו של Mumble לעבוד ללא צורך בלעדי של תעודות, רוב השרתים יצפו ממך להחזיק אחת.&lt;/p&gt;
+&lt;p dir=&quot;rtl&quot;&gt;
+מומלץ &lt;b&gt;בחוזקה&lt;/b&gt; מצידך &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;ליצור תעודת מהימנות&lt;/a&gt;.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2824,8 +2776,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;אם אי פעם תאבדו את האישור הנוכחי שלכם, מה שעלול לקרות במקרה של תקלת חומרה או התקנה מחדש (כמו פירמוט) של המערכת שלכם, לא תוכלו להזדהות יותר בפני שרתים שאתם רשומים בהם. לכן, &lt;b&gt;חובה&lt;/b&gt; ליצור גיבוי של אישור האבטחה שלכם. אנו ממליצים בחום שתגבו את האישור באמצעי אחסון חיצוני כלשהו, כמו כונן USB נייד.&lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;שימו לב שהקובץ לא יעבור הצפנה, ואם מישהו יקבל גישה אליו הוא יוכל להתחזות אליכם, ולכן כדאי לשמור על האישור היטב.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;rtl&quot;&gt;אם אי פעם תאובד לך תעודתך הנוכחית, דבר שיקרה אם מחשבך סובל מן כשל קושחה או שמכונתך תותקן מחדש, לא תהיה לך היכולת להתאמת עם אף שרת בו הינך נרשמת אליו. לכן זה &lt;b&gt;מחוייב&lt;/b&gt; שיוכן גיבוי של תעודתך. אנחנו ממליצים בחוזקה לאחסן את גיבוי זה על אחסון בר הזזה, כגון דיסקון USB.&lt;/p&gt;
+&lt;p dir=&quot;rtl&quot;&gt;לתשומת לבך: קובץ זה לא יהיה מוצפן, ואם מישהו ישיג גישה אליו, תעמוד להם האפשרות להתחזות אליך, ולכן מוטב לשמור על תעודה זו באופן קפדני.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2833,7 +2785,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation type="unfinished">שום דבר</translation>
+        <translation>אין</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2853,7 +2805,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>השתקה/החרשה</translation>
+        <translation>השתק/החרש</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2908,7 +2860,6 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translatorcomment>להעיף! אני חייב לעשות את זה. מצטער.</translatorcomment>
         <translation>מייצג את הרשאת ההזזה, שמאפשרת להזיז משתמשים אחרים או להעיף אותם מהשרת. כדי להזיז את המשתמש בפועל, יש צורך שלמשתמש המזיז יהיו גישות הזזה גם בערוץ המטרה, או שלמשתמש שהוא מזיז תהיה הרשאה להכנס לערוץ המטרה. משתמש עם הרשאה. משתמש עם ההרשאה הזו יכול להזיז משתמשים לערוצים שהם לא יכולים להכנס אליהם בדרך כלל.</translation>
     </message>
     <message>
@@ -2954,17 +2905,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation type="unfinished">לחישה</translation>
+        <translation>לחש</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished">הזזה</translation>
+        <translation>הזז</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation>הודעות טקסט</translation>
+        <translation>הודעת תמליל</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2995,15 +2946,15 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ChatbarTextEdit</name>
     <message>
-        <location filename="CustomElements.cpp" line="+100"/>
+        <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>ה&amp;דבק ושלח</translation>
+        <translation>הדבק ו&amp;שלח</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation>&lt;center&gt;הזן הודעת צ&apos;אט כאן&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;הקלד הודעת שיחה כאן&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -3011,12 +2962,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation type="unfinished">חבר</translation>
+        <translation>חבר</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation type="unfinished">רשום</translation>
+        <translation>מאומת</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3031,12 +2982,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished">מושתק (שרת)</translation>
+        <translation>מושתק (שרת)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished">מוחרש (שרת)</translation>
+        <translation>מוחרש (שרת)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3046,17 +2997,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished">מושתק מקומית</translation>
+        <translation>השתקה מקומית</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation type="unfinished">מושתק (עצמית)</translation>
+        <translation>מושתק (עצמית)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished">מוחרש (עצמית)</translation>
+        <translation>מוחרש (עצמית)</translation>
     </message>
 </context>
 <context>
@@ -3064,37 +3015,37 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אשר שינויים&lt;/p&gt;</translation>
+        <translation>קבל לשינויים</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יאשר את ההגדרות הנוכחיות ויחזור לממבל.&lt;br /&gt;ההגדרות ישמרו לדיסק כשתצא מממבל.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יאשר את ההגדרות הנוכחיות ויחזור אל Mumble.&lt;br /&gt;ההגדרות ישמרו לדיסק כשתצא מתוך Mumble.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;דחה שינוים&lt;/p&gt;</translation>
+        <translation>דחה שינויים</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יבטל את כל השינויים ויחזור לממבל.&lt;br /&gt;ההגדרות יאופסו למצבם הקודם.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה יבטל את כל השינויים ויחזור אל Mumble.&lt;br /&gt;ההגדרות יאופסו למצבם הקודם.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;החל שינויים&lt;/p&gt;</translation>
+        <translation>החל שינויים</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כפתור זה חיל את השינויים מיידית.&lt;/p&gt;</translation>
+        <translation>כפתור זה יישם את כל השינויים לאלתר.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;בטל שינויים עבור הדף הנוכחי&lt;/p&gt;</translation>
+        <translation>בטל שינויים עבור עמוד נוכחי</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3104,52 +3055,53 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שחזר הגדרות ברירת מחדל עבור הדף הנוכחי&lt;/p&gt;</translation>
+        <translation>שחזר הגדרות ברירת מחדל עבור עמוד נוכחי</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
+        <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;הכפתור הזה ישחזר את הגדרותברירת המחדל בדף הנוכחי שאר הדפים לא ישתנו.&lt;br /&gt;כדי להחזיר את כל ההגדרות בכל הדפים לברירת המחדל, עליך להשתמש בכפתור זה בכל הדפים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished">הגדרות ממבל</translation>
+        <translation>הגדרות ‫Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Advanced</source>
-        <translation type="unfinished">מתקדם</translation>
+        <translation>מתקדמות</translation>
     </message>
 </context>
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+935"/>
+        <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished">מתחבר ל %1</translation>
+        <translation>מתחבר כעת אל %1</translation>
     </message>
     <message>
-        <location line="-538"/>
-        <location line="+538"/>
+        <location line="-545"/>
+        <location line="+545"/>
         <source>Enter username</source>
-        <translation type="unfinished">הכנס שם משתמש</translation>
+        <translation>הכנס שם משתמש</translation>
     </message>
     <message>
-        <location line="-538"/>
+        <location line="-545"/>
         <source>Adding host %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוספת מארח %1&lt;/p&gt;</translation>
+        <translation>הוספת מארח %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation type="unfinished">שם השרת</translation>
+        <translation>שם שרת</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם המארח&lt;/p&gt;</translation>
+        <translation>שם מארח</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3159,114 +3111,114 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורט&lt;/p&gt;</translation>
+        <translation>פורט</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כתובות&lt;/p&gt;</translation>
+        <translation>כתובות</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אתר אינטרנט&lt;/p&gt;</translation>
+        <translation>אתר רשת</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;איבוד חבילות&lt;/p&gt;</translation>
+        <translation>אובדן חבילה</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פינג (80%)&lt;/p&gt;</translation>
+        <translation>פינג (80%)</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation type="unfinished">%1 מ&quot;ש</translation>
+        <translation>%1 מ&quot;ש</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פינג (95%)&lt;/p&gt;</translation>
+        <translation>פינג (95%)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רוחב פס&lt;/p&gt;</translation>
+        <translation>רוחב פס</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 ק&quot;ב/ש&lt;/p&gt;</translation>
+        <translation>%1 קב&quot;ש</translation>
     </message>
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished">ה&amp;תחבר</translation>
+        <translation>הת&amp;חבר</translation>
     </message>
     <message>
-        <location line="+53"/>
+        <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation type="unfinished">&amp;מסננים</translation>
+        <translation>מ&amp;סננים</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-351"/>
+        <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation type="unfinished">משתמשים</translation>
+        <translation>משתמשים</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;גירסא&lt;/p&gt;</translation>
+        <translation>גירסא</translation>
     </message>
     <message>
-        <location line="+1034"/>
+        <location line="+1051"/>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;השגת רשימת השרתים נכשלה&lt;/p&gt;</translation>
+        <translation>נכשל לתפוס רשימת שרתים</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished">התחברות לשרת ממבל</translation>
+        <translation>התחברות לשרת ממבל</translation>
     </message>
     <message>
         <location/>
         <source>Ping</source>
-        <translation type="unfinished">פינג</translation>
+        <translation>פינג</translation>
     </message>
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished">הסר מהמועדפים</translation>
+        <translation>הסר מהמועדפים</translation>
     </message>
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף שרת ידנית&lt;/p&gt;</translation>
+        <translation>הוסף שרת ידנית</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished">הצג את כל השרתים שמשיבים פינג</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הצג את כל השרתים שמגיבים לבקשות Ping&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation type="unfinished">הצג את כל השרתים עם משתמשים</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הצג את כל השרתים עם משתמשים מחוברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation type="unfinished">הצג את כל השרתים</translation>
+        <translation>הצג את כל השרתים</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation type="unfinished">ה&amp;עתק</translation>
+        <translation>ה&amp;עתק</translation>
     </message>
     <message>
         <location/>
@@ -3276,7 +3228,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation type="unfinished">ה&amp;דבק</translation>
+        <translation>ה&amp;דבק</translation>
     </message>
     <message>
         <location/>
@@ -3285,40 +3237,40 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-729"/>
+        <location filename="ConnectDialog.cpp" line="-745"/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">ע&amp;ריכה...</translation>
+        <translation>&amp;עריכה...</translation>
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-6"/>
+        <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished">הוסף &amp;חדש...</translation>
+        <translation>&amp;הוספת חדש...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished">הוסף &amp;ל מועדפים</translation>
+        <translation>הוסף ל &amp;מועדפים</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished">פתח &amp;אתר</translation>
+        <translation>פתח &amp;עמוד רשת</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished">הצג &amp;בר-השגה</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הצג &amp;ברי-השגה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished">הצג מאו&amp;כלסים</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הצג &amp;מאוכלסים&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished">הצג &amp;הכל</translation>
+        <translation>הצג ה&amp;כל</translation>
     </message>
 </context>
 <context>
@@ -3326,105 +3278,105 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished">ערוך שרת</translation>
+        <translation>ערוך שרת</translation>
     </message>
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם השרת&lt;/p&gt;</translation>
+        <translation>שם השרת</translation>
     </message>
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished">כ&amp;תובת</translation>
+        <translation>כ&amp;תובת</translation>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;כתובת האינטרנט של השרת.&lt;/p&gt;</translation>
+        <translation>כתובת אינטרנט של השרת.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
-Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;כתובת&lt;/b&gt;&lt;br/&gt;
-כתובת האינטרנט של השרת. זה יכול להיות שם מארח רגיל, כתובות IPv4/IPv6 או מזהה של מערכת Bonjour. מזהה של מערכת Bonjour חייב להתחיל ב @ כדי שממבל יזהה אותו ככזה.&lt;/p&gt;</translation>
+Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
+        <translation>&lt;b&gt;כתובת&lt;/b&gt;&lt;br/&gt;
+כתובת אינטרנט של השרת. זו יכולה להיות שם מארח רגיל, כתובות IPv4/IPv6 או מזהה של שירות Bonjour. מזהה של שירות Bonjour חייב להתחיל בתו @ בכדי שזה יוכל להיות בר הזדהות על ידי Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation type="unfinished">&amp;פורט</translation>
+        <translation>&amp;פורט</translation>
     </message>
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הפורט שאליו מאזין השרת.&lt;/p&gt;</translation>
+        <translation>פורט לו מאזין השרת</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;פורט&lt;/b&gt;&lt;br/&gt;
-הפורט שאליו מאזין השרת. אם השרת מזוהה על ידי מזהה מערכת Bonjour ממבל יתעלם משדה זה.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;פורט&lt;/b&gt;&lt;br/&gt;
+פורט לו מאזין השרת. אם השרת מזוהה על ידי מזהה של שירות Bonjour אזי Mumble יתעלם משדה זה.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation type="unfinished">&amp;שם משתמש</translation>
+        <translation>&amp;שם משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם המשתמש שישלח לשרת&lt;/p&gt;</translation>
+        <translation>שם משתמש לשליחה אל השרת</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;שם משתמש&lt;/b&gt;&lt;br/&gt;
-שם המשתמש שישלח לשרת. שים לב שהשרת יכול לאכוף מגבלות שונות בנוגע לשם המשתמש. כמו כן שם המשתמש עלול להיות בשימוש על ידי משתמש אחר.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;שם משתמש&lt;/b&gt;&lt;br/&gt;
+שם משתמש לשליחה אל השרת. שים לב שהשרת יכול לאכוף מגבלות על איך שם השתמש יכול להיראות. כמו כן שם המשתמש שלך עלול להיות בשימוש על ידי משתמש אחר.</translation>
     </message>
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished">תיאור</translation>
+        <translation>כותרת</translation>
     </message>
     <message>
-        <location/>
-        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;תיאור&lt;/b&gt;&lt;br/&gt;
-תיאור השרת. זהו למעשה השם שתחתיו יופיע השרת ברשימת השרתים שלך, וניתן להכניס כל ערך שתרצה כאן.</translation>
+        <location filename="ConnectDialog.cpp" line="-75"/>
+        <source>Add Server</source>
+        <translation>הוסף שרת</translation>
     </message>
     <message>
-        <location/>
+        <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished">סיסמא</translation>
+        <translation>סיסמא</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished">סיסמא שתשלח לשרת</translation>
+        <translation>סיסמא לשליחה אל השרת</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;סיסמא&lt;/b&gt;&lt;br/&gt;
-הסיסמא שתשלח לשרת בעת ההתחברות. הסיסמא הזו דרושה כשמתחברים כ-&lt;i&gt;SuperUser&lt;/i&gt; או כשמתחברים לשרת שמשתמש בזיהוי לפי סיסמא. אם לא הכנסתם את הסיסמא כאן תתבקשו לעשות זאת כאשר תתחברו.</translation>
+סיסמא לשליחה אל השרת בעת התחברות. סיסמא זו הינה נצרכת בעת התחברות &lt;i&gt;כמשתמש על&lt;/i&gt; או אל שרת באמצעות אימות סיסמא. היה וזו לא תוזן כאן הסיסמא תישאל בעת התחברות.</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished">הראה סיסמא</translation>
+        <translation>הצג סיסמא</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-75"/>
-        <source>Add Server</source>
-        <translation type="unfinished">הוסף שרת</translation>
+        <location/>
+        <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
+        <translation>&lt;b&gt;כותרת&lt;/b&gt;&lt;br/&gt;
+כותרת של השרת. כך השרת יכונה ברשימת שרת וניתן לברורו באופן חופשי.</translation>
     </message>
 </context>
 <context>
@@ -3432,7 +3384,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation>התקן ברירת מחדל</translation>
+        <translation>התקן משתמט</translation>
     </message>
 </context>
 <context>
@@ -3440,12 +3392,12 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation>דיווח קריסה של ממבל</translation>
+        <translation>דיווח קריסה של Mumble</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אנו מאוד מצטערים, אך נראה שממבל קרס. האםתרצה לשלוח דיווח קריסה למפתחי ממבל?&lt;/b&gt;&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;דיווח הקריסה מכיל עותק חלקי של מצב התוכנה ברגע הקריסה, ויעזור מאוד למפתחים לתקן את הבעיה.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אנו מאוד מצטערים, אך נראה כי Mumble קרס. האם יש ברצונך לשלוח דיווח קריסה למפתחי Mumble?&lt;/b&gt;&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;דיווח הקריסה מכיל עותק חלקי של מצב התוכנה ברגע הקריסה, ויעזור מאוד למפתחים לתקן את הבעיה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3476,13 +3428,13 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>תודה רבה על העזרה בשיפור ממבל!</translation>
+        <translation>תודה רבה על העזרה בשיפור Mumble!</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation>העלאת הדיווח נכשלה</translation>
+        <translation>העלאת דיווח קריסה נכשלה</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -3510,7 +3462,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation>התקן קלט DirectSound עבור קול</translation>
+        <translation>קלט קול DirectSound משתמש</translation>
     </message>
     <message>
         <location line="+451"/>
@@ -3533,7 +3485,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
-        <translation>התקן הפלט ברירת המחדל של DirectSound</translation>
+        <translation>פלט קול DirectSound משתמש</translation>
     </message>
     <message>
         <location line="+243"/>
@@ -3557,13 +3509,13 @@ Password to be sent to the server on connect. This password is needed when conne
         <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>ממבל לא יכול ליצור בסיס נתונים באף אחד מהמיקומים האפשריים.</translation>
+        <translation>‏Mumble נכשלה ליצור מסד נתונים בכל אחד מן המיקומים האפשריים.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
-        <oldsource>The database &apos;%1&apos; is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>בסיס הנתונים &apos;%1&apos; מוגדר לקריאה בלבד. ממבל לא יכול לשמור את הגדרות השרת (כמו אישורי SSL) עד שהבעיה תתוקן.</translation>
+        <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
+        <translation>בסיס הנתונים &apos;%1&apos; מוגדר לקריאה בלבד. Mumble לא יכול לשמור את הגדרות השרת (כמו תעודות SSL) עד שהבעיה תתוקן.</translation>
     </message>
 </context>
 <context>
@@ -3579,7 +3531,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">קיצורים</translation>
+        <translation>קיצורי דרך</translation>
     </message>
     <message>
         <location/>
@@ -3589,63 +3541,62 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished">פעולה</translation>
+        <translation>פונקציה</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished">מידע</translation>
+        <translation>נתון</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished">קיצור</translation>
+        <translation>קיצור דרך</translation>
     </message>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation type="unfinished">שתק</translation>
+        <translation>שתק</translation>
     </message>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף קיצור חדש&lt;/p&gt;</translation>
+        <translation>הוסף קיצור דרך חדש</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו תוסיף קיצור גלובלי חדש&lt;/p&gt;</translation>
+        <translation>זו תוסיף קיצור גלובלי חדש</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished">הוס&amp;ף</translation>
+        <translation>הוס&amp;ף</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסר קיצור נבחר&lt;/p&gt;</translation>
+        <translation>הסר קיצור נבחר</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו תסיר לצמיתות את הקיצור שנבחר.&lt;/p&gt;</translation>
+        <translation>זו תסיר לצמיתות קיצור נבחר.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">ה&amp;סר</translation>
+        <translation>הס&amp;ר</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translatorcomment>למה צריך HTML שלם? O_O</translatorcomment>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p dir=&quot;RTL&quot;&gt;ממבל תומך כעת רק בכפתורי עכבר ובכפתורי שליטה במקלדת (Alt, Ctrl, Shift וכו&apos;) עבור קיצורים גלובאליים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו להשתמש בעוד, תוכלו להפעיל את &lt;span style=&quot; font-style:italic;&quot;&gt;גישה להתקני תמיכה&lt;/span&gt; בהגדרות הנגישות של המערכת. למרות זאת, שימו לב שזה עלול לאפשר לתוכנות זדוניות לקרוא את הקשות המקלדת שלכם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p dir=&quot;RTL&quot;&gt;Mumble תומך כעת רק בכפתורי עכבר ובכפתורי שליטה במקלדת (Alt, Ctrl, Shift וכו&apos;) עבור קיצורים גלובאליים.&lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;אם תרצו להשתמש בעוד, תוכלו להפעיל את &lt;span style=&quot; font-style:italic;&quot;&gt;גישה להתקני תמיכה&lt;/span&gt; בהגדרות הנגישות של המערכת. למרות זאת, שימו לב שזה עלול לאפשר לתוכנות זדוניות לקרוא את הקשות המקלדת שלכם.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation>פתח את העדפות הנגישות</translation>
+        <translation>פתח העדפות נגישות</translation>
     </message>
     <message>
         <location/>
@@ -3663,7 +3614,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation type="unfinished">קיצורי דרך</translation>
+        <translation>קיצורי דרך</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -3692,72 +3643,72 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished">יעד הלחישה</translation>
+        <translation>יעד הלחישה</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished">לחש לרשימת משתמשים</translation>
+        <translation>לחש לרשימה של משתמשים</translation>
     </message>
     <message>
         <location/>
         <source>Channel Target</source>
-        <translation type="unfinished">ערוץ היעד</translation>
+        <translation>יעד ערוץ</translation>
     </message>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation type="unfinished">הגבל לקבוצה</translation>
+        <translation>הגבל לקבוצה</translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אם מצויין, רק החברים בקבוצה שצוינה יקבלו את הלחישה.&lt;/p&gt;</translation>
+        <translation>אם מצויין, רק חברים של קבוצה זו יקבלו את הלחישה.</translation>
     </message>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished">רשימת משתמשים</translation>
+        <translation>רשימה של משתמשים</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished">הוסף</translation>
+        <translation>הוספה</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation>הסרה</translation>
     </message>
     <message>
         <location/>
         <source>Modifiers</source>
-        <translation>חריגות</translation>
+        <translation>משתנים</translation>
     </message>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אל תשלח מידעל מיקום הצלילים בעת הלחישה.&lt;/p&gt;</translation>
+        <translation>אל תשלח מידע למיקום צלילים כאשר משתמשים בקיצור דרך לחישה זה.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished">התעלם ממיקום צלילים</translation>
+        <translation>התעלם ממיקום צלילים</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished">צעק לערוצים מקושרים</translation>
+        <translation>צעק אל ערוצים מקושרים</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished">צעק לתת-ערוצים</translation>
+        <translation>צעק אל-ערוצי משנה</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished">צעק לערוץ</translation>
+        <translation>צעק אל ערוץ</translation>
     </message>
     <message>
         <location/>
@@ -3775,7 +3726,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="+346"/>
         <source>Mouse %1</source>
-        <translation>מקש עכבר %1</translation>
+        <translation>עכבר %1</translation>
     </message>
 </context>
 <context>
@@ -3783,7 +3734,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="+282"/>
         <source>Not connected</source>
-        <translation type="unfinished">לא מחובר</translation>
+        <translation>לא מחובר</translation>
     </message>
 </context>
 <context>
@@ -3791,7 +3742,7 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation>הפעל התקן זה</translation>
+        <translation>אפשר את מכשיר זה</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3806,7 +3757,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Devices</source>
-        <translation>התקנים</translation>
+        <translation>מכשירים</translation>
     </message>
     <message>
         <location/>
@@ -3821,12 +3772,12 @@ of the possible locations.</source>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;זוהי רשימת התקני ה-LCD במערכת שלכם. היא מסודרת בצורה אלפאבתית, אאבל גם מכילה את גודל הצג. ממבל תומכת בפלט למספר התקני LCD בו זמנית.&lt;/p&gt;
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;זוהי רשימת התקני ה-LCD במערכת שלכם. היא מסודרת בצורה אלפאבתית, אבל גם מכילה את גודל הצג. Mumble תומכת בפלט למספר התקני LCD בו זמנית.&lt;/p&gt;
 &lt;h3&gt;גודל:&lt;/h3&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
-שדה זה מתאר אתא גודלו של התקן ה-LCD. הגודל נתון בתור פיקסלים (התקנים גרפיים) או בתווים (התקנים תוויים).&lt;/p&gt;
+שדה זה מתאר את גודלו של התקן ה-LCD. הגודל נתון בתור פיקסלים (התקנים גרפיים) או בתווים (התקנים תוויים).&lt;/p&gt;
 &lt;h3&gt;פעיל:&lt;/h3&gt;
-&lt;p dir=&quot;RTL&quot;&gt;קובע האם ממבל ישתמש בהתקן זה.&lt;/p&gt;</translation>
+&lt;p dir=&quot;RTL&quot;&gt;קובע האם Mumble ישתמש בהתקן זה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3836,7 +3787,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>מופעל</translation>
+        <translation>מאופשר</translation>
     </message>
     <message>
         <location/>
@@ -3870,7 +3821,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+208"/>
+        <location filename="Log.cpp" line="+209"/>
         <source>Debug</source>
         <translation>דיבאג</translation>
     </message>
@@ -3892,12 +3843,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="unfinished">מחובר לשרת</translation>
+        <translation>שרת התחבר</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished">מנותק מהשרת</translation>
+        <translation>שרת התנתק</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3912,22 +3863,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished">הרשאה נדחתה</translation>
+        <translation>הרשאה נדחתה</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Text Message</source>
-        <translation>הודעת טקסט</translation>
+        <translation>הודעת תמליל</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation type="unfinished">משתמש הצטרף לשרת</translation>
+        <translation>משתמש הצטרף לשרת</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished">משתמש עזב את השרת</translation>
+        <translation>משתמש עזב את השרת</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3942,17 +3893,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished">משתמש הועף</translation>
+        <translation>משתמש נבעט</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>User muted (you)</source>
-        <translation>משתמש הושתק (אתה)</translation>
+        <translation>משתמש הושתק (אותך)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation>משתמש הושתק (על ידיך)</translation>
+        <translation>משתמש הושתק (על ידך)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3962,20 +3913,20 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished">משתמש הצטרף לערוץ</translation>
+        <translation>משתמש הצטרף לערוץ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished">משתמש עזב את הערוץ</translation>
+        <translation>משתמש עזב את הערוץ</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+60"/>
         <source>the server</source>
-        <translation type="unfinished">השרת</translation>
+        <translation>השרת</translation>
     </message>
     <message>
-        <location line="+117"/>
+        <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
         <translation>[[ התוכן גדול מדי מכדי להציגו ]]</translation>
     </message>
@@ -3983,7 +3934,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;[התאריך השתנה ל-%1]&lt;/p&gt;
+        <translation>[תאריך השתנה אל %1]
 </translation>
     </message>
     <message>
@@ -4015,7 +3966,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-441"/>
+        <location line="-452"/>
         <source>Toggle console for %1 events</source>
         <translation>הפעל/בטל פלט טקסט עבור אירועי %1</translation>
     </message>
@@ -4042,13 +3993,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>לחצו כאן כדי להפעיל/לכבות פלט טקסט עבור אירועי %1.&lt;br /&gt; אם מסומן, אפשרות זו גורמת לממבל להדפיס את כל אירועי %1 לחלון היומן.</translation>
+        <translation>לחצו כאן כדי להפעיל/לכבות פלט טקסט עבור אירועי %1.&lt;br /&gt; אם מסומן, אפשרות זו גורמת ל-Mumble להדפיס את כל אירועי %1 לחלון היומן.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>לחצו כאן כדי להפעיל/לכבות התראות קופצות עבור אירועי %1.&lt;br /&gt;אם מסומן, התראות קופצות יווצרו על ידי ממבל לכל אירוע %1.</translation>
+        <translation>לחצו כאן כדי להפעיל/לכבות התראות קופצות עבור אירועי %1.&lt;br /&gt;אם מסומן, התראות קופצות יווצרו על ידי Mumble לכל אירוע %1.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4059,13 +4010,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>לחצו כאן כדי להפעיל/לכבות את תכונת הטקסט-לדיבור עבור אירועי %1.&lt;br /&gt;אם מסומן, ממבל ישתמש בטקסט-לדיבור כדי להקריא בקול אירועי %1. תכונת הטקסט-לדיבור יכולה גם להקריא את תוכן האירוע, מה שלא אפשרי עם קבצי קול. טקסט-לדיבור וקבצי קול לא יכולים להיות בשימוש בו זמנית.</translation>
+        <translation>לחצו כאן כדי להפעיל/לכבות את תכונת הטקסט-לדיבור עבור אירועי %1.&lt;br /&gt;אם מסומן, Mumble ישתמש בטקסט-לדיבור כדי להקריא בקול אירועי %1. תכונת הטקסט-לדיבור יכולה גם להקריא את תוכן האירוע, מה שלא אפשרי עם קבצי קול. טקסט-לדיבור וקבצי קול לא יכולים להיות בשימוש בו זמנית.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>לחצו כאן כדי להפעיל/לכבות התראות קוליות עבור אירועי %1. &lt;br /&gt;אם מסומן, ממבל ישתמש בקובץ קול מוגדר מראש על ידיכם כדי להודיע על אירועי %1. קבצי קול ותכונת הטקסט-לדיבור לא יכולים להיות פעילים בו זמנית.</translation>
+        <translation>לחצו כאן כדי להפעיל/לכבות התראות קוליות עבור אירועי %1. &lt;br /&gt;אם מסומן, Mumble ישתמש בקובץ קול מוגדר מראש על ידיכם כדי להודיע על אירועי %1. קבצי קול ותכונת הטקסט-לדיבור לא יכולים להיות פעילים בו זמנית.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4080,7 +4031,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Console</source>
-        <translation>חלון פלט</translation>
+        <translation>מסוף</translation>
     </message>
     <message>
         <location/>
@@ -4090,12 +4041,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Text-To-Speech</source>
-        <translation>טקסט-לדיבור</translation>
+        <translation>טקסט-אל-דיבור</translation>
     </message>
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation>קובץ קול</translation>
+        <translation>קובץ צליל</translation>
     </message>
     <message>
         <location/>
@@ -4105,12 +4056,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Text To Speech</source>
-        <translation>טקסט-לדיבור</translation>
+        <translation>טקסט אל דיבור</translation>
     </message>
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;עוצמה&lt;/p&gt;</translation>
+        <translation>עוצמה</translation>
     </message>
     <message>
         <location/>
@@ -4125,7 +4076,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation>אורך מירבי</translation>
+        <translation>סף אריכות</translation>
     </message>
     <message>
         <location/>
@@ -4145,7 +4096,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished">לחישות</translation>
+        <translation>לחש</translation>
     </message>
     <message>
         <location/>
@@ -4155,7 +4106,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>קבל לחישות מחברים בלבד</translation>
+        <translation>קבל לחשים מידידים בלבד</translation>
     </message>
     <message>
         <location/>
@@ -4175,7 +4126,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation>אורך הצ&apos;אט המקסימלי</translation>
+        <translation>אורך שיחה מרבי</translation>
     </message>
     <message>
         <location/>
@@ -4194,47 +4145,47 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="LookConfig.cpp" line="+55"/>
         <location line="+11"/>
         <source>System default</source>
-        <translation type="unfinished">ברירת מחדל של המערכת</translation>
+        <translation>ברירת מחדל מערכת</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>None</source>
-        <translation type="unfinished">בכלל לא</translation>
+        <translation>ללא</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation type="unfinished">רק עם משתמשים</translation>
+        <translation>רק עם משתמשים</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation type="unfinished">כולם</translation>
+        <translation>הכל</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation type="unfinished">שאל</translation>
+        <translation>שאל</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation type="unfinished">אל תעשה דבר</translation>
+        <translation>אל תעשה דבר</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation type="unfinished">הזז</translation>
+        <translation>הזז</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation type="unfinished">ממשק משתמש</translation>
+        <translation>ממשק משתמש</translation>
     </message>
     <message>
         <location line="+155"/>
         <source>Choose skin file</source>
-        <translation>בחר קובץ סקין</translation>
+        <translation>בחירת קובץ סקין</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
@@ -4244,17 +4195,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הראה את רשימת המשתמשים מעל תת-הערוצים (דורש הפעלה מחדש).&lt;/p&gt;</translation>
+        <translation>רשום משתמשים מעל ערוצי-משנה (נדרשת הפעלה מחדש).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;אם אפשרות זו מוגדרת, משתמשים יופיעו מעל לערוצי המשנה ברשימת הערוצים.&lt;/b&gt;&lt;br /&gt;יש להפעיל מחדש את ממבל כדי להחיל את השינויים.</translation>
+        <translation>&lt;b&gt;אם אפשרות זו מוגדרת, משתמשים יופיעו מעל לערוצי המשנה ברשימת הערוצים.&lt;/b&gt;&lt;br /&gt;יש להפעיל מחדש את Mumble כדי להחיל את השינויים.</translation>
     </message>
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation type="unfinished">רשימת משתמשים מעל לערוץ</translation>
+        <translation>משתמשים מעל ערוצים</translation>
     </message>
     <message>
         <location/>
@@ -4264,73 +4215,73 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הראה את מספר המשתמשים בכל ערוץ&lt;/p&gt;</translation>
+        <translation>הצג את מספר משתמשים בכל ערוץ</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished">הראה את מספר המשתמשים בערוץ</translation>
+        <translation>הצג מספר משתמשים בערוץ</translation>
     </message>
     <message>
         <location/>
         <source>Language</source>
-        <translation type="unfinished">שפה</translation>
+        <translation>שפה</translation>
     </message>
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שפת התוכנה (דורש הפעלה מחדש)&lt;/p&gt;</translation>
+        <translation>באיזו שפה להשתמש (דורש הפעלה מחדש)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation>&lt;b&gt;אפשרות זו מגדירה את השפה שממבל ישתמש בה.&lt;/b&gt;&lt;br /&gt;עליך להפעיל מחדש את ממבל כדי להשתמש בשפה החדשה.</translation>
+        <translation>&lt;b&gt;אפשרות זו מגדירה את השפה ש-Mumble ישתמש בה.&lt;/b&gt;&lt;br /&gt;עליך להפעיל מחדש את Mumble כדי להשתמש בשפה החדשה.</translation>
     </message>
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation type="unfinished">מראה ותחושה</translation>
+        <translation>מראה ותחושה</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">פריסה</translation>
+        <translation>פריסה</translation>
     </message>
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished">קלאסית</translation>
+        <translation>קלאסית</translation>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation type="unfinished">ערימה</translation>
+        <translation>מערום</translation>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished">מעורבת</translation>
+        <translation>מעורב</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished">מותאמת אישית</translation>
+        <translation>מותאמת</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו משנה את התנהגות התוכנה כאשר מזיזים ערוצים.&lt;/p&gt;</translation>
+        <translation>זו משנה את ההתנהגות כאשר מזיזים ערוצים.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>אפשרות זו מגדירה את התוצאה של גרירת ערוצים; ניתן להשתמש בה כדי למנוע גרירה לא מכוונת. &lt;i&gt;הזז&lt;/i&gt; תזיז את הערוצים מבלי לשאול. &lt;i&gt;אל תעשה דבר&lt;/i&gt; לא תזיז את הערוצים ותציג הודעה בחלון היומן. &lt;i&gt;שאל&lt;/i&gt; תקפיץ תיבת דו-שיח שבה תשאל אם אתם בטוחים שברצונכם להזיז את הערוץ.</translation>
+        <translation>אפשרות זו מגדירה את התוצאה של גרירת ערוצים; ניתן להשתמש בה כדי למנוע גרירה לא מכוונת. &lt;i&gt;הזז&lt;/i&gt; תזיז את הערוצים מבלי לשאול. &lt;i&gt;אל תעשה דבר&lt;/i&gt; לא תזיז את הערוצים ותציג הודעה בחלון היומן. &lt;i&gt;שאל&lt;/i&gt; תקפיץ תיבת דו-שיח שבה תשאל אם אתה בטוח כי ברצונך להזיז את הערוץ.</translation>
     </message>
     <message>
         <location/>
         <source>Style</source>
-        <translation type="unfinished">עיצוב</translation>
+        <translation>עיצוב</translation>
     </message>
     <message>
         <location/>
@@ -4350,82 +4301,82 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Skin file to use</source>
-        <translation>קובץ הסקין לשימוש</translation>
+        <translation>קובץ סקין לשימוש</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation>&lt;b&gt;מגדיר את הסקין שממבל ישתמש בו.&lt;/b&gt;&lt;br /&gt;סקין הוא למעשה קובץ סגנון שייושם במקום סגנון ברירת המחדל של התוכנה. אם יש סמלים באותה התיקייה של קבצי הסגנון, הם יוחלפו בסמלי ברירת המחדל.</translation>
+        <translation>&lt;b&gt;מגדיר את הסקין שעל Mumble לשתמש בו.&lt;/b&gt;&lt;br /&gt;סקין הוא למעשה קובץ סגנון שייושם במקום סגנון ברירת המחדל של התוכנה. אם יש סמלים באותה התיקייה של קבצי הסגנון, הם יוחלפו בסמלי ברירת המחדל.</translation>
     </message>
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished">הרחבה</translation>
+        <translation>הרחב</translation>
     </message>
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מתי להרחיב ערוצים אוטומטית&lt;/p&gt;</translation>
+        <translation>מתי להרחיב ערוצים אוטומטית</translation>
     </message>
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation type="unfinished">גרירת ערוצים</translation>
+        <translation>גרירת ערוצים</translation>
     </message>
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שאל האם לסגור או למזער את התוכנה כשיוצאים מממבל.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שאל האם לסגור או למזער את ממבל ביציאה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished">אשר יציאה כאשר מחובר לשרת</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שאל האם לצאת כאשר מחובר לשרת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished">תמיד למעלה</translation>
+        <translation>תמיד למעלה</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;אם אפשרות זו מסומנת, מזעור החלון הראשי של ממבל יגרום לתוכנה להתחבא במגש המערכת ולהיות נגישה רק משם. אם לא, היא תמוזער בדיוק כמו שחלון רגיל ממועזר.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;אם אפשרות זו מסומנת, מזעור החלון הראשי של Mumble יגרום לתוכנה להתחבא במגש המערכת ולהיות נגישה רק משם. אם לא, היא תמוזער בדיוק כמו שחלון רגיל ממועזר.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished">הסתר במגש המערכת כשממזערים</translation>
+        <translation>הסתר במגש בעת מזעור</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>הסתר את החלון הראשי במגש המערכת כאשר ממבל ממוזער</translation>
+        <translation>הסתר את החלון הראשי בתוך מגש המערכת כאשר Mumble הינו ממוזער.</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגדרה זו קובעת מתי התוכנה תהיה תמיד מעל לכל החלונות.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הגדרה זו קובעת מתי ממבל תוצג תמיד מעל לכל החלונות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished">אף פעם</translation>
+        <translation>אף פעם</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished">תמיד</translation>
+        <translation>תמיד</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished">בתצוגה מינימלית</translation>
+        <translation>בתצוגה מינימלית</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished">בתצוגה רגילה</translation>
+        <translation>בתצוגה רגילה</translation>
     </message>
     <message>
         <location/>
@@ -4435,7 +4386,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished">הראה מצב דיבור בסמל מגש המערכת</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הראה את מצב הדיבור בסמל מגש המערכת&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4450,17 +4401,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הפעל מצב ניגודיות תצוגה גבוהה למשתמשים כבדי ראיייה&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הפעל מצב ניגודיות תצוגה גבוהה למשתמשים כבדי ראיייה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished">מצב ניגודיות תצוגה גבוהה</translation>
+        <translation>מצב ניגודיות תצוגה גבוהה</translation>
     </message>
     <message>
         <location/>
         <source>Application</source>
-        <translation type="unfinished">יישום</translation>
+        <translation>יישום</translation>
     </message>
     <message>
         <location/>
@@ -4470,17 +4421,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished">מגש המערכת</translation>
+        <translation>סמל מגש</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished">רשימת ערוצים</translation>
+        <translation>עץ ערוץ</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>פת&amp;ח...</translation>
+        <translation>&amp;עיון...</translation>
     </message>
     <message>
         <location/>
@@ -4490,58 +4441,58 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;סנן ערוצים ריקים אוטומטית.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+138"/>
-        <location line="+2280"/>
+        <location filename="MainWindow.cpp" line="+139"/>
+        <location line="+2314"/>
         <source>Root</source>
         <translation>שורש</translation>
     </message>
     <message>
-        <location line="-2226"/>
+        <location line="-2260"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">לחץ-כדי-לדבר</translation>
+        <translation>לחץ-כדי-לדבר</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;לחץ ןהחזק את הכפתור הזה כדי לשלוח קול.&lt;/p&gt;</translation>
+        <translation>לחץ ואחוז בכפתור זה כדי לשלוח צליל.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זה מגדיר את כפתור לחץ-כדי-לדבר, שכל עוד אתה מחזיק אותו, קולך ישודר.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מגדירה את מקש &quot;לחץ-כדי-לדבר&quot;. כל עוד תחזיקו את מקש זה לחוץ, קולכם ישודר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">אפס מעבד צלילים</translation>
+        <translation>אפס מעבד צלילים</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>נתק תוסף</translation>
+        <translation>איין קישור תוספת</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">לחץ-כדי-להשתיק</translation>
+        <translation>לחץ-כדי-להשתיק</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">הצטרף לערוץ</translation>
+        <translation>הצטרף לערוץ</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4553,7 +4504,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>שנה את מצב התצוגה של ממשק המשחק</translation>
+        <translation>שנה את מצב התצוגה של ממשק המשחק.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4565,36 +4516,36 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">העלה עוצמה (+10%)</translation>
+        <translation>הגבר עוצמה (‪-10%‬)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">הנמך עוצמה (-10%)</translation>
+        <translation>הנמך עוצמה (‪-10%‬)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation type="unfinished">ממבל</translation>
+        <translation>ממבל</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2372"/>
+        <location line="+2384"/>
         <source>Mumble -- %1</source>
-        <translation type="unfinished">ממבל -- %1</translation>
+        <translation>ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-2367"/>
+        <location line="-2379"/>
         <source>&amp;Window</source>
-        <translation type="unfinished">&amp;חלון</translation>
+        <translation>&amp;חלון</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+137"/>
         <source>Minimize</source>
-        <translation type="unfinished">מזער</translation>
+        <translation>מזער</translation>
     </message>
     <message>
         <location line="-137"/>
@@ -4604,24 +4555,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+136"/>
         <source>Close</source>
-        <translation type="unfinished">סגור</translation>
+        <translation>סגור</translation>
     </message>
     <message>
         <location line="-1"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ממבל מחובר כרגע לשרת, האם אתה רוצה לסגור או למזער אותו?&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;‫Mumble מחוברת כרגע לשרת, האם ברצונך לסגור או למזער אותה?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-197"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">השתק את עצמך</translation>
+        <translation>השתק את עצמך</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>הגדר מצב השתקה עצמית</translation>
+        <translation>הגדר מצב השתקה עצמית.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4633,13 +4584,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished">החרש את עצמך</translation>
+        <translation>החרש את עצמך</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>הגדר מצב החרשה עצמית</translation>
+        <translation>הגדר מצב החרשה עצמית.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4648,60 +4599,73 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>כפתור זה יפעיל או יבטל את מצב ההחרשה העצמית. אם תפעילו זאת, אתם גם תושתקו עצמית באופן אוטומטי.</translation>
     </message>
     <message>
-        <location line="+386"/>
+        <location line="+31"/>
+        <source>Whisper/Shout</source>
+        <oldsource>Whisper</oldsource>
+        <translation>לחש/צעק</translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <location line="+2423"/>
+        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
+        <oldsource>Not connected</oldsource>
+        <translation>&lt;center&gt;לא מחובר&lt;/center&gt;</translation>
+    </message>
+    <message>
+        <location line="-2135"/>
         <source>Clear</source>
-        <translation type="unfinished">נקה</translation>
+        <translation>טהר</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Opening URL %1</source>
-        <translation type="unfinished">פתח כתובת אינטרנט %1</translation>
+        <translation>פתיחת URL %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation type="unfinished">הקובץ לא קיים</translation>
+        <translation>קובץ לא קיים</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הקובץ הנבחר הוא לא קובץ הגדרות.&lt;/p&gt;</translation>
+        <translation>קובץ אינו קובץ תצורה.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Settings merged from file.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ההגדרות מוזגו מהקובץ.&lt;/p&gt;</translation>
+        <translation>הגדרות מוזגו מן קובץ.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;צורת כתובת האינטרנט היא לא &apos;ממבל&apos;&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;צורת הכתובת היא לא &apos;mumble&apos;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הגירסא הנוכחית של ממבל לא יכולה לטפל בכתובות לממבל מגירסא %1.%2.%3&lt;/p&gt;</translation>
+        <translation>גירסא זו של Mumble לא יכולה לטפל בכתובות עבור Mumble גירסא %1.%2.%3</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+36"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished">מתחבר אל %1</translation>
+        <translation>מתחבר כעת אל %1</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Enter username</source>
-        <translation type="unfinished">הכנס שם משתמש</translation>
+        <translation>הכנס שם משתמש</translation>
     </message>
     <message>
-        <location line="+14"/>
-        <location line="+197"/>
+        <location line="+15"/>
+        <location line="+198"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished">מתחבר לשרת %1.</translation>
+        <translation>מתחבר כעת אל שרת %1.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation type="unfinished">מתחבר מחדש.</translation>
+        <translation>מתחבר מחדש כעת.</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4716,108 +4680,117 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+20"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;ערוץ קול&lt;/h2&gt;&lt;p&gt;מוצפן עם 128 bit OCB-AES128&lt;br /&gt;השהייה ממוצעת של %1 מ&quot;ש (סטייה של %4)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;ערוץ קול&lt;/h2&gt;&lt;p&gt;מוצפן עם 128 bit OCB-AES128&lt;br /&gt;אחזור ממוצע של %1 מ&quot;ש (סטייה של %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-104"/>
-        <location line="+354"/>
+        <location line="+357"/>
         <source>Register yourself as %1</source>
-        <translation type="unfinished">רשמו את עצמכם כ-%1</translation>
+        <translation>רשום את עצמך בשם %1</translation>
     </message>
     <message>
-        <location line="-354"/>
-        <location line="+354"/>
+        <location line="-357"/>
+        <location line="+357"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אתם עומדים לרשום את עצמכם לשרת. אין אפשרות לבטל פעולה זו, ואין אפשרות לשנות את שם המשתמש מרגע שנרשמתם. אתם תמיד תוצגו תחת השם &apos;%1&apos; בשרת הזה. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם להרשם?&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אתם עומדים לרשום את עצמכם לשרת. אין אפשרות לבטל פעולה זו, ואין אפשרות לשנות את שם המשתמש מרגע שנרשמתם. אתם תמיד תוצגו תחת השם &apos;%1&apos; בשרת הזה, גם אם תשנו אותו בעת ההתחברות. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם להרשם?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register user %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;רשום את המשתמש %1&lt;/p&gt;</translation>
+        <translation>רשום משתמש %1</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;אתם עומדים לרשום את %1 בשרת. לא ניתן לבטל את הפעולה הזו, שם המשתמש לא ניתן לשינוי מרגע ההרשמה, ובתור משתמש רשום, ל-%1 תהיה גישה לשרת גם אם תשנו את הסיסמא.&lt;/p&gt;&lt;p&gt;מנקודה זו ואילך, %1 יזוהה בעזרת אישור האבטחה שבו הוא משתמש כעת.&lt;/p&gt;&lt;p&gt;האם אתם בטוחים שברצונכם לרשום את %1?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;אתם עומדים לרשום את %1 בשרת. לא ניתן לבטל את הפעולה הזו, שם המשתמש לא ניתן לשינוי מרגע ההרשמה, ובתור משתמש רשום, ל-%1 תהיה גישה לשרת גם אם תשנו את הסיסמא.&lt;/p&gt;&lt;p&gt;מנקודה זו ואילך, %1 יזוהה בעזרת תעודת האבטחה שבו הוא משתמש כעת.&lt;/p&gt;&lt;p&gt;האם אתה בטוח כי ברצונך לרשום את %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished">מעיף את המשתמש %1</translation>
+        <translation>בועט משתמש %1</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation>מנדה את המשתמש %1</translation>
+        <translation>אוסר משתמש %1</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation>מציג הודעה אישית של המשתמש %1</translation>
+        <translation>צפה בהערה על משתמש %1</translation>
     </message>
     <message>
-        <location line="+56"/>
+        <location line="+72"/>
         <location line="+263"/>
         <source>Message to channel %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה לחדר %1&lt;/p&gt;</translation>
+        <translation>הודעה לערוץ %1</translation>
     </message>
     <message>
-        <location line="-2"/>
-        <source>To %1 (Tree): %2</source>
-        <translation>אל %1 (עץ): %2</translation>
-    </message>
-    <message>
-        <location line="+625"/>
+        <location line="+635"/>
         <source>Connected.</source>
-        <translation type="unfinished">מחובר.</translation>
+        <translation>מחובר.</translation>
     </message>
     <message>
-        <location line="+159"/>
+        <location line="+135"/>
         <source>SSL Version mismatch</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;חוסר התאמה בגרסאת SSL&lt;/p&gt;</translation>
+        <translation>גירסאת SSL לא תואמת</translation>
     </message>
     <message>
-        <location line="+278"/>
+        <location line="+155"/>
+        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to channel '%1' here</oldsource>
+        <translation>&lt;center&gt;רשום הודעה לערוץ %1 כאן&lt;/center&gt;</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
+        <oldsource>Type message to user '%1' here</oldsource>
+        <translation>&lt;center&gt;רשום הודעה למשתמש %1 כאן&lt;/center&gt;</translation>
+    </message>
+    <message>
+        <location line="+122"/>
         <source>Choose image file</source>
-        <translation type="unfinished">בחר קובץ תמונה</translation>
+        <translation>בחר קובץ תמונה</translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Failed to load image</source>
-        <translation>טעינת התמונה נכשלה</translation>
+        <translation>נכשל לטעון תמונה</translation>
     </message>
     <message>
-        <location line="-17"/>
+        <location line="-27"/>
         <source>Could not open file for reading.</source>
-        <translation>לא ניתן לפתוח את הקובץ לקריאה.</translation>
+        <translation>לא היה ניתן לפתוח קובץ לקריאה.</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורמט התמונה לא מזוהה.&lt;/p&gt;</translation>
+        <translation>פורמט תמונה לא מזוהה.</translation>
     </message>
     <message>
-        <location line="-1777"/>
+        <location line="-1796"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation>ערוץ הקול נשלח דרך ערוץ השליטה.</translation>
+        <translation>ערוץ הקול נשלח דרך ערוץ בקרה.</translation>
     </message>
     <message>
-        <location line="-937"/>
+        <location line="-940"/>
         <source>&amp;User</source>
-        <translation type="unfinished">&amp;משתמש</translation>
+        <translation>&amp;משתמש</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished">&amp;חדר</translation>
+        <translation>&amp;ערוץ</translation>
     </message>
     <message>
         <location line="+59"/>
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;השתמש ביחד עם אפשרות הלחישה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4826,12 +4799,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>משנה את המצב של ממשק-המשחק.</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>Whisper/Shout</source>
-        <translation type="unfinished">לחש/צעק</translation>
-    </message>
-    <message>
-        <location line="+3"/>
+        <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
         <translation>קשר ערוץ</translation>
@@ -4840,33 +4808,27 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;החלף מצב שידור&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+60"/>
-        <location line="+2411"/>
-        <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
-        <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;לא מחובר&lt;/p&gt;&lt;/center&gt;</translation>
-    </message>
-    <message>
-        <location line="-2317"/>
+        <location line="+154"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>ביטול</translation>
     </message>
     <message>
-        <location line="+567"/>
+        <location line="+570"/>
         <source>Change your comment</source>
         <translation>שנה את הודעתך האישית</translation>
     </message>
     <message>
         <location line="+105"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished">&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p dir=&quot;RTL&quot;&gt;פרוטוקול %1.&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p&gt;פרוטוקול %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;ערוץ שליטה&lt;/h2&gt;&lt;p&gt;מוצפן עם %1 ביט %2&lt;br /&gt;השהייה ממוצעת של %3 מ&quot;ש (%4 סטייה)&lt;/p&gt;&lt;p&gt;מארח מרוחק %5 (פורט %6)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;ערוץ בקרה&lt;/h2&gt;&lt;p&gt;מוצפן עם %1 ביט %2&lt;br /&gt;אחזור ממוצע של %3 מ&quot;ש (%4 סטייה)&lt;/p&gt;&lt;p&gt;מארח מרוחק %5 (פורט %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4876,27 +4838,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>To Server</source>
-        <translation type="unfinished">אל שרת</translation>
+        <translation>אל שרת</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>From Server</source>
-        <translation type="unfinished">מן השרת</translation>
+        <translation>מן שרת</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Good</source>
-        <translation type="unfinished">טוב</translation>
+        <translation>טוב</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Late</source>
-        <translation type="unfinished">מאוחר</translation>
+        <translation>אוחר</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Lost</source>
-        <translation type="unfinished">אבוד</translation>
+        <translation>אבד</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4906,58 +4868,63 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;רוחב הפס של תעבורת קול&lt;/h2&gt;&lt;p&gt;מקסימלי: %1 ק&quot;ב/ש&lt;br /&gt;נוכחי: %2 ק&quot;ב/ש&lt;br /&gt;קידוד: %3&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;רוחב הפס של תעבורת קול&lt;/h2&gt;&lt;p&gt;מקסימלי: %1 קב&quot;ש&lt;br /&gt;נוכחי: %2 קב&quot;ש&lt;br /&gt;קידוד: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Mumble Server Information</source>
-        <translation type="unfinished">מידע על שרת הממבל</translation>
+        <translation>מידע שרת ‫Mumble</translation>
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1439"/>
+        <location line="+1446"/>
         <source>&amp;View Certificate</source>
-        <translation>ה&amp;צג אישור אבטחה</translation>
+        <translation>ה&amp;צג תעודת אבטחה</translation>
     </message>
     <message>
-        <location line="-1164"/>
+        <location line="-1168"/>
         <location line="+19"/>
         <source>Enter reason</source>
-        <translation type="unfinished">הכנס סיבה</translation>
+        <translation>הכנס סיבה</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Sending message to %1</source>
-        <translation type="unfinished">שליחת הודעה אל %1</translation>
+        <translation>שליחת הודעה אל %1</translation>
     </message>
     <message>
         <location line="+12"/>
-        <location line="+83"/>
+        <location line="+99"/>
         <location line="+4"/>
         <location line="+259"/>
         <source>To %1: %2</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אל %1: %2&lt;/p&gt;</translation>
+        <translation>לכבוד %1: %2</translation>
     </message>
     <message>
-        <location line="-346"/>
-        <location line="+87"/>
+        <location line="-362"/>
+        <location line="+103"/>
         <source>Message to %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה אל %1&lt;/p&gt;</translation>
+        <translation>הודעה לכבוד %1</translation>
     </message>
     <message>
-        <location line="-44"/>
+        <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>האם אתם בטוחים שברצונכם לאפס את ההודעה האישית של %1?</translation>
+        <translation>האם אתה בטוח כי ברצונך לאפס את ההודעה האישית של משתמש %1?</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Are you sure you want to reset the avatar of user %1?</source>
+        <translation>האם אתה בטוח כי ברצונך לאפס את התמונה האישית של המשתמש %1?</translation>
     </message>
     <message>
         <location line="+221"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם למחוק את %1 ואת כל תת-הערוצים שלו?&lt;/p&gt;</translation>
+        <translation>האם אתה בטוח כי ברצונך למחוק את %1 ואת כל ערוצי המשנה שלו?</translation>
     </message>
     <message>
         <location line="+71"/>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished">שליחת הודעה לערוץ %1</translation>
+        <translation>שליחת הודעה לערוץ %1</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -4965,51 +4932,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>הודעה לעץ-ערוצים %1</translation>
     </message>
     <message>
-        <location line="+574"/>
-        <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"></translation>
+        <location line="+0"/>
+        <source>To %1 (Tree): %2</source>
+        <oldsource>(Tree) %1: %2</oldsource>
+        <translation>אל %1 (עץ): %2</translation>
     </message>
     <message>
-        <location line="+210"/>
-        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>השרת המבוקש משתמש בהצפנה ישנה, ולא נתמך יותר בגרסאות מודרניות של ממבל.</translation>
-    </message>
-    <message>
-        <location line="+24"/>
-        <location filename="Messages.cpp" line="+98"/>
-        <source>Username in use</source>
-        <translation>שם משתמש תפוס</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <location filename="Messages.cpp" line="+3"/>
-        <source>Wrong certificate or password</source>
-        <translation>אישור אבטחה או סיסמא שגויים</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Wrong certificate or password for registered user. If you are
-certain this user is protected by a password please retry.
-Otherwise abort and check your certificate and username.</source>
-        <translation>אישור אבטחה או סיסמא שגויים. אם אתה בטוח שמשתמש זה מוגן בסיסמא נסה שוב.אחרת בטל ובדוק את אישור האבטחה שלך ושם המשתמש.</translation>
-    </message>
-    <message>
-        <location line="+122"/>
-        <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
-        <translation type="unfinished">&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה לערוץ %1 כאן&lt;/p&gt;&lt;/center&gt;</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
-        <translation>&lt;center&gt;&lt;p dir=&quot;RTL&quot;&gt;רשום הודעה למשתמש %1 כאן&lt;/p&gt;&lt;/center&gt;</translation>
-    </message>
-    <message>
-        <location line="+122"/>
-        <source>Images (*.png *.jpg *.jpeg *.svg)</source>
-        <translation>תמונות (*.png *.jpg *.jpeg *.svg)</translation>
-    </message>
-    <message>
-        <location line="-899"/>
+        <location line="+175"/>
         <source>Unmuted and undeafened.</source>
         <translation>השתקה והחרשה בוטלו.</translation>
     </message>
@@ -5044,71 +4973,105 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אודות Qt</translation>
     </message>
     <message>
-        <location line="+451"/>
+        <location line="+279"/>
+        <source>Cycled Transmit Mode to %1</source>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מצב השידור הוחלף למצב %1&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+148"/>
         <source>SSL Verification failed: %1</source>
         <translation>אימות SSL נכשל: %1</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;אזהרה!&lt;/b&gt; השרת הציג אישור אבטחה שונה מזה שנשמר מקומית.</translation>
+        <translation>&lt;b&gt;אזהרה!&lt;/b&gt; השרת הציג תעודת אבטחה שונה מזו האחרונה אשר שמורה באופן מקומי.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Sever presented a certificate which failed verification.</source>
-        <translation>השרת הציג אישור אבטחה שאימותו נכשל.</translation>
+        <translation>השרת הציג תעודת אבטחה שאימותה נכשל.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1.&lt;br /&gt;השגיאות הספציפיות עם אישור אבטחה זה הן: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;האם אתם בטוחים שברצונכם לקבל את אישור האבטחה הזה?&lt;br /&gt;(אם תסכימו, האישור גם יישמר כדי שלא תצטרכו להסכים בכל פעם מחדש.)&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;השגיאות הספציפיות עם תעודת אבטחה זו הן: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;האם אתה בטוח כי ברצונך לקבל את תעודת האבטחה זו?&lt;br /&gt;(אם תסכים, זו גם תישמר כדי שלא תצטרך להסכים בכל פעם מחדש.)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+30"/>
+        <location line="+24"/>
+        <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
+        <translation>שרת זה משתמש בתקן הצפנה ישן, ולא נתמך יותר על ידי גרסאות מודרניות של Mumble.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התחברות לשרת נכשלה: %1.&lt;/p&gt;</translation>
+        <translation>התחברות שרת נכשלה: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Disconnected from server.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מנותק מהשרת&lt;/p&gt;</translation>
+        <translation>נותק מן שרת.</translation>
     </message>
     <message>
         <location line="+11"/>
-        <location filename="Messages.cpp" line="-6"/>
+        <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
-        <translation type="unfinished">שם משתמש לא תקין</translation>
+        <translation>שם משתמש לא תקין</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;התחברת עם שם משתמש לא תקין, נסו שם אחר בבקשה.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;התחברתם עם שם משתמש לא תקין, נסו אחד אחר.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <location filename="Messages.cpp" line="+3"/>
+        <source>Username in use</source>
+        <translation>שם משתמש מצוי בשימוש</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>That username is already in use, please try another username.</source>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שם המשתמש שלכם כבר בשימוש, נסו אחד אחר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם המשתמש כבר בשימוש, נסו שם אחר בבקשה.&lt;/p&gt;</translation>
+        <location filename="Messages.cpp" line="+3"/>
+        <source>Wrong certificate or password</source>
+        <translation>תעודת אבטחה או סיסמא שגויות</translation>
     </message>
     <message>
-        <location line="+13"/>
-        <location filename="Messages.cpp" line="+9"/>
+        <location line="+1"/>
+        <source>Wrong certificate or password for registered user. If you are
+certain this user is protected by a password please retry.
+Otherwise abort and check your certificate and username.</source>
+        <translation>תעודת אבטחה או סיסמא שגויות. אם אתה בטוח כי משתמש זה מוגן על ידי סיסמא נסה שוב.אחרת בטל ובדוק את תעודת האבטחה שלך ושם המשתמש.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
-        <translation type="unfinished">סיסמא שגויה</translation>
+        <translation>סיסמא שגויה</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;סיסמאת שרת לא נכונה עבור משתמש לא רשום, נסו שוב בבקשה.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הסיסמה שהזנתם אינה נכונה, אנא נסו שנית.&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location line="+241"/>
+        <source>Images (*.png *.jpg *.jpeg)</source>
+        <translation>תמונות (‎*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished">א&amp;פשרויות</translation>
+        <translation>&amp;תצורה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Help</source>
-        <translation type="unfinished">&amp;עזרה</translation>
+        <translation>&amp;עזרה</translation>
     </message>
     <message>
         <location/>
@@ -5123,17 +5086,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished">&amp;צא מממבל</translation>
+        <translation>י&amp;ציאה מן Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Closes the program</source>
-        <translation type="unfinished">סוגר את התוכנה</translation>
+        <translation>סוגר את התוכנה</translation>
     </message>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation type="unfinished">יוצא מהיישום.</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;יוצא מממבל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5143,17 +5106,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Connect</source>
-        <translation type="unfinished">התח&amp;בר</translation>
+        <translation>הת&amp;חבר</translation>
     </message>
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פותח את תיבת ההתחברות לשרת&lt;/p&gt;</translation>
+        <translation>פתח את תיבת ההתחברות לשרת</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Disconnect</source>
-        <translation type="unfinished">הת&amp;נתק</translation>
+        <translation>הת&amp;נתק</translation>
     </message>
     <message>
         <location/>
@@ -5168,12 +5131,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Information</source>
-        <translation type="unfinished">מי&amp;דע</translation>
+        <translation>&amp;מידע</translation>
     </message>
     <message>
         <location/>
         <source>Show information about the server connection</source>
-        <translation>מראה מידע על החיבור לשרת</translation>
+        <translation>הצגת מידע אודות החיבור של הרשת</translation>
     </message>
     <message>
         <location/>
@@ -5183,12 +5146,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation type="unfinished">הע&amp;ף</translation>
+        <translation>&amp;בעט</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation type="unfinished">ה&amp;שתק</translation>
+        <translation>&amp;השתק</translation>
     </message>
     <message>
         <location/>
@@ -5198,52 +5161,52 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation type="unfinished">הח&amp;רש</translation>
+        <translation>&amp;החרש</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation type="unfinished">השתק מ&amp;קומית</translation>
+        <translation>&amp;השתק מקומית</translation>
     </message>
     <message>
         <location/>
         <source>Send a Text Message</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שלח הודעת טקסט&lt;/p&gt;</translation>
+        <translation>שלח הודעת טקסט</translation>
     </message>
     <message>
         <location/>
         <source>Sends a text message to another user.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שולח הודעת טקסט למשתמש אחר.&lt;/p&gt;</translation>
+        <translation>שולחת הודעת טקסט אל משתמש אחר.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished">הו&amp;סף</translation>
+        <translation>&amp;הוסף</translation>
     </message>
     <message>
         <location/>
         <source>Add new channel</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף ערוץ חדש&lt;/p&gt;</translation>
+        <translation>הוסף ערוץ חדש</translation>
     </message>
     <message>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מוסיפה תת-ערוץ חדש לחדר המסומן.&lt;/p&gt;</translation>
+        <translation>זו מוסיפה ערוץ משנה חדש לחדר שמסומן ברגע נתון.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">ה&amp;סר</translation>
+        <translation>&amp;הסר</translation>
     </message>
     <message>
         <location/>
         <source>Remove channel</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסר ערוץ&lt;/p&gt;</translation>
+        <translation>הסר ערוץ</translation>
     </message>
     <message>
         <location/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מסיר את הערוץ וכל תת-הערוצים שלו.&lt;/p&gt;</translation>
+        <translation>זו מסירה ערוץ וכל ערוץ משנה.</translation>
     </message>
     <message>
         <location/>
@@ -5258,7 +5221,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Link</source>
-        <translation>&amp;קשר</translation>
+        <translation>&amp;קישור</translation>
     </message>
     <message>
         <location/>
@@ -5273,7 +5236,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Chatbar</source>
-        <translation>צ&apos;אט</translation>
+        <translation>סרגל שיחה</translation>
     </message>
     <message>
         <location/>
@@ -5333,7 +5296,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation type="unfinished">&amp;ערוך</translation>
+        <translation>&amp;ערוך</translation>
     </message>
     <message>
         <location/>
@@ -5345,7 +5308,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>ב&amp;טל קישור</translation>
+        <translation>&amp;איין קישור</translation>
     </message>
     <message>
         <location/>
@@ -5370,7 +5333,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished">&amp;אפס</translation>
+        <translation>&amp;אפס</translation>
     </message>
     <message>
         <location/>
@@ -5385,7 +5348,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation type="unfinished">הש&amp;תק את עצמך</translation>
+        <translation>&amp;השתקה עצמית</translation>
     </message>
     <message>
         <location/>
@@ -5400,7 +5363,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished">ה&amp;חרש את עצמך</translation>
+        <translation>&amp;החרשה עצמית</translation>
     </message>
     <message>
         <location/>
@@ -5415,7 +5378,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished">&amp;טקסט-לדיבור</translation>
+        <translation>&amp;טקסט-אל דיבור</translation>
     </message>
     <message>
         <location/>
@@ -5450,22 +5413,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation type="unfinished">ה&amp;גדרות</translation>
+        <translation>&amp;הגדרות</translation>
     </message>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation>הגדרת ממבל</translation>
+        <translation>תצורת Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>מאפשר לכם לשנות את רוב האפשרויות של ממבל.</translation>
+        <translation>מאפשר לכם לשנות את רוב האפשרויות עבור Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished">אשף כיוון &amp;צלילים</translation>
+        <translation>&amp;אשף שמע</translation>
     </message>
     <message>
         <location/>
@@ -5480,7 +5443,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished">&amp;מה זה?</translation>
+        <translation>&amp;מה זה?</translation>
     </message>
     <message>
         <location/>
@@ -5490,37 +5453,37 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>לחצו כאן כדי להכנס למצב &quot;מה זה?&quot;. הסמן שלכם יהפוך לסימן שאלה. לחיצה על כל כפתור, תפריט או אזור בממבל תראה תיאור עליו.</translation>
+        <translation>לחצו כאן כדי להכנס למצב &quot;מה זה?&quot;. הסמן שלכם יהפוך לסימן שאלה. לחצו על כל כפתור, תפריט או אזור כדי להציג תיאור של מה הדבר.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;אודות</translation>
+        <translation>&amp;אודות</translation>
     </message>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation>מידע אודות ממבל</translation>
+        <translation>מידע אודות Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation>מראה חלון קטן עם מידע על ממבל והרישיון של ממבל.</translation>
+        <translation>הצגת דו שיח קטן עם מידע ורשיון Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Speex</source>
-        <translation>אודות ס&amp;פיקס</translation>
+        <translation>אודות &amp;Speex</translation>
     </message>
     <message>
         <location/>
         <source>Information about Speex</source>
-        <translation>מידע אודות ספיקס</translation>
+        <translation>מידע אודות Speex</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation>מראה חלון קטן עם מידע אודות ספיקס.</translation>
+        <translation>הצגת דו שיח קטן עם מידע אודות Speex.</translation>
     </message>
     <message>
         <location/>
@@ -5535,22 +5498,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation>מראה חלון קטן עם מידע אודות Qt.</translation>
+        <translation>הצגת דו שיח קטן עם מידע אודות Qt.</translation>
     </message>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished">בדוק אם יש &amp;עדכונים</translation>
+        <translation>בדוק עבור &amp;עדכונים</translation>
     </message>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished">בודק האם קיימת גרסא חדשה של ממבל</translation>
+        <translation>בדוק עבור גירסא חדשה של Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>מתחבר לשרת המרכז של ממבל כדי לבדוק אם קיימת גרסא חדשה, ומודיע לכם על קישור ההורדה אם אכן יש עדכון.</translation>
+        <translation>מתחבר לשרת המרכזי של Mumble כדי לבדוק אם קיימת גרסא חדשה, ומודיע לכם על קישור ההורדה אם אכן יש עדכון.</translation>
     </message>
     <message>
         <location/>
@@ -5560,17 +5523,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Change Comment</source>
-        <translation>שנה הודעה א&amp;ישית</translation>
+        <translation>&amp;שנה הערה</translation>
     </message>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation>הגדרת אישור אבטחה עבור הזדהות מאובטחת</translation>
+        <translation>הגדרת תעודות אבטחה לשם אימות חזק</translation>
     </message>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>מפעיל את אשף אישורי האבטחה, שמאפשר יצירה, ייבוא וייצוא של אישורי אבטחה להזדהות מול שרתים.</translation>
+        <translation>מפעיל את אשף תעודות האבטחה, שמאפשר יצירה, ייבוא וייצוא של תעודת אבטחה להזדהות מול שרתים.</translation>
     </message>
     <message>
         <location/>
@@ -5585,7 +5548,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished">הוסף &amp;חבר</translation>
+        <translation>הוסף &amp;חבר</translation>
     </message>
     <message>
         <location/>
@@ -5600,7 +5563,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished">ה&amp;סר חבר</translation>
+        <translation>הס&amp;ר חבר</translation>
     </message>
     <message>
         <location/>
@@ -5615,7 +5578,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished">&amp;עדכן חבר</translation>
+        <translation>&amp;עדכן חבר</translation>
     </message>
     <message>
         <location/>
@@ -5625,12 +5588,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;חבר זה משתמש בשם שונה מזה שתחתיו הוא רשום במאגר המידע שלכם. אפשרות זו תעדכן את השם.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;חברכם משתמש בשם אחר מזה שנשמר אצלכם. אפשרות זו תעדכן את השם.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished">&amp;משתמשים רשומים</translation>
+        <translation>&amp;משתמשים רשומים</translation>
     </message>
     <message>
         <location/>
@@ -5645,7 +5608,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished">&amp;סיסמאות</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&amp;מפתחות גישה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5655,7 +5618,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished">&amp;מראה מינימלי</translation>
+        <translation>&amp;תצוגה מינימלית</translation>
     </message>
     <message>
         <location/>
@@ -5668,7 +5631,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אפשרות זו מפעילה או מכבה את התצוגה המינימלית, שבה התפריט וחלונות הצ&apos;אט והיומן מוסתרים.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+278"/>
+        <location filename="Messages.cpp" line="+282"/>
         <source>You muted and deafened %1.</source>
         <translation>השתקת והחרשת את %1.</translation>
     </message>
@@ -5710,38 +5673,38 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2 על ידי %3.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר ל %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+14"/>
+        <location line="+15"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר לערוץ זה מ %2 על ידי %3.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 הועבר לחדר זה מ %2 על ידי %3.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-161"/>
+        <location line="-162"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 מושתק ומוחרש כעת.</translation>
     </message>
     <message>
-        <location line="-202"/>
+        <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אנו לא יכולים לאמת את חשבונך. נסה שנית מאוחר יותר&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <location line="+48"/>
+        <location line="+17"/>
+        <location line="+51"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעת פתיחה: %1&lt;/p&gt;</translation>
+        <translation>הודעת פתיחה: %1</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished">ממבל: %1</translation>
+        <translation>‫Mumble: ‫%1</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -5756,67 +5719,67 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: לא ניתן לשנות את SuperUser.&lt;/p&gt;</translation>
+        <translation>נדחה: לא ניתן לשנות SuperUser.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: שם ערוץ לא חוקי.&lt;/p&gt;</translation>
+        <translation>נדחה: שם ערוץ לא חוקי.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: ההודעה ארוכה מדי.&lt;/p&gt;</translation>
+        <translation>נדחה: הודעת תמליל ארוכה מדי.</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: פעולה לא מורשית בערוץ זמני.&lt;/p&gt;</translation>
+        <translation>נדחה: פעולה לא מורשית בתוך ערוץ זמני.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation>אתם זקוקים לאישור אבטחה כדי לבצע את הפעולה הזו.</translation>
+        <translation>אתם זקוקים לתעודת אבטחה כדי לבצע את פעולה זו.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation>ל-%1 אין אישור אבטחה.</translation>
+        <translation>ל-%1 אין תעודת אבטחה.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם משתמש לא חוקי: %1.&lt;/p&gt;</translation>
+        <translation>שם משתמש לא חוקי: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם משתמש לא .חוקי&lt;/p&gt;</translation>
+        <translation>שם משתמש לא .חוקי.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished">הערוץ מלא.</translation>
+        <translation>ערוץ מלא.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation>מכסת שרשור הערוצים מלאה.</translation>
+        <translation>מגבלת קינון ערוץ מוצתה.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הרשאה נדחתה.&lt;/p&gt;</translation>
+        <translation>הרשאה נדחתה.</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 התחבר.&lt;/p&gt;</translation>
+        <translation>%1 התחבר.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 מושתק כעת.&lt;/p&gt;</translation>
+        <translation>%1 הושתק.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5851,7 +5814,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הושתקת על ידי %1.&lt;/p&gt;</translation>
+        <translation>הושתקת על ידי %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5862,13 +5825,12 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translatorcomment>זה בטוח על ידי השרת? ~Sonic</translatorcomment>
         <translation>שותקת עלידי השרת.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished">שיתוקך בוטל.</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שיתוקך בוטל.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5876,37 +5838,41 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 ביטל את שיתוקך.</translation>
     </message>
     <message>
-        <location line="+98"/>
+        <location line="+99"/>
         <source>%1 is recording</source>
         <translation>%1 מקליט</translation>
     </message>
     <message>
-        <location line="+47"/>
+        <location line="+9"/>
+        <source>%1 renamed to %2</source>
+        <translation>השם %1 שונה אל %2</translation>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 עזב את הערוץ.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 התנתק.&lt;/p&gt;</translation>
+        <translation>%1 התנתק.</translation>
     </message>
     <message>
         <location line="+110"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished">שרת</translation>
+        <translation>שרת</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translatorcomment>נו, זה תרגום מסובך. ~Sonic</translatorcomment>
-        <translation>(רשימה)</translation>
+        <translation>(עץ) </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation>(ערוץ)</translation>
+        <translation>(ערוץ) </translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5916,7 +5882,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation>שרת זה דורש שגרסאת הממבל שלכם תהיה לפחות %1</translation>
+        <translation>השרת הנוכחי דורש גרסאת לקוח מינימאלית %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5939,14 +5905,14 @@ Otherwise abort and check your certificate and username.</source>
         <translation>שרת זה אוסר על שימוש בתכונת לחץ-כדי-לדבר.</translation>
     </message>
     <message>
-        <location line="-494"/>
+        <location line="-502"/>
         <source>You were unmuted by %1.</source>
         <translation>השתקתך בוטלה על ידי %1.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;השתקת את %1.&lt;/p&gt;</translation>
+        <translation>השתקת את %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5974,63 +5940,63 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%2 ביטל את השתקתו של %1.</translation>
     </message>
     <message>
-        <location line="+397"/>
+        <location line="+405"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>לא ניתן למצוא קידודי CELT תואמים עבור משתמשים אחרים. ייתכן ולא תוכלו לדבר לכל המשתמשים.</translation>
     </message>
     <message>
-        <location line="-463"/>
+        <location line="-471"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הושתקת והוחרשת על ידי %1.&lt;/p&gt;</translation>
+        <translation>הושתקת והוחרשת על ידי %1.</translation>
     </message>
     <message>
-        <location line="+161"/>
+        <location line="+169"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועפת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הועפת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%3 הועף מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%3 הועף מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועפת והושעת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הועפת והושעת מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%3 הועף והושעה מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%3 הועף והושעה מהשרת על ידי %1: %2.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-64"/>
+        <location line="-72"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הועברת אל  %1 על ידי %2.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הועברת אל  %1 על ידי %2.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לערוץ.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לערוץ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-355"/>
+        <location line="-359"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ההתקשרות לשרת נדחתה: %1.&lt;/p&gt;</translation>
+        <translation>התקשרות שרת נדחתה: %1.</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+147"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;נדחה: %1.&lt;/p&gt;</translation>
+        <translation>נדחה: %1.</translation>
     </message>
     <message>
-        <location line="+384"/>
+        <location line="+392"/>
         <source>Message from %1</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הודעה מ-%1&lt;/p&gt;</translation>
+        <translation>הודעה מן %1</translation>
     </message>
     <message>
-        <location filename="UserModel.cpp" line="+1417"/>
+        <location filename="UserModel.cpp" line="+1413"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
         <translation>הגדרתם את פעולת גרירת הערוצים ל&quot;אל תעשה דבר&quot;, ולכן הערוץ לא הוזז.</translation>
     </message>
@@ -6057,23 +6023,28 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translatorcomment>אוי ואבוי... ~Sonic</translatorcomment>
-        <translation>שימוש: mumble ]הגדרות] [&lt;url&gt;]
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;
+שימוש: mumble [options] [&lt;url&gt;]
 
-&lt;url&gt; מגדיר כתובת אינטרנט שאליה תתחברו לאחר ההפעלה במקום להראות
-את חלון ההתחברות, ויש לה את הפורמט הבא:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+&lt;url&gt; מגדיר את כתובת השרת אליה יש להתחבר במקום להציג את חלון ההתחברות, וזוהי התצורה:&lt;/p&gt;
+&lt;p dir=&quot;LTR&quot;&gt;
+mumble://[&lt;שם משתמש&gt;[:&lt;סיסמא&gt;]@]&lt;כתובת השרת&gt;[:&lt;פורט&gt;][/&lt;ערוץ&gt;[/&lt;ערוץ משנה&gt;...]][?verion=&lt;גרסה x.y.z&gt;]
+או באנגלית:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;
+&lt;/p&gt;
+&lt;p dir=&quot;RTL&quot;&gt;
+פרמטר הגרסה נדרש כדי להפעיל את הגרסה הנכונה של ממבל. ברירת המחדל כרגע היא 1.2.0.
 
-פרמטר הגרסא חייב להיות מוגדר כדי להפעיל
-את גרסאת הקליינט הנכונה. ברירת המחדל כרגע היא 1.2.0.
-
-האפשרויות התקינות הן:
-  -h, --help    מראה את טקסט העזרה הזה ויוצא מיד לאחר מכן.
-  -m, --multiple
-                מאפשר הפעלה של מספר עותקים של ממבל בו זמנית.
-  -n, --noidentity
-                מבטל טעינה של אמצעי זיהוי (כמו אישור אבטחה)
-</translation>
+האפשרויות הנוספות הן:
+&lt;/p&gt;
+&lt;p dir=&quot;LTR&quot;&gt;
+-h, --help
+להצגת טקסט העזרה הזה ויציאה לאחר מכן.
+-m, --multiple
+מאפשר מספר הפעלות של ממבל בו זמנית.
+-n, --noidentity
+מונע שימוש באמצעי זיהוי (אישורי אבטחה וכדומה)
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6083,7 +6054,7 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;ברוך הבא לממבל.&lt;/p&gt;</translation>
+        <translation>ברוך בואך אל Mumble.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -6108,22 +6079,22 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished">שלח ה&amp;ודעה</translation>
+        <translation>שלח &amp;הודעה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation>בטל את כל הקישורים</translation>
+        <translation>&amp;איין קישור הכל</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation>אשף אישורי הא&amp;בטחה</translation>
+        <translation>אשף &amp;תעודה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished">הרש&amp;ם</translation>
+        <translation>&amp;הרשם</translation>
     </message>
     <message>
         <location/>
@@ -6138,7 +6109,7 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished">&amp;הצטרף לערוץ</translation>
+        <translation>&amp;הצטרף לערוץ</translation>
     </message>
     <message>
         <location/>
@@ -6158,27 +6129,27 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished">שר&amp;ת</translation>
+        <translation>&amp;שרת</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished">עצ&amp;מי</translation>
+        <translation>ע&amp;צמי</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation>סטטיסטיקות קו&amp;ל</translation>
+        <translation>&amp;סטטיסטיקות שמע</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation>נתק תוספי&amp;ם</translation>
+        <translation>&amp;איין קישור תוספת</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished">ה&amp;רשם</translation>
+        <translation>ה&amp;רשם</translation>
     </message>
     <message>
         <location/>
@@ -6187,28 +6158,28 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     </message>
     <message>
         <location/>
-        <source>Icon Toolbar</source>
-        <translation>סרגל הסמלים</translation>
-    </message>
-    <message>
-        <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished">שנה ת&amp;מונה אישית</translation>
+        <translation>שנה &amp;אווטאר</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שנו את התמונה האישית שלכם בשרת הזה&lt;/p&gt;</translation>
+        <translation>שנה את האווטאר שלך בשרת זה</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished">&amp;הסר תמונה אישית</translation>
+        <translation>הס&amp;ר אווטאר</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הסירו את התמונה האישית הנוכחית שלכם.&lt;/p&gt;</translation>
+        <translation>הסר תמונת אווטאר מוגדרת נוכחית.</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Icon Toolbar</source>
+        <translation>צלמית סרגל כלים</translation>
     </message>
     <message>
         <location/>
@@ -6217,18 +6188,18 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     </message>
     <message>
         <location/>
+        <source>Recording</source>
+        <translation>הקלטה</translation>
+    </message>
+    <message>
+        <location/>
         <source>Priority Speaker</source>
         <translation>מועדף דיבור</translation>
     </message>
     <message>
         <location/>
-        <source>Recording</source>
-        <translation>מקליט</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Copy URL</source>
-        <translation>העת&amp;ק קישור</translation>
+        <translation>&amp;העתק URL</translation>
     </message>
     <message>
         <location/>
@@ -6253,27 +6224,27 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&amp;רשימת חסומים&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;ערוך את רשימת החסומים של השרת&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מאפשרת לערוך את רשימת חסימות ה-IP של השרת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"></translation>
+        <translation>הדלק/כבה &amp;מסננת</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הפעל או בטל את מסנן הערוצים (Ctrl+F)&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6281,17 +6252,29 @@ mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מאפשר או מבטל סינון של ערוצים.
+כברירת מחדל, כל הערוצים הריקים יסוננו.
+תוכלו להגדיר ערוצים נוספים לסינון דרך תפריט ההקשר של הערוץ.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&amp;סנן ערוץ&lt;/p&gt;</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reset &amp;Avatar</source>
+        <translation>אפס &amp;תמונה אישית</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Reset the avatar of the selected user.</source>
+        <translation>איפוס התמונה האישית של המשתמש.</translation>
     </message>
 </context>
 <context>
@@ -6299,7 +6282,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation>רשת</translation>
+        <translation>רשת עבודה</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -6315,42 +6298,42 @@ the channel&apos;s context menu.</source>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation>השתמש במצב תאימות ל-TCP</translation>
+        <translation>הפעלת מצב תואם TCP</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;הפעל מצב תאימות ל-TCP&lt;/b&gt;.&lt;br /&gt;אפשרות זו תגרום לממבל להשתמש אך ורק בפרוטוקול TCP בזמן תקשורת עם השרת. הפעלה של אפשרות זו תעלה את השהיית הקול ותגרום למידע אבוד לקטוע את התקשורת, ולכן יש להשתמש בה רק במידה ואין באפשרותכם להשתמש במצב הרגיל (UDP עבור קול ו-TCP עבור שליטה).</translation>
+        <translation>&lt;b&gt;הפעל מצב תאימות ל-TCP&lt;/b&gt;.&lt;br /&gt;אפשרות זו תגרום ל-Mumble להשתמש אך ורק בפרוטוקול TCP בזמן תקשורת עם השרת. הפעלה של אפשרות זו תעלה את השהיית הקול ותגרום למידע אבוד לקטוע את התקשורת, ולכן יש להשתמש בה רק במידה ואין באפשרותכם להשתמש במצב הרגיל (UDP עבור קול ו-TCP עבור שליטה).</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation>התחבר מחדש כאשר החיבור נותק</translation>
+        <translation>התחברות מחודשת בעת התנתקות</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;התחבר מחדש כאשר החיבור נותק&lt;/b&gt;.&lt;br /&gt;אפשרות זו תגרום לממבל לנסות ולהתחבר מחדש אחרי 10 שניות אם החיבור לשרת נכשל.</translation>
+        <translation>&lt;b&gt;התחבר מחדש כאשר החיבור נותק&lt;/b&gt;.&lt;br /&gt;אפשרות זו תגרום ל-Mumble לנסות ולהתחבר מחדש אחרי 10 שניות אם החיבור לשרת נכשל.</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation>התחבר מחדש אוטומטית</translation>
+        <translation>התחבר שוב אוטומטית</translation>
     </message>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation>פרוקסי</translation>
+        <translation>ציר</translation>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation>סוג</translation>
+        <translation>טיפוס</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation>סוג הפרוקסי שדרכו תתחברו</translation>
+        <translation>טיפוס ציר להתחבר דרכו</translation>
     </message>
     <message>
         <location/>
@@ -6360,32 +6343,32 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation>פרוקסי HTTP(S)</translation>
+        <translation>ציר HTTP(S)‎</translation>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation>פרוקסי SOCKS5</translation>
+        <translation>ציר SOCKS5</translation>
     </message>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;שם המארח&lt;/p&gt;</translation>
+        <translation>שם מארח</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation>שם המארח של הפרוקסי</translation>
+        <translation>שם מארח של הציר</translation>
     </message>
     <message>
         <location/>
         <source>Force TCP mode</source>
-        <translation>הכרח מצב TCP</translation>
+        <translation>כפה מצב TCP</translation>
     </message>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation>אפשר QoS כדי לתעדף חבילות</translation>
+        <translation>הפעלת QoS על מנת לתעדף חבילות מידע</translation>
     </message>
     <message>
         <location/>
@@ -6395,48 +6378,47 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translatorcomment>לעזאזל עם כיווני כתיבה... ~Sonic</translatorcomment>
-        <translation>Quality of Service-השתמש ב</translation>
+        <translation>אפשר Quality of Service</translation>
     </message>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>אל תשלח אישורי אבטחה ואל תשמור סיסמאות (לא נשמר בעת יציאה).</translation>
+        <translation>אל תשלח תעודת אבטחה ואל תשמור סיסמאות (לא נשמר בעת יציאה).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;אפשרות זו תמנע שליחה של מידע זיהוי מן הקליינט.&lt;/b&gt;&lt;p dir=&quot;RTL&quot;&gt;הקליינט לא יזהה את עצמו בעזרת אישור אבטחה, גם אם הוגדר אישור כזה, ולא ישמור סיסמאות עבור חיבורים. אפשרות זו היא בעיקר עבור ניפוי שגיאות ולא תשמר בעת יציאה מממבל.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;אפשרות זו תמנע שליחה של מידע זיהוי מן הלקוח.&lt;/b&gt;&lt;p dir=&quot;RTL&quot;&gt;הלקוח לא יזהה את עצמו בעזרת תעודת אבטחה, גם אם הוגדרה תעודה כזה, ולא ישמור סיסמאות עבור חיבורים. אפשרות זו היא בעיקר עבור ניפוי שגיאות ולא תשמר בעת יציאה מתוך Mumble.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation>בטל שימוש באישורי אבטחה ושמירת סיסמאות</translation>
+        <translation>בטל אחסון תעודה וסיסמה</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;סוג הפרוקסי שדרכו תתחברו.&lt;/b&gt;&lt;br /&gt;זה מאפשר לממבל להתחבר דרך פרוקסי עבור כל החיבורים היוצאים. שימו לב: שימוש בפרוקסי מחייב את ממבל להשתמש במצב תאימות ל-TCP, שגורם לכל נתוני הקול להשלח דרך ערוץ השליטה.</translation>
+        <translation>&lt;b&gt;טיפוס ציר להתחבר דרכו.&lt;/b&gt;&lt;br /&gt;זה מאפשר ל-Mumble להתחבר דרך ציר עבור כל החיבורים היוצאים. שים לב: תיעול ציר מחייב את Mumble להשתמש במצב תאימות ל-TCP, שגורם לכל נתוני הקול להשלח דרך ערוץ הבקרה.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;שם המארח של הפרוקסי/&lt;/b&gt;&lt;br /&gt;שדה זה מגדיר את שם המארח של הפרוקסי שדרכו תרצו להתחבר.</translation>
+        <translation>&lt;b&gt;שם מארח של הציר/&lt;/b&gt;&lt;br /&gt;שדה זה מגדיר את שם המארח של הציר דרכו ברצונך לתעל תעבורה.</translation>
     </message>
     <message>
         <location/>
         <source>Port</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;פורט&lt;/p&gt;</translation>
+        <translation>פורט</translation>
     </message>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation>מספר הפורט של הפרוקסי</translation>
+        <translation>מספר הפורט של הציר</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation>&lt;b&gt;פורט הפרוקסי&lt;/b&gt;&lt;br /&gt;שדה זה מגדיר את הפורט שדרכו תתחברו אל שרת הפרוקסי.</translation>
+        <translation>&lt;b&gt;פורט של הציר&lt;/b&gt;&lt;br /&gt;שדה זה מגדיר את הפורט שדרכו תתחברו אל שרת הציר.</translation>
     </message>
     <message>
         <location/>
@@ -6446,27 +6428,27 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username for proxy authentication</source>
-        <translation>שם המשתמש להזדהות בפני הפרוקסי</translation>
+        <translation>שם משתמש עבור אימות ציר</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;שם משתמש עבור זיהוי פרוקסי&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את שם המשתמש שבו אתם משתמשים כדי להזדהות בפני שרת הפרוקסי. במידה ושרת הפרוקסי לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
+        <translation>&lt;b&gt;שם משתמש לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את שם המשתמש שבו אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished">סיסמא</translation>
+        <translation>סיסמא</translation>
     </message>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation>סיסמאת המשתמש בפרוקסי</translation>
+        <translation>סיסמא לשם אימות ציר</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;סיסמא עבור זיהוי פרוקסי&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את הסיסמא שבה אתם משתמשים כדי להזדהות בפני שרת הפרוקסי. במידה ושרת הפרוקסי לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
+        <translation>&lt;b&gt;סיסמא לשם אימות ציר&lt;/b&gt;&lt;/br &gt;אפשרות זו מגדירה את הסיסמא שבה אתם משתמשים כדי להזדהות בפני שרת הציר. במידה ושרת הציר לא מצריך הזדהות, או שאתם רוצים להתחבר בצורה אנונימית, פשוט השאירו את השדה ריק.</translation>
     </message>
     <message>
         <location/>
@@ -6476,34 +6458,34 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation>בטל הורדת תמונות על ידי היומן</translation>
+        <translation>נטרל טעינת תמונות</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation>&lt;b&gt;בטל הורדת תמונות&lt;/b&gt;&lt;br/&gt;
-מונע מהקליינט להוריד תמונות שמצורפות להודעות צ&apos;אט עם תגית התמונה.</translation>
+        <translation>&lt;b&gt;נטרל הורדת תמונות&lt;/b&gt;&lt;br/&gt;
+מונע מן הלקוח להוריד תמונות אשר מוטמעות לתוך הודעות צ&apos;אט עם התגית img.</translation>
     </message>
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation>בטל הורדת תמונות</translation>
+        <translation>נטרל הורדת תמונה</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation>שירותי ממבל</translation>
+        <translation>שירותי Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation>בדוק אם יש גרסאות חדשות של ממבל אוטומטית.</translation>
+        <translation>בדוק אם יש הוצאות חדשות של Mumble אוטומטית.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation>אפשרות זו תבדוק אם יש עדכונים חדשים עבור ממבל בכל פעם שתפעיל את ממבל, ותודיע לך אם כן.</translation>
+        <translation>אפשרות זו תבדוק אם יש עדכונים חדשים עבור Mumble בכל פעם שתפעיל את Mumble, ותודיע לך אם כן.</translation>
     </message>
     <message>
         <location/>
@@ -6518,17 +6500,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation>אפשרות זו תבדוק אם יש עדכונים לתוספים שלכם בכל פעם שתפעילו את ממבל, ותוריד אותם אוטומטית אם יש.</translation>
+        <translation>אפשרות זו תבדוק אם יש עדכונים לתוספים שלכם בכל פעם שתפעילו את Mumble, ותוריד אותם אוטומטית אם יש.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;שלח סטטיסטיקות אנונימיות.&lt;/b&gt;&lt;br /&gt;לממבל יש צוות פיתוח קטן, ולכן הוא צריך להתמקד בפיתוח החלקים שבהם יש את הצורך הגבוה ביותר. על ידי שליחת סטטיסטיקות אנונימיות אתם יכולים לעזור להם לדעת באיזה חלק של הפיתוח להתמקד.</translation>
+        <translation>&lt;b&gt;שלח סטטיסטיקות אנונימיות.&lt;/b&gt;&lt;br /&gt;ל-Mumble יש צוות פיתוח קטן, ולכן הוא צריך להתמקד בפיתוח החלקים שבהם יש את הצורך הגבוה ביותר. על ידי שליחת סטטיסטיקות אנונימיות אתם יכולים לעזור להם לדעת באיזה חלק של הפיתוח להתמקד.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished">שלח סטטיסטיקות אנונימיות לפרוייקט הממבל</translation>
+        <translation>שליחת סטטיסטיקות אנונימיות אל הפרוייקט Mumble</translation>
     </message>
     <message>
         <location/>
@@ -6538,12 +6520,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation>התחבר מחדש לשרת האחרון בעת הפעלה</translation>
+        <translation>התחברות מחודשת אל שרת אחרון בשימוש כאשר מפעילים את Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation>התחבר לשרת האחרון בהפעלה</translation>
+        <translation>התחבר שוב אל שרת אחרון בעת הפעלה</translation>
     </message>
     <message>
         <location/>
@@ -6554,8 +6536,8 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>Overlay</name>
     <message>
-        <location filename="OverlayEditorScene.cpp" line="+119"/>
-        <location filename="OverlayUser.cpp" line="+153"/>
+        <location filename="OverlayEditorScene.cpp" line="+122"/>
+        <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
         <translation>שותק</translation>
     </message>
@@ -6569,7 +6551,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished">לוחש</translation>
+        <translation>לוחש</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6584,7 +6566,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>ערוץ</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+104"/>
+        <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>נכשל ביצירת קישוריות עם ממשק-המשחק ב-%2:%1. הממשק לא יוצג.</translation>
     </message>
@@ -6592,7 +6574,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayClient</name>
     <message>
-        <location filename="OverlayUserGroup.cpp" line="+97"/>
+        <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
         <translation>סנן</translation>
     </message>
@@ -6634,12 +6616,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation>סידור</translation>
+        <translation>מיין</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation>סדר אלף בית</translation>
+        <translation>אלפבתית</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6649,7 +6631,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation>ערוך...</translation>
+        <translation>עריכה...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6670,18 +6652,20 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+83"/>
+        <location filename="OverlayConfig.cpp" line="+86"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>כדי להזיז משתמשים, גרור את הנקודה האדומה.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
+        <oldsource>To resize the users, mousewheel over a user.</oldsource>
         <translation>כדי לשנות את גודלם של משתמשים, הצבע עליהם וגלול עם העכבר.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
+        <oldsource>For more options, rightclick a user.</oldsource>
         <translation>לעוד אפשרויות, הקש קליק ימני על משתמש.</translation>
     </message>
     <message>
@@ -6708,7 +6692,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation>הגדרות מוכנות עבור ממשק-משחק של ממבל (*.mumblelay)</translation>
+        <translation>הגדרות מוכנות עבור ממשק-משחק של Mumble ‏(mumblelay.*)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -6734,27 +6718,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>אפשרות זו מגדירה האם ממשק-המשחק פעיל או לא. טעינת הממשק מתבצעת רק בעת הפעלת המשחק, ולכן יש לוודא שממבל פעיל והאפשרות הזו פעילה לפני הפעלת המשחק. &lt;br /&gt;שימו לב שאם תפעילו את ממבל אחרי  הפעלת המשחק, או שתבטלו את הממשק בזמן שהמשחק רץ, אין דרך להפעיל מחדש את הממשק מבלי להפעיל מחדש את המשחק.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Display a frame counter in the overlay</source>
-        <translation>הראה ספירת FPS בממשק</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Show FPS counter</source>
-        <translation>הראה ספירת FPS</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Uninstall Overlay</source>
-        <translation>הסר את ממשק-המשחק</translation>
+        <translation>אפשרות זו מגדירה האם ממשק-המשחק פעיל או לא. טעינת הממשק מתבצעת רק בעת הפעלת המשחק, ולכן יש לוודא כי Mumble הינו פעיל וכי אפשרות זו הינה פעילה טרם הפעלת המשחק. &lt;br /&gt;שימו לב שאם תפעילו את Mumble אחרי  הפעלת המשחק, או שתבטלו את הממשק בזמן שהמשחק רץ, אין דרך להפעיל מחדש את הממשק מבלי להפעיל מחדש את המשחק.</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished">פריסה</translation>
+        <translation>פריסה</translation>
     </message>
     <message>
         <location/>
@@ -6773,8 +6742,8 @@ Prevents the client from downloading images embedded into chat messages with the
     </message>
     <message>
         <location/>
-        <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <source>Uninstall Overlay</source>
+        <translation>הסר את ממשק-המשחק</translation>
     </message>
     <message>
         <location/>
@@ -6786,14 +6755,14 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>ממבל זיהה שממשק המשחק אינו מותקן במחשב זה.
+        <translation>‏Mumble זיהה שממשק המשחק אינו מותקן במחשב זה.
 
 לחץ על הכפתור למטה כדי להתקין את הממשק.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation>התקן ממשק-משחק</translation>
+        <translation>התקן ממשק-משחק של Mumble</translation>
     </message>
     <message>
         <location/>
@@ -6805,7 +6774,7 @@ Click the button below to install the overlay.</source>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>ממבל זיהה שגרסאת ממשק-המשחק שמותקנת במחשבך ישנה.
+        <translation>‏Mumble זיהה שגרסאת ממשק-המשחק שמותקנת במחשבך ישנה.
 
 כדי לעדכן את הגרסא, לחץ על הכפתור הבא.</translation>
     </message>
@@ -6816,23 +6785,33 @@ To upgrade these files to their latest versions, click the button below.</source
     </message>
     <message>
         <location/>
+        <source>Display a frame counter in the overlay</source>
+        <translation>הראה ספירת FPS בממשק</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Show FPS counter</source>
+        <translation>הצג מונה FPS</translation>
+    </message>
+    <message>
+        <location/>
         <source>Load an overlay preset from file</source>
         <translation>טען הגדרות ממשק מקובץ</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location/>
         <source>Load…</source>
-        <translation>טען...</translation>
+        <translation>טעינה...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
         <translation>שמור את הגדרות הממשק לקובץ</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location/>
         <source>Save…</source>
-        <translation>שמור...</translation>
+        <translation>שמירה...</translation>
     </message>
     <message>
         <location/>
@@ -6852,12 +6831,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Add...</source>
-        <translation>הוסף...</translation>
+        <translation>הוספה...</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Remove</source>
+        <translation>הסר</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation>סגנון כתב</translation>
+        <translation>גופן</translation>
     </message>
     <message>
         <location/>
@@ -6877,28 +6861,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;תצוגת FPS ושעון&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מציג את השעה בממשק-המשחק לפי שעון המחשב.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הראה שעון&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
     <name>OverlayEditor</name>
     <message>
         <location filename="OverlayEditor.ui"/>
-        <source>Overlay Editor</source>
-        <translation>עורך ממשק</translation>
-    </message>
-    <message>
-        <location/>
         <source>State</source>
         <translation>מצב</translation>
     </message>
@@ -6910,7 +6889,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Passive</source>
-        <translation>רגיל</translation>
+        <translation>פסיבי</translation>
     </message>
     <message>
         <location/>
@@ -6940,7 +6919,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation>צעקה לערוץ</translation>
+        <translation>לחישה לערוץ</translation>
     </message>
     <message>
         <location/>
@@ -6960,12 +6939,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation>השתמש בתמונה האישית של המשתמש</translation>
+        <translation>תמונת משתמש אישית, נבחרת על ידי כל משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation>תמונה</translation>
+        <translation>תמונה אישית</translation>
     </message>
     <message>
         <location/>
@@ -6975,7 +6954,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Username</source>
-        <translation>שם משמש</translation>
+        <translation>שם משתמש</translation>
     </message>
     <message>
         <location/>
@@ -7006,6 +6985,11 @@ To upgrade these files to their latest versions, click the button below.</source
         <location/>
         <source>Bounding box</source>
         <translation>מסגרת</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Overlay Editor</source>
+        <translation>עורך ממשק</translation>
     </message>
 </context>
 <context>
@@ -7065,12 +7049,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation>למעלה</translation>
+        <translation>שיא</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation>למטה</translation>
+        <translation>תחתית</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7080,7 +7064,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation>סגנון כתב...</translation>
+        <translation>גופן...</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7095,7 +7079,6 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translatorcomment>ריפוד?! O_O ~Sonic</translatorcomment>
         <translation>ריפוד</translation>
     </message>
     <message>
@@ -7126,28 +7109,28 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation>בחר סגנון כתב</translation>
+        <translation>בחר גופן</translation>
     </message>
 </context>
 <context>
     <name>OverlayPrivateWin</name>
     <message>
-        <location filename="Overlay_win.cpp" line="+58"/>
+        <location filename="Overlay_win.cpp" line="+64"/>
         <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn&apos;t found in the directory you ran Mumble from
+- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
         <translation>הטעינה של ספריית ממשק-המשחק נכשלה. זה כנראה מצביע על אחד מאלו:
-- הספרייה (mumble_ol.dll) לא נמצאה בתיקייה של ממבל
-- מערכת ההפעלה הנוכחית ישנה יותר מ-Windows XP SP2</translation>
+- הספרייה (mumble_ol.dll) לא נמצאה בתיקייה של Mumble
+- מערכת ההפעלה הנוכחית ישנה יותר מאשר Windows XP SP2</translation>
     </message>
 </context>
 <context>
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+88"/>
+        <location filename="Plugins.cpp" line="+98"/>
         <source>Plugins</source>
-        <translation>תוספים</translation>
+        <translation>תוספות</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="+60"/>
@@ -7187,7 +7170,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Reloads all plugins</source>
-        <translation>טען את כל התוספים מחדש</translation>
+        <translation>טעינה מחודשת של כל התוספות</translation>
     </message>
     <message>
         <location/>
@@ -7197,12 +7180,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation>&amp;טען מחדש תוספים</translation>
+        <translation>&amp;טען תוספות מחדש</translation>
     </message>
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation>מידע אודות תוסף</translation>
+        <translation>מידע אודות תוספת</translation>
     </message>
     <message>
         <location/>
@@ -7212,12 +7195,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished">&amp;אודות</translation>
+        <translation>&amp;אודות</translation>
     </message>
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation>הראה את דף ההגדרות של התוסף</translation>
+        <translation>הצגת עמוד תצורה של תוספת</translation>
     </message>
     <message>
         <location/>
@@ -7227,7 +7210,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>ה&amp;גדר</translation>
+        <translation>&amp;תצורה</translation>
     </message>
     <message>
         <location/>
@@ -7237,18 +7220,18 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>מופעל</translation>
+        <translation>מאופשרת</translation>
     </message>
 </context>
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+350"/>
+        <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation>מדלג על עדכון תוספים במצב דיבאג.</translation>
+        <translation>מדלג על עדכון תוספים במצב ניפוי-שגיאות.</translation>
     </message>
     <message>
-        <location line="+150"/>
+        <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
         <translation>מוריד או מעדכן תוסף עבור %1.
@@ -7260,7 +7243,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>נכשל בהתקנת תוסף חדש ל-%1.</translation>
     </message>
     <message>
-        <location line="-273"/>
+        <location line="-286"/>
         <source>%1 lost link.</source>
         <translation>%1 איבד קישור.</translation>
     </message>
@@ -7275,38 +7258,38 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation>התקן ברירת מחדל</translation>
+        <translation>התקן משתמט</translation>
     </message>
 </context>
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+756"/>
+        <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
-        <translation>קלט ברירת מחדל</translation>
+        <translation>קלט משתמט</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation>פלט ברירת מחדל</translation>
+        <translation>פלט משתמט</translation>
     </message>
 </context>
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+255"/>
+        <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
-        <translation>נכשל בטעינת תמונה</translation>
+        <translation>טעינת תמונה נכשלה</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation>קובץ התמונה גדול מדי מכדי להשתלב במסמך. אנא בחרו בתמונה קטנה מ-%1 ק&quot;ב.</translation>
+        <translation>קובץ התמונה גדול מדי מכדי להשתלב בתוך המסמך. אנא השתמש בתמונות קטנות מאשר %1 ק&quot;ב.</translation>
     </message>
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation>ההודעה ארוכה מדי.</translation>
+        <translation>הודעה הינה ארוכה מדי.</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
@@ -7321,7 +7304,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation>ה&amp;דגש</translation>
+        <translation>&amp;בולט</translation>
     </message>
     <message>
         <location/>
@@ -7331,7 +7314,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation>נ&amp;טוי</translation>
+        <translation>&amp;נטוי</translation>
     </message>
     <message>
         <location/>
@@ -7361,7 +7344,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation>הכנס קישור</translation>
+        <translation>שיבוץ קישור</translation>
     </message>
     <message>
         <location/>
@@ -7371,7 +7354,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation>הכנס תמונה</translation>
+        <translation>שיבוץ תמונה</translation>
     </message>
 </context>
 <context>
@@ -7395,7 +7378,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+474"/>
+        <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>לא ניתן לשלוח או לקבל חבילות UDP. עובר למצב TCP.</translation>
     </message>
@@ -7417,15 +7400,15 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+39"/>
         <source>Connection timed out</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הזמן המוקצב להתחברות חלף.&lt;/p&gt;</translation>
+        <translation>זמן חיבור פקע</translation>
     </message>
 </context>
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-633"/>
+        <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation>מועדפים</translation>
+        <translation>מועדף</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7433,12 +7416,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <translation>רשת מקומית</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Public Internet</source>
-        <translation>אינטרנט</translation>
+        <translation>אינטרנט פומבי</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+7"/>
         <source>Africa</source>
         <translation>אפריקה</translation>
     </message>
@@ -7450,12 +7433,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation>צפון אמריקה</translation>
+        <translation>אמריקה הצפונית</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation>דרום אמריקה</translation>
+        <translation>אמריקה הדרומית</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7473,7 +7456,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation type="unfinished">לא מוקצה</translation>
+        <translation>לא מוקצה</translation>
     </message>
 </context>
 <context>
@@ -7481,22 +7464,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation type="unfinished">הפעל</translation>
+        <translation>לחיצה</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation type="unfinished">הפסק</translation>
+        <translation>מבוטל</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>שנה מצב</translation>
+        <translation>החלף</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished">לא מוקצה</translation>
+        <translation>לא מוקצה</translation>
     </message>
 </context>
 <context>
@@ -7504,7 +7487,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-450"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished">לחץ על מקש הקיצור</translation>
+        <translation>לחץ על קיצור דרך</translation>
     </message>
 </context>
 <context>
@@ -7517,18 +7500,18 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished">הורה</translation>
+        <translation>הורה</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished">נוכחי</translation>
+        <translation>נוכחי</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished">תת-ערוץ #%1</translation>
+        <translation>ערוץ משנה מס&apos; %1</translation>
     </message>
 </context>
 <context>
@@ -7551,27 +7534,28 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished">הורה</translation>
+        <translation>הורה</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished">נוכחי</translation>
+        <translation>נוכחי</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished">תת-ערוץ #%1</translation>
+        <translation>ערוץ משנה מס&apos; %1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation type="unfinished">לא תקין</translation>
+        <translation>לא תקין</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
+        <oldsource>&lt;Empty&gt;</oldsource>
         <translation>ריק</translation>
     </message>
 </context>
@@ -7580,17 +7564,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation type="unfinished">הפסק</translation>
+        <translation>מבוטל</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>שנה מצב</translation>
+        <translation>החלף</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation type="unfinished">הפעל</translation>
+        <translation>לחיצה</translation>
     </message>
 </context>
 <context>
@@ -7614,39 +7598,39 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Tokens</name>
     <message>
-        <location filename="Tokens.cpp" line="+72"/>
+        <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation type="unfinished">סיסמא ריקה</translation>
+        <translation>סיסמא ריקה</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished">ממבל - סיסמאות</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;Mumble - מפתחות גישה&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation>רשימה של הסיסמאות השמורות שלכם בשרת הנוכחי</translation>
+        <translation>רשימה של סיסמאות שמורות על שרת נוכחי</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
 &lt;br /&gt;
-An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
+An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
         <translation>&lt;b&gt;זוהי רשימה שניתן לערוך של הסיסמאות שהגדרת עבור השרת הנוכחי.&lt;/b&gt;
 &lt;br /&gt;
-סיסמא (או מפתח גישה) היא מחרוזת אותיות שמאפשרת שליטה בסיסית מאוד בגישה לערוצים. ממבל יזכור את כל הסיסמאות שהשתמשתם בהן וישלח אותן מחדש אל השרת בפעם הבאה שתתחברו, כדי שלא תצטרכו להכניס אותן שוב בכל פעם.</translation>
+סיסמא (או מפתח גישה) היא מחרוזת אותיות שמאפשרת שליטה בסיסית מאוד בגישה לערוצים. Mumble יזכור את כל הסיסמאות שהשתמשתם בהן וישלח אותן מחדש אל השרת בפעם הבאה שתתחברו, כדי שלא תצטרכו להכניס אותן שוב בכל פעם.</translation>
     </message>
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;הוסף סיסמא&lt;/p&gt;</translation>
+        <translation>הוסף סיסמא</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished">הוס&amp;ף</translation>
+        <translation>הוס&amp;ף</translation>
     </message>
     <message>
         <location/>
@@ -7656,7 +7640,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished">הס&amp;ר</translation>
+        <translation>הס&amp;ר</translation>
     </message>
 </context>
 <context>
@@ -7670,7 +7654,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
-        <translation type="unfinished">הסר</translation>
+        <translation>הסרה</translation>
     </message>
     <message>
         <location/>
@@ -7681,40 +7665,37 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;את מי אתם מחפשים?&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"></translation>
+        <translation>ימים</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"></translation>
+        <translation>שבועות</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"></translation>
+        <translation>חודשים</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"></translation>
+        <translation>שנים</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"></translation>
+        <translation>בחוסר פעילות למשך</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
+        <translation><numerusform>משתמשים רשומים: חשבון %n</numerusform><numerusform>משתמשים רשומים: %n חשבונות</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7722,22 +7703,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מידע משתמש&lt;/p&gt;</translation>
+        <translation>מידע משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation>נתוני חיבור</translation>
+        <translation>מידע חיבור</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;גירסא&lt;/p&gt;</translation>
+        <translation>גירסא</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;מערכת הפעלה&lt;/p&gt;</translation>
+        <translation>מערכת הפעלה</translation>
     </message>
     <message>
         <location/>
@@ -7752,7 +7733,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation>גרסאות CELT</translation>
+        <translation>גירסאות CELT</translation>
     </message>
     <message>
         <location/>
@@ -7766,13 +7747,18 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
+        <source>Pings received</source>
+        <translation>פינג שהתקבלו</translation>
+    </message>
+    <message>
+        <location/>
         <source>Average ping</source>
         <translation>פינג ממוצע</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation>TCP (שליטה)</translation>
+        <translation>TCP (בקרה)</translation>
     </message>
     <message>
         <location/>
@@ -7782,22 +7768,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation>סטטיסטיקות רשת של UDP</translation>
+        <translation>UDP סטטיסטיקות רשת עבודה</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished">טוב</translation>
+        <translation>טוב</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished">מאוחר</translation>
+        <translation>איחר</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished">אבוד</translation>
+        <translation>נאבד</translation>
     </message>
     <message>
         <location/>
@@ -7807,17 +7793,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>From Client</source>
-        <translation>מהקליינט</translation>
+        <translation>מן לקוח</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation>אל הקליינט</translation>
+        <translation>אל לקוח</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;זמן חיבור&lt;/p&gt;</translation>
+        <translation>זמן חיבור</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
@@ -7875,34 +7861,29 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation>%1 מחוברים (%2 לא פעילים)</translation>
+        <translation>%1 מקוון (%2 לא פעילים)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation>%1 מחוברים</translation>
+        <translation>%1 מקוון</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished">&lt;p dir=&quot;RTL&quot;&gt;%1 ק&quot;ב/ש&lt;/p&gt;</translation>
+        <translation>%1 קב&quot;ש</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished">רוחב פס</translation>
+        <translation>רוחב פס</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished">רוחב פס</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Pings received</source>
-        <translation>פינג שהתקבלו</translation>
+        <translation>רוחב פס</translation>
     </message>
     <message>
         <location/>
@@ -7915,38 +7896,38 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"></translation>
+        <translation>כינוי</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"></translation>
+        <translation>ימי חוסר פעילות</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"></translation>
+        <translation>ערוץ אחרון</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>נראה לאחרונה: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished">אף פעם</translation>
+        <translation>אף פעם</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>מזהה ערוץ: %1</translation>
     </message>
 </context>
 <context>
     <name>UserModel</name>
     <message>
-        <location filename="UserModel.cpp" line="-823"/>
+        <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
         <translation>זהו משתמש מחובר לשרת. הסמל שמשמאל למשתמש מראה האם המשתמש מדבר או לא:</translation>
     </message>
@@ -7958,6 +7939,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
+        <oldsource>Whispering directly to your channel.</oldsource>
         <translation>צועק ישירות אל הערוץ שלכם.</translation>
     </message>
     <message>
@@ -7973,7 +7955,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished">זהו ערוץ בשרת. הסמל מראה את מצבו של הערוץ:</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;זהו ערוץ בשרת. סמל הערוץ מסמל את מצבו:&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8068,7 +8050,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הערוץ יוסתר כאשר הסינון פעיל&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8081,9 +8063,9 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>מצבים</translation>
     </message>
     <message>
-        <location line="+736"/>
+        <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>האם אתה בטוח שברצונך לגרור את הערוץ הזה?</translation>
+        <translation>האם אתה בטוח כי ברצונך לגרור את הערוץ הזה?</translation>
     </message>
     <message>
         <location line="+94"/>
@@ -8095,14 +8077,14 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+143"/>
+        <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
-        <translation>שדרג את ממבל</translation>
+        <translation>שדרג את Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>גרסא חדשה של ממבל נמצאה והורדה אוטומטית. מומלץ שתשדרג לגרסה הזו או שתשנמך את גרסתך לגרסה היציבה האחרונה. האם תרצה להפעיל את ההתקנה?</translation>
+        <translation>אותרה גירסא חדשה של Mumble וזו תורד אוטומטית. מומלץ שתשדרג/י אל גירסא זו, או שתנמיך/י אל השחרור היציב האחרון. האם ברצונך להפעיל את אשף ההתקנה כעת?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8123,12 +8105,12 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation>שמירת הגרסה החדשה לדיסק נכשלה.</translation>
+        <translation>כתיבת הגרסא החדשה לדיסק נכשלה.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation>ממבל נכשל בקבלת מידע אודות הגרסא מהשרת המרכזי.</translation>
+        <translation>‏Mumble נכשל לקבל מידע אודות הגרסא מן השרת המרכזי.</translation>
     </message>
 </context>
 <context>
@@ -8136,12 +8118,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
-        <translation>מידע על שרשרת האישורים</translation>
+        <translation>פרטי תעודת שרשרת</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation>שרשרת אישורי אבטחה</translation>
+        <translation>תעודת שרשרת</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -8151,14 +8133,13 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation>נתוני האישור</translation>
+        <translation>פרטי תעודה</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translatorcomment>~Sonic</translatorcomment>
-        <translation>כתובת מתחם: %1</translation>
+        <translation>שם המוני: %1</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -8181,33 +8162,33 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="-36"/>
         <location line="+37"/>
         <source>Locality: %1</source>
-        <translation>אזור: %1</translation>
+        <translation>מקומיות: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation>מדינה: %1</translation>
+        <translation>מחוז: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation>תקף מאז: %1</translation>
+        <translation>תקפה מן: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation>תקף עד: %1</translation>
+        <translation>תקפה עד: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial: %1</source>
-        <translation>מספר סידורי: %1</translation>
+        <translation>סידורי: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Public Key: %1 bits %2</source>
-        <translation>מפתח ציבורי: %1 ביט %2</translation>
+        <translation>מפתח ציבורי: %1 סיביות %2</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -8237,12 +8218,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation>הונפק על ידי:</translation>
+        <translation>הונפקה על ידי:</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation>שם יחידה: %1</translation>
+        <translation>Unit Name: %1</translation>
     </message>
 </context>
 <context>
@@ -8250,12 +8231,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation>המקליט נכשל ביצירת התיקיה &apos;%1&apos;</translation>
+        <translation>רשמקול נכשל ליצור תיקייה &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>רשמקול נכשל לפתוח קובץ &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8288,28 +8269,28 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+143"/>
         <source>Recorder</source>
-        <translation>מקליט</translation>
+        <translation>רשמקול</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation>שליטה</translation>
+        <translation>בקרה</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation>00:00:00</translation>
+        <translation>‭00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation>הת&amp;חל</translation>
+        <translation>ה&amp;תחל</translation>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation>ה&amp;פסק</translation>
+        <translation>&amp;עצור</translation>
     </message>
     <message>
         <location/>
@@ -8318,13 +8299,8 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <source>Downmix</source>
-        <translation>ערבול</translation>
-    </message>
-    <message>
-        <location/>
         <source>Multichannel</source>
-        <translation>רב-ערוצי</translation>
+        <translation>רב ערוצי</translation>
     </message>
     <message>
         <location/>
@@ -8339,7 +8315,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Target directory</source>
-        <translation>תיקיית יעד</translation>
+        <translation>מדור יעד</translation>
     </message>
     <message>
         <location/>
@@ -8349,12 +8325,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>בח&amp;ר...</translation>
+        <translation>&amp;עיון...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-212"/>
         <source>Valid variables are:</source>
-        <translation>המשתנים התקינים הם:</translation>
+        <translation>משתנים תקפים הינם:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8379,12 +8355,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"></translation>
+        <translation>רשמקול עדיין רץ</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"></translation>
+        <translation>סגירת הרשמקול בלי עצירתו תסלק שמע לא-רשום. האם אכן ברצונך לסגור את הרשמקול?</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8400,7 +8376,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation>כבר הפעלתם מקליט עבור השרת הזה.</translation>
+        <translation>כבר יש רשמקול פועל עבור שרת זה.</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -8410,12 +8386,17 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"></translation>
+        <translation>עוצר</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Select target directory</source>
-        <translation>בחרו תיקיית יעד</translation>
+        <translation>בחר תיקיית יעד</translation>
+    </message>
+    <message>
+        <location filename="VoiceRecorderDialog.ui"/>
+        <source>Downmix</source>
+        <translation>ערבול</translation>
     </message>
 </context>
 <context>
@@ -8431,12 +8412,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation>לחץ כדי לדבר של ממבל</translation>
+        <translation>לחץ כדי לדבר של Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation>לחץ-כדי-לדבר</translation>
+        <translation>לחץ כדי לדבר</translation>
     </message>
 </context>
 </TS>
