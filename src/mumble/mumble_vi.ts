@@ -1,106 +1,106 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="vi" version="2.1">
 <context>
     <name>ACLEditor</name>
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Weigeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Toestaan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Sta %1 toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Weiger %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Voeg kanaal toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Mislukt: ongeldig kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Bewerk %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation>ID: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit verleent de %1 machtiging. Als een machtiging zowel toegestaan is als geweigerd, dan wordt het geweigerd.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Kanalen moeten een naam hebben</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit trekt de %1 machtiging in. Als een machtiging zowel toegestaan is als geweigerd, dan wordt het geweigerd.&lt;br /&gt;%2 </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>Dialoogvenster</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Vul het kanaal naam hier in.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Beschrijving</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Vul hier het kanaalwachtwoord in.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Selecteer om een tijdelijke kanaal aan te maken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Tijdelijk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation>Kanaal positioneering waarde</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -108,386 +108,379 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Positie&lt;/b&gt;&lt;br/&gt;
-Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen plaatst in de boom. Een kanaal met een hogere &lt;i&gt;Positie&lt;/i&gt; waarde zal altijd onder een kanaal met een lagere waarde worden geplaatst en omgekeerd. Als de &lt;i&gt;Positie&lt;/i&gt; waarde van twee kanalen gelijk zijn, dan zullen deze alfabetisch gesorteerd worden op naam.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation>Positie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>&amp;Groepen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation>Groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>Lijst van groepen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Verwijder geselecteerde group</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Erf groepsleden van bovenliggende kanalen </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation>Erven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Maak groep overerfbaar voor sub-kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>Overerfbaar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Groep was geërfd van het bovenliggende kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>Overgeërfd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation>Leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Voeg lid toe aan groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Verwijder lid van groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>Actieve ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Lijst van regels</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Erf ACL van bovenliggende kanaal?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Dit stelt in of de ACL van bovenliggende kanalen moeten worden toegepast op dit object. Alleen de regels die in het bovenliggende kanaal zijn gemarkeerd als &quot;Pas toe op sub-kanalen&quot; zullen worden geërfd. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Overerf ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>Verplaats regel omhoog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dit verplaatst de regel omhoog in de lijst. Omdat regels worden toegepast op volgorde kan dit de effectieve permissies van gebruikers wijzigen. Je kunt geen regel plaatsen boven een overgeërfde regel, als je dat wilt doen moet je de overgeërfde regel dupliceren.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>&amp;Omhoog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Verplaats regel omlaag  </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Dit verplaatst de regel omlaag in de lijst. Omdat regels worden toegepast op volgorde kan dit de effectieve permissies van gebruikers wijzigen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>Om&amp;laag</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Voeg nieuwe regel toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Dit voegt een nieuwe regel toe dat, dat standaard geen permissies heeft en dat toegepast wordt op alle groepen. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Verwijder regel</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Dit verwijdert het huidig geselecteerde regel.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation>Context</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>Regel moet toegepast worden op dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Dit past de regel toe op dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>Van toepassing op dit kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Regel moet toegepast worden op sub-kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>Voeg nieuwe groep toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Toevoegen&lt;/b&gt;&lt;br/&gt;
-Voeg een nieuwe groep toe.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation>Overgeërfde leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Bevat de lijst van leden die zijn toegevoegd door dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Bevat de lijst van leden die waarvan hun groepslidmaatschap niet zullen worden geërfd van het bovenliggende kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Bevat de lijst van leden die worden geërfd door andere kanalen. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Vul de naam in van een gebruiker die je wilt toevoegen aan de groep en druk op Voeg toe.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Vul de naam in van een gebruiker die je wilt verwijderen aan de groep en druk op Verwijder.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Uitsluiten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>Uitgesloten leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Dit zorgt ervoor dat de regel wordt toegepast op sub-kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Toepassen op sub-kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>Permissies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation>Gebruiker/Groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Groep waarbij deze regel wordt toegepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation>Gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Gebruiker waarbij deze regel wordt toegepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Dit beheert voor welke gebruiker de regel van toepassing is. Vul de gebruikersnaam in en druk op Enter om op de server te zoeken voor een overeenkomst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>&amp;Eigenschappen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Naam&lt;/b&gt;&lt;br /&gt;Vul de kanaalnaam in dit veld. De naam moet voldoen aan de eisen die gesteld worden door de server waarme je verbonden bent.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Tijdelijk&lt;/b&gt;&lt;br /&gt;
-Wanneer geselecteerd zal het kanaal worden gemarkeerd als &quot;tijdelijk&quot;. Dit betekent dat het kanaal automatisch wordt verwijderd door de server wanneer de laatste deelnemer het kanal heeft verlaten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Groep&lt;/b&gt;&lt;br /&gt;
-Dit zijn de groepen die op het moment zijn gedefinieerd voor het kanaal. Om een nieuwe groep aan te maken, vul de naam in en druk op Enter.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Verwijder&lt;/b&gt;&lt;br /&gt;Dit verwijdert de geselecteerde groep. Als de groep was overgeërfd, dan zal deze niet worden verwijderd van de lijst, maar alle lokale informatie van de groep zal worden verwijderd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Erven&lt;/b&gt;&lt;br /&gt;Dit zorgt ervoor dat alle leden van de bovenliggende groep zal worden geërfd als die groep is gemarkeerd als &lt;i&gt;Overerfbaar&lt;/i&gt;.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Overerfbaar&lt;/b&gt;&lt;br /&gt;Dit zorgt ervoor dat deze groep overerfbaar is door sub-kanalen. Als de groep niet overerfbaar is dan zullen sub-kanalen nog steeds in staat zijn om een nieuwe groep aan te maken met dezelfde naam.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Overgeërfd&lt;/b&gt;&lt;br /&gt;Dit geeft aan dat de groep geërfd is van het bovenliggende kanaal. Je kunt dit vakje niet bewerken, het is slechts ter informatie.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Leden&lt;/b&gt;&lt;br /&gt;
-Deze lijst bevat alle leden die zijn toegevoegd aan de groep door het huidige kanaal. Let op dat dit geen leden bevat die zijn geërfd van bovenliggende kanalen. Deze kun je inzien in de &lt;i&gt;Overgeërfde leden&lt;/i&gt; lijst. Om te voorkomen dat deze lijst wordt geërfd door onderliggende kanalen, deselecteer &lt;i&gt;Overerfbaar&lt;/i&gt; of voeg de leden handmatig toe aan de &lt;i&gt;Uitgesloten leden&lt;i&gt; lijst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Uitgesloten leden&lt;/b&gt;&lt;br /&gt;
-Bevat een lijst van leden waarvan de groepslidmaatschap niet zal worden geërfd van het bovenliggende kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Overgeërfde leden&lt;b&gt;&lt;br /&gt;
-Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt;i&gt;Ervan&lt;/i&gt; om te voorkomen dat leden van bovenliggende kanalen worden geërfd. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dit beheert de gebruikersgroepen waarbij deze regel van toepassing is&lt;br /&gt;Merk op dat de groep wordt geëvalueerd in de context van het kanaal waarin de regel gebruikt wordt. De ACL die standaard op het hoogste kanaal ingesteld is geeft bijvoorbeeld &lt;i&gt;Schrijf&lt;/i&gt; permissie aan de &lt;i&gt;admin&lt;/i&gt; groep. Deze regel, indien het wordt overgeërfd, zal de gebruiker schrijfrechten geven als deze lid is van de &lt;i&gt;admin&lt;/i&gt; groep. Dit geldt zelfs als de gebruiker geen lid was van de groep waar de ACL oorspronkelijk vandaan kwam. Als een groepsnaam begint met een &apos;!&apos; zal de lidmaatschap worden omgekeerd en als het begint met &apos;~&apos;, dan zal het worden geëvalueerd in het kanaal waar de ACL gedefinieerd was in plaats van het kanaal waar de ACL van toepassing is.&lt;br /&gt;Als een groepsnaam begint met een &apos;#&apos; dan zal het worden geïnterpreteerd als een toegangssleutel. Gebruikers moeten alles wat na de &apos;#&apos; komt in hun lijst van toegangssleutels hebben. Dit kan worden gebruikt als een simpele wachtwoord-gebaseerde toegang tot kanalen voor ongeregistreerde gebruikers.&lt;br /&gt;Als een groepsnaam begint met een &apos;$&apos;, dan zal het alleen op gebruikers van toepassing zijjn waarvan de certificaat hash overeenkomt met de tekst na de &apos;$&apos;.&lt;br /&gt;Een paar speciale voorgedefinieerde groepen zijn:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle geregistreerde gebruikers.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Gebruiker die zich op het moment in een kanaal bevindt met &lt;i&gt;a&lt;/i&gt; gedeelde bovenliggende kanalen, en met tussen &lt;i&gt;b&lt;/i&gt; en &lt;i&gt;c&lt;/i&gt; kanalen eronder. Bezoek de website voor uitgebreidere documentatie hiervoor.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers die zich in het huidige kanaal bevinden (makkelijker alternatief voor &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruiker buiten het kanaal (makkelijker alternatief voor &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Merk op dat een regel slechts van toepassing is op een gebruiker of een groep, niet beiden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Wachtwoord&lt;/b&gt;&lt;br /&gt;Dit veld staat je toe om makkelijk een wachtwoord in te stellen of wijzigen voor een kanaal. Het gebruikt Mumbles&apos; toegangssleutel-systeem achter de schermen. Gebruik ACLs en groepen als je nauwkeurige en krachtigere toegangcontrole wilt hebben.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Dit weergeeft alle regels die actief zijn op dit kanaal. Regels die zijn geërfd zullen schuingedrukt worden weergeven.&lt;br /&gt;ACLs worden toegepast van boven naar beneden, dat wilt zeggen dat de prioriteit hoger wordt naar mate je lager in de lijst gaat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>ID van het kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation>KanaalID</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -495,12 +488,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation>Standaard ALSA kaart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Het openen van de gekozen ALSA Invoer is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -508,12 +501,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation>Standaard ALSA kaart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Het openen van de gekozen ALSA Uitvoer is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -521,140 +514,140 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
-        <translation>%1 (versie %2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 samples buffer, met %3 sample resolutie (%4 bij voorkeur) op %5 Hz</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>ASIO initialisatie is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Het initialiseren van het ASIO stuurprogramma is mislukt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation>ASIO</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Apparaatselectie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation>Apparaat om te gebruiken voor microfoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Hiermee kan het apparaat worden gekozen waarvan je de kanalen wilt opvragen. Je moet wel nog het apparaat om kanalen vragen en deze selecteren.  </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>Haal kanalen op van het geselecteerde apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dit vraagt kanalen op van het geselecteerde apparaat. Let op dat veel ASIO stuurprogrammas instabiel zijn tot het extreme toe en dat het opvragen kan leiden tot een crash van het programma of systeem.  </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>&amp;Opvragen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>Configureeer geselecteerde apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dit configureert het geselecteerde apparaat. Let op dat veel ASIO stuurprogrammas instabiel zijn tot het extreme toe en dat het configureren kan leiden tot een crash van het programma of systeem.  </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Configureer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation>Mogelijkheden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation>Naam van het tuurprogramma</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation>Buffergrootte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Dit zal invoerkanalen voor ASIO configureren. Zorg ervoor dat je minstend één kanaal hebt als microfoon en luidspreker. &lt;i&gt;Microfoon&lt;/i&gt; moet het kanaal zijn waaraan de microfoon verbonden is en &lt;i&gt;Luidspreeker&lt;/i&gt; het kanaal dat afspeelt &apos;&lt;i&gt;wat je hoort&lt;/i&gt;&apos;. &lt;br /&gt;Als voorbeeld, voor de Audigy 2 ZS zou &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; een goede keuze zijn voor Microfoon terwijl Luidspreker het beste &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; en &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; is.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation>Configureer invoer kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation>Kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation>Microfoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation>Ongebruikt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation>Luidsprekers</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -662,12 +655,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Je moet minstens één microfoon- en luidsprekerbron selecteren om ASIO te gebruiken. Als je alleen de microfoon wilt samplen, gebruik DirectSound. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Het openen van de geselecteerde ASIO apparaat is mislukt. Invoer zal niet mogelijk zijn.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -675,32 +668,32 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Over Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Een voice-chat programma voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Over Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Licensie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>Licensies van &amp;derden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -708,52 +701,52 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Input methode voor audio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt; Dit is de invoer manier voor geluid. &lt;br&gt;&lt;br /&gt; Waarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation>Invoerapparaat voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Dit is het invoerapparaat voor geluid. &lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation>Overdracht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation>&amp;Overbrengen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -773,7 +766,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Als je de PTT knop twee keer binnen deze tijd gebruikt word ie vastgehouden. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -793,22 +786,22 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Blader voor &quot;aan&quot; geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Blader voor &quot;uit&quot; geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Off</source>
-        <translation>Uit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>Aan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -823,7 +816,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaal naar ruis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -833,12 +826,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation>Amplitude</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Spraak &amp;Vasthouden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -848,7 +841,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation>Stilte Onder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -858,27 +851,27 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation>Spraak Boven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation>Signaal waardes boven dit tellen als spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Compression</source>
-        <translation>Compressie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation>&amp;Kwaliteit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kwaliteit van compressie (top bandbreedte)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -888,12 +881,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Geluid per pakket</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation>Hoeveel geluidsframes per pakket te sturen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -908,17 +901,17 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation>Geluidsverwerking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation>Ruisonderdrukking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation>Ruisonderdrukking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -928,7 +921,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximale versterking van invoer geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -938,12 +931,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>Huidige spraakherkenningskans</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation>Onderdruk galm van boxen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -953,12 +946,12 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>Uitgeschakeld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mixed</source>
-        <translation>Gecombineerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -968,7 +961,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Echo</source>
-        <translation>Galm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -983,7 +976,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation>Signaal waardes onder dit tellen als stilte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -993,7 +986,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Gebruik amplitude gebaseerde spraakherkenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1003,7 +996,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>Exclusieve modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1013,7 +1006,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Exclusief</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1053,7 +1046,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Overig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1083,7 +1076,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation>Vasthoud Tijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1113,7 +1106,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>nothing</source>
-        <translation>niets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1203,7 +1196,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1219,7 +1212,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1234,7 +1227,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Positie Gebaseerd Geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1279,7 +1272,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Volume</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2332,7 +2325,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -2511,7 +2504,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Importeer Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2552,17 +2545,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation>Openen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>Wachtwoord voor PKCS#12 bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2572,7 +2565,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation>Certificaat om te importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2582,12 +2575,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation>Certificaat Details.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>Vervang Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2615,7 +2608,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New certificate</source>
-        <translation>Nieuw certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2625,17 +2618,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>Nieuw Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation>Maak een reservekopie van uw certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export to</source>
-        <translation>Exporteer naar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2650,7 +2643,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>Opslaan Als...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2670,17 +2663,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Jouw email adres (bijv. johndoe@mumble.info)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2690,7 +2683,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Jouw naam (bijv. John Doe)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2738,7 +2731,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation>Niets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -2753,7 +2746,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation>Spreek</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -2763,17 +2756,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation>Maak kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation>Maak tijdelijk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation>Link kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-87"/>
@@ -2858,37 +2851,37 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation>Fluister</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation>Beweeg</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation>Tekstbericht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation>Schop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation>Verban</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation>Registreer Gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation>Registreer Jezelf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-28"/>
@@ -2902,7 +2895,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>Plak en &amp;Verzend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
@@ -2915,7 +2908,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation>Vriend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
@@ -2968,7 +2961,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation>Accepteer veranderingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2978,7 +2971,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation>Weiger veranderingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2988,7 +2981,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Pas veranderingen toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -3019,12 +3012,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation>Mumble Instellingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Advanced</source>
-        <translation>Geavanceerd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3032,7 +3025,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation>Verbinden met %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-545"/>
@@ -3043,13 +3036,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation>Host %1 aan het toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation>Servernaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
@@ -3059,48 +3052,48 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation>Bonjour naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation>Poort</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation>Adressen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Website</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation>Pakket verlies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation>Ping (80%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation>Ping (95%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation>Bandbreedte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -3110,23 +3103,23 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Verbind</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation>&amp;Filters</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation>Gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation>Versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1051"/>
@@ -5634,7 +5627,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation>Jouw account informatie kan momenteel niet geverifieerd worden. Probeer het op een later tijdstip opnieuw alstublieft</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
@@ -7603,7 +7596,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
