@@ -2427,7 +2427,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>הרשאות הקובץ לא היו ניתנות לקביעה. לא נכתבו תעודה וגם מפתח. אנא השתמש בקובץ אחר.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5061,7 +5061,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+241"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>תמונות (‎*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
