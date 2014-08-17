@@ -68,8 +68,9 @@ HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h Aud
     OverlayUserGroup.h \
     OverlayConfig.h \
     OverlayEditor.h \
-    OverlayEditorScene.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp UserListModel.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
+    OverlayEditorScene.h \
+    MumbleApplication.h
+SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp UserListModel.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp MumbleApplication.cpp
 SOURCES *= smallft.cpp
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc
