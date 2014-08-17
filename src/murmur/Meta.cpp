@@ -126,7 +126,7 @@ void MetaParams::read(QString fname) {
 
 #if defined(Q_OS_WIN)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+		datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 		datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
