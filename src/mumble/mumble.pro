@@ -62,7 +62,57 @@ isEqual(QT_MAJOR_VERSION, 5) {
   macx:QT *= gui-private
 }
 
-HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h UserListModel.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h \
+HEADERS *= BanEditor.h \
+    ACLEditor.h \
+    ConfigWidget.h \
+    Log.h \
+    AudioConfigDialog.h \
+    AudioStats.h \
+    AudioInput.h \
+    AudioOutput.h \
+    AudioOutputSample.h \
+    AudioOutputSpeech.h \
+    AudioOutputUser.h \
+    CELTCodec.h \
+    CustomElements.h \
+    MainWindow.h \
+    ServerHandler.h \
+    About.h \
+    ConnectDialog.h \
+    GlobalShortcut.h \
+    TextToSpeech.h \
+    Settings.h \
+    Database.h \
+    VersionCheck.h \
+    Global.h \
+    UserModel.h \
+    Audio.h \
+    ConfigDialog.h \
+    Plugins.h \
+    PTTButtonWidget.h \
+    LookConfig.h \
+    Overlay.h \
+    OverlayText.h \
+    SharedMemory.h \
+    AudioWizard.h \
+    ViewCert.h \
+    TextMessage.h \
+    NetworkConfig.h \
+    LCD.h \
+    Usage.h \
+    Cert.h \
+    ClientUser.h \
+    UserEdit.h \
+    UserListModel.h \
+    Tokens.h \
+    UserView.h \
+    RichTextEditor.h \
+    UserInformation.h \
+    SocketRPC.h \
+    VoiceRecorder.h \
+    VoiceRecorderDialog.h \
+    WebFetch.h \
+    ../SignalCurry.h \
     OverlayClient.h \
     OverlayUser.h \
     OverlayUserGroup.h \
@@ -70,11 +120,97 @@ HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h Aud
     OverlayEditor.h \
     OverlayEditorScene.h \
     MumbleApplication.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp UserListModel.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp MumbleApplication.cpp
-SOURCES *= smallft.cpp
+
+SOURCES *= BanEditor.cpp \
+    ACLEditor.cpp \
+    ConfigWidget.cpp \
+    Log.cpp \
+    AudioConfigDialog.cpp \
+    AudioStats.cpp \
+    AudioInput.cpp \
+    AudioOutput.cpp \
+    AudioOutputSample.cpp \
+    AudioOutputSpeech.cpp \
+    AudioOutputUser.cpp \
+    main.cpp \
+    CELTCodec.cpp \
+    CustomElements.cpp \
+    MainWindow.cpp \
+    ServerHandler.cpp \
+    About.cpp \
+    ConnectDialog.cpp \
+    Settings.cpp \
+    Database.cpp \
+    VersionCheck.cpp \
+    Global.cpp \
+    UserModel.cpp \
+    Audio.cpp \
+    ConfigDialog.cpp \
+    Plugins.cpp \
+    PTTButtonWidget.cpp \
+    LookConfig.cpp \
+    OverlayClient.cpp \
+    OverlayConfig.cpp \
+    OverlayEditor.cpp \
+    OverlayEditorScene.cpp \
+    OverlayUser.cpp \
+    OverlayUserGroup.cpp \
+    Overlay.cpp \
+    OverlayText.cpp \
+    SharedMemory.cpp \
+    AudioWizard.cpp \
+    ViewCert.cpp \
+    Messages.cpp \
+    TextMessage.cpp \
+    GlobalShortcut.cpp \
+    NetworkConfig.cpp \
+    LCD.cpp \
+    Usage.cpp \
+    Cert.cpp \
+    ClientUser.cpp \
+    UserEdit.cpp \
+    UserListModel.cpp \
+    Tokens.cpp \
+    UserView.cpp \
+    RichTextEditor.cpp \
+    UserInformation.cpp \
+    SocketRPC.cpp \
+    VoiceRecorder.cpp \
+    VoiceRecorderDialog.cpp \
+    WebFetch.cpp \
+    MumbleApplication.cpp \
+    smallft.cpp
+
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc
-FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui ConnectDialogEdit.ui BanEditor.ui ACLEditor.ui Plugins.ui PTTButtonWidget.ui Overlay.ui OverlayEditor.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui AudioWizard.ui Tokens.ui RichTextEditor.ui RichTextEditorLink.ui UserInformation.ui VoiceRecorderDialog.ui
+FORMS *= ConfigDialog.ui \
+    MainWindow.ui \
+    ConnectDialog.ui \
+    ConnectDialogEdit.ui \
+    BanEditor.ui \
+    ACLEditor.ui \
+    Plugins.ui \
+    PTTButtonWidget.ui \
+    Overlay.ui \
+    OverlayEditor.ui \
+    LookConfig.ui \
+    AudioInput.ui \
+    AudioOutput.ui \
+    Log.ui \
+    TextMessage.ui \
+    AudioStats.ui \
+    NetworkConfig.ui \
+    LCD.ui \
+    GlobalShortcut.ui \
+    GlobalShortcutTarget.ui \
+    Cert.ui \
+    UserEdit.ui \
+    AudioWizard.ui \
+    Tokens.ui \
+    RichTextEditor.ui \
+    RichTextEditorLink.ui \
+    UserInformation.ui \
+    VoiceRecorderDialog.ui
 
 # Include TRANSLATIONS variable
 include(translations.pri)
