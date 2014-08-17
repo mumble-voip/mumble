@@ -2393,7 +2393,7 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation>E-Mail</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2421,8 +2421,8 @@ Verringern Sie die Mikrofonlautstärke in Ihren Ton-Einstellungen so weit, dass 
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Email konnte nicht validiert werden.&lt;br /&gt;
-Geben Sie eine korrekte (oder leere) E-Mail Adresse an um fortzufahren.</translation>
+        <translation>E-Mail-Adresse konnte nicht validiert werden.&lt;br /&gt;
+Geben Sie eine korrekte (oder leere) E-Mail-Adresse an um fortzufahren.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2738,7 +2738,7 @@ Sind Sie sicher, dass Sie Ihr Zertifikat ersetzen möchten?
 &lt;p&gt;
 Wenn Sie möchten können Sie einige zusätzliche Informationen, welche im Zertifikat gespeichert werden, angeben.
 Diese werden beim Verbinden zum Server diesem ebenfalls übermittelt.
-Wenn Sie eine korrekte E-Mail Adresse angeben können Sie zu einem von einer Zertifizierungstelle erzeugten Zertifikat upgraden, welches sichere Identifikation erlaubt.
+Wenn Sie eine korrekte E-Mail-Adresse angeben können Sie zu einem, von einer Zertifizierungstelle erzeugten, Zertifikat gelangen, welches sichere Identifikation erlaubt.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -2759,8 +2759,8 @@ Wenn Sie eine korrekte E-Mail Adresse angeben können Sie zu einem von einer Zer
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Dies ist Ihre E-Mail Adresse.
-Es wird dringend empfohlen hier eine korrekte E-Mail Adresse anzugeben, dieses erlaubt Ihnen später ohne Probleme zu einem vertrauenswürdigen Zertifikat zu upgraden.</translation>
+        <translation>Dies ist Ihre E-Mail-Adresse.
+Es wird dringend empfohlen hier eine korrekte E-Mail-Adresse anzugeben, dieses erlaubt Ihnen später ohne Probleme zu einem vertrauenswürdigen Zertifikat zu gelangen.</translation>
     </message>
     <message>
         <location/>
@@ -3448,7 +3448,7 @@ Der Absturz-Bericht enthält eine Teilkopie von Mumbles Speicher zum Zeitpunkt d
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation>E-Mail Adresse (optional)</translation>
+        <translation>E-Mail-Adresse (optional)</translation>
     </message>
     <message>
         <location line="+9"/>
