@@ -385,7 +385,11 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 }
 
-void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &)
+#else
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight)
+#endif
 {
 	UserModel *um = static_cast<UserModel *>(model());
 	int nRowCount = um->rowCount();

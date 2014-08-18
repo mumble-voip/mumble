@@ -77,10 +77,15 @@ class UserView : public QTreeView {
 	public:
 		UserView(QWidget *);
 		void keyboardSearch(const QString &search);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int> ());
+#else
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+#endif
+		
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
-		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
 		void updateChannel(const QModelIndex &index);
 };
 
