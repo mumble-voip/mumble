@@ -887,12 +887,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Áudio por packet</translation>
+        <translation>Áudio por pacote</translation>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation>Quantos frames de áudio a enviar por packet</translation>
+        <translation>Quantos frames de áudio a enviar por pacote</translation>
     </message>
     <message>
         <location/>
@@ -902,7 +902,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Mostra o pico da banda de transmissão usada.&lt;/b&gt;&lt;br /&gt;Mostra o pico na quantia de banda enviada da sua máquina. A taxa de áudio é a taxa máxima (já que usamos VBR) para os dados de áudio sozinhos. Posição é a taxa usada para informação posicional. Sobrecarga são nossos quadros e cabeçalhos de pacotes IP (IP e UDP são 75% desta sobrecarga).</translation>
+        <translation>&lt;b&gt;Mostra o pico da banda de transmissão usada.&lt;/b&gt;&lt;br /&gt;Mostra o pico na quantidade de banda enviada da sua máquina. A taxa de áudio é a taxa máxima (já que usamos VBR) para os dados de áudio sozinhos. Posição é a taxa usada para informação posicional. Sobrecarga é o nosso enquadramento e os cabeçalhos de pacote IP (IP e UDP são 75% desta sobrecarga).</translation>
     </message>
     <message>
         <location/>
@@ -1390,12 +1390,12 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation>Perda de packets</translation>
+        <translation>Perda de pacotes</translation>
     </message>
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation>Perda de packets para o modo de retorno</translation>
+        <translation>Perda de pacotes para o modo de retorno</translation>
     </message>
     <message>
         <location/>
@@ -2011,7 +2011,7 @@ O Mumble está sob constante desenvolvimento, e a equipa de desenvolvimento quer
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Permitir que o Mumble suponha quando está a falar e quando está calado.</translation>
+        <translation>Permitir que o Mumble suponha quando está a falar e quando está em silêncio.</translation>
     </message>
     <message>
         <location/>
@@ -2462,7 +2462,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     <message>
         <location filename="main.cpp" line="+500"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está para expirar. Precisa renová-lo, ou não será mais capaz de conectar aos servidores em que está registrado.</translation>
+        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está prestes a expirar. Precisa renová-lo, ou não será mais capaz de se conectar aos servidores em que está registado.</translation>
     </message>
 </context>
 <context>
@@ -3922,7 +3922,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation>[[ Objeto de texto muito grande para ser mostrado ]]</translation>
+        <translation>[[ Objeto de texto demasiado grande para ser mostrado ]]</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -5038,9 +5038,9 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Certificado ou senha errado para utilizador registrado. Se
+        <translation>Certificado ou senha errados para utilizador registado. Se
 tem certeza que este utilizador é protegido por senha
-por favor tente novamente. Do contrário aborte e verifique
+por favor tente novamente. Caso contrário aborte e verifique
 o seu certificado e nome de utilizador.</translation>
     </message>
     <message>
@@ -5052,7 +5052,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Senha de servidor errada para conta de utilizador não registrado, por favor tente novamente.</translation>
+        <translation>Senha de servidor errada para conta de utilizador não registado, por favor tente novamente.</translation>
     </message>
     <message>
         <location line="+241"/>
@@ -6530,7 +6530,7 @@ Evita que o cliente transfira imagens embutidas em mensagens de texto com a marc
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation>Calado</translation>
+        <translation>Silencioso</translation>
     </message>
     <message>
         <location line="+3"/>
