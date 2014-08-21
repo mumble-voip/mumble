@@ -1148,7 +1148,7 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		sock->setProtocol(QSsl::TlsV1_0);
 #else
 		sock->setProtocol(QSsl::TlsV1);
@@ -1176,14 +1176,14 @@ void Server::encrypted() {
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
 #else
 		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
 #endif
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 			QString subject;
 			QString issuer;
 

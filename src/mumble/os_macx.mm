@@ -79,7 +79,7 @@ static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	mumbleMessageOutputQString(type, msg);
@@ -164,7 +164,7 @@ void os_init() {
 		strcat(buff, logpath);
 		fConsole = fopen(buff, "a+");
 		if (fConsole) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		qInstallMessageHandler(mumbleMessageOutputWithContext);
 #else
 		qInstallMsgHandler(mumbleMessageOutput);

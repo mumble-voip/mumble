@@ -145,7 +145,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	if (! uri.isEmpty()) {
 		if (title.isEmpty())
 			title = uri;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		uri = uri.toHtmlEscaped();
 		title = title.toHtmlEscaped();
 #else
@@ -178,7 +178,7 @@ QString RichTextEditorLink::text() const {
 	QUrl url(qleUrl->text(), QUrl::StrictMode);
 	QString txt = qleText->text();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	txt = txt.toHtmlEscaped();
 #else
 	txt = Qt::escape(txt);

@@ -158,7 +158,7 @@ void MumbleSSL::addSystemCA() {
 
 		QList<QSslCertificate> filteredCaList;
 		foreach (QSslCertificate cert, caList) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 			QStringList orgs = cert.subjectInfo(QSslCertificate::Organization);
 			bool skip = false;
 			foreach (QString ou, orgs) {

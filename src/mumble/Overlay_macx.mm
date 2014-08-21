@@ -210,7 +210,7 @@ void OverlayClient::updateMouse() {
 			}
 		}
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION < 0x050000
 		if (cgimg) {
 			pm = QPixmap::fromMacCGImageRef(cgimg);
 			qmCursors.insert(csShape, pm);

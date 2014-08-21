@@ -293,7 +293,7 @@ void ServerHandler::run() {
 	bUdp = false;
 
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qtsSock->setProtocol(QSsl::TlsV1_0);
 #else
 	qtsSock->setProtocol(QSsl::TlsV1);

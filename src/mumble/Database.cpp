@@ -68,7 +68,7 @@ Database::Database() {
 	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);

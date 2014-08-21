@@ -117,7 +117,7 @@ void Server::initializeCert() {
 	}
 
 	QString issuer;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QStringList issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
 	if (! issuerNames.isEmpty()) {
 		issuer = issuerNames.first();

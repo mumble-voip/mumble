@@ -300,7 +300,7 @@ Settings::Settings() {
 	bPluginCheck = true;
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 #else
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
@@ -375,7 +375,7 @@ Settings::Settings() {
 	bHighContrast = false;
 
 	// Recording
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qsRecordingPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
 	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
