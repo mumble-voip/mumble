@@ -33,23 +33,21 @@
 
 #include <QApplication>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
-# define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
-#else
-# define QAPP_INHERIT_EVENT_FILTER
-#endif
-
 /**
  * @brief Implements custom system shutdown behavior as well as event filtering.
  */
-class MumbleApplication : public QApplication QAPP_INHERIT_EVENT_FILTER {
+#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
+class MumbleApplication : public QApplication, public QAbstractNativeEventFilter {
+#else
+class MumbleApplication : public QApplication {
+#endif
 		Q_OBJECT
 	public:
 		MumbleApplication(int &pargc, char **pargv);
 		
 		bool event(QEvent *e);
 #ifdef Q_OS_WIN
-# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# if QT_VERSION >= 0x050000
 		bool MumbleApplication::nativeEventFilter(const QByteArray &eventType, void *message, long *result);
 # else
 		bool winEventFilter(MSG *msg, long *result);
