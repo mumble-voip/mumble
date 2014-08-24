@@ -113,7 +113,9 @@ ice {
 			equals(QMAKE_TARGET.arch, x86_64) {
 				QMAKE_LIBDIR *= $$ICE_PATH/lib/x64
 			}
-			LIBS *= -llibbz2 -ldbghelp -liphlpapi -lrpcrt4
+			CONFIG(release, debug|release): LIBS *= -llibbz2
+			CONFIG(debug, debug|release):   LIBS *= -llibbz2d
+			LIBS *= -ldbghelp -liphlpapi -lrpcrt4
 		}
 	}
 

@@ -51,6 +51,11 @@ import os
 
 # qtSymbols list the Qt symbols that we're interested in exporting.
 qtSymbols = [
+	# Debug-build specific
+	'qt_assert',
+	'qt_assert_x',
+	'qFlagLocation',
+
 	# QtCore
 	'QObject',
 	'QCoreApplication',
