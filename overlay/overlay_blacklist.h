@@ -65,6 +65,7 @@ static const char *overlayBlacklist[] = {
 	"IpOverUsbSvc.exe", // Windows Phone IP over USB Transport
 	"Origin.exe", // EA Origin
 	"HydraSysTray.exe", // Razer Hydra system tray
+	"devenv.exe", // Microsoft Visual Studio
 	NULL
 };
 
