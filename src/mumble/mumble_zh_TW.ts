@@ -2834,12 +2834,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"/>
+        <translation>允許使用者將其他人設為沉默或靜音。一旦被設為沉默，將一直保持沉默狀態到被其他有權限的使用者取消，或重新連線為止。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"/>
+        <translation>允許使用者將其他人驅逐到其他頻道或踢出這台伺服器。要驅逐使用者需要擁有目標頻道的移動權限，被驅逐者要有進入目標頻道的權限。擁有此權限的使用者可以將沒有進入某頻道權限的人拉入該頻道。</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3085,7 +3085,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"/>
+        <translation>Bonjour 名稱</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3177,12 +3177,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation type="unfinished"/>
+        <translation>新增自訂伺服器</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"/>
+        <translation>顯示所有回應 ping 的伺服器</translation>
     </message>
     <message>
         <location/>
@@ -3281,7 +3281,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;網址&lt;/b&gt;&lt;br/&gt;
+伺服器的網路位置。可以是一般的主機名稱、一個 IPv4/IPv6 位置或者是一個 Bonjour 服務的標誌。 Bonjour 服務帶有 &apos;@&apos; 前綴的標誌可以被 Mumble 認可。</translation>
     </message>
     <message>
         <location/>
@@ -3297,7 +3298,8 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;埠&lt;/b&gt;&lt;br/&gt;
+伺服器使用的監聽埠。如果伺服器標記使用 Bonjour 服務，此欄位將被忽略。</translation>
     </message>
     <message>
         <location/>
@@ -3313,7 +3315,8 @@ Port on which the server is listening. If the server is identified by a Bonjour 
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;使用者名稱&lt;/b&gt;&lt;br/&gt;
+發送給伺服器的使用者名稱。請注意該伺服器可能限制使用者名稱的樣式。同時您慣用的名稱可能已被其它人使用。</translation>
     </message>
     <message>
         <location/>
@@ -3339,7 +3342,8 @@ Username to send to the server. Be aware that the server can impose restrictions
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;密碼&lt;/b&gt;&lt;br/&gt;
+與伺服器連線時發送的密碼。只有以&lt;i&gt;超級使用者&lt;/i&gt;身份登入伺服器時才需要。如果不填寫此欄位，登入時需要填寫密碼。</translation>
     </message>
     <message>
         <location/>
@@ -3350,7 +3354,8 @@ Password to be sent to the server on connect. This password is needed when conne
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;標籤&lt;/b&gt;&lt;br/&gt;
+伺服器的標籤。伺服器在你的清單中顯示的名稱，可以自由設定。</translation>
     </message>
 </context>
 <context>
@@ -3371,7 +3376,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;&lt;b&gt;非常抱歉，Mumble當機了。您願意送出當機回報給 Mumble 開發者嗎？&lt;/b&gt;&lt;/p&gt;&lt;p&gt;當機回報內容包含 Mumble 當機時的記憶體內容副本，將可協助開發者修復此問題。&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3382,7 +3387,7 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>請使用英文填寫當機潛得那一刻您在做什麼動作</translation>
+        <translation>請使用英文填寫當機前的那一刻您在做什麼動作</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3418,7 +3423,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation type="unfinished"/>
+        <translation>真糟糕，當機回報程式遇上臭蟲了，報告上傳失敗。您可以將錯誤 %1 回報給開發者。</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -3632,12 +3637,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation type="unfinished"/>
+        <translation>群組限制</translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"/>
+        <translation>如果指定，則只有此群組的成員可接收密談。</translation>
     </message>
     <message>
         <location/>
@@ -3662,17 +3667,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>使用快速鍵發送密談時不送出聲音定位資訊。</translation>
     </message>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>忽略聲音定位</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"/>
+        <translation>對連結的頻道大喊</translation>
     </message>
     <message>
         <location/>
@@ -3687,12 +3692,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>密談可以發送到所有相連結的頻道。</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"/>
+        <translation>密談內容可以發送到目標頻道的所有子頻道。</translation>
     </message>
 </context>
 <context>
@@ -3747,11 +3752,11 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
         <translation>&lt;p&gt;這是您系統上可用的LCD裝置清單。本清單包含裝置名稱與解析度。Mumble 支援同時輸出到數個LCD裝置。&lt;/p&gt;
-&lt;h3&gt;Size:&lt;/h3&gt;
+&lt;h3&gt;尺寸：&lt;/h3&gt;
 &lt;p&gt;
-This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
-&lt;h3&gt;Enabled:&lt;/h3&gt;
-&lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</translation>
+這邊顯示您 LCD 裝置的尺寸。這個尺寸可能使用像素或文字表示。&lt;/p&gt;
+&lt;h3&gt;啟用:&lt;/h3&gt;
+&lt;p&gt;Mumble 是否顯示在 LCD 裝置上。&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3783,7 +3788,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"/>
+        <translation>設定列分割線寬度。</translation>
     </message>
     <message>
         <location/>
@@ -4073,7 +4078,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"/>
+        <translation>選擇此項則只有在您好友清單中的使用者才可發送密談給你。</translation>
     </message>
     <message>
         <location/>
@@ -4278,7 +4283,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation>&lt;b&gt;設置 Mumble 應該使用哪個皮膚文件。&lt;/b&gt;&lt;br/&gt;皮膚是一個應用在基本窗口風格上的風格文件。如果在與風格相同的目錄里有圖標，目錄中的圖標將替換默認圖標。</translation>
+        <translation>&lt;b&gt;設置 Mumble 應該使用哪個佈景主題。&lt;/b&gt;&lt;br/&gt;佈景是一個應用在主要視窗上的設定文件。如果在與佈景主題相同的目錄裡有圖示，目錄中的圖示將替換預設圖樣。</translation>
     </message>
     <message>
         <location/>
@@ -4413,7 +4418,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>過濾器會自動隱藏空頻道。</translation>
     </message>
 </context>
 <context>
@@ -4550,7 +4555,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>這將設定或切換您的沉默狀態。如果您關閉此功能，您還可以停用自動消音。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4568,7 +4573,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>這將設定或切換您的靜音狀態。如果您開啟此功能，您將同時進入沉默狀態。</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4616,7 +4621,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation type="unfinished"/>
+        <translation>目前的 Mumble 無法處理版本 %1.%2.%3 產生的網址。</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -4652,7 +4657,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+20"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;語音頻道&lt;/h2&gt;&lt;p&gt;使用 128 bit OCB-AES128 加密&lt;br /&gt;平均延遲 %1 毫秒 (誤差 %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-104"/>
@@ -4762,13 +4767,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>結合使用密談。</translation>
     </message>
     <message>
         <location line="-21"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>這將切換遊戲中的 overlay 狀態。</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -4780,7 +4785,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>循環發送模式</translation>
     </message>
     <message>
         <location line="+154"/>
@@ -4886,7 +4891,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>你確定要重設使用者 %1 的頭像?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -4907,7 +4912,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+0"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished"/>
+        <translation>給 %1 (樹)： %2</translation>
     </message>
     <message>
         <location line="+175"/>
@@ -4947,7 +4952,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>循環發送模式給 %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4972,7 +4977,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>這台伺服器使用舊式加密標準，新版的 Mumble 已不再支援。</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5033,7 +5038,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+241"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>圖片 (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
