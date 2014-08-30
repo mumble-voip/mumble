@@ -356,7 +356,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>拒絕的成員</translation>
+        <translation>排除的成員</translation>
     </message>
     <message>
         <location/>
@@ -435,18 +435,18 @@ These are all the groups currently defined for the channel. To create a new grou
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;可繼承&lt;/b&gt;&lt;br/&gt;使本群組可繼承到子頻道。如果群組不可繼承，則子頻道可以建立一個同名群組。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;繼承&lt;/b&gt;&lt;br/&gt;表示群組設定來自父頻道，你無法編輯這個旗幟，它僅供參考。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;成員&lt;/b&gt;&lt;br/&gt;這份清單涵蓋目前頻道所有已加入群組的成員。請注意，這並未包含來自頻道樹中繼承自父頻道的成員。繼承自父頻道的成員可以在&lt;i&gt;繼承的成員&lt;/i&gt;清單中找到。要防止這份清單被等級較低的頻道繼承，取消&lt;i&gt;可繼承&lt;/i&gt;或手動增加到&lt;i&gt;排除的成員&lt;/i&gt;名單。</translation>
     </message>
     <message>
         <location/>
@@ -478,7 +478,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>頻道名稱</translation>
+        <translation>頻道名稱。</translation>
     </message>
     <message>
         <location/>
@@ -844,12 +844,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation>靜音判定</translation>
+        <translation>以下沉默</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;設置語音檢測的觸發值。&lt;/b&gt;&lt;br /&gt;與音頻統計窗口一起來使用該值以手工調整語音偵測的觸發值。輸入值低於&quot;靜音判定&quot; 時視為無聲。高於&quot;語音判定&quot;時視為語音。如果你正在講話，講話期間的偵測值會被視為語音，但是不會觸發一個新的偵測。</translation>
+        <translation>&lt;b&gt;設置語音檢測的觸發值。&lt;/b&gt;&lt;br /&gt;與音訊統計窗口一起來使用該值以手工調整語音偵測的觸發值。輸入值低於&quot;靜音判定&quot; 時視為無聲。高於&quot;語音判定&quot;時視為講話中。如果你正在講話，期間的偵測值會被一直視為講話中，但是不會觸發一個新的偵測。</translation>
     </message>
     <message>
         <location/>
@@ -964,7 +964,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo</source>
-        <translation>聲音共鳴</translation>
+        <translation>回音</translation>
     </message>
     <message>
         <location/>
@@ -989,7 +989,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>使用基於振幅的語音檢測</translation>
     </message>
     <message>
         <location/>
@@ -1034,12 +1034,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;預覽&lt;/b&gt;播放目前&lt;i&gt;開始&lt;/i&gt;音效接著播放目前&lt;i&gt;停止&lt;/i&gt;音效。</translation>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>按鍵發話鈕永遠顯示在最上層。</translation>
+        <translation>按鍵發話鈕永遠顯示在最上層</translation>
     </message>
     <message>
         <location/>
@@ -1054,7 +1054,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>當開始或停止傳送時發出聽得見的提示音效</translation>
     </message>
     <message>
         <location/>
@@ -1114,12 +1114,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>deafen</source>
-        <translation>收訊靜音</translation>
+        <translation>靜音</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation>麥克風靜音</translation>
+        <translation>關閉麥克風</translation>
     </message>
     <message>
         <location/>
@@ -1427,7 +1427,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>選用時，當其他使用者講話時 Mumble 將降低其他應用程式音量。</translation>
+        <translation>選用時，當其他使用者講話時 Mumble 將降低其他應用程式音量</translation>
     </message>
     <message>
         <location/>
@@ -1442,7 +1442,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>選用時，當你講話時 Mumble 將降低其他應用程式音量。</translation>
+        <translation>選用時，當你講話時 Mumble 將降低其他應用程式音量</translation>
     </message>
     <message>
         <location/>
@@ -1600,7 +1600,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>靜音輸入位準</translation>
+        <translation>淨輸入位準</translation>
     </message>
     <message>
         <location/>
@@ -1925,7 +1925,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 打開你的錄音裝置控制面板，確定麥克風輸入已經啟用並將麥克風音量調到最大。如果有『麥克風增量』選項，請確認該選項已開啟。
 &lt;/p&gt;
 &lt;p&gt;
-大聲說話，就像你破口大罵時的樣子。接者降低你錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，蛋又不會到達紅色區塊。
+大聲說話，就像你破口大罵時的樣子。接者降低錄音裝置控制面板中的麥克風音量，使你正常說話時下方的音量條處於藍色與綠色部份盡可能接近紅色區塊的位置，但是又不會到達紅色區塊。
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -1999,7 +1999,7 @@ Mumble 尚在持續開發中，開發人員希望知道使用者的需求。Mumb
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>現在輕聲講話，就像你在深夜時不想打擾任何人一樣。調節下面的滑塊直到下面的進度條在你講話時進入綠區，而在你沉默時停留在藍區。</translation>
+        <translation>現在輕聲講話，就像你在深夜時不想打擾任何人一樣。調節下面的滑塊直到下面的進度條在你講話時進入綠區，在你停止說話的時停留在藍區。</translation>
     </message>
     <message>
         <location/>
@@ -2009,7 +2009,7 @@ Mumble 尚在持續開發中，開發人員希望知道使用者的需求。Mumb
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>讓 Mumble 分辨出你是在講話還是在沉默.</translation>
+        <translation>讓 Mumble 分辨出你是在說話還是保持安靜.</translation>
     </message>
     <message>
         <location/>
@@ -2100,7 +2100,7 @@ Mumble 尚在持續開發中，開發人員希望知道使用者的需求。Mumb
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"/>
+        <translation>當使用者對你講話時降低其他程式的音量</translation>
     </message>
     <message>
         <location/>
@@ -2165,7 +2165,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>現在輕聲講話，就像你在深夜時不想打擾任何人一樣。調節下面的滑塊直到下面的進度條在你講話時進入綠區，而在你沉默時停留在藍區。</translation>
+        <translation>現在輕聲講話，就像你在深夜時不想打擾任何人一樣。調節下面的滑塊直到下面的進度條在你講話時進入綠區，而在你關閉麥克風時停留在藍區。</translation>
     </message>
     <message>
         <location/>
@@ -2415,7 +2415,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>無法設定檔案權限。無法寫入憑證或密鑰。請更換檔案。</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2784,7 +2784,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>沉默/靜音</translation>
+        <translation>關閉麥克風/關閉喇叭</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2824,7 +2824,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>允許在頻道發言。使用者缺乏此權限將被伺服器限制發言(看起來像沉默的)，直到具有適當權限的人取消沉默。</translation>
+        <translation>允許在頻道發言。使用者缺乏此權限將被伺服器限制發言(看起來像關閉麥克風的)，直到具有適當權限的人取消關閉麥克風。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2834,7 +2834,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>允許使用者將其他人設為沉默或靜音。一旦被設為沉默，將一直保持沉默狀態到被其他有權限的使用者取消，或重新連線為止。</translation>
+        <translation>允許使用者將其他人設為關閉麥克風或關閉喇叭。一旦被設為關閉麥克風，將一直保持關閉麥克風狀態到被其他有權限的使用者取消，或重新連線為止。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2884,7 +2884,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation>密語</translation>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2961,12 +2961,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>沉默 (伺服器)</translation>
+        <translation>關閉麥克風 (伺服器)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation>靜音 (伺服器)</translation>
+        <translation>關閉喇叭 (伺服器)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2976,17 +2976,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>本地沉默</translation>
+        <translation>本地關閉麥克風</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>沉默 (自己)</translation>
+        <translation>關閉麥克風 (自己)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>靜音 (自己)</translation>
+        <translation>關閉喇叭 (自己)</translation>
     </message>
 </context>
 <context>
@@ -3622,12 +3622,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation>密語對象</translation>
+        <translation>悄悄話對象</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation>發送密談給清單中的使用者</translation>
+        <translation>發送悄悄話給清單中的使用者</translation>
     </message>
     <message>
         <location/>
@@ -3642,7 +3642,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation>如果指定，則只有此群組的成員可接收密談。</translation>
+        <translation>如果指定，則只有此群組的成員可接收悄悄話。</translation>
     </message>
     <message>
         <location/>
@@ -3667,7 +3667,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>使用快速鍵發送密談時不送出聲音定位資訊。</translation>
+        <translation>使用快速鍵發送悄悄話時不送出聲音定位資訊。</translation>
     </message>
     <message>
         <location/>
@@ -3692,12 +3692,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation>密談可以發送到所有相連結的頻道。</translation>
+        <translation>悄悄話可以發送到所有相連結的頻道。</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>密談內容可以發送到目標頻道的所有子頻道。</translation>
+        <translation>悄悄話內容可以發送到目標頻道的所有子頻道。</translation>
     </message>
 </context>
 <context>
@@ -3831,12 +3831,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>You self-muted/deafened</source>
-        <translation>自我靜音/沉默</translation>
+        <translation>自我關閉喇叭/關閉麥克風</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Other self-muted/deafened</source>
-        <translation>其他人自我靜音/沉默</translation>
+        <translation>其他人自我關閉喇叭/關閉麥克風</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3866,7 +3866,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>使用者被踢出(你或因為你)</translation>
+        <translation>使用者被(你或因為你)踢出</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3876,17 +3876,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>User muted (you)</source>
-        <translation>使用者沉默(你)</translation>
+        <translation>使用者關閉(你的)麥克風</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation>使用者沉默(因為你)</translation>
+        <translation>使用者被關閉麥克風(由你)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>使用者沉默(其他人)</translation>
+        <translation>使用者關閉麥克風(其他人)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4073,17 +4073,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation>密談</translation>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>選擇此項則只有在您好友清單中的使用者才可發送密談給你。</translation>
+        <translation>選擇此項則只有在您好友清單中的使用者才可發送悄悄話給你。</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>只接受好友的密談</translation>
+        <translation>只接受好友的悄悄話</translation>
     </message>
     <message>
         <location/>
@@ -4418,7 +4418,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation>過濾器會自動隱藏空頻道。</translation>
+        <translation>過濾器會自動隱藏空頻道</translation>
     </message>
 </context>
 <context>
@@ -4463,7 +4463,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation>沉默鍵</translation>
+        <translation>按鍵關麥克風</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4543,43 +4543,43 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-197"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>自我沉默</translation>
+        <translation>關閉麥克風</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>設定自我沉默狀態。</translation>
+        <translation>設定成關閉麥克風狀態。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>這將設定或切換您的沉默狀態。如果您關閉此功能，您還可以停用自動消音。</translation>
+        <translation>這將設定或切換您的關閉麥克風狀態。如果您關閉此功能，您還可以停用自動消音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation>自我靜音</translation>
+        <translation>自我關閉喇叭</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>設定自我靜音狀態。</translation>
+        <translation>設定自我關閉喇叭狀態。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>這將設定或切換您的靜音狀態。如果您開啟此功能，您將同時進入沉默狀態。</translation>
+        <translation>這將設定或切換您的關閉喇叭狀態。如果您開啟此功能，您將同時進入關閉麥克風狀態。</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation>密語/大喊</translation>
+        <translation>悄悄話/大喊</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4621,7 +4621,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>目前的 Mumble 無法處理版本 %1.%2.%3 產生的網址。</translation>
+        <translation>目前的 Mumble 無法處理版本 %1.%2.%3 產生的網址</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -4767,7 +4767,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation>結合使用密談。</translation>
+        <translation>結合悄悄話一起。</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4917,32 +4917,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation>解除沉默與靜音。</translation>
+        <translation>解除關閉麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>解除沉默。</translation>
+        <translation>解除關閉麥克風。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>沉默。</translation>
+        <translation>關閉麥克風。</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>已沉默與靜音。</translation>
+        <translation>已關閉麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>已靜音。</translation>
+        <translation>已關閉喇叭。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>解除靜音。</translation>
+        <translation>解除關閉喇叭。</translation>
     </message>
     <message>
         <location line="+92"/>
@@ -5128,7 +5128,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>沉默(&amp;M)</translation>
+        <translation>關閉麥克風(&amp;M)</translation>
     </message>
     <message>
         <location/>
@@ -5138,12 +5138,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation>靜音(&amp;D)</translation>
+        <translation>關閉喇叭(&amp;D)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>本地沉默(&amp;L)</translation>
+        <translation>本地關閉麥克風(&amp;L)</translation>
     </message>
     <message>
         <location/>
@@ -5325,32 +5325,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>自我沉默(&amp;M)</translation>
+        <translation>自我關閉麥克風(&amp;M)</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>自我沉默</translation>
+        <translation>自我關閉麥克風</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>對自己沉默或取消沉默。當沉默時，你將不會發送語音到伺服器。當取消沉默時將同時取消靜音。</translation>
+        <translation>對自己關閉麥克風或取消關閉麥克風。當關閉麥克風時，你將無法發送語音到伺服器。當取消關閉麥克風時將同時取消關閉喇叭。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation>自我靜音(&amp;D)</translation>
+        <translation>自我關閉喇叭(&amp;D)</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation>自我靜音</translation>
+        <translation>自我關閉喇叭</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>使自己靜音或取消靜音。當靜音時，你將聽不到聲音。自我靜音時亦自我沉默。</translation>
+        <translation>使自己關閉喇叭或取消關閉喇叭。當關閉喇叭時，你將聽不到聲音。自我關閉喇叭時亦關閉麥克風。</translation>
     </message>
     <message>
         <location/>
@@ -5640,7 +5640,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation>%1 被 %2 取消靜音。</translation>
+        <translation>%1 被 %2 取消關閉喇叭。</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5665,7 +5665,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-162"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 現在被沉默和靜音.</translation>
+        <translation>%1 現在被關閉麥克風和關閉喇叭.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5756,12 +5756,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 現在被沉默。</translation>
+        <translation>%1 現在被關閉麥克風。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 現在被取消沉默。</translation>
+        <translation>%1 現在被取消關閉麥克風。</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5791,12 +5791,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation>你被 %1 沉默。</translation>
+        <translation>你被 %1 關閉麥克風。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation>你被 %1 取消靜音。</translation>
+        <translation>你被 %1 取消關閉喇叭。</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5884,7 +5884,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-502"/>
         <source>You were unmuted by %1.</source>
-        <translation>你被 %1 取消沉默。</translation>
+        <translation>你被 %1 取消關閉麥克風。</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -5904,7 +5904,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation>%1 被 %2 沉默。</translation>
+        <translation>%1 被 %2 關閉麥克風。</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5914,7 +5914,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%1 被 %2 取消沉默。</translation>
+        <translation>%1 被 %2 取消關閉麥克風。</translation>
     </message>
     <message>
         <location line="+405"/>
@@ -5925,7 +5925,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-471"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>你被 %1 沉默與靜音。</translation>
+        <translation>你被 %1 關閉麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+169"/>
@@ -6241,7 +6241,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>使用快照版時將強制更新。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
@@ -6277,7 +6277,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation>代理</translation>
+        <translation>代理伺服器</translation>
     </message>
     <message>
         <location/>
@@ -6287,12 +6287,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation>連接通過的代理類型</translation>
+        <translation>代理伺服器的類型</translation>
     </message>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation>直接連接</translation>
+        <translation>直接連線</translation>
     </message>
     <message>
         <location/>
@@ -6312,7 +6312,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation>代理主機名</translation>
+        <translation>代理伺服器主機名稱</translation>
     </message>
     <message>
         <location/>
@@ -6322,27 +6322,27 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>使用 QoS 優先發送封包</translation>
     </message>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>啟用服務質量管理(QoS)後，語音封包將優先於其他流量處理。</translation>
     </message>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translation>使用頻寬管理器 (QoS)</translation>
+        <translation>使用服務質量管理 (QoS)</translation>
     </message>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"/>
+        <translation>不要將憑證傳給伺服器也不要儲存密碼。(不儲存)。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;這將阻止辨識客戶端的身份資訊&lt;/b&gt;&lt;p&gt;客戶端將無法使用憑證證明自己的身份，就算證明了，也無法儲存連線密碼。此為測試用選項且不儲存。&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6352,12 +6352,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;通過代理伺服器的通訊協定類型&lt;/b&gt;&lt;br/&gt;讓 Mumble 所有通訊都透過代理伺服器。注意：使用代理穿隧將使 Mumble 進入 TCP 相容模式，所有語音資料將使用控制頻道發送。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;代理伺服器的主機名稱&lt;/b&gt;&lt;br/&gt;用來指定存取網路的代理伺服器。</translation>
     </message>
     <message>
         <location/>
@@ -6412,13 +6412,14 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>阻止下載圖片的紀錄</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;停止下載圖片。&lt;/b&gt;&lt;br/&gt;
+停止下載嵌入聊天訊息中圖片。</translation>
     </message>
     <message>
         <location/>
@@ -6433,12 +6434,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"/>
+        <translation>讓 Mumble 自動偵測新發行版本。</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>每次啟動 Mumble 時，將會自動檢查有無新版本發行，如果發行新版將提醒通知。</translation>
     </message>
     <message>
         <location/>
@@ -6448,17 +6449,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>自動檢查外掛更新。</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>當啟動程式的時候，Mumble 將自動檢查並更新外掛模組。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;送出匿名統計。&lt;/b&gt;&lt;br /&gt;Mumble 有一個重視未來發展的開發團隊，透過您的資訊能讓開發團隊更精確的抓住未來的發展方向。</translation>
     </message>
     <message>
         <location/>
@@ -6492,7 +6493,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation>靜默</translation>
+        <translation>靜音</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6504,7 +6505,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation>密語</translation>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6534,72 +6535,72 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>僅說話</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"/>
+        <translation>說話語最近活動</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"/>
+        <translation>目前頻道裡所有的</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"/>
+        <translation>所有相互連結的頻道</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>總是顯視你自己</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"/>
+        <translation>設定最近活動時間 (%1 秒)…</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>列</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>排序</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>按英文字母排序</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"/>
+        <translation>最後停留的頻道</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation type="unfinished"/>
+        <translation>編輯…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"/>
+        <translation>重設大小</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"/>
+        <translation>重設最近活動時間</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"/>
+        <translation>多少秒鐘內持續判定語音活動:</translation>
     </message>
 </context>
 <context>
@@ -6858,7 +6859,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation>密語</translation>
+        <translation>私人的悄悄話</translation>
     </message>
     <message>
         <location/>
@@ -6868,7 +6869,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation>頻道密語</translation>
+        <translation>頻道悄悄話</translation>
     </message>
     <message>
         <location/>
@@ -7891,7 +7892,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation>直接對您密談。</translation>
+        <translation>直接對您發送悄悄話。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7936,32 +7937,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>沉默的 (自主沉默)</translation>
+        <translation>關閉麥克風的 (自主關閉麥克風)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>沉默的 (管理員設定沉默)</translation>
+        <translation>關閉麥克風的 (管理員設定關閉麥克風)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>沉默的 (不允許在目前的頻道發話)</translation>
+        <translation>關閉麥克風的 (不允許在目前的頻道發話)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>沉默的 (自主沉默，只在您的機器上有效)</translation>
+        <translation>關閉麥克風的 (自主關閉麥克風，只在您的機器上有效)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation>靜音(自主設定)</translation>
+        <translation>關閉喇叭(自設)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation>靜音(管理員設)</translation>
+        <translation>關閉喇叭(管理員設)</translation>
     </message>
     <message>
         <location line="+1"/>

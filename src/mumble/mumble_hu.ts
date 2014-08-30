@@ -40,7 +40,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>Azonosító: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -50,7 +50,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>A csatornának nevet kell addni</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -407,13 +407,14 @@ Hozzáad egy új csoportot.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Név&lt;/b&gt;&lt;br /&gt;Írja a csatorna nevét ebbe a mezőbe. A névnek összhangban kell állnia a kiszolgálón beállított szabályokkal.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ideiglenes&lt;/b&gt;&lt;br /&gt;
+Amennyiben engedélyezed a létrehozandó csatorna ideglenesként lesz megjelölve. Ez azt jelenti, hogy amikor az utolsó felhasználó is elhagyja a csatornát, azt a kiszolgáló automatikusan törli.</translation>
     </message>
     <message>
         <location/>
@@ -424,12 +425,12 @@ These are all the groups currently defined for the channel. To create a new grou
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Eltávolítás&lt;/b&gt;&lt;br /&gt;Eltávolítja a jelenleg kiválasztott csoportot. Amennyiben a csoport öröklött nem távolítható el a listából, de az összes helyi csoport információ eltávolításra fog kerülni.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Öröklés&lt;/b&gt;&lt;br /&gt;Örökölje az összes felhasználót a csoportban a szülő csoportból, amennyiben a csoport szülő csoportja &lt;i&gt;Örökölhető&lt;/i&gt;-ként van megjelölve a szülő csatornában.</translation>
     </message>
     <message>
         <location/>
@@ -477,12 +478,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Csatorna azonosítója.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>Csatorna azonosító</translation>
     </message>
 </context>
 <context>
@@ -2804,7 +2805,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation type="unfinished"/>
+        <translation> Ideiglenes létrehozása</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6921,7 +6922,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>Felhasználó csatorna neve, amikor a jelenlegi csatornán kívül van</translation>
     </message>
     <message>
         <location/>
