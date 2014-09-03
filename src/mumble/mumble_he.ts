@@ -7258,7 +7258,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation>התקן משתמט</translation>
+        <translation>התקן ברירת מחדל</translation>
     </message>
 </context>
 <context>
@@ -7266,12 +7266,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
-        <translation>קלט משתמט</translation>
+        <translation>קלט ברירת מחדל</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation>פלט משתמט</translation>
+        <translation>פלט ברירת מחדל</translation>
     </message>
 </context>
 <context>
@@ -8360,7 +8360,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation>סגירת הרשמקול בלי עצירתו תסלק שמע לא-רשום. האם אכן ברצונך לסגור את הרשמקול?</translation>
+        <translation>סגירת כלי ההקלטה מבלי לעצור אותו תגרום לאיבוד השמע שעוד לא נשמר. האם אכן ברצונך לסגור את כלי ההקלטה?</translation>
     </message>
     <message>
         <location line="+33"/>
