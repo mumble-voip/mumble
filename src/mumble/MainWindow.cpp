@@ -2809,8 +2809,11 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 
 	if (! url.isValid())
 		QToolTip::hideText();
-	else
-		QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
+	else {
+		if (qApp->activeWindow() != NULL) {
+			QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
+		}
+	}
 }
 
 void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {
