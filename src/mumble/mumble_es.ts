@@ -40,7 +40,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -482,12 +482,12 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ID del canal</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>CanalID</translation>
     </message>
 </context>
 <context>
@@ -1476,22 +1476,22 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Orador prioritario</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>Si se marca Mumble disminuye el volúmen de otros usuarios mientras usted habla si es usted un &quot;Orador prioritario&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Disminuír el volúmen de otros usuarios mientras se habla como Orador Prioritario.&lt;/b&gt;&lt;br /&gt;Mumble permite disminuír el volúmen de otros usuarios mientras usted habla &lt;i&gt;Orador Prioritario&lt;/i&gt; para evitar ser interrumpido. Marcando esta casilla se activa esta función.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Atenuar a otros usuarios mientras se habla como Orador Prioritario.</translation>
     </message>
 </context>
 <context>
@@ -2262,112 +2262,112 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Lista de Bans</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"/>
+        <translation>Búsqueda</translation>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"/>
+        <translation>Este es el campo de búsqueda. Empleelo para encontrar baneos a traves del nombre establecido en el campo de usuario.</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>A quien está buscando?</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"/>
+        <translation>Sin nombre de usuario</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>Dirección IP</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"/>
+        <translation>Sin dirección IP</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>Razón del ban</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>Sin razón</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>Fecha de fin del ban</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"/>
+        <translation>Fecha fin del ban. Si se emplea la misma fecha para el inicio y fin del ban, el ban sera permanente (no expirará).</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Hash del certificado</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Sin hash del certificado</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>Usuarios baneados</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Esta es una lista con usuarios baneados</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Emplee este botón si desea añadir un nuevo ban.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Emplee este botón si desea modificar la información de un ban.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Emplee este botón si desea eliminar un usuario de la lista de baneados.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>Limpiar todos los campos</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Este botón limpia todos los campos. Empleelo si desea añadir un nuevo ban.</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Limpiar</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Lista de Baneados -%n Ban(s)</numerusform><numerusform>Lista de Baneados -%n Ban(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2428,7 +2428,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>No se han podido modificar los permisos del fichero. No se han guardado certificado ni la clave. Por favor emplee otro fichero.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4444,7 +4444,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>FIltra automáticamente los canales vacios</translation>
     </message>
 </context>
 <context>
@@ -4793,7 +4793,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Emplee junto con Susurro a.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4811,12 +4811,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmisión Cíclica</translation>
     </message>
     <message>
         <location line="+154"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Cancelar</translation>
     </message>
     <message>
         <location line="+570"/>
@@ -4917,7 +4917,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Estás seguro de que desea reiniciar el avatar del usuario %1?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -4978,7 +4978,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmisión Cíclica a %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -5066,7 +5066,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+241"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>Imágenes (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5850,12 +5850,12 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 renombrado a %2</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 dejó el canal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6223,27 +6223,27 @@ Las opciones válidas son:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lista de Bans</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>Editar la lista de bans del servidor</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Esto le permite editar la lista de bans por IP del servidor.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Filtro on/off</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Active/Desactive el filtro del canal (Crtl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6251,27 +6251,30 @@ Las opciones válidas son:
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>Activa o desactiva el filtro de los canales seleccionados.
+Por defecto todos los canales vacios serán filtrados.
+Puede marcar canales adicionales para ser filtrados si así lo desea
+en el menu contextual del canal.</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ocultar el Canal cuando el filtro esté activo</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar &amp;Avatar</translation>
     </message>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar el avatar del usuario seleccionado</translation>
     </message>
 </context>
 <context>
@@ -6858,17 +6861,17 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS y Reloj Display</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar un reloj en la sobreimpresión mostrando la hora actual local (hora del sistema).</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar Reloj</translation>
     </message>
 </context>
 <context>
@@ -7662,37 +7665,37 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>A quién estás buscando?</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"/>
+        <translation>Dias</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"/>
+        <translation>Semanas</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"/>
+        <translation>Meses</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"/>
+        <translation>Años</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>Inactivo durante</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Usuarios registrados: %n cuenta(s)</numerusform><numerusform>Usuarios registrados: %n cuenta(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7893,32 +7896,32 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Nick</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>Dias inactivo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>Último canal</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Visto por última vez: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Nunca</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation>Canal id: %1</translation>
     </message>
 </context>
 <context>
@@ -8047,7 +8050,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>El canal será ocultado cuando el filtro esté activado</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8233,7 +8236,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>La grabadora falló al abrir el archivo &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8352,12 +8355,12 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"/>
+        <translation>Grabadora en funcionamiento</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>Cerrar la grabadora sin detenerla previamente puede causa una perdida de audio. Desea cerrar la grabadora?</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8384,7 +8387,7 @@ Por favor, contacte con el administrador de su servidor para más información.<
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"/>
+        <translation>Parando</translation>
     </message>
     <message>
         <location line="+28"/>

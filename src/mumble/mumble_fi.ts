@@ -4,103 +4,103 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>Kiellä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>Salli</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>Salli %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>Kiellä %1</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Lisää kanava</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>Epäonnistui: Virheellinen kanava</translation>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Muokkaa %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Tämä myöntää oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kiellettyksi.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>Kanavalla tulee olla nimi</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Tämä epää oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kielletyksi.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Ikkuna</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita kanavan nimi.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Kuvaus</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Salasana</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita kanavan salasana.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Napsauta luodaksesi tilapäisen kanavan.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>Tilapäinen</translation>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Kanavan järjestysnumero</translation>
     </message>
     <message>
         <location/>
@@ -108,289 +108,291 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Järjestysnumero&lt;/b&gt;&lt;br/&gt;
+Tämä numero määrittää kuinka Mumble järjestää kanavat. Suuremmalla &lt;i&gt;järjestysnumerolla&lt;/i&gt; varustettu kanava sijoitetaan aina alemmaksi, kuin pienemmällä numerolla varustettu. Mikäli kahdella kanavalla on sama &lt;i&gt;järjestysnumero&lt;/i&gt; järjestetään ne aakkosjärjestyksessä.</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Järjestys</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ryhmät</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Ryhmä</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>Ryhmälistaus</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>Poista valittu ryhmä</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Poista</translation>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytä jäsenet emoryhmästä</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytä</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Mahdollista ryhmän sisällytys alakanaville</translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytettävä</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>Ryhmä sisällytettiin emokanavasta</translation>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytetty</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>Jäsenet</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Lisää</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>Lisää jäsen ryhmään</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>Poista jäsen ryhmästä</translation>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Aktiiviset ALC:t</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>Listaus merkinnöistä</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytä emon ACL?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä määrittää onko emokanavaketjun ACL käytössä tässä objektissa. Ainoastaan lisäykset, jotka on merkattu emokanavassa &quot;Sisällytä alakanaviin&quot; sisällytetään.</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytä ACL</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Liikuta merkintää ylös</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä liikuttaa merkintää ylös listassa. Tämä voi vaikuttaa käyttäjien oikeuksiin, sillä merkinnät huomioidaan järjestyksessä. Et voi liikuttaa merkintää yli sisällytetyn merkinnän; jos sinun tarvitsee tehdä niin, tulee sinun kahdentaa sisällytetty merkintä.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ylös</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>Liikuta merkintää alas</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä liikuttaa merkintää alas listassa. Tämä voi vaikuttaa käyttäjien oikeuksiin, sillä merkinnät huomioidaan järjestyksessä.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Alas</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>Lisää uusi merkintä</translation>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä lisää uuden merkinnän, jolla ei ole aluksi mitään oikeuksia ja joka koskee kaikkia.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisä</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>Poista merkintä</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä poistaa valitun merkinnän</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Poista</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Konteksti</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>Merkintä koskee tätä kanavaa.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä laittaa merkinnän koskemaan tätä kanavaa.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>Koskee tätä kanavaa</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Merkinnän koskettaa alakanavia.</translation>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Lisää uusi ryhmä</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Lisää&lt;/b&gt;&lt;br/&gt;
+Lisää uusi ryhmä.</translation>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Sisällytetyt jäsenet</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Sisältää listan jäsenistä, jotka kanava on lisännyt tähän ryhmään.</translation>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>Sisältää listan jäsenistä, joiden jäsenyyttä ei sisällytetä emokanavasta.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>Sisältää listan jäsenistä, jotka on sisällytetty muilta kanavilta.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita käyttäjän nimi, jonka haluat lisätä ryhmään, ja klikkaa Lisää.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita käyttäjän nimi, jonka haluat poistaa ryhmästä, ja klikkaa Poista.</translation>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>Rajaa ulos</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>Ulosrajatut jäsenet</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä laittaa merkinnän koskemaan kaikkia kanavan alakanavia.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Koskee alakanavia</translation>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>Oikeudet</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä/Ryhmä</translation>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Ryhmä jota tämä merkintä koskee</translation>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä ID</translation>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä, jota tämä merkintä koskee</translation>
     </message>
     <message>
         <location/>
@@ -400,7 +402,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ominaisuudet</translation>
     </message>
     <message>
         <location/>
@@ -475,12 +477,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Kanavan ID.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>KanavaID</translation>
     </message>
 </context>
 <context>
@@ -488,7 +490,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Oletus ALSA kortti</translation>
     </message>
     <message>
         <location line="+191"/>
@@ -514,7 +516,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (versio %2)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -547,17 +549,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Laitteen valinta</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Laite</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>Laite jota käytetään mikrofonina</translation>
     </message>
     <message>
         <location/>
@@ -582,32 +584,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation type="unfinished"/>
+        <translation>Konfiguroi valittu laite</translation>
     </message>
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä konfiguroi valitun laitteen. Ota huomioon, että useat ASIO-ajurit ovat todella bugisia, ja niiden konfiguroiminen saattaa kaataa joko ohjelman tai koko järjestelmän.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Konfiguroi</translation>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation type="unfinished"/>
+        <translation>Kyvyt</translation>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation type="unfinished"/>
+        <translation>Ajurin nimi</translation>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Puskurin koko</translation>
     </message>
     <message>
         <location/>
@@ -617,37 +619,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation type="unfinished"/>
+        <translation>Määritä syöttökanavat</translation>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>Kanavat</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofoni</translation>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation type="unfinished"/>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation type="unfinished"/>
+        <translation>Käyttämätön</translation>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation type="unfinished"/>
+        <translation>Kaiuttimet</translation>
     </message>
 </context>
 <context>
@@ -655,7 +657,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>Sinun tulee valita vähintää yksi mikrofoni- ja kaiutinlähde käyttääksesi ASIO:ta. Jos tarvitset vain mikrofonin samplausta käytä DirectSoundia.</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -668,32 +670,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumblesta</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Puheohjelma pelaajille&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Mumblesta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisenssi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"/>
+        <translation>Kolmannen &amp;osapuolen lisenssit</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>Ok</translation>
     </message>
 </context>
 <context>
@@ -701,17 +703,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Lomake</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Rajapinta</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Järjestelmä</translation>
     </message>
     <message>
         <location/>
@@ -726,7 +728,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Laite</translation>
     </message>
     <message>
         <location/>
@@ -741,12 +743,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>Lähetys</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lähetä</translation>
     </message>
     <message>
         <location/>
@@ -761,7 +763,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation type="unfinished"/>
+        <translation>Tuplapainalluksen Aika</translation>
     </message>
     <message>
         <location/>
@@ -796,12 +798,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Pois päältä</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>Päällä</translation>
     </message>
     <message>
         <location/>
@@ -826,7 +828,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>Voimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -861,12 +863,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Compression</source>
-        <translation type="unfinished"/>
+        <translation>Pakkaus</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Laatu</translation>
     </message>
     <message>
         <location/>
@@ -961,7 +963,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished"/>
+        <translation>Kaiku</translation>
     </message>
     <message>
         <location/>
