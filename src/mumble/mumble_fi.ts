@@ -953,12 +953,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Mixed</source>
-        <translation type="unfinished"/>
+        <translation>Miksattu</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished"/>
+        <translation>Monikanava</translation>
     </message>
     <message>
         <location/>
@@ -983,7 +983,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"/>
+        <translation>Maksimi kaistanleveys äänen lähettämiseen</translation>
     </message>
     <message>
         <location/>
@@ -1118,7 +1118,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>vaimenna</translation>
     </message>
     <message>
         <location/>
@@ -1131,56 +1131,56 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Jatkuva</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Ääniaktiviteetti</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>Puhepikanäppäin</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation type="unfinished"/>
+        <translation>Äänen syöttö</translation>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Pois päältä</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation type="unfinished"/>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s (Ääni %2, Sijainti %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -1198,7 +1198,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Järjestelmä</translation>
     </message>
     <message>
         <location/>
@@ -1274,12 +1274,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>Tulevan puheen äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -1335,17 +1335,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"/>
+        <translation>Kuulokkeet</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Minimimatka</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Maksimimatka</translation>
     </message>
     <message>
         <location/>
@@ -1355,7 +1355,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"/>
+        <translation>Minimiäänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -1411,12 +1411,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"/>
+        <translation>Vaimenna sovelluksia...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>Muiden sovellusten vaimentaminen puhuessa</translation>
     </message>
     <message>
         <location/>
@@ -1426,7 +1426,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>Mikäli valittu, Mumble hiljentää sovellusten äänenvoimakkuutta muiden käyttäjien puhuessa</translation>
     </message>
     <message>
         <location/>
@@ -1436,12 +1436,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>muiden käyttäjien puhuessa</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"/>
+        <translation>Mikäli valittu, Mumble hiljentää sovellusten äänenvoimakkuutta sinun puhuessasi</translation>
     </message>
     <message>
         <location/>
@@ -1451,7 +1451,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"/>
+        <translation>sinun puhuessasi</translation>
     </message>
     <message>
         <location/>
@@ -1471,7 +1471,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Etuoikeutettu puhuja</translation>
     </message>
     <message>
         <location/>
@@ -1499,12 +1499,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1516,7 +1516,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -1525,13 +1525,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"/>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"/>
+        <translation>%1 m</translation>
     </message>
 </context>
 <context>
@@ -1539,12 +1539,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation type="unfinished"/>
+        <translation>Valitse äänitiedosto</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation type="unfinished"/>
+        <translation>Virheellinen äänitiedosto</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1558,12 +1558,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="AudioStats.cpp" line="+387"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished"/>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Äänistatistiikat</translation>
     </message>
     <message>
         <location/>
@@ -1742,7 +1742,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Introduction</source>
-        <translation type="unfinished"/>
+        <translation>Tutustuminen</translation>
     </message>
     <message>
         <location/>
@@ -1752,7 +1752,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Finished</source>
-        <translation type="unfinished"/>
+        <translation>Valmis</translation>
     </message>
     <message>
         <location/>
@@ -1777,7 +1777,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Järjestelmä</translation>
     </message>
     <message>
         <location/>
@@ -1792,7 +1792,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Laite</translation>
     </message>
     <message>
         <location/>
@@ -1936,7 +1936,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"/>
+        <translation>Käytä kuulokkeita kaiuttimien sijaan</translation>
     </message>
     <message>
         <location/>
@@ -1952,7 +1952,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation type="unfinished"/>
+        <translation>Käytä kuulokkeita</translation>
     </message>
     <message>
         <location/>
@@ -1962,7 +1962,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation type="unfinished"/>
+        <translation>Äänenvoimakkuuden säätö</translation>
     </message>
     <message>
         <location/>
@@ -1977,7 +1977,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"/>
+        <translation>Ääniaktiviteetin tunnistus</translation>
     </message>
     <message>
         <location/>
@@ -2018,7 +2018,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä anonymisoituja tilastoja Mumble-projektille</translation>
     </message>
     <message>
         <location/>
@@ -2043,12 +2043,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"/>
+        <translation>Alhainen</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"/>
+        <translation>Balansoitu</translation>
     </message>
     <message>
         <location/>
@@ -2083,7 +2083,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"/>
+        <translation>Korkea</translation>
     </message>
     <message>
         <location/>
@@ -2167,67 +2167,67 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Muokkaa estoja</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Osoite</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Mask</translation>
     </message>
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished"/>
+        <translation>Syy</translation>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation type="unfinished"/>
+        <translation>Alkaen</translation>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation type="unfinished"/>
+        <translation>Loppuen</translation>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä</translation>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation type="unfinished"/>
+        <translation>Tarkistussumma</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisää</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Päivitä</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Poista</translation>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Estolista</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"/>
+        <translation>Hakukenttä</translation>
     </message>
     <message>
         <location/>
@@ -2242,32 +2242,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"/>
+        <translation>Ei käyttäjänimeä</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP-osoite</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"/>
+        <translation>Ei IP-osoitetta</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>Syy estolle</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>Ei syytä</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>Eston loppumispäivä</translation>
     </message>
     <message>
         <location/>
@@ -2277,42 +2277,42 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikaatin tarkistussumma</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Ei sertifikaatin tarkistussummaa</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>Estetyt käyttäjät</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Tässä lista estetyistä käyttäjistä.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Klikkaa tätä nappia lisääksesi uuden eston.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Klikkaa tätä nappia päivittääksesi eston tietoja.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Klikkaa tätä nappia poistaaksesi käyttäjän estetyistä.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjennä kaikki kentät</translation>
     </message>
     <message>
         <location/>
@@ -2322,7 +2322,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjennä</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
@@ -2335,22 +2335,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+53"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>Sähköpostiosoite</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation type="unfinished"/>
+        <translation>Eston lisääjä</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"/>
+        <translation>Loppumispäivä</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -2423,7 +2423,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen käyttäjä</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+500"/>
@@ -2547,12 +2547,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation type="unfinished"/>
+        <translation>Avaa...</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Salasana</translation>
     </message>
     <message>
         <location/>
@@ -2577,17 +2577,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikaatin tiedot</translation>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Korvaa sertifikaatti</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"/>
+        <translation>Korvaa nykyinen sertifikaatti uudella?</translation>
     </message>
     <message>
         <location/>
@@ -2605,27 +2605,27 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on sertifikaatti, jota Mumble tällä hetkellä käyttää. Se korvataan.</translation>
     </message>
     <message>
         <location/>
         <source>New certificate</source>
-        <translation type="unfinished"/>
+        <translation>Uusi sertifikaatti</translation>
     </message>
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on sertifikaatti, joka korvaa vanhan.</translation>
     </message>
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Uusi sertifikaatti</translation>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"/>
+        <translation>Varmuuskopioi sertifikaattisi</translation>
     </message>
     <message>
         <location/>
@@ -2645,7 +2645,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna nimellä...</translation>
     </message>
     <message>
         <location/>
@@ -2665,17 +2665,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>Sähköpostiosoite</translation>
     </message>
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"/>
+        <translation>Sähköpostiosoitteesi (esim. matti.meikalainen@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -2685,7 +2685,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"/>
+        <translation>Nimesi (esim. Matti Meikäläinen)</translation>
     </message>
     <message>
         <location/>
@@ -2748,7 +2748,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation type="unfinished"/>
+        <translation>Puhuminen</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2758,17 +2758,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>Luo kanava</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation type="unfinished"/>
+        <translation>Luo tilapäinen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation type="unfinished"/>
+        <translation>Linkkaa kanava</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -2853,37 +2853,37 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskaa</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Siirrä</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstiviesti</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation type="unfinished"/>
+        <translation>Potkaise</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation type="unfinished"/>
+        <translation>Estä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröi käyttäjä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröi itsesi</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -2910,27 +2910,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation type="unfinished"/>
+        <translation>Ystävä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation type="unfinished"/>
+        <translation>Autentikoitu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"/>
+        <translation>Ensisijainen puhuja</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>Nauhoittaa</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"/>
+        <translation>Vaimennettu (palvelin)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2945,12 +2945,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen vaimennus</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"/>
+        <translation>Vaimennettu (itse)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3014,12 +3014,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen konfigurointi</translation>
     </message>
     <message>
         <location/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>Ammattilaisasetukset</translation>
     </message>
 </context>
 <context>
@@ -3027,13 +3027,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistetään %1</translation>
     </message>
     <message>
         <location line="-545"/>
         <location line="+545"/>
         <source>Enter username</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita käyttäjänimi</translation>
     </message>
     <message>
         <location line="-545"/>
@@ -3044,7 +3044,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen nimi</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
@@ -3059,17 +3059,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>Portti</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation type="unfinished"/>
+        <translation>Osoitteet</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation type="unfinished"/>
+        <translation>Nettisivu</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3095,7 +3095,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"/>
+        <translation>Kaistanleveys</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3116,12 +3116,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjät</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Versio</translation>
     </message>
     <message>
         <location line="+1051"/>
@@ -3136,7 +3136,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Ping</source>
-        <translation type="unfinished"/>
+        <translation>Vasteaika</translation>
     </message>
     <message>
         <location/>
@@ -3292,12 +3292,12 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation type="unfinished"/>
+        <translation>Lisää palvelin</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Salasana</translation>
     </message>
     <message>
         <location/>
@@ -3313,7 +3313,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>Näytä salasana</translation>
     </message>
     <message>
         <location/>
@@ -3335,7 +3335,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen kaatumisraportti</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3345,7 +3345,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"/>
+        <translation>Sähköpostiosoite (valinnainen)</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3356,28 +3356,28 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä raportti</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"/>
+        <translation>Älä lähetä raporttia</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Crash upload successful</source>
-        <translation type="unfinished"/>
+        <translation>Kaatumisraportin lähetys onnistui</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"/>
+        <translation>Kiitos, että autat parantamaan Mumblea!</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation type="unfinished"/>
+        <translation>Kaatumisraportin lähetys epäonnistui</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -3392,12 +3392,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+102"/>
         <source>Uploading crash report</source>
-        <translation type="unfinished"/>
+        <translation>Lähetetään kaatumisraporttia</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation type="unfinished"/>
+        <translation>Keskeytä lähetys</translation>
     </message>
 </context>
 <context>
@@ -3466,7 +3466,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation type="unfinished"/>
+        <translation>Vedä tähän</translation>
     </message>
 </context>
 <context>
@@ -3474,7 +3474,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Pikakuvakkeet</translation>
     </message>
     <message>
         <location/>
@@ -3544,7 +3544,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Ohita</translation>
     </message>
     <message>
         <location/>
@@ -3611,17 +3611,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjälista</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Lisää</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Poista</translation>
     </message>
     <message>
         <location/>
@@ -3669,7 +3669,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="+346"/>
         <source>Mouse %1</source>
-        <translation type="unfinished"/>
+        <translation>Hiiri %1</translation>
     </message>
 </context>
 <context>
@@ -3677,7 +3677,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="+282"/>
         <source>Not connected</source>
-        <translation type="unfinished"/>
+        <translation>Ei yhdistetty</translation>
     </message>
 </context>
 <context>
@@ -3705,7 +3705,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location/>
@@ -3720,7 +3720,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Koko</translation>
     </message>
     <message>
         <location/>
@@ -3770,12 +3770,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>Varoitus</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3800,7 +3800,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Ei käyttöoikeutta toiminnolle</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3810,57 +3810,57 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä liittyi palvelimelle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä poistui palvelimelta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän nauhoitusasetus muuttui</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä potkittiin (sinun tai jonkun muun toimesta)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä potkittiin</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>User muted (you)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä vaimennettu (sinä)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä vaimennettu (sinun toimestasi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä vaimennettu (muu)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä liittyi kanavalle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä poistui kanavalta</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>the server</source>
-        <translation type="unfinished"/>
+        <translation>palvelin</translation>
     </message>
     <message>
         <location line="+127"/>
@@ -3967,42 +3967,42 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Console</source>
-        <translation type="unfinished"/>
+        <translation>Konsoli</translation>
     </message>
     <message>
         <location/>
         <source>Notification</source>
-        <translation type="unfinished"/>
+        <translation>Ilmoitus</translation>
     </message>
     <message>
         <location/>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Teksti puheeksi</translation>
     </message>
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation type="unfinished"/>
+        <translation>Äänitiedosto</translation>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation type="unfinished"/>
+        <translation>Polku</translation>
     </message>
     <message>
         <location/>
         <source>Text To Speech</source>
-        <translation type="unfinished"/>
+        <translation>Teksti puheeksi</translation>
     </message>
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"/>
+        <translation>Teksti puheeksi -moottorin äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -4032,7 +4032,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskaa</translation>
     </message>
     <message>
         <location/>
@@ -4057,7 +4057,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"/>
+        <translation>Chat logi</translation>
     </message>
     <message>
         <location/>
@@ -4067,12 +4067,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"/>
+        <translation>Rajoittamaton</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"/>
+        <translation>Rivejä</translation>
     </message>
 </context>
 <context>
@@ -4096,22 +4096,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Kaikk</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation type="unfinished"/>
+        <translation>Kysy</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"/>
+        <translation>Älä tee mitää</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Siirrä</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4161,12 +4161,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Kieli</translation>
     </message>
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>Käytettävä kieli (vaatii uudelleenkäynnistymisen)</translation>
     </message>
     <message>
         <location/>
@@ -4186,22 +4186,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"/>
+        <translation>Klassinen</translation>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation type="unfinished"/>
+        <translation>Pinottu</translation>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished"/>
+        <translation>Hybridi</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Muokattava</translation>
     </message>
     <message>
         <location/>
@@ -4217,7 +4217,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Tyyli</translation>
     </message>
     <message>
         <location/>
@@ -4297,12 +4297,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Ei koskaa</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"/>
+        <translation>Aina</translation>
     </message>
     <message>
         <location/>
@@ -4362,7 +4362,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"/>
+        <translation>Kanavapuu</translation>
     </message>
     <message>
         <location/>
@@ -4386,7 +4386,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2314"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Root</translation>
     </message>
     <message>
         <location line="-2260"/>
@@ -4428,7 +4428,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Liity kanavalle</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4452,18 +4452,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Lisää äänenvoimakkuutta (+10 %)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Laske äänenvoimakkuutta (-10 %)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
@@ -4491,7 +4491,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+136"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Sulje</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4560,7 +4560,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei löydy</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -4601,7 +4601,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistetään uudelleen.</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4643,12 +4643,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"/>
+        <translation>Potkitaan käyttäjä %1</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation type="unfinished"/>
+        <translation>Estetään käyttäjä %1</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -4659,7 +4659,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+72"/>
         <location line="+263"/>
         <source>Message to channel %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti kanavalle %1</translation>
     </message>
     <message>
         <location line="+635"/>
