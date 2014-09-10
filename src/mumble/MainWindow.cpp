@@ -829,7 +829,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 		f = Qt::Window | Qt::FramelessWindowHint;
 #ifndef Q_OS_MAC
 	else if (!showit)
-		f = Qt::Tool;
+		f = Qt::Window;
 #else
 	f |= Qt::MacWindowToolBarButtonHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint;
 #endif
