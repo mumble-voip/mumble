@@ -2844,42 +2844,42 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"/>
+        <translation>允許建立一個子頻道。使用者可以建立一個子頻道並被加入子頻道管理員群組。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"/>
+        <translation>允許使用者建立一個臨時的子頻道。使用者可以建立一個臨時子頻道並被加入子頻道管理員群組。臨時子頻道不會永久存在，當最後一個使用者離開時，臨時子頻道將會消失。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"/>
+        <translation>允許連結頻道。當發言的使用者擁有&lt;i&gt;發言&lt;/i&gt;的權限時，被連接的頻道可以聽到彼此的發言，你需要同時擁有兩個頻道的連結權限，但僅擁有一方時可移除連結。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"/>
+        <translation>允許發送文字訊息給頻道內其他使用者。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>允許強制使用者離開伺服器。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>允許永久禁止使用者進入伺服器。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"/>
+        <translation>允許使用者在伺服器上註冊與移除註冊。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"/>
+        <translation>允許使用者在伺服器上註冊。</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2999,32 +2999,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>該按鈕將接受當前設置并返回到應用程序。&lt;br/&gt;當你退出應用程序時這些設置將被存盤。</translation>
+        <translation>該按鈕將接受當前設定並返回到應用程式。&lt;br /&gt;當你退出應用程式時這些設定將被儲存。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation>取消</translation>
+        <translation>取消變更</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>該按鈕將拒絕所有修改并返回到應用程序。&lt;br/&gt;這些設置將被重置到先前的設定。</translation>
+        <translation>該按鈕將拒絕所有修改並回到應用程式。&lt;br /&gt;這些設定將被重置到先前的設定。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>應用</translation>
+        <translation>套用</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation>該按鈕將立即應用所有修改.</translation>
+        <translation>該按鈕將立即套用所有修改。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation>撤銷</translation>
+        <translation>取消變更。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3034,18 +3034,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation>恢復默認值</translation>
+        <translation>恢復預設值</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
+        <translation>此按鈕將回存目前頁面成預設值。其他頁面不會有所變更。&lt;br /&gt;希望重設所有頁面設定為預設值時，你需要在所有頁面使用此按鈕。</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation>Mumble 配置</translation>
+        <translation>Mumble 設定</translation>
     </message>
     <message>
         <location/>
@@ -3950,12 +3950,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>為 %1 事件啟用彈出窗口通知</translation>
+        <translation>%1 事件跳出通知視窗</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>為%1事件啟用文本語音轉換</translation>
+        <translation>%1 事件使用文本語音轉換</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3965,12 +3965,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"/>
+        <translation>%1 事件中使用提示音效檔案&lt;br /&gt;單點播放音效&lt;br /&gt;連按兩下以變更</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>點擊這里為 %1 事件啟用控制台輸出。&lt;br /&gt;如果選中，該選項使 Mumble 輸出所有 %1 事件到它的消息日志中。</translation>
+        <translation>點擊這裡為 %1 事件啟用控制台輸出。&lt;br /&gt;如果選取，該選項使 Mumble 輸出所有 %1 事件到它的訊息日誌。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4048,7 +4048,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;這是用于語音合成的音量。&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;這是用於語音合成的音量。&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4088,7 +4088,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"/>
+        <translation>啟此功能啟用後將使用文本轉語音讀出回傳的訊息。</translation>
     </message>
     <message>
         <location/>
@@ -5218,7 +5218,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"/>
+        <translation>顯示已註冊伺服器的對話框，並允許快速連結。</translation>
     </message>
     <message>
         <location/>
@@ -5233,12 +5233,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation type="unfinished"/>
+        <translation>關閉使用者麥克風</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"/>
+        <translation>關閉或開啟伺服器上使用者的麥克風。開啟一個關閉喇叭的使用者的麥克風的同時將會一併開啟他的喇叭。</translation>
     </message>
     <message>
         <location/>
@@ -5248,27 +5248,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>從伺服器上踢出與封鎖使用者。你將被要求提出理由。</translation>
     </message>
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>關閉使用者的喇叭</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"/>
+        <translation>關閉或開啟伺服器上使用者的喇叭。關閉喇叭的同時將一併關閉麥克風。</translation>
     </message>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished"/>
+        <translation>關閉局部使用者的麥克風</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>關閉或開啟局部使用者麥克風。將此設定套用於同一個房間的使用者。</translation>
     </message>
     <message>
         <location/>
@@ -5505,17 +5505,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>設定高強度驗證頻證</translation>
     </message>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"/>
+        <translation>開啟引導精靈，建立、匯入與匯出伺服器身份驗證憑證。</translation>
     </message>
     <message>
         <location/>
         <source>Register user on server</source>
-        <translation type="unfinished"/>
+        <translation>伺服器上註冊使用者</translation>
     </message>
     <message>
         <location/>
@@ -5530,12 +5530,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"/>
+        <translation>增加一個使用者成為朋友。</translation>
     </message>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"/>
+        <translation>增加一個使用者成為朋友，不管在此伺服器或其他伺服器你都可以辨認他。</translation>
     </message>
     <message>
         <location/>
@@ -5545,12 +5545,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>自朋友列中刪除一個使用者。</translation>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"/>
+        <translation>你將從朋友清單中刪除一個使用者。</translation>
     </message>
     <message>
         <location/>
@@ -5560,7 +5560,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"/>
+        <translation>更新你的朋友的名字。</translation>
     </message>
     <message>
         <location/>
@@ -5590,7 +5590,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"/>
+        <translation>增加或移除文字存取標記</translation>
     </message>
     <message>
         <location/>
@@ -5681,7 +5681,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-15"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble：%1</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -6060,7 +6060,7 @@ Valid options are:
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>重設使用者註解。</translation>
     </message>
     <message>
         <location/>
@@ -6075,12 +6075,12 @@ Valid options are:
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"/>
+        <translation>在編輯器中檢視使用者註解</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"/>
+        <translation>查詢伺服器的使用者資訊</translation>
     </message>
     <message>
         <location/>
@@ -6120,7 +6120,7 @@ Valid options are:
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"/>
+        <translation>更改你在此伺服器的頭像。</translation>
     </message>
     <message>
         <location/>
@@ -6130,7 +6130,7 @@ Valid options are:
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"/>
+        <translation>移除目前定義的頭像圖片。</translation>
     </message>
     <message>
         <location/>
@@ -6140,7 +6140,7 @@ Valid options are:
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>變更你自己的註解</translation>
     </message>
     <message>
         <location/>
@@ -6160,7 +6160,7 @@ Valid options are:
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>複製頻道網址到剪貼簿。</translation>
     </message>
     <message>
         <location/>
@@ -6195,7 +6195,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>開/關過濾器(&amp;F)</translation>
     </message>
     <message>
         <location/>
@@ -6213,7 +6213,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
@@ -6223,12 +6223,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>重設頭像(&amp;A)</translation>
     </message>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>重設指定使用者的頭像。</translation>
     </message>
 </context>
 <context>
@@ -6608,19 +6608,19 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+86"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"/>
+        <translation>拖動小紅點移動使用者清單。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>在使用者清單上使用滑鼠滾輪縮放使用者清單。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>右鍵點擊使用者開啟更多選項。</translation>
     </message>
     <message>
         <location line="+244"/>
