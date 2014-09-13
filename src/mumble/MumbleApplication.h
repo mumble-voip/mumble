@@ -32,6 +32,7 @@
 #define MUMBLE_MUMBLE_MUMBLEAPPLICATION_H
 
 #include <QApplication>
+#include <QUrl>
 
 /**
  * @brief Implements custom system shutdown behavior as well as event filtering.
