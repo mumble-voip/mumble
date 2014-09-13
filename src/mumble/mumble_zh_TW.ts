@@ -6625,7 +6625,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+244"/>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>懸停格</translation>
     </message>
     <message>
         <location line="+77"/>

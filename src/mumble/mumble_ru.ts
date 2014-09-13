@@ -40,7 +40,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -477,12 +477,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ID канала.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>ChannelID</translation>
     </message>
 </context>
 <context>
@@ -2247,7 +2247,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP адрес</translation>
     </message>
     <message>
         <location/>
@@ -2262,7 +2262,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>Нет причины</translation>
     </message>
     <message>
         <location/>
@@ -2312,7 +2312,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>Очистить все поля</translation>
     </message>
     <message>
         <location/>
@@ -2322,7 +2322,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Очистить</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
@@ -4378,7 +4378,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>Фильтр автоматически скрывает пустые каналы</translation>
     </message>
 </context>
 <context>
@@ -4435,13 +4435,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Включить табло</translation>
+        <translation>Включить наложение</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Вкл/выкл табло в игре.</translation>
+        <translation>Вкл/выкл наложение в игре.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4733,7 +4733,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-21"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Переключает состояние табло в игре.</translation>
+        <translation>Переключает состояние наложения в игре.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -4750,7 +4750,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+154"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location line="+570"/>
@@ -5789,7 +5789,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 покинул канал.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6175,7 +6175,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Вкл/Выкл фильтр каналов (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6188,7 +6188,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
@@ -6458,7 +6458,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>Загружать обновления плагинов и табло при запуске</translation>
+        <translation>Загружать обновления плагинов и наложения при запуске</translation>
     </message>
 </context>
 <context>
@@ -6496,7 +6496,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation>Невозможно соединиться с табло на %2: %1. Табло будет недоступно.</translation>
+        <translation>Невозможно соединиться с наложением на %2: %1. Наложение будет недоступно.</translation>
     </message>
 </context>
 <context>
@@ -6599,7 +6599,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+244"/>
         <source>Overlay</source>
-        <translation>Табло</translation>
+        <translation>Наложение</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -6614,18 +6614,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+95"/>
         <source>Load Overlay Presets</source>
-        <translation>Загрузить предустановки табло</translation>
+        <translation>Загрузить предустановки наложения</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation>Предустановки табло Mumble (*.mumblelay)</translation>
+        <translation>Предустановки наложения Mumble (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation>Сохранить предустановки табло</translation>
+        <translation>Сохранить предустановки наложения</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -6635,18 +6635,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation>Включить табло.</translation>
+        <translation>Включить наложение.</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>Включить табло</translation>
+        <translation>Включить наложение</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Включает или выключает табло. При включенном табло Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или Вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения табло.</translation>
+        <translation>Включает или выключает наложение. При включенном наложении Mumble должен быть запущен перед приложением (игрой), в котором оно необходимо.&lt;br /&gt;Если Mumble будет запущен после другого приложения (игры) или Вы выключите эту опцию, когда приложение запущено, необходимо будет перезапустить приложение для включения или выключения наложения.</translation>
     </message>
     <message>
         <location/>
@@ -6671,50 +6671,50 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation>Удалить табло</translation>
+        <translation>Удалить Наложение</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation>Установка табло</translation>
+        <translation>Установка наложения</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>Mumble обнаружил, что поддержка табло не установлена.
+        <translation>Mumble обнаружил, что поддержка наложения не установлена.
 
-Нажмите на кнопку, чтобы установить табло.</translation>
+Нажмите на кнопку, чтобы установить наложение.</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation>Установить табло Mumble</translation>
+        <translation>Установить наложение Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation>Обновление табло</translation>
+        <translation>Обновление наложения</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>Mumble обнаружил старую версию табло.
+        <translation>Mumble обнаружил старую версию наложения.
 
 Чтобы обновить эти файлы до их последних версий, нажмите на кнопку.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation>Обновить табло Mumble</translation>
+        <translation>Обновить наложение Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation>Показывать FPS в табло</translation>
+        <translation>Показывать FPS в наложении</translation>
     </message>
     <message>
         <location/>
@@ -6724,7 +6724,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation>Загрузить предустановки табло из файла</translation>
+        <translation>Загрузить предустановки наложения из файла</translation>
     </message>
     <message>
         <location/>
@@ -6734,7 +6734,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation>Сохранить настройки табло в файл</translation>
+        <translation>Сохранить настройки наложение в файл</translation>
     </message>
     <message>
         <location/>
@@ -6744,12 +6744,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation>Установить шрифт в табло.</translation>
+        <translation>Установить шрифт в наложении.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation>Установить цвет текста в табло.</translation>
+        <translation>Установить цвет текста в наложении.</translation>
     </message>
     <message>
         <location/>
@@ -6779,27 +6779,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation>Показывать табло во всех соответствующих программах, кроме</translation>
+        <translation>Показывать наложение во всех соответствующих программах, кроме</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation>Показывать табло только в</translation>
+        <translation>Показывать наложение только в</translation>
     </message>
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS и Часы</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>Часы в наложении показывают текущее локальное время (время системы).</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>Показать Часы</translation>
     </message>
 </context>
 <context>
@@ -6917,7 +6917,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation>Редактор табло</translation>
+        <translation>Редактор наложения</translation>
     </message>
 </context>
 <context>
@@ -7047,7 +7047,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Ошибка при загрузке библиотеки табло. Это означает, что:
+        <translation>Ошибка при загрузке библиотеки наложения. Это означает, что:
 - либо библиотека (mumble_ol.dll) не была найдена в рабочем каталоге Mumble
 - либо Ваша операционная система старее, чем WinXP SP2</translation>
     </message>
@@ -7843,7 +7843,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Никогда</translation>
     </message>
     <message>
         <location line="+2"/>
