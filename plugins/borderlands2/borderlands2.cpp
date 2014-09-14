@@ -162,6 +162,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		state_ptr = pModule + 0x1EE21F8;
 		character_name_ptr_loc = pModule + 0x01EDB5B4;
 	}
+	// 1.8.3
+	else if (peekProc(pModule + 0x1EE63C8, detected_version)
+		&& VERSION_EQ(detected_version, "WILLOW2-PCCHINA-29-CL827556"))
+	{
+		vects_ptr = pModule + 0x1EF2930;
+		state_ptr = pModule + 0x1EF3248;
+		character_name_ptr_loc = pModule + 0x01EEC5D4;
+	}
 	else
 	{
 		generic_unlock();
@@ -186,7 +194,7 @@ static const std::wstring longdesc() {
 	return std::wstring(L"Supports Borderlands 2. No context support yet.");
 }
 
-static std::wstring description(L"Borderlands 2 (v1.7.0)");
+static std::wstring description(L"Borderlands 2 (v1.8.3)");
 static std::wstring shortname(L"Borderlands 2");
 
 static int trylock1() {
