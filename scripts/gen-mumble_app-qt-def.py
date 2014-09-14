@@ -42,6 +42,8 @@
 # future, since the current iteration is likely to produce unneeded
 # exports.
 
+from __future__ import (unicode_literals, print_function, division)
+
 import subprocess
 import sys
 import re
@@ -49,6 +51,11 @@ import os
 
 # qtSymbols list the Qt symbols that we're interested in exporting.
 qtSymbols = [
+	# Debug-build specific
+	'qt_assert',
+	'qt_assert_x',
+	'qFlagLocation',
+
 	# QtCore
 	'QObject',
 	'QCoreApplication',
@@ -110,6 +117,11 @@ def processExports(f, libs, symbols):
 	if p.returncode != 0:
 		raise Exception('dumpbin.exe failed: %s', stderr)
 
+	if stdout is not None:
+		stdout = stdout.decode('utf-8')
+	if stderr is not None:
+		stderr = stderr.decode('utf-8')
+
 	symbol_re = re.compile('^.*\ (.*(%s)+?.*)$' % '|'.join(symbols))
 	f.write('EXPORTS\n\n')
 
@@ -124,7 +136,7 @@ def processExports(f, libs, symbols):
 
 def main():
 	if len(sys.argv) < 4:
-		print 'Usage: gen-mumble_app-qt-def.py <release|debug> <qt-lib-path> <outfn>'
+		print('Usage: gen-mumble_app-qt-def.py <release|debug> <qt-lib-path> <outfn>')
 		sys.exit(1)
 
 	kind = sys.argv[1]

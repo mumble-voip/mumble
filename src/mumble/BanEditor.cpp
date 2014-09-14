@@ -219,7 +219,7 @@ void BanEditor::on_qleSearch_textChanged(const QString & match)
 	qdteEnd->setDateTime(QDateTime::currentDateTime());
 
 	foreach(QListWidgetItem *item, qlwBans->findItems(QString(), Qt::MatchContains)) {
-		if (!item->text().contains(match))
+		if (!item->text().contains(match, Qt::CaseInsensitive))
 			item->setHidden(true);
 		else
 			item->setHidden(false);

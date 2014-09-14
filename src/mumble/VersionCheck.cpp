@@ -47,7 +47,11 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	queryItems << qMakePair(QString::fromLatin1("date"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
 	queryItems << qMakePair(QString::fromLatin1("time"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
 #if defined(Q_OS_WIN)
+# if defined(Q_OS_WIN64)
+	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("WinX64"));
+# else
 	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("Win32"));
+# endif
 #elif defined(Q_OS_MAC)
 # if defined(USE_MAC_UNIVERSAL)
 	queryItems << qMakePair(QString::fromLatin1("os"), QString::fromLatin1("MacOSX-Universal"));
@@ -78,7 +82,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		}
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QUrlQuery query;
 	query.setQueryItems(queryItems);
 	url.setQuery(query);
@@ -184,7 +188,7 @@ void VersionCheck::fetched(QByteArray a, QUrl url) {
 							file.remove();
 						}
 					} else {
-						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(fetch.toString(), filename));
+						g.mw->msgBox(tr("Downloading new snapshot from %1 to %2").arg(Qt::escape(fetch.toString()), Qt::escape(filename)));
 						WebFetch::fetch(fetch, this, SLOT(fetched(QByteArray,QUrl)));
 						return;
 					}

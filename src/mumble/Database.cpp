@@ -68,8 +68,8 @@ Database::Database() {
 	int i;
 
 	datapaths << g.qdBasePath.absolutePath();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-	datapaths << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#if QT_VERSION >= 0x050000
+	datapaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	datapaths << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
@@ -122,7 +122,7 @@ Database::Database() {
 	QFileInfo fi(db.databaseName());
 
 	if (! fi.isWritable()) {
-		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(fi.filePath()), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
+		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("The database '%1' is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.").arg(Qt::escape(fi.filePath())), QMessageBox::Ok | QMessageBox::Default, QMessageBox::NoButton);
 		qWarning("Database: Database is read-only");
 	}
 

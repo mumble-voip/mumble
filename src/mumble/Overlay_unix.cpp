@@ -31,6 +31,7 @@
 #include "mumble_pch.hpp"
 
 #include "Overlay.h"
+#include "OverlayConfig.h"
 
 void Overlay::platformInit() {
 	d = NULL;

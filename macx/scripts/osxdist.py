@@ -81,7 +81,10 @@ def create_overlay_package():
 	if options.developer_id:
 		codesign(bundle)
 		codesign(overlaylib)
-	os.system('./macx/scripts/build-overlay-installer')
+	p = Popen(('./macx/scripts/build-overlay-installer',))
+	retval = p.wait()
+	if retval != 0:
+		raise Exception('build-overlay-installer failed')
 	if options.developer_id:
 		os.rename('release/MumbleOverlay.pkg', 'release/MumbleOverlayUnsigned.pkg')
 		prodsign('release/MumbleOverlayUnsigned.pkg', 'release/MumbleOverlay.pkg')
@@ -156,7 +159,10 @@ class AppBundle(object):
 			The compat binary displays a warning dialog telling the user that they need to download a universal version of Mumble
 		'''
 		print ' * Splicing Mumble.compat into main bundle executable'
-		os.system('lipo -create release/Mumble.compat -arch x86_64 %s -output %s' % (self.binary, self.binary))
+		p = Popen(('lipo', '-create', 'release/Mumble.compat', '-arch', 'x86_64', self.binary, '-output', self.binary))
+		retval = p.wait()
+		if retval != 0:
+			raise Exception('build-overlay-installer failed')
 
 	def set_min_macosx_version(self, version):
 		'''
@@ -325,7 +331,10 @@ def package_server():
 	name = 'Murmur-OSX-Static-%s' % ver
 
 	# Fix .ini files
-	os.system('cd scripts && sh mkini.sh')
+	p = Popen(('bash', 'mkini.sh'), cwd='scripts')
+	retval = p.wait()
+	if retval != 0:
+		raise Exception('build-overlay-installer failed')
 
 	destdir = os.path.join('release', name)
 	if os.path.exists(destdir):

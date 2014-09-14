@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include "Settings.wxi" ?>
 
-  <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="!(loc.LANG)" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="B0EEFCC7-8A9c-4471-AB10-CBD35BE3161D">
+  <Product Id="*" Name="$(var.ProductName) $(var.ProductVersion)" Language="!(loc.LANG)" Version="$(var.ProductVersion)" Manufacturer="$(var.ProductManufacturer)" UpgradeCode="$(var.ProductUpgradeCode)">
     <Package Id="*" InstallerVersion="300" Compressed="yes" Languages="0,1028,1029,1030,1031,1033,1034,1036,1040,1041,1043,1044,1045,1046,1049,1053,1055,2052" />
 
     <Property Id='NSISINSTALL'>
@@ -22,7 +22,7 @@
     </UI>
 
     <Property Id='INSTALLDIR'>
-      <ComponentSearch Id='SearchMumbleComponent' Guid='A08F7909-1116-4AC8-9422-051FA1A1BE19' />
+      <ComponentSearch Id='SearchMumbleComponent' Guid='$(var.MumbleExeGuid)' />
     </Property>
 
     <Condition Message='$(var.ProductName) requires at least Windows XP SP2 or Windows Server 2003 SP1'>
@@ -47,12 +47,12 @@
     <WixVariable Id="WixUIDialogBmp" Value="$(var.SourceDir)\installer\dlgbmp.bmp" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="$(var.ArchSpecificProgramFilesFolderId)">
         <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
         </Directory>
 
         <?ifdef MergeModuleDir ?>
-          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC100_CRT_x86.msm" DiskId="1" Language="1033" />
+          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC120_CRT_x86.msm" DiskId="1" Language="1033" />
         <?endif ?>
       </Directory>
 
@@ -73,14 +73,14 @@
     <Icon Id="murmur.ico" SourceFile="$(var.SourceDir)\icons\murmur.ico"/>
 
     <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="ApplicationProgramsFolderRemovalComponent" Guid="0AE1745D-FF86-4D61-BAF3-44248D21D263">
+      <Component Id="ApplicationProgramsFolderRemovalComponent" Guid="$(var.ApplicationProgramsFolderRemovalComponentGuid)">
         <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
       </Component>
     </DirectoryRef>
 
     <DirectoryRef Id="AppDataPluginFolder">
-      <Component Id="NSISUninstall" Guid="3116B7EF-CBA3-4E0B-A2C5-0F0608038905">
+      <Component Id="NSISUninstall" Guid="$(var.NSISUninstallComponentGuid)">
         <Condition>NOT Installed AND NSISINSTALL</Condition>
         <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
         <RemoveFile Id="NSISUninstaller" Property="NSISINSTALL" Name="Uninstall.exe" On="install"/>
@@ -123,9 +123,9 @@
         <ComponentRef Id="libmmd.dll"/>
       <?endif ?>
 
-      <?ifdef RedistDirVC10 ?>
-        <ComponentRef Id="msvcp100.dll" />
-        <ComponentRef Id="msvcr100.dll" />
+      <?ifdef RedistDirVC12 ?>
+        <ComponentRef Id="msvcp120.dll" />
+        <ComponentRef Id="msvcr120.dll" />
       <?endif ?>
     </ComponentGroup>
 

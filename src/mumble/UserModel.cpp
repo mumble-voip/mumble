@@ -855,8 +855,10 @@ ClientUser *UserModel::addUser(unsigned int id, const QString &name) {
 
 	ModelItem *item = new ModelItem(p);
 
-	connect(p, SIGNAL(talkingChanged()), this, SLOT(userTalkingChanged()));
-	connect(p, SIGNAL(muteDeafChanged()), this, SLOT(userMuteDeafChanged()));
+	connect(p, SIGNAL(talkingStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, SIGNAL(muteDeafStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, SIGNAL(prioritySpeakerStateChanged()), this, SLOT(userStateChanged()));
+	connect(p, SIGNAL(recordingStateChanged()), this, SLOT(userStateChanged()));
 
 	Channel *c = Channel::get(0);
 	ModelItem *citem = ModelItem::c_qhChannels.value(c);
@@ -1303,20 +1305,14 @@ Channel *UserModel::getSubChannel(Channel *p, int idx) const {
 	return NULL;
 }
 
-void UserModel::userTalkingChanged() {
-	ClientUser *p=static_cast<ClientUser *>(sender());
-	if (!p)
+void UserModel::userStateChanged() {
+	ClientUser *user = qobject_cast<ClientUser *>(sender());
+	if (user == NULL)
 		return;
-	QModelIndex idx = index(p);
+	
+	const QModelIndex idx = index(user);
 	emit dataChanged(idx, idx);
-	updateOverlay();
-}
-
-void UserModel::userMuteDeafChanged() {
-	ClientUser *p=static_cast<ClientUser *>(sender());
-	QModelIndex idx = index(p);
-	emit dataChanged(idx, idx);
-
+	
 	updateOverlay();
 }
 

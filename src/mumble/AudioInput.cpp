@@ -672,7 +672,7 @@ bool AudioInput::selectCodec() {
 	return true;
 }
 
-int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) {
+int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
 	int len = 0;
 #ifdef USE_OPUS
 	if (!bPreviousVoice)
@@ -680,14 +680,14 @@ int AudioInput::encodeOpusFrame(short *source, int size, unsigned char *buffer) 
 
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, size, buffer, 512);
+	len = opus_encode(opusState, source, size, &buffer[0], buffer.size());
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 #endif
 	return len;
 }
 
-int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
+int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
 	int len = 0;
 	if (!cCodec)
 		return len;
@@ -698,7 +698,7 @@ int AudioInput::encodeCELTFrame(short *psSource, unsigned char *buffer) {
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR_RATE(iAudioQuality));
-	len = cCodec->encode(ceEncoder, psSource, buffer, qMin(iAudioQuality / (8 * 100), 127));
+	len = cCodec->encode(ceEncoder, psSource, &buffer[0], qMin<int>(iAudioQuality / (8 * 100), buffer.size()));
 	iBitrate = len * 100 * 8;
 
 	return len;
@@ -843,7 +843,9 @@ void AudioInput::encodeAudioFrame() {
 
 	tIdle.restart();
 
-	unsigned char buffer[512];
+	EncodingOutputBuffer buffer;
+	Q_ASSERT(buffer.size() >= static_cast<size_t>(iAudioQuality / 100 * iAudioFrames / 8));
+	
 	int len;
 
 	bool encoded = true;
@@ -852,8 +854,11 @@ void AudioInput::encodeAudioFrame() {
 
 	if (umtType == MessageHandler::UDPVoiceCELTAlpha || umtType == MessageHandler::UDPVoiceCELTBeta) {
 		len = encodeCELTFrame(psSource, buffer);
-		if (len == 0)
+		if (len <= 0) {
+			iBitrate = 0;
+			qWarning() << "encodeCELTFrame failed" << iBufferedFrames << iFrameSize << len;
 			return;
+		}
 		++iBufferedFrames;
 	} else if (umtType == MessageHandler::UDPVoiceOpus) {
 		encoded = false;
@@ -879,8 +884,9 @@ void AudioInput::encodeAudioFrame() {
 		}
 	}
 
-	if (encoded)
-		flushCheck(QByteArray(reinterpret_cast<const char *>(buffer), len), ! bIsSpeech);
+	if (encoded) {
+		flushCheck(QByteArray(reinterpret_cast<char *>(&buffer[0]), len), !bIsSpeech);
+	}
 
 	if (! bIsSpeech)
 		iBitrate = 0;

@@ -59,12 +59,7 @@ void Tokens::accept() {
 			qsl << text;
 	}
 	Database::setTokens(qbaDigest, qsl);
-
-	MumbleProto::Authenticate msg;
-	foreach(const QString &qs, qsl)
-		msg.add_tokens(u8(qs));
-	g.sh->sendMessage(msg);
-
+	g.sh->setTokens(qsl);
 	QDialog::accept();
 }
 

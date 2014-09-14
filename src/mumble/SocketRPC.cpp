@@ -159,7 +159,7 @@ void SocketRPCClient::processXml() {
 				u.setPort(port);
 				u.setUserName(user);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 				QUrlQuery query;
 				query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
 				u.setQuery(query);

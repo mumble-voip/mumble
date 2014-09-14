@@ -28,7 +28,8 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
+# include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
 #endif
 #include <QtSvg/QtSvg>
@@ -79,6 +80,8 @@
 #include <boost/scoped_array.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/weak_ptr.hpp>
+
+#include <algorithm>
 
 #ifdef Q_OS_WIN
 // Qt 5's qnetworksession.h undefs 'interface' (as defined in ObjBase.h on Windows).

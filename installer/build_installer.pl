@@ -3,7 +3,13 @@
 use File::Copy;
 
 my @LANG;
+$x64dir = "bin\\x64\\Release";
 $dir = "bin\\Release\\";
+$platform = "Intel";
+if (-d $x64dir) {
+	$dir = $x64dir;
+	$platform = "x64";
+}
 
 opendir($D, "Translations");
 while ($x = readdir($D)) {
@@ -31,4 +37,4 @@ foreach (@LANG) {
 	unlink("$_");
 }
 
-system("msiinfo $dir\\Mumble.msi /p Intel;1033," . join(",", @LANG));
+system("msiinfo $dir\\Mumble.msi /p $platform;1033," . join(",", @LANG));

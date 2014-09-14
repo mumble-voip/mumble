@@ -113,6 +113,7 @@ int UnixMurmur::iTermFd[2];
 
 UnixMurmur::UnixMurmur() {
 	bRoot = true;
+	logToSyslog = false;
 
 	if (geteuid() != 0 && getuid() != 0) {
 		bRoot = false;
@@ -182,7 +183,9 @@ void UnixMurmur::handleSigHup() {
 	ssize_t len = ::read(iHupFd[1], &tmp, sizeof(tmp));
 	Q_UNUSED(len);
 
-	if (! qfLog) {
+	if (logToSyslog) {
+		qWarning("Caught SIGHUP, but logging to syslog");
+	} else if (! qfLog) {
 		qWarning("Caught SIGHUP, but logfile not in use");
 	} else if (! qfLog->isOpen()) {
 		qWarning("Caught SIGHUP, but logfile not in use -- interpreting as hint to quit");

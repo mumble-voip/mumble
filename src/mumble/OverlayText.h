@@ -31,6 +31,9 @@
 #ifndef MUMBLE_MUMBLE_OVERLAYTEXT_H_
 #define MUMBLE_MUMBLE_OVERLAYTEXT_H_
 
+#include <QtGui/QPixmap>
+#include <QtGui/QFont>
+
 //! Annotated QPixmap supplying a basepoint.
 class BasepointPixmap : public QPixmap {
 	public:

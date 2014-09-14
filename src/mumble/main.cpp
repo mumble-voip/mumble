@@ -55,8 +55,9 @@
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
 #include "SocketRPC.h"
+#include "MumbleApplication.h"
 
-#if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
 Q_IMPORT_PLUGIN(qsvg)
@@ -77,95 +78,6 @@ namespace boost {
 extern void os_init();
 extern char *os_lang;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
-# define QAPP_INHERIT_EVENT_FILTER , public QAbstractNativeEventFilter
-#else
-# define QAPP_INHERIT_EVENT_FILTER
-#endif
-
-class QAppMumble : public QApplication QAPP_INHERIT_EVENT_FILTER {
-	public:
-		QUrl quLaunchURL;
-		QAppMumble(int &pargc, char **pargv) : QApplication(pargc, pargv) {}
-		void commitData(QSessionManager&);
-		bool event(QEvent *e);
-#ifdef Q_OS_WIN
-# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result);
-# else
-		bool winEventFilter(MSG *msg, long *result);
-# endif
-#endif
-};
-
-void QAppMumble::commitData(QSessionManager &) {
-	// Make sure the config is saved and supress the ask on quite message
-	if (g.mw) {
-		g.s.save();
-		g.mw->bSuppressAskOnQuit = true;
-	}
-}
-
-bool QAppMumble::event(QEvent *e) {
-	if (e->type() == QEvent::FileOpen) {
-		QFileOpenEvent *foe = static_cast<QFileOpenEvent *>(e);
-		if (! g.mw) {
-			this->quLaunchURL = foe->url();
-		} else {
-			g.mw->openUrl(foe->url());
-		}
-		return true;
-	}
-	return QApplication::event(e);
-}
-
-#ifdef Q_OS_WIN
-# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-bool QAppMumble::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
-	Q_UNUSED(eventType);
-	MSG *msg = reinterpret_cast<MSG *>(message);
-
-	if (QThread::currentThread() == thread()) {
-		if (Global::g_global_struct && g.ocIntercept) {
-			switch (msg->message) {
-				case WM_MOUSELEAVE:
-					*result = 0;
-					return true;
-				case WM_KEYDOWN:
-				case WM_KEYUP:
-				case WM_SYSKEYDOWN:
-				case WM_SYSKEYUP:
-					GlobalShortcutEngine::engine->prepareInput();
-				default:
-					break;
-			}
-		}
-	}
-	return false;
-}
-# else
-bool QAppMumble::winEventFilter(MSG *msg, long *result) {
-	if (QThread::currentThread() == thread()) {
-		if (Global::g_global_struct && g.ocIntercept) {
-			switch (msg->message) {
-				case WM_MOUSELEAVE:
-					*result = 0;
-					return true;
-				case WM_KEYDOWN:
-				case WM_KEYUP:
-				case WM_SYSKEYDOWN:
-				case WM_SYSKEYUP:
-					GlobalShortcutEngine::engine->prepareInput();
-				default:
-					break;
-			}
-		}
-	}
-	return QApplication::winEventFilter(msg, result);
-}
-# endif
-#endif
-
 #if defined(Q_OS_WIN) && !defined(QT_NO_DEBUG)
 extern "C" _declspec(dllexport) int main(int argc, char **argv) {
 #else
@@ -184,13 +96,13 @@ int main(int argc, char **argv) {
 #endif
 
 	// Initialize application object.
-	QAppMumble a(argc, argv);
+	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0) && defined(Q_OS_WIN)
+#if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
 	a.installNativeEventFilter(&a);
 #endif
 
@@ -468,7 +380,7 @@ int main(int argc, char **argv) {
 	g.s.uiUpdateCounter = 2;
 
 	if (! CertWizard::validateCert(g.s.kpCertificate)) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		QDir qd(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 #else
 		QDir qd(QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation));

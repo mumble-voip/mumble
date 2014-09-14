@@ -177,7 +177,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	if (! ok) {
-		log(uSource, QString("Rejected connection: %1").arg(reason));
+		log(uSource, QString("Rejected connection from %1: %2")
+			.arg(addressToString(uSource->peerAddress(), uSource->peerPort()), reason));
 		MumbleProto::Reject mpr;
 		mpr.set_reason(u8(reason));
 		mpr.set_type(rtType);
@@ -492,6 +493,11 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	msg.set_session(pDstServerUser->uiSession);
 	msg.set_actor(uSource->uiSession);
 
+	if (msg.has_name()) {
+		PERM_DENIED_TYPE(UserName);
+		return;
+	}
+
 	if (msg.has_channel_id()) {
 		Channel *c = qhChannels.value(msg.channel_id());
 		if (!c || (c == pDstServerUser->cChannel))
@@ -557,6 +563,16 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED_TYPE(TextTooLong);
 			return;
 		}
+		if (uSource != pDstServerUser) {
+			if (! hasPermission(uSource, root, ChanACL::Move)) {
+				PERM_DENIED(uSource, root, ChanACL::Move);
+				return;
+			}
+			if (msg.texture().length() > 0) {
+				PERM_DENIED_TYPE(TextTooLong);
+				return;
+			}
+		}
 	}
 
 
@@ -573,8 +589,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 	}
 
 	// Prevent self-targeting state changes from being applied to others
-	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_texture() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording()))
+	if ((pDstServerUser != uSource) && (msg.has_self_deaf() || msg.has_self_mute() || msg.has_plugin_context() || msg.has_plugin_identity() || msg.has_recording())) {
 		return;
+	}
 
 	/*
 		-------------------- Permission checks done. Now act --------------------
@@ -583,13 +600,14 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 	if (msg.has_texture()) {
 		QByteArray qba = blob(msg.texture());
-		if (uSource->iId > 0) {
+		if (pDstServerUser->iId > 0) {
 			// For registered users store the texture we just received in the database
-			if (! setTexture(uSource->iId, qba))
+			if (! setTexture(pDstServerUser->iId, qba)) {
 				return;
+			}
 		} else {
 			// For unregistered users or SuperUser only get the hash
-			hashAssign(uSource->qbaTexture, uSource->qbaTextureHash, qba);
+			hashAssign(pDstServerUser->qbaTexture, pDstServerUser->qbaTextureHash, qba);
 		}
 
 		// The texture will be sent out later in this function
@@ -1477,6 +1495,19 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					QMap<int, QString> info;
 					info.insert(ServerDB::User_Name, name);
 					setInfo(id, info);
+
+					MumbleProto::UserState mpus;
+					foreach(ServerUser *u, qhUsers) {
+						if (u->iId == id) {
+							u->qsName = name;
+							mpus.set_session(u->uiSession);
+							break;
+						}
+					}
+					if (mpus.has_session()) {
+						mpus.set_name(u8(name));
+						sendAll(mpus);
+					}
 				} else {
 					MumbleProto::PermissionDenied mppd;
 					mppd.set_type(MumbleProto::PermissionDenied_DenyType_UserName);

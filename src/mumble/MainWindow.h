@@ -110,6 +110,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		VoiceRecorderDialog *voiceRecorderDialog;
 
 		MumbleProto::Reject_RejectType rtLast;
+		bool bRetryServer;
 		QString qsDesiredChannel;
 
 		bool bSuppressAskOnQuit;
@@ -149,7 +150,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QList<QAction *> qlChannelActions;
 		QList<QAction *> qlUserActions;
 
-		QSet<ShortcutTarget> qsCurrentTargets;
+		QHash<ShortcutTarget, int> qmCurrentTargets;
 		QHash<QList<ShortcutTarget>, int> qmTargets;
 		QMap<int, int> qmTargetUse;
 		Channel *mapChannel(int idx) const;
@@ -186,6 +187,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaSelfRegister_triggered();
 		void qmUser_aboutToShow();
 		void on_qaUserCommentReset_triggered();
+		void on_qaUserTextureReset_triggered();
 		void on_qaUserCommentView_triggered();
 		void on_qaUserKick_triggered();
 		void on_qaUserBan_triggered();
@@ -247,6 +249,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_gsMuteSelf_down(QVariant);
 		void on_gsDeafSelf_down(QVariant);
 		void on_gsWhisper_triggered(bool, QVariant);
+		void addTarget(ShortcutTarget *);
+		void removeTarget(ShortcutTarget *);
 		void on_gsCycleTransmitMode_triggered(bool, QVariant);
 		void on_Reconnect_timeout();
 		void on_Icon_messageClicked();
@@ -260,7 +264,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void context_triggered();
 		void updateTarget();
 		void updateMenuPermissions();
-		void talkingChanged();
+		/// Handles state changes like talking mode changes and mute/unmute
+		/// or priority speaker flag changes for the gui user
+		void userStateChanged();
 		void destroyUserInformation();
 		void trayAboutToShow();
 		void sendChatbarMessage(QString msg);

@@ -32,7 +32,6 @@
 
 #include "lib.h"
 #include <dxgi.h>
-#include <time.h>
 
 DXGIData *dxgi = NULL;
 
@@ -48,7 +47,10 @@ typedef HRESULT(__stdcall *ResizeBuffersType)(IDXGISwapChain *, UINT, UINT, UINT
 #define HMODREF(mod, func) func##Type p##func = (func##Type) GetProcAddress(mod, #func)
 
 // From d3d10.cpp
-extern HRESULT presentD3D10(IDXGISwapChain *pSwapChain);
+extern void presentD3D10(IDXGISwapChain *pSwapChain);
+
+// From d3d11.cpp
+extern void presentD3D11(IDXGISwapChain *pSwapChain);
 
 static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval, UINT Flags) {
 	// Present is called for each frame. Thus, we do not want to always log here.
@@ -56,7 +58,11 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 	ods("DXGI: Call to Present; Drawing and then chaining the call to the original logic");
 	#endif
 
+	// From this D3D-version-independent point, call the present logic for both
+	// D3D 10 and 11. Those that apply will be executed adequately, those that
+	// do not will (silently) fail.
 	presentD3D10(pSwapChain);
+	presentD3D11(pSwapChain);
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -70,13 +76,16 @@ static HRESULT __stdcall myPresent(IDXGISwapChain *pSwapChain, UINT SyncInterval
 
 // From d3d10.cpp
 extern void resizeD3D10(IDXGISwapChain *pSwapChain);
+// From d3d11.cpp
+extern void resizeD3D11(IDXGISwapChain *pSwapChain);
 
 static HRESULT __stdcall myResize(IDXGISwapChain *pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
 	#ifdef EXTENDED_OVERLAY_DEBUGOUTPUT
-	ods("DXGI: Call to Resize. Forwarding to D3D10 custom implementation before calling original logic ...");
+	ods("DXGI: Call to Resize. Forwarding to D3D10 and D3D11 custom implementations before calling original logic ...");
 	#endif
 
 	resizeD3D10(pSwapChain);
+	resizeD3D11(pSwapChain);
 
 	//TODO: Move logic to HardHook.
 	// Call base without active hook in case of no trampoline.
@@ -156,6 +165,8 @@ void hookDXGI(HMODULE hDXGI, bool preonly) {
 
 // From d3d10.cpp
 extern void PrepareDXGI10(IDXGIAdapter1 *pAdapter, bool initializeDXGIData);
+// From d3d11.cpp
+extern void PrepareDXGI11(IDXGIAdapter1* pAdapter, bool initializeDXGIData);
 
 /// This function is called by the Mumble client in Mumble's scope
 /// mainly to extract the offsets of various functions in the IDXGISwapChain
@@ -200,6 +211,8 @@ extern "C" __declspec(dllexport) void __cdecl PrepareDXGI() {
 				/// Offsets have to be identified and initialized only once.
 				bool initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
 				PrepareDXGI10(pAdapter, initializeDXGIData);
+				initializeDXGIData = !dxgi->iOffsetPresent && !dxgi->iOffsetResize;
+				PrepareDXGI11(pAdapter, initializeDXGIData);
 
 				pFactory->Release();
 			} else {

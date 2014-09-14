@@ -39,6 +39,7 @@
 #include "Global.h"
 #include "MainWindow.h"
 #include "NetworkConfig.h"
+#include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "TextToSpeech.h"
 
@@ -51,7 +52,7 @@ static ConfigRegistrar registrar(4000, LogConfigDialogNew);
 LogConfig::LogConfig(Settings &st) : ConfigWidget(st) {
 	setupUi(this);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qtwMessages->header()->setSectionResizeMode(ColMessage, QHeaderView::Stretch);
 	qtwMessages->header()->setSectionResizeMode(ColConsole, QHeaderView::ResizeToContents);
 	qtwMessages->header()->setSectionResizeMode(ColNotification, QHeaderView::ResizeToContents);
@@ -263,10 +264,10 @@ QString Log::msgColor(const QString &text, LogColorType t) {
 }
 
 QString Log::formatChannel(::Channel *c) {
-	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(c->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+	return QString::fromLatin1("<a href='channelid://%1/%3' class='log-channel'>%2</a>").arg(c->iId).arg(Qt::escape(c->qsName)).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 }
 
-QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
+QString Log::formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName) {
 	QString className;
 	if (t == Log::Target) {
 		className = QString::fromLatin1("target");
@@ -275,10 +276,11 @@ QString Log::formatClientUser(ClientUser *cu, LogColorType t) {
 	}
 
 	if (cu) {
+		QString name = Qt::escape(displayName.isNull() ? cu->qsName : displayName);
 		if (cu->qsHash.isEmpty()) {
-			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(cu->qsName).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
+			return QString::fromLatin1("<a href='clientid://%2/%4' class='log-user log-%1'>%3</a>").arg(className).arg(cu->uiSession).arg(name).arg(QString::fromLatin1(g.sh->qbaDigest.toBase64()));
 		} else {
-			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(cu->qsName);
+			return QString::fromLatin1("<a href='clientid://%2' class='log-user log-%1'>%3</a>").arg(className).arg(cu->qsHash).arg(name);
 		}
 	} else {
 		return QString::fromLatin1("<span class='log-server log-%1'>%2</span>").arg(className).arg(tr("the server"));
@@ -354,13 +356,23 @@ QString Log::imageToImg(QImage img) {
 
 QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *tc) {
 	QDesktopWidget dw;
-	ValidDocument qtd(allowReplacement);
+	LogDocument qtd;
 	bool valid = false;
+
+	qtd.setAllowHTTPResources(allowReplacement);
+	qtd.setOnlyLoadDataURLs(true);
 
 	QRectF qr = dw.availableGeometry(dw.screenNumber(g.mw));
 	qtd.setTextWidth(qr.width() / 2);
 	qtd.setDefaultStyleSheet(qApp->styleSheet());
 
+	// Call documentLayout on our LogDocument to ensure
+	// it has a layout backing it. With a layout set on
+	// the document, it will attempt to load all the
+	// resources it contains as soon as we call setHtml(),
+	// allowing our validation checks for things such as
+	// data URL images to run.
+	(void) qtd.documentLayout();
 	qtd.setHtml(html);
 	valid = qtd.isValid();
 
@@ -445,7 +457,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		if (qdDate != dt.date()) {
 			qdDate = dt.date();
 			tc.insertBlock();
-			tc.insertHtml(tr("[Date changed to %1]\n").arg(qdDate.toString(Qt::DefaultLocaleShortDate)));
+			tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
 			tc.movePosition(QTextCursor::End);
 		}
 
@@ -458,7 +470,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		} else if (! g.mw->qteLog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
-		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(dt.time().toString(Qt::DefaultLocaleShortDate)), Log::Time));
+		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString(Qt::DefaultLocaleShortDate))), Log::Time));
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
@@ -495,7 +507,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		return;
 
 	// Apply simplifications to spoken text
-	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <$]*"),
+	QRegExp identifyURL(QLatin1String("[a-z-]+://[^ <]*"),
 	                    Qt::CaseInsensitive,
 	                    QRegExp::RegExp2);
 
@@ -554,65 +566,85 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 	}
 }
 
-ValidDocument::ValidDocument(bool allowhttp, QObject *p) : QTextDocument(p) {
-	bValid = true;
-	qslValidImage << QLatin1String("data");
-	if (allowhttp) {
-		qslValidImage << QLatin1String("http");
-		qslValidImage << QLatin1String("https");
-	}
-}
-
-QVariant ValidDocument::loadResource(int type, const QUrl &url) {
-	QVariant v = QLatin1String("PlaceHolder");
-	if ((type == QTextDocument::ImageResource) && qslValidImage.contains(url.scheme()))
-		return QTextDocument::loadResource(type, url);
-	bValid = false;
-	return v;
-}
-
-bool ValidDocument::isValid() const {
-	return bValid;
-}
-
-LogDocument::LogDocument(QObject *p) : QTextDocument(p) {
+LogDocument::LogDocument(QObject *p)
+	: QTextDocument(p)
+	, m_valid(true)
+	, m_onlyLoadDataURLs(false)
+	, m_allowHTTPResources(true) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
-	if (type != QTextDocument::ImageResource)
+	if (type != QTextDocument::ImageResource) {
+		m_valid = false;
 		return QLatin1String("No external resources allowed.");
-	if (g.s.iMaxImageSize <= 0)
-		return QLatin1String("Image download disabled.");
-
-	if (url.scheme() == QLatin1String("data")) {
-		QVariant v = QTextDocument::loadResource(type, url);
-		addResource(type, url, v);
-		return v;
 	}
 
-	qWarning() << "LogDocument::loadResource " << type << url.toString();
+	if (url.scheme() != QLatin1String("data") && g.s.iMaxImageSize <= 0) {
+		m_valid = false;
+		return QLatin1String("Image download disabled.");
+	}
 
 	QImage qi(1, 1, QImage::Format_Mono);
 	addResource(type, url, qi);
 
-	if (! url.isValid() || url.isRelative())
+	if (! url.isValid() || url.isRelative()) {
+		m_valid = false;
 		return qi;
+	}
 
-	if ((url.scheme() != QLatin1String("http")) && (url.scheme() != QLatin1String("https")))
+	QStringList allowedSchemes;
+	allowedSchemes << QLatin1String("data");
+	if (m_allowHTTPResources) {
+		allowedSchemes << QLatin1String("http");
+		allowedSchemes << QLatin1String("https");
+	}
+
+	if (!allowedSchemes.contains(url.scheme())) {
+		m_valid = false;
 		return qi;
+	}
 
-	QNetworkReply *rep = Network::get(url);
-	connect(rep, SIGNAL(metaDataChanged()), this, SLOT(receivedHead()));
-	connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+	bool shouldLoad = true;
+	if (m_onlyLoadDataURLs && url.scheme() != QLatin1String("data")) {
+		shouldLoad = false;
+	}
+
+	if (shouldLoad) {
+		QNetworkReply *rep = Network::get(url);
+		connect(rep, SIGNAL(metaDataChanged()), this, SLOT(receivedHead()));
+		connect(rep, SIGNAL(finished()), this, SLOT(finished()));
+
+		// Handle data URLs immediately without a roundtrip to the event loop.
+		// We need this to perform proper validation for data URL images when
+		// a LogDocument is used inside Log::validHtml().
+		if (url.scheme() == QLatin1String("data")) {
+			QCoreApplication::sendPostedEvents(rep, 0);
+		}
+	}
+
 	return qi;
+}
+
+void LogDocument::setAllowHTTPResources(bool allowHTTPResources) {
+	m_allowHTTPResources = allowHTTPResources;
+}
+
+void LogDocument::setOnlyLoadDataURLs(bool onlyLoadDataURLs) {
+	m_onlyLoadDataURLs = onlyLoadDataURLs;
+}
+
+bool LogDocument::isValid() {
+	return m_valid;
 }
 
 void LogDocument::receivedHead() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
-	QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
-	if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
-		qWarning() << "Image "<< rep->url().toString() <<" (" << length.toInt() << " byte) to big, request aborted. ";
-		rep->abort();
+	if (rep->url().scheme() != QLatin1String("data")) {
+		QVariant length = rep->header(QNetworkRequest::ContentLengthHeader);
+		if (length == QVariant::Invalid || length.toInt() > g.s.iMaxImageSize) {
+			m_valid = false;
+			rep->abort();
+		}
 	}
 }
 
@@ -620,14 +652,49 @@ void LogDocument::finished() {
 	QNetworkReply *rep = qobject_cast<QNetworkReply *>(sender());
 
 	if (rep->error() == QNetworkReply::NoError) {
-		QVariant qv = rep->readAll();
+		QByteArray ba = rep->readAll();
+		QByteArray fmt;
 		QImage qi;
 
-		if (qi.loadFromData(qv.toByteArray()) && qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight) {
-			addResource(QTextDocument::ImageResource, rep->request().url(), qi);
-			g.mw->qteLog->setDocument(this);
-		} else qWarning() << "Image "<< rep->url().toString() <<" (" << qi.width() << "x" << qi.height() <<") to large.";
-	} else qWarning() << "Image "<< rep->url().toString() << " download failed.";
+		// Sniff the format instead of relying on the MIME type.
+		// There are many misconfigured servers out there and
+		// Mumble has historically sniffed the received data
+		// instead of strictly requiring a correct Content-Type.
+		if (RichTextImage::isValidImage(ba, fmt)) {
+			if (qi.loadFromData(ba, fmt)) {
+				bool ok = true;
+				if (rep->url().scheme() != QLatin1String("data")) {
+					ok = (qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight);
+				}
+				if (ok) {
+					addResource(QTextDocument::ImageResource, rep->request().url(), qi);
+
+					// Force a re-layout of the QTextEdit the next
+					// time we enter the event loop.
+					// We must not trigger a re-layout immediately.
+					// Doing so can trigger crashes deep inside Qt
+					// if the QTextDocument has just been set on the
+					// text edit widget.
+					QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
+					if (qte != NULL) {
+						QEvent *e = new QEvent(QEvent::FontChange);
+						QApplication::postEvent(qte, e);
+
+						e = new LogDocumentResourceAddedEvent();
+						QApplication::postEvent(qte, e);
+					}
+				} else {
+					m_valid = false;
+				}
+			}
+		} else {
+			m_valid = false;
+		}
+	}
 
 	rep->deleteLater();
+}
+
+LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent()
+	: QEvent(LogDocumentResourceAddedEvent::Type) {
 }

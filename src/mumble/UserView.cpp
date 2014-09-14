@@ -238,7 +238,7 @@ void UserView::nodeActivated(const QModelIndex &idx) {
 	Channel *c = um->getChannel(idx);
 	if (c) {
 		// if a channel is activated join it
-		g.sh->joinChannel(c->iId);
+		g.sh->joinChannel(g.uiSession, c->iId);
 	}
 }
 
@@ -385,7 +385,11 @@ void UserView::updateChannel(const QModelIndex &idx) {
 	}
 }
 
-void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight )
+#if QT_VERSION >= 0x050000
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> &)
+#else
+void UserView::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight)
+#endif
 {
 	UserModel *um = static_cast<UserModel *>(model());
 	int nRowCount = um->rowCount();

@@ -37,6 +37,8 @@
 #include "MainWindow.h"
 
 RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
+	m_document = new LogDocument(this);
+	setDocument(m_document);
 }
 
 /* On nix, some programs send utf8, some send wchar_t. Some zeroterminate once, some twice, some not at all.
@@ -143,7 +145,7 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 	if (! uri.isEmpty()) {
 		if (title.isEmpty())
 			title = uri;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		uri = uri.toHtmlEscaped();
 		title = title.toHtmlEscaped();
 #else
@@ -176,7 +178,7 @@ QString RichTextEditorLink::text() const {
 	QUrl url(qleUrl->text(), QUrl::StrictMode);
 	QString txt = qleText->text();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	txt = txt.toHtmlEscaped();
 #else
 	txt = Qt::escape(txt);
@@ -637,4 +639,21 @@ QString RichTextEditor::text() {
 
 	bChanged = false;
 	return qptePlainText->toPlainText();
+}
+
+bool RichTextImage::isValidImage(const QByteArray &ba, QByteArray &fmt) {
+	QBuffer qb;
+	qb.setData(ba);
+	if (!qb.open(QIODevice::ReadOnly)) {
+		return false;
+	}
+
+	QByteArray detectedFormat = QImageReader::imageFormat(&qb).toLower();
+	if (detectedFormat == QByteArray("png") || detectedFormat == QByteArray("jpg")
+            || detectedFormat == QByteArray("jpeg") || detectedFormat == QByteArray("gif")) {
+		fmt = detectedFormat;
+		return true;
+	}
+
+	return false;
 }

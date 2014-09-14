@@ -167,8 +167,8 @@ class UserModel : public QAbstractItemModel {
 		unsigned int uiSessionComment;
 		int iChannelDescription;
 	public slots:
-		void userTalkingChanged();
-		void userMuteDeafChanged();
+		/// Invalidates the model data of the ClientUser triggering this slot.
+		void userStateChanged();
 		void ensureSelfVisible();
 		void recheckLinks();
 		void updateOverlay() const;

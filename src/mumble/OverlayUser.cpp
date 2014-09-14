@@ -30,7 +30,8 @@
 
 #include "mumble_pch.hpp"
 
-#include "Overlay.h"
+#include "OverlayUser.h"
+
 #include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"

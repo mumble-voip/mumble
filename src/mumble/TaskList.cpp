@@ -58,7 +58,7 @@ void TaskList::addToRecentList(QString name, QString user, QString host, int por
 	url.setHost(host);
 	url.setPort(port);
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QUrlQuery query;
 	query.addQueryItem(QLatin1String("title"), name);
 	query.addQueryItem(QLatin1String("version"), QLatin1String("1.2.0"));
