@@ -242,7 +242,7 @@ void OverlaySettings::setPreset(const OverlayPresets preset) {
 
 			qaUserName = Qt::AlignLeft | Qt::AlignVCenter;
 			qaMutedDeafened = Qt::AlignRight | Qt::AlignVCenter;
-			qaAvatar = Qt::AlignRight | Qt::AlignVCenter;
+			qaAvatar = Qt::AlignCenter;
 			qaChannel = Qt::AlignLeft | Qt::AlignTop;
 			break;
 	}
@@ -265,6 +265,7 @@ Settings::Settings() {
 	fOtherVolume = 0.5f;
 	bAttenuateOthersOnTalk = false;
 	bAttenuateOthers = true;
+	bAttenuateUsersOnPrioritySpeak = false;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
 	iJitterBufferSize = 1;
@@ -299,7 +300,7 @@ Settings::Settings() {
 	bPluginCheck = true;
 #endif
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 #else
 	qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
@@ -374,7 +375,7 @@ Settings::Settings() {
 	bHighContrast = false;
 
 	// Recording
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qsRecordingPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
 	qsRecordingPath = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
@@ -383,9 +384,11 @@ Settings::Settings() {
 	rmRecordingMode = RecordingMixdown;
 	iRecordingFormat = 0;
 
-	// Codec kill-switch
+	// Special configuration options not exposed to UI
 	bDisableCELT = false;
-
+	disablePublicList = false;
+	disableConnectDialogEditing = false;
+	
 	// Config updates
 	uiUpdateCounter = 0;
 
@@ -563,6 +566,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(fOtherVolume, "audio/othervolume");
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
@@ -688,8 +692,11 @@ void Settings::load(QSettings* settings_ptr) {
 	LOADENUM(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
 
-	// Codec kill-switch
+	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
+	SAVELOAD(disablePublicList, "ui/disablepubliclist");
+	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+	
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -852,6 +859,7 @@ void Settings::save() {
 	SAVELOAD(fOtherVolume, "audio/othervolume");
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
+	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
 	SAVELOAD(fVADmax, "audio/vadmax");
@@ -974,8 +982,10 @@ void Settings::save() {
 	SAVELOAD(rmRecordingMode, "recording/mode");
 	SAVELOAD(iRecordingFormat, "recording/format");
 
-	// Codec kill-switch
+	// Special configuration options not exposed to UI
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
+	SAVELOAD(disablePublicList, "ui/disablepubliclist");
+	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

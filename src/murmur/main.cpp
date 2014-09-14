@@ -54,6 +54,10 @@ static bool detach = true;
 static bool detach = false;
 #endif
 
+#ifdef Q_OS_UNIX
+static UnixMurmur *unixMurmur = NULL;
+#endif
+
 Meta *meta = NULL;
 
 static LogEmitter le;
@@ -61,6 +65,29 @@ static LogEmitter le;
 static QStringList qlErrors;
 
 static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
+#ifdef Q_OS_UNIX
+	if (unixMurmur->logToSyslog) {
+		int level;
+		switch (type) {
+		case QtDebugMsg:
+			level = LOG_DEBUG;
+			break;
+		case QtWarningMsg:
+			level = LOG_WARNING;
+			break;
+		case QtCriticalMsg:
+			level = LOG_CRIT;
+			break;
+		case QtFatalMsg:
+		default:
+			level = LOG_ALERT;
+			break;
+		}
+		syslog(level, "%s", qPrintable(msg));
+		return;
+	}
+#endif
+
 	char c;
 	switch (type) {
 		case QtDebugMsg:
@@ -127,7 +154,7 @@ static void murmurMessageOutput(QtMsgType type, const char *msg) {
 	murmurMessageOutputQString(type, QString::fromUtf8(msg));
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 static void murmurMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	murmurMessageOutputQString(type, msg);
@@ -175,6 +202,7 @@ int main(int argc, char **argv) {
 #endif
 	QCoreApplication a(argc, argv);
 	UnixMurmur unixhandler;
+	unixMurmur = &unixhandler;
 	unixhandler.initialcap();
 #endif
 	a.setApplicationName("Murmur");
@@ -182,7 +210,7 @@ int main(int argc, char **argv) {
 	a.setOrganizationDomain("mumble.sourceforge.net");
 
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION < 0x050000
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 #endif
 
@@ -211,7 +239,7 @@ int main(int argc, char **argv) {
 #endif
 
 	qsrand(QDateTime::currentDateTime().toTime_t());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qInstallMessageHandler(murmurMessageOutputWithContext);
 #else
 	qInstallMsgHandler(murmurMessageOutput);
@@ -310,7 +338,12 @@ int main(int argc, char **argv) {
 
 	// need to open log file early so log dir can be root owned:
 	// http://article.gmane.org/gmane.comp.security.oss.general/4404
+#ifdef Q_OS_UNIX
+	unixhandler.logToSyslog = Meta::mp.qsLogfile == QLatin1String("syslog");
+	if (detach && ! Meta::mp.qsLogfile.isEmpty() && !unixhandler.logToSyslog) {
+#else
 	if (detach && ! Meta::mp.qsLogfile.isEmpty()) {
+#endif
 		qfLog = new QFile(Meta::mp.qsLogfile);
 		if (! qfLog->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
 			delete qfLog;
@@ -330,6 +363,11 @@ int main(int argc, char **argv) {
 			}
 #endif
 		}
+#ifdef Q_OS_UNIX
+	} else if (detach && unixhandler.logToSyslog) {
+		openlog("murmurd", LOG_PID, LOG_DAEMON);
+		syslog(LOG_DEBUG, "murmurd syslog adapter up and running");
+#endif
 	} else {
 		detach = false;
 	}
@@ -492,7 +530,7 @@ int main(int argc, char **argv) {
 
 	delete meta;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qInstallMessageHandler(NULL);
 #else
 	qInstallMsgHandler(NULL);

@@ -166,7 +166,7 @@ void ClientUser::setTalking(Settings::TalkState ts) {
 
 	tsState = ts;
 	tLastTalkStateChange.restart();
-	emit talkingChanged();
+	emit talkingStateChanged();
 
 	if (nstate && cChannel) {
 		QWriteLocker lock(&c_qrwlTalking);
@@ -183,63 +183,63 @@ void ClientUser::setMute(bool mute) {
 	bMute = mute;
 	if (! bMute)
 		bDeaf = false;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setSuppress(bool suppress) {
 	if (bSuppress == suppress)
 		return;
 	bSuppress = suppress;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setLocalIgnore(bool ignore) {
 	if (bLocalIgnore == ignore)
 		return;
 	bLocalIgnore = ignore;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setLocalMute(bool mute) {
 	if (bLocalMute == mute)
 		return;
 	bLocalMute = mute;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setDeaf(bool deaf) {
 	bDeaf = deaf;
 	if (bDeaf)
 		bMute = true;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setSelfMute(bool mute) {
 	bSelfMute = mute;
 	if (! mute)
 		bSelfDeaf = false;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setSelfDeaf(bool deaf) {
 	bSelfDeaf = deaf;
 	if (deaf)
 		bSelfMute = true;
-	emit muteDeafChanged();
+	emit muteDeafStateChanged();
 }
 
 void ClientUser::setPrioritySpeaker(bool priority) {
 	if (bPrioritySpeaker == priority)
 		return;
 	bPrioritySpeaker = priority;
-	emit muteDeafChanged();
+	emit prioritySpeakerStateChanged();
 }
 
 void ClientUser::setRecording(bool recording) {
 	if (bRecording == recording)
 		return;
 	bRecording = recording;
-	emit muteDeafChanged();
+	emit recordingStateChanged();
 }
 
 bool ClientUser::lessThanOverlay(const ClientUser *first, const ClientUser *second) {

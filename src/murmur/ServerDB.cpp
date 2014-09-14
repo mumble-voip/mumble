@@ -840,11 +840,10 @@ QMap<int, QString> Server::getRegistration(int id) {
 	return info;
 }
 
-// -1 Wrong PW
-// -2 Anonymous
-
+/// @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
+///         -3 for authentication failures where the data could (temporarily) not be verified.
 int Server::authenticate(QString &name, const QString &pw, int sessionId, const QStringList &emails, const QString &certhash, bool bStrongCert, const QList<QSslCertificate> &certs) {
-	int res = -2;
+	int res = bForceExternalAuth ? -3 : -2;
 
 	emit authenticateSig(res, name, sessionId, certs, certhash, bStrongCert, pw);
 

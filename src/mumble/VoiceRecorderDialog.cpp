@@ -98,8 +98,8 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 		VoiceRecorderPtr recorder(g.sh->recorder);
 		if (recorder && recorder->isRunning()) {
 			int ret = QMessageBox::warning(this,
-			                               tr("Recorder"),
-			                               tr("Closing the recorder will stop your current recording. Do you really want to close the recorder?"),
+			                               tr("Recorder still running"),
+			                               tr("Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?"),
 			                               QMessageBox::Yes | QMessageBox::No,
 			                               QMessageBox::No);
 
@@ -108,7 +108,7 @@ void VoiceRecorderDialog::closeEvent(QCloseEvent *evt) {
 				return;
 			}
 
-			recorder->stop();
+			recorder->stop(true);
 		}
 	}
 
@@ -192,19 +192,19 @@ void VoiceRecorderDialog::on_qpbStart_clicked() {
 	g.sh->announceRecordingState(true);
 
 	// Create the recorder
-	g.sh->recorder.reset(new VoiceRecorder(this));
+	VoiceRecorder::Config config;
+	config.sampleRate = ao->getMixerFreq();
+	config.fileName = dir.absoluteFilePath(basename + QLatin1Char('.') + suffix);
+	config.mixDownMode = qrbDownmix->isChecked();
+	config.recordingFormat = static_cast<VoiceRecorderFormat::Format>(ifm);
+
+	g.sh->recorder.reset(new VoiceRecorder(this, config));
 	VoiceRecorderPtr recorder(g.sh->recorder);
 
 	// Wire it up
 	connect(&*recorder, SIGNAL(recording_started()), this, SLOT(onRecorderStarted()));
 	connect(&*recorder, SIGNAL(recording_stopped()), this, SLOT(onRecorderStopped()));
 	connect(&*recorder, SIGNAL(error(int, QString)), this, SLOT(onRecorderError(int, QString)));
-
-	// Configure it
-	recorder->setSampleRate(ao->getMixerFreq());
-	recorder->setFileName(dir.absoluteFilePath(basename + QLatin1Char('.') + suffix));
-	recorder->setMixDown(qrbDownmix->isChecked());
-	recorder->setFormat(static_cast<VoiceRecorderFormat::Format>(ifm));
 
 	recorder->start();
 
@@ -226,7 +226,13 @@ void VoiceRecorderDialog::on_qpbStop_clicked() {
 		return;
 	}
 
+	// Stop clock and recording
+	qtTimer->stop();
 	recorder->stop();
+	
+	// Disable stop botton to indicate we reacted
+	qpbStop->setDisabled(true);
+	qpbStop->setText(tr("Stopping"));
 }
 
 void VoiceRecorderDialog::on_qtTimer_timeout() {
@@ -247,7 +253,7 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 	}
 
 	QTime t, n;
-	n = t.addMSecs(recorder->getElapsedTime() / 1000);
+	n = t.addMSecs(static_cast<int>(recorder->getElapsedTime() / 1000));
 
 	qlTime->setText(n.toString(QLatin1String("hh:mm:ss")));
 }
@@ -274,6 +280,7 @@ void VoiceRecorderDialog::reset(bool resettimer) {
 
 	qpbStart->setEnabled(true);
 	qpbStop->setDisabled(true);
+	qpbStop->setText(tr("S&top"));
 
 	qgbMode->setEnabled(true);
 	qgbOutput->setEnabled(true);

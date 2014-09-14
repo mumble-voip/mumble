@@ -62,13 +62,158 @@ isEqual(QT_MAJOR_VERSION, 5) {
   macx:QT *= gui-private
 }
 
-HEADERS		*= BanEditor.h ACLEditor.h ConfigWidget.h Log.h AudioConfigDialog.h AudioStats.h AudioInput.h AudioOutput.h AudioOutputSample.h AudioOutputSpeech.h AudioOutputUser.h CELTCodec.h CustomElements.h MainWindow.h ServerHandler.h About.h ConnectDialog.h GlobalShortcut.h TextToSpeech.h Settings.h Database.h VersionCheck.h Global.h UserModel.h Audio.h ConfigDialog.h Plugins.h PTTButtonWidget.h LookConfig.h Overlay.h OverlayText.h SharedMemory.h AudioWizard.h ViewCert.h TextMessage.h NetworkConfig.h LCD.h Usage.h Cert.h ClientUser.h UserEdit.h UserListModel.h Tokens.h UserView.h RichTextEditor.h UserInformation.h SocketRPC.h VoiceRecorder.h VoiceRecorderDialog.h WebFetch.h ../SignalCurry.h
-SOURCES		*= BanEditor.cpp ACLEditor.cpp ConfigWidget.cpp Log.cpp AudioConfigDialog.cpp AudioStats.cpp AudioInput.cpp AudioOutput.cpp AudioOutputSample.cpp AudioOutputSpeech.cpp AudioOutputUser.cpp main.cpp CELTCodec.cpp CustomElements.cpp MainWindow.cpp ServerHandler.cpp About.cpp ConnectDialog.cpp Settings.cpp Database.cpp VersionCheck.cpp Global.cpp UserModel.cpp Audio.cpp ConfigDialog.cpp Plugins.cpp PTTButtonWidget.cpp LookConfig.cpp OverlayClient.cpp OverlayConfig.cpp OverlayEditor.cpp OverlayEditorScene.cpp OverlayUser.cpp OverlayUserGroup.cpp Overlay.cpp OverlayText.cpp SharedMemory.cpp AudioWizard.cpp ViewCert.cpp Messages.cpp TextMessage.cpp GlobalShortcut.cpp NetworkConfig.cpp LCD.cpp Usage.cpp Cert.cpp ClientUser.cpp UserEdit.cpp UserListModel.cpp Tokens.cpp UserView.cpp RichTextEditor.cpp UserInformation.cpp SocketRPC.cpp VoiceRecorder.cpp VoiceRecorderDialog.cpp WebFetch.cpp
-SOURCES *= smallft.cpp
+HEADERS *= BanEditor.h \
+    ACLEditor.h \
+    ConfigWidget.h \
+    Log.h \
+    AudioConfigDialog.h \
+    AudioStats.h \
+    AudioInput.h \
+    AudioOutput.h \
+    AudioOutputSample.h \
+    AudioOutputSpeech.h \
+    AudioOutputUser.h \
+    CELTCodec.h \
+    CustomElements.h \
+    MainWindow.h \
+    ServerHandler.h \
+    About.h \
+    ConnectDialog.h \
+    GlobalShortcut.h \
+    TextToSpeech.h \
+    Settings.h \
+    Database.h \
+    VersionCheck.h \
+    Global.h \
+    UserModel.h \
+    Audio.h \
+    ConfigDialog.h \
+    Plugins.h \
+    PTTButtonWidget.h \
+    LookConfig.h \
+    Overlay.h \
+    OverlayText.h \
+    SharedMemory.h \
+    AudioWizard.h \
+    ViewCert.h \
+    TextMessage.h \
+    NetworkConfig.h \
+    LCD.h \
+    Usage.h \
+    Cert.h \
+    ClientUser.h \
+    UserEdit.h \
+    UserListModel.h \
+    Tokens.h \
+    UserView.h \
+    RichTextEditor.h \
+    UserInformation.h \
+    SocketRPC.h \
+    VoiceRecorder.h \
+    VoiceRecorderDialog.h \
+    WebFetch.h \
+    ../SignalCurry.h \
+    OverlayClient.h \
+    OverlayUser.h \
+    OverlayUserGroup.h \
+    OverlayConfig.h \
+    OverlayEditor.h \
+    OverlayEditorScene.h \
+    MumbleApplication.h
+
+SOURCES *= BanEditor.cpp \
+    ACLEditor.cpp \
+    ConfigWidget.cpp \
+    Log.cpp \
+    AudioConfigDialog.cpp \
+    AudioStats.cpp \
+    AudioInput.cpp \
+    AudioOutput.cpp \
+    AudioOutputSample.cpp \
+    AudioOutputSpeech.cpp \
+    AudioOutputUser.cpp \
+    main.cpp \
+    CELTCodec.cpp \
+    CustomElements.cpp \
+    MainWindow.cpp \
+    ServerHandler.cpp \
+    About.cpp \
+    ConnectDialog.cpp \
+    Settings.cpp \
+    Database.cpp \
+    VersionCheck.cpp \
+    Global.cpp \
+    UserModel.cpp \
+    Audio.cpp \
+    ConfigDialog.cpp \
+    Plugins.cpp \
+    PTTButtonWidget.cpp \
+    LookConfig.cpp \
+    OverlayClient.cpp \
+    OverlayConfig.cpp \
+    OverlayEditor.cpp \
+    OverlayEditorScene.cpp \
+    OverlayUser.cpp \
+    OverlayUserGroup.cpp \
+    Overlay.cpp \
+    OverlayText.cpp \
+    SharedMemory.cpp \
+    AudioWizard.cpp \
+    ViewCert.cpp \
+    Messages.cpp \
+    TextMessage.cpp \
+    GlobalShortcut.cpp \
+    NetworkConfig.cpp \
+    LCD.cpp \
+    Usage.cpp \
+    Cert.cpp \
+    ClientUser.cpp \
+    UserEdit.cpp \
+    UserListModel.cpp \
+    Tokens.cpp \
+    UserView.cpp \
+    RichTextEditor.cpp \
+    UserInformation.cpp \
+    SocketRPC.cpp \
+    VoiceRecorder.cpp \
+    VoiceRecorderDialog.cpp \
+    WebFetch.cpp \
+    MumbleApplication.cpp \
+    smallft.cpp
+
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
-RESOURCES	*= mumble.qrc mumble_flags.qrc
-FORMS	*= ConfigDialog.ui MainWindow.ui ConnectDialog.ui ConnectDialogEdit.ui BanEditor.ui ACLEditor.ui Plugins.ui PTTButtonWidget.ui Overlay.ui OverlayEditor.ui LookConfig.ui AudioInput.ui AudioOutput.ui Log.ui TextMessage.ui AudioStats.ui NetworkConfig.ui LCD.ui GlobalShortcut.ui GlobalShortcutTarget.ui Cert.ui UserEdit.ui AudioWizard.ui Tokens.ui RichTextEditor.ui RichTextEditorLink.ui UserInformation.ui VoiceRecorderDialog.ui
-TRANSLATIONS	= mumble_cs.ts mumble_da.ts mumble_de.ts mumble_en.ts mumble_es.ts mumble_fr.ts mumble_he.ts mumble_hu.ts mumble_it.ts mumble_ja.ts mumble_nl.ts mumble_pl.ts mumble_pt_BR.ts mumble_pt_PT.ts mumble_ru.ts mumble_sv.ts mumble_tr.ts mumble_zh_CN.ts mumble_zh_TW.ts
+RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc
+FORMS *= ConfigDialog.ui \
+    MainWindow.ui \
+    ConnectDialog.ui \
+    ConnectDialogEdit.ui \
+    BanEditor.ui \
+    ACLEditor.ui \
+    Plugins.ui \
+    PTTButtonWidget.ui \
+    Overlay.ui \
+    OverlayEditor.ui \
+    LookConfig.ui \
+    AudioInput.ui \
+    AudioOutput.ui \
+    Log.ui \
+    TextMessage.ui \
+    AudioStats.ui \
+    NetworkConfig.ui \
+    LCD.ui \
+    GlobalShortcut.ui \
+    GlobalShortcutTarget.ui \
+    Cert.ui \
+    UserEdit.ui \
+    AudioWizard.ui \
+    Tokens.ui \
+    RichTextEditor.ui \
+    RichTextEditorLink.ui \
+    UserInformation.ui \
+    VoiceRecorderDialog.ui
+
+# Include TRANSLATIONS variable
+include(translations.pri)
 
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../bonjour
@@ -179,7 +324,7 @@ win32 {
   }
   HEADERS	*= GlobalShortcut_win.h TaskList.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
-  LIBS		*= -l"$$(DXSDK_DIR)Lib/x86/dxguid" -l"$$(DXSDK_DIR)Lib/x86/dinput8" -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32
+  LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
 
   DEFINES	*= WIN32
@@ -236,8 +381,8 @@ unix {
     LIBS += -framework Security -framework SecurityInterface -framework ApplicationServices
 
     HEADERS *= GlobalShortcut_macx.h ConfigDialogDelegate.h
-    SOURCES *= TextToSpeech_macx.cpp SharedMemory_unix.cpp
-    OBJECTIVE_SOURCES *= GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
+    SOURCES *= SharedMemory_unix.cpp
+    OBJECTIVE_SOURCES *= TextToSpeech_macx.mm GlobalShortcut_macx.mm os_macx.mm Log_macx.mm
 
     !CONFIG(no-cocoa) {
         DEFINES *= USE_COCOA
@@ -422,9 +567,10 @@ CONFIG(static_qt_plugins) {
   DEFINES += USE_STATIC_QT_PLUGINS
   QTPLUGIN += qtaccessiblewidgets qico qsvg qsvgicon
   macx {
-    QTPLUGIN += qicnsicon
     isEqual(QT_MAJOR_VERSION, 5) {
-      QTPLUGIN += qcocoa
+      QTPLUGIN += qicns qcocoa
+    } else {
+      QTPLUGIN += qicnsicon
     }
   }
 

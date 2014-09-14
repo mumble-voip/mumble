@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <QStringList>
+#include "mumble_pch.hpp"
 
 #include "UserListModel.h"
 #include "Channel.h"
@@ -113,7 +113,7 @@ QVariant UserListModel::data(const QModelIndex &index, int role) const {
 		switch (index.column()) {
 			case COL_INACTIVEDAYS: return tr("Last seen: %1").arg(user.last_seen().empty() ?
 				                                                      tr("Never")
-				                                                    : u8(user.last_seen()));
+				                                                    : Qt::escape(u8(user.last_seen())));
 			case COL_LASTCHANNEL:  return tr("Channel id: %1").arg(user.last_channel());
 			default:               return QVariant();
 		}

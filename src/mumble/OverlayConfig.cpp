@@ -30,7 +30,10 @@
 
 #include "mumble_pch.hpp"
 
+#include "OverlayConfig.h"
+
 #include "Overlay.h"
+#include "OverlayUserGroup.h"
 #include "OverlayText.h"
 #include "User.h"
 #include "Channel.h"
@@ -47,7 +50,7 @@ static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 }
 
 // Hide overlay config for Mac OS X universal builds
-#if !defined(USE_MAC_UNIVERSAL)
+#if !defined(USE_MAC_UNIVERSAL) && !defined(Q_OS_WIN64)
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
@@ -236,7 +239,7 @@ OverlayAppInfo OverlayConfig::applicationInfoForId(const QString &identifier) {
 #elif defined(Q_OS_WIN)
 	HICON icon = ExtractIcon(qWinAppInst(), identifier.toStdWString().c_str(), 0);
 	if (icon) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		extern QPixmap qt_pixmapFromWinHICON(HICON icon);
 		qiAppIcon = QIcon(qt_pixmapFromWinHICON(icon));
 #else

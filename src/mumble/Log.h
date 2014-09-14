@@ -94,23 +94,10 @@ class Log : public QObject {
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
 		static QString msgColor(const QString &text, LogColorType t);
-		static QString formatClientUser(ClientUser *cu, LogColorType t);
+		static QString formatClientUser(ClientUser *cu, LogColorType t, const QString &displayName=QString());
 		static QString formatChannel(::Channel *c);
 	public slots:
 		void log(MsgType t, const QString &console, const QString &terse=QString(), bool ownMessage = false);
-};
-
-class ValidDocument : public QTextDocument {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(ValidDocument)
-	protected:
-		QStringList qslValidImage;
-		bool bValid;
-		QVariant loadResource(int, const QUrl &);
-	public:
-		ValidDocument(bool httpimages, QObject *p = NULL);
-		bool isValid() const;
 };
 
 class LogDocument : public QTextDocument {
@@ -119,10 +106,24 @@ class LogDocument : public QTextDocument {
 		Q_DISABLE_COPY(LogDocument)
 	public:
 		LogDocument(QObject *p = NULL);
-		QVariant loadResource(int, const QUrl &);
+		virtual QVariant loadResource(int, const QUrl &);
+		void setAllowHTTPResources(bool allowHttpResources);
+		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
+		bool isValid();
 	public slots:
 		void receivedHead();
 		void finished();
+	private:
+		bool m_allowHTTPResources;
+		bool m_valid;
+		bool m_onlyLoadDataURLs;
+};
+
+class LogDocumentResourceAddedEvent : public QEvent {
+	public:
+		static const QEvent::Type Type = static_cast<QEvent::Type>(20145);
+
+		LogDocumentResourceAddedEvent();
 };
 
 #endif

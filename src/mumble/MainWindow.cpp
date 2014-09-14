@@ -51,9 +51,10 @@
 #include "Log.h"
 #include "Net.h"
 #include "NetworkConfig.h"
-#include "Overlay.h"
+#include "OverlayClient.h"
 #include "Plugins.h"
 #include "PTTButtonWidget.h"
+#include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "TextMessage.h"
 #include "Tokens.h"
@@ -146,7 +147,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 
 	qwPTTButtonWidget = NULL;
 
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION < 0x050000
 	cuContextUser = QWeakPointer<ClientUser>();
 	cContextChannel = QWeakPointer<Channel>();
 #endif
@@ -396,13 +397,17 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
-		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
+		mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
-		mb.setDefaultButton(qpbMinimize);
-		mb.setEscapeButton(qpbMinimize);
+		QPushButton *qpbCancel = mb.addButton(tr("Cancel"), QMessageBox::RejectRole);
+		mb.setDefaultButton(qpbCancel);
+		mb.setEscapeButton(qpbCancel);
 		mb.exec();
-		if (mb.clickedButton() != qpbClose) {
+		if (mb.clickedButton() == qpbMinimize) {
 			showMinimized();
+			e->ignore();
+			return;
+		} else if (mb.clickedButton() == qpbCancel) {
 			e->ignore();
 			return;
 		}
@@ -615,7 +620,7 @@ static void recreateServerHandler() {
 }
 
 void MainWindow::openUrl(const QUrl &url) {
-	g.l->log(Log::Information, tr("Opening URL %1").arg(url.toString()));
+	g.l->log(Log::Information, tr("Opening URL %1").arg(Qt::escape(url.toString())));
 	if (url.scheme() == QLatin1String("file")) {
 		QFile f(url.toLocalFile());
 		if (! f.exists() || ! f.open(QIODevice::ReadOnly)) {
@@ -652,7 +657,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	minor = 2;
 	patch = 0;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QUrlQuery query(url);
 	QString version = query.queryItemValue(QLatin1String("version"));
 #else
@@ -676,7 +681,7 @@ void MainWindow::openUrl(const QUrl &url) {
 	qsDesiredChannel = url.path();
 	QString name;
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	if (query.hasQueryItem(QLatin1String("title")))
 		name = query.queryItemValue(QLatin1String("title"));
 #else
@@ -688,8 +693,9 @@ void MainWindow::openUrl(const QUrl &url) {
 		QString oHost, oUser, oPw;
 		unsigned short oport;
 		g.sh->getConnectionInfo(oHost, oport, oUser, oPw);
+		ClientUser *p = ClientUser::get(g.uiSession);
 
-		if ((user.isEmpty() || (user == oUser)) &&
+		if ((user.isEmpty() || (p && p->iId >= 0) || (user == oUser)) &&
 		        (host.isEmpty() || ((host == oHost) && (port == oport)))) {
 			findDesiredChannel();
 			return;
@@ -713,8 +719,9 @@ void MainWindow::openUrl(const QUrl &url) {
 
 	g.s.qsLastServer = name;
 	rtLast = MumbleProto::Reject_RejectType_None;
+	bRetryServer = true;
 	qaServerDisconnect->setEnabled(true);
-	g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(host, Log::Server)));
+	g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(Qt::escape(host), Log::Server)));
 	g.sh->setConnectionInfo(host, port, user, pw);
 	g.sh->start(QThread::TimeCriticalPriority);
 }
@@ -748,7 +755,7 @@ void MainWindow::findDesiredChannel() {
 	}
 	if (found) {
 		if (chan != ClientUser::get(g.uiSession)->cChannel) {
-			g.sh->joinChannel(chan->iId);
+			g.sh->joinChannel(g.uiSession, chan->iId);
 		}
 		qtvUsers->setCurrentIndex(pmModel->index(chan));
 	} else if (g.uiSession) {
@@ -910,8 +917,9 @@ void MainWindow::on_qaServerConnect_triggered(bool autoconnect) {
 		recreateServerHandler();
 		qsDesiredChannel = QString();
 		rtLast = MumbleProto::Reject_RejectType_None;
+		bRetryServer = true;
 		qaServerDisconnect->setEnabled(true);
-		g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(cd->qsServer, Log::Server)));
+		g.l->log(Log::Information, tr("Connecting to server %1.").arg(Log::msgColor(Qt::escape(cd->qsServer), Log::Server)));
 		g.sh->setConnectionInfo(cd->qsServer, cd->usPort, cd->qsUsername, cd->qsPassword);
 		g.sh->start(QThread::TimeCriticalPriority);
 	}
@@ -987,7 +995,7 @@ void MainWindow::on_qaSelfRegister_triggered() {
 		return;
 
 	QMessageBox::StandardButton result;
-	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+	result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 
 	if (result == QMessageBox::Yes)
 		g.sh->registerUser(p->uiSession);
@@ -1072,7 +1080,7 @@ void MainWindow::on_qaServerInformation_triggered() {
 		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
 	} else {
 		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
-		                 .arg(g.sh->qsRelease, g.sh->qsOS, g.sh->qsOSVersion));
+		                 .arg(Qt::escape(g.sh->qsRelease), Qt::escape(g.sh->qsOS), Qt::escape(g.sh->qsOSVersion)));
 	}
 
 	QString host, uname, pw;
@@ -1081,10 +1089,10 @@ void MainWindow::on_qaServerInformation_triggered() {
 	g.sh->getConnectionInfo(host,port,uname,pw);
 
 	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),
-	                  qsc.name(),
+	                  Qt::escape(qsc.name()),
 	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
-	                  host,
+	                  Qt::escape(host),
 	                  QString::number(port));
 	QString qsVoice, qsCrypt, qsAudio;
 
@@ -1124,11 +1132,11 @@ void MainWindow::on_qaServerTexture_triggered() {
 	const QImage &img = choice.second;
 
 	if ((img.height() <= 1024) && (img.width() <= 1024))
-		g.sh->setTexture(choice.first);
+		g.sh->setUserTexture(g.uiSession, choice.first);
 }
 
 void MainWindow::on_qaServerTextureRemove_triggered() {
-	g.sh->setTexture(QByteArray());
+	g.sh->setUserTexture(g.uiSession, QByteArray());
 }
 
 void MainWindow::on_qaServerTokens_triggered() {
@@ -1186,6 +1194,7 @@ void MainWindow::qmUser_aboutToShow() {
 	else {
 		qmUser->addAction(qaUserCommentView);
 		qmUser->addAction(qaUserCommentReset);
+		qmUser->addAction(qaUserTextureReset);
 	}
 
 	qmUser->addAction(qaUserTextMessage);
@@ -1237,6 +1246,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
+		qaUserTextureReset->setEnabled(false);
 		qaUserCommentView->setEnabled(false);
 	} else {
 		qaUserKick->setEnabled(! self);
@@ -1245,6 +1255,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserLocalMute->setEnabled(! self);
 		qaUserLocalIgnore->setEnabled(! self);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
+		qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserCommentView->setEnabled(! p->qbaCommentHash.isEmpty());
 
 		qaUserMute->setChecked(p->bMute || p->bSuppress);
@@ -1341,9 +1352,9 @@ void MainWindow::on_qaUserRegister_triggered() {
 	QMessageBox::StandardButton result;
 
 	if (session == g.uiSession)
-		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+		result = QMessageBox::question(this, tr("Register yourself as %1").arg(p->qsName), tr("<p>You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as '%1' on this server.</p><p>Are you sure you want to register yourself?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 	else
-		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(p->qsName), QMessageBox::Yes|QMessageBox::No);
+		result = QMessageBox::question(this, tr("Register user %1").arg(p->qsName), tr("<p>You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.</p><p>From this point on, %1 will be authenticated with the certificate currently in use.</p><p>Are you sure you want to register %1?</p>").arg(Qt::escape(p->qsName)), QMessageBox::Yes|QMessageBox::No);
 
 	if (result == QMessageBox::Yes) {
 		p = ClientUser::get(session);
@@ -1479,10 +1490,26 @@ void MainWindow::on_qaUserCommentReset_triggered() {
 	unsigned int session = p->uiSession;
 
 	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
-	                                tr("Are you sure you want to reset the comment of user %1?").arg(p->qsName),
+	                                tr("Are you sure you want to reset the comment of user %1?").arg(Qt::escape(p->qsName)),
 	                                QMessageBox::Yes, QMessageBox::No);
 	if (ret == QMessageBox::Yes) {
 		g.sh->setUserComment(session, QString());
+	}
+}
+
+void MainWindow::on_qaUserTextureReset_triggered() {
+	ClientUser *p = getContextMenuUser();
+
+	if (!p)
+		return;
+
+	unsigned int session = p->uiSession;
+
+	int ret = QMessageBox::question(this, QLatin1String("Mumble"),
+	                                tr("Are you sure you want to reset the avatar of user %1?").arg(Qt::escape(p->qsName)),
+	                                QMessageBox::Yes, QMessageBox::No);
+	if (ret == QMessageBox::Yes) {
+		g.sh->setUserTexture(session, QByteArray());
 	}
 }
 
@@ -1506,7 +1533,7 @@ void MainWindow::sendChatbarMessage(QString qsText) {
 	ClientUser *p = pmModel->getUser(qtvUsers->currentIndex());
 	Channel *c = pmModel->getChannel(qtvUsers->currentIndex());
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	qsText = qsText.toHtmlEscaped();
 #else
 	qsText = Qt::escape(qsText);
@@ -1662,7 +1689,7 @@ void MainWindow::on_qaChannelJoin_triggered() {
 	Channel *c = getContextMenuChannel();
 
 	if (c) {
-		g.sh->joinChannel(c->iId);
+		g.sh->joinChannel(g.uiSession, c->iId);
 	}
 }
 
@@ -1700,7 +1727,7 @@ void MainWindow::on_qaChannelRemove_triggered() {
 
 	int id = c->iId;
 
-	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(c->qsName), QMessageBox::Yes, QMessageBox::No);
+	ret=QMessageBox::question(this, QLatin1String("Mumble"), tr("Are you sure you want to delete %1 and all its sub-channels?").arg(Qt::escape(c->qsName)), QMessageBox::Yes, QMessageBox::No);
 
 	c = Channel::get(id);
 	if (!c)
@@ -1874,6 +1901,7 @@ void MainWindow::updateMenuPermissions() {
 	} else {
 		qaUserMute->setEnabled(false);
 		qaUserDeaf->setEnabled(false);
+		qaUserPrioritySpeaker->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserInformation->setEnabled(false);
 	}
@@ -1888,31 +1916,42 @@ void MainWindow::updateMenuPermissions() {
 	qaChannelUnlink->setEnabled((p & (ChanACL::Write | ChanACL::LinkChannel)) || (homep & (ChanACL::Write | ChanACL::LinkChannel)));
 	qaChannelUnlinkAll->setEnabled(p & (ChanACL::Write | ChanACL::LinkChannel));
 
+	qaChannelCopyURL->setEnabled(c);
 	qaChannelSendMessage->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 	qaChannelFilter->setEnabled(true);
 	qteChat->setEnabled(p & (ChanACL::Write | ChanACL::TextMessage));
 }
 
-void MainWindow::talkingChanged() {
-	ClientUser *p = ClientUser::get(g.uiSession);
-	if (p && g.s.bAttenuateOthersOnTalk) {
-		switch (p->tsState) {
-			case Settings::Talking:
-			case Settings::Whispering:
-			case Settings::Shouting:
-				g.bAttenuateOthers = true;
-				break;
-			case Settings::Passive:
-			default:
-				g.bAttenuateOthers = false;
-				break;
-		}
-	} else {
+void MainWindow::userStateChanged() {
+	if (g.s.bStateInTray) {
+		updateTrayIcon();
+	}
+	
+	ClientUser *user = ClientUser::get(g.uiSession);
+	if (user == NULL) {
 		g.bAttenuateOthers = false;
+		g.prioritySpeakerActiveOverride = false;
+		
+		return;
 	}
 
-	if (g.s.bStateInTray)
-		updateTrayIcon();
+	switch (user->tsState) {
+		case Settings::Talking:
+		case Settings::Whispering:
+		case Settings::Shouting:
+			g.bAttenuateOthers = g.s.bAttenuateOthersOnTalk;
+
+			g.prioritySpeakerActiveOverride =
+			        g.s.bAttenuateUsersOnPrioritySpeak
+			        && user->bPrioritySpeaker;
+			
+			break;
+		case Settings::Passive:
+		default:
+			g.bAttenuateOthers = false;
+			g.prioritySpeakerActiveOverride = false;
+			break;
+	}
 }
 
 void MainWindow::on_qaAudioReset_triggered() {
@@ -2174,13 +2213,14 @@ Channel *MainWindow::mapChannel(int idx) const {
 
 void MainWindow::updateTarget() {
 	g.iPrevTarget = g.iTarget;
-	if (qsCurrentTargets.isEmpty()) {
+
+	if (qmCurrentTargets.isEmpty()) {
 		g.bCenterPosition = false;
 		g.iTarget = 0;
 	} else {
 		bool center = false;
 		QList<ShortcutTarget> ql;
-		foreach(const ShortcutTarget &st, qsCurrentTargets) {
+		foreach(const ShortcutTarget &st, qmCurrentTargets.keys()) {
 			ShortcutTarget nt;
 			center = center || st.bForceCenter;
 			nt.bUsers = st.bUsers;
@@ -2276,7 +2316,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			if (! st.bUsers) {
 				Channel *c = mapChannel(st.iChannel);
 				if (c) {
-					g.sh->joinChannel(c->iId);
+					g.sh->joinChannel(g.uiSession, c->iId);
 				}
 				return;
 			}
@@ -2297,7 +2337,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 			}
 		}
 
-		qsCurrentTargets.insert(st);
+		addTarget(&st);
 		updateTarget();
 
 		g.iPushToTalk++;
@@ -2306,6 +2346,29 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
 		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
 	}
+}
+
+/* Add and remove ShortcutTargets from the qmCurrentTargets Map, which counts
+ * the number of push-to-talk events for a given ShortcutTarget.  If this number
+ * reaches 0, the ShortcutTarget is removed from qmCurrentTargets.
+ */
+void MainWindow::addTarget(ShortcutTarget *st)
+{
+	if (qmCurrentTargets.contains(*st))
+		qmCurrentTargets[*st] += 1;
+	else
+		qmCurrentTargets[*st] = 1;
+}
+
+void MainWindow::removeTarget(ShortcutTarget *st)
+{
+	if (!qmCurrentTargets.contains(*st))
+		return;
+
+	if (qmCurrentTargets[*st] == 1)
+		qmCurrentTargets.remove(*st);
+	else
+		qmCurrentTargets[*st] -= 1;
 }
 
 void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata) 
@@ -2342,7 +2405,7 @@ void MainWindow::whisperReleased(QVariant scdata) {
 
 	g.iPushToTalk--;
 
-	qsCurrentTargets.remove(st);
+	removeTarget(&st);
 	updateTarget();
 }
 
@@ -2413,31 +2476,7 @@ void MainWindow::serverConnected() {
 #endif
 }
 
-static QString getPathToChannel(Channel *c) {
-	QString out;
-
-	if (!c)
-		return out;
-
-	Channel *tmp = c;
-	while (tmp->cParent) {
-		// skip root channel
-		if (tmp->iId == 0)
-			break;
-
-		out.prepend(QString::fromLatin1("/"));
-		out.prepend(tmp->qsName);
-
-		tmp = tmp->cParent;
-	}
-
-	return out;
-}
-
 void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString reason) {
-	if (g.uiSession)
-		qsDesiredChannel = getPathToChannel(ClientUser::get(g.uiSession)->cChannel);
-
 	g.uiSession = 0;
 	g.pPermissions = ChanACL::None;
 	g.bAttenuateOthers = false;
@@ -2502,7 +2541,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 	if (! g.sh->qlErrors.isEmpty()) {
 		foreach(QSslError e, g.sh->qlErrors)
-			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(e.errorString()));
+			g.l->log(Log::Warning, tr("SSL Verification failed: %1").arg(Qt::escape(e.errorString())));
 		if (! g.sh->qscCert.isEmpty()) {
 			QSslCertificate c = g.sh->qscCert.at(0);
 			QString basereason;
@@ -2513,7 +2552,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			}
 			QStringList qsl;
 			foreach(QSslError e, g.sh->qlErrors)
-				qsl << QString::fromLatin1("<li>%1</li>").arg(e.errorString());
+				qsl << QString::fromLatin1("<li>%1</li>").arg(Qt::escape(e.errorString()));
 
 			QMessageBox qmb(QMessageBox::Warning, QLatin1String("Mumble"),
 			                tr("<p>%1.<br />The specific errors with this certificate are: </p><ol>%2</ol>"
@@ -2546,7 +2585,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 
 
 		if (! reason.isEmpty()) {
-			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(reason));
+			g.l->log(Log::ServerDisconnected, tr("Server connection failed: %1.").arg(Qt::escape(reason)));
 		}  else {
 			g.l->log(Log::ServerDisconnected, tr("Disconnected from server."));
 		}
@@ -2594,7 +2633,9 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			on_Reconnect_timeout();
 		} else if (!matched && g.s.bReconnect && ! reason.isEmpty()) {
 			qaServerDisconnect->setEnabled(true);
-			qtReconnect->start();
+			if (bRetryServer) {
+				qtReconnect->start();
+			}
 		}
 	}
 	qstiIcon->setToolTip(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
@@ -2622,11 +2663,7 @@ void MainWindow::trayAboutToShow() {
 		qmTray->addSeparator();
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addAction(qaAudioMute);
-		qmTray->addSeparator();
-		qmTray->addAction(qaHelpAbout);
 	} else {
-		qmTray->addAction(qaHelpAbout);
-		qmTray->addSeparator();
 		qmTray->addAction(qaAudioMute);
 		qmTray->addAction(qaAudioDeaf);
 		qmTray->addSeparator();
@@ -2697,10 +2734,10 @@ void MainWindow::updateChatBar() {
 		if (!g.s.bChatBarUseSelection || c == NULL) // If no channel selected fallback to current one
 			c = ClientUser::get(g.uiSession)->cChannel;
 
-		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(c->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to channel '%1' here</center>").arg(Qt::escape(c->qsName)));
 	} else {
 		// User target
-		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(p->qsName));
+		qteChat->setDefaultText(tr("<center>Type message to user '%1' here</center>").arg(Qt::escape(p->qsName)));
 	}
 
 	updateMenuPermissions();
@@ -2815,14 +2852,14 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 
 	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath)) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 #else
 		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
 #endif
 	}
 
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg *.svg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg)"));
 
 	if (fname.isNull())
 		return retval;
@@ -2842,7 +2879,17 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QBuffer qb(&qba);
 	qb.open(QIODevice::ReadOnly);
 
-	QImageReader qir(&qb, fi.suffix().toUtf8());
+	QImageReader qir;
+	qir.setAutoDetectImageFormat(false);
+
+	QByteArray fmt;
+	if (!RichTextImage::isValidImage(qba, fmt)) {
+		QMessageBox::warning(this, tr("Failed to load image"), tr("Image format not recognized."));
+		return retval;
+	}
+
+	qir.setFormat(fmt);
+	qir.setDevice(&qb);
 
 	QImage img = qir.read();
 	if (img.isNull()) {

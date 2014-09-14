@@ -6,15 +6,7 @@ VERSION=$$replace(BUILDDIR,-build,)
 VERSION=$$replace(VERSION,celt-,)
 
 !exists(../$$SOURCEDIR/COPYING) {
-	message("The $$SOURCEDIR/ directory was not found. You need to do one of the following:")
-	message("")
-	message("Option 1: Use CELT Git:")
-	message("git submodule init")
-	message("git submodule update")
-	message("")
-	message("Option 2: Use system celt libraries (it's your job to ensure you have all of them):")
-	message("qmake CONFIG+=no-bundled-celt -recursive")
-	message("")
+	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init) or build with CONFIG+=no-bundled-celt.")
 	error("Aborting configuration")
 }
 

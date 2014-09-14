@@ -37,7 +37,7 @@
 
 #include "Global.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 #include <qpa/qplatformnativeinterface.h>
 
 static NSWindow *qt_mac_window_for(QWidget *w) {
@@ -101,7 +101,7 @@ ConfigDialogMac::ConfigDialogMac(QWidget *p) : QDialog(p) {
 	                               "To restore all settings to their defaults, you will have to use this button on every page."
 	                              ));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QTimer::singleShot(0, this, SLOT(delayedInit()));
 #else
 	delayedInit();

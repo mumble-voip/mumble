@@ -455,13 +455,23 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	size_t length = bytes;
-	const void *data;
+	const void *data = NULL;
 	pa_stream_peek(s, &data, &length);
+	if (data == NULL && length > 0) {
+		qWarning("PulseAudio: pa_stream_peek reports no data at current read index.");
+	} else if (data == NULL && length == 0) {
+		qWarning("PulseAudio: pa_stream_peek reports empty memblockq.");
+	} else if (data == NULL || length == 0) {
+		qWarning("PulseAudio: invalid pa_stream_peek state encountered.");
+		return;
+	}
 
 	AudioInputPtr ai = g.ai;
 	PulseAudioInput *pai = dynamic_cast<PulseAudioInput *>(ai.get());
 	if (! pai) {
-		pa_stream_drop(s);
+		if (length > 0) {
+			pa_stream_drop(s);
+		}
 		pas->wakeup();
 		return;
 	}
@@ -474,27 +484,33 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->iMicFreq = pss->rate;
 			pai->iMicChannels = pss->channels;
 			if (pss->format == PA_SAMPLE_FLOAT32NE)
-				pai->eMicFormat = AudioInput::SampleFloat;
+				pai->eMicFormat = PulseAudioInput::SampleFloat;
 			else
-				pai->eMicFormat = AudioInput::SampleShort;
+				pai->eMicFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		pai->addMic(data, length / pai->iMicSampleSize);
+		if (data != NULL) {
+			pai->addMic(data, length / pai->iMicSampleSize);
+		}
 	} else if (s == pas->pasSpeaker) {
 		if (!pa_sample_spec_equal(pss, &pai->pssEcho)) {
 			pai->pssEcho = *pss;
 			pai->iEchoFreq = pss->rate;
 			pai->iEchoChannels = pss->channels;
 			if (pss->format == PA_SAMPLE_FLOAT32NE)
-				pai->eEchoFormat = AudioInput::SampleFloat;
+				pai->eEchoFormat = PulseAudioInput::SampleFloat;
 			else
-				pai->eEchoFormat = AudioInput::SampleShort;
+				pai->eEchoFormat = PulseAudioInput::SampleShort;
 			pai->initializeMixer();
 		}
-		pai->addEcho(data, length / pai->iEchoSampleSize);
+		if (data != NULL) {
+			pai->addEcho(data, length / pai->iEchoSampleSize);
+		}
 	}
 
-	pa_stream_drop(s);
+	if (length > 0) {
+		pa_stream_drop(s);
+	}
 }
 
 void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata) {
@@ -520,9 +536,9 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 		pao->pss = *pss;
 		pao->pcm = *pcm;
 		if (pss->format == PA_SAMPLE_FLOAT32NE)
-			pao->eSampleFormat = AudioOutput::SampleFloat;
+			pao->eSampleFormat = PulseAudioOutput::SampleFloat;
 		else
-			pao->eSampleFormat = AudioOutput::SampleShort;
+			pao->eSampleFormat = PulseAudioOutput::SampleShort;
 		pao->iMixerFreq = pss->rate;
 		pao->iChannels = pss->channels;
 		unsigned int chanmasks[pss->channels];

@@ -329,6 +329,7 @@ void Server::readParams() {
 	bBonjour = Meta::mp.bBonjour;
 	bAllowPing = Meta::mp.bAllowPing;
 	bCertRequired = Meta::mp.bCertRequired;
+	bForceExternalAuth = Meta::mp.bForceExternalAuth;
 	qrUserName = Meta::mp.qrUserName;
 	qrChannelName = Meta::mp.qrChannelName;
 	qvSuggestVersion = Meta::mp.qvSuggestVersion;
@@ -385,6 +386,7 @@ void Server::readParams() {
 	bBonjour = getConf("bonjour", bBonjour).toBool();
 	bAllowPing = getConf("allowping", bAllowPing).toBool();
 	bCertRequired = getConf("certrequired", bCertRequired).toBool();
+	bForceExternalAuth = getConf("forceExternalAuth", bForceExternalAuth).toBool();
 
 	qvSuggestVersion = getConf("suggestversion", qvSuggestVersion);
 	if (qvSuggestVersion.toUInt() == 0)
@@ -492,6 +494,8 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qurlRegWeb = !v.isNull() ? v : Meta::mp.qurlRegWeb;
 	else if (key == "certrequired")
 		bCertRequired = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bCertRequired;
+	else if (key == "forceExternalAuth")
+		bForceExternalAuth = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bForceExternalAuth;
 	else if (key == "bonjour") {
 		bBonjour = !v.isNull() ? QVariant(v).toBool() : Meta::mp.bBonjour;
 #ifdef USE_BONJOUR
@@ -1144,7 +1148,7 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		sock->setProtocol(QSsl::TlsV1_0);
 #else
 		sock->setProtocol(QSsl::TlsV1);
@@ -1172,14 +1176,14 @@ void Server::encrypted() {
 	QList<QSslCertificate> certs = uSource->peerCertificateChain();
 	if (!certs.isEmpty()) {
 		const QSslCertificate &cert = certs.last();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 		uSource->qslEmail = cert.subjectAlternativeNames().values(QSsl::EmailEntry);
 #else
 		uSource->qslEmail = cert.alternateSubjectNames().values(QSsl::EmailEntry);
 #endif
 		uSource->qsHash = cert.digest(QCryptographicHash::Sha1).toHex();
 		if (! uSource->qslEmail.isEmpty() && uSource->bVerified) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 			QString subject;
 			QString issuer;
 

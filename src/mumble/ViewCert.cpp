@@ -100,7 +100,7 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	l << tr("Public Key: %1 bits %2").arg(c.publicKey().length()).arg((c.publicKey().algorithm() == QSsl::Rsa) ? tr("RSA") : tr("DSA"));
 	l << tr("Digest (SHA-1): %1").arg(QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = c.subjectAlternativeNames();
 	QMultiMap<QSsl::AlternativeNameEntryType, QString>::const_iterator i;
 #else

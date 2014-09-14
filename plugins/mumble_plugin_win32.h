@@ -34,6 +34,7 @@
 #define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdlib.h>
+#define NOMINMAX
 #include <windows.h>
 #include <tlhelp32.h>
 #include <math.h>

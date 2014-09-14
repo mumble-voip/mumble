@@ -37,8 +37,8 @@ Global *Global::g_global_struct;
 static void migrateDataDir() {
 #ifdef Q_OS_MAC
 	QString olddir = QDir::homePath() + QLatin1String("/Library/Preferences/Mumble");
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-	QString newdir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#if QT_VERSION >= 0x050000
+	QString newdir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	QString newdir = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
@@ -92,6 +92,7 @@ Global::Global() {
 #endif
 
 	bAttenuateOthers = false;
+	prioritySpeakerActiveOverride = false;
 
 	bAllowHTML = true;
 	uiMessageLength = 5000;
@@ -111,8 +112,8 @@ Global::Global() {
 
 	QStringList qsl;
 	qsl << QCoreApplication::instance()->applicationDirPath();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-	qsl << QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#if QT_VERSION >= 0x050000
+	qsl << QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 	qsl << QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif
@@ -145,8 +146,8 @@ Global::Global() {
 			qdBasePath.setPath(appdata);
 #else
 		migrateDataDir();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-		qdBasePath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+#if QT_VERSION >= 0x050000
+		qdBasePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
 		qdBasePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #endif

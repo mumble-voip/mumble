@@ -32,6 +32,7 @@
 
 #include "Overlay.h"
 
+#include "OverlayClient.h"
 #include "Channel.h"
 #include "ClientUser.h"
 #include "Database.h"
@@ -40,6 +41,7 @@
 #include "MainWindow.h"
 #include "Message.h"
 #include "OverlayText.h"
+#include "RichTextEditor.h"
 #include "ServerHandler.h"
 #include "User.h"
 #include "WebFetch.h"
@@ -101,7 +103,7 @@ Overlay::Overlay() : QObject() {
 #endif
 
 	if (! qlsServer->listen(pipepath)) {
-		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(qlsServer->errorString(),pipepath), QMessageBox::Ok, QMessageBox::NoButton);
+		QMessageBox::warning(NULL, QLatin1String("Mumble"), tr("Failed to create communication with overlay at %2: %1. No overlay will be available.").arg(Qt::escape(qlsServer->errorString()), Qt::escape(pipepath)), QMessageBox::Ok, QMessageBox::NoButton);
 	} else {
 		qWarning() << "Overlay: Listening on" << qlsServer->fullServerName();
 		connect(qlsServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
@@ -272,15 +274,21 @@ void Overlay::verifyTexture(ClientUser *cp, bool allowupdate) {
 			qb.open(QIODevice::ReadOnly);
 
 			QImageReader qir;
-			if (cp->qbaTexture.startsWith("<?xml"))
-				qir.setFormat("svg");
-			qir.setDevice(&qb);
-			if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
-				valid = false;
+			qir.setAutoDetectImageFormat(false);
+
+			QByteArray fmt;
+			if (RichTextImage::isValidImage(cp->qbaTexture, fmt)) {
+				qir.setFormat(fmt);
+				qir.setDevice(&qb);
+				if (! qir.canRead() || (qir.size().width() > 1024) || (qir.size().height() > 1024)) {
+					valid = false;
+				} else {
+					cp->qbaTextureFormat = qir.format();
+					QImage qi = qir.read();
+					valid = ! qi.isNull();
+				}
 			} else {
-				cp->qbaTextureFormat = qir.format();
-				QImage qi = qir.read();
-				valid = ! qi.isNull();
+				valid = false;
 			}
 		}
 		if (! valid) {

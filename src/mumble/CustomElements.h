@@ -34,7 +34,7 @@
 
 #include <QtCore/QObject>
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 # include <QtWidgets/QLabel>
 # include <QtWidgets/QTextBrowser>
 # include <QtWidgets/QTextEdit>
@@ -50,6 +50,7 @@ class LogTextBrowser : public QTextBrowser {
 		Q_DISABLE_COPY(LogTextBrowser)
 	protected:
 		virtual void resizeEvent(QResizeEvent *e);
+		virtual bool event(QEvent *e);
 	public:
 		LogTextBrowser(QWidget *p = NULL);
 

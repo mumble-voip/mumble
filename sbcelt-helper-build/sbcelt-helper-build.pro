@@ -5,12 +5,7 @@ SOURCEDIR=$$replace(BUILDDIR,-helper-build,-src)
 CELTDIR=../celt-0.7.0-src/libcelt
 
 !exists($$CELTDIR/../COPYING) {
-        message("The $$CELTDIR/ directory was not found. You need to do the following:")
-        message("")
-        message("Use CELT Git:")
-        message("git submodule init")
-        message("git submodule update")
-        message("")
+        message("The $$CELTDIR/ directory was not found. Please update your submodules (git submodule update --init).")
         error("Aborting configuration")
 }
 

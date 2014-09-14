@@ -5,7 +5,7 @@
   <!-- Mumble -->
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
-      <Component Id="mumble.exe" Guid="A08F7909-1116-4AC8-9422-051FA1A1BE19">
+      <Component Id="mumble.exe" Guid="$(var.MumbleExeGuid)">
         <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
           <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
             <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
@@ -62,10 +62,10 @@
         </Component>
       <?endif ?>
 
-      <Component Id="licence.txt" Guid="87C7967B-5E4B-41DD-83F5-A9E9E8AD3B39">
+      <Component Id="licence.txt" Guid="$(var.LicenseTextGuid)">
         <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
-      <Component Id="Readme.txt" Guid="15878902-B819-4E77-8C1D-0A915D79660B">
+      <Component Id="Readme.txt" Guid="$(var.ReadMeTextGuid)">
         <File Source="$(var.SourceDir)\README" Name="Readme.txt" KeyPath="yes" />
       </Component>
       <Component Id="Changes.txt">
@@ -109,12 +109,12 @@
         </Component>
       <?endif ?>
 
-      <?ifdef RedistDirVC10 ?>
-      <Component Id="msvcp100.dll">
-        <File Source="$(var.RedistDirVC10)\msvcp100.dll" KeyPath="yes" />
+      <?ifdef RedistDirVC12 ?>
+      <Component Id="msvcp120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
       </Component>
-      <Component Id="msvcr100.dll">
-        <File Source="$(var.RedistDirVC10)\msvcr100.dll" KeyPath="yes" />
+      <Component Id="msvcr120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
     </DirectoryRef>
@@ -184,7 +184,7 @@
     <Fragment>
       <DirectoryRef Id="INSTALLDIR">
         <Component Id="bzip2.dll">
-          <File Source="$(var.IceDir)\bzip2.dll" KeyPath="yes" />
+          <File Source="$(var.Bzip2Dir)\bzip2.dll" KeyPath="yes" />
         </Component>
         <Component Id="ice34.dll">
           <File Source="$(var.IceDir)\ice34.dll" KeyPath="yes" />

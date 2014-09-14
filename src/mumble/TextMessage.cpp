@@ -61,7 +61,7 @@ QString TextMessage::autoFormat(QString qsPlain) {
 	qr.setPattern(QLatin1String("\"([^\"]+)\""));
 	qsPlain.replace(qr, QLatin1String("\"<i>\\1</i>\""));
 
-	qr.setPattern(QLatin1String("[a-z-]+://[^ <$]*"));
+	qr.setPattern(QLatin1String("[a-z-]+://[^ <]*"));
 	qr.setMinimal(false);
 
 	int idx = 0;

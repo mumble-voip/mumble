@@ -107,10 +107,17 @@ FakeInterface::~FakeInterface() {
 
 void FakeInterface::replace(LONG offset, voidMemberFunc replacement) {
 	void *p = NULL;
+#if defined(_M_X86)
 	_asm {
 		mov eax, replacement
 		mov p, eax
 	}
+#elif defined(_M_X64)
+	// Crash.
+	ods("Lib: unimplemented FakeInterface::replace on x64. crashing...");
+	char *c = NULL;
+	*c = 0;
+#endif
 	ods("Lib: FakeInterface: replace: That gave %p", p);
 	vtbl[offset] = p;
 }
@@ -409,6 +416,7 @@ static void checkHooks(bool preonly) {
 	checkD3D9Hook(preonly);
 	checkDXGIHook(preonly);
 	checkDXGI10Hook(preonly);
+	checkDXGI11Hook(preonly);
 	checkOpenGLHook();
 }
 
@@ -683,7 +691,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 }
 
 static bool createSharedDataMap() {
-	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data);
+	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
 	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
 	if (hMapObject == NULL) {
@@ -716,7 +724,10 @@ static bool createSharedDataMap() {
 
 	d3d10 = reinterpret_cast<D3D10Data *>(rawSharedPointer);
 	rawSharedPointer += sizeof(D3D10Data);
-	
+
+	d3d11 = reinterpret_cast<D3D11Data *>(rawSharedPointer);
+	rawSharedPointer += sizeof(D3D11Data);
+
 	return true;
 }
 

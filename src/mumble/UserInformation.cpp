@@ -137,7 +137,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 
 			const QSslCertificate &cert = qlCerts.last();
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 			const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = cert.subjectAlternativeNames();
 #else
 			const QMultiMap<QSsl::AlternateNameEntryType, QString> &alts = cert.alternateSubjectNames();

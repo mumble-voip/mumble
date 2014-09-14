@@ -33,7 +33,7 @@
 
 #include <QtCore/QtGlobal>
 #include <QtCore/QString>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 # include <QtWidgets/QGroupBox>
 #else
 # include <QtGui/QGroupBox>
@@ -67,8 +67,6 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		Q_DISABLE_COPY(CertWizard)
 	protected:
 		Settings::KeyPair kpCurrent, kpNew;
-		bool bValidDomain, bPendingDns;
-		int iLookupId;
 	public:
 		CertWizard(QWidget *p = NULL);
 		int nextId() const;
@@ -86,7 +84,6 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		void on_qleImportFile_textChanged(const QString &);
 		void on_qlePassword_textChanged(const QString &);
 		void on_qlIntroText_linkActivated(const QString &);
-		void lookedUp(QHostInfo);
 };
 
 #endif
