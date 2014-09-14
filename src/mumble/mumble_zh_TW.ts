@@ -4475,13 +4475,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>切換無縫嵌入</translation>
+        <translation>切換浮動視窗</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>切換遊戲嵌入狀態。</translation>
+        <translation>切換遊戲內浮動視窗狀態。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4773,7 +4773,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-21"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>這將切換遊戲中的 overlay 狀態。</translation>
+        <translation>這將切換遊戲中浮動視窗的狀態。</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -6005,7 +6005,7 @@ Valid options are:
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>調用</translation>
     </message>
     <message>
         <location line="+194"/>
@@ -6170,12 +6170,12 @@ Valid options are:
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>本地忽略使用者的文字聊天訊息。</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>自動刪除來自所有使用者的文字訊息。</translation>
     </message>
     <message>
         <location/>
@@ -6200,7 +6200,7 @@ Valid options are:
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>切換頻道過濾器 (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6218,7 +6218,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>隱藏被過濾的頻道 (&amp;H)</translation>
     </message>
     <message>
         <location/>
@@ -6484,7 +6484,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>啟動時下載外掛與無縫嵌入的更新</translation>
+        <translation>啟動時下載外掛與浮動視窗的更新</translation>
     </message>
 </context>
 <context>
@@ -6522,7 +6522,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"/>
+        <translation>無法在 %2 建立連接：%1。沒有可用的浮動視窗。</translation>
     </message>
 </context>
 <context>
@@ -6625,33 +6625,33 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+244"/>
         <source>Overlay</source>
-        <translation>懸停格</translation>
+        <translation>浮動視窗</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Choose executable</source>
-        <translation type="unfinished"/>
+        <translation>選擇執行檔</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"/>
+        <translation>選擇應用程式</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>載入浮動視窗樣板</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 浮動視窗樣板 (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>儲存浮動視窗樣板</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -6661,18 +6661,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation>啟用 overlay .</translation>
+        <translation>啟用浮動視窗。</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>啟用 Overlay</translation>
+        <translation>啟用浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>這裡設定開啟或關閉浮動視窗。這個設定只在啟動程式時檢查，因此要確定你啟動應用程式前 Mumble 還有本選項是開啟的。&lt;br /&gt;請注意如果你已經開啟 Mumble 與應用程式或者在應用程式執行期間關閉了浮動視窗，除了重新啟動應用程式之外，沒有辦法重新啟動浮動視窗。</translation>
     </message>
     <message>
         <location/>
@@ -6682,7 +6682,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗例外</translation>
     </message>
     <message>
         <location/>
@@ -6697,46 +6697,49 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>反安裝浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>安裝浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 偵測到你尚未安裝 Mumble 浮動視窗。
+點選下方按鍵安裝浮動視窗。</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>安裝 Mumble 浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗升級</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 偵測到你已安裝舊版的浮動視窗檔。
+
+點選下方按鈕，升級浮動視窗到最新版。</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>升級 Mumble 浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>在浮動視窗中顯示 FPS</translation>
     </message>
     <message>
         <location/>
@@ -6746,7 +6749,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"/>
+        <translation>從檔案讀取浮動視窗設定</translation>
     </message>
     <message>
         <location/>
@@ -6756,7 +6759,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"/>
+        <translation>儲存浮動視窗設定成檔案</translation>
     </message>
     <message>
         <location/>
@@ -6771,7 +6774,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>設定浮動視窗文字色彩。</translation>
     </message>
     <message>
         <location/>
@@ -6796,32 +6799,32 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"/>
+        <translation>列出執行檔，使用</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"/>
+        <translation>顯示所有浮動視窗可用方案</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"/>
+        <translation>只顯示浮動視窗在</translation>
     </message>
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>顯示 FPS 與時間</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>在浮動視窗中顯示現在時間 (系統時間)。</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>顯示時間</translation>
     </message>
 </context>
 <context>
@@ -6844,7 +6847,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者在你的頻道或與此頻道連結的頻道中講話。</translation>
     </message>
     <message>
         <location/>
@@ -6854,7 +6857,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"/>
+        <translation>使用者與你私下悄悄話中。</translation>
     </message>
     <message>
         <location/>
@@ -6864,7 +6867,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者在你的頻道中大喊</translation>
     </message>
     <message>
         <location/>
@@ -6879,7 +6882,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"/>
+        <translation>縮放參數</translation>
     </message>
     <message>
         <location/>
@@ -6889,7 +6892,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"/>
+        <translation>使用者頭像，由使用者自訂。</translation>
     </message>
     <message>
         <location/>
@@ -6899,7 +6902,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>使用者的名稱</translation>
     </message>
     <message>
         <location/>
@@ -6909,7 +6912,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者的頻道名稱，如果不在你目前所在頻道</translation>
     </message>
     <message>
         <location/>
@@ -6919,7 +6922,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風或喇叭</translation>
     </message>
     <message>
         <location/>
@@ -6929,7 +6932,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"/>
+        <translation>邊框，自動將所有可見元素以最小顯示。</translation>
     </message>
     <message>
         <location/>
@@ -8360,7 +8363,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation>Mumble PTT</translation>
+        <translation>Mumble 按鍵發話</translation>
     </message>
     <message>
         <location/>
