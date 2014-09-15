@@ -4810,7 +4810,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Cycle Mode de Transmission</translation>
     </message>
     <message>
         <location line="+154"/>
@@ -4977,7 +4977,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>Cycle Mode de Transmission sur %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -6250,7 +6250,10 @@ Les options valides sont :
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>Active ou désactive le filtrage des canaux sélectionnés.
+Par défaut tous les canaux vides seront filtrés.
+Vous pouvez marquer des canaux supplémentaires
+pour filtrage depuis le menu du canal.</translation>
     </message>
     <message>
         <location/>
