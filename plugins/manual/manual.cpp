@@ -32,7 +32,7 @@
 
 #include <QtCore/QtCore>
 #include <QtGui/QtGui>
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 # if defined(Q_OS_WIN)
 #   include <qpa/qplatformnativeinterface.h>
 # endif
@@ -80,7 +80,7 @@ static struct {
 
 #ifdef Q_OS_WIN
 static QWidget *QWidgetForHWND(HWND hwnd) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	QList<QWidget *> windows = qApp->topLevelWidgets();
 	foreach (QWidget *w, windows) {
 		QWindow *window = w->windowHandle();
@@ -275,7 +275,7 @@ static void config(HWND h) {
 #else
 		mDlg->setParent(reinterpret_cast<QWidget *>(h), Qt::Dialog);
 #endif
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION < 0x050000
 		mDlg->qpbUnhinge->setEnabled(true);
 #endif
 	} else {
@@ -286,7 +286,7 @@ static void config(HWND h) {
 #endif
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if QT_VERSION >= 0x050000
 	mDlg->qpbUnhinge->setEnabled(false);
 #endif
 	mDlg->show();
@@ -325,7 +325,7 @@ static std::wstring shortname(L"Manual placement");
 
 static void about(HWND h) {
 	QMessageBox::about(
-#if defined(Q_OS_WIN) && QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+#if defined(Q_OS_WIN) && QT_VERSION >= 0x050000
 		QWidgetForHWND(h),
 #else
 		reinterpret_cast<QWidget *>(h),

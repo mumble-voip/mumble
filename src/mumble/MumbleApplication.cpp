@@ -68,7 +68,7 @@ bool MumbleApplication::event(QEvent *e) {
 }
 
 #ifdef Q_OS_WIN
-# if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+# if QT_VERSION >= 0x050000
 bool MumbleApplication::nativeEventFilter(const QByteArray &eventType, void *message, long *result) {
 	Q_UNUSED(eventType);
 	MSG *msg = reinterpret_cast<MSG *>(message);
