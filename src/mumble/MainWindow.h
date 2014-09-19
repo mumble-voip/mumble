@@ -139,7 +139,11 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 #ifdef Q_OS_WIN
 		Timer tInactive;
+#if QT_VERSION >= 0x050000
+		bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+#else
 		bool winEvent(MSG *, long *) Q_DECL_OVERRIDE;
+#endif
 		unsigned int uiNewHardware;
 #endif
 	protected:

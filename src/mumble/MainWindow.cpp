@@ -382,7 +382,12 @@ void MainWindow::msgBox(QString msg) {
 }
 
 #ifdef Q_OS_WIN
+#if QT_VERSION >= 0x050000
+bool MainWindow::nativeEvent(const QByteArray &, void *message, long *result) {
+	MSG *msg = reinterpret_cast<MSG *>(message);
+#else
 bool MainWindow::winEvent(MSG *msg, long *) {
+#endif
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
 	else if (msg->message == WM_ACTIVATE && msg->wParam == WA_INACTIVE)
