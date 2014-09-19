@@ -45,17 +45,17 @@ class OverlayEditor : public QDialog, public Ui::OverlayEditor {
 		OverlayEditorScene oes;
 		OverlaySettings *os;
 
-		void enterEvent(QEvent *);
-		void leaveEvent(QEvent *);
+		void enterEvent(QEvent *) Q_DECL_OVERRIDE;
+		void leaveEvent(QEvent *) Q_DECL_OVERRIDE;
 	public:
 		OverlayEditor(QWidget *p = NULL, QGraphicsItem *qgi = NULL, OverlaySettings *osptr = NULL);
-		~OverlayEditor();
+		~OverlayEditor() Q_DECL_OVERRIDE;
 	signals:
 		void applySettings();
 	public slots:
 		void reset();
 		void apply();
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 
 		void on_qrbPassive_clicked();
 		void on_qrbTalking_clicked();

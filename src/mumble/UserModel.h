@@ -41,7 +41,7 @@ class User;
 class ClientUser;
 class Channel;
 
-struct ModelItem {
+struct ModelItem Q_DECL_FINAL {
 	friend class UserModel;
 
 private:
@@ -108,7 +108,7 @@ class UserModel : public QAbstractItemModel {
 		QString stringIndex(const QModelIndex &index) const;
 	public:
 		UserModel(QObject *parent = 0);
-		~UserModel();
+		~UserModel() Q_DECL_OVERRIDE;
 
 		QModelIndex index(ClientUser *, int column = 0) const;
 		QModelIndex index(Channel *, int column = 0) const;
@@ -117,14 +117,14 @@ class UserModel : public QAbstractItemModel {
 		QVariant data(const QModelIndex &index, int role) const;
 		Qt::ItemFlags flags(const QModelIndex &index) const;
 		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-		QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const;
-		QModelIndex parent(const QModelIndex &index) const;
-		int rowCount(const QModelIndex &parent = QModelIndex()) const;
-		int columnCount(const QModelIndex &parent = QModelIndex()) const;
-		Qt::DropActions supportedDropActions() const;
-		QStringList mimeTypes() const;
-		QMimeData *mimeData(const QModelIndexList &idx) const;
-		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent);
+		QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+		QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
+		int rowCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+		int columnCount(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
+		Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+		QStringList mimeTypes() const Q_DECL_OVERRIDE;
+		QMimeData *mimeData(const QModelIndexList &idx) const Q_DECL_OVERRIDE;
+		bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex & parent) Q_DECL_OVERRIDE;
 
 		ClientUser *addUser(unsigned int id, const QString &name);
 		ClientUser *getUser(const QModelIndex &idx) const;

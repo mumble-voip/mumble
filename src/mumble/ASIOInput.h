@@ -53,12 +53,12 @@ class ASIOConfig : public ConfigWidget, public Ui::ASIOConfig {
 		bool bOk;
 	public:
 		ASIOConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void clearQuery();
 		void on_qcbDevice_activated(int index);
 		void on_qpbQuery_clicked();
@@ -99,8 +99,8 @@ class ASIOInput : public AudioInput {
 		QWaitCondition qwDone;
 	public:
 		ASIOInput();
-		~ASIOInput();
-		void run();
+		~ASIOInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #endif

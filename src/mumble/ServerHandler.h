@@ -118,7 +118,7 @@ class ServerHandler : public QThread {
 		void setConnectionInfo(const QString &host, unsigned short port, const QString &username, const QString &pw);
 		void getConnectionInfo(QString &host, unsigned short &port, QString &username, QString &pw) const;
 		bool isStrong() const;
-		void customEvent(QEvent *evt);
+		void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 
 		void sendProtoMessage(const ::google::protobuf::Message &msg, unsigned int msgType);
 		void sendMessage(const char *data, int len, bool force = false);
@@ -148,7 +148,7 @@ class ServerHandler : public QThread {
 		void announceRecordingState(bool recording);
 
 		void disconnect();
-		void run();
+		void run() Q_DECL_OVERRIDE;
 	signals:
 		void disconnected(QAbstractSocket::SocketError, QString reason);
 		void connected();

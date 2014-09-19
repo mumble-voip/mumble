@@ -69,9 +69,9 @@ class CertWizard : public QWizard, public Ui::Certificates {
 		Settings::KeyPair kpCurrent, kpNew;
 	public:
 		CertWizard(QWidget *p = NULL);
-		int nextId() const;
-		void initializePage(int);
-		bool validateCurrentPage();
+		int nextId() const Q_DECL_OVERRIDE;
+		void initializePage(int) Q_DECL_OVERRIDE;
+		bool validateCurrentPage() Q_DECL_OVERRIDE;
 		static bool validateCert(const Settings::KeyPair &);
 		static Settings::KeyPair generateNewCert(QString name = QString(), const QString &email = QString());
 		static QByteArray exportCert(const Settings::KeyPair &cert);

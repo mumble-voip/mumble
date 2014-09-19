@@ -53,8 +53,8 @@ class G15LCDEngineHelper : public LCDEngine {
 		void setProcessStatus(bool run);
 	public:
 		G15LCDEngineHelper();
-		~G15LCDEngineHelper();
-		QList<LCDDevice *> devices() const;
+		~G15LCDEngineHelper() Q_DECL_OVERRIDE;
+		QList<LCDDevice *> devices() const Q_DECL_OVERRIDE;
 	public slots:
 		void on_Helper_finished(int exitCode, QProcess::ExitStatus status);
 };
@@ -65,12 +65,12 @@ class G15LCDDeviceHelper : public LCDDevice {
 		bool bEnabled;
 	public:
 		G15LCDDeviceHelper(G15LCDEngineHelper *e);
-		~G15LCDDeviceHelper();
-		bool enabled();
-		void setEnabled(bool e);
-		void blitImage(QImage *img, bool alert);
-		QString name() const;
-		QSize size() const;
+		~G15LCDDeviceHelper() Q_DECL_OVERRIDE;
+		bool enabled() Q_DECL_OVERRIDE;
+		void setEnabled(bool e) Q_DECL_OVERRIDE;
+		void blitImage(QImage *img, bool alert) Q_DECL_OVERRIDE;
+		QString name() const Q_DECL_OVERRIDE;
+		QSize size() const Q_DECL_OVERRIDE;
 };
 
 #else

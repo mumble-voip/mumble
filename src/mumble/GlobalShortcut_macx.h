@@ -46,16 +46,16 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		Q_DISABLE_COPY(GlobalShortcutMac)
 	public:
 		GlobalShortcutMac();
-		~GlobalShortcutMac();
-		QString buttonName(const QVariant &);
+		~GlobalShortcutMac() Q_DECL_OVERRIDE;
+		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
 		void dumpEventTaps();
-		void needRemap();
+		void needRemap() Q_DECL_OVERRIDE;
 		bool handleModButton(CGEventFlags newmask);
-		virtual bool canSuppress();
+		bool canSuppress() Q_DECL_OVERRIDE;
 
-    virtual void setEnabled(bool);
-    virtual bool enabled();
-    virtual bool canDisable();
+	void setEnabled(bool) Q_DECL_OVERRIDE;
+	bool enabled() Q_DECL_OVERRIDE;
+	bool canDisable() Q_DECL_OVERRIDE;
 
 	public slots:
 		void forwardEvent(void *evt);
@@ -66,7 +66,7 @@ class GlobalShortcutMac : public GlobalShortcutEngine {
 		CGEventFlags modmask;
 		UCKeyboardLayout *kbdLayout;
 
-		void run();
+		void run() Q_DECL_OVERRIDE;
 
 		static CGEventRef callback(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *udata);
 		QString translateMouseButton(const unsigned int keycode) const;

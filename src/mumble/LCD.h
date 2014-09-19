@@ -46,15 +46,15 @@ class LCDConfig : public ConfigWidget, public Ui::LCDConfig {
 		Q_DISABLE_COPY(LCDConfig)
 	public:
 		LCDConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		QString title() const Q_DECL_OVERRIDE;
+		QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
 		void on_qsMinColWidth_valueChanged(int v);
 		void on_qsSplitterWidth_valueChanged(int v);
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void accept() const Q_DECL_OVERRIDE;
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 };
 
 class LCDEngine : public QObject {
@@ -65,7 +65,7 @@ class LCDEngine : public QObject {
 		QList<LCDDevice *> qlDevices;
 	public:
 		LCDEngine();
-		virtual ~LCDEngine();
+		virtual ~LCDEngine() Q_DECL_OVERRIDE;
 		virtual QList<LCDDevice *> devices() const = 0;
 };
 
@@ -82,7 +82,7 @@ class LCDDevice {
 
 typedef LCDEngine *(*LCDEngineNew)(void);
 
-class LCDEngineRegistrar {
+class LCDEngineRegistrar Q_DECL_FINAL {
 	protected:
 		LCDEngineNew n;
 	public:
@@ -114,7 +114,7 @@ class LCD : public QObject {
 		void tick();
 	public:
 		LCD();
-		~LCD();
+		~LCD() Q_DECL_OVERRIDE;
 		void updateUserView();
 		bool hasDevices();
 };

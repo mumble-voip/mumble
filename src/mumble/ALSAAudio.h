@@ -43,8 +43,8 @@ class ALSAAudioInput : public AudioInput {
 		Q_DISABLE_COPY(ALSAAudioInput)
 	public:
 		ALSAAudioInput();
-		~ALSAAudioInput();
-		void run();
+		~ALSAAudioInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class ALSAAudioOutput : public AudioOutput {
@@ -54,8 +54,8 @@ class ALSAAudioOutput : public AudioOutput {
 	protected:
 	public:
 		ALSAAudioOutput();
-		~ALSAAudioOutput();
-		void run();
+		~ALSAAudioOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #else

@@ -174,7 +174,7 @@ class AudioInput : public QThread {
 		static void setMaxBandwidth(int bitspersec);
 
 		AudioInput();
-		~AudioInput();
+		~AudioInput() Q_DECL_OVERRIDE;
 		void run() = 0;
 		virtual bool isAlive() const;
 		bool isTransmitting() const;

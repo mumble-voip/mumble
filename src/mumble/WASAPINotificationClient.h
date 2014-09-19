@@ -69,7 +69,7 @@ public:
 
 private:
 	WASAPINotificationClient();
-	~WASAPINotificationClient();
+	~WASAPINotificationClient() Q_DECL_OVERRIDE;
 
 	WASAPINotificationClient(const WASAPINotificationClient&);
 	WASAPINotificationClient& operator=(const WASAPINotificationClient&);

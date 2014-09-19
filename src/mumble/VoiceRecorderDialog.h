@@ -44,9 +44,9 @@ class VoiceRecorderDialog : public QDialog, private Ui::VoiceRecorderDialog {
 		QTimer *qtTimer;
 	public:
 		explicit VoiceRecorderDialog(QWidget *p = NULL);
-		~VoiceRecorderDialog();
+		~VoiceRecorderDialog() Q_DECL_OVERRIDE;
 
-		void closeEvent(QCloseEvent *evt);
+		void closeEvent(QCloseEvent *evt) Q_DECL_OVERRIDE;
 	public slots:
 		void on_qpbStart_clicked();
 		void on_qpbStop_clicked();

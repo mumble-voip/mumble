@@ -52,7 +52,7 @@ class CompletablePage : public QWizardPage {
 	public:
 		CompletablePage(QWizard *p = NULL);
 		void setComplete(bool);
-		bool isComplete() const;
+		bool isComplete() const Q_DECL_OVERRIDE;
 };
 
 #include "ui_AudioWizard.h"
@@ -86,7 +86,7 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 		void restartAudio();
 		void playChord();
 
-		bool eventFilter(QObject *, QEvent *);
+		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 	public slots:
 		void on_qcbInput_activated(int);
 		void on_qcbInputDevice_activated(int);
@@ -113,10 +113,10 @@ class AudioWizard: public QWizard, public Ui::AudioWizard {
 		void updateTriggerWidgets(bool);
 	public:
 		AudioWizard(QWidget *parent);
-		void reject();
-		void accept();
-		bool validateCurrentPage();
-		virtual int nextId() const;
+		void reject() Q_DECL_OVERRIDE;
+		void accept() Q_DECL_OVERRIDE;
+		bool validateCurrentPage() Q_DECL_OVERRIDE;
+		virtual int nextId() const Q_DECL_OVERRIDE;
 };
 
 #endif

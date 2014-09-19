@@ -66,8 +66,8 @@ class WASAPIInput : public AudioInput {
 		Q_DISABLE_COPY(WASAPIInput)
 	public:
 		WASAPIInput();
-		~WASAPIInput();
-		void run();
+		~WASAPIInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class WASAPIOutput : public AudioOutput {
@@ -83,8 +83,8 @@ class WASAPIOutput : public AudioOutput {
 		void setVolumes(IMMDevice *, bool talking);
 	public:
 		WASAPIOutput();
-		~WASAPIOutput();
-		void run();
+		~WASAPIOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #endif

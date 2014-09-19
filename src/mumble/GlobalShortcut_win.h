@@ -76,17 +76,17 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		static LRESULT CALLBACK HookKeyboard(int, WPARAM, LPARAM);
 		static LRESULT CALLBACK HookMouse(int, WPARAM, LPARAM);
 
-		virtual bool canSuppress();
-		void run();
+		virtual bool canSuppress() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 	public slots:
 		void timeTicked();
 	public:
 		GlobalShortcutWin();
-		~GlobalShortcutWin();
+		~GlobalShortcutWin() Q_DECL_OVERRIDE;
 		void unacquire();
-		QString buttonName(const QVariant &);
+		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
 
-		virtual void prepareInput();
+		virtual void prepareInput() Q_DECL_OVERRIDE;
 };
 
 uint qHash(const GUID &);

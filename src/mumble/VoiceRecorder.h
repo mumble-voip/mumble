@@ -107,10 +107,10 @@ class VoiceRecorder : public QThread {
 
 		/// Creates a new VoiceRecorder instance.
 		VoiceRecorder(QObject *parent_, const Config& config);
-		~VoiceRecorder();
+		~VoiceRecorder() Q_DECL_OVERRIDE;
 
 		/// The main event loop of the thread, which writes all buffers to files.
-		void run();
+		void run() Q_DECL_OVERRIDE;
 
 		/// Stops the main loop.
 		/// @param force If true buffers are discarded. Otherwise the thread will not stop before writing everything.

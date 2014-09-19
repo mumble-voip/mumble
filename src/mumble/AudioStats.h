@@ -45,7 +45,7 @@ class AudioBar : public QWidget {
 		Q_OBJECT
 		Q_DISABLE_COPY(AudioBar)
 	protected:
-		void paintEvent(QPaintEvent *event);
+		void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 	public:
 		AudioBar(QWidget *parent = NULL);
 		int iMin, iMax;
@@ -64,7 +64,7 @@ class AudioEchoWidget : public QWidget {
 	public:
 		AudioEchoWidget(QWidget *parent);
 	protected slots:
-		void paintEvent(QPaintEvent *event);
+		void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 class AudioNoiseWidget : public QWidget {
@@ -74,7 +74,7 @@ class AudioNoiseWidget : public QWidget {
 	public:
 		AudioNoiseWidget(QWidget *parent);
 	protected slots:
-		void paintEvent(QPaintEvent *event);
+		void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
 };
 
 #include "ui_AudioStats.h"
@@ -88,7 +88,7 @@ class AudioStats : public QDialog, public Ui::AudioStats {
 		bool bTalking;
 	public:
 		AudioStats(QWidget *parent);
-		~AudioStats();
+		~AudioStats() Q_DECL_OVERRIDE;
 	public slots:
 		void on_Tick_timeout();
 };

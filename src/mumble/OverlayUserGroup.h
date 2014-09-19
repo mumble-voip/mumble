@@ -49,9 +49,9 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 
 		QGraphicsEllipseItem *qgeiHandle;
 
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *);
-		void wheelEvent(QGraphicsSceneWheelEvent *);
-		bool sceneEventFilter(QGraphicsItem *, QEvent *);
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *) Q_DECL_OVERRIDE;
+		void wheelEvent(QGraphicsSceneWheelEvent *) Q_DECL_OVERRIDE;
+		bool sceneEventFilter(QGraphicsItem *, QEvent *) Q_DECL_OVERRIDE;
 	protected slots:
 		void userDestroyed(QObject *);
 		void moveUsers();
@@ -59,9 +59,9 @@ class OverlayUserGroup : public QObject, public OverlayGroup {
 		bool bShowExamples;
 
 		OverlayUserGroup(OverlaySettings *);
-		~OverlayUserGroup();
+		~OverlayUserGroup() Q_DECL_OVERRIDE;
 
-		int type() const;
+		int type() const Q_DECL_OVERRIDE;
 	public slots:
 		void reset();
 		void updateUsers();

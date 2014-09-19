@@ -49,7 +49,7 @@ class ConfigDialogMac : public QDialog, public Ui::ConfigDialog {
 
 	public:
 		ConfigDialogMac(QWidget *p = NULL);
-		~ConfigDialogMac();
+		~ConfigDialogMac() Q_DECL_OVERRIDE;
 	protected:
 		void setupMacToolbar(bool expert);
 		void removeMacToolbar();
@@ -63,7 +63,7 @@ class ConfigDialogMac : public QDialog, public Ui::ConfigDialog {
 		void on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 		void on_qcbExpert_clicked(bool);
 		void apply();
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 };
 
 #else

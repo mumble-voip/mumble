@@ -48,7 +48,7 @@ class UserDelegate : public QStyledItemDelegate {
 		Q_DISABLE_COPY(UserDelegate)
 	public:
 		UserDelegate(QObject *parent = NULL);
-		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+		void paint(QPainter * painter, const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 		//! Width/height in px of user/channel flag icons
 		const static int FLAG_ICON_DIMENSION;
@@ -58,7 +58,7 @@ class UserDelegate : public QStyledItemDelegate {
 		const static int FLAG_DIMENSION;
 
 	public slots:
-		bool helpEvent(QHelpEvent *event, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index);
+		bool helpEvent(QHelpEvent *event, QAbstractItemView *view, const QStyleOptionViewItem &option, const QModelIndex &index) Q_DECL_OVERRIDE;
 };
 
 class UserView : public QTreeView {
@@ -66,9 +66,9 @@ class UserView : public QTreeView {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserView)
 	protected:
-		void mouseReleaseEvent(QMouseEvent *);
-		void keyPressEvent(QKeyEvent *);
-		bool event(QEvent *);
+		void mouseReleaseEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+		void keyPressEvent(QKeyEvent *) Q_DECL_OVERRIDE;
+		bool event(QEvent *) Q_DECL_OVERRIDE;
 
 		QTimer *qtSearch;
 		QPersistentModelIndex qpmiSearch;
@@ -76,11 +76,11 @@ class UserView : public QTreeView {
 		QString qsSearch;
 	public:
 		UserView(QWidget *);
-		void keyboardSearch(const QString &search);
+		void keyboardSearch(const QString &search) Q_DECL_OVERRIDE;
 #if QT_VERSION >= 0x050000
-		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int> ());
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int> ()) Q_DECL_OVERRIDE;
 #else
-		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight);
+		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight) Q_DECL_OVERRIDE;
 #endif
 		
 	public slots:

@@ -42,7 +42,7 @@ class BonjourClient : public QObject {
 		Q_DISABLE_COPY(BonjourClient)
 	public:
 		BonjourClient();
-		~BonjourClient();
+		~BonjourClient() Q_DECL_OVERRIDE;
 
 		BonjourServiceBrowser *bsbBrowser;
 		BonjourServiceResolver *bsrResolver;

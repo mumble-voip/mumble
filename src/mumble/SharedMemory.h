@@ -47,7 +47,7 @@ class SharedMemory2 : QObject {
 		static unsigned int uiIndex;
 	public:
 		SharedMemory2(QObject *p, unsigned int minsize, const QString &name = QString());
-		~SharedMemory2();
+		~SharedMemory2() Q_DECL_OVERRIDE;
 
 		void erase();
 		void systemRelease();

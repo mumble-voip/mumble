@@ -45,7 +45,7 @@ class TextToSpeech : public QObject {
 		bool enabled;
 	public:
 		TextToSpeech(QObject *parent = NULL);
-		~TextToSpeech();
+		~TextToSpeech() Q_DECL_OVERRIDE;
 		bool isEnabled() const;
 	public slots:
 		void say(const QString &text);

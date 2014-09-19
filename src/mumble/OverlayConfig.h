@@ -63,7 +63,7 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 
 		float fViewScale;
 
-		bool eventFilter(QObject *, QEvent *);
+		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 
 		bool supportsInstallableOverlay();
 		bool isInstalled();
@@ -92,13 +92,13 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		void resizeScene(bool force=false);
 	public:
 		OverlayConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void accept() const Q_DECL_OVERRIDE;
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 };
 
 #endif

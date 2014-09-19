@@ -71,8 +71,8 @@ class PortAudioInput : public AudioInput {
 		Q_DISABLE_COPY(PortAudioInput)
 	public:
 		PortAudioInput();
-		~PortAudioInput();
-		void run();
+		~PortAudioInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 
@@ -82,8 +82,8 @@ class PortAudioOutput : public AudioOutput {
 		Q_DISABLE_COPY(PortAudioOutput)
 	public:
 		PortAudioOutput();
-		~PortAudioOutput();
-		void run();
+		~PortAudioOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #else

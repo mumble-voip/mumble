@@ -56,7 +56,7 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		UserEdit(const MumbleProto::UserList &userList, QWidget *parent = NULL);
 	
 	public slots:
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 	
 		void on_qlSearch_textChanged(QString);
 		void on_qpbRemove_clicked();
@@ -87,7 +87,7 @@ class UserListFilterProxyModel : public QSortFilterProxyModel {
 public:
 	explicit UserListFilterProxyModel(QObject *parent = NULL);
 
-	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const;
+	bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const Q_DECL_OVERRIDE;
 
 public slots:
 	/// Sets the amount of inactive days below which rows will get filterd by the proxy

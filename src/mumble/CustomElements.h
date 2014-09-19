@@ -49,8 +49,8 @@ class LogTextBrowser : public QTextBrowser {
 		Q_OBJECT
 		Q_DISABLE_COPY(LogTextBrowser)
 	protected:
-		virtual void resizeEvent(QResizeEvent *e);
-		virtual bool event(QEvent *e);
+		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
+		bool event(QEvent *e) Q_DECL_OVERRIDE;
 	public:
 		LogTextBrowser(QWidget *p = NULL);
 
@@ -72,14 +72,14 @@ class ChatbarTextEdit : public QTextEdit {
 	protected:
 		QString qsDefaultText;
 		bool bDefaultVisible;
-		void focusInEvent(QFocusEvent *);
-		void focusOutEvent(QFocusEvent *);
-		void contextMenuEvent(QContextMenuEvent *);
-		void dropEvent(QDropEvent *);
-		bool event(QEvent *);
-		QSize minimumSizeHint() const;
-		QSize sizeHint() const;
-		void resizeEvent(QResizeEvent *e);
+		void focusInEvent(QFocusEvent *) Q_DECL_OVERRIDE;
+		void focusOutEvent(QFocusEvent *) Q_DECL_OVERRIDE;
+		void contextMenuEvent(QContextMenuEvent *) Q_DECL_OVERRIDE;
+		void dropEvent(QDropEvent *) Q_DECL_OVERRIDE;
+		bool event(QEvent *) Q_DECL_OVERRIDE;
+		QSize minimumSizeHint() const Q_DECL_OVERRIDE;
+		QSize sizeHint() const Q_DECL_OVERRIDE;
+		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 	public:
 		void setDefaultText(const QString &, bool = false);
 		unsigned int completeAtCursor();
@@ -108,12 +108,12 @@ class DockTitleBar : public QLabel {
 		int newsize;
 	public:
 		DockTitleBar();
-		QSize sizeHint() const;
-		QSize minimumSizeHint() const;
+		QSize sizeHint() const Q_DECL_OVERRIDE;
+		QSize minimumSizeHint() const Q_DECL_OVERRIDE;
 	public slots:
 		void tick();
 	protected:
-		bool eventFilter(QObject *, QEvent *);
+		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 };
 
 #endif // CUSTOMELEMENTS_H_

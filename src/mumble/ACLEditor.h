@@ -86,7 +86,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 
 		void updatePasswordACL(void);
 		void updatePasswordField(void);
-		void showEvent(QShowEvent *);
+		void showEvent(QShowEvent *) Q_DECL_OVERRIDE;
 		void fillWidgetFromSet(QListWidget *, const QSet<int> &);
 	public:
 		ACLEditor(int parentchannelid, QWidget *p = NULL);
@@ -94,7 +94,7 @@ class ACLEditor : public QDialog, public Ui::ACLEditor {
 		~ACLEditor();
 		void returnQuery(const MumbleProto::QueryUsers &mqu);
 	public slots:
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 	public slots:
 		void refillACL();
 		void refillGroupNames();

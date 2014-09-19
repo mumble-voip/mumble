@@ -65,7 +65,7 @@ class OverlayUser : public OverlayGroup {
 		void updateUser();
 		void updateLayout();
 
-		int type() const;
+		int type() const Q_DECL_OVERRIDE;
 		static QRectF scaledRect(const QRectF &qr, qreal scale);
 		static QPointF alignedPosition(const QRectF &box, const QRectF &item, Qt::Alignment a);
 };

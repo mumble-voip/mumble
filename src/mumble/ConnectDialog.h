@@ -109,16 +109,16 @@ class ServerView : public QTreeWidget {
 		QMap<QString, ServerItem *> qmContinent;
 
 		ServerView(QWidget *);
-		~ServerView();
+		~ServerView() Q_DECL_OVERRIDE;
 
 		void fixupName(ServerItem *si);
 
 		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:
-		virtual QMimeData *mimeData(const QList<QTreeWidgetItem *>&) const;
-		virtual QStringList mimeTypes() const;
-		virtual Qt::DropActions supportedDropActions() const;
-		virtual bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction);
+		QMimeData *mimeData(const QList<QTreeWidgetItem *>&) const Q_DECL_OVERRIDE;
+		QStringList mimeTypes() const Q_DECL_OVERRIDE;
+		Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
+		bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;
 };
 
 #include "ui_ConnectDialog.h"
@@ -177,9 +177,9 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		static QIcon loadIcon(const QString &name);
 
 		void setDatas(double ping = 0.0, quint32 users = 0, quint32 maxusers = 0);
-		bool operator< (const QTreeWidgetItem &) const;
+		bool operator< (const QTreeWidgetItem &) const Q_DECL_OVERRIDE;
 
-		QVariant data(int column, int role) const;
+		QVariant data(int column, int role) const Q_DECL_OVERRIDE;
 
 		void hideCheck();
 };

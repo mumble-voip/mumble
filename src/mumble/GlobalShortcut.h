@@ -68,7 +68,7 @@ class GlobalShortcut : public QObject {
 		int idx;
 
 		GlobalShortcut(QObject *parent, int index, QString qsName, bool expert = true, QVariant def = QVariant());
-		~GlobalShortcut();
+		~GlobalShortcut() Q_DECL_OVERRIDE;
 
 		bool active() const {
 			return ! qlActive.isEmpty();
@@ -144,7 +144,7 @@ class ShortcutTargetDialog : public QDialog, public Ui::GlobalShortcutTarget {
 		ShortcutTargetDialog(const ShortcutTarget &, QWidget *p = NULL);
 		ShortcutTarget target() const;
 	public slots:
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 		void on_qrbUsers_clicked();
 		void on_qrbChannel_clicked();
 		void on_qpbAdd_clicked();
@@ -196,8 +196,8 @@ class ShortcutDelegate : public QStyledItemDelegate {
 		Q_DISABLE_COPY(ShortcutDelegate)
 	public:
 		ShortcutDelegate(QObject *);
-		~ShortcutDelegate();
-		QString displayText(const QVariant &, const QLocale &) const;
+		~ShortcutDelegate() Q_DECL_OVERRIDE;
+		QString displayText(const QVariant &, const QLocale &) const Q_DECL_OVERRIDE;
 };
 
 /**
@@ -214,17 +214,17 @@ class GlobalShortcutConfig : public ConfigWidget, public Ui::GlobalShortcut {
 		QTreeWidgetItem *itemForShortcut(const Shortcut &) const;
 		bool bExpert;
 		bool showWarning() const;
-		bool eventFilter(QObject *, QEvent *);
+		bool eventFilter(QObject *, QEvent *) Q_DECL_OVERRIDE;
 	public:
 		GlobalShortcutConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
+		void accept() const Q_DECL_OVERRIDE;
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
 		void reload();
-		bool expert(bool);
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void commit();
 		void on_qcbEnableGlobalShortcuts_stateChanged(int);
 		void on_qpbAdd_clicked(bool);
@@ -270,7 +270,7 @@ class GlobalShortcutEngine : public QThread {
 		QList<QList<ShortcutKey *> > qlShortcutList;
 
 		GlobalShortcutEngine(QObject *p = NULL);
-		~GlobalShortcutEngine();
+		~GlobalShortcutEngine() Q_DECL_OVERRIDE;
 		void resetMap();
 		void remap();
 		virtual void needRemap();

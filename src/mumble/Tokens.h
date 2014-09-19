@@ -42,7 +42,7 @@ class Tokens : public QDialog, public Ui::Tokens {
 	public:
 		Tokens(QWidget *p = NULL);
 	public slots:
-		void accept();
+		void accept() Q_DECL_OVERRIDE;
 	public slots:
 		void on_qpbAdd_clicked();
 		void on_qpbRemove_clicked();

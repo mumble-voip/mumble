@@ -87,10 +87,10 @@ class CELTCodec070 : public CELTCodec {
 		const char *(__cdecl *celt_strerror)(int error);
 	public:
 		CELTCodec070(const QString &version);
-		virtual CELTEncoder *encoderCreate();
-		virtual CELTDecoder *decoderCreate();
-		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
-		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
+		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
+		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;
+		int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
 };
 
 class CELTCodec011 : public CELTCodec {
@@ -105,10 +105,10 @@ class CELTCodec011 : public CELTCodec {
 		const char *(__cdecl *celt_strerror)(int error);
 	public:
 		CELTCodec011(const QString &version);
-		virtual CELTEncoder *encoderCreate();
-		virtual CELTDecoder *decoderCreate();
-		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
-		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
+		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
+		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;
+		int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
 };
 
 class CELTCodecSBCELT : public CELTCodec {
@@ -116,10 +116,10 @@ class CELTCodecSBCELT : public CELTCodec {
 		const CELTMode *cmSBCELTMode;
 	public:
 		CELTCodecSBCELT();
-		virtual CELTEncoder *encoderCreate();
-		virtual CELTDecoder *decoderCreate();
-		virtual int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes);
-		virtual int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm);
+		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
+		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
+		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;
+		int decode_float(CELTDecoder *st, const unsigned char *data, int len, float *pcm) Q_DECL_OVERRIDE;
 };
 
 #endif  // CELTCODEC_H_

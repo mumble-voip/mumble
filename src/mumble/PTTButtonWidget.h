@@ -7,7 +7,7 @@ class PTTButtonWidget : public QWidget, public Ui::qwPTTButtonWidget {
 		Q_OBJECT
 		Q_DISABLE_COPY(PTTButtonWidget)
 	protected:
-		void closeEvent(QCloseEvent *event);
+		void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 	public:
 		PTTButtonWidget(QWidget *parent = 0);
 	public slots:

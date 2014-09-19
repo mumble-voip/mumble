@@ -70,7 +70,7 @@ class ConfigWidget : public QWidget {
 
 typedef ConfigWidget *(*ConfigWidgetNew)(Settings &st);
 
-class ConfigRegistrar {
+class ConfigRegistrar Q_DECL_FINAL {
 		friend class ConfigDialog;
 		friend class ConfigDialogMac;
 	private:

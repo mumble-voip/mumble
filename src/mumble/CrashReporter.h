@@ -53,7 +53,7 @@ class CrashReporter : QDialog {
 
 	public:
 		CrashReporter(QWidget *p = 0);
-		~CrashReporter();
+		~CrashReporter() Q_DECL_OVERRIDE;
 		void run();
 	protected:
 		QEventLoop *qelLoop;

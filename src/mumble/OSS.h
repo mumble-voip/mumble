@@ -42,8 +42,8 @@ class OSSInput : public AudioInput {
 		void release();
 	public:
 		OSSInput();
-		~OSSInput();
-		void run();
+		~OSSInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class OSSOutput : public AudioOutput {
@@ -53,8 +53,8 @@ class OSSOutput : public AudioOutput {
 		Q_DISABLE_COPY(OSSOutput)
 	public:
 		OSSOutput();
-		~OSSOutput();
-		void run();
+		~OSSOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #endif

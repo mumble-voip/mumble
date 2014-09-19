@@ -41,13 +41,13 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		Q_DISABLE_COPY(LookConfig)
 	public:
 		LookConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void accept() const;
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void accept() const Q_DECL_OVERRIDE;
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qpbSkinFile_clicked(bool);
 };
 

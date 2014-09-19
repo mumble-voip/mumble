@@ -42,18 +42,18 @@ class AudioInputDialog : public ConfigWidget, public Ui::AudioInput {
 		Q_DISABLE_COPY(AudioInputDialog)
 	protected:
 		QTimer *qtTick;
-		void hideEvent(QHideEvent *event);
-		void showEvent(QShowEvent *event);
+		void hideEvent(QHideEvent *event) Q_DECL_OVERRIDE;
+		void showEvent(QShowEvent *event) Q_DECL_OVERRIDE;
 
 	public:
 		AudioInputDialog(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		QString title() const Q_DECL_OVERRIDE;
+		QIcon icon() const Q_DECL_OVERRIDE;
 
 	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void updateBitrate();
 		void continuePlayback();
 
@@ -82,12 +82,12 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 		Q_DISABLE_COPY(AudioOutputDialog)
 	public:
 		AudioOutputDialog(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		QString title() const Q_DECL_OVERRIDE;
+		QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qsDelay_valueChanged(int v);
 		void on_qsJitter_valueChanged(int v);
 		void on_qsVolume_valueChanged(int v);

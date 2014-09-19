@@ -65,8 +65,8 @@ class RecordUser : public LoopUser {
 		Q_DISABLE_COPY(RecordUser)
 	public:
 		RecordUser();
-		~RecordUser();
-		virtual void addFrame(const QByteArray &packet);
+		~RecordUser() Q_DECL_OVERRIDE;
+		void addFrame(const QByteArray &packet) Q_DECL_OVERRIDE;
 };
 
 namespace Audio {

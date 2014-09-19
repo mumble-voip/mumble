@@ -54,12 +54,12 @@ class PluginConfig : public ConfigWidget, public Ui::PluginConfig {
 		PluginInfo *pluginForItem(QTreeWidgetItem *) const;
 	public:
 		PluginConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		virtual QString title() const Q_DECL_OVERRIDE;
+		virtual QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void save() const;
-		void load(const Settings &r);
-		bool expert(bool);
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &r) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 		void on_qpbConfig_clicked();
 		void on_qpbAbout_clicked();
 		void on_qpbReload_clicked();
@@ -98,7 +98,7 @@ class Plugins : public QObject {
 		float fCameraPosition[3], fCameraFront[3], fCameraTop[3];
 
 		Plugins(QObject *p = NULL);
-		~Plugins();
+		~Plugins() Q_DECL_OVERRIDE;
 	public slots:
 		void on_Timer_timeout();
 		void rescanPlugins();

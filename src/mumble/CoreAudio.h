@@ -60,8 +60,8 @@ class CoreAudioInput : public AudioInput {
 		                              UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:
 		CoreAudioInput();
-		~CoreAudioInput();
-		void run();
+		~CoreAudioInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class CoreAudioOutput : public AudioOutput {
@@ -76,8 +76,8 @@ class CoreAudioOutput : public AudioOutput {
 		                               UInt32 busnum, UInt32 npackets, AudioBufferList *buflist);
 	public:
 		CoreAudioOutput();
-		~CoreAudioOutput();
-		void run();
+		~CoreAudioOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #else

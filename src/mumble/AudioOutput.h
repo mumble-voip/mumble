@@ -119,7 +119,7 @@ class AudioOutput : public QThread {
 		void wipe();
 
 		AudioOutput();
-		~AudioOutput();
+		~AudioOutput() Q_DECL_OVERRIDE;
 
 		void addFrameToBuffer(ClientUser *, const QByteArray &, unsigned int iSeq, MessageHandler::UDPMessageType type);
 		void removeBuffer(const ClientUser *);

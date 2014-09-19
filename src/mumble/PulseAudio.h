@@ -110,7 +110,7 @@ class PulseAudioSystem : public QObject {
 		void wakeup_lock();
 
 		PulseAudioSystem();
-		~PulseAudioSystem();
+		~PulseAudioSystem() Q_DECL_OVERRIDE;
 };
 
 class PulseAudioInput : public AudioInput {
@@ -124,8 +124,8 @@ class PulseAudioInput : public AudioInput {
 		pa_sample_spec pssMic, pssEcho;
 	public:
 		PulseAudioInput();
-		~PulseAudioInput();
-		void run();
+		~PulseAudioInput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 class PulseAudioOutput : public AudioOutput {
@@ -140,8 +140,8 @@ class PulseAudioOutput : public AudioOutput {
 		pa_channel_map pcm;
 	public:
 		PulseAudioOutput();
-		~PulseAudioOutput();
-		void run();
+		~PulseAudioOutput() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
 };
 
 #endif

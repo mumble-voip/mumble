@@ -63,9 +63,9 @@ class GlobalShortcutX : public GlobalShortcutEngine {
 		QMap<QString, QFile *> qmInputDevices;
 
 		GlobalShortcutX();
-		~GlobalShortcutX();
-		void run();
-		QString buttonName(const QVariant &);
+		~GlobalShortcutX() Q_DECL_OVERRIDE;
+		void run() Q_DECL_OVERRIDE;
+		QString buttonName(const QVariant &) Q_DECL_OVERRIDE;
 
 		void queryXIMasterList();
 	public slots:

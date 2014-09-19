@@ -48,13 +48,13 @@ class LogConfig : public ConfigWidget, public Ui::LogConfig {
 	public:
 		enum Column { ColMessage, ColConsole, ColNotification, ColTTS, ColStaticSound, ColStaticSoundPath };
 		LogConfig(Settings &st);
-		virtual QString title() const;
-		virtual QIcon icon() const;
+		QString title() const Q_DECL_OVERRIDE;
+		QIcon icon() const Q_DECL_OVERRIDE;
 	public slots:
-		void accept() const;
-		virtual void save() const;
-		virtual void load(const Settings &);
-		virtual bool expert(bool);
+		void accept() const Q_DECL_OVERRIDE;
+		void save() const Q_DECL_OVERRIDE;
+		void load(const Settings &) Q_DECL_OVERRIDE;
+		bool expert(bool) Q_DECL_OVERRIDE;
 
 		void on_qtwMessages_itemChanged(QTreeWidgetItem*, int);
 		void on_qtwMessages_itemClicked(QTreeWidgetItem*, int);
@@ -106,7 +106,7 @@ class LogDocument : public QTextDocument {
 		Q_DISABLE_COPY(LogDocument)
 	public:
 		LogDocument(QObject *p = NULL);
-		virtual QVariant loadResource(int, const QUrl &);
+		QVariant loadResource(int, const QUrl &) Q_DECL_OVERRIDE;
 		void setAllowHTTPResources(bool allowHttpResources);
 		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
 		bool isValid();

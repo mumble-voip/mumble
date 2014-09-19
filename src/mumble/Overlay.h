@@ -67,10 +67,10 @@ class OverlayGroup : public QGraphicsItem {
 	public:
 		OverlayGroup();
 
-		QRectF boundingRect() const;
-		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *);
-		int type() const;
-
+		QRectF boundingRect() const Q_DECL_OVERRIDE;
+		void paint(QPainter *, const QStyleOptionGraphicsItem *, QWidget *) Q_DECL_OVERRIDE;
+		int type() const Q_DECL_OVERRIDE;
+		
 		template <typename T>
 		QRectF boundingRect() const;
 };
@@ -79,8 +79,8 @@ class OverlayMouse : public QGraphicsPixmapItem {
 	private:
 		Q_DISABLE_COPY(OverlayMouse)
 	public:
-		bool contains(const QPointF &) const;
-		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const;
+		bool contains(const QPointF &) const Q_DECL_OVERRIDE;
+		bool collidesWithPath(const QPainterPath &, Qt::ItemSelectionMode = Qt::IntersectsItemShape) const Q_DECL_OVERRIDE;
 		OverlayMouse(QGraphicsItem * = NULL);
 };
 
@@ -116,7 +116,7 @@ class Overlay : public QObject {
 		void newConnection();
 	public:
 		Overlay();
-		~Overlay();
+		~Overlay() Q_DECL_OVERRIDE;
 		bool isActive() const;
 		void verifyTexture(ClientUser *cp, bool allowupdate = true);
 		void requestTexture(ClientUser *);

@@ -43,7 +43,7 @@ class AudioOutputUser : public QObject {
 		void resizeBuffer(unsigned int newsize);
 	public:
 		AudioOutputUser(const QString& name);
-		~AudioOutputUser();
+		~AudioOutputUser() Q_DECL_OVERRIDE;
 		const QString qsName;
 		float *pfBuffer;
 		float *pfVolume;

@@ -54,7 +54,7 @@ class SoundFile : public QObject {
 		static sf_count_t vio_tell(void *user_data);
 	public:
 		SoundFile(const QString &fname);
-		virtual ~SoundFile();
+		~SoundFile();
 
 		int channels() const;
 		int samplerate() const;
@@ -85,9 +85,9 @@ class AudioOutputSample : public AudioOutputUser {
 	public:
 		static SoundFile* loadSndfile(const QString &filename);
 		static QString browseForSndfile(QString defaultpath=QString());
-		virtual bool needSamples(unsigned int snum);
+		virtual bool needSamples(unsigned int snum) Q_DECL_OVERRIDE;
 		AudioOutputSample(const QString &name, SoundFile *psndfile, bool repeat, unsigned int freq);
-		~AudioOutputSample();
+		~AudioOutputSample() Q_DECL_OVERRIDE;
 };
 
 #endif  // AUDIOOUTPUTSAMPLE_H_
