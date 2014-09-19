@@ -115,7 +115,7 @@ class ServerView : public QTreeWidget {
 
 		ServerItem *getParent(const QString &continent, const QString &countrycode, const QString &countryname, const QString &usercontinentcode, const QString &usercountrycode);
 	protected:
-		QMimeData *mimeData(const QList<QTreeWidgetItem *>&) const Q_DECL_OVERRIDE;
+		QMimeData *mimeData(const QList<QTreeWidgetItem *>) const Q_DECL_OVERRIDE;
 		QStringList mimeTypes() const Q_DECL_OVERRIDE;
 		Qt::DropActions supportedDropActions() const Q_DECL_OVERRIDE;
 		bool dropMimeData(QTreeWidgetItem *, int, const QMimeData *, Qt::DropAction) Q_DECL_OVERRIDE;

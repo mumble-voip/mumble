@@ -120,7 +120,7 @@ ServerView::~ServerView() {
 	delete siPublic;
 }
 
-QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *>& mimeitems) const {
+QMimeData *ServerView::mimeData(const QList<QTreeWidgetItem *> mimeitems) const {
 	if (mimeitems.isEmpty())
 		return NULL;
 
