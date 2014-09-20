@@ -317,7 +317,8 @@ Settings::Settings() {
 	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
 	bHideInTray = (winVer != QSysInfo::WV_WINDOWS7 && winVer != QSysInfo::WV_WINDOWS8 && winVer != QSysInfo::WV_WINDOWS8_1);
 #else
-	bHideInTray = true;
+	const bool isUnityDesktop = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
+	bHideInTray = !isUnityDesktop;
 #endif
 	bStateInTray = true;
 	bUsage = true;
