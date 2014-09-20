@@ -383,15 +383,13 @@ void MainWindow::msgBox(QString msg) {
 
 #ifdef Q_OS_WIN
 #if QT_VERSION >= 0x050000
-bool MainWindow::nativeEvent(const QByteArray &, void *message, long *result) {
+bool MainWindow::nativeEvent(const QByteArray &, void *message, long *) {
 	MSG *msg = reinterpret_cast<MSG *>(message);
 #else
 bool MainWindow::winEvent(MSG *msg, long *) {
 #endif
 	if (msg->message == WM_DEVICECHANGE && msg->wParam == DBT_DEVNODES_CHANGED)
 		uiNewHardware++;
-	else if (msg->message == WM_ACTIVATE && msg->wParam == WA_INACTIVE)
-		tInactive.restart();
 
 	return false;
 }
@@ -467,6 +465,15 @@ void MainWindow::showEvent(QShowEvent *e) {
 			QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
 #endif
 	QMainWindow::showEvent(e);
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+	QWidget::changeEvent(event);
+	if (isMinimized() && g.s.bHideInTray) {
+		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
+		QTimer::singleShot(0, this, SLOT(hide()));
+	}
 }
 
 void MainWindow::updateTrayIcon() {
@@ -2685,38 +2692,20 @@ void MainWindow::on_Icon_messageClicked() {
 }
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
-	// FIXME: Workaround for activated sending both doubleclick and trigger
-	static Timer tDoubleClick;
-	static bool bDoubleClick = false;
-
-	if (reason == QSystemTrayIcon::DoubleClick) {
-		bDoubleClick = true;
-		tDoubleClick.restart();
-	} else if (bDoubleClick && (reason == QSystemTrayIcon::Trigger)) {
-		if (tDoubleClick.elapsed() > 100000UL)
-			bDoubleClick = false;
-		else
-			return;
-	}
-
-	if (reason == QSystemTrayIcon::Trigger) {
-#ifdef Q_OS_WIN
-		if (!isVisible() || isMinimized() || tInactive.elapsed() > 300000UL) {
-#else
-		if (!isVisible() || isMinimized() || !isActiveWindow()) {
-#endif
-			if (isMaximized())
-				showMaximized();
-			else
-				showNormal();
-			activateWindow();
-			raise();
-		} else {
-			if (g.s.bHideInTray)
-				hide();
-			else
+	switch (reason) {
+		case QSystemTrayIcon::Trigger:
+		case QSystemTrayIcon::DoubleClick:
+		case QSystemTrayIcon::MiddleClick:
+			if (isMinimized()) {
+				setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+				show();
+				raise();
+				activateWindow();
+			} else {
 				showMinimized();
-		}
+			}
+			break;
+		default: break;
 	}
 }
 

@@ -138,7 +138,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void openTextMessageDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
-		Timer tInactive;
 #if QT_VERSION >= 0x050000
 		bool nativeEvent(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
 #else
@@ -171,6 +170,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 		void hideEvent(QHideEvent *e) Q_DECL_OVERRIDE;
 		void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
+		void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
 
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
