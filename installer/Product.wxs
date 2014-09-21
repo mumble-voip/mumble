@@ -77,6 +77,14 @@
         <RegistryValue Key="Software\Mumble\Uninstall" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
       </Component>
+
+      <Component Id="UninstallerComponent" Guid="$(var.UninstallerComponentGuid)">
+          <Shortcut Id="UninstallerShortcut"
+            Name="Uninstall"
+            Target="[SystemFolder]msiexec.exe"
+            Arguments="/i [ProductCode]"/>
+          <RegistryValue Key="Software\Mumble\UninstallerShortcut" Root="HKCU" Value="1" Type="integer" KeyPath="yes" />
+      </Component>
     </DirectoryRef>
 
     <DirectoryRef Id="AppDataPluginFolder">
@@ -190,6 +198,7 @@
     <Feature Id="Libraries" Title="Required Libraries" Display="hidden" AllowAdvertise="no" Absent="disallow" Level="1">
       <ComponentGroupRef Id="LibrariesCommon" />
       <ComponentRef Id="ApplicationProgramsFolderRemovalComponent" />
+      <ComponentRef Id="UninstallerComponent" />
       <ComponentRef Id="NSISUninstall" />
     </Feature>
 
