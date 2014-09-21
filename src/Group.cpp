@@ -181,7 +181,9 @@ bool Group::isMember(Channel *curChan, Channel *aclChan, QString name, ServerUse
 		m = (pl->cChannel == c);
 	else if (name == QLatin1String("out"))
 		m = !(pl->cChannel == c);
-	else if (name.startsWith(QLatin1String("sub"))) {
+	else if (name == QLatin1String("sub")
+			|| name.startsWith(QLatin1String("sub,"))) {
+		
 		name = name.remove(0,4);
 		int mindesc = 1;
 		int maxdesc = 1000;
