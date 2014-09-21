@@ -31,7 +31,9 @@
   <String Id="DESC_SectionMumble11X">Mumble клиент для подключения к старым серверам.</String>
   <String Id="DESC_SectionMurmur">Сервер для Mumble. Включает в себя все необходимое для запуска своего собственного сервера.</String>
   <String Id="DESC_SectionBonjour">Bonjour позволяет анонсировать и находить сервера Murmur в Вашей локальной сети. Это позволит загрузить и запустить программу установки Bonjour.</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble и Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">Настройки и Базы данных</String>

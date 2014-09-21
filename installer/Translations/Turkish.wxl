@@ -32,7 +32,9 @@
   <String Id="DESC_SectionMumble11X">Eski sunuculara bağlanmak için Mumble istemcisi.</String>
   <String Id="DESC_SectionMurmur">Mumble için sunucu. Kendi sunucunuzu işletmeniz için gereken her şeyi içerir.</String>
   <String Id="DESC_SectionBonjour">Bonjour yerel ağınızda Murmur sunucularının duyurulmalarına ve keşiflerine imkân sağlar. Bu seçenek Bonjour kurucusunu indirir ve çalıştırır.</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble ve Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">Tercihler ve Veritabanları</String>

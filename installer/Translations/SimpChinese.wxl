@@ -31,7 +31,9 @@
   <String Id="DESC_SectionMumble11X">该 Mumble 客户端用于连接到一个老的服务器。</String>
   <String Id="DESC_SectionMurmur">Mumble 服务器端包含所有您运行个人服务器所必须的文件。</String>
   <String Id="DESC_SectionBonjour">Bonjour enables announcement and discovery of Murmur servers on your LAN. This will download and run the Bonjour installer.</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble 和 Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">个人偏好和数据库</String>

@@ -31,7 +31,9 @@
   <String Id="DESC_SectionMumble11X">Bakoverkompatibel klient for bruk mot eldre servere.</String>
   <String Id="DESC_SectionMurmur">Serveren for Mumble. Inkluderer alt som trengs for å kjøre din egen server.</String>
   <String Id="DESC_SectionBonjour">Bonjour annonserer og oppdater Murmur servere på ditt lokale nettverk. Dette vil laste ned og installere Bonjour.</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble og Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">Brukerinstillinger og databaser</String>

@@ -32,7 +32,9 @@
   <String Id="DESC_SectionMumble11X">De Mumble client om verbinding te maken met oudere (versie)servers.</String>
   <String Id="DESC_SectionMurmur">De server voor Mumble. Bevat alles om je eigen server te maken.</String>
   <String Id="DESC_SectionBonjour">Bonjour ontdekt en geeft aan of er Murmur servers op uw netwerk aanwezig zijn. Dit downloadt en installeert de Bonjour installatie.</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble en Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">Voorkeuren en databases</String>

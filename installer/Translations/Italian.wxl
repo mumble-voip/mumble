@@ -32,7 +32,9 @@
   <String Id="DESC_SectionMumble11X">Client di Mumble, quello di cui hai bisogno per connetterti ai server vecchi</String>
   <String Id="DESC_SectionMurmur">Il server per Mumble. Include tutto ciò di cui hai bisogno per eseguire il tuo server</String>
   <String Id="DESC_SectionBonjour">Bonjour abilita la possibilità di trovare un server Murmur all'interno della tua rete LAN. Questa funzione scaricherà e installerà Bonjour</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble e Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">Preferenze e Dati</String>

@@ -32,7 +32,9 @@
   <String Id="DESC_SectionMumble11X">古いサーバに接続するための Mumble クライアントです。</String>
   <String Id="DESC_SectionMurmur">Mumbe のためのサーバ。サーバを実行するために必要なファイルを含みます。</String>
   <String Id="DESC_SectionBonjour">Bonjour を使用すると LAN 上の Murmur サーバの通知と探索が可能です。これを選択すると Bonjour のインストーラがダウンロードされ実行されます。</String>
-
+  <String Id="MUMBLE_SEC_DesktopShortcut">Desktop shortcut</String>
+  <String Id="DESC_DesktopShortcut">Creates a shortcut on the desktop</String>
+  
   <!-- Uninstall sections -->
   <String Id="MUMBLE_UNSEC_BASE">Mumble と Murmur</String>
   <String Id="MUMBLE_UNSEC_ALL">設定 と データベース</String>
