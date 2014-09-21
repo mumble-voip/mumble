@@ -29,6 +29,8 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include "mumble_pch.hpp"
+
 #include "ConfigDialog_macx.h"
 #include "AudioInput.h"
 #include "AudioOutput.h"

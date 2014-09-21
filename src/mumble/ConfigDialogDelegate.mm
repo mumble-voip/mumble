@@ -31,6 +31,8 @@
 // This file implements a NSToolbar delegate used for the Mumble
 // preferences dialog on Mac OS X. 
 
+#include "mumble_pch.hpp"
+
 #import "ConfigDialogDelegate.h"
 
 #define OSX_TOOLBAR_ICON_SIZE 32  // Currently, Mac OS X NSToolbars use 32x32 items when in 'normal' mode.
