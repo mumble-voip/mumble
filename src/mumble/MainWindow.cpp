@@ -840,9 +840,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 	if (!showit) {
 		if (g.s.bHideFrame) {
 			f |= Qt::FramelessWindowHint;
-		} else {
-			// Window should only have a system menu, title bar, minimize and close button
-			f |= Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint;
 		}
 	}
 	
