@@ -2068,6 +2068,14 @@ void MainWindow::on_qaAudioUnlink_triggered() {
 }
 
 void MainWindow::on_qaConfigDialog_triggered() {
+	if (g.cd) {
+		QDialog *dlg = g.cd.data();
+		dlg->show();
+		dlg->raise();
+		dlg->activateWindow();
+		return;
+	}
+
 	QDialog *dlg = NULL;
 #ifdef USE_COCOA
 	// To fit in with Mumble skins, we'll only use the Mac OS X
@@ -2081,15 +2089,31 @@ void MainWindow::on_qaConfigDialog_triggered() {
 	if (! dlg)
 		dlg = new ConfigDialog(this);
 
-	if (dlg->exec() == QDialog::Accepted) {
-		setupView(false);
-		updateTrayIcon();
+	dlg->setAttribute(Qt::WA_DeleteOnClose, true);
 
-		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
-		um->toggleChannelFiltered(NULL); // force a UI refresh
+	if (g.s.bModalConfigDialog) {
+		if (dlg->exec() == QDialog::Accepted) {
+			reloadViewStateFromSettings();
+		}
+	} else {
+		g.cd = dlg;
+		connect(dlg, SIGNAL(finished(int)), SLOT(configDialogFinished(int)));
+		dlg->show();
 	}
+}
 
-	delete dlg;
+void MainWindow::reloadViewStateFromSettings() {
+	setupView(false);
+	updateTrayIcon();
+
+	UserModel *um = static_cast<UserModel *>(qtvUsers->model());
+	um->toggleChannelFiltered(NULL); // force UI refresh
+}
+
+void MainWindow::configDialogFinished(int result) {
+	if (result == QDialog::Accepted) {
+		reloadViewStateFromSettings();
+	}
 }
 
 void MainWindow::on_qaConfigMinimal_triggered() {

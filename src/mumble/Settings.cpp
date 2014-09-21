@@ -330,6 +330,12 @@ Settings::Settings() {
 	wlWindowLayout = LayoutClassic;
 	bShowContextMenuInMenuBar = false;
 
+#ifdef Q_OS_MAC
+	bModalConfigDialog = false;
+#else
+	bModalConfigDialog = true;
+#endif
+
 	ssFilter = ShowReachable;
 
 	iOutputDelay = 5;
@@ -680,6 +686,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
+	SAVELOAD(bModalConfigDialog, "ui/modalconfigdialog");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");
@@ -970,6 +977,7 @@ void Settings::save() {
 	SAVELOAD(bFilterActive, "ui/filteractive");
 	SAVELOAD(qsImagePath, "ui/imagepath");
 	SAVELOAD(bShowContextMenuInMenuBar, "ui/showcontextmenuinmenubar");
+	SAVELOAD(bModalConfigDialog, "ui/modalconfigdialog");
 	SAVELOAD(qbaConnectDialogGeometry, "ui/connect/geometry");
 	SAVELOAD(qbaConnectDialogHeader, "ui/connect/header");
 	SAVELOAD(bHighContrast, "ui/HighContrast");

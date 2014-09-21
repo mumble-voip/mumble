@@ -167,6 +167,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
+		void reloadViewStateFromSettings();
+
 		void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 		void hideEvent(QHideEvent *e) Q_DECL_OVERRIDE;
 		void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
@@ -278,6 +280,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
 		void on_qaFilterToggle_triggered();
+		/// Emitted by the ConfigDialog window when using a non-modal
+		/// ConfigDialog.
+		void configDialogFinished(int);
 
 	public:
 		MainWindow(QWidget *parent);

@@ -263,6 +263,7 @@ struct Settings {
 	bool bFilterActive;
 	QByteArray qbaConnectDialogHeader, qbaConnectDialogGeometry;
 	bool bShowContextMenuInMenuBar;
+	bool bModalConfigDialog;
 
 	QString qsUsername;
 	QString qsLastServer;

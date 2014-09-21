@@ -34,6 +34,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <QtCore/QDir>
+#include <QtCore/QPointer>
 
 #include "ACL.h"
 #include "Settings.h"
@@ -68,6 +69,7 @@ public:
 	boost::shared_ptr<ServerHandler> sh;
 	boost::shared_ptr<AudioInput> ai;
 	boost::shared_ptr<AudioOutput> ao;
+	QPointer<QDialog> cd;
 	Database *db;
 	Log *l;
 	Plugins *p;
