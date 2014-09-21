@@ -837,19 +837,20 @@ void MainWindow::setupView(bool toggle_minimize) {
 	}
 
 	Qt::WindowFlags f = Qt::Window;
-	if (!showit && g.s.bHideFrame)
-		f = Qt::Window | Qt::FramelessWindowHint;
-#ifndef Q_OS_MAC
-	else if (!showit)
-		f = Qt::Tool;
-#else
-	f |= Qt::MacWindowToolBarButtonHint | Qt::WindowTitleHint | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint;
-#endif
-
+	if (!showit) {
+		if (g.s.bHideFrame) {
+			f |= Qt::FramelessWindowHint;
+		} else {
+			// Window should only have a system menu, title bar, minimize and close button
+			f |= Qt::CustomizeWindowHint | Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint;
+		}
+	}
+	
 	if (g.s.aotbAlwaysOnTop == Settings::OnTopAlways ||
 	        (g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInMinimal) ||
-	        (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal))
+	        (!g.s.bMinimalView && g.s.aotbAlwaysOnTop == Settings::OnTopInNormal)) {
 		f |= Qt::WindowStaysOnTopHint;
+	}
 
 	if (! graphicsProxyWidget())
 		setWindowFlags(f);
