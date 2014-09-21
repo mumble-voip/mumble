@@ -794,7 +794,7 @@ void GlobalShortcutConfig::reload() {
 			item->setHidden(true);
 	}
 #ifdef Q_OS_MAC
-	if (bExpert && ! g.s.bSuppressMacEventTapWarning) {
+	if (! g.s.bSuppressMacEventTapWarning) {
 		qwWarningContainer->setVisible(showWarning());
 	} else {
 		qwWarningContainer->setVisible(false);
