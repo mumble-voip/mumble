@@ -400,10 +400,10 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning() && g.s.bAskOnQuit && !bSuppressAskOnQuit) {
 		QMessageBox mb(QMessageBox::Warning, QLatin1String("Mumble"), tr("Mumble is currently connected to a server. Do you want to Close or Minimize it?"), QMessageBox::NoButton, this);
-		mb.addButton(tr("Close"), QMessageBox::YesRole);
+		QPushButton *qpbClose = mb.addButton(tr("Close"), QMessageBox::YesRole);
 		QPushButton *qpbMinimize = mb.addButton(tr("Minimize"), QMessageBox::NoRole);
 		QPushButton *qpbCancel = mb.addButton(tr("Cancel"), QMessageBox::RejectRole);
-		mb.setDefaultButton(qpbCancel);
+		mb.setDefaultButton(qpbClose);
 		mb.setEscapeButton(qpbCancel);
 		mb.exec();
 		if (mb.clickedButton() == qpbMinimize) {
