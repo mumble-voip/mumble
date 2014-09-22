@@ -457,7 +457,7 @@ QVariant ServerItem::data(int column, int role) const {
 				case 1:
 					return (dPing > 0.0) ? QString::number(uiPing) : QVariant();
 				case 2:
-					return uiUsers ? QString::fromLatin1("%1/%2").arg(uiUsers).arg(uiMaxUsers) : QVariant();
+					return uiUsers ? QString::fromLatin1("%1/%2 ").arg(uiUsers).arg(uiMaxUsers) : QVariant();
 			}
 		} else if (role == Qt::ToolTipRole) {
 			QStringList qsl;
