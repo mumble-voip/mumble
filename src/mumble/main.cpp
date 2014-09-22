@@ -101,7 +101,10 @@ int main(int argc, char **argv) {
 	a.setOrganizationName(QLatin1String("Mumble"));
 	a.setOrganizationDomain(QLatin1String("mumble.sourceforge.net"));
 	a.setQuitOnLastWindowClosed(false);
+
+#if QT_VERSION >= 0x050100
 	a.setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
 
 #if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
 	a.installNativeEventFilter(&a);
