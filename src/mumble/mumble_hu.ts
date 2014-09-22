@@ -675,8 +675,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     </message>
     <message>
         <location line="+30"/>
-        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Thorvald Natvig&lt;br /&gt;slicer@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Egy beszélgető program játékosoknak&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -2363,7 +2363,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 <context>
     <name>CertView</name>
     <message>
-        <location filename="Cert.cpp" line="+53"/>
+        <location filename="Cert.cpp" line="+43"/>
         <source>Name</source>
         <translation>Név</translation>
     </message>
@@ -2456,7 +2456,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble felhasználó</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+500"/>
+        <location filename="main.cpp" line="+412"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Tanúsítvány lejár:&lt;/b&gt; Az ön tanúsítványa nem sokára lejár. Meg kell újitsa, vagy nem lesz képes többet bejelentkezni azokra a szerverekre, ahol regisztrálva van.</translation>
     </message>
@@ -3811,7 +3811,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+209"/>
+        <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
         <translation>Hibakereső</translation>
     </message>
@@ -3841,12 +3841,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Szerver lecsatlakozva</translation>
     </message>
     <message>
-        <location line="+6"/>
-        <source>You self-muted/deafened</source>
-        <translation>Önmagát némítva/hangszóró ki</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+7"/>
         <source>Other self-muted/deafened</source>
         <translation>Más (magát) némítva/hangszóró ki</translation>
     </message>
@@ -3886,7 +3881,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Felhasználó kidobva</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+1"/>
+        <source>You self-muted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>User muted (you)</source>
         <translation>Felhasználó némítva (ön)</translation>
     </message>
@@ -3911,7 +3911,22 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>Felhasználó elhagyta a csatornát</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+3"/>
+        <source>You self-unmuted</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-deafened</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>You self-undeafened</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+58"/>
         <source>the server</source>
         <translation>a szerver</translation>
     </message>
@@ -3956,7 +3971,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-452"/>
+        <location line="-471"/>
         <source>Toggle console for %1 events</source>
         <translation>Ki/bekapcsolja a konzolt a(z) %1 eseményekhez</translation>
     </message>
@@ -4438,12 +4453,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2314"/>
+        <location line="+2326"/>
         <source>Root</source>
         <translation>Gyökér</translation>
     </message>
     <message>
-        <location line="-2260"/>
+        <location line="-2272"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Beszédhez-nyomd</translation>
@@ -4522,28 +4537,28 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2384"/>
+        <location line="+2396"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2379"/>
+        <location line="-2391"/>
         <source>&amp;Window</source>
         <translation>&amp;Ablak</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+137"/>
+        <location line="+140"/>
         <source>Minimize</source>
         <translation>Minimalizál</translation>
     </message>
     <message>
-        <location line="-137"/>
+        <location line="-140"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+136"/>
+        <location line="+139"/>
         <source>Close</source>
         <translation>Bezárás</translation>
     </message>
@@ -4553,7 +4568,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A Mumble egy szerverrel van kapcsolatban. A programot be szeretné zárni vagy csak minimalizálni?</translation>
     </message>
     <message>
-        <location line="-197"/>
+        <location line="-200"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Önmaga némítása</translation>
@@ -4596,13 +4611,13 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2423"/>
+        <location line="+2417"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2135"/>
+        <location line="-2117"/>
         <source>Clear</source>
         <translation>Töröl</translation>
     </message>
@@ -4726,7 +4741,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>SSL verziója nem egyezik</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+137"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation type="unfinished"/>
@@ -4738,7 +4753,7 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+122"/>
+        <location line="+125"/>
         <source>Choose image file</source>
         <translation>Válasszon kép fájlt</translation>
     </message>
@@ -4761,12 +4776,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation>A kép formátuma nem felismerhető.</translation>
     </message>
     <message>
-        <location line="-1796"/>
+        <location line="-1781"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>A hangcsatorna a vezérlőcsatornán keresztül küldve.</translation>
     </message>
     <message>
-        <location line="-940"/>
+        <location line="-952"/>
         <source>&amp;User</source>
         <translation>&amp;Felhasználó</translation>
     </message>
@@ -4801,12 +4816,12 @@ Ez a mező mutatja egy LCD eszköz méretét. A méret vagy pixelben (a grafikus
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+154"/>
+        <location line="+157"/>
         <source>Cancel</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+570"/>
+        <location line="+579"/>
         <source>Change your comment</source>
         <translation>Módosítja a megjegyzését</translation>
     </message>
@@ -5049,7 +5064,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>A nem regisztrált felhasználói jelszó hibás, próbálja újra.</translation>
     </message>
     <message>
-        <location line="+241"/>
+        <location line="+226"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
