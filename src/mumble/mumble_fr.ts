@@ -9,12 +9,12 @@
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Accorder</translation>
+        <translation>Autoriser</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Permettre %1</translation>
+        <translation>Autoriser %1</translation>
     </message>
     <message>
         <location line="-8"/>
@@ -189,7 +189,7 @@ Cette valeur vous permet de définir comment Mumble arrange les salons dans l&ap
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Retire le membre du groupe</translation>
+        <translation>Retirer le membre du groupe</translation>
     </message>
     <message>
         <location/>
@@ -219,7 +219,7 @@ Cette valeur vous permet de définir comment Mumble arrange les salons dans l&ap
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Hérite des LCAs</translation>
+        <translation>Hériter des LCAs</translation>
     </message>
     <message>
         <location/>
