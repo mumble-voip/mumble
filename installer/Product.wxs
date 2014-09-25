@@ -37,9 +37,9 @@
     <UIRef Id="WixUI_ErrorProgressText" />
 
     <Property Id="ALLUSERS" Value="1" />
-    <Property Id="REINSTALLMODE" Value="amus" />
-    <Property Id="ARPURLINFOABOUT" Value="http://mumble.sourceforge.net/" />
-    <Property Id="ARPURLUPDATEINFO" Value="http://mumble.sourceforge.net/" />
+    <Property Id="REINSTALLMODE" Value="amus" /> <!-- See http://msdn.microsoft.com/en-us/library/aa371182(v=vs.85).aspx -->
+    <Property Id="ARPURLINFOABOUT" Value="http://www.mumble.info/" />
+    <Property Id="ARPURLUPDATEINFO" Value="http://www.mumble.info/" />
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SourceDir)\installer\gpl.rtf" />
