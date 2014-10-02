@@ -63,8 +63,13 @@ public:
 	int iMaxImageMessageLength;
 	int iOpusThreshold;
 	int iChannelNestingLimit;
+	/// If true the old SHA1 password hashing is used instead of PBKDF2
 	bool bPlainPasswordHash;
-	int iKdfIterations;
+	/// Contains the default number of PBKDF2 iterations to use
+	/// when hashing passwords. If the value loaded from config
+	/// is <= 0 the value is loaded from the database and if not
+	/// available there yet found by a benchmark.
+	int kdfIterations;
 	bool bAllowHTML;
 	QString qsPassword;
 	QString qsWelcomeText;
@@ -124,9 +129,6 @@ public:
 	QVariant qvSuggestPushToTalk;
 
 	QSettings *qsSettings;
-
-	// db meta
-	size_t kdfIterations;
 
 	MetaParams();
 	~MetaParams();
