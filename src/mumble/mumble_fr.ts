@@ -234,7 +234,7 @@ Cette valeur vous permet de définir comment Mumble arrange les salons dans l&ap
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>Ha&amp;ut</translation>
+        <translation>&amp;Haut</translation>
     </message>
     <message>
         <location/>
@@ -1103,7 +1103,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>aucune action (idle)</translation>
+        <translation>Aucune action (idle)</translation>
     </message>
     <message>
         <location/>
