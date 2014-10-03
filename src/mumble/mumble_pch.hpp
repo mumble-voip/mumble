@@ -31,11 +31,8 @@
 #if QT_VERSION >= 0x050000
 # include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
-#elif defined(Q_OS_WIN) // Define Q_DECL_OVERRIDE and Q_DECL_FINAL for Qt4 (override keyword replacement)
-# define Q_DECL_OVERRIDE override // MSVC >=2010 support override
-# define Q_DECL_FINAL
 #else
-# define Q_DECL_OVERRIDE // On other platforms we might not have the keyword
+# define Q_DECL_OVERRIDE // Not available on Qt4
 # define Q_DECL_FINAL
 #endif
 
