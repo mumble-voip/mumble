@@ -2694,15 +2694,10 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		case QSystemTrayIcon::Trigger:
 		case QSystemTrayIcon::DoubleClick:
 		case QSystemTrayIcon::MiddleClick:
-			if (isMinimized()) {
-				setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
-				show();
-				raise();
-				activateWindow();
-			} else {
-				showMinimized();
-			}
-			break;
+			setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+			show();
+			raise();
+			activateWindow();
 		default: break;
 	}
 }
