@@ -116,7 +116,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
-	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "phone");
+	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
 
 	pacContext = pa_context_new_with_proplist(api, NULL, proplist);
 	pa_proplist_free(proplist);
