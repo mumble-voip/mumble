@@ -252,10 +252,8 @@ void VoiceRecorderDialog::on_qtTimer_timeout() {
 		return;
 	}
 
-	QTime t, n;
-	n = t.addMSecs(static_cast<int>(recorder->getElapsedTime() / 1000));
-
-	qlTime->setText(n.toString(QLatin1String("hh:mm:ss")));
+	const QTime elapsedTime = QTime(0,0).addMSecs(static_cast<int>(recorder->getElapsedTime() / 1000));
+	qlTime->setText(elapsedTime.toString());
 }
 
 void VoiceRecorderDialog::on_qpbTargetDirectoryBrowse_clicked() {
