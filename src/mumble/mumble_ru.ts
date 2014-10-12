@@ -675,7 +675,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Авторские права %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;Голосовой чат для игроков&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;Перевод: B0nuse &lt;tt&gt;&lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://Mumble.ru/&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2675,7 +2675,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Ваш E-mail (например, vasyapupkin@mumble.info)</translation>
+        <translation>Ваш E-mail (например, mumble@mumble.ru)</translation>
     </message>
     <message>
         <location/>
@@ -2685,7 +2685,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Ваше имя (например, Вася Пупкин)</translation>
+        <translation>Ваше имя (например, Бонус Мамблович)</translation>
     </message>
     <message>
         <location/>
@@ -6000,7 +6000,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation>Добро пожаловать в Mumble.</translation>
+        <translation>Добро пожаловать в Mumble. Перевод и русскоязычная поддержка: B0nuse &lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://mumble.ru&lt;/a&gt;.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -6213,7 +6213,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Удалить Аватар</translation>
     </message>
     <message>
         <location/>

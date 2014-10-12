@@ -1141,7 +1141,7 @@ Bevat de lijst van leden die zijn geërfd in het huidige kanaal. Deselecteer &lt
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation>Stem Activiteit</translation>
+        <translation>Stemactiviteit</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2058,7 +2058,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation>Notificatie instellingen</translation>
+        <translation>Notificatie-instellingen</translation>
     </message>
     <message>
         <location/>
@@ -2345,7 +2345,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation>Email Adres</translation>
+        <translation>E-mailadres</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3079,7 +3079,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation>Pakket verlies</translation>
+        <translation>Pakketverlies</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3282,7 +3282,7 @@ De poort die openstaat van de server die daarop luistert. Als de server geïdent
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Gebruikersnaam word verzonden naar de server</translation>
+        <translation>Gebruikersnaam wordt verzonden naar de server</translation>
     </message>
     <message>
         <location/>
@@ -3333,7 +3333,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Standaardapparaat</translation>
     </message>
 </context>
 <context>
@@ -3351,7 +3351,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"/>
+        <translation>E-mailadres (optioneel)</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3362,12 +3362,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation type="unfinished"/>
+        <translation>Rapport verzenden</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"/>
+        <translation>Geen rapport verzenden</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -3472,7 +3472,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation type="unfinished"/>
+        <translation>Hiernaartoe slepen</translation>
     </message>
 </context>
 <context>
@@ -3520,7 +3520,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Voeg toe</translation>
     </message>
     <message>
         <location/>
@@ -3550,7 +3550,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Overslaan</translation>
     </message>
     <message>
         <location/>
@@ -3622,12 +3622,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Voeg toe</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Verwijder</translation>
     </message>
     <message>
         <location/>
@@ -3978,12 +3978,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui"/>
         <source>Messages</source>
-        <translation type="unfinished"/>
+        <translation>Berichten</translation>
     </message>
     <message>
         <location/>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Bericht</translation>
     </message>
     <message>
         <location/>
@@ -4003,12 +4003,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation type="unfinished"/>
+        <translation>Geluidsbestand</translation>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation type="unfinished"/>
+        <translation>Pad</translation>
     </message>
     <message>
         <location/>
@@ -4018,7 +4018,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Volume</translation>
     </message>
     <message>
         <location/>
@@ -4122,22 +4122,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation type="unfinished"/>
+        <translation>Vragen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"/>
+        <translation>Niets doen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Bewegen</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation type="unfinished"/>
+        <translation>Gebruikersinterface</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -4182,7 +4182,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Taal</translation>
     </message>
     <message>
         <location/>
@@ -4202,27 +4202,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Layout</translation>
     </message>
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"/>
+        <translation>Klassiek</translation>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation type="unfinished"/>
+        <translation>Gestapeld</translation>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished"/>
+        <translation>Gemengd</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Aangepast</translation>
     </message>
     <message>
         <location/>
@@ -4318,12 +4318,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Nooit</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"/>
+        <translation>Altijd</translation>
     </message>
     <message>
         <location/>
@@ -4581,12 +4581,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Bestand bestaat niet.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Bestand is geen configuratiebestand.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4617,12 +4617,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+15"/>
         <location line="+198"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"/>
+        <translation>Verbinden met server %1.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation type="unfinished"/>
+        <translation>Opnieuw aan het verbinden.</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4685,7 +4685,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+635"/>
         <source>Connected.</source>
-        <translation type="unfinished"/>
+        <translation>Verbonden.</translation>
     </message>
     <message>
         <location line="+135"/>
@@ -4707,14 +4707,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation type="unfinished"/>
+        <translation>Kies je afbeeldingsbestand</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Het is niet gelukt om deze afbeelding te laden</translation>
     </message>
     <message>
         <location line="-27"/>
@@ -4725,7 +4725,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Bestandsformaat van afbeelding wordt niet herkend.</translation>
     </message>
     <message>
         <location line="-1781"/>
@@ -4770,7 +4770,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+157"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location line="+579"/>
