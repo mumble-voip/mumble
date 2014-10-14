@@ -93,6 +93,9 @@ typedef struct _Context {
 
 	clock_t timeT;
 	unsigned int frameCount;
+
+	GLint maxVertexAttribs;
+	GLboolean* vertexAttribStates;
 } Context;
 
 static const char vshader[] = ""
@@ -193,6 +196,9 @@ static void newContext(Context * ctx) {
 	glAttachShader(ctx->uiProgram, vs);
 	glAttachShader(ctx->uiProgram, fs);
 	glLinkProgram(ctx->uiProgram);
+
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &ctx->maxVertexAttribs);
+	ctx->vertexAttribStates = (GLboolean*)calloc(ctx->maxVertexAttribs, sizeof(GLboolean));
 }
 
 static void releaseMem(Context *ctx) {
@@ -556,6 +562,16 @@ static void drawContext(Context * ctx, int width, int height) {
 	glDisable(GL_VERTEX_PROGRAM_ARB);
 	glDisable(GL_FRAGMENT_PROGRAM_ARB);
 
+	GLint enabled;
+	for (i=0;i<ctx->maxVertexAttribs;++i) {
+		enabled = GL_FALSE;
+		glGetVertexAttribiv((GLuint)i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
+		if (enabled == GL_TRUE) {
+			glDisableVertexAttribArray((GLuint)i);
+			ctx->vertexAttribStates[i] = GL_TRUE;
+		}
+	}
+
 	glUseProgram(ctx->uiProgram);
 
 	glEnable(GL_COLOR_MATERIAL);
@@ -588,6 +604,13 @@ static void drawContext(Context * ctx, int width, int height) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
 	if (vbobound != 0)
 		glBindBuffer(GL_ARRAY_BUFFER, vbobound);
+
+	for (i=0;i<ctx->maxVertexAttribs;++i) {
+		if (ctx->vertexAttribStates[i] == GL_TRUE) {
+			glEnableVertexAttribArray((GLuint)i);
+			ctx->vertexAttribStates[i] = GL_FALSE;
+		}
+	}
 
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
