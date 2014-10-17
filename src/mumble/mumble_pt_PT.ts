@@ -2336,7 +2336,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Utilize este botão se quer atualizar a informação de banimentos.</translation>
+        <translation>Utilize este botão se quer atualizar a informação do banimento.</translation>
     </message>
     <message>
         <location/>
@@ -2818,7 +2818,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="-87"/>
         <source>This represents no privileges.</source>
-        <translation>Isto não representa nenhuns privilégios.</translation>
+        <translation>Isto representa ausência de privilégios.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2828,7 +2828,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Isto representa a permissão de percorrer o canal. Se um utilizador é negado deste privilégio, ele não conseguirá aceder a este canal e qualquer subcanal de modo algum, independente de outras permissões em subcanais.</translation>
+        <translation>Isto representa a permissão de percorrer o canal. Se a utilizador é-lhe negado este privilégio, ele não conseguirá aceder a este canal e qualquer subcanal de modo algum, independente de outras permissões em subcanais.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2843,12 +2843,12 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Isto representa a permissão de sussurrar para este canal de fora. Isto funciona exatamente como o privilégio de &lt;i&gt;falar&lt;/i&gt;, mas se aplica a pacotes falados com a tecla de Sussurro pressionada. Isto pode ser usado para transmitir para uma hierarquia de canais sem ligação.</translation>
+        <translation>Isto representa a permissão de sussurrar para este canal a partir de fora. Isto funciona exatamente como o privilégio de &lt;i&gt;falar&lt;/i&gt;, mas aplica-se a pacotes falados com a tecla de Sussurro pressionada. Isto pode ser usado para transmitir para uma hierarquia de canais sem ligação.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Isto representa a permissão de silenciar e ensurdecer outros utilizadores. Uma vez silenciado um utilizador permanecerá assim até ser removido silenciar por utilizador com privilégios ou ao reconectar com o servidor.</translation>
+        <translation>Isto representa a permissão de silenciar e ensurdecer outros utilizadores. Uma vez silenciado, um utilizador permanecerá assim até lhe ser removido silenciar por um utilizador com privilégios ou ao se ligar de novo ao servidor.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2858,7 +2858,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation>isto representa a permissão de criar subcanais. O utilizador criando o subcanal vai ser adicionado ao grupo admin do subcanal.</translation>
+        <translation>Isto representa a permissão de criar subcanais. O utilizador que cria o subcanal será adicionado ao grupo admin do subcanal.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2888,12 +2888,12 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation>Isto representa a permissão de registrar e eliminar utilizadores do servidor.</translation>
+        <translation>Isto representa a permissão de registar e eliminar utilizadores do servidor.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation>Isto representa a permissão de se registrar no servidor.</translation>
+        <translation>Isto representa a permissão de se registar no servidor.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -3114,7 +3114,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Páigna web</translation>
+        <translation>Página web</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3478,7 +3478,7 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     <message>
         <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
-        <translation>Dispositivo de saida de voz padrão do DirectSound</translation>
+        <translation>Dispositivo de saída de voz padrão do DirectSound</translation>
     </message>
     <message>
         <location line="+243"/>
@@ -4694,18 +4694,18 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="-104"/>
         <location line="+357"/>
         <source>Register yourself as %1</source>
-        <translation>Registrar-se como %1</translation>
+        <translation>Registar-se como %1</translation>
     </message>
     <message>
         <location line="-357"/>
         <location line="+357"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Rstá para se registrar neste servidor. Está ação não pode ser desfeita, e o seu nome de utilizador não pode ser alterado uma vez que esta ação se complete. Será conhecido para sempre como &apos;%1&apos; neste servidor.&lt;/p&gt;&lt;p&gt;Tem certeza de que se quer registrar?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Está prestes a se registar neste servidor. Esta ação não pode ser desfeita, e o seu nome de utilizador não pode ser alterado uma vez que esta ação se complete. Será conhecido para sempre como &apos;%1&apos; neste servidor.&lt;/p&gt;&lt;p&gt;Tem certeza de que se quer registar?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register user %1</source>
-        <translation>Registrar utilizador %1</translation>
+        <translation>Registar utilizador %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5464,7 +5464,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Clique aqui para entrar no modo &quot;O que é isto?&quot;. O cursor vai mudar para um ponto de interrogação. Clique em qualquer botão, escolha de menu ou área para mostrar uma descrição do que isto é.</translation>
+        <translation>Clique aqui para entrar no modo &quot;O que é isto?&quot;. O cursor vai mudar para um ponto de interrogação. Clique em qualquer botão, opção de menu ou área para mostrar uma descrição do que isto é.</translation>
     </message>
     <message>
         <location/>
