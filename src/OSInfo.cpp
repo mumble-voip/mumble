@@ -210,6 +210,9 @@ QString OSInfo::getOSDisplayableVersion() {
 				osdispver = QLatin1String("Windows Server 2012 R2");
 			}
 		}
+		else if (ovi.dwMinorVersion == 4) {
+			osdispver = QLatin1String("Windows 10 Technical Preview");
+		}
 
 		typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
 		PGPI pGetProductInfo = (PGPI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetProductInfo");
