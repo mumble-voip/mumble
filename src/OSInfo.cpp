@@ -211,7 +211,7 @@ QString OSInfo::getOSDisplayableVersion() {
 			}
 		}
 		else if (ovi.dwMinorVersion == 4) {
-			osdispver = QLatin1String("Windows 10 Technical Preview");
+			osdispver = QLatin1String("Windows 10");
 		}
 
 		typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
