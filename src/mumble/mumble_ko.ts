@@ -4,103 +4,103 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>금지</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>허가</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>%1를 허가합니다.</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>%1을 금지합니다.</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 채널을 추가</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>실패: 무효한 채널</translation>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - %1을 편집</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>%1에 특권을 부여합니다. 특권 허가와 금지가 모두 설정되어 있는 경우, 금지됩니다.&lt;br/&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>반드시 채널에 이름을 넣어주세요.</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>%1에 특권을 박탈합니다. 특권 허가와 금지가 모두 설정되어 있는 경우, 금지됩니다.&lt;br/&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>대화 상자</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>여기에 채널 이름을 넣으세요.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>설명</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>여기에 채널 비밀번호를 넣으세요.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>일시적으로 채널을 만드는 경우에 체크하세요.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>일시적 채널</translation>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>채널 위치를 지정하기 위한 값</translation>
     </message>
     <message>
         <location/>
@@ -108,122 +108,122 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;포지션&lt;/b&gt;&lt;br/&gt; 이 값을 설정함으로써 이 채널 트리의 순서를 변경할 수 있습니다. 더 높은&lt;i&gt;포지션&lt;/i&gt;값을 가진 채널은 지속적으로 더 낮은 값을 가진 채널보다 아래에 표시됩니다. 또한 2개 채널의&lt;i&gt;포지션&lt;/i&gt; 값이 동일하다면 그 채널 이름들의 사전 순으로 정렬됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>포지션</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>그룹&amp;G</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>그룹</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>그룹 목록</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>선택한 그룹 삭제</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>원본 그룹으로 부터 그룹 멤버를 계승한다.</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>원본</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>서브 채널에 대해 그룹 계승을 가능하게 한다.</translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>계승 가능</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>원본 채널에서 계승한 그룹</translation>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>계승 후</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>멤버</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>추가</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>그룹에 멤버를 추가한다.</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>그룹에서 멤버를 삭제한다.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation>ACLs을 활성화</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>항목 리스트</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>원본 채널 ACL을 계승합니까?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>이는 원본 채널의 체인에 대한 ACL을 적용할지 여부에 관계 없이 설정이 됩니다. 원본 채널에서 &quot;서브 채널에 적용한다 &quot;에 체크된 항목만 계승됩니다</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>ACLs를 계승한다.</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>항목을 위로 이동</translation>
     </message>
     <message>
         <location/>
@@ -233,12 +233,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;위로</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>항목을 아래로 이동</translation>
     </message>
     <message>
         <location/>
@@ -248,12 +248,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>아래로(&amp;D)</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>항목을 새로 추가한다.</translation>
     </message>
     <message>
         <location/>
@@ -263,12 +263,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>추가</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>항목 삭제</translation>
     </message>
     <message>
         <location/>
@@ -278,12 +278,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>컨텍스트</translation>
     </message>
     <message>
         <location/>
@@ -375,7 +375,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>유저/그룹</translation>
     </message>
     <message>
         <location/>
@@ -385,7 +385,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>유저 ID</translation>
     </message>
     <message>
         <location/>
@@ -400,7 +400,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>속성</translation>
     </message>
     <message>
         <location/>
@@ -480,7 +480,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>채널 ID</translation>
     </message>
 </context>
 <context>
@@ -537,7 +537,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
@@ -547,17 +547,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>디바이스 선택</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>디바이스</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>마이크에 사용하는 디바이스</translation>
     </message>
     <message>
         <location/>
@@ -567,7 +567,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>선택된 장치를 조회합니다</translation>
     </message>
     <message>
         <location/>
@@ -582,7 +582,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation type="unfinished"/>
+        <translation>선택된 디바이스를 설정합니다.</translation>
     </message>
     <message>
         <location/>
@@ -592,7 +592,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>설정(&amp;C)</translation>
     </message>
     <message>
         <location/>
@@ -602,12 +602,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Driver name</source>
-        <translation type="unfinished"/>
+        <translation>드라이버 이름</translation>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>버퍼 사이즈</translation>
     </message>
     <message>
         <location/>
@@ -617,37 +617,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation type="unfinished"/>
+        <translation>입력채널 설정</translation>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>채널</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>마이크</translation>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation type="unfinished"/>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation type="unfinished"/>
+        <translation>미사용</translation>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation type="unfinished"/>
+        <translation>스피커</translation>
     </message>
 </context>
 <context>
@@ -668,7 +668,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>멈블에 대해서</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -678,12 +678,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble에 대해서(&amp;A)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;License</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -693,7 +693,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -706,12 +706,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>인터페이스</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>시스템</translation>
     </message>
     <message>
         <location/>
@@ -726,17 +726,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>디바이스</translation>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>음성 입력 방법</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;음성을 위한 입력 디바이스입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -796,12 +796,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Off</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>On</translation>
     </message>
     <message>
         <location/>
@@ -951,17 +951,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Mixed</source>
-        <translation type="unfinished"/>
+        <translation>믹스</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished"/>
+        <translation>멀티채널</translation>
     </message>
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished"/>
+        <translation>에코</translation>
     </message>
     <message>
         <location/>
@@ -1061,7 +1061,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"/>
+        <translation>오디오 큐</translation>
     </message>
     <message>
         <location/>
@@ -1076,12 +1076,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"/>
+        <translation>대기 시간</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"/>
+        <translation>PTT키를 누른 뒤에 마이크가 꺼지는 시간</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
@@ -1096,17 +1096,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>Idle시의 동작</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"/>
+        <translation>이후에</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>없음</translation>
     </message>
     <message>
         <location/>
@@ -1116,7 +1116,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>음소거</translation>
     </message>
     <message>
         <location/>
@@ -1134,51 +1134,51 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>음성 활성</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>누르며 말하기</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation type="unfinished"/>
+        <translation>오디오 입력</translation>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Off</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation type="unfinished"/>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s (오디오 %2, 포지션 %4, 오버헤드 %3)</translation>
     </message>
 </context>
 <context>
@@ -1191,12 +1191,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>인터페이스</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>시스템</translation>
     </message>
     <message>
         <location/>
@@ -1212,32 +1212,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>디바이스</translation>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation type="unfinished"/>
+        <translation>음성 출력 방법</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;음성을 위한 출력 디바이스입니다.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>음향 위치</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>오디오 출력</translation>
     </message>
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"/>
+        <translation>기본 지터 버퍼(&amp;J)</translation>
     </message>
     <message>
         <location/>
@@ -1272,7 +1272,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>볼륨</translation>
     </message>
     <message>
         <location/>
@@ -1333,7 +1333,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"/>
+        <translation>헤드폰</translation>
     </message>
     <message>
         <location/>
@@ -1492,29 +1492,29 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>빈칸</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation type="unfinished"/>
+        <translation>로컬</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>서버</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>오디오 출력</translation>
     </message>
     <message>
         <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -1523,13 +1523,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"/>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"/>
+        <translation>%1 m</translation>
     </message>
 </context>
 <context>
@@ -1537,12 +1537,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation type="unfinished"/>
+        <translation>사운드 파일 선택</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation type="unfinished"/>
+        <translation>사운드 파일을 찾을수 없음</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1745,7 +1745,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>멈블 오디오 마법사</translation>
     </message>
     <message>
         <location/>
@@ -1775,7 +1775,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>시스템</translation>
     </message>
     <message>
         <location/>
@@ -1790,12 +1790,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>디바이스</translation>
     </message>
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation type="unfinished"/>
+        <translation>입력 디바이스를 사용</translation>
     </message>
     <message>
         <location/>
@@ -1866,12 +1866,12 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>Input Device</source>
-        <translation type="unfinished"/>
+        <translation>입력 디바이스</translation>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation type="unfinished"/>
+        <translation>출력 디바이스</translation>
     </message>
     <message>
         <location/>
@@ -1950,7 +1950,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation type="unfinished"/>
+        <translation>헤드폰 사용</translation>
     </message>
     <message>
         <location/>
@@ -2021,7 +2021,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"/>
+        <translation>누르며 말하기:</translation>
     </message>
     <message>
         <location/>
@@ -2036,22 +2036,22 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"/>
+        <translation>품질 설정</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"/>
+        <translation>낮음</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"/>
+        <translation>균형</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>공지 설정</translation>
     </message>
     <message>
         <location/>
@@ -2066,7 +2066,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2081,12 +2081,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"/>
+        <translation>높음</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>커스텀</translation>
     </message>
     <message>
         <location/>
@@ -2165,12 +2165,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 차단 편집</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation type="unfinished"/>
+        <translation>주소(&amp;A)</translation>
     </message>
     <message>
         <location/>
@@ -2185,42 +2185,42 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Start</source>
-        <translation type="unfinished"/>
+        <translation>시작</translation>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation type="unfinished"/>
+        <translation>끝</translation>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>유저</translation>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation type="unfinished"/>
+        <translation>해시</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>추가</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>업데이트</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>차단 리스트</translation>
     </message>
     <message>
         <location/>
@@ -2245,12 +2245,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP 주소</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"/>
+        <translation>아닌 IP 주소</translation>
     </message>
     <message>
         <location/>
@@ -2265,7 +2265,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>차단 해제 날짜</translation>
     </message>
     <message>
         <location/>
@@ -2275,17 +2275,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>인증 해시</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>인증이 안된 해시</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>차단된 유저</translation>
     </message>
     <message>
         <location/>
@@ -2320,7 +2320,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>클리어</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
@@ -2333,17 +2333,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+43"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>이메일</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation type="unfinished"/>
+        <translation>발행자</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2358,7 +2358,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>자기 서명</translation>
     </message>
 </context>
 <context>
@@ -3477,7 +3477,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>설정된 숏컷 리스트</translation>
     </message>
     <message>
         <location/>
@@ -5367,7 +5367,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 설정</translation>
     </message>
     <message>
         <location/>
@@ -5637,7 +5637,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-162"/>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>%1 발언 금지/청취 금지 상태가 되었습니다.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5648,148 +5648,148 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"/>
+        <translation>환영 메세지: %1</translation>
     </message>
     <message>
         <location line="-15"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble: %1</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>당신은%2에게%1의 권한을 거부당했습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3은%2으로부터%1의 권한이 없습니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"/>
+        <translation>거부:SuperUser를 참조할 수 없습니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>거부:유효하지 않은 채널 이름입니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>거부:텍스트 메시지가 너무 깁니다.</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>거부:일시적으로 채널로는 허가되지 않는 명령입니다.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"/>
+        <translation>이 조작을 실행하려면 인증서가 필요합니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>%1은 인증서를 가지고 있지 않습니다.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>없는 유저 이름 입니다: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>없는 유저 이름 입니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>채널에 더이상 들어 갈수 없습니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"/>
+        <translation>채널 중첩 제한에 이르렀습니다.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"/>
+        <translation>권한이 없습니다.</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 접속했다냥.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 발언 금지 상태가 되었습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>%1의 발언 금지 상태가 해제되었습니다.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"/>
+        <translation>녹음 시작</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"/>
+        <translation>녹음 정지</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1이 녹음을 개시했습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1이 녹음을 정지했습니다.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1이 당신의 발언·청취를 금지했습니다.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1이 당신의 발언을 금지 했습니다.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1이 당신의 청취 금지를 해제했습니다.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>당신의 발언이 금지되었습니다.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"/>
+        <translation>당신의 발언 금지가 해제되었습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"/>
+        <translation>당신은%1에 따라 발언 금지가 해제 되었습니다.</translation>
     </message>
     <message>
         <location line="+99"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"/>
+        <translation>%1은 녹음하고 있습니다</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5799,34 +5799,34 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 채널로부터 퇴장 하였습니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 연결 해제 하였습니다.</translation>
     </message>
     <message>
         <location line="+110"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>서버</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"/>
+        <translation>(트리) </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"/>
+        <translation>(채널) </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5886,73 +5886,73 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1은%2으로부터 발언 금지 해제 되었습니다.</translation>
     </message>
     <message>
         <location line="+405"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation type="unfinished"/>
+        <translation>다른 클라이언트와 매치된 CELT코덱이 발견되지 않습니다. 당신은 모든 유저에게 말을 할수 없습니다.</translation>
     </message>
     <message>
         <location line="-471"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1이 당신의 청취을 금지했습니다.</translation>
     </message>
     <message>
         <location line="+169"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>당신은%1에 의해 서버부터 강퇴 되었습니다.%2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3은%1에 의해 서버부터 강퇴 되었습니다.%2.</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>당신은%1에 의해 강퇴되어 서버에서 제명 되었습니다.%2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3은%1에 의해 강퇴되어 서버에서 제명 되었습니다.%2.</translation>
     </message>
     <message>
         <location line="-72"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2가 당신을%1로 이동 시켰습니다.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 채널에 들어 왔습니다.</translation>
     </message>
     <message>
         <location line="-359"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>서버 접속을 거부당했습니다:%1.</translation>
     </message>
     <message>
         <location line="+147"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"/>
+        <translation>거부당했습니다:%1.</translation>
     </message>
     <message>
         <location line="+392"/>
         <source>Message from %1</source>
-        <translation type="unfinished"/>
+        <translation>%1의 메시지</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>채널을 드래그 했을 때&quot;아무것도 하지 않는다&quot;로 하겠습니까?; 한다면 다른 채널로 이동하지 못합니다.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"/>
+        <translation>UserModel;dropMimeData 불분명한 채널 D모드입니다.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-276"/>
@@ -5972,182 +5972,196 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"/>
+        <translation>사용 방법:mumble[옵션][&lt;url&gt;]
+
+&lt;url&gt;은 접속 창을 표시하는 대신 시작 후에 접속하는 URL을 지정합니다.
+형식:mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+버전 쿼리 파라미터는 올바른 클라이언트의 버전을 위해 설정 해야 합니다. 
+기본 값은 1.2.0입니다. 
+
+이용 가능한 옵션:
+-h,--help이 텍스트를 표시 하는 종료합니다. 
+-m,-multiple
+클라이언트의 다중 기동을 허가합니다. 
+-n,-noidentity
+ ID파일 읽기를 억제합니다.(예를 들어 인증서)
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>호출</translation>
     </message>
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>멈블에 오신것을 환영 합니다</translation>
     </message>
     <message>
         <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>디버깅 모드에서는 버전 확인을 스킵 합니다.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>프레임을 숨깁니다.</translation>
     </message>
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"/>
+        <translation>작게 표시했을 때에 프레임을 보일지 안 보일지를 바꿉니다</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"/>
+        <translation>작게 표시했을 때 이동과 크기 변경을 위해 프레임을 표시할지 말지 바꿉니다.</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>메시지를 송신(&amp;M)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"/>
+        <translation>모든 링크를 해제(&amp;U)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>인증 마법사(&amp;C)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"/>
+        <translation>유저 등록(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"/>
+        <translation>코멘트를 리셋(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>선택한 사용자의 코멘트를 리셋 한다.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"/>
+        <translation>채널에 참가한다(&amp;J)</translation>
     </message>
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"/>
+        <translation>코멘트 보기</translation>
     </message>
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"/>
+        <translation>에디터에서 코멘트를 봅니다</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"/>
+        <translation>사용자 접속 정보를 위한 쿼리.</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"/>
+        <translation>서버(&amp;E)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"/>
+        <translation>상태(&amp;S)</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"/>
+        <translation>음성 상태(&amp;T)</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"/>
+        <translation>플러그인을 언링크(&amp;U)</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>등록 (%R)</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"/>
+        <translation>서버에 당신을 등록 합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>아바타를 변경 (%A)</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"/>
+        <translation>서버에 당신의 아바타 이미지를 변경 합니다</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"/>
+        <translation>아바타를 삭제(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"/>
+        <translation>현재 설정되어 있는 아바타 이미지를 삭제합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>아이콘 툴바</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>자신의 코멘트를 변경</translation>
     </message>
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>녹음</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>우선도 스피커</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>URL를 복사(&amp;C)</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>클립 보드에 이 채널의 링크를 복사합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>메세지를 무시한다.</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>사용자의 텍스트 채팅 메시지를 로컬에서 무시합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>유저로부터의 모든 메시지를 통보 없이 무시합니다.</translation>
     </message>
     <message>
         <location/>
@@ -6185,7 +6199,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
@@ -6195,7 +6209,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>아바타를 초기화 (&amp;A)</translation>
     </message>
     <message>
         <location/>
@@ -6208,23 +6222,23 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>네트워크</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>Snapshot이 출시 되었을 때는 업데이트가 필수입니다.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
-        <translation type="unfinished"/>
+        <translation>연결</translation>
     </message>
     <message>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished"/>
+        <translation>TCP 호환 모드를 사용한다.</translation>
     </message>
     <message>
         <location/>
@@ -6234,228 +6248,230 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"/>
+        <translation>연결 해제 시에 재접속을 시도합니다</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;연결 해제시 재접속을 시도합니다.&lt;/b&gt;&lt;br/&gt;이 설정을 하면 서버로의 접속이 실패했을 때, 10초 후에 다시 접속을 실시합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"/>
+        <translation>재연결을 자동적으로 설정한다.</translation>
     </message>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation type="unfinished"/>
+        <translation>프록시</translation>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>타입</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>프록시 접속 타입</translation>
     </message>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>직접 연결</translation>
     </message>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTP(S) proxy</translation>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"/>
+        <translation>SOCKS5 proxy</translation>
     </message>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>호스트 이름</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>프록시 호스트 이름</translation>
     </message>
     <message>
         <location/>
         <source>Force TCP mode</source>
-        <translation type="unfinished"/>
+        <translation>강제 TCP 모드</translation>
     </message>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>우선 순위자 패킷 때문에 QoS를 활성화</translation>
     </message>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>QoS를 설정합니다. QoS외의 통신 트래픽보다 음성 패킷의 우선 순위를 올립니다.</translation>
     </message>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"/>
+        <translation>Quality of Service를 사용한다.</translation>
     </message>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"/>
+        <translation>서버에 증명서를 보내지 않고 비밀 번호도 저장하지 않는다. (저장X)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;클라이언트 개인 정보의 송신을 억제합니다.&lt;/b&gt;&lt;p&gt;클라이언트 증명서를 사용하지 않고 접속을 위한 패스워드를 저장하지 않습니다. 이는 테스트 옵션에서 설정한 설정은 저장되지 않습니다.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished"/>
+        <translation>증명서와 패스워드의 저장을 하지 않는다.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;프록시 접속 타입.&lt;/b&gt;&lt;br/&gt;프록시를 통해 외부와의 접속을 하도록 합니다. 
+주의:프록시 접속을 할 경우 강제로 TCP호환 모드로 변경됩니다. 모든 음성 데이터는 관리 채널을 통해 송신되게 됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;프록시 호스트 이름&lt;/b&gt;&lt;br/&gt;이 필드에 네트워크 트래픽을 통과 시킬 프록시 서버의 호스트명을 설정합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>포트</translation>
     </message>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>프록시 포트 번호</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;프록시 포트 번호&lt;/b&gt;&lt;br/&gt;프록시 접속에 사용하는 포토 번호를 지정합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>유저이름</translation>
     </message>
     <message>
         <location/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>프록시 인증 사용자 이름</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;프록시 인증 사용자 이름&lt;/b&gt;&lt;br/&gt;프록시 서버 인증에 사용하는 유저명을 지정합니다. 프록시 서버가 인증을 실시하지 않은 경우나, 익명으로 접속하는 경우는 이 필드를 비워 주세요.</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호</translation>
     </message>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>프록시 인증의 패스워드</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;프록시 인증 패스워드&lt;/b&gt;&lt;br/&gt;프록시 서버의 인증에 사용하는 패스워드를 지정합니다. 프록시 서버가 인증을 받지 않거나 익명으로 접속하는 경우는 이 필드를 비워 주세요.</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Misc</translation>
     </message>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>로그상에서 이미지을 다운로드하지 않는다.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;이미지 다운로드를 비활성&lt;/b&gt;&lt;br/&gt;
+img태그, 채팅 메시지에 내장된 이미지 다운로드를 비활성 합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation type="unfinished"/>
+        <translation>이미지 다운로드를 비활성</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 서비스</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble의 새 릴리스를 자동적으로 확인합니다.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>프로그램을 시작할 때마다 Mumble의 새 버전을 확인하고, 있다면 확인 합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>시작시 Mumble의 업데이트을 체크한다</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인의 새 릴리스를 자동적으로 확인한다.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>프로그램이 시작할 때마다 새로운 플러그 인을 확인하고 존재하면 자동으로 다운로드한다.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;익명으로 통계 정보를 송신&lt;/b&gt;Mumble의 개발 팀은 규모가 작기 때문에 당장 필요한 것에 중점을 두어야 합니다. 통계 정보를 송신함으로써 프로젝트에서 사용자가 자주 사용하는 기능이 무엇인지 알고 중점을 어디 둘지를 결정하는 도움이 됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Mumble프로젝트에 익명으로 통계를 송신한다.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"/>
+        <translation>익명으로 이용 상태를 본다.</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble을 시작할 때 마지막으로 쓰던 서버에 다시 접속합니다</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"/>
+        <translation>시작시 마지막으로 접속한 서버에 다시 접속한다</translation>
     </message>
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>시작시 플러그 인과 오버레이의 업데이트를 다운로드한다.</translation>
     </message>
 </context>
 <context>
@@ -6464,36 +6480,36 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation type="unfinished"/>
+        <translation>조용히</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>대화</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>귓속말</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation type="unfinished"/>
+        <translation>외치기</translation>
     </message>
     <message>
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>채널</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"/>
+        <translation>오버레이:%2:%1와의 통신 생성에 실패 했습니다. 유효한 오버레이는 없습니다.</translation>
     </message>
 </context>
 <context>
@@ -6501,12 +6517,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>필터</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>대화 중인 사람만</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6516,57 +6532,57 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"/>
+        <translation>현재 채널에 있는 사람 모두</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"/>
+        <translation>링크 중인 채널에 있는 사람 모두</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>자신을 항상 표시한다.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"/>
+        <translation>최근 활동 시간(%1초)을 설정합니다...</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>열</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>종류</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>알파벳 순</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"/>
+        <translation>마지막 상태 변경</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation type="unfinished"/>
+        <translation>에딧...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"/>
+        <translation>확대 초기화</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"/>
+        <translation>최근 활동 시간을 설정합니다.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6579,190 +6595,194 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+86"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"/>
+        <translation>사용자를 움직이려면, 작은 붉은 점을 끌어 주세요.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>아바타의 사이즈를 바꾸려면  사용자 위에서 마우스 휠을 움직여 주세요.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>추가 설정을 하려면 유저 오른쪽 클릭해 주세요.</translation>
     </message>
     <message>
         <location line="+244"/>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>오버레이</translation>
     </message>
     <message>
         <location line="+77"/>
         <source>Choose executable</source>
-        <translation type="unfinished"/>
+        <translation>실행 파일을 선택</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"/>
+        <translation>어플리케이션 선택</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 프리셋 불러오기</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 오버레이 프리셋 (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 프리셋 저장</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>옵션</translation>
     </message>
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 켜기.</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 켜기</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>오버레이를 활성화 할지 아닐지를 설정합니다. 이 설정은 애플리케이션이 시작할 때만 체크됩니다. Mumble이 동작 중, 애플리케이션이 시작하기 전에 이 옵션이 체크 되어 있는지 확인해 주세요.&lt;br/&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>레이아웃</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 예외 설정</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"/>
+        <translation>블랙리스트</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"/>
+        <translation>화이트리스트</translation>
     </message>
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 삭제하기</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 설치하기</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble은 Mumble오버레이가 설치되지 않은 것을 감지했습니다.
+
+아래의 버튼을 클릭하여 오버레이를 인스톨 해 주세요</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 오버레이 설치하기.</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 업그레이드</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 오래된 오버레이 지원 파일이 설치되어 있는 것을 감지했습니다. 
+
+파일을 최신 버전으로 업그레이드하기 위해 다음의 버튼을 누르세요.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 오버레이를 업그레이드</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>오버레이상에 프레임 카운터를 표시합니다</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"/>
+        <translation>FPS 카운터를 표시</translation>
     </message>
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 프리셋를 불러 옵니다</translation>
     </message>
     <message>
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>불러오기…</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"/>
+        <translation>오버레이의 설정을 저장합니다</translation>
     </message>
     <message>
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"/>
+        <translation>저장…</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"/>
+        <translation>오버레이의 폰트를 설정합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 텍스트의 색을 설정합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>컬러</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"/>
+        <translation>추가...</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"/>
+        <translation>폰트</translation>
     </message>
     <message>
         <location/>
@@ -6782,7 +6802,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS, Clock 표시</translation>
     </message>
     <message>
         <location/>
@@ -6792,7 +6812,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>시계 보기</translation>
     </message>
 </context>
 <context>
@@ -6800,117 +6820,117 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>상태</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"/>
+        <translation>사용자는 말을 하지 않는다.</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"/>
+        <translation>수동</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"/>
+        <translation>사용자는 당신이 있는 채널이나 혹은 링크된 채널로 말하고 있습니다.</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>대화중</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"/>
+        <translation>사용자는 당신에게 개인적으로 귓속말 중입니다.</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"/>
+        <translation>개인 귓속말</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"/>
+        <translation>사용자는 당신이 있는 채널에 외치고 있습니다</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"/>
+        <translation>채널 귓속말</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>확대</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"/>
+        <translation>확대 요소</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"/>
+        <translation>유효한 요소</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"/>
+        <translation>사용자의 아바타, 각각의 사용자에 의해 선택됨</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"/>
+        <translation>아바타</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>유저의 이름</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>유저이름</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>사용자의 채널 이름, 당신이 있는 채널 밖에 있는 경우</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>채널</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지 또는 조사 금지</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지 상태</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"/>
+        <translation>바운딩 박스, 모든 가시 요소를 포함한 최소 크기로 자동적으로 줄입니다.</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>바운딩 박스</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 에디터</translation>
     </message>
 </context>
 <context>
@@ -6918,74 +6938,74 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditorScene.cpp" line="+397"/>
         <source>Layout preset</source>
-        <translation type="unfinished"/>
+        <translation>레이아웃 프리셋</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"/>
+        <translation>큰 사각형 아바타</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"/>
+        <translation>아바타 / 이름</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished"/>
+        <translation>유저 불투명도</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished"/>
+        <translation>%1%</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished"/>
+        <translation>오브젝트 불투명도</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"/>
+        <translation>자리매김</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>왼쪽</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>중앙</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"/>
+        <translation>오른쪽</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"/>
+        <translation>위</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"/>
+        <translation>아래</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"/>
+        <translation>컬러...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"/>
+        <translation>폰트...</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7000,37 +7020,37 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"/>
+        <translation>Padding</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"/>
+        <translation>펜 생삭</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"/>
+        <translation>채우기 색상</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"/>
+        <translation>펜 컬러 선택</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"/>
+        <translation>채우기 색상 선택</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"/>
+        <translation>컬러 선택</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"/>
+        <translation>폰트 선택</translation>
     </message>
 </context>
 <context>
@@ -7040,7 +7060,9 @@ To upgrade these files to their latest versions, click the button below.</source
         <source>Failed to load overlay library. This means either that:
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation type="unfinished"/>
+        <translation>오버레이 라이브러리의 읽기에 실패했습니다. 다음의 원인을 생각할 수 있습니다:
+-라이브러리 파일(mumble_ol.dll)이 Mumble 폴더에 존재하지 않거나.
+-WinXP SP2보다 오래된 OS를 사용하고 있거나.</translation>
     </message>
 </context>
 <context>
@@ -7049,97 +7071,97 @@ To upgrade these files to their latest versions, click the button below.</source
         <location filename="Plugins.ui"/>
         <location filename="Plugins.cpp" line="+98"/>
         <source>Plugins</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인에 설정 기능이 없습니다.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인의 설정 항목이 없습니다.</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Form</translation>
     </message>
     <message>
         <location/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>옵션</translation>
     </message>
     <message>
         <location/>
         <source>Enable plugins and transmit positional information</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인이 유효 하면 위치 정보를 송신합니다</translation>
     </message>
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"/>
+        <translation>이 설정은 지원된 게임 플러그 인이 위치 정보를 취득해 음성 패킷과 함께 송신할 수 있게 합니다. 다른 유저로부터, 게임 내에서 당신의 캐릭터가 있는 방향으로 소리를 들리도록 할 수 있습니다.</translation>
     </message>
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"/>
+        <translation>게임과 송신 위치를 링크 시킵니다.</translation>
     </message>
     <message>
         <location/>
         <source>Reloads all plugins</source>
-        <translation type="unfinished"/>
+        <translation>모든 플러그 인을 다시 읽습니다</translation>
     </message>
     <message>
         <location/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인을 다시 읽습니다. 플러그 인의 디렉토리에 추가하거나 변경을 할 때 사용해 주세요.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인 다시 읽기(&amp;R)</translation>
     </message>
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인에 대한 정보</translation>
     </message>
     <message>
         <location/>
         <source>This shows a small information message about the plugin.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인에 대한 간단한 정보를 표시합니다.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;About</translation>
     </message>
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인 설정 항목을 표시</translation>
     </message>
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation type="unfinished"/>
+        <translation>플러그 인 설정 페이지가 있으면 표시합니다.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>설정(&amp;C)</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>유효</translation>
     </message>
 </context>
 <context>
@@ -7147,28 +7169,28 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>디버깅 모드에서는 플러그 인의 업데이트가 스킵 됩니다.</translation>
     </message>
     <message>
         <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>업데이트된 플러그 인을 %1에 다운 받았습니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1에 새로운 플러그 인을 설치할 수 없습니다.</translation>
     </message>
     <message>
         <location line="-286"/>
         <source>%1 lost link.</source>
-        <translation type="unfinished"/>
+        <translation>%1은 링크가 소실 되었습니다.</translation>
     </message>
     <message>
         <location line="+74"/>
         <source>%1 linked.</source>
-        <translation type="unfinished"/>
+        <translation>%1은 링크되었습니다.</translation>
     </message>
 </context>
 <context>
@@ -7176,7 +7198,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>기본 디바이스</translation>
     </message>
 </context>
 <context>
@@ -7184,12 +7206,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
-        <translation type="unfinished"/>
+        <translation>기본 입력</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation type="unfinished"/>
+        <translation>기본 출력</translation>
     </message>
 </context>
 <context>
@@ -7197,82 +7219,82 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>이미지 불러오기를 실패 했습니다.</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"/>
+        <translation>문서 이미지 삽입 파일이 너무 큽니다%1 kB보다 작은 용량을 사용해 주세요.</translation>
     </message>
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"/>
+        <translation>메세지가 너무 깁니다.</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
         <source>Display</source>
-        <translation type="unfinished"/>
+        <translation>표시</translation>
     </message>
     <message>
         <location/>
         <source>Source Text</source>
-        <translation type="unfinished"/>
+        <translation>소스 텍스트</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Bold</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Italic</translation>
     </message>
     <message>
         <location/>
         <source>Italic</source>
-        <translation type="unfinished"/>
+        <translation>이탈릭체</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location/>
         <source>Underline</source>
-        <translation type="unfinished"/>
+        <translation>밑줄긋기</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>컬러</translation>
     </message>
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation type="unfinished"/>
+        <translation>링크 삽입</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation type="unfinished"/>
+        <translation>이미지 삽입</translation>
     </message>
 </context>
 <context>
@@ -7280,17 +7302,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation type="unfinished"/>
+        <translation>링크 추가</translation>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>텍스트</translation>
     </message>
 </context>
 <context>
@@ -7298,27 +7320,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP패킷을 서버에 보낼 수가 없거나 서버로부터 받을 수 없습니다. TCP모드로 전환합니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP패킷을 서버에 보낼 수 없습니다. TCP모드로 전환합니다.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP패킷을 서버로부터 받을 수 없습니다. TCP모드로 전환합니다.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP패킷 서버에 송수신을 하게 되었습니다. UDP모드로 전환합니다.</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"/>
+        <translation>연결시간 초과</translation>
     </message>
 </context>
 <context>
@@ -7326,47 +7348,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>즐겨찾기</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation type="unfinished"/>
+        <translation>LAN</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation type="unfinished"/>
+        <translation>공개 인터넷</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>아프리카</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>아시아</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>북미</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>남미</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>유럽</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>오세아니아</translation>
     </message>
 </context>
 <context>
@@ -7374,7 +7396,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>인증이 되지 않은</translation>
     </message>
 </context>
 <context>
@@ -7382,22 +7404,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>켜기</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>끄기</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>토글</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>인증이 되지 않은</translation>
     </message>
 </context>
 <context>
@@ -7405,7 +7427,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-450"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>숏컷을 누른다</translation>
     </message>
 </context>
 <context>
@@ -7413,23 +7435,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>루트</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>원본</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>현재</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>서브채널 #%1</translation>
     </message>
 </context>
 <context>
@@ -7437,44 +7459,44 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>, </translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>루트</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>원본</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>현재</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>서브채널 #%1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation type="unfinished"/>
+        <translation>무효</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;빈칸&gt;</translation>
     </message>
 </context>
 <context>
@@ -7482,17 +7504,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>끄기</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>토글</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>켜기</translation>
     </message>
 </context>
 <context>
@@ -7500,17 +7522,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.h" line="+45"/>
         <source>Enter text</source>
-        <translation type="unfinished"/>
+        <translation>텍스트 입력</translation>
     </message>
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>체크하면 모든 서브 채널에 재귀적으로 메시지가 송신됩니다</translation>
     </message>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"/>
+        <translation> 서브 채널에 재귀적으로 보낸다</translation>
     </message>
 </context>
 <context>
@@ -7518,17 +7540,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation type="unfinished"/>
+        <translation>비어있는 토큰</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-액세스 토큰</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>현재 서버의 액세스 토큰 목록</translation>
     </message>
     <message>
         <location/>
@@ -7536,27 +7558,30 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;연결된 서버의 액세스 토큰을 편집할 수 있습니다.&lt;/b&gt;
+&lt;br/&gt; 
+액세스 토큰은 채널 접속을 단순하게 관리, 즉 패스워드로 사용하는 것이 가능한 문자열입니다. Mumble은 당신이 쓴 토큰을 기록해 다음에 서버에 접속했을 때 재전송 합니다. 매번 입력할 필요는 없습니다.
+</translation>
     </message>
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"/>
+        <translation>토큰 추가</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>추가</translation>
     </message>
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation type="unfinished"/>
+        <translation>토큰 삭제</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
 </context>
 <context>
@@ -7564,19 +7589,19 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation type="unfinished"/>
+        <translation>인증된 사용자</translation>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>삭제</translation>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>이름 변경</translation>
     </message>
     <message>
         <location/>
@@ -7611,7 +7636,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>인증된 사용자: %n 계정(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7619,192 +7644,192 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"/>
+        <translation>유저 정보</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>연결 정보</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Version</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>OS</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>인증</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"/>
+        <translation>IP 주소</translation>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"/>
+        <translation>CELT 버전</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"/>
+        <translation>상세정보</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"/>
+        <translation>핑 상태</translation>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation type="unfinished"/>
+        <translation>받은 핑</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"/>
+        <translation>평균 핑</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"/>
+        <translation>TCP (컨트롤)</translation>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"/>
+        <translation>UDP (목소리)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"/>
+        <translation>UDP 네트워크 상태</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>좋음</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>지연</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>소멸</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>재동기화</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트로부터</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>클라이언트에게</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"/>
+        <translation>연결 시간</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation type="unfinished"/>
+        <translation>%1w</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished"/>
+        <translation>%1d</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"/>
+        <translation>%1h</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished"/>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>, </translation>
     </message>
     <message>
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"/>
+        <translation>지원됩니다.</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>지원되지 않습니다.</translation>
     </message>
     <message>
         <location line="-123"/>
         <source>Not Reported</source>
-        <translation type="unfinished"/>
+        <translation>보고되지 않습니다</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"/>
+        <translation>%1 online (%2 idle)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"/>
+        <translation>%1 online</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"/>
+        <translation>네트워크 대역</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"/>
+        <translation>네트워크 대역</translation>
     </message>
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"/>
+        <translation>불규칙 핑</translation>
     </message>
 </context>
 <context>
@@ -7822,22 +7847,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>마지막 채널</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Last seen: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Never</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation>채널 ID: %1</translation>
     </message>
 </context>
 <context>
@@ -7845,123 +7870,123 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"/>
+        <translation>서버에 접속하고 있는 유저입니다. 사용자의 왼쪽의 아이콘은 말하고 있는지를 의미합니다:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"/>
+        <translation>당신이 있는 채널에 말하고 있습니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>채널에 직접 말하고 있습니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"/>
+        <translation>당신에게 직접 귓속말 중 입니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation type="unfinished"/>
+        <translation>말을 하지 않는다.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"/>
+        <translation>서버상의 채널입니다. 아이콘은 채널의 상태를 의미합니다:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>현재 채널.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"/>
+        <translation>당신이 있는 채널과 링크하는 채널입니다. 링크하는 채널은 서로 말할 수 있습니다.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"/>
+        <translation>당신이 링크하지 않은 서버 상의 경로입니다.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"/>
+        <translation>사용자가 서버상에서 가지고 있는 플래그를 표시합니다:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>On your friend list</source>
-        <translation type="unfinished"/>
+        <translation>친구 목록</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authenticated user</source>
-        <translation type="unfinished"/>
+        <translation>인증된 사용자</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지(자신에 의해 발언을 금지)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지(관리자에 의해 발언 금지)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지(이 채널에서 발언이 허용되지 않습니다)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지(자신의 발언 금지, 자신의 마이크만)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"/>
+        <translation>청취 금지(자신에 의한)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"/>
+        <translation>청취 금지(관리자에 의해)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>이 유저는 새로운 코멘트를 갖고 있습니다.( 보려면 클릭 하세요)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>이 유저는 당신이 이미 살펴본 코멘트를 가지고 있습니다.( 보려면 클릭 하세요)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"/>
+        <translation>이 텍스트 메시지를 무시합니다.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"/>
+        <translation>이 채널이 가지고 있는 플래그를 표시합니다:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>이 채널은 새로운 코멘트를 가지고 있습니다.(보려면 클릭하세요)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>이 채널은 당신이 이미 살펴본 코멘트를 가지고 있습니다.(보려면 클릭하세요)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7971,23 +7996,23 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation type="unfinished"/>
+        <translation>플래그</translation>
     </message>
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"/>
+        <translation>정말 이 채널을 드래그 합니까?</translation>
     </message>
     <message>
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"/>
+        <translation>자동적으로 이동을 실행 할 수 없습니다. 수치적 정렬의 지표를 변경하거나 수동으로 조정해 주세요.</translation>
     </message>
 </context>
 <context>
@@ -7995,38 +8020,38 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"/>
+        <translation>업그레이드 Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble의 새 버전이 발견되어 자동적으로 다운로드 했습니다. 이 버전으로 업그레이드하거나 최신 안정된 릴리스에 다운 그레이드 하는 것을 권장합니다. 이 인스톨러를 설치합니까?</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"/>
+        <translation>snapshot의 인스톨러 구동에 실패했습니다.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"/>
+        <translation>새로운 버전의 잘못된 다운로드가 감지되었습니다. 자동 삭제 되었습니다.</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1으로부터%2에 새로운 snapshot을 다운로드 중입니다</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished"/>
+        <translation>디스크에 새 버전을 쓰는데 실패했습니다.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble이 중앙 서버에서 버전 정보 취득에 실패했습니다</translation>
     </message>
 </context>
 <context>
@@ -8034,112 +8059,112 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"/>
+        <translation>서명 체인 내용</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation type="unfinished"/>
+        <translation>서명 체인</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation type="unfinished"/>
+        <translation>서명 내용</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>일반 명칭: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Organization: %1</source>
-        <translation type="unfinished"/>
+        <translation>조직: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Subunit: %1</source>
-        <translation type="unfinished"/>
+        <translation>부문: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation type="unfinished"/>
+        <translation>나라: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"/>
+        <translation>지역: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation type="unfinished"/>
+        <translation>지방(地方): %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"/>
+        <translation>발행자: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"/>
+        <translation>발행 대상: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial: %1</source>
-        <translation type="unfinished"/>
+        <translation>시리얼: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"/>
+        <translation>Public Key: %1 bits %2</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>RSA</source>
-        <translation type="unfinished"/>
+        <translation>RSA</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>DSA</source>
-        <translation type="unfinished"/>
+        <translation>DSA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"/>
+        <translation>Digest (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Email: %1</source>
-        <translation type="unfinished"/>
+        <translation>Email: %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"/>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation type="unfinished"/>
+        <translation>발행의: </translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>유닛 이름: %1</translation>
     </message>
 </context>
 <context>
@@ -8147,32 +8172,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>레코더는 디렉토리&apos;%1&apos;의 만들기에 실패했습니다</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>레코더는 &apos;%1&apos;에 열기를 실패 했습니다.</translation>
     </message>
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.wav - 무압축</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"/>
+        <translation>.ogg (Vorbis) - 압축</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.au - 무압축</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"/>
+        <translation>.flac - 무손실 압축</translation>
     </message>
 </context>
 <context>
@@ -8185,48 +8210,48 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+143"/>
         <source>Recorder</source>
-        <translation type="unfinished"/>
+        <translation>녹음</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"/>
+        <translation>컨트롤</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished"/>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"/>
+        <translation>스타트(&amp;S)</translation>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation type="unfinished"/>
+        <translation>스탑(&amp;T)</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"/>
+        <translation>모드</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished"/>
+        <translation>멀티채널</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished"/>
+        <translation>출력</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"/>
+        <translation>출력 형식</translation>
     </message>
     <message>
         <location/>
@@ -8236,7 +8261,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"/>
+        <translation>파일 이름</translation>
     </message>
     <message>
         <location/>
@@ -8297,7 +8322,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"/>
+        <translation>녹음 형식을 선택하세요</translation>
     </message>
     <message>
         <location line="+73"/>
@@ -8307,12 +8332,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+28"/>
         <source>Select target directory</source>
-        <translation type="unfinished"/>
+        <translation>대상 디렉토리를 선택</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"/>
+        <translation>다운 믹스</translation>
     </message>
 </context>
 <context>
@@ -8320,7 +8345,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="WASAPI.cpp" line="+184"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>기본 디바이스</translation>
     </message>
 </context>
 <context>
@@ -8328,12 +8353,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"/>
+        <translation>멈블 PTT</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"/>
+        <translation>누르며 말하기</translation>
     </message>
 </context>
 </TS>
