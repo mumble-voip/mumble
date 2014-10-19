@@ -121,7 +121,7 @@ void CertView::setCert(const QList<QSslCertificate> &cert) {
 		const QStringList &issuerNames = qscCert.issuerInfo(QSslCertificate::CommonName);
 		QString issuerName;
 		if (issuerNames.count() > 0) {
-			issuerName = issuerName.at(0);
+			issuerName = issuerNames.at(0);
 		}
 #else
 		const QString &issuerName = qscCert.issuerInfo(QSslCertificate::CommonName);
