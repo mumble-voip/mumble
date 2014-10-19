@@ -47,7 +47,12 @@ GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode =  -1;
 	bRunning = false;
 
-	display = NULL;
+	display = XOpenDisplay(NULL);
+
+	if (! display) {
+		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
+		return;
+	}
 
 #ifdef Q_OS_LINUX
 	QString dir = QLatin1String("/dev/input");
@@ -66,13 +71,6 @@ GlobalShortcutX::GlobalShortcutX() {
 		return;
 	}
 #endif
-
-	display = XOpenDisplay(NULL);
-
-	if (! display) {
-		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
-		return;
-	}
 
 	for (int i=0; i < ScreenCount(display); ++i)
 		qsRootWindows.insert(RootWindow(display, i));
