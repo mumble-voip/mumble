@@ -40,6 +40,8 @@ class QString;
 /// 
 /// @note Using int all over the place because OpenSSL uses them in its C interface
 ///       and we want to make sure not to parameterize it in unexpected ways.
+/// @warning Operations in this class that experience internal failure will abort
+///          program execution using qFatal.
 ///
 class PBKDF2 {
 	public:
@@ -55,7 +57,6 @@ class PBKDF2 {
 		/// @param password Password to hash.
 		/// @param iterationCount Number of PBKDF2 iterations to apply.
 		/// @return Hex encoded password hash of DERIVED_KEY_LENGTH octets.
-		///         Null string if hashing failed.
 		///
 		static QString getHash(const QString& hexSalt,
 		                       const QString& password,
@@ -63,7 +64,6 @@ class PBKDF2 {
 		
 		///
 		/// @return SALT_LENGTH octets of hex encoded random salt.
-		///         Null string if not enough entropy was available.
 		///
 		static QString getSalt();
 		

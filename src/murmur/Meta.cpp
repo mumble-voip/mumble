@@ -54,7 +54,7 @@ MetaParams::MetaParams() {
 	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
-	bPlainPasswordHash = false;
+	legacyPasswordHash = false;
 	kdfIterations = -1;
 	bAllowHTML = true;
 	iDefaultChan = 0;
@@ -264,7 +264,7 @@ void MetaParams::read(QString fname) {
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
-	bPlainPasswordHash = typeCheckedFromSettings("legacypasswordwhash", bPlainPasswordHash);
+	legacyPasswordHash = typeCheckedFromSettings("legacypasswordhash", legacyPasswordHash);
 	kdfIterations = typeCheckedFromSettings("kdfiterations", -1);
 	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
@@ -462,7 +462,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("port"),QString::number(usPort));
 	qmConfig.insert(QLatin1String("timeout"),QString::number(iTimeout));
 	qmConfig.insert(QLatin1String("textmessagelength"), QString::number(iMaxTextMessageLength));
-	qmConfig.insert(QLatin1String("legacypasswordwhash"), bPlainPasswordHash ?  QLatin1String("true") : QLatin1String("false"));
+	qmConfig.insert(QLatin1String("legacypasswordhash"), legacyPasswordHash ?  QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("kdfiterations"), QString::number(kdfIterations));
 	qmConfig.insert(QLatin1String("allowhtml"), bAllowHTML ? QLatin1String("true") : QLatin1String("false"));
 	qmConfig.insert(QLatin1String("bandwidth"),QString::number(iMaxBandwidth));

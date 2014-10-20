@@ -48,10 +48,13 @@ int PBKDF2::benchmark() {
 		do {
 			iterations *= 2;
 			
-			if(getHash(hexSalt, pseudopass, iterations).isNull()) {
-				// Something went wrong here, don't get us stuck in a loop.
-				break;
-			}
+			// Store return value in a volatile to prevent optimizer
+			// from ever removing these side-effect-free calls. I don't
+			// think the compiler can prove they have no side-effects but
+			// better safe than sorry.
+			volatile QString result = getHash(hexSalt, pseudopass, iterations);
+			Q_UNUSED(result);
+			
 		} while (timer.restart() < BENCHMARK_DURATION_TARGET_IN_MS && (iterations / 2) < std::numeric_limits<int>::max());
 		
 		if (iterations > maxIterations) {
@@ -67,11 +70,11 @@ QString PBKDF2::getHash(const QString& hexSalt, const QString& password, int ite
 	const QByteArray utf8Password = password.toUtf8();
 	const QByteArray salt = QByteArray::fromHex(hexSalt.toLatin1());
 
-	if( PKCS5_PBKDF2_HMAC(utf8Password.constData(), utf8Password.size(), 
+	if (PKCS5_PBKDF2_HMAC(utf8Password.constData(), utf8Password.size(),
 	                      reinterpret_cast<const unsigned char*>(salt.constData()), salt.size(),
 	                      iterationCount,
 	                      EVP_sha384(),
-	                      DERIVED_KEY_LENGTH, reinterpret_cast<unsigned char*>(hash.data())) == 0 ) {
+	                      DERIVED_KEY_LENGTH, reinterpret_cast<unsigned char*>(hash.data())) == 0) {
 		qFatal("PBKDF2: PKCS5_PBKDF2_HMAC failed: %s", ERR_error_string(ERR_get_error(), NULL));
 		return QString();
 	}
@@ -83,7 +86,7 @@ QString PBKDF2::getHash(const QString& hexSalt, const QString& password, int ite
 QString PBKDF2::getSalt() {
 	QByteArray salt(SALT_LENGTH, 0);
 	
-	if (! RAND_bytes(reinterpret_cast<unsigned char*>(salt.data()), salt.size())) {
+	if (RAND_bytes(reinterpret_cast<unsigned char*>(salt.data()), salt.size()) == 0) {
 		qFatal("PBKDF2: RAND_bytes for salt failed: %s", ERR_error_string(ERR_get_error(), NULL));
 		return QString();
 	}
