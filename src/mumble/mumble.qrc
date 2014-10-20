@@ -20,6 +20,8 @@
  <file alias="channel_active.svg">../../icons/channel_active.svg</file>
  <file alias="channel_linked.svg">../../icons/channel_linked.svg</file>
  <file alias="config_basic.png">../../icons/config_basic.png</file>
+ <file alias="config_audio_input.png">../../icons/config_audio_input.png</file>
+ <file alias="config_audio_output.png">../../icons/config_audio_output.png</file>
  <file alias="config_dsound.png">../../icons/config_dsound.png</file>
  <file alias="config_msgs.png">../../icons/config_msgs.png</file>
  <file alias="config_plugin.png">../../icons/config_plugin.png</file>
