@@ -2453,7 +2453,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble 使用者</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+416"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;憑證到期:&lt;/b&gt; 您的憑證即將到期。你需要更新它，否則將不能夠連接到您已註冊的伺服器上。</translation>
     </message>
@@ -3357,6 +3357,31 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;b&gt;標籤&lt;/b&gt;&lt;br/&gt;
 伺服器的標籤。伺服器在你的清單中顯示的名稱，可以自由設定。</translation>
     </message>
+    <message>
+        <location/>
+        <source>Local server label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>127.0.0.1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>64738</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your password</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3703,7 +3728,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+346"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
         <source>Mouse %1</source>
         <translation>游標 %1</translation>
     </message>
@@ -4440,12 +4465,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2326"/>
+        <location line="+2324"/>
         <source>Root</source>
         <translation>根</translation>
     </message>
     <message>
-        <location line="-2272"/>
+        <location line="-2270"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>按鍵發話</translation>
@@ -4524,12 +4549,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2396"/>
+        <location line="+2394"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2391"/>
+        <location line="-2389"/>
         <source>&amp;Window</source>
         <translation>視窗(&amp;W)</translation>
     </message>
@@ -4598,13 +4623,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2417"/>
+        <location line="+2410"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;未連接&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2117"/>
+        <location line="-2110"/>
         <source>Clear</source>
         <translation>清除</translation>
     </message>
@@ -4650,7 +4675,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+198"/>
+        <location line="+196"/>
         <source>Connecting to server %1.</source>
         <translation>連線到伺服器 %1。</translation>
     </message>
@@ -4728,7 +4753,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>SSL版本不合</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;在此輸入給 %1 頻道的文字訊息&lt;/center&gt;</translation>
@@ -4763,12 +4788,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>無法辨識圖檔格式。</translation>
     </message>
     <message>
-        <location line="-1781"/>
+        <location line="-1776"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>語音頻道透過控制頻道發送。</translation>
     </message>
     <message>
-        <location line="-952"/>
+        <location line="-950"/>
         <source>&amp;User</source>
         <translation>使用者(&amp;U)</translation>
     </message>
@@ -4808,7 +4833,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>取消</translation>
     </message>
     <message>
-        <location line="+579"/>
+        <location line="+577"/>
         <source>Change your comment</source>
         <translation>變更你的註解</translation>
     </message>
@@ -5051,7 +5076,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>未註冊使用者的伺服器密碼錯誤，請重試。</translation>
     </message>
     <message>
-        <location line="+226"/>
+        <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>圖片 (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5623,7 +5648,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>這將啟用簡潔視窗模式，該模式將隱藏日誌欄與選單。</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+282"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5673,12 +5698,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-162"/>
+        <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 現在被關閉麥克風和關閉喇叭.</translation>
     </message>
@@ -5799,6 +5824,56 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 已停止錄音。</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>You revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave you priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>You revoked priority speaker status for %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You gave priority speaker status to %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked own priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked priority speaker status for %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave priority speaker status to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation type="unfinished"/>
@@ -5830,7 +5905,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+83"/>
+        <source>You moved %1 to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>%1 is recording</source>
         <translation type="unfinished"/>
     </message>
@@ -5897,7 +5977,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>伺服器要求關閉按鍵發話。</translation>
     </message>
     <message>
-        <location line="-502"/>
+        <location line="-504"/>
         <source>You were unmuted by %1.</source>
         <translation>你被 %1 取消關閉麥克風。</translation>
     </message>
@@ -5932,18 +6012,18 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 被 %2 取消關閉麥克風。</translation>
     </message>
     <message>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-471"/>
+        <location line="-473"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>你被 %1 關閉麥克風與喇叭。</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>你被 %1 從服務器踢出: %2。</translation>
     </message>
@@ -5963,17 +6043,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3 被 %1 從服務器踢出並封鎖： %2。</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
         <translation>你被從 %1 移動到 %2。</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+20"/>
         <source>%1 entered channel.</source>
         <translation>%1 進入頻道。</translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-397"/>
         <source>Server connection rejected: %1.</source>
         <translation>伺服器拒絕連接: %1。</translation>
     </message>
@@ -5983,7 +6063,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>拒絕: %1。</translation>
     </message>
     <message>
-        <location line="+392"/>
+        <location line="+430"/>
         <source>Message from %1</source>
         <translation>來至 %1 的消息</translation>
     </message>
@@ -8232,7 +8312,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+143"/>
+        <location line="+141"/>
         <source>Recorder</source>
         <translation>錄音</translation>
     </message>
@@ -8293,7 +8373,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>瀏覽(&amp;B)...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-212"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-210"/>
         <source>Valid variables are:</source>
         <translation>無效的變量:</translation>
     </message>
@@ -8355,7 +8435,7 @@ Please contact your server administrator for further information.</source>
         <translation>停止中</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+26"/>
         <source>Select target directory</source>
         <translation>選擇目標目錄</translation>
     </message>

@@ -2466,7 +2466,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+416"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -3379,6 +3379,31 @@ Label of the server. This is what the server will be named like in your server l
         <translation>&lt;b&gt;Etiqueta&lt;/b&gt;&lt;br/&gt;
 Etiqueta de este servidor. Así es como se llamará el servidor en su lista del servidores y puede ser elegida libremente.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Local server label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>127.0.0.1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>64738</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your password</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3726,7 +3751,7 @@ de las ubicaciones posibles.</translation>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+346"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
         <source>Mouse %1</source>
         <translation>Raton %1</translation>
     </message>
@@ -4466,12 +4491,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2326"/>
+        <location line="+2324"/>
         <source>Root</source>
         <translation>Root</translation>
     </message>
     <message>
-        <location line="-2272"/>
+        <location line="-2270"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Presionar-para-Hablar (PTT)</translation>
@@ -4550,12 +4575,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2396"/>
+        <location line="+2394"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2391"/>
+        <location line="-2389"/>
         <source>&amp;Window</source>
         <translation>&amp;Ventana</translation>
     </message>
@@ -4624,13 +4649,13 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2417"/>
+        <location line="+2410"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Desconectado&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2117"/>
+        <location line="-2110"/>
         <source>Clear</source>
         <translation>Borrar</translation>
     </message>
@@ -4676,7 +4701,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <location line="+15"/>
-        <location line="+198"/>
+        <location line="+196"/>
         <source>Connecting to server %1.</source>
         <translation>Conectando al servidor %1.</translation>
     </message>
@@ -4754,7 +4779,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Las versiones de SSL no coinciden</translation>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;Escriba aquí el mensaje al canal &apos;%1&apos;&lt;/center&gt;</translation>
@@ -4789,12 +4814,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Formato de imágen no reconocido.</translation>
     </message>
     <message>
-        <location line="-1781"/>
+        <location line="-1776"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>El canal de voz se envía a través del canal de control.</translation>
     </message>
     <message>
-        <location line="-952"/>
+        <location line="-950"/>
         <source>&amp;User</source>
         <translation>&amp;Usuario</translation>
     </message>
@@ -4834,7 +4859,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location line="+579"/>
+        <location line="+577"/>
         <source>Change your comment</source>
         <translation>Cambia su comentario</translation>
     </message>
@@ -5079,7 +5104,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Contraseña del servidor incorrecta para cuenta de usuario no registrada, por favor, inténtelo de nuevo.</translation>
     </message>
     <message>
-        <location line="+226"/>
+        <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Imágenes (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -5651,7 +5676,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Esto conmutará el modo mínimo, en el que la ventana del registro de mensajes y el menú están ocultos.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+282"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
         <translation>Fue enmudecido y ensordecido por %1.</translation>
     </message>
@@ -5701,12 +5726,12 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>%1 fue llevado a %2 por %3.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1 fue traído desde %2 por %3.</translation>
     </message>
     <message>
-        <location line="-162"/>
+        <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 está ahora mudo y sordo.</translation>
     </message>
@@ -5827,6 +5852,56 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>%1 ha dejado de grabar.</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>You revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave you priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>You revoked priority speaker status for %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You gave priority speaker status to %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked own priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked priority speaker status for %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave priority speaker status to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1 le dio voz y escucha.</translation>
@@ -5858,7 +5933,12 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Fue liberado por %1.</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+83"/>
+        <source>You moved %1 to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>%1 is recording</source>
         <translation>%1 está grabando</translation>
     </message>
@@ -5925,7 +6005,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>El servidor solicita que Presionar-para-Hablar (PTT) esté desactivado.</translation>
     </message>
     <message>
-        <location line="-502"/>
+        <location line="-504"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 le dio voz.</translation>
     </message>
@@ -5960,18 +6040,18 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>%2 dio voz a %1.</translation>
     </message>
     <message>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>No se pudieron encontrar codecs CELT adecuados para los otros clientes. No podrá hablar a todos los usuarios.</translation>
     </message>
     <message>
-        <location line="-471"/>
+        <location line="-473"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>Fue enmudecido y ensordecido por %1.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>Fue expulsado del servidor por %1: %2.</translation>
     </message>
@@ -5991,17 +6071,17 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>%3 fue expulsado y prohibido del servidor por %1: %2.</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
         <translation>Fue movido a %1 por %2.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+20"/>
         <source>%1 entered channel.</source>
         <translation>%1 ingresó en el canal.</translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-397"/>
         <source>Server connection rejected: %1.</source>
         <translation>Conexión con el servidor rechazada: %1.</translation>
     </message>
@@ -6011,7 +6091,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Denegado: %1.</translation>
     </message>
     <message>
-        <location line="+392"/>
+        <location line="+430"/>
         <source>Message from %1</source>
         <translation>Mensaje de %1</translation>
     </message>
@@ -8282,7 +8362,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+143"/>
+        <location line="+141"/>
         <source>Recorder</source>
         <translation>Grabadora</translation>
     </message>
@@ -8343,7 +8423,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation>&amp;Seleccionar...</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-212"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-210"/>
         <source>Valid variables are:</source>
         <translation>Las variables válidas son:</translation>
     </message>
@@ -8405,7 +8485,7 @@ Por favor, contacte con el administrador de su servidor para más información.<
         <translation>Parando</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+26"/>
         <source>Select target directory</source>
         <translation>Seleccione un directorio de destino</translation>
     </message>

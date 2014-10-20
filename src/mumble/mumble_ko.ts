@@ -823,7 +823,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Signal to Noise</translation>
     </message>
     <message>
         <location/>
@@ -848,17 +848,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Silence Below</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;소리를 감지하기 위한 기준치를 설정합니다.&lt;/b&gt;수동으로 조절하려면 음성 통계 창을 함께 이용하세요.&quot;Speech Above&quot;이하의 값은 항상 말하지 않은 상태로 간주 되어 &quot;Silence Below&quot;보다 위의 값은 발언으로 간주됩니다. 이 사이의 값은 이미 대화 중이면 발언으로 판단되지만, 새 발언이라고 판단하는 것은 안 됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Speech Above</translation>
     </message>
     <message>
         <location/>
@@ -1284,7 +1284,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>수신 음성의 볼륨</translation>
     </message>
     <message>
         <location/>
@@ -1299,7 +1299,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>버퍼 데이터량</translation>
     </message>
     <message>
         <location/>
@@ -1421,7 +1421,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>대화 중의 다른 애플리케이션의 음량 감소율</translation>
     </message>
     <message>
         <location/>
@@ -1910,7 +1910,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>버퍼 데이터량</translation>
     </message>
     <message>
         <location/>
@@ -2125,12 +2125,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>시각 장애인을 위해 하이 콘트라스트에 최적화합니다</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>하이 콘트라스트 그래픽을 사용</translation>
     </message>
     <message>
         <location/>
@@ -2448,7 +2448,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble 유저</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+412"/>
+        <location filename="main.cpp" line="+416"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;인증서의 유효 기간:&lt;/b&gt;당신의 인증서의 유효 기한이 곧 종료 됩니다. 인증서를 갱신할 필요가 있습니다. 갱신을 하지 않는다면 등록한 서버에 접속할 수 없게 될 것입니다.</translation>
     </message>
@@ -3351,6 +3351,31 @@ Password to be sent to the server on connect. This password is needed when conne
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Local server label</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>127.0.0.1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>64738</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your username</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Your password</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>CoreAudioSystem</name>
@@ -3698,7 +3723,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+346"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
         <source>Mouse %1</source>
         <translation type="unfinished"/>
     </message>
@@ -4388,12 +4413,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>시각 장애인을 위해 하이 콘트라스트에 대한 최적화를 실행 합니다</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"/>
+        <translation>하이 콘트라스트 최적화한다.</translation>
     </message>
     <message>
         <location/>
@@ -4435,12 +4460,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2326"/>
+        <location line="+2324"/>
         <source>Root</source>
         <translation>루트</translation>
     </message>
     <message>
-        <location line="-2272"/>
+        <location line="-2270"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>누르며 말하기</translation>
@@ -4519,12 +4544,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2396"/>
+        <location line="+2394"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2391"/>
+        <location line="-2389"/>
         <source>&amp;Window</source>
         <translation>&amp;Window</translation>
     </message>
@@ -4593,13 +4618,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2417"/>
+        <location line="+2410"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;연결되지 않았습니다.&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2117"/>
+        <location line="-2110"/>
         <source>Clear</source>
         <translation>청소</translation>
     </message>
@@ -4645,7 +4670,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+198"/>
+        <location line="+196"/>
         <source>Connecting to server %1.</source>
         <translation>%1 서버에 연결 중입니다.</translation>
     </message>
@@ -4723,7 +4748,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+137"/>
+        <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
         <translation>&lt;center&gt;채널&apos;%1&apos;에 대한 메시지를 여기에 입력하세요.&lt;/center&gt;</translation>
@@ -4758,12 +4783,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1781"/>
+        <location line="-1776"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-952"/>
+        <location line="-950"/>
         <source>&amp;User</source>
         <translation>유저(&amp;U)</translation>
     </message>
@@ -4803,7 +4828,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>취소</translation>
     </message>
     <message>
-        <location line="+579"/>
+        <location line="+577"/>
         <source>Change your comment</source>
         <translation type="unfinished"/>
     </message>
@@ -5046,7 +5071,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+226"/>
+        <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation type="unfinished"/>
     </message>
@@ -5618,7 +5643,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>로그 화면과 메뉴를 생략한 간소화 전환을 합니다.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+282"/>
+        <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
         <translation>%1을 발언 청취 금지 했습니다.</translation>
     </message>
@@ -5668,12 +5693,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1은 %3에 의해 %2로 이동 합니다.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
         <translation>%1은 %3에 의해 %2으로 부터 이동하게 되었습니다.</translation>
     </message>
     <message>
-        <location line="-162"/>
+        <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
         <translation>%1 발언 금지/청취 금지 상태가 되었습니다.</translation>
     </message>
@@ -5794,6 +5819,56 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1이 녹음을 정지했습니다.</translation>
     </message>
     <message>
+        <location line="+10"/>
+        <source>You revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked your priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave you priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>You revoked priority speaker status for %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>You gave priority speaker status to %1.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked own priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 assumed priority speaker status.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>%1 revoked priority speaker status for %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>%1 gave priority speaker status to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
         <translation>%1이 당신의 발언·청취를 금지했습니다.</translation>
@@ -5825,7 +5900,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>당신은%1에 따라 발언 금지가 해제 되었습니다.</translation>
     </message>
     <message>
-        <location line="+99"/>
+        <location line="+83"/>
+        <source>You moved %1 to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
         <source>%1 is recording</source>
         <translation>%1은 녹음하고 있습니다</translation>
     </message>
@@ -5892,7 +5972,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-502"/>
+        <location line="-504"/>
         <source>You were unmuted by %1.</source>
         <translation>%1가 당신의 발언 금지를 해제 하였습니다.</translation>
     </message>
@@ -5927,18 +6007,18 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1은 %2으로부터 발언 금지 해제 되었습니다.</translation>
     </message>
     <message>
-        <location line="+405"/>
+        <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>다른 클라이언트와 매치된 CELT코덱이 발견되지 않습니다. 당신은 모든 유저에게 말을 할수 없습니다.</translation>
     </message>
     <message>
-        <location line="-471"/>
+        <location line="-473"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1이 당신의 청취을 금지했습니다.</translation>
     </message>
     <message>
-        <location line="+169"/>
+        <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
         <translation>당신은%1에 의해 서버부터 강퇴 되었습니다.%2.</translation>
     </message>
@@ -5958,17 +6038,17 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%3은%1에 의해 강퇴되어 서버에서 제명 되었습니다.%2.</translation>
     </message>
     <message>
-        <location line="-72"/>
+        <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
         <translation>%2가 당신을 %1로 이동 시켰습니다.</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+20"/>
         <source>%1 entered channel.</source>
         <translation>%1 채널에 입장 했습니다.</translation>
     </message>
     <message>
-        <location line="-359"/>
+        <location line="-397"/>
         <source>Server connection rejected: %1.</source>
         <translation>서버 접속을 거부당했습니다:%1.</translation>
     </message>
@@ -5978,7 +6058,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>거부당했습니다:%1.</translation>
     </message>
     <message>
-        <location line="+392"/>
+        <location line="+430"/>
         <source>Message from %1</source>
         <translation>%1의 메시지</translation>
     </message>
@@ -8246,7 +8326,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <location line="+10"/>
         <location line="+9"/>
-        <location line="+143"/>
+        <location line="+141"/>
         <source>Recorder</source>
         <translation>녹음</translation>
     </message>
@@ -8307,7 +8387,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>참조(&amp;B)</translation>
     </message>
     <message>
-        <location filename="VoiceRecorderDialog.cpp" line="-212"/>
+        <location filename="VoiceRecorderDialog.cpp" line="-210"/>
         <source>Valid variables are:</source>
         <translation>유효한 변수는:</translation>
     </message>
@@ -8369,7 +8449,7 @@ Please contact your server administrator for further information.</source>
         <translation>중지</translation>
     </message>
     <message>
-        <location line="+28"/>
+        <location line="+26"/>
         <source>Select target directory</source>
         <translation>대상 디렉토리를 선택</translation>
     </message>
