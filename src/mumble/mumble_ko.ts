@@ -823,7 +823,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Signal to Noise</translation>
     </message>
     <message>
         <location/>
@@ -848,17 +848,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Silence Below</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;소리를 감지하기 위한 기준치를 설정합니다.&lt;/b&gt;수동으로 조절하려면 음성 통계 창을 함께 이용하세요.&quot;Speech Above&quot;이하의 값은 항상 말하지 않은 상태로 간주 되어 &quot;Silence Below&quot;보다 위의 값은 발언으로 간주됩니다. 이 사이의 값은 이미 대화 중이면 발언으로 판단되지만, 새 발언이라고 판단하는 것은 안 됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Speech Above</translation>
     </message>
     <message>
         <location/>
@@ -1284,7 +1284,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>수신 음성의 볼륨</translation>
     </message>
     <message>
         <location/>
@@ -1299,7 +1299,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>버퍼 데이터량</translation>
     </message>
     <message>
         <location/>
@@ -1421,7 +1421,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>대화 중의 다른 애플리케이션의 음량 감소율</translation>
     </message>
     <message>
         <location/>
@@ -1910,7 +1910,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>버퍼 데이터량</translation>
     </message>
     <message>
         <location/>
@@ -2125,12 +2125,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>시각 장애인을 위해 하이 콘트라스트에 최적화합니다</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>하이 콘트라스트 그래픽을 사용</translation>
     </message>
     <message>
         <location/>
@@ -4388,12 +4388,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>시각 장애인을 위해 하이 콘트라스트에 대한 최적화를 실행 합니다</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"/>
+        <translation>하이 콘트라스트 최적화한다.</translation>
     </message>
     <message>
         <location/>
