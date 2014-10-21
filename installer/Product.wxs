@@ -29,13 +29,7 @@
       VersionNT > 501 OR (VersionNT = 501 AND ServicePackLevel >= 2) OR (VersionNT = 502 AND ServicePackLevel >= 1)
     </Condition>
 
-    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallInitialize' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
-
-    <Upgrade Id="$(var.Old64BitProductUpgradeCode)">
-      <!-- 64 bit installers had a seperate upgrade code during the beta. As we do not actually want both versions
-           to be installed at the same time this allows detecting the old 64 bit version and upgrading from it -->
-      <UpgradeVersion Minimum="1.3.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="yes" OnlyDetect="no" Property="REMOVEOLD64BITPRODUCT" />
-    </Upgrade>
+    <MajorUpgrade AllowDowngrades='no' AllowSameVersionUpgrades='yes' MigrateFeatures='yes' Schedule='afterInstallExecute' DowngradeErrorMessage='A later version of [ProductName] is already installed.' />
 
     <Media Id="1" Cabinet="$(var.ProductName).cab" EmbedCab="yes" CompressionLevel="high" />
 
@@ -217,7 +211,7 @@
     <InstallExecuteSequence>
       <AppSearch Sequence='1' />
       <Custom Action="SetNSISPath" After="AppSearch">NSISINSTALL</Custom>
-      <Custom Action='NSISUninstall' After='RemoveExistingProducts'>NSISINSTALL AND NOT Installed</Custom>
+      <Custom Action='NSISUninstall' After='InstallInitialize'>NSISINSTALL AND NOT Installed</Custom>
     </InstallExecuteSequence>
   </Product>
 </Wix>
