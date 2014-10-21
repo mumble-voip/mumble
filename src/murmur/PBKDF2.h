@@ -58,8 +58,8 @@ class PBKDF2 {
 		/// @param iterationCount Number of PBKDF2 iterations to apply.
 		/// @return Hex encoded password hash of DERIVED_KEY_LENGTH octets.
 		///
-		static QString getHash(const QString& hexSalt,
-		                       const QString& password,
+		static QString getHash(const QString &hexSalt,
+		                       const QString &password,
 		                       int iterationCount);
 		
 		///

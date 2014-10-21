@@ -64,7 +64,7 @@ int PBKDF2::benchmark() {
 	return maxIterations;
 }
 
-QString PBKDF2::getHash(const QString& hexSalt, const QString& password, int iterationCount) {
+QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int iterationCount) {
 	QByteArray hash(DERIVED_KEY_LENGTH, 0);
 	
 	const QByteArray utf8Password = password.toUtf8();

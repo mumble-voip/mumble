@@ -934,7 +934,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						info.insert(ServerDB::User_Password, password);
 						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
 						
-						if(! setInfo(userId, info)) {
+						if (!setInfo(userId, info)) {
 							qWarning("ServerDB: Failed to upgrade user account to PBKDF2 hash, rejecting login.");
 							return -1;
 						}
@@ -945,12 +945,12 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 					name = query.value(1).toString();
 					res = query.value(0).toInt();
 					
-					if(Meta::mp.legacyPasswordHash) {
+					if (Meta::mp.legacyPasswordHash) {
 						// Downgrade the password to the legacy hash
 						QMap<int, QString> info;
 						info.insert(ServerDB::User_Password, password);
 
-						if(! setInfo(userId, info)) {
+						if (!setInfo(userId, info)) {
 							qWarning("ServerDB: Failed to downgrade user account to legacy hash, rejecting login.");
 							return -1;
 						}
@@ -960,7 +960,7 @@ int Server::authenticate(QString &name, const QString &password, int sessionId, 
 						info.insert(ServerDB::User_Password, password);
 						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
 
-						if(! setInfo(userId, info)) {
+						if (!setInfo(userId, info)) {
 							qWarning() << "ServerDB: Failed to update user PBKDF2 to new iteration count" << Meta::mp.kdfIterations << ", rejecting login.";
 							return -1;
 						}
@@ -1157,11 +1157,10 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	TransactionHolder th;
 	QString pwHash, saltHash;
 
-	if(! Meta::mp.legacyPasswordHash) {
+	if (!Meta::mp.legacyPasswordHash) {
 		saltHash = PBKDF2::getSalt();
 		pwHash = PBKDF2::getHash(saltHash, pw, Meta::mp.kdfIterations);
-	}
-	else {
+	} else {
 		pwHash = getLegacySHA1Hash(pw);
 	}
 
@@ -1188,7 +1187,7 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	SQLEXEC();
 }
 
-QString ServerDB::getLegacySHA1Hash(const QString& password) {
+QString ServerDB::getLegacySHA1Hash(const QString &password) {
 	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
 	return QString::fromLatin1(hash.toHex());
 }
