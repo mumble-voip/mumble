@@ -1,4 +1,4 @@
-.TH murmurd 1 "2008 Januar 07"
+.TH murmurd 1 "2014 February 20"
 .SH NAME
 murmurd \- VoIP server.
 .SH SYNOPSIS
@@ -9,19 +9,19 @@ Murmur is the server component of Mumble, a low\-latency, high quality VoIP
 application.
 .SH OPTIONS
 .TP
-.B \-h, \-\-help
+.B \-h, \-help, \-\-help
 Show a summary of the options.
 .TP
 .BI \-ini \ "inifile"
 Specify which inifile to use. Without this option, murmur will search for
 a murmur.ini file and will fall back to builtin defaults if one isn't found.
 .TP
-.BI \-fg
+.B \-fg
 Run in the foreground (do not fork).
 .br
 This is very useful for debugging.
 .TP
-.BI \-v
+.B \-v
 Verbose mode, slightly more information is logged.
 .TP
 .BI \-supw \ "password" \ [ "serverid" ]
@@ -30,10 +30,25 @@ a special account (similar to
 .RI root
 ) which bypasses all access controls. This command may be used while the
 server is running.
+.TP
+.BI \-readsupw \ [srv]
+Reads password for server srv from standard input.
+.TP
+.B \-limits
+Tests and shows how many file descriptors and threads can be created. The purpose of this option is to test how many clients Murmur can handle. Murmur will exit after this test.
+.TP
+.B \-wipessl
+Remove SSL certificates from database.
+.TP
+.B \-wipelogs
+Remove all log entries from database.
+.TP
+.B \-version, \-\-version
+Show version information.
 .SH SEE ALSO
 .BR mumble (1),
 .BR murmur\-wrapper (1).
 .br
 .SH AUTHOR
-mumble and murmurd was written by Thorvald Natvig
+mumble and murmurd were written by Thorvald Natvig
 <slicer@users.sourceforge.net>.
