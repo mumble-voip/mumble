@@ -593,10 +593,10 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					if (isUser)
 						return QString::fromLatin1("%1"
 						                           "<table>"
-						                           "<tr><td><img src=\"skin:talking_on.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_alt.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_whisper.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
-						                           "<tr><td><img src=\"skin:talking_off.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_on.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_alt.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_whisper.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "<tr><td><img src=\"skin:talking_off.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
 						                           "</table>").arg(tr("This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:"),
 						                                           tr("Talking to your channel."),
 						                                           tr("Shouting directly to your channel."),
@@ -606,9 +606,9 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					else
 						return QString::fromLatin1("%1"
 						                           "<table>"
-						                           "<tr><td><img src=\"skin:channel_active.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:channel_linked.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:channel.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "<tr><td><img src=\"skin:channel_active.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:channel_linked.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:channel.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
 						                           "</table>").arg(tr("This is a channel on the server. The icon indicates the state of the channel:"),
 						                                           tr("Your current channel."),
 						                                           tr("A channel that is linked with your channel. Linked channels can talk to each other."),
@@ -618,17 +618,17 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					if (isUser)
 						return QString::fromLatin1("%1"
 						                           "<table>"
-						                           "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" width=64 /></td><td valign=\"middle\">%2</td></tr>"
-						                           "<tr><td><img src=\"skin:authenticated.svg\" width=64 /></td><td valign=\"middle\">%3</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_self.svg\" width=64 /></td><td valign=\"middle\">%4</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_server.svg\" width=64 /></td><td valign=\"middle\">%5</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" width=64 /></td><td valign=\"middle\">%6</td></tr>"
-						                           "<tr><td><img src=\"skin:muted_local.svg\" width=64 /></td><td valign=\"middle\">%7</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_self.svg\" width=64 /></td><td valign=\"middle\">%8</td></tr>"
-						                           "<tr><td><img src=\"skin:deafened_server.svg\" width=64 /></td><td valign=\"middle\">%9</td></tr>"
-						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:status/text-missing.svg\" width=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:emblems/emblem-favorite.svg\" height=64 /></td><td valign=\"middle\">%2</td></tr>"
+						                           "<tr><td><img src=\"skin:authenticated.svg\" height=64 /></td><td valign=\"middle\">%3</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_self.svg\" height=64 /></td><td valign=\"middle\">%4</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_server.svg\" height=64 /></td><td valign=\"middle\">%5</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_suppressed.svg\" height=64 /></td><td valign=\"middle\">%6</td></tr>"
+						                           "<tr><td><img src=\"skin:muted_local.svg\" height=64 /></td><td valign=\"middle\">%7</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_self.svg\" height=64 /></td><td valign=\"middle\">%8</td></tr>"
+						                           "<tr><td><img src=\"skin:deafened_server.svg\" height=64 /></td><td valign=\"middle\">%9</td></tr>"
+						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:status/text-missing.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the user has on the server, if any:"),
 						                                           tr("On your friend list"),
 						                                           tr("Authenticated user"),
@@ -646,9 +646,9 @@ QVariant UserModel::otherRoles(const QModelIndex &idx, int role) const {
 					else
 						return QString::fromLatin1("%1"
 						                           "<table>"
-						                           "<tr><td><img src=\"skin:comment.svg\" width=64 /></td><td valign=\"middle\">%10</td></tr>"
-						                           "<tr><td><img src=\"skin:comment_seen.svg\" width=64 /></td><td valign=\"middle\">%11</td></tr>"
-						                           "<tr><td><img src=\"skin:filter.svg\" width=64 /></td><td valign=\"middle\">%12</td></tr>"
+						                           "<tr><td><img src=\"skin:comment.svg\" height=64 /></td><td valign=\"middle\">%10</td></tr>"
+						                           "<tr><td><img src=\"skin:comment_seen.svg\" height=64 /></td><td valign=\"middle\">%11</td></tr>"
+						                           "<tr><td><img src=\"skin:filter.svg\" height=64 /></td><td valign=\"middle\">%12</td></tr>"
 						                           "</table>").arg(tr("This shows the flags the channel has, if any:"),
 						                                           tr("Channel has a new comment set (click to show)"),
 						                                           tr("Channel has a comment set, which you've already seen. (click to show)"),
