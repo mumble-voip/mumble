@@ -34,7 +34,9 @@ gettersetter_template = """
 
 role_multigettersetter_template = """
 	QBrush get_%(role)s() {
-		qWarning("get_%(role)s called. This shouldn't happen. Cannot return meaningful value.");
+		if (%(comparators)s) {
+			return %(representative)s;
+		}
 		return QBrush();
 	}
 
@@ -43,7 +45,7 @@ role_multigettersetter_template = """
 	}
 """
 
-role_multisetter_template="""		setProperty("%(prop)s", brush);
+role_multisetter_template="""		m_%(prop)s = brush;
 """
 
 
@@ -56,6 +58,9 @@ paletteupdate_template ="""
 variable_template = """		boost::optional<QBrush> m_%(prop)s;
 """
 
+reset_template = """			m_%(prop)s = boost::none;
+"""
+
 def rolename(role):
     return role.lower()
 
@@ -65,33 +70,55 @@ def groupname(group):
 def propname(role, group):
     return rolename(role) + "_" + groupname(group)
 
+
+def add_role_property(variables, role):
+    """
+    Add a property that sets all color groups to the same QBrush using
+    the setters of the single group properties.
+    """
+    variables["properties"] += property_template % {"prop": rolename(role)}
+    # Build a comparator that checks whether all properties
+    # are equal and can be represented as one QBrush.
+    all_groups_equal = " && ".join(
+        ['property("%s") == property("%s")' % (propname(role, color_group[0]), propname(role, color_group[i])) for i in
+         range(1, len(color_group))])
+    role_representative = 'qvariant_cast<QBrush>(property("%s"))' % propname(role, color_group[0])
+    role_multisetters = "".join([role_multisetter_template % {"prop": propname(role, group)} for group in color_group])
+    variables["getterssetters"] += role_multigettersetter_template % {"role": rolename(role),
+                                                                      "comparators": all_groups_equal,
+                                                                      "representative": role_representative,
+                                                                      "setters": role_multisetters}
+
+def add_role_group_property(variables, role, group):
+    """
+    Add separate group properties.
+    """
+    vars = {"prop" : propname(role, group),
+            "group" : group,
+            "role" : role}
+
+    variables["properties"] += property_template % vars
+    variables["getterssetters"] += gettersetter_template % vars
+    variables["paletteupdates"] += paletteupdate_template % vars
+    variables["variables"] += variable_template % vars
+    variables["propertyresets"] += reset_template % vars
+
+
 if __name__ == "__main__":
     template = open(template_source, "r").read()
 
     variables = {"warning": "// Auto-generated from %s . Do not edit manually." % template_source,
                  "properties": "",
+                 "propertyresets": "",
                  "getterssetters": "",
                  "paletteupdates": "",
                  "variables": ""}
 
     for role in color_role:
-        # Add a property that sets all color groups to the same QBrush using
-        # the setters of the single group properties.
-        variables["properties"] += property_template % {"prop" : rolename(role)}
-        role_multisetters = "".join([role_multisetter_template % {"prop": propname(role, group)} for group in color_group])
-        variables["getterssetters"] += role_multigettersetter_template % {"role" : rolename(role),
-                                                                          "setters": role_multisetters}
+        add_role_property(variables, role)
 
-        # Add separate group properties
         for group in color_group:
-            vars = {"prop" : propname(role, group),
-                    "group" : group,
-                    "role" : role}
-
-            variables["properties"] += property_template % vars
-            variables["getterssetters"] += gettersetter_template % vars
-            variables["paletteupdates"] += paletteupdate_template % vars
-            variables["variables"] += variable_template % vars
+            add_role_group_property(variables, role, group)
 
 
     open(target, "w").write(template % variables)

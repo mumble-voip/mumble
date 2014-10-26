@@ -155,21 +155,24 @@ class ApplicationPalette : public QWidget
 		Q_PROPERTY(QBrush tooltiptext_inactive READ get_tooltiptext_inactive WRITE set_tooltiptext_inactive)
 
 	public:
-		explicit ApplicationPalette(QWidget *parent = 0) :
-		    QWidget(parent) {
+		explicit ApplicationPalette(QWidget *parent = 0)
+		  : QWidget(parent)
+		  , m_originalPalette(QApplication::palette()){
 			// Empty
 		}
 		
 
 	QBrush get_windowtext() {
-		qWarning("get_windowtext called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("windowtext_active") == property("windowtext_disabled") && property("windowtext_active") == property("windowtext_inactive")) {
+			return qvariant_cast<QBrush>(property("windowtext_active"));
+		}
 		return QBrush();
 	}
 
 	void set_windowtext(const QBrush& brush) {
-		setProperty("windowtext_active", brush);
-		setProperty("windowtext_disabled", brush);
-		setProperty("windowtext_inactive", brush);
+		m_windowtext_active = brush;
+		m_windowtext_disabled = brush;
+		m_windowtext_inactive = brush;
 
 	}
 
@@ -207,14 +210,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_button() {
-		qWarning("get_button called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("button_active") == property("button_disabled") && property("button_active") == property("button_inactive")) {
+			return qvariant_cast<QBrush>(property("button_active"));
+		}
 		return QBrush();
 	}
 
 	void set_button(const QBrush& brush) {
-		setProperty("button_active", brush);
-		setProperty("button_disabled", brush);
-		setProperty("button_inactive", brush);
+		m_button_active = brush;
+		m_button_disabled = brush;
+		m_button_inactive = brush;
 
 	}
 
@@ -252,14 +257,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_light() {
-		qWarning("get_light called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("light_active") == property("light_disabled") && property("light_active") == property("light_inactive")) {
+			return qvariant_cast<QBrush>(property("light_active"));
+		}
 		return QBrush();
 	}
 
 	void set_light(const QBrush& brush) {
-		setProperty("light_active", brush);
-		setProperty("light_disabled", brush);
-		setProperty("light_inactive", brush);
+		m_light_active = brush;
+		m_light_disabled = brush;
+		m_light_inactive = brush;
 
 	}
 
@@ -297,14 +304,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_midlight() {
-		qWarning("get_midlight called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("midlight_active") == property("midlight_disabled") && property("midlight_active") == property("midlight_inactive")) {
+			return qvariant_cast<QBrush>(property("midlight_active"));
+		}
 		return QBrush();
 	}
 
 	void set_midlight(const QBrush& brush) {
-		setProperty("midlight_active", brush);
-		setProperty("midlight_disabled", brush);
-		setProperty("midlight_inactive", brush);
+		m_midlight_active = brush;
+		m_midlight_disabled = brush;
+		m_midlight_inactive = brush;
 
 	}
 
@@ -342,14 +351,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_dark() {
-		qWarning("get_dark called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("dark_active") == property("dark_disabled") && property("dark_active") == property("dark_inactive")) {
+			return qvariant_cast<QBrush>(property("dark_active"));
+		}
 		return QBrush();
 	}
 
 	void set_dark(const QBrush& brush) {
-		setProperty("dark_active", brush);
-		setProperty("dark_disabled", brush);
-		setProperty("dark_inactive", brush);
+		m_dark_active = brush;
+		m_dark_disabled = brush;
+		m_dark_inactive = brush;
 
 	}
 
@@ -387,14 +398,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_mid() {
-		qWarning("get_mid called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("mid_active") == property("mid_disabled") && property("mid_active") == property("mid_inactive")) {
+			return qvariant_cast<QBrush>(property("mid_active"));
+		}
 		return QBrush();
 	}
 
 	void set_mid(const QBrush& brush) {
-		setProperty("mid_active", brush);
-		setProperty("mid_disabled", brush);
-		setProperty("mid_inactive", brush);
+		m_mid_active = brush;
+		m_mid_disabled = brush;
+		m_mid_inactive = brush;
 
 	}
 
@@ -432,14 +445,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_text() {
-		qWarning("get_text called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("text_active") == property("text_disabled") && property("text_active") == property("text_inactive")) {
+			return qvariant_cast<QBrush>(property("text_active"));
+		}
 		return QBrush();
 	}
 
 	void set_text(const QBrush& brush) {
-		setProperty("text_active", brush);
-		setProperty("text_disabled", brush);
-		setProperty("text_inactive", brush);
+		m_text_active = brush;
+		m_text_disabled = brush;
+		m_text_inactive = brush;
 
 	}
 
@@ -477,14 +492,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_brighttext() {
-		qWarning("get_brighttext called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("brighttext_active") == property("brighttext_disabled") && property("brighttext_active") == property("brighttext_inactive")) {
+			return qvariant_cast<QBrush>(property("brighttext_active"));
+		}
 		return QBrush();
 	}
 
 	void set_brighttext(const QBrush& brush) {
-		setProperty("brighttext_active", brush);
-		setProperty("brighttext_disabled", brush);
-		setProperty("brighttext_inactive", brush);
+		m_brighttext_active = brush;
+		m_brighttext_disabled = brush;
+		m_brighttext_inactive = brush;
 
 	}
 
@@ -522,14 +539,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_buttontext() {
-		qWarning("get_buttontext called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("buttontext_active") == property("buttontext_disabled") && property("buttontext_active") == property("buttontext_inactive")) {
+			return qvariant_cast<QBrush>(property("buttontext_active"));
+		}
 		return QBrush();
 	}
 
 	void set_buttontext(const QBrush& brush) {
-		setProperty("buttontext_active", brush);
-		setProperty("buttontext_disabled", brush);
-		setProperty("buttontext_inactive", brush);
+		m_buttontext_active = brush;
+		m_buttontext_disabled = brush;
+		m_buttontext_inactive = brush;
 
 	}
 
@@ -567,14 +586,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_base() {
-		qWarning("get_base called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("base_active") == property("base_disabled") && property("base_active") == property("base_inactive")) {
+			return qvariant_cast<QBrush>(property("base_active"));
+		}
 		return QBrush();
 	}
 
 	void set_base(const QBrush& brush) {
-		setProperty("base_active", brush);
-		setProperty("base_disabled", brush);
-		setProperty("base_inactive", brush);
+		m_base_active = brush;
+		m_base_disabled = brush;
+		m_base_inactive = brush;
 
 	}
 
@@ -612,14 +633,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_window() {
-		qWarning("get_window called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("window_active") == property("window_disabled") && property("window_active") == property("window_inactive")) {
+			return qvariant_cast<QBrush>(property("window_active"));
+		}
 		return QBrush();
 	}
 
 	void set_window(const QBrush& brush) {
-		setProperty("window_active", brush);
-		setProperty("window_disabled", brush);
-		setProperty("window_inactive", brush);
+		m_window_active = brush;
+		m_window_disabled = brush;
+		m_window_inactive = brush;
 
 	}
 
@@ -657,14 +680,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_shadow() {
-		qWarning("get_shadow called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("shadow_active") == property("shadow_disabled") && property("shadow_active") == property("shadow_inactive")) {
+			return qvariant_cast<QBrush>(property("shadow_active"));
+		}
 		return QBrush();
 	}
 
 	void set_shadow(const QBrush& brush) {
-		setProperty("shadow_active", brush);
-		setProperty("shadow_disabled", brush);
-		setProperty("shadow_inactive", brush);
+		m_shadow_active = brush;
+		m_shadow_disabled = brush;
+		m_shadow_inactive = brush;
 
 	}
 
@@ -702,14 +727,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_highlight() {
-		qWarning("get_highlight called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("highlight_active") == property("highlight_disabled") && property("highlight_active") == property("highlight_inactive")) {
+			return qvariant_cast<QBrush>(property("highlight_active"));
+		}
 		return QBrush();
 	}
 
 	void set_highlight(const QBrush& brush) {
-		setProperty("highlight_active", brush);
-		setProperty("highlight_disabled", brush);
-		setProperty("highlight_inactive", brush);
+		m_highlight_active = brush;
+		m_highlight_disabled = brush;
+		m_highlight_inactive = brush;
 
 	}
 
@@ -747,14 +774,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_highlightedtext() {
-		qWarning("get_highlightedtext called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("highlightedtext_active") == property("highlightedtext_disabled") && property("highlightedtext_active") == property("highlightedtext_inactive")) {
+			return qvariant_cast<QBrush>(property("highlightedtext_active"));
+		}
 		return QBrush();
 	}
 
 	void set_highlightedtext(const QBrush& brush) {
-		setProperty("highlightedtext_active", brush);
-		setProperty("highlightedtext_disabled", brush);
-		setProperty("highlightedtext_inactive", brush);
+		m_highlightedtext_active = brush;
+		m_highlightedtext_disabled = brush;
+		m_highlightedtext_inactive = brush;
 
 	}
 
@@ -792,14 +821,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_link() {
-		qWarning("get_link called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("link_active") == property("link_disabled") && property("link_active") == property("link_inactive")) {
+			return qvariant_cast<QBrush>(property("link_active"));
+		}
 		return QBrush();
 	}
 
 	void set_link(const QBrush& brush) {
-		setProperty("link_active", brush);
-		setProperty("link_disabled", brush);
-		setProperty("link_inactive", brush);
+		m_link_active = brush;
+		m_link_disabled = brush;
+		m_link_inactive = brush;
 
 	}
 
@@ -837,14 +868,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_linkvisited() {
-		qWarning("get_linkvisited called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("linkvisited_active") == property("linkvisited_disabled") && property("linkvisited_active") == property("linkvisited_inactive")) {
+			return qvariant_cast<QBrush>(property("linkvisited_active"));
+		}
 		return QBrush();
 	}
 
 	void set_linkvisited(const QBrush& brush) {
-		setProperty("linkvisited_active", brush);
-		setProperty("linkvisited_disabled", brush);
-		setProperty("linkvisited_inactive", brush);
+		m_linkvisited_active = brush;
+		m_linkvisited_disabled = brush;
+		m_linkvisited_inactive = brush;
 
 	}
 
@@ -882,14 +915,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_alternatebase() {
-		qWarning("get_alternatebase called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("alternatebase_active") == property("alternatebase_disabled") && property("alternatebase_active") == property("alternatebase_inactive")) {
+			return qvariant_cast<QBrush>(property("alternatebase_active"));
+		}
 		return QBrush();
 	}
 
 	void set_alternatebase(const QBrush& brush) {
-		setProperty("alternatebase_active", brush);
-		setProperty("alternatebase_disabled", brush);
-		setProperty("alternatebase_inactive", brush);
+		m_alternatebase_active = brush;
+		m_alternatebase_disabled = brush;
+		m_alternatebase_inactive = brush;
 
 	}
 
@@ -927,14 +962,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_tooltipbase() {
-		qWarning("get_tooltipbase called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("tooltipbase_active") == property("tooltipbase_disabled") && property("tooltipbase_active") == property("tooltipbase_inactive")) {
+			return qvariant_cast<QBrush>(property("tooltipbase_active"));
+		}
 		return QBrush();
 	}
 
 	void set_tooltipbase(const QBrush& brush) {
-		setProperty("tooltipbase_active", brush);
-		setProperty("tooltipbase_disabled", brush);
-		setProperty("tooltipbase_inactive", brush);
+		m_tooltipbase_active = brush;
+		m_tooltipbase_disabled = brush;
+		m_tooltipbase_inactive = brush;
 
 	}
 
@@ -972,14 +1009,16 @@ class ApplicationPalette : public QWidget
 		}
 
 	QBrush get_tooltiptext() {
-		qWarning("get_tooltiptext called. This shouldn't happen. Cannot return meaningful value.");
+		if (property("tooltiptext_active") == property("tooltiptext_disabled") && property("tooltiptext_active") == property("tooltiptext_inactive")) {
+			return qvariant_cast<QBrush>(property("tooltiptext_active"));
+		}
 		return QBrush();
 	}
 
 	void set_tooltiptext(const QBrush& brush) {
-		setProperty("tooltiptext_active", brush);
-		setProperty("tooltiptext_disabled", brush);
-		setProperty("tooltiptext_inactive", brush);
+		m_tooltiptext_active = brush;
+		m_tooltiptext_disabled = brush;
+		m_tooltiptext_inactive = brush;
 
 	}
 
@@ -1017,11 +1056,11 @@ class ApplicationPalette : public QWidget
 		}
 
 		
-	public slots:
+	private slots:
 		void updateApplicationPalette() {
 			qWarning() << "Updating application palette";
 			
-			QPalette palette = QApplication::palette();
+			QPalette palette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
 
 
 			if (m_windowtext_active) {
@@ -1254,8 +1293,70 @@ class ApplicationPalette : public QWidget
 
 
 			QApplication::setPalette(palette);
+			resetAllProperties();
 		}
 		
+		void resetAllProperties() {
+			m_windowtext_active = boost::none;
+			m_windowtext_disabled = boost::none;
+			m_windowtext_inactive = boost::none;
+			m_button_active = boost::none;
+			m_button_disabled = boost::none;
+			m_button_inactive = boost::none;
+			m_light_active = boost::none;
+			m_light_disabled = boost::none;
+			m_light_inactive = boost::none;
+			m_midlight_active = boost::none;
+			m_midlight_disabled = boost::none;
+			m_midlight_inactive = boost::none;
+			m_dark_active = boost::none;
+			m_dark_disabled = boost::none;
+			m_dark_inactive = boost::none;
+			m_mid_active = boost::none;
+			m_mid_disabled = boost::none;
+			m_mid_inactive = boost::none;
+			m_text_active = boost::none;
+			m_text_disabled = boost::none;
+			m_text_inactive = boost::none;
+			m_brighttext_active = boost::none;
+			m_brighttext_disabled = boost::none;
+			m_brighttext_inactive = boost::none;
+			m_buttontext_active = boost::none;
+			m_buttontext_disabled = boost::none;
+			m_buttontext_inactive = boost::none;
+			m_base_active = boost::none;
+			m_base_disabled = boost::none;
+			m_base_inactive = boost::none;
+			m_window_active = boost::none;
+			m_window_disabled = boost::none;
+			m_window_inactive = boost::none;
+			m_shadow_active = boost::none;
+			m_shadow_disabled = boost::none;
+			m_shadow_inactive = boost::none;
+			m_highlight_active = boost::none;
+			m_highlight_disabled = boost::none;
+			m_highlight_inactive = boost::none;
+			m_highlightedtext_active = boost::none;
+			m_highlightedtext_disabled = boost::none;
+			m_highlightedtext_inactive = boost::none;
+			m_link_active = boost::none;
+			m_link_disabled = boost::none;
+			m_link_inactive = boost::none;
+			m_linkvisited_active = boost::none;
+			m_linkvisited_disabled = boost::none;
+			m_linkvisited_inactive = boost::none;
+			m_alternatebase_active = boost::none;
+			m_alternatebase_disabled = boost::none;
+			m_alternatebase_inactive = boost::none;
+			m_tooltipbase_active = boost::none;
+			m_tooltipbase_disabled = boost::none;
+			m_tooltipbase_inactive = boost::none;
+			m_tooltiptext_active = boost::none;
+			m_tooltiptext_disabled = boost::none;
+			m_tooltiptext_inactive = boost::none;
+
+		}
+
 	protected:
 		bool event(QEvent *event) Q_DECL_OVERRIDE {
 			bool result = QWidget::event(event);
@@ -1269,6 +1370,8 @@ class ApplicationPalette : public QWidget
 			return result;
 		}
 	private:
+		const QPalette m_originalPalette;
+		
 		boost::optional<QBrush> m_windowtext_active;
 		boost::optional<QBrush> m_windowtext_disabled;
 		boost::optional<QBrush> m_windowtext_inactive;

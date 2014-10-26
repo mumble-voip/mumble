@@ -194,6 +194,8 @@ void LookConfig::accept() const {
 		file.open(QFile::ReadOnly);
 		QString sheet = QLatin1String(file.readAll());
 		if (! sheet.isEmpty() && (sheet != qApp->styleSheet())) {
+			QFileInfo fi(g.s.qsSkin);
+			QDir::addSearchPath(QLatin1String("skin"), fi.path());
 			qApp->setStyleSheet(sheet);
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
 		}

@@ -79,24 +79,30 @@ class ApplicationPalette : public QWidget
 		Q_OBJECT
 %(properties)s
 	public:
-		explicit ApplicationPalette(QWidget *parent = 0) :
-		    QWidget(parent) {
+		explicit ApplicationPalette(QWidget *parent = 0)
+		  : QWidget(parent)
+		  , m_originalPalette(QApplication::palette()){
 			// Empty
 		}
 		
 %(getterssetters)s
 		
-	public slots:
+	private slots:
 		void updateApplicationPalette() {
 			qWarning() << "Updating application palette";
 			
-			QPalette palette = QApplication::palette();
+			QPalette palette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
 
 %(paletteupdates)s
 
 			QApplication::setPalette(palette);
+			resetAllProperties();
 		}
 		
+		void resetAllProperties() {
+%(propertyresets)s
+		}
+
 	protected:
 		bool event(QEvent *event) Q_DECL_OVERRIDE {
 			bool result = QWidget::event(event);
@@ -110,6 +116,8 @@ class ApplicationPalette : public QWidget
 			return result;
 		}
 	private:
+		const QPalette m_originalPalette;
+		
 %(variables)s
 };
 
