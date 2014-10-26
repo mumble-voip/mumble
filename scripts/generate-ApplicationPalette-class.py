@@ -16,16 +16,6 @@ color_role = [ "WindowText", "Button", "Light", "Midlight", "Dark", "Mid",
               "AlternateBase",
               "ToolTipBase", "ToolTipText"]
 
-
-
-template = open(template_source, "r").read()
-
-variables = {"warning": "// Auto-generated from %s . Do not edit manually." % template_source,
-             "properties": "",
-             "getterssetters": "",
-             "paletteupdates": "",
-             "variables": ""}
-
 property_template = """		Q_PROPERTY(QBrush %(prop)s READ get_%(prop)s WRITE set_%(prop)s)
 """
 
@@ -42,6 +32,21 @@ gettersetter_template = """
 		}
 """
 
+role_multigettersetter_template = """
+	QBrush get_%(role)s() {
+		qWarning("get_%(role)s called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_%(role)s(const QBrush& brush) {
+%(setters)s
+	}
+"""
+
+role_multisetter_template="""		setProperty("%(prop)s", brush);
+"""
+
+
 paletteupdate_template ="""
 			if (m_%(prop)s) {
 				palette.setBrush(QPalette::%(group)s, QPalette::%(role)s, *m_%(prop)s);
@@ -51,18 +56,42 @@ paletteupdate_template ="""
 variable_template = """		boost::optional<QBrush> m_%(prop)s;
 """
 
+def rolename(role):
+    return role.lower()
 
-for group in color_group:
+def groupname(group):
+    return group.lower()
+
+def propname(role, group):
+    return rolename(role) + "_" + groupname(group)
+
+if __name__ == "__main__":
+    template = open(template_source, "r").read()
+
+    variables = {"warning": "// Auto-generated from %s . Do not edit manually." % template_source,
+                 "properties": "",
+                 "getterssetters": "",
+                 "paletteupdates": "",
+                 "variables": ""}
+
     for role in color_role:
+        # Add a property that sets all color groups to the same QBrush using
+        # the setters of the single group properties.
+        variables["properties"] += property_template % {"prop" : rolename(role)}
+        role_multisetters = "".join([role_multisetter_template % {"prop": propname(role, group)} for group in color_group])
+        variables["getterssetters"] += role_multigettersetter_template % {"role" : rolename(role),
+                                                                          "setters": role_multisetters}
 
-        vars = {"prop" : group.lower() + "_" + role.lower(),
-                "group" : group,
-                "role" : role}
+        # Add separate group properties
+        for group in color_group:
+            vars = {"prop" : propname(role, group),
+                    "group" : group,
+                    "role" : role}
 
-        variables["properties"] += property_template % vars
-        variables["getterssetters"] += gettersetter_template % vars
-        variables["paletteupdates"] += paletteupdate_template % vars
-        variables["variables"] += variable_template % vars
+            variables["properties"] += property_template % vars
+            variables["getterssetters"] += gettersetter_template % vars
+            variables["paletteupdates"] += paletteupdate_template % vars
+            variables["variables"] += variable_template % vars
 
 
-open(target, "w").write(template % variables)
+    open(target, "w").write(template % variables)

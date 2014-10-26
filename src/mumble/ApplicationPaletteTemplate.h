@@ -53,18 +53,21 @@
 /// palette brushes from the stylesheet.
 /// 
 /// Due to restrictions on allowed property names as well as a
-/// mandatory prefix the attributes are exposed as
-/// "qproperty-<group>_<role>".
+/// mandatory prefix the attributes are exposed as lower cased:
+/// "qproperty-<role>_<group>".
 /// 
 /// So a group of QPalette::Active and QPalette::Text role
 /// would be styled by:
 /// 
 /// ApplicationPalette {
-///     qproperty-active_text: #ff0000;
+///     qproperty-text_active: #ff0000; /* Set color for active group */
 /// }
 ///
 /// See http://qt-project.org/doc/qt-4.8/qpalette.html#ColorGroup-enum
 /// for the available groups and roles.
+///
+/// You can also use the shorthand "qproperty-<role>" to set all groups
+/// to the same brush.
 /// 
 /// The class will automatically pick up style changes on itself
 /// and update the application palette accordingly. To use the class

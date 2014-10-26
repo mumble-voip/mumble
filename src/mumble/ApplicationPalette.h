@@ -53,18 +53,21 @@
 /// palette brushes from the stylesheet.
 /// 
 /// Due to restrictions on allowed property names as well as a
-/// mandatory prefix the attributes are exposed as
-/// "qproperty-<group>_<role>".
+/// mandatory prefix the attributes are exposed as lower cased:
+/// "qproperty-<role>_<group>".
 /// 
 /// So a group of QPalette::Active and QPalette::Text role
 /// would be styled by:
 /// 
 /// ApplicationPalette {
-///     qproperty-active_text: #ff0000;
+///     qproperty-text_active: #ff0000; /* Set color for active group */
 /// }
 ///
 /// See http://qt-project.org/doc/qt-4.8/qpalette.html#ColorGroup-enum
 /// for the available groups and roles.
+///
+/// You can also use the shorthand "qproperty-<role>" to set all groups
+/// to the same brush.
 /// 
 /// The class will automatically pick up style changes on itself
 /// and update the application palette accordingly. To use the class
@@ -74,63 +77,82 @@
 class ApplicationPalette : public QWidget
 {
 		Q_OBJECT
-		Q_PROPERTY(QBrush active_windowtext READ get_active_windowtext WRITE set_active_windowtext)
-		Q_PROPERTY(QBrush active_button READ get_active_button WRITE set_active_button)
-		Q_PROPERTY(QBrush active_light READ get_active_light WRITE set_active_light)
-		Q_PROPERTY(QBrush active_midlight READ get_active_midlight WRITE set_active_midlight)
-		Q_PROPERTY(QBrush active_dark READ get_active_dark WRITE set_active_dark)
-		Q_PROPERTY(QBrush active_mid READ get_active_mid WRITE set_active_mid)
-		Q_PROPERTY(QBrush active_text READ get_active_text WRITE set_active_text)
-		Q_PROPERTY(QBrush active_brighttext READ get_active_brighttext WRITE set_active_brighttext)
-		Q_PROPERTY(QBrush active_buttontext READ get_active_buttontext WRITE set_active_buttontext)
-		Q_PROPERTY(QBrush active_base READ get_active_base WRITE set_active_base)
-		Q_PROPERTY(QBrush active_window READ get_active_window WRITE set_active_window)
-		Q_PROPERTY(QBrush active_shadow READ get_active_shadow WRITE set_active_shadow)
-		Q_PROPERTY(QBrush active_highlight READ get_active_highlight WRITE set_active_highlight)
-		Q_PROPERTY(QBrush active_highlightedtext READ get_active_highlightedtext WRITE set_active_highlightedtext)
-		Q_PROPERTY(QBrush active_link READ get_active_link WRITE set_active_link)
-		Q_PROPERTY(QBrush active_linkvisited READ get_active_linkvisited WRITE set_active_linkvisited)
-		Q_PROPERTY(QBrush active_alternatebase READ get_active_alternatebase WRITE set_active_alternatebase)
-		Q_PROPERTY(QBrush active_tooltipbase READ get_active_tooltipbase WRITE set_active_tooltipbase)
-		Q_PROPERTY(QBrush active_tooltiptext READ get_active_tooltiptext WRITE set_active_tooltiptext)
-		Q_PROPERTY(QBrush disabled_windowtext READ get_disabled_windowtext WRITE set_disabled_windowtext)
-		Q_PROPERTY(QBrush disabled_button READ get_disabled_button WRITE set_disabled_button)
-		Q_PROPERTY(QBrush disabled_light READ get_disabled_light WRITE set_disabled_light)
-		Q_PROPERTY(QBrush disabled_midlight READ get_disabled_midlight WRITE set_disabled_midlight)
-		Q_PROPERTY(QBrush disabled_dark READ get_disabled_dark WRITE set_disabled_dark)
-		Q_PROPERTY(QBrush disabled_mid READ get_disabled_mid WRITE set_disabled_mid)
-		Q_PROPERTY(QBrush disabled_text READ get_disabled_text WRITE set_disabled_text)
-		Q_PROPERTY(QBrush disabled_brighttext READ get_disabled_brighttext WRITE set_disabled_brighttext)
-		Q_PROPERTY(QBrush disabled_buttontext READ get_disabled_buttontext WRITE set_disabled_buttontext)
-		Q_PROPERTY(QBrush disabled_base READ get_disabled_base WRITE set_disabled_base)
-		Q_PROPERTY(QBrush disabled_window READ get_disabled_window WRITE set_disabled_window)
-		Q_PROPERTY(QBrush disabled_shadow READ get_disabled_shadow WRITE set_disabled_shadow)
-		Q_PROPERTY(QBrush disabled_highlight READ get_disabled_highlight WRITE set_disabled_highlight)
-		Q_PROPERTY(QBrush disabled_highlightedtext READ get_disabled_highlightedtext WRITE set_disabled_highlightedtext)
-		Q_PROPERTY(QBrush disabled_link READ get_disabled_link WRITE set_disabled_link)
-		Q_PROPERTY(QBrush disabled_linkvisited READ get_disabled_linkvisited WRITE set_disabled_linkvisited)
-		Q_PROPERTY(QBrush disabled_alternatebase READ get_disabled_alternatebase WRITE set_disabled_alternatebase)
-		Q_PROPERTY(QBrush disabled_tooltipbase READ get_disabled_tooltipbase WRITE set_disabled_tooltipbase)
-		Q_PROPERTY(QBrush disabled_tooltiptext READ get_disabled_tooltiptext WRITE set_disabled_tooltiptext)
-		Q_PROPERTY(QBrush inactive_windowtext READ get_inactive_windowtext WRITE set_inactive_windowtext)
-		Q_PROPERTY(QBrush inactive_button READ get_inactive_button WRITE set_inactive_button)
-		Q_PROPERTY(QBrush inactive_light READ get_inactive_light WRITE set_inactive_light)
-		Q_PROPERTY(QBrush inactive_midlight READ get_inactive_midlight WRITE set_inactive_midlight)
-		Q_PROPERTY(QBrush inactive_dark READ get_inactive_dark WRITE set_inactive_dark)
-		Q_PROPERTY(QBrush inactive_mid READ get_inactive_mid WRITE set_inactive_mid)
-		Q_PROPERTY(QBrush inactive_text READ get_inactive_text WRITE set_inactive_text)
-		Q_PROPERTY(QBrush inactive_brighttext READ get_inactive_brighttext WRITE set_inactive_brighttext)
-		Q_PROPERTY(QBrush inactive_buttontext READ get_inactive_buttontext WRITE set_inactive_buttontext)
-		Q_PROPERTY(QBrush inactive_base READ get_inactive_base WRITE set_inactive_base)
-		Q_PROPERTY(QBrush inactive_window READ get_inactive_window WRITE set_inactive_window)
-		Q_PROPERTY(QBrush inactive_shadow READ get_inactive_shadow WRITE set_inactive_shadow)
-		Q_PROPERTY(QBrush inactive_highlight READ get_inactive_highlight WRITE set_inactive_highlight)
-		Q_PROPERTY(QBrush inactive_highlightedtext READ get_inactive_highlightedtext WRITE set_inactive_highlightedtext)
-		Q_PROPERTY(QBrush inactive_link READ get_inactive_link WRITE set_inactive_link)
-		Q_PROPERTY(QBrush inactive_linkvisited READ get_inactive_linkvisited WRITE set_inactive_linkvisited)
-		Q_PROPERTY(QBrush inactive_alternatebase READ get_inactive_alternatebase WRITE set_inactive_alternatebase)
-		Q_PROPERTY(QBrush inactive_tooltipbase READ get_inactive_tooltipbase WRITE set_inactive_tooltipbase)
-		Q_PROPERTY(QBrush inactive_tooltiptext READ get_inactive_tooltiptext WRITE set_inactive_tooltiptext)
+		Q_PROPERTY(QBrush windowtext READ get_windowtext WRITE set_windowtext)
+		Q_PROPERTY(QBrush windowtext_active READ get_windowtext_active WRITE set_windowtext_active)
+		Q_PROPERTY(QBrush windowtext_disabled READ get_windowtext_disabled WRITE set_windowtext_disabled)
+		Q_PROPERTY(QBrush windowtext_inactive READ get_windowtext_inactive WRITE set_windowtext_inactive)
+		Q_PROPERTY(QBrush button READ get_button WRITE set_button)
+		Q_PROPERTY(QBrush button_active READ get_button_active WRITE set_button_active)
+		Q_PROPERTY(QBrush button_disabled READ get_button_disabled WRITE set_button_disabled)
+		Q_PROPERTY(QBrush button_inactive READ get_button_inactive WRITE set_button_inactive)
+		Q_PROPERTY(QBrush light READ get_light WRITE set_light)
+		Q_PROPERTY(QBrush light_active READ get_light_active WRITE set_light_active)
+		Q_PROPERTY(QBrush light_disabled READ get_light_disabled WRITE set_light_disabled)
+		Q_PROPERTY(QBrush light_inactive READ get_light_inactive WRITE set_light_inactive)
+		Q_PROPERTY(QBrush midlight READ get_midlight WRITE set_midlight)
+		Q_PROPERTY(QBrush midlight_active READ get_midlight_active WRITE set_midlight_active)
+		Q_PROPERTY(QBrush midlight_disabled READ get_midlight_disabled WRITE set_midlight_disabled)
+		Q_PROPERTY(QBrush midlight_inactive READ get_midlight_inactive WRITE set_midlight_inactive)
+		Q_PROPERTY(QBrush dark READ get_dark WRITE set_dark)
+		Q_PROPERTY(QBrush dark_active READ get_dark_active WRITE set_dark_active)
+		Q_PROPERTY(QBrush dark_disabled READ get_dark_disabled WRITE set_dark_disabled)
+		Q_PROPERTY(QBrush dark_inactive READ get_dark_inactive WRITE set_dark_inactive)
+		Q_PROPERTY(QBrush mid READ get_mid WRITE set_mid)
+		Q_PROPERTY(QBrush mid_active READ get_mid_active WRITE set_mid_active)
+		Q_PROPERTY(QBrush mid_disabled READ get_mid_disabled WRITE set_mid_disabled)
+		Q_PROPERTY(QBrush mid_inactive READ get_mid_inactive WRITE set_mid_inactive)
+		Q_PROPERTY(QBrush text READ get_text WRITE set_text)
+		Q_PROPERTY(QBrush text_active READ get_text_active WRITE set_text_active)
+		Q_PROPERTY(QBrush text_disabled READ get_text_disabled WRITE set_text_disabled)
+		Q_PROPERTY(QBrush text_inactive READ get_text_inactive WRITE set_text_inactive)
+		Q_PROPERTY(QBrush brighttext READ get_brighttext WRITE set_brighttext)
+		Q_PROPERTY(QBrush brighttext_active READ get_brighttext_active WRITE set_brighttext_active)
+		Q_PROPERTY(QBrush brighttext_disabled READ get_brighttext_disabled WRITE set_brighttext_disabled)
+		Q_PROPERTY(QBrush brighttext_inactive READ get_brighttext_inactive WRITE set_brighttext_inactive)
+		Q_PROPERTY(QBrush buttontext READ get_buttontext WRITE set_buttontext)
+		Q_PROPERTY(QBrush buttontext_active READ get_buttontext_active WRITE set_buttontext_active)
+		Q_PROPERTY(QBrush buttontext_disabled READ get_buttontext_disabled WRITE set_buttontext_disabled)
+		Q_PROPERTY(QBrush buttontext_inactive READ get_buttontext_inactive WRITE set_buttontext_inactive)
+		Q_PROPERTY(QBrush base READ get_base WRITE set_base)
+		Q_PROPERTY(QBrush base_active READ get_base_active WRITE set_base_active)
+		Q_PROPERTY(QBrush base_disabled READ get_base_disabled WRITE set_base_disabled)
+		Q_PROPERTY(QBrush base_inactive READ get_base_inactive WRITE set_base_inactive)
+		Q_PROPERTY(QBrush window READ get_window WRITE set_window)
+		Q_PROPERTY(QBrush window_active READ get_window_active WRITE set_window_active)
+		Q_PROPERTY(QBrush window_disabled READ get_window_disabled WRITE set_window_disabled)
+		Q_PROPERTY(QBrush window_inactive READ get_window_inactive WRITE set_window_inactive)
+		Q_PROPERTY(QBrush shadow READ get_shadow WRITE set_shadow)
+		Q_PROPERTY(QBrush shadow_active READ get_shadow_active WRITE set_shadow_active)
+		Q_PROPERTY(QBrush shadow_disabled READ get_shadow_disabled WRITE set_shadow_disabled)
+		Q_PROPERTY(QBrush shadow_inactive READ get_shadow_inactive WRITE set_shadow_inactive)
+		Q_PROPERTY(QBrush highlight READ get_highlight WRITE set_highlight)
+		Q_PROPERTY(QBrush highlight_active READ get_highlight_active WRITE set_highlight_active)
+		Q_PROPERTY(QBrush highlight_disabled READ get_highlight_disabled WRITE set_highlight_disabled)
+		Q_PROPERTY(QBrush highlight_inactive READ get_highlight_inactive WRITE set_highlight_inactive)
+		Q_PROPERTY(QBrush highlightedtext READ get_highlightedtext WRITE set_highlightedtext)
+		Q_PROPERTY(QBrush highlightedtext_active READ get_highlightedtext_active WRITE set_highlightedtext_active)
+		Q_PROPERTY(QBrush highlightedtext_disabled READ get_highlightedtext_disabled WRITE set_highlightedtext_disabled)
+		Q_PROPERTY(QBrush highlightedtext_inactive READ get_highlightedtext_inactive WRITE set_highlightedtext_inactive)
+		Q_PROPERTY(QBrush link READ get_link WRITE set_link)
+		Q_PROPERTY(QBrush link_active READ get_link_active WRITE set_link_active)
+		Q_PROPERTY(QBrush link_disabled READ get_link_disabled WRITE set_link_disabled)
+		Q_PROPERTY(QBrush link_inactive READ get_link_inactive WRITE set_link_inactive)
+		Q_PROPERTY(QBrush linkvisited READ get_linkvisited WRITE set_linkvisited)
+		Q_PROPERTY(QBrush linkvisited_active READ get_linkvisited_active WRITE set_linkvisited_active)
+		Q_PROPERTY(QBrush linkvisited_disabled READ get_linkvisited_disabled WRITE set_linkvisited_disabled)
+		Q_PROPERTY(QBrush linkvisited_inactive READ get_linkvisited_inactive WRITE set_linkvisited_inactive)
+		Q_PROPERTY(QBrush alternatebase READ get_alternatebase WRITE set_alternatebase)
+		Q_PROPERTY(QBrush alternatebase_active READ get_alternatebase_active WRITE set_alternatebase_active)
+		Q_PROPERTY(QBrush alternatebase_disabled READ get_alternatebase_disabled WRITE set_alternatebase_disabled)
+		Q_PROPERTY(QBrush alternatebase_inactive READ get_alternatebase_inactive WRITE set_alternatebase_inactive)
+		Q_PROPERTY(QBrush tooltipbase READ get_tooltipbase WRITE set_tooltipbase)
+		Q_PROPERTY(QBrush tooltipbase_active READ get_tooltipbase_active WRITE set_tooltipbase_active)
+		Q_PROPERTY(QBrush tooltipbase_disabled READ get_tooltipbase_disabled WRITE set_tooltipbase_disabled)
+		Q_PROPERTY(QBrush tooltipbase_inactive READ get_tooltipbase_inactive WRITE set_tooltipbase_inactive)
+		Q_PROPERTY(QBrush tooltiptext READ get_tooltiptext WRITE set_tooltiptext)
+		Q_PROPERTY(QBrush tooltiptext_active READ get_tooltiptext_active WRITE set_tooltiptext_active)
+		Q_PROPERTY(QBrush tooltiptext_disabled READ get_tooltiptext_disabled WRITE set_tooltiptext_disabled)
+		Q_PROPERTY(QBrush tooltiptext_inactive READ get_tooltiptext_inactive WRITE set_tooltiptext_inactive)
 
 	public:
 		explicit ApplicationPalette(QWidget *parent = 0) :
@@ -139,631 +161,859 @@ class ApplicationPalette : public QWidget
 		}
 		
 
-		QBrush get_active_windowtext() {
-			if (!m_active_windowtext)
+	QBrush get_windowtext() {
+		qWarning("get_windowtext called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_windowtext(const QBrush& brush) {
+		setProperty("windowtext_active", brush);
+		setProperty("windowtext_disabled", brush);
+		setProperty("windowtext_inactive", brush);
+
+	}
+
+		QBrush get_windowtext_active() {
+			if (!m_windowtext_active)
 				return QBrush();
 
-			return *m_active_windowtext;
+			return *m_windowtext_active;
 		}
 
-		void set_active_windowtext(const QBrush& brush) {
-			m_active_windowtext = brush;
+		void set_windowtext_active(const QBrush& brush) {
+			m_windowtext_active = brush;
 		}
 
-		QBrush get_active_button() {
-			if (!m_active_button)
+		QBrush get_windowtext_disabled() {
+			if (!m_windowtext_disabled)
 				return QBrush();
 
-			return *m_active_button;
+			return *m_windowtext_disabled;
 		}
 
-		void set_active_button(const QBrush& brush) {
-			m_active_button = brush;
+		void set_windowtext_disabled(const QBrush& brush) {
+			m_windowtext_disabled = brush;
 		}
 
-		QBrush get_active_light() {
-			if (!m_active_light)
+		QBrush get_windowtext_inactive() {
+			if (!m_windowtext_inactive)
 				return QBrush();
 
-			return *m_active_light;
+			return *m_windowtext_inactive;
 		}
 
-		void set_active_light(const QBrush& brush) {
-			m_active_light = brush;
+		void set_windowtext_inactive(const QBrush& brush) {
+			m_windowtext_inactive = brush;
 		}
 
-		QBrush get_active_midlight() {
-			if (!m_active_midlight)
+	QBrush get_button() {
+		qWarning("get_button called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_button(const QBrush& brush) {
+		setProperty("button_active", brush);
+		setProperty("button_disabled", brush);
+		setProperty("button_inactive", brush);
+
+	}
+
+		QBrush get_button_active() {
+			if (!m_button_active)
 				return QBrush();
 
-			return *m_active_midlight;
+			return *m_button_active;
 		}
 
-		void set_active_midlight(const QBrush& brush) {
-			m_active_midlight = brush;
+		void set_button_active(const QBrush& brush) {
+			m_button_active = brush;
 		}
 
-		QBrush get_active_dark() {
-			if (!m_active_dark)
+		QBrush get_button_disabled() {
+			if (!m_button_disabled)
 				return QBrush();
 
-			return *m_active_dark;
+			return *m_button_disabled;
 		}
 
-		void set_active_dark(const QBrush& brush) {
-			m_active_dark = brush;
+		void set_button_disabled(const QBrush& brush) {
+			m_button_disabled = brush;
 		}
 
-		QBrush get_active_mid() {
-			if (!m_active_mid)
+		QBrush get_button_inactive() {
+			if (!m_button_inactive)
 				return QBrush();
 
-			return *m_active_mid;
+			return *m_button_inactive;
 		}
 
-		void set_active_mid(const QBrush& brush) {
-			m_active_mid = brush;
+		void set_button_inactive(const QBrush& brush) {
+			m_button_inactive = brush;
 		}
 
-		QBrush get_active_text() {
-			if (!m_active_text)
+	QBrush get_light() {
+		qWarning("get_light called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_light(const QBrush& brush) {
+		setProperty("light_active", brush);
+		setProperty("light_disabled", brush);
+		setProperty("light_inactive", brush);
+
+	}
+
+		QBrush get_light_active() {
+			if (!m_light_active)
 				return QBrush();
 
-			return *m_active_text;
+			return *m_light_active;
 		}
 
-		void set_active_text(const QBrush& brush) {
-			m_active_text = brush;
+		void set_light_active(const QBrush& brush) {
+			m_light_active = brush;
 		}
 
-		QBrush get_active_brighttext() {
-			if (!m_active_brighttext)
+		QBrush get_light_disabled() {
+			if (!m_light_disabled)
 				return QBrush();
 
-			return *m_active_brighttext;
+			return *m_light_disabled;
 		}
 
-		void set_active_brighttext(const QBrush& brush) {
-			m_active_brighttext = brush;
+		void set_light_disabled(const QBrush& brush) {
+			m_light_disabled = brush;
 		}
 
-		QBrush get_active_buttontext() {
-			if (!m_active_buttontext)
+		QBrush get_light_inactive() {
+			if (!m_light_inactive)
 				return QBrush();
 
-			return *m_active_buttontext;
+			return *m_light_inactive;
 		}
 
-		void set_active_buttontext(const QBrush& brush) {
-			m_active_buttontext = brush;
+		void set_light_inactive(const QBrush& brush) {
+			m_light_inactive = brush;
 		}
 
-		QBrush get_active_base() {
-			if (!m_active_base)
+	QBrush get_midlight() {
+		qWarning("get_midlight called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_midlight(const QBrush& brush) {
+		setProperty("midlight_active", brush);
+		setProperty("midlight_disabled", brush);
+		setProperty("midlight_inactive", brush);
+
+	}
+
+		QBrush get_midlight_active() {
+			if (!m_midlight_active)
 				return QBrush();
 
-			return *m_active_base;
+			return *m_midlight_active;
 		}
 
-		void set_active_base(const QBrush& brush) {
-			m_active_base = brush;
+		void set_midlight_active(const QBrush& brush) {
+			m_midlight_active = brush;
 		}
 
-		QBrush get_active_window() {
-			if (!m_active_window)
+		QBrush get_midlight_disabled() {
+			if (!m_midlight_disabled)
 				return QBrush();
 
-			return *m_active_window;
+			return *m_midlight_disabled;
 		}
 
-		void set_active_window(const QBrush& brush) {
-			m_active_window = brush;
+		void set_midlight_disabled(const QBrush& brush) {
+			m_midlight_disabled = brush;
 		}
 
-		QBrush get_active_shadow() {
-			if (!m_active_shadow)
+		QBrush get_midlight_inactive() {
+			if (!m_midlight_inactive)
 				return QBrush();
 
-			return *m_active_shadow;
+			return *m_midlight_inactive;
 		}
 
-		void set_active_shadow(const QBrush& brush) {
-			m_active_shadow = brush;
+		void set_midlight_inactive(const QBrush& brush) {
+			m_midlight_inactive = brush;
 		}
 
-		QBrush get_active_highlight() {
-			if (!m_active_highlight)
+	QBrush get_dark() {
+		qWarning("get_dark called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_dark(const QBrush& brush) {
+		setProperty("dark_active", brush);
+		setProperty("dark_disabled", brush);
+		setProperty("dark_inactive", brush);
+
+	}
+
+		QBrush get_dark_active() {
+			if (!m_dark_active)
 				return QBrush();
 
-			return *m_active_highlight;
+			return *m_dark_active;
 		}
 
-		void set_active_highlight(const QBrush& brush) {
-			m_active_highlight = brush;
+		void set_dark_active(const QBrush& brush) {
+			m_dark_active = brush;
 		}
 
-		QBrush get_active_highlightedtext() {
-			if (!m_active_highlightedtext)
+		QBrush get_dark_disabled() {
+			if (!m_dark_disabled)
 				return QBrush();
 
-			return *m_active_highlightedtext;
+			return *m_dark_disabled;
 		}
 
-		void set_active_highlightedtext(const QBrush& brush) {
-			m_active_highlightedtext = brush;
+		void set_dark_disabled(const QBrush& brush) {
+			m_dark_disabled = brush;
 		}
 
-		QBrush get_active_link() {
-			if (!m_active_link)
+		QBrush get_dark_inactive() {
+			if (!m_dark_inactive)
 				return QBrush();
 
-			return *m_active_link;
+			return *m_dark_inactive;
 		}
 
-		void set_active_link(const QBrush& brush) {
-			m_active_link = brush;
+		void set_dark_inactive(const QBrush& brush) {
+			m_dark_inactive = brush;
 		}
 
-		QBrush get_active_linkvisited() {
-			if (!m_active_linkvisited)
+	QBrush get_mid() {
+		qWarning("get_mid called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_mid(const QBrush& brush) {
+		setProperty("mid_active", brush);
+		setProperty("mid_disabled", brush);
+		setProperty("mid_inactive", brush);
+
+	}
+
+		QBrush get_mid_active() {
+			if (!m_mid_active)
 				return QBrush();
 
-			return *m_active_linkvisited;
+			return *m_mid_active;
 		}
 
-		void set_active_linkvisited(const QBrush& brush) {
-			m_active_linkvisited = brush;
+		void set_mid_active(const QBrush& brush) {
+			m_mid_active = brush;
 		}
 
-		QBrush get_active_alternatebase() {
-			if (!m_active_alternatebase)
+		QBrush get_mid_disabled() {
+			if (!m_mid_disabled)
 				return QBrush();
 
-			return *m_active_alternatebase;
+			return *m_mid_disabled;
 		}
 
-		void set_active_alternatebase(const QBrush& brush) {
-			m_active_alternatebase = brush;
+		void set_mid_disabled(const QBrush& brush) {
+			m_mid_disabled = brush;
 		}
 
-		QBrush get_active_tooltipbase() {
-			if (!m_active_tooltipbase)
+		QBrush get_mid_inactive() {
+			if (!m_mid_inactive)
 				return QBrush();
 
-			return *m_active_tooltipbase;
+			return *m_mid_inactive;
 		}
 
-		void set_active_tooltipbase(const QBrush& brush) {
-			m_active_tooltipbase = brush;
+		void set_mid_inactive(const QBrush& brush) {
+			m_mid_inactive = brush;
 		}
 
-		QBrush get_active_tooltiptext() {
-			if (!m_active_tooltiptext)
+	QBrush get_text() {
+		qWarning("get_text called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_text(const QBrush& brush) {
+		setProperty("text_active", brush);
+		setProperty("text_disabled", brush);
+		setProperty("text_inactive", brush);
+
+	}
+
+		QBrush get_text_active() {
+			if (!m_text_active)
 				return QBrush();
 
-			return *m_active_tooltiptext;
+			return *m_text_active;
 		}
 
-		void set_active_tooltiptext(const QBrush& brush) {
-			m_active_tooltiptext = brush;
+		void set_text_active(const QBrush& brush) {
+			m_text_active = brush;
 		}
 
-		QBrush get_disabled_windowtext() {
-			if (!m_disabled_windowtext)
+		QBrush get_text_disabled() {
+			if (!m_text_disabled)
 				return QBrush();
 
-			return *m_disabled_windowtext;
+			return *m_text_disabled;
 		}
 
-		void set_disabled_windowtext(const QBrush& brush) {
-			m_disabled_windowtext = brush;
+		void set_text_disabled(const QBrush& brush) {
+			m_text_disabled = brush;
 		}
 
-		QBrush get_disabled_button() {
-			if (!m_disabled_button)
+		QBrush get_text_inactive() {
+			if (!m_text_inactive)
 				return QBrush();
 
-			return *m_disabled_button;
+			return *m_text_inactive;
 		}
 
-		void set_disabled_button(const QBrush& brush) {
-			m_disabled_button = brush;
+		void set_text_inactive(const QBrush& brush) {
+			m_text_inactive = brush;
 		}
 
-		QBrush get_disabled_light() {
-			if (!m_disabled_light)
+	QBrush get_brighttext() {
+		qWarning("get_brighttext called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_brighttext(const QBrush& brush) {
+		setProperty("brighttext_active", brush);
+		setProperty("brighttext_disabled", brush);
+		setProperty("brighttext_inactive", brush);
+
+	}
+
+		QBrush get_brighttext_active() {
+			if (!m_brighttext_active)
 				return QBrush();
 
-			return *m_disabled_light;
+			return *m_brighttext_active;
 		}
 
-		void set_disabled_light(const QBrush& brush) {
-			m_disabled_light = brush;
+		void set_brighttext_active(const QBrush& brush) {
+			m_brighttext_active = brush;
 		}
 
-		QBrush get_disabled_midlight() {
-			if (!m_disabled_midlight)
+		QBrush get_brighttext_disabled() {
+			if (!m_brighttext_disabled)
 				return QBrush();
 
-			return *m_disabled_midlight;
+			return *m_brighttext_disabled;
 		}
 
-		void set_disabled_midlight(const QBrush& brush) {
-			m_disabled_midlight = brush;
+		void set_brighttext_disabled(const QBrush& brush) {
+			m_brighttext_disabled = brush;
 		}
 
-		QBrush get_disabled_dark() {
-			if (!m_disabled_dark)
+		QBrush get_brighttext_inactive() {
+			if (!m_brighttext_inactive)
 				return QBrush();
 
-			return *m_disabled_dark;
+			return *m_brighttext_inactive;
 		}
 
-		void set_disabled_dark(const QBrush& brush) {
-			m_disabled_dark = brush;
+		void set_brighttext_inactive(const QBrush& brush) {
+			m_brighttext_inactive = brush;
 		}
 
-		QBrush get_disabled_mid() {
-			if (!m_disabled_mid)
+	QBrush get_buttontext() {
+		qWarning("get_buttontext called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_buttontext(const QBrush& brush) {
+		setProperty("buttontext_active", brush);
+		setProperty("buttontext_disabled", brush);
+		setProperty("buttontext_inactive", brush);
+
+	}
+
+		QBrush get_buttontext_active() {
+			if (!m_buttontext_active)
 				return QBrush();
 
-			return *m_disabled_mid;
+			return *m_buttontext_active;
 		}
 
-		void set_disabled_mid(const QBrush& brush) {
-			m_disabled_mid = brush;
+		void set_buttontext_active(const QBrush& brush) {
+			m_buttontext_active = brush;
 		}
 
-		QBrush get_disabled_text() {
-			if (!m_disabled_text)
+		QBrush get_buttontext_disabled() {
+			if (!m_buttontext_disabled)
 				return QBrush();
 
-			return *m_disabled_text;
+			return *m_buttontext_disabled;
 		}
 
-		void set_disabled_text(const QBrush& brush) {
-			m_disabled_text = brush;
+		void set_buttontext_disabled(const QBrush& brush) {
+			m_buttontext_disabled = brush;
 		}
 
-		QBrush get_disabled_brighttext() {
-			if (!m_disabled_brighttext)
+		QBrush get_buttontext_inactive() {
+			if (!m_buttontext_inactive)
 				return QBrush();
 
-			return *m_disabled_brighttext;
+			return *m_buttontext_inactive;
 		}
 
-		void set_disabled_brighttext(const QBrush& brush) {
-			m_disabled_brighttext = brush;
+		void set_buttontext_inactive(const QBrush& brush) {
+			m_buttontext_inactive = brush;
 		}
 
-		QBrush get_disabled_buttontext() {
-			if (!m_disabled_buttontext)
+	QBrush get_base() {
+		qWarning("get_base called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_base(const QBrush& brush) {
+		setProperty("base_active", brush);
+		setProperty("base_disabled", brush);
+		setProperty("base_inactive", brush);
+
+	}
+
+		QBrush get_base_active() {
+			if (!m_base_active)
 				return QBrush();
 
-			return *m_disabled_buttontext;
+			return *m_base_active;
 		}
 
-		void set_disabled_buttontext(const QBrush& brush) {
-			m_disabled_buttontext = brush;
+		void set_base_active(const QBrush& brush) {
+			m_base_active = brush;
 		}
 
-		QBrush get_disabled_base() {
-			if (!m_disabled_base)
+		QBrush get_base_disabled() {
+			if (!m_base_disabled)
 				return QBrush();
 
-			return *m_disabled_base;
+			return *m_base_disabled;
 		}
 
-		void set_disabled_base(const QBrush& brush) {
-			m_disabled_base = brush;
+		void set_base_disabled(const QBrush& brush) {
+			m_base_disabled = brush;
 		}
 
-		QBrush get_disabled_window() {
-			if (!m_disabled_window)
+		QBrush get_base_inactive() {
+			if (!m_base_inactive)
 				return QBrush();
 
-			return *m_disabled_window;
+			return *m_base_inactive;
 		}
 
-		void set_disabled_window(const QBrush& brush) {
-			m_disabled_window = brush;
+		void set_base_inactive(const QBrush& brush) {
+			m_base_inactive = brush;
 		}
 
-		QBrush get_disabled_shadow() {
-			if (!m_disabled_shadow)
+	QBrush get_window() {
+		qWarning("get_window called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_window(const QBrush& brush) {
+		setProperty("window_active", brush);
+		setProperty("window_disabled", brush);
+		setProperty("window_inactive", brush);
+
+	}
+
+		QBrush get_window_active() {
+			if (!m_window_active)
 				return QBrush();
 
-			return *m_disabled_shadow;
+			return *m_window_active;
 		}
 
-		void set_disabled_shadow(const QBrush& brush) {
-			m_disabled_shadow = brush;
+		void set_window_active(const QBrush& brush) {
+			m_window_active = brush;
 		}
 
-		QBrush get_disabled_highlight() {
-			if (!m_disabled_highlight)
+		QBrush get_window_disabled() {
+			if (!m_window_disabled)
 				return QBrush();
 
-			return *m_disabled_highlight;
+			return *m_window_disabled;
 		}
 
-		void set_disabled_highlight(const QBrush& brush) {
-			m_disabled_highlight = brush;
+		void set_window_disabled(const QBrush& brush) {
+			m_window_disabled = brush;
 		}
 
-		QBrush get_disabled_highlightedtext() {
-			if (!m_disabled_highlightedtext)
+		QBrush get_window_inactive() {
+			if (!m_window_inactive)
 				return QBrush();
 
-			return *m_disabled_highlightedtext;
+			return *m_window_inactive;
 		}
 
-		void set_disabled_highlightedtext(const QBrush& brush) {
-			m_disabled_highlightedtext = brush;
+		void set_window_inactive(const QBrush& brush) {
+			m_window_inactive = brush;
 		}
 
-		QBrush get_disabled_link() {
-			if (!m_disabled_link)
+	QBrush get_shadow() {
+		qWarning("get_shadow called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_shadow(const QBrush& brush) {
+		setProperty("shadow_active", brush);
+		setProperty("shadow_disabled", brush);
+		setProperty("shadow_inactive", brush);
+
+	}
+
+		QBrush get_shadow_active() {
+			if (!m_shadow_active)
 				return QBrush();
 
-			return *m_disabled_link;
+			return *m_shadow_active;
 		}
 
-		void set_disabled_link(const QBrush& brush) {
-			m_disabled_link = brush;
+		void set_shadow_active(const QBrush& brush) {
+			m_shadow_active = brush;
 		}
 
-		QBrush get_disabled_linkvisited() {
-			if (!m_disabled_linkvisited)
+		QBrush get_shadow_disabled() {
+			if (!m_shadow_disabled)
 				return QBrush();
 
-			return *m_disabled_linkvisited;
+			return *m_shadow_disabled;
 		}
 
-		void set_disabled_linkvisited(const QBrush& brush) {
-			m_disabled_linkvisited = brush;
+		void set_shadow_disabled(const QBrush& brush) {
+			m_shadow_disabled = brush;
 		}
 
-		QBrush get_disabled_alternatebase() {
-			if (!m_disabled_alternatebase)
+		QBrush get_shadow_inactive() {
+			if (!m_shadow_inactive)
 				return QBrush();
 
-			return *m_disabled_alternatebase;
+			return *m_shadow_inactive;
 		}
 
-		void set_disabled_alternatebase(const QBrush& brush) {
-			m_disabled_alternatebase = brush;
+		void set_shadow_inactive(const QBrush& brush) {
+			m_shadow_inactive = brush;
 		}
 
-		QBrush get_disabled_tooltipbase() {
-			if (!m_disabled_tooltipbase)
+	QBrush get_highlight() {
+		qWarning("get_highlight called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_highlight(const QBrush& brush) {
+		setProperty("highlight_active", brush);
+		setProperty("highlight_disabled", brush);
+		setProperty("highlight_inactive", brush);
+
+	}
+
+		QBrush get_highlight_active() {
+			if (!m_highlight_active)
 				return QBrush();
 
-			return *m_disabled_tooltipbase;
+			return *m_highlight_active;
 		}
 
-		void set_disabled_tooltipbase(const QBrush& brush) {
-			m_disabled_tooltipbase = brush;
+		void set_highlight_active(const QBrush& brush) {
+			m_highlight_active = brush;
 		}
 
-		QBrush get_disabled_tooltiptext() {
-			if (!m_disabled_tooltiptext)
+		QBrush get_highlight_disabled() {
+			if (!m_highlight_disabled)
 				return QBrush();
 
-			return *m_disabled_tooltiptext;
+			return *m_highlight_disabled;
 		}
 
-		void set_disabled_tooltiptext(const QBrush& brush) {
-			m_disabled_tooltiptext = brush;
+		void set_highlight_disabled(const QBrush& brush) {
+			m_highlight_disabled = brush;
 		}
 
-		QBrush get_inactive_windowtext() {
-			if (!m_inactive_windowtext)
+		QBrush get_highlight_inactive() {
+			if (!m_highlight_inactive)
 				return QBrush();
 
-			return *m_inactive_windowtext;
+			return *m_highlight_inactive;
 		}
 
-		void set_inactive_windowtext(const QBrush& brush) {
-			m_inactive_windowtext = brush;
+		void set_highlight_inactive(const QBrush& brush) {
+			m_highlight_inactive = brush;
 		}
 
-		QBrush get_inactive_button() {
-			if (!m_inactive_button)
+	QBrush get_highlightedtext() {
+		qWarning("get_highlightedtext called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_highlightedtext(const QBrush& brush) {
+		setProperty("highlightedtext_active", brush);
+		setProperty("highlightedtext_disabled", brush);
+		setProperty("highlightedtext_inactive", brush);
+
+	}
+
+		QBrush get_highlightedtext_active() {
+			if (!m_highlightedtext_active)
 				return QBrush();
 
-			return *m_inactive_button;
+			return *m_highlightedtext_active;
 		}
 
-		void set_inactive_button(const QBrush& brush) {
-			m_inactive_button = brush;
+		void set_highlightedtext_active(const QBrush& brush) {
+			m_highlightedtext_active = brush;
 		}
 
-		QBrush get_inactive_light() {
-			if (!m_inactive_light)
+		QBrush get_highlightedtext_disabled() {
+			if (!m_highlightedtext_disabled)
 				return QBrush();
 
-			return *m_inactive_light;
+			return *m_highlightedtext_disabled;
 		}
 
-		void set_inactive_light(const QBrush& brush) {
-			m_inactive_light = brush;
+		void set_highlightedtext_disabled(const QBrush& brush) {
+			m_highlightedtext_disabled = brush;
 		}
 
-		QBrush get_inactive_midlight() {
-			if (!m_inactive_midlight)
+		QBrush get_highlightedtext_inactive() {
+			if (!m_highlightedtext_inactive)
 				return QBrush();
 
-			return *m_inactive_midlight;
+			return *m_highlightedtext_inactive;
 		}
 
-		void set_inactive_midlight(const QBrush& brush) {
-			m_inactive_midlight = brush;
+		void set_highlightedtext_inactive(const QBrush& brush) {
+			m_highlightedtext_inactive = brush;
 		}
 
-		QBrush get_inactive_dark() {
-			if (!m_inactive_dark)
+	QBrush get_link() {
+		qWarning("get_link called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_link(const QBrush& brush) {
+		setProperty("link_active", brush);
+		setProperty("link_disabled", brush);
+		setProperty("link_inactive", brush);
+
+	}
+
+		QBrush get_link_active() {
+			if (!m_link_active)
 				return QBrush();
 
-			return *m_inactive_dark;
+			return *m_link_active;
 		}
 
-		void set_inactive_dark(const QBrush& brush) {
-			m_inactive_dark = brush;
+		void set_link_active(const QBrush& brush) {
+			m_link_active = brush;
 		}
 
-		QBrush get_inactive_mid() {
-			if (!m_inactive_mid)
+		QBrush get_link_disabled() {
+			if (!m_link_disabled)
 				return QBrush();
 
-			return *m_inactive_mid;
+			return *m_link_disabled;
 		}
 
-		void set_inactive_mid(const QBrush& brush) {
-			m_inactive_mid = brush;
+		void set_link_disabled(const QBrush& brush) {
+			m_link_disabled = brush;
 		}
 
-		QBrush get_inactive_text() {
-			if (!m_inactive_text)
+		QBrush get_link_inactive() {
+			if (!m_link_inactive)
 				return QBrush();
 
-			return *m_inactive_text;
+			return *m_link_inactive;
 		}
 
-		void set_inactive_text(const QBrush& brush) {
-			m_inactive_text = brush;
+		void set_link_inactive(const QBrush& brush) {
+			m_link_inactive = brush;
 		}
 
-		QBrush get_inactive_brighttext() {
-			if (!m_inactive_brighttext)
+	QBrush get_linkvisited() {
+		qWarning("get_linkvisited called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_linkvisited(const QBrush& brush) {
+		setProperty("linkvisited_active", brush);
+		setProperty("linkvisited_disabled", brush);
+		setProperty("linkvisited_inactive", brush);
+
+	}
+
+		QBrush get_linkvisited_active() {
+			if (!m_linkvisited_active)
 				return QBrush();
 
-			return *m_inactive_brighttext;
+			return *m_linkvisited_active;
 		}
 
-		void set_inactive_brighttext(const QBrush& brush) {
-			m_inactive_brighttext = brush;
+		void set_linkvisited_active(const QBrush& brush) {
+			m_linkvisited_active = brush;
 		}
 
-		QBrush get_inactive_buttontext() {
-			if (!m_inactive_buttontext)
+		QBrush get_linkvisited_disabled() {
+			if (!m_linkvisited_disabled)
 				return QBrush();
 
-			return *m_inactive_buttontext;
+			return *m_linkvisited_disabled;
 		}
 
-		void set_inactive_buttontext(const QBrush& brush) {
-			m_inactive_buttontext = brush;
+		void set_linkvisited_disabled(const QBrush& brush) {
+			m_linkvisited_disabled = brush;
 		}
 
-		QBrush get_inactive_base() {
-			if (!m_inactive_base)
+		QBrush get_linkvisited_inactive() {
+			if (!m_linkvisited_inactive)
 				return QBrush();
 
-			return *m_inactive_base;
+			return *m_linkvisited_inactive;
 		}
 
-		void set_inactive_base(const QBrush& brush) {
-			m_inactive_base = brush;
+		void set_linkvisited_inactive(const QBrush& brush) {
+			m_linkvisited_inactive = brush;
 		}
 
-		QBrush get_inactive_window() {
-			if (!m_inactive_window)
+	QBrush get_alternatebase() {
+		qWarning("get_alternatebase called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_alternatebase(const QBrush& brush) {
+		setProperty("alternatebase_active", brush);
+		setProperty("alternatebase_disabled", brush);
+		setProperty("alternatebase_inactive", brush);
+
+	}
+
+		QBrush get_alternatebase_active() {
+			if (!m_alternatebase_active)
 				return QBrush();
 
-			return *m_inactive_window;
+			return *m_alternatebase_active;
 		}
 
-		void set_inactive_window(const QBrush& brush) {
-			m_inactive_window = brush;
+		void set_alternatebase_active(const QBrush& brush) {
+			m_alternatebase_active = brush;
 		}
 
-		QBrush get_inactive_shadow() {
-			if (!m_inactive_shadow)
+		QBrush get_alternatebase_disabled() {
+			if (!m_alternatebase_disabled)
 				return QBrush();
 
-			return *m_inactive_shadow;
+			return *m_alternatebase_disabled;
 		}
 
-		void set_inactive_shadow(const QBrush& brush) {
-			m_inactive_shadow = brush;
+		void set_alternatebase_disabled(const QBrush& brush) {
+			m_alternatebase_disabled = brush;
 		}
 
-		QBrush get_inactive_highlight() {
-			if (!m_inactive_highlight)
+		QBrush get_alternatebase_inactive() {
+			if (!m_alternatebase_inactive)
 				return QBrush();
 
-			return *m_inactive_highlight;
+			return *m_alternatebase_inactive;
 		}
 
-		void set_inactive_highlight(const QBrush& brush) {
-			m_inactive_highlight = brush;
+		void set_alternatebase_inactive(const QBrush& brush) {
+			m_alternatebase_inactive = brush;
 		}
 
-		QBrush get_inactive_highlightedtext() {
-			if (!m_inactive_highlightedtext)
+	QBrush get_tooltipbase() {
+		qWarning("get_tooltipbase called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_tooltipbase(const QBrush& brush) {
+		setProperty("tooltipbase_active", brush);
+		setProperty("tooltipbase_disabled", brush);
+		setProperty("tooltipbase_inactive", brush);
+
+	}
+
+		QBrush get_tooltipbase_active() {
+			if (!m_tooltipbase_active)
 				return QBrush();
 
-			return *m_inactive_highlightedtext;
+			return *m_tooltipbase_active;
 		}
 
-		void set_inactive_highlightedtext(const QBrush& brush) {
-			m_inactive_highlightedtext = brush;
+		void set_tooltipbase_active(const QBrush& brush) {
+			m_tooltipbase_active = brush;
 		}
 
-		QBrush get_inactive_link() {
-			if (!m_inactive_link)
+		QBrush get_tooltipbase_disabled() {
+			if (!m_tooltipbase_disabled)
 				return QBrush();
 
-			return *m_inactive_link;
+			return *m_tooltipbase_disabled;
 		}
 
-		void set_inactive_link(const QBrush& brush) {
-			m_inactive_link = brush;
+		void set_tooltipbase_disabled(const QBrush& brush) {
+			m_tooltipbase_disabled = brush;
 		}
 
-		QBrush get_inactive_linkvisited() {
-			if (!m_inactive_linkvisited)
+		QBrush get_tooltipbase_inactive() {
+			if (!m_tooltipbase_inactive)
 				return QBrush();
 
-			return *m_inactive_linkvisited;
+			return *m_tooltipbase_inactive;
 		}
 
-		void set_inactive_linkvisited(const QBrush& brush) {
-			m_inactive_linkvisited = brush;
+		void set_tooltipbase_inactive(const QBrush& brush) {
+			m_tooltipbase_inactive = brush;
 		}
 
-		QBrush get_inactive_alternatebase() {
-			if (!m_inactive_alternatebase)
+	QBrush get_tooltiptext() {
+		qWarning("get_tooltiptext called. This shouldn't happen. Cannot return meaningful value.");
+		return QBrush();
+	}
+
+	void set_tooltiptext(const QBrush& brush) {
+		setProperty("tooltiptext_active", brush);
+		setProperty("tooltiptext_disabled", brush);
+		setProperty("tooltiptext_inactive", brush);
+
+	}
+
+		QBrush get_tooltiptext_active() {
+			if (!m_tooltiptext_active)
 				return QBrush();
 
-			return *m_inactive_alternatebase;
+			return *m_tooltiptext_active;
 		}
 
-		void set_inactive_alternatebase(const QBrush& brush) {
-			m_inactive_alternatebase = brush;
+		void set_tooltiptext_active(const QBrush& brush) {
+			m_tooltiptext_active = brush;
 		}
 
-		QBrush get_inactive_tooltipbase() {
-			if (!m_inactive_tooltipbase)
+		QBrush get_tooltiptext_disabled() {
+			if (!m_tooltiptext_disabled)
 				return QBrush();
 
-			return *m_inactive_tooltipbase;
+			return *m_tooltiptext_disabled;
 		}
 
-		void set_inactive_tooltipbase(const QBrush& brush) {
-			m_inactive_tooltipbase = brush;
+		void set_tooltiptext_disabled(const QBrush& brush) {
+			m_tooltiptext_disabled = brush;
 		}
 
-		QBrush get_inactive_tooltiptext() {
-			if (!m_inactive_tooltiptext)
+		QBrush get_tooltiptext_inactive() {
+			if (!m_tooltiptext_inactive)
 				return QBrush();
 
-			return *m_inactive_tooltiptext;
+			return *m_tooltiptext_inactive;
 		}
 
-		void set_inactive_tooltiptext(const QBrush& brush) {
-			m_inactive_tooltiptext = brush;
+		void set_tooltiptext_inactive(const QBrush& brush) {
+			m_tooltiptext_inactive = brush;
 		}
 
 		
@@ -774,232 +1024,232 @@ class ApplicationPalette : public QWidget
 			QPalette palette = QApplication::palette();
 
 
-			if (m_active_windowtext) {
-				palette.setBrush(QPalette::Active, QPalette::WindowText, *m_active_windowtext);
+			if (m_windowtext_active) {
+				palette.setBrush(QPalette::Active, QPalette::WindowText, *m_windowtext_active);
 			}
 
-			if (m_active_button) {
-				palette.setBrush(QPalette::Active, QPalette::Button, *m_active_button);
+			if (m_windowtext_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::WindowText, *m_windowtext_disabled);
 			}
 
-			if (m_active_light) {
-				palette.setBrush(QPalette::Active, QPalette::Light, *m_active_light);
+			if (m_windowtext_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::WindowText, *m_windowtext_inactive);
 			}
 
-			if (m_active_midlight) {
-				palette.setBrush(QPalette::Active, QPalette::Midlight, *m_active_midlight);
+			if (m_button_active) {
+				palette.setBrush(QPalette::Active, QPalette::Button, *m_button_active);
 			}
 
-			if (m_active_dark) {
-				palette.setBrush(QPalette::Active, QPalette::Dark, *m_active_dark);
+			if (m_button_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Button, *m_button_disabled);
 			}
 
-			if (m_active_mid) {
-				palette.setBrush(QPalette::Active, QPalette::Mid, *m_active_mid);
+			if (m_button_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Button, *m_button_inactive);
 			}
 
-			if (m_active_text) {
-				palette.setBrush(QPalette::Active, QPalette::Text, *m_active_text);
+			if (m_light_active) {
+				palette.setBrush(QPalette::Active, QPalette::Light, *m_light_active);
 			}
 
-			if (m_active_brighttext) {
-				palette.setBrush(QPalette::Active, QPalette::BrightText, *m_active_brighttext);
+			if (m_light_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Light, *m_light_disabled);
 			}
 
-			if (m_active_buttontext) {
-				palette.setBrush(QPalette::Active, QPalette::ButtonText, *m_active_buttontext);
+			if (m_light_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Light, *m_light_inactive);
 			}
 
-			if (m_active_base) {
-				palette.setBrush(QPalette::Active, QPalette::Base, *m_active_base);
+			if (m_midlight_active) {
+				palette.setBrush(QPalette::Active, QPalette::Midlight, *m_midlight_active);
 			}
 
-			if (m_active_window) {
-				palette.setBrush(QPalette::Active, QPalette::Window, *m_active_window);
+			if (m_midlight_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Midlight, *m_midlight_disabled);
 			}
 
-			if (m_active_shadow) {
-				palette.setBrush(QPalette::Active, QPalette::Shadow, *m_active_shadow);
+			if (m_midlight_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Midlight, *m_midlight_inactive);
 			}
 
-			if (m_active_highlight) {
-				palette.setBrush(QPalette::Active, QPalette::Highlight, *m_active_highlight);
+			if (m_dark_active) {
+				palette.setBrush(QPalette::Active, QPalette::Dark, *m_dark_active);
 			}
 
-			if (m_active_highlightedtext) {
-				palette.setBrush(QPalette::Active, QPalette::HighlightedText, *m_active_highlightedtext);
+			if (m_dark_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Dark, *m_dark_disabled);
 			}
 
-			if (m_active_link) {
-				palette.setBrush(QPalette::Active, QPalette::Link, *m_active_link);
+			if (m_dark_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Dark, *m_dark_inactive);
 			}
 
-			if (m_active_linkvisited) {
-				palette.setBrush(QPalette::Active, QPalette::LinkVisited, *m_active_linkvisited);
+			if (m_mid_active) {
+				palette.setBrush(QPalette::Active, QPalette::Mid, *m_mid_active);
 			}
 
-			if (m_active_alternatebase) {
-				palette.setBrush(QPalette::Active, QPalette::AlternateBase, *m_active_alternatebase);
+			if (m_mid_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Mid, *m_mid_disabled);
 			}
 
-			if (m_active_tooltipbase) {
-				palette.setBrush(QPalette::Active, QPalette::ToolTipBase, *m_active_tooltipbase);
+			if (m_mid_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Mid, *m_mid_inactive);
 			}
 
-			if (m_active_tooltiptext) {
-				palette.setBrush(QPalette::Active, QPalette::ToolTipText, *m_active_tooltiptext);
+			if (m_text_active) {
+				palette.setBrush(QPalette::Active, QPalette::Text, *m_text_active);
 			}
 
-			if (m_disabled_windowtext) {
-				palette.setBrush(QPalette::Disabled, QPalette::WindowText, *m_disabled_windowtext);
+			if (m_text_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Text, *m_text_disabled);
 			}
 
-			if (m_disabled_button) {
-				palette.setBrush(QPalette::Disabled, QPalette::Button, *m_disabled_button);
+			if (m_text_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Text, *m_text_inactive);
 			}
 
-			if (m_disabled_light) {
-				palette.setBrush(QPalette::Disabled, QPalette::Light, *m_disabled_light);
+			if (m_brighttext_active) {
+				palette.setBrush(QPalette::Active, QPalette::BrightText, *m_brighttext_active);
 			}
 
-			if (m_disabled_midlight) {
-				palette.setBrush(QPalette::Disabled, QPalette::Midlight, *m_disabled_midlight);
+			if (m_brighttext_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::BrightText, *m_brighttext_disabled);
 			}
 
-			if (m_disabled_dark) {
-				palette.setBrush(QPalette::Disabled, QPalette::Dark, *m_disabled_dark);
+			if (m_brighttext_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::BrightText, *m_brighttext_inactive);
 			}
 
-			if (m_disabled_mid) {
-				palette.setBrush(QPalette::Disabled, QPalette::Mid, *m_disabled_mid);
+			if (m_buttontext_active) {
+				palette.setBrush(QPalette::Active, QPalette::ButtonText, *m_buttontext_active);
 			}
 
-			if (m_disabled_text) {
-				palette.setBrush(QPalette::Disabled, QPalette::Text, *m_disabled_text);
+			if (m_buttontext_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::ButtonText, *m_buttontext_disabled);
 			}
 
-			if (m_disabled_brighttext) {
-				palette.setBrush(QPalette::Disabled, QPalette::BrightText, *m_disabled_brighttext);
+			if (m_buttontext_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::ButtonText, *m_buttontext_inactive);
 			}
 
-			if (m_disabled_buttontext) {
-				palette.setBrush(QPalette::Disabled, QPalette::ButtonText, *m_disabled_buttontext);
+			if (m_base_active) {
+				palette.setBrush(QPalette::Active, QPalette::Base, *m_base_active);
 			}
 
-			if (m_disabled_base) {
-				palette.setBrush(QPalette::Disabled, QPalette::Base, *m_disabled_base);
+			if (m_base_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Base, *m_base_disabled);
 			}
 
-			if (m_disabled_window) {
-				palette.setBrush(QPalette::Disabled, QPalette::Window, *m_disabled_window);
+			if (m_base_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Base, *m_base_inactive);
 			}
 
-			if (m_disabled_shadow) {
-				palette.setBrush(QPalette::Disabled, QPalette::Shadow, *m_disabled_shadow);
+			if (m_window_active) {
+				palette.setBrush(QPalette::Active, QPalette::Window, *m_window_active);
 			}
 
-			if (m_disabled_highlight) {
-				palette.setBrush(QPalette::Disabled, QPalette::Highlight, *m_disabled_highlight);
+			if (m_window_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Window, *m_window_disabled);
 			}
 
-			if (m_disabled_highlightedtext) {
-				palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, *m_disabled_highlightedtext);
+			if (m_window_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Window, *m_window_inactive);
 			}
 
-			if (m_disabled_link) {
-				palette.setBrush(QPalette::Disabled, QPalette::Link, *m_disabled_link);
+			if (m_shadow_active) {
+				palette.setBrush(QPalette::Active, QPalette::Shadow, *m_shadow_active);
 			}
 
-			if (m_disabled_linkvisited) {
-				palette.setBrush(QPalette::Disabled, QPalette::LinkVisited, *m_disabled_linkvisited);
+			if (m_shadow_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Shadow, *m_shadow_disabled);
 			}
 
-			if (m_disabled_alternatebase) {
-				palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, *m_disabled_alternatebase);
+			if (m_shadow_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Shadow, *m_shadow_inactive);
 			}
 
-			if (m_disabled_tooltipbase) {
-				palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, *m_disabled_tooltipbase);
+			if (m_highlight_active) {
+				palette.setBrush(QPalette::Active, QPalette::Highlight, *m_highlight_active);
 			}
 
-			if (m_disabled_tooltiptext) {
-				palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, *m_disabled_tooltiptext);
+			if (m_highlight_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Highlight, *m_highlight_disabled);
 			}
 
-			if (m_inactive_windowtext) {
-				palette.setBrush(QPalette::Inactive, QPalette::WindowText, *m_inactive_windowtext);
+			if (m_highlight_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Highlight, *m_highlight_inactive);
 			}
 
-			if (m_inactive_button) {
-				palette.setBrush(QPalette::Inactive, QPalette::Button, *m_inactive_button);
+			if (m_highlightedtext_active) {
+				palette.setBrush(QPalette::Active, QPalette::HighlightedText, *m_highlightedtext_active);
 			}
 
-			if (m_inactive_light) {
-				palette.setBrush(QPalette::Inactive, QPalette::Light, *m_inactive_light);
+			if (m_highlightedtext_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, *m_highlightedtext_disabled);
 			}
 
-			if (m_inactive_midlight) {
-				palette.setBrush(QPalette::Inactive, QPalette::Midlight, *m_inactive_midlight);
+			if (m_highlightedtext_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, *m_highlightedtext_inactive);
 			}
 
-			if (m_inactive_dark) {
-				palette.setBrush(QPalette::Inactive, QPalette::Dark, *m_inactive_dark);
+			if (m_link_active) {
+				palette.setBrush(QPalette::Active, QPalette::Link, *m_link_active);
 			}
 
-			if (m_inactive_mid) {
-				palette.setBrush(QPalette::Inactive, QPalette::Mid, *m_inactive_mid);
+			if (m_link_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::Link, *m_link_disabled);
 			}
 
-			if (m_inactive_text) {
-				palette.setBrush(QPalette::Inactive, QPalette::Text, *m_inactive_text);
+			if (m_link_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::Link, *m_link_inactive);
 			}
 
-			if (m_inactive_brighttext) {
-				palette.setBrush(QPalette::Inactive, QPalette::BrightText, *m_inactive_brighttext);
+			if (m_linkvisited_active) {
+				palette.setBrush(QPalette::Active, QPalette::LinkVisited, *m_linkvisited_active);
 			}
 
-			if (m_inactive_buttontext) {
-				palette.setBrush(QPalette::Inactive, QPalette::ButtonText, *m_inactive_buttontext);
+			if (m_linkvisited_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::LinkVisited, *m_linkvisited_disabled);
 			}
 
-			if (m_inactive_base) {
-				palette.setBrush(QPalette::Inactive, QPalette::Base, *m_inactive_base);
+			if (m_linkvisited_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::LinkVisited, *m_linkvisited_inactive);
 			}
 
-			if (m_inactive_window) {
-				palette.setBrush(QPalette::Inactive, QPalette::Window, *m_inactive_window);
+			if (m_alternatebase_active) {
+				palette.setBrush(QPalette::Active, QPalette::AlternateBase, *m_alternatebase_active);
 			}
 
-			if (m_inactive_shadow) {
-				palette.setBrush(QPalette::Inactive, QPalette::Shadow, *m_inactive_shadow);
+			if (m_alternatebase_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, *m_alternatebase_disabled);
 			}
 
-			if (m_inactive_highlight) {
-				palette.setBrush(QPalette::Inactive, QPalette::Highlight, *m_inactive_highlight);
+			if (m_alternatebase_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, *m_alternatebase_inactive);
 			}
 
-			if (m_inactive_highlightedtext) {
-				palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, *m_inactive_highlightedtext);
+			if (m_tooltipbase_active) {
+				palette.setBrush(QPalette::Active, QPalette::ToolTipBase, *m_tooltipbase_active);
 			}
 
-			if (m_inactive_link) {
-				palette.setBrush(QPalette::Inactive, QPalette::Link, *m_inactive_link);
+			if (m_tooltipbase_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, *m_tooltipbase_disabled);
 			}
 
-			if (m_inactive_linkvisited) {
-				palette.setBrush(QPalette::Inactive, QPalette::LinkVisited, *m_inactive_linkvisited);
+			if (m_tooltipbase_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, *m_tooltipbase_inactive);
 			}
 
-			if (m_inactive_alternatebase) {
-				palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, *m_inactive_alternatebase);
+			if (m_tooltiptext_active) {
+				palette.setBrush(QPalette::Active, QPalette::ToolTipText, *m_tooltiptext_active);
 			}
 
-			if (m_inactive_tooltipbase) {
-				palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, *m_inactive_tooltipbase);
+			if (m_tooltiptext_disabled) {
+				palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, *m_tooltiptext_disabled);
 			}
 
-			if (m_inactive_tooltiptext) {
-				palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, *m_inactive_tooltiptext);
+			if (m_tooltiptext_inactive) {
+				palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, *m_tooltiptext_inactive);
 			}
 
 
@@ -1019,63 +1269,63 @@ class ApplicationPalette : public QWidget
 			return result;
 		}
 	private:
-		boost::optional<QBrush> m_active_windowtext;
-		boost::optional<QBrush> m_active_button;
-		boost::optional<QBrush> m_active_light;
-		boost::optional<QBrush> m_active_midlight;
-		boost::optional<QBrush> m_active_dark;
-		boost::optional<QBrush> m_active_mid;
-		boost::optional<QBrush> m_active_text;
-		boost::optional<QBrush> m_active_brighttext;
-		boost::optional<QBrush> m_active_buttontext;
-		boost::optional<QBrush> m_active_base;
-		boost::optional<QBrush> m_active_window;
-		boost::optional<QBrush> m_active_shadow;
-		boost::optional<QBrush> m_active_highlight;
-		boost::optional<QBrush> m_active_highlightedtext;
-		boost::optional<QBrush> m_active_link;
-		boost::optional<QBrush> m_active_linkvisited;
-		boost::optional<QBrush> m_active_alternatebase;
-		boost::optional<QBrush> m_active_tooltipbase;
-		boost::optional<QBrush> m_active_tooltiptext;
-		boost::optional<QBrush> m_disabled_windowtext;
-		boost::optional<QBrush> m_disabled_button;
-		boost::optional<QBrush> m_disabled_light;
-		boost::optional<QBrush> m_disabled_midlight;
-		boost::optional<QBrush> m_disabled_dark;
-		boost::optional<QBrush> m_disabled_mid;
-		boost::optional<QBrush> m_disabled_text;
-		boost::optional<QBrush> m_disabled_brighttext;
-		boost::optional<QBrush> m_disabled_buttontext;
-		boost::optional<QBrush> m_disabled_base;
-		boost::optional<QBrush> m_disabled_window;
-		boost::optional<QBrush> m_disabled_shadow;
-		boost::optional<QBrush> m_disabled_highlight;
-		boost::optional<QBrush> m_disabled_highlightedtext;
-		boost::optional<QBrush> m_disabled_link;
-		boost::optional<QBrush> m_disabled_linkvisited;
-		boost::optional<QBrush> m_disabled_alternatebase;
-		boost::optional<QBrush> m_disabled_tooltipbase;
-		boost::optional<QBrush> m_disabled_tooltiptext;
-		boost::optional<QBrush> m_inactive_windowtext;
-		boost::optional<QBrush> m_inactive_button;
-		boost::optional<QBrush> m_inactive_light;
-		boost::optional<QBrush> m_inactive_midlight;
-		boost::optional<QBrush> m_inactive_dark;
-		boost::optional<QBrush> m_inactive_mid;
-		boost::optional<QBrush> m_inactive_text;
-		boost::optional<QBrush> m_inactive_brighttext;
-		boost::optional<QBrush> m_inactive_buttontext;
-		boost::optional<QBrush> m_inactive_base;
-		boost::optional<QBrush> m_inactive_window;
-		boost::optional<QBrush> m_inactive_shadow;
-		boost::optional<QBrush> m_inactive_highlight;
-		boost::optional<QBrush> m_inactive_highlightedtext;
-		boost::optional<QBrush> m_inactive_link;
-		boost::optional<QBrush> m_inactive_linkvisited;
-		boost::optional<QBrush> m_inactive_alternatebase;
-		boost::optional<QBrush> m_inactive_tooltipbase;
-		boost::optional<QBrush> m_inactive_tooltiptext;
+		boost::optional<QBrush> m_windowtext_active;
+		boost::optional<QBrush> m_windowtext_disabled;
+		boost::optional<QBrush> m_windowtext_inactive;
+		boost::optional<QBrush> m_button_active;
+		boost::optional<QBrush> m_button_disabled;
+		boost::optional<QBrush> m_button_inactive;
+		boost::optional<QBrush> m_light_active;
+		boost::optional<QBrush> m_light_disabled;
+		boost::optional<QBrush> m_light_inactive;
+		boost::optional<QBrush> m_midlight_active;
+		boost::optional<QBrush> m_midlight_disabled;
+		boost::optional<QBrush> m_midlight_inactive;
+		boost::optional<QBrush> m_dark_active;
+		boost::optional<QBrush> m_dark_disabled;
+		boost::optional<QBrush> m_dark_inactive;
+		boost::optional<QBrush> m_mid_active;
+		boost::optional<QBrush> m_mid_disabled;
+		boost::optional<QBrush> m_mid_inactive;
+		boost::optional<QBrush> m_text_active;
+		boost::optional<QBrush> m_text_disabled;
+		boost::optional<QBrush> m_text_inactive;
+		boost::optional<QBrush> m_brighttext_active;
+		boost::optional<QBrush> m_brighttext_disabled;
+		boost::optional<QBrush> m_brighttext_inactive;
+		boost::optional<QBrush> m_buttontext_active;
+		boost::optional<QBrush> m_buttontext_disabled;
+		boost::optional<QBrush> m_buttontext_inactive;
+		boost::optional<QBrush> m_base_active;
+		boost::optional<QBrush> m_base_disabled;
+		boost::optional<QBrush> m_base_inactive;
+		boost::optional<QBrush> m_window_active;
+		boost::optional<QBrush> m_window_disabled;
+		boost::optional<QBrush> m_window_inactive;
+		boost::optional<QBrush> m_shadow_active;
+		boost::optional<QBrush> m_shadow_disabled;
+		boost::optional<QBrush> m_shadow_inactive;
+		boost::optional<QBrush> m_highlight_active;
+		boost::optional<QBrush> m_highlight_disabled;
+		boost::optional<QBrush> m_highlight_inactive;
+		boost::optional<QBrush> m_highlightedtext_active;
+		boost::optional<QBrush> m_highlightedtext_disabled;
+		boost::optional<QBrush> m_highlightedtext_inactive;
+		boost::optional<QBrush> m_link_active;
+		boost::optional<QBrush> m_link_disabled;
+		boost::optional<QBrush> m_link_inactive;
+		boost::optional<QBrush> m_linkvisited_active;
+		boost::optional<QBrush> m_linkvisited_disabled;
+		boost::optional<QBrush> m_linkvisited_inactive;
+		boost::optional<QBrush> m_alternatebase_active;
+		boost::optional<QBrush> m_alternatebase_disabled;
+		boost::optional<QBrush> m_alternatebase_inactive;
+		boost::optional<QBrush> m_tooltipbase_active;
+		boost::optional<QBrush> m_tooltipbase_disabled;
+		boost::optional<QBrush> m_tooltipbase_inactive;
+		boost::optional<QBrush> m_tooltiptext_active;
+		boost::optional<QBrush> m_tooltiptext_disabled;
+		boost::optional<QBrush> m_tooltiptext_inactive;
 
 };
 
