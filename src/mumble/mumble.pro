@@ -119,7 +119,8 @@ HEADERS *= BanEditor.h \
     OverlayConfig.h \
     OverlayEditor.h \
     OverlayEditorScene.h \
-    MumbleApplication.h
+    MumbleApplication.h \
+    ApplicationPalette.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \

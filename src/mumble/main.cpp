@@ -56,6 +56,7 @@
 #include "CrashReporter.h"
 #include "SocketRPC.h"
 #include "MumbleApplication.h"
+#include "ApplicationPalette.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -249,11 +250,13 @@ int main(int argc, char **argv) {
 
 	DeferInit::run_initializers();
 
+	ApplicationPalette applicationPalette;
+	
 	if (! g.s.qsStyle.isEmpty()) {
 		a.setStyle(g.s.qsStyle);
 		g.qsCurrentStyle = g.s.qsStyle;
 	}
-
+	
 	if (! g.s.qsSkin.isEmpty()) {
 		QFile file(g.s.qsSkin);
 		file.open(QFile::ReadOnly);
