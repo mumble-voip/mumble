@@ -211,7 +211,11 @@ QString OSInfo::getOSDisplayableVersion() {
 			}
 		}
 		else if (ovi.dwMinorVersion == 4) {
-			osdispver = QLatin1String("Windows 10");
+			if (ovi.wProductType == VER_NT_WORKSTATION) {
+				osdispver = QLatin1String("Windows 10");
+			} else {
+				osdispver = QLatin1String("Windows 10 Server")
+			}
 		}
 
 		typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
