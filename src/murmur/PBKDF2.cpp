@@ -1,4 +1,4 @@
-/* Copyright (C) 2013, tkmorris <mauricioarozi@gmail.com>
+/* Copyright (C) 2013, Morris Moraes <mauricioarozi@gmail.com>
    Copyright (C) 2014, Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
