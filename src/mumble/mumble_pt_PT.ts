@@ -219,7 +219,7 @@ Este valor permite que altere a forma como o Mumble organiza os canais na árvor
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>herdar LCAs</translation>
+        <translation>Herdar LCAs</translation>
     </message>
     <message>
         <location/>
@@ -332,12 +332,12 @@ Adicionar um novo grupo.</translation>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Contém uma lista de membros cuja a adesão de grupo não será herdado do canal-mãe.</translation>
+        <translation>Contém uma lista de membros cuja adesão ao grupo não será herdada do canal pai.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Contém a lista de membros herdados por outros canais.</translation>
+        <translation>Contém a lista de membros herdados doutros canais.</translation>
     </message>
     <message>
         <location/>
@@ -2828,7 +2828,7 @@ Recomenda-se &lt;b&gt;fortemente&lt;/b&gt; que &lt;a href=&quot;http://mumble.in
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Isto representa a permissão de percorrer o canal. Se a utilizador é-lhe negado este privilégio, ele não conseguirá aceder a este canal e qualquer subcanal de modo algum, independente de outras permissões em subcanais.</translation>
+        <translation>Isto representa a permissão de percorrer o canal. Se a um utilizador é-lhe negado este privilégio, ele não conseguirá aceder a este canal ou qualquer subcanal de modo algum, independente de outras permissões em subcanais.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3374,27 +3374,27 @@ Etiqueta do servidor. É como o servidor será exibido na lista de favoritos, e 
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Etiqueta servidor local</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>O seu nome de utilizador</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>A sua senha</translation>
     </message>
 </context>
 <context>
@@ -5845,52 +5845,52 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Retirou a sua prioridade em falar.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Tem agora prioridade em falar.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 retirou-lhe prioridade em falar.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 deu-lhe prioridade em falar.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Foi-lhe retirada prioridade em falar por %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Deu prioridade em falar a %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 retirou própria prioridade em falar.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 tem agora prioridade em falar.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 retirou prioridade em falar a %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 deu prioridade em falar a %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5900,7 +5900,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation>Foi-lhe silenciado por %1.</translation>
+        <translation>Foi silenciado por %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5926,7 +5926,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Moveu %1 para %2.</translation>
     </message>
     <message>
         <location line="+18"/>
