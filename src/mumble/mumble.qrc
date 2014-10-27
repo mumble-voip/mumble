@@ -38,6 +38,11 @@
         <file alias="comment_seen.svg">../../icons/comment_seen.svg</file>
         <file alias="default_avatar.svg">../../icons/default_avatar.svg</file>
         <file alias="rec.svg">../../icons/rec.svg</file>
+        <file alias="filter.svg">../../icons/filter.svg</file>
+        <file alias="filter_on.svg">../../icons/filter_on.svg</file>
+        <file alias="filter_off.svg">../../icons/filter_off.svg</file>
+        <file alias="self_comment.svg">../../icons/self_comment.svg</file>
+        <file alias="priority_speaker.svg">../../icons/priority_speaker.svg</file>
         <file alias="wb_male.oga">../../samples/wb_male.oga</file>
         <file alias="on.ogg">../../samples/on.ogg</file>
         <file alias="off.ogg">../../samples/off.ogg</file>
@@ -52,6 +57,5 @@
         <file alias="UserLeftChannel.ogg">../../samples/UserLeftChannel.ogg</file>
         <file alias="UserMutedYouOrByYou.ogg">../../samples/UserMutedYouOrByYou.ogg</file>
         <file alias="RecordingStateChanged.ogg">../../samples/RecordingStateChanged.ogg</file>
-        <file alias="filter.svg">../../icons/filter.svg</file>
     </qresource>
 </RCC>

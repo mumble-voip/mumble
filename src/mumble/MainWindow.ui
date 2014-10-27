@@ -542,9 +542,9 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>skin:filter.svg</normaloff>
-     <normalon>skin:filter.svg</normalon>
-     <activeon>skin:filter.svg</activeon>skin:filter.svg</iconset>
+     <normaloff>skin:filter_off.svg</normaloff>
+     <normalon>skin:filter_on.svg</normalon>
+     <activeon>skin:filter_on.svg</activeon>skin:filter_off.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Filter on/off</string>
@@ -828,7 +828,7 @@ the channel's context menu.</string>
   <action name="qaSelfComment">
    <property name="icon">
     <iconset>
-     <normaloff>skin:comment.svg</normaloff>skin:comment.svg</iconset>
+     <normaloff>skin:self_comment.svg</normaloff>skin:self_comment.svg</iconset>
    </property>
    <property name="text">
     <string>&amp;Change Comment</string>
