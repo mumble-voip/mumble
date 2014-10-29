@@ -55,11 +55,17 @@ guid g_playerGUID;
  * call each value, to ease in upgrading. "[_]" means the value name may or may not
  * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0xED38E8; // ClientConnection or CurMgrPointer
+static uint32_t ptr_ClientConnection=0xED4B50; // ClientConnection or CurMgrPointer
 static size_t off_ObjectManager=0x62C; // objectManager or CurMgrOffset
-static uint32_t ptr_WorldFrame=0xD91A90; // Camera[_]Pointer
+static uint32_t ptr_WorldFrame=0xD92CF0; // Camera[_]Pointer, CameraStruct
 static size_t off_CameraOffset=0x7610; // Camera[_]Offset
+static uint32_t ptr_PlayerName=0xED4B90; // PlayerName
+static uint32_t ptr_RealmName=0xED4D3E; // RealmName
 
+static size_t off_localGUID = 0xF8; // localGUID
+static size_t off_firstObject = 0xD8; // firstObject
+static size_t off_nextObject = 0x3C; // nextObject
+static size_t off_objectGUID = 0x28; 
 
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
@@ -178,17 +184,17 @@ uint32_t getPlayerBase() {
 	gClientConnection=getInt32((uint32_t)pModule + ptr_ClientConnection);
 	sCurMgr=getInt32(gClientConnection + off_ObjectManager);
 	if (sCurMgr != 0) {
-		playerGUID.first=getInt64(sCurMgr+0xF8); // localGUID
-		playerGUID.second=getInt64(sCurMgr+0xF8 + 0x8);
+		playerGUID.first=getInt64(sCurMgr+off_localGUID);
+		playerGUID.second=getInt64(sCurMgr+off_localGUID + 0x8);
 		if (playerGUID.second != 0) {
 			g_playerGUID.first = playerGUID.first;
 			g_playerGUID.second = playerGUID.second;
 
-			curObj=getInt32(sCurMgr+0xD8); // firstObject
+			curObj=getInt32(sCurMgr+off_firstObject); // firstObject
 			while (curObj != 0) {
-				nextObj=getInt32(curObj + 0x3C); // nextObject
-				GUID.first=getInt64(curObj + 0x28);
-				GUID.second=getInt64(curObj + 0x28 + 0x8);
+				nextObj=getInt32(curObj + off_nextObject); // nextObject
+				GUID.first=getInt64(curObj + off_objectGUID);
+				GUID.second=getInt64(curObj + off_objectGUID + 0x8);
 				if (playerGUID.first == GUID.first && playerGUID.second == GUID.second) {
 					playerBase = curObj;
 					break;
@@ -204,52 +210,15 @@ uint32_t getPlayerBase() {
 	return playerBase;
 }
 
-static const unsigned long nameStorePtr        = 0xC86358;  // Player name database
-static const unsigned long nameMaskOffset      = 0x02c;  // Offset for the mask used with GUID to select a linked list
-static const unsigned long nameBaseOffset      = 0x020;  // Offset for the start of the name linked list
-static const unsigned long nameStringOffset    = 0x021;  // Offset to the C string in a name structure
-
 void getPlayerName(std::wstring &identity) {
-	/*
-	** All the OwnedCore guys seem to be just pulling it from a simple pointer
-	** instead of traversing through the NameStore, and since no one's updated
-	** nameStorePtr yet I figured I'd try just doing it this way.
-	*/
-	getWString((uint32_t)pModule +0xED3928, identity);
-//	printf("Name: %ls\n", identity.data());
+	std::wstring playerName, realmName;
+	
+	getWString((uint32_t)pModule + ptr_PlayerName, playerName);
+	getWString((uint32_t)pModule + ptr_RealmName, realmName);
+	
+	identity = playerName + L"-" + realmName;
+	//printf("Name: %ls\n", identity.data());
 	return;
-
-	/*
-	** Old code below:
-	unsigned long mask, base, offset, current, shortGUID, testGUID;
-
-	mask = getInt32((uint32_t)pModule + nameStorePtr + nameMaskOffset);
-	base = getInt32((uint32_t)pModule + nameStorePtr + nameBaseOffset);
-
-	shortGUID = g_playerGUID & 0xffffffff;  // Only half the guid is used to check for a hit
-	if (mask == 0xffffffff) {
-		identity.clear();
-		return;
-	}
-	offset = 12 * (mask & shortGUID);  // select the appropriate linked list
-	current=getInt32(base + offset + 8);   // ptr to lower half of GUID of first element
-	offset = getInt32(base + offset);  // this plus 4 is the offset for the next element
-	if ((current == 0) || (current & 0x1)) {
-		identity.clear();
-		return;
-	}
-	testGUID=getInt32(current);
-
-	while (testGUID != shortGUID) {
-		current=getInt32(current + offset + 4);
-		if ((current == 0) || (current & 0x1)) {
-			identity.clear();
-			return;
-		}
-		testGUID=getInt32(current);
-	}
-	getWString(current + nameStringOffset, identity);
-*/
 }
 
 void getCamera(float camera_pos[3], float camera_front[3], float camera_top[3]) {
@@ -442,10 +411,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 6.0.2 (19034), with identity support.");
+	return std::wstring(L"Supports World of Warcraft 6.0.3 (19103), with identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 6.0.2 (19034)");
+static std::wstring description(L"World of Warcraft 6.0.3 (19103)");
 
 static std::wstring shortname(L"World of Warcraft");
 
