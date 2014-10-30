@@ -2682,9 +2682,11 @@ void MainWindow::trayAboutToShow() {
 }
 
 void MainWindow::on_Icon_messageClicked() {
-	setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+	if (isMinimized())
+		setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
 	show();
 	raise();
+	activateWindow();
 }
 
 void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
@@ -2692,7 +2694,10 @@ void MainWindow::on_Icon_activated(QSystemTrayIcon::ActivationReason reason) {
 		case QSystemTrayIcon::Trigger:
 		case QSystemTrayIcon::DoubleClick:
 		case QSystemTrayIcon::MiddleClick:
-			on_Icon_messageClicked();
+			setWindowState((windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+			show();
+			raise();
+			activateWindow();
 		default: break;
 	}
 }
