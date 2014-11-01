@@ -3382,27 +3382,27 @@ Etiqueta de este servidor. Así es como se llamará el servidor en su lista del 
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Etiqueta del servidor local</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Tu nombre de usuario</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Tu contraseña</translation>
     </message>
 </context>
 <context>
@@ -5854,52 +5854,52 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Revocaste tu estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Asumiste el estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 revocó tu estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 te dio el estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Le revocaste el estado de hablante prioritario a %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Le diste el estado de hablante prioritario a %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 revocó su estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 asumió el estado de hablante prioritario.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 le revocó el estado de hablante prioritario a %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 le dió el estado de hablante prioritario a %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5935,7 +5935,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Moviste %1 a %2.</translation>
     </message>
     <message>
         <location line="+18"/>
