@@ -313,7 +313,7 @@ void Overlay::updateOverlay() {
 
 	foreach(OverlayClient *oc, qlClients) {
 		if (! oc->update()) {
-			qWarning() << "Overlay: Dead client detected";
+			qWarning() << "Overlay: Dead client detected (pid: " << oc->uiPid << ", name: " << oc->qsProcessName << ")";
 			qlClients.removeAll(oc);
 			oc->scheduleDelete();
 			break;

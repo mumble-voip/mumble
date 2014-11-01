@@ -447,6 +447,17 @@ void OverlayClient::readyRead() {
 
 						OverlayMsgPid *omp = & omMsg.omp;
 						uiPid = omp->pid;
+#ifdef Q_OS_WIN
+						HANDLE h = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, (DWORD)uiPid);
+						if (h) {
+							TCHAR buf[MAX_PATH];
+							if (GetModuleFileNameEx(h, 0, buf, MAX_PATH)) {
+								static_assert(sizeof(TCHAR) == sizeof(wchar_t), "Unicode build required");
+								qsProcessName = QString::fromWCharArray((const wchar_t *) buf);
+							}
+							CloseHandle(h);
+						}
+#endif
 					}
 					break;
 				case OVERLAY_MSGTYPE_FPS: {

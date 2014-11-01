@@ -318,6 +318,7 @@ class OverlayClient : public QObject {
 		QGraphicsPixmapItem *qgpiFPS;
 
 		quint64 uiPid;
+		QString qsProcessName;
 		QGraphicsScene qgs;
 		OverlayUserGroup ougUsers;
 

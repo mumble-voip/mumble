@@ -89,6 +89,7 @@
 #include <delayimp.h>
 #include <shlobj.h>
 #include <tlhelp32.h>
+#include <psapi.h>
 #ifndef Q_CC_INTEL
 #include <math.h>
 #define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
