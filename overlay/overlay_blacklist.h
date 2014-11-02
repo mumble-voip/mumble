@@ -66,6 +66,7 @@ static const char *overlayBlacklist[] = {
 	"Origin.exe", // EA Origin
 	"HydraSysTray.exe", // Razer Hydra system tray
 	"devenv.exe", // Microsoft Visual Studio
+	"spotify.exe", // Spotify
 	NULL
 };
 
