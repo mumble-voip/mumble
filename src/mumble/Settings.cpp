@@ -38,7 +38,6 @@
 #include "Log.h"
 #include "Global.h"
 #include "../../overlay/overlay.h"
-#include "../../overlay/overlay_blacklist.h"
 
 bool Shortcut::isServerSpecific() const {
 	if (qvData.canConvert<ShortcutTarget>()) {
@@ -155,15 +154,6 @@ OverlaySettings::OverlaySettings() {
 	bTime = false;
 
 	bUseWhitelist = false;
-
-#ifdef Q_OS_WIN
-	int i = 0;
-	while (overlayBlacklist[i]) {
-		qslBlacklist << QLatin1String(overlayBlacklist[i]);
-		i++;
-	}
-#endif
-
 }
 
 void OverlaySettings::setPreset(const OverlayPresets preset) {
