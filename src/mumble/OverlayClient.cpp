@@ -482,13 +482,14 @@ void OverlayClient::readyRead() {
 #ifdef Q_OS_WIN
 						HANDLE h = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, (DWORD)uiPid);
 						if (h) {
-							TCHAR buf[MAX_PATH];
-							if (GetModuleFileNameEx(h, 0, buf, MAX_PATH)) {
-								static_assert(sizeof(TCHAR) == sizeof(wchar_t), "Unicode build required");
-								qsProcessName = QString::fromWCharArray((const wchar_t *) buf);
+							wchar_t buf[MAX_PATH];
+							if (GetModuleFileNameEx(h, 0, buf, MAX_PATH) != 0) {
+								qsExecutablePath = QString::fromWCharArray(buf);
 							}
 							CloseHandle(h);
 						}
+#else
+						qsExecutablePath = QLatin1String("Unknown");
 #endif
 					}
 					break;

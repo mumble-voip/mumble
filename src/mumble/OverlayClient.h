@@ -65,8 +65,8 @@ class OverlayClient : public QObject {
 
 		/// The process ID of the process this OverlayClient is connected to.
 		quint64 uiPid;
-		/// The name of the process this OverlayClient is connected to.
-		QString qsProcessName;
+		/// The path to the executable of the process that this OverlayClient is connected to.
+		QString qsExecutablePath;
 
 		QGraphicsScene qgs;
 		OverlayUserGroup ougUsers;
