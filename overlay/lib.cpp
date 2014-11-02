@@ -634,7 +634,18 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 			}
 		}
 	} else {
-		// If there is no list in the registry, fallback to using the default blacklist
+		ods("Lib: no blacklist/whitelist found in the registry");
+	}
+
+	// As a last resort, if we're using blacklisting, check built-in blacklist.
+	//
+	// If the registry query failed this means we're guaranteed to check the
+	// built-in list.
+	//
+	// If the list in the registry is out of sync, for example because the built-
+	// in list in overlay_blacklist.h was updated got updated, we're also
+	// guaranteed that we include all built-in blacklisted items in our check.
+	if (!usewhitelist) {
 		ods("Lib: Overlay fallback to default blacklist");
 		int i = 0;
 		while (overlayBlacklist[i]) {
