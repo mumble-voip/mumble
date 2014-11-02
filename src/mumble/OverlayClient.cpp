@@ -479,6 +479,18 @@ void OverlayClient::readyRead() {
 
 						OverlayMsgPid *omp = & omMsg.omp;
 						uiPid = omp->pid;
+#ifdef Q_OS_WIN
+						HANDLE h = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, (DWORD)uiPid);
+						if (h) {
+							wchar_t buf[MAX_PATH];
+							if (GetModuleFileNameEx(h, 0, buf, MAX_PATH) != 0) {
+								qsExecutablePath = QString::fromWCharArray(buf);
+							}
+							CloseHandle(h);
+						}
+#else
+						qsExecutablePath = QLatin1String("Unknown");
+#endif
 					}
 					break;
 				case OVERLAY_MSGTYPE_FPS: {

@@ -63,8 +63,11 @@ class OverlayClient : public QObject {
 		QGraphicsPixmapItem *qgpiFPS;
 		QGraphicsPixmapItem *qgpiTime;
 
-		/// The process ID of the processing displaying an overlay.
+		/// The process ID of the process this OverlayClient is connected to.
 		quint64 uiPid;
+		/// The path to the executable of the process that this OverlayClient is connected to.
+		QString qsExecutablePath;
+
 		QGraphicsScene qgs;
 		OverlayUserGroup ougUsers;
 
