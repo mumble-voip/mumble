@@ -39,7 +39,7 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
         the SuperUser is disabled. If you use this option, murmur will
         set the password in the database and then exit.
 
--ini    Use a inifile other than murmur.ini, use this to run several isntances
+-ini    Use a inifile other than murmur.ini, use this to run several instances
         of murmur from the same directory. Make sure each instance is using
         a separate database.
 
