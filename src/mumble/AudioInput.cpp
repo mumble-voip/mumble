@@ -868,10 +868,16 @@ void AudioInput::encodeAudioFrame() {
 		if (!bIsSpeech || iBufferedFrames >= iAudioFrames) {
 			if (iBufferedFrames < iAudioFrames) {
 				// Stuff frame to framesize if speech ends and we don't have enough audio
+				// this way we are guaranteed to have a valid framecount and won't cause
+				// a codec configuration switch by suddenly using a wildly different
+				// framecount per packet.
 				const size_t missingFrames = iAudioFrames - iBufferedFrames;
 				opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);
 				iBufferedFrames += missingFrames;
+				iFrameCounter += missingFrames;
 			}
+			
+			Q_ASSERT(iBufferedFrames == iAudioFrames);
 
 			len = encodeOpusFrame(&opusBuffer[0], iBufferedFrames * iFrameSize, buffer);
 			opusBuffer.clear();
