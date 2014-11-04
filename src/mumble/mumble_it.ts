@@ -2950,7 +2950,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>&amp;Incolla ed invia</translation>
+        <translation>Incolla ed in&amp;via</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3382,7 +3382,7 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     <message>
         <location/>
         <source>Local server label</source>
-        <translation>Etichetta server locale</translation>
+        <translation>Etichetta locale server</translation>
     </message>
     <message>
         <location/>
@@ -3397,7 +3397,7 @@ Nome del server. Questo è il nome che apparirà sulla tua lista dei server pref
     <message>
         <location/>
         <source>Your username</source>
-        <translation>Il tuo username</translation>
+        <translation>Il tuo nome utente</translation>
     </message>
     <message>
         <location/>
@@ -5855,52 +5855,52 @@ certificato ed il nome utente.</translation>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation>Hai revocato la tua priorità nel parlare.</translation>
+        <translation>Hai revocato la tua priorità.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation>Hai assunto la priorità nel parlare.</translation>
+        <translation>Hai assunto la priorità.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation>%1 ti ha revocato la priorità nel parlare.</translation>
+        <translation>%1 ti ha tolto la priorità.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation>%1 ti ha dato la priorità nel parlare.</translation>
+        <translation>%1 ti ha dato la priorità.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation>Hai revocato la priorità nel parlare a %1.</translation>
+        <translation>Hai tolto la priorità a %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation>Hai dato la priorità nel parlare a %1.</translation>
+        <translation>Hai dato la priorità a %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation>%1 ha revocato la sua la priorità nel parlare.</translation>
+        <translation>%1 si è tolto la priorità.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation>%1 ha ora la priorità nel parlare.</translation>
+        <translation>%1 ha assunto la priorità.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation>%1 ha revocato la priorità nel parlare a %2.</translation>
+        <translation>%1 ha tolto la priorità a %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>%1 ha dato la priorità nel parlare a %2.</translation>
+        <translation>%1 ha dato la priorità a %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5936,7 +5936,7 @@ certificato ed il nome utente.</translation>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation>Hai spostato %1 in %2.</translation>
+        <translation>Hai spostato %1 su %2.</translation>
     </message>
     <message>
         <location line="+18"/>
