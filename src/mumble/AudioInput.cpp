@@ -884,6 +884,7 @@ void AudioInput::encodeAudioFrame() {
 			if (len <= 0) {
 				iBitrate = 0;
 				qWarning() << "encodeOpusFrame failed" << iBufferedFrames << iFrameSize << len;
+				iBufferedFrames = 0; // These are lost. Make sure not to mess up our sequence counter next flushCheck.
 				return;
 			}
 			encoded = true;
