@@ -55,12 +55,12 @@ guid g_playerGUID;
  * call each value, to ease in upgrading. "[_]" means the value name may or may not
  * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0xED4B50; // ClientConnection or CurMgrPointer
+static uint32_t ptr_ClientConnection=0xED5C90; // ClientConnection or CurMgrPointer
 static size_t off_ObjectManager=0x62C; // objectManager or CurMgrOffset
-static uint32_t ptr_WorldFrame=0xD92CF0; // Camera[_]Pointer, CameraStruct
+static uint32_t ptr_WorldFrame=0xD93E30; // Camera[_]Pointer, CameraStruct
 static size_t off_CameraOffset=0x7610; // Camera[_]Offset
-static uint32_t ptr_PlayerName=0xED4B90; // PlayerName
-static uint32_t ptr_RealmName=0xED4D3E; // RealmName
+static uint32_t ptr_PlayerName=0xED5CD0; // PlayerName
+static uint32_t ptr_RealmName=0xED5E7E; // RealmName
 
 static size_t off_localGUID = 0xF8; // localGUID
 static size_t off_firstObject = 0xD8; // firstObject
