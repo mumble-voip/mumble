@@ -3381,27 +3381,27 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>כינוי שרת מקומי</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>שם משתמש</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>סיסמה</translation>
     </message>
 </context>
 <context>
@@ -5849,52 +5849,52 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>ביטלת את עדיפות הדיבור שלך</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>קיבלת את עדיפות הדיבור</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ביטל לך את עדיפות הדיבור</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 העניק לך את עדיפות הדיבור</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>ביטלת את עדיפות הדיבור של %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>הענקת את עדיפות הדיבור ל %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ביטל לעצמו את עדיפות הדיבור</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 קיבל את עדיפות הדיבור</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ביטל את עדיפות הדיבור של %2 </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 העביר את עדיפות הדיבור ל %2</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5930,7 +5930,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>העברת את %1 ל %2</translation>
     </message>
     <message>
         <location line="+18"/>
