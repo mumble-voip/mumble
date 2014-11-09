@@ -17,6 +17,7 @@ CONFIG -= warn_on
 CONFIG += warn_off
 VPATH	= ../$$SOURCEDIR/libcelt
 TARGET = celt0
+RC_FILE = celt-0.11.0.rc
 DEFINES += HAVE_CONFIG_H
 TARGET_VERSION_EXT = .$$VERSION
 
