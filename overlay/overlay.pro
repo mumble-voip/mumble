@@ -7,6 +7,7 @@ CONFIG -= qt
 CONFIG *= dll shared debug_and_release warn_on
 CONFIG -= embed_manifest_dll
 TARGET = mumble_ol
+RC_FILE = mumble_ol.rc
 SOURCES = lib.cpp d3d9.cpp dxgi.cpp d3d10.cpp d3d11.cpp ods.cpp opengl.cpp HardHook.cpp D11StateBlock.cpp
 HEADERS = lib.h ods.h HardHook.h overlay_blacklist.h D11StateBlock.h
 EFFECTS = overlay.fx
