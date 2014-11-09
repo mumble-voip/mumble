@@ -219,7 +219,8 @@ void AudioEchoWidget::paintEvent(QPaintEvent *) {
 	for (int i = 0; i < 2 * n; i++) {
 		poly << QPointF(static_cast<float>(i) * xscale, 0.5f + static_cast<float>(w[i]) * yscale);
 	}
-	paint.setPen(QColor::fromRgbF(1.0f, 0.0f, 1.0f));
+	
+	paint.setPen(QPen(QBrush(QColor::fromRgbF(1.0f, 0.0f, 1.0f), 0)));
 	paint.drawPolyline(poly);
 }
 
