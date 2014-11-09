@@ -16,3 +16,6 @@
 [submodule "3rdparty/fx11-src"]
 	path = 3rdparty/fx11-src
 	url = git://github.com/mumble-voip/fx11.git
+[submodule "3rdparty/minhook-src"]
+	path = 3rdparty/minhook-src
+	url = https://github.com/mumble-voip/minhook.git

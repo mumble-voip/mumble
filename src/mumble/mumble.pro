@@ -333,6 +333,12 @@ win32 {
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
 
+  equals(QMAKE_TARGET.arch, x86_64) {
+    DEFINES += USE_MINHOOK
+    INCLUDEPATH *= ../../3rdparty/minhook-src/include
+    LIBS *= -lminhook
+  }
+
   DEFINES	*= WIN32
   !CONFIG(no-asio) {
     CONFIG	*= asio

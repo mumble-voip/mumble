@@ -28,6 +28,12 @@ CONFIG *= ordered debug_and_release
 	SUBDIRS *= opus-build
   }
 
+  win32 {
+    equals(QMAKE_TARGET.arch, x86_64) {
+      SUBDIRS *= 3rdparty/minhook-build
+    }
+  }
+
   SUBDIRS *= src/mumble
 
   win32:CONFIG(static) {

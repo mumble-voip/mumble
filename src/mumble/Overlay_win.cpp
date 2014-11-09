@@ -53,11 +53,6 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	hpRemove = NULL;
 	qlOverlay = new QLibrary(this);
 
-#ifdef Q_OS_WIN64
-	qWarning("Overlay: suppressing OverlayPrivateWin initialization on x64");
-	return;
-#endif
-
 	QString path = QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
 	qlOverlay->setFileName(path);
 	if (! qlOverlay->load()) {
