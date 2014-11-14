@@ -4735,7 +4735,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+72"/>
         <location line="+263"/>
         <source>Message to channel %1</source>
-        <translation>채널%1에 대한 메시지</translation>
+        <translation>채널%1 메시지</translation>
     </message>
     <message>
         <location line="+635"/>
@@ -4751,13 +4751,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
-        <translation>&lt;center&gt;채널&apos;%1&apos;에 대한 메시지를 여기에 입력하세요.&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;채널&apos;%1&apos; 채팅 내용을 입력하세요.&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user '%1' here</oldsource>
-        <translation>&lt;center&gt;사용자&apos;%1&apos;에 대한 메시지를 여기에 입력하세요.&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;사용자&apos;%1&apos; 채팅 내용을 입력하세요.&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+125"/>
@@ -4902,7 +4902,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+22"/>
         <source>Sending message to %1</source>
-        <translation>%1에 메시지를 송신하고 있습니다.</translation>
+        <translation>%1에게 메시지를 송신하고 있습니다.</translation>
     </message>
     <message>
         <location line="+12"/>
