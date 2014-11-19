@@ -4,7 +4,7 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Kiellä</translation>
+        <translation>Estä</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -199,7 +199,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat. Suuremmalla &lt;
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>Aktiiviset ALC:t</translation>
+        <translation>Aktiiviset ACL:t</translation>
     </message>
     <message>
         <location/>
@@ -407,57 +407,62 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nimi&lt;/b&gt;&lt;br /&gt;Syötä kanavan nimi tähän kenttään. Nimen täytyy sopia yhdistämäsi serverin ohjeisiin.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tilapäinen&lt;/b&gt;&lt;br /&gt;
+Valitsemalla luotu kanava määritetään tilapäiseksi. Kun viimeinen pelaaja poistuu kanavalta, serveri poistaa kanavan automaattisesti.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ryhmä&lt;/b&gt;&lt;br /&gt;
+Kanavalle määritellyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina Enter.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Poista&lt;/b&gt;&lt;br /&gt;Poistaa valitun ryhmän. Jos ryhmä oli sisällytetty, sitä ei poisteta listalta, mutta kaikki paikallinen tieto pyyhitään pois.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sisällyttää&lt;/b&gt;&lt;br /&gt;Tämä sisällyttää kaikki emokanavan jäsenet, jos ryhmään ei ole merkitty  &lt;i&gt;Sisällytettävä&lt;/i&gt; emokanavalla.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sisällytettävä&lt;/b&gt;&lt;br /&gt;Tämä tekee tästä ryhmästä sisällytettävän alikanaville. Jos kanavaa ei sisällytetä, alikanavat voivat silti luoda uuden ryhmän samalla nimellä.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sisällytetty&lt;/b&gt;&lt;br /&gt;Näyttää, että ryhmä on sisällytetty emokanavalle. Tätä ei voi muokata.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Jäsenet&lt;/b&gt;&lt;br /&gt;
+Tämä sisältää listan jäsenistä jotka on lisätty nykyiseen kanavaan. Ota huomioon, että tämä ei sisällä jäseniä jotka on sisällytetty kanavapuun ylemmiltä tasoilta. Nämä löytyvät &lt;i&gt;Sisällytetyt jäsenet&lt;/i&gt; listalta. Estääksesi sisällytyksen alemmilta tasoilta jätä valitsematta &lt;i&gt;Sisällytettävä&lt;/i&gt; tai lisää manuaalisesti &lt;i&gt;Poislaskettavat jäsenet&lt;/i&gt; listalta.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Poislaskettavat jäsenet&lt;/b&gt;&lt;br /&gt;
+Sisältää listan jäsenistä joiden jäsenyys ei periydy emokanavalta.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sisällytetyt jäsenet&lt;/b&gt;&lt;br /&gt;
+Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Poista valinta &lt;i&gt;Sisällyttää&lt;/i&gt; estääksesi sisällytys korkeamman tason kanavilta.</translation>
     </message>
     <message>
         <location/>
@@ -467,7 +472,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Salasana&lt;/b&gt;&lt;br /&gt;Voit asettaa ja vaihtaa kanavan salasanan tässä. Se käyttää Mumblen avaintoimintoa taustalla. Käytä ACL:ää ja ryhmiä jos tarvitset parempaa hallintaa.</translation>
     </message>
     <message>
         <location/>
@@ -495,7 +500,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Valitun ALSA:n avaaminen epäonnistu: %1</translation>
     </message>
 </context>
 <context>
@@ -503,12 +508,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Oletus ALSA kortti</translation>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Valitun ALSA ulostulon avaaminen epäonnistu: %1</translation>
     </message>
 </context>
 <context>
@@ -528,7 +533,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>ASIO määritys epäonnistu: %1</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -539,12 +544,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Muoto</translation>
     </message>
     <message>
         <location/>
@@ -564,22 +569,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä valitsee laitteen jota tiedustellaan. Sinun pitää silti tiedustella laite ja valita mitä kanavaa käytetään.</translation>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>Tiedustele valittu laite</translation>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä tiedustelee valitun laitteen kanaville. Tiedäthän, että monet ASIO-ajurit ovat todella bugisia ja niiden tiedustelu voi aiheuttaa sovelluksen tai järjestelmän kaatumisen.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tiedustelu</translation>
     </message>
     <message>
         <location/>
@@ -614,7 +619,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä määrittää sisääntulokanavan ASIO:lle. Valitse ainakin yksi kanava mikrofoniksi ja kaiuttimeksi. &lt;i&gt;Mikrofoni&lt;/i&gt; tulisi olla siellä minne mikrofonisi on kytketty, ja &lt;i&gt;Kaiutin&lt;/i&gt; tulisi olla kanava joka samplaa &apos;&lt;i&gt;Mitä kuulet&lt;/i&gt;&apos;.&lt;br /&gt;Esimerkiksi Audigy 2 ZS:ssa, hyvä asetus Mikrofonille olisi &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; kun taas kaiuttimen tulisi olla &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <location/>
@@ -662,7 +667,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Valitun ASIO-laitteen avaus epäonnistui. Sisääntuloa ei voida syöttää.</translation>
     </message>
 </context>
 <context>
@@ -718,12 +723,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Sisääntulon tapa</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tätä tapaa käytetään audion sisääntuloon.&lt;/b&gt;&lt;br /&gt;Luultavasti haluat käyttää DirectSoundia.</translation>
     </message>
     <message>
         <location/>
@@ -733,12 +738,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audion sisääntulo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tätä laitetta käytetään audion sisääntuloon.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -753,12 +758,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"/>
+        <translation>Kun lähetät puhettasi</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Määritä tästä milloin puhetta lähetetään.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Jatkuva&lt;/i&gt; - Yhteys auki koko ajan&lt;br /&gt;&lt;i&gt;Äänen tunnistus&lt;/i&gt; - Kun puhut&lt;br /&gt;&lt;i&gt;Puhepikanäppäin&lt;/i&gt; - Kun painat näppäintä joka on määritetty &lt;i&gt;Oikotiet&lt;/i&gt; kohdassa.</translation>
     </message>
     <message>
         <location/>
@@ -768,22 +773,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"/>
+        <translation>Jos painat PPN-näppäintä tässä ajassa se lukitaan pohjaan.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tuplapainalluksen Aika&lt;/b&gt;&lt;br /&gt;Jos painat Puhepikanäppäintä -näppäintä kahdesti määrätyssä ajassa se lukitaan pohjaan. Mumble jatkaa lähettämistä kunnes painat PPN-näppäintä uudelleen.</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa äänimerkki oletukseen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nollaa&lt;/b&gt;&lt;br/&gt;Nollaa tiedostopolut oletukseksi.</translation>
     </message>
     <message>
         <location/>
@@ -808,22 +813,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation type="unfinished"/>
+        <translation>Esikatsele äänimerkit</translation>
     </message>
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Käytä SNR pohjaista puheentunnistusta</translation>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Signaali ääneksi</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä asettaa puheentunnistuksen käyttämään voimakuutta.&lt;/b&gt;&lt;br /&gt;Tässä muodossa raaka sisääntulon signaali käytetään puheen määrittämiseen.</translation>
     </message>
     <message>
         <location/>
@@ -833,32 +838,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished"/>
+        <translation>Ääni &amp;Pidä</translation>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"/>
+        <translation>Kuinka kauan lähetetään hiljaisuuden jälkeen</translation>
     </message>
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Hiljaisuus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä määrittää äänen lähetyksen.&lt;/b&gt;&lt;br /&gt;Käytä tätä Audio Statistiikka -ikkunan kanssa säätääksesi manuaalisesti äänentunnistuksen merkkikohdat. &quot;Hiljaisuus&quot; merkin takana olevat signaalit lasketaan hiljaisuudeksi. &quot;Puhetta&quot; merkin jälkeen oleva signaali lasketaan puheeksi. Merkkien välillä oleva signaali lasketaan puheeksi, mutta se ei aloita uutta lähetystä.</translation>
     </message>
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Puhetta</translation>
     </message>
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"/>
+        <translation>Signaali joka ylittää tämän merkin tulkitaan puheeksi</translation>
     </message>
     <message>
         <location/>
@@ -873,27 +878,27 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation type="unfinished"/>
+        <translation>Pakkauksen laatu (kaistan huippu)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Määrittää pakkauksen laadun.&lt;/b&gt;&lt;br /&gt;Tämä määrittää kuinka paljon Mumble voi käyttää yhteyskaistaasi ulosmenevään audioon.</translation>
     </message>
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation type="unfinished"/>
+        <translation>Audiota per paketti</translation>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation type="unfinished"/>
+        <translation>Kuinka monta audiofreimiä käytetään lähettämiseen per paketti</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä valitsee kuinka monta audiofreimiä tulisi laittaa yhteen pakettiin.&lt;/b&gt;&lt;br /&gt;Kasvattamalla freimien määrää kasvatat äänesi latenssia, mutta vähennät yhteytesi kaistankäyttöä.</translation>
     </message>
     <message>
         <location/>
@@ -903,22 +908,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation type="unfinished"/>
+        <translation>Audion käsittely</translation>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation type="unfinished"/>
+        <translation>Melun Vaimennus</translation>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation type="unfinished"/>
+        <translation>Melun vaimennus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä määrittää melun vaimennuksen määrän.&lt;/b&gt;&lt;br /&gt;Mitä korkeampi arvo, sitä aggressiivisemmin taustamelua vaimennetaan.</translation>
     </message>
     <message>
         <location/>
@@ -933,22 +938,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Nykyisen äänentunnistuksen mahdollisuus</translation>
     </message>
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation type="unfinished"/>
+        <translation>Estä kaiuttimien kaiku</translation>
     </message>
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsemalla tämän estät kaiuttimistasi tulevan kaiun. Miksattu ei juuri vaikuta prosessoritehoon, mutta toimii hyvin vain jos kaiuttimesi ovat yhtä kaukana mikrofoonistasi. Monikanava -kaiunesto tarjoaa yhtä hyvän kaiuneston, mutta vie enemmän prosessoritehoa.</translation>
     </message>
     <message>
         <location/>
         <source>Disabled</source>
-        <translation type="unfinished"/>
+        <translation>Ei käytössä</translation>
     </message>
     <message>
         <location/>
@@ -978,7 +983,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"/>
+        <translation>Signaali joka alittaa tämän merkin tulkitaan hiljaisuudeksi</translation>
     </message>
     <message>
         <location/>
@@ -988,7 +993,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Käytä voimakkuuteen perustuvaa äänentunnistusta</translation>
     </message>
     <message>
         <location/>
@@ -1013,37 +1018,37 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"/>
+        <translation>N&amp;ollaus</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Selaa...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>S&amp;elaa...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Esikatsele</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Esikatsele&lt;/b&gt;&lt;br/&gt;Soittaa nykyisen &lt;i&gt;päällä&lt;/i&gt; äänen sekä &lt;i&gt;poissa&lt;/i&gt; äänen.</translation>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää Puhepikanäppäimen aina päällimmäisenä</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää Puhepikanäppäimen</translation>
     </message>
     <message>
         <location/>
@@ -1083,7 +1088,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofoni pysyy auki kun PPN on vapautettu</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
@@ -1494,7 +1499,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Ei mikään</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1509,7 +1514,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Audion ulostulo</translation>
     </message>
     <message>
         <location line="+108"/>
@@ -1549,7 +1554,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"/>
+        <translation>Tätä tiedostoa &apos;%1&apos; ei voida käyttää Mumblessa. Ole hyvä ja valitse tuetun formaatin ja enkoodauksen sisältävä tiedosto.</translation>
     </message>
 </context>
 <context>
@@ -1568,17 +1573,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input Levels</source>
-        <translation type="unfinished"/>
+        <translation>Sisääntulon Tasot</translation>
     </message>
     <message>
         <location/>
         <source>Peak microphone level</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofonitason huippu</translation>
     </message>
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation type="unfinished"/>
+        <translation>Viimeisen freimin huipun voimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -1588,7 +1593,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Peak speaker level</source>
-        <translation type="unfinished"/>
+        <translation>Kaiutintason huippu</translation>
     </message>
     <message>
         <location/>
@@ -1674,17 +1679,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>DoublePush interval</source>
-        <translation type="unfinished"/>
+        <translation>Tuplapainalluksen väliaika</translation>
     </message>
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"/>
+        <translation>Viimeisimmän kahden PTT-painalluksen väliaika</translation>
     </message>
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation type="unfinished"/>
+        <translation>Puheentunnistus</translation>
     </message>
     <message>
         <location/>
@@ -1714,7 +1719,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Kaiun Analysointi</translation>
     </message>
     <message>
         <location/>
@@ -1737,7 +1742,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"/>
+        <translation>Audiovelho</translation>
     </message>
     <message>
         <location/>
@@ -1747,7 +1752,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>Tervetuloa Mumblen Audiovelhoon</translation>
     </message>
     <message>
         <location/>
@@ -1757,22 +1762,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Nauti Mumblesta</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Laitteen valinta</translation>
     </message>
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Valitse Mumblessa käytettävät ulos- ja sisääntulolaitteet.</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished"/>
+        <translation>Tähän laitteeseen on kytketty mikrofonisi.</translation>
     </message>
     <message>
         <location/>
@@ -1915,12 +1920,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Sijainninmukainen Audio</translation>
     </message>
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"/>
+        <translation>Sijainninmukaisen audion säätö.</translation>
     </message>
     <message>
         <location/>
@@ -1931,7 +1936,13 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Mumble tukee sijainninmukaista audiota joillekin peleille säätämällä audion tulemaan siitä suunnasta missä muut käyttäjät pelissä ovat. Heidän sijainnistaan riippuen äänenvoimakkuus säädetaan simuloimaan oikeaa etäisyyttä sinusta. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista, jonka voit tehdä täällä
+&lt;/p&gt;
+&lt;p&gt;
+Äänen sijaintikartta &lt;font color=&quot;red&quot;&gt;sinä&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;kaiuttimet&lt;/font&gt; ja &lt;font color=&quot;green&quot;&gt;liikkuva äänenlähde&lt;/font&gt;. Sinun tulisi kuulla äänen liikkuvan kaiuttimissasi.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1947,7 +1958,13 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren't deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Onnea. Nyt voit nauttia Mumblen rikkaammasta äänikokemuksesta.
+&lt;/p&gt;
+&lt;p&gt;
+Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käyttäjiä palveleviin asioihin. Tästä johtuen, Mumble voi lähettää kehittäjille anonyymia tietoa sinun asetuksistasi. Nämä tiedot ovat tärkeitä tulevaisuuden kehittämiselle, ja mahdollistaa sen että sinun käyttämäsi palvelut pysyvät myös jatkossa mukana.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1957,7 +1974,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä ohittaa käyttöjärjestelmän kaiutinasetuksen ja konfiguroi sijainninmukaisen äänen vain kuulokkeille.</translation>
     </message>
     <message>
         <location/>
@@ -1967,12 +1984,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"/>
+        <translation>Säätää mikrofonin laiteasetuksen optimiin.</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Nyt puhu hiljaa, kuin puhuisit jollekin illalla etkä haluaisi häiritä muita. Säädä asetinta niin, että palkki muuttuu vihreäksi kun puhut, mutta pysyy sinisellä kun olet hiljaa.</translation>
     </message>
     <message>
         <location/>
@@ -1982,38 +1999,38 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Antaa Mumblen päättää milloin puhut ja milloin olet hiljaa.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä auttaa Mumblea päättämään milloin olet puhumassa. Ensimmäinen askel on valita mitä dataa käytetään.</translation>
     </message>
     <message>
         <location/>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"/>
+        <translation>Raaka äänentaajuus sisääntulosta</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signaali ääneksi</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"/>
+        <translation>Seuraavaksi sinun täytyy säätää tämä asetin. Ensimmäiset sanat tulisi päätyä vihreälle alueelle (varmaa puhetta). Kun jatkat puhumista, tulisi palkin olla keltaisella alueella (voi olla puhetta). Ja kun et puhu, tulisi palkin olla punaisella alueella (ei lainkaan puhetta).</translation>
     </message>
     <message>
         <location/>
         <source>Device tuning</source>
-        <translation type="unfinished"/>
+        <translation>Laitteen säätö</translation>
     </message>
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"/>
+        <translation>Säätää laitteiston ulostulon viiveen minimiin.</translation>
     </message>
     <message>
         <location/>
@@ -2023,17 +2040,17 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"/>
+        <translation>Puhepikanäppäin:</translation>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"/>
+        <translation>Laatu &amp; Ilmoitukset</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"/>
+        <translation>Säädä laatua ja ilmoitusasetuksia.</translation>
     </message>
     <message>
         <location/>
@@ -2058,12 +2075,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"/>
+        <translation>Käytä Teksti puheeksi -toimintoa lukeaksesi ilmoitukset ja viestit.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"/>
+        <translation>Älä käytä Teksti puheeksi -toimintoa vaan käytä äänimerkkeja.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
@@ -2113,7 +2130,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation type="unfinished"/>
+        <translation>Pidä kustomoidut Teksti puheeksi -asetukset.</translation>
     </message>
     <message>
         <location/>
@@ -3954,7 +3971,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Käytä Teksti puheeksi -toimintoa %1 toiminnolle</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3986,13 +4003,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Klikkaa täältä käyttääksesi Teksti puheeksi -toimintoa %1 tapahtumalle.&lt;br /&gt;Jos valittuna, Mumble käyttää Teksti puheeksi -toimintoa lukeakseen ääneen %1 tapahtumat. Teksti puheeksi -toiminto voi myös lukea tapahtumat joihin ei käytetä äänimerkkiä. Teksti puheeksi -toimintoa ja äänimerkkejä ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Klikkaa täältä käyttääksesi äänimerkkejä %1 tapahtumalle.&lt;br /&gt;Jos valittuna, Mumble käyttää esimääritettyjä äänimerkkejä ilmoittaakseen sinulle %1 tapahtumista. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4057,12 +4074,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"/>
+        <translation>Viesti pituuden kynnys Teksti puheeksi -moottorille.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä on Teksti puheeksi -moottorin käyttämä kynnys.&lt;/b&gt;&lt;br /&gt;Tätä pidempiä viestejä ei lueta kokonaan ääneen.</translation>
     </message>
     <message>
         <location/>
@@ -4432,7 +4449,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-2270"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Puhepikanäppäin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4444,7 +4461,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Tämä määrittää Puhepikanäppäimen painikkeen, niin kauan kuin painat tätä painiketta Mumble lähettää ääntäsi.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5354,12 +5371,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Teksti puheeksi</translation>
     </message>
     <message>
         <location/>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Käytä Teksti puheeksi -toimintoa</translation>
     </message>
     <message>
         <location/>
@@ -5928,12 +5945,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>Serveri vaatii Puhepikanäppäintä käytettäväksi.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>Serveri ei salli Puhepikanäppäimen käyttöä.</translation>
     </message>
     <message>
         <location line="-504"/>
@@ -8410,12 +8427,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"/>
+        <translation>Mumble PPN</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"/>
+        <translation>Paina puhuaksesi</translation>
     </message>
 </context>
 </TS>
