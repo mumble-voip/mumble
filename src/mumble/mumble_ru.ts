@@ -174,7 +174,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Members</source>
-        <translation>Члены группы</translation>
+        <translation>Члены</translation>
     </message>
     <message>
         <location/>
@@ -194,42 +194,42 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>С&amp;писки контроля доступа (ACL)</translation>
+        <translation>С&amp;писки управления доступом (СУД)</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>Активные ACL (списки контроля доступа)</translation>
+        <translation>Активные СУД</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Перечень ACL</translation>
+        <translation>Перечень СУД</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Унаследовать списки ACL от предков?</translation>
+        <translation>Унаследовать СУД родителя?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Наследовать, или нет, списки ACL от каналов-предков для этого объекта. Унаследованы будут только ACL, помеченные у предков как &quot;Применить к подканалам&quot;.</translation>
+        <translation>Наследовать, или нет, СУД от каналов-родителей для этого объекта. Унаследованы будут только СУД, помеченные у предков как &quot;Применить к подканалам&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Наследовать ACL (список контроля доступа)</translation>
+        <translation>Наследовать СУД</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>Переместить выше</translation>
+        <translation>Сдвинуть выше</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Переместить ACL вверх по списку.Так как ACL применяются сверху вниз, это может изменить эффективные привелегии пользователей. Вы не сможете переместить ACL выше унаследованного, если вы действительно хотите его переместить, вам придется продублировать унаследованный ACL.</translation>
+        <translation>Переместить СУД вверх по списку. Так как СУД применяются сверху вниз, это может изменить эффективные привилегии пользователей. Вы не сможете переместить СУД выше унаследованного, если вы действительно хотите его переместить, вам придется продублировать унаследованный СУД.</translation>
     </message>
     <message>
         <location/>
@@ -239,12 +239,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Переместить ниже</translation>
+        <translation>Сдвинуть ниже</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Переместить ACL вниз по списку. Так как ACL применяются сверху вниз, это может изменить эффективные привелегии пользователей.</translation>
+        <translation>Переместить СУД вниз по списку. Так как СУД применяются сверху вниз, это может изменить эффективные привилегии пользователей.</translation>
     </message>
     <message>
         <location/>
@@ -254,12 +254,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Добавить новый ACL</translation>
+        <translation>Добавить новый СУД</translation>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Добавить новый ACL, по умолчанию без прав доступа, и применяемый ко всем пользователям.</translation>
+        <translation>Добавить новый СУД, по умолчанию без прав доступа, и применяемый ко всем пользователям.</translation>
     </message>
     <message>
         <location/>
@@ -269,12 +269,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Удалить ACL</translation>
+        <translation>Удалить СУД</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Удалить выделенный ACL.</translation>
+        <translation>Удалить выделенный СУД.</translation>
     </message>
     <message>
         <location/>
@@ -295,7 +295,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Применить ACL к этому каналу.</translation>
+        <translation>Применяет СУД к этому каналу.</translation>
     </message>
     <message>
         <location/>
@@ -327,7 +327,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Содержит список пользователей, добавленных в группу для этого канала.</translation>
+        <translation>Содержит список пользователей, добавленных в группу этим каналом.</translation>
     </message>
     <message>
         <location/>
@@ -462,17 +462,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте канала, в котором находится этот канал. Например, стандартный ACL (список контроля доступа) для канала Root дает право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права этого канала (1) будут унаследованы каким-либо другим каналом (2), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в канале 1, будет иметь разрешение на запись, даже если он не принадлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 2, который наследует ACL от канала 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, эта группа используется как отрицание, а если с &apos;~&apos;,то права группы вычисляются в соответствии с каналом 1, вместо канала 2.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как токен доступа.То что идет после &apos;#&apos; в имени группы, должно быть введено в список токенов доступа пользователем, чтобы он мог войти. Это может быть использовано для очень простого доступа с паролем к каналу для неавторизированных пользователей.&lt;br /&gt;Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt;Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только авторизированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует или польвателю или группе, но не обоим.</translation>
+        <translation>Здесь можно задать группы пользователей, у которых будет доступ к этому каналу.&lt;br /&gt;Обратите внимание, что группа вычисляется в контексте канала, в котором находится этот канал. Например, стандартный СУД (список управления доступом) для канала Root даёт право &lt;i&gt;Записи&lt;/i&gt; для группы &lt;i&gt;admin&lt;/i&gt;. Если права этого канала (1) будут унаследованы каким-либо другим каналом (2), то пользователь, принадлежащий к группе &lt;i&gt;admin&lt;/i&gt; в канале 1, будет иметь разрешение на запись, даже если он не принадлежит к группе &lt;i&gt;admin&lt;/i&gt; в канале 2, который наследует СУД от канала 1.&lt;br /&gt;Если название группы начинается с &apos;!&apos;, эта группа используется как отрицание, а если с &apos;~&apos;,то права группы вычисляются в соответствии с каналом 1, вместо канала 2.&lt;br /&gt;Если имя группы начинается с &apos;#&apos;, то оно интерпретируется как токен доступа. То что идет после &apos;#&apos; в имени группы, должно быть введено в список токенов доступа пользователем, чтобы он мог войти. Это может быть использовано для очень простого доступа с паролем к каналу для неавторизированных пользователей.&lt;br /&gt;Если имя группы начинается с &apos;$&apos;, доступ будут иметь только пользователи, чей хэш сертификата соответствует тому, что следует в имени группы после &apos;$&apos;.&lt;br /&gt;Несколько предустановленных групп:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Соответствует абсолютно всем пользователям.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Соответствует только авторизированным пользователям.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Соответствует пользователям, которые находятся в подканале не выше &lt;i&gt;a&lt;/i&gt;, и между &lt;i&gt;b&lt;/i&gt; и &lt;i&gt;c&lt;/i&gt; вниз по цепочке. Более подробная документация на вебсайте программы.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Соответствует всем пользователям данного канала (для удобства, вместо &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Соответствует пользователям, которых нет в данном канале (для удобства, вместо &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Одна запись соответствует или польвателю или группе, но не обоим.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br /&gt;Данное поле позволяет Вам с легкостью установить или изменить пароль на канал. Оно использует токены доступа Mumble в фоне. Используйте списки ACL и группы, если Вам нужен более тонкий и мощный контроль доступа.</translation>
+        <translation>&lt;b&gt;Пароль&lt;/b&gt;&lt;br /&gt;Данное поле позволяет Вам с легкостью установить или изменить пароль на канал. Оно использует токены доступа Mumble в фоне. Используйте СУД и группы, для более тонкого и мощного контроля доступа.</translation>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Список всех групп для этого канала. Группы, унаследованные из родительских каналов обозначены курсивом.&lt;br /&gt;ACL читается сверху вниз, то есть нижние записи имеют более высокий приоритет.</translation>
+        <translation>Список всех групп для этого канала. Группы, унаследованные из родительских каналов, обозначены курсивом.&lt;br /&gt;СУД читаются сверху вниз, то есть нижние записи имеют более высокий приоритет.</translation>
     </message>
     <message>
         <location/>
@@ -2778,7 +2778,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation>Предоставляет полный доступ к каналу, веключая возможность изменять информацию о группах и ACL. Эта привелегия включает все привелегии.</translation>
+        <translation>Предоставляет полный доступ к каналу, включая возможность изменять информацию о группах и СУД. Эта привилегия включает все привилегии.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2888,7 +2888,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-28"/>
         <source>Write ACL</source>
-        <translation>Изменять ACL</translation>
+        <translation>Изменять СУД</translation>
     </message>
 </context>
 <context>
@@ -5190,12 +5190,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Edit Groups and ACL for channel</source>
-        <translation>Редактировать Группы и списки ACL для канала</translation>
+        <translation>Изменять группы и СУД канала</translation>
     </message>
     <message>
         <location/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation>Открывает диалоговое окно групп и списков ACL для каналов, чтобы управлять привилегиями.</translation>
+        <translation>Открывает настройки групп и СУД для канала для управления привилегиями.</translation>
     </message>
     <message>
         <location/>
