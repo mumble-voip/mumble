@@ -174,8 +174,7 @@ int main(int argc, char **argv) {
 				bSetMute = true;
 			} else if (args.at(i) == QLatin1String("--deaf")) {
 				bSetDeaf = true;
-			}
-			else {
+			} else {
 				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
 				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
 					url = u;
