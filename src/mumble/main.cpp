@@ -129,6 +129,8 @@ int main(int argc, char **argv) {
 #endif
 
 	bool bAllowMultiple = false;
+	bool bSetMute = false;
+	bool bSetDeaf = false;
 	QUrl url;
 	if (a.arguments().count() > 1) {
 		QStringList args = a.arguments();
@@ -164,7 +166,12 @@ int main(int argc, char **argv) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				g.s.bSuppressIdentity = true;
-			} else {
+			} else if (args.at(i) == QLatin1String("--mute")) {
+				bSetMute = true;
+			} else if (args.at(i) == QLatin1String("--deaf")) {
+				bSetDeaf = true;
+			}
+			else {
 				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
 				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
 					url = u;
@@ -199,6 +206,38 @@ int main(int argc, char **argv) {
 #endif
 
 	if (! bAllowMultiple) {
+		if (bSetMute) {
+#ifndef USE_DBUS
+			QMap<QString, QVariant> param;
+			param.insert(QLatin1String("mute"),QLatin1String("mute"));
+#endif
+			bool sent = false;
+#ifdef USE_DBUS
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusMessage reply=qdbi.call(QLatin1String("setSelfMuted"),true);
+			sent = (reply.type() == QDBusMessage::ReplyMessage);
+#else
+			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("self"),param);
+#endif
+			if (sent)
+				return 0;
+		}
+		if (bSetDeaf) {
+#ifndef USE_DBUS
+			QMap<QString, QVariant> param;
+			param.insert(QLatin1String("deaf"), QLatin1String("deaf"));
+#endif
+			bool sent = false;
+#ifdef USE_DBUS
+			QDBusInterface qdbi(QLatin1String("net.sourceforge.mumble.mumble"), QLatin1String("/"), QLatin1String("net.sourceforge.mumble.Mumble"));
+			QDBusMessage reply=qdbi.call(QLatin1String("setSelfDeaf"),true);
+			sent = (reply.type() == QDBusMessage::ReplyMessage);
+#else
+			sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("self"),param);
+#endif
+			if (sent)
+				return 0;
+		}
 		if (url.isValid()) {
 #ifndef USE_DBUS
 			QMap<QString, QVariant> param;
