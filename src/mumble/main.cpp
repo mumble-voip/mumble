@@ -155,6 +155,10 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"  --mute\n"
+					"                Mute self in a currently running instance of Mumble.\n"
+					"  --deaf\n"
+					"                Deafen self in a currently running instance of Mumble.\n"
 					);
 #if defined(Q_OS_WIN)
 				QMessageBox::information(NULL, MainWindow::tr("Invocation"), helpmessage);
