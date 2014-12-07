@@ -477,7 +477,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>ID канала.</translation>
+        <translation># канала.</translation>
     </message>
     <message>
         <location/>
@@ -495,7 +495,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Открытие ALSA Input неудачно: %1</translation>
+        <translation>Ошибка открытия ввода ALSA: %1</translation>
     </message>
 </context>
 <context>
@@ -508,7 +508,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Открытие ALSA Output неудачно: %1</translation>
+        <translation>Ошибка открытия вывода ALSA: %1</translation>
     </message>
 </context>
 <context>
@@ -883,7 +883,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Аудио на пакет</translation>
+        <translation>Звука на пакет</translation>
     </message>
     <message>
         <location/>
@@ -1476,17 +1476,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>Если включён, то Mumble уменьшает громкость других пользователей при активации голоса и наличии приоритета.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Приглушить других пользователей при активации голоса и наличии приоритета.&lt;/b&gt;&lt;br /&gt;Mumble поддерживает уменьшение громкости других пользователей при активации голоса и наличии приоритета чтобы они не мешали Вам говорить.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Приглушить других пользователей при активации голоса и наличии приоритета.</translation>
     </message>
 </context>
 <context>
@@ -1549,7 +1549,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Файл &apos;%1&apos; не может быть использован в Mumble. Пожалуйста, выберите файл совместимого формата и кодирования.</translation>
+        <translation>Файл &apos;%1&apos; не может быть использован в Mumble. Выберите файл совместимого формата и кодирования.</translation>
     </message>
 </context>
 <context>
@@ -1724,7 +1724,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Отображает значение подавления эха, со временем растущего вниз и увеличивающим частоту вправо.&lt;br /&gt;В идеале, все должно быть черным, отображая, что эха нет. В общем, у Вас будет 1 или несколько горизонтальных полосок синеватого цвета, отображающих время задержки эха. Вы должны видеть значения в реальном времени.&lt;br /&gt;Заметьте, что если у Вас нет эхо, которое нужно подавить, Вы не увидите здесь полезной информации. Запустите музыку, и все должно нормализоваться. &lt;br /&gt;Вы можете выбрать просмотр реальных или воображаемых частей доменно-частотных значений, или наоборот высчитанные модуль и фазу. Наиболее применимым из них будут, скорее всего модуль, который является амплитудой эха, и показывает, сколько сигнала было вырезано за промежуток времени. Другие режимы просмотра более полезны для людей, желающих настроить алгоритмы глушения эха.&lt;br /&gt;Пожалуйста, заметьте: Если картина в целом обширно варьируется в режиме модулей, подавление эха не может найти соответствия между двумя входными источниками (динамиками и микрофоном). Или у Вас очень долгая задержка эха, или один из входящих источников настроен неправильно.</translation>
+        <translation>Отображает значение подавления эха, со временем растущего вниз и увеличивающим частоту вправо.&lt;br /&gt;В идеале, все должно быть черным, отображая, что эха нет. В общем, у Вас будет 1 или несколько горизонтальных полосок синеватого цвета, отображающих время задержки эха. Вы должны видеть значения в реальном времени.&lt;br /&gt;Заметьте, что если у Вас нет эхо, которое нужно подавить, Вы не увидите здесь полезной информации. Запустите музыку, и все должно нормализоваться. &lt;br /&gt;Вы можете выбрать просмотр реальных или воображаемых частей доменно-частотных значений, или наоборот высчитанные модуль и фазу. Наиболее применимым из них будут, скорее всего модуль, который является амплитудой эха, и показывает, сколько сигнала было вырезано за промежуток времени. Другие режимы просмотра более полезны для людей, желающих настроить алгоритмы глушения эха.&lt;br /&gt;Внимание: если картина в целом обширно варьируется в режиме модулей, подавление эха не может найти соответствия между двумя входными источниками (динамиками и микрофоном). Или у Вас очень долгая задержка эха, или один из входящих источников настроен неправильно.</translation>
     </message>
     <message>
         <location/>
@@ -1863,7 +1863,12 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>&lt;p&gt;Вас приветствует мастер настройки звука Mumble. Он поможет Вам правильно настроить Вашу звуковую карту, а также установить наилучшие параметры для обработки звука.&lt;/p&gt;&lt;p&gt;Пожалуйста, обратите внимание, что пока Мастер активен, звук будет передаваться локально, что позволит Вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;
+Вас приветствует мастер настройки звука Mumble. Он поможет правильно настроить звуковую карту, а также установить наилучшие параметры для обработки звука.
+&lt;/p&gt;
+&lt;p&gt;
+Внимание: пока Мастер активен, звук будет передаваться локально, что позволит Вам слышать его. При этом звук НЕ БУДЕТ передаваться на сервер.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2287,27 +2292,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>Забаненные пользователи</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Список забаненных пользователей.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Нажмите на кнопку чтобы добавить бан.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Нажмите на кнопку чтобы изменить бан.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Нажмите на кнопку чтобы снять бан с пользователя.</translation>
     </message>
     <message>
         <location/>
@@ -2317,7 +2322,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Эта кнопка очищает все поля. Нажмите чтобы добавить новый бан.</translation>
     </message>
     <message>
         <location/>
@@ -2327,7 +2332,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Бан-лист - %n бан</numerusform><numerusform>Бан-лист - %n бана</numerusform><numerusform>Бан-лист - %n банов</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2373,7 +2378,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Произошла ошибка при создании сертификата. &lt;br /&gt;Пожалуйста, попробуйте еще раз.</translation>
+        <translation>Ошибка при создании сертификата. &lt;br /&gt;Попробуйте ещё раз.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2388,12 +2393,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно установить разрешения для файла. Запись сертификата и ключа не удалась. Попробуйте другой файл.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>Невозможна запись в файл. Пожалуйста попробуйте другой файл.</translation>
+        <translation>Невозможна запись в файл. Попробуйте другой файл.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2408,7 +2413,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Файл не содержит действительного сертификата или ключа. Пожалуйста, попробуйте другой файл.</translation>
+        <translation>Файл не содержит действительного сертификата или ключа. Попробуйте другой файл.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2675,7 +2680,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Ваш E-mail (например, mumble@mumble.ru)</translation>
+        <translation>Ваш E-mail (например, johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -2705,7 +2710,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Наслаждайтесь Мамбл с надежной авторизацией.</translation>
+        <translation>Наслаждайтесь Mumble с надежной авторизацией.</translation>
     </message>
     <message>
         <location/>
@@ -3324,27 +3329,27 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Метка локального сервера</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Имя пользователя</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Пароль</translation>
     </message>
 </context>
 <context>
@@ -3376,7 +3381,7 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Пожалуйста, коротко опишите по английски, что Вы делали в момент вылета</translation>
+        <translation>Коротко опишите по-английски, что Вы делали на момент вылета</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3396,7 +3401,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Спасибо за помощь, делающей Mumble лучше!</translation>
+        <translation>Спасибо за помощь в улучшении Mumble!</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3407,7 +3412,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Сожалеем, но похоже отправка отчета не удалась. Ошибка %1 %2. Пожалуйста, проинформируйте об этом разработчика.</translation>
+        <translation>Ошибка отправки отчёта %1 %2. Сообщите разработчику.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3856,7 +3861,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Вы наложили на себя онемение</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4767,7 +4772,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Использовать вместе с шёпотом.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4785,7 +4790,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Сменить режим передачи</translation>
     </message>
     <message>
         <location line="+157"/>
@@ -4891,7 +4896,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Сбросить аватар пользователя %1?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -4952,7 +4957,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>Выбран режим передачи %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4998,7 +5003,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>Вы пытаетесь подключиться с недопустимым именем пользователя. Пожалуйста, попробуйте другое имя.</translation>
+        <translation>Попытка подключения с недопустимым именем пользователя, попробуйте другое имя.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5040,7 +5045,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>Изображения (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5281,7 +5286,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Это свяжет Ваш текущий канал с выбранным каналом. Если пользователи могут разговаривать в другом канале, то после этого они будут слышать друг друга. Это постоянная связь и будет действовать, пока не будет разорвана вручную, либо после перезагрузки сервера. Пожалуйста, посмотрите комбинацию клавиш для Связь по кнопке.</translation>
+        <translation>Это свяжет Ваш текущий канал с выбранным каналом. Если пользователи могут разговаривать в другом канале, то после этого они будут слышать друг друга. Это постоянная связь и будет действовать, пока не будет разорвана вручную, либо после перезагрузки сервера. См. комбинацию клавиш для Связь по кнопке.</translation>
     </message>
     <message>
         <location/>
@@ -5788,52 +5793,52 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Вы сняли с себя приоритет разговора.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Вы получили приоритет разговора.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 снял с Вас приоритет разговора.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 дал Вам приоритет разговора.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Вы сняли с %1 приоритет разговора.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Вы дали %1 приоритет разговора.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 снял с себя приоритет разговора.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 получил приоритет разговора.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 снял с %2 приоритет разговора.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 дал приоритет разговора %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5869,7 +5874,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Вы переместили %1 в %2.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5879,7 +5884,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 теперь известен как %2</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -6265,7 +6270,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Фильтр вкл/выкл</translation>
     </message>
     <message>
         <location/>
@@ -6278,7 +6283,10 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>Включить или выключить фильтрование выбранных каналов.
+По умолчанию фильтруются все пустые каналы.
+Фильтрование дополнительных каналов можно включить
+в контекстном меню канала.</translation>
     </message>
     <message>
         <location/>
@@ -6288,7 +6296,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Скрывать канал при фильтрации</translation>
     </message>
     <message>
         <location/>
@@ -6298,7 +6306,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Удалить аватар выбранного пользователя.</translation>
     </message>
 </context>
 <context>
@@ -7306,7 +7314,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation>Файл изображения слишком большой. Пожалуйста, используйте изображения менее %1 кб.</translation>
+        <translation>Файл изображения слишком большой. Используйте изображения менее %1 кб.</translation>
     </message>
     <message>
         <location line="+81"/>
@@ -7687,37 +7695,37 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>Кого ищем?</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"/>
+        <translation>Дней</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"/>
+        <translation>Недель</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"/>
+        <translation>Месяцев</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"/>
+        <translation>Лет:</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>Неактивен</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Зарегистрировано: %n пользователь</numerusform><numerusform>Зарегистрировано: %n пользователя</numerusform><numerusform>Зарегистрировано: %n пользователей</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7918,22 +7926,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Ник</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>Неактивен дней</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>Последний канал</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Посл. раз заходил: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7943,7 +7951,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation># Канала: %1</translation>
     </message>
 </context>
 <context>
@@ -8072,7 +8080,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>Канал будет скрыт при включённом фильтре</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8093,7 +8101,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation>Не возможно автоматически переместить, пожалуйста, снимите нумерацию каналов или настройте вручную.</translation>
+        <translation>Автоматическое перемещение невозможно - сбросьте нумерацию каналов или настройте вручную.</translation>
     </message>
 </context>
 <context>
@@ -8258,7 +8266,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно открыть файл &apos;%1&apos; для записи</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8377,12 +8385,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"/>
+        <translation>Запись продолжается</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>Закрыть программу записи без останова и потерять незаписанный звук?</translation>
     </message>
     <message>
         <location line="+33"/>
@@ -8393,7 +8401,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation>Сервер, к которому Вы подключены в данный момент версии 1.2.2 или ниже. По соображениям конфиденциальности, запись на серверах версий ниже 1.2.3 невозможна.&lt;br /&gt;Пожалуйста, свяжитесь с Вашим Администратором для дополнительной информации.</translation>
+        <translation>Сервер, к которому Вы подключены в данный момент версии 1.2.2 или ниже. По соображениям конфиденциальности, запись на серверах версий ниже 1.2.3 невозможна.&lt;br /&gt;Свяжитесь с администратором сервера для дополнительной информации.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -8403,12 +8411,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation>Пожалуйста, установите формат записи.</translation>
+        <translation>Установите формат записи.</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"/>
+        <translation>Останов</translation>
     </message>
     <message>
         <location line="+26"/>
