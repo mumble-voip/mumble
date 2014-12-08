@@ -390,7 +390,6 @@ int main(int argc, char **argv) {
 	QDBusConnection::sessionBus().registerObject(QLatin1String("/"), g.mw);
 	QDBusConnection::sessionBus().registerService(QLatin1String("net.sourceforge.mumble.mumble"));
 #endif
-
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
