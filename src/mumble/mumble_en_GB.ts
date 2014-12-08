@@ -4,103 +4,103 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>Deny</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>Allow</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>Allow %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>Deny %1</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Add channel</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>Failed: Invalid channel</translation>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Edit %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>Channel must have a name</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>Dialogue</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Name</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>Enter the channel name here.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>Description</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Password</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>Enter the channel password here.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Check to create a temporary channel.</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>Temporary</translation>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Channel positioning facility value</translation>
     </message>
     <message>
         <location/>
@@ -108,379 +108,386 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
+This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Position</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Groups</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Group</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>List of groups</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>Remove selected group</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Remove</translation>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>Inherit group members from parent</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>Inherit</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Make group inheritable to sub-channels</translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>Inheritable</translation>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>Group was inherited from parent channel</translation>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>Inherited</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>Members</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Add</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>Add member to group</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>Remove member from group</translation>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;ACL</translation>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Active ACLs</translation>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>List of entries</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>Inherit ACL of parent?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Inherit ACLs</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Move entry up</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry if you really need that you&apos;ll have to duplicate the inherited entry.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Up</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>Move entry down</translation>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation type="unfinished"/>
+        <translation>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Down</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>Add new entry</translation>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation type="unfinished"/>
+        <translation>This adds a new entry, initially set with no permissions and applying to all.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Add</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>Remove entry</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>This removes the currently selected entry.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Remove</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Context</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>Entry should apply to this channel.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>This makes the entry apply to this channel.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>Applies to this channel</translation>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Entry should apply to sub-channels.</translation>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Add new group</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
+Add a new group.</translation>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Inherited members</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Contains the list of members added to the group by this channel.</translation>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>Contains a list of members whose group membership will not be inherited from the parent channel.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>Contains the list of members inherited by other channels.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Type in the name of a user you wish to add to the group and click Add.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Type in the name of a user you wish to remove from the group and click Add.</translation>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>Exclude</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>Excluded members</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation type="unfinished"/>
+        <translation>This makes the entry apply to sub-channels of this channel.</translation>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Applies to sub-channels</translation>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>Permissions</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>User/Group</translation>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Group this entry applies to</translation>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>User ID</translation>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>User this entry applies to</translation>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Properties</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
+When ticked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
+These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
+This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels untick &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
+Contains a list of members whose group membership will not be inherited from the parent channel.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
+Contains the list of members inherited by the current channel. Untick &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</translation>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"/>
+        <translation>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give users write privileges if they belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if they don&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</translation>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"/>
+        <translation>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</translation>
     </message>
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>ID of the channel.</translation>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>ChannelID</translation>
     </message>
 </context>
 <context>
@@ -488,12 +495,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Default ALSA Card</translation>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Opening chosen ALSA Input failed: %1</translation>
     </message>
 </context>
 <context>
@@ -501,12 +508,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Default ALSA Card</translation>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Opening chosen ALSA Output failed: %1</translation>
     </message>
 </context>
 <context>
@@ -514,140 +521,140 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+228"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (version %2)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</translation>
     </message>
     <message>
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>ASIO Initialisation failed: %1</translation>
     </message>
     <message>
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished"/>
+        <translation>Failed to instantiate ASIO driver</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Form</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Device selection</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Device</translation>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation type="unfinished"/>
+        <translation>Device to use for microphone</translation>
     </message>
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"/>
+        <translation>This chooses what device to query. You still need to actually query the device and select which channels to use.</translation>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>Query selected device</translation>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Query</translation>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation type="unfinished"/>
+        <translation>Configure selected device</translation>
     </message>
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Configure</translation>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation type="unfinished"/>
+        <translation>Capabilities</translation>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation type="unfinished"/>
+        <translation>Driver name</translation>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Buffer size</translation>
     </message>
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation type="unfinished"/>
+        <translation>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</translation>
     </message>
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation type="unfinished"/>
+        <translation>Configure input channels</translation>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>Channels</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>Microphone</translation>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation type="unfinished"/>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation type="unfinished"/>
+        <translation>Unused</translation>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation type="unfinished"/>
+        <translation>Speakers</translation>
     </message>
 </context>
 <context>
@@ -655,12 +662,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</translation>
     </message>
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Opening selected ASIO device failed. No input will be done.</translation>
     </message>
 </context>
 <context>
@@ -668,32 +675,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>About Mumble</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;About Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Licence</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"/>
+        <translation>3rd &amp;party licences</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -701,82 +708,82 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Form</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Interface</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>System</translation>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Input method for audio</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Device</translation>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Input device for audio</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>Transmission</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Transmit</translation>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"/>
+        <translation>When to transmit your speech</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation type="unfinished"/>
+        <translation>DoublePush Time</translation>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"/>
+        <translation>If you press the PTT key twice in this time it will get locked.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation type="unfinished"/>
+        <translation>Reset audio cue to default</translation>
     </message>
     <message>
         <location/>
@@ -926,7 +933,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalises the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</translation>
     </message>
     <message>
         <location/>
@@ -966,12 +973,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analysed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialogue or from the Audio Wizard.</translation>
     </message>
     <message>
         <location/>
@@ -1323,7 +1330,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"/>
+        <translation>Ticking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</translation>
     </message>
     <message>
         <location/>
@@ -1424,7 +1431,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>If ticked Mumble lowers the volume of other applications while other users talk</translation>
     </message>
     <message>
         <location/>
@@ -1439,7 +1446,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"/>
+        <translation>If ticked Mumble lowers the volume of other applications while you talk</translation>
     </message>
     <message>
         <location/>
@@ -1474,12 +1481,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>If ticked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Selecting this tickbox will enable this feature.</translation>
     </message>
     <message>
         <location/>
@@ -1692,7 +1699,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialogue or from the Audio Wizard.</translation>
     </message>
     <message>
         <location/>
@@ -1722,12 +1729,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"/>
+        <translation>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish colour representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilise. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</translation>
     </message>
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"/>
+        <translation>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialogue.</translation>
     </message>
 </context>
 <context>
@@ -1908,7 +1915,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s ticked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2091,7 +2104,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"/>
+        <translation>You have already set a customised quality configuration in Mumble. Select this setting to keep it.</translation>
     </message>
     <message>
         <location/>
@@ -2101,7 +2114,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Apply some high contrast optimisations for visually impaired users</translation>
     </message>
     <message>
         <location/>
@@ -2130,7 +2143,13 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Open your sound control panel and go to the recording settings. Make sure the microphone is selected as active input with maximum recording volume. If there&apos;s an option to enable a &quot;Microphone boost&quot; make sure it&apos;s ticked.
+&lt;/p&gt;
+&lt;p&gt;
+Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the striped and the empty but &lt;b&gt;not&lt;/b&gt; the criss-crossed zone while you speak.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2142,7 +2161,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) area, and when you&apos;re not talking, everything should be in the criss-crossed (definitively not speech) area. </translation>
     </message>
     <message>
         <location/>
@@ -2152,12 +2171,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency and bandwidth usage. (40kbit/s, 20ms per packet)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</translation>
     </message>
 </context>
 <context>
@@ -2270,7 +2289,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"/>
+        <translation>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</translation>
     </message>
     <message>
         <location/>
@@ -2515,7 +2534,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2540,7 +2559,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation type="unfinished"/>
+        <translation>This opens a file selection dialogue to choose a file to import a certificate from.</translation>
     </message>
     <message>
         <location/>
@@ -2598,7 +2617,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;You already have a certificate stored in Mumble, and you are about to replace it.&lt;/p&gt;
+
+&lt;p&gt;If you are upgrading to a certificate issued to you by a trusted CA and the email addresses match your current certificate, this is completely safe, and servers you connect to will automatically recognise the strong certificate for your email address.
+
+&lt;/p&gt;
+
+&lt;p&gt;If this is not the case, you will no longer be recognised by any server you previously have authenticated with. If you haven&apos;t been registered on any server yet, this is nothing to worry about.
+&lt;/p&gt;
+
+&lt;p&gt;
+Are you sure you wish to replace your certificate?
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2688,7 +2719,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"/>
+        <translation>This is your name, and will be filled out in the certificate. This field is entirely optional.</translation>
     </message>
     <message>
         <location/>
@@ -2723,7 +2754,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
+&lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2776,12 +2808,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"/>
+        <translation>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>This represents the permission to traverse the channel. If users are denied this privilege, they will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2791,7 +2823,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"/>
+        <translation>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2801,12 +2833,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"/>
+        <translation>This represents the permission to mute and deafen other users. Once muted, users will stay muted until they are unmuted by another privileged user or reconnects to the server.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"/>
+        <translation>This represents the permission to move users to another channel or kick them from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3139,7 +3171,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Remove from Favourites</translation>
     </message>
     <message>
         <location/>
@@ -3169,7 +3201,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Copy favourite link to clipboard</translation>
     </message>
     <message>
         <location/>
@@ -3179,7 +3211,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Paste favourite from clipboard</translation>
     </message>
     <message>
         <location/>
@@ -3196,7 +3228,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Add to &amp;Favourites</translation>
     </message>
     <message>
         <location/>
@@ -3248,7 +3280,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Address&lt;/b&gt;&lt;br/&gt;
+Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognised by Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -3363,7 +3396,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3410,7 +3443,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation type="unfinished"/>
+        <translation>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -3475,7 +3508,8 @@ Label of the server. This is what the server will be named like in your server l
         <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble failed to initialise a database in any
+of the possible locations.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3557,7 +3591,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3765,7 +3799,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
+&lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -3967,13 +4003,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation type="unfinished"/>
+        <translation>Click here to toggle console output for %1 events.&lt;br /&gt;If ticked, this option makes Mumble output all %1 events in its message log.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If ticked, a notification pop-up will be created by Mumble for every %1 event.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3984,13 +4020,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If ticked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Click here to toggle sound notification for %1 events.&lt;br /&gt;If selected, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4075,7 +4111,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"/>
+        <translation>If ticked you will only hear whispers from users you added to your friend list.</translation>
     </message>
     <message>
         <location/>
@@ -4164,7 +4200,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"/>
+        <translation>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</translation>
     </message>
     <message>
         <location/>
@@ -4244,13 +4280,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"/>
+        <translation>This changes the behaviour when moving channels.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>This sets the behaviour of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</translation>
     </message>
     <message>
         <location/>
@@ -4300,7 +4336,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Ask whether to close or minimise when quitting Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -4315,17 +4351,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;If set, minimising the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimised as a window normally would.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"/>
+        <translation>Hide in tray when minimised</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"/>
+        <translation>Hide the main Mumble window in the tray when it is minimised.</translation>
     </message>
     <message>
         <location/>
@@ -4375,12 +4411,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Apply some high contrast optimisations for visually impaired users</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"/>
+        <translation>Optimise for high contrast</translation>
     </message>
     <message>
         <location/>
@@ -4442,7 +4478,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4519,7 +4555,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <location line="+140"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Minimise</translation>
     </message>
     <message>
         <location line="-140"/>
@@ -4534,7 +4570,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble is currently connected to a server. Do you want to Close or Minimise it?</translation>
     </message>
     <message>
         <location line="-200"/>
@@ -4666,7 +4702,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-357"/>
         <location line="+357"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4676,7 +4712,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -4742,7 +4778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Image format not recognised.</translation>
     </message>
     <message>
         <location line="-1776"/>
@@ -4974,7 +5010,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5055,7 +5091,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation type="unfinished"/>
+        <translation>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</translation>
     </message>
     <message>
         <location/>
@@ -5085,7 +5121,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished"/>
+        <translation>Open the server connection dialogue</translation>
     </message>
     <message>
         <location/>
@@ -5190,7 +5226,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation type="unfinished"/>
+        <translation>This opens the Group and ACL dialogue for the channel to control permissions.</translation>
     </message>
     <message>
         <location/>
@@ -5215,7 +5251,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"/>
+        <translation>Shows a dialogue of registered servers, and also allows quick-connect.</translation>
     </message>
     <message>
         <location/>
@@ -5276,7 +5312,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"/>
+        <translation>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</translation>
     </message>
     <message>
         <location/>
@@ -5317,7 +5353,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"/>
+        <translation>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</translation>
     </message>
     <message>
         <location/>
@@ -5362,7 +5398,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished"/>
+        <translation>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialogue will actually be spoken.</translation>
     </message>
     <message>
         <location/>
@@ -5372,7 +5408,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation type="unfinished"/>
+        <translation>Pops up a small dialogue with information about your current audio input.</translation>
     </message>
     <message>
         <location/>
@@ -5382,7 +5418,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"/>
+        <translation>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</translation>
     </message>
     <message>
         <location/>
@@ -5442,7 +5478,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Shows a small dialogue with information and licence for Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -5457,7 +5493,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished"/>
+        <translation>Shows a small dialogue with information about Speex.</translation>
     </message>
     <message>
         <location/>
@@ -5472,7 +5508,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"/>
+        <translation>Shows a small dialogue with information about Qt.</translation>
     </message>
     <message>
         <location/>
@@ -5487,7 +5523,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation type="unfinished"/>
+        <translation>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</translation>
     </message>
     <message>
         <location/>
@@ -5507,7 +5543,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"/>
+        <translation>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</translation>
     </message>
     <message>
         <location/>
@@ -5532,7 +5568,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"/>
+        <translation>This will add the user as a friend so you can recognise them on this and other servers.</translation>
     </message>
     <message>
         <location/>
@@ -5602,7 +5638,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"/>
+        <translation>This will toggle minimal mode, where the log window and menu is hidden.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+318"/>
@@ -6052,7 +6088,22 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"/>
+        <translation>Usage: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; specifies a URL to connect to after startup instead of showing
+the connection window, and has the following form:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+The version query parameter has to be set in order to invoke the
+correct client version. It currently defaults to 1.2.0.
+
+Valid options are:
+  -h, --help    Show this help text and exit.
+  -m, --multiple
+                Allow multiple instances of the client to be started.
+  -n, --noidentity
+                Suppress loading of identity files (i.e., certificates.)
+</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6309,7 +6360,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</translation>
     </message>
     <message>
         <location/>
@@ -6374,12 +6425,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>Enable QoS to prioritise packets</translation>
     </message>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>This will enable QoS, which will attempt to prioritise voice packets over other traffic.</translation>
     </message>
     <message>
         <location/>
@@ -6394,7 +6445,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6404,7 +6455,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunnelling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</translation>
     </message>
     <message>
         <location/>
@@ -6490,7 +6541,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</translation>
     </message>
     <message>
         <location/>
@@ -6505,12 +6556,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>This will check for new releases of plugins every time you start the program, and download them automatically.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</translation>
     </message>
     <message>
         <location/>
@@ -6723,7 +6774,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>This sets whether the overlay is enabled or not. This setting is only ticked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</translation>
     </message>
     <message>
         <location/>
@@ -6822,12 +6873,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>Set the overlay text colour.</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Colour</translation>
     </message>
     <message>
         <location/>
@@ -7040,7 +7091,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>Centre</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -7060,7 +7111,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"/>
+        <translation>Colour...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7085,27 +7136,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"/>
+        <translation>Pen colour</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"/>
+        <translation>Fill colour</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"/>
+        <translation>Pick pen colour</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"/>
+        <translation>Pick fill colour</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"/>
+        <translation>Pick colour</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -7337,7 +7388,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Colour</translation>
     </message>
     <message>
         <location/>
@@ -7406,7 +7457,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>Favourite</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7585,7 +7636,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>If ticked the message is recursively sent to all subchannels</translation>
     </message>
     <message>
         <location/>
@@ -7616,7 +7667,10 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;This is an editable list of access tokens on the connected server.&lt;/b&gt;
+&lt;br /&gt;
+An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you&apos;ve used and resend them to the server next time you reconnect, so you don&apos;t have to enter these every time.
+</translation>
     </message>
     <message>
         <location/>
@@ -8080,7 +8134,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"/>
+        <translation>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8141,7 +8195,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="-36"/>
         <location line="+37"/>
         <source>Organization: %1</source>
-        <translation type="unfinished"/>
+        <translation>Organisation: %1</translation>
     </message>
     <message>
         <location line="-36"/>
