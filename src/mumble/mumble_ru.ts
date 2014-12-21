@@ -367,7 +367,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Применить к подканалам</translation>
+        <translation>Относится к подканалам</translation>
     </message>
     <message>
         <location/>
@@ -382,7 +382,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Группа, к которой будет применяться этот ACL</translation>
+        <translation>Группа, к которой будет применяться эта запись</translation>
     </message>
     <message>
         <location/>
@@ -392,12 +392,12 @@ Add a new group.</source>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Применять для пользователя</translation>
+        <translation>Запись относится к пользователю</translation>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Управляет, к какому пользователю применять ACL. Просто введите имя пользователя и нажмите Enter, чтобы послать запрос на сервер.</translation>
+        <translation>Управляет, к какому пользователю применить данную запись. Введите имя пользователя и нажмите Enter, чтобы послать запрос на сервер.</translation>
     </message>
     <message>
         <location/>
@@ -477,7 +477,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation># канала.</translation>
+        <translation>ID канала.</translation>
     </message>
     <message>
         <location/>
@@ -2345,7 +2345,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation>E-mail</translation>
+        <translation>Эл. почта</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2476,7 +2476,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Создать новый сертификат.</translation>
+        <translation>Создаёт новый сертификат.</translation>
     </message>
     <message>
         <location/>
@@ -2486,7 +2486,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Импортировать сертификат из файла.</translation>
+        <translation>Импортирует сертификат из файла.</translation>
     </message>
     <message>
         <location/>
@@ -2724,7 +2724,11 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Mumble может использовать сертификаты для авторизации на серверах. Использование сертификатов исключает пароли, а также необходимость их ввода на удаленных сайтах. Данная система делает регистрацию для пользователя очень простой.&lt;/p&gt;&lt;p&gt;На данный момент, Mumble работает без сертификатов, однако, большинство серверов ожидают наличия у Вас сертификата.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Настоятельно&lt;/b&gt; рекомендуется &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;создать доверенный сертификат&lt;/a&gt;.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble может использовать сертификаты для авторизации на серверах. Использование сертификатов исключает пароли, а также необходимость их ввода на удаленных сайтах. Данная система делает регистрацию для пользователя очень простой.&lt;/p&gt;&lt;p&gt;На данный момент, Mumble работает без сертификатов, однако, большинство серверов ожидают наличия у Вас сертификата.&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Настоятельно&lt;/b&gt; рекомендуется &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;создать доверенный сертификат&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -3236,12 +3240,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation>Название сервера&lt;br /&gt;&lt;i&gt;пример:&lt;/i&gt; Mumble.ru</translation>
+        <translation>Название сервера</translation>
     </message>
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation>А&amp;дрес&lt;br /&gt;&lt;i&gt;пример:&lt;/i&gt; srv.mumble.ru</translation>
+        <translation>А&amp;дрес</translation>
     </message>
     <message>
         <location/>
@@ -6085,7 +6089,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation>Добро пожаловать в Mumble. Перевод и русскоязычная поддержка: B0nuse &lt;a href=&quot;http://Mumble.ru/&quot;&gt;http://mumble.ru&lt;/a&gt;.</translation>
+        <translation>Добро пожаловать в Mumble.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -6375,7 +6379,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation>HTTP(S) прокси</translation>
+        <translation>HTTP(S)-прокси</translation>
     </message>
     <message>
         <location/>
@@ -7951,7 +7955,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation># Канала: %1</translation>
+        <translation>ID канала: %1</translation>
     </message>
 </context>
 <context>
