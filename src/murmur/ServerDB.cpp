@@ -41,6 +41,7 @@
 #include "Server.h"
 #include "ServerUser.h"
 #include "User.h"
+#include "PBKDF2.h"
 
 #define SQLDO(x) ServerDB::exec(query, QLatin1String(x), true)
 #define SQLMAY(x) ServerDB::exec(query, QLatin1String(x), false, false)
@@ -48,6 +49,7 @@
 #define SQLEXEC() ServerDB::exec(query)
 #define SQLEXECBATCH() ServerDB::execBatch(query)
 #define SOFTEXEC() ServerDB::exec(query, QString(), false)
+
 
 class TransactionHolder {
 	public:
@@ -71,6 +73,34 @@ class TransactionHolder {
 QSqlDatabase *ServerDB::db = NULL;
 Timer ServerDB::tLogClean;
 QString ServerDB::qsUpgradeSuffix;
+
+void ServerDB::loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query) {
+	if (!Meta::mp.legacyPasswordHash) {
+		if (Meta::mp.kdfIterations <= 0) {
+			// Configuration doesn't specify an override, load from db
+			
+			SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'pbkdf2_iterations'");
+			if (query.next()) {
+				Meta::mp.kdfIterations = query.value(0).toInt();
+			}
+			
+			if (Meta::mp.kdfIterations <= 0) {
+				// Didn't get a valid iteration count from DB, overwrite
+				Meta::mp.kdfIterations = PBKDF2::benchmark();
+				
+				qWarning() << "Performed initial PBKDF2 benchmark. Will use " << Meta::mp.kdfIterations << " iterations as default";
+				
+				SQLPREP("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('pbkdf2_iterations',?)");
+				query.addBindValue(Meta::mp.kdfIterations);
+				SQLEXEC();
+			}
+		}
+		
+		if (Meta::mp.kdfIterations < PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT) {
+			qWarning() << "Configured default PBKDF2 iteration count of " << Meta::mp.kdfIterations << " is below minimum recommended value of " << PBKDF2::BENCHMARK_MINIMUM_ITERATION_COUNT << " and could be insecure.";
+		}
+	}	
+}
 
 ServerDB::ServerDB() {
 	if (! QSqlDatabase::isDriverAvailable(Meta::mp.qsDBDriver)) {
@@ -152,10 +182,13 @@ ServerDB::ServerDB() {
 		SQLDO("CREATE TABLE IF NOT EXISTS `%1meta`(`keystring` varchar(255) PRIMARY KEY, `value` varchar(255)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
 
 	SQLDO("SELECT `value` FROM `%1meta` WHERE `keystring` = 'version'");
+
 	if (query.next())
 		version = query.value(0).toInt();
+	
+	loadOrSetupMetaPKBDF2IterationsCount(query);
 
-	if (version < 5) {
+	if (version < 6) {
 		if (version > 0) {
 			qWarning("Renaming old tables...");
 			SQLDO("ALTER TABLE `%1servers` RENAME TO `%1servers%2`");
@@ -240,7 +273,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("CREATE TRIGGER `%1channel_info_del_channel` AFTER DELETE on `%1channels` FOR EACH ROW BEGIN DELETE FROM `%1channel_info` WHERE `channel_id` = old.`channel_id` AND `server_id` = old.`server_id`; END;");
 
-			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `pw` TEXT, `lastchannel` INTEGER, `texture` BLOB, `last_active` DATE)");
+			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `pw` TEXT, `salt` TEXT, `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` BLOB, `last_active` DATE)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
 			SQLDO("CREATE TRIGGER `%1users_server_del` AFTER DELETE ON `%1servers` FOR EACH ROW BEGIN DELETE FROM `%1users` WHERE `server_id` = old.`server_id`; END;");
@@ -330,7 +363,7 @@ ServerDB::ServerDB() {
 			SQLDO("CREATE UNIQUE INDEX `%1channel_info_id` ON `%1channel_info`(`server_id`, `channel_id`, `key`)");
 			SQLDO("ALTER TABLE `%1channel_info` ADD CONSTRAINT `%1channel_info_del_channel` FOREIGN KEY (`server_id`, `channel_id`) REFERENCES `%1channels`(`server_id`,`channel_id`) ON DELETE CASCADE");
 
-			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+			SQLDO("CREATE TABLE `%1users` (`server_id` INTEGER NOT NULL, `user_id` INTEGER NOT NULL, `name` varchar(255), `pw` varchar(128), `salt` varchar(128), `kdfiterations` INTEGER, `lastchannel` INTEGER, `texture` LONGBLOB, `last_active` TIMESTAMP) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
 			SQLDO("CREATE INDEX `%1users_channel` ON `%1users`(`server_id`, `lastchannel`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_name` ON `%1users` (`server_id`,`name`)");
 			SQLDO("CREATE UNIQUE INDEX `%1users_id` ON `%1users` (`server_id`, `user_id`)");
@@ -364,7 +397,7 @@ ServerDB::ServerDB() {
 		}
 		if (version == 0) {
 			SQLDO("INSERT INTO `%1servers` (`server_id`) VALUES(1)");
-			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','5')");
+			SQLDO("INSERT INTO `%1meta` (`keystring`, `value`) VALUES('version','6')");
 		} else {
 			qWarning("Importing old data...");
 
@@ -462,7 +495,7 @@ ServerDB::ServerDB() {
 			SQLDO("DROP TABLE IF EXISTS `%1bans%2`");
 			SQLDO("DROP TABLE IF EXISTS `%1servers%2`");
 
-			SQLDO("UPDATE `%1meta` SET `value` = '5' WHERE `keystring` = 'version'");
+			SQLDO("UPDATE `%1meta` SET `value` = '6' WHERE `keystring` = 'version'");
 		}
 	}
 	query.clear();
@@ -842,10 +875,10 @@ QMap<int, QString> Server::getRegistration(int id) {
 
 /// @return UserID of authenticated user, -1 for authentication failures, -2 for unknown user (fallthrough),
 ///         -3 for authentication failures where the data could (temporarily) not be verified.
-int Server::authenticate(QString &name, const QString &pw, int sessionId, const QStringList &emails, const QString &certhash, bool bStrongCert, const QList<QSslCertificate> &certs) {
+int Server::authenticate(QString &name, const QString &password, int sessionId, const QStringList &emails, const QString &certhash, bool bStrongCert, const QList<QSslCertificate> &certs) {
 	int res = bForceExternalAuth ? -3 : -2;
 
-	emit authenticateSig(res, name, sessionId, certs, certhash, bStrongCert, pw);
+	emit authenticateSig(res, name, sessionId, certs, certhash, bStrongCert, password);
 
 	if (res != -2) {
 		// External authentication handled it. Ignore certificate completely.
@@ -874,19 +907,72 @@ int Server::authenticate(QString &name, const QString &pw, int sessionId, const 
 	TransactionHolder th;
 	QSqlQuery &query = *th.qsqQuery;
 
-	SQLPREP("SELECT `user_id`,`name`,`pw` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
+	SQLPREP("SELECT `user_id`,`name`,`pw`, `salt`, `kdfiterations` FROM `%1users` WHERE `server_id` = ? AND LOWER(`name`) = LOWER(?)");
 	query.addBindValue(iServerNum);
 	query.addBindValue(name);
 	SQLEXEC();
 	if (query.next()) {
+		const int userId = query.value(0).toInt();
+		const QString storedPasswordHash = query.value(2).toString();
+		const QString storedSalt = query.value(3).toString();
+		const int storedKdfIterations = query.value(4).toInt();
 		res = -1;
-		QString storedpw = query.value(2).toString();
-		QString hashedpw = QString::fromLatin1(sha1(pw).toHex());
 
-		if (! storedpw.isEmpty() && (storedpw == hashedpw)) {
-			name = query.value(1).toString();
-			res = query.value(0).toInt();
-		} else if (query.value(0).toInt() == 0) {
+		if (!storedPasswordHash.isEmpty()) {
+			// A user has password authentication enabled if there is a password hash.
+			
+			if (storedKdfIterations <= 0) {
+				// If storedKdfIterations is <=0 this means this is an old-style SHA1 hash
+				// that hasn't been converted yet. Or we are operating in legacy mode.
+				if (ServerDB::getLegacySHA1Hash(password) == storedPasswordHash) {
+					name = query.value(1).toString();
+					res = query.value(0).toInt();
+					
+					if (! Meta::mp.legacyPasswordHash) {
+						// Unless disabled upgrade the user password hash
+						QMap<int, QString> info;
+						info.insert(ServerDB::User_Password, password);
+						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+						
+						if (!setInfo(userId, info)) {
+							qWarning("ServerDB: Failed to upgrade user account to PBKDF2 hash, rejecting login.");
+							return -1;
+						}
+					}
+				}
+			} else {
+				if (PBKDF2::getHash(storedSalt, password, storedKdfIterations) == storedPasswordHash) {
+					name = query.value(1).toString();
+					res = query.value(0).toInt();
+					
+					if (Meta::mp.legacyPasswordHash) {
+						// Downgrade the password to the legacy hash
+						QMap<int, QString> info;
+						info.insert(ServerDB::User_Password, password);
+
+						if (!setInfo(userId, info)) {
+							qWarning("ServerDB: Failed to downgrade user account to legacy hash, rejecting login.");
+							return -1;
+						}
+					} else if (storedKdfIterations != Meta::mp.kdfIterations) {
+						// User kdfiterations not equal to the global one. Update it.
+						QMap<int, QString> info;
+						info.insert(ServerDB::User_Password, password);
+						info.insert(ServerDB::User_KDFIterations, QString::number(Meta::mp.kdfIterations));
+
+						if (!setInfo(userId, info)) {
+							qWarning() << "ServerDB: Failed to update user PBKDF2 to new iteration count" << Meta::mp.kdfIterations << ", rejecting login.";
+							return -1;
+						}
+					}
+				}
+			}
+		}
+		
+		if (userId == 0 && res < 0) {
+			// For SuperUser only password based authentication is allowed.
+			// If we couldn't verify the password don't proceed to cert auth
+			// and instead reject the login attempt.
 			return -1;
 		}
 	}
@@ -976,12 +1062,29 @@ bool Server::setInfo(int id, const QMap<int, QString> &setinfo) {
 		info.remove(ServerDB::User_LastActive);
 	}
 	if (info.contains(ServerDB::User_Password)) {
-		const QString &pw = info.value(ServerDB::User_Password);
-		QCryptographicHash hash(QCryptographicHash::Sha1);
-		hash.addData(pw.toUtf8());
+		const QString password = info.value(ServerDB::User_Password);
+		QString passwordHash, salt;
+		int kdfIterations = -1;
 
-		SQLPREP("UPDATE `%1users` SET `pw`=? WHERE `server_id` = ? AND `user_id`=?");
-		query.addBindValue(pw.isEmpty() ? QVariant() : QString::fromLatin1(hash.result().toHex()));
+		if (Meta::mp.legacyPasswordHash) {
+			passwordHash = ServerDB::getLegacySHA1Hash(password);
+		} else {
+			kdfIterations = Meta::mp.kdfIterations;
+			if (info.contains(ServerDB::User_KDFIterations)) {
+				const int targetIterations = info.value(ServerDB::User_KDFIterations).toInt();
+				if (targetIterations > 0) {
+					kdfIterations = targetIterations;
+				}
+			}
+
+			salt = PBKDF2::getSalt();
+			passwordHash = PBKDF2::getHash(salt, password, kdfIterations);
+		}
+
+		SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=?, `kdfiterations`=? WHERE `server_id` = ? AND `user_id`=?");
+		query.addBindValue(passwordHash);
+		query.addBindValue(salt);
+		query.addBindValue(kdfIterations);
 		query.addBindValue(iServerNum);
 		query.addBindValue(id);
 		SQLEXEC();
@@ -1052,9 +1155,14 @@ bool Server::setTexture(int id, const QByteArray &texture) {
 
 void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	TransactionHolder th;
+	QString pwHash, saltHash;
 
-	QCryptographicHash hash(QCryptographicHash::Sha1);
-	hash.addData(pw.toUtf8());
+	if (!Meta::mp.legacyPasswordHash) {
+		saltHash = PBKDF2::getSalt();
+		pwHash = PBKDF2::getHash(saltHash, pw, Meta::mp.kdfIterations);
+	} else {
+		pwHash = getLegacySHA1Hash(pw);
+	}
 
 	QSqlQuery &query = *th.qsqQuery;
 
@@ -1070,11 +1178,18 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 		SQLEXEC();
 	}
 
-	SQLPREP("UPDATE `%1users` SET `pw`=? WHERE `server_id` = ? AND `user_id`=?");
-	query.addBindValue(QString::fromLatin1(hash.result().toHex()));
+	SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=?, `kdfiterations`=? WHERE `server_id` = ? AND `user_id`=?");
+	query.addBindValue(pwHash);
+	query.addBindValue(saltHash);
+	query.addBindValue(Meta::mp.kdfIterations);
 	query.addBindValue(srvnum);
 	query.addBindValue(0);
 	SQLEXEC();
+}
+
+QString ServerDB::getLegacySHA1Hash(const QString &password) {
+	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
+	return QString::fromLatin1(hash.toHex());
 }
 
 QString Server::getUserName(int id) {

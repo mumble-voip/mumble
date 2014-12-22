@@ -44,7 +44,7 @@ class QSqlQuery;
 class ServerDB {
 	public:
 		enum ChannelInfo { Channel_Description, Channel_Position };
-		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive };
+		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive, User_KDFIterations };
 		ServerDB();
 		~ServerDB();
 		typedef QPair<unsigned int, QString> LogRecord;
@@ -61,6 +61,7 @@ class ServerDB {
 		static QVariant getConf(int server_id, const QString &key, QVariant def = QVariant());
 		static void setConf(int server_id, const QString &key, const QVariant &value = QVariant());
 		static QList<LogRecord> getLog(int server_id, unsigned int offs_min, unsigned int offs_max);
+		static QString getLegacySHA1Hash(const QString &password);
 		static int getLogLen(int server_id);
 		static void wipeLogs();
 		static bool prepare(QSqlQuery &, const QString &, bool fatal = true, bool warn = true);
@@ -68,6 +69,9 @@ class ServerDB {
 		static bool execBatch(QSqlQuery &, const QString &str = QString(), bool fatal= true);
 		// No copy; private declaration without implementation
 		ServerDB(const ServerDB &);
+		
+	private:
+		static void loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query);
 };
 
 #endif
