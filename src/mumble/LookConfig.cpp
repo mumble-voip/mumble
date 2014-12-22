@@ -59,11 +59,18 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		QLocale tmpLocale = QLocale(cc);
 
 		//If there is no native language name, use the locale
+		QString displayName = cc;
 		if(!tmpLocale.nativeLanguageName().isEmpty()) {
-			qcbLanguage->addItem(tmpLocale.nativeLanguageName(), QVariant(cc));
-		} else {
-			qcbLanguage->addItem(cc, QVariant(cc));
+			displayName = QString(QLatin1String("%1 (%2)"))
+			        .arg(tmpLocale.nativeLanguageName())
+			        .arg(cc);
+		} else if (cc == QLatin1String("eo")){
+			// Can't initialize QLocale for a countryless language (QTBUG-8452, QTBUG-14592).
+			// We only have one so special case it.
+			displayName = QLatin1String("Esperanto (eo)");
 		}
+		
+		qcbLanguage->addItem(displayName, QVariant(cc));
 	}
 
 	QStringList styles = QStyleFactory::keys();
