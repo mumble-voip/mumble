@@ -54,11 +54,16 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 
 	qcbLanguage->addItem(tr("System default"));
 	QDir d(QLatin1String(":"),QLatin1String("mumble_*.qm"),QDir::Name,QDir::Files);
-	QStringList langs;
 	foreach(const QString &key, d.entryList()) {
 		QString cc = key.mid(7,key.indexOf(QLatin1Char('.'))-7);
-		langs << cc;
-		qcbLanguage->addItem(cc);
+		QLocale tmpLocale = QLocale(cc);
+
+		//If there is no native language name, use the locale
+		if(!tmpLocale.nativeLanguageName().isEmpty()) {
+			qcbLanguage->addItem(tmpLocale.nativeLanguageName(), QVariant(cc));
+		} else {
+			qcbLanguage->addItem(cc, QVariant(cc));
+		}
 	}
 
 	QStringList styles = QStyleFactory::keys();
@@ -109,7 +114,7 @@ void LookConfig::load(const Settings &r) {
 
 
 	for (int i=0;i<qcbLanguage->count();i++) {
-		if (qcbLanguage->itemText(i) == r.qsLanguage) {
+		if (qcbLanguage->itemData(i).toString() == r.qsLanguage) {
 			loadComboBox(qcbLanguage, i);
 			break;
 		}
@@ -142,7 +147,7 @@ void LookConfig::save() const {
 	if (qcbLanguage->currentIndex() == 0)
 		s.qsLanguage = QString();
 	else
-		s.qsLanguage = qcbLanguage->currentText();
+		s.qsLanguage = qcbLanguage->itemData(qcbLanguage->currentIndex()).toString();
 
 	if (qcbStyle->currentIndex() == 0)
 		s.qsStyle = QString();
