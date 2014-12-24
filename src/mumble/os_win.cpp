@@ -303,7 +303,7 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 		return errorStatus;
 	}
 
-	LPSTR usage[] = {
+	LPCSTR usage[] = {
 		szOID_PKIX_KP_SERVER_AUTH,
 		szOID_SERVER_GATED_CRYPTO,
 		szOID_SGC_NETSCAPE
@@ -314,7 +314,7 @@ DWORD WinVerifySslCert(const QByteArray& cert) {
 	chainParameter.cbSize = sizeof(CERT_CHAIN_PARA);
 	chainParameter.RequestedUsage.dwType = USAGE_MATCH_TYPE_OR;
 	chainParameter.RequestedUsage.Usage.cUsageIdentifier = ARRAYSIZE(usage);
-	chainParameter.RequestedUsage.Usage.rgpszUsageIdentifier = usage;
+	chainParameter.RequestedUsage.Usage.rgpszUsageIdentifier = const_cast<LPSTR *>(usage);
 
 	PCCERT_CHAIN_CONTEXT chainContext = NULL;
 	CertGetCertificateChain(NULL, certContext, NULL, NULL, &chainParameter, 0, NULL, &chainContext);
