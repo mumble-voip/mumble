@@ -235,7 +235,8 @@ CONFIG(static) {
 
 isEmpty(QMAKE_LRELEASE) {
   QMAKE_QMAKE_BASE = $$basename(QMAKE_QMAKE)
-  QMAKE_LRELEASE = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
+  QMAKE_LRELEASE_PATH = $$dirname(QMAKE_QMAKE)/$$replace(QMAKE_QMAKE_BASE,qmake,lrelease)
+  QMAKE_LRELEASE = $$shell_path($$QMAKE_LRELEASE_PATH)
 }
 
 unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
