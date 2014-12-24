@@ -95,6 +95,15 @@ win32 {
 			QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
 		}
 
+		# Qt 5.4 uses -Zc:strictStrings by default on MSVS 2013.
+		# TextToSpeech_win.cpp uses sapi.h, which isn't compatible
+		# with the strictStrings option due to bad conversions
+		# in some of its functions's default parameters.
+		QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
+		QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
+		QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
+		QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
+
 		QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE
 		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
 
