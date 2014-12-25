@@ -73,7 +73,11 @@ void ExecEvent::execute() {
 SslServer::SslServer(QObject *p) : QTcpServer(p) {
 }
 
+#if QT_VERSION >= 0x050000
+void SslServer::incomingConnection(qintptr v) {
+#else
 void SslServer::incomingConnection(int v) {
+#endif
 	QSslSocket *s = new QSslSocket(this);
 	s->setSocketDescriptor(v);
 	qlSockets.append(s);
