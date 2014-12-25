@@ -294,7 +294,7 @@ void ServerHandler::run() {
 
 
 #if QT_VERSION >= 0x050000
-	qtsSock->setProtocol(QSsl::TlsV1_0);
+	qtsSock->setProtocol(QSsl::TlsV1_2);
 #else
 	qtsSock->setProtocol(QSsl::TlsV1);
 #endif
