@@ -31,9 +31,6 @@
 #if QT_VERSION >= 0x050000
 # include "Qt4Compat.h"
 # include <QtWidgets/QtWidgets>
-#else
-# define Q_DECL_OVERRIDE // Not available on Qt4
-# define Q_DECL_FINAL
 #endif
 
 #include <QtSvg/QtSvg>

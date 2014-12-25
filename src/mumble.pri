@@ -61,6 +61,14 @@ unix {
 	}
 }
 
+# Make Q_DECL_OVERRIDE and Q_DECL_FINAL no-ops
+# for Qt 4.
+isEqual(QT_MAJOR_VERSION, 4) {
+	DEFINES *= Q_DECL_OVERRIDE=
+	DEFINES *= Q_DECL_FINAL=
+}
+
+
 QMAKE_EXTRA_COMPILERS *= pb pbh
 
 CONFIG(debug, debug|release) {
