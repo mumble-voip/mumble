@@ -1153,7 +1153,7 @@ void Server::newClient() {
 		u->setToS();
 
 #if QT_VERSION >= 0x050000
-		sock->setProtocol(QSsl::TlsV1_2);
+		sock->setProtocol(QSsl::TlsV1_0);
 #else
 		sock->setProtocol(QSsl::TlsV1);
 #endif
