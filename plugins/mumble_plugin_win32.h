@@ -112,24 +112,6 @@ T peekProc(VOID *base) {
 	return v;
 }
 
-static void inline u8(std::wstring &dst, const std::string &src) {
-	int len = MultiByteToWideChar(CP_UTF8, 0, src.data(), src.length(), NULL, 0);
-
-	wchar_t *wbuff = reinterpret_cast<wchar_t *>(_alloca(sizeof(wchar_t) * len));
-	MultiByteToWideChar(CP_UTF8, 0, src.data(), src.length(), wbuff, len);
-
-	dst.assign(wbuff, len);
-}
-
-static void inline u8(std::wstring &dst, const char *src, int srclen) {
-	int len = MultiByteToWideChar(CP_UTF8, 0, src, srclen, NULL, 0);
-
-	wchar_t *wbuff = reinterpret_cast<wchar_t *>(_alloca(sizeof(wchar_t) * len));
-	MultiByteToWideChar(CP_UTF8, 0, src, srclen, wbuff, len);
-
-	dst.assign(wbuff, len);
-}
-
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
 	pModule = NULL;

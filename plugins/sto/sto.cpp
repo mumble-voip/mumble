@@ -34,6 +34,20 @@ static BYTE *identptr;
 static BYTE *contextptr;
 static BYTE *posptr;
 
+static void inline u8(std::wstring &dst, const std::string &src) {
+	if (src.length() > std::numeric_limits<int>::max()) {
+		dst.clear();
+		return;
+	}
+
+	int len = MultiByteToWideChar(CP_UTF8, 0, src.data(), static_cast<int>(src.length()), NULL, 0);
+
+	wchar_t *wbuff = reinterpret_cast<wchar_t *>(_alloca(sizeof(wchar_t) * len));
+	MultiByteToWideChar(CP_UTF8, 0, src.data(), static_cast<int>(src.length()), wbuff, len);
+
+	dst.assign(wbuff, len);
+}
+
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	char identblock[0x200];
 	char contextblock[0x80];
