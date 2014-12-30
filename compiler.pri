@@ -104,11 +104,30 @@ win32 {
 		QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
 		QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
 
+		# Explicitly set the subsystem versions to
+		# 5.01 (XP) for x86 and 6.00 (Vista) for x64.
+		#
+		# Qt expands the @QMAKE_SUBSYSTEM_SUFFIX@ via
+		# qt_config.prf, which doesn't seem to trigger
+		# for us. So we'll just try our luck.
 		QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE
-		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
-
+		QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE@QMAKE_SUBSYSTEM_SUFFIX@
 		QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS
-		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
+		QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS@QMAKE_SUBSYSTEM_SUFFIX@
+		!isEmpty(QMAKE_LFLAGS_WINDOWS) {
+			error("QMAKE_LFLAGS_WINDOWS is not empty. Please adjust the pri file.")
+		}
+		!isEmpty(QMAKE_LFLAGS_CONSOLE) {
+			error("QMAKE_LFLAGS_CONSOLE is not empty. Please adjust the pri file.")
+		}
+		equals(QMAKE_TARGET.arch, x86) {
+			QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
+			QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
+		}
+		equals(QMAKE_TARGET.arch, x86_64) {
+			QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,6.00
+			QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
+		}
 
 		CONFIG(analyze) {
 			QMAKE_CFLAGS_DEBUG *= /analyze
