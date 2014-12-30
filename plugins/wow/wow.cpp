@@ -56,16 +56,16 @@ guid g_playerGUID;
  * have an underscore in it depending on who's posting the offset.
  */
 static uint32_t ptr_ClientConnection=0xED5C90; // ClientConnection or CurMgrPointer
-static size_t off_ObjectManager=0x62C; // objectManager or CurMgrOffset
+static uint32_t off_ObjectManager=0x62C; // objectManager or CurMgrOffset
 static uint32_t ptr_WorldFrame=0xD93E30; // Camera[_]Pointer, CameraStruct
-static size_t off_CameraOffset=0x7610; // Camera[_]Offset
+static uint32_t off_CameraOffset=0x7610; // Camera[_]Offset
 static uint32_t ptr_PlayerName=0xED5CD0; // PlayerName
 static uint32_t ptr_RealmName=0xED5E7E; // RealmName
 
-static size_t off_localGUID = 0xF8; // localGUID
-static size_t off_firstObject = 0xD8; // firstObject
-static size_t off_nextObject = 0x3C; // nextObject
-static size_t off_objectGUID = 0x28; 
+static uint32_t off_localGUID = 0xF8; // localGUID
+static uint32_t off_firstObject = 0xD8; // firstObject
+static uint32_t off_nextObject = 0x3C; // nextObject
+static uint32_t off_objectGUID = 0x28;
 
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
@@ -108,7 +108,7 @@ int getCStringN(uint32_t ptr, char *buffer, size_t buffersize) {
 	buffer[buffersize-1] = '\0';
 
 	if (ok && (r == buffersize)) {
-		return strlen(buffer);
+		return static_cast<int>(strlen(buffer));
 	} else {
 		return 0;
 	}
@@ -136,11 +136,11 @@ int getWString(uint32_t ptr, std::wstring &buffer) {
 	                                 wbuf, 1024);
 	buffer.assign(wbuf, wbufLength);
 
-	return 0;
+	return wbufLength;
 }
 
-void getDebug16(uint32_t ptr) {
 #ifdef _DEBUG
+void getDebug16(uint32_t ptr) {
 	unsigned char buf[16];
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(hProcess, (void *)ptr, &buf, sizeof(buf), &r);
@@ -153,11 +153,9 @@ void getDebug16(uint32_t ptr) {
 		       buf[12], buf[13], buf[14], buf[15]
 		      );
 	}
-#endif
 }
 
 void stringDebug(std::string &theString) {
-#ifdef _DEBUG
 	std::cout << "String length=" << theString.length() << " content=\"" << theString << "\" debug=";
 	for (size_t i=0; i<theString.length(); i++) {
 		if (i>0) {
@@ -166,8 +164,8 @@ void stringDebug(std::string &theString) {
 		std::cout << (unsigned int)theString[i];
 	}
 	std::cout << std::endl;
-#endif
 }
+#endif
 
 uint32_t getPlayerBase() {
 	uint32_t gClientConnection;
