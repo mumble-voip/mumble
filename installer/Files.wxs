@@ -137,6 +137,23 @@
         <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
+
+      <?ifdef D3DCompilerDLL ?>
+      <Component Id="d3dcompiler_47.dll">
+        <!--
+          For x64, we use the Windows 8 SDK, which requires us to
+          redistribute d3dcompiler_47.dll ourselves. (For our non-
+          Windows 8.1 users.)
+
+          For x86, we expect that people have the DirectX 9
+          redist package installed, which provides d3dcompiler_43.dll,
+          which is the version we use there.
+        -->
+        <?if $(sys.BUILDARCH) = "x64" ?>
+          <File Source="$(var.Win81SDKDir)\Redist\D3D\x64\d3dcompiler_47.dll" KeyPath="yes" />
+        <?endif ?>
+      </Component>
+      <?endif ?>
     </DirectoryRef>
   </Fragment>
 

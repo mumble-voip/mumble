@@ -124,6 +124,8 @@
     <?endif ?>
   <?endif ?>
 
+  <?define Win81SDKDir = "C:\Program Files (x86)\Windows Kits\8.1" ?>
+
   <!-- Environment flags to disable features. Value doesn't matter -->
   <?ifdef env.MumbleSSE ?>
     <?define SSE = true ?>
@@ -137,5 +139,8 @@
     <?define G15 = true ?> 
   <?endif ?>
 
+  <?ifndef env.MumbleNoD3DCompilerDLL ?>
+    <?define D3DCompilerDLL = true ?>
+  <?endif ?>
 
 </Include>
