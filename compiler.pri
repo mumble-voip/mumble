@@ -90,9 +90,13 @@ win32 {
 
 		# MSVS 2012 and 2013's cl.exe will generate SSE2 code by default,
 		# unless an explict arch is set.
+		# For our non-64 x86 builds, our binaries should not contain any
+		# SSE2 code, so override the default by using -arch:SSE.
 		win32-msvc2012|win32-msvc2013 {
-			QMAKE_CFLAGS_RELEASE *= -arch:SSE
-			QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
+			equals(QMAKE_TARGET.arch, x86) {
+				QMAKE_CFLAGS_RELEASE *= -arch:SSE
+				QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
+			}
 		}
 
 		# Qt 5.4 uses -Zc:strictStrings by default on MSVS 2013.
