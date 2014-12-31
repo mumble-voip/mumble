@@ -137,7 +137,11 @@
       <?endif ?>
 
       <?ifdef D3DCompilerDLL ?>
-        <ComponentRef Id="d3dcompiler_47.dll" />
+        <?if $(sys.BUILDARCH) = "x86" ?>
+          <ComponentRef Id="d3dcompiler_43.dll" />
+        <?elseif $(sys.BUILDARCH) = "x64" ?>
+          <ComponentRef Id="d3dcompiler_47.dll" />
+        <?endif ?>
       <?endif ?>
     </ComponentGroup>
 

@@ -126,6 +126,18 @@
 
   <?define Win81SDKDir = "C:\Program Files (x86)\Windows Kits\8.1" ?>
 
+  <!--
+    System32x86Dir is the system's System32 directory
+    that contains x86 binaries.
+    For 32-bit Windows, it's System32.
+    For 64-bit Windows, it's SysWOW64.
+  -->
+  <?ifdef env.ProgramFiles(x86) ?>
+    <?define System32x86Dir = "$(env.SystemRoot)\SysWOW64" ?>
+  <?else ?>
+    <?define System32x86Dir = "$(env.SystemRoot)\System32" ?>
+  <?endif ?>
+
   <!-- Environment flags to disable features. Value doesn't matter -->
   <?ifdef env.MumbleSSE ?>
     <?define SSE = true ?>
