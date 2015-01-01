@@ -3378,27 +3378,27 @@ Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e 
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Identificação do servidor local</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>Localhost</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Seu Nome de Usuário</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Sua senha</translation>
     </message>
 </context>
 <context>
@@ -5850,52 +5850,52 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Você revogou a sua prioridade de fala.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Você assumiu prioridade de fala.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 revogou a sua prioridade de fala.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 recebeu prioridade de fala.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Você revogou prioridade de fala de %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Você garantiu prioridade de fala para %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 autoprioridade de fala revogada.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 assumiu prioridade de fala.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 revogou prioridade de fala de %2</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 deu prioridade de lafa para %2</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5931,7 +5931,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Você moveu %1 para %2</translation>
     </message>
     <message>
         <location line="+18"/>
