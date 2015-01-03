@@ -3,12 +3,6 @@ include(../mumble.pri)
 DEFINES *= MURMUR
 TEMPLATE	=app
 CONFIG  *= network
-CONFIG(static):!macx {
-	QMAKE_LFLAGS *= -static
-}
-CONFIG(ermine) {
-	QMAKE_LFLAGS *= -Wl,-rpath,$$(MUMBLE_PREFIX)/lib:$$(MUMBLE_ICE_PREFIX)/lib
-}
 CONFIG	-= gui
 QT *= network sql xml
 QT -= gui
@@ -50,6 +44,14 @@ win32 {
 unix {
   contains(UNAME, Linux) {
     LIBS *= -lcap
+  }
+
+  CONFIG(static) {
+    QMAKE_LFLAGS *= -static
+  }
+
+  CONFIG(ermine) {
+    QMAKE_LFLAGS *= -Wl,-rpath,$$(MUMBLE_PREFIX)/lib:$$(MUMBLE_ICE_PREFIX)/lib
   }
 
   HEADERS *= UnixMurmur.h
