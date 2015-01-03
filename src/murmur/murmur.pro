@@ -46,7 +46,7 @@ unix {
     LIBS *= -lcap
   }
 
-  CONFIG(static) {
+  CONFIG(static):!macx {
     QMAKE_LFLAGS *= -static
   }
 
