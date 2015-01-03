@@ -67,6 +67,7 @@ static const char *overlayBlacklist[] = {
 	"HydraSysTray.exe", // Razer Hydra system tray
 	"devenv.exe", // Microsoft Visual Studio
 	"spotify.exe", // Spotify
+	"FarCry4.exe", // Far Cry 4 x64 overlay crash: https://github.com/mumble-voip/mumble/issues/1514
 	NULL
 };
 
