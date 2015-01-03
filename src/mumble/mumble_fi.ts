@@ -793,12 +793,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation type="unfinished"/>
+        <translation>Selaa &quot;päällä&quot; audio tiedostoa.</translation>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation type="unfinished"/>
+        <translation>Selaa &quot;Poissa&quot; audio tiedostoa.</translation>
     </message>
     <message>
         <location/>
@@ -1053,7 +1053,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Muut</translation>
     </message>
     <message>
         <location/>
@@ -1073,12 +1073,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Soitetaan kun lähetys alkaa</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Soitetaan kun lähetys loppuu</translation>
     </message>
     <message>
         <location/>
@@ -1113,12 +1113,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>ei mitään</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>hiljennä</translation>
     </message>
     <message>
         <location/>
@@ -1128,7 +1128,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>jälkeen</translation>
     </message>
 </context>
 <context>
@@ -1193,12 +1193,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Lomake</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Käyttöliittymä</translation>
     </message>
     <message>
         <location/>
@@ -1208,38 +1208,38 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audion ulostulo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tätä tapaa käytetään audion ulostuloon.&lt;/b&gt;&lt;br /&gt; Luultavasti haluat käyttää DirectSoundia.</translation>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Laite</translation>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audion ulostulo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tätä laitetta käytetään audion ulostuloon.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Sijainninmukainen Audio</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Audion ulostulo</translation>
     </message>
     <message>
         <location/>
@@ -1294,23 +1294,23 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation type="unfinished"/>
+        <translation>Ulostulon viive</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Siirrettävän datan määrä</translation>
     </message>
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Liitetyt &quot;kaiuttimet&quot; ovatkin kuulokkeet</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"/>
+        <translation>Määrä, jota ääntä vähennetään</translation>
     </message>
     <message>
         <location/>
@@ -1320,17 +1320,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"/>
+        <translation>Määrä, jota ääntä lisätään</translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"/>
+        <translation>Kuinka paljon äänen pitäisi lisääntyä kun äänen lähde on todella lähellä?</translation>
     </message>
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"/>
+        <translation>Tarkistus näyttää, että sinulla ei ole kaiuttimia kiinnitettynä vielä, vain kuulokkeet. On tärkeää, sillä kaiuttimet ovat yleensä edessäs kun taas kuulokkeet ovat vasemmalla/oikealla.</translation>
     </message>
     <message>
         <location/>
@@ -1355,7 +1355,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"/>
+        <translation>Maksimi etäisyys, jonka jälkeen äänen voimakkuus ei enää laske.</translation>
     </message>
     <message>
         <location/>
@@ -1365,7 +1365,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"/>
+        <translation>Kuinka paljon äänen pitäisi olla maksimi etäisyydellä?</translation>
     </message>
     <message>
         <location/>
@@ -2377,7 +2377,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>Itse allekirjoitettu</translation>
     </message>
 </context>
 <context>
@@ -2385,57 +2385,57 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"/>
+        <translation>Sähköpostin varmentaminen epäonnistui. &lt;br/&gt;Syötä voimassaoleva sähköpostiosoite (tai tyhjä) jatkaaksesi.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"/>
+        <translation>Varmenteen luomisessa oli ongelmia.&lt;br /&gt;Yritä uudelleen.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Varmennettasi ja avaintasi ei saatu vietyä PKCS#12 formaattiin. Varmenteessasi saattaa olla virhe.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei saatu avattua kirjoitusta varten. Valitse toinen tiedosto</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedoston käyttöoikeuksia ei voitu asettaa. Varmennetta eikä avainta ei ole luotu. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei voitu luoda onnistuneesti. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei voitu avata lukemista varten. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedosto on tyhjä tai sitä ei voitu avata. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedosto ei sisällä voimassaolevaa varmennetta eikä avainta. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"/>
+        <translation>Valitse tiedosto, jonne varmenne viedään</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"/>
+        <translation>Valitse tiedosto, josta varmenne tuodaan</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -2445,7 +2445,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="main.cpp" line="+416"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Varmenne vanhenee:&lt;/b&gt; Varmenteesi on vanhentumassa. Uusi varmenteesi tai et voi yhdistää käyttämääsi palvelimeen enää.</translation>
     </message>
 </context>
 <context>
@@ -2453,7 +2453,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation type="unfinished"/>
+        <translation>Varmenteiden hallinta</translation>
     </message>
     <message>
         <location/>
@@ -2468,67 +2468,67 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Nykyinen varmenne</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble käyttää tätä varmennettu tällä hetkellä.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Nykyinen varmenne</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation type="unfinished"/>
+        <translation>Luo uusi varmenne</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä luo uuden varmenteen.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation type="unfinished"/>
+        <translation>Tuo varmenne tiedostosta</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä tuo uuden varmenteen tiedostosta.</translation>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation type="unfinished"/>
+        <translation>Tuo varmenne</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Vie varmenne</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä vie varmenteen tiedostoon.</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Vie nykyinen varmenne</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Tuo varmenne</translation>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation type="unfinished"/>
+        <translation>PKCS #12 Varmenteen tuonti</translation>
     </message>
     <message>
         <location/>
@@ -2544,17 +2544,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation type="unfinished"/>
+        <translation>Tiedosto, josta tuodaan</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on tiedostonnimi, josta haluat tuoda varmenteen.</translation>
     </message>
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation type="unfinished"/>
+        <translation>Valitse tiedosto, josta tuot</translation>
     </message>
     <message>
         <location/>
@@ -5506,12 +5506,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistää Mumblen kotisivuille tarkistaakseen onko uutta versiota tullut ja, jos on, ilmoittaa osoitteen, josta uuden version voi ladata.</translation>
     </message>
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"/>
+        <translation>Lähettää viestin kaikille käyttäjille kanavalla.</translation>
     </message>
     <message>
         <location/>
@@ -5521,7 +5521,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Määrittele varmenne käyttääksesi vahvaa tunnistautumista.</translation>
     </message>
     <message>
         <location/>
@@ -5536,7 +5536,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröi käyttäjä pysyvästi palvelimelle.</translation>
     </message>
     <message>
         <location/>
@@ -5546,12 +5546,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"/>
+        <translation>Lisää käyttäjä kaveriksi.</translation>
     </message>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä lisää käyttäjän kaveriksesi, jotta tunnistat hänet tällä ja muilla palvelimilla.</translation>
     </message>
     <message>
         <location/>
@@ -5561,12 +5561,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>Poista käyttäjä kavereistasi.</translation>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä poistaa käyttäjän kavereistasi.</translation>
     </message>
     <message>
         <location/>
@@ -5576,12 +5576,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"/>
+        <translation>Päivitä kaverisi nimi.</translation>
     </message>
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"/>
+        <translation>Kaverisi käyttää eri nimeä kuin tietokannassasi on. Tämä päivittää käyttäjän nimen.</translation>
     </message>
     <message>
         <location/>
@@ -5596,7 +5596,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation type="unfinished"/>
+        <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, joka sallii vaihtaa heidän nimensä tai poistaa heidät rekisteristä.</translation>
     </message>
     <message>
         <location/>
@@ -8045,7 +8045,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"/>
+        <translation>Hylkää viestit</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8055,32 +8055,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Kanavalla on uusi kommentti (paina nähdäksesi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Kanavalla on kommentti, jonka olet oletettavasti jo nähnyt (paina nähdäksesi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>Kanava on piilotettu kun suodatin on käytössä.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation type="unfinished"/>
+        <translation>Liput</translation>
     </message>
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"/>
+        <translation>Oletko varma, että haluat siirtää tämän kanavan?</translation>
     </message>
     <message>
         <location line="+94"/>
@@ -8094,38 +8094,38 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Päivitä Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"/>
+        <translation>Uusi versio Mumblesta on huomattu ja automaattisesti ladattu. On suositeltavaa, että päivität version uusimpaan tai vaihdat viimeisimpään vakaaseen versioon. Haluatko käynnistää asennuksen nyt?</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"/>
+        <translation>Asennuksen käynnistys epäonnistui.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"/>
+        <translation>Lataustiedosto on virheellinen. Tiedosto poistettiin automaattisesti.</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"/>
+        <translation>Ladataan uutta versiota. Vanha versio %1 ja uusi versio %2</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Levylle kirjoitus epäonnistui.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble epäonnistui tarkistaessaan versio tietoja palvelimelta.</translation>
     </message>
 </context>
 <context>
@@ -8133,72 +8133,72 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"/>
+        <translation>Varmenne ketjun tiedot.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation type="unfinished"/>
+        <translation>Varmenne ketju</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation type="unfinished"/>
+        <translation>Varmenteen tiedot</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>Käytettävä nimi: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Organization: %1</source>
-        <translation type="unfinished"/>
+        <translation>Organisaatio: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Subunit: %1</source>
-        <translation type="unfinished"/>
+        <translation>Osasto: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation type="unfinished"/>
+        <translation>Maa: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kansalaisuus: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation type="unfinished"/>
+        <translation>Osavaltio: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"/>
+        <translation>Voimassa: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"/>
+        <translation>Voimassa: %1 saakka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial: %1</source>
-        <translation type="unfinished"/>
+        <translation>Sarjanumero: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8208,32 +8208,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+0"/>
         <source>RSA</source>
-        <translation type="unfinished"/>
+        <translation>RSA</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>DSA</source>
-        <translation type="unfinished"/>
+        <translation>DSA</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"/>
+        <translation>Digest (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Email: %1</source>
-        <translation type="unfinished"/>
+        <translation>Sähköposti: %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"/>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation type="unfinished"/>
+        <translation>Raportoinut: </translation>
     </message>
     <message>
         <location line="+3"/>
@@ -8246,32 +8246,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Nauhuri epäonnistui kansion luomisessa &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Nauhuri epäonnistui tiedoston avaamisessa &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.wav - Pakkaamaton</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"/>
+        <translation>.ogg (Vorbis) - Pakattu</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.au - Pakattu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"/>
+        <translation>.flac - Häviöttömästi pakattu</translation>
     </message>
 </context>
 <context>
@@ -8284,63 +8284,63 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+141"/>
         <source>Recorder</source>
-        <translation type="unfinished"/>
+        <translation>Nauhuri</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"/>
+        <translation>Hallinta</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished"/>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Käynnistä</translation>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation type="unfinished"/>
+        <translation>S&amp;top</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"/>
+        <translation>Tila</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished"/>
+        <translation>Monikanava</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished"/>
+        <translation>Ulostulo</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"/>
+        <translation>Ulostulo formaatti</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"/>
+        <translation>Kohde hakemisto</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostonnimi</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Selaa...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-210"/>
@@ -8350,17 +8350,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>Syötä käyttäjän nimi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation type="unfinished"/>
+        <translation>Syötä päivämäärä</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation type="unfinished"/>
+        <translation>Syötä kellonaika</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8370,17 +8370,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"/>
+        <translation>Nauhuri on yhä käynnissä</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>Nauhurin sulkeminen ilman pysäyttämistä ei tallenna tallennetta. Haluatko silti sulkea nauhurin?</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"/>
+        <translation>Äänityksen käynnistäminen epäonnistui. Yhteys palvelimeen puuttuu.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8391,22 +8391,22 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimella on jo aktiivinen nauhoitus käynnissä.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"/>
+        <translation>Valitse käytettävä tallennus formaatti.</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"/>
+        <translation>Pysäyttää</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Select target directory</source>
-        <translation type="unfinished"/>
+        <translation>Valitse kohde hakemisto</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
@@ -8419,7 +8419,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="WASAPI.cpp" line="+184"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Oletus laite</translation>
     </message>
 </context>
 <context>
