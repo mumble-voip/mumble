@@ -52,7 +52,6 @@ static uint qHash(const GUID &a) {
 	return val;
 }
 
-#ifndef Q_OS_WIN64
 static HWND WINAPI HookWindowFromPoint(POINT p);
 static BOOL WINAPI HookSetForegroundWindow(HWND hwnd);
 
@@ -84,7 +83,6 @@ static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
 
 	return ret;
 }
-#endif
 
 /**
  * Returns a platform specific GlobalShortcutEngine object.
@@ -104,10 +102,6 @@ GlobalShortcutWin::GlobalShortcutWin() {
 
 	// Hidden setting to disable hooking
 	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool();
-#ifdef Q_OS_WIN64
-	qWarning("GlobalShortcutWin: force-disabling 'winhooks' on x64");
-	bHook = false;
-#endif
 
 	GetKeyboardState(ucKeyState);
 
