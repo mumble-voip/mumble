@@ -1,4 +1,4 @@
-include(../compiler.pri)
+include(../../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
@@ -50,11 +50,11 @@ SOURCES *= bands.c celt.c cwrs.c entcode.c entdec.c entenc.c header.c kiss_fft.c
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../debug
+  DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../release
+  DESTDIR	= ../../release
 }
 
-include(../symbols.pri)
+include(../../symbols.pri)

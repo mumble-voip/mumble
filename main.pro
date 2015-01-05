@@ -6,17 +6,17 @@ CONFIG *= ordered debug_and_release
 	CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {
-    SUBDIRS *= speexbuild
+    SUBDIRS *= 3rdparty/speex-build
   }
 
   CONFIG(sbcelt) {
-    SUBDIRS *= celt-0.7.0-build sbcelt-lib-build sbcelt-helper-build
+    SUBDIRS *= 3rdparty/celt-0.7.0-build 3rdparty/sbcelt-lib-build 3rdparty/sbcelt-helper-build
   } else {
     unix:!CONFIG(bundled-celt):system(pkg-config --atleast-version=0.7.0 celt) {
       CONFIG *= no-bundled-celt
     }
     !CONFIG(no-bundled-celt) {
-      SUBDIRS *= celt-0.7.0-build celt-0.11.0-build
+      SUBDIRS *= 3rdparty/celt-0.7.0-build 3rdparty/celt-0.11.0-build
     }
   }
 
@@ -25,7 +25,7 @@ CONFIG *= ordered debug_and_release
   }
 
   CONFIG(opus):!CONFIG(no-bundled-opus) {
-	SUBDIRS *= opus-build
+	SUBDIRS *= 3rdparty/opus-build
   }
 
   win32 {

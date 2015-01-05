@@ -265,14 +265,14 @@ CONFIG(no-bundled-speex) {
 }
 
 !CONFIG(no-bundled-speex) {
-  INCLUDEPATH	*= ../../speex/include ../../speex/libspeex ../../speexbuild
+  INCLUDEPATH	*= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build
   LIBS 		*= -lspeex
 }
 
 CONFIG(sbcelt) {
   SOURCES -= CELTCodec.cpp
   SOURCES += CELTCodec_sbcelt.cpp
-  INCLUDEPATH *= ../../celt-0.7.0-src/libcelt ../../sbcelt-src
+  INCLUDEPATH *= ../../3rdparty/celt-0.7.0-src/libcelt ../../3rdparty/sbcelt-src
   LIBS *= -lcelt -lsbcelt
   DEFINES *= SBCELT_PREFIX_API SBCELT_COMPAT_API USE_SBCELT
 } else {
@@ -283,7 +283,7 @@ CONFIG(sbcelt) {
     INCLUDEPATH	*= /usr/include/celt
   }
   !CONFIG(no-bundled-celt) {
-    INCLUDEPATH	*= ../../celt-0.7.0-src/libcelt
+    INCLUDEPATH	*= ../../3rdparty/celt-0.7.0-src/libcelt
   }
 }
 
@@ -316,7 +316,7 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
   }
 
   CONFIG(opus) {
-    INCLUDEPATH *= ../../opus-src/celt ../../opus-src/include ../../opus-src/src ../../opus-build/src
+    INCLUDEPATH *= ../../3rdparty/opus-src/celt ../../3rdparty/opus-src/include ../../3rdparty/opus-src/src ../../3rdparty/opus-build/src
     DEFINES *= USE_OPUS
     LIBS *= -lopus
   }
@@ -374,10 +374,10 @@ unix {
   }
 
   !CONFIG(no-bundled-speex) {
-    QMAKE_CFLAGS *= -I../../speex/include -I../../speexbuild
-    QMAKE_CXXFLAGS *= -I../../speex/include -I../../speexbuild
-    QMAKE_CXXFLAGS_RELEASE *= -I../../speex/include -I../../speexbuild
-    QMAKE_CXXFLAGS_DEBUG *= -I../../speex/include -I../../speexbuild
+    QMAKE_CFLAGS *= -I../../3rdparty/speex-src/include -I../../3rdparty/speex-build
+    QMAKE_CXXFLAGS *= -I../../3rdparty/speex-src/include -I../../3rdparty/speex-build
+    QMAKE_CXXFLAGS_RELEASE *= -I../../3rdparty/speex-src/include -I../../3rdparty/speex-build
+    QMAKE_CXXFLAGS_DEBUG *= -I../../3rdparty/speex-src/include -I../../3rdparty/speex-build
   }
 
   CONFIG *= link_pkgconfig

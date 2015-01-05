@@ -1,4 +1,4 @@
-include (../compiler.pri)
+include (../../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-helper-build,-src)
@@ -68,12 +68,12 @@ macx {
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR = ../release
+  DESTDIR = ../../release
 }
 
 CONFIG(debug, debug|release) {
   DEFINES *= USE_LOGFILE
-  DESTDIR = ../debug/
+  DESTDIR = ../../debug/
 }
 
-include(../symbols.pri)
+include(../../symbols.pri)

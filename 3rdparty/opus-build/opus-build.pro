@@ -1,4 +1,4 @@
-include(../compiler.pri)
+include(../../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
 SOURCEDIR=$$replace(BUILDDIR,-build,-src)
@@ -209,11 +209,11 @@ src/mlp_data.c
 
 CONFIG(debug, debug|release) {
 	CONFIG += console
-	DESTDIR = ../debug
+	DESTDIR = ../../debug
 }
 
 CONFIG(release, debug|release) {
-	DESTDIR = ../release
+	DESTDIR = ../../release
 }
 
 macx:!CONFIG(static) {
@@ -225,4 +225,4 @@ macx:!CONFIG(static) {
 	ALL_DEPS += libname
 }
 
-include(../symbols.pri)
+include(../../symbols.pri)

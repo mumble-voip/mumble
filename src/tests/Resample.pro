@@ -7,7 +7,7 @@ TARGET = Resample
 SOURCES = Resample.cpp Timer.cpp
 HEADERS = Timer.h
 VPATH += ..
-INCLUDEPATH	*= .. ../../speex/include ../../speex/libspeex ../../speexbuild
+INCLUDEPATH	*= .. ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build
 LIBS 		*= -lspeex
 
 win32 {

@@ -1,6 +1,6 @@
-include(../compiler.pri)
+include(../../compiler.pri)
 
-!exists(../speex/COPYING) {
+!exists(../speex-src/COPYING) {
 	message("The speex/ directory was not found. You need to do one of the following:")
 	message("")
 	message("Option 1: Use Speex Git:")
@@ -15,11 +15,11 @@ include(../compiler.pri)
 
 CONFIG(debug, debug|release) {
   CONFIG += console
-  DESTDIR	= ../debug
+  DESTDIR	= ../../debug
 }
 
 CONFIG(release, debug|release) {
-  DESTDIR	= ../release
+  DESTDIR	= ../../release
 }
 
 TEMPLATE = lib
@@ -27,13 +27,13 @@ CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
-VPATH	= ../speex/libspeex
+VPATH	= ../speex-src/libspeex
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
-INCLUDEPATH = ../speex/include ../speex/libspeex
+INCLUDEPATH = ../speex-src/include ../speex-src/libspeex
 
 win32 {
-  INCLUDEPATH += ../speexbuild/win32
+  INCLUDEPATH += ../speex-build/win32
   DEFINES+=WIN32 _WINDOWS _USE_SSE _USE_MATH_DEFINES
   SOURCES	*= mumble_speex_init.c
 
@@ -57,7 +57,7 @@ win32 {
   }
 } else {
   CONFIG += staticlib
-  INCLUDEPATH += ../speexbuild
+  INCLUDEPATH += ../speex-srcbuild
 }
 
 DIST = config.h speex.def speex/speex_config_types.h
