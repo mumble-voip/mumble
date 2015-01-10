@@ -132,8 +132,9 @@ static void resolveOpenGL() {
 		if (! lib)
 			return;
 		RESOLVE(glXSwapBuffers);
-		if (! oglXSwapBuffers)
+		if (! oglXSwapBuffers) {
 			dlclose(lib);
+		}
 	}
 
 	RESOLVE(glXGetProcAddressARB);
@@ -166,8 +167,9 @@ static void newContext(Context * ctx) {
 	char *home = getenv("HOME");
 	if (home == NULL) {
 		struct passwd *pwent= getpwuid(getuid());
-		if (pwent && pwent->pw_dir && pwent->pw_dir[0])
+		if (pwent && pwent->pw_dir && pwent->pw_dir[0]) {
 			home = pwent->pw_dir;
+		}
 	}
 
 	if (home) {
@@ -237,8 +239,9 @@ static bool sendMessage(Context *ctx, struct OverlayMsg *om) {
 }
 
 static void regenTexture(Context *ctx) {
-	if (ctx->texture != ~0U)
+	if (ctx->texture != ~0U) {
 		glDeleteTextures(1, & ctx->texture);
+	}
 	glGenTextures(1, &ctx->texture);
 
 	glBindTexture(GL_TEXTURE_2D, ctx->texture);
@@ -417,7 +420,10 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		glBindTexture(GL_TEXTURE_2D, ctx->texture);
 		GLfloat bordercolor[4];
 		glGetTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, bordercolor);
-		if (bordercolor[0] != fBorder[0] || bordercolor[1] != fBorder[1] || bordercolor[2] != fBorder[2] || bordercolor[3] != fBorder[3]) {
+		if (bordercolor[0] != fBorder[0]
+		    || bordercolor[1] != fBorder[1]
+		    || bordercolor[2] != fBorder[2]
+		    || bordercolor[3] != fBorder[3]) {
 			ods("Texture was hijacked! Texture will be regenerated.");
 			regenTexture(ctx);
 		}
@@ -593,17 +599,21 @@ static void drawContext(Context * ctx, int width, int height) {
 	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, &bound);
 	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &vbobound);
 
-	if (bound != 0)
+	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
-	if (vbobound != 0)
+	}
+	if (vbobound != 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
 
 	drawOverlay(ctx, width, height);
-	
-	if (bound != 0)
+
+	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);
-	if (vbobound != 0)
+	}
+	if (vbobound != 0) {
 		glBindBuffer(GL_ARRAY_BUFFER, vbobound);
+	}
 
 	for (i=0;i<ctx->maxVertexAttribs;++i) {
 		if (ctx->vertexAttribStates[i] == GL_TRUE) {
@@ -625,65 +635,67 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPopAttrib();
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 	glUseProgram(program);
-	
+
 	// drain opengl error queue
 	while (glGetError() != GL_NO_ERROR);
 }
 
 __attribute__((visibility("default")))
 void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
-	if (!oglXSwapBuffers)
+	if (!oglXSwapBuffers) {
 		resolveOpenGL();
+	}
 
-		GLXContext ctx = glXGetCurrentContext();
+	GLXContext ctx = glXGetCurrentContext();
 
-		Context *c = contexts;
-		while (c) {
-			if ((c->dpy == dpy) && (c->draw == draw))
-				break;
-			c = c->next;
-		}
+	Context *c = contexts;
+	while (c) {
+		if ((c->dpy == dpy) && (c->draw == draw))
+			break;
+		c = c->next;
+	}
 
+	if (!c) {
+		ods("Current context is: %p", ctx);
+
+		c = (Context *) malloc(sizeof(Context));
 		if (!c) {
-			ods("Current context is: %p", ctx);
+			ods("malloc failure");
+			return;
+		}
+		memset(c, 0, sizeof(Context));
+		c->next = contexts;
+		c->dpy = dpy;
+		c->draw = draw;
 
-			c = (Context *) malloc(sizeof(Context));
-			if (!c) {
-				ods("malloc failure");
-				return;
+		c->bGlx = false;
+		c->bValid = false;
+
+		int major, minor;
+		if (glXQueryVersion(dpy, &major, &minor)) {
+			ods("GLX version %d.%d", major, minor);
+			c->bValid = true;
+			if ((major > 1) || (major==1 && minor >= 3)) {
+				c->bGlx = true;
 			}
-			memset(c, 0, sizeof(Context));
-			c->next = contexts;
-			c->dpy = dpy;
-			c->draw = draw;
+		}
+		contexts = c;
+		newContext(c);
+	}
 
-			c->bGlx = false;
-			c->bValid = false;
-
-			int major, minor;
-			if (glXQueryVersion(dpy, &major, &minor)) {
-				ods("GLX version %d.%d", major, minor);
-				c->bValid = true;
-				if ((major > 1) || (major==1 && minor >= 3))
-					c->bGlx = true;
-			}
-			contexts = c;
-			newContext(c);
+	if (c->bValid) {
+		GLuint width, height;
+		if (c->bGlx) {
+			glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
+			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
+		} else {
+			GLint viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			width = viewport[2];
+			height = viewport[3];
 		}
 
-		if (c->bValid) {
-			GLuint width, height;
-			if (c->bGlx) {
-				glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
-				glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
-			} else {
-				GLint viewport[4];
-				glGetIntegerv(GL_VIEWPORT, viewport);
-				width = viewport[2];
-				height = viewport[3];
-			}
-
-			drawContext(c, width, height);
+		drawContext(c, width, height);
 	}
 	oglXSwapBuffers(dpy, draw);
 }
@@ -696,8 +708,9 @@ void (*glXGetProcAddress(const GLubyte * func))(void) {
 	FGRAB(glXGetProcAddressARB);
 	FGRAB(glXGetProcAddress);
 
-	if (!oglXGetProcAddressARB && !oglXGetProcAddress)
+	if (!oglXGetProcAddressARB && !oglXGetProcAddress) {
 		resolveOpenGL();
+	}
 	if (oglXGetProcAddress)
 		return oglXGetProcAddress(func);
 	else if (oglXGetProcAddressARB)
@@ -716,10 +729,11 @@ static void initializeLibrary() {
 	if (odlsym)
 		return;
 
-	if (getenv("MUMBLE_OVERLAY_DEBUG"))
+	if (getenv("MUMBLE_OVERLAY_DEBUG")) {
 		bDebug = true;
-	else
+	} else {
 		bDebug = false;
+	}
 
 	ods("Mumble overlay library loaded");
 	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
@@ -763,8 +777,9 @@ static void initializeLibrary() {
 #define OGRAB(name) if (handle == RTLD_DEFAULT) handle = RTLD_NEXT; symbol = odlsym(handle, #name); if (symbol) { o##name = (__typeof__(&name)) symbol; symbol = (void *) name;}
 __attribute__((visibility("default")))
 void *dlsym(void *handle, const char *name) {
-	if (!odlsym)
+	if (!odlsym) {
 		initializeLibrary();
+	}
 
 	void *symbol;
 
