@@ -42,15 +42,12 @@ GLDEF(void, glDeleteTextures, (GLsizei, GLuint *));
 GLDEF(void, glEnable, (GLenum));
 GLDEF(void, glDisable, (GLenum));
 GLDEF(void, glBlendFunc, (GLenum, GLenum));
-GLDEF(void, glColorMaterial, (GLenum, GLenum));
 GLDEF(void, glViewport, (GLint, GLint, GLsizei, GLsizei));
 GLDEF(void, glMatrixMode, (GLenum));
 GLDEF(void, glLoadIdentity, (void));
 GLDEF(void, glOrtho, (GLdouble, GLdouble, GLdouble, GLdouble, GLdouble, GLdouble));
 GLDEF(void, glBindTexture, (GLenum, GLuint));
 GLDEF(void, glPushMatrix, (void));
-GLDEF(void, glColor4ub, (GLubyte, GLubyte, GLubyte, GLubyte));
-GLDEF(void, glTranslatef, (GLfloat, GLfloat, GLfloat));
 GLDEF(void, glBegin, (GLenum));
 GLDEF(void, glEnd, (void));
 GLDEF(void, glTexCoord2f, (GLfloat, GLfloat));
@@ -67,11 +64,8 @@ GLDEF(HDC, wglGetCurrentDC, (void));
 GLDEF(int, GetDeviceCaps, (HDC, int));
 
 #define INJDEF(ret, name, arg) GLDEF(ret, name, arg); static HardHook hh##name
-#define INJECT(name) { o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name)); if (o##name) { hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name)); o##name = (t##name) hh##name.call; } else { ods("OpenGL: No GetProc for %s", #name);} }
 
-INJDEF(BOOL, wglSwapLayerBuffers, (HDC, UINT));
 INJDEF(BOOL, wglSwapBuffers, (HDC));
-INJDEF(BOOL, SwapBuffers, (HDC));
 
 static bool bHooked = false;
 
@@ -310,27 +304,6 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	return ret;
 }
 
-static BOOL __stdcall mySwapBuffers(HDC hdc) {
-	ods("OpenGL: SwapBuffers");
-
-	hhSwapBuffers.restore();
-	BOOL ret=oSwapBuffers(hdc);
-	hhSwapBuffers.inject();
-
-	return ret;
-}
-
-static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
-	ods("OpenGL: SwapLayerBuffers %x",fuPlanes);
-
-	hhwglSwapLayerBuffers.restore();
-	BOOL ret=owglSwapLayerBuffers(hdc, fuPlanes);
-	hhwglSwapLayerBuffers.inject();
-
-	return ret;
-}
-
-
 #undef GLDEF
 #define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
 
@@ -356,8 +329,16 @@ void checkOpenGLHook() {
 			HMODULE hTempSelf = NULL;
 			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hTempSelf);
 
-			INJECT(wglSwapBuffers);
-			// INJECT(wglSwapLayerBuffers);
+#define INJECT(handle, name) {\
+	o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\
+	if (o##name) {\
+		hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name));\
+		o##name = (t##name) hh##name.call;\
+	} else {\
+		ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);\
+	}\
+}
+			INJECT(hGL, wglSwapBuffers);
 
 			GLDEF(wglCreateContext);
 			GLDEF(glGenTextures);
@@ -365,15 +346,12 @@ void checkOpenGLHook() {
 			GLDEF(glEnable);
 			GLDEF(glDisable);
 			GLDEF(glBlendFunc);
-			GLDEF(glColorMaterial);
 			GLDEF(glViewport);
 			GLDEF(glMatrixMode);
 			GLDEF(glLoadIdentity);
 			GLDEF(glOrtho);
 			GLDEF(glBindTexture);
 			GLDEF(glPushMatrix);
-			GLDEF(glColor4ub);
-			GLDEF(glTranslatef);
 			GLDEF(glBegin);
 			GLDEF(glEnd);
 			GLDEF(glTexCoord2f);
@@ -390,7 +368,6 @@ void checkOpenGLHook() {
 
 			hGL = GetModuleHandle("GDI32.DLL");
 			if (hGL) {
-				// INJECT(SwapBuffers);
 				GLDEF(GetDeviceCaps);
 			} else {
 				ods("OpenGL: Failed to find GDI32");
