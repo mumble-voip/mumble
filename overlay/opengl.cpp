@@ -77,27 +77,42 @@ static bool bHooked = false;
 
 class Context : protected Pipe {
 	public:
+		Context(HDC hdc);
+		void draw(HDC hdc);
+
+	protected:
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int width, unsigned int height);
+
+	private:
 		HGLRC ctx;
 		GLuint texture;
 
 		clock_t timeT;
 		unsigned int frameCount;
 
-		Context(HDC hdc);
-		void draw(HDC hdc);
-
-		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		virtual void setRect();
-		virtual void newTexture(unsigned int width, unsigned int height);
+		void initContext();
+		void doDraw(HDC hdc);
 };
 
 Context::Context(HDC hdc) {
 	timeT = clock();
 	frameCount = 0;
 
+	texture = ~0;
 	ctx = owglCreateContext(hdc);
+
+	HGLRC oldctx = owglGetCurrentContext();
+	HDC oldhdc = owglGetCurrentDC();
 	owglMakeCurrent(hdc, ctx);
 
+	initContext();
+
+	owglMakeCurrent(oldhdc, oldctx);
+}
+
+void Context::initContext() {
 	// Here we go. From the top. Where is glResetState?
 	oglDisable(GL_ALPHA_TEST);
 	oglDisable(GL_AUTO_NORMAL);
@@ -129,8 +144,6 @@ Context::Context(HDC hdc) {
 	oglDisable(GL_TEXTURE_GEN_T);
 
 	oglBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-	texture = ~0;
 }
 
 void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
@@ -179,6 +192,16 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 }
 
 void Context::draw(HDC hdc) {
+	HGLRC oldctx = owglGetCurrentContext();
+	HDC oldhdc = owglGetCurrentDC();
+	owglMakeCurrent(hdc, ctx);
+
+	doDraw(hdc);
+
+	owglMakeCurrent(oldhdc, oldctx);
+}
+
+void Context::doDraw(HDC hdc) {
 	// DEBUG
 	//sm->bDebug = true;
 
@@ -264,8 +287,6 @@ void Context::draw(HDC hdc) {
 static map<HDC, Context *> contexts;
 
 static void doSwap(HDC hdc) {
-	HGLRC oldctx = owglGetCurrentContext();
-	HDC oldhdc = owglGetCurrentDC();
 	Context *c = contexts[hdc];
 
 	if (!c) {
@@ -274,10 +295,8 @@ static void doSwap(HDC hdc) {
 		contexts[hdc] = c;
 	} else {
 		ods("OpenGL: Reusing old context");
-		owglMakeCurrent(hdc, c->ctx);
 	}
 	c->draw(hdc);
-	owglMakeCurrent(oldhdc, oldctx);
 }
 
 static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
