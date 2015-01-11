@@ -304,8 +304,63 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	return ret;
 }
 
-#undef GLDEF
-#define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
+/// Ensure that all the symbols that the OpenGL overlay requires have been
+/// looked up.
+/// @return true if all symbols have been looked up and are available.
+///         Otherwise false.
+static bool lookupSymbols(HMODULE hGL) {
+#define FNFIND(handle, name) {\
+	if (o##name == NULL) {\
+		o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name));\
+		if (o##name == NULL) {\
+			ods("OpenGL: Could not resolve symbol %s in %s", #name, #handle);\
+			return false;\
+		}\
+	}\
+}
+
+	if (hGL == NULL) {
+		return false;
+	}
+
+	HMODULE hGDI = GetModuleHandle("GDI32.DLL");
+	if (hGDI == NULL) {
+		ods("OpenGL: Failed to identify GDI32");
+		return false;
+	}
+
+	// Lookup OpenGL32.DLL symbols
+	FNFIND(hGL, wglCreateContext);
+	FNFIND(hGL, glGenTextures);
+	FNFIND(hGL, glDeleteTextures);
+	FNFIND(hGL, glEnable);
+	FNFIND(hGL, glDisable);
+	FNFIND(hGL, glBlendFunc);
+	FNFIND(hGL, glViewport);
+	FNFIND(hGL, glMatrixMode);
+	FNFIND(hGL, glLoadIdentity);
+	FNFIND(hGL, glOrtho);
+	FNFIND(hGL, glBindTexture);
+	FNFIND(hGL, glPushMatrix);
+	FNFIND(hGL, glBegin);
+	FNFIND(hGL, glEnd);
+	FNFIND(hGL, glTexCoord2f);
+	FNFIND(hGL, glVertex2f);
+	FNFIND(hGL, glPopMatrix);
+	FNFIND(hGL, glTexParameteri);
+	FNFIND(hGL, glTexEnvi);
+	FNFIND(hGL, glTexImage2D);
+	FNFIND(hGL, glTexSubImage2D);
+	FNFIND(hGL, glPixelStorei);
+	FNFIND(hGL, wglMakeCurrent);
+	FNFIND(hGL, wglGetCurrentContext);
+	FNFIND(hGL, wglGetCurrentDC);
+
+	// Lookup GDI32.DLL symbols
+	FNFIND(hGDI, GetDeviceCaps);
+
+	return true;
+}
 
 void checkOpenGLHook() {
 	static bool bCheckHookActive = false;
@@ -316,14 +371,13 @@ void checkOpenGLHook() {
 
 	bCheckHookActive = true;
 
-	HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
+	if (!bHooked) {
+		HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
 
-	if (hGL != NULL) {
-		if (! bHooked) {
+		if (lookupSymbols(hGL)) {
 			char procname[1024];
 			GetModuleFileName(NULL, procname, 1024);
-			ods("OpenGL: Unhooked OpenGL App %s", procname);
-			bHooked = true;
+			ods("OpenGL: Hooking into OpenGL App %s", procname);
 
 			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
 			HMODULE hTempSelf = NULL;
@@ -339,42 +393,9 @@ void checkOpenGLHook() {
 	}\
 }
 			INJECT(hGL, wglSwapBuffers);
-
-			GLDEF(wglCreateContext);
-			GLDEF(glGenTextures);
-			GLDEF(glDeleteTextures);
-			GLDEF(glEnable);
-			GLDEF(glDisable);
-			GLDEF(glBlendFunc);
-			GLDEF(glViewport);
-			GLDEF(glMatrixMode);
-			GLDEF(glLoadIdentity);
-			GLDEF(glOrtho);
-			GLDEF(glBindTexture);
-			GLDEF(glPushMatrix);
-			GLDEF(glBegin);
-			GLDEF(glEnd);
-			GLDEF(glTexCoord2f);
-			GLDEF(glVertex2f);
-			GLDEF(glPopMatrix);
-			GLDEF(glTexParameteri);
-			GLDEF(glTexEnvi);
-			GLDEF(glTexImage2D);
-			GLDEF(glTexSubImage2D);
-			GLDEF(glPixelStorei);
-			GLDEF(wglMakeCurrent);
-			GLDEF(wglGetCurrentContext);
-			GLDEF(wglGetCurrentDC);
-
-			hGL = GetModuleHandle("GDI32.DLL");
-			if (hGL) {
-				GLDEF(GetDeviceCaps);
-			} else {
-				ods("OpenGL: Failed to find GDI32");
-			}
-		} else {
-			hhwglSwapBuffers.check();
 		}
+	} else {
+		hhwglSwapBuffers.check();
 	}
 
 	bCheckHookActive = false;
