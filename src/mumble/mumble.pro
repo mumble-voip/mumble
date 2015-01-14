@@ -328,7 +328,7 @@ win32 {
   } else {
     RC_FILE = mumble.rc
   }
-  HEADERS	*= GlobalShortcut_win.h TaskList.h
+  HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h
   SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   LIBS		*= -ldelayimp -delayload:speex.dll -delayload:shell32.dll
