@@ -31,6 +31,7 @@
 #include "lib.h"
 
 #include "overlay_blacklist.h"
+#include "overlay_exe/overlay_exe.h"
 
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
@@ -451,7 +452,7 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 	int retval = 0;
 
 	if (GetOverlayMagicVersion() != magic) {
-		return -1000;
+		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
 	}
 
 	PrepareD3D9();

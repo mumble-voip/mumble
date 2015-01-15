@@ -41,6 +41,8 @@
 
 #include "Overlay_win.h"
 
+#include "../../overlay/overlay_exe/overlay_exe.h"
+
 // Used by the overlay to detect whether we injected into ourselves.
 //
 // A similar declaration can be found in mumble_exe's Overlay.cpp,
@@ -106,9 +108,10 @@ void OverlayPrivateWin::helperProcessStarted() {
 void OverlayPrivateWin::helperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
-	qWarning("OverlayPrivateWin: overlay helper process exited (%s) with status code %i.",
+	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
+	qWarning("OverlayPrivateWin: overlay helper process exited (%s) with status code %s.",
 	         exitStatusString(exitStatus),
-	         exitCode);
+	         helperErrString ? helperErrString : qPrintable(QString::number(exitCode)));
 
 	// If the helper process exited while we're in 'active'
 	// mode, restart it.

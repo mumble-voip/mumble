@@ -36,6 +36,7 @@
 #include <string>
 
 #include "../overlay.h"
+#include "overlay_exe.h"
 
 #define UNUSED(x) ((void)x)
 
@@ -125,7 +126,7 @@ int main(int argc, char **argv) {
 		size_t sep = command_line.find(std::wstring(L"  "));
 		if (sep == std::string::npos) {
 			Alert(L"Mumble Overlay", L"This program is not meant to be run by itself. Run 'mumble.exe' instead.");
-			return -1;
+			return OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT;
 		}
 
 		// We expect that the Mumble process passes the overlay
@@ -135,31 +136,31 @@ int main(int argc, char **argv) {
 			unsigned long passed_in_magic = std::stoul(magic_number_str);
 			magic = static_cast<unsigned int>(passed_in_magic);
 		} catch (std::exception &) {
-			return -2;
+			return OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT;
 		}
 	}
 
 	if (magic != OVERLAY_MAGIC_NUMBER) {
-		return -3;
+		return OVERLAY_HELPER_ERROR_EXE_MAGIC_MISMATCH;
 	}
 
 	if (!ConfigureEnvironment()) {
-		return -4;
+		return OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT;
 	}
 
 	std::wstring abs_dll_path = GetAbsoluteMumbleOverlayDllPath();
 	if (abs_dll_path.empty()) {
-		return -5;
+		return OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH;
 	}
 
 	HMODULE dll = LoadLibraryExW(abs_dll_path.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 	if (!dll) {
-		return -6;
+		return OVERLAY_HELPER_ERROR_EXE_LOAD_DLL;
 	}
 
 	OverlayHelperProcessMain entry_point = reinterpret_cast<OverlayHelperProcessMain>(GetProcAddress(dll, "OverlayHelperProcessMain"));
 	if (!entry_point) {
-		return -7;
+		return OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT;
 	}
 
 	return entry_point(magic);
