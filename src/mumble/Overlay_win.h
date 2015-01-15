@@ -43,14 +43,6 @@ class OverlayPrivateWin : public OverlayPrivate {
 		Q_OBJECT
 		Q_DISABLE_COPY(OverlayPrivateWin)
 
-	protected:
-		QProcess *m_helper_process;
-		QString m_helper_exe_path;
-		QStringList m_helper_exe_args;
-		bool m_active;
-
-		void startHelper(QProcess *helper);
-
 	public:
 		void setActive(bool);
 		OverlayPrivateWin(QObject *);
@@ -59,6 +51,14 @@ class OverlayPrivateWin : public OverlayPrivate {
 	public slots:
 		void helperProcessStarted();
 		void helperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+
+	protected:
+		QProcess *m_helper_process;
+		QString m_helper_exe_path;
+		QStringList m_helper_exe_args;
+		bool m_active;
+
+		void startHelper(QProcess *helper);
 };
 
 #endif
