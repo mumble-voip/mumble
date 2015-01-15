@@ -49,8 +49,8 @@ class OverlayPrivateWin : public OverlayPrivate {
 		~OverlayPrivateWin();
 
 	public slots:
-		void helperProcessStarted();
-		void helperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+		void onHelperProcessStarted();
+		void onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 
 	protected:
 		QProcess *m_helper_process;

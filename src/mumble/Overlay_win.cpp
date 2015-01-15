@@ -56,10 +56,10 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	m_helper_process = new QProcess(this);
 
 	connect(m_helper_process, SIGNAL(started()),
-	        this, SLOT(helperProcessStarted()));
+	        this, SLOT(onHelperProcessStarted()));
 
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
-	        this, SLOT(helperProcessExited(int, QProcess::ExitStatus)));
+	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
@@ -97,7 +97,7 @@ static const char *exitStatusString(QProcess::ExitStatus exitStatus) {
 	return "unknown";
 }
 
-void OverlayPrivateWin::helperProcessStarted() {
+void OverlayPrivateWin::onHelperProcessStarted() {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
 	PROCESS_INFORMATION *pi = helper->pid();
@@ -105,7 +105,7 @@ void OverlayPrivateWin::helperProcessStarted() {
 	         qPrintable(m_helper_exe_path), static_cast<unsigned long long>(pi->dwProcessId));
 }
 
-void OverlayPrivateWin::helperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
+void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
