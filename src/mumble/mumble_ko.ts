@@ -863,7 +863,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"/>
+        <translation>음성으로 판정하는 신호 값</translation>
     </message>
     <message>
         <location/>
@@ -898,12 +898,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;하나의 송신 패킷에 포함하기 위한 음성 프레임의 길이를 선택합니다.&lt;/b&gt;&lt;br/&gt;이 값을 높일수록 당신의 음성은 지연되지만, 그만큼 필요한 네트워크 대역 폭은 감소됩니다.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;음성의 송신에 사용되는 대역 폭의 최대치를 나타냅니다.&lt;/b&gt;&lt;br/&gt;이것은 당신의 PC에서 송출되는 대역의 가장 큰 값을 표시합니다. 오디오 비트레이트는 하나의 음성 데이터의 최대 비트 레이트(VBR사용 시)를 뜻합니다. Position은 위치 정보를 위해 사용되는 비트율 표시하고 Overhead는 개별적인 프레이밍과 IP 패킷 헤더(IP와 UDP는 이 Overhead의 75%)을 나타내고 있습니다.</translation>
     </message>
     <message>
         <location/>
@@ -928,17 +928,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"/>
+        <translation>음성 입력의 최대 증폭량</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;음성 입력의 최대 증폭 양입니다&lt;/b&gt;&lt;br/&gt;Mumble은 압축을 하기 전에 입력량을 정상화합니다. 이 설정은 소리를 얼마나 증폭시킬지를 결정합니다.&lt;br/&gt;실제의 음량은 발언 패턴에 따라 변화하지만 이곳에서 지정된 음량을 넘을 수는 없습니다.&lt;br/&gt;음성 통계에서&lt;i&gt;마이크의 음량&lt;/i&gt;수준이 항상 100% 가까이에 이르고 있다면 이 값을 2.0정도로 설정하는게 좋을지도 모릅니다. 그러나 100%에 미치지 않는다면 이 값을 더 높여 주세요.&lt;br/당신이 매우 온화하게 말할 때&lt;i&gt;마이크 음량*증폭 값&gt;=100&lt;/i&gt;가 되는 것이 이상적입니다.&lt;br/&gt;&lt;br/&gt;이 값을 최대로 할 경우 딱히 문제는 없지만, 그렇다고 적당히 최대치에 맞춰 버리면 원하는 않는 대화까지 흘러나갈 우려가 있습니다.</translation>
     </message>
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>현재의 발언의 검출 가능성</translation>
     </message>
     <message>
         <location/>
