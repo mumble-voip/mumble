@@ -172,6 +172,7 @@
       <?endif ?>
       <ComponentRef Id="mumble.exe" />
       <ComponentRef Id="mumble_ol.dll" />
+      <ComponentRef Id="mumble_ol.exe" />
       <?ifdef G15 ?>
         <ComponentRef Id="mumble_g15_helper.exe" />
       <?endif ?>

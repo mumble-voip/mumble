@@ -1,4 +1,5 @@
 /* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+   Copyright (C) 2015, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
@@ -38,8 +39,9 @@
 #include "MainWindow.h"
 #include "Global.h"
 
-typedef unsigned int (__cdecl *GetOverlayMagicVersionProc)();
-typedef void (__cdecl *PrepProc)();
+#include "Overlay_win.h"
+
+#include "../../overlay/overlay_exe/overlay_exe.h"
 
 // Used by the overlay to detect whether we injected into ourselves.
 //
@@ -49,52 +51,73 @@ typedef void (__cdecl *PrepProc)();
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
-	hpInstall = NULL;
-	hpRemove = NULL;
-	qlOverlay = new QLibrary(this);
+	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
+	m_helper_exe_args = QStringList(QString::number(OVERLAY_MAGIC_NUMBER));
+	m_helper_process = new QProcess(this);
 
-	QString path = QString::fromLatin1("%1/mumble_ol.dll").arg(qApp->applicationDirPath());
-	qlOverlay->setFileName(path);
-	if (! qlOverlay->load()) {
-		QMessageBox::critical(NULL, QLatin1String("Mumble"), tr("Failed to load overlay library. This means either that:\n"
-		                      "- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from\n"
-		                      "- you're on an OS earlier than WinXP SP2"), QMessageBox::Ok, QMessageBox::NoButton);
-		qWarning("Overlay failure");
-		return;
-	}
+	connect(m_helper_process, SIGNAL(started()),
+	        this, SLOT(onHelperProcessStarted()));
 
-	GetOverlayMagicVersionProc gompvp = (GetOverlayMagicVersionProc)qlOverlay->resolve("GetOverlayMagicVersion");
-	if (! gompvp) {
-		qWarning("The overlay librarys overlay protocol version could not be verified. Overlay will not be enabled.");
-		return;
-	}
-
-	if (gompvp() != OVERLAY_MAGIC_NUMBER) {
-		qWarning("Client overlay protocol version does not match the overlay library one. Overlay will not be enabled.");
-		return;
-	}
-
-	hpInstall = (HooksProc)qlOverlay->resolve("InstallHooks");
-	hpRemove = (HooksProc)qlOverlay->resolve("RemoveHooks");
-	PrepProc prepareProc9 = (PrepProc) qlOverlay->resolve("PrepareD3D9");
-	PrepProc prepareProcDXGI = (PrepProc) qlOverlay->resolve("PrepareDXGI");
-
-	if (prepareProc9)
-		prepareProc9();
-
-	if (prepareProcDXGI)
-		prepareProcDXGI();
+	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
+	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
-	qlOverlay->unload();
+	m_active = false;
 }
 
-void OverlayPrivateWin::setActive(bool act) {
-	if (act && hpInstall)
-		hpInstall();
-	else if (! act && hpRemove)
-		hpRemove();
+void OverlayPrivateWin::startHelper(QProcess *helper) {
+	if (helper->state() == QProcess::NotRunning) {
+		helper->start(m_helper_exe_path, m_helper_exe_args);
+	} else {
+		qWarning("OverlayPrivateWin: startHelper() called while process is already running. skipping.");
+	}
+}
+
+void OverlayPrivateWin::setActive(bool active) {
+	if (m_active != active) {
+		m_active = active;
+
+		if (m_active) {
+			startHelper(m_helper_process);
+		} else {
+			m_helper_process->terminate();
+		}
+	}
+}
+
+static const char *exitStatusString(QProcess::ExitStatus exitStatus) {
+	switch (exitStatus) {
+		case QProcess::NormalExit:
+			return "normal exit";
+		case QProcess::CrashExit:
+			return "crash";
+	}
+
+	return "unknown";
+}
+
+void OverlayPrivateWin::onHelperProcessStarted() {
+	QProcess *helper = qobject_cast<QProcess *>(sender());
+
+	PROCESS_INFORMATION *pi = helper->pid();
+	qWarning("OverlayPrivateWin: overlay helper process '%s' started with PID %llu.",
+	         qPrintable(m_helper_exe_path), static_cast<unsigned long long>(pi->dwProcessId));
+}
+
+void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
+	QProcess *helper = qobject_cast<QProcess *>(sender());
+
+	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
+	qWarning("OverlayPrivateWin: overlay helper process exited (%s) with status code %s.",
+	         exitStatusString(exitStatus),
+	         helperErrString ? helperErrString : qPrintable(QString::number(exitCode)));
+
+	// If the helper process exited while we're in 'active'
+	// mode, restart it.
+	if (m_active) {
+			startHelper(helper);
+	}
 }
 
 void Overlay::platformInit() {

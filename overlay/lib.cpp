@@ -31,6 +31,7 @@
 #include "lib.h"
 
 #include "overlay_blacklist.h"
+#include "overlay_exe/overlay_exe.h"
 
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
@@ -442,6 +443,48 @@ extern "C" __declspec(dllexport) unsigned int __cdecl GetOverlayMagicVersion() {
 	return OVERLAY_MAGIC_NUMBER;
 }
 
+// Via d3d9.cpp
+extern "C" __declspec(dllexport) void __cdecl PrepareD3D9();
+// Via dxgi.cpp
+extern "C" __declspec(dllexport) void __cdecl PrepareDXGI();
+
+extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic) {
+	int retval = 0;
+
+	if (GetOverlayMagicVersion() != magic) {
+		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
+	}
+
+	PrepareD3D9();
+	PrepareDXGI();
+
+	InstallHooks();
+
+	while (1) {
+		MSG msg;
+		BOOL ret;
+
+		ret = GetMessage(&msg, NULL, 0, 0);
+
+		// The ret variable is set to 0 on WM_QUIT,
+		// and -1 on error.
+		if (ret == 0) {
+			retval = 0;
+			break;
+		} else if (ret == -1) {
+			retval = -1001;
+			break;
+		}
+
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	RemoveHooks();
+
+	return retval;
+}
+
 static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p);
 static bool createSharedDataMap();
 
@@ -452,7 +495,7 @@ static void dllmainProcAttach(char *procname) {
 	if (!p) {
 		// No blacklisting if the file has no path
 	} else if (GetProcAddress(NULL, "mumbleSelfDetection") != NULL) {
-		ods("Lib: Attached to self (own process). Blacklisted - no overlay injection.");
+		ods("Lib: Attached to overlay helper or Mumble process. Blacklisted - no overlay injection.");
 		bBlackListed = TRUE;
 		bMumble = TRUE;
 	} else {
