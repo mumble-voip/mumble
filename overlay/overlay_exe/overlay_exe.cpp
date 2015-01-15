@@ -67,7 +67,7 @@ static std::wstring GetExecutableDirPath() {
 }
 
 // ConfigureEnvironment prepares mumble_ol.exe's environment to
-// run mumble_ol.dll.
+// run mumble_ol.dll's OverlayHelperProcessMain() function.
 static bool ConfigureEnvironment() {
 	std::wstring exePath = GetExecutableDirPath();
 
