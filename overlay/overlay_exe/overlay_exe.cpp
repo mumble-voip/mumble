@@ -62,21 +62,21 @@ static std::wstring GetExecutableDirPath() {
 	if (!PathRemoveFileSpecW(path))
 		return std::wstring();
 
-	std::wstring exe_path(path);
-	return exe_path.append(L"\\");
+	std::wstring exePath(path);
+	return exePath.append(L"\\");
 }
 
 // ConfigureEnvironment prepares mumble.exe's environment to
 // run mumble_app.dll.
 static bool ConfigureEnvironment() {
-	std::wstring exe_path = GetExecutableDirPath();
+	std::wstring exePath = GetExecutableDirPath();
 
 	// Remove the current directory from the DLL search path.
 	if (!SetDllDirectoryW(L""))
 		return false;
 
 	// Set mumble.exe's directory as the current working directory.
-	if (!SetCurrentDirectoryW(exe_path.c_str()))
+	if (!SetCurrentDirectoryW(exePath.c_str()))
 		return false;
 
 	return true;
@@ -85,14 +85,14 @@ static bool ConfigureEnvironment() {
 // GetAbsoluteMumbleOverlayDllPath returns the absolute path to
 // mumble_ol.dll - the DLL containing the Mumble overlay code.
 static std::wstring GetAbsoluteMumbleOverlayDllPath() {
-	std::wstring exe_path = GetExecutableDirPath();
-	if (exe_path.empty())
+	std::wstring exePath = GetExecutableDirPath();
+	if (exePath.empty())
 		return std::wstring();
 
-	std::wstring abs_dll_path(exe_path);
-	abs_dll_path.append(L"\\");
-	abs_dll_path.append(L"mumble_ol.dll");
-	return abs_dll_path;
+	std::wstring absDLLPath(exePath);
+	absDLLPath.append(L"\\");
+	absDLLPath.append(L"mumble_ol.dll");
+	return absDLLPath;
 }
 
 int main(int argc, char **argv) {
@@ -117,13 +117,13 @@ int main(int argc, char **argv) {
 	// 'mumble.exe' instead. 
 	unsigned int magic = 0;
 	{
-		std::wstring command_line(GetCommandLine());
+		std::wstring commandLine(GetCommandLine());
 
 		// The command line will contain two consecutive spaces
 		// if the program was passed any arguments. If we don't
 		// find them, it probably means that a user has double-clicked
 		// the executable. Tell them to run 'mumble.exe' instead.
-		size_t sep = command_line.find(std::wstring(L"  "));
+		size_t sep = commandLine.find(std::wstring(L"  "));
 		if (sep == std::string::npos) {
 			Alert(L"Mumble Overlay", L"This program is not meant to be run by itself. Run 'mumble.exe' instead.");
 			return OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT;
@@ -131,10 +131,10 @@ int main(int argc, char **argv) {
 
 		// We expect that the Mumble process passes the overlay
 		// magic number that it is built with to us.
-		std::wstring magic_number_str = command_line.substr(sep);
+		std::wstring magicNumberStr = commandLine.substr(sep);
 		try {
-			unsigned long passed_in_magic = std::stoul(magic_number_str);
-			magic = static_cast<unsigned int>(passed_in_magic);
+			unsigned long passedInMagic = std::stoul(magicNumberStr);
+			magic = static_cast<unsigned int>(passedInMagic);
 		} catch (std::exception &) {
 			return OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT;
 		}
@@ -148,22 +148,22 @@ int main(int argc, char **argv) {
 		return OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT;
 	}
 
-	std::wstring abs_dll_path = GetAbsoluteMumbleOverlayDllPath();
-	if (abs_dll_path.empty()) {
+	std::wstring absDLLPath = GetAbsoluteMumbleOverlayDllPath();
+	if (absDLLPath.empty()) {
 		return OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH;
 	}
 
-	HMODULE dll = LoadLibraryExW(abs_dll_path.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
+	HMODULE dll = LoadLibraryExW(absDLLPath.c_str(), NULL, LOAD_WITH_ALTERED_SEARCH_PATH);
 	if (!dll) {
 		return OVERLAY_HELPER_ERROR_EXE_LOAD_DLL;
 	}
 
-	OverlayHelperProcessMain entry_point = reinterpret_cast<OverlayHelperProcessMain>(GetProcAddress(dll, "OverlayHelperProcessMain"));
-	if (!entry_point) {
+	OverlayHelperProcessMain entryPoint = reinterpret_cast<OverlayHelperProcessMain>(GetProcAddress(dll, "OverlayHelperProcessMain"));
+	if (!entryPoint) {
 		return OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT;
 	}
 
-	return entry_point(magic);
+	return entryPoint(magic);
 }
 
 int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE prevInstance, wchar_t *cmdArg, int cmdShow) {
