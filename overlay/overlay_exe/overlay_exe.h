@@ -31,6 +31,12 @@
 #ifndef MUMBLE_OVERLAY_EXE_H_
 #define MUMBLE_OVERLAY_EXE_H_
 
+#if defined(_M_IX86)
+const wchar_t *MUMBLE_OVERLAY_DLL_NAME = L"mumble_ol.dll";
+#elif defined (_M_X64)
+const wchar_t *MUMBLE_OVERLAY_DLL_NAME = L"mumble_ol_x64.dll";
+#endif
+
 /// OverlayHelperError represents exit codes returned by the
 /// overlay helper process (mumble_ol.exe) on Windows.
 enum OverlayHelperError {
