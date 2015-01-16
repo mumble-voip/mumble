@@ -145,6 +145,49 @@ win32 {
 		      QMAKE_CFLAGS_DEBUG -= -arch:SSE
 		      QMAKE_CFLAGS += -arch:SSE2
 		}
+
+		CONFIG(force-x86-toolchain) {
+			QMAKE_CC = "\"$$(VCINSTALLDIR)bin\cl.exe\""
+			QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\cl.exe\""
+			QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\link.exe\""
+			QMAKE_LIB = \""$$(VCINSTALLDIR)\bin\lib.exe\""
+			QMAKE_RC = \""C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Bin\RC.Exe\""
+
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include"
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include"
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE"
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\shared"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\um"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\winrt"
+
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\LIB\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\LIB\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x86\""
+
+		}
+
+		CONFIG(force-x86_64-toolchain) {
+			QMAKE_CC = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
+			QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
+			QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\amd64\link.exe\""
+			QMAKE_LIB = \""$$(VCINSTALLDIR)\bin\amd64\lib.exe\""
+			QMAKE_RC = \""$$(WindowsSdkDir)\bin\x64\rc.exe\""
+
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\INCLUDE"
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\INCLUDE"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\shared"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\um"
+			INCLUDEPATH *= "C:\Program Files (x86)\Windows Kits\8.1\include\winrt"
+			INCLUDEPATH *= "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include"
+
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\LIB\amd64\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\ATLMFC\LIB\amd64\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Windows Kits\8.1\lib\winv6.3\um\x64\""
+			QMAKE_LFLAGS *= "/LIBPATH:\"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64\""
+		}
 	}
 
 	CONFIG(symbols) {
