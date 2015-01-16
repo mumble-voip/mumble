@@ -938,17 +938,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>현재의 발언의 검출 가능성</translation>
+        <translation>현재 발언의 감지 가능성</translation>
     </message>
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation type="unfinished"/>
+        <translation>스피커에서 에코를 제거 합니다.</translation>
     </message>
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"/>
+        <translation>당신의 스피커에서 에코를 제거할 수 있습니다. 믹스는 CPU 부하가 낮지만 스피커에서 일정한 크기의 소리를 내고 있고 마이크에서 일정 거리를 두고 있을 경우에만 잘 작동합니다.멀티 채널 에코 제거는 좀 더 효과가 좋지만 CPU 부하가 믹스보다 높습니다.</translation>
     </message>
     <message>
         <location/>
@@ -973,7 +973,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Signal to Noise 비율을 사용하여 발언 인식을 설정합니다.&lt;/b&gt;&lt;br/&gt;이 모드에서 입력은 명확한 신호와 같은걸로 분석되어 해당 신호의 명료성은 음성 검출을 위해 사용됩니다.</translation>
     </message>
     <message>
         <location/>
@@ -1391,7 +1391,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation type="unfinished"/>
+        <translation>패킷 손실</translation>
     </message>
     <message>
         <location/>
@@ -1614,12 +1614,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal Analysis</source>
-        <translation type="unfinished"/>
+        <translation>신호 분석</translation>
     </message>
     <message>
         <location/>
         <source>Microphone power</source>
-        <translation type="unfinished"/>
+        <translation>마이크 세기</translation>
     </message>
     <message>
         <location/>
@@ -1689,12 +1689,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation type="unfinished"/>
+        <translation>발언 감지</translation>
     </message>
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>현재 발언의 감지 가능성</translation>
     </message>
     <message>
         <location/>
@@ -2019,7 +2019,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signal-To-Noise 비율</translation>
     </message>
     <message>
         <location/>
@@ -2204,7 +2204,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished"/>
+        <translation>사유</translation>
     </message>
     <message>
         <location/>
@@ -2284,7 +2284,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>사유 없음</translation>
     </message>
     <message>
         <location/>
@@ -2372,12 +2372,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"/>
+        <translation>만료일</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation type="unfinished"/>
+        <translation>(없음)</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2569,17 +2569,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation type="unfinished"/>
+        <translation>열기</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호</translation>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"/>
+        <translation>PKCS#12 파일의 비밀번호</translation>
     </message>
     <message>
         <location/>
@@ -2675,7 +2675,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation type="unfinished"/>
+        <translation>다른 이름으로 저장</translation>
     </message>
     <message>
         <location/>
@@ -2695,12 +2695,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>이메일</translation>
     </message>
     <message>
         <location/>
@@ -2725,7 +2725,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>완료</translation>
     </message>
     <message>
         <location/>
@@ -2740,7 +2740,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"/>
+        <translation>자동 인증서 생성</translation>
     </message>
     <message>
         <location/>
@@ -3359,22 +3359,22 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>사용자 이름</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>비밀번호</translation>
     </message>
 </context>
 <context>
@@ -3756,12 +3756,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Devices</source>
-        <translation type="unfinished"/>
+        <translation>장치</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>이름</translation>
     </message>
     <message>
         <location/>
@@ -3781,7 +3781,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>크기</translation>
     </message>
     <message>
         <location/>
@@ -4323,7 +4323,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>확장</translation>
     </message>
     <message>
         <location/>
@@ -7724,7 +7724,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>누구를 찾고 계신가요?</translation>
     </message>
     <message>
         <location/>
@@ -8109,7 +8109,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>필터가 활성되어 있을 때 채널을 숨깁니다.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8419,7 +8419,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>녹음기을 중지하지 않고 닫을 경우 저장되지 않은 녹음이 사라집니다. 녹음기를 정말 닫으시겠습니까?</translation>
     </message>
     <message>
         <location line="+33"/>
