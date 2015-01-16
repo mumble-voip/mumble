@@ -146,14 +146,15 @@ win32 {
 		      QMAKE_CFLAGS += -arch:SSE2
 		}
 
-		message($$QMAKESPEC)
+		FULL_MKSPEC_PATH = $$QMAKESPEC
+		CURRENT_MKSPEC = $$basename(QMAKESPEC)
 
 		CONFIG(force-x86-toolchain) {
-			include(toolchain/win32-msvc2013/x86-xp.toolchain)
+			include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
 		}
 
 		CONFIG(force-x86_64-toolchain) {
-			include(toolchain/win32-msvc2013/x64.toolchain)
+			include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
 		}
 	}
 
