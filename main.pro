@@ -48,7 +48,7 @@ CONFIG *= ordered debug_and_release
     SUBDIRS *= overlay
     SUBDIRS *= overlay/overlay_exe
     SUBDIRS *= overlay_winx64
-    SUBDIRS *= overlay_winx64/overlay_exe
+    SUBDIRS *= overlay_winx64/overlay_exe_winx64
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
     }
