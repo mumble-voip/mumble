@@ -1491,7 +1491,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Dæmp andre brugere når du snakker som prioriteret taler.</translation>
     </message>
 </context>
 <context>
@@ -2261,7 +2261,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Bandlysningsliste</translation>
     </message>
     <message>
         <location/>
@@ -2271,7 +2271,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er søgefeltet. Anvend det til at finde bandlysninger der har dette brugernavn sat i brugernavnsfeltet.</translation>
     </message>
     <message>
         <location/>
@@ -2281,7 +2281,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"/>
+        <translation>Intet kaldenavn</translation>
     </message>
     <message>
         <location/>
@@ -2331,22 +2331,22 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er en liste med bandlyste brugere.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Brug denne knap hvis du vil tilføje en ny bandlysning.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Brug denne knap hvis du vil opdatere bandlysningsinformation.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Brug denne knap hvis du vil fjerne brugere fra bandlysningslisten.</translation>
     </message>
     <message>
         <location/>
@@ -2356,7 +2356,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Denne knap rydder alle felter. Brug den hvis du vil tilføje en ny bandlysning.</translation>
     </message>
     <message>
         <location/>
@@ -2366,7 +2366,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Bandlysningsliste - %n bandlysning(er)</numerusform><numerusform>Bandlysningsliste - %n bandlysning(er)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -3341,7 +3341,7 @@ Brugernavn der skal sendes til serveren. Vær opmærksom på at serveren kan hav
     <message>
         <location/>
         <source>Label</source>
-        <translation>Navn</translation>
+        <translation>Etikette</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3374,33 +3374,33 @@ Adgangskoden der bruges til serveren, når der oprettes forbindelse. Denne adgan
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Navn&lt;/b&gt;&lt;br/&gt;
-Navn på serveren. Dette er, hvad serveren vil blive navngivet som i din serverliste og kan frit vælges.</translation>
+        <translation>&lt;b&gt;Etikette&lt;/b&gt;&lt;br/&gt;
+Etikette for serveren. Dette er, hvad serveren vil blive navngivet som i din serverliste og kan frit vælges.</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Etikette for lokal server</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Dit brugernavn</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Din adgangskode</translation>
     </message>
 </context>
 <context>
@@ -3919,7 +3919,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Du deaktiverede din mikrofon</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3949,17 +3949,17 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>Du aktiverede din mikrofon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>Du deaktiverede din lyd</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>Du aktiverede lyd</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -4831,7 +4831,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Anvend i forening med hvisken.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4955,7 +4955,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Er du sikker på, at du vil nulstille avataren for brugeren %1?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -5102,7 +5102,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation type="unfinished"/>
+        <translation>Billeder (*.png *.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -5850,12 +5850,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Du ophævede din status som prioriteret taler</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Du antog status som prioriteret taler.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5865,37 +5865,37 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 tildelte dig status som prioriteret taler.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Du ophævede status som prioriteret taler for %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Du tildelte status som prioriteret taler til %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ophævede sin egen status som prioriteret taler.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 antog status som prioriteret taler.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ophævede status som prioriteret taler for %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 tildelte status som prioriteret taler til %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5931,7 +5931,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Di flyttede %1 til %2.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -6314,12 +6314,12 @@ Gyldige parametre er:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Bandlysningsliste</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>Redigér bandlysningslisten på serveren</translation>
     </message>
     <message>
         <location/>
@@ -6342,7 +6342,10 @@ Gyldige parametre er:
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>Aktivér eller deaktivér filtreringen af valgte kanaler.
+Som standard vil alle tomme kanaler blive filtreret.
+Du kan markere yderligere kanaler til filtrerering fra
+kanalens genvejsmenu.</translation>
     </message>
     <message>
         <location/>
@@ -6949,12 +6952,12 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS- og klokkeslætsvisning</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>Vis et ur i overlægningen der viser det nuværende lokale klokkeslæt (systemklokkeslæt).</translation>
     </message>
     <message>
         <location/>
@@ -7782,7 +7785,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Registrerede brugere: %n konto(er)</numerusform><numerusform>Registrerede brugere: %n konto(er)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7983,12 +7986,12 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Kaldenavn</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>Antal inaktive dage</translation>
     </message>
     <message>
         <location line="+1"/>
