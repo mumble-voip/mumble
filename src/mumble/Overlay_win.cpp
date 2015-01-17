@@ -115,10 +115,16 @@ static const char *exitStatusString(QProcess::ExitStatus exitStatus) {
 
 void OverlayPrivateWin::onHelperProcessStarted() {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
+	QString path;
+	if (helper == m_helper_process) {
+		path = m_helper_exe_path;
+	} else if (helper == m_helper64_process) {
+		path = m_helper64_exe_path;
+	}
 
 	PROCESS_INFORMATION *pi = helper->pid();
 	qWarning("OverlayPrivateWin: overlay helper process '%s' started with PID %llu.",
-	         qPrintable(m_helper_exe_path), static_cast<unsigned long long>(pi->dwProcessId));
+	         qPrintable(path), static_cast<unsigned long long>(pi->dwProcessId));
 }
 
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
