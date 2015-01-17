@@ -1,3 +1,12 @@
+# This file describes the x64 toolchain of
+# MSVC2013 compiler.
+#
+# This file can be included in a .pro file
+# to cause the target in that file to be
+# built for the x64 architecture, regardless
+# of the native architecture of the build
+# environment.
+
 QMAKE_CC = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
 QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
 QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\amd64\link.exe\""

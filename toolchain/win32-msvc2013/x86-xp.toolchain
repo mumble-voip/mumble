@@ -1,3 +1,14 @@
+# This file describes the x86-xp toolchain of
+# MSVC2013 compiler. This is a special toolchain
+# that is designed to be backwards compatible
+# with Windows XP.
+#
+# This file can be included in a .pro file
+# to cause the target in that file to be
+# built for the x86 architecture targetting
+# Windows XP, regardless of the native
+# architecture of the build environment.
+
 WIN7_XP_SDK_DIR="C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A"
 
 QMAKE_CC = "\"$$(VCINSTALLDIR)bin\cl.exe\" /D_USING_V110_SDK71_"
