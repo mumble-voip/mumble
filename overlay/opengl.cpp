@@ -42,15 +42,12 @@ GLDEF(void, glDeleteTextures, (GLsizei, GLuint *));
 GLDEF(void, glEnable, (GLenum));
 GLDEF(void, glDisable, (GLenum));
 GLDEF(void, glBlendFunc, (GLenum, GLenum));
-GLDEF(void, glColorMaterial, (GLenum, GLenum));
 GLDEF(void, glViewport, (GLint, GLint, GLsizei, GLsizei));
 GLDEF(void, glMatrixMode, (GLenum));
 GLDEF(void, glLoadIdentity, (void));
 GLDEF(void, glOrtho, (GLdouble, GLdouble, GLdouble, GLdouble, GLdouble, GLdouble));
 GLDEF(void, glBindTexture, (GLenum, GLuint));
 GLDEF(void, glPushMatrix, (void));
-GLDEF(void, glColor4ub, (GLubyte, GLubyte, GLubyte, GLubyte));
-GLDEF(void, glTranslatef, (GLfloat, GLfloat, GLfloat));
 GLDEF(void, glBegin, (GLenum));
 GLDEF(void, glEnd, (void));
 GLDEF(void, glTexCoord2f, (GLfloat, GLfloat));
@@ -68,36 +65,52 @@ GLDEF(int, GetDeviceCaps, (HDC, int));
 
 #define INJDEF(ret, name, arg) GLDEF(ret, name, arg); static HardHook hh##name
 #define INJECT(name) { o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name)); if (o##name) { hh##name.setup(reinterpret_cast<voidFunc>(o##name), reinterpret_cast<voidFunc>(my##name)); o##name = (t##name) hh##name.call; } else { ods("OpenGL: No GetProc for %s", #name);} }
+#define FNFIND(handle, name) o##name = reinterpret_cast<t##name>(GetProcAddress(handle, #name))
 
-INJDEF(BOOL, wglSwapLayerBuffers, (HDC, UINT));
+//INJDEF(BOOL, wglSwapLayerBuffers, (HDC, UINT));
 INJDEF(BOOL, wglSwapBuffers, (HDC));
-INJDEF(BOOL, SwapBuffers, (HDC));
+//INJDEF(BOOL, SwapBuffers, (HDC));
 
 static bool bHooked = false;
 
 class Context : protected Pipe {
 	public:
+		Context(HDC hdc);
+		void draw(HDC hdc);
+
+	protected:
+		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
+		virtual void setRect();
+		virtual void newTexture(unsigned int width, unsigned int height);
+
+	private:
 		HGLRC ctx;
 		GLuint texture;
 
 		clock_t timeT;
 		unsigned int frameCount;
 
-		Context(HDC hdc);
-		void draw(HDC hdc);
-
-		virtual void blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h);
-		virtual void setRect();
-		virtual void newTexture(unsigned int width, unsigned int height);
+		void initContext();
+		void doDraw(HDC hdc);
 };
 
 Context::Context(HDC hdc) {
 	timeT = clock();
 	frameCount = 0;
 
+	texture = ~0;
 	ctx = owglCreateContext(hdc);
+
+	HGLRC oldctx = owglGetCurrentContext();
+	HDC oldhdc = owglGetCurrentDC();
 	owglMakeCurrent(hdc, ctx);
 
+	initContext();
+
+	owglMakeCurrent(oldhdc, oldctx);
+}
+
+void Context::initContext() {
 	// Here we go. From the top. Where is glResetState?
 	oglDisable(GL_ALPHA_TEST);
 	oglDisable(GL_AUTO_NORMAL);
@@ -129,8 +142,6 @@ Context::Context(HDC hdc) {
 	oglDisable(GL_TEXTURE_GEN_T);
 
 	oglBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-	texture = ~0;
 }
 
 void Context::blit(unsigned int x, unsigned int y, unsigned int w, unsigned int h) {
@@ -179,6 +190,16 @@ void Context::newTexture(unsigned int width, unsigned int height) {
 }
 
 void Context::draw(HDC hdc) {
+	HGLRC oldctx = owglGetCurrentContext();
+	HDC oldhdc = owglGetCurrentDC();
+	owglMakeCurrent(hdc, ctx);
+
+	doDraw(hdc);
+
+	owglMakeCurrent(oldhdc, oldctx);
+}
+
+void Context::doDraw(HDC hdc) {
 	// DEBUG
 	//sm->bDebug = true;
 
@@ -264,8 +285,6 @@ void Context::draw(HDC hdc) {
 static map<HDC, Context *> contexts;
 
 static void doSwap(HDC hdc) {
-	HGLRC oldctx = owglGetCurrentContext();
-	HDC oldhdc = owglGetCurrentDC();
 	Context *c = contexts[hdc];
 
 	if (!c) {
@@ -274,10 +293,8 @@ static void doSwap(HDC hdc) {
 		contexts[hdc] = c;
 	} else {
 		ods("OpenGL: Reusing old context");
-		owglMakeCurrent(hdc, c->ctx);
 	}
 	c->draw(hdc);
-	owglMakeCurrent(oldhdc, oldctx);
 }
 
 static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
@@ -291,29 +308,25 @@ static BOOL __stdcall mywglSwapBuffers(HDC hdc) {
 	return ret;
 }
 
-static BOOL __stdcall mySwapBuffers(HDC hdc) {
-	ods("OpenGL: SwapBuffers");
+//static BOOL __stdcall mySwapBuffers(HDC hdc) {
+//	ods("OpenGL: SwapBuffers");
+//
+//	hhSwapBuffers.restore();
+//	BOOL ret=oSwapBuffers(hdc);
+//	hhSwapBuffers.inject();
+//
+//	return ret;
+//}
 
-	hhSwapBuffers.restore();
-	BOOL ret=oSwapBuffers(hdc);
-	hhSwapBuffers.inject();
-
-	return ret;
-}
-
-static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
-	ods("OpenGL: SwapLayerBuffers %x",fuPlanes);
-
-	hhwglSwapLayerBuffers.restore();
-	BOOL ret=owglSwapLayerBuffers(hdc, fuPlanes);
-	hhwglSwapLayerBuffers.inject();
-
-	return ret;
-}
-
-
-#undef GLDEF
-#define GLDEF(name) o##name = reinterpret_cast<t##name>(GetProcAddress(hGL, #name))
+//static BOOL __stdcall mywglSwapLayerBuffers(HDC hdc, UINT fuPlanes) {
+//	ods("OpenGL: SwapLayerBuffers %x",fuPlanes);
+//
+//	hhwglSwapLayerBuffers.restore();
+//	BOOL ret=owglSwapLayerBuffers(hdc, fuPlanes);
+//	hhwglSwapLayerBuffers.inject();
+//
+//	return ret;
+//}
 
 void checkOpenGLHook() {
 	static bool bCheckHookActive = false;
@@ -325,60 +338,95 @@ void checkOpenGLHook() {
 	bCheckHookActive = true;
 
 	HMODULE hGL = GetModuleHandle("OpenGL32.DLL");
+	if (hGL == NULL) {
+		bCheckHookActive = false;
+		return;
+	}
 
-	if (hGL != NULL) {
-		if (! bHooked) {
-			char procname[1024];
-			GetModuleFileName(NULL, procname, 1024);
-			ods("OpenGL: Unhooked OpenGL App %s", procname);
-			bHooked = true;
+	if (! bHooked) {
+		char procname[1024];
+		GetModuleFileName(NULL, procname, 1024);
+		ods("OpenGL: Unhooked OpenGL App %s", procname);
+		bHooked = true;
 
-			// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
-			HMODULE hTempSelf = NULL;
-			GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hTempSelf);
+		// Add a ref to ourselves; we do NOT want to get unloaded directly from this process.
+		HMODULE hTempSelf = NULL;
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, reinterpret_cast<char *>(&checkOpenGLHook), &hTempSelf);
 
-			INJECT(wglSwapBuffers);
-			// INJECT(wglSwapLayerBuffers);
-
-			GLDEF(wglCreateContext);
-			GLDEF(glGenTextures);
-			GLDEF(glDeleteTextures);
-			GLDEF(glEnable);
-			GLDEF(glDisable);
-			GLDEF(glBlendFunc);
-			GLDEF(glColorMaterial);
-			GLDEF(glViewport);
-			GLDEF(glMatrixMode);
-			GLDEF(glLoadIdentity);
-			GLDEF(glOrtho);
-			GLDEF(glBindTexture);
-			GLDEF(glPushMatrix);
-			GLDEF(glColor4ub);
-			GLDEF(glTranslatef);
-			GLDEF(glBegin);
-			GLDEF(glEnd);
-			GLDEF(glTexCoord2f);
-			GLDEF(glVertex2f);
-			GLDEF(glPopMatrix);
-			GLDEF(glTexParameteri);
-			GLDEF(glTexEnvi);
-			GLDEF(glTexImage2D);
-			GLDEF(glTexSubImage2D);
-			GLDEF(glPixelStorei);
-			GLDEF(wglMakeCurrent);
-			GLDEF(wglGetCurrentContext);
-			GLDEF(wglGetCurrentDC);
-
-			hGL = GetModuleHandle("GDI32.DLL");
-			if (hGL) {
-				// INJECT(SwapBuffers);
-				GLDEF(GetDeviceCaps);
-			} else {
-				ods("OpenGL: Failed to find GDI32");
-			}
-		} else {
-			hhwglSwapBuffers.check();
+		// Locate and remember OpenGL functions (for easier access)
+		FNFIND(hGL, wglCreateContext);
+		FNFIND(hGL, glGenTextures);
+		FNFIND(hGL, glDeleteTextures);
+		FNFIND(hGL, glEnable);
+		FNFIND(hGL, glDisable);
+		FNFIND(hGL, glBlendFunc);
+		FNFIND(hGL, glViewport);
+		FNFIND(hGL, glMatrixMode);
+		FNFIND(hGL, glLoadIdentity);
+		FNFIND(hGL, glOrtho);
+		FNFIND(hGL, glBindTexture);
+		FNFIND(hGL, glPushMatrix);
+		FNFIND(hGL, glBegin);
+		FNFIND(hGL, glEnd);
+		FNFIND(hGL, glTexCoord2f);
+		FNFIND(hGL, glVertex2f);
+		FNFIND(hGL, glPopMatrix);
+		FNFIND(hGL, glTexParameteri);
+		FNFIND(hGL, glTexEnvi);
+		FNFIND(hGL, glTexImage2D);
+		FNFIND(hGL, glTexSubImage2D);
+		FNFIND(hGL, glPixelStorei);
+		FNFIND(hGL, wglMakeCurrent);
+		FNFIND(hGL, wglGetCurrentContext);
+		FNFIND(hGL, wglGetCurrentDC);
+		if (!owglCreateContext
+		    || !oglGenTextures
+		    || !oglDeleteTextures
+		    || !oglEnable
+		    || !oglDisable
+		    || !oglBlendFunc
+		    || !oglViewport
+		    || !oglMatrixMode
+		    || !oglLoadIdentity
+		    || !oglOrtho
+		    || !oglBindTexture
+		    || !oglPushMatrix
+		    || !oglBegin
+		    || !oglEnd
+		    || !oglTexCoord2f
+		    || !oglVertex2f
+		    || !oglPopMatrix
+		    || !oglTexParameteri
+		    || !oglTexEnvi
+		    || !oglTexImage2D
+		    || !oglPixelStorei
+		    || !owglMakeCurrent
+		    || !owglGetCurrentContext
+		    || !owglGetCurrentDC) {
+			ods("OpenGL: Failed to find required OpenGL functions");
+			bCheckHookActive = false;
+			return;
 		}
+
+		HMODULE hGDI = GetModuleHandle("GDI32.DLL");
+		if (hGDI == NULL) {
+			ods("OpenGL: Failed to identify GDI32");
+			bCheckHookActive = false;
+			return;
+		}
+
+		FNFIND(hGDI, GetDeviceCaps);
+		if (oGetDeviceCaps == NULL) {
+			ods("OpenGL: Failed to find GDI32 GetDeviceCaps function");
+			bCheckHookActive = false;
+			return;
+		}
+
+		INJECT(wglSwapBuffers);
+		// INJECT(wglSwapLayerBuffers);
+		// INJECT(SwapBuffers);
+	} else {
+		hhwglSwapBuffers.check();
 	}
 
 	bCheckHookActive = false;
