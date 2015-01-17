@@ -8195,7 +8195,7 @@ Un token di accesso è una stringa di testo, che può essere usata come password
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation>Download in corso della nuova Snapshot da %1 a %2</translation>
+        <translation>Download in corso della nuova Snapshot da %1 su %2</translation>
     </message>
     <message>
         <location line="+14"/>
