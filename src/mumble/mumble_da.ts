@@ -680,7 +680,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;Dansk oversættelse af Jonathan Elvø Hansen&lt;br /&gt;zentriple@users.sourceforge.net&lt;/p&gt;&lt;p&gt;&lt;b&gt;Et stemmebaseret chat-program for gamere&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1481,12 +1481,12 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>Hvis denne er markeret, vil Mumble dæmpe lydstyrken af andre brugere, når du snakker, hvis du har status som &quot;Prioriteret taler&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dæmp andre brugere når du snakker som prioriteret taler.&lt;/b&gt;&lt;br /&gt;Mumble understøtter reducering af lydstyrken af andre brugere, når du snakker som &lt;i&gt;Prioriteret taler&lt;/i&gt; for at undgå at blive afbrudt. Markering i dette afkrydsningsfelt vil aktivere denne funktion.</translation>
     </message>
     <message>
         <location/>
@@ -1629,7 +1629,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Dette viser hvor tæt din nuværende indspilningslydstyrke er på det ideelle. For at justere dit mikrofinniveau skal du åbne dét program, du bruger til at justere din optagelydstyrke, og kigge på værdierne hér, mens du snakker.&lt;br /&gt;&lt;b&gt;Snak højt, som om du oprevet over at blive nakket af en noob.&lt;/b&gt;&lt;br /&gt;Justér lydstyrken indtil denne værdi er tæt på 100%, men vær sikker på den ikke kommer over. Hvis den kommer, vil din stemme sansynligvis &quot;falde ud&quot;, når du snakker, hvilket vil forringe lydkvaliteten.</translation>
+        <translation>Dette viser hvor tæt din nuværende indspilningslydstyrke er på det ideelle. For at justere dit mikrofinniveau skal du åbne dét program, du bruger til at justere din optagelydstyrke, og kigge på værdierne hér, mens du snakker.&lt;br /&gt;&lt;b&gt;Snak højt, som om at du er oprevet over at blive nakket af en noob.&lt;/b&gt;&lt;br /&gt;Justér lydstyrken indtil denne værdi er tæt på 100%, men vær sikker på den ikke kommer over. Hvis den kommer, vil din stemme sansynligvis &quot;falde ud&quot;, når du snakker, hvilket vil forringe lydkvaliteten.</translation>
     </message>
     <message>
         <location/>
@@ -2427,7 +2427,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Filens tilladelser kunne ikke indstilles. Certifikat og nøgle er ikke blevet nedskrevet. Benyt venligst en anden fil.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4482,7 +4482,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>Filtret skjuler automatisk tomme kanaler</translation>
     </message>
 </context>
 <context>
@@ -4849,7 +4849,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Skift transmitteringsindstilling</translation>
     </message>
     <message>
         <location line="+157"/>
@@ -5016,7 +5016,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>Transmitteringsindstilling skiftet til %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -5464,7 +5464,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>Gør dig i stand til at ændre de flere indstillinger i Mumble.</translation>
+        <translation>Gør dig i stand til at ændre de fleste indstillinger i Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -5644,7 +5644,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Dette åbner editoren for registrerede brugere, som gør dig i stand til at skifte deres navn eller fjerne deres registration.</translation>
+        <translation>Dette åbner redigeringsværktøjet for registrerede brugere, som gør dig i stand til at skifte deres navn eller fjerne deres registrering.</translation>
     </message>
     <message>
         <location/>
@@ -5860,7 +5860,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ophævede din status som prioriteret taler.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6324,7 +6324,7 @@ Gyldige parametre er:
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Dette lader dig ændre den serverbaserede IP-bandlysningsliste.</translation>
     </message>
     <message>
         <location/>
@@ -6334,7 +6334,7 @@ Gyldige parametre er:
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Slå kanalfiltret til/fra (Ctrl+f)</translation>
     </message>
     <message>
         <location/>
@@ -8019,7 +8019,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser om vedkommende snakker:</translation>
+        <translation>Dette er en bruger, der har oprettet forbindelse til serveren. Ikonet til venstre for brugeren viser, om vedkommende snakker:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8115,7 +8115,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>Bruger har sat en kommentar, som du allerede har set. (klik for at vise)</translation>
+        <translation>Brugeren har sat en kommentar, som du allerede har set. (klik for at vise)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8130,12 +8130,12 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation>Kanal har fået en ny kommentar (klik for at vise)</translation>
+        <translation>Kanalen har fået en ny kommentar (klik for at vise)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>Kanal har en kommentar, som du allerede har set (klik for at vise)</translation>
+        <translation>Kanalen har en kommentar, som du allerede har set (klik for at vise)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8326,7 +8326,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>Det mislykkedes at åbne filen &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8450,7 +8450,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>Lukning af optageren uden at stoppe den vil kassere lyd, der endnu ikke er nedskrevet. Vil du virkelig lukke optageren?</translation>
     </message>
     <message>
         <location line="+33"/>
