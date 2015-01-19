@@ -206,18 +206,15 @@ int main(int argc, char **argv) {
 				g.s.bSuppressIdentity = true;
 			} else if (args.at(i) == QLatin1String("rpc")) {
 				bRpcMode = true;
-				if(args.count()-1>i)
-				{
+				if(args.count()-1>i) {
 					RpcCommand = QString(args.at(i+1));
 				}
-				else
-				{
+				else {
 					printf("Error: No RPC command specified\n");
 					return 1;
 				}
 			} else {
-				if(!bRpcMode || true)
-				{
+				if(!bRpcMode) {
 					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
 					if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
 						url = u;
