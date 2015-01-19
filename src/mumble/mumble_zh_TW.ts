@@ -1472,7 +1472,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>優先講者</translation>
     </message>
     <message>
         <location/>
@@ -5690,17 +5690,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 移動至 %2。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 將 %1 移動至 %2。</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 將 %1 從 %2 移動到此。</translation>
     </message>
     <message>
         <location line="-200"/>
@@ -5746,7 +5746,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：訊息太長。</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -5771,7 +5771,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>無效的用戶名。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5786,12 +5786,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"/>
+        <translation>沒有權限。</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 已連線。</translation>
     </message>
     <message>
         <location line="+13"/>
