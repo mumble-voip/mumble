@@ -682,7 +682,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;זכויות יוצרים %3 נבחרת Mumble&lt;/p&gt;&lt;p&gt;&lt;b&gt;כלי שיחה-קולית עבור גיימרים&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;כל הזכויות שמורות ל%3 קבוצת Mumble&lt;/p&gt;&lt;p&gt;&lt;b&gt;כלי שיחה-קולית עבור גיימרים&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;&lt;p&gt;התרגום לעברית נכתב על ידי Opalium/Sonic&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -3913,7 +3913,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation>משתמש נבעט</translation>
+        <translation>משתמש הועף</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4747,7 +4747,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation>בועט משתמש %1</translation>
+        <translation>מעיף משתמש %1</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -5186,7 +5186,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation>&amp;בעט</translation>
+        <translation>ה&amp;עף</translation>
     </message>
     <message>
         <location/>
@@ -5493,7 +5493,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>לחצו כאן כדי להכנס למצב &quot;מה זה?&quot;. הסמן שלכם יהפוך לסימן שאלה. לחצו על כל כפתור, תפריט או אזור כדי להציג תיאור של מה הדבר.</translation>
+        <translation>לחצו כאן כדי להכנס למצב &quot;מה זה?&quot;. הסמן שלכם יהפוך לסימן שאלה. לחצו על כל כפתור, תפריט או אזור כדי להציג תיאור אודותיו.</translation>
     </message>
     <message>
         <location/>
@@ -5508,7 +5508,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation>הצגת דו שיח קטן עם מידע ורשיון Mumble.</translation>
+        <translation>הצגת תיבת דו שיח קטנה עם מידע ורשיון עבור Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -5523,7 +5523,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation>הצגת דו שיח קטן עם מידע אודות Speex.</translation>
+        <translation>הצגת תיבת דו שיח קטנה עם מידע אודות Speex.</translation>
     </message>
     <message>
         <location/>
@@ -5538,7 +5538,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation>הצגת דו שיח קטן עם מידע אודות Qt.</translation>
+        <translation>הצגת תיבת דו שיח קטנה עם מידע אודות Qt.</translation>
     </message>
     <message>
         <location/>
@@ -5915,7 +5915,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation>שותקת עלידי השרת.</translation>
+        <translation>שותקת על ידי השרת.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -7513,7 +7513,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation>אינטרנט פומבי</translation>
+        <translation>אינטרנט ציבורי</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7705,7 +7705,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation>רשימה של סיסמאות שמורות על שרת נוכחי</translation>
+        <translation>רשימת הסיסמאות השמורות עבור השרת נוכחי</translation>
     </message>
     <message>
         <location/>
@@ -7713,9 +7713,10 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation>&lt;b&gt;זוהי רשימה שניתן לערוך של הסיסמאות שהגדרת עבור השרת הנוכחי.&lt;/b&gt;
+        <translation>&lt;b&gt;זוהי רשימה הניתנת לעריכה של הסיסמאות שהגדרת עבור השרת הנוכחי&lt;/b&gt;
 &lt;br /&gt;
-סיסמא (או מפתח גישה) היא מחרוזת אותיות שמאפשרת שליטה בסיסית מאוד בגישה לערוצים. Mumble יזכור את כל הסיסמאות שהשתמשתם בהן וישלח אותן מחדש אל השרת בפעם הבאה שתתחברו, כדי שלא תצטרכו להכניס אותן שוב בכל פעם.</translation>
+סיסמא (או מפתח גישה) היא מחרוזת אותיות שמאפשרת שליטה בסיסית מאוד בגישה לערוצים. Mumble יזכור את כל הסיסמאות שהשתמשתם בהן וישלח אותן מחדש אל השרת בפעם הבאה שתתחברו, כדי שלא תצטרכו להכניס אותן שוב בכל פעם.
+</translation>
     </message>
     <message>
         <location/>
@@ -7785,7 +7786,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation>בחוסר פעילות למשך</translation>
+        <translation>חסר פעילות למשך</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
@@ -8179,7 +8180,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>אותרה גירסא חדשה של Mumble וזו תורד אוטומטית. מומלץ שתשדרג/י אל גירסא זו, או שתנמיך/י אל השחרור היציב האחרון. האם ברצונך להפעיל את אשף ההתקנה כעת?</translation>
+        <translation>גירסא חדשה של Mumble אותרה והיא תורד אוטומטית. מומלץ שתשדרג/י אל גירסא זו, או שתשוב/י אל השחרור היציב האחרון. האם ברצונך להפעיל את אשף ההתקנה כעת?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8326,12 +8327,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation>רשמקול נכשל ליצור תיקייה &apos;%1&apos;</translation>
+        <translation>הרשמקול נכשל ביצירת התיקייה &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation>רשמקול נכשל לפתוח קובץ &apos;%1&apos;</translation>
+        <translation>הרשמקול נכשל בפתיחת הקובץ &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
@@ -8455,7 +8456,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation>סגירת כלי ההקלטה מבלי לעצור אותו תגרום לאיבוד השמע שעוד לא נשמר. האם אכן ברצונך לסגור את כלי ההקלטה?</translation>
+        <translation>סגירת הרשמקול מבלי לעצור אותו תגרום לאיבוד השמע שעוד לא נשמר. האם אכן ברצונך לסגור את הרשמקול?</translation>
     </message>
     <message>
         <location line="+33"/>
