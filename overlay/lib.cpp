@@ -673,7 +673,15 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 static bool createSharedDataMap() {
 	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
+#if defined(_M_IX86)
+	const char *name = "MumbleOverlayPrivate-x86";
+#elif defined(_M_X64)
+	const char *name = "MumbleOverlayPrivate-x64";
+#else
+# error Unsupported architecture
+#endif
+
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, name);
 	if (hMapObject == NULL) {
 		ods("Lib: CreateFileMapping failed");
 		return false;

@@ -29,9 +29,7 @@ CONFIG *= ordered debug_and_release
   }
 
   win32 {
-    equals(QMAKE_TARGET.arch, x86_64) {
-      SUBDIRS *= 3rdparty/minhook-build
-    }
+    SUBDIRS *= 3rdparty/minhook-build
   }
 
   SUBDIRS *= src/mumble
@@ -45,9 +43,12 @@ CONFIG *= ordered debug_and_release
   }
 
   win32 {
-    SUBDIRS *= 3rdparty/fx11-build
+    SUBDIRS *= 3rdparty/fx11-build-x86
+    SUBDIRS *= 3rdparty/fx11-build-x64
     SUBDIRS *= overlay
     SUBDIRS *= overlay/overlay_exe
+    SUBDIRS *= overlay_winx64
+    SUBDIRS *= overlay_winx64/overlay_exe_winx64
     !CONFIG(no-g15) {
       SUBDIRS *= g15helper
     }
