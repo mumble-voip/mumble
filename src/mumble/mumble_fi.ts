@@ -1614,7 +1614,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Signal Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Signaalianalyysi</translation>
     </message>
     <message>
         <location/>
@@ -1629,17 +1629,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää kuinka lähellä ideaalia nykyinen sisääntuleva äänenvoimakkuus on. Säätääksesi mikrofonin tasoa, avaa haluamasi äänitysohjelma ja tarkkaile äänenvoimakkuutta. &lt;br /&gt;&lt;b&gt;Puhu voimakkaasti, aivan kuin haukkuisit jotain nuubia.&lt;/b&gt;&lt;br/&gt;Säädä mikrofonin äänenvoimakkuuden tasoa, kunnes tämä arvo on lähellä 100%, mutta älä ylitä sitä. Arvon ylittyessä puheessasi ilmenee pätkimistä, mikä heikentää äänenlaatua.</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signaalin ja melun suhde</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"/>
+        <translation>Signaalin ja melun suhde mikrofonista</translation>
     </message>
     <message>
         <location/>
@@ -1842,7 +1842,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Output device to use</source>
-        <translation type="unfinished"/>
+        <translation>Käytettävä audion ulostulolaite</translation>
     </message>
     <message>
         <location/>
@@ -1852,13 +1852,13 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Salli sijainninmukainen audio</translation>
     </message>
     <message>
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Sallii audion sijainninmukaistamisen</translation>
     </message>
     <message>
         <location/>
@@ -1873,17 +1873,17 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>Input Device</source>
-        <translation type="unfinished"/>
+        <translation>Sisääntulolaite</translation>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation type="unfinished"/>
+        <translation>Ulostulolaite</translation>
     </message>
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"/>
+        <translation>Sallii Mumblen käyttää sijainninmukaista audiota äänien sijoittamiseksi</translation>
     </message>
     <message>
         <location/>
@@ -1899,7 +1899,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Datapuskurin koko</translation>
     </message>
     <message>
         <location/>
@@ -5391,7 +5391,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation type="unfinished"/>
+        <translation>Avaa uuden ikkunan, joka sisältää tietoja tämänhetkisestä äänensyötöstä.</translation>
     </message>
     <message>
         <location/>
@@ -5456,7 +5456,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa Mumblesta</translation>
     </message>
     <message>
         <location/>
@@ -5722,7 +5722,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>Viesti on liian pitkä.</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -5742,12 +5742,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Kelpaamaton käyttäjänimi: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>Kelpaamaton käyttäjänimi.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5767,37 +5767,37 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 saapui.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 mykistetty.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ei ole enään mykistetty.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"/>
+        <translation>Nauhoitus aloitettu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"/>
+        <translation>Nauhoitus lopetettu</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 aloitti nauhoittaa.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 lopetti nauhoituksen.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -5857,7 +5857,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 mykisti sinut.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5883,12 +5883,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Siirsit %1 kanavalle %2.</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"/>
+        <translation>%1 nauhoittaa</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5898,19 +5898,19 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 lähti kanavalta.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poistui palvelimelta.</translation>
     </message>
     <message>
         <location line="+110"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>Palvelin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6974,7 +6974,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjätunnus</translation>
     </message>
     <message>
         <location/>
@@ -6984,7 +6984,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanava</translation>
     </message>
     <message>
         <location/>
@@ -6994,7 +6994,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"/>
+        <translation>Mykistetty tila</translation>
     </message>
     <message>
         <location/>
@@ -7233,7 +7233,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location/>
