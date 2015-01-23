@@ -145,6 +145,22 @@ win32 {
 		      QMAKE_CFLAGS_DEBUG -= -arch:SSE
 		      QMAKE_CFLAGS += -arch:SSE2
 		}
+
+		# Define the CONFIG options 'force-x86-toolchain' and
+		# 'force-x86_64-toolchain'. These can be used to force
+		# the target of a .pro file to be built for a specific
+		# architecture, regardless of the actual architecture
+		# used by the current build environment.
+		FULL_MKSPEC_PATH = $$QMAKESPEC
+		CURRENT_MKSPEC = $$basename(QMAKESPEC)
+
+		CONFIG(force-x86-toolchain) {
+			include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
+		}
+
+		CONFIG(force-x86_64-toolchain) {
+			include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
+		}
 	}
 
 	CONFIG(symbols) {
