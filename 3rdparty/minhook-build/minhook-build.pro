@@ -1,3 +1,4 @@
+CONFIG += force-x86_64-toolchain
 include(../../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
