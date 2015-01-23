@@ -38,6 +38,12 @@
       <Component Id="mumble_ol.exe">
          <File Source="$(var.SourceDir)\release\mumble_ol.exe" KeyPath="yes" />
       </Component>
+      <Component Id="mumble_ol_x64.dll">
+        <File Source="$(var.SourceDir)\release\mumble_ol_x64.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="mumble_ol_x64.exe">
+         <File Source="$(var.SourceDir)\release\mumble_ol_x64.exe" KeyPath="yes" />
+      </Component>
       <Component Id="celt0.0.7.0.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.dll" KeyPath="yes" />
       </Component>
