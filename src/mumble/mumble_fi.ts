@@ -5451,7 +5451,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tietoa Mumblesta</translation>
     </message>
     <message>
         <location/>
@@ -5461,37 +5461,37 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää tietoja Mumblesta ja sen lisensseistä.</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Speex</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa &amp;Speexistä</translation>
     </message>
     <message>
         <location/>
         <source>Information about Speex</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa Speexistä</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished"/>
+        <translation>Antaa tietoa Speexistä.</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa &amp;Qt:sta</translation>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa Qt:sta</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää tietoa Qt:sta.</translation>
     </message>
     <message>
         <location/>
@@ -5717,7 +5717,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>Virheellinen kanava nimi.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5727,7 +5727,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Virhe: Komento ei ole sallitu tilapäiskanavalla.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5920,7 +5920,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"/>
+        <translation>(Kanava)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5960,7 +5960,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistit %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6001,32 +6001,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti sinut palvelimelta: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti käyttäjän %3 palvelimelta: %2.</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 esti pääsysi palvelimelle: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 esti käyttäjän %3 pääsyn palvelimelle: %2.</translation>
     </message>
     <message>
         <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 siirsi sinut kanavalle %1.</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 saapui kanavalle.</translation>
     </message>
     <message>
         <location line="-397"/>
@@ -6041,7 +6041,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+430"/>
         <source>Message from %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti käyttäjältä %1</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
@@ -6081,7 +6081,7 @@ Valid options are:
     <message>
         <location line="+194"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Tervetuloa Mumbleen.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -6091,7 +6091,7 @@ Valid options are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>Piilota kehys</translation>
     </message>
     <message>
         <location/>
@@ -6136,12 +6136,12 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Liity kanavalle</translation>
     </message>
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"/>
+        <translation>Katso kommentti</translation>
     </message>
     <message>
         <location/>
@@ -6161,7 +6161,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Minä</translation>
     </message>
     <message>
         <location/>
@@ -6186,7 +6186,7 @@ Valid options are:
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Vaihda käyttäjäkuva</translation>
     </message>
     <message>
         <location/>
@@ -6196,7 +6196,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Poista käyttäjäkuva</translation>
     </message>
     <message>
         <location/>
@@ -6211,7 +6211,7 @@ Valid options are:
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>Vaihda oma kommenttisi</translation>
     </message>
     <message>
         <location/>
@@ -6226,22 +6226,22 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kopioi URL-osoite</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>Kopioi kanavan osoitteen leikepöydälle,</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>Estä viestit</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>Estää käyttäjän lähettämästä viestejä sinulle.</translation>
     </message>
     <message>
         <location/>
@@ -6251,17 +6251,17 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Estettyjen käyttäjien lista</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>Muokkaa palvelimen estettyjä käyttäjiä</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Antaa sinun muokata palvelimen estettyjen käyttäjien IP-osoitteiden listaa.</translation>
     </message>
     <message>
         <location/>
@@ -6284,7 +6284,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
@@ -6294,7 +6294,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Poista &amp;käyttäjäkuva</translation>
     </message>
     <message>
         <location/>
@@ -6307,7 +6307,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Verkko</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -6333,12 +6333,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleen yhdistä yhteyden katketessa</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Uudelleen yhdistä yhteyden katketessa&lt;/b&gt;.&lt;br /&gt;Mikäli yhteys palvelimeen katkeaa, Mumble yrittää automaattisesti yhdistää palvelimeen 10 sekunnin jälkeen.</translation>
     </message>
     <message>
         <location/>
@@ -6433,7 +6433,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>Portti</translation>
     </message>
     <message>
         <location/>
@@ -6448,7 +6448,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjänimi</translation>
     </message>
     <message>
         <location/>
@@ -6463,7 +6463,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Salasana</translation>
     </message>
     <message>
         <location/>
@@ -6504,17 +6504,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Automaattisesti tarkista Mumblen uudet julkaisut</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>Ilmoittaa Mumblen uusista versioista ohjelman käynnistyessä.</translation>
     </message>
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>Tarkista ohjelman päivitykset ohjelman käynnistyessä</translation>
     </message>
     <message>
         <location/>
@@ -6549,7 +6549,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistä viimeisimpään palvelimeen ohjelman käynnistyessä</translation>
     </message>
     <message>
         <location/>
@@ -6587,7 +6587,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanava</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+106"/>
@@ -6811,7 +6811,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"/>
+        <translation>Näytä FPS</translation>
     </message>
     <message>
         <location/>
@@ -6861,7 +6861,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"/>
+        <translation>Fontti</translation>
     </message>
     <message>
         <location/>
