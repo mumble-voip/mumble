@@ -91,7 +91,7 @@ static std::wstring GetAbsoluteMumbleOverlayDllPath() {
 
 	std::wstring absDLLPath(exePath);
 	absDLLPath.append(L"\\");
-	absDLLPath.append(L"mumble_ol.dll");
+	absDLLPath.append(MUMBLE_OVERLAY_DLL_NAME);
 	return absDLLPath;
 }
 
