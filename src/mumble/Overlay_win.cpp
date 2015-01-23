@@ -60,6 +60,16 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
+
+	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_x64.exe").arg(qApp->applicationDirPath());
+	m_helper64_exe_args = m_helper_exe_args;
+	m_helper64_process = new QProcess(this);
+
+	connect(m_helper64_process, SIGNAL(started()),
+	        this, SLOT(onHelperProcessStarted()));
+
+	connect(m_helper64_process, SIGNAL(finished(int, QProcess::ExitStatus)),
+	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
@@ -68,7 +78,11 @@ OverlayPrivateWin::~OverlayPrivateWin() {
 
 void OverlayPrivateWin::startHelper(QProcess *helper) {
 	if (helper->state() == QProcess::NotRunning) {
-		helper->start(m_helper_exe_path, m_helper_exe_args);
+		if (helper == m_helper_process) {
+			helper->start(m_helper_exe_path, m_helper_exe_args);
+		} else if (helper == m_helper64_process) {
+			helper->start(m_helper64_exe_path, m_helper64_exe_args);
+		}
 	} else {
 		qWarning("OverlayPrivateWin: startHelper() called while process is already running. skipping.");
 	}
@@ -80,8 +94,10 @@ void OverlayPrivateWin::setActive(bool active) {
 
 		if (m_active) {
 			startHelper(m_helper_process);
+			startHelper(m_helper64_process);
 		} else {
 			m_helper_process->terminate();
+			m_helper64_process->terminate();
 		}
 	}
 }
@@ -99,10 +115,16 @@ static const char *exitStatusString(QProcess::ExitStatus exitStatus) {
 
 void OverlayPrivateWin::onHelperProcessStarted() {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
+	QString path;
+	if (helper == m_helper_process) {
+		path = m_helper_exe_path;
+	} else if (helper == m_helper64_process) {
+		path = m_helper64_exe_path;
+	}
 
 	PROCESS_INFORMATION *pi = helper->pid();
 	qWarning("OverlayPrivateWin: overlay helper process '%s' started with PID %llu.",
-	         qPrintable(m_helper_exe_path), static_cast<unsigned long long>(pi->dwProcessId));
+	         qPrintable(path), static_cast<unsigned long long>(pi->dwProcessId));
 }
 
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
