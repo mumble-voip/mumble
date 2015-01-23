@@ -56,6 +56,11 @@ class OverlayPrivateWin : public OverlayPrivate {
 		QProcess *m_helper_process;
 		QString m_helper_exe_path;
 		QStringList m_helper_exe_args;
+
+		QProcess *m_helper64_process;
+		QString m_helper64_exe_path;
+		QStringList m_helper64_exe_args;
+
 		bool m_active;
 
 		void startHelper(QProcess *helper);
