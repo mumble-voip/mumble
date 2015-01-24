@@ -2914,7 +2914,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished"/>
+        <translation>Liitä ja &amp;lähetä</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3193,7 +3193,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Liitä</translation>
     </message>
     <message>
         <location/>
@@ -3346,22 +3346,22 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjänimesi</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Salasanasi</translation>
     </message>
 </context>
 <context>
@@ -4685,12 +4685,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-357"/>
         <location line="+357"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle . Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi tällä palvelimella sen jälkeen.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä &apos;%1&apos;?&lt;/p&gt;  </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register user %1</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröi käyttäjä %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4710,7 +4710,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän %1 kommentti</translation>
     </message>
     <message>
         <location line="+72"/>
@@ -4883,7 +4883,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+22"/>
         <source>Sending message to %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti käyttäjälle %1</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -4902,7 +4902,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Haluatko nollata käyttäjän %1 kommentin?</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -4917,7 +4917,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+71"/>
         <source>Sending message to channel %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti kanavalle %1</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5129,7 +5129,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Show information about the server connection</source>
-        <translation type="unfinished"/>
+        <translation>Näytä palvelin yhteyden tiedot.</translation>
     </message>
     <message>
         <location/>
@@ -5184,7 +5184,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation type="unfinished"/>
+        <translation>Lisää uuden alikanavan valitulle kanavalle.</translation>
     </message>
     <message>
         <location/>
@@ -5199,7 +5199,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Poistaa kanavan ja sen kaikki alikanavat.</translation>
     </message>
     <message>
         <location/>
@@ -5224,12 +5224,13 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>Viestikenttä&lt;br /&gt;
+Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti lähetetään valitsemallesi käyttäjälle tai kanavalle. Ilman käyttäjän tai kanavan valintaa viesti lähetetään kanavalle jolla olet.</translation>
     </message>
     <message>
         <location/>
         <source>Chatbar</source>
-        <translation type="unfinished"/>
+        <translation>Viestikenttä</translation>
     </message>
     <message>
         <location/>
@@ -5244,7 +5245,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>Poistaa valitun käyttäjän palvelimelta. Sinun tulee myös antaa syy poistamiselle.</translation>
     </message>
     <message>
         <location/>
@@ -5264,7 +5265,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>Estää käyttäjän pääsyn palvelimelle. Sinun tulee myös antaa syy estämiselle.</translation>
     </message>
     <message>
         <location/>
@@ -5621,7 +5622,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"/>
+        <translation>Muuttaa ikkunan minimi näkymään, piilottaen loki ikkunan ja valikon.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+318"/>
@@ -6101,12 +6102,12 @@ Valid options are:
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"/>
+        <translation>Piilottaa ikkunan kehyksen minimi tilassa.  Tässä tilassa ikkunaa ei voi liikuttaa eikä sen kokoa voi muuttaa.</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä &amp;Viesti</translation>
     </message>
     <message>
         <location/>
@@ -6121,17 +6122,17 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Rekisteröidy</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa &amp;Kommentti</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa valitun käyttäjän kommentin.</translation>
     </message>
     <message>
         <location/>
@@ -6726,7 +6727,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>Asetukset</translation>
     </message>
     <message>
         <location/>
@@ -7440,32 +7441,32 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>Afrikka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>Aasia</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>Pohjois-Amerikka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>Etelä-Amerikka</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>Eurooppa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Oseania</translation>
     </message>
 </context>
 <context>
@@ -7536,7 +7537,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -7663,7 +7664,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröidyt käyttäjät</translation>
     </message>
     <message>
         <location/>
@@ -7892,13 +7893,13 @@ An access token is a text string, which can be used as a password for very simpl
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"/>
+        <translation>Kaistanleveys</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"/>
+        <translation>Kaistanleveys</translation>
     </message>
     <message>
         <location/>
