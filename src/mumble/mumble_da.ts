@@ -3894,12 +3894,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation>Bruger oprettede forbindelse til server</translation>
+        <translation>Bruger oprettede forbindelse til serveren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Bruger forlod server</translation>
+        <translation>Bruger forlod serveren</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3939,12 +3939,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Bruger deltager i kanal</translation>
+        <translation>Bruger deltager i kanalen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Bruger forlod kanal</translation>
+        <translation>Bruger forlod kanalen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5729,7 +5729,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 har nu deaktiveret mikrofon og lyd.</translation>
+        <translation>%1 deaktiverede mikrofon og lyd.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5825,7 +5825,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 har nu aktiveret mikrofon.</translation>
+        <translation>%1 aktiverede mikrofon.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5946,7 +5946,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation>%1 forlod kanal.</translation>
+        <translation>%1 forlod kanalen.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6074,7 +6074,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation>%1 kom ind i kanalen.</translation>
+        <translation>%1 deltager i kanalen.</translation>
     </message>
     <message>
         <location line="-397"/>
