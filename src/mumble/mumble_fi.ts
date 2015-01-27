@@ -3727,7 +3727,7 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation type="unfinished"/>
+        <translation>Käytä tätä laitetta</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3742,7 +3742,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Devices</source>
-        <translation type="unfinished"/>
+        <translation>Laitteet</translation>
     </message>
     <message>
         <location/>
@@ -3767,7 +3767,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>Käytössä</translation>
     </message>
     <message>
         <location/>
@@ -4148,7 +4148,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation type="unfinished"/>
+        <translation>Vain käyttäjille</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4173,7 +4173,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation type="unfinished"/>
+        <translation>Käyttöliittymä</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -4213,7 +4213,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished"/>
+        <translation>Näytä kanavan käyttäjämäärä</translation>
     </message>
     <message>
         <location/>
@@ -4424,7 +4424,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Selaa...</translation>
     </message>
     <message>
         <location/>
@@ -4434,7 +4434,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation type="unfinished"/>
+        <translation>Automaattinen suodatus piilottaa tyhjät kanavat</translation>
     </message>
 </context>
 <context>
@@ -4538,7 +4538,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <location line="+140"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Pienennä</translation>
     </message>
     <message>
         <location line="-140"/>
@@ -4553,7 +4553,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble on yhdistetty palvelimeen. Haluatko sulkea vai pienentää sen?</translation>
     </message>
     <message>
         <location line="-200"/>
@@ -4607,12 +4607,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-2110"/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjennä</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Opening URL %1</source>
-        <translation type="unfinished"/>
+        <translation>Avataan URL %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4622,7 +4622,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedosto ei ole asetustiedosto.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4642,7 +4642,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+36"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistetään %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4653,7 +4653,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+15"/>
         <location line="+196"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistetään palvelimeen %1.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -4732,36 +4732,36 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Kirjoita viesti kanavalle &apos;%1&apos; tähän&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Kirjoita viesti käyttäjälle &apos;%1&apos; tähän&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation type="unfinished"/>
+        <translation>Valitse kuvatiedosto</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Kuvan lataus epäonnistui</translation>
     </message>
     <message>
         <location line="-27"/>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"/>
+        <translation>Tiedostoa ei voida avata.</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Kuvan tiedostomuotoa ei tunneta.</translation>
     </message>
     <message>
         <location line="-1776"/>
@@ -4771,12 +4771,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-950"/>
         <source>&amp;User</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Käyttäjä</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Channel</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kanava</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4912,7 +4912,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+221"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation type="unfinished"/>
+        <translation>Haluatko varmasti poistaa %1 ja kaikki sen alikanavat?</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -4973,12 +4973,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+148"/>
         <source>SSL Verification failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>SSL vahvistus epäonnistui: %1</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;VAROITUS:&lt;/b&gt; Palvelin esitti sertifikaatin, joka on eri kuin tallennettu.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4998,12 +4998,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelinyhteys epäonnistui: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Disconnected from server.</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys palvelimeen katkaistu.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5114,12 +5114,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Disconnect from server</source>
-        <translation type="unfinished"/>
+        <translation>Katkaise yhteys palvelimeen</translation>
     </message>
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Katkaisee yhteyden palvelimeen.</translation>
     </message>
     <message>
         <location/>
@@ -5432,22 +5432,22 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation type="unfinished"/>
+        <translation>Avustaa äänilaitteittesi konfiguroinnissa.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Selostus</translation>
     </message>
     <message>
         <location/>
         <source>Enter What&apos;s This? mode</source>
-        <translation type="unfinished"/>
+        <translation>Siirry Selostus-tilaan</translation>
     </message>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation type="unfinished"/>
+        <translation>Siirtää sinut Selostus-tilaan ja muuttaa kursorisi kysymysmerkiksi. Tässä tilassa painaessasi napista, valikko toiminnosta tai ikkunan alueesta saat tarkemman määritelmän siitä.</translation>
     </message>
     <message>
         <location/>
@@ -5502,7 +5502,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Tarkista Mumblen päivitykset</translation>
     </message>
     <message>
         <location/>
@@ -5617,7 +5617,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"/>
+        <translation>Kytke päälle tai pois minimi näkymä</translation>
     </message>
     <message>
         <location/>
@@ -5698,7 +5698,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-15"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble: %1</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -5733,7 +5733,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"/>
+        <translation>Tarvitset sertifikaatin tähän toimintoon.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5956,7 +5956,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-504"/>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti sinun mykistyksen.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -5971,12 +5971,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistit %1.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 mykisti käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5986,7 +5986,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 poisti käyttäjän %1 mykistyksen.</translation>
     </message>
     <message>
         <location line="+407"/>
@@ -6087,7 +6087,7 @@ Valid options are:
     <message>
         <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>Version tarkistus ohitetaan debug-tilassa.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
@@ -6097,7 +6097,7 @@ Valid options are:
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"/>
+        <translation>Piilota kehys minimi näkymässä</translation>
     </message>
     <message>
         <location/>
@@ -6117,7 +6117,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sertifikaatti avustaja</translation>
     </message>
     <message>
         <location/>
@@ -6157,7 +6157,7 @@ Valid options are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Palvelin</translation>
     </message>
     <message>
         <location/>
@@ -6177,12 +6177,12 @@ Valid options are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Rekisteröidy</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröidy palvelimelle</translation>
     </message>
     <message>
         <location/>
@@ -6192,7 +6192,7 @@ Valid options are:
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"/>
+        <translation>Vaihda käyttäjäkuvasi tällä palvelimella</translation>
     </message>
     <message>
         <location/>
@@ -6202,7 +6202,7 @@ Valid options are:
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"/>
+        <translation>Poista tämänhetkinen käyttäjäkuva.</translation>
     </message>
     <message>
         <location/>
@@ -6242,12 +6242,12 @@ Valid options are:
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation>Estää käyttäjän lähettämästä viestejä sinulle.</translation>
+        <translation>Estä käyttäjä lähettämästä viestejä sinulle.</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>Estää kyseisen käyttäjän lähettämästä viestejä sinulle ja ei ilmoita sitä vastapuolelle.</translation>
     </message>
     <message>
         <location/>
@@ -6318,7 +6318,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys</translation>
     </message>
     <message>
         <location/>
@@ -6641,22 +6641,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>Järjestä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>Aakkosittain</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"/>
+        <translation>Muokkausaika</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation type="unfinished"/>
+        <translation>Muokkaa...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6679,7 +6679,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+86"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjien liikuttamiseen, vedä pienestä punaisesta pisteestä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6691,7 +6691,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Saadaksesi lisävalintoja, paina käyttäjää hiiren oikealla napilla.</translation>
     </message>
     <message>
         <location line="+244"/>
@@ -6847,7 +6847,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Väri</translation>
     </message>
     <message>
         <location/>
@@ -7309,7 +7309,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"/>
+        <translation>Viesti on liian pitkä.</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
@@ -7324,17 +7324,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lihavoi</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kursivoi</translation>
     </message>
     <message>
         <location/>
@@ -7344,7 +7344,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location/>
@@ -7354,7 +7354,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location/>
@@ -7374,7 +7374,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation type="unfinished"/>
+        <translation>Lisää kuva</translation>
     </message>
 </context>
 <context>
@@ -7405,7 +7405,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP paketteja ei voida lähettää palvelimelle. Siirrytään TCP tilaan.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7420,7 +7420,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+39"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys aikakatkaistiin</translation>
     </message>
 </context>
 <context>
