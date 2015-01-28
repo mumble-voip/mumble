@@ -527,7 +527,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 -&gt; %2 näyte bufferi, 3% näyte resoluutiolla (4% suositeltu) 5% hZ</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -539,7 +539,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished"/>
+        <translation>Epäonnistui ilmentäessään ASIO ajuria</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -680,7 +680,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Mumble-tiimi&lt;/p&gt;&lt;p&gt;&lt;b&gt;Keskustelutyökalu pelaajille&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -928,12 +928,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation type="unfinished"/>
+        <translation>Sisääntulevan äänen maksimivahvistus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sisääntulon maksimivahvistus.&lt;/b&gt;&lt;br /&gt;Mumble normalisoi sisääntulon voimakkuuden ennen kompressointia, ja tämä asettaa kuinka paljon vahvistusta voidaan käyttää.&lt;br /&gt;Äänentasoa päivitetään jatkuvasti nykyisen puhetapasi perusteella, muttei koskaan mene täällä määritellyn tason yli.&lt;br /&gt;Jos &lt;i&gt;Mikrofonin voimakkuus&lt;/i&gt; äänentaso pyörii 100% ympärillä, haluat ehkä säätää tämän 2.0, mutta jos, kuten useimmat, et pääse 100%, aseta tämä jonnekin paljon korkeammalle.&lt;br /&gt;Mahdollistaaksesi parhaan tilanteen &lt;i&gt;Mikrofonin voimakkuus * Vahvistus &gt;= 100&lt;/i&gt;, jopa silloin kun puhut todella hiljaa.&lt;br /&gt;&lt;br /&gt;Huomioi ettei ole haitallista säätää maksimiin, mutta Mumble alkaa kaappaamaan muita keskusteluja, jos jätät auto-tunen tälle tasolle. </translation>
     </message>
     <message>
         <location/>
@@ -973,12 +973,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä asettaa puheentunnistuksen käyttämään Signaali-melu -suhdetta.&lt;/b&gt;&lt;br /&gt;Tässä tilassa sisääntulosta analysoidaan selkeähkö signaali, ja tätä signaalia käytetään puheentunnistuksen aktivoimiseen. </translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Näyttää nykyisen äänentunnistuksen asetukset.&lt;/b&gt;&lt;br /&gt;Voit vaihtaa asetuksia Audioapurin Asetuksista.</translation>
     </message>
     <message>
         <location/>
@@ -998,22 +998,22 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa ajan, kuinka nopeasti äänen lähetystä jatketaan havaitun katkon jälkeen.&lt;/b&gt;&lt;br /&gt;Aseta tämä korkeammalle jos äänesi rikkoutuu puhuessasi (ääni-ikoni vilkkuu nimesi vieressä). </translation>
     </message>
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"/>
+        <translation>Rajoitettu tila</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Avaa laitteen rajoitettuun tilaan. &lt;/b&gt;&lt;br /&gt;Muu sovellukset eivät voi käyttää laitetta. </translation>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Rajoitettu</translation>
     </message>
     <message>
         <location/>
@@ -1058,17 +1058,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Kuultavissa oleva äänimerkki aloitettaessa tai lopetettaessa lähetystä</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sallii lähetyksen äänimerkin.&lt;/b&gt;&lt;br /&gt;Valitsemalla tämän kuulet lyhyen piippauksen kun aloitat tai lopetat lähetyksen.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"/>
+        <translation>Äänimerkki.</translation>
     </message>
     <message>
         <location/>
@@ -1093,12 +1093,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"/>
+        <translation>Serverin verkon kaistanleveyden maksimi on vain %1 kbit/s. Äänenlaatu on automaattisesti säädetty %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"/>
+        <translation>Maksimivahvistus</translation>
     </message>
     <message>
         <location/>
@@ -1244,12 +1244,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"/>
+        <translation>Oletus &amp;Viive bufferi</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"/>
+        <translation>Turvaraja viivebufferille</translation>
     </message>
     <message>
         <location/>
@@ -1259,7 +1259,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation type="unfinished"/>
+        <translation>Minimietäisyys käyttäjään ennen kuin äänenvoimakkuus kasvaa.</translation>
     </message>
     <message>
         <location/>
@@ -1461,7 +1461,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"/>
+        <translation>Rajoitettu tila, ei suositeltu. </translation>
     </message>
     <message>
         <location/>
@@ -1471,7 +1471,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Poissulkeva.</translation>
     </message>
     <message>
         <location/>
@@ -1624,7 +1624,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>How close the current input level is to ideal</source>
-        <translation type="unfinished"/>
+        <translation>Kuinka lähellä ideaalia nykyinen sisääntulon taso on.</translation>
     </message>
     <message>
         <location/>
@@ -1787,12 +1787,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Äänen sisääntulon tapa. </translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>Äänen sisääntulotapa. Todennäköisimmin haluat käyttää DirectSoundia. </translation>
     </message>
     <message>
         <location/>
@@ -1802,42 +1802,42 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation type="unfinished"/>
+        <translation>Käytetty sisääntulolaite. </translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee mitä äänikorttia käytetään audion sisääntuloon. </translation>
     </message>
     <message>
         <location/>
         <source>Cancel echo from headset or speakers</source>
-        <translation type="unfinished"/>
+        <translation>Poista kaiku kuulokkeista tai kaiuttimista.</translation>
     </message>
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Käytä kaiunpoistoa. </translation>
     </message>
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"/>
+        <translation>Sallii kaiunpoiston uloslähtevästä audiosta, kaiuttimista ja kuulokkeista.</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>Laite johon kaiuttimesi tai kuulokkeisi on yhdistetty.</translation>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Äänen ulostulotapa.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>Äänen ulostulotapa. Todennäköisimmin haluat käyttää DirectSoundia. </translation>
     </message>
     <message>
         <location/>
@@ -1847,7 +1847,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee mitä äänikorttia käytetään äänen ulostuloon.</translation>
     </message>
     <message>
         <location/>
@@ -1868,7 +1868,7 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on Mumblen audioapuri. Tämä auttaa sinua säätämään oikein äänikorttisi sisääntulon tasoa, ja auttaa säätämään oikeat parametrit äänen käsittelylle Mumblessa. Huomioi että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten, audiota ei lähetetä serverille. </translation>
     </message>
     <message>
         <location/>
@@ -2085,7 +2085,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 millisekuntia</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2105,12 +2105,12 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Kustomoitu</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsit jo Mumblessa kustomoidun laatukonfiguraation. Valitse tämä pitääksesi valinnan.</translation>
     </message>
     <message>
         <location/>
@@ -2125,7 +2125,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>Käytä korkean kontrastin grafiikoita.</translation>
     </message>
     <message>
         <location/>
@@ -2574,7 +2574,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"/>
+        <translation>Salasana PKCS#12 tiedostoon.</translation>
     </message>
     <message>
         <location/>
@@ -2584,7 +2584,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation type="unfinished"/>
+        <translation>Tuomisen sertifikaatti.</translation>
     </message>
     <message>
         <location/>
@@ -2647,12 +2647,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Export to</source>
-        <translation type="unfinished"/>
+        <translation>Vie</translation>
     </message>
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation type="unfinished"/>
+        <translation>Vie nimellä</translation>
     </message>
     <message>
         <location/>
@@ -2667,12 +2667,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikaatti jota Mumble nyt käyttää. Tämä viedään. </translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Luo uusi sertifikaatti vahvalle autentikoinnille. </translation>
     </message>
     <message>
         <location/>
@@ -2722,12 +2722,12 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation type="unfinished"/>
+        <translation>Nauti Mumblen käytöstä vahvalla autentikoinnilla. </translation>
     </message>
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"/>
+        <translation>Automaattinen sertifikaation luominen. </translation>
     </message>
     <message>
         <location/>
@@ -2770,7 +2770,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"/>
+        <translation>Mykistä</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2905,7 +2905,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-28"/>
         <source>Write ACL</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita ACL</translation>
     </message>
 </context>
 <context>
@@ -2919,7 +2919,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Kirjoita viesti tähän</translation>
     </message>
 </context>
 <context>
@@ -3010,7 +3010,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"/>
+        <translation>Peruuta muutokset nykyiseltä sivulta.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3020,7 +3020,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"/>
+        <translation>Palauta nykyisen sivun oletusasetukset.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3071,7 +3071,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"/>
+        <translation>Bonjour nimi</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3096,18 +3096,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation type="unfinished"/>
+        <translation>Ping (80%)</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 millisekuntia</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation type="unfinished"/>
+        <translation>Ping (95%)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3117,17 +3117,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Yhdistä</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation type="unfinished"/>
+        <translation>%Filtterit</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3163,7 +3163,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation type="unfinished"/>
+        <translation>Lisää kustomoitu serveri</translation>
     </message>
     <message>
         <location/>
@@ -3183,12 +3183,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"/>
+        <translation>%Kopioi</translation>
     </message>
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Kopio suosikkilinkki leikepöydälle</translation>
     </message>
     <message>
         <location/>
@@ -3198,29 +3198,29 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Liitä suosikkilinkki leikepöydälle</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-745"/>
         <source>&amp;Edit...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Muokkaa...</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisää uusi...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Lisää &amp;suosikkeihin</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"/>
+        <translation>Avaa &amp;websivu</translation>
     </message>
     <message>
         <location/>
@@ -3235,7 +3235,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>Näytä &amp;kaikki</translation>
     </message>
 </context>
 <context>
@@ -3369,7 +3369,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Oletuslaite</translation>
     </message>
 </context>
 <context>
@@ -3382,7 +3382,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>Mumble näyttäisi kaatuneen, olemme pahoillamme. Haluatko lähettää kaatumisraportin Mumblen kehittäjille? Kaatumisraportti sisältää osittaisen kopion Mumblen muistista kaatumishetkellä, ja auttaa kehittäjiä korjaamaan ongelman.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3393,7 +3393,7 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Kuvaile lyhyesti enganniksi mitä olit tekemässä kaatumishetkellä</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3429,7 +3429,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation type="unfinished"/>
+        <translation>Tämä ei ole hauskaa, mutta kaatumisraportin koodissa näyttäisi olevan bugi, ja me epäonnistuimme lataamaan raportin. Voit informoida kehittäjiä virheestä %1</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -3447,22 +3447,22 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished"/>
+        <translation>DirectSoundin oletus äänen sisääntulolle.</translation>
     </message>
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Valitun DirectSoundin sisääntulolaitteen avaaminen epäonnistui. Mikrofoni ei kaappaa ääntä. </translation>
     </message>
     <message>
         <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Valitun DirectSoundin sisääntulolaitteen sisääntulo epäonnistui. Käytetään oletuslaitetta.</translation>
     </message>
     <message>
         <location line="+78"/>
         <source>Lost DirectSound input device.</source>
-        <translation type="unfinished"/>
+        <translation>DirectSound sisääntulolaite katosi.</translation>
     </message>
 </context>
 <context>
@@ -3470,22 +3470,22 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
-        <translation type="unfinished"/>
+        <translation>DirectSoundin oletus-äänenulostulo</translation>
     </message>
     <message>
         <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Oletuslaitetta ei käytetä.</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Lost DirectSound output device.</source>
-        <translation type="unfinished"/>
+        <translation>DirectSound ulostulolaite katosi.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation type="unfinished"/>
+        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Audiota ei kuulla.</translation>
     </message>
 </context>
 <context>
@@ -3526,17 +3526,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished"/>
+        <translation>Toiminto</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"/>
+        <translation>Data</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Oikotie</translation>
     </message>
     <message>
         <location/>
@@ -3546,32 +3546,32 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Lisää uusi oikotie</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Tämä lisää uuden yleisen oikotien</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisää</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Poista valittu oikotie</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä poistaa pysyvästi valitun oikotien.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Poista</translation>
     </message>
     <message>
         <location/>
@@ -3599,12 +3599,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Oikotiet</translation>
     </message>
     <message>
         <location line="+52"/>
         <source>Shortcut button combination.</source>
-        <translation type="unfinished"/>
+        <translation>Oikotien näppäinyhdistelmän.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6545,7 +6545,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Yhdistä uudelleen viimeksi käytettyyn palvelimeen Mumblen käynnistyksessä.</translation>
     </message>
     <message>
         <location/>
@@ -6980,7 +6980,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän kanavan nimi, ollessasi nykyisen kanavan ulkopuolella</translation>
     </message>
     <message>
         <location/>
@@ -7156,12 +7156,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"/>
+        <translation>Liitännäisellä ei ole muokkaus mahdollisuutta.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"/>
+        <translation>Liitännäisellä ei ole tieto funktiota.</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
@@ -7221,12 +7221,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"/>
+        <translation>Näytä liitännäisen muokkaussivu</translation>
     </message>
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä näyttää liitännäisen muokkaus sivun, jos se on olemassa.</translation>
     </message>
     <message>
         <location/>
@@ -7400,7 +7400,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP paketteja ei voida lähettää tai vastaanottaa palvelimelta. Siirrytään TCP tilaan.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7410,12 +7410,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP paketteja ei voida vastaanottaa palvelimelta. Siirrytään TCP tilaan.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP paketteja voidaan lähettää ja vastaanottaa palvelimelta. Siirrytään takaisin UDP tilaan.</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -7731,7 +7731,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Versio</translation>
     </message>
     <message>
         <location/>
@@ -7746,7 +7746,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"/>
+        <translation>IP-osoite</translation>
     </message>
     <message>
         <location/>
