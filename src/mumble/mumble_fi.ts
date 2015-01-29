@@ -45,7 +45,7 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Tämä myöntää oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kiellettyksi.&lt;br /&gt;%2</translation>
+        <translation>Myöntää oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kiellettyksi.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -392,12 +392,12 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Käyttäjä, jota tämä merkintä koskee</translation>
+        <translation>Käyttäjä, jota tämä toiminto koskee</translation>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee keitä tämä toiminto koskee. Syötä käyttäjänimi ja hae enterillä palvelimelta.</translation>
     </message>
     <message>
         <location/>
@@ -467,7 +467,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee mitä käyttäjäryhmää tämä toiminto koskee.&lt;br/&gt;Huomioi, että valittua ryhmää käytetään toiminnon kohteena. Esimerkiksi ACL:n oletus-juurikanavalla antaa &lt;i&gt;kirjoitusoikeiden&lt;/i&gt; &lt;i&gt;ylläpitoryhmään&lt;/i&gt; kuuluville käyttäjille. Jos toiminto peritään kanavalta, antaa se &lt;i&gt;ylläpitoryhmän&lt;/i&gt; kirjoitusoikeidet uuden kanavan ylläpitöryhmän käyttäjille, vaikka he eivät kuuluisikaan alkuperäisen ACL kanavan &lt;i&gt;ylläpitoryhmään&lt;/i&gt;.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;!&apos;-merkillä, sen jäsenyys on kielletty, ja jos ryhmän nimi alkaa &apos;~&apos;-merkillä, se käyttää ACL-määrityksiä alkuperäisellä kanavalta, eikä aktiivisella kanavalta.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;#&apos;-merkillä, tulkitaan se pääsy-tokenina. Käyttäjien on täytynyt syöttää token-listaansa &apos;#&apos;-merkin jälkeiset merkit. Tätä voidaan käyttää yksinkertaisina salasanoina kanaville.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;$&apos;-merkillä, se huomio ainoastaan käyttäjät vastaavilla merkeillä hash-tunnuksessaan.&lt;br/&gt;Muutamat erityiset esiasetetut ryhmät ovat:&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - Kaikki vastaavat.&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt;Kaikki autentikoidut käyttäjät täsmäävät.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Nykyinen käyttäjä alikanava minimi &lt;i&gt;a&lt;/i&gt; yhteisillä vanhemmilla, ja &lt;i&gt;b&lt;/i&gt;:n ja &lt;i&gt;c&lt;/i&gt;:n välisillä kanavilla. Katso websivulta tarkempaa tietoa.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; Käyttäjien nykyinen kanava täsmää (soveltuvuus &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Kanavan ulkopuoliset käyttäjät täsmäävät(soveltuvuus&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Huomioi, että toiminto koskee vain joko käyttäjää tai ryhmää.</translation>
     </message>
     <message>
         <location/>
@@ -477,7 +477,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää aktiiviset tapahtumat tällä kanavalla. Toisilta kanavilta perityt tapahtumat näkyvät kursivoituina.&lt;br /&gt;ACL:t priorisoitu ylhäältä alas, prioriteetti kasvaa kun rullaat listaa alaspäin.</translation>
     </message>
     <message>
         <location/>
@@ -1083,7 +1083,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"/>
+        <translation>Pito Aika</translation>
     </message>
     <message>
         <location/>
@@ -1103,7 +1103,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>Toimeton tapahtuma</translation>
     </message>
     <message>
         <location/>
@@ -1123,7 +1123,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>mute</source>
-        <translation>vaimenna</translation>
+        <translation>mykistä</translation>
     </message>
     <message>
         <location/>
@@ -1244,17 +1244,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Oletus &amp;Viive bufferi</translation>
+        <translation>Oletus &amp;Huojunta puskuri</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Turvaraja viivebufferille</translation>
+        <translation>Turvaraja huojuntapuskurille</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa minimiturvarajan huojuntapuskurille.&lt;/b&gt;&lt;br /&gt;Kaikki sisääntuleva audio puskuroidaan, ja huojuntapuskuri jatkuvasti yrittää pienentää puskuria pysyvästi omassa verkossasi. Tämä asettaa puskurin käyttöön minimikoon. Jos puheesi alkuosat huojuvat, lisää puskurin kokoa.</translation>
     </message>
     <message>
         <location/>
@@ -1264,12 +1264,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa minimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei kasva ennen kuin he ovat vähintään tämän etäisyyden päässä sinusta.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa maksimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei kasva, silloin kun olet tämän etäisyyden päässä muista.</translation>
     </message>
     <message>
         <location/>
@@ -2344,7 +2344,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Esto lista - %n esto(a)</numerusform><numerusform>Esto lista - %n esto(a)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2372,7 +2372,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation type="unfinished"/>
+        <translation>(ei mitään)</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2539,7 +2539,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import from</source>
-        <translation type="unfinished"/>
+        <translation>Tuo kohteesta</translation>
     </message>
     <message>
         <location/>
@@ -2712,7 +2712,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Valmis</translation>
     </message>
     <message>
         <location/>
@@ -2952,7 +2952,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty (palvelin)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2972,7 +2972,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty (itse)</translation>
     </message>
 </context>
 <context>
@@ -2990,7 +2990,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished"/>
+        <translation>Hylkää muutokset</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3036,7 +3036,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Advanced</source>
-        <translation>Ammattilaisasetukset</translation>
+        <translation>Edistyneet toiminnot</translation>
     </message>
 </context>
 <context>
@@ -3066,7 +3066,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Isäntänimi</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3143,12 +3143,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1051"/>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"/>
+        <translation>Epäonnistui noutamaan palvelinlistan</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation type="unfinished"/>
+        <translation>Mumble Palvelin Yhteys</translation>
     </message>
     <message>
         <location/>
@@ -3253,7 +3253,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Osoite</translation>
     </message>
     <message>
         <location/>
@@ -3516,7 +3516,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation>Pikakuvakkeet</translation>
+        <translation>Pikanäppäimet</translation>
     </message>
     <message>
         <location/>
@@ -3536,7 +3536,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation>Oikotie</translation>
+        <translation>Pikanäppäin</translation>
     </message>
     <message>
         <location/>
@@ -3827,7 +3827,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Palvelinyhteys katkaistu</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3966,7 +3966,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Käytä pop-up ilmoitusta tapahtumalle %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3976,12 +3976,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation type="unfinished"/>
+        <translation>Äänitiedoston polku jota käytetään äänimerkkinä tapahtuman %1 yhteydessä&lt;br /&gt;Klikkaa kerran toistamiseen&lt;br /&gt;Tupla klikkaa vaihtamiseen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3992,12 +3992,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Valitse käyttääksesi pop-up ilmoitusta tapahtumalle %1&lt;br /&gt;Valittuna lähettää pop-up viestin jokaisen tapahtuman %1 yhteydessä.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation type="unfinished"/>
+        <translation>Polku äänitiedostoon jota käytetään tapahtuman %1 yhteydessä.&lt;br /&gt;Paina kerran toistamiseen&lt;br /&gt;Tupla klikkaa vaihtamiseen&lt;br /&gt;Tapahtuman äänimerkin toistamiseen tulee ääni sarake myös olla valittu.</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -4009,7 +4009,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Klikkaa täältä käyttääksesi äänimerkkejä %1 tapahtumalle.&lt;br /&gt;Jos valittuna, Mumble käyttää esimääritettyjä äänimerkkejä ilmoittaakseen sinulle %1 tapahtumista. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
+        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1.&lt;br /&gt;Valittuna Mumble käyttää määritetyä äänimerkkiä tapahtuman %1 yhteydessä. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4039,12 +4039,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation>Äänitiedosto</translation>
+        <translation>Ääni</translation>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation>Polku</translation>
+        <translation>Äänitiedoston polku</translation>
     </message>
     <message>
         <location/>
@@ -4089,17 +4089,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation>Kuiskaa</translation>
+        <translation>Kuiskaus</translation>
     </message>
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"/>
+        <translation>Valittuna vain käyttäjät ystävät-listallasi voivat kuiskata sinulle.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>Hyväksy kuiskauksia ainoastaan kavereilta</translation>
+        <translation>Kuiskauksia vain kavereilta</translation>
     </message>
     <message>
         <location/>
@@ -4119,7 +4119,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"/>
+        <translation>Kentän maksimi pituus</translation>
     </message>
     <message>
         <location/>
@@ -4129,7 +4129,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source> Lines</source>
-        <translation>Rivejä</translation>
+        <translation>Riviä</translation>
     </message>
 </context>
 <context>
@@ -4153,7 +4153,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation>Kaikk</translation>
+        <translation>Kaikki</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4543,7 +4543,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-140"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location line="+139"/>
@@ -4679,7 +4679,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-104"/>
         <location line="+357"/>
         <source>Register yourself as %1</source>
-        <translation type="unfinished"/>
+        <translation>Rekisteröidy käyttäjänimellä %1</translation>
     </message>
     <message>
         <location line="-357"/>
@@ -4695,7 +4695,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle . Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi tällä palvelimella rekisteröimisen jälkeen.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä &apos;%1&apos;?&lt;/p&gt; </translation>
     </message>
     <message>
         <location line="+40"/>
@@ -5014,7 +5014,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation type="unfinished"/>
+        <translation>Olet yhdistämässä virheellisellä käyttäjänimellä. Anna uusi käyttäjänimi.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5089,12 +5089,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation>Poistuu sovelluksesta.</translation>
+        <translation>Sulkee sovelluksen</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location/>
@@ -5109,7 +5109,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Disconnect</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Katkaise yhteys</translation>
     </message>
     <message>
         <location/>
@@ -5134,12 +5134,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää lisätietoja palvelin yhteydestä.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation>&amp;Potk</translation>
+        <translation>&amp;Poista</translation>
     </message>
     <message>
         <location/>
@@ -5894,7 +5894,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 vaihtoi nimensä %2</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -5904,7 +5904,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+1"/>
         <source>%1 disconnected.</source>
-        <translation>%1 poistui palvelimelta.</translation>
+        <translation>Käyttäjän %1 yhteys katkesi.</translation>
     </message>
     <message>
         <location line="+110"/>
@@ -5931,7 +5931,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin vaatii ohjelman version olevan vähintään %1</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6102,7 +6102,7 @@ Valid options are:
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation>Piilottaa ikkunan kehyksen minimi tilassa.  Tässä tilassa ikkunaa ei voi liikuttaa eikä sen kokoa voi muuttaa.</translation>
+        <translation>Piilottaa ikkunan kehyksen minimitilassa.  Tässä tilassa ikkunaa ei voi liikuttaa eikä sen kokoa voi muuttaa.</translation>
     </message>
     <message>
         <location/>
@@ -6262,7 +6262,7 @@ Valid options are:
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation>Antaa sinun muokata palvelimen estettyjen käyttäjien IP-osoitteiden listaa.</translation>
+        <translation>Muokkaa palvelimen estettyjen IP-osoitteiden listaa.</translation>
     </message>
     <message>
         <location/>
@@ -6324,7 +6324,7 @@ the channel&apos;s context menu.</source>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished"/>
+        <translation>Käytä TCP yhteensopivaa tilaa</translation>
     </message>
     <message>
         <location/>
@@ -6334,12 +6334,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation>Uudelleen yhdistä yhteyden katketessa</translation>
+        <translation>Yhdistää uudelleen yhteyden katketessa</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Uudelleen yhdistä yhteyden katketessa&lt;/b&gt;.&lt;br /&gt;Mikäli yhteys palvelimeen katkeaa, Mumble yrittää automaattisesti yhdistää palvelimeen 10 sekunnin jälkeen.</translation>
+        <translation>&lt;b&gt;Yhdistää uudelleen yhteyden katketessa&lt;/b&gt;.&lt;br /&gt;Mikäli yhteys palvelimeen katkeaa, Mumble yrittää automaattisesti yhdistää palvelimeen 10 sekunnin jälkeen.</translation>
     </message>
     <message>
         <location/>
@@ -6349,47 +6349,47 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Välityspalvelin</translation>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Tyyppi</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>Käytetyn välityspalvelimen tyyppi</translation>
     </message>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>Suora yhteys</translation>
     </message>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTP(S) välityspalvelin</translation>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"/>
+        <translation>SOCKS5 välityspalvelin</translation>
     </message>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Isäntänimi</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>Välityspalvelimen isäntänimi</translation>
     </message>
     <message>
         <location/>
         <source>Force TCP mode</source>
-        <translation type="unfinished"/>
+        <translation>Pakota TCP-tila</translation>
     </message>
     <message>
         <location/>
@@ -6424,7 +6424,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Välityspalvelimen tyyppi. &lt;/b&gt;&lt;br /&gt;Tämä kierrättää kaikki Mumblen ulkoyhteydet välityspalvelimen kautta. Huomio: välityspalvelimen tunnelointi pakottaa Mumblen käyttämään TCP-yhteystilaa, joka johtaa datan lähetykseen hallintakanavan kautta. </translation>
     </message>
     <message>
         <location/>
@@ -6439,12 +6439,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>Välityspalvelimen porttinumero</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Välityspalvelimen porttinumero&lt;/b&gt;&lt;br /&gt;Portti johon välityspalvelin odottaa yhteyttä.</translation>
     </message>
     <message>
         <location/>
@@ -6469,12 +6469,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>Välityspalvelimen tunnistautumisen salasana</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Välityspalvelimen tunnistautumisen salasana.&lt;/b&gt;&lt;br /&gt;Määrittelee salasanan jolla tunnistaudut välityspalvelimelle. Jätä tyhjäksi mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä.</translation>
     </message>
     <message>
         <location/>
@@ -6484,23 +6484,23 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>Estä kuvien lataus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Estä kuvien lataus&lt;/b&gt;&lt;br/&gt;Estää ohjelman lataamasta kuvia chatti viesteissä.</translation>
     </message>
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation type="unfinished"/>
+        <translation>Estä kuvien lataus</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Mumble palvelut</translation>
     </message>
     <message>
         <location/>
@@ -6520,12 +6520,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Tarkasta liitännäisten uudet versiot automaattisesti.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Tarkastaa liitännäisten uudet versiot ohjelman käynnistyksen yhteydessä ja lataa ne automaattisesti. </translation>
     </message>
     <message>
         <location/>
@@ -6535,12 +6535,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä anonyymejä tilastoja Mumble projektille</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä anonyymejä tilastoja</translation>
     </message>
     <message>
         <location/>
@@ -6636,7 +6636,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>Pylväitä</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -6651,7 +6651,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation>Muokkausaika</translation>
+        <translation>Tilan muutos</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6785,7 +6785,7 @@ Click the button below to install the overlay.</source>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Asenna Mumble overlay</translation>
     </message>
     <message>
         <location/>
@@ -6822,17 +6822,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>Lataa...</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna overlay asetukset tiedostoon</translation>
     </message>
     <message>
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna...</translation>
     </message>
     <message>
         <location/>
@@ -6852,7 +6852,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"/>
+        <translation>Lisää...</translation>
     </message>
     <message>
         <location/>
@@ -7181,7 +7181,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation>Tämä sallii liitännäisten sallituissa peleissä hakea pelinsisäisen sijainnin ja lähettää sen äänipaketeissa. Tämä mahdollistaa muiden käyttäjien kuulla sinut pelinsisällä suunnasta, jossa olet heihin suhteutettuna.</translation>
+        <translation>Sallii liitännäisten hakea pelinsisäisen sijainnin tuetuissa peleissä ja lähettää sen äänipaketeissa. Tässä tilassa muut käyttäjät kuulevat sinut pelin sisällä suunnasta, jossa olet heihin suhteutettuna.</translation>
     </message>
     <message>
         <location/>
@@ -7231,7 +7231,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Konfiguroi</translation>
     </message>
     <message>
         <location/>
@@ -7241,7 +7241,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>Käytössä</translation>
     </message>
 </context>
 <context>
@@ -7249,28 +7249,28 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+354"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>Liitännäispäivitys ohitetaan debug-tilassa.</translation>
     </message>
     <message>
         <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Ladattiin uusi tai päivitettiin liitännäinnen  %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Uuden liitännäisen asennus epäonnistui %1.</translation>
     </message>
     <message>
         <location line="-286"/>
         <source>%1 lost link.</source>
-        <translation type="unfinished"/>
+        <translation>%1 yhteys kadotettu.</translation>
     </message>
     <message>
         <location line="+74"/>
         <source>%1 linked.</source>
-        <translation type="unfinished"/>
+        <translation>%1 yhdistetty.</translation>
     </message>
 </context>
 <context>
@@ -7278,7 +7278,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Oletuslaite</translation>
     </message>
 </context>
 <context>
@@ -7286,12 +7286,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PulseAudio.cpp" line="+772"/>
         <source>Default Input</source>
-        <translation type="unfinished"/>
+        <translation>Oletus Sisääntulo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation type="unfinished"/>
+        <translation>Oletus Ulostulo</translation>
     </message>
 </context>
 <context>
@@ -7299,12 +7299,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Kuvan lataus epäonnistui</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"/>
+        <translation>Kuva tiedosto liian suuri upotettavaksi dokumenttiin. Käytä pienempää kuvan tiedostokokoa kuin %1 kB.</translation>
     </message>
     <message>
         <location line="+81"/>
@@ -7314,12 +7314,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.ui"/>
         <source>Display</source>
-        <translation type="unfinished"/>
+        <translation>Näytä</translation>
     </message>
     <message>
         <location/>
         <source>Source Text</source>
-        <translation type="unfinished"/>
+        <translation>Lähdeteksti</translation>
     </message>
     <message>
         <location/>
@@ -7339,7 +7339,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Italic</source>
-        <translation type="unfinished"/>
+        <translation>Kursivoi</translation>
     </message>
     <message>
         <location/>
@@ -7349,7 +7349,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Underline</source>
-        <translation type="unfinished"/>
+        <translation>Alaviivaa</translation>
     </message>
     <message>
         <location/>
@@ -7359,17 +7359,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>Väri</translation>
     </message>
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation type="unfinished"/>
+        <translation>Lisää Linkki</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <location/>
@@ -7382,17 +7382,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation type="unfinished"/>
+        <translation>Lisää Linkki</translation>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>URL</translation>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>Teksti</translation>
     </message>
 </context>
 <context>
@@ -7428,17 +7428,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>Suosikki</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation type="unfinished"/>
+        <translation>LAN</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation type="unfinished"/>
+        <translation>Julkinen Internet</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7476,7 +7476,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Määrittämätön</translation>
     </message>
 </context>
 <context>
@@ -7484,22 +7484,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation> Päällä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Pois päältä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>Valinta</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Määrittämätön</translation>
     </message>
 </context>
 <context>
@@ -7507,7 +7507,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-450"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Paina Pikakuvake</translation>
     </message>
 </context>
 <context>
@@ -7515,23 +7515,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Juuri</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>Vanhempi</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>Nykyinen</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>Alakanava #%1</translation>
     </message>
 </context>
 <context>
@@ -7544,39 +7544,39 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>,</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Juuri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>Vanhempi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>Nykyinen</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>Alakanava #%1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation type="unfinished"/>
+        <translation>Virheellinen</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>Tyhjä</translation>
     </message>
 </context>
 <context>
@@ -7584,17 +7584,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Pois päältä</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>Valinta</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>Päällä</translation>
     </message>
 </context>
 <context>
@@ -7602,17 +7602,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.h" line="+45"/>
         <source>Enter text</source>
-        <translation type="unfinished"/>
+        <translation>Syötä teksti</translation>
     </message>
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Jos valittu, lähetetään teksti rekursiivisesti kaikille alakanaville</translation>
     </message>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Lähetä rekursiivisesti alakanaville</translation>
     </message>
 </context>
 <context>
@@ -7620,17 +7620,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjä Token</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Käytä Tokeneita</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>Lista kaikista pääsytokeneista nykyisellä serverillä</translation>
     </message>
     <message>
         <location/>
@@ -7678,7 +7678,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>Nimeä uudelleen</translation>
     </message>
     <message>
         <location/>
@@ -7864,12 +7864,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"/>
+        <translation>Tuettu</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>Ei tuettu</translation>
     </message>
     <message>
         <location line="-123"/>
@@ -7879,7 +7879,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"/>
+        <translation>%1 online (%2 toimeton)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7919,7 +7919,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>Toimettomia päiviä</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7929,17 +7929,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nähty viimeksi: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Ei koskaan</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kanavan id: %1</translation>
     </message>
 </context>
 <context>
@@ -7947,28 +7947,28 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimelle yhdistänyt käyttäjä. Kuvake käyttäjän vieressä ilmaisee onko käyttäjä puhumassa vai ei.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"/>
+        <translation>Puhuu kanavallesi.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Huutaa kanavallesi.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskaa sinulle.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation type="unfinished"/>
+        <translation>Ei ole puheessa.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -7978,7 +7978,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tämänhetkinen kanava.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7993,37 +7993,37 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää tietoa käyttäjästä palvelimella. Merkit:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>On your friend list</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä on kaverilistallasi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authenticated user</source>
-        <translation type="unfinished"/>
+        <translation>Autentikoitu käyttäjä</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä on mykistänyt itsensä</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"/>
+        <translation>Ylläpitäjä on mykistänyt käyttäjän</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä mykistetty kanavalla</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjän henkilökohtainen mykistys</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8038,12 +8038,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjällä on uusi kommenti. (Paina kuvaketta katsomiseen)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjällä on kommentti, jonka olet jo nähnyt.(Paina kuvaketta katsomiseen)</translation>
     </message>
     <message>
         <location line="+1"/>
