@@ -35,12 +35,12 @@
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Editar %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -50,7 +50,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>A canle debe ter un nome</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -65,7 +65,7 @@
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Nome</translation>
     </message>
     <message>
         <location/>
@@ -173,17 +173,17 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>Membros</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Engadir</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>Engadir membro ó grupo</translation>
     </message>
     <message>
         <location/>

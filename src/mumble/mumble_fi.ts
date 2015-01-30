@@ -90,7 +90,7 @@
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Napsauta luodaksesi tilapäisen kanavan.</translation>
+        <translation>Valitse luodaksesi tilapäisen kanavan.</translation>
     </message>
     <message>
         <location/>
@@ -903,7 +903,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Näyttää uloslähtevän piikin kaistanleveyden.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän piikin kaistanleveyden, mikä on lähetetty tietokoneestasi. Äänenlaatu on maksimiäänenlaatu (käytämme VBR:ää) äänidatalle. Sijainti on käytetty bittitaajuus sijaintitiedolle. Yläpuolella on kehikkö ja IP pakettien headeri (IP ja UDP ovat 75% tämän yläpuolella).</translation>
     </message>
     <message>
         <location/>
@@ -1088,7 +1088,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>Mikrofoni pysyy auki kun PPN on vapautettu</translation>
+        <translation>Aika jonka mikrofoni pysyy auki kun puhepikanäppäin on vapautettu</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
@@ -1274,7 +1274,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sallii yhden takaisinkierrätyksen testaustiloista.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; -Takaisinkierrätys ei käytössä &lt;br /&gt;&lt;i&gt;Paikallinen&lt;/i&gt; - Emuloi paikallinen palvelin.&lt;br /&gt;&lt;i&gt;Palvelin&lt;/i&gt; - Pyydä serveriltä takaisinkierrätystä.&lt;br /&gt;Huomioi, kun takaisinkierrätys on sallittu, muut käyttäjät eivät voi kuulla sinua. Tätä asetusta ei tallenneta ohjelmasta poistuttaessa.</translation>
     </message>
     <message>
         <location/>
@@ -1289,7 +1289,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Säätää sisääntulevan puheen voimakkuutta.&lt;/b&gt;&lt;br /&gt;Huomio, että jos lisäät voimakkuutta yli 100%, ääni säröytyy. </translation>
     </message>
     <message>
         <location/>
@@ -1335,7 +1335,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa datamäärän ulostulopuskurin esipuskurille. Kokeile eri arvoja ja aseta alhaisin, mikä ei aiheuta nopeaa huojuntaa.</translation>
     </message>
     <message>
         <location/>
@@ -1370,23 +1370,23 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation type="unfinished"/>
+        <translation>Takaisinkierrätyksen Testaus</translation>
     </message>
     <message>
         <location/>
         <source>Delay Variance</source>
-        <translation type="unfinished"/>
+        <translation>Viiveen vaihtelu</translation>
     </message>
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"/>
+        <translation>Pakettien vasteajan vaihtelu</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa pakettivasteajan vaihtelun takaisinkierrätyksen testaukselle.&lt;/b&gt;&lt;br /&gt;Useimmissa äänipoluissa on jonkun verran vaihtelevaa vasteaikaa. Sallii asettaa vaihteluvälin takaisinkierrätystilan testaukselle. Esimerkiksi, jos asetat 15ms, verkko emuloidaan 20-35ms pingin vasteajalle tai 80-95ms vaihtelulle. Useimmilla kotimaisilla yhteyksillä vaihtelu on noin 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1396,22 +1396,22 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Takaisinkierrätystilan pakettihäviö</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa pakettihäviön takaisinkierrätystilalle.&lt;/b&gt;&lt;br /&gt;Määrittää kuinka monta pakettia voi hävitä. Jollei uloslähtevä kaistanleveytesi piikkaa, tai verkossasi ei ole mitään häiriötä, häviö on 0%</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Takaisinkierrätys</translation>
     </message>
     <message>
         <location/>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Haluttu takaisinkierrätystila</translation>
     </message>
     <message>
         <location/>
@@ -1426,7 +1426,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Äänenvoimakkuuden vaimennus muissa ohjelmissa puheen aikana&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden ohjelmien äänenvoimakkuuden kasvattamista sisääntulevan ja uloslähtevän puheen aikana. Asettaa muiden ohjelmien vaimennuksen, jos ominaisuus on sallittu.</translation>
     </message>
     <message>
         <location/>
@@ -1436,7 +1436,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Vaimentaa ohjelmat kun muut käyttäjät puhuvat&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden ohjelmien äänenvoimakkuuden vähentämistä sisääntulevan ja/tai uloslähtevän puheen aikana. Mumble aktivoi ominaisuuden kun muut käyttäjät puhuvat sinulle.</translation>
     </message>
     <message>
         <location/>
@@ -1451,7 +1451,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Vaimentaa ohjelmat kun puhut&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden ohjelmien äänenvoimakkuuden vähentämistä sisääntulevan ja/tai uloslähtevän puheen aikana. Mumble aktivoi ominaisuuden kun puhut.</translation>
     </message>
     <message>
         <location/>
@@ -1466,7 +1466,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Avaa laitteen rajoitettuun tilaan. &lt;/b&gt;&lt;br /&gt;Muut ohjelmat eivät voi käyttää laitetta.</translation>
     </message>
     <message>
         <location/>
@@ -1481,17 +1481,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>Tarkistettaessa Mumble alentaa muiden käyttäjien äänenvoimakkuutta kun puhut, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Vaimentaa muut käyttäjät puhuttaessa Etuoikeutettuna Puhujana.&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden käyttäjien äänenvoimakkuutta kun puhut &lt;i&gt;Etuoikeutettuna Puhujana&lt;/i&gt; välttääen tullakseen häirityksi. Tarkistamalla tämän tarkistuslaatiko sallii tämän ominaisuuden. </translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Vaimentaa muut puhujat puhuttaessa Etuoikeutettuna Puhujana.</translation>
     </message>
 </context>
 <context>
@@ -1588,7 +1588,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää viimeisimmän framen (20ms) voimakkuuspiikin, ja on sama määrä mikä yleensä löytyy &quot;sisääntulon voimakkuus&quot;&quot;. Älä huomioi tätä, vaan katso &lt;b&gt;Mikrofonin voimakkuutta&lt;/b&gt;, mikä on paljon vakaampi ja ei huomioi poikkeavia havaintoja.</translation>
     </message>
     <message>
         <location/>
@@ -1599,7 +1599,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Näyttää kaiuttimien viimeisimmän framen (20ms) voimakkuuspiikin. Jollet käytä monikanavaista näytteenottometodia (esim. ASIO) kaiutinkanavien konfiguraatiossa, tämä on 0. Jos sinulla on tällainen konfiguraatio, ja tämä on yhä 0 soitettaessa ääntä muusta ohjelmasta, asetuksesi ei toimi.</translation>
     </message>
     <message>
         <location/>
@@ -1619,7 +1619,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Microphone power</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofonin voimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -1649,12 +1649,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation type="unfinished"/>
+        <translation>Puheen todennäköisyys</translation>
     </message>
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation type="unfinished"/>
+        <translation>Puheen todennäköisyys</translation>
     </message>
     <message>
         <location/>
@@ -2095,7 +2095,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>Vaimenna muut sovellukset puheen aikana</translation>
     </message>
     <message>
         <location/>
@@ -2115,7 +2115,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation type="unfinished"/>
+        <translation>Vaimentaa muut sovellukset puheen aikana. Kun joku alkaa puhua sinulle Mumblessa, muut ohjelmat (kuten äänentoistimet) vaimennetaan, jolloin kuulet puheen selvemmin.</translation>
     </message>
     <message>
         <location/>
@@ -2149,13 +2149,19 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </oldsource>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Avaa äänen ohjauspaneelisi ja mene nauhoitus asetuksiin. Varmista että mikrofonisi on valittu aktiiviseksi syöttölaitteekksi ja sen nauhoitus äänenvoimakkuus on täysillä. Jos sinulla on &quot;Microphone boost&quot; -asetus valitse se.
+&lt;/p&gt;
+&lt;p&gt;
+Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohjauspaneelissa äänenvoimakkuutta kunnes alapuolen palkki pysyy mahdollisimman korkealla raidallisella ja tyhjällä alueella mutta &lt;b&gt;ei&lt;/b&gt; ristikollisella alueella kun puhut.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Nyt puhu hiljaisesti kuten puhuisit myöhään illalla ja et haluaisi häiritä muita. Liikuta säädin siten että puhuessasi palkki menee tyhjään alueeseen, mutta pysyy raidallisella ollessasi hiljaa.</translation>
     </message>
     <message>
         <location/>
@@ -2166,17 +2172,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Asetuksessa Mumble käyttää &lt;b&gt;pientä siirtonopeutta&lt;/b&gt;, mutta väistämättä aiheuttaa korkean viiveen ja huonon laadun. Käytä tätä vaihtoehtoa vain jos yhteytesi ei pysty käyttämään muita vaihtoehtoja. (16kbit/s, 60ms per paketti)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Suositeltu&lt;/b&gt; oletus asetus. Tarjoaa hyvän tasapainon laadun, viiveen ja siirtonopeuden välillä.(40kbit/s, 20ms per paketti)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Asetus on suositeltu vain tilanteissa joissa siirtonopeus ei ole ongelma, kuten LAN. Tarjoaa parhaan viiveajan johon Mumble kykenee, sekä &lt;b&gt;korkean laadun&lt;/b&gt;.(72kbit/s, 10ms per paketti)</translation>
     </message>
 </context>
 <context>
@@ -3500,7 +3506,7 @@ of the possible locations.</source>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Tietokantaan &apos;%1&apos; on vain lukuoikeus. Mumble ei voi tallentaa palvelinasetuksia (esim. SSL sertifikaatteja), kunnes korjaat tämän ongelman.</translation>
     </message>
 </context>
 <context>
@@ -3541,7 +3547,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation type="unfinished"/>
+        <translation>Vaimenna</translation>
     </message>
     <message>
         <location/>
@@ -3599,12 +3605,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation>Oikotiet</translation>
+        <translation>Pikanäppäimet</translation>
     </message>
     <message>
         <location line="+52"/>
         <source>Shortcut button combination.</source>
-        <translation>Oikotien näppäinyhdistelmän.</translation>
+        <translation>Pikanäppäinyhdistelmä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3802,12 +3808,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
-        <translation type="unfinished"/>
+        <translation>Debug</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation type="unfinished"/>
+        <translation>Kriittinen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3822,7 +3828,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation>Palvelin yhdistetty</translation>
+        <translation>Yhdistetty palvelimeen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3832,7 +3838,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"/>
+        <translation>Toinen käyttäjä mykistää/hiljentää itsensä</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3847,57 +3853,57 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation>Käyttäjä liittyi palvelimelle</translation>
+        <translation>Käyttäjä liittyy palvelimelle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Käyttäjä poistui palvelimelta</translation>
+        <translation>Käyttäjä poistuu palvelimelta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation>Käyttäjän nauhoitusasetus muuttui</translation>
+        <translation>Käyttäjän nauhoitustila muuttuu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>Käyttäjä potkittiin (sinun tai jonkun muun toimesta)</translation>
+        <translation>Käyttäjä poistetaan (sinun tai jonkun muun toimesta)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation>Käyttäjä potkittiin</translation>
+        <translation>Käyttäjä poistetaan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Mykistät itsesi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User muted (you)</source>
-        <translation>Käyttäjä vaimennettu (sinä)</translation>
+        <translation>Sinut mykistetään</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation>Käyttäjä vaimennettu (sinun toimestasi)</translation>
+        <translation>Mykistät käyttäjän</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>Käyttäjä vaimennettu (muu)</translation>
+        <translation>Käyttäjä mykistetään (muu)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Käyttäjä liittyi kanavalle</translation>
+        <translation>Käyttäjä liittyy kanavalle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Käyttäjä poistui kanavalta</translation>
+        <translation>Käyttäjä poistuu kanavalta</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3961,7 +3967,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-471"/>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Käytä console viestiä tapahtumalle %1.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3976,7 +3982,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1</translation>
+        <translation>Käytä äänimerkkiä tapahtumalle %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4009,7 +4015,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1.&lt;br /&gt;Valittuna Mumble käyttää määritetyä äänimerkkiä tapahtuman %1 yhteydessä. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
+        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1.&lt;br /&gt;Valittuna Mumble käyttää määritettyä äänimerkkiä tapahtuman %1 yhteydessä. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4059,7 +4065,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation>Teksti puheeksi -moottorin äänenvoimakkuus</translation>
+        <translation>Teksti puheeksi -toiminnon äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -4069,17 +4075,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation type="unfinished"/>
+        <translation>Pituuden raja</translation>
     </message>
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Viesti pituuden kynnys Teksti puheeksi -moottorille.</translation>
+        <translation>Teksti puheeksi -toiminnon viestin pituuden raja.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Tämä on Teksti puheeksi -moottorin käyttämä kynnys.&lt;/b&gt;&lt;br /&gt;Tätä pidempiä viestejä ei lueta kokonaan ääneen.</translation>
+        <translation>&lt;b&gt;Teksti puheeksi -toiminnon pituuden raja.&lt;/b&gt;&lt;br /&gt;Viesteistä luetaan vain määritelty määrä merkkejä.</translation>
     </message>
     <message>
         <location/>
@@ -4104,12 +4110,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"/>
+        <translation>Valittuna lähettämäsi viestit luetaan takaisin sinulle teksti puheeksi -toiminnolla.</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation>Lue takaisin omat viestit</translation>
+        <translation>Lue omat viestit takaisin</translation>
     </message>
     <message>
         <location/>
@@ -4228,7 +4234,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa kielen jota Mumblen tulisi käyttää&lt;/b&gt;&lt;br /&gt;Mumble pitää käynnistää uudelleen käyttääksesi uutta kieltä.</translation>
     </message>
     <message>
         <location/>
@@ -4329,7 +4335,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation>Aina päällä</translation>
+        <translation>Aina päällimmäisenä</translation>
     </message>
     <message>
         <location/>
@@ -4339,22 +4345,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Piilota tehtäväpalkkiin </translation>
+        <translation>Piilota tehtäväpalkissa pienennettynä</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"/>
+        <translation>Piilottaa Mumblen ikkunan kun se on tehtäväpalkissa pienennettynä.</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation type="unfinished"/>
+        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana.</translation>
     </message>
     <message>
         <location/>
         <source>Never</source>
-        <translation>Ei koskaa</translation>
+        <translation>Ei koskaan</translation>
     </message>
     <message>
         <location/>
@@ -4364,12 +4370,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation>Minimaalinäkymässä</translation>
+        <translation>Miniminäkymässä</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation>Normaalinäkymässä</translation>
+        <translation>Perusnäkymässä</translation>
     </message>
     <message>
         <location/>
@@ -4379,12 +4385,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"/>
+        <translation>Näytä puhetila tehtäväpalkin ikonissa</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation type="unfinished"/>
+        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana.&lt;i&gt;Ei koskaan&lt;/i&gt; ikkuna ei ole koskaan päällimmäisenä. &lt;i&gt;Aina&lt;/i&gt; ikkuna pysyy aina päällimmäisenä. &lt;i&gt;Miniminäkymässä&lt;/i&gt; / &lt;Perusnäkymässä&lt;/i&gt; ikkuna on päällimmäisenä ollessa kyseisessä tilassa.</translation>
     </message>
     <message>
         <location/>
@@ -4700,12 +4706,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation>Potkitaan käyttäjä %1</translation>
+        <translation>Poistamassa käyttäjä %1</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation>Estetään käyttäjä %1</translation>
+        <translation>Estämässä käyttäjä %1</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -4938,17 +4944,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistetty.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistetty ja hiljennetty.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5025,7 +5031,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>Käyttäjänimi on jo käytössä, ole hyvä ja käytä jotain muuta.</translation>
+        <translation>Käyttäjänimi on jo käytössä, ole hyvä ja käytä toista käyttäjänimeä.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5074,7 +5080,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää viimeisimmät tapahtumat. Palvelimelle yhdistäminen, virheilmoitukset ja informaatioviestit näkyvät tässä.&lt;br /&gt;Muuttaaksesi mitkä viestit näkyvät tässä mene &lt;b&gt;asetukset&lt;/b&gt; ja valitse &lt;b&gt;viestit&lt;/b&gt; välilehti.</translation>
     </message>
     <message>
         <location/>
@@ -5154,7 +5160,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Hiljennä</translation>
     </message>
     <message>
         <location/>
@@ -5174,7 +5180,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Lisä</translation>
+        <translation>&amp;Lisää</translation>
     </message>
     <message>
         <location/>
@@ -5240,7 +5246,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation>Potki käyttäjä (anna syy)</translation>
+        <translation>Poista käyttäjä palvelimelta (Anna syy)</translation>
     </message>
     <message>
         <location/>
@@ -5250,7 +5256,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute user</source>
-        <translation>Vaimenna käyttäjä</translation>
+        <translation>Mykistä käyttäjä</translation>
     </message>
     <message>
         <location/>
@@ -5260,7 +5266,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation>Potki ja estä käyttäjä (anna syy)</translation>
+        <translation>Estä käyttäjä palvelimelta (Anna syy)</translation>
     </message>
     <message>
         <location/>
@@ -5270,12 +5276,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennä käyttäjä</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"/>
+        <translation>Hiljentää tai poistaa käyttäjän hiljennyksen palvelimella. Hiljennys myös mykistää.</translation>
     </message>
     <message>
         <location/>
@@ -5342,32 +5348,32 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>&amp;Vaimenna itsesi</translation>
+        <translation>&amp;Mykistä itsesi</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Vaimenna itsesi</translation>
+        <translation>Mykistä itsesi</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistää sinut tai poistaa mykistyksesi. Mykistettynä et lähetä dataa palvelimelle. Mykistyksen poisto poistaa myös hiljennyksen jos olet myös hiljennettynä.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennä itsesi</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennä itsesi</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation type="unfinished"/>
+        <translation>Hiljentää itsesi tai poistaa hiljennyksen. Hiljennettynä et kuule mitään. Hiljennys myös mykistää.</translation>
     </message>
     <message>
         <location/>
@@ -5382,7 +5388,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished"/>
+        <translation>Ottaa käyttöön tai poistaa käytöstä teksti puheeki -toiminnon. Vain viestit jotka on valittu luettavaksi teksti puheeksi -toiminnolla asetuksissa luetaan.</translation>
     </message>
     <message>
         <location/>
@@ -5612,12 +5618,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation>&amp;Minimaalinen näkymä</translation>
+        <translation>&amp;Miniminäkymä</translation>
     </message>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation>Kytke päälle tai pois minimi näkymä</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5627,42 +5633,42 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
-        <translation>%1 ei kuule tai pysty puhumaan.</translation>
+        <translation>Mykistit ja hiljensit käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>%1 kuulee ja pystyy puhumaan.</translation>
+        <translation>Poistit käyttäjän %1 mykistyksen ja hiljennyksen.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>%1 kuulee taas.</translation>
+        <translation>Poistit käyttäjän %1 hiljennyksen.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vaimensit käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation>%1 ei kuule tai pysty puhumaan (%2).</translation>
+        <translation>%2 mykisti ja hiljensi käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%1 kuulee ja pystyy puhumaan (%2).</translation>
+        <translation>%2 poisti käyttäjän %1 mykistyksen ja hiljennyksen.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation>%1 kuulee taas (%2).</translation>
+        <translation>%2 poisti käyttäjän %1 hiljennyksen.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 vaimensi käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -5672,7 +5678,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation>%1 siirrettiin kanavalle %2 %3 toimesta.</translation>
+        <translation>%3 siirsi käyttäjän %1 kanavalle %2.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -5682,7 +5688,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 ei kuule tai pysty puhumaan.</translation>
+        <translation>%1 mykistettiin ja hiljennettiin.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5773,7 +5779,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 mykistetty.</translation>
+        <translation>%1 mykistettiin.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5853,7 +5859,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti sinun mykistyksen ja hiljennyksen.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5863,23 +5869,23 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti sinun hiljennyksen.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Sinut vaimennettiin.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"/>
+        <translation>Sinun vaimennus poistettiin.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti sinun vaimennuksen.</translation>
     </message>
     <message>
         <location line="+83"/>
@@ -5961,17 +5967,17 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation>Mykistit %1.</translation>
+        <translation>Mykistit käyttäjän %1.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>Poistit käyttäjän %1 vaimennuksen.</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Mykistit %1.</translation>
+        <translation>Poistit käyttäjän %1 mykistyksen.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -5981,7 +5987,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 poisti käyttäjän %1 vaimennuksen.</translation>
     </message>
     <message>
         <location line="-14"/>
@@ -5997,7 +6003,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location line="-473"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 mykisti ja hiljensi sinut.</translation>
     </message>
     <message>
         <location line="+171"/>
@@ -6429,7 +6435,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Välityspalvelimen isäntänimi.&lt;/b&gt;&lt;br /&gt;Tämä kenttä määrittää välityspalvelimen isäntänimen, jonka kautta haluat tunneloida verkkoliikenteen.</translation>
     </message>
     <message>
         <location/>
@@ -6685,7 +6691,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Käyttäjien koon muuttamiseen käytä hiiren rullaa käyttäjän päällä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6696,7 +6702,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+244"/>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Overlay</translation>
     </message>
     <message>
         <location line="+77"/>
@@ -6732,18 +6738,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Käytä overlay:ta.</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Käytä overlay:ta</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Valinta säätää onko overlay käytössä vai ei. Valinta vaikuttaa vain ohjelman käynnistyessä, joten varmista että Mumble on päällä ennen ohjelman käynnistämistä.&lt;br /&gt;Ota huomioon että jos käynnistät Mumblen ohjelman käynnistymisen jälkeen tai poistat overlayn käytöstä ohjelman ollessa käynnissä, ainoa tapa ottaa overlay käyttöön on käynnistää ohjelma uudelleen.</translation>
     </message>
     <message>
         <location/>
@@ -6753,12 +6759,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"/>
+        <translation>Overlay poikkeukset</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"/>
+        <translation>Musta lista</translation>
     </message>
     <message>
         <location/>
@@ -6807,7 +6813,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>Näytä FPS mittari Overlay:ssa</translation>
     </message>
     <message>
         <location/>
@@ -6837,12 +6843,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee overlay:n fontin.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>Valitsee overlay:n tekstin värin.</translation>
     </message>
     <message>
         <location/>
@@ -6867,7 +6873,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation>Listaaksesi poikkeuksia, käytä a</translation>
+        <translation>Poikkeustapauksen lisäämisessä käytä:</translation>
     </message>
     <message>
         <location/>
@@ -6882,7 +6888,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS ja kello näkymä</translation>
     </message>
     <message>
         <location/>
@@ -7721,12 +7727,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä tiedot</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>Yhteystiedot</translation>
     </message>
     <message>
         <location/>
@@ -7771,7 +7777,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"/>
+        <translation>Keskimääräinen viive</translation>
     </message>
     <message>
         <location/>
@@ -7821,38 +7827,38 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"/>
+        <translation>Yhteysaika</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation type="unfinished"/>
+        <translation>%1w</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished"/>
+        <translation>%1d</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"/>
+        <translation>%1h</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished"/>
+        <translation>%1m</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1s</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>, </translation>
     </message>
     <message>
         <location line="-13"/>
@@ -7889,7 +7895,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
@@ -8008,22 +8014,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation>Käyttäjä on mykistänyt itsensä</translation>
+        <translation>Mykistetty(Itse mykistänyt itsensä)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation>Ylläpitäjä on mykistänyt käyttäjän</translation>
+        <translation>Mykistetty(Ylläpitäjän toimesta)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation>Käyttäjä mykistetty kanavalla</translation>
+        <translation>Mykistetty(Kanava kohtainen mykistys)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation>Käyttäjän henkilökohtainen mykistys</translation>
+        <translation>Mykistetty(Olet henkilökohtaisesti mykistänyt)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8328,7 +8334,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Output format</source>
-        <translation>Ulostulo formaatti</translation>
+        <translation>Ääniformaatti</translation>
     </message>
     <message>
         <location/>
@@ -8348,7 +8354,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-210"/>
         <source>Valid variables are:</source>
-        <translation type="unfinished"/>
+        <translation>Sallitut muuttujat ovat:</translation>
     </message>
     <message>
         <location line="+1"/>
