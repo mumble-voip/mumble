@@ -1609,7 +1609,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää viimeisimmän kehyksen (20ms) piikin voimakkuuden käsittelyn jälkeen. Ideaalitilanteessa tämän pitisi olla -96 dB silloin ku et puhu. Todellisuudessa tulisi olla -60dB, ja joissain tilanteissa -20 dB. Kun puhut, tämän pitäisi nousta -5 ja -10 dB välille.&lt;br /&gt;Jos käytät kaiunpoistoa ja tämä nousee yli -15 dB silloin kun et puhu, asetuksesi ei toimi, ja häiritset muita käyttäjiä kaiullasi.</translation>
     </message>
     <message>
         <location/>
@@ -1644,7 +1644,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää mikrofonin signaali-melu -suhteen (SNR) viimeisimmässä kehyksessä (20ms). Näyttää kuinka paljon puhtaampi ääni on verrattuna meluun.&lt;br /&gt;Jos tämä arvo on alle 1.0, signaalissa on enemmän melua kuin ääntä, ja laatu heikkenee.&lt;br /&gt;Arvolle ei ole ylärajaa, mutta älä oleta liikoja yli 40-50 -arvoilla.</translation>
     </message>
     <message>
         <location/>
@@ -1659,12 +1659,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation type="unfinished"/>
+        <translation>Todennäköisyys sille, että viimeisin kehys (20ms) oli puhetta eikä taustamelua.&lt;br /&gt;Äänen lähetys riippuu onko tämä oikein. Lauseen keskiosa tunnistetaan aina puheeksi; ongelma on lyhyet katkot sanojen keskellä tai puheen aloitus. On hankala tunnistaa sanat mitkä alkavat h-kirjaimella.&lt;br /&gt;Jos tämä on lihavoidulla fontila, Mumble lähettää ääntä paraikaa (jos olet yhteydessä).</translation>
     </message>
     <message>
         <location/>
         <source>Configuration feedback</source>
-        <translation type="unfinished"/>
+        <translation>Konfiguraation palaute</translation>
     </message>
     <message>
         <location/>
@@ -1694,22 +1694,22 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Nykyisen puheentunnistuksen mahdollisuus</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Näyttää nykyisen puheentunnistuksen asetukset.&lt;/b&gt;&lt;br /&gt;Voit vaihtaa asetuksia Asetuksista tai Audioapurista.</translation>
     </message>
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"/>
+        <translation>Signaalin ja melun voimakkuuden kirjo</translation>
     </message>
     <message>
         <location/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"/>
+        <translation>Sisääntulevan signaalin ja melun arvion kirjo.</translation>
     </message>
     <message>
         <location/>
@@ -1734,7 +1734,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation type="unfinished"/>
+        <translation>Viimeisimmän kehyksen (20ms) äänenlaatu, hyppii ylös ja alas aina kun VBR säätää laatua. Piikin bitrate voidaan säätää Asetuksista.</translation>
     </message>
 </context>
 <context>
@@ -2035,7 +2035,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Lähetä anonymisoituja tilastoja Mumble-projektille</translation>
+        <translation>Lähetä anonyymejä tilastoja Mumble-projektille</translation>
     </message>
     <message>
         <location/>
@@ -2791,7 +2791,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation>Linkkaa kanava</translation>
+        <translation>Liitä kanava</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -2991,7 +2991,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä nappi hyväksyy tämänhetkiset asetukset ja palaa sovellukseen.&lt;br /&gt;Asetukset tallennetaan levylle, kun poistut sovelluksesta.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3001,7 +3001,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä nappi hylkää kaikki muutokset ja palaa sovellukseen.&lt;br /&gt;Alkuperäiset asetukset palautetaan.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3011,7 +3011,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"/>
+        <translation>Ottaa kaikki muutokset suoraan käyttöön.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3021,7 +3021,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"/>
+        <translation>Peruuttaa kaikki muutokset, jotka on tehny nykyisellä sivulla, edellisiin tiloihin.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3032,7 +3032,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Palauttaa nykyisen sivun asetukset oletusarvoiksi. Toiminto ei tee muutoksia muihin sivuihin.&lt;br /&gt;Halutessasi palauttaa kaikki asetukset oletusarvoihin, tulee sinun käyttää tätä toimintoa jokaisella sivulla.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3194,7 +3194,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation>Kopio suosikkilinkki leikepöydälle</translation>
+        <translation>Kopioi suosikkilinkki leikepöydälle</translation>
     </message>
     <message>
         <location/>
@@ -3299,18 +3299,19 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Pavelimelle lähetettävä käyttäjänimi</translation>
+        <translation>Käyttäjänimi jota tulet käyttämään palvelimella</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Käyttäjänimi&lt;/b&gt;&lt;br/&gt;
+Käyttäjänimi jota tulet käyttämään palvelimella. Palvelimet voivat asettaa rajoitteita käyttäjänimen suhteen tai sama käyttäjänimi voi olla jo käytössä, jolloin käyttäjänimi tulee vaihtaa. </translation>
     </message>
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>Kansinimi</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3342,12 +3343,13 @@ Password to be sent to the server on connect. This password is needed when conne
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Kansinimi&lt;/b&gt;&lt;br/&gt;
+Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymään palvelin listassasi.</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen palvelimen kansinimi</translation>
     </message>
     <message>
         <location/>
@@ -3430,7 +3432,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation type="unfinished"/>
+        <translation>Olemme pahoillamme, mutta kaatumisraportin lähettäminen epäonnistui virheellä %1 %2. Ole hyvä ja ota yhteyttä kehittäjään virheestä.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3689,7 +3691,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation>Huuda linkitetyille kanaville</translation>
+        <translation>Huuda liitetyille kanaville</translation>
     </message>
     <message>
         <location/>
@@ -3704,7 +3706,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation>Kuiskaus näkyy myös linkatuilla kanavilla.</translation>
+        <translation>Kuiskaus välitetään myös liitetyille kanaville.</translation>
     </message>
     <message>
         <location/>
@@ -4244,7 +4246,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Asettelu</translation>
     </message>
     <message>
         <location/>
@@ -4264,18 +4266,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Muokattava</translation>
+        <translation>Muokattu</translation>
     </message>
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"/>
+        <translation>Muuttaa kanavien liikuttamisen tapahtumaa.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Määrää kanavien liikuttamisen tapahtuman. Voidaan hyödyntää kanavien vahingottaissiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää kanavan välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virhe viestin. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko kanavaa siirtää.</translation>
     </message>
     <message>
         <location/>
@@ -4320,7 +4322,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Channel Dragging</source>
-        <translation type="unfinished"/>
+        <translation>Kanavien vetäminen</translation>
     </message>
     <message>
         <location/>
@@ -4479,7 +4481,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Erota liitännäinen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4801,7 +4803,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Liitä kanava</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5220,12 +5222,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Liitä</translation>
     </message>
     <message>
         <location/>
         <source>Link your channel to another channel</source>
-        <translation type="unfinished"/>
+        <translation>Liittää kanavasi toiseen kanavaan</translation>
     </message>
     <message>
         <location/>
@@ -5308,27 +5310,27 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation>&amp;Poista linkitys</translation>
+        <translation>&amp;Erota</translation>
     </message>
     <message>
         <location/>
         <source>Unlink your channel from another channel</source>
-        <translation type="unfinished"/>
+        <translation>Erottaa kanavasi liitoksen toisesta kanavasta</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation type="unfinished"/>
+        <translation>Erottaa nykyisen kanavan liitoksen valitusta kanavasta.</translation>
     </message>
     <message>
         <location/>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>Erottaa kanavasi kaikki liitokset.</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>Erottaa nykyisen kanavasi (huom. ei valitun) kaikki liitokset muihin kanaviin.</translation>
     </message>
     <message>
         <location/>
@@ -5403,12 +5405,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"/>
+        <translation>Pakota liitännäisen erottaminen</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"/>
+        <translation>Pakottaa nykyisen liitännäisen erottamisen, joka on hyödyllistä mikäli se lukee täysin väärää dataa.</translation>
     </message>
     <message>
         <location/>
@@ -5824,7 +5826,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 antoi sinulle etuoikeutetun puhujan aseman.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5834,7 +5836,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Annoit etuoikeutetun puhujan aseman käyttäjälle %1.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5854,7 +5856,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 antoi etuoikeutetun puhujan aseman käyttäjälle %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6038,7 +6040,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-397"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Pavelinyhteys hylättiin: %1.</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -6118,7 +6120,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Erota kaikki</translation>
     </message>
     <message>
         <location/>
@@ -6178,7 +6180,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Erota liitännäinen</translation>
     </message>
     <message>
         <location/>
@@ -6228,7 +6230,7 @@ Valid options are:
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Etuoikeutettu puhuja</translation>
     </message>
     <message>
         <location/>
@@ -6306,7 +6308,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa valitun käyttäjän käyttäjäkuva.</translation>
     </message>
 </context>
 <context>
@@ -6350,7 +6352,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleenyhdistä automaattisesti</translation>
     </message>
     <message>
         <location/>
@@ -6521,7 +6523,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation>Tarkista ohjelman päivitykset ohjelman käynnistyessä</translation>
+        <translation>Tarkista ohjelman päivitykset käynnistymisen yhteydessä</translation>
     </message>
     <message>
         <location/>
@@ -6536,12 +6538,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Lähetä anonyymejä tilastoja.&lt;/b&gt;&lt;br /&gt;Mumblella on pieni kehitystiimi ja sellaisenaan sen tulee kohdistaa kehitys sinne, missä sitä tarvitaan eniten. Lähettämällä vähän tilastoja autat projektia päättämään, mihin kehitys kohdistetaan.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Lähetä anonyymejä tilastoja Mumble projektille</translation>
+        <translation>Lähetä anonyymejä tilastoja Mumble-projektille</translation>
     </message>
     <message>
         <location/>
@@ -6556,12 +6558,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation>Yhdistä viimeisimpään palvelimeen ohjelman käynnistyessä</translation>
+        <translation>Yhdistä viimeisimpään palvelimeen käynnistymisen yhteydessä</translation>
     </message>
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>Lataa liitännäis- ja overlay-päivitykset käynnistymisen yhteydessä.</translation>
     </message>
 </context>
 <context>
@@ -6728,7 +6730,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna overlay:n asettelu</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
@@ -6779,14 +6781,16 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>Overlay:n asennus</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble on havainnut että Mumble overlay ei ole asennettu. 
+
+Paina napista alhaalla asentaaksesi overlay.</translation>
     </message>
     <message>
         <location/>
@@ -6796,19 +6800,21 @@ Click the button below to install the overlay.</source>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"/>
+        <translation>Overlay päivitys</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble on havainnut overlay:ta tukevien tiedostojen olevan vanhentuneita.
+
+Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään versioon.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Päivitä Mumble overlay</translation>
     </message>
     <message>
         <location/>
@@ -6823,7 +6829,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"/>
+        <translation>Lataa overlay asetelma tiedostosta</translation>
     </message>
     <message>
         <location/>
@@ -7654,7 +7660,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lisää</translation>
     </message>
     <message>
         <location/>
@@ -7664,7 +7670,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>%Poista</translation>
     </message>
 </context>
 <context>
@@ -7678,7 +7684,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location/>
         <location filename="UserEdit.cpp" line="+124"/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Poista</translation>
     </message>
     <message>
         <location/>
@@ -7689,27 +7695,27 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>Ketä olet etsimässä?</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"/>
+        <translation>Päivää</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"/>
+        <translation>Viikkoa</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"/>
+        <translation>Kuukautta</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"/>
+        <translation>Vuotta</translation>
     </message>
     <message>
         <location/>
@@ -7719,7 +7725,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform><numerusform> </numerusform></translation>
     </message>
 </context>
 <context>
@@ -7797,12 +7803,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>Hyvä</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>Myöhässä</translation>
     </message>
     <message>
         <location/>
