@@ -2350,7 +2350,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Esto lista - %n esto(a)</numerusform><numerusform>Esto lista - %n esto(a)</numerusform></translation>
+        <translation><numerusform>Esto lista - %n esto(a)</numerusform><numerusform>Estolista - %n esto(a)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -3529,7 +3529,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Lista määritetyistä pikanäppäimistä</translation>
     </message>
     <message>
         <location/>
@@ -5695,7 +5695,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>Tilitietojasi ei voida vahvistaa tällä hetkellä. Yritä myöhemmin uudelleen</translation>
     </message>
     <message>
         <location line="+17"/>
