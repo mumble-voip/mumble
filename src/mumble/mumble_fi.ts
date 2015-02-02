@@ -2595,7 +2595,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on varmenne jota olet tuomassa.</translation>
     </message>
     <message>
         <location/>
@@ -2663,7 +2663,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on tiedostonimi, johon haluat viedä varmenteen.</translation>
     </message>
     <message>
         <location/>
@@ -2723,7 +2723,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation type="unfinished"/>
+        <translation>Varmenteisiin perustuva tunnistautuminen on käyttövalmis</translation>
     </message>
     <message>
         <location/>
@@ -4463,7 +4463,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Pidä tämä nappi pohjassa lähettääksesi ääntä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4567,7 +4567,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-200"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaimenna itsesi</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4585,7 +4585,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Hiljennä itsesi</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4603,14 +4603,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"/>
+        <translation>Kuiskaa/Huuda</translation>
     </message>
     <message>
         <location line="+67"/>
         <location line="+2410"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Ei yhteydessä&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-2110"/>
@@ -4905,7 +4905,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-362"/>
         <location line="+103"/>
         <source>Message to %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti käyttäjälle %1</translation>
     </message>
     <message>
         <location line="-60"/>
@@ -4915,7 +4915,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Haluatko varmasti poistaa käyttäjän %1 kuvan?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -4961,17 +4961,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennys poistettu.</translation>
     </message>
     <message>
         <location line="+92"/>
         <source>About Qt</source>
-        <translation type="unfinished"/>
+        <translation>Tietoa Qt:sta</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -4991,7 +4991,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Sever presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen esittämän varmenteen vahvistus epäonnistui.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5288,7 +5288,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished"/>
+        <translation>Vaimenna käyttäjä paikallisesti</translation>
     </message>
     <message>
         <location/>
@@ -5395,7 +5395,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Display audio statistics</source>
-        <translation type="unfinished"/>
+        <translation>Näytä äänistatistiikat</translation>
     </message>
     <message>
         <location/>
@@ -5435,7 +5435,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"/>
+        <translation>Avaa äänikonfiguroinnin avustaja</translation>
     </message>
     <message>
         <location/>
@@ -5625,7 +5625,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"/>
+        <translation>Kytke pelkistetty näkymä päälle tai pois päältä</translation>
     </message>
     <message>
         <location/>
@@ -5721,7 +5721,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"/>
+        <translation>Virhe: SuperUserin oikeuksia ei voi muokata.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5771,7 +5771,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"/>
+        <translation>Ei käyttöoikeutta toiminnolle</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -6045,7 +6045,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+147"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Kielletty: %1</translation>
     </message>
     <message>
         <location line="+430"/>
@@ -6175,7 +6175,7 @@ Valid options are:
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"/>
+        <translation>Äänis&amp;tatistiikat</translation>
     </message>
     <message>
         <location/>
@@ -6225,7 +6225,7 @@ Valid options are:
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>Nauhoittaa</translation>
     </message>
     <message>
         <location/>
@@ -6275,12 +6275,12 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Suodatin päällä/pois</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Ota kanavasuodatin käyttöön (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6298,7 +6298,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Piilota kanava kun se on suodatettu</translation>
     </message>
     <message>
         <location/>
@@ -6590,7 +6590,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation type="unfinished"/>
+        <translation>Huuda</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6756,7 +6756,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Asettelu</translation>
     </message>
     <message>
         <location/>
@@ -6771,7 +6771,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"/>
+        <translation>Valkolista</translation>
     </message>
     <message>
         <location/>
@@ -7748,12 +7748,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>Käyttöjärjestelmä</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Varmenne</translation>
     </message>
     <message>
         <location/>
@@ -7926,7 +7926,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Nimimerkki</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7936,7 +7936,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>Viimeisin kanava</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -8040,12 +8040,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty (itse)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"/>
+        <translation>Hiljennetty (ylläpitäjä)</translation>
     </message>
     <message>
         <location line="+1"/>
