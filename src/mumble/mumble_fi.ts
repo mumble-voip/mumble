@@ -903,7 +903,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Näyttää uloslähtevän piikin kaistanleveyden.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän piikin kaistanleveyden, mikä on lähetetty tietokoneestasi. Äänenlaatu on maksimiäänenlaatu (käytämme VBR:ää) äänidatalle. Sijainti on käytetty bittitaajuus sijaintitiedolle. Yläpuolella on kehikkö ja IP pakettien headeri (IP ja UDP ovat 75% tämän yläpuolella).</translation>
+        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden maksimiarvon, joka lähetetään tietokoneestasi. Ääni bittinopeus on maksimi bittinopeus(käytämme VBR) vain ääni tiedoille yksinään.  Sijanti on bittinopeus jota käytetään sijainti tiedoille. Pakettitiedot on paketin kehykselle ja IP-osoitetiedoille tarvittava bittinopeus (IP ja UDP ovat 75% tästä lukuarvosta).</translation>
     </message>
     <message>
         <location/>
@@ -1185,7 +1185,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1 kbit/s (Ääni %2, Sijainti %4, Overhead %3)</translation>
+        <translation>%1 kbit/s (Ääni %2, Sijainti %4, Pakettitiedot %3)</translation>
     </message>
 </context>
 <context>
@@ -1391,7 +1391,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation>Pakettikato</translation>
+        <translation>Pakettihävikki</translation>
     </message>
     <message>
         <location/>
@@ -1609,7 +1609,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Näyttää viimeisimmän kehyksen (20ms) piikin voimakkuuden käsittelyn jälkeen. Ideaalitilanteessa tämän pitisi olla -96 dB silloin ku et puhu. Todellisuudessa tulisi olla -60dB, ja joissain tilanteissa -20 dB. Kun puhut, tämän pitäisi nousta -5 ja -10 dB välille.&lt;br /&gt;Jos käytät kaiunpoistoa ja tämä nousee yli -15 dB silloin kun et puhu, asetuksesi ei toimi, ja häiritset muita käyttäjiä kaiullasi.</translation>
+        <translation>Näyttää äänenvoimakkuuden huipun viimeisen 20ms ajalta, käsittelyiden jälkeen. Ideaalitilanteessa tämän pitäisi olla -96 dB ollessasi vaiti. Todellisuudessa tulisi olla -60dB, ja joissain tilanteissa -20 dB. Puhuessasi tämän pitäisi nousta -5 ja -10 dB välille.&lt;br /&gt;Mikäli käytät kaiunpoistoa ja arvo ylittää -15dB ollessasi vaiti, asetuksesti eivät toimi ja häiritset muita käyttäjiä kaiullasi.</translation>
     </message>
     <message>
         <location/>
@@ -1644,7 +1644,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Näyttää mikrofonin signaali-melu -suhteen (SNR) viimeisimmässä kehyksessä (20ms). Näyttää kuinka paljon puhtaampi ääni on verrattuna meluun.&lt;br /&gt;Jos tämä arvo on alle 1.0, signaalissa on enemmän melua kuin ääntä, ja laatu heikkenee.&lt;br /&gt;Arvolle ei ole ylärajaa, mutta älä oleta liikoja yli 40-50 -arvoilla.</translation>
+        <translation>Näyttää mikrofonin signaali-melu -suhteen (SNR) viimeisimmässä kehyksessä (20ms). Näyttää kuinka paljon puhtaampi ääni on verrattuna meluun.&lt;br /&gt;Arvon ollessa alle 1.0, signaalissa on enemmän melua kuin ääntä, jolloin laatu on heikkoa.&lt;br /&gt;Arvolle ei ole ylärajaa, mutta älä oleta liikoja yli 40-50 -arvoilla.</translation>
     </message>
     <message>
         <location/>
@@ -1704,7 +1704,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translation>Signaalin ja melun voimakkuuden kirjo</translation>
+        <translation>Signaalin ja melun voimakkuuden spektri</translation>
     </message>
     <message>
         <location/>
@@ -1714,7 +1714,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää voimakkuuden kirjon nykyisen sisääntulevan signaalista (punainen) ja nykyisen meluarvion (sininen).&lt;br /&gt;Kaikki voimakkuudet ovat kerrottu 30 näyttääkseen mielenkiintoiset osat (kuinka paljon enemmän ääntä kuin melua on jokaisessa ääniaallossa).&lt;br /&gt;Tämä kiinnostanee sinua vain jos yrität hienosäätää mikrofonin meluolosuhteita. Hyvissä olosuhteissa ilmenee vain pientä sinistä väreilyä alhaalla. Jos sinistä on enemmän kuin graafin puoliväliin, ympäristösi on todella meluisa.</translation>
     </message>
     <message>
         <location/>
@@ -1724,12 +1724,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"/>
+        <translation>Kaiunpoiston painotukset</translation>
     </message>
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää kaiunpoiston painotukset, aika lisääntyy alaspäin ja taajuus kasvaa oikealle.&lt;br /&gt;Ideaalitilanteessa tämän pitäisi olla musta, jolloin kaikua ei ole lainkaan. Useimmiten, kaikua on useamman vaakasuuntaisen viivan verran, jotka edustavat kaiun viivettä. Muutoksien tulisi näkyä reaaliajassa.&lt;br /&gt;Huomioi, että niin kauan kuin sinulla ei kaiusta mitään poistettavaa, tämä tieto ei ole sinulle hyödyllistä. Soita hieman musiikkia, niin tilanne tasaantuu.&lt;br /&gt;Voit valita näytettäväksi joko oikean tai kuvitteelliset osat taajuuksien painotuksesta, tai vaihtoehtoisesti lasketun kertoimen tai näkymän. Näistä hyödyllisin lienee kerroin, joka on kaiun voimakkuus, ja näyttää paljonko uloslähtevästä signaalista leikataan. Muut näkymät ovat hyödyllisiä ihmisille jotka haluavat säätää kaiunpoiston algoritmeja.&lt;br /&gt;Huomioi, jos koko kuva aaltoilee kerrointilassa, kaiunpoisto epäonnistuu yrittäessään löytää yhteyttä kahden sisääntulolähteen välillä (kaiuttimien ja mikrofonin). Joko sinulla on pitkäviiveinen kaiku, tai yksi sisääntulolähteistä on väärin konriguroitu.</translation>
     </message>
     <message>
         <location/>
@@ -1894,7 +1894,13 @@ To keep latency to an absolute minimum, it's important to buffer as little audio
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Jotta viive voidaan pitää mahdollisimman pienenä, on tärkeää puskea äänikortille mahdollisimman vähän ääntä. Mutta useiden äänikorttien ilmoitetaan vaativan paljon pienenpää puskemista, kuin ne kykenevät työstämään, jolloin ainoa tapa löytää oikea arvo on koittaminen.
+&lt;/p&gt;
+&lt;p&gt;
+Sinun tulisi kuulla ääninäyte. Liikuta alempana olevaa säädintä alimpaan arvoon joka &lt;b&gt;ei&lt;/b&gt; keskeytä tai aiheuta säröilyä äänessä. Ota huomioon että paikallinen kaiku on poistettu tässä testissä.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1904,7 +1910,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa datamäärän ulostulopuskurin esipuskurille. Kokeile eri arvoja ja aseta alhaisin, mikä ei aiheuta nopeaa huojuntaa.</translation>
     </message>
     <message>
         <location/>
@@ -2350,7 +2356,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Esto lista - %n esto(a)</numerusform><numerusform>Estolista - %n esto(a)</numerusform></translation>
+        <translation><numerusform>Estolista - %n esto(a)</numerusform><numerusform>Estolista - %n esto(a)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -3097,7 +3103,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation>Pakettikato</translation>
+        <translation>Pakettihävikki</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4186,7 +4192,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+155"/>
         <source>Choose skin file</source>
-        <translation type="unfinished"/>
+        <translation>Valitse ulkoasutiedosto</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
@@ -4287,7 +4293,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Basic widget style</source>
-        <translation type="unfinished"/>
+        <translation>Komponenttien perustyyli</translation>
     </message>
     <message>
         <location/>
@@ -4297,12 +4303,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Skin</source>
-        <translation type="unfinished"/>
+        <translation>Ulkoasu</translation>
     </message>
     <message>
         <location/>
         <source>Skin file to use</source>
-        <translation type="unfinished"/>
+        <translation>Käytettävä ulkoasutiedosto</translation>
     </message>
     <message>
         <location/>
@@ -4824,7 +4830,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+105"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Versio&lt;/h2&gt;&lt;p&gt;Protokolla %1.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -5001,7 +5007,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen nykyinen versio ei tue tätä palvelinta, koska se käyttää vanhempaa salausmenetelää.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -6332,12 +6338,12 @@ the channel&apos;s context menu.</source>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation>Käytä TCP yhteensopivaa tilaa</translation>
+        <translation>Käytä TCP yhteensopivuus tilaa</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Siirry TCP yhteensopivuus tilaan&lt;/b&gt;.&lt;br /&gt;Siirtää Mumblen käyttämään TCP protokollaa tiedon välittämiseen palvelimen kanssa. Lisää pakettitietoihin vaadittavaa bittinopeutta ja pakettihävikki aiheuttaa huomattavia katkoja puheessa. Tilaa tulisi käyttää vain jos et voi käyttää oletusarvoja (jotka ovat UDP äänelle ja TCP hallinnalle).</translation>
     </message>
     <message>
         <location/>
@@ -6572,25 +6578,25 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation type="unfinished"/>
+        <translation>Hiljaa</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>Puhuminen</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskaus</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation>Huuda</translation>
+        <translation>Huuto</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6624,12 +6630,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"/>
+        <translation>Kaikki nyky kanavalla</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"/>
+        <translation>Kaikki liitetyillä kanavilla</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6776,7 +6782,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>Overlayn asennuksen poisto</translation>
     </message>
     <message>
         <location/>
@@ -6932,7 +6938,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Talking</source>
-        <translation>Puhua</translation>
+        <translation>Puhuminen</translation>
     </message>
     <message>
         <location/>
@@ -7725,7 +7731,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
         <source>Registered users: %n account(s)</source>
-        <translation><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform><numerusform> </numerusform></translation>
+        <translation><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7985,27 +7991,27 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on kanava palvelimella. Kuvake ilmaisee kanavan tilaa:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Your current channel.</source>
-        <translation>Tämänhetkinen kanava.</translation>
+        <translation>Tämänhetkinen kanavasi.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"/>
+        <translation>Kanava joka on liitetty kanavaasi. Liitetyiden kanavien välillä pystyy keskustelemaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen kanava johon et ole liitetty.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation>Näyttää tietoa käyttäjästä palvelimella. Merkit:</translation>
+        <translation>Näyttää käyttäjän merkit palvelimella, mikäli niitä on:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8065,7 +8071,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää kanavan merkit, mikäli niitä on:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8281,7 +8287,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation>.au - Pakattu</translation>
+        <translation>.au - Pakkaamaton</translation>
     </message>
     <message>
         <location line="+2"/>
