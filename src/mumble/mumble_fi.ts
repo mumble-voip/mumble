@@ -1921,7 +1921,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Avaa ääniasetukset ja mene nauhoitusasetuksiin. Varmista että mikrofoni on valittuna sisääntulona ja että nauhoitusvoimakkuus on maksimissa. Jos mikrofonin voimakkuuden tehostaminen on mahdollista, varmista että se on valittuna.
+&lt;/p&gt;
+&lt;p&gt;
+Puhu yhtä äänekkäästi kuin olisit ärsyyntynyt tai innoissasi jostain. Vähennä volyymia ääniasetuksista kunnes palkki pysyy puhuessasi niin korkealla kuin mahdollista sinisellä ja vihreällä mutta &lt;b&gt;ei&lt;/b&gt; punaisella alueella.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2096,7 +2102,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"/>
+        <translation>Sallii muiden ohjelmien vaimennuksen kun muut puhuvat sinulle</translation>
     </message>
     <message>
         <location/>
@@ -2126,7 +2132,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Lisää kontrastia näkörajoitteisille ihmisille</translation>
     </message>
     <message>
         <location/>
@@ -2173,7 +2179,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Seuraavaksi sinun täytyy säätä liukusäädintä. Sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varma puhe). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (ehkä puhetta) ja silloin kun et putu, kaiken tulisi olla ruudukossa (varmasti ei puhetta).</translation>
     </message>
     <message>
         <location/>
@@ -2261,7 +2267,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on etsintäkenttä. Käytä tätä löytääksesi tietylle käyttäjälle asetetut estot. </translation>
     </message>
     <message>
         <location/>
@@ -2346,7 +2352,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Tyhjentää kaikki kentät. Käytä tätä jos haluat lisätä uuden eston.</translation>
     </message>
     <message>
         <location/>
@@ -2470,12 +2476,12 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikaatin varmennus</translation>
     </message>
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"/>
+        <translation>Tunnistautuminen palvelimille käyttämättä salasanoja.</translation>
     </message>
     <message>
         <location/>
@@ -2546,7 +2552,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumbleen voi tuoda sertifikaatteja PKCS #12 -muodossa. Mumble vie tämänmuotoisia sertifikaatteja, kuten myös Firefox, Internet Explorer, Opera jne..&lt;/p&gt;&lt;p&gt;Jos tiedosto on salasanasuojattu, tarvitset salasanan tuodessasi sertifikaatin.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2571,7 +2577,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation type="unfinished"/>
+        <translation>Avaa tiedostonvalintaikkunan, jossa voit valita mistä tuot sertifikaatin.</translation>
     </message>
     <message>
         <location/>
@@ -2591,7 +2597,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Salasana PKCS#12-sertifikaattitiedostolle.</translation>
     </message>
     <message>
         <location/>
@@ -2689,7 +2695,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble generoi vahvan sertifikaatin serverille tunnistautumiseen.&lt;/p&gt;&lt;p&gt;Halutessasi voit tuottaa lisätietoa sertifikaattiin varastoitavaksi, mikä esitetään serverille yhdistämisvaiheessa. Jos sisällytät kelvollisen sähköpostiosoitteen, voit päivittää CA-aiheisen sähköpostiserfitikaattiin, mikä tuottaa vahvan tunnistautumisen.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2709,7 +2715,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on sähköpostiosoitteesi. On erittäin suositeltavaa käyttää kelvollista sähköpostiosoitetta, tämä sallii sinun päivittää vahvaan sertifikaattiin ilman tunnistautumisongelmia.</translation>
     </message>
     <message>
         <location/>
@@ -2719,7 +2725,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"/>
+        <translation>Tämä on nimesi, joka tulee sertifikaatiin. Tämä kenttä on täysin vapaaehtoinen.</translation>
     </message>
     <message>
         <location/>
@@ -2762,7 +2768,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Ei mitään</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2772,7 +2778,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Enter</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2802,12 +2808,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-87"/>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää ei etuoikeuksia. </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää pääsyä kanavalle, sisältäen mahdollisuuden muuttaa ryhmän ja ACL tietoja. Tämä etuoikeus sisältää kaikki muut etuoikeudet.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2822,7 +2828,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa puhua kanavalla. Käyttäjät joilla ei ole tätä etuoikeutta, vaimennetaan palvelimen puolesta (näkyy mykistettynä), ja eivät voi puhua ennenkuin heidän mykistyksensä purkaa joku jolla on tähän oikeudet.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2832,22 +2838,22 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa mykistää ja vaimentaa muita käyttäjiä. Kun käyttäjä mykistetään, mykistys pysyy niin kauan kunnes etuoikeutettu käyttäjä poistaa mykistyksen, tai käyttäjä yhdistää uudelleen serverille.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa siirtää käyttäjä toiselle kanavalle tai poistaa hänet palvelimelta. Siirtääkseen käyttäjää, joko siirtävällä käyttäjällä tulee olla Siirto -oikeudet kohdekanavassa, tai siirrettävän käyttäjän tulee olla sallittua liittyä kanavalle. Tämän oikeuden käyttäjät voivat siirtää käyttäjiä kanaville, joille käyttäjä ei normaalioloissa voisi liittyä. </translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa tehdä alakanavia. Alakanavan luova käyttäjä lisätään alakanavan ylläpitoryhmään.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa tehdä väliaikaisen aakanavan. Alakanavan luova käyttäjä lisätään alakanavan ylläpitoryhmään. Väliaikaisia kanavia ei tallenneta, ja ne katoavat kun viimeinen käyttäjä poistuu.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2857,27 +2863,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa kirjoittaa viesti toiselle kanavan käyttäjälle.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa poistaa pakolla käyttäjä palvelimelta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa poistaa pysyvästi käyttäjä palvelimelta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa rekisteröidä palvelimelle käyttäjiä ja poistaa rekisteröinti käyttäjiltä. </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa rekisteröidä itsensä palvelimelle.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2969,7 +2975,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen torjunta (viestit)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3067,7 +3073,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation type="unfinished"/>
+        <translation>Lisää isäntä %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3237,12 +3243,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished"/>
+        <translation>Näytä &amp;Tavoitettavissa</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished"/>
+        <translation>Näytä &amp;Asutettu</translation>
     </message>
     <message>
         <location/>
@@ -3595,7 +3601,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"/>
+        <translation>Avaa saatavuusasetukset</translation>
     </message>
     <message>
         <location/>
@@ -3605,7 +3611,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Salli yleiset näppäinoikotiet</translation>
     </message>
 </context>
 <context>
@@ -3624,12 +3630,12 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä yhdistelmä on yleinen näppäinyhdistelmä. &lt;/b&gt;&lt;br /&gt;Klikkaa kenttää ja sitten paina haluttu näppäinyhdistelmä. Tuplaklikkaa tyhjentääksesi. </translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"/>
+        <translation>Vaimentaa painallukset muista ohjelmista</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3642,7 +3648,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskauksen kohde</translation>
     </message>
     <message>
         <location/>
@@ -3657,12 +3663,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation type="unfinished"/>
+        <translation>Rajoita ryhmään</translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"/>
+        <translation>Jos määritetty, vain tämän ryhmän jäsenet vastaanottavat kuiskauksen.</translation>
     </message>
     <message>
         <location/>
@@ -4348,7 +4354,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Jos asetettu, pienennettäessä Mumblen pääikkuna piilotetaan ja on saatavilla ainoastaan ilmaisinalueelta. Muuten se pienennetään, kuten normaali ikkuna.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -5269,7 +5275,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistä tai poista mykistys käyttäjältä palvelimella. Mykistyksen poistaminen hiljennetyltä käyttäjältä poistaa myös hiljennyksen.</translation>
     </message>
     <message>
         <location/>
@@ -6685,7 +6691,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"/>
+        <translation>Sekuntien määrä jonka käyttäjä pysyy aktiivisena puhumisen jälkeen:</translation>
     </message>
 </context>
 <context>
