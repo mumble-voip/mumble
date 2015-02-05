@@ -903,7 +903,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden maksimiarvon, joka lähetetään tietokoneestasi. Ääni bittinopeus on maksimi bittinopeus(käytämme VBR) vain ääni tiedoille yksinään.  Sijanti on bittinopeus jota käytetään sijainti tiedoille. Pakettitiedot on paketin kehykselle ja IP-osoitetiedoille tarvittava bittinopeus (IP ja UDP ovat 75% tästä lukuarvosta).</translation>
+        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden maksimiarvon, joka lähetetään tietokoneestasi. Äänen bittinopeus on maksimi bittinopeus (käytämme VBR) vain äänitiedoille yksinään.  Sijanti on bittinopeus jota käytetään sijaintitiedoille. Pakettitiedot ovat paketin kehykselle ja IP-osoitetiedoille tarvittava bittinopeus (IP ja UDP ovat 75% tästä lukuarvosta).</translation>
     </message>
     <message>
         <location/>
@@ -1481,7 +1481,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Tarkistettaessa Mumble alentaa muiden käyttäjien äänenvoimakkuutta kun puhut, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
+        <translation>Valittuna Mumble alentaa muiden käyttäjien äänenvoimakkuutta puhuessasi, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
     </message>
     <message>
         <location/>
@@ -1709,12 +1709,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation>Sisääntulevan signaalin ja melun arvion kirjo.</translation>
+        <translation>Sisääntulevan signaalin ja melun arvion jakauma.</translation>
     </message>
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Näyttää voimakkuuden kirjon nykyisen sisääntulevan signaalista (punainen) ja nykyisen meluarvion (sininen).&lt;br /&gt;Kaikki voimakkuudet ovat kerrottu 30 näyttääkseen mielenkiintoiset osat (kuinka paljon enemmän ääntä kuin melua on jokaisessa ääniaallossa).&lt;br /&gt;Tämä kiinnostanee sinua vain jos yrität hienosäätää mikrofonin meluolosuhteita. Hyvissä olosuhteissa ilmenee vain pientä sinistä väreilyä alhaalla. Jos sinistä on enemmän kuin graafin puoliväliin, ympäristösi on todella meluisa.</translation>
+        <translation>Näyttää voimakkuuden jakauman nykyisen sisääntulevan signaalista (punainen) ja nykyisen meluarvion (sininen).&lt;br /&gt;Kaikki voimakkuudet ovat kerrottu 30 näyttääkseen mielenkiintoiset osat (kuinka paljon enemmän ääntä kuin melua on jokaisessa ääniaallossa).&lt;br /&gt;Tämä kiinnostanee sinua vain jos yrität hienosäätää mikrofonin meluolosuhteita. Hyvissä olosuhteissa ilmenee vain pientä sinistä väreilyä alhaalla. Jos sinistä on enemmän kuin graafin puoliväliin, ympäristösi on todella meluisa.</translation>
     </message>
     <message>
         <location/>
@@ -1895,7 +1895,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Jotta viive voidaan pitää mahdollisimman pienenä, on tärkeää puskea äänikortille mahdollisimman vähän ääntä. Mutta useiden äänikorttien ilmoitetaan vaativan paljon pienenpää puskemista, kuin ne kykenevät työstämään, jolloin ainoa tapa löytää oikea arvo on koittaminen.
+Jotta viive voidaan pitää mahdollisimman pienenä, on tärkeää puskea äänikortille mahdollisimman vähän ääntä. Mutta useiden äänikorttien ilmoitetaan vaativan paljon pienenpää puskemista, kuin ne kykenevät työstämään, jolloin oikean arvon löytää vain koittamalla.
 &lt;/p&gt;
 &lt;p&gt;
 Sinun tulisi kuulla ääninäyte. Liikuta alempana olevaa säädintä alimpaan arvoon joka &lt;b&gt;ei&lt;/b&gt; keskeytä tai aiheuta säröilyä äänessä. Ota huomioon että paikallinen kaiku on poistettu tässä testissä.
@@ -2179,7 +2179,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Seuraavaksi sinun täytyy säätä liukusäädintä. Sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varma puhe). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (ehkä puhetta) ja silloin kun et putu, kaiken tulisi olla ruudukossa (varmasti ei puhetta).</translation>
+        <translation>Seuraavaksi sinun täytyy siirtää liukusäädintä. Sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varma puhe). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (ehkä puhetta) ja ollessasi vaiti, kaiken tulisi olla ruudukossa (varmasti ei puhetta).</translation>
     </message>
     <message>
         <location/>
@@ -3301,7 +3301,8 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Portti&lt;/b&gt;&lt;br/&gt;
+Portti jota palvelin kuuntelee. Jos palvelin tunnistetaan Bonjour palvelun tunnisteella, tämä kenttä jätetään huomiotta.</translation>
     </message>
     <message>
         <location/>
@@ -3566,12 +3567,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation>Lisää uusi oikotie</translation>
+        <translation>Lisää uusi pikanäppäin</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation>Tämä lisää uuden yleisen oikotien</translation>
+        <translation>Tämä lisää uuden yleisen pikanäppäin</translation>
     </message>
     <message>
         <location/>
@@ -3581,12 +3582,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation>Poista valittu oikotie</translation>
+        <translation>Poista valittu pikanäppäin</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation>Tämä poistaa pysyvästi valitun oikotien.</translation>
+        <translation>Tämä pysyvästi poistaa valitun pikanäppäin.</translation>
     </message>
     <message>
         <location/>
@@ -3611,7 +3612,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation>Salli yleiset näppäinoikotiet</translation>
+        <translation>Salli yleiset pikanäppäimet</translation>
     </message>
 </context>
 <context>
@@ -3630,7 +3631,7 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Tämä yhdistelmä on yleinen näppäinyhdistelmä. &lt;/b&gt;&lt;br /&gt;Klikkaa kenttää ja sitten paina haluttu näppäinyhdistelmä. Tuplaklikkaa tyhjentääksesi. </translation>
+        <translation>&lt;b&gt;Tämä on yleinen pikanäppäinyhdistelmä. &lt;/b&gt;&lt;br /&gt;Valitse kenttä ja anna haluamasi näppäinyhdistelmä. Tuplaklikkaa tyhjentääksesi. </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4871,7 +4872,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Lost</source>
-        <translation>Hukkuneet</translation>
+        <translation>Hävikki</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5013,7 +5014,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Mumblen nykyinen versio ei tue tätä palvelinta, koska se käyttää vanhempaa salausmenetelää.</translation>
+        <translation>Mumblen nykyinen versio ei tue tätä palvelinta, koska palvelin käyttää vanhempaa salausmenetelmää.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5058,7 +5059,9 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation type="unfinished"/>
+        <translation>Väärä sertifikaatti tai salasana rekisteröityneelle käyttäjälle. Jos olet
+varma, että käyttäjä on suojattu salasanalla, ole hyvä ja kokeile uudestaan.
+Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5442,7 +5445,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation>&amp;Audiovelho</translation>
+        <translation>&amp;Audioapuri</translation>
     </message>
     <message>
         <location/>
@@ -5823,52 +5826,52 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Luovuit Etuoikeutetun Puhujan statuksesta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>Otit käyttöön Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation>%1 antoi sinulle etuoikeutetun puhujan aseman.</translation>
+        <translation>%1 antoi sinulle Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Poistit käyttäjältä %1 Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation>Annoit etuoikeutetun puhujan aseman käyttäjälle %1.</translation>
+        <translation>Annoit Etuoikeutetun Puhujan statuksen käyttäjälle %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 luopui Etuoikeutetun Puhujan statuksestaan.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 otti käyttöön Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 poisti käyttäjältä %2 Etuoikeutetun Puhujan statuksen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation>%1 antoi etuoikeutetun puhujan aseman käyttäjälle %2.</translation>
+        <translation>%1 antoi Etuoikeutetun Puhujan statuksen käyttäjälle %2.</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -7667,7 +7670,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"/>
+        <translation>Lisää token</translation>
     </message>
     <message>
         <location/>
@@ -7677,7 +7680,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation type="unfinished"/>
+        <translation>Poista token</translation>
     </message>
     <message>
         <location/>
@@ -7732,7 +7735,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>Toimettomana</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-64"/>
@@ -7775,42 +7778,42 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"/>
+        <translation>CELT Versiot</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"/>
+        <translation>Lisätietoja...</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Ping Tilastot</translation>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation type="unfinished"/>
+        <translation>Vastaanotetut Pingit</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation>Keskimääräinen viive</translation>
+        <translation>Keskimääräinen ping</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"/>
+        <translation>TCP (Hallinta)</translation>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"/>
+        <translation>UDP (Puhe)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"/>
+        <translation>UDP Verkkoyhteys tilastot</translation>
     </message>
     <message>
         <location/>
@@ -7825,22 +7828,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>Katkennut</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleen synkronoi</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>Ohjelmalta</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>Ohjelmalle</translation>
     </message>
     <message>
         <location/>
@@ -7898,17 +7901,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="-123"/>
         <source>Not Reported</source>
-        <translation type="unfinished"/>
+        <translation>Reportoimaton</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation>%1 online (%2 toimeton)</translation>
+        <translation>%1 paikalla (%2 toimeton)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"/>
+        <translation>%1 paikalla</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7930,7 +7933,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"/>
+        <translation>Pingin poikkeama</translation>
     </message>
 </context>
 <context>
@@ -8230,7 +8233,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"/>
+        <translation>Julkinen Avain: %1 bittiä %2</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -8392,7 +8395,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"/>
+        <translation>Syöttää isäntänimen</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -8413,7 +8416,8 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin johon olet juuri nyt yhdistetty on versio 1.2.2 tai vanhempi. Palvelinversiota 1.2.3 vanhemilla palvelimilla ei voida äänittää yksityisyyssyistä.
+Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
     </message>
     <message>
         <location line="+10"/>
