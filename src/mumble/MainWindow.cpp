@@ -2558,7 +2558,7 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 			if (! Database::getDigest(host, port).isNull()) {
 				basereason = tr("<b>WARNING:</b> The server presented a certificate that was different from the stored one.");
 			} else {
-				basereason = tr("Sever presented a certificate which failed verification.");
+				basereason = tr("Server presented a certificate which failed verification.");
 			}
 			QStringList qsl;
 			foreach(QSslError e, g.sh->qlErrors)
