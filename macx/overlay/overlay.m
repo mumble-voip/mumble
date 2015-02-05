@@ -423,17 +423,9 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			    right, top,
 			    right, bottom};
 	GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
-
-	glBegin(GL_QUADS);
-	glTexCoord2f(tex[0], tex[1]);
-	glVertex2f(vertex[0], vertex[1]);
-	glTexCoord2f(tex[2], tex[3]);
-	glVertex2f(vertex[2], vertex[3]);
-	glTexCoord2f(tex[4], tex[5]);
-	glVertex2f(vertex[4], vertex[5]);
-	glTexCoord2f(tex[6], tex[7]);
-	glVertex2f(vertex[6], vertex[7]);
-	glEnd();
+	glVertexPointer(2, GL_FLOAT, 0, vertex);
+	glTexCoordPointer(2, GL_FLOAT, 0, tex);
+	glDrawArrays(GL_QUADS, 0, 4);
 
 	glPopMatrix();
 }
