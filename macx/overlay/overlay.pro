@@ -19,16 +19,21 @@ TARGET = mumbleoverlay
 QMAKE_LFLAGS_PLUGIN += -undefined dynamic_lookup -dynamic
 QMAKE_LFLAGS = -framework CoreFoundation
 
-SOURCES = mach_override.c
+INCLUDEPATH *= ../../3rdparty/mach-override-src
+
+LIBS *= -lmach-override
+
 OBJECTIVE_SOURCES = overlay.m
-HEADERS = mach_override.h avail.h
+HEADERS = avail.h
 DIST = overlay.plist avail.pl
 
 CONFIG(debug, debug|release) {
+  QMAKE_LIBDIR *= ../../debug
   DESTDIR       = ../../debug
 }
 
 CONFIG(release, debug|release) {
+  QMAKE_LIBDIR *= ../../release
   DESTDIR       = ../../release
 }
 
