@@ -21,4 +21,4 @@
 	url = https://github.com/mumble-voip/minhook.git
 [submodule "3rdparty/mach-override-src"]
 	path = 3rdparty/mach-override-src
-	url = git@github.com:rentzsch/mach_override.git
+	url = https://github.com/mumble-voip/mach_override.git
