@@ -264,7 +264,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat. Suuremmalla &lt;
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Lisä</translation>
+        <translation>&amp;Lisää</translation>
     </message>
     <message>
         <location/>
@@ -407,14 +407,14 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Nimi&lt;/b&gt;&lt;br /&gt;Syötä kanavan nimi tähän kenttään. Nimen täytyy sopia yhdistämäsi serverin ohjeisiin.</translation>
+        <translation>&lt;b&gt;Nimi&lt;/b&gt;&lt;br /&gt;Syötä kanavan nimi tähän kenttään. Nimen täytyy sopia yhdistämäsi palvelimen ohjeisiin.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Tilapäinen&lt;/b&gt;&lt;br /&gt;
-Valitsemalla luotu kanava määritetään tilapäiseksi. Kun viimeinen pelaaja poistuu kanavalta, serveri poistaa kanavan automaattisesti.</translation>
+Valitsemalla luotu kanava määritetään tilapäiseksi. Kun viimeinen pelaaja poistuu kanavalta, palvelin poistaa kanavan automaattisesti.</translation>
     </message>
     <message>
         <location/>
@@ -500,7 +500,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Valitun ALSA:n avaaminen epäonnistu: %1</translation>
+        <translation>Valitun ALSA:n avaaminen epäonnistui: %1</translation>
     </message>
 </context>
 <context>
@@ -513,7 +513,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Valitun ALSA ulostulon avaaminen epäonnistu: %1</translation>
+        <translation>Valitun ALSA ulostulon avaaminen epäonnistui: %1</translation>
     </message>
 </context>
 <context>
@@ -533,7 +533,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>ASIO määritys epäonnistu: %1</translation>
+        <translation>ASIO määritys epäonnistui: %1</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -1008,7 +1008,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Avaa laitteen rajoitettuun tilaan. &lt;/b&gt;&lt;br /&gt;Muu sovellukset eivät voi käyttää laitetta. </translation>
+        <translation>&lt;b&gt;Avaa laitteen rajoitettuun tilaan. &lt;/b&gt;&lt;br /&gt;Muut sovellukset eivät voi käyttää laitetta. </translation>
     </message>
     <message>
         <location/>
@@ -1103,12 +1103,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>Toimeton tapahtuma</translation>
+        <translation>Toimettomana</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"/>
+        <translation>minuutin jälkeen tee</translation>
     </message>
     <message>
         <location/>
@@ -1315,7 +1315,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Bloom</source>
-        <translation type="unfinished"/>
+        <translation>Korostus</translation>
     </message>
     <message>
         <location/>
@@ -1644,7 +1644,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Näyttää mikrofonin signaali-melu -suhteen (SNR) viimeisimmässä kehyksessä (20ms). Näyttää kuinka paljon puhtaampi ääni on verrattuna meluun.&lt;br /&gt;Arvon ollessa alle 1.0, signaalissa on enemmän melua kuin ääntä, jolloin laatu on heikkoa.&lt;br /&gt;Arvolle ei ole ylärajaa, mutta älä oleta liikoja yli 40-50 -arvoilla.</translation>
+        <translation>Näyttää mikrofonin signaali-melu -suhteen (SNR) viimeisen 20ms ajalta. Näyttää kuinka paljon selkeämpi ääni on verrattuna meluun.&lt;br /&gt;Arvon ollessa alle 1.0, signaalissa on enemmän melua kuin ääntä, jolloin laatu on heikkoa.&lt;br /&gt;Arvolle ei ole ylärajaa, mutta älä oleta liikoja yli 40-50 -arvoilla.</translation>
     </message>
     <message>
         <location/>
@@ -2184,17 +2184,17 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>Asetuksessa Mumble käyttää &lt;b&gt;pientä siirtonopeutta&lt;/b&gt;, mutta väistämättä aiheuttaa korkean viiveen ja huonon laadun. Käytä tätä vaihtoehtoa vain jos yhteytesi ei pysty käyttämään muita vaihtoehtoja. (16kbit/s, 60ms per paketti)</translation>
+        <translation>Asetuksessa Mumble käyttää &lt;b&gt;pientä kaistanleveyttä&lt;/b&gt;, mutta väistämättä aiheuttaa korkean viiveen ja huonon laadun. Käytä tätä vaihtoehtoa vain jos yhteytesi ei pysty käyttämään muita vaihtoehtoja. (16kbit/s, 60ms per paketti)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation>&lt;b&gt;Suositeltu&lt;/b&gt; oletus asetus. Tarjoaa hyvän tasapainon laadun, viiveen ja siirtonopeuden välillä.(40kbit/s, 20ms per paketti)</translation>
+        <translation>&lt;b&gt;Suositeltu&lt;/b&gt; oletus asetus. Tarjoaa hyvän tasapainon laadun, viiveen ja kaistanleveyden välillä.(40kbit/s, 20ms per paketti)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Asetus on suositeltu vain tilanteissa joissa siirtonopeus ei ole ongelma, kuten LAN. Tarjoaa parhaan viiveajan johon Mumble kykenee, sekä &lt;b&gt;korkean laadun&lt;/b&gt;.(72kbit/s, 10ms per paketti)</translation>
+        <translation>Asetus on suositeltu vain tilanteissa joissa kaistanleveys ei ole ongelma, kuten LAN. Tarjoaa parhaan viiveajan johon Mumble kykenee, sekä &lt;b&gt;korkean laadun&lt;/b&gt;.(72kbit/s, 10ms per paketti)</translation>
     </message>
 </context>
 <context>
@@ -2760,7 +2760,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mikäli menetät sertifikaattisi, joka tapahtuu laitteistovian tai kun uudelleen asennat järjestelmäsi, et pysty enään autentikoimaan mihinkään palvelimeen johon olet rekisteröitynyt. Tämän takia on sinun &lt;b&gt;täytyy&lt;/b&gt; tehdä varmuuskopio sertifikaatistasi. Suosittelememme pitämään varmuuskopiota erillisellä laitteella, kuten USB muistitikulla.&lt;/p&gt;
+&lt;p&gt;Ota huomioon että varmuuskopio tiedosto ei ole salattu ja mikäli joku pääsee siihen käsiksi, he pystyvät esiintymään sinuna, joten pidä varmuuskopiosta hyvää huolta.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3285,7 +3286,8 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Osoite&lt;/b&gt;&lt;br/&gt;
+Palvelimen internet osoite. Tämä voi olla joko tavallinen isäntänimi, IPv4/Ipv6 osoite tai Bonjour palvelun tunniste. Bonjour palvelun tunnisteessa tulee käyttää etuliitettä &quot;@&quot; jotta Mumble tunnistaa sen.</translation>
     </message>
     <message>
         <location/>
@@ -3345,7 +3347,8 @@ Käyttäjänimi jota tulet käyttämään palvelimella. Palvelimet voivat asetta
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Salasana&lt;/b&lt;br/&gt;
+Salasana joka lähetetään palvelimelle. Salasanaa tarvitaan yhdistättäessä &lt;i&gt;Superuserina&lt;/i&gt; tai palvelimelle joka käyttää salasana varmennetta. Mikäli jätät kentän tyhjäksi, salasanaa kysytään myös palvelimelle yhdistämisen yhteydessä.</translation>
     </message>
     <message>
         <location/>
@@ -3659,7 +3662,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Channel Target</source>
-        <translation type="unfinished"/>
+        <translation>Kohde kanava</translation>
     </message>
     <message>
         <location/>
@@ -3949,7 +3952,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"/>
+        <translation>[Päivämääräksi vaihdettu %1]
+</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -4184,7 +4188,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation>Älä tee mitää</translation>
+        <translation>Älä tee mitään</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4320,7 +4324,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa Mumblessa käytettävän ulkoasun.&lt;/b&gt;&lt;br /&gt;Ulkoasu on tyylitiedosto, joka lisätään komponenttien perusnäkymän päälle. Jos kuvakkeita on samassa kansiossa tyylitiedoston kanssa, ne korvaavat oletuskuvakkeet.</translation>
     </message>
     <message>
         <location/>
@@ -4340,7 +4344,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Kysyy haluatko sulkea vai pienentää Mumblen sulkemisen yhteydessä.</translation>
     </message>
     <message>
         <location/>
@@ -4395,7 +4399,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää puhetilan tehtäväpalkissa</translation>
     </message>
     <message>
         <location/>
@@ -4450,7 +4454,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"/>
+        <translation>Käytä valintaa viestikentän kohteena</translation>
     </message>
     <message>
         <location/>
@@ -4658,7 +4662,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen tämä versio ei pysty käsittelemään URL osoitteita Mumblen versiosta %1.%2.%3</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -5102,7 +5106,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Sulje Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5308,7 +5312,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistää tai poistää käyttäjän mykistyksen paikallisesti. Käytä käyttäjiin, jotka ovat samassa huoneessa.</translation>
     </message>
     <message>
         <location/>
@@ -5530,7 +5534,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Yhdistää Mumblen kotisivuille tarkistaakseen onko uutta versiota tullut ja, jos on, ilmoittaa osoitteen, josta uuden version voi ladata.</translation>
+        <translation>Yhdistää Mumblen kotisivuille uuden version tarkistamiseen, mikäli uusi versio löytyy ilmoitetaan myös sen lataus URL-osoite.</translation>
     </message>
     <message>
         <location/>
@@ -5816,7 +5820,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation>%1 aloitti nauhoittaa.</translation>
+        <translation>%1 aloitti nauhoituksen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6070,7 +6074,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>Kanavien vetäminen -asetuksesi on asetettu &quot;Älä tee mitään&quot;, joten kanavaa ei liikutettu.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -6624,22 +6628,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Näytä</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>Vain puhujat</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"/>
+        <translation>Puhujat ja äskettäin aktiiviset</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation>Kaikki nyky kanavalla</translation>
+        <translation>Kaikki nykyisellä kanavalla</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6649,12 +6653,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>Aina näytä itsesi</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"/>
+        <translation>Muuta äskettäin aktiivi näkymisen aikaa(%1 sekunttia)...</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6674,7 +6678,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation>Tilan muutos</translation>
+        <translation>Tilanmuutos</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6684,12 +6688,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa zoomaus</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"/>
+        <translation>Äskettäin aktiivi ajan muuttaminen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6729,18 +6733,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"/>
+        <translation>Valitse ohjelma</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>Lataa Overlay asetelma</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen overlay asetelma (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -6942,12 +6946,12 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Käyttäjä puhuu kanavallasi tai linkkasi kanavan</translation>
+        <translation>Käyttäjä puhuu kanavallasi tai liitetyllä kanavalla</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation>Puhuminen</translation>
+        <translation>Puheessa</translation>
     </message>
     <message>
         <location/>
@@ -7017,7 +7021,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Vaimennettu tai kuurotettu</translation>
+        <translation>Vaimennettu tai hiljennetty</translation>
     </message>
     <message>
         <location/>
@@ -7117,7 +7121,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation>Sidottu laatikko</translation>
+        <translation>Ympäröivä laatikko</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7127,7 +7131,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation>Pehmuste</translation>
+        <translation>Täyte</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7168,7 +7172,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
 - the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
 - you&apos;re on an OS earlier than WinXP SP2</source>
         <translation>Virhe overlay kirjaston lataamisessa. Tämä tarkoittaa joko:
-- kirjastoa (mumble_ol.dll) ei löytynyt sijainnista josta käynnistit Mumblen
+- kirjastoa (mumble_ol.dll) ei löytynyt Mumblen käynnistys kansiosta
 - käytät vanhempaa käyttöjärjestelmää kuin WinXP SP2</translation>
     </message>
 </context>
