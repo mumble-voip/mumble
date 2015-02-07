@@ -1560,7 +1560,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2463,7 +2463,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <translation>Usuário do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
@@ -4181,7 +4181,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Padrão do sistemas</translation>
     </message>
@@ -4221,7 +4221,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Interface de usuário</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Escolher arquivo de estilo</translation>
     </message>
@@ -4769,7 +4769,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Conectado.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Versões TSL não coincidem</translation>
     </message>
@@ -5026,12 +5031,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>&lt;b&gt;ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Servidor apresentou um certificado que falhou a verificação.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Os erros específicos com este certificado são: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Você quer aceitar este certificado mesmo assim?&lt;br /&gt;(Ele também será armazenado e você nãos erá perguntado novamente.)&lt;/p&gt;</translation>
     </message>
@@ -6102,7 +6102,7 @@ seu certificado e nome de usuário.</translation>
         <translation>Modo de moção de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6143,7 +6143,7 @@ Opções válidas são:
         <translation>Invocação</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
@@ -6744,7 +6744,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Para mover usuários, arraste o pequeno ponto vermelho.</translation>
     </message>
@@ -6761,12 +6761,12 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <translation>Para mais opções, clique com o botão inverso em um usuário.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Sobreimpressão</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Escolher executivo</translation>
     </message>
@@ -7202,18 +7202,6 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Escolher fonte</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Falha ao carregar a biblioteca da sobreposição. Isto significa que:
-- ou a biblioteca (mumble_ol.dll) não foi encontrada no diretório do qual você xecutou o Mumble
-- ou você está em um SO anterior ao WinXPSP2</translation>
     </message>
 </context>
 <context>
@@ -7743,7 +7731,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
@@ -7784,7 +7772,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <translation>Inativo por</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Usuários registrados: %n conta(s)</numerusform><numerusform>Usuários registrados: %n conta(s)</numerusform></translation>
     </message>

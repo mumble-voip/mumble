@@ -1559,7 +1559,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2462,7 +2462,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -4182,7 +4182,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Systemstandard</translation>
     </message>
@@ -4222,7 +4222,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Användargränssnitt</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Välj hud-fil</translation>
     </message>
@@ -4770,7 +4770,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Ansluten.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>SSL-version matchar inte</translation>
     </message>
@@ -5027,12 +5032,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>&lt;b&gt;VARNING:&lt;/b&gt; Servern använder ett certifikat som inte är samma som det lagrade.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Servern använder ett certifikat som inte kan verifieras.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Detaljerad felinformation om detta certifikat är: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vill du acceptera detta certifikat ändå?&lt;br /&gt;(Det kommer även att lagras, så du kommer inte att bli tillfrågad igen.)&lt;/p&gt;</translation>
     </message>
@@ -6102,7 +6102,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Okänd kanaldragnings läge i Användarmodell::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6142,7 +6142,7 @@ Följande alternativ är giltiga:
         <translation>Anropande</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Välkommen till Mumble.</translation>
     </message>
@@ -6743,7 +6743,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Drag i den lilla röda punkten för att flytta användare.</translation>
     </message>
@@ -6760,12 +6760,12 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <translation>Högerklicka på en användare för att få fler alternativ.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Överlag</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Välj körbar fil</translation>
     </message>
@@ -7201,18 +7201,6 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Välj typsnitt</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Kunde inte ladda överlags-bibliotek. Detta betyder att:
-- biblioteket(mumble_ol.dll) inte kunde hittas i mappen du körde Mumble ifrån
-- du använder ett OS äldre än WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7743,7 +7731,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Ta bort</translation>
     </message>
@@ -7784,7 +7772,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
         <translation>Inaktiv i</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Registrerade användare: %n konto(n)</numerusform><numerusform>Registrerade användare: %n konto(n)</numerusform></translation>
     </message>

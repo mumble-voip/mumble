@@ -1564,7 +1564,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2486,7 +2486,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -4231,7 +4231,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Systemstandard</translation>
     </message>
@@ -4271,7 +4271,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
         <translation>Benutzerinterface</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Wähle Skindatei</translation>
     </message>
@@ -4821,7 +4821,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
         <translation>Verbunden.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>SSL Versions Diskrepanz</translation>
     </message>
@@ -5078,12 +5083,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
         <translation>&lt;b&gt;WARNUNG:&lt;/b&gt; Der Server hat ein Zertifikat gesendet, das sich vom für diesen Server gespeicherten Zertifikat unterscheidet.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Der Server hat Zertifikat gesendet, dessen Überprüfung gescheitert ist.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Die Fehler dieses Zertifikats sind: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Wollen Sie dieses Zertifikat trotzdem akzeptieren?&lt;br /&gt;(Es wird auch abgespeichert, weshalb Sie nicht wieder gefragt werden.)&lt;/p&gt;</translation>
     </message>
@@ -6153,7 +6153,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Unbekannter Kanal-Verschiebe-Modus in UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6193,7 +6193,7 @@ Gültige Optionen sind:
         <translation>Aufruf</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>
@@ -6796,7 +6796,7 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Ziehen Sie den kleinen roten Punkt um die Benutzer zu verschieben.</translation>
     </message>
@@ -6813,12 +6813,12 @@ Mumble hat ein kleines Entwickler-Team. Deshalb muss die verfügbare Zeit auf di
         <translation>Für mehr Optionen klicken Sie mit der rechten Maustaste auf einen Benutzer.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Anwendung auswählen</translation>
     </message>
@@ -7255,18 +7255,6 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Schriftart wählen</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Das Laden der Overlay-Bibliothek ist fehlgeschlagen. Das heißt entweder dass:
-- die Bibliothek (mumble_ol.dll) nicht in dem Verzeichnis gefunden wurde, aus welchem Sie Mumble gestartet haben
-- Sie ein Betriebssystem vor WinXP SP2 benutzen</translation>
     </message>
 </context>
 <context>
@@ -7796,7 +7784,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -7837,7 +7825,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
         <translation>Inaktiv seit</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Registrierte Benutzer: %n Konto</numerusform><numerusform>Registrierte Benutzer: %n Konten</numerusform></translation>
     </message>

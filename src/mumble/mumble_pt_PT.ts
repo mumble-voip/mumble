@@ -1559,7 +1559,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2001,7 +2001,7 @@ O Mumble está sob constante desenvolvimento, e a equipa de desenvolvimento quer
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Agora fale suavemente, como falaria à noite, quando não quer perturbar ninguém. Ajuste a barra deslizante para baixo de modo que a barra se mova até ao verde quando você fala, mas permaneça no azul enquanto está em silêncio.</translation>
+        <translation>Agora fale suavemente, como falaria à noite, quando não quer perturbar ninguém. Ajuste a barra deslizante abaixo de modo a que a barra se mova até ao verde quando você fala, mas permaneça no azul enquanto está em silêncio.</translation>
     </message>
     <message>
         <location/>
@@ -2460,7 +2460,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
         <translation>Utilizador do Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; O seu certificado está prestes a expirar. Precisa renová-lo, ou não será mais capaz de se conectar aos servidores em que está registado.</translation>
     </message>
@@ -4176,7 +4176,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Padrão do sistema</translation>
     </message>
@@ -4216,7 +4216,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Interface de utilizador</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Escolher ficheiro de estilo</translation>
     </message>
@@ -4764,7 +4764,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>Ligado.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation>Servidor apresentou um certificado que falhou a verificação.</translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Versões SSL não coincidem</translation>
     </message>
@@ -5021,12 +5026,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <translation>&lt;b&gt;ATENÇÃO:&lt;/b&gt; O servidor apresentou um certificado diferente do armazenado.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Servidor apresentou um certificado que falhou a verificação.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Os erros específicos com este certificado são: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Quer aceitar este certificado mesmo assim?&lt;br /&gt;(Também será armazenado e será perguntado novamente.)&lt;/p&gt;</translation>
     </message>
@@ -6097,7 +6097,7 @@ o seu certificado e nome de utilizador.</translation>
         <translation>Modo de movimento de canal desconhecido em UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6137,7 +6137,7 @@ Opções válidas são:
         <translation>Invocação</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Bem-vindo ao Mumble.</translation>
     </message>
@@ -6738,7 +6738,7 @@ Evita que o cliente transfira imagens embutidas em mensagens de texto com a marc
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Para mover utilizadores, arraste o pequeno ponto vermelho.</translation>
     </message>
@@ -6755,12 +6755,12 @@ Evita que o cliente transfira imagens embutidas em mensagens de texto com a marc
         <translation>Para mais opções, clique com o botão direto em um utilizador.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Sobreposição</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Escolher executável</translation>
     </message>
@@ -7196,18 +7196,6 @@ Para atualizar estes ficheiros para suas últimas versões, clique no botão aba
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Escolher tipo de letra</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Falha ao carregar a biblioteca da sobreposição. Isto significa que:
-- ou a biblioteca (mumble_ol.dll) não foi encontrada no diretório do qual executou o Mumble
-- ou está em um SO anterior ao WinXPSP2</translation>
     </message>
 </context>
 <context>
@@ -7737,7 +7725,7 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
@@ -7778,7 +7766,7 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
         <translation>Inativo durante</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Utilizadores registados: %n conta</numerusform><numerusform>Utilizadores registados: %n contas</numerusform></translation>
     </message>

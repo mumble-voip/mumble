@@ -1568,7 +1568,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation type="unfinished"/>
@@ -2439,7 +2439,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"/>
     </message>
@@ -4132,7 +4132,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation type="unfinished"/>
     </message>
@@ -4172,7 +4172,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation type="unfinished"/>
     </message>
@@ -4720,7 +4720,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation type="unfinished"/>
     </message>
@@ -4977,12 +4982,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -6050,7 +6050,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6075,7 +6075,7 @@ Valid options are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation type="unfinished"/>
     </message>
@@ -6672,7 +6672,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation type="unfinished"/>
     </message>
@@ -6689,12 +6689,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation type="unfinished"/>
     </message>
@@ -7125,16 +7125,6 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -7663,7 +7653,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation type="unfinished"/>
     </message>
@@ -7704,7 +7694,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"/>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
