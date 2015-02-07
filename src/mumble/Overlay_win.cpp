@@ -50,7 +50,30 @@
 // mumble_app.dll world.
 extern "C" __declspec(dllexport) void mumbleSelfDetection() {};
 
+// Determine if the current Mumble client is able to host
+// x64 programs.
+//
+// If we're on x86, we use use the IsWoW64Process function
+// to determine this.  If we're on x64, we already know we're
+// capable, so we simply return TRUE.
+static bool canRun64BitPrograms() {
+#if defined(_M_X64)
+	return TRUE;
+#elif defined(_M_IX86)
+	typedef BOOL (WINAPI *IsWow64ProcessPtr)(HANDLE, BOOL *);
+	IsWow64ProcessPtr wow64check = (IsWow64ProcessPtr)GetProcAddress(GetModuleHandle(L"kernel32"), "IsWow64Process");
+	if (wow64check) {
+		BOOL isWoW64 = FALSE;
+		wow64check(GetCurrentProcess(), &isWoW64);
+		return isWoW64;
+	}
+	return FALSE;
+#endif
+}
+
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
+	m_allow64bit = canRun64BitPrograms();
+
 	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
 	m_helper_exe_args = QStringList(QString::number(OVERLAY_MAGIC_NUMBER));
 	m_helper_process = new QProcess(this);
@@ -94,10 +117,14 @@ void OverlayPrivateWin::setActive(bool active) {
 
 		if (m_active) {
 			startHelper(m_helper_process);
-			startHelper(m_helper64_process);
+			if (m_allow64bit) {
+				startHelper(m_helper64_process);
+			}
 		} else {
 			m_helper_process->terminate();
-			m_helper64_process->terminate();
+			if (m_allow64bit) {
+				m_helper64_process->terminate();
+			}
 		}
 	}
 }
