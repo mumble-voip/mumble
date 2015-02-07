@@ -89,6 +89,11 @@ void ASIOInit::initialize() {
 
 	bool bFound = false;
 
+	if (!g.s.bASIOEnable) {
+		qWarning("ASIOInput: ASIO forcefully disabled via 'asio/enable' config option.");
+		return;
+	}
+
 	// List of devices known to misbehave or be totally useless
 	QStringList blacklist;
 	blacklist << QLatin1String("{a91eaba1-cf4c-11d3-b96a-00a0c9c7b61a}"); // ASIO DirectX

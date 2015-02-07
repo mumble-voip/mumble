@@ -324,6 +324,8 @@ Settings::Settings() {
 
 	iOutputDelay = 5;
 
+	bASIOEnable = true;
+
 	qsALSAInput=QLatin1String("default");
 	qsALSAOutput=QLatin1String("default");
 
@@ -589,6 +591,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
 
+	SAVELOAD(bASIOEnable, "asio/enable");
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
 	SAVELOAD(qlASIOspeaker, "asio/speaker");
@@ -882,6 +885,7 @@ void Settings::save() {
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
 	SAVELOAD(iFramesPerPacket, "net/framesperpacket");
 
+	SAVELOAD(bASIOEnable, "asio/enable");
 	SAVELOAD(qsASIOclass, "asio/class");
 	SAVELOAD(qlASIOmic, "asio/mic");
 	SAVELOAD(qlASIOspeaker, "asio/speaker");
