@@ -1560,7 +1560,7 @@ Güncel kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2465,7 +2465,7 @@ Sinirli ya da coştuğunuz zamanlardaki gibi yüksek sesle konuşunuz. Kontrol p
         <translation>Mumble Kullanıcısı</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifika Ömrü:&lt;/b&gt; Sertifikanızın süresi dolmak üzere ve yenilemeniz lazım, aksi takdirde oturumunuz bulunan sunuculara bağlanamayacaksınız.</translation>
     </message>
@@ -4186,7 +4186,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Varsayılan</translation>
     </message>
@@ -4226,7 +4226,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Kullanıcı arayüzü</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Tema dosyası seçiniz</translation>
     </message>
@@ -4774,7 +4774,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>Bağlandı.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>SSL Sürüm uyumsuzluğu</translation>
     </message>
@@ -5031,12 +5036,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <translation>&lt;b&gt;UYARI:&lt;/b&gt; Sunucu sakladığımız sertifikadan değişik bir sertifika sundu.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Sunucu denetimi başarısız olan bir sertifika sundu.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Bu sertifikanın hataları şunlardır: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Buna rağmen bu sertifikayı kabul etmek istiyor musunuz?&lt;br /&gt;(Sertifika saklanacaktır ve bu soru tekrar sorulmayacaktır.)&lt;/p&gt;</translation>
     </message>
@@ -6106,7 +6106,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
         <translation>UserModel::dropMimeData&apos;da bilinmeyen Kanal Kaydırma kipi.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6146,7 +6146,7 @@ Geçerli seçenekler şunlardır:
         <translation>Çağrı</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Mumble&apos;a Hoş Geldiniz.</translation>
     </message>
@@ -6748,7 +6748,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Kullanıcıları taşımak için küçük kırmızı noktayı kaydırın.</translation>
     </message>
@@ -6765,12 +6765,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Daha fazla bilgi için kullanıcıya sağ buton ile tıklayın.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Yerpaylaşan</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Çalıştırılabilir dosya seç</translation>
     </message>
@@ -7206,18 +7206,6 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Yazı tipi seç</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Yerpaylaşan kütüphanesi yüklenemedi. Bunun nedeni aşağıdaki iki unsurdan biridir:
-- kütüphane (mumble_ol.dll) Mumble&apos;ı başlattığınız dizinde bulunamadı
-- Kullandığınız İS Windows XP SP2&apos;den daha eski</translation>
     </message>
 </context>
 <context>
@@ -7748,7 +7736,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Kaldır</translation>
     </message>
@@ -7789,7 +7777,7 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
         <translation>Etkin olmadığı süre</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Kayıtlı kullanıcı: %n hesap</numerusform><numerusform>Kayıtlı kullanıcılar: %n hesap</numerusform></translation>
     </message>

@@ -1560,7 +1560,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000ms</translation>
@@ -2428,7 +2428,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>Les permissions du fichier n&apos;ont pas pu être affectée. Le certificat et la clé n&apos;ont pas été enregistrés. Utilisez un autre fichier svp.</translation>
+        <translation>Les permissions du fichier n&apos;ont pas pu être définies. Le certificat et la clé n&apos;ont pas été enregistrés. Utilisez un autre fichier svp.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2466,7 +2466,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -4185,7 +4185,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Par défaut</translation>
     </message>
@@ -4225,7 +4225,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Choisissez le fichier de thème</translation>
     </message>
@@ -4773,7 +4773,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Connecté.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation>Le serveur a présenté un certificat qui n&apos;a pas pu être vérifié.</translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Incompatibilité de version SSL</translation>
     </message>
@@ -5030,12 +5035,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;ATTENTION :&lt;/b&gt;Le serveur présente un certificat différent de celui mémorisé.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Le serveur présente un certificat qui a une vérification invalide.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Les erreurs de ce certificat sont les suivantes : &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Voulez-vous quand même accepter ce certificat ?&lt;br /&gt;(Il sera également stocké et la question ne vous sera pas posée à nouveau.)&lt;p&gt;</translation>
     </message>
@@ -6105,7 +6105,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Mode de déplacement du salon inconnu dans UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6145,7 +6145,7 @@ Les options valides sont :
         <translation>Invocation</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
@@ -6746,7 +6746,7 @@ Empêche le client de télécharger les images intégrées dans les messages de 
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Pour déplacer des utilisateurs, glissez-déplacez le petit point rouge.</translation>
     </message>
@@ -6763,12 +6763,12 @@ Empêche le client de télécharger les images intégrées dans les messages de 
         <translation>Pour plus d&apos;options, faites un clic droit sur un utilisateur.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Choisir le fichier exécutable</translation>
     </message>
@@ -7204,18 +7204,6 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Choisir la police</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Impossible de charger la librairie d&apos;overlay. Cela signifie que :
-- la librairie (mumble_ol.dll) n&apos;a pas été trouvée dans le répertoire depuis lequel vous avez lancé Mumble.
-- vous êtes sur une version de Windows antérieure à XP SP2</translation>
     </message>
 </context>
 <context>
@@ -7746,7 +7734,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Supprimer</translation>
     </message>
@@ -7787,7 +7775,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
         <translation>Inactif depuis</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Utilisateurs enregistrés : %n compte(s)</numerusform><numerusform>Utilisateurs enregistrés : %n compte(s)</numerusform></translation>
     </message>

@@ -1560,7 +1560,7 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2466,7 +2466,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation>Uživatel Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vypršení Certifikátu:&lt;/b&gt; Váš certifikát brzy vyprší. Musíte ho obnovit, nebo se už nebudete moci připojit k serverům, na kterých jste registrování.</translation>
     </message>
@@ -4186,7 +4186,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Výchozí nastavení systému</translation>
     </message>
@@ -4226,7 +4226,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Uživatelské Rozhraní</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Vyberte soubor s motivem</translation>
     </message>
@@ -4774,7 +4774,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Připojen.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Neshoda verze SSL</translation>
     </message>
@@ -5031,12 +5036,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>&lt;b&gt;VAROVÁNÍ:&lt;/b&gt; Server předložil certifikát, který se liší od uloženého.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Server předložil certifikát, jehož ověření bylo neúspěšné.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Specifické chyby v certifikátu jsou: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Chcete přesto tento certifikát přijmout?&lt;br /&gt;(Bude zároveň uložen, takže už na toto nebudete tázáni.)&lt;/p&gt;</translation>
     </message>
@@ -6106,7 +6106,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Neznámý režim Táhnutí Kanálů v UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6146,7 +6146,7 @@ Platné možnosti jsou:
         <translation>Vyvolání</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>
@@ -6747,7 +6747,7 @@ Zakáže klientu stahovat obrázky vnořené do zpráv chatu pomocí tagu img.</
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Pro přesun uživatelů, táhněte malou červenou tečkou.</translation>
     </message>
@@ -6764,12 +6764,12 @@ Zakáže klientu stahovat obrázky vnořené do zpráv chatu pomocí tagu img.</
         <translation>Pro více možností, na ně klikněte pravým tlačítkem.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Překryv</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Zvolte spustitelný soubor</translation>
     </message>
@@ -7205,18 +7205,6 @@ Pro aktualizaci těchto souborů na jejich poslední verzi, klikněte na tlačí
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Vybrat typ písma</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Nelze načíst knihovnu překryvu. To znamená, že buď:
-- knihovna (mumble_ol.dll) nebyla v adresáři, z kterého byl Mumble spuštěn, nalezena
-- jste OS starším než WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7747,7 +7735,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Odstranit</translation>
     </message>
@@ -7788,7 +7776,7 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
         <translation>Neaktivní po</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Registrovaní uživatelé: %n účet</numerusform><numerusform>Registrovaní uživatelé: %n účty</numerusform><numerusform>Registrovaní uživatelé: %n účtů</numerusform></translation>
     </message>

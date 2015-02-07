@@ -1560,7 +1560,7 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2466,7 +2466,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -4186,7 +4186,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Predeterminado del sistema</translation>
     </message>
@@ -4226,7 +4226,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Interfaz de usuario</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Elija el archivo de carátula</translation>
     </message>
@@ -4774,7 +4774,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Conectado.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Las versiones de SSL no coinciden</translation>
     </message>
@@ -5031,12 +5036,7 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>&lt;b&gt;ADVERTENCIA:&lt;/b&gt; El servidor presentó un certificado que es diferente del almacenado.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>El servidor presento un certificado que no superó la verificación.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Los errores especificos con este certificado son: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;¿Desea aceptar este certificado de todos modos?&lt;br /&gt;(También se almacenará para que no se le pregunte esto de nuevo.)&lt;/p&gt;</translation>
     </message>
@@ -6106,7 +6106,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Modo de arrastre de canales desconocido en UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6146,7 +6146,7 @@ Las opciones válidas son:
         <translation>Invocación</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>
@@ -6747,7 +6747,7 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Para mover a los usuarios, arrarstre el punto rojo pequeño.</translation>
     </message>
@@ -6764,12 +6764,12 @@ Impide que el cliente descargue imágenes incrustadas en mensajes de charla medi
         <translation>Para más opciones, haga clic con el botón derecho sobre un usuario.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Sobreimpresión</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Elija el fichero ejecutable</translation>
     </message>
@@ -7205,18 +7205,6 @@ Para actualizar estos ficheros a la última versión, haga clic en el botón inf
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Escoja la fuente</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>No se pudo cargar la biblioteca de sobreimpresión. Esto significa que se da alguna de las siguientes circunstancias:
-- la biblioteca (mumble_ol.dll) no fue encontrada en el directorio desde el que ejecutó Mumble
-- está usando un SO anterior a WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7747,7 +7735,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Eliminar</translation>
     </message>
@@ -7788,7 +7776,7 @@ Una credencial de acceso es una cadena de texto que puede ser usada como contras
         <translation>Inactivo durante</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Usuarios registrados: %n cuenta(s)</numerusform><numerusform>Usuarios registrados: %n cuenta(s)</numerusform></translation>
     </message>

@@ -1555,7 +1555,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 мс</translation>
@@ -2431,7 +2431,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Пользователь Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Сертификат просрочен:&lt;/b&gt; Срок действия Вашего сертификата скоро истечет. Вам необходимо обновить его, иначе Вы не сможете подключиться к серверам, на которых зарегистрированы.</translation>
     </message>
@@ -4129,7 +4129,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>По умолчанию</translation>
     </message>
@@ -4169,7 +4169,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Внешний вид</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Выберите файл скина</translation>
     </message>
@@ -4717,7 +4717,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Подключено.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>Версия SSL не совпадает</translation>
     </message>
@@ -4974,12 +4979,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;ПРЕДУПРЕЖДЕНИЕ:&lt;/b&gt; Сервер передает сертификат, который отличается от сохраненного ранее.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Сервер передает сертификат, который не удалось проверить.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Ошибки данного сертификата:&lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Вы хотите принять этот сертификат?&lt;br /&gt;(Он будет сохранен и этот вопрос задаваться больше не будет.)&lt;/p&gt;</translation>
     </message>
@@ -6049,7 +6049,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Неизвестный режим перетаскивания канала в UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6087,7 +6087,7 @@ mumble://[&lt;логин&gt;[:&lt;пароль&gt;]@]&lt;хост&gt;[:&lt;по�
         <translation>Вызов</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Добро пожаловать в Mumble.</translation>
     </message>
@@ -6687,7 +6687,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Чтобы переместить пользователей, перетащите маленький красный кружок.</translation>
     </message>
@@ -6704,12 +6704,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Для других настроек правый клик на пользователе.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Табло</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Выберите выполняемый файл</translation>
     </message>
@@ -7145,18 +7145,6 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Выбрать шрифт</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Ошибка при загрузке библиотеки табло. Это означает, что:
-- либо библиотека (mumble_ol.dll) не была найдена в рабочем каталоге Mumble
-- либо Ваша операционная система старее, чем WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7686,7 +7674,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
@@ -7727,7 +7715,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Неактивен</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Зарегистрировано: %n пользователь</numerusform><numerusform>Зарегистрировано: %n пользователя</numerusform><numerusform>Зарегистрировано: %n пользователей</numerusform></translation>
     </message>

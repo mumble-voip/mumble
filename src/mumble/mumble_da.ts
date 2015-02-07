@@ -1560,7 +1560,7 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2465,7 +2465,7 @@ Tal højlydt som når du er irriteret og ophidset. Formindsk nu lydstyrken i lyd
         <translation>Mumble bruger</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikat Udløb:&lt;/b&gt; Dit certifikat er ved at udløbe. Du skal fornye det, ellers vil du ikke længere være i stand til at forbinde til servere du registreret på.</translation>
     </message>
@@ -4184,7 +4184,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Systemstandard</translation>
     </message>
@@ -4224,7 +4224,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Brugergrænseflade</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Vælg temafil</translation>
     </message>
@@ -4772,7 +4772,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>Forbindelse oprettet.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation>Serveren forelagde et certifikat som mislykkedes verificering.</translation>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>SSL-version uoverenstemmelse</translation>
     </message>
@@ -5029,12 +5034,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <translation>&lt;b&gt;ADVARSEL:&lt;/b&gt; Serveren forelagde et certifikat, der var forskellig fra det, du i forvejen har gemt.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Serveren forelagde et certifikat som mislykkedes verificering.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1.&lt;br /&gt;Den specifikke fejl med dette certifikat er: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Vil du acceptere certifikatet alligevel?&lt;br /&gt;(Det vil blive gemt, så du ikke bliver spurgt igen.)&lt;/p&gt;</translation>
     </message>
@@ -6102,7 +6102,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ukendt tilstand for flytning af kanaler i UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6142,7 +6142,7 @@ Gyldige parametre er:
         <translation>Opmærksomhed</translation>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Velkommen til Mumble.</translation>
     </message>
@@ -6743,7 +6743,7 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>For at flytte brugerne, træk i den lille røde prik.</translation>
     </message>
@@ -6760,12 +6760,12 @@ Forhindrer at programmet downloader billeder, der er indsat i chatbeskeder med i
         <translation>For flere valgmuligheder, højreklik på en bruger.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Overlægning</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation>Vælg eksekverbar</translation>
     </message>
@@ -7201,18 +7201,6 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Vælg skrifttype</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Det mislykkedes at indlæse overlægningsbibliotek. Dette skyldes enten at:
-- biblioteket (mumble_ol.dll) ikke kunne findes i det bibliotek du kørte Mumble fra
-- du er på et operativsystem ældre end WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7742,7 +7730,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Fjern</translation>
     </message>
@@ -7783,7 +7771,7 @@ Et adgangsudtryk er en tekststreng, der kan bruges som en adgangskode for meget 
         <translation>Inaktiv i</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Registrerede brugere: %n konto(er)</numerusform><numerusform>Registrerede brugere: %n konto(er)</numerusform></translation>
     </message>

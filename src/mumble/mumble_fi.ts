@@ -1560,7 +1560,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
 <context>
     <name>AudioStats</name>
     <message>
-        <location filename="AudioStats.cpp" line="+387"/>
+        <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
         <translation>&gt;1000 ms</translation>
@@ -2461,7 +2461,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
         <translation>Mumblen käyttäjä</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+416"/>
+        <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Varmenne vanhenee:&lt;/b&gt; Varmenteesi on vanhentumassa. Uusi varmenteesi tai et voi yhdistää käyttämääsi palvelimeen enää.</translation>
     </message>
@@ -2635,7 +2635,15 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Sinulla on jo sertifikaatti liitettynä Mumbleen, ja olet korvaamassa sen.&lt;/p&gt;
+&lt;p&gt;Jos olet päivittämässä sertifikaattiin, jonka luotettava sertifikaattien hallinnoija on myöntänyt sinulle ja sen sähköpostiosoite täsmää nykyisen sertifikaatin kanssa, on toimenpide turvallinen, ja palvelimet joihin yhdistät automaattisesti tunnistavat vahvan sertifikaatin sähköpostiosoitteellesi.
+&lt;/p&gt;
+&lt;p&gt;Mikäli näin ei ole, palvelimet, joihin olet aikaisemmin tunnistautunut, eivät enään tunnista sinua. Jos et ole vielä rekisteröitynyt yhdellekkään palvelimelle, sinulla ei ole syytä huoleen.
+&lt;/p&gt;
+&lt;p&gt;
+Haluatko varmasti korvata sertifikaattisi?
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2754,7 +2762,11 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble käyttää sertifikaatteja palvelimien todentamiseen. Sertifikaatteilla et tarvitse salasanoja, jolloin sinun ei tarvitse paljastaa salasanaa ulkoisille sivulle. Se myös mahdollistaa erittäin helpon käyttäjien rekisteröitymisen.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman sertifikaatteja, suurin osa palvelimista olettavat sinun omaavan sen.&lt;/p&gt;
+&lt;p&gt;
+On &lt;b&gt;erityisen&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;luot luotettavan sertifikaatin&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2774,7 +2786,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation type="unfinished"/>
+        <translation>Läpikulku</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2819,12 +2831,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Ilmaisee oikeuden kanavan läpikulkemiseen. Jos käyttäjältä estetään tämä oikeus, hän ei pääse tälle kanavalle tai millekkään sen alikanaville, riippumatta alikanavien oikeuksista. </translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation type="unfinished"/>
+        <translation>Ilmaisee oikeuden liittyä kanavalle. Mikäli sinulla on hierarkinen kanava rakenne, luultavasti haluat antaa kaikille läpikulku oikeudet, mutta estää pääsyn hierarkiasi juureen.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2859,7 +2871,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"/>
+        <translation>Ilmaisee oikeuden liittää kanavia toisiinsa. Käyttäjät liitetyillä kanavilla kuulevat toisensa, kunhan puhujalla on &lt;i&gt;puhe&lt;/i&gt; oikeus kuulijoiden kanavilla. Kanavien liittämiseen, molemmilla kanavilla tulee olla liittämis oikeus, mutta vain toisessa sen poistamiseen.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3657,7 +3669,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"/>
+        <translation>Kuiskaa usealle käyttäjälle</translation>
     </message>
     <message>
         <location/>
@@ -4011,7 +4023,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation type="unfinished"/>
+        <translation>Valitse saadaksesi konsoli viesti tapahtumalle %1.&lt;br /&gt;Valittuna Mumble esittää viestin jokaiselle %1 tapahtumalle viesti kentässä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4161,19 +4173,19 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>LookConfig</name>
     <message>
         <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+11"/>
+        <location line="+23"/>
         <source>System default</source>
         <translation>Järjestelmän oletus</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Ei koskaan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation>Vain käyttäjille</translation>
+        <translation>Kavanilla käyttäjiä</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4201,14 +4213,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Käyttöliittymä</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+157"/>
         <source>Choose skin file</source>
         <translation>Valitse ulkoasutiedosto</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa mitkä kanavat automaattisesti avata. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanava hierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; aukaisee kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt; avaa kanavat joilla on käyttäjiä ja aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa niistä.</translation>
     </message>
     <message>
         <location/>
@@ -4749,7 +4761,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Yhdistetty.</translation>
     </message>
     <message>
-        <location line="+135"/>
+        <location line="+104"/>
+        <source>Server presented a certificate which failed verification.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+31"/>
         <source>SSL Version mismatch</source>
         <translation>SSL versio konflikti</translation>
     </message>
@@ -4814,7 +4831,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-21"/>
         <source>This will switch the states of the in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaihtaa pelinaikaisen overlayn tilaa.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -4947,7 +4964,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+9"/>
         <source>Message to tree %1</source>
-        <translation type="unfinished"/>
+        <translation>Viesti puuhun %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5006,12 +5023,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;b&gt;VAROITUS:&lt;/b&gt; Palvelin esitti sertifikaatin, joka on eri kuin tallennettu.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Sever presented a certificate which failed verification.</source>
-        <translation>Palvelimen esittämän varmenteen vahvistus epäonnistui.</translation>
-    </message>
-    <message>
-        <location line="+7"/>
+        <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -5765,7 +5777,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ei omaa sertifikaattia.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5943,7 +5955,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"/>
+        <translation>(Puu)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6082,7 +6094,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="-276"/>
+        <location filename="main.cpp" line="-278"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6107,7 +6119,7 @@ Valid options are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+194"/>
+        <location line="+196"/>
         <source>Welcome to Mumble.</source>
         <translation>Tervetuloa Mumbleen.</translation>
     </message>
@@ -6704,7 +6716,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+86"/>
+        <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>Käyttäjien liikuttamiseen, vedä pienestä punaisesta pisteestä.</translation>
     </message>
@@ -6721,12 +6733,12 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>Saadaksesi lisävalintoja, paina käyttäjää hiiren oikealla napilla.</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+262"/>
         <source>Overlay</source>
         <translation>Overlay</translation>
     </message>
     <message>
-        <location line="+77"/>
+        <location line="+82"/>
         <source>Choose executable</source>
         <translation type="unfinished"/>
     </message>
@@ -7162,18 +7174,6 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
         <location line="+21"/>
         <source>Pick font</source>
         <translation>Valitse fontti</translation>
-    </message>
-</context>
-<context>
-    <name>OverlayPrivateWin</name>
-    <message>
-        <location filename="Overlay_win.cpp" line="+64"/>
-        <source>Failed to load overlay library. This means either that:
-- the library (mumble_ol.dll) wasn't found in the directory you ran Mumble from
-- you&apos;re on an OS earlier than WinXP SP2</source>
-        <translation>Virhe overlay kirjaston lataamisessa. Tämä tarkoittaa joko:
-- kirjastoa (mumble_ol.dll) ei löytynyt Mumblen käynnistys kansiosta
-- käytät vanhempaa käyttöjärjestelmää kuin WinXP SP2</translation>
     </message>
 </context>
 <context>
@@ -7701,7 +7701,7 @@ An access token is a text string, which can be used as a password for very simpl
     </message>
     <message>
         <location/>
-        <location filename="UserEdit.cpp" line="+124"/>
+        <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
         <translation>Poista</translation>
     </message>
@@ -7742,7 +7742,7 @@ An access token is a text string, which can be used as a password for very simpl
         <translation>Toimettomana</translation>
     </message>
     <message numerus="yes">
-        <location filename="UserEdit.cpp" line="-64"/>
+        <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
         <translation><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform><numerusform>Rekisteröityneet käyttäjät: %n käyttäjä(ä)</numerusform></translation>
     </message>
@@ -8349,7 +8349,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Monikanava</translation>
+        <translation>Multichannel</translation>
     </message>
     <message>
         <location/>
@@ -8446,7 +8446,7 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"/>
+        <translation>Downmix</translation>
     </message>
 </context>
 <context>
