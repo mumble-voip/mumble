@@ -129,9 +129,16 @@ void OverlayPrivateWin::onHelperProcessStarted() {
 
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
+	QString path;
+	if (helper == m_helper_process) {
+		path = m_helper_exe_path;
+	} else if (helper == m_helper64_process) {
+		path = m_helper64_exe_path;
+	}
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
-	qWarning("OverlayPrivateWin: overlay helper process exited (%s) with status code %s.",
+	qWarning("OverlayPrivateWin: overlay helper process '%s' exited (%s) with status code %s.",
+	         qPrintable(path),
 	         exitStatusString(exitStatus),
 	         helperErrString ? helperErrString : qPrintable(QString::number(exitCode)));
 
