@@ -63,6 +63,7 @@ CONFIG *= ordered debug_and_release
       error("Missing $MUMBLE_PREFIX environment variable");
     }
     SUBDIRS *= 3rdparty/mach-override-build
+    SUBDIRS *= overlay_gl
     SUBDIRS *= macx
     !exists($$(MUMBLE_PREFIX)/../LCDSDK) {
       CONFIG *= no-g15
