@@ -62,6 +62,7 @@ class OverlayPrivateWin : public OverlayPrivate {
 		QStringList m_helper64_exe_args;
 
 		bool m_active;
+		bool m_allow64bit;
 
 		void startHelper(QProcess *helper);
 };
