@@ -285,9 +285,6 @@ void os_init() {
 	if (wcscpy_s(wcCrashDumpPath, PATH_MAX, dump.toStdWString().c_str()) == 0)
 		SetUnhandledExceptionFilter(MumbleUnhandledExceptionFilter);
 
-	// Increase our priority class to live alongside games.
-	if (!SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS))
-		qWarning("Application: Failed to set priority!");
 #endif
 
 	g.qdBasePath.mkpath(QLatin1String("Snapshots"));
