@@ -425,8 +425,7 @@ void PulseAudioSystem::source_callback(pa_context *, const pa_source_info *i, in
 	pas->qhSpecMap.insert(name, i->sample_spec);
 	pas->qhChanMap.insert(name, i->channel_map);
 
-	if (i->monitor_of_sink == PA_INVALID_INDEX)
-		pas->qhInput.insert(QLatin1String(i->name), QLatin1String(i->description));
+	pas->qhInput.insert(QLatin1String(i->name), QLatin1String(i->description));
 }
 
 void PulseAudioSystem::server_callback(pa_context *, const pa_server_info *i, void *userdata) {
