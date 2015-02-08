@@ -325,6 +325,22 @@ void MainWindow::setupGui()  {
 	        SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
 	        SLOT(qtvUserCurrentChanged(const QModelIndex &, const QModelIndex &)));
 
+	// QtCreator and uic.exe do not allow adding arbitrary widgets
+	// such as a QComboBox to a QToolbar, even though they are supported.
+	qcbTransmitMode = new QComboBox(qtIconToolbar);
+	qcbTransmitMode->setObjectName(QLatin1String("qcbTransmitMode"));
+	qcbTransmitMode->addItem(tr("Continuous"));
+	qcbTransmitMode->addItem(tr("Voice Activity"));
+	qcbTransmitMode->addItem(tr("Push-to-Talk"));
+
+	qaTransmitModeSeparator = qtIconToolbar->insertSeparator(qaConfigDialog);
+	qaTransmitMode = qtIconToolbar->insertWidget(qaTransmitModeSeparator, qcbTransmitMode);
+
+	connect(qcbTransmitMode, SIGNAL(activated(int)),
+	        this, SLOT(qcbTransmitMode_activated(int)));
+
+	updateTransmitModeComboBox();
+
 #ifndef Q_OS_MAC
 	setupView(false);
 #endif
@@ -507,6 +523,20 @@ void MainWindow::updateTrayIcon() {
 		}
 	} else {
 		qstiIcon->setIcon(qiIcon);
+	}
+}
+
+void MainWindow::updateTransmitModeComboBox() {
+	switch (g.s.atTransmit) {
+		case Settings::Continous:
+			qcbTransmitMode->setCurrentIndex(0);
+			return;
+		case Settings::VAD:
+			qcbTransmitMode->setCurrentIndex(1);
+			return;
+		case Settings::PushToTalk:
+			qcbTransmitMode->setCurrentIndex(2);
+			return;
 	}
 }
 
@@ -896,6 +926,16 @@ void MainWindow::setupView(bool toggle_minimize) {
 		move(geom.x(), geom.y());
 	}
 
+	// Display the Transmit Mode Dropdown, if configured to do so, otherwise
+	// hide it.
+	if (g.s.bShowTransmitModeComboBox) {
+		qaTransmitMode->setVisible(true);
+		qaTransmitModeSeparator->setVisible(true);
+	} else {
+		qaTransmitMode->setVisible(false);
+		qaTransmitModeSeparator->setVisible(false);
+	}
+
 	show();
 	activateWindow();
 
@@ -1009,6 +1049,25 @@ void MainWindow::on_qaSelfRegister_triggered() {
 
 	if (result == QMessageBox::Yes)
 		g.sh->registerUser(p->uiSession);
+}
+
+void MainWindow::qcbTransmitMode_activated(int index) {
+	switch(index) {
+		case 0: // Continuous
+			g.s.atTransmit = Settings::Continous;
+			g.l->log(Log::Information, tr("Transmit Mode set to Continous"));
+			return;
+
+		case 1: // Voice Activity
+			g.s.atTransmit = Settings::VAD;
+			g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
+			return;
+
+		case 2: // Push-to-Talk
+			g.s.atTransmit = Settings::PushToTalk;
+			g.l->log(Log::Information, tr("Transmit Mode set to Push-to-Talk"));
+			return;
+	}
 }
 
 void MainWindow::on_qmServer_aboutToShow() {
@@ -2083,6 +2142,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 
 	if (dlg->exec() == QDialog::Accepted) {
 		setupView(false);
+		updateTransmitModeComboBox();
 		updateTrayIcon();
 
 		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
@@ -2405,6 +2465,8 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 
 		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
+
+	updateTransmitModeComboBox();
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
