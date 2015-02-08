@@ -129,6 +129,8 @@ int main(int argc, char **argv) {
 #endif
 
 	bool bAllowMultiple = false;
+	bool bRpcMode = false;
+	QString RpcCommand;
 	QUrl url;
 	if (a.arguments().count() > 1) {
 		QStringList args = a.arguments();
@@ -138,7 +140,10 @@ int main(int argc, char **argv) {
 				|| args.at(i) == QLatin1String("/?")
 #endif
 			) {
-				QString helpmessage = MainWindow::tr( "Usage: mumble [options] [<url>]\n"
+				QString helpmessage;
+				if(!bRpcMode)
+				{
+					helpmessage = MainWindow::tr( "Usage: mumble [options] [<url>]\n"
 					"\n"
 					"<url> specifies a URL to connect to after startup instead of showing\n"
 					"the connection window, and has the following form:\n"
@@ -153,7 +158,42 @@ int main(int argc, char **argv) {
 					"                Allow multiple instances of the client to be started.\n"
 					"  -n, --noidentity\n"
 					"                Suppress loading of identity files (i.e., certificates.)\n"
+					"Remote controlling Mumble:\n"
+					"\n"
+					"Usage: mumble rpc <action> [options]\n"
+					"\n"
+					"It is possible to remote control a running instance of Mumble by using\n"
+					"the 'mumble rpc' command.\n"
+					"\n"
+					"Valid actions are:\n"
+					"  mute\n"
+					"                Mute self\n"
+					"  unmute\n"
+					"                Unmute self\n"
+					"  deaf\n"
+					"                Deafen self\n"
+					"  undeaf\n"
+					"                Undeafen self\n"
 					);
+				}
+				else
+				{
+						helpmessage = MainWindow::tr("Usage: mumble rpc <action> [options]\n"
+						"\n"
+						"It is possible to remote control a running instance of Mumble by using\n"
+						"the 'mumble rpc' command.\n"
+						"\n"
+						"Valid actions are:\n"
+						"  mute\n"
+						"                Mute self\n"
+						"  unmute\n"
+						"                Unmute self\n"
+						"  deaf\n"
+						"                Deafen self\n"
+						"  undeaf\n"
+						"                Undeafen self\n"
+						);
+				}
 #if defined(Q_OS_WIN)
 				QMessageBox::information(NULL, MainWindow::tr("Invocation"), helpmessage);
 #else
@@ -164,14 +204,25 @@ int main(int argc, char **argv) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
 				g.s.bSuppressIdentity = true;
+			} else if (args.at(i) == QLatin1String("rpc")) {
+				bRpcMode = true;
+				if(args.count()-1>i) {
+					RpcCommand = QString(args.at(i+1));
+				}
+				else {
+					printf("Error: No RPC command specified\n");
+					return 1;
+				}
 			} else {
-				QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
-				if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
-					url = u;
-				} else {
-					QFile f(args.at(i));
-					if (f.exists()) {
-						url = QUrl::fromLocalFile(f.fileName());
+				if(!bRpcMode) {
+					QUrl u = QUrl::fromEncoded(args.at(i).toUtf8());
+					if (u.isValid() && (u.scheme() == QLatin1String("mumble"))) {
+						url = u;
+					} else {
+						QFile f(args.at(i));
+						if (f.exists()) {
+							url = QUrl::fromLocalFile(f.fileName());
+						}
 					}
 				}
 			}
@@ -197,6 +248,17 @@ int main(int argc, char **argv) {
 	}
 #endif
 #endif
+
+	if (bRpcMode) {
+		bool sent = false;
+		QMap<QString, QVariant> param;
+		param.insert(RpcCommand,RpcCommand);
+		sent = SocketRPC::send(QLatin1String("Mumble"), QLatin1String("self"),param);
+		if (sent)
+			return 0;
+		else
+			return 1;
+	}
 
 	if (! bAllowMultiple) {
 		if (url.isValid()) {
