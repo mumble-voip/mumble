@@ -20,6 +20,73 @@
       <string>Look and Feel</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="1">
+       <widget class="QPushButton" name="qpbSkinFile">
+        <property name="text">
+         <string>&amp;Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLineEdit" name="qleCSS">
+        <property name="toolTip">
+         <string>Skin file to use</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QCheckBox" name="qcbHighContrast">
+        <property name="toolTip">
+         <string>Apply some high contrast optimizations for visually impaired users</string>
+        </property>
+        <property name="text">
+         <string>Optimize for high contrast</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="qliLanguage">
+        <property name="text">
+         <string>Language</string>
+        </property>
+        <property name="buddy">
+         <cstring>qcbLanguage</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="qliCSS">
+        <property name="text">
+         <string>Skin</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QComboBox" name="qcbLanguage">
+        <property name="toolTip">
+         <string>Language to use (requires restart)</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="qliStyle">
         <property name="text">
@@ -37,72 +104,12 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="qliCSS">
-        <property name="text">
-         <string>Skin</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLineEdit" name="qleCSS">
-        <property name="toolTip">
-         <string>Skin file to use</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="qpbSkinFile">
-        <property name="text">
-         <string>&amp;Browse...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="qliLanguage">
-        <property name="text">
-         <string>Language</string>
-        </property>
-        <property name="buddy">
-         <cstring>qcbLanguage</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="2">
-       <widget class="QComboBox" name="qcbLanguage">
-        <property name="toolTip">
-         <string>Language to use (requires restart)</string>
-        </property>
-        <property name="whatsThis">
-         <string>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QCheckBox" name="qcbHighContrast">
-        <property name="toolTip">
-         <string>Apply some high contrast optimizations for visually impaired users</string>
-        </property>
-        <property name="text">
-         <string>Optimize for high contrast</string>
-        </property>
-       </widget>
-      </item>
       <item row="7" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+       <widget class="QCheckBox" name="qcbShowTransmitModeComboBox">
+        <property name="text">
+         <string>Show transmit mode dropdown in toolbar</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
     </widget>

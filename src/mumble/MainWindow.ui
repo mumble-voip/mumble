@@ -182,6 +182,7 @@
    <addaction name="separator"/>
    <addaction name="qaSelfComment"/>
    <addaction name="separator"/>
+   <!-- Transmit Mode ComboBox and seperator will be added here. -->
    <addaction name="qaConfigDialog"/>
    <addaction name="separator"/>
    <addaction name="qaFilterToggle"/>

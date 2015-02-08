@@ -131,6 +131,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void setOnTop(bool top);
 		void setShowDockTitleBars(bool doShow);
 		void updateTrayIcon();
+		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
 		static const QString defaultStyleSheet;
 
@@ -162,6 +163,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		PTTButtonWidget *qwPTTButtonWidget;
 
+		QComboBox *qcbTransmitMode;
+		QAction *qaTransmitMode;
+		QAction *qaTransmitModeSeparator;
+
 		void createActions();
 		void setupGui();
 		void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
@@ -189,6 +194,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qmSelf_aboutToShow();
 		void on_qaSelfComment_triggered();
 		void on_qaSelfRegister_triggered();
+		void on_qcbTransmitMode_activated(int index);
 		void qmUser_aboutToShow();
 		void on_qaUserCommentReset_triggered();
 		void on_qaUserTextureReset_triggered();
