@@ -5098,7 +5098,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished"/>
+        <translation>K&amp;onfiguroi</translation>
     </message>
     <message>
         <location/>
@@ -6246,7 +6246,7 @@ Valid options are:
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Työkalukuvakkeet</translation>
     </message>
     <message>
         <location/>

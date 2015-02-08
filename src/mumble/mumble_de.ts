@@ -4823,7 +4823,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Der Server hat ein Zertifikat gesendet, dessen Überprüfung gescheitert ist.</translation>
     </message>
     <message>
         <location line="+31"/>

@@ -4772,7 +4772,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Servern använder ett certifikat som inte kan verifieras.</translation>
     </message>
     <message>
         <location line="+31"/>
