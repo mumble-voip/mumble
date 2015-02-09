@@ -37,6 +37,7 @@
 #include "AudioOutput.h"
 #include "Global.h"
 #include "MainWindow.h"
+#include "LanguageChangeNotice.h"
 
 static ConfigWidget *LookConfigNew(Settings &st) {
 	return new LookConfig(st);
@@ -149,6 +150,9 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 	
+	LanguageChangeNotice *languageChangeNotice = new LanguageChangeNotice(qliLanguage, qcbLanguage->currentIndex());
+	languageChangeNotice->setParent(qliLanguage);
+	connect(qcbLanguage, SIGNAL(currentIndexChanged(int)), languageChangeNotice, SLOT(languageChanged(int)));
 }
 
 void LookConfig::save() const {
