@@ -32,3 +32,4 @@ src/murmur/murmur_plugin_import.cpp
 doc/doxygen/
 .qmake.cache
 .qmake.stash
+*.swp
