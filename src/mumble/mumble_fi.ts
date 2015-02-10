@@ -109,7 +109,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Järjestysnumero&lt;/b&gt;&lt;br/&gt;
-Tämä numero määrittää kuinka Mumble järjestää kanavat. Suuremmalla &lt;i&gt;järjestysnumerolla&lt;/i&gt; varustettu kanava sijoitetaan aina alemmaksi, kuin pienemmällä numerolla varustettu. Mikäli kahdella kanavalla on sama &lt;i&gt;järjestysnumero&lt;/i&gt; järjestetään ne aakkosjärjestyksessä.</translation>
+Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmalla &lt;i&gt;järjestysnumerolla&lt;/i&gt; varustettu kanava sijoitetaan aina alemmaksi, kuin pienemmällä numerolla varustettu. Mikäli kahdella kanavalla on sama &lt;i&gt;järjestysnumero&lt;/i&gt; järjestetään ne aakkosjärjestyksessä.</translation>
     </message>
     <message>
         <location/>
@@ -1299,7 +1299,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Siirrettävän datan määrä</translation>
+        <translation>Puskettavan datan määrä</translation>
     </message>
     <message>
         <location/>
@@ -1325,7 +1325,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>Kuinka paljon äänen pitäisi lisääntyä kun äänen lähde on todella lähellä?</translation>
+        <translation>Kuinka paljon äänenvoimakkuutta lisätään äänenlähteille jotka ovat todella lähellä?</translation>
     </message>
     <message>
         <location/>
@@ -1604,7 +1604,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation type="unfinished"/>
+        <translation>Puhtaantason huippu</translation>
     </message>
     <message>
         <location/>
@@ -2846,7 +2846,7 @@ On &lt;b&gt;erityisen&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"/>
+        <translation>Esittää lupaa kuiskata tälle kanavalle sen ulkopuolelta. Tämä oikeus toimii samanlailla kuin &lt;i&gt;puhe&lt;/i&gt; oikeus, mutta koskee vain puhetta jonka aikana kuiskaus näppäintä painetaan. Tätä voidaan käyttää kanavahierarkia laajuiseen lähetykseen, ilman kanavien liittämistä.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3530,7 +3530,8 @@ Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymä
         <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble epäonnistui alustamaan tietokannan
+kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3612,7 +3613,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble voi tällä hetkellä käyttää hiiren näppäimiä ja näppäimistön apunäppäimiä(Alt, Ctrl, Cmd, etc.) yleisiin pikanäppäimiin.&lt;/p&gt;&lt;p&gt;Jos haluat laajemman valikoiman, voit sallia &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; järjestelmän Accessibility preferences asetuksissa. Ota kuitenkin huomioon että tämä muutos voi mahdollistaa haittaohjelmien lukea näppäimistöäsi..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3651,12 +3652,12 @@ of the possible locations.</source>
     <message>
         <location line="+4"/>
         <source>Suppress keys from other applications</source>
-        <translation>Vaimentaa painallukset muista ohjelmista</translation>
+        <translation>Vaimenna painallukset muilta ohjelmilta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Peittää näppäinten painamiset muilta ohjelmilta.&lt;/b&gt;&lt;br /&gt;Valittuna piilottaa näppäimen (tai viimeisen näppäimen usean näppäimen yhdistelmässä) muilta ohjelmilta. Ota huomioon että kaikkia näppäimiä ei voi vaimentaa,</translation>
     </message>
 </context>
 <context>
@@ -3709,12 +3710,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Älä käytä sijainninmukaista audiota tämän kuiskaispikanäppäimen kanssa.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Hylkää sijainninmukainen audio</translation>
     </message>
     <message>
         <location/>
@@ -3793,7 +3794,12 @@ of the possible locations.</source>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt; Lista järjestelmässäsi olevista LCD laitteista. Kertoo laitten nimen sekä sen näytön koon. Mumble tukee usean LCD laitteen yhtäaikaiskäyttöä.&lt;/p&gt;
+&lt;h3&gt;Size:&lt;/h3&gt;
+&lt;p&gt;
+Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) tai merkkeinä (merkkipohjainen LCD).&lt;/p&gt;
+&lt;h3&gt;Aktiivi&lt;/h3&gt;
+&lt;p&gt;Kenttä määrää tuleeko Mumble käyttämään kyseenomaisen LCD laitteen näyttöä.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3958,7 +3964,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Teksti objekti on liian suuri näkyäkseen ]]</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -3985,7 +3991,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"/>
+        <translation>kanava liitos</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4101,7 +4107,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Puhesynteesin äänenvoimakkuus&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4220,27 +4226,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Asettaa mitkä kanavat automaattisesti avata. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanava hierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; aukaisee kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt; avaa kanavat joilla on käyttäjiä ja aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa niistä.</translation>
+        <translation>Asettaa mitkä kanavat automaattisesti avata. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanava hierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; aukaisee kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt; avaa kanavat joilla on käyttäjiä sekä aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa niistä.</translation>
     </message>
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"/>
+        <translation>Näytä käyttäjät, jotka ovat alikanavien yläpuolella (vaatii uudelleenkäynnistyksen).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Valittuna käyttäjät näytetään alikanavien yläpuolella olevilla kanavilla kanava näkymässä.&lt;/b&gt;&lt;br /&gt;Mumble tulee uudelleenkäynnistää, jotta muutos tulee voimaan.</translation>
     </message>
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjät yläkanavilla</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Valittuna vahvistaa haluatko sulkea ohjelman kun olet yhdistettynä palvelimeen.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4321,7 +4327,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Asettaa ulkonäön ja tuntuman.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4346,7 +4352,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"/>
+        <translation>Milloin automaattisesti avata kanavia</translation>
     </message>
     <message>
         <location/>
@@ -4361,7 +4367,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"/>
+        <translation>Kysy lopettamisesta yhdistettynä</translation>
     </message>
     <message>
         <location/>
@@ -4426,12 +4432,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation type="unfinished"/>
+        <translation>Näytä konteksti valikot valikkopalkissa</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa korkean kontrastin näkymiä näkövammaisille.</translation>
     </message>
     <message>
         <location/>
@@ -4446,7 +4452,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation type="unfinished"/>
+        <translation>Lisää käyttäjän ja kanavan konteksti valikot valikkopalkkiin</translation>
     </message>
     <message>
         <location/>
@@ -4504,7 +4510,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Nollaa audio prosessori</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4516,7 +4522,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Mykistyspikanäppäin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4528,19 +4534,19 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Overlayn tila</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaihtaa pelinaikaisen overlayn tilaa</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Minimi tila</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4564,7 +4570,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+19"/>
         <location line="+2394"/>
         <source>Mumble -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble -- %1</translation>
     </message>
     <message>
         <location line="-2389"/>
@@ -4602,13 +4608,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Asettaa itsesi mykistys tilaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaihtaa mykistyksesi tilaa. Kun poistat mykistyksesi, poistat myös hiljennyksesi.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4620,13 +4626,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Asettaa itsesi hiljennys tilaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaihtaa hiljnennyksesi tilaa. Kun laitat hiljennyksen päälle, laitat myös mykisten päälle.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4664,7 +4670,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Settings merged from file.</source>
-        <translation type="unfinished"/>
+        <translation>Asetukset määritetty tiedostosta.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4695,22 +4701,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation>Yhdistetään uudelleen.</translation>
+        <translation>Yhdistämässä uudelleen.</translation>
     </message>
     <message>
         <location line="+148"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Koontiversiotietoja ja OS versiota ei ole saatavilla.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Äänikanava&lt;/h2&gt;&lt;p&gt;Salattu 128 bit OCB-AES128:lla&lt;br /&gt;%1 ms keskimääräinen viive (%4 poikkeama)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-104"/>
@@ -4763,7 +4769,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen esittämän sertifikaatin vahvistus epäonnistui.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4808,7 +4814,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1776"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation type="unfinished"/>
+        <translation>Äänikanava lähetään ohjauskanavalla.</translation>
     </message>
     <message>
         <location line="-950"/>
@@ -4863,7 +4869,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+14"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Ohjauskanava&lt;/h2&gt;&lt;p&gt;Salattu %1 bit %2:lla&lt;br /&gt;%3 ms keskimääräinen viive (%4 poikkeama)&lt;/p&gt;&lt;p&gt;Etäisäntä %5 (portti %6)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4903,7 +4909,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Audio bandwidth&lt;/h2&gt;&lt;p&gt;Maximum %1 kbit/s&lt;br /&gt;Current %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Audio kaistanleveys&lt;/h2&gt;&lt;p&gt;Maksimi %1 kbit/s&lt;br /&gt;Tämänhetkinen %2 kbit/s&lt;br /&gt;Codec: %3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5025,7 +5031,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1.&lt;br /&gt;Virheitä sertifikaatissa: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Haluatko ottaa sertifikaatin kuitenkin käyttöön?&lt;br /&gt;(Sertifikaatti tullaan tallentamaan, jolloin sinulta ei tulla kysymään tätä uudelleen.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -5274,7 +5280,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"/>
+        <translation>Näyttää ikkunan rekisteröidyistä palvelimista, ja mahdollistaa myös pikayhdistämisen.</translation>
     </message>
     <message>
         <location/>
@@ -5335,7 +5341,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Liittää nykyisen kanavasi valittuun kanavaan. Jos kanavan käyttäjillä on puheoikeudet vastakkaisella kanavalla, pystyvät he kuulemaan toisensa kanavien läpi. Tämä on pysyvä liitos, joka kestää kunnes manuaalisesti poistettu tai palvelin käynnistetään uudelleen. Katso myös pikanäppäimistä liittopikanäppäin.</translation>
     </message>
     <message>
         <location/>
@@ -5366,17 +5372,17 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"/>
+        <translation>%Nollaa</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio preprocessor</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa audio esiprosessori</translation>
     </message>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"/>
+        <translation>Nollaa audio esiprosessorin, sisältäen melun vähennyksen, automaattisen saamis ja äänialueen havainnoinnin. Jos jokin yhtäkkiä huonontaa ääniympäristöä (kuten mikrofonin tiputtaminen) ja se oli vain väliaikaista, käytä tätä esiprosessorin uudelleen sopeutumisen ajan välttämiseen.</translation>
     </message>
     <message>
         <location/>
@@ -5975,12 +5981,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin pyytää kytkemään sijainninmukainen audio päälle.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>Palvelin pyytää sinua kytkemään sijainninmukainen audio pois päältä.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6186,12 +6192,12 @@ Valid options are:
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"/>
+        <translation>Katso kommentti editorissa</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"/>
+        <translation>Tiedustele käyttäjän yhteystiedot palvelimelta</translation>
     </message>
     <message>
         <location/>
@@ -6433,32 +6439,32 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>Käytä palvelun laadun hallintaa priorisoimaan paketteja</translation>
     </message>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>Ottaa käyttöön palvelun laadun hallinnan, joka pyrkii priorisoimaan äänipaketteja muun liikenteen yli.</translation>
     </message>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"/>
+        <translation>Käytä palvelun laadun hallintaa</translation>
     </message>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"/>
+        <translation>Ei lähetä sertifikaattia palvelimelle eikä tallenna palvelimien salasanoja. (Ei tallenneta).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Peittää identiteetti tiedot ohjelmalta.&lt;/b&gt;&lt;p&gt;Ohjelma ei tule tunnistautumaan sertifikaatilla vaikka se olisi olemassa, eikä tallenna salasanoja yhteyksien muodostuessa. Tämä asetus on pääasiassa testi käyttöön ja valintaa ei tulla muistamaan ohjelman sulkemisen jälkeen.</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished"/>
+        <translation>Peitä setifikaatti ja salasanojen säilytys.</translation>
     </message>
     <message>
         <location/>
@@ -6493,12 +6499,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjänimi välityspalvelimen tunnistautumiseen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Käyttäjänimi välityspalvelimen tunnistautumiseen.&lt;/b&gt;&lt;br /&gt;Määrittää käyttäjänimen jolla tunnistaudut välityspalvelimelle. Mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä, jätä kenttä tyhjäksi.</translation>
     </message>
     <message>
         <location/>
@@ -6518,7 +6524,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Muut</translation>
     </message>
     <message>
         <location/>
@@ -6632,7 +6638,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.cpp" line="+106"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"/>
+        <translation>Overlayn luominen epäonnistui kohteessa %2: %1. Overlayta ei ole saatavissa.</translation>
     </message>
 </context>
 <context>
@@ -6740,7 +6746,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+82"/>
         <source>Choose executable</source>
-        <translation type="unfinished"/>
+        <translation>Valitse suoritettava</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7669,7 +7675,11 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tämä on nykyisen palvelimen pääsytoken lista, jota voi muokata .&lt;/b&gt;
+&lt;br /&gt;
+
+Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsyoikeutena kanavalle. Mumble muistaa käyttämäsi tokenit ja lähettää ne palvelimelle automaattisesti, joten sinun ei tarvitse syöttää näitä uudelleen joka kerta.
+</translation>
     </message>
     <message>
         <location/>
@@ -7890,7 +7900,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8120,7 +8130,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Liikettä ei voida suorittaa automaattisesti. Palauta numeriset lajittelu indikaattorit alkutilaan tai säädä manuaalisesti.</translation>
     </message>
 </context>
 <context>
@@ -8272,7 +8282,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>Yksikön Nimi: %1</translation>
     </message>
 </context>
 <context>
