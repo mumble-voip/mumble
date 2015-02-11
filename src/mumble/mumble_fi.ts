@@ -667,7 +667,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Valitun ASIO-laitteen avaus epäonnistui. Sisääntuloa ei voida syöttää.</translation>
+        <translation>Valitun ASIO-laitteen avaus epäonnistui. Mitään syöttölaitetta ei oteta käyttöön.</translation>
     </message>
 </context>
 <context>
@@ -675,7 +675,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Mumblesta</translation>
+        <translation>Tietoa Mumblesta</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -685,7 +685,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Mumblesta</translation>
+        <translation>&amp;Tietoja Mumblesta</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -700,7 +700,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>Ok</translation>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -723,7 +723,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Sisääntulon tapa</translation>
+        <translation>Äänen sisääntulotapa</translation>
     </message>
     <message>
         <location/>
@@ -738,7 +738,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation>Audion sisääntulo</translation>
+        <translation>Audion sisääntulolaite</translation>
     </message>
     <message>
         <location/>
@@ -763,7 +763,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Määritä tästä milloin puhetta lähetetään.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Jatkuva&lt;/i&gt; - Yhteys auki koko ajan&lt;br /&gt;&lt;i&gt;Äänen tunnistus&lt;/i&gt; - Kun puhut&lt;br /&gt;&lt;i&gt;Puhepikanäppäin&lt;/i&gt; - Kun painat näppäintä joka on määritetty &lt;i&gt;Oikotiet&lt;/i&gt; kohdassa.</translation>
+        <translation>&lt;b&gt;Määrittää milloin puhetta lähetetään.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Jatkuva&lt;/i&gt; - Yhteys auki koko ajan&lt;br /&gt;&lt;i&gt;Äänen tunnistus&lt;/i&gt; - Kun puheesi on selkeän puheen alueella&lt;br /&gt;&lt;i&gt;Puhepikanäppäin&lt;/i&gt; - Kun painat näppäintä joka on määritetty &lt;i&gt;Pikanäppäinten&lt;/i&gt; asetuksissa.</translation>
     </message>
     <message>
         <location/>
@@ -783,37 +783,37 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Nollaa äänimerkki oletukseen</translation>
+        <translation>Palauta oletusäänimerkit</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Nollaa&lt;/b&gt;&lt;br/&gt;Nollaa tiedostopolut oletukseksi.</translation>
+        <translation>&lt;b&gt;Palauta&lt;/b&gt;&lt;br/&gt;Palauttaa oletustiedostopolun.</translation>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Selaa &quot;päällä&quot; audio tiedostoa.</translation>
+        <translation>Hae lähetyksen aloittamisen äänitiedosto.</translation>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Selaa &quot;Poissa&quot; audio tiedostoa.</translation>
+        <translation>Hae lähetyksen lopettamisen äänitiedosto</translation>
     </message>
     <message>
         <location/>
         <source>Off</source>
-        <translation>Pois päältä</translation>
+        <translation>Off</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>Päällä</translation>
+        <translation>On</translation>
     </message>
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation>Esikatsele äänimerkit</translation>
+        <translation>Testaa äänimerkit</translation>
     </message>
     <message>
         <location/>
@@ -1128,7 +1128,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>after</source>
-        <translation>jälkeen</translation>
+        <translation> </translation>
     </message>
 </context>
 <context>
@@ -1310,7 +1310,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation>Määrä, jota ääntä vähennetään</translation>
+        <translation>Kerroin jolla ääntä vähennetään</translation>
     </message>
     <message>
         <location/>
@@ -1320,7 +1320,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation>Määrä, jota ääntä lisätään</translation>
+        <translation>Kerroin jolla ääntä lisätään</translation>
     </message>
     <message>
         <location/>
@@ -1365,7 +1365,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation>Kuinka paljon äänen pitäisi olla maksimi etäisyydellä?</translation>
+        <translation>Äänenvoimakkuuden tila maksimi etäisyydessä.</translation>
     </message>
     <message>
         <location/>
@@ -1792,7 +1792,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>Äänen sisääntulotapa. Todennäköisimmin haluat käyttää DirectSoundia. </translation>
+        <translation>&lt;b&gt;Äänen sisääntulotapa.&lt;/b&gt;&lt;br /&gt;Todennäköisimmin haluat käyttää DirectSoundia. </translation>
     </message>
     <message>
         <location/>
@@ -1852,7 +1852,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Salli sijainninmukainen audio</translation>
+        <translation>Käytä sijainninmukainen audiota</translation>
     </message>
     <message>
         <location/>
@@ -1883,7 +1883,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>Sallii Mumblen käyttää sijainninmukaista audiota äänien sijoittamiseksi</translation>
+        <translation>Ottaa käyttöön Mumblen sijainninmukaisen audion äänien sijoittelun.</translation>
     </message>
     <message>
         <location/>
@@ -1949,10 +1949,10 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble tukee sijainninmukaista audiota joillekin peleille säätämällä audion tulemaan siitä suunnasta missä muut käyttäjät pelissä ovat. Heidän sijainnistaan riippuen äänenvoimakkuus säädetaan simuloimaan oikeaa etäisyyttä sinusta. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista, jonka voit tehdä täällä
+Mumble tukee sijainninmukaista audiota joillekin peleille, asettamalla muiden puheen tulemaan heidän pelissä olevan sijainnin mukaan. Sijaintia simuloidaan sekä säätämällä äänenvoimakkuutta pelaajien etäisyyden suhteen että tulevan äänenlähteen liikuttamista heidän suuntaan. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista järjestelmässäsi, jotka voit tarkistaa tässä testissä.
 &lt;/p&gt;
 &lt;p&gt;
-Äänen sijaintikartta &lt;font color=&quot;red&quot;&gt;sinä&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;kaiuttimet&lt;/font&gt; ja &lt;font color=&quot;green&quot;&gt;liikkuva äänenlähde&lt;/font&gt;. Sinun tulisi kuulla äänen liikkuvan kaiuttimissasi.
+Äänen sijaintikartta ylhäältäpäin katsottuna: &lt;font color=&quot;red&quot;&gt;sinä&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;kaiuttimet&lt;/font&gt; ja &lt;font color=&quot;green&quot;&gt;liikkuva äänenlähde&lt;/font&gt;. Sinun tulisi kuulla äänen liikkuvan kaiuttimissasi.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2072,7 +2072,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Low</source>
-        <translation>Alhainen</translation>
+        <translation>Matala</translation>
     </message>
     <message>
         <location/>
@@ -3488,12 +3488,12 @@ Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymä
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation>Valitun DirectSoundin sisääntulolaitteen avaaminen epäonnistui. Mikrofoni ei kaappaa ääntä. </translation>
+        <translation>Valitun DirectSoundin syöttölaitteen avaaminen epäonnistui. Mikrofoni ei tule kaappaamaan ääntä. </translation>
     </message>
     <message>
         <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation>Valitun DirectSoundin sisääntulolaitteen sisääntulo epäonnistui. Käytetään oletuslaitetta.</translation>
+        <translation>Valitun DirectSoundin syöttölaitteen avaaminen epäonnistui. Oletuslaite otetaan käyttöön.</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -3511,7 +3511,7 @@ Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymä
     <message>
         <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Oletuslaitetta ei käytetä.</translation>
+        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Oletuslaite otetaan käyttöön.</translation>
     </message>
     <message>
         <location line="+73"/>
@@ -3521,7 +3521,7 @@ Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymä
     <message>
         <location line="+4"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Audiota ei kuulla.</translation>
+        <translation>Valitun DirectSoundin ulostulolaitteen avaaminen epäonnistui. Ääntä ei tulla toistamaan.</translation>
     </message>
 </context>
 <context>
@@ -3774,7 +3774,7 @@ kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Muoto</translation>
     </message>
     <message>
         <location/>
@@ -3819,24 +3819,26 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"/>
+        <translation>Minimi sarakkeen leveys</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Määrää pienimmän sarakkeen leveyden käyttäjänäkymässä.&lt;/p&gt;
+&lt;p&gt;Kun useat käyttäjät puhuvat yhtäaikaa, käyttäjänäkymä jakaa itsensä sarakkeisiin. Tällä asetuksella voit valita käyttäjien määrään ja heidän nimensä leveyden näkymisen väliltä LCD näkymässä.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"/>
+        <translation>Asettaa sarakkeiden jakajan leveyden.</translation>
     </message>
     <message>
         <location/>
         <source>Splitter Width</source>
-        <translation type="unfinished"/>
+        <translation>Jakajan leveys</translation>
     </message>
 </context>
 <context>
@@ -3939,22 +3941,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Käyttäjä poistuu kanavalta</translation>
+        <translation>Käyttäjä poistui kanavalta</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>Poistit mykistyksesi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>Hiljensit itsesi</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>Poistit hiljennyksesi</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -4675,7 +4677,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+6"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation type="unfinished"/>
+        <translation>URL-osoitteen asettelu ei ole Mumblen mukainen</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -4701,7 +4703,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation>Yhdistämässä uudelleen.</translation>
+        <translation>Yhdistetään uudelleen.</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -4950,7 +4952,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Haluatko nollata käyttäjän %1 kommentin?</translation>
+        <translation>Haluatko varmasti poistaa käyttäjän %1 kommentin?</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5647,12 +5649,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Käyttöoikeus tunnisteet</translation>
     </message>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"/>
+        <translation>Lisää tai poista tekstipohjaisia käyttöoikeus tunnisteita</translation>
     </message>
     <message>
         <location/>
@@ -6172,12 +6174,12 @@ Valid options are:
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation>Nollaa &amp;Kommentti</translation>
+        <translation>Poista &amp;Kommentti</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation>Nollaa valitun käyttäjän kommentin.</translation>
+        <translation>Poistaa valitun käyttäjän kommentin.</translation>
     </message>
     <message>
         <location/>
@@ -6345,7 +6347,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation>Nollaa valitun käyttäjän käyttäjäkuva.</translation>
+        <translation>Poistaa valitun käyttäjän käyttäjäkuva.</translation>
     </message>
 </context>
 <context>
