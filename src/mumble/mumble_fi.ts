@@ -305,7 +305,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Merkinnän koskettaa alakanavia.</translation>
+        <translation>Merkintä koskee alakanavia.</translation>
     </message>
     <message>
         <location/>
@@ -392,12 +392,12 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Käyttäjä, jota tämä toiminto koskee</translation>
+        <translation>Käyttäjä, ketä tämä merkintä koskee</translation>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Valitsee keitä tämä toiminto koskee. Syötä käyttäjänimi ja hae enterillä palvelimelta.</translation>
+        <translation>Valitsee keitä tämä merkintä koskee. Syötä käyttäjänimi ja hae enterillä palvelimelta.</translation>
     </message>
     <message>
         <location/>
@@ -467,7 +467,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Valitsee mitä käyttäjäryhmää tämä toiminto koskee.&lt;br/&gt;Huomioi, että valittua ryhmää käytetään toiminnon kohteena. Esimerkiksi ACL:n oletus-juurikanavalla antaa &lt;i&gt;kirjoitusoikeiden&lt;/i&gt; &lt;i&gt;ylläpitoryhmään&lt;/i&gt; kuuluville käyttäjille. Jos toiminto peritään kanavalta, antaa se &lt;i&gt;ylläpitoryhmän&lt;/i&gt; kirjoitusoikeidet uuden kanavan ylläpitöryhmän käyttäjille, vaikka he eivät kuuluisikaan alkuperäisen ACL kanavan &lt;i&gt;ylläpitoryhmään&lt;/i&gt;.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;!&apos;-merkillä, sen jäsenyys on kielletty, ja jos ryhmän nimi alkaa &apos;~&apos;-merkillä, se käyttää ACL-määrityksiä alkuperäisellä kanavalta, eikä aktiivisella kanavalta.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;#&apos;-merkillä, tulkitaan se pääsy-tokenina. Käyttäjien on täytynyt syöttää token-listaansa &apos;#&apos;-merkin jälkeiset merkit. Tätä voidaan käyttää yksinkertaisina salasanoina kanaville.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;$&apos;-merkillä, se huomio ainoastaan käyttäjät vastaavilla merkeillä hash-tunnuksessaan.&lt;br/&gt;Muutamat erityiset esiasetetut ryhmät ovat:&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - Kaikki vastaavat.&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt;Kaikki autentikoidut käyttäjät täsmäävät.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Nykyinen käyttäjä alikanava minimi &lt;i&gt;a&lt;/i&gt; yhteisillä vanhemmilla, ja &lt;i&gt;b&lt;/i&gt;:n ja &lt;i&gt;c&lt;/i&gt;:n välisillä kanavilla. Katso websivulta tarkempaa tietoa.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; Käyttäjien nykyinen kanava täsmää (soveltuvuus &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Kanavan ulkopuoliset käyttäjät täsmäävät(soveltuvuus&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Huomioi, että toiminto koskee vain joko käyttäjää tai ryhmää.</translation>
+        <translation>Valitsee mitä käyttäjäryhmää tämä merkintä koskee.&lt;br/&gt;Huomioi, että valittua ryhmää käytetään merkinnän kohteena. Esimerkiksi ACL:n oletus-juurikanavalla antaa &lt;i&gt;kirjoitusoikeiden&lt;/i&gt; &lt;i&gt;ylläpitoryhmään&lt;/i&gt; kuuluville käyttäjille. Jos merkintä peritään kanavalta, antaa se &lt;i&gt;ylläpitoryhmän&lt;/i&gt; kirjoitusoikeidet uuden kanavan ylläpitöryhmän käyttäjille, vaikka he eivät kuuluisikaan alkuperäisen ACL kanavan &lt;i&gt;ylläpitoryhmään&lt;/i&gt;.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;!&apos;-merkillä, sen jäsenyys on kielletty, ja jos ryhmän nimi alkaa &apos;~&apos;-merkillä, se käyttää ACL-määrityksiä alkuperäisellä kanavalta, eikä aktiivisella kanavalta.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;#&apos;-merkillä, tulkitaan se pääsy-tokenina. Käyttäjien on täytynyt syöttää token-listaansa &apos;#&apos;-merkin jälkeiset merkit. Tätä voidaan käyttää yksinkertaisina salasanoina kanaville.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;$&apos;-merkillä, se huomio ainoastaan käyttäjät vastaavilla merkeillä hash-tunnuksessaan.&lt;br/&gt;Muutamat erityiset esiasetetut ryhmät ovat:&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - Kaikki vastaavat.&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt;Kaikki autentikoidut käyttäjät täsmäävät.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Nykyinen käyttäjä alikanava minimi &lt;i&gt;a&lt;/i&gt; yhteisillä vanhemmilla, ja &lt;i&gt;b&lt;/i&gt;:n ja &lt;i&gt;c&lt;/i&gt;:n välisillä kanavilla. Katso websivulta tarkempaa tietoa.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; Käyttäjien nykyinen kanava täsmää (soveltuvuus &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Kanavan ulkopuoliset käyttäjät täsmäävät(soveltuvuus&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Huomioi, että toiminto koskee vain joko käyttäjää tai ryhmää.</translation>
     </message>
     <message>
         <location/>
@@ -1742,7 +1742,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation>Audiovelho</translation>
+        <translation>Audioapuri</translation>
     </message>
     <message>
         <location/>
@@ -1752,7 +1752,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Tervetuloa Mumblen Audiovelhoon</translation>
+        <translation>Tervetuloa Mumblen Audioapuriin</translation>
     </message>
     <message>
         <location/>
@@ -2871,7 +2871,7 @@ On &lt;b&gt;erityisen&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Ilmaisee oikeuden liittää kanavia toisiinsa. Käyttäjät liitetyillä kanavilla kuulevat toisensa, kunhan puhujalla on &lt;i&gt;puhe&lt;/i&gt; oikeus kuulijoiden kanavilla. Kanavien liittämiseen, molemmilla kanavilla tulee olla liittämis oikeus, mutta vain toisessa sen poistamiseen.</translation>
+        <translation>Ilmaisee oikeuden liittää kanavia toisiinsa. Käyttäjät liitetyillä kanavilla kuulevat toisensa, kunhan puhujalla on &lt;i&gt;puhe&lt;/i&gt; oikeus kuulijoiden kanavilla. Kanavien liittämiseen, molemmilla kanavilla tulee olla liittämis oikeus, mutta sen poistaminen vain toisessa riittää sen rikkomiseen.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3338,7 +3338,7 @@ Käyttäjänimi jota tulet käyttämään palvelimella. Palvelimet voivat asetta
     <message>
         <location/>
         <source>Label</source>
-        <translation>Kansinimi</translation>
+        <translation>Nimike</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3371,13 +3371,13 @@ Salasana joka lähetetään palvelimelle. Salasanaa tarvitaan yhdistättäessä 
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation>&lt;b&gt;Kansinimi&lt;/b&gt;&lt;br/&gt;
-Palvelimen kansinimi. Vapaasti valittava nimike, jolla palvelin tulee esiintymään palvelin listassasi.</translation>
+        <translation>&lt;b&gt;Nimike&lt;/b&gt;&lt;br/&gt;
+Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään palvelin listassasi.</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation>Paikallinen palvelimen kansinimi</translation>
+        <translation>Paikallinen palvelimen nimike</translation>
     </message>
     <message>
         <location/>
@@ -4983,7 +4983,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation type="unfinished"/>
+        <translation>Mykistys ja hiljennys poistettu.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5256,7 +5256,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation type="unfinished"/>
+        <translation>Avaa ryhmä ja ACL ikkunan kanavalle, jossa voit muokata kanavan oikeuksia.</translation>
     </message>
     <message>
         <location/>
@@ -5574,7 +5574,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"/>
+        <translation>Aloittaa avustajan sertifikaattien luontiin, tuontiin ja vientiin. Sertifikaatteja käytetään tunnistautumiseen palvelimille.</translation>
     </message>
     <message>
         <location/>
@@ -6164,7 +6164,7 @@ Valid options are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation>&amp;Sertifikaatti avustaja</translation>
+        <translation>&amp;Sertifikaattiapuri</translation>
     </message>
     <message>
         <location/>
@@ -6327,7 +6327,10 @@ Valid options are:
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>Vaihtaa kanavasuodattimen tilaa.
+Oletuksena kaikki tyhjät kanavat suodatetaan.
+Voit lisätä suodatukseen lisää kanavia 
+kanavan alavalikosta.</translation>
     </message>
     <message>
         <location/>
@@ -7100,7 +7103,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation>Sovitus</translation>
+        <translation>Sijoitus</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -8106,7 +8109,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>Kanavalla on kommentti, jonka olet oletettavasti jo nähnyt (paina nähdäksesi)</translation>
+        <translation>Kanavalla on kommentti, jonka olet jo nähnyt (paina nähdäksesi)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8396,22 +8399,22 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation>Syötä käyttäjän nimi</translation>
+        <translation>Sisällyttää käyttäjän nimen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation>Syötä päivämäärä</translation>
+        <translation>Sisällyttää päivämäärän</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation>Syötä kellonaika</translation>
+        <translation>Sisällyttää kellonajan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation>Syöttää isäntänimen</translation>
+        <translation>Sisällyttää isäntänimen</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -8426,7 +8429,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation>Äänityksen käynnistäminen epäonnistui. Yhteys palvelimeen puuttuu.</translation>
+        <translation>Äänityksen käynnistäminen epäonnistui. Et ole yhdistettynä palvelimeen.</translation>
     </message>
     <message>
         <location line="+8"/>
