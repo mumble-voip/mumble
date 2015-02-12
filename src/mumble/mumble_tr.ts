@@ -4776,7 +4776,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Sunucu denetimi başarısız olan bir sertifika sundu.</translation>
     </message>
     <message>
         <location line="+31"/>
