@@ -818,12 +818,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Käytä SNR pohjaista puheentunnistusta</translation>
+        <translation>Käytä SNR-pohjaista puheentunnistusta</translation>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaali ääneksi</translation>
+        <translation>Signaalista meluksi</translation>
     </message>
     <message>
         <location/>
@@ -923,7 +923,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Tämä määrittää melun vaimennuksen määrän.&lt;/b&gt;&lt;br /&gt;Mitä korkeampi arvo, sitä aggressiivisemmin taustamelua vaimennetaan.</translation>
+        <translation>&lt;b&gt;Tämä määrittää melunvaimennuksen määrän.&lt;/b&gt;&lt;br /&gt;Mitä korkeampi arvo, sitä enemmän taustamelua vaimennetaan.</translation>
     </message>
     <message>
         <location/>
@@ -1128,7 +1128,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>after</source>
-        <translation> </translation>
+        <translation> jälkeen</translation>
     </message>
 </context>
 <context>
@@ -1180,7 +1180,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>%1 dB</translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -2562,7 +2562,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Tiedosto, josta tuodaan</translation>
+        <translation>Tiedosto, josta sertifikaati tuodaan</translation>
     </message>
     <message>
         <location/>
@@ -2572,7 +2572,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>Valitse tiedosto, josta tuot</translation>
+        <translation>Valitse tuonti tiedosto</translation>
     </message>
     <message>
         <location/>
@@ -3814,7 +3814,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Views</source>
-        <translation type="unfinished"/>
+        <translation>Näkymät</translation>
     </message>
     <message>
         <location/>
@@ -3978,17 +3978,17 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 menevä linkki</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 menevä ftp linkki</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"/>
+        <translation>pelaaja linkki</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3998,7 +3998,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"/>
+        <translation>%1 linkki</translation>
     </message>
 </context>
 <context>
@@ -4314,7 +4314,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Määrää kanavien liikuttamisen tapahtuman. Voidaan hyödyntää kanavien vahingottaissiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää kanavan välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virhe viestin. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko kanavaa siirtää.</translation>
+        <translation>Määrää kanavien vetämisen tapahtuman. Voidaan hyödyntää kanavien vahingottaissiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää kanavan välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virhe viestin. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko kanavaa siirtää.</translation>
     </message>
     <message>
         <location/>
@@ -4577,7 +4577,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-2389"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ikkuna</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4833,7 +4833,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Käytä kuiskaustoiminnon kanssa.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4851,7 +4851,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+4"/>
         <source>Cycle Transmit Mode</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Vaihda lähetystilaa</translation>
     </message>
     <message>
         <location line="+157"/>
@@ -4941,7 +4941,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+4"/>
         <location line="+259"/>
         <source>To %1: %2</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;%1: %2</translation>
     </message>
     <message>
         <location line="-362"/>
@@ -4978,7 +4978,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+0"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation type="unfinished"/>
+        <translation>-&gt;%1 (Puu): %2</translation>
     </message>
     <message>
         <location line="+175"/>
@@ -5018,7 +5018,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+279"/>
         <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
+        <translation>Lähetystilaksi vaihdettu %1</translation>
     </message>
     <message>
         <location line="+148"/>
@@ -5251,7 +5251,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>Edit Groups and ACL for channel</source>
-        <translation type="unfinished"/>
+        <translation>Muokkaa kanavan ryhmiä ja ACL:ää</translation>
     </message>
     <message>
         <location/>
@@ -5559,7 +5559,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation>Lähettää viestin kaikille käyttäjille kanavalla.</translation>
+        <translation>Lähettää viestin kaikille kanavan käyttäjille.</translation>
     </message>
     <message>
         <location/>
@@ -5584,7 +5584,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This will permanently register the user on the server.</source>
-        <translation>Rekisteröi käyttäjä pysyvästi palvelimelle.</translation>
+        <translation>Toiminto rekisteröi käyttäjän pysyvästi palvelimelle.</translation>
     </message>
     <message>
         <location/>
@@ -5594,12 +5594,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Lisää käyttäjä kaveriksi.</translation>
+        <translation>Lisää käyttäjän kaveriksi.</translation>
     </message>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation>Tämä lisää käyttäjän kaveriksesi, jotta tunnistat hänet tällä ja muilla palvelimilla.</translation>
+        <translation>Lisää käyttäjän kaveriksesi, jolloin voit tunnistaa hänet tällä ja muilla palvelimilla.</translation>
     </message>
     <message>
         <location/>
@@ -5614,7 +5614,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation>Tämä poistaa käyttäjän kavereistasi.</translation>
+        <translation>Poistaa käyttäjän kaveri listaltasi.</translation>
     </message>
     <message>
         <location/>
@@ -5805,7 +5805,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"/>
+        <translation>Maksimimäärä alikanavien tasoja saavutettu.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5973,7 +5973,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -6038,7 +6038,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation type="unfinished"/>
+        <translation>Vastaavia CELT koodekkeja ei löydy muilta asiakkailta. Et pysty puhumaan kaikille käyttäjille.</translation>
     </message>
     <message>
         <location line="-473"/>
@@ -6099,7 +6099,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"/>
+        <translation>UserModel::dropMimeData sisältää lukemattoman kanavien vetämistilan.</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-278"/>
@@ -6119,12 +6119,26 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"/>
+        <translation>Käyttö: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; määrittää URL-osoitteen johon yhdistää käynnistämisen jälkeen
+yhdistämis ikkunan sijaan. Muoto on seuraava:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Versio parametri tulee olla asetettuna, jotta ohjelman kutsut pystytään asettamaan oikeisiin versioihin. Tämänhetkinen oletusarvo on 1.2.0.
+
+Mahdollisia muuttujia:
+-h, --help Näytä tämä ohje teksti ja lopeta.
+-m, --multiple
+Sallii usean yhtäaikaisen ohjelman käynnistyksen.
+-nn --noidentity
+Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
+</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>Kutsu</translation>
     </message>
     <message>
         <location line="+196"/>
@@ -6363,7 +6377,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>Päivitykset ovat pakollisia käyttäessä testijulkaisuja.</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>

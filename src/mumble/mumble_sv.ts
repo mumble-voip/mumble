@@ -1047,7 +1047,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Visa tryck-för-att-prata-fönster</translation>
+        <translation>Visa tryck-för-att-tala-fönster</translation>
     </message>
     <message>
         <location/>
@@ -2932,7 +2932,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation>Registrera dig</translation>
+        <translation>Registrera sig</translation>
     </message>
     <message>
         <location line="-28"/>
