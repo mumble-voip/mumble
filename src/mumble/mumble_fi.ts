@@ -818,12 +818,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Käytä SNR pohjaista puheentunnistusta</translation>
+        <translation>Käytä SNR-pohjaista puheentunnistusta</translation>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaali ääneksi</translation>
+        <translation>Signaalista meluksi</translation>
     </message>
     <message>
         <location/>
@@ -923,7 +923,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Tämä määrittää melun vaimennuksen määrän.&lt;/b&gt;&lt;br /&gt;Mitä korkeampi arvo, sitä aggressiivisemmin taustamelua vaimennetaan.</translation>
+        <translation>&lt;b&gt;Tämä määrittää melunvaimennuksen määrän.&lt;/b&gt;&lt;br /&gt;Mitä korkeampi arvo, sitä enemmän taustamelua vaimennetaan.</translation>
     </message>
     <message>
         <location/>
@@ -1128,7 +1128,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>after</source>
-        <translation> </translation>
+        <translation> jälkeen</translation>
     </message>
 </context>
 <context>
@@ -1180,7 +1180,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>%1 dB</translation>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
