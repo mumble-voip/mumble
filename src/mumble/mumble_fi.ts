@@ -3978,17 +3978,17 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 menevä linkki</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 menevä ftp linkki</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"/>
+        <translation>pelaaja linkki</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3998,7 +3998,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"/>
+        <translation>%1 linkki</translation>
     </message>
 </context>
 <context>
@@ -6119,7 +6119,21 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation type="unfinished"/>
+        <translation>Käyttö: mumble [options] [&lt;url&gt;]
+
+&lt;url&gt; määrittää URL-osoitteen johon yhdistää käynnistämisen jälkeen
+yhdistämis ikkunan sijaan. Muoto on seuraava:
+mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+
+Versio parametri tulee olla asetettuna, jotta ohjelman kutsut pystytään asettamaan oikeisiin versioihin. Tämänhetkinen oletusarvo on 1.2.0.
+
+Mahdollisia muuttujia:
+-h, --help Näytä tämä ohje teksti ja lopeta.
+-m, --multiple
+Sallii usean yhtäaikaisen ohjelman käynnistyksen.
+-nn --noidentity
+Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
+</translation>
     </message>
     <message>
         <location line="+17"/>
