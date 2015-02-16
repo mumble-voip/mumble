@@ -762,7 +762,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Detta ställer in när tal ska överföras.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuerligt&lt;/i&gt; - Alltid&lt;br /&gt;&lt;i&gt;Röstaktivitet&lt;/i&gt; - När du pratar klart.&lt;br /&gt;&lt;i&gt;Tryck-för-att-Tala&lt;/i&gt; - När du håller nere snabbknappen under &lt;i&gt;Genvägar&lt;/i&gt;.</translation>
+        <translation>&lt;b&gt;Detta ställer in när tal ska överföras.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Kontinuerligt&lt;/i&gt; - Alltid&lt;br /&gt;&lt;i&gt;Röstaktivitet&lt;/i&gt; - När du talar tydligt.&lt;br /&gt;&lt;i&gt;Tryck-för-att-Tala&lt;/i&gt; - När du håller nere snabbknappen under &lt;i&gt;Genvägar&lt;/i&gt;.</translation>
     </message>
     <message>
         <location/>
@@ -852,7 +852,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Detta ställer in utlösarvärden för upptäckning av ljudaktivitet.&lt;/b&gt;&lt;br /&gt;Använd detta tillsammans med ljudstatistiken för att manuellt justera utlösaren för upptäckning av ljudaktivitet. Ingångsvärden under &quot;Tystnad under&quot; räknas alltid som tystnad. Värden ovan &quot;Prata över&quot; räknas alltid som röst. Värden däremellan räknas som röst om du redan pratar, men kommmer inte utlösa en ny upptäckt.</translation>
+        <translation>&lt;b&gt;Detta ställer in utlösarvärden för upptäckning av ljudaktivitet.&lt;/b&gt;&lt;br /&gt;Använd detta tillsammans med ljudstatistiken för att manuellt justera utlösaren för upptäckning av ljudaktivitet. Ingångsvärden under &quot;Tystnad under&quot; räknas alltid som tystnad. Värden ovan &quot;Tala över&quot; räknas alltid som röst. Värden däremellan räknas som röst om du redan pratar, men kommmer inte utlösa en ny upptäckt.</translation>
     </message>
     <message>
         <location/>
@@ -1430,7 +1430,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>Vid markering sänker Mumble volymen för andra program då användare pratar</translation>
+        <translation>Vid markering sänker Mumble volymen för andra program när andra användare talar</translation>
     </message>
     <message>
         <location/>
@@ -1440,22 +1440,22 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation>när andra pratar</translation>
+        <translation>när andra talar</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Vid markering sänker Mumble volymen för andra program då du pratar</translation>
+        <translation>Vid markering sänker Mumble volymen för andra program när du talar</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Dämpa program då du pratar&lt;/b&gt;&lt;br /&gt;Mumble stödjer sänkning av volymen för andra program vid inkommande och/eller utgående tal. Detta gör att volymen för andra program vid inkommande och/eller utgående tal. Detta för att Mumble aktiverar funktionen då du pratar.</translation>
+        <translation>&lt;b&gt;Dämpa program när du talar&lt;/b&gt;&lt;br /&gt;Mumble stödjer sänkning av volymen för andra program vid inkommande och/eller utgående tal. Detta gör att volymen för andra program vid inkommande och/eller utgående tal. Detta för att Mumble aktiverar funktionen då du talar.</translation>
     </message>
     <message>
         <location/>
         <source>while you talk</source>
-        <translation>när du pratar</translation>
+        <translation>när du talar</translation>
     </message>
     <message>
         <location/>
@@ -1480,17 +1480,17 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Vid markering sänker Mumble volymen för övriga användare medan du pratar om du har &quot;Prioriterad talare&quot; som status.</translation>
+        <translation>Vid markering sänker Mumble volymen för övriga användare medan du talar om du har &quot;Prioriterad talare&quot; som status.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Dämpa andra spelare när du pratar som Prioriterad talare.&lt;/b&gt;&lt;br /&gt;Mumble stödjer minskning av volym för andra spelare medan du pratar som &lt;i&gt;Prioriterad talare&lt;/i&gt;, för att undvika att du blir störd. Markera för att aktivera funktionen. </translation>
+        <translation>&lt;b&gt;Dämpa andra spelare när du talar som Prioriterad talare.&lt;/b&gt;&lt;br /&gt;Mumble stödjer minskning av volym för andra spelare medan du talar som &lt;i&gt;Prioriterad talare&lt;/i&gt;, för att undvika att du blir störd. Markera för att aktivera funktionen. </translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation>Dämpa andra användare medan du pratar som Prioriterad talare.</translation>
+        <translation>Dämpa andra användare medan du talar som Prioriterad talare.</translation>
     </message>
 </context>
 <context>
@@ -1608,7 +1608,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Detta visar den högsta kraften den senaste rutan (20 ms) efter alla procedurer. I bästa fall ska detta vara -96 dB när du inte pratar. I verkligeheten är ett ljud -60 dB, men du borde se någonting vid ungefär -20 dB. När du pratar ska detta höjas till någonting mellan -5 och 10 dB.&lt;br /&gt;Om du använder ekoborttagning och detta ökar till mer än -15 dB när du inte pratar, är din uppsättning felaktig och du kommer att störa andra användare med ekon.</translation>
+        <translation>Detta visar den högsta kraften den senaste rutan (20 ms) efter alla procedurer. I bästa fall ska detta vara -96 dB när du inte talar. I verkligeheten är ett ljud -60 dB, men du borde se någonting vid ungefär -20 dB. När du talar ska detta höjas till någonting mellan -5 och -10 dB.&lt;br /&gt;Om du använder ekoborttagning och detta ökar till mer än -15 dB när du inte talar, är din uppsättning felaktig och du kommer att störa andra användare med ekon.</translation>
     </message>
     <message>
         <location/>
@@ -1628,7 +1628,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Detta visar hur nära din nuvarande ingångsvolym är till idealisk. För att justera din mikrofonnivå, öppna ett program som du använder för att justera inspelningsvolymen och leta efter värdet här medan du pratar.&lt;br /&gt;&lt;b&gt;Tala högt, som om att du vore upprörd för att du sköts av en liten n00big P12:a.&lt;/b&gt;&lt;br /&gt;Justera volymen tills detta värda är nära 100%, men se till att det inte för över det. Om det går över, kommer du säkerligen att få klippningar i ditt tal, som kommer att försämra ljudkvaliteten.</translation>
+        <translation>Detta visar hur nära din nuvarande ingångsvolym är till idealisk. För att justera din mikrofonnivå, öppna ett program som du använder för att justera inspelningsvolymen och leta efter värdet här medan du talar.&lt;br /&gt;&lt;b&gt;Tala högt, som om att du vore upprörd för att du sköts av en liten n00big P12:a.&lt;/b&gt;&lt;br /&gt;Justera volymen tills detta värda är nära 100%, men se till att det inte för över det. Om det går över, kommer du säkerligen att få klippningar i ditt tal, som kommer att försämra ljudkvaliteten.</translation>
     </message>
     <message>
         <location/>
@@ -2002,7 +2002,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Prata lugnt, som om du pratar mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till grönt när du pratar, men förblir blå när du är tyst.</translation>
+        <translation>Tala lugnt, som om du talar mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till grönt när du talar, men förblir blå när du är tyst.</translation>
     </message>
     <message>
         <location/>
@@ -2012,12 +2012,12 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Låt Mumble räkna ut när du pratar och när du är tyst.</translation>
+        <translation>Låt Mumble räkna ut när du talar och när du är tyst.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Detta hjälper Mumble att räkna ut när du pratar. Det första steget väljer vilket datavärde att använda.</translation>
+        <translation>Detta hjälper Mumble att räkna ut när du talar. Det första steget är att välja vilket datavärde som ska användas.</translation>
     </message>
     <message>
         <location/>
@@ -2033,7 +2033,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Nu behöver du justera följande inställning. De första få yttranden du säger bör hamna i det gröa området (slutgiltigt tal). Vid tal, bör du stanna inom den gula (kan vara tal), så när du inte pratar skall allt vara rött (definitivt inte tal).</translation>
+        <translation>Nu behöver du justera följande inställning. De första få yttranden du säger bör hamna i det gröa området (slutgiltigt tal). Vid tal, bör du stanna inom den gula (kan vara tal), så när du inte talar skall allt vara rött (definitivt inte tal).</translation>
     </message>
     <message>
         <location/>
@@ -2103,12 +2103,12 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Aktiverar dämpning av andra program när användare pratar med dig</translation>
+        <translation>Aktiverar dämpning av andra program när användare talar med dig</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation>Dämpa program när andra användare pratar</translation>
+        <translation>Dämpa program när andra användare talar</translation>
     </message>
     <message>
         <location/>
@@ -2128,7 +2128,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Aktiverar dämpning av andra program när användare pratar med dig. Detta betyder att så snart någon börjar prata i Mumble, kommer ljudet för andra program (som musikspelare) att dämpas så att du kan höra Mumble bättre.</translation>
+        <translation>Aktiverar dämpning av andra program när användare talar med dig. Detta betyder att så snart någon börjar tala i Mumble, kommer ljudet för andra program (som musikspelare) att dämpas så att du kan höra Mumble bättre.</translation>
     </message>
     <message>
         <location/>
@@ -2174,13 +2174,13 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Prata lugnt, som om du skulle prata mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till det tomma området när du pratar, men i det randiga när du är tyst.</translation>
+        <translation>Tala lugnt, som om du skulle prata mitt i natten och inte vill störa någon. Justera inställningen nedan så att baren flyttas till det tomma området när du talar, men i det randiga när du är tyst.</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Nu behöver du justera följande inställning. De första yttranden du säger borde hamna i det tomma området (slutgiltigt tal). Vid tal borde du stanna inom det randiga (kan vara tal) och när du inte pratar ska allt vara i det genomkorsade (definitivt inte tal).</translation>
+        <translation>Nu behöver du justera följande inställning. De första yttranden du säger borde hamna i det tomma området (slutgiltigt tal). Vid tal borde du stanna inom det randiga (kan vara tal) och när du inte talar ska allt vara i det genomkorsade (definitivt inte tal).</translation>
     </message>
     <message>
         <location/>
@@ -4420,12 +4420,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation>Visar prat-status i aktivitetsfältet</translation>
+        <translation>Visar tala-status i aktivitetsfältet</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation>Visa prat-status i ikonen i aktivitetsfältet</translation>
+        <translation>Visa tala-status i ikonen i aktivitetsfältet</translation>
     </message>
     <message>
         <location/>
@@ -6038,7 +6038,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Kunde inte hitta liknande CELT-kodekar med andra klienter. Du kan inte prata med alla användare.</translation>
+        <translation>Kunde inte hitta liknande CELT-kodekar med andra klienter. Du kan inte tala med alla användare.</translation>
     </message>
     <message>
         <location line="-473"/>
@@ -6636,7 +6636,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation>Pratar</translation>
+        <translation>Talar</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6677,7 +6677,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation>Pratar och nyligen aktiv</translation>
+        <translation>Talar och nyligen aktiv</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6975,7 +6975,7 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation>Användaren pratar inte</translation>
+        <translation>Användaren talar inte</translation>
     </message>
     <message>
         <location/>
@@ -6985,12 +6985,12 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Användaren pratar i din kanal eller i en länkad kanal</translation>
+        <translation>Användaren talar i din kanal eller i en länkad kanal</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation>Pratar</translation>
+        <translation>Talar</translation>
     </message>
     <message>
         <location/>
@@ -8008,12 +8008,12 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation>Detta är en användare som är ansluten till servern. Ikonen till vänster visar om användaren pratar eller ej:</translation>
+        <translation>Detta är en användare som är ansluten till servern. Ikonen till vänster visar om användaren talar eller ej:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation>Pratar till din kanal.</translation>
+        <translation>Talar till din kanal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8029,7 +8029,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation>Pratar inte.</translation>
+        <translation>Talar inte.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8044,7 +8044,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation>En kanal som är länkad till din kanal. Länkade kanaler kan prata med varandra.</translation>
+        <translation>En kanal som är länkad till din kanal. Länkade kanaler kan tala med varandra.</translation>
     </message>
     <message>
         <location line="+1"/>
