@@ -421,7 +421,7 @@ Valitsemalla luotu kanava määritetään tilapäiseksi. Kun viimeinen pelaaja p
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Ryhmä&lt;/b&gt;&lt;br /&gt;
-Kanavalle määritellyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina Enter.</translation>
+Kanavalle määritetyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina Enter.</translation>
     </message>
     <message>
         <location/>
@@ -758,7 +758,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Kun lähetät puhettasi</translation>
+        <translation>Milloin lähettää puhettasi</translation>
     </message>
     <message>
         <location/>
@@ -773,12 +773,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Jos painat PPN-näppäintä tässä ajassa se lukitaan pohjaan.</translation>
+        <translation>Jos painat PPN-näppäintä kahdesti tässä ajassa se lukitaan päälle.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Tuplapainalluksen Aika&lt;/b&gt;&lt;br /&gt;Jos painat Puhepikanäppäintä -näppäintä kahdesti määrätyssä ajassa se lukitaan pohjaan. Mumble jatkaa lähettämistä kunnes painat PPN-näppäintä uudelleen.</translation>
+        <translation>&lt;b&gt;Tuplapainalluksen Aika&lt;/b&gt;&lt;br /&gt;Jos painat Puhepikanäppäintä -näppäintä kahdesti määrätyssä ajassa se lukitaan päälle. Mumble jatkaa lähettämistä kunnes painat PPN-näppäintä uudelleen.</translation>
     </message>
     <message>
         <location/>
@@ -838,12 +838,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Ääni &amp;Pidä</translation>
+        <translation>Äänen &amp;pito</translation>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation>Kuinka kauan lähetetään hiljaisuuden jälkeen</translation>
+        <translation>Kuinka kauan lähettämistä jatketaan, kun ääni on siirtynyt hiljaiselle alueelle.</translation>
     </message>
     <message>
         <location/>
@@ -1073,12 +1073,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation>Soitetaan kun lähetys alkaa</translation>
+        <translation>Soitetaan kun lähettäminen alkaa</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>Soitetaan kun lähetys loppuu</translation>
+        <translation>Soitetaan kun lähettäminen loppuu</translation>
     </message>
     <message>
         <location/>
@@ -1305,7 +1305,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>Liitetyt &quot;kaiuttimet&quot; ovatkin kuulokkeet</translation>
+        <translation>Yhdistetyt &quot;kaiuttimet&quot; ovat kuulokkeet</translation>
     </message>
     <message>
         <location/>
@@ -1330,7 +1330,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Tarkistus näyttää, että sinulla ei ole kaiuttimia kiinnitettynä vielä, vain kuulokkeet. On tärkeää, sillä kaiuttimet ovat yleensä edessäs kun taas kuulokkeet ovat vasemmalla/oikealla.</translation>
+        <translation>Valinta määrittää että käytät kuulokkeita kauittimien sijaan. Valinta on tärkeä sijainninmukaiselle audiolle siinä mielessä, että kaiuttimet ovat yleensä edessäsi, kun taas kuulokkeet ovat suoraan vasemmalla ja oikealla puolellasi.</translation>
     </message>
     <message>
         <location/>
@@ -2443,12 +2443,12 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Tiedosto ei sisällä voimassaolevaa varmennetta eikä avainta. Valitse toinen tiedosto.</translation>
+        <translation>Tiedosto ei sisällä voimassaolevaa varmenne-avain paria. Valitse toinen tiedosto.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation>Valitse tiedosto, jonne varmenne viedään</translation>
+        <translation>Valitse tiedosto, johon varmenne viedään</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2463,7 +2463,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location filename="main.cpp" line="+419"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Varmenne vanhenee:&lt;/b&gt; Varmenteesi on vanhentumassa. Uusi varmenteesi tai et voi yhdistää käyttämääsi palvelimeen enää.</translation>
+        <translation>&lt;b&gt;Varmenne vanhenee:&lt;/b&gt; Varmenteesi on vanhentumassa. Sinun tulee uusia varmenteesi tai et voi enään yhdistää rekisteröimiisi palvelimiin.</translation>
     </message>
 </context>
 <context>
@@ -2491,7 +2491,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Mumble käyttää tätä varmennettu tällä hetkellä.</translation>
+        <translation>Varmenne jota Mumble käyttää tällä hetkellä.</translation>
     </message>
     <message>
         <location/>
@@ -2516,7 +2516,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Tämä tuo uuden varmenteen tiedostosta.</translation>
+        <translation>Tuo varmenteen tiedostosta.</translation>
     </message>
     <message>
         <location/>
@@ -2531,7 +2531,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Tämä vie varmenteen tiedostoon.</translation>
+        <translation>Vie varmenteen tiedostoon.</translation>
     </message>
     <message>
         <location/>
@@ -5629,7 +5629,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation>Kaverisi käyttää eri nimeä kuin tietokannassasi on. Tämä päivittää käyttäjän nimen.</translation>
+        <translation>Kaverisi käyttää eri nimeä kuin tietokannassasi on. Tämä päivittää hänen käyttäjänimensä.</translation>
     </message>
     <message>
         <location/>
@@ -5644,7 +5644,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, joka sallii vaihtaa heidän nimensä tai poistaa heidät rekisteristä.</translation>
+        <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, jossa pystyt muuttamaan heidän nimiään tai poistamaan heidän rekisteröitymisen.</translation>
     </message>
     <message>
         <location/>
@@ -8128,7 +8128,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation>Kanava on piilotettu kun suodatin on käytössä.</translation>
+        <translation>Kanava piilotetaan kun suodatin on käytössä.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8162,7 +8162,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>Uusi versio Mumblesta on huomattu ja automaattisesti ladattu. On suositeltavaa, että päivität version uusimpaan tai vaihdat viimeisimpään vakaaseen versioon. Haluatko käynnistää asennuksen nyt?</translation>
+        <translation>Mumblesta on löydetty uusi versio ja se on automaattisesti ladattu. On suositeltavaa, että päivität uusimpaan versioon tai vaihdat viimeisimpään vakaaseen versioon. Haluatko käynnistää asennuksen nyt?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8172,7 +8172,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation>Lataustiedosto on virheellinen. Tiedosto poistettiin automaattisesti.</translation>
+        <translation>Lataustiedosto havaittiin virheelliseksi. Tiedosto poistettiin automaattisesti.</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -8183,12 +8183,12 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation>Levylle kirjoitus epäonnistui.</translation>
+        <translation>Uuden version kirjoittaminen levylle epäonnistui.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation>Mumble epäonnistui tarkistaessaan versio tietoja palvelimelta.</translation>
+        <translation>Mumble epäonnistui tarkistamaan versiotietoja palvelimelta.</translation>
     </message>
 </context>
 <context>
@@ -8217,7 +8217,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation>Käytettävä nimi: %1</translation>
+        <translation>Yleinen nimi: %1</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -8296,7 +8296,7 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation>Raportoinut: </translation>
+        <translation>Myöntäjä:</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -8309,12 +8309,12 @@ Pääsytoken on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation>Nauhuri epäonnistui kansion luomisessa &apos;%1&apos;</translation>
+        <translation>Nauhuri epäonnistui luomaan kansion &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation>Nauhuri epäonnistui tiedoston avaamisessa &apos;%1&apos;</translation>
+        <translation>Nauhuri epäonnistui avaamaan tiedoston &apos;%1&apos;</translation>
     </message>
     <message>
         <location line="+166"/>
