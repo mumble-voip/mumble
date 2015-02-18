@@ -599,7 +599,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Konfiguroi</translation>
+        <translation>K&amp;onfiguroi</translation>
     </message>
     <message>
         <location/>
@@ -3705,7 +3705,7 @@ kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     <message>
         <location/>
         <source>Modifiers</source>
-        <translation type="unfinished"/>
+        <translation>Muuntimet</translation>
     </message>
     <message>
         <location/>
@@ -4826,7 +4826,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>&amp;Channel</source>
-        <translation>&amp;Kanava</translation>
+        <translation>K&amp;anava</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -5111,7 +5111,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>&amp;Help</source>
-        <translation>&amp;Apua</translation>
+        <translation>Ap&amp;ua</translation>
     </message>
     <message>
         <location/>
@@ -5364,7 +5364,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation>Erottaa kanavasi kaikki liitokset.</translation>
+        <translation>Erottaa kanavastasi kaikki liitokset.</translation>
     </message>
     <message>
         <location/>
@@ -5384,7 +5384,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Nollaa audio esiprosessorin, sisältäen melun vähennyksen, automaattisen saamis ja äänialueen havainnoinnin. Jos jokin yhtäkkiä huonontaa ääniympäristöä (kuten mikrofonin tiputtaminen) ja se oli vain väliaikaista, käytä tätä esiprosessorin uudelleen sopeutumisen ajan välttämiseen.</translation>
+        <translation>Nollaa audio esiprosessorin, sisältäen melun vähennyksen, automaattisen saamis ja äänialueen havainnoinnin. Jos jokin väliaikaisesti huonontaa ääniympäristöä (kuten mikrofonin tiputtaminen), käytä tätä esiprosessorin uudelleen sopeutumisen ajan välttämiseen.</translation>
     </message>
     <message>
         <location/>
@@ -5429,7 +5429,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Ottaa käyttöön tai poistaa käytöstä teksti puheeki -toiminnon. Vain viestit jotka on valittu luettavaksi teksti puheeksi -toiminnolla asetuksissa luetaan.</translation>
+        <translation>Ottaa käyttöön tai poistaa käytöstä teksti puheeksi -toiminnon. Vain viestit jotka on valittu luettavaksi asetuksissa luetaan.</translation>
     </message>
     <message>
         <location/>
@@ -5464,7 +5464,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>Mahdollistaa Mumblen asetusten muokkaamisen.</translation>
+        <translation>Sallii Mumblen asetusten muokkaamisen.</translation>
     </message>
     <message>
         <location/>
@@ -5494,7 +5494,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Siirtää sinut Selostus-tilaan ja muuttaa kursorisi kysymysmerkiksi. Tässä tilassa painaessasi napista, valikko toiminnosta tai ikkunan alueesta saat tarkemman määritelmän siitä.</translation>
+        <translation>Siirtää sinut Selostus-tilaan ja muuttaa kursorisi kysymysmerkiksi. Tässä tilassa painaessasi napista, valikkotoiminnosta tai ikkunan alueesta saat tarkemman määritelmän siitä.</translation>
     </message>
     <message>
         <location/>
@@ -5554,7 +5554,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Yhdistää Mumblen kotisivuille uuden version tarkistamiseen, mikäli uusi versio löytyy ilmoitetaan myös sen lataus URL-osoite.</translation>
+        <translation>Yhdistää Mumblen kotisivuille uuden version tarkistamiseen. Mikäli uusi versio löytyy, ilmoitetaan sen lataus URL-osoite.</translation>
     </message>
     <message>
         <location/>
@@ -5644,7 +5644,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, jossa pystyt muuttamaan heidän nimiään tai poistamaan heidän rekisteröitymisen.</translation>
+        <translation>Avaa muokkaustyökalun rekisteröidyille käyttäjille, jossa pystyt muuttamaan heidän nimiään ja poistamaan heidän rekisteröitymisen.</translation>
     </message>
     <message>
         <location/>
@@ -5664,12 +5664,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation>Kytke pelkistetty näkymä päälle tai pois päältä</translation>
+        <translation>Kytke miniminäkymä päälle tai pois päältä</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Muuttaa ikkunan minimi näkymään, piilottaen loki ikkunan ja valikon.</translation>
+        <translation>Muuttaa ikkunan miniminäkymään, piilottaen loki ikkunan ja valikon.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+318"/>
@@ -5724,12 +5724,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation>%1 siirrettiin tänne kanavalta %2 %3 toimesta.</translation>
+        <translation>%3 siirsi käyttäjän %1 kanavallesi kanavalta %2.</translation>
     </message>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation>%1 mykistettiin ja hiljennettiin.</translation>
+        <translation>%1 on nyt mykistetty ja hiljennetty.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5750,12 +5750,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation>Sinun ei sallita %1 kanavalla %2.</translation>
+        <translation>Sinun %1 oikeus poistettiin kanavalta %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation>Käyttäjälle %3 ei sallittu %1 oikeuksia kanavalla %2.</translation>
+        <translation>Käyttäjän %3 %1 oikeus poistettiin kanavalta %2.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5765,12 +5765,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation>Virheellinen kanava nimi.</translation>
+        <translation>Virhe: Virheellinen kanava nimi.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation>Viesti on liian pitkä.</translation>
+        <translation>Virhe: Viesti on liian pitkä.</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -5810,7 +5810,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation>Ei käyttöoikeutta toiminnolle</translation>
+        <translation>Ei käyttöoikeutta toiminnolle.</translation>
     </message>
     <message>
         <location line="+39"/>
@@ -5820,7 +5820,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation>%1 mykistettiin.</translation>
+        <translation>%1 on nyt mykistetty.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5860,7 +5860,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation>%1 poisti Etuoikeutetun Puhujan statuksen.</translation>
+        <translation>%1 poisti Etuoikeutetun Puhujan statuksesi.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6038,7 +6038,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Vastaavia CELT koodekkeja ei löydy muilta asiakkailta. Et pysty puhumaan kaikille käyttäjille.</translation>
+        <translation>Vastaavia CELT koodekkeja ei löydy muilta käytäjiltä. Et pysty puhumaan kaikille käyttäjille.</translation>
     </message>
     <message>
         <location line="-473"/>
@@ -6084,7 +6084,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+147"/>
         <source>Denied: %1.</source>
-        <translation>Kielletty: %1</translation>
+        <translation>Estetty: %1</translation>
     </message>
     <message>
         <location line="+430"/>
@@ -6158,7 +6158,7 @@ Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation>Piilota kehys minimi näkymässä</translation>
+        <translation>Piilota kehys miniminäkymässä</translation>
     </message>
     <message>
         <location/>
@@ -6208,12 +6208,12 @@ Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation>Katso kommentti editorissa</translation>
+        <translation>Katso kommentti muokkaustyökalussa.</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation>Tiedustele käyttäjän yhteystiedot palvelimelta</translation>
+        <translation>Tiedustele käyttäjän yhteyden tiedot palvelimelta</translation>
     </message>
     <message>
         <location/>
@@ -6308,7 +6308,7 @@ Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation>Estää kyseisen käyttäjän lähettämästä viestejä sinulle ja ei ilmoita sitä vastapuolelle.</translation>
+        <translation>Estää kyseisen käyttäjän lähettämästä viestejä sinulle ja ei ilmoita siitä vastapuolelle.</translation>
     </message>
     <message>
         <location/>
@@ -6354,7 +6354,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation>&amp;Piilota kanava kun se on suodatettu</translation>
+        <translation>&amp;Piilota kanava suodattaessa</translation>
     </message>
     <message>
         <location/>
@@ -6463,7 +6463,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation>Ottaa käyttöön palvelun laadun hallinnan, joka pyrkii priorisoimaan äänipaketteja muun liikenteen yli.</translation>
+        <translation>Ottaa käyttöön palvelun laadun hallinnan, joka pyrkii priorisoimaan äänipaketteja muun verkkoliikenteen yli.</translation>
     </message>
     <message>
         <location/>
@@ -6473,7 +6473,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation>Ei lähetä sertifikaattia palvelimelle eikä tallenna palvelimien salasanoja. (Ei tallenneta).</translation>
+        <translation>Älä lähetä sertifikaattia palvelimelle, tai tallenna palvelimien salasanoja. (Ei tallenneta).</translation>
     </message>
     <message>
         <location/>
@@ -6538,7 +6538,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Välityspalvelimen tunnistautumisen salasana.&lt;/b&gt;&lt;br /&gt;Määrittelee salasanan jolla tunnistaudut välityspalvelimelle. Jätä tyhjäksi mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä.</translation>
+        <translation>&lt;b&gt;Välityspalvelimen tunnistautumisen salasana.&lt;/b&gt;&lt;br /&gt;Salasana jolla tunnistaudut välityspalvelimelle. Jätä tyhjäksi mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä.</translation>
     </message>
     <message>
         <location/>
@@ -6594,17 +6594,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Lähetä anonyymejä tilastoja.&lt;/b&gt;&lt;br /&gt;Mumblella on pieni kehitystiimi ja sellaisenaan sen tulee kohdistaa kehitys sinne, missä sitä tarvitaan eniten. Lähettämällä vähän tilastoja autat projektia päättämään, mihin kehitys kohdistetaan.</translation>
+        <translation>&lt;b&gt;Lähetä anonyymistä tilastotietoja.&lt;/b&gt;&lt;br /&gt;Mumblella on pieni kehitystiimi ja sellaisenaan sen tulee kohdistaa kehitys sinne, missä sitä tarvitaan eniten. Lähettämällä vähän tilastoja autat projektia päättämään mihin kehitys kohdistetaan.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Lähetä anonyymejä tilastoja Mumble-projektille</translation>
+        <translation>Lähetä anonyymistä tilastotietoja Mumble-projektille</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics</source>
-        <translation>Lähetä anonyymejä tilastoja</translation>
+        <translation>Lähetä anonyymistä tilastotietoja</translation>
     </message>
     <message>
         <location/>
@@ -6619,7 +6619,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>Lataa liitännäis- ja overlay-päivitykset käynnistymisen yhteydessä.</translation>
+        <translation>Lataa liitännäis- ja overlay-päivitykset ohjelman käynnistymisessä.</translation>
     </message>
 </context>
 <context>
@@ -6796,18 +6796,18 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation>Käytä overlay:ta.</translation>
+        <translation>Käytä Overlayta.</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>Käytä overlay:ta</translation>
+        <translation>Käytä Overlayta</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Valinta säätää onko overlay käytössä vai ei. Valinta vaikuttaa vain ohjelman käynnistyessä, joten varmista että Mumble on päällä ennen ohjelman käynnistämistä.&lt;br /&gt;Ota huomioon että jos käynnistät Mumblen ohjelman käynnistymisen jälkeen tai poistat overlayn käytöstä ohjelman ollessa käynnissä, ainoa tapa ottaa overlay käyttöön on käynnistää ohjelma uudelleen.</translation>
+        <translation>Valinta säätää onko Overlay käytössä vai ei. Valinta vaikuttaa vain ohjelman käynnistyessä, joten varmista että Mumble on päällä ja tämä valinta valittu ennen ohjelman käynnistämistä.&lt;br /&gt;Ota huomioon että jos käynnistät Mumblen ohjelman käynnistymisen jälkeen tai poistat overlayn käytöstä ohjelman ollessa käynnissä, ainoa tapa ottaa overlay käyttöön on käynnistää ohjelma uudelleen.</translation>
     </message>
     <message>
         <location/>
@@ -6851,7 +6851,7 @@ Paina napista alhaalla asentaaksesi overlay.</translation>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation>Asenna Mumble overlay</translation>
+        <translation>Asenna Mumble Overlay</translation>
     </message>
     <message>
         <location/>
@@ -6863,14 +6863,14 @@ Paina napista alhaalla asentaaksesi overlay.</translation>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation>Mumble on havainnut overlay:ta tukevien tiedostojen olevan vanhentuneita.
+        <translation>Mumble on havainnut Overlay:ta tukevien tiedostojen olevan vanhentuneita.
 
-Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään versioon.</translation>
+Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään versioon.</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation>Päivitä Mumble overlay</translation>
+        <translation>Päivitä Mumble Overlay</translation>
     </message>
     <message>
         <location/>
@@ -6885,7 +6885,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation>Lataa overlay asetelma tiedostosta</translation>
+        <translation>Lataa Overlay asetelma tiedostosta</translation>
     </message>
     <message>
         <location/>
@@ -6895,7 +6895,7 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation>Tallenna overlay asetukset tiedostoon</translation>
+        <translation>Tallenna Overlay asetukset tiedostoon</translation>
     </message>
     <message>
         <location/>
@@ -6905,12 +6905,12 @@ Paina napista alhaalla päivittääksesi overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation>Valitsee overlay:n fontin.</translation>
+        <translation>Valitsee Overlay:n fontin.</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation>Valitsee overlay:n tekstin värin.</translation>
+        <translation>Valitsee Overlay:n tekstin värin.</translation>
     </message>
     <message>
         <location/>
