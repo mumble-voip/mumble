@@ -2087,12 +2087,12 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Käytä Teksti puheeksi -toimintoa lukeaksesi ilmoitukset ja viestit.</translation>
+        <translation>Käytä Teksti-puheeksi -toimintoa lukeaksesi ilmoitukset ja viestit.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Älä käytä Teksti puheeksi -toimintoa vaan käytä äänimerkkeja.</translation>
+        <translation>Älä käytä Teksti-puheeksi -toimintoa vaan käytä äänimerkkeja.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
@@ -2142,7 +2142,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Pidä kustomoidut Teksti puheeksi -asetukset.</translation>
+        <translation>Pidä kustomoidut Teksti-puheeksi -asetukset.</translation>
     </message>
     <message>
         <location/>
@@ -2861,12 +2861,12 @@ On &lt;b&gt;erityisen&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation>Esittää lupaa tehdä alakanavia. Alakanavan luova käyttäjä lisätään alakanavan ylläpitoryhmään.</translation>
+        <translation>Esittää lupaa tehdä alikanavia. Alikanavan luova käyttäjä lisätään alikanavan ylläpitoryhmään.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation>Esittää lupaa tehdä väliaikaisen aakanavan. Alakanavan luova käyttäjä lisätään alakanavan ylläpitoryhmään. Väliaikaisia kanavia ei tallenneta, ja ne katoavat kun viimeinen käyttäjä poistuu.</translation>
+        <translation>Esittää lupaa tehdä väliaikaisen alikanavan. Alikanavan luova käyttäjä lisätään alikanavan ylläpitoryhmään. Väliaikaisia kanavia ei tallenneta, ja ne katoavat kun viimeinen käyttäjä poistuu.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3710,7 +3710,7 @@ kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>Älä käytä sijainninmukaista audiota tämän kuiskaispikanäppäimen kanssa.</translation>
+        <translation>Älä käytä sijainninmukaista audiota tämän kuiskauspikanäppäimen kanssa.</translation>
     </message>
     <message>
         <location/>
@@ -3725,7 +3725,7 @@ kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation>Huuda alakanaville</translation>
+        <translation>Huuda alikanaville</translation>
     </message>
     <message>
         <location/>
@@ -3740,7 +3740,7 @@ kaikkissa vaihtoehtoisissa sijainneissa.</translation>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>Kuiskaus näkyy myös kohdekanavan alakanavilla</translation>
+        <translation>Kuiskaus näkyy myös kohdekanavan alikanavilla</translation>
     </message>
 </context>
 <context>
@@ -3798,7 +3798,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 &lt;h3&gt;Size:&lt;/h3&gt;
 &lt;p&gt;
 Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) tai merkkeinä (merkkipohjainen LCD).&lt;/p&gt;
-&lt;h3&gt;Aktiivi&lt;/h3&gt;
+&lt;h3&gt;Käytössä:&lt;/h3&gt;
 &lt;p&gt;Kenttä määrää tuleeko Mumble käyttämään kyseenomaisen LCD laitteen näyttöä.&lt;/p&gt;</translation>
     </message>
     <message>
@@ -3826,8 +3826,8 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Määrää pienimmän sarakkeen leveyden käyttäjänäkymässä.&lt;/p&gt;
-&lt;p&gt;Kun useat käyttäjät puhuvat yhtäaikaa, käyttäjänäkymä jakaa itsensä sarakkeisiin. Tällä asetuksella voit valita käyttäjien määrään ja heidän nimensä leveyden näkymisen väliltä LCD näkymässä.&lt;/p&gt;
+        <translation>&lt;p&gt;Määrää pienimmän sarakeleveyden käyttäjänäkymässä.&lt;/p&gt;
+&lt;p&gt;Jos useat käyttäjät puhuvat yhtäaikaa, käyttäjänäkymä jakaa itsensä sarakkeisiin. Tällä asetuksella voit valita kuinka paljon yksittäinen käyttäjänimi vie tilaa LCD-näytöllä.&lt;/p&gt;
 </translation>
     </message>
     <message>
@@ -3891,12 +3891,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation>Käyttäjä liittyy palvelimelle</translation>
+        <translation>Käyttäjä liittyi palvelimelle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Käyttäjä poistuu palvelimelta</translation>
+        <translation>Käyttäjä poistui palvelimelta</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3906,7 +3906,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>Käyttäjä poistetaan (sinun tai jonkun muun toimesta)</translation>
+        <translation>Käyttäjä poistettu (sinut tai sinä poistit)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3921,22 +3921,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+2"/>
         <source>User muted (you)</source>
-        <translation>Sinut mykistetään</translation>
+        <translation>Käyttäjä mykistetty (sinä)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation>Mykistät käyttäjän</translation>
+        <translation>Käyttäjä mykistetty (sinä mykistit)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>Käyttäjä mykistetään (muu)</translation>
+        <translation>Käyttäjä mykistettiin (muu)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Käyttäjä liittyy kanavalle</translation>
+        <translation>Käyttäjä liittyi kanavalle</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3972,7 +3972,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation>[Päivämääräksi vaihdettu %1]
+        <translation>[Päivämääräksi vaihtui %1]
 </translation>
     </message>
     <message>
@@ -3993,7 +3993,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation>kanava liitos</translation>
+        <translation>kanava linkki</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4006,7 +4006,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-471"/>
         <source>Toggle console for %1 events</source>
-        <translation>Käytä console viestiä tapahtumalle %1.</translation>
+        <translation>Käytä ilmoitusviestiä tapahtumalle %1.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4016,22 +4016,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Käytä Teksti puheeksi -toimintoa %1 toiminnolle</translation>
+        <translation>Käytä Teksti-puheeksi -toimintoa %1 toiminnolle</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Käytä äänimerkkiä tapahtumalle %1</translation>
+        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Äänitiedoston polku jota käytetään äänimerkkinä tapahtuman %1 yhteydessä&lt;br /&gt;Klikkaa kerran toistamiseen&lt;br /&gt;Tupla klikkaa vaihtamiseen</translation>
+        <translation>Polku äänitiedostoon, jota käytetään äänimerkkinä tapahtuman %1 yhteydessä&lt;br /&gt;Klikkaa kerran toistaaksesi&lt;br /&gt;Tuplaklikkaa vaihtaaksesi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Valitse saadaksesi konsoli viesti tapahtumalle %1.&lt;br /&gt;Valittuna Mumble esittää viestin jokaiselle %1 tapahtumalle viesti kentässä.</translation>
+        <translation>Valitse saadaksesi ilmoitusviesti tapahtumalle %1.&lt;br /&gt;Valittuna Mumble esittää viestin jokaiselle %1 tapahtumalle viestikentässä.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4042,19 +4042,19 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+3"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Polku äänitiedostoon jota käytetään tapahtuman %1 yhteydessä.&lt;br /&gt;Paina kerran toistamiseen&lt;br /&gt;Tupla klikkaa vaihtamiseen&lt;br /&gt;Tapahtuman äänimerkin toistamiseen tulee ääni sarake myös olla valittu.</translation>
+        <translation>Polku äänitiedostoon jota käytetään tapahtuman %1 yhteydessä.&lt;br /&gt;Paina kerran toistaaksesi&lt;br /&gt;Tuplaklikkaa vaihtaaksesi&lt;br /&gt;Varmista että tämän tapahtuman äänimerkki on valittu, tai tällä kentällä ei ole vaikutusta. </translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Klikkaa täältä käyttääksesi Teksti puheeksi -toimintoa %1 tapahtumalle.&lt;br /&gt;Jos valittuna, Mumble käyttää Teksti puheeksi -toimintoa lukeakseen ääneen %1 tapahtumat. Teksti puheeksi -toiminto voi myös lukea tapahtumat joihin ei käytetä äänimerkkiä. Teksti puheeksi -toimintoa ja äänimerkkejä ei voida käyttää samaan aikaan.</translation>
+        <translation>Valitse käyttääksesi Teksti-puheeksi -toimintoa %1 tapahtumille.&lt;br /&gt;Mumble käyttää Teksti-puheeksi -toimintoa lukeakseen ääneen %1 tapahtumat, jos tämä on valittuna. Teksti-puheeksi -toiminto voi myös lukea tapahtumat joihin ei käytetä äänimerkkiä. Teksti-puheeksi -toimintoa ja äänimerkkejä ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1.&lt;br /&gt;Valittuna Mumble käyttää määritettyä äänimerkkiä tapahtuman %1 yhteydessä. Äänimerkkejä ja Teksti puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
+        <translation>Valitse käyttääksesi äänimerkkiä tapahtumalle %1.&lt;br /&gt;Valittuna Mumble käyttää määritettyä äänimerkkiä tapahtuman %1 yhteydessä. Äänimerkkejä ja Teksti-puheeksi -toimintoa ei voida käyttää samaan aikaan.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4079,12 +4079,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Text-To-Speech</source>
-        <translation>Teksti puheeksi</translation>
+        <translation>Teksti-puheeksi</translation>
     </message>
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation>Ääni</translation>
+        <translation>Äänitiedosto</translation>
     </message>
     <message>
         <location/>
@@ -4094,7 +4094,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Text To Speech</source>
-        <translation>Teksti puheeksi</translation>
+        <translation>Teksti-puheeksi</translation>
     </message>
     <message>
         <location/>
@@ -4104,7 +4104,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation>Teksti puheeksi -toiminnon äänenvoimakkuus</translation>
+        <translation>Teksti-puheeksi -toiminnon äänenvoimakkuus</translation>
     </message>
     <message>
         <location/>
@@ -4119,12 +4119,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Teksti puheeksi -toiminnon viestin pituuden raja.</translation>
+        <translation>Teksti-puheeksi -toiminnon viestin pituuden raja.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Teksti puheeksi -toiminnon pituuden raja.&lt;/b&gt;&lt;br /&gt;Viesteistä luetaan vain määritelty määrä merkkejä.</translation>
+        <translation>&lt;b&gt;Teksti-puheeksi -toiminnon pituuden raja.&lt;/b&gt;&lt;br /&gt;Viesteistä luetaan vain määritelty määrä merkkejä.</translation>
     </message>
     <message>
         <location/>
@@ -4139,12 +4139,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Valittuna vain käyttäjät ystävät-listallasi voivat kuiskata sinulle.</translation>
+        <translation>Vain kaverilistasi käyttäjät voivat kuiskata sinulle, jos tämä on valittuna.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>Kuiskauksia vain kavereilta</translation>
+        <translation>Ota vastaan kuiskauksia vain kavereilta</translation>
     </message>
     <message>
         <location/>
@@ -4159,7 +4159,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation>Chat logi</translation>
+        <translation>Keskusteluloki</translation>
     </message>
     <message>
         <location/>
@@ -4198,7 +4198,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation>Kaikki</translation>
+        <translation>Aina</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4228,7 +4228,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Asettaa mitkä kanavat automaattisesti avata. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanava hierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; aukaisee kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt; avaa kanavat joilla on käyttäjiä sekä aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa niistä.</translation>
+        <translation>Asettaa mitkä kanavat laajennetaan automaattisesti. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanavahierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; laajentaa kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt;laajentaa kanavat, joilla on käyttäjiä sekä aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa.</translation>
     </message>
     <message>
         <location/>
@@ -4238,7 +4238,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Valittuna käyttäjät näytetään alikanavien yläpuolella olevilla kanavilla kanava näkymässä.&lt;/b&gt;&lt;br /&gt;Mumble tulee uudelleenkäynnistää, jotta muutos tulee voimaan.</translation>
+        <translation>&lt;b&gt;Käyttäjät näytetään alikanavien yläpuolella olevilla kanavilla kanavanäkymässä, jos tämä on valittuna.&lt;/b&gt;&lt;br /&gt;Mumble tulee uudelleenkäynnistää, jotta muutos tulee voimaan.</translation>
     </message>
     <message>
         <location/>
@@ -4268,7 +4268,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation>Käytettävä kieli (vaatii uudelleenkäynnistymisen)</translation>
+        <translation>Käytettävä kieli (vaatii uudelleenkäynnistyksen)</translation>
     </message>
     <message>
         <location/>
@@ -4278,7 +4278,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation>Ulkonäkö ja tuntuma</translation>
+        <translation>Ulkoasu</translation>
     </message>
     <message>
         <location/>
@@ -4329,7 +4329,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Asettaa ulkonäön ja tuntuman.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Asettaa ulkoasun.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4354,7 +4354,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation>Milloin automaattisesti avata kanavia</translation>
+        <translation>Milloin laajentaa kanavia automaattisesti</translation>
     </message>
     <message>
         <location/>
@@ -4384,12 +4384,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Piilota tehtäväpalkissa pienennettynä</translation>
+        <translation>Piilota tehtäväpalkkiin pienennettäessä.</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>Piilottaa Mumblen ikkunan kun se on tehtäväpalkissa pienennettynä.</translation>
+        <translation>Piilottaa Mumblen ikkunan kun se on pienennettynä tehtäväpalkkiin.</translation>
     </message>
     <message>
         <location/>
@@ -4419,22 +4419,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation>Näyttää puhetilan tehtäväpalkissa</translation>
+        <translation>Näyttää puhetilan tehtäväpalkin ilmaisualueella</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation>Näytä puhetila tehtäväpalkin ikonissa</translation>
+        <translation>Näytä puhetilan tehtäväpalkin ilmaisualueen kuvakkeessa</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana.&lt;i&gt;Ei koskaan&lt;/i&gt; ikkuna ei ole koskaan päällimmäisenä. &lt;i&gt;Aina&lt;/i&gt; ikkuna pysyy aina päällimmäisenä. &lt;i&gt;Miniminäkymässä&lt;/i&gt; / &lt;Perusnäkymässä&lt;/i&gt; ikkuna on päällimmäisenä ollessa kyseisessä tilassa.</translation>
+        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana.&lt;i&gt;Ei koskaan&lt;/i&gt; ikkuna ei ole koskaan päällimmäisenä. &lt;i&gt;Aina&lt;/i&gt; ikkuna pysyy aina päällimmäisenä. &lt;i&gt;Miniminäkymässä&lt;/i&gt; / &lt;i&gt;Perusnäkymässä&lt;/i&gt; ikkuna on päällimmäisenä ollessa kyseisessä tilassa.</translation>
     </message>
     <message>
         <location/>
         <source>Show context menu in menu bar</source>
-        <translation>Näytä konteksti valikot valikkopalkissa</translation>
+        <translation>Näytä kontekstivalikot valikkopalkissa</translation>
     </message>
     <message>
         <location/>
@@ -4459,7 +4459,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation>Tehtäväpalkki-ikoni</translation>
+        <translation>Tehtäväpalkin ilmaisualueen kuvake</translation>
     </message>
     <message>
         <location/>
@@ -4488,7 +4488,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2324"/>
         <source>Root</source>
-        <translation>Root</translation>
+        <translation>Juuri</translation>
     </message>
     <message>
         <location line="-2270"/>
@@ -4536,19 +4536,19 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation>Overlayn tila</translation>
+        <translation>Näytä Overlay</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation>Vaihtaa pelinaikaisen overlayn tilaa</translation>
+        <translation>Vaihtaa pelinaikaisen overlayn näkymää</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Minimi tila</translation>
+        <translation>Ota käyttöön Miniminäkymä</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4634,7 +4634,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Vaihtaa hiljnennyksesi tilaa. Kun laitat hiljennyksen päälle, laitat myös mykisten päälle.</translation>
+        <translation>Vaihtaa hiljennyksesi tilaa. Kun laitat hiljennyksen päälle, mykistät myös itsesi.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4708,7 +4708,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+148"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Koontiversiotietoja ja OS versiota ei ole saatavilla.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Versiotietoja ei ole saatavilla.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4740,7 +4740,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle . Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi tällä palvelimella rekisteröimisen jälkeen.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä &apos;%1&apos;?&lt;/p&gt; </translation>
+        <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle nimellä %1. Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi %1 tällä palvelimella rekisteröimisen jälkeen.&lt;/p&gt;&lt;p&gt;Tästä lähtien käyttäjänimi %1 tunnistetaan käytössä olevana.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä %1?&lt;/p&gt; </translation>
     </message>
     <message>
         <location line="+40"/>
@@ -4816,7 +4816,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-1776"/>
         <source>Voice channel is sent over control channel.</source>
-        <translation>Äänikanava lähetään ohjauskanavalla.</translation>
+        <translation>Äänikanavan tiedot lähetetään käyttäen ohjauskanavaa.</translation>
     </message>
     <message>
         <location line="-950"/>
@@ -4941,7 +4941,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+4"/>
         <location line="+259"/>
         <source>To %1: %2</source>
-        <translation>-&gt;%1: %2</translation>
+        <translation>-&gt; %1: %2</translation>
     </message>
     <message>
         <location line="-362"/>
@@ -5151,7 +5151,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation>Avaa palvelin ikkuna</translation>
+        <translation>Avaa palvelinyhteysikkuna</translation>
     </message>
     <message>
         <location/>
@@ -5332,7 +5332,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Mykistää tai poistää käyttäjän mykistyksen paikallisesti. Käytä käyttäjiin, jotka ovat samassa huoneessa.</translation>
+        <translation>Mykistää tai poistaa mykistyksen käyttäjältä. Käytä käyttäjiin, jotka ovat samassa huoneessa.</translation>
     </message>
     <message>
         <location/>
@@ -5343,7 +5343,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Liittää nykyisen kanavasi valittuun kanavaan. Jos kanavan käyttäjillä on puheoikeudet vastakkaisella kanavalla, pystyvät he kuulemaan toisensa kanavien läpi. Tämä on pysyvä liitos, joka kestää kunnes manuaalisesti poistettu tai palvelin käynnistetään uudelleen. Katso myös pikanäppäimistä liittopikanäppäin.</translation>
+        <translation>Liittää nykyisen kanavasi valittuun kanavaan. Jos kanavan käyttäjillä on puheoikeudet vastakkaisella kanavalla, pystyvät he kuulemaan toisensa kanavien läpi. Tämä on pysyvä liitos, joka kestää kunnes manuaalisesti poistettu tai palvelin käynnistetään uudelleen. Katso myös pikanäppäimistä liittämisen pikanäppäin.</translation>
     </message>
     <message>
         <location/>
@@ -5384,7 +5384,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Nollaa audio esiprosessorin, sisältäen melun vähennyksen, automaattisen saamis ja äänialueen havainnoinnin. Jos jokin väliaikaisesti huonontaa ääniympäristöä (kuten mikrofonin tiputtaminen), käytä tätä esiprosessorin uudelleen sopeutumisen ajan välttämiseen.</translation>
+        <translation>Nollaa audion esiprosessorin, sisältäen melun vähennyksen, automaattisen vahvistuksen ja äänialueen havainnoinnin. Jos jokin väliaikaisesti huonontaa ääniympäristöä (kuten mikrofonin tiputtaminen), käytä tätä esiprosessorin uudelleen sopeutumisen ajan välttämiseen.</translation>
     </message>
     <message>
         <location/>
@@ -5419,17 +5419,17 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation>&amp;Teksti puheeksi</translation>
+        <translation>&amp;Teksti-puheeksi</translation>
     </message>
     <message>
         <location/>
         <source>Toggle Text-To-Speech</source>
-        <translation>Käytä Teksti puheeksi -toimintoa</translation>
+        <translation>Käytä Teksti-puheeksi -toimintoa</translation>
     </message>
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Ottaa käyttöön tai poistaa käytöstä teksti puheeksi -toiminnon. Vain viestit jotka on valittu luettavaksi asetuksissa luetaan.</translation>
+        <translation>Ottaa käyttöön tai poistaa käytöstä teksti-puheeksi -toiminnon. Vain viestit jotka on valittu luettavaksi asetuksissa luetaan.</translation>
     </message>
     <message>
         <location/>
@@ -6038,7 +6038,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+407"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Vastaavia CELT koodekkeja ei löydy muilta käytäjiltä. Et pysty puhumaan kaikille käyttäjille.</translation>
+        <translation>Vastaavia CELT codekkeja ei löydy muilta käyttäjiltä. Et pysty puhumaan kaikille käyttäjille.</translation>
     </message>
     <message>
         <location line="-473"/>
@@ -6119,13 +6119,13 @@ Valid options are:
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
 </source>
-        <translation>Käyttö: mumble [options] [&lt;url&gt;]
+        <translation>Käyttö: mumble [valinnat] [&lt;url&gt;]
 
 &lt;url&gt; määrittää URL-osoitteen johon yhdistää käynnistämisen jälkeen
-yhdistämis ikkunan sijaan. Muoto on seuraava:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;]
+yhteysikkunan sijaan. Muoto on seuraava:
+mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;isäntä&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?versio=&lt;x.y.z&gt;]
 
-Versio parametri tulee olla asetettuna, jotta ohjelman kutsut pystytään asettamaan oikeisiin versioihin. Tämänhetkinen oletusarvo on 1.2.0.
+Version parametri tulee olla asetettuna, jotta ohjelman kutsut pystytään asettamaan oikeisiin versioihin. Tämänhetkinen oletusarvo on 1.2.0.
 
 Mahdollisia muuttujia:
 -h, --help Näytä tämä ohje teksti ja lopeta.
@@ -6478,12 +6478,12 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Peittää identiteetti tiedot ohjelmalta.&lt;/b&gt;&lt;p&gt;Ohjelma ei tule tunnistautumaan sertifikaatilla vaikka se olisi olemassa, eikä tallenna salasanoja yhteyksien muodostuessa. Tämä asetus on pääasiassa testi käyttöön ja valintaa ei tulla muistamaan ohjelman sulkemisen jälkeen.</translation>
+        <translation>&lt;b&gt;Piilottaa identiteettitiedot ohjelmalta.&lt;/b&gt;&lt;p&gt;Ohjelma ei tule tunnistautumaan sertifikaatilla vaikka se olisi olemassa, eikä tallenna salasanoja yhteyksien muodostuessa. Tämä asetus on pääasiassa testikäyttöön ja valintaa ei tulla muistamaan ohjelman sulkemisen jälkeen.</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation>Peitä setifikaatti ja salasanojen säilytys.</translation>
+        <translation>Piilota setifikaatti ja salasanojen säilytys.</translation>
     </message>
     <message>
         <location/>
@@ -6791,7 +6791,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Asetukset</translation>
+        <translation>Valinnat</translation>
     </message>
     <message>
         <location/>
@@ -7587,7 +7587,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation>Alakanava #%1</translation>
+        <translation>Alikanava #%1</translation>
     </message>
 </context>
 <context>
@@ -7621,7 +7621,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation>Alakanava #%1</translation>
+        <translation>Alikanava #%1</translation>
     </message>
     <message>
         <location line="+7"/>
