@@ -50,6 +50,7 @@ class OverlayPrivateWin : public OverlayPrivate {
 
 	public slots:
 		void onHelperProcessStarted();
+		void onHelperProcessError(QProcess::ProcessError);
 		void onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 
 	protected:
