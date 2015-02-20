@@ -503,16 +503,16 @@ message UserStats {
 // comments or textures are not sent within standard messages but instead the
 // hash is. If the client does not recognize the hash it may request the
 // resource when it needs it. The client does so by sending a RequestBlob
-// message with the correct fields filled with the hashes it wants to receive.
-// The server replies to this by sending a new UserState/ChannelState message
-// with the resources filled even if they would normally be transmitted as
-// hashes.
+// message with the correct fields filled with the user sessions or channel_ids
+// it wants to receive. The server replies to this by sending a new
+// UserState/ChannelState message with the resources filled even if they would
+// normally be transmitted as hashes.
 message RequestBlob {
-	// Hashes of the requested UserState textures.
+	// sessions of the requested UserState textures.
 	repeated uint32 session_texture = 1;
-	// Hashes of the requested UserState comments.
+	// sessions of the requested UserState comments.
 	repeated uint32 session_comment = 2;
-	// Hashes of the requested ChannelState descriptions.
+	// channel_ids of the requested ChannelState descriptions.
 	repeated uint32 channel_description = 3;
 }
 
