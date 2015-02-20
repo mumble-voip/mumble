@@ -476,6 +476,11 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 			break;
 		}
 
+		if (msg.message == WM_CLOSE) {
+			retval = 0;
+			break;
+		}
+
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
