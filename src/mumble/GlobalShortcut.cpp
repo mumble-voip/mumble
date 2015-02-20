@@ -490,7 +490,7 @@ ShortcutDelegate::ShortcutDelegate(QObject *p) : QStyledItemDelegate(p) {
 	factory->registerEditor(QVariant::UInt, new QStandardItemEditorCreator<ShortcutActionWidget>());
 	factory->registerEditor(QVariant::Int, new QStandardItemEditorCreator<ShortcutToggleWidget>());
 	factory->registerEditor(static_cast<QVariant::Type>(QVariant::fromValue(ShortcutTarget()).userType()), new QStandardItemEditorCreator<ShortcutTargetWidget>());
-	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator<QWidget>());
+	factory->registerEditor(QVariant::String, new QStandardItemEditorCreator<QLineEdit>());
 	factory->registerEditor(QVariant::Invalid, new QStandardItemEditorCreator<QWidget>());
 	setItemEditorFactory(factory);
 }
