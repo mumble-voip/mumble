@@ -73,6 +73,7 @@ static bool canRun64BitPrograms() {
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	m_allow64bit = canRun64BitPrograms();
+	m_active = false;
 
 	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
 	m_helper_exe_args = QStringList(QString::number(OVERLAY_MAGIC_NUMBER));
@@ -80,6 +81,9 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	connect(m_helper_process, SIGNAL(started()),
 	        this, SLOT(onHelperProcessStarted()));
+
+	connect(m_helper_process, SIGNAL(error(QProcess::ProcessError)),
+	        this, SLOT(onHelperProcessError(QProcess::ProcessError)));
 
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
@@ -90,6 +94,9 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	connect(m_helper64_process, SIGNAL(started()),
 	        this, SLOT(onHelperProcessStarted()));
+
+	connect(m_helper64_process, SIGNAL(error(QProcess::ProcessError)),
+	        this, SLOT(onHelperProcessError(QProcess::ProcessError)));
 
 	connect(m_helper64_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
@@ -140,6 +147,23 @@ static const char *exitStatusString(QProcess::ExitStatus exitStatus) {
 	return "unknown";
 }
 
+static const char *processErrorString(QProcess::ProcessError processError) {
+	switch (processError) {
+		case QProcess::FailedToStart:
+			return "process failed to start";
+		case QProcess::Crashed:
+			return "process crashed";
+		case QProcess::Timedout:
+			return "process wait operation timed out";
+		case QProcess::WriteError:
+			return "an error occurred when attempting to write to the process";
+		case QProcess::ReadError:
+			return "an error occurred when attempting to read from the process";
+	}
+
+	return "unknown";
+}
+
 void OverlayPrivateWin::onHelperProcessStarted() {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 	QString path;
@@ -152,6 +176,20 @@ void OverlayPrivateWin::onHelperProcessStarted() {
 	PROCESS_INFORMATION *pi = helper->pid();
 	qWarning("OverlayPrivateWin: overlay helper process '%s' started with PID %llu.",
 	         qPrintable(path), static_cast<unsigned long long>(pi->dwProcessId));
+}
+
+void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError) {
+	QProcess *helper = qobject_cast<QProcess *>(sender());
+	QString path;
+	if (helper == m_helper_process) {
+		path = m_helper_exe_path;
+	} else if (helper == m_helper64_process) {
+		path = m_helper64_exe_path;
+	}
+
+	qWarning("OverlayPrivateWin: an error occured for overlay helper process '%s': %s",
+	         qPrintable(path),
+	         processErrorString(processError));
 }
 
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
