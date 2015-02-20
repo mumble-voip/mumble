@@ -29,6 +29,6 @@ src/mumble/mumble_plugin_import.cpp
 src/mumble/mumble_app_plugin_import.cpp
 src/murmur/murmurd_plugin_import.cpp
 src/murmur/murmur_plugin_import.cpp
-doc/doxygen/
+doxygen/
 .qmake.cache
 .qmake.stash
