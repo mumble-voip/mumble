@@ -192,6 +192,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	// Kick ghost
 	if (uOld) {
 		log(uSource, "Disconnecting ghost");
+		MumbleProto::UserRemove mpur;
+		mpur.set_session(uOld->uiSession);
+		mpur.set_reason("You connected to the server from another device");
+		sendMessage(uOld, mpur);
+		uOld->forceFlush();
 		uOld->disconnectSocket(true);
 	}
 
