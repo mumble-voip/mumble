@@ -2,293 +2,543 @@ package MumbleProto;
 
 option optimize_for = SPEED;
 
-message	Version {
+message Version {
+	// 2-byte Major, 1-byte Minor and 1-byte Patch version number.
 	optional uint32 version = 1;
+	// Client release name.
 	optional string release = 2;
+	// Client OS name.
 	optional string os = 3;
+	// Client OS version.
 	optional string os_version = 4;
 }
 
+// Not used. Not even for tunneling UDP through TCP.
 message UDPTunnel {
+	// Not used.
 	required bytes packet = 1;
 }
 
+// Used by the client to send the authentication credentials to the server.
 message Authenticate {
+	// UTF-8 encoded username.
 	optional string username = 1;
+	// Server or user password.
 	optional string password = 2;
+	// Additional access tokens for server ACL groups.
 	repeated string tokens = 3;
+	// A list of CELT bitstream version constants supported by the client.
 	repeated int32 celt_versions = 4;
 	optional bool opus = 5 [default = false];
 }
 
+// Sent by the client to notify the server that the client is still alive.
+// Server must reply to the packet with the same timestamp and its own
+// good/late/lost/resync numbers. None of the fields is strictly required.
 message Ping {
+	// Client timestamp. Server should not attempt to decode.
 	optional uint64 timestamp = 1;
+	// The amount of good packets received.
 	optional uint32 good = 2;
+	// The amount of late packets received.
 	optional uint32 late = 3;
+	// The amount of packets never received.
 	optional uint32 lost = 4;
+	// The amount of nonce resyncs.
 	optional uint32 resync = 5;
+	// The total amount of UDP packets received.
 	optional uint32 udp_packets = 6;
+	// The total amount of TCP packets received.
 	optional uint32 tcp_packets = 7;
+	// UDP ping average.
 	optional float udp_ping_avg = 8;
+	// UDP ping variance.
 	optional float udp_ping_var = 9;
+	// TCP ping average.
 	optional float tcp_ping_avg = 10;
+	// TCP ping variance.
 	optional float tcp_ping_var = 11;
 }
 
+// Sent by the server when it rejects the user connection.
 message Reject {
 	enum RejectType {
+		// TODO ??
 		None = 0;
+		// The client attempted to connect with an incompatible version.
 		WrongVersion = 1;
+		// The user name supplied by the client was invalid.
 		InvalidUsername = 2;
+		// The client attempted to authenticate as a user with a password but it
+		// was wrong.
 		WrongUserPW = 3;
+		// The client attempted to connect to a passworded server but the password
+		// was wrong.
 		WrongServerPW = 4;
+		// Supplied username is already in use.
 		UsernameInUse = 5;
+		// Server is currently full and cannot accept more users.
 		ServerFull = 6;
+		// The user did not provide a certificate but one is required.
 		NoCertificate = 7;
 		AuthenticatorFail = 8;
 	}
+	// Rejection type.
 	optional RejectType type = 1;
+	// Human readable rejection reason.
 	optional string reason = 2;
 }
 
+// ServerSync message is sent by the server when it has authenticated the user
+// and finished synchronizing the server state.
 message ServerSync {
+	// The session of the current user.
 	optional uint32 session = 1;
+	// Maximum bandwidth that the user should use.
 	optional uint32 max_bandwidth = 2;
+	// Server welcome text.
 	optional string welcome_text = 3;
+	// Current user permissions TODO: Confirm??
 	optional uint64 permissions = 4;
 }
 
+// Sent by the client when it wants a channel removed. Sent by the server when
+// a channel has been removed and clients should be notified.
 message ChannelRemove {
 	required uint32 channel_id = 1;
 }
 
+// Used to communicate channel properties between the client and the server.
+// Sent by the server during the login process or when channel properties are
+// updated. Client may use this message to update said channel properties.
 message ChannelState {
+	// Unique ID for the channel within the server.
 	optional uint32 channel_id = 1;
+	// channel_id of the parent channel.
 	optional uint32 parent = 2;
+	// UTF-8 encoded channel name.
 	optional string name = 3;
+	// A collection of channel id values of the linked channels. Absent during
+	// the first channel listing.
 	repeated uint32 links = 4;
+	// UTF-8 encoded channel description. Only if the description is less than
+	// 128 bytes
 	optional string description = 5;
+	// A collection of channel_id values that should be added to links.
 	repeated uint32 links_add = 6;
+	// A collection of channel_id values that should be removed from links.
 	repeated uint32 links_remove = 7;
+	// True if the channel is temporary.
 	optional bool temporary = 8 [default = false];
+	// Position weight to tweak the channel position in the channel list.
 	optional int32 position = 9 [default = 0];
+	// SHA1 hash of the description if the description is 128 bytes or more.
 	optional bytes description_hash = 10;
 }
 
+// Used to communicate user leaving or being kicked. May be sent by the client
+// when it attempts to kick a user. Sent by the server when it informs the
+// clients that a user is not present anymore.
 message UserRemove {
+	// The user who is being kicked, identified by their session, not present
+	// when no one is being kicked.
 	required uint32 session = 1;
+	// The user who initiated the removal. Either the user who performs the kick
+	// or the user who is currently leaving.
 	optional uint32 actor = 2;
+	// Reason for the kick, stored as the ban reason if the user is banned.
 	optional string reason = 3;
+	// True if the kick should result in a ban.
 	optional bool ban = 4;
 }
 
+// Sent by the server when it communicates new and changed users to client.
+// First seen during login procedure. May be sent by the client when it wishes
+// to alter its state.
 message UserState {
+	// Unique user session ID of the user whose state this is, may change on
+	// reconnect.
 	optional uint32 session = 1;
+	// The session of the user who is updating this user.
 	optional uint32 actor = 2;
+	// User name, UTF-8 encoded.
 	optional string name = 3;
+	// Registered user ID if the user is registered.
 	optional uint32 user_id = 4;
+	// Channel on which the user is.
 	optional uint32 channel_id = 5;
+	// True if the user is muted by admin.
 	optional bool mute = 6;
+	// True if the user is deafened by admin.
 	optional bool deaf = 7;
+	// True if the user has been suppressed from talking by a reason other than
+	// being muted.
 	optional bool suppress = 8;
+	// True if the user has muted self.
 	optional bool self_mute = 9;
+	// True if the user has deafened self.
 	optional bool self_deaf = 10;
+	// User image if it is less than 128 bytes.
 	optional bytes texture = 11;
+	// TODO ??
 	optional bytes plugin_context = 12;
+	// TODO ??
 	optional string plugin_identity = 13;
+	// User comment if it is less than 128 bytes.
 	optional string comment = 14;
+	// The hash of the user certificate.
 	optional string hash = 15;
+	// SHA1 hash of the user comment if it 128 bytes or more.
 	optional bytes comment_hash = 16;
+	// SHA1 hash of the user picture if it 128 bytes or more.
 	optional bytes texture_hash = 17;
+	// True if the user is a priority speaker.
 	optional bool priority_speaker = 18;
+	// True if the user is currently recording.
 	optional bool recording = 19;
 }
 
+// Relays information on the bans. The client may send the BanList message to
+// either modify the list of bans or query them from the server. The server
+// sends this list only after a client queries for it.
 message BanList {
 	message BanEntry {
+		// Banned IP address.
 		required bytes address = 1;
+		// The length of the subnet mask for the ban.
 		required uint32 mask = 2;
+		// User name for identification purposes (does not affect the ban).
 		optional string name = 3;
+		// TODO ??
 		optional string hash = 4;
+		// Reason for the ban (does not affect the ban).
 		optional string reason = 5;
+		// Ban start time.
 		optional string start = 6;
+		// Ban duration in seconds.
 		optional uint32 duration = 7;
 	}
+	// List of ban entries currently in place.
 	repeated BanEntry bans = 1;
+	// True if the server should return the list, false if it should replace old
+	// ban list with the one provided.
 	optional bool query = 2 [default = false];
 }
 
+// Used to send and broadcast text messages.
 message TextMessage {
+	// The message sender, identified by its session.
 	optional uint32 actor = 1;
+	// Target users for the message, identified by their session.
 	repeated uint32 session = 2;
+	// The channels to which the message is sent, identified by their
+	// channel_ids.
 	repeated uint32 channel_id = 3;
+	// The root channels when sending message recursively to several channels,
+	// identified by their channel_ids.
 	repeated uint32 tree_id = 4;
+	// The UTF-8 encoded message. May be HTML if the server allows.
 	required string message = 5;
 }
 
 message PermissionDenied {
 	enum DenyType {
+		// Operation denied for other reason, see reason field.
 		Text = 0;
+		// Permissions were denied.
 		Permission = 1;
+		// Cannot modify SuperUser.
 		SuperUser = 2;
+		// Invalid channel name.
 		ChannelName = 3;
+		// Text message too long.
 		TextTooLong = 4;
+		// The flux capacitor was spelled wrong.
 		H9K = 5;
+		// Operation not permitted in temporary channel.
 		TemporaryChannel = 6;
+		// Operation requires certificate.
 		MissingCertificate = 7;
+		// Invalid username.
 		UserName = 8;
+		// Channel is full.
 		ChannelFull = 9;
 		NestingLimit = 10;
 	}
+	// The denied permission when type is Permission.
 	optional uint32 permission = 1;
+	// channel_id for the channel where the permission was denied when type is
+	// Permission.
 	optional uint32 channel_id = 2;
+	// The user who was denied permissions, identified by session.
 	optional uint32 session = 3;
+	// Textual reason for the denial.
 	optional string reason = 4;
+	// Type of the denial.
 	optional DenyType type = 5;
+	// The name that is invalid when type is UserName.
 	optional string name = 6;
 }
 
 message ACL {
 	message ChanGroup {
+		// Name of the channel group, UTF-8 encoded.
 		required string name = 1;
+		// True if the group has been inherited from the parent (Read only).
 		optional bool inherited = 2 [default = true];
+		// True if the group members are inherited.
 		optional bool inherit = 3 [default = true];
+		// True if the group can be inherited by sub channels.
 		optional bool inheritable = 4 [default = true];
+		// Users explicitly included in this group, identified by user_id.
 		repeated uint32 add = 5;
+		// Users explicitly removed from this group in this channel if the group
+		// has been inherited, identified by user_id.
 		repeated uint32 remove = 6;
+		// Users inherited, identified by user_id.
 		repeated uint32 inherited_members = 7;
 	}
 	message ChanACL {
+		// True if this ACL applies to the current channel.
 		optional bool apply_here = 1 [default = true];
+		// True if this ACL applies to the sub channels.
 		optional bool apply_subs = 2 [default = true];
+		// True if the ACL has been inherited from the parent.
 		optional bool inherited = 3 [default = true];
+		// ID of the user that is affected by this ACL.
 		optional uint32 user_id = 4;
+		// ID of the group that is affected by this ACL.
 		optional string group = 5;
+		// Bit flag field of the permissions granted by this ACL.
 		optional uint32 grant = 6;
+		// Bit flag field of the permissions denied by this ACL.
 		optional uint32 deny = 7;
 	}
+	// Channel ID of the channel this message affects.
 	required uint32 channel_id = 1;
+	// True if the channel inherits its parent's ACLs.
 	optional bool inherit_acls = 2 [default = true];
+	// User group specifications.
 	repeated ChanGroup groups = 3;
+	// ACL specifications.
 	repeated ChanACL acls = 4;
+	// True if the message is a query for ACLs instead of setting them.
 	optional bool query = 5 [default = false];
 }
 
+// Client may use this message to refresh its registered user information. The
+// client should fill the IDs or Names of the users it wants to refresh. The
+// server fills the missing parts and sends the message back.
 message QueryUsers {
+	// user_ids.
 	repeated uint32 ids = 1;
+	// User names in the same order as ids.
 	repeated string names = 2;
 }
 
+// Used to initialize and resync the UDP encryption. Either side may request a
+// resync by sending the message without any values filled. The resync is
+// performed by sending the message with only the client or server nonce
+// filled.
 message CryptSetup {
+	// Encryption key.
 	optional bytes key = 1;
+	// Client nonce.
 	optional bytes client_nonce = 2;
+	// Server nonce.
 	optional bytes server_nonce = 3;
 }
 
 message ContextActionModify {
 	enum Context {
+		// Action is applicable to the server.
 		Server = 0x01;
+		// Action can target a Channel.
 		Channel = 0x02;
+		// Action can target a User.
 		User = 0x04;
 	}
 	enum Operation {
 		Add = 0;
 		Remove = 1;
 	}
+	// The action name.
 	required string action = 1;
+	// The display name of the action.
 	optional string text = 2;
+	// Context bit flags defining where the action should be displayed.
 	optional uint32 context = 3;
 	optional Operation operation = 4;
 }
 
+// Sent by the client when it wants to initiate a Context action.
 message ContextAction {
+	// The target User for the action, identified by session.
 	optional uint32 session = 1;
+	// The target Channel for the action, identified by channel_id.
 	optional uint32 channel_id = 2;
+	// The action that should be executed.
 	required string action = 3;
 }
 
+// Lists the registered users.
 message UserList {
 	message User {
+		// Registered user ID.
 		required uint32 user_id = 1;
+		// Registered user name.
 		optional string name = 2;
 		optional string last_seen = 3;
 		optional uint32 last_channel = 4;
 	}
+	// A list of registered users.
 	repeated User users = 1;
 }
 
+// Sent by the client when it wants to register or clear whisper targets.
+//
+// Note: The first available target ID is 1 as 0 is reserved for normal
+// talking. Maximum target ID is 30.
 message VoiceTarget {
 	message Target {
+		// Users that are included as targets.
 		repeated uint32 session = 1;
+		// Channels that are included as targets.
 		optional uint32 channel_id = 2;
+		// TODO ??
 		optional string group = 3;
+		// True if the voice should follow links from the specified channel.
 		optional bool links = 4 [default = false];
+		// True if the voice should also be sent to children of the specific
+		// channel.
 		optional bool children = 5 [default = false];
 	}
+	// Voice target ID.
 	optional uint32 id = 1;
+	// The receivers that this voice target includes.
 	repeated Target targets = 2;
 }
 
+// Sent by the client when it wants permissions for a certain channel. Sent by
+// the server when it replies to the query or wants the user to resync all
+// channel permissions.
 message PermissionQuery {
+	// channel_id of the channel for which the permissions are queried.
 	optional uint32 channel_id = 1;
+	// Channel permissions.
 	optional uint32 permissions = 2;
+	// True if the client should drop its current permission information for all
+	// channels.
 	optional bool flush = 3 [default = false];
 }
 
+// Sent by the server to notify the users of the version of the CELT codec they
+// should use. This may change during the connection when new users join.
 message CodecVersion {
+	// The version of the CELT Alpha codec.
 	required int32 alpha = 1;
+	// The version of the CELT Beta codec.
 	required int32 beta = 2;
+	// True if the user should prefer Alpha over Beta.
 	required bool prefer_alpha = 3 [default = true];
 	optional bool opus = 4 [default = false];
 }
 
+// Used to communicate user stats between the server and clients.
 message UserStats {
 	message Stats {
+		// The amount of good packets received.
 		optional uint32 good = 1;
+		// The amount of late packets received.
 		optional uint32 late = 2;
+		// The amount of packets never received.
 		optional uint32 lost = 3;
+		// The amount of nonce resyncs.
 		optional uint32 resync = 4;
 	}
 
+	// User whose stats these are.
 	optional uint32 session = 1;
+	// True if the message contains only mutable stats (packets, ping).
 	optional bool stats_only = 2 [default = false];
+	// Full user certificate chain of the user certificate in DER format.
 	repeated bytes certificates = 3;
+	// Packet statistics for packets received from the client.
 	optional Stats from_client = 4;
+	// Packet statistics for packets sent by the server.
 	optional Stats from_server = 5;
 
+	// Amount of UDP packets sent.
 	optional uint32 udp_packets = 6;
+	// Amount of TCP packets sent.
 	optional uint32 tcp_packets = 7;
+	// UDP ping average.
 	optional float udp_ping_avg = 8;
+	// UDP ping variance.
 	optional float udp_ping_var = 9;
+	// TCP ping average.
 	optional float tcp_ping_avg = 10;
+	// TCP ping variance.
 	optional float tcp_ping_var = 11;
 
+	// Client version.
 	optional Version version = 12;
+	// A list of CELT bitstream version constants supported by the client of this
+	// user.
 	repeated int32 celt_versions = 13;
+	// Client IP address.
 	optional bytes address = 14;
+	// Bandwith used by this client.
 	optional uint32 bandwidth = 15;
+	// Connection duration.
 	optional uint32 onlinesecs = 16;
+	// Duration since last activity.
 	optional uint32 idlesecs = 17;
+	// True if the user has a strong certificate.
 	optional bool strong_certificate = 18 [default = false];
 	optional bool opus = 19 [default = false];
 }
 
+// Used by the client to request binary data from the server. By default large
+// comments or textures are not sent within standard messages but instead the
+// hash is. If the client does not recognize the hash it may request the
+// resource when it needs it. The client does so by sending a RequestBlob
+// message with the correct fields filled with the hashes it wants to receive.
+// The server replies to this by sending a new UserState/ChannelState message
+// with the resources filled even if they would normally be transmitted as
+// hashes.
 message RequestBlob {
+	// Hashes of the requested UserState textures.
 	repeated uint32 session_texture = 1;
+	// Hashes of the requested UserState comments.
 	repeated uint32 session_comment = 2;
+	// Hashes of the requested ChannelState descriptions.
 	repeated uint32 channel_description = 3;
 }
 
+// Sent by the server when it informs the clients on server configuration
+// details.
 message ServerConfig {
+	// The maximum bandwidth the clients should use.
 	optional uint32 max_bandwidth = 1;
+	// Server welcome text.
 	optional string welcome_text = 2;
+	// True if the server allows HTML.
 	optional bool allow_html = 3;
+	// Maximum text message length.
 	optional uint32 message_length = 4;
+	// Maximum image message length.
 	optional uint32 image_message_length = 5;
 }
 
+// Sent by the server to inform the clients of suggested client configuration
+// specified by the server administrator.
 message SuggestConfig {
+	// Suggested client version.
 	optional uint32 version = 1;
+	// True if the administrator suggests positional audio to be used on this
+	// server.
 	optional bool positional = 2;
+	// True if the administrator suggests push to talk to be used on this server.
 	optional bool push_to_talk = 3;
 }
