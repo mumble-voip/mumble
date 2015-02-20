@@ -413,7 +413,8 @@ Lägg till en ny grupp.</translation>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Temporär&lt;/b&gt;&lt;br /&gt;Vid markering kommer den nuvarande kanalen markeras som temporär. Detta betyder att när den sista användaren som lämnar kanalen kommer den automatiskt tas bort från servern.</translation>
+        <translation>&lt;b&gt;Temporär&lt;/b&gt;&lt;br /&gt;
+Vid markering kommer den nuvarande kanalen markeras som temporär. Detta betyder att när den sista användaren som lämnar kanalen kommer den automatiskt tas bort från servern.</translation>
     </message>
     <message>
         <location/>
@@ -852,7 +853,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Detta ställer in utlösarvärden för upptäckning av ljudaktivitet.&lt;/b&gt;&lt;br /&gt;Använd detta tillsammans med ljudstatistiken för att manuellt justera utlösaren för upptäckning av ljudaktivitet. Ingångsvärden under &quot;Tystnad under&quot; räknas alltid som tystnad. Värden ovan &quot;Tala över&quot; räknas alltid som röst. Värden däremellan räknas som röst om du redan pratar, men kommmer inte utlösa en ny upptäckt.</translation>
+        <translation>&lt;b&gt;Detta ställer in utlösarvärden för upptäckning av ljudaktivitet.&lt;/b&gt;&lt;br /&gt;Använd detta tillsammans med ljudstatistiken för att manuellt justera utlösaren för upptäckning av ljudaktivitet. Ingångsvärden under &quot;Tystnad under&quot; räknas alltid som tystnad. Värden ovan &quot;Tala över&quot; räknas alltid som röst. Värden däremellan räknas som röst om du redan talar, men kommmer inte utlösa en ny upptäckt.</translation>
     </message>
     <message>
         <location/>
@@ -1042,7 +1043,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Visa alltid ett alltid-överst-fönster med en tryck-för-att-prata-knapp</translation>
+        <translation>Visa alltid ett alltid-överst-fönster med en tryck-för-att-tala-knapp</translation>
     </message>
     <message>
         <location/>
@@ -1435,7 +1436,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Dämpa program då andra användare pratar&lt;/b&gt;&lt;br /&gt;Mumble stödjer sänkning av volymen för andra program vid inkommande och/eller utgående tal. Detta gör att Mumble aktiverar funktionen då andra användare pratar med dig.</translation>
+        <translation>&lt;b&gt;Dämpa program då andra användare talar&lt;/b&gt;&lt;br /&gt;Mumble stödjer sänkning av volymen för andra program vid inkommande och/eller utgående tal. Detta gör att Mumble aktiverar funktionen då andra användare talar med dig.</translation>
     </message>
     <message>
         <location/>
@@ -4420,12 +4421,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation>Visar tala-status i aktivitetsfältet</translation>
+        <translation>Visar tal-status i aktivitetsfältet</translation>
     </message>
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation>Visa tala-status i ikonen i aktivitetsfältet</translation>
+        <translation>Visa tal-status i ikonen i aktivitetsfältet</translation>
     </message>
     <message>
         <location/>
@@ -6737,7 +6738,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation>Antalet sekunder användare förblir aktiva efter prat:</translation>
+        <translation>Antalet sekunder användare förblir aktiva efter tal:</translation>
     </message>
 </context>
 <context>
