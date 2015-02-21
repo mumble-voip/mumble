@@ -35,6 +35,8 @@
 #include <QString>
 #include <QStringList>
 #include <QProcess>
+#include <QTimer>
+#include <QElapsedTimer>
 
 #include "Overlay.h"
 
@@ -52,15 +54,20 @@ class OverlayPrivateWin : public OverlayPrivate {
 		void onHelperProcessStarted();
 		void onHelperProcessError(QProcess::ProcessError);
 		void onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
+		void onDelayedRestartTimerTriggered();
 
 	protected:
 		QProcess *m_helper_process;
 		QString m_helper_exe_path;
 		QStringList m_helper_exe_args;
+		QElapsedTimer m_helper_start_time;
+		QTimer *m_helper_restart_timer;
 
 		QProcess *m_helper64_process;
 		QString m_helper64_exe_path;
 		QStringList m_helper64_exe_args;
+		QElapsedTimer m_helper64_start_time;
+		QTimer *m_helper64_restart_timer;
 
 		bool m_active;
 		bool m_allow64bit;
