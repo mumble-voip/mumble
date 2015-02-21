@@ -7948,7 +7948,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>비활성 경과시간</translation>
     </message>
     <message>
         <location line="+1"/>
