@@ -100,6 +100,10 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	connect(m_helper64_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
+
+	m_delayedRestartTimer = new QTimer(this);
+	m_delayedRestartTimer->setSingleShot(true);
+	connect(m_delayedRestartTimer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
@@ -110,8 +114,10 @@ void OverlayPrivateWin::startHelper(QProcess *helper) {
 	if (helper->state() == QProcess::NotRunning) {
 		if (helper == m_helper_process) {
 			helper->start(m_helper_exe_path, m_helper_exe_args);
+			m_helper_start_time.restart();
 		} else if (helper == m_helper64_process) {
 			helper->start(m_helper64_exe_path, m_helper64_exe_args);
+			m_helper64_start_time.restart();
 		}
 	} else {
 		qWarning("OverlayPrivateWin: startHelper() called while process is already running. skipping.");
@@ -194,11 +200,15 @@ void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError
 
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
+
+	qint64 elapsed;
 	QString path;
 	if (helper == m_helper_process) {
 		path = m_helper_exe_path;
+		elapsed = m_helper_start_time.elapsed();
 	} else if (helper == m_helper64_process) {
 		path = m_helper64_exe_path;
+		elapsed = m_helper64_start_time.elapsed();
 	}
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
@@ -210,7 +220,31 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 	// If the helper process exited while we're in 'active'
 	// mode, restart it.
 	if (m_active) {
+		// If the helper was only recently started, be
+		// a little more patient with restarting it.
+		// We could be hitting a crash bug in the helper,
+		// and we don't want to do too much harm in that
+		// case by spawning thousands of processes.
+		const qint64 tenSeconds = 10000;
+		if (elapsed < tenSeconds) {
+			qWarning("OverlayPrivateWin: waiting up to 10 seconds until restarting helper process. last restart was %llu seconds ago.", (unsigned long long)elapsed/1000ULL);
+			if (!m_delayedRestartTimer->isActive()) {
+				m_delayedRestartTimer->start(tenSeconds);
+			}
+		} else {
 			startHelper(helper);
+		}
+	}
+}
+
+void OverlayPrivateWin::onDelayedRestartTimerTriggered() {
+	if (m_active) {
+		if (m_helper_process->state() == QProcess::NotRunning) {
+			startHelper(m_helper_process);
+		}
+		if (m_helper64_process->state() == QProcess::NotRunning) {
+			startHelper(m_helper64_process);
+		}
 	}
 }
 
