@@ -1208,7 +1208,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>Audion ulostulo</translation>
+        <translation>Audion ulostulotapa</translation>
     </message>
     <message>
         <location/>
@@ -1224,7 +1224,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>Audion ulostulo</translation>
+        <translation>Audion ulostulolaite</translation>
     </message>
     <message>
         <location/>
@@ -1259,17 +1259,17 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimietäisyys käyttäjään ennen kuin äänenvoimakkuus kasvaa.</translation>
+        <translation>Minimietäisyys käyttäjään ennen kuin äänenvoimakkuus pienenee.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Asettaa minimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei kasva ennen kuin he ovat vähintään tämän etäisyyden päässä sinusta.</translation>
+        <translation>Asettaa minimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei vähene ennen kuin he ovat vähintään tämän etäisyyden päässä sinusta.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Asettaa maksimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei kasva, silloin kun olet tämän etäisyyden päässä muista.</translation>
+        <translation>Asettaa maksimietäisyyden äänen laskennalle. Muiden käyttäjien puhevolyymi ei vähene, silloin kun olet tämän etäisyyden päässä muista.</translation>
     </message>
     <message>
         <location/>
@@ -1365,7 +1365,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation>Äänenvoimakkuuden tila maksimi etäisyydessä.</translation>
+        <translation>Kuinka paljon äänenvoimakkuuden pitäisi olla maksimietäisyydellä?</translation>
     </message>
     <message>
         <location/>
@@ -1421,7 +1421,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation>Muiden sovellusten vaimentaminen puhuessa</translation>
+        <translation>Muiden sovellusten vaimentaminen puheen aikana</translation>
     </message>
     <message>
         <location/>
@@ -1674,7 +1674,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation>Edellisen raamin bittivirta</translation>
+        <translation>Edellisen freimin bittivirta</translation>
     </message>
     <message>
         <location/>
@@ -1787,7 +1787,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Äänen sisääntulon tapa. </translation>
+        <translation>Äänen sisääntulotapa. </translation>
     </message>
     <message>
         <location/>
@@ -1937,7 +1937,7 @@ Puhu yhtä äänekkäästi kuin olisit ärsyyntynyt tai innoissasi jostain. Väh
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>Sijainninmukaisen audion säätö.</translation>
+        <translation>Sijainninmukaisen audion vaimennuksen säätö.</translation>
     </message>
     <message>
         <location/>
