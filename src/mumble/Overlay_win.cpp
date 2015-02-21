@@ -201,14 +201,14 @@ void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
-	qint64 elapsed;
+	qint64 elapsedMsec;
 	QString path;
 	if (helper == m_helper_process) {
 		path = m_helper_exe_path;
-		elapsed = m_helper_start_time.elapsed();
+		elapsedMsec = m_helper_start_time.elapsed();
 	} else if (helper == m_helper64_process) {
 		path = m_helper64_exe_path;
-		elapsed = m_helper64_start_time.elapsed();
+		elapsedMsec = m_helper64_start_time.elapsed();
 	}
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
@@ -225,11 +225,14 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 		// We could be hitting a crash bug in the helper,
 		// and we don't want to do too much harm in that
 		// case by spawning thousands of processes.
-		const qint64 tenSeconds = 10000;
-		if (elapsed < tenSeconds) {
-			qWarning("OverlayPrivateWin: waiting up to 10 seconds until restarting helper process. last restart was %llu seconds ago.", (unsigned long long)elapsed/1000ULL);
+		qint64 cooldownMsec = (qint64) g.s.iOverlayWinRestartCooldownMsec;
+		int delayMsec = g.s.iOverlayWinRestartDelayMsec;
+		if (elapsedMsec < cooldownMsec) {
+			qWarning("OverlayPrivateWin: waiting up to %llu seconds until restarting helper process. last restart was %llu seconds ago.",
+				(unsigned long long) delayMsec/1000ULL,
+				(unsigned long long) elapsedMsec/1000ULL);
 			if (!m_delayedRestartTimer->isActive()) {
-				m_delayedRestartTimer->start(tenSeconds);
+				m_delayedRestartTimer->start(delayMsec);
 			}
 		} else {
 			startHelper(helper);

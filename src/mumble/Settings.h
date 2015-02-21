@@ -227,6 +227,9 @@ struct Settings {
 
 	OverlaySettings os;
 
+	int iOverlayWinRestartCooldownMsec;
+	int iOverlayWinRestartDelayMsec;
+
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;

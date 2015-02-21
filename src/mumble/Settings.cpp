@@ -343,6 +343,10 @@ Settings::Settings() {
 	fAudioMaxDistVolume = 0.80f;
 	fAudioBloom = 0.5f;
 
+	// OverlayWin
+	iOverlayWinRestartCooldownMsec = 10000;
+	iOverlayWinRestartDelayMsec = 10000;
+
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
 
@@ -689,7 +693,10 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
-	
+
+	// OverlayWin
+	SAVELOAD(iOverlayWinRestartCooldownMsec, "overlay_win/restartcooldownmsec");
+	SAVELOAD(iOverlayWinRestartDelayMsec, "overlay_win/restartdelaymsec");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -979,6 +986,10 @@ void Settings::save() {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+
+	// OverlayWin
+	SAVELOAD(iOverlayWinRestartCooldownMsec, "overlay_win/restartcooldownmsec");
+	SAVELOAD(iOverlayWinRestartDelayMsec, "overlay_win/restartdelaymsec");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
