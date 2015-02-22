@@ -72,7 +72,6 @@ static bool canRun64BitPrograms() {
 }
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
-	m_allow64bit = canRun64BitPrograms();
 	m_active = false;
 
 	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
@@ -88,6 +87,11 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 
+	if (!g.s.bOverlayWinEnableX64Helper) {
+		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/enable_x86_helper' config option.");
+		m_helper_enabled = false;
+	}
+
 	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_x64.exe").arg(qApp->applicationDirPath());
 	m_helper64_exe_args = m_helper_exe_args;
 	m_helper64_process = new QProcess(this);
@@ -100,6 +104,14 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 	connect(m_helper64_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
+
+	if (!canRun64BitPrograms()) {
+		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
+		m_helper64_enabled = false;
+	} else if (!g.s.bOverlayWinEnableX64Helper) {
+		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/enable_x64_helper' config option.");
+		m_helper64_enabled = false;
+	}
 
 	m_delayedRestartTimer = new QTimer(this);
 	m_delayedRestartTimer->setSingleShot(true);
@@ -129,13 +141,17 @@ void OverlayPrivateWin::setActive(bool active) {
 		m_active = active;
 
 		if (m_active) {
-			startHelper(m_helper_process);
-			if (m_allow64bit) {
+			if (m_helper_enabled) {
+				startHelper(m_helper_process);
+			}
+			if (m_helper64_enabled) {
 				startHelper(m_helper64_process);
 			}
 		} else {
-			m_helper_process->terminate();
-			if (m_allow64bit) {
+			if (m_helper_enabled) {
+				m_helper_process->terminate();
+			}
+			if (m_helper64_enabled) {
 				m_helper64_process->terminate();
 			}
 		}
@@ -242,10 +258,10 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 
 void OverlayPrivateWin::onDelayedRestartTimerTriggered() {
 	if (m_active) {
-		if (m_helper_process->state() == QProcess::NotRunning) {
+		if (m_helper_enabled && m_helper_process->state() == QProcess::NotRunning) {
 			startHelper(m_helper_process);
 		}
-		if (m_helper64_process->state() == QProcess::NotRunning) {
+		if (m_helper64_enabled && m_helper64_process->state() == QProcess::NotRunning) {
 			startHelper(m_helper64_process);
 		}
 	}

@@ -346,6 +346,8 @@ Settings::Settings() {
 	// OverlayWin
 	iOverlayWinRestartCooldownMsec = 10000;
 	iOverlayWinRestartDelayMsec = 10000;
+	bOverlayWinEnableX86Helper = true;
+	bOverlayWinEnableX64Helper = true;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
@@ -990,6 +992,8 @@ void Settings::save() {
 	// OverlayWin
 	SAVELOAD(iOverlayWinRestartCooldownMsec, "overlay_win/restartcooldownmsec");
 	SAVELOAD(iOverlayWinRestartDelayMsec, "overlay_win/restartdelaymsec");
+	SAVELOAD(bOverlayWinEnableX86Helper, "overlay_win/enable_x86_helper");
+	SAVELOAD(bOverlayWinEnableX64Helper, "overlay_win/enable_x64_helper");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
