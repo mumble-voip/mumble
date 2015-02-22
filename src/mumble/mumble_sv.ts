@@ -858,7 +858,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation>Prata över</translation>
+        <translation>Tala över</translation>
     </message>
     <message>
         <location/>
@@ -933,7 +933,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Högsta förstärkning av ingångsljud.&lt;/b&gt;&lt;br /&gt;Mumble normaliserar ingångsvolymen innan komprimering och ställer in hur mycket det tillåts att förstärkas.&lt;br /&gt;Den verkliga nivån är kontinuerligt uppdaterad baserad på ditt nuvarande talmönster, men kommer aldrig att gå under nivån specifierad här.&lt;br /&gt;Om &lt;i&gt;mikrofonstyrkan&lt;/i&gt; av ljudstatistiken är över ungefär 100% kommer du säkerligen villa ställa in detta till 2.0 eller liknande, men som de allra flesta kan du inte nå 100%, ställ in till något mycket högre.&lt;br /&gt;Ställ helst in det till &lt;i&gt;mikrofonstyrka * förstärkningsfaktorr &gt;= 100&lt;/i&gt; även när du pratar mjukt.&lt;br /&gt;&lt;br /&gt;Kom ihåg att det inte tar någon skada att ställa in detta till det högsta. Mumble kommer ta upp andra konversationer om du låter det vara för att automatiskt justera nivån.</translation>
+        <translation>&lt;b&gt;Högsta förstärkning av ingångsljud.&lt;/b&gt;&lt;br /&gt;Mumble normaliserar ingångsvolymen innan komprimering och ställer in hur mycket det tillåts att förstärkas.&lt;br /&gt;Den verkliga nivån är kontinuerligt uppdaterad baserad på ditt nuvarande talmönster, men kommer aldrig att gå under nivån specifierad här.&lt;br /&gt;Om &lt;i&gt;mikrofonstyrkan&lt;/i&gt; av ljudstatistiken är över ungefär 100% kommer du säkerligen villa ställa in detta till 2.0 eller liknande, men som de allra flesta kan du inte nå 100%, ställ in till något mycket högre.&lt;br /&gt;Ställ helst in det till &lt;i&gt;mikrofonstyrka * förstärkningsfaktor &gt;= 100&lt;/i&gt; även när du talar mjukt.&lt;br /&gt;&lt;br /&gt;Kom ihåg att det inte tar någon skada att ställa in detta till det högsta. Mumble kommer ta upp andra konversationer om du låter det vara för att automatiskt justera nivån.</translation>
     </message>
     <message>
         <location/>
@@ -1088,7 +1088,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>Tiden som mikrofonen är igång efter att tryck-för-att-prata-knappen släppts</translation>
+        <translation>Tiden som mikrofonen är igång efter att tryck-för-att-tala-knappen släppts</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
@@ -1714,7 +1714,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Detta visar kraftspektrumet för den nuvarande ingångssignalen (röd) och de nuvarande bulleruppskattningen (fylls blå).&lt;br /&gt;Alla amplituder multipliceras med 30 för att visa de intressanta delarna (hur mycket mer signal än buller som presenteras i varje våg).&lt;br /&gt;Detta är intressant om du försöker att finjustera bullerförutsättningen på din mikrofon. Under goda förutsättningar skall det endast vara en liten mängd blått vid botten. Om det blåa är mer än halvvägs upp i grafen, har du en dålig bulleromgivning.</translation>
+        <translation>Detta visar kraftspektrumet för den nuvarande ingångssignalen (röd) och de nuvarande bulleruppskattningen (fylls blå).&lt;br /&gt;Alla amplituder multipliceras med 30 för att visa de intressanta delarna (hur mycket mer signal än buller som presenteras i varje våg).&lt;br /&gt;Detta är intressant om du försöker att finjustera bullerförutsättningen på din mikrofon. Under goda förutsättningar ska det endast vara en liten mängd blått vid botten. Om det blåa är mer än halvvägs upp i grafen, har du en dålig bulleromgivning.</translation>
     </message>
     <message>
         <location/>
@@ -1930,7 +1930,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Öppna din kontrollpanel för ljud och gå till inspelningsinställningar. Se till att mikrofonen är vald som aktiv ingång, med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
-Prata högljutt, som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du pratar.
+Tala högljutt, som om att du är irriterad eller nyfiken. Sänk volymen i kontrollpanelen för ljud tills baren under stannar så högt som möjligt i den gröna och blåa, men &lt;b&gt;inte&lt;/b&gt; i det röda området medan du talar.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2034,7 +2034,7 @@ Mumble är under utveckling och utvecklingslaget vill fokusera på funktionerna 
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Nu behöver du justera följande inställning. De första få yttranden du säger bör hamna i det gröa området (slutgiltigt tal). Vid tal, bör du stanna inom den gula (kan vara tal), så när du inte talar skall allt vara rött (definitivt inte tal).</translation>
+        <translation>Nu behöver du justera följande inställning. De första få yttranden du säger bör hamna i det gröna området (slutgiltigt tal). Vid tal, bör du stanna inom den gula (kan vara tal), så när du inte talar ska allt vara rött (definitivt inte tal).</translation>
     </message>
     <message>
         <location/>
@@ -2167,7 +2167,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 Öppna din kontrollpanel och gå till inspelningsinställningarna. Var säker på att mikrofonen är vald som aktiv ingång med högsta inspelningsvolym. Om det finns ett alternativ för att aktivera &quot;Mikrofonförstärkning&quot;, se till att det är markerat.
 &lt;/p&gt;
 &lt;p&gt;
-Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpanelen för ljud tills baren stannar så högt som möjligt i randig och tom men &lt;b&gt;inte&lt;/b&gt; i det genomkorsade området när du pratar.
+Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpanelen för ljud tills baren stannar så högt som möjligt i randig och tom men &lt;b&gt;inte&lt;/b&gt; i det genomkorsade området när du talar.
 &lt;/p&gt;
 </translation>
     </message>
@@ -2798,7 +2798,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation>Prata</translation>
+        <translation>Tala</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2843,12 +2843,12 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Detta motsvarar behörigheten för att prata i en kanal. Användare utan denna behörighet kommer att tystas av servern (visas som avaktiverad mikrofon) och kommer inte att kunna prata tills deras mikrofon aktiveras av någon med behörigheter att göra det.</translation>
+        <translation>Detta motsvarar behörigheten för att tala i en kanal. Användare utan denna behörighet kommer att tystas av servern (visas som avaktiverad mikrofon) och kommer inte att kunna tala tills deras mikrofon aktiveras av någon med behörigheter att göra det.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Detta motsvarar behörigheten för att viska till den här kanalen från utsidan. Detta fungerar precis som &lt;i&gt;prata&lt;/i&gt; behörigheten, men verkställs till paket med Viska-knappen nedtryckt. Detta kan användas för att skicka till flera kanaler utan länkning.</translation>
+        <translation>Detta motsvarar behörigheten för att viska till den här kanalen från utsidan. Detta fungerar precis som &lt;i&gt;tala&lt;/i&gt; behörigheten, men verkställs till paket med Viska-knappen nedtryckt. Detta kan användas för att skicka till flera kanaler utan länkning.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2873,7 +2873,7 @@ Det är &lt;b&gt;starkt&lt;/b&gt; rekommenderat att du &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Detta motsvarar behörigheten för att länka kanaler. Användare i länkade kanaler kan höra varandra sålänge användaren som pratar har behörigheten &quot;Prata&quot; i kanalen med lyssnare. Du behöver behörigheten för att länka i båda kanalerna för att skapa en länk, men endast i en kanal för att ta bort den.</translation>
+        <translation>Detta motsvarar behörigheten för att länka kanaler. Användare i länkade kanaler kan höra varandra sålänge användaren som talar har behörigheten &quot;Tala&quot; i kanalen med lyssnare. Du behöver behörigheten för att länka i båda kanalerna för att skapa en länk, men endast i en kanal för att ta bort den.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3829,7 +3829,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Detta alternativ beslutar den lägsta kolumnbredd i användarvyn.&lt;/p&gt;
-&lt;p&gt;Om för många människor pratar samtidigt kommer användarvyn dela sig själv till kolumner. Du kan använda detta alternativ för att välja en kompromiss mellan antalet användare som visas på LCD samt bredd för användarnamn.&lt;/p&gt;
+&lt;p&gt;Om för många människor talar samtidiga kommer användarvyn dela sig själv till kolumner. Du kan använda detta alternativ för att välja en kompromiss mellan antalet användare som visas på LCD samt bredd för användarnamn.&lt;/p&gt;
 </translation>
     </message>
     <message>
@@ -4346,7 +4346,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation>&lt;b&gt;Detta ställer in vilken hud Mumble skall använda.&lt;/b&gt;&lt;br /&gt;Huden är en fil som verkställs ovan den grundläggande stilen. Om det finns ikoner i samma mapp som formatmallen, kommer dessa att ersätta standardikonerna.</translation>
+        <translation>&lt;b&gt;Detta ställer in vilken hud Mumble ska använda.&lt;/b&gt;&lt;br /&gt;Huden är en fil som verkställs ovan den grundläggande stilen. Om det finns ikoner i samma mapp som formatmallen, kommer dessa att ersätta standardikonerna.</translation>
     </message>
     <message>
         <location/>
@@ -4431,7 +4431,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Detta inställning kontrollerar i vilka situationer som prgrammet skall visas överst. Om du väljer &lt;i&gt;Aldrig&lt;/i&gt; kommer programmet inte att visas överst. &lt;i&gt;Alltid&lt;/i&gt; kommer alltid att visa programmet överst. &lt;i&gt;I minimal vy&lt;/i&gt; / &lt;i&gt;I normal vy&lt;/i&gt; kommer endast att behålla programmet överst om den minimala vyn är aktiverad / avaktiverad.</translation>
+        <translation>Detta inställning kontrollerar i vilka situationer som programmet ska visas överst. Om du väljer &lt;i&gt;Aldrig&lt;/i&gt; kommer programmet inte att visas överst. &lt;i&gt;Alltid&lt;/i&gt; kommer alltid att visa programmet överst. &lt;i&gt;I minimal vy&lt;/i&gt; / &lt;i&gt;I normal vy&lt;/i&gt; kommer endast att behålla programmet överst om den minimala vyn är aktiverad / avaktiverad.</translation>
     </message>
     <message>
         <location/>
@@ -5123,7 +5123,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Detta visar all ny aktivitet. Anslutning till servrar, fel- och informationsmeddelanden visas här.&lt;br /&gt;För att konfigurera vilka meddelanden som skall visas här kan du använda &lt;b&gt;Inställningar&lt;/b&gt; kommandot från menyn.</translation>
+        <translation>Detta visar all ny aktivitet. Anslutning till servrar, fel- och informationsmeddelanden visas här.&lt;br /&gt;För att konfigurera vilka meddelanden som ska visas här kan du använda &lt;b&gt;Inställningar&lt;/b&gt; kommandot från menyn.</translation>
     </message>
     <message>
         <location/>
@@ -5344,7 +5344,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Detta länkar din nuvarande kanal till den valda kanalen. Om användare i en kanal har behörighet att prata i en annan kanal kan användare nu höra varandra. Detta är en permanent länk och kommer att pågå tills servern startats om, eller tills den är borttagen manuellt. Se genvägar för Tryck-för-att-Länka.</translation>
+        <translation>Detta länkar din nuvarande kanal till den valda kanalen. Om användare i en kanal har behörighet att tala i en annan kanal kan användare nu höra varandra. Detta är en permanent länk och kommer att pågå tills servern startats om, eller tills den är borttagen manuellt. Se genvägar för Tryck-för-att-Länka.</translation>
     </message>
     <message>
         <location/>
