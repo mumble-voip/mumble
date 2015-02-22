@@ -72,7 +72,6 @@ static bool canRun64BitPrograms() {
 }
 
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
-	m_allow64bit = canRun64BitPrograms();
 	m_active = false;
 
 	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
@@ -92,6 +91,11 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	m_helper_restart_timer->setSingleShot(true);
 	connect(m_helper_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 
+	if (!g.s.bOverlayWinHelperX86Enable) {
+		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/enable_x86_helper' config option.");
+		m_helper_enabled = false;
+	}
+
 	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_x64.exe").arg(qApp->applicationDirPath());
 	m_helper64_exe_args = m_helper_exe_args;
 	m_helper64_process = new QProcess(this);
@@ -108,6 +112,14 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	m_helper64_restart_timer = new QTimer(this);
 	m_helper64_restart_timer->setSingleShot(true);
 	connect(m_helper64_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
+
+	if (!canRun64BitPrograms()) {
+		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
+		m_helper64_enabled = false;
+	} else if (!g.s.bOverlayWinHelperX64Enable) {
+		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/enable_x64_helper' config option.");
+		m_helper64_enabled = false;
+	}
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
@@ -133,13 +145,17 @@ void OverlayPrivateWin::setActive(bool active) {
 		m_active = active;
 
 		if (m_active) {
-			startHelper(m_helper_process);
-			if (m_allow64bit) {
+			if (m_helper_enabled) {
+				startHelper(m_helper_process);
+			}
+			if (m_helper64_enabled) {
 				startHelper(m_helper64_process);
 			}
 		} else {
-			m_helper_process->terminate();
-			if (m_allow64bit) {
+			if (m_helper_enabled) {
+				m_helper_process->terminate();
+			}
+			if (m_helper64_enabled) {
 				m_helper64_process->terminate();
 			}
 		}

@@ -62,15 +62,16 @@ class OverlayPrivateWin : public OverlayPrivate {
 		QStringList m_helper_exe_args;
 		QElapsedTimer m_helper_start_time;
 		QTimer *m_helper_restart_timer;
+		bool m_helper_enabled;
 
 		QProcess *m_helper64_process;
 		QString m_helper64_exe_path;
 		QStringList m_helper64_exe_args;
 		QElapsedTimer m_helper64_start_time;
 		QTimer *m_helper64_restart_timer;
+		bool m_helper64_enabled;
 
 		bool m_active;
-		bool m_allow64bit;
 
 		void startHelper(QProcess *helper);
 };
