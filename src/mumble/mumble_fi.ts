@@ -1762,7 +1762,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Nauti Mumblesta</translation>
+        <translation>Nauti Mumblen käytöstä</translation>
     </message>
     <message>
         <location/>
@@ -1777,7 +1777,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Tähän laitteeseen on kytketty mikrofonisi.</translation>
+        <translation>Laite johon mikrofonisi on yhdistetty.</translation>
     </message>
     <message>
         <location/>
@@ -1817,7 +1817,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation>Käytä kaiunpoistoa. </translation>
+        <translation>Käytä kaiunpoistoa</translation>
     </message>
     <message>
         <location/>
@@ -1827,7 +1827,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Laite johon kaiuttimesi tai kuulokkeisi on yhdistetty.</translation>
+        <translation>Laite johon kaiuttimesi tai kuulokkeesi on yhdistetty.</translation>
     </message>
     <message>
         <location/>
@@ -1852,7 +1852,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Käytä sijainninmukainen audiota</translation>
+        <translation>Käytä sijainninmukaista audiota</translation>
     </message>
     <message>
         <location/>
@@ -1868,7 +1868,7 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>Tämä on Mumblen audioapuri. Tämä auttaa sinua säätämään oikein äänikorttisi sisääntulon tasoa, ja auttaa säätämään oikeat parametrit äänen käsittelylle Mumblessa. Huomioi että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten, audiota ei lähetetä serverille. </translation>
+        <translation>Tämä on Mumblen audioapuri. Tämä auttaa sinua säätämään oikein äänikorttisi sisääntulon tasoa, ja auttaa säätämään oikeat parametrit äänenkäsittelylle Mumblessa. Huomioi että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten, audiota ei lähetetä serverille. </translation>
     </message>
     <message>
         <location/>
@@ -1898,7 +1898,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 Jotta viive voidaan pitää mahdollisimman pienenä, on tärkeää puskea äänikortille mahdollisimman vähän ääntä. Mutta useiden äänikorttien ilmoitetaan vaativan paljon pienenpää puskemista, kuin ne kykenevät työstämään, jolloin oikean arvon löytää vain koittamalla.
 &lt;/p&gt;
 &lt;p&gt;
-Sinun tulisi kuulla ääninäyte. Liikuta alempana olevaa säädintä alimpaan arvoon joka &lt;b&gt;ei&lt;/b&gt; keskeytä tai aiheuta säröilyä äänessä. Ota huomioon että paikallinen kaiku on poistettu tässä testissä.
+Sinun tulisi kuulla ääninäyte. Liikuta alla olevaa säädintä alimpaan arvoon joka &lt;b&gt;ei&lt;/b&gt; keskeytä tai aiheuta säröilyä äänessä. Ota huomioon että paikallinen kaiku on poistettu tässä testissä.
 &lt;/p&gt;
 </translation>
     </message>
@@ -1949,7 +1949,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble tukee sijainninmukaista audiota joillekin peleille, asettamalla muiden puheen tulemaan heidän pelissä olevan sijainnin mukaan. Sijaintia simuloidaan sekä säätämällä äänenvoimakkuutta pelaajien etäisyyden suhteen että tulevan äänenlähteen liikuttamista heidän suuntaan. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista järjestelmässäsi, jotka voit tarkistaa tässä testissä.
+Mumble tukee sijainninmukaista audiota joillekin peleille. Ominaisuudessa asetetaan muiden puheen tulemaan heidän pelissä olevan sijainnin mukaan. Sijaintia simuloidaan sekä säätämällä äänenvoimakkuutta pelaajien etäisyyden suhteen että tulevan äänenlähteen liikuttamista heidän suuntaan. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista järjestelmässäsi, jotka voit tarkistaa tässä testissä.
 &lt;/p&gt;
 &lt;p&gt;
 Äänen sijaintikartta ylhäältäpäin katsottuna: &lt;font color=&quot;red&quot;&gt;sinä&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;kaiuttimet&lt;/font&gt; ja &lt;font color=&quot;green&quot;&gt;liikkuva äänenlähde&lt;/font&gt;. Sinun tulisi kuulla äänen liikkuvan kaiuttimissasi.
@@ -1971,7 +1971,7 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Onnea. Nyt voit nauttia Mumblen rikkaammasta äänikokemuksesta.
+Onnea. Nyt voit nauttia Mumblen rikkaasta äänikokemuksesta.
 &lt;/p&gt;
 &lt;p&gt;
 Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käyttäjiä palveleviin asioihin. Tästä johtuen, Mumble voi lähettää kehittäjille anonyymia tietoa sinun asetuksistasi. Nämä tiedot ovat tärkeitä tulevaisuuden kehittämiselle, ja mahdollistaa sen että sinun käyttämäsi palvelut pysyvät myös jatkossa mukana.
@@ -1991,12 +1991,12 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation>Äänenvoimakkuuden säätö</translation>
+        <translation>Äänenvoimakkuuden säätäminen</translation>
     </message>
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>Säätää mikrofonin laiteasetuksen optimiin.</translation>
+        <translation>Mikrofonin laiteäänenvoimakkuuden asettaminen sopivaksi.</translation>
     </message>
     <message>
         <location/>
@@ -2006,17 +2006,17 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation>Ääniaktiviteetin tunnistus</translation>
+        <translation>Ääniaktiviteetin tunnistaminen</translation>
     </message>
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Antaa Mumblen päättää milloin puhut ja milloin olet hiljaa.</translation>
+        <translation>Puheen ja hiljaisuuden määrittäminen Mumbleen.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Tämä auttaa Mumblea päättämään milloin olet puhumassa. Ensimmäinen askel on valita mitä dataa käytetään.</translation>
+        <translation>Avustaa Mumblea päättämään milloin olet puheessa. Ensimmäinen askel on valita mitä menetelmää käytetään.</translation>
     </message>
     <message>
         <location/>
@@ -2037,12 +2037,12 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Device tuning</source>
-        <translation>Laitteen säätö</translation>
+        <translation>Laitteiden säätäminen</translation>
     </message>
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>Säätää laitteiston ulostulon viiveen minimiin.</translation>
+        <translation>Laitteiston ulostulon viiveen asettaminen pieninpään mahdolliseen arvoon.</translation>
     </message>
     <message>
         <location/>
@@ -2062,7 +2062,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation>Säädä laatua ja ilmoitusasetuksia.</translation>
+        <translation>Säädä laatu- ja ilmoitusasetuksia.</translation>
     </message>
     <message>
         <location/>
@@ -2162,7 +2162,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Avaa äänen ohjauspaneelisi ja mene nauhoitus asetuksiin. Varmista että mikrofonisi on valittu aktiiviseksi syöttölaitteekksi ja sen nauhoitus äänenvoimakkuus on täysillä. Jos sinulla on &quot;Microphone boost&quot; -asetus valitse se.
+Avaa ohjauspaneelista äänivalikko ja mene äänentallennus asetuksiin. Varmista että mikrofonisi on valittu aktiiviseksi syöttölaitteekksi ja sen nauhoitus äänenvoimakkuus on täysillä. Mikäli laitteella on &quot;Microphone boost&quot; -asetus valitse se.
 &lt;/p&gt;
 &lt;p&gt;
 Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohjauspaneelissa äänenvoimakkuutta kunnes alapuolen palkki pysyy mahdollisimman korkealla raidallisella ja tyhjällä alueella mutta &lt;b&gt;ei&lt;/b&gt; ristikollisella alueella kun puhut.
@@ -2179,7 +2179,7 @@ Puhu kovalla äänellä, kuten olisit ärsyyntynyt tai kiihtynyt. Vähennä ohja
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Seuraavaksi sinun täytyy siirtää liukusäädintä. Sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varma puhe). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (ehkä puhetta) ja ollessasi vaiti, kaiken tulisi olla ruudukossa (varmasti ei puhetta).</translation>
+        <translation>Seuraavaksi sinun täytyy siirtää liukusäädintä. Ensimmäisten sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varmasti puhetta). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (mahdollisesti puhetta) ja ollessasi vaiti, kaiken tulisi olla ristikossa (varmasti ei puhetta).</translation>
     </message>
     <message>
         <location/>
@@ -3158,7 +3158,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation>%Filtterit</translation>
+        <translation>&amp;Filtterit</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
