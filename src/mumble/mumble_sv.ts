@@ -5086,7 +5086,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
         <translation>Felaktigt certifikat eller lösenord för registrerad användare. Om du är
-säker på att denna användaren skyddas av eller lösenord, försök igen.
+säker på att denna användaren skyddas av ett lösenord, försök igen.
 Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translation>
     </message>
     <message>
