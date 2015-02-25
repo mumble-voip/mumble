@@ -307,8 +307,8 @@ bool VoiceRecorder::ensureFileIsOpenedFor(SF_INFO& soundFileInfo, boost::shared_
 	sf_set_string(ri->soundFile, SF_STR_TITLE, qPrintable(ri->userName));
 	
 	// Enable hard-clipping for non-float formats to prevent wrapping
-	if (!(soundFileInfo.format & SF_FORMAT_FLOAT) &&
-	    !(soundFileInfo.format & SF_FORMAT_VORBIS)) {
+	if ((soundFileInfo.format & SF_FORMAT_SUBMASK) != SF_FORMAT_FLOAT &&
+	    (soundFileInfo.format & SF_FORMAT_SUBMASK) != SF_FORMAT_VORBIS) {
 		
 		sf_command(ri->soundFile, SFC_SET_CLIPPING, NULL, SF_TRUE);
 	}
