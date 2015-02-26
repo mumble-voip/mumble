@@ -343,11 +343,11 @@ Settings::Settings() {
 	fAudioMaxDistVolume = 0.80f;
 	fAudioBloom = 0.5f;
 
-	// OverlayWin
-	iOverlayWinRestartCooldownMsec = 10000;
-	iOverlayWinRestartDelayMsec = 10000;
-	bOverlayWinEnableX86Helper = true;
-	bOverlayWinEnableX64Helper = true;
+	// OverlayPrivateWin
+	iOverlayWinHelperRestartCooldownMsec = 10000;
+	iOverlayWinHelperRestartDelayMsec = 10000;
+	bOverlayWinHelperX86Enable = true;
+	bOverlayWinHelperX64Enable = true;
 
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
@@ -696,9 +696,11 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
-	// OverlayWin
-	SAVELOAD(iOverlayWinRestartCooldownMsec, "overlay_win/restartcooldownmsec");
-	SAVELOAD(iOverlayWinRestartDelayMsec, "overlay_win/restartdelaymsec");
+	// OverlayPrivateWin
+	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	SAVELOAD(iOverlayWinHelperRestartDelayMsec, "overlay_win/helper/restart_delay_msec");
+	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -989,11 +991,11 @@ void Settings::save() {
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
 
-	// OverlayWin
-	SAVELOAD(iOverlayWinRestartCooldownMsec, "overlay_win/restartcooldownmsec");
-	SAVELOAD(iOverlayWinRestartDelayMsec, "overlay_win/restartdelaymsec");
-	SAVELOAD(bOverlayWinEnableX86Helper, "overlay_win/enable_x86_helper");
-	SAVELOAD(bOverlayWinEnableX64Helper, "overlay_win/enable_x64_helper");
+	// OverlayPrivateWin
+	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	SAVELOAD(iOverlayWinHelperRestartDelayMsec, "overlay_win/helper/restart_delay_msec");
+	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

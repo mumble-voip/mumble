@@ -87,8 +87,8 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 
-	if (!g.s.bOverlayWinEnableX64Helper) {
-		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/enable_x86_helper' config option.");
+	if (!g.s.bOverlayWinHelperX86Enable) {
+		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/helper/x86/enable' config option.");
 		m_helper_enabled = false;
 	}
 
@@ -108,8 +108,8 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	if (!canRun64BitPrograms()) {
 		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
 		m_helper64_enabled = false;
-	} else if (!g.s.bOverlayWinEnableX64Helper) {
-		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/enable_x64_helper' config option.");
+	} else if (!g.s.bOverlayWinHelperX64Enable) {
+		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/helper/x64/enable' config option.");
 		m_helper64_enabled = false;
 	}
 
@@ -241,8 +241,8 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 		// We could be hitting a crash bug in the helper,
 		// and we don't want to do too much harm in that
 		// case by spawning thousands of processes.
-		qint64 cooldownMsec = (qint64) g.s.iOverlayWinRestartCooldownMsec;
-		int delayMsec = g.s.iOverlayWinRestartDelayMsec;
+		qint64 cooldownMsec = (qint64) g.s.iOverlayWinHelperRestartCooldownMsec;
+		int delayMsec = g.s.iOverlayWinHelperRestartDelayMsec;
 		if (elapsedMsec < cooldownMsec) {
 			qWarning("OverlayPrivateWin: waiting up to %llu seconds until restarting helper process. last restart was %llu seconds ago.",
 				(unsigned long long) delayMsec/1000ULL,
