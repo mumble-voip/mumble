@@ -6743,7 +6743,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+88"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation>Käyttäjien liikuttamiseen, vedä pienestä punaisesta pisteestä.</translation>
+        <translation>Liikuttaaksesi käyttäjiä vedä pienestä punaisesta pisteestä.</translation>
     </message>
     <message>
         <location line="+1"/>
