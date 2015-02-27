@@ -87,6 +87,10 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 
+	m_helper_restart_timer = new QTimer(this);
+	m_helper_restart_timer->setSingleShot(true);
+	connect(m_helper_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
+
 	if (!g.s.bOverlayWinHelperX86Enable) {
 		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/helper/x86/enable' config option.");
 		m_helper_enabled = false;
@@ -105,6 +109,10 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper64_process, SIGNAL(finished(int, QProcess::ExitStatus)),
 	        this, SLOT(onHelperProcessExited(int, QProcess::ExitStatus)));
 
+	m_helper64_restart_timer = new QTimer(this);
+	m_helper64_restart_timer->setSingleShot(true);
+	connect(m_helper64_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
+
 	if (!canRun64BitPrograms()) {
 		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
 		m_helper64_enabled = false;
@@ -112,10 +120,6 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/helper/x64/enable' config option.");
 		m_helper64_enabled = false;
 	}
-
-	m_delayedRestartTimer = new QTimer(this);
-	m_delayedRestartTimer->setSingleShot(true);
-	connect(m_delayedRestartTimer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 }
 
 OverlayPrivateWin::~OverlayPrivateWin() {
@@ -217,14 +221,17 @@ void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError
 void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus exitStatus) {
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
-	qint64 elapsedMsec;
 	QString path;
+	qint64 elapsedMsec;
+	QTimer *restartTimer;
 	if (helper == m_helper_process) {
 		path = m_helper_exe_path;
 		elapsedMsec = m_helper_start_time.elapsed();
+		restartTimer = m_helper_restart_timer;
 	} else if (helper == m_helper64_process) {
 		path = m_helper64_exe_path;
 		elapsedMsec = m_helper64_start_time.elapsed();
+		restartTimer = m_helper64_restart_timer;
 	}
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
@@ -242,13 +249,14 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 		// and we don't want to do too much harm in that
 		// case by spawning thousands of processes.
 		qint64 cooldownMsec = (qint64) g.s.iOverlayWinHelperRestartCooldownMsec;
-		int delayMsec = g.s.iOverlayWinHelperRestartDelayMsec;
 		if (elapsedMsec < cooldownMsec) {
-			qWarning("OverlayPrivateWin: waiting up to %llu seconds until restarting helper process. last restart was %llu seconds ago.",
+			qint64 delayMsec = cooldownMsec - elapsedMsec;
+			qWarning("OverlayPrivateWin: waiting %llu seconds until restarting helper process '%s'. last restart was %llu seconds ago.",
 				(unsigned long long) delayMsec/1000ULL,
+				qPrintable(path),
 				(unsigned long long) elapsedMsec/1000ULL);
-			if (!m_delayedRestartTimer->isActive()) {
-				m_delayedRestartTimer->start(delayMsec);
+			if (!restartTimer->isActive()) {
+				restartTimer->start(delayMsec);
 			}
 		} else {
 			startHelper(helper);

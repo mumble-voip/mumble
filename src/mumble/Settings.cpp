@@ -345,7 +345,6 @@ Settings::Settings() {
 
 	// OverlayPrivateWin
 	iOverlayWinHelperRestartCooldownMsec = 10000;
-	iOverlayWinHelperRestartDelayMsec = 10000;
 	bOverlayWinHelperX86Enable = true;
 	bOverlayWinHelperX64Enable = true;
 
@@ -698,7 +697,6 @@ void Settings::load(QSettings* settings_ptr) {
 
 	// OverlayPrivateWin
 	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
-	SAVELOAD(iOverlayWinHelperRestartDelayMsec, "overlay_win/helper/restart_delay_msec");
 	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
 	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
@@ -993,7 +991,6 @@ void Settings::save() {
 
 	// OverlayPrivateWin
 	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
-	SAVELOAD(iOverlayWinHelperRestartDelayMsec, "overlay_win/helper/restart_delay_msec");
 	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
 	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 

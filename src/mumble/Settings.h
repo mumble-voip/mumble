@@ -228,7 +228,6 @@ struct Settings {
 	OverlaySettings os;
 
 	int iOverlayWinHelperRestartCooldownMsec;
-	int iOverlayWinHelperRestartDelayMsec;
 	bool bOverlayWinHelperX86Enable;
 	bool bOverlayWinHelperX64Enable;
 
