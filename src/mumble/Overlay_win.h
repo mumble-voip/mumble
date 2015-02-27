@@ -71,6 +71,7 @@ class OverlayPrivateWin : public OverlayPrivate {
 		QTimer *m_helper64_restart_timer;
 		bool m_helper64_enabled;
 
+		HANDLE m_mumble_handle;
 		bool m_active;
 
 		void startHelper(QProcess *helper);

@@ -40,7 +40,7 @@
 
 #define UNUSED(x) ((void)x)
 
-typedef int (*OverlayHelperProcessMain)(unsigned int magic);
+typedef int (*OverlayHelperProcessMain)(unsigned int magic, HANDLE parent);
 
 // Signal to the overlay DLL that it should not inject
 // into this process.
@@ -116,6 +116,7 @@ int main(int argc, char **argv) {
 	// display a nice alert dialog directing users to
 	// 'mumble.exe' instead. 
 	unsigned int magic = 0;
+	HANDLE parent = 0;
 	{
 		std::wstring commandLine(GetCommandLine());
 
@@ -123,20 +124,39 @@ int main(int argc, char **argv) {
 		// if the program was passed any arguments. If we don't
 		// find them, it probably means that a user has double-clicked
 		// the executable. Tell them to run 'mumble.exe' instead.
-		size_t sep = commandLine.find(std::wstring(L"  "));
+		std::wstring doubleSpace = std::wstring(L"  ");
+		size_t sep = commandLine.find(doubleSpace);
 		if (sep == std::string::npos) {
 			Alert(L"Mumble Overlay", L"This program is not meant to be run by itself. Run 'mumble.exe' instead.");
 			return OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT;
 		}
 
-		// We expect that the Mumble process passes the overlay
-		// magic number that it is built with to us.
-		std::wstring magicNumberStr = commandLine.substr(sep);
+		// The Mumble process passes the overlay magic number,
+		// and a HANDLE in numeric form as its only two arguments.
+		// Let's try to parse the command line to extract them...
+		std::wstring args = commandLine.substr(sep + doubleSpace.length());
+		sep = args.find(std::wstring(L" "));
+		if (sep == std::string::npos) {
+			return OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS;
+		}
+		if (args.length() <= sep + 1) {
+			return OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS;
+		}
+		std::wstring magicNumberStr = args.substr(0, sep);
+		std::wstring handleStr = args.substr(sep+1);
+
 		try {
 			unsigned long passedInMagic = std::stoul(magicNumberStr);
 			magic = static_cast<unsigned int>(passedInMagic);
 		} catch (std::exception &) {
 			return OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT;
+		}
+
+		try {
+			unsigned long passedInHandle = std::stoul(handleStr);
+			parent = reinterpret_cast<HANDLE>(passedInHandle & 0xFFFFFFFFUL);
+		} catch(std::exception &) {
+			return OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT;
 		}
 	}
 
@@ -163,7 +183,7 @@ int main(int argc, char **argv) {
 		return OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT;
 	}
 
-	return entryPoint(magic);
+	return entryPoint(magic, parent);
 }
 
 int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE prevInstance, wchar_t *cmdArg, int cmdShow) {
