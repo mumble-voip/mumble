@@ -45,7 +45,7 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Myöntää oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kiellettyksi.&lt;br /&gt;%2</translation>
+        <translation>Myöntää oikeuden toimintoon %1. Jos toiminto on yhtä aikaa sekä sallittu että kielletty, katsotaan se kiellettyksi.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -55,7 +55,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Kumoaa oikeuden toimintoon %1. Jos toiminto on sekä sallittu että kielletty yhtä aikaa, se katsotaan kielletyksi.&lt;br /&gt;%2</translation>
+        <translation>Kumoaa oikeuden toimintoon %1. Jos toiminto on yhtä aikaa sekä sallittu että kielletty, katsotaan se kielletyksi.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -144,7 +144,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Sisällytä jäsenet emoryhmästä</translation>
+        <translation>Sisällytä jäsenet yläkanavalta</translation>
     </message>
     <message>
         <location/>
@@ -164,7 +164,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Ryhmä sisällytettiin emokanavasta</translation>
+        <translation>Ryhmä sisällytettiin yläkanavasta</translation>
     </message>
     <message>
         <location/>
@@ -209,12 +209,12 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Sisällytä emokanavan ACL?</translation>
+        <translation>Sisällytä yläkanavan ACL?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Tämä määrittää onko emokanavaketjun ACL käytössä tässä objektissa. Ainoastaan lisäykset, jotka on merkattu emokanavassa &quot;Sisällytä alikanaviin&quot; sisällytetään.</translation>
+        <translation>Tämä määrittää onko yläkanavaketjun ACL käytössä tässä objektissa. Ainoastaan lisäykset, jotka on merkattu yläkanavassa &quot;Sisällytä alikanaviin&quot; sisällytetään.</translation>
     </message>
     <message>
         <location/>
@@ -274,7 +274,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Tämä poistaa valitun merkinnän</translation>
+        <translation>Tämä poistaa valitun merkinnän.</translation>
     </message>
     <message>
         <location/>
@@ -295,7 +295,7 @@ Tämä numero määrittää kuinka Mumble järjestää kanavat puuhun. Suuremmal
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Tämä laittaa merkinnän koskemaan tätä kanavaa.</translation>
+        <translation>Asettaa merkinnän koskemaan tätä kanavaa.</translation>
     </message>
     <message>
         <location/>
@@ -332,7 +332,7 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Sisältää listan jäsenistä, joiden jäsenyyttä ei sisällytetä emokanavasta.</translation>
+        <translation>Sisältää listan jäsenistä, joiden jäsenyyttä ei sisällytetä yläkanavalta.</translation>
     </message>
     <message>
         <location/>
@@ -352,12 +352,12 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Rajaa ulos</translation>
+        <translation>Poissulje</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>Ulosrajatut jäsenet</translation>
+        <translation>Poissuljetut jäsenet</translation>
     </message>
     <message>
         <location/>
@@ -397,7 +397,7 @@ Lisää uusi ryhmä.</translation>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Valitsee keitä tämä merkintä koskee. Syötä käyttäjänimi ja hae enterillä palvelimelta.</translation>
+        <translation>Valitsee ketä tämä merkintä koskee. Syötä käyttäjänimi ja paina enter-näppäintä, hakeaksesi sitä palvelimelta.</translation>
     </message>
     <message>
         <location/>
@@ -414,14 +414,14 @@ Lisää uusi ryhmä.</translation>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Tilapäinen&lt;/b&gt;&lt;br /&gt;
-Valittuna luotu kanava määritetään tilapäiseksi. Kun viimeinen käyttäjä poistuu kanavalta, palvelin poistaa kanavan automaattisesti.</translation>
+Valittuna luotu kanava määritetään tilapäiseksi. Kun viimeinen käyttäjä poistuu tilapäiseltä kanavalta, palvelin poistaa kanavan automaattisesti.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
         <translation>&lt;b&gt;Ryhmä&lt;/b&gt;&lt;br /&gt;
-Kanavalle määritetyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina Enter.</translation>
+Kanavalle määritetyt ryhmät. Luodaksesi uuden ryhmän kirjoita sen nimi ja paina Enter-näppäintä.</translation>
     </message>
     <message>
         <location/>
@@ -431,7 +431,7 @@ Kanavalle määritetyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina 
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Sisällyttää&lt;/b&gt;&lt;br /&gt;Tämä sisällyttää kaikki emokanavan jäsenet, jos ryhmään ei ole merkitty  &lt;i&gt;Sisällytettävä&lt;/i&gt; emokanavalla.</translation>
+        <translation>&lt;b&gt;Sisällytä&lt;/b&gt;&lt;br /&gt;Tämä sisällyttää kaikki yläkanavan jäsenet, jos ryhmä on merkitty  &lt;i&gt;Sisällytettävä&lt;/i&gt; yläkanavalla.</translation>
     </message>
     <message>
         <location/>
@@ -441,33 +441,33 @@ Kanavalle määritetyt ryhmät. Luodaksesi uuden ryhmän kirjoita nimi ja paina 
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Sisällytetty&lt;/b&gt;&lt;br /&gt;Näyttää, että ryhmä on sisällytetty emokanavalle. Tätä ei voi muokata.</translation>
+        <translation>&lt;b&gt;Sisällytetty&lt;/b&gt;&lt;br /&gt;Näyttää, että ryhmä on sisällytetty yläkanavalta. Merkintä toimii vain tietona eikä sitä voi muokata.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Jäsenet&lt;/b&gt;&lt;br /&gt;
-Tämä sisältää listan jäsenistä jotka on lisätty nykyiseen kanavaan. Ota huomioon, että tämä ei sisällä jäseniä jotka on sisällytetty kanavapuun ylemmiltä tasoilta. Nämä löytyvät &lt;i&gt;Sisällytetyt jäsenet&lt;/i&gt; listalta. Estääksesi sisällytyksen alemmilta tasoilta jätä valitsematta &lt;i&gt;Sisällytettävä&lt;/i&gt; tai lisää manuaalisesti &lt;i&gt;Poislaskettavat jäsenet&lt;/i&gt; listalta.</translation>
+Tämä sisältää listan jäsenistä jotka ovat lisätty nykyiseen kanavaan. Ota huomioon, että tämä ei sisällä jäseniä jotka on sisällytetty kanavapuun ylemmiltä tasoilta. Nämä löytyvät &lt;i&gt;Sisällytetyt jäsenet&lt;/i&gt; listalta. Estääksesi sisällytyksen alemmilta tasoilta jätä valitsematta &lt;i&gt;Sisällytettävä&lt;/i&gt; tai lisää manuaalisesti &lt;i&gt;Poissuljetut jäsenet&lt;/i&gt; listalle.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Poislaskettavat jäsenet&lt;/b&gt;&lt;br /&gt;
-Sisältää listan jäsenistä joiden jäsenyys ei periydy emokanavalta.</translation>
+        <translation>&lt;b&gt;Poissuljetut jäsenet&lt;/b&gt;&lt;br /&gt;
+Sisältää listan jäsenistä joiden jäsenyys ei periydy yläkanavilta.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Sisällytetyt jäsenet&lt;/b&gt;&lt;br /&gt;
-Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Poista valinta &lt;i&gt;Sisällyttää&lt;/i&gt; estääksesi sisällytys korkeamman tason kanavilta.</translation>
+Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Poista valinta &lt;i&gt;Sisällytä&lt;/i&gt; estääksesi sisällytys ylemmiltä kanavilta.</translation>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Valitsee mitä käyttäjäryhmää tämä merkintä koskee.&lt;br/&gt;Huomioi, että valittua ryhmää käytetään merkinnän kohteena. Esimerkiksi ACL:n oletus-juurikanavalla antaa &lt;i&gt;kirjoitusoikeiden&lt;/i&gt; &lt;i&gt;ylläpitoryhmään&lt;/i&gt; kuuluville käyttäjille. Jos merkintä peritään kanavalta, antaa se &lt;i&gt;ylläpitoryhmän&lt;/i&gt; kirjoitusoikeidet uuden kanavan ylläpitöryhmän käyttäjille, vaikka he eivät kuuluisikaan alkuperäisen ACL kanavan &lt;i&gt;ylläpitoryhmään&lt;/i&gt;.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;!&apos;-merkillä, sen jäsenyys on kielletty, ja jos ryhmän nimi alkaa &apos;~&apos;-merkillä, se käyttää ACL-määrityksiä alkuperäisellä kanavalta, eikä aktiivisella kanavalta.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;#&apos;-merkillä, tulkitaan se pääsyavaimena. Käyttäjien on täytynyt syöttää pääsyavainlistaansa &apos;#&apos;-merkin jälkeiset merkit. Tätä voidaan käyttää yksinkertaisina salasanoina kanaville.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;$&apos;-merkillä, se huomio ainoastaan käyttäjät vastaavilla merkeillä hash-tunnuksessaan.&lt;br/&gt;Muutamat erityiset esiasetetut ryhmät ovat:&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - Kaikki vastaavat.&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt;Kaikki autentikoidut käyttäjät täsmäävät.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Nykyinen käyttäjä alikanava minimi &lt;i&gt;a&lt;/i&gt; yhteisillä vanhemmilla, ja &lt;i&gt;b&lt;/i&gt;:n ja &lt;i&gt;c&lt;/i&gt;:n välisillä kanavilla. Katso websivulta tarkempaa tietoa.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; Käyttäjien nykyinen kanava täsmää (soveltuvuus &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Kanavan ulkopuoliset käyttäjät täsmäävät(soveltuvuus&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Huomioi, että toiminto koskee vain joko käyttäjää tai ryhmää.</translation>
+        <translation>Määrittää mitä käyttäjäryhmää tämä merkintä koskee.&lt;br/&gt;Huomioi, että valittua ryhmää käytetään merkinnän kohteena. Esimerkiksi ACL:n oletus-juurikanavalla antaa &lt;i&gt;kirjoitusoikeiden&lt;/i&gt; &lt;i&gt;ylläpitoryhmään&lt;/i&gt; kuuluville käyttäjille. Jos merkintä peritään kanavalta, antaa se &lt;i&gt;ylläpitoryhmän&lt;/i&gt; kirjoitusoikeidet uuden kanavan ylläpitöryhmän käyttäjille, vaikka he eivät kuuluisikaan alkuperäisen ACL kanavan &lt;i&gt;ylläpitoryhmään&lt;/i&gt;.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;!&apos;-merkillä, sen jäsenyys on kielletty, ja jos ryhmän nimi alkaa &apos;~&apos;-merkillä, se käyttää ACL-määrityksiä alkuperäisellä kanavalta, eikä aktiivisella kanavalta.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;#&apos;-merkillä, tulkitaan se pääsyavaimena. Käyttäjien on täytynyt syöttää pääsyavainlistaansa &apos;#&apos;-merkin jälkeiset merkit. Tätä voidaan käyttää yksinkertaisina salasanoina kanaville.&lt;br/&gt;Jos ryhmän nimi alkaa &apos;$&apos;-merkillä, huomioidaan vain käyttäjät, joilla on vastaavat merkit hash-tunnuksessa.&lt;br/&gt;Muutamat erityiset esiasetetut ryhmät ovat:&lt;br/&gt;&lt;b&gt;all&lt;/b&gt; - Kaikki vastaavat.&lt;br/&gt;&lt;b&gt;auth&lt;/b&gt;Kaikki autentikoidut käyttäjät täsmäävät.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Nykyinen käyttäjä alikanava minimi &lt;i&gt;a&lt;/i&gt; yhteisillä vanhemmilla, ja &lt;i&gt;b&lt;/i&gt;:n ja &lt;i&gt;c&lt;/i&gt;:n välisillä kanavilla. Katso websivulta tarkempaa tietoa.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; Käyttäjät kanavan sisällä täsmäävät (soveltuvuus &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Kanavan ulkopuoliset käyttäjät täsmäävät(soveltuvuus&apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Huomioi, että toiminto koskee vain joko käyttäjää tai ryhmää.</translation>
     </message>
     <message>
         <location/>
@@ -477,7 +477,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Näyttää aktiiviset tapahtumat tällä kanavalla. Toisilta kanavilta perityt tapahtumat näkyvät kursivoituina.&lt;br /&gt;ACL:t priorisoitu ylhäältä alas, prioriteetti kasvaa kun rullaat listaa alaspäin.</translation>
+        <translation>Näyttää aktiiviset merkinnät kanavalla. Toisilta kanavilta perityt merkinnät näkyvät kursivoituina.&lt;br /&gt;ACL:t priorisoidaam ylhäältä alas, jolloin prioriteetti kasvaa siirtyessä alaspäin listassa.</translation>
     </message>
     <message>
         <location/>
@@ -539,7 +539,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Epäonnistui ilmentäessään ASIO ajuria</translation>
+        <translation>ASIO ajurin ilmentäminen epäonnistui</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -662,7 +662,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Sinun tulee valita vähintää yksi mikrofoni- ja kaiutinlähde käyttääksesi ASIO:ta. Jos tarvitset vain mikrofonin sämpläystä, käytä DirectSoundia.</translation>
+        <translation>Sinun tulee valita vähintään yksi mikrofoni- ja kaiutinlähde käyttääksesi ASIO:ta. Jos tarvitset vain mikrofonin sämpläystä, käytä DirectSoundia.</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -763,7 +763,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Määrittää milloin puhetta lähetetään.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Jatkuva&lt;/i&gt; - Yhteys auki koko ajan&lt;br /&gt;&lt;i&gt;Puheaktivointi&lt;/i&gt; - Kun puheesi on selkeän puheen alueella&lt;br /&gt;&lt;i&gt;Puhepikanäppäin&lt;/i&gt; - Kun painat näppäintä joka on määritetty &lt;i&gt;Pikanäppäinten&lt;/i&gt; asetuksissa.</translation>
+        <translation>&lt;b&gt;Tämä määrittää milloin puhetta lähetetään.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Jatkuva&lt;/i&gt; - Lähetys pidetään auki kokoajan.&lt;br /&gt;&lt;i&gt;Puheaktivointi&lt;/i&gt; - Puhettasi lähetetään, kun se havaitaan selkeäksi.&lt;br /&gt;&lt;i&gt;Puhepikanäppäin&lt;/i&gt; - Puhettasi lähetetään, kun painat pikanäppäintä joka on määritetty &lt;i&gt;Pikanäppäinten&lt;/i&gt; asetuksissa.</translation>
     </message>
     <message>
         <location/>
@@ -778,7 +778,8 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Tuplapainalluksen Aika&lt;/b&gt;&lt;br /&gt;Jos painat Puhepikanäppäintä kahdesti määrätyssä ajassa se lukitaan päälle. Mumble jatkaa lähettämistä kunnes painat puhepikanäppäintä uudelleen.</translation>
+        <translation>&lt;b&gt;Tuplapainalluksen Aika&lt;/b&gt;&lt;br /&gt;Jos painat Puhepikanäppäintä kahdesti tässä
+määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämistä kunnes painat puhepikanäppäintä uudelleen.</translation>
     </message>
     <message>
         <location/>
@@ -788,7 +789,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Palauta&lt;/b&gt;&lt;br/&gt;Palauttaa oletustiedostopolun.</translation>
+        <translation>&lt;b&gt;Palauta&lt;/b&gt;&lt;br/&gt;Palauttaa oletustiedostopolut.</translation>
     </message>
     <message>
         <location/>
@@ -823,7 +824,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaalin suhde meluun</translation>
+        <translation>Signal-to-Noise -suhde</translation>
     </message>
     <message>
         <location/>
@@ -838,7 +839,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Äänen &amp;pito</translation>
+        <translation>Lähetyksen &amp;Jatko</translation>
     </message>
     <message>
         <location/>
@@ -853,7 +854,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Tämä määrittää äänen lähetyksen.&lt;/b&gt;&lt;br /&gt;Käytä tätä Audio Statistiikka -ikkunan kanssa säätääksesi manuaalisesti äänentunnistuksen merkkikohdat. &quot;Hiljaisuus&quot; merkin takana olevat signaalit lasketaan hiljaisuudeksi. &quot;Puhetta&quot; merkin jälkeen oleva signaali lasketaan puheeksi. Merkkien välillä oleva signaali lasketaan puheeksi, mutta se ei aloita uutta lähetystä.</translation>
+        <translation>&lt;b&gt;Tämä määrittää arvot äänen lähetyksen.&lt;/b&gt;&lt;br /&gt;Käytä tätä Äänistatistiikka-ikkunan kanssa säätääksesi manuaalisesti äänentunnistuksen kynnysarvot. &quot;Hiljaisuuden raja-arvo&quot; merkin alla oleva signaali tulkitaan hiljaisuudeksi. &quot;Puheen raja-arvo&quot; merkin yläpuolella oleva signaali tulkitaan puheeksi. Merkkien välillä oleva signaali lasketaan puheeksi, mutta se ei aloita uutta lähetystä.</translation>
     </message>
     <message>
         <location/>
@@ -898,7 +899,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Määrittää kuinka paljon yhdessä paketissa on audiota.&lt;/b&gt;&lt;br /&gt;Kasvattamalla audion määrää lisäät puheesi viivettä, mutta vähennät yhteytesi kaistankäyttöä.</translation>
+        <translation>&lt;b&gt;Määrittää kuinka paljon ääntä sisälletään yhteen pakettiin.&lt;/b&gt;&lt;br /&gt;Kasvattamalla äänen määrää lisäät puheesi viivettä, mutta vähennät yhteytesi kaistankäyttöä.</translation>
     </message>
     <message>
         <location/>
@@ -998,7 +999,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Asettaa ajan, kuinka nopeasti äänen lähetystä jatketaan havaitun katkon jälkeen.&lt;/b&gt;&lt;br /&gt;Aseta tämä korkeammalle jos äänesi rikkoutuu puhuessasi (ääni-ikoni vilkkuu nimesi vieressä). </translation>
+        <translation>&lt;b&gt;Asettaa kuinka kauan äänen lähetystä jatketaan havaitun katkon jälkeen.&lt;/b&gt;&lt;br /&gt;Aseta tämä korkeammalle jos äänesi rikkoutuu puhuessasi (ääni-ikoni vilkkuu nimesi vieressä). </translation>
     </message>
     <message>
         <location/>
@@ -1038,7 +1039,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;Testaa&lt;/b&gt;&lt;br/&gt;Soittaa nykyisen &lt;i&gt;aloitus&lt;/i&gt; äänen sekä &lt;i&gt;lopetus&lt;/i&gt; äänen.</translation>
+        <translation>&lt;b&gt;Testaa&lt;/b&gt;&lt;br/&gt;Toistaa nykyisen &lt;i&gt;aloitus&lt;/i&gt;äänen sekä &lt;i&gt;lopetus&lt;/i&gt;äänen.</translation>
     </message>
     <message>
         <location/>
@@ -1083,7 +1084,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation>Pito Aika</translation>
+        <translation>Lähetyksen Jatko</translation>
     </message>
     <message>
         <location/>
@@ -1244,7 +1245,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Oletus &amp;Huojunta puskuri</translation>
+        <translation>Oletus &amp;Huojuntapuskuri</translation>
     </message>
     <message>
         <location/>
@@ -1274,7 +1275,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Sallii yhden takaisinkierrätyksen testaustiloista.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; -Takaisinkierrätys ei käytössä &lt;br /&gt;&lt;i&gt;Paikallinen&lt;/i&gt; - Emuloi paikallinen palvelin.&lt;br /&gt;&lt;i&gt;Palvelin&lt;/i&gt; - Pyydä palvelimelta takaisinkierrätystä.&lt;br /&gt;Huomioi, kun takaisinkierrätys on sallittu, muut käyttäjät eivät voi kuulla sinua. Tätä asetusta ei tallenneta ohjelmasta poistuttaessa.</translation>
+        <translation>&lt;b&gt;Sallii yhden takaisinkierrätyksen testaustiloista.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Ei mikään&lt;/i&gt; -Takaisinkierrätys ei käytössä &lt;br /&gt;&lt;i&gt;Paikallinen&lt;/i&gt; - Emuloi paikallinen palvelin.&lt;br /&gt;&lt;i&gt;Palvelin&lt;/i&gt; - Pyydä palvelimelta takaisinkierrätystä.&lt;br /&gt;Huomioi, että takaisinkierrätystilassa muut käyttäjät eivät kuule sinua. Tätä asetusta ei tallenneta ohjelmasta poistuttaessa.</translation>
     </message>
     <message>
         <location/>
@@ -1355,7 +1356,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Maksimi etäisyys, jonka jälkeen äänen voimakkuus ei enää laske.</translation>
+        <translation>Maksimietäisyys, jonka jälkeen äänenvoimakkuus ei enää laske.</translation>
     </message>
     <message>
         <location/>
@@ -1386,7 +1387,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Asettaa pakettivasteajan vaihtelun takaisinkierrätyksen testaukselle.&lt;/b&gt;&lt;br /&gt;Useimmissa äänipoluissa on jonkun verran vaihtelevaa vasteaikaa. Sallii asettaa vaihteluvälin takaisinkierrätystilan testaukselle. Esimerkiksi, jos asetat 15ms, verkko emuloidaan 20-35ms pingin vasteajalle tai 80-95ms vaihtelulle. Useimmilla kotimaisilla yhteyksillä vaihtelu on noin 5ms.</translation>
+        <translation>&lt;b&gt;Asettaa pakettivasteajan vaihtelun takaisinkierrätyksen testaukselle.&lt;/b&gt;&lt;br /&gt;Useimmissa äänipoluissa on jonkun verran vaihtelevaa vasteaikaa. Mahdollistaa vaihteluvälin asettamisen takaisinkierrätystilan testaukselle. Esimerkiksi, jos asetat 15ms, verkko emuloidaan 20-35ms pingin vasteajalle tai 80-95ms vaihtelulle. Useimmilla kotimaisilla yhteyksillä vaihtelu on noin 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1396,12 +1397,12 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation>Takaisinkierrätystilan pakettihäviö</translation>
+        <translation>Takaisinkierrätystilan pakettihävikki</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Asettaa pakettihäviön takaisinkierrätystilalle.&lt;/b&gt;&lt;br /&gt;Määrittää kuinka monta pakettia voi hävitä. Jollei uloslähtevä kaistanleveytesi ole huipussa, tai yhteydessäsi on häiriötä, häviö on 0%</translation>
+        <translation>&lt;b&gt;Asettaa pakettihävikin takaisinkierrätystilalle.&lt;/b&gt;&lt;br /&gt;Määrittää kuinka paljon hävikkiä tapahtuu. Jollei uloslähtevä kaistanleveytesi ole huipussa, tai yhteydessäsi on häiriötä, hävikki on 0%</translation>
     </message>
     <message>
         <location/>
@@ -1426,7 +1427,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Äänenvoimakkuuden vaimennus muissa ohjelmissa puheen aikana&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden ohjelmien äänenvoimakkuuden kasvattamista sisääntulevan ja uloslähtevän puheen aikana. Asettaa muiden ohjelmien vaimennuksen, jos ominaisuus on sallittu.</translation>
+        <translation>&lt;b&gt;Äänenvoimakkuuden vaimennus muissa ohjelmissa puheen aikana&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden ohjelmien äänenvoimakkuuden vähentämistä sisääntulevan ja uloslähtevän puheen aikana. Asettaa muiden ohjelmien vaimennuksen, jos ominaisuus on sallittu.</translation>
     </message>
     <message>
         <location/>
@@ -1659,7 +1660,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Todennäköisyys sille, että viimeisin paketti (20ms) oli puhetta eikä taustamelua.&lt;br /&gt;Äänen lähetys riippuu onko tämä oikein. Lauseen keskiosa tunnistetaan aina puheeksi; ongelma on lyhyet katkot sanojen keskellä tai puheen aloitus. On hankala tunnistaa sanat mitkä alkavat h-kirjaimella.&lt;br /&gt;Jos tämä on lihavoidulla fontila, Mumble lähettää ääntä paraikaa (jos olet yhteydessä).</translation>
+        <translation>Todennäköisyys sille, että viimeisin paketti (20ms) oli puhetta eikä taustamelua.&lt;br /&gt;Äänen lähetys riippuu onko tämä oikein. Lauseen keskiosa tunnistetaan aina puheeksi; ongelma on lyhyet katkot sanojen keskellä tai puheen aloitus. On hankala tunnistaa sanat mitkä alkavat h-kirjaimella.&lt;br /&gt;Jos tämä on lihavoidulla fontilla, Mumble lähettää ääntä paraikaa (jos olet yhteydessä).</translation>
     </message>
     <message>
         <location/>
@@ -1949,7 +1950,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble tukee sijainninmukaista audiota joillekin peleille. Ominaisuudessa asetetaan muiden puheen tulemaan heidän pelissä olevan sijainnin mukaan. Sijaintia simuloidaan sekä säätämällä äänenvoimakkuutta pelaajien etäisyyden suhteen että tulevan äänenlähteen liikuttamista heidän suuntaan. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista järjestelmässäsi, jotka voit tarkistaa tässä testissä.
+Mumble tukee sijainninmukaista audiota joillekin peleille. Ominaisuus suuntaa muiden puheen tulemaan heidän pelissä olevan sijainnin mukaan. Sijaintia simuloidaan sekä säätämällä äänenvoimakkuutta pelaajien etäisyyden suhteen että tulevan äänenlähteen liikuttamista heidän suuntaan. Sijainnin määrittäminen riippuu kaiuttimiesi asetuksista järjestelmässäsi, jotka voit tarkistaa tässä testissä.
 &lt;/p&gt;
 &lt;p&gt;
 Äänen sijaintikartta ylhäältäpäin katsottuna: &lt;font color=&quot;red&quot;&gt;sinä&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;kaiuttimet&lt;/font&gt; ja &lt;font color=&quot;green&quot;&gt;liikkuva äänenlähde&lt;/font&gt;. Sinun tulisi kuulla äänen liikkuvan kaiuttimissasi.
@@ -1971,7 +1972,7 @@ Mumble is under continuous development, and the development team wants to focus 
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Onnea. Nyt voit nauttia Mumblen rikkaasta äänikokemuksesta.
+Nyt voit nauttia Mumblen rikkaasta äänikokemuksesta.
 &lt;/p&gt;
 &lt;p&gt;
 Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käyttäjiä palveleviin asioihin. Tästä johtuen, Mumble voi lähettää kehittäjille anonyymia tietoa sinun asetuksistasi. Nämä tiedot ovat tärkeitä tulevaisuuden kehittämiselle, ja mahdollistaa sen että sinun käyttämäsi palvelut pysyvät myös jatkossa mukana.
@@ -2851,7 +2852,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Esittää lupaa mykistää ja vaimentaa muita käyttäjiä. Kun käyttäjä mykistetään, mykistys pysyy niin kauan kunnes etuoikeutettu käyttäjä poistaa mykistyksen, tai käyttäjä yhdistää uudelleen palvelimelle.</translation>
+        <translation>Esittää lupaa mykistää ja hiljentää muita käyttäjiä. Kun käyttäjä mykistetään, mykistys pysyy niin kauan kunnes etuoikeutettu käyttäjä poistaa mykistyksen, tai käyttäjä yhdistää palvelimelle uudelleen.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2993,7 +2994,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Paikallinen vaimennus</translation>
+        <translation>Paikallinen mykistys</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3578,7 +3579,7 @@ missään sijainnissa.</translation>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation>Vaimenna</translation>
+        <translation>Estä</translation>
     </message>
     <message>
         <location/>
@@ -3588,7 +3589,7 @@ missään sijainnissa.</translation>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation>Tämä lisää uuden yleisen pikanäppäin</translation>
+        <translation>Tämä lisää uuden yleisen pikanäppäimen</translation>
     </message>
     <message>
         <location/>
@@ -3603,7 +3604,7 @@ missään sijainnissa.</translation>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation>Tämä pysyvästi poistaa valitun pikanäppäin.</translation>
+        <translation>Tämä poistaa valitun pikanäppäimen pysyvästi.</translation>
     </message>
     <message>
         <location/>
@@ -4129,7 +4130,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source> Characters</source>
-        <translation>Merkiä</translation>
+        <translation>Merkkiä</translation>
     </message>
     <message>
         <location/>
@@ -4228,7 +4229,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Asettaa mitkä kanavat laajennetaan automaattisesti. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanavahierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; laajentaa kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt;laajentaa kanavat, joilla on käyttäjiä sekä aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa.</translation>
+        <translation>Asettaa mitkä kanavat laajennetaan automaattisesti. &lt;i&gt;Ei koskaan&lt;/i&gt; ei aukaise kanavahierarkiaa koskaan ja &lt;i&gt;Aina&lt;/i&gt; laajentaa kaikki kanavat aina. &lt;i&gt;Kanavilla käyttäjiä&lt;/i&gt; laajentaa kanavat, joilla on käyttäjiä sekä aukaisee ja sulkee niitä käyttäjien liittyessä ja poistuessa.</translation>
     </message>
     <message>
         <location/>
@@ -4314,7 +4315,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Määrää kanavien vetämisen tapahtuman. Voidaan hyödyntää kanavien vahingottaissiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää kanavan välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virhe viestin. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko kanavaa siirtää.</translation>
+        <translation>Määrää kanavien vetämisen tapahtuman. Voidaan hyödyntää kanavien vahinkosiirtämisen välttämiseen. &lt;i&gt;Siirrä&lt;/i&gt; siirtää kanavan välittömästi. &lt;i&gt;Älä tee mitään&lt;/i&gt; ei tee mitään tapahtuman yhteydessä ja antaa virheilmoituksen. &lt;i&gt;Kysy&lt;/i&gt; varmistaa tapahtuman yhteydessä halutaanko kanavaa siirtää.</translation>
     </message>
     <message>
         <location/>
@@ -4429,7 +4430,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana.&lt;i&gt;Ei koskaan&lt;/i&gt; ikkuna ei ole koskaan päällimmäisenä. &lt;i&gt;Aina&lt;/i&gt; ikkuna pysyy aina päällimmäisenä. &lt;i&gt;Miniminäkymässä&lt;/i&gt; / &lt;i&gt;Perusnäkymässä&lt;/i&gt; ikkuna on päällimmäisenä ollessa kyseisessä tilassa.</translation>
+        <translation>Asetus säätää milloin Mumblen ikkuna on aina päällimmäisenä ikkunana. &lt;i&gt;Ei koskaan&lt;/i&gt; ikkuna ei ole koskaan päällimmäisenä. &lt;i&gt;Aina&lt;/i&gt; ikkuna pysyy aina päällimmäisenä. &lt;i&gt;Miniminäkymässä&lt;/i&gt; / &lt;i&gt;Perusnäkymässä&lt;/i&gt; ikkuna on päällimmäisenä ollessa kyseisessä tilassa.</translation>
     </message>
     <message>
         <location/>
@@ -4604,7 +4605,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="-200"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Vaimenna itsesi</translation>
+        <translation>Mykistä itsesi</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5191,7 +5192,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Vaimenna</translation>
+        <translation>&amp;Mykistä</translation>
     </message>
     <message>
         <location/>
@@ -5206,7 +5207,7 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Paikallinen vaimennus</translation>
+        <translation>&amp;Paikallinen mykistys</translation>
     </message>
     <message>
         <location/>
@@ -5327,7 +5328,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation>Vaimenna käyttäjä paikallisesti</translation>
+        <translation>Mykistä käyttäjä paikallisesti</translation>
     </message>
     <message>
         <location/>
@@ -5554,7 +5555,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Yhdistää Mumblen kotisivuille tarkistaakseen onko uutta versiota saatavilla. Mikäli uusi versio löytyy, ilmoitetaan sen latausosoite.</translation>
+        <translation>Tarkistaa Mumblen kotisivuilta, onko uutta versiota saatavilla. Mikäli uusi versio löytyy, ilmoitetaan sen latausosoite.</translation>
     </message>
     <message>
         <location/>
@@ -5594,7 +5595,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Lisää käyttäjän kaveriksi.</translation>
+        <translation>Lisää käyttäjä kaveriksi.</translation>
     </message>
     <message>
         <location/>
