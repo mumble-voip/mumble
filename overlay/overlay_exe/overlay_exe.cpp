@@ -128,7 +128,7 @@ int main(int argc, char **argv) {
 		size_t sep = commandLine.find(doubleSpace);
 		if (sep == std::string::npos) {
 			Alert(L"Mumble Overlay", L"This program is not meant to be run by itself. Run 'mumble.exe' instead.");
-			return OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT;
+			return OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS;
 		}
 
 		// The Mumble process passes the overlay magic number,
