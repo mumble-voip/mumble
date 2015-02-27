@@ -74,8 +74,33 @@ static bool canRun64BitPrograms() {
 OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	m_active = false;
 
+	// Acquire a handle to ourselves and duplicate it. We duplicate it because
+	// want it to be inheritable by our helper processes, and the handle returned
+	// by GetCurrentProcess is not inheritable. Duplicating it makes it inheritable.
+	// This allows our helper processes to access the handle.
+	//
+	// The helper processes need a handle to us, their parent, to be able to listen
+	// detect when our process dies.
+	//
+	// The value of the handle is passed as an argument to the helper processes via
+	// the command line as a number. The HANDLE type in Windows is typedef'd to LPVOID,
+	// but for handles that are supposed to be shared between processes (like a process
+	// handle that we are using), only the lower 32-bits of the HANDLE are considered:
+	//
+	//   "When sharing a handle between 32-bit and 64-bit applications, only the lower
+	//    32 bits are significant [...]"
+	//
+	// from https://msdn.microsoft.com/en-us/library/aa384203.aspx
+	HANDLE curproc = GetCurrentProcess();
+	if (!DuplicateHandle(curproc, curproc, curproc, &m_mumble_handle,
+		                0, TRUE, DUPLICATE_SAME_ACCESS)) {
+		qFatal("OverlayPrivateWin: unable to duplicate handle to the Mumble process.");
+		return;
+	}
+
 	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
-	m_helper_exe_args = QStringList(QString::number(OVERLAY_MAGIC_NUMBER));
+	m_helper_exe_args << QString::number(OVERLAY_MAGIC_NUMBER)
+	                  << QString::number(reinterpret_cast<quintptr>(m_mumble_handle));
 	m_helper_process = new QProcess(this);
 
 	connect(m_helper_process, SIGNAL(started()),
@@ -124,6 +149,11 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 
 OverlayPrivateWin::~OverlayPrivateWin() {
 	m_active = false;
+
+	if (!CloseHandle(m_mumble_handle)) {
+		qFatal("OverlayPrivateWin: unable to close Mumble process handle.");
+		return;
+	}
 }
 
 void OverlayPrivateWin::startHelper(QProcess *helper) {

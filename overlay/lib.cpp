@@ -448,11 +448,27 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9();
 // Via dxgi.cpp
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI();
 
-extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic) {
+void __stdcall OverlayHelperProcessParentDeathThread(void *udata) {
+	HANDLE parent = reinterpret_cast<HANDLE>(udata);
+	DWORD status = WaitForSingleObject(parent, INFINITE);
+	if (status != WAIT_OBJECT_0) {
+		ExitProcess(OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL);
+	}
+
+	ExitProcess(0);
+}
+
+extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic, HANDLE parent) {
 	int retval = 0;
 
 	if (GetOverlayMagicVersion() != magic) {
 		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
+	}
+
+	HANDLE pcheckHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) OverlayHelperProcessParentDeathThread,
+	                                   reinterpret_cast<void *>(parent), 0, NULL);
+	if (pcheckHandle == 0) {
+		return OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR;
 	}
 
 	PrepareD3D9();

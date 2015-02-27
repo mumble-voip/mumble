@@ -64,14 +64,27 @@ enum OverlayHelperError {
 	/// the 'OverlayHelperProcessMain' entry point in the
 	/// overlay DLL.
 	OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT      = -7,
+	/// The overlay helper process was uanble to parse
+	/// the commandline arguments it was passed.
+	/// The helper process exepcts two arguments, and this
+	/// error occurs if it only finds one.
+	OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS           = -8,
+	/// The magic number on the command line of the overlay
+	/// helper process could not be converted to a HANDLE.
+	OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT = -9,
 
-	/// The magic number passed to the  overlay DLL's
+	/// The magic number passed to the overlay DLL's
 	/// OverlayHelperProcessMain function did not match
 	/// the overlay DLL's built-in magic number.
 	OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH          = -1000,
 	/// The overlay helper process exited due to an error
 	/// in the Windows message loop.
 	OVERLAY_HELPER_ERROR_DLL_MESSAGE_LOOP            = -1001,
+	/// The parent death thread could not be created.
+	OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR     = -1002,
+	/// The helper's WaitForSingleObject call on its parent
+	/// process failed unexpectedly.
+	OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL        = -1003,
 };
 
 /// OverlayHelperErrorToString converts an OverlayHelperError value
@@ -86,8 +99,12 @@ static inline const char *OverlayHelperErrorToString(OverlayHelperError err) {
 		OHE(OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH);
 		OHE(OVERLAY_HELPER_ERROR_EXE_LOAD_DLL);
 		OHE(OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT);
+		OHE(OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS);
+		OHE(OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT);
 		OHE(OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH);
 		OHE(OVERLAY_HELPER_ERROR_DLL_MESSAGE_LOOP);
+		OHE(OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR);
+		OHE(OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL);
 	}
 	return NULL;
 }
