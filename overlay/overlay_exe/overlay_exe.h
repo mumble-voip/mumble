@@ -40,9 +40,9 @@ const wchar_t *MUMBLE_OVERLAY_DLL_NAME = L"mumble_ol_x64.dll";
 /// OverlayHelperError represents exit codes returned by the
 /// overlay helper process (mumble_ol.exe) on Windows.
 enum OverlayHelperError {
-	/// The overlay helper process was not passed a magic
-	/// number as its first and only argument.
-	OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT  = -1,
+	/// The overlay helper process was not passed any
+	/// arguments.
+	OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS            = -1,
 	/// The magic number on the command line of the overlay
 	/// helper process could not be converted to an integer.
 	OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT  = -2,
@@ -92,7 +92,7 @@ enum OverlayHelperError {
 static inline const char *OverlayHelperErrorToString(OverlayHelperError err) {
 	#define OHE(x) case x: return #x
 	switch (err) {
-		OHE(OVERLAY_HELPER_ERROR_EXE_MISSING_MAGIC_ARGUMENT);
+		OHE(OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS);
 		OHE(OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT);
 		OHE(OVERLAY_HELPER_ERROR_EXE_MAGIC_MISMATCH);
 		OHE(OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT);
