@@ -1,5 +1,5 @@
 /* Copyright (C) 2011-2013, Benjamin Jemlich <pcgod@users.sourceforge.net>
-   Copyright (C) 2013-2015 Mikkel Krautz <mikkel@krautz.dk>
+   Copyright (C) 2013-2015, Mikkel Krautz <mikkel@krautz.dk>
 
    All rights reserved.
 
