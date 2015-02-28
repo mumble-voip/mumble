@@ -4776,7 +4776,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Server předložil certifikát, u kterého selhalo ověření.</translation>
     </message>
     <message>
         <location line="+31"/>
