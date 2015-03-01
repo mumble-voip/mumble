@@ -5004,7 +5004,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>Hiljennetty</translation>
+        <translation>Hiljennetty.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6080,7 +6080,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-397"/>
         <source>Server connection rejected: %1.</source>
-        <translation>Pavelinyhteys hylättiin: %1.</translation>
+        <translation>Palvelinyhteys hylättiin: %1.</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -7243,7 +7243,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation>Yhdistä Peliin ja Välitä Sijanti</translation>
+        <translation>Yhdistä Peliin ja Välitä Sijainti</translation>
     </message>
     <message>
         <location/>
@@ -7719,7 +7719,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>%Poista</translation>
+        <translation>&amp;Poista</translation>
     </message>
 </context>
 <context>
