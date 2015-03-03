@@ -904,7 +904,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden maksimiarvon, joka lähetetään tietokoneestasi. Äänen bittinopeus on maksimi bittinopeus (käytämme VBR) vain äänitiedoille yksinään.  Sijanti on bittinopeus jota käytetään sijaintitiedoille. Pakettitiedot ovat paketin kehykselle ja IP-osoitetiedoille tarvittava bittinopeus (IP ja UDP ovat 75% tästä lukuarvosta).</translation>
+        <translation>&lt;b&gt;Näyttää uloslähtevän kaistanleveyden huipun.&lt;/b&gt;&lt;br /&gt;Näyttää uloslähtevän kaistanleveyden maksimiarvon, joka lähetetään tietokoneestasi. Äänen bittivirta on maksimi bittivirta (käytämme VBR) vain äänitiedoille yksinään.  Sijanti on bittivirta jota käytetään sijaintitiedoille. Pakettitiedot ovat paketin kehykselle ja IP-osoitetiedoille tarvittava bittivirta (IP ja UDP ovat 75% tästä lukuarvosta).</translation>
     </message>
     <message>
         <location/>
@@ -999,7 +999,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Asettaa kuinka kauan äänen lähetystä jatketaan havaitun katkon jälkeen.&lt;/b&gt;&lt;br /&gt;Aseta tämä korkeammalle jos äänesi rikkoutuu puhuessasi (ääni-ikoni vilkkuu nimesi vieressä). </translation>
+        <translation>&lt;b&gt;Asettaa kuinka kauan äänen lähetystä jatketaan puheen katkon jälkeen.&lt;/b&gt;&lt;br /&gt;Aseta tämä korkeammalle jos äänesi rikkoutuu puhuessasi (ääni-ikoni vilkkuu nimesi vieressä). </translation>
     </message>
     <message>
         <location/>
@@ -1044,7 +1044,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Näyttää aina päällimmäisenä olevan ikkunan, jossa on puhepikanäppäin.</translation>
+        <translation>Näyttää aina päällimmäisenä olevan ikkunan, jossa on puhepikanäppäin nappi.</translation>
     </message>
     <message>
         <location/>
@@ -1311,7 +1311,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation>Kerroin jolla ääntä vähennetään</translation>
+        <translation>Prosentti jolla ääntä vähennetään</translation>
     </message>
     <message>
         <location/>
@@ -1321,7 +1321,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation>Kerroin jolla ääntä lisätään</translation>
+        <translation>Prosentti jolla ääntä lisätään</translation>
     </message>
     <message>
         <location/>
@@ -1387,7 +1387,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Asettaa pakettivasteajan vaihtelun takaisinkierrätyksen testaukselle.&lt;/b&gt;&lt;br /&gt;Useimmissa äänipoluissa on jonkun verran vaihtelevaa vasteaikaa. Asetus mahdollistaa vaihteluvälin asettamisen takaisinkierrätystilan testaukselle. Esimerkiksi, jos asetat 15ms, emuloidaan verkko jolla on 20-35ms tai 80-95ms pingin vasteaika. Useimmilla kotimaisilla yhteyksillä vaihtelu on noin 5ms.</translation>
+        <translation>&lt;b&gt;Asettaa pakettivasteajan vaihtelun takaisinkierrätyksen testaukselle.&lt;/b&gt;&lt;br /&gt;Useimmissa äänipoluissa on jonkun verran vaihtelevaa vasteaikaa. Asetus mahdollistaa vaihteluvälin asettamisen takaisinkierrätystilan testaukselle. Esimerkiksi, jos asetat 15ms, emuloidaan verkko jolla on 20-35ms tai 80-95ms vasteaika. Useimmilla kotimaisilla yhteyksillä vaihtelu on noin 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1482,7 +1482,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Valittuna Mumble alentaa muiden käyttäjien äänenvoimakkuutta puhuessasi, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
+        <translation>Valittuna Mumble vaimentaa muiden käyttäjien äänenvoimakkuutta puhuessasi, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
     </message>
     <message>
         <location/>
@@ -1600,7 +1600,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Näyttää kaiuttimien viimeisimmän paketin (20ms) voimakkuuspiikin. Jollet käytä monikanavaista näytteenottometodia (esim. ASIO) kaiutinkanavien konfiguraatiossa, tämä on 0. Jos sinulla on tällainen konfiguraatio, ja arvo on yhä 0 soitettaessa ääntä muista ohjelmista, asetuksesi ei toimi.</translation>
+        <translation>Näyttää kaiuttimien viimeisimmän paketin (20ms) voimakkuuspiikin. Jollet käytä monikanavaista näytteenottometodia (esim. ASIO) kaiutinkanavien konfiguraatiossa, tämä on 0. Jos arvo pysyy nollassa äänentoiston aikana ja käytät edellä mainuttua konfiguraatiota, asetuksesi eivät toimi.</translation>
     </message>
     <message>
         <location/>
@@ -1730,12 +1730,12 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Näyttää kaiunpoiston painotukset, aika lisääntyy alaspäin ja taajuus kasvaa oikealle.&lt;br /&gt;Ideaalitilanteessa tämän pitäisi olla musta, jolloin kaikua ei ole lainkaan. Useimmiten, kaikua on useamman vaakasuuntaisen viivan verran, jotka edustavat kaiun viivettä. Muutoksien tulisi näkyä reaaliajassa.&lt;br /&gt;Huomioi, että niin kauan kuin sinulla ei kaiusta mitään poistettavaa, tämä tieto ei ole sinulle hyödyllistä. Soita hieman musiikkia, niin tilanne tasaantuu.&lt;br /&gt;Voit valita näytettäväksi joko oikean tai kuvitteelliset osat taajuuksien painotuksesta, tai vaihtoehtoisesti lasketun kertoimen tai näkymän. Näistä hyödyllisin lienee kerroin, joka on kaiun voimakkuus, ja näyttää paljonko uloslähtevästä signaalista leikataan. Muut näkymät ovat hyödyllisiä ihmisille jotka haluavat säätää kaiunpoiston algoritmeja.&lt;br /&gt;Huomioi, jos koko kuva aaltoilee kerrointilassa, kaiunpoisto epäonnistuu yrittäessään löytää yhteyttä kahden sisääntulolähteen välillä (kaiuttimien ja mikrofonin). Joko sinulla on pitkäviiveinen kaiku, tai yksi sisääntulolähteistä on väärin konriguroitu.</translation>
+        <translation>Näyttää kaiunpoiston painotukset, aika lisääntyy alaspäin ja taajuus kasvaa oikealle.&lt;br /&gt;Ideaalitilanteessa tämän pitäisi olla musta, jolloin kaikua ei ole lainkaan. Useimmiten, kaikua on useamman vaakasuuntaisen viivan verran, jotka edustavat kaiun viivettä. Muutoksien tulisi näkyä reaaliajassa.&lt;br /&gt;Huomioi, että kun kaikua ei ole, tästä ei erityisemmin ilmene mitään. Soita hieman musiikkia, niin tilanne tasaantuu.&lt;br /&gt;Voit valita näytettäväksi joko oikean tai kuvitteelliset osat taajuuksien painotuksesta, tai vaihtoehtoisesti lasketun kertoimen tai näkymän. Näistä hyödyllisin lienee kerroin, joka on kaiun voimakkuus, ja näyttää paljonko uloslähtevästä signaalista leikataan. Muut näkymät ovat hyödyllisiä pääasiassa vain niille, jotka haluavat säätää kaiunpoiston algoritmeja.&lt;br /&gt;Huomioi, jos koko kuva aaltoilee kerrointilassa, kaiunpoisto epäonnistuu löytäämään yhteyttä kahden sisääntulolähteen välillä (kaiuttimien ja mikrofonin). Joko sinulla on pitkäviiveinen kaiku, tai toinen sisääntulolähteistä on konfiguroitu väärin.</translation>
     </message>
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Viimeisimmän paketin (20ms) äänenlaatu, hyppii ylös ja alas aina kun VBR säätää laatua. Huipun bittivirtaa voidaan säätää Asetuksista.</translation>
+        <translation>Viimeisimmän paketin (20ms) audion bittivirta. Arvo heiluu ylös ja alas aina kun VBR säätää laatua. Huipun bittivirtaa voidaan säätää Asetuksista.</translation>
     </message>
 </context>
 <context>
@@ -1823,7 +1823,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Sallii kaiunpoiston uloslähtevästä audiosta, kaiuttimista ja kuulokkeista.</translation>
+        <translation>Ottaa käyttöön kaiunpoiston uloslähtevästä audiosta. Asetus auttaa sekä kaiuttimissa että kuulokkeissa.</translation>
     </message>
     <message>
         <location/>
@@ -1869,7 +1869,7 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>Tämä on Mumblen audioapuri. Tämä auttaa sinua asettamaan oikein äänikorttisi sisääntulon voimakkuustasoa ja oikeat parametrit äänenkäsittelylle Mumblessa. Huomioi, että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten eikä lähetetä palvelimelle. </translation>
+        <translation>Tämä on Mumblen audioapuri. Apuri auttaa sinua asettamaan oikein äänikorttisi sisääntulon voimakkuustasoa ja oikeat parametrit äänenkäsittelylle Mumblessa. Huomioi, että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten eikä lähetetä palvelimelle. </translation>
     </message>
     <message>
         <location/>
@@ -1923,7 +1923,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Avaa ääniasetukset ja mene nauhoitusasetuksiin. Varmista että mikrofoni on valittuna sisääntulona ja että sen nauhoitusvoimakkuus on maksimissa. Jos mikrofonin voimakkuuden tehostaminen on mahdollista, varmista että se on valittuna.
+Avaa tietokoneesi ääniasetukset ja mene nauhoitusasetuksiin. Varmista että mikrofoni on valittuna sisääntulona ja että sen nauhoitusvoimakkuus on maksimissa. Jos mikrofonin voimakkuuden tehostaminen on mahdollista, varmista että se on valittuna.
 &lt;/p&gt;
 &lt;p&gt;
 Puhu yhtä äänekkäästi kuin olisit ärsyyntynyt tai innoissasi jostain. Vähennä voimakkuutta ääniasetuksista kunnes palkki pysyy puhuessasi niin korkealla kuin mahdollista sinisellä ja vihreällä mutta &lt;b&gt;ei&lt;/b&gt; punaisella alueella.
@@ -2103,7 +2103,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Sallii muiden ohjelmien vaimennuksen kun muut puhuvat sinulle</translation>
+        <translation>Vaimentaa muut sovellukset kun muut puhuvat sinulle</translation>
     </message>
     <message>
         <location/>
@@ -2123,7 +2123,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>Valitsit jo Mumblessa kustomoidun laatukonfiguraation. Valitse tämä pitääksesi valinnan.</translation>
+        <translation>Valitsit jo Mumblessa kustomoidun laatukonfiguraation. Valitse tämä säilyttääksesi valinnan.</translation>
     </message>
     <message>
         <location/>
@@ -2163,7 +2163,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Avaa ohjauspaneelista äänivalikko ja mene äänentallennusasetuksiin. Varmista että mikrofonisi on valittu aktiiviseksi syöttölaitteeksi ja sen nauhoitusvoimakkuus on maksimissa. Jos mikrofonin voimakkuuden tehostaminen on mahdollista, valitse se.
+Avaa tietokoneesi ääniasetukset ja mene nauhoitusasetuksiin. Varmista että mikrofoni on valittuna sisääntulona ja että sen nauhoitusvoimakkuus on maksimissa. Jos mikrofonin voimakkuuden tehostaminen on mahdollista, varmista että se on valittuna.
 &lt;/p&gt;
 &lt;p&gt;
 Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä ohjauspaneelissa äänenvoimakkuutta kunnes alapuolen palkki pysyy mahdollisimman korkealla raidallisella ja tyhjällä alueella mutta &lt;b&gt;ei&lt;/b&gt; ristikollisella alueella kun puhut.
@@ -2969,7 +2969,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation>Ensisijainen puhuja</translation>
+        <translation>Etuoikeutettu puhuja</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3200,7 +3200,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation>Näytä kaikki palvelimet, jotka vastaavat pingiin</translation>
+        <translation>Näytä kaikki palvelimet, jotka vastaavat kutsuun</translation>
     </message>
     <message>
         <location/>
@@ -4130,7 +4130,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source> Characters</source>
-        <translation>Merkkiä</translation>
+        <translation> Merkkiä</translation>
     </message>
     <message>
         <location/>
@@ -5751,7 +5751,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation>Sinun %1 oikeus poistettiin kanavalta %2.</translation>
+        <translation>Sinulla ei ole %1 oikeutta kanavalle %2.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7822,17 +7822,17 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation>Ping Tilastot</translation>
+        <translation>Vasteajan tilastot</translation>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation>Vastaanotetut Pingit</translation>
+        <translation>Vasteaikojen lukumäärä</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation>Keskimääräinen ping</translation>
+        <translation>Keskimääräinen vasteaika</translation>
     </message>
     <message>
         <location/>
@@ -7967,7 +7967,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation>Pingin poikkeama</translation>
+        <translation>Vasteajan poikkeama</translation>
     </message>
 </context>
 <context>
@@ -8099,12 +8099,12 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation>Käyttäjällä on uusi kommenti. (Paina kuvaketta katsomiseen)</translation>
+        <translation>Käyttäjällä on uusi kommenti. (Paina nähdäksesi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation>Käyttäjällä on kommentti, jonka olet jo nähnyt.(Paina kuvaketta katsomiseen)</translation>
+        <translation>Käyttäjällä on kommentti, jonka olet jo nähnyt.(Paina nähdäksesi)</translation>
     </message>
     <message>
         <location line="+1"/>
