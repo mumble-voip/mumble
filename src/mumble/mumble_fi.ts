@@ -2128,12 +2128,12 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Vaimentaa muut sovellukset puheen aikana. Kun joku alkaa puhua sinulle Mumblessa, muut ohjelmat (kuten äänentoistimet) vaimennetaan, jolloin kuulet puheen selvemmin.</translation>
+        <translation>Vaimentaa muut sovellukset muiden puheen aikana. Kun joku alkaa puhua sinulle Mumblessa, muut ohjelmat (kuten äänentoistimet) vaimennetaan, jolloin kuulet puheen selvemmin.</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Lisää kontrastia näkörajoitteisille ihmisille</translation>
+        <translation>Lisää kontrastia näkörajoitteisille käyttäjille</translation>
     </message>
     <message>
         <location/>
@@ -2180,7 +2180,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Seuraavaksi sinun täytyy siirtää liukusäädintä. Ensimmäisten sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varmasti puhetta). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (mahdollisesti puhetta) ja ollessasi vaiti, kaiken tulisi olla ristikossa (varmasti ei puhetta).</translation>
+        <translation>Seuraavaksi sinun täytyy siirtää seuraavaa liukusäädintä. Ensimmäisten sanomiesi lausahduksien tulisi päätyä tyhjälle alueelle (varmasti puhetta). Puhuessasi sinun tulisi pysyä viivoitetun alueen sisällä (mahdollisesti puhetta) ja ollessasi vaiti, kaiken tulisi olla ristikossa (varmasti ei puhetta).</translation>
     </message>
     <message>
         <location/>
@@ -2195,7 +2195,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Asetus on suositeltu vain tilanteissa joissa kaistanleveys ei ole ongelma, kuten LAN. Tarjoaa parhaan viiveajan johon Mumble kykenee, sekä &lt;b&gt;korkean laadun&lt;/b&gt;.(72kbit/s, 10ms per paketti)</translation>
+        <translation>Asetus on suositeltu vain tilanteissa joissa kaistanleveys ei ole ongelma, kuten LAN. Tarjoaa lyhimmän viiveajan johon Mumble kykenee, sekä &lt;b&gt;korkean laadun&lt;/b&gt;.(72kbit/s, 10ms per paketti)</translation>
     </message>
 </context>
 <context>
@@ -2268,7 +2268,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation>Tämä on etsintäkenttä. Käytä tätä löytääksesi tietylle käyttäjälle asetetut estot. </translation>
+        <translation>Tämä on hakukenttä. Käytä tätä löytääksesi tietylle käyttäjälle asetetut estot. </translation>
     </message>
     <message>
         <location/>
@@ -2563,7 +2563,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Tiedosto, josta sertifikaati tuodaan</translation>
+        <translation>Tiedosto, josta sertifikaatti tuodaan</translation>
     </message>
     <message>
         <location/>
@@ -2649,7 +2649,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Tämä on sertifikaatti, jota Mumble tällä hetkellä käyttää. Se korvataan.</translation>
+        <translation>Tämä on Mumblen nykyinen sertifikaatti, joka tullaan korvaamaan</translation>
     </message>
     <message>
         <location/>
@@ -2694,7 +2694,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>Sertifikaatti jota Mumble nyt käyttää. Tämä viedään. </translation>
+        <translation>Tämä on Mumblen nykyinen sertifikaatti, joka tullaan viemään tiedostoon.</translation>
     </message>
     <message>
         <location/>
@@ -2704,7 +2704,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble generoi vahvan sertifikaatin palvelimelle tunnistautumiseen.&lt;/p&gt;&lt;p&gt;Halutessasi voit tuottaa lisätietoa sertifikaattiin varastoitavaksi, mikä esitetään palvelimelle yhdistämisvaiheessa. Jos sisällytät kelvollisen sähköpostiosoitteen, voit päivittää CA:n myöntämän sähköpostisertifikaatin, joka tuottaa vahvan tunnistautumisen.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble generoi vahvan sertifikaatin palvelimelle tunnistautumiseen.&lt;/p&gt;&lt;p&gt;Halutessasi voit antaa sertifikaattiin sisään lisätietoja, jotka esitetään palvelimelle kun yhdistät sinne. Jos sisällytät kelvollisen sähköpostiosoitteen, voit myöhemmin päivittää CA:n myöntämään sähköpostisertifikaatin, joka tuottaa vahvan tunnistautumisen.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2724,7 +2724,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Tämä on sähköpostiosoitteesi. On erittäin suositeltavaa käyttää kelvollista sähköpostiosoitetta, tämä sallii sinun päivittää vahvaan sertifikaattiin ilman tunnistautumisongelmia.</translation>
+        <translation>Tämä on sähköpostiosoitteesi. On erittäin suositeltavaa käyttää kelvollista sähköpostiosoitetta, koska se sallii sinun päivittää vahvaan sertifikaattiin ilman tunnistautumisongelmia.</translation>
     </message>
     <message>
         <location/>
@@ -2734,7 +2734,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>Tämä on nimesi, joka tulee sertifikaatiin. Tämä kenttä on täysin vapaaehtoinen.</translation>
+        <translation>Tämä on nimesi, joka tulee sertifikaatiin. Kentän täyttäminen on täysin vapaaehtoista.</translation>
     </message>
     <message>
         <location/>
@@ -2754,7 +2754,7 @@ Haluatko varmasti korvata sertifikaatin?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>Automaattinen sertifikaation luominen. </translation>
+        <translation>Automaattinen sertifikaation luominen.</translation>
     </message>
     <message>
         <location/>
@@ -2763,7 +2763,7 @@ Haluatko varmasti korvata sertifikaatin?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Mumble käyttää sertifikaatteja palvelimien todentamiseen. Sertifikaateilla et tarvitse salasanoja, jolloin sinun ei tarvitse paljastaa salasanaa ulkopuolisille sivuille. Tämä mahdollistaa erittäin helpon käyttäjien rekisteröitymisen.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman sertifikaatteja, suurin osa palvelimista olettaa sinun omaavan sertifikaatin.&lt;/p&gt;
+        <translation>&lt;p&gt;Mumble käyttää sertifikaatteja palvelimien todentamiseen. Sertifikaateilla et tarvitse salasanoja, jolloin sinun ei tarvitse paljastaa salasanaa ulkopuolisille sivuille. Ne myös mahdollistavat erittäin helpon käyttäjien rekisteröitymisen.&lt;/p&gt;&lt;p&gt;Vaikka Mumble voi toimia ilman sertifikaatteja, suurin osa palvelimista olettaa sinun omaavan sertifikaatin.&lt;/p&gt;
 &lt;p&gt;
 On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;luot luotettavan sertifikaatin&lt;/a&gt;.
 &lt;/p&gt;
@@ -2827,7 +2827,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation>Esittää pääsyä kanavalle, sisältäen mahdollisuuden muuttaa ryhmän ja ACL tietoja. Tämä etuoikeus sisältää kaikki muut etuoikeudet.</translation>
+        <translation>Esittää täysiä oikeuksia kanavalle, sisältäen mahdollisuuden muuttaa ryhmän ja ACL tietoja. Tämä etuoikeus sisältää kaikki muut etuoikeudet.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2857,7 +2857,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>Esittää lupaa siirtää käyttäjä toiselle kanavalle tai poistaa hänet palvelimelta. Siirtääkseen käyttäjää, joko siirtävällä käyttäjällä tulee olla Siirto -oikeudet kohdekanavassa, tai siirrettävän käyttäjän tulee olla sallittua liittyä kanavalle. Tämän oikeuden käyttäjät voivat siirtää käyttäjiä kanaville, joille käyttäjä ei normaalioloissa voisi liittyä. </translation>
+        <translation>Esittää lupaa siirtää käyttäjä toiselle kanavalle tai poistaa hänet palvelimelta. Käyttäjän siirtämiseen, joko siirtävällä käyttäjällä tulee olla Siirto -oikeudet kohdekanavassa, tai siirrettävän käyttäjän tulee olla sallittua liittyä kanavalle. Tämän oikeuden käyttäjät voivat siirtää käyttäjiä kanaville, joille käyttäjä ei normaalioloissa voisi liittyä. </translation>
     </message>
     <message>
         <location line="+5"/>
