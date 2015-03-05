@@ -164,6 +164,8 @@ void OverlayPrivateWin::startHelper(QProcess *helper) {
 		} else if (helper == m_helper64_process) {
 			helper->start(m_helper64_exe_path, m_helper64_exe_args);
 			m_helper64_start_time.restart();
+		} else {
+			qFatal("OverlayPrivateWin: invalid helper passed to startHelper().");
 		}
 	} else {
 		qWarning("OverlayPrivateWin: startHelper() called while process is already running. skipping.");
@@ -227,6 +229,8 @@ void OverlayPrivateWin::onHelperProcessStarted() {
 		path = m_helper_exe_path;
 	} else if (helper == m_helper64_process) {
 		path = m_helper64_exe_path;
+	} else {
+		qFatal("OverlayPrivateWin: unknown QProcess found in onHelperProcessStarted().");
 	}
 
 	PROCESS_INFORMATION *pi = helper->pid();
@@ -241,6 +245,8 @@ void OverlayPrivateWin::onHelperProcessError(QProcess::ProcessError processError
 		path = m_helper_exe_path;
 	} else if (helper == m_helper64_process) {
 		path = m_helper64_exe_path;
+	} else {
+		qFatal("OverlayPrivateWin: unknown QProcess found in onHelperProcessError().");
 	}
 
 	qWarning("OverlayPrivateWin: an error occured for overlay helper process '%s': %s",
@@ -262,6 +268,8 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 		path = m_helper64_exe_path;
 		elapsedMsec = m_helper64_start_time.elapsed();
 		restartTimer = m_helper64_restart_timer;
+	} else {
+		qFatal("OverlayPrivateWin: unknown QProcess found in onHelperProcessExited().");
 	}
 
 	const char *helperErrString = OverlayHelperErrorToString(static_cast<OverlayHelperError>(exitCode));
@@ -306,6 +314,8 @@ void OverlayPrivateWin::onDelayedRestartTimerTriggered() {
 		helper = m_helper_process;
 	} else if (timer == m_helper64_restart_timer) {
 		helper = m_helper64_process;
+	} else {
+		qFatal("OverlayPrivateWin: unknown timer found in onDelayedRestartTimerTriggered().");
 	}
 
 	if (helper->state() == QProcess::NotRunning) {
