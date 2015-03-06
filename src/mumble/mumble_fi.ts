@@ -2872,32 +2872,32 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Ilmaisee oikeuden liittää kanavia toisiinsa. Käyttäjät liitetyillä kanavilla kuulevat toisensa, kunhan puhujalla on &lt;i&gt;puhe&lt;/i&gt; oikeus kuulijoiden kanavilla. Tarvitset liittämisoikeuden molemmille kanaville liittääksesi kanavat, mutta vain toiselle purkaaksesi liitoksen.</translation>
+        <translation>Ilmaisee oikeuden liittää kanavia toisiinsa. Käyttäjät liitetyillä kanavilla kuulevat toisensa, kunhan puhujalla on &lt;i&gt;puhe&lt;/i&gt; oikeus kuulijoiden kanavilla. Kanavien liittämiseen tarvitaan liittämisoikeudet molemille kanaville, mutta sen purkamiseen riittää oikeudet vain toisella kanavista.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation>Esittää lupaa kirjoittaa viesti toiselle kanavan käyttäjälle.</translation>
+        <translation>Esittää lupaa kirjoittaa viesti toisille käyttäjille samalla kanavalla.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation>Esittää lupaa poistaa pakolla käyttäjä palvelimelta.</translation>
+        <translation>Esittää lupaa poistaa käyttäjiä palvelimelta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>Esittää lupaa poistaa pysyvästi käyttäjä palvelimelta.</translation>
+        <translation>Esittää lupaa pysyvästi estää käyttäjän pääsy palvelimelle.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation>Esittää lupaa rekisteröidä palvelimelle käyttäjiä ja poistaa rekisteröinti käyttäjiltä. </translation>
+        <translation>Esittää lupaa rekisteröidä käyttäjiä että poistaa käyttäjien rekisteröinti palvelimella.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation>Esittää lupaa rekisteröidä itsensä palvelimelle.</translation>
+        <translation>Esittää lupaa itsensä rekisteröintiin palvelimella.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2989,7 +2989,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation>Paikallinen torjunta (viestit)</translation>
+        <translation>Paikallinen viestien hylkääminen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3032,7 +3032,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Suorita muutokset</translation>
+        <translation>Ota muutokset käyttöön</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3042,17 +3042,17 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation>Peruuta muutokset nykyiseltä sivulta.</translation>
+        <translation>Peruuta muutokset nykyiseltä sivulta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Peruuttaa kaikki muutokset, jotka on tehny nykyisellä sivulla, edellisiin tiloihin.</translation>
+        <translation>Peruuttaa kaikki muutokset aikaisempiin tiloihin nykyisellä sivulla.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation>Palauta nykyisen sivun oletusasetukset.</translation>
+        <translation>Palauta nykyisen sivun oletusasetukset</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3230,7 +3230,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation>Liitä suosikkilinkki leikepöydälle</translation>
+        <translation>Liitä suosikkilinkki leikepöydältä</translation>
     </message>
     <message>
         <location/>
@@ -3334,7 +3334,7 @@ Portti jota palvelin kuuntelee. Jos palvelin tunnistetaan Bonjour palvelun tunni
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Käyttäjänimi&lt;/b&gt;&lt;br/&gt;
-Käyttäjänimi jota tulet käyttämään palvelimella. Palvelimet voivat asettaa rajoitteita käyttäjänimen suhteen tai sama käyttäjänimi voi olla jo käytössä, jolloin käyttäjänimi tulee vaihtaa. </translation>
+Käyttäjänimi jota tulet käyttämään palvelimella. Huomioi että palvelimet voivat asettaa rajoitteita käyttäjänimen suhteen tai sama käyttäjänimi voi olla jo käytössä, jolloin käyttäjänimi tulee vaihtaa. </translation>
     </message>
     <message>
         <location/>
@@ -3419,7 +3419,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>Mumble näyttäisi kaatuneen, olemme pahoillamme. Haluatko lähettää kaatumisraportin Mumblen kehittäjille? Kaatumisraportti sisältää osittaisen kopion Mumblen muistista kaatumishetkellä, ja auttaa kehittäjiä korjaamaan ongelman.</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Mumble näyttäisi kaatuneen, olemme pahoillamme. Haluatko lähettää kaatumisraportin Mumblen kehittäjille?&lt;/b&gt;&lt;/p&gt;&lt;p&gt; Kaatumisraportti sisältää osittaisen kopion Mumblen muistista kaatumishetkellä, ja auttaa kehittäjiä korjaamaan ongelman.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3430,7 +3430,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Kuvaile lyhyesti enganniksi mitä olit tekemässä kaatumishetkellä</translation>
+        <translation>Kuvaile lyhyesti englanniksi mitä olit tekemässä kaatumishetkellä</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3466,7 +3466,7 @@ Palvelimen nimike. Vapaasti valittava nimike, jolla palvelin tulee esiintymään
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Tämä ei ole hauskaa, mutta kaatumisraportin koodissa näyttäisi olevan bugi, ja me epäonnistuimme lataamaan raportin. Voit informoida kehittäjiä virheestä %1</translation>
+        <translation>Tämä ei ole vitsi, mutta kaatumisraportin koodissa näyttäisi olevan bugi, ja me epäonnistuimme lataamaan raportin. Voit informoida kehittäjiä virheestä %1</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -3546,7 +3546,7 @@ missään sijainnissa.</translation>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation>Vedä tähän</translation>
+        <translation>Vedä tästä</translation>
     </message>
 </context>
 <context>
@@ -3579,7 +3579,7 @@ missään sijainnissa.</translation>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation>Estä</translation>
+        <translation>Piilota</translation>
     </message>
     <message>
         <location/>
@@ -3653,12 +3653,12 @@ missään sijainnissa.</translation>
     <message>
         <location line="+4"/>
         <source>Suppress keys from other applications</source>
-        <translation>Vaimenna painallukset muilta ohjelmilta</translation>
+        <translation>Peitä painallukset muilta ohjelmilta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation>&lt;b&gt;Peittää näppäinten painamiset muilta ohjelmilta.&lt;/b&gt;&lt;br /&gt;Valittuna piilottaa näppäimen (tai viimeisen näppäimen usean näppäimen yhdistelmässä) muilta ohjelmilta. Ota huomioon että kaikkia näppäimiä ei voi vaimentaa,</translation>
+        <translation>&lt;b&gt;Peittää näppäinten painamiset muilta ohjelmilta.&lt;/b&gt;&lt;br /&gt;Valittuna piilottaa näppäimen (tai viimeisen näppäimen usean näppäimen yhdistelmässä) muilta ohjelmilta. Ota huomioon että kaikkia näppäimiä ei voi peittää.</translation>
     </message>
 </context>
 <context>
@@ -3795,7 +3795,7 @@ missään sijainnissa.</translation>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt; Lista järjestelmässäsi olevista LCD laitteista. Kertoo laitten nimen sekä sen näytön koon. Mumble tukee usean LCD laitteen yhtäaikaiskäyttöä.&lt;/p&gt;
+        <translation>&lt;p&gt; Lista järjestelmässäsi olevista LCD laitteista. Kertoo laitteen nimen sekä sen näytön koon. Mumble tukee usean LCD laitteen yhtäaikaiskäyttöä.&lt;/p&gt;
 &lt;h3&gt;Size:&lt;/h3&gt;
 &lt;p&gt;
 Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) tai merkkeinä (merkkipohjainen LCD).&lt;/p&gt;
@@ -4741,7 +4741,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle nimellä %1. Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi %1 tällä palvelimella rekisteröimisen jälkeen.&lt;/p&gt;&lt;p&gt;Tästä lähtien käyttäjänimi %1 tunnistetaan nykyisen sertifikaattisi avulla.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä %1?&lt;/p&gt; </translation>
+        <translation>&lt;p&gt;Olet rekisteröimässä käyttäjän %1 palvelimelle. Rekisteröintiä ei voi peruuttaa ja hänen käyttäjänimeä ei voida muuttaa, ja käyttäjällä %1 on rekisteröitynä pääsy palvelimelle vaikka salasanaa vaihdettaisiin.&lt;/p&gt;&lt;p&gt;Tästä lähtien käyttäjänimi %1 tunnistetaan nykyisen sertifikaatin kanssa.&lt;/p&gt;&lt;p&gt;Haluatko varmasta rekisteröidä käyttäjän %1 tälle palvelimelle?&lt;/p&gt; </translation>
     </message>
     <message>
         <location line="+40"/>
@@ -5162,12 +5162,12 @@ Muutoin keskeytä ja tarkista sertifikaattisi sekä käyttäjänimesi.</translat
     <message>
         <location/>
         <source>Disconnect from server</source>
-        <translation>Katkaise yhteys palvelimeen</translation>
+        <translation>Katkaise palvelinyhteys</translation>
     </message>
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation>Katkaisee yhteyden palvelimeen.</translation>
+        <translation>Katkaisee yhteytesi palvelimeen.</translation>
     </message>
     <message>
         <location/>
