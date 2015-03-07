@@ -3180,7 +3180,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumble Palvelinyhteys</translation>
+        <translation>Mumble palvelimeen yhdistäminen</translation>
     </message>
     <message>
         <location/>
@@ -5595,7 +5595,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Lisää käyttäjä kaveriksi.</translation>
+        <translation>Lisää käyttäjän kaveriksi.</translation>
     </message>
     <message>
         <location/>
@@ -5610,7 +5610,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation>Poista käyttäjä kavereistasi.</translation>
+        <translation>Poistaa käyttäjän kavereistasi.</translation>
     </message>
     <message>
         <location/>
@@ -5735,7 +5735,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation>Tilitietojasi ei voida vahvistaa tällä hetkellä. Yritä myöhemmin uudelleen</translation>
+        <translation>Käyttäjätietojasi ei voida vahvistaa tällä hetkellä. Yritä myöhemmin uudelleen</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6214,7 +6214,7 @@ Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation>Tiedustele käyttäjän yhteyden tiedot palvelimelta</translation>
+        <translation>Tiedustele käyttäjän yhteystietoja palvelimelta</translation>
     </message>
     <message>
         <location/>
@@ -6304,7 +6304,7 @@ Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation>Estä käyttäjä lähettämästä viestejä sinulle.</translation>
+        <translation>Estä käyttäjää lähettämästä viestejä sinulle.</translation>
     </message>
     <message>
         <location/>
@@ -6343,9 +6343,9 @@ By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
         <translation>Vaihtaa kanavasuodattimen tilaa.
-Oletuksena kaikki tyhjät kanavat suodatetaan.
+Oletusasetuksena kaikki tyhjät kanavat suodatetaan.
 Voit lisätä suodatukseen lisää kanavia 
-kanavan alavalikosta.</translation>
+kanavien alivalikosta.</translation>
     </message>
     <message>
         <location/>
@@ -6394,7 +6394,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Siirry TCP yhteensopivuustilaan&lt;/b&gt;.&lt;br /&gt;Siirtää Mumblen käyttämään TCP-protokollaa tiedon välittämiseen palvelimelle. Protokolla kasvattaa pakettikokoa, jolloin pakettihävikki aiheuttaa huomattavia katkoja puheessa. Tilaa tulisi käyttää vain jos et voi käyttää oletusarvoja (jotka ovat UDP äänelle ja TCP hallinnalle).</translation>
+        <translation>&lt;b&gt;Siirry TCP yhteensopivuustilaan&lt;/b&gt;.&lt;br /&gt;Siirtää Mumblen käyttämään vain TCP-protokollaa tiedon välittämiseen palvelimelle. Protokolla kasvattaa pakettikokoa, jolloin pakettihävikki aiheuttaa huomattavia katkoja puheessa. Tilaa tulisi käyttää vain jos et voi käyttää oletusarvoja (jotka ovat UDP äänelle ja TCP hallinnalle).</translation>
     </message>
     <message>
         <location/>
@@ -6539,7 +6539,7 @@ kanavan alavalikosta.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Välityspalvelimen tunnistautumisen salasana.&lt;/b&gt;&lt;br /&gt;Salasana jolla tunnistaudut välityspalvelimelle. Jätä tyhjäksi mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä.</translation>
+        <translation>&lt;b&gt;Välityspalvelimen tunnistautumisen salasana.&lt;/b&gt;&lt;br /&gt;Salasana jolla tunnistaudut välityspalvelimelle. Jätä tyhjäksi, mikäli välityspalvelin ei käytä tunnistautumista tai haluat yhdistää anonyyminä.</translation>
     </message>
     <message>
         <location/>
@@ -6676,7 +6676,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation>Puhujat ja äskettäin aktiiviset</translation>
+        <translation>Puhujat ja äskettäin puhuneet</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6808,7 +6808,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation>Valinta säätää onko Overlay käytössä vai ei. Valinta vaikuttaa vain ohjelman käynnistyessä, joten varmista että Mumble on päällä ja tämä valinta valittu ennen ohjelman käynnistämistä.&lt;br /&gt;Ota huomioon että jos käynnistät Mumblen ohjelman käynnistymisen jälkeen tai poistat overlayn käytöstä ohjelman ollessa käynnissä, ainoa tapa ottaa overlay käyttöön on käynnistää ohjelma uudelleen.</translation>
+        <translation>Valinta määrittää onko Overlay käytössä vai ei. Valinta vaikuttaa vain ohjelman käynnistyessä, joten varmista että Mumble on päällä ja tämä valinta valittu ennen ohjelman käynnistämistä.&lt;br /&gt;Ota huomioon että jos käynnistät Mumblen ohjelman käynnistymisen jälkeen tai poistat overlayn käytöstä ohjelman ollessa käynnissä, ainoa tapa ottaa overlay käyttöön on käynnistää ohjelma uudelleen.</translation>
     </message>
     <message>
         <location/>
@@ -6845,9 +6845,9 @@ Prevents the client from downloading images embedded into chat messages with the
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation>Mumble on havainnut että Mumble overlay ei ole asennettu. 
+        <translation>Mumble on havainnut että Mumble Overlay ei ole asennettu. 
 
-Paina napista alhaalla asentaaksesi overlay.</translation>
+Paina alapuolen napista asentaaksesi Overlay.</translation>
     </message>
     <message>
         <location/>
@@ -6866,7 +6866,7 @@ Paina napista alhaalla asentaaksesi overlay.</translation>
 To upgrade these files to their latest versions, click the button below.</source>
         <translation>Mumble on havainnut Overlay:ta tukevien tiedostojen olevan vanhentuneita.
 
-Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään versioon.</translation>
+Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään versioon.</translation>
     </message>
     <message>
         <location/>
@@ -6941,12 +6941,12 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation>Näytä overlay kaikissa sovelluksissa lukuunottamatta</translation>
+        <translation>Näytä Overlay kaikissa sovelluksissa lukuunottamatta</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation>Näytä overlay ainoastaan</translation>
+        <translation>Näytä Overlay ainoastaan</translation>
     </message>
     <message>
         <location/>
@@ -6956,7 +6956,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation>Näytä kello ja nykyinen paikallinen aika overlayssa (järjestelmän aika).</translation>
+        <translation>Näytä paikallisen ajan kello Overlayssa (järjestelmän aika).</translation>
     </message>
     <message>
         <location/>
@@ -7044,7 +7044,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Username</source>
-        <translation>Käyttäjätunnus</translation>
+        <translation>Käyttäjänimi</translation>
     </message>
     <message>
         <location/>
@@ -7102,7 +7102,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation>Käyttäjä Läpinäkyvyys</translation>
+        <translation>Käyttäjän läpinäkyvyys</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7129,7 +7129,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation>Keskus</translation>
+        <translation>Keskellä</translation>
     </message>
     <message>
         <location line="-13"/>
@@ -7243,7 +7243,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation>Yhdistä Peliin ja Välitä Sijainti</translation>
+        <translation>Yhdistä peliin ja välitä sijainti</translation>
     </message>
     <message>
         <location/>
@@ -7283,7 +7283,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation>Tämä näyttää liitännäisen muokkaussivun, jos mahdollista.</translation>
+        <translation>Tämä näyttää liitännäisen muokkaussivun, jos sellainen on.</translation>
     </message>
     <message>
         <location/>
@@ -7664,7 +7664,7 @@ Paina napista alhaalla päivittääksesi Overlay:n tiedostot viimeisimpään ver
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation>Jos valittu, lähetetään teksti rekursiivisesti kaikille alakanaville</translation>
+        <translation>Valittuna teksti lähetetään rekursiivisesti kaikille alakanaville</translation>
     </message>
     <message>
         <location/>
@@ -7697,8 +7697,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Tämä on nykyisen palvelimen pääsyavainlista, jota voi muokata .&lt;/b&gt;
 &lt;br /&gt;
-
-Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsyoikeutena kanavalle. Mumble muistaa käyttämäsi pääsyavaimet ja lähettää ne palvelimelle automaattisesti, joten sinun ei tarvitse syöttää näitä uudelleen joka kerta.
+Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertaiseen pääsyoikeuden hallintaan kanaville. Mumble muistaa käyttämäsi pääsyavaimet ja lähettää ne palvelimelle automaattisesti, joten sinun ei tarvitse syöttää näitä uudelleen joka kerta.
 </translation>
     </message>
     <message>
@@ -8029,7 +8028,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation>Ei ole puheessa.</translation>
+        <translation>Ei puheessa.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8109,7 +8108,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation>Hylkää viestit</translation>
+        <translation>Viestien hylkääminen</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8363,13 +8362,13 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää yksinkertaisena pääsy
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation>&amp;Käynnistä</translation>
+        <translation>&amp;Aloita</translation>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation>S&amp;top</translation>
+        <translation>&amp;Lopeta</translation>
     </message>
     <message>
         <location/>
@@ -8466,7 +8465,7 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation>Pysäyttää</translation>
+        <translation>Lopetetaan</translation>
     </message>
     <message>
         <location line="+26"/>
