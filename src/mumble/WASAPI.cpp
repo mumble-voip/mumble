@@ -113,6 +113,72 @@ void WASAPIInit::destroy() {
 WASAPIInputRegistrar::WASAPIInputRegistrar() : AudioInputRegistrar(QLatin1String("WASAPI"), 10) {
 }
 
+
+/// Calls getMixFormat on given IAudioClient and checks whether it is compatible.
+/// At the moment this means the format is either 32bit float or 16bit PCM.
+/// 
+/// @param sourceName Name to prepend to log in case of error
+/// @param deviceName Device name to refer to in case of error
+/// @param audioClient IAudioClient to get and check mix format for
+/// @param waveFormatEx WAVEFORMATEX structure to store getMixFormat result in
+/// @param waveFormatExtensible If waveFormatEx is of type WAVEFORMATEXTENSIBLE receives a cast pointer.
+/// @param sampleFormat Receives either SampleFloat or SampleShort as valid format
+/// @return True if mix format is ok. False if incompatible or another error occured.
+
+template <typename SAMPLEFORMAT> // Template on SampleFormat enum as AudioOutput and AudioInput each define their own
+bool getAndCheckMixFormat(const char* sourceName,
+                    const char* deviceName,
+                    IAudioClient* audioClient,
+                    WAVEFORMATEX **waveFormatEx,
+                    WAVEFORMATEXTENSIBLE **waveFormatExtensible,
+                    SAMPLEFORMAT *sampleFormat) {
+	
+	HRESULT hr = audioClient->GetMixFormat(waveFormatEx);
+	if (FAILED(hr)) {
+		qWarning("%s: %s GetMixFormat failed: hr=0x%08lx", sourceName, deviceName, hr);
+		return false;
+	}
+	
+	if ((*waveFormatEx)->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
+		(*waveFormatExtensible) = reinterpret_cast<WAVEFORMATEXTENSIBLE *>((*waveFormatEx));
+		if ((*waveFormatExtensible)->SubFormat == KSDATAFORMAT_SUBTYPE_IEEE_FLOAT) {
+			*sampleFormat = SAMPLEFORMAT::SampleFloat;
+		} else if ((*waveFormatExtensible)->SubFormat == KSDATAFORMAT_SUBTYPE_PCM) {
+			*sampleFormat = SAMPLEFORMAT::SampleShort;
+		} else {
+			qWarning() << sourceName << ": " << deviceName << " Subformat is not IEEE Float or PCM but: " << (*waveFormatExtensible)->SubFormat;
+			return false;
+		}
+	} else {
+		if ((*waveFormatEx)->wFormatTag == WAVE_FORMAT_IEEE_FLOAT) {
+			*sampleFormat = SAMPLEFORMAT::SampleFloat;
+		} else if ((*waveFormatEx)->wFormatTag != WAVE_FORMAT_PCM) {
+			*sampleFormat = SAMPLEFORMAT::SampleShort;
+		} else {
+			qWarning() << sourceName << ": " << deviceName << " format tag is not IEEE Float or PCM but: " << (*waveFormatEx)->wFormatTag;
+			return false;
+		}
+	}
+	
+	if (*sampleFormat == SAMPLEFORMAT::SampleFloat) {
+	    if ((*waveFormatEx)->wBitsPerSample != (sizeof(float) * 8)) {
+			qWarning() << sourceName << ": " << deviceName << " unexpected number of bits per sample for IEEE Float: " << (*waveFormatEx)->wBitsPerSample;
+			return false;
+		}
+	} else if (*sampleFormat == SAMPLEFORMAT::SampleShort) {
+		if ((*waveFormatEx)->wBitsPerSample != (sizeof(short) * 8)) {
+			qWarning() << sourceName << ": " << deviceName << " unexpected number of bits per sample for PCM: " << (*waveFormatEx)->wBitsPerSample;
+			return false;
+		}
+	} else {
+		Q_ASSERT(false);
+		return false;
+	}
+	
+	return true;
+}
+
+
 AudioInput *WASAPIInputRegistrar::create() {
 	return new WASAPIInput();
 }
@@ -391,29 +457,10 @@ void WASAPIInput::run() {
 	if (!  micpwfxe) {
 		if (g.s.bExclusiveInput)
 			qWarning("WASAPIInput: Failed to open exclusive mode.");
-
-		hr = pMicAudioClient->GetMixFormat(&micpwfx);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to get mix format for microphone: hr=0x%08lx", hr);
-			goto cleanup;
-		}
 		
-		if (micpwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-			micpwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(micpwfx);
-			if (micpwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT) {
-				qWarning() << "WASAPIInput: Mic Subformat is not IEEE Float but: " << micpwfxe->SubFormat;
-				goto cleanup;
-			}
-		} else if (micpwfx->wFormatTag != WAVE_FORMAT_IEEE_FLOAT){
-			qWarning() << "WASAPIInput: Mic format tag is not IEEE Float but: " << micpwfx->wFormatTag;
+		if (!getAndCheckMixFormat("WASAPIInput", "Mic", pMicAudioClient,
+		                          &micpwfx, &micpwfxe, &eMicFormat)) {
 			goto cleanup;
-		}
-		
-		if (eMicFormat == SampleFloat) {
-			if (micpwfx->wBitsPerSample != (sizeof(float) * 8)) {
-				qWarning() << "WASAPIInput: Unexpected number of bits per sample for IEEE Float  microphone: " << micpwfx->wBitsPerSample;
-				goto cleanup;
-			}
 		}
 
 		hr = pMicAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, micpwfx, NULL);
@@ -422,6 +469,8 @@ void WASAPIInput::run() {
 			goto cleanup;
 		}
 	}
+	
+	qWarning() << "WASAPIInput: Mic Stream format " << eMicFormat;
 
 	pMicAudioClient->GetStreamLatency(&latency);
 	hr = pMicAudioClient->GetBufferSize(&bufferFrameCount);
@@ -454,31 +503,12 @@ void WASAPIInput::run() {
 			qWarning("WASAPIInput: Activate Echo AudioClient failed: hr=0x%08lx", hr);
 			goto cleanup;
 		}
-
-		hr = pEchoAudioClient->GetMixFormat(&echopwfx);
-		if (FAILED(hr)) {
-			qWarning("WASAPIInput: Failed to get mix format for echo: hr=0x%08lx", hr);
+		
+		if (!getAndCheckMixFormat("WASAPIInput", "Echo", pEchoAudioClient,
+		                          &echopwfx, &echopwfxe, &eEchoFormat)) {
 			goto cleanup;
 		}
 		
-		if (echopwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-			echopwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(echopwfx);
-			if (echopwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT) {
-				qWarning() << "WASAPIInput: Echo Subformat is not IEEE Float Float but: " << echopwfxe->SubFormat;
-				goto cleanup;
-			}
-		} else if (echopwfx->wFormatTag != WAVE_FORMAT_IEEE_FLOAT){
-			qWarning() << "WASAPIInput: Echo format tag is not IEEE Float but: " << echopwfx->wFormatTag;
-			goto cleanup;
-		}
-		
-		if (eEchoFormat == SampleFloat) {
-			if (echopwfx->wBitsPerSample != (sizeof(float) * 8)) {
-				qWarning() << "WASAPIInput: Unexpected number of bits per sample for IEEE Float echo: " << echopwfx->wBitsPerSample;
-				goto cleanup;
-			}
-		}
-
 		hr = pEchoAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK | AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, echopwfx, NULL);
 		if (FAILED(hr)) {
 			qWarning("WASAPIInput: Echo Initialize failed: hr=0x%08lx", hr);
@@ -503,6 +533,8 @@ void WASAPIInput::run() {
 			qWarning("WASAPIInput: Failed to start Echo: hr=0x%08lx", hr);
 			goto cleanup;
 		}
+		
+		qWarning() << "WASAPIInput: Echo Stream format " << eEchoFormat;
 
 		iEchoChannels = echopwfx->nChannels;
 		iEchoFreq = echopwfx->nSamplesPerSec;
@@ -902,29 +934,10 @@ void WASAPIOutput::run() {
 	if (!pwfx) {
 		if (g.s.bExclusiveOutput)
 			qWarning("WASAPIOutput: Failed to open exclusive mode.");
-
-		hr = pAudioClient->GetMixFormat(&pwfx);
-		if (FAILED(hr)) {
-			qWarning("WASAPIOutput: GetMixFormat failed: hr=0x%08lx", hr);
-			goto cleanup;
-		}
 		
-		if (pwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-			pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
-			if (pwfxe->SubFormat != KSDATAFORMAT_SUBTYPE_IEEE_FLOAT) {
-				qWarning() << "WASAPIOutput: Subformat is not IEEE Float but: " << pwfxe->SubFormat;
-				goto cleanup;
-			}
-		} else if (pwfx->wFormatTag != WAVE_FORMAT_IEEE_FLOAT){
-			qWarning() << "WASAPIOutput: Format tag is not IEEE Float but: " << pwfx->wFormatTag;
+		if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient,
+		                          &pwfx, &pwfxe, &eSampleFormat)) {
 			goto cleanup;
-		}
-		
-		if (eSampleFormat == SampleFloat) {
-			if (pwfx->wBitsPerSample != (sizeof(float) * 8)) {
-				qWarning() << "WASAPIOutput: Unexpected number of bits per sample for IEEE Float: " << pwfx->wBitsPerSample;
-				goto cleanup;
-			}
 		}
 
 		if (!g.s.bPositionalAudio) {
@@ -941,20 +954,19 @@ void WASAPIOutput::run() {
 			if (hr == S_FALSE) {
 				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", closestFormat->nChannels, closestFormat->nSamplesPerSec);
 				CoTaskMemFree(pwfx);
-
-				pwfx = NULL;
-				pwfxe = NULL;
-				pAudioClient->GetMixFormat(&pwfx);
+				CoTaskMemFree(closestFormat);
 				
-				if (pwfx->wFormatTag == WAVE_FORMAT_EXTENSIBLE) {
-					pwfxe = reinterpret_cast<WAVEFORMATEXTENSIBLE *>(pwfx);
+				// Fall back to whatever the device offers.
+				
+				if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient,
+				                          &pwfx, &pwfxe, &eSampleFormat)) {
+					goto cleanup;
 				}
 			} else if (FAILED(hr)) {
 				qWarning("WASAPIOutput: IsFormatSupported failed: hr=0x%08lx", hr);
 			}
 
-			if (closestFormat)
-				CoTaskMemFree(closestFormat);
+			CoTaskMemFree(closestFormat);
 		}
 
 		hr = pAudioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, bufferDuration, 0, pwfx, NULL);
@@ -964,6 +976,8 @@ void WASAPIOutput::run() {
 		}
 	}
 
+	qWarning() << "WASAPIOutput: Output stream format " << eSampleFormat;
+	
 	pAudioClient->GetStreamLatency(&latency);
 	pAudioClient->GetBufferSize(&bufferFrameCount);
 	qWarning("WASAPIOutput: Stream Latency %lld (%d)", latency, bufferFrameCount);
