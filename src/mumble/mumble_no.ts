@@ -9,7 +9,7 @@
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Tilltat</translation>
+        <translation>Tillatt</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -24,7 +24,7 @@
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Legg til Kanal</translation>
+        <translation>Mumble - Legg til Kanal</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -688,7 +688,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;En stemme-chat for spillere&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1313,17 +1313,17 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"/>
+        <translation>De tilkoblede &quot;høytalerene&quot; er egentlig hodetelefoner</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"/>
+        <translation>Volumgrense før lyden reduseres</translation>
     </message>
     <message>
         <location/>
         <source>Bloom</source>
-        <translation type="unfinished"/>
+        <translation>Blomstre</translation>
     </message>
     <message>
         <location/>
@@ -1333,62 +1333,62 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"/>
+        <translation>Hvor mye skal lydvolumet øke for lyder som er nærme?</translation>
     </message>
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation type="unfinished"/>
+        <translation>Kryss av her for å bekrefte at du ikke har høytalere koblet til. Altså bare hodetelefoner. Dette er viktig, siden høytalere er vanligvis er plassert foran deg, mens høytalere er plassert til høyre og venstre.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation type="unfinished"/>
+        <translation>Her settes mengden av data som skal lastes inn i forkant før lyden blir spilt av. Eksperimenter med å sette verdien lavest mulig uten at lyden blir foringet.</translation>
     </message>
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"/>
+        <translation>Hodetelefoner</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Minimumsavstand</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Maksimumsavstand</translation>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation type="unfinished"/>
+        <translation>Maksimumsavstand, hvor talevolumet ikke vil dempes.</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"/>
+        <translation>Minimumsvolum</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation type="unfinished"/>
+        <translation>Hva skal volumet være ved maksimumsavstand?</translation>
     </message>
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation type="unfinished"/>
+        <translation>lydsløyfetest</translation>
     </message>
     <message>
         <location/>
         <source>Delay Variance</source>
-        <translation type="unfinished"/>
+        <translation>forsinkelsesforskjell</translation>
     </message>
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"/>
+        <translation>Forskjell i pakkerespons</translation>
     </message>
     <message>
         <location/>
@@ -1399,12 +1399,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation type="unfinished"/>
+        <translation>Pakketap</translation>
     </message>
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Pakketap for lydsløyfemodus</translation>
     </message>
     <message>
         <location/>
@@ -1439,7 +1439,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>Om avkrysset vil Mumble dempe lyden til andre programmer når andre brukere snakker.</translation>
     </message>
     <message>
         <location/>
@@ -1449,7 +1449,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>mens andre brukere snakker</translation>
     </message>
     <message>
         <location/>
@@ -1464,12 +1464,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"/>
+        <translation>mens du snakker</translation>
     </message>
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"/>
+        <translation>Ekslusiv modus, ikke anbefalt</translation>
     </message>
     <message>
         <location/>
@@ -1479,12 +1479,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>eksklusiv</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Prioritetstaler</translation>
     </message>
     <message>
         <location/>
@@ -1507,22 +1507,22 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Ingen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation type="unfinished"/>
+        <translation>Lokal</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Tjener</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Lydutgang</translation>
     </message>
     <message>
         <location line="+108"/>
@@ -1552,7 +1552,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation type="unfinished"/>
+        <translation>Velg lydfil</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1562,7 +1562,7 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"/>
+        <translation>Filen &apos;%1&apos; kan ikke bli brukt av Mumble. Vær så snill å velg en fil med et kompatibelt format og enkoding.</translation>
     </message>
 </context>
 <context>
@@ -1571,12 +1571,12 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
         <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished"/>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Lydstatistikk</translation>
     </message>
     <message>
         <location/>
@@ -1642,17 +1642,17 @@ Inneholder listen over medlemmer arvet av den aktuelle kanalen. Fjern haken ved 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signal-Til-Støy forhold</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"/>
+        <translation>Signal-Til-Støy forhold for mikrofonen</translation>
     </message>
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation type="unfinished"/>
+        <translation>Her er Signal-Til-Støy forholdet (Signal-to-Noise Ratio/SNR) for mikrofonen i det siste bildet (20ms). Det viser hvor mye tydeligere talen er sammenlignet med støyen.&lt;br /&gt;Dersom denne verdien er under 1.0, da er det mer støy enn tale i signalet, og kvaliteten blir da svekket.&lt;br /&gt;Det er ingen øvre grense for denne verdien, men ikke forvent å se en høyere verdi enn 40-50 uten ett lydstudio.</translation>
     </message>
     <message>
         <location/>
