@@ -4771,7 +4771,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Servidor apresentou falha na verificação de certificado.</translation>
     </message>
     <message>
         <location line="+31"/>
