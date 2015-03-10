@@ -32,6 +32,9 @@
 
 #include "GlobalShortcut_unix.h"
 
+#include "Global.h"
+#include "Settings.h"
+
 /**
  * Returns a platform specific GlobalShortcutEngine object.
  *
@@ -55,20 +58,22 @@ GlobalShortcutX::GlobalShortcutX() {
 	}
 
 #ifdef Q_OS_LINUX
-	QString dir = QLatin1String("/dev/input");
-	QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
-	connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
-	directoryChanged(dir);
+	if (g.s.bEnableEvdev) {
+		QString dir = QLatin1String("/dev/input");
+		QFileSystemWatcher *fsw = new QFileSystemWatcher(QStringList(dir), this);
+		connect(fsw, SIGNAL(directoryChanged(const QString &)), this, SLOT(directoryChanged(const QString &)));
+		directoryChanged(dir);
 
-	if (qsKeyboards.isEmpty()) {
-		foreach(QFile *f, qmInputDevices)
-			delete f;
-		qmInputDevices.clear();
+		if (qsKeyboards.isEmpty()) {
+			foreach(QFile *f, qmInputDevices)
+				delete f;
+			qmInputDevices.clear();
 
-		delete fsw;
-		qWarning("GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XInput");
-	} else {
-		return;
+			delete fsw;
+			qWarning("GlobalShortcutX: Unable to open any keyboard input devices under /dev/input, falling back to XInput");
+		} else {
+			return;
+		}
 	}
 #endif
 
@@ -235,6 +240,10 @@ void GlobalShortcutX::displayReadyRead(int) {
 // One of the raw /dev/input devices has ready input
 void GlobalShortcutX::inputReadyRead(int) {
 #ifdef Q_OS_LINUX
+	if (!g.s.bEnableEvdev) {
+		return;
+	}
+
 	struct input_event ev;
 
 	if (bNeedRemap)
@@ -283,6 +292,10 @@ void GlobalShortcutX::inputReadyRead(int) {
 // The /dev/input directory changed
 void GlobalShortcutX::directoryChanged(const QString &dir) {
 #ifdef Q_OS_LINUX
+	if (!g.s.bEnableEvdev) {
+		return;
+	}
+
 	QDir d(dir, QLatin1String("event*"), 0, QDir::System);
 	foreach(QFileInfo fi, d.entryInfoList()) {
 		QString path = fi.absoluteFilePath();
