@@ -133,6 +133,9 @@ bool getAndCheckMixFormat(const char* sourceName,
                     WAVEFORMATEXTENSIBLE **waveFormatExtensible,
                     SAMPLEFORMAT *sampleFormat) {
 	
+	*waveFormatEx = NULL;
+	*waveFormatExtensible = NULL;
+	
 	HRESULT hr = audioClient->GetMixFormat(waveFormatEx);
 	if (FAILED(hr)) {
 		qWarning("%s: %s GetMixFormat failed: hr=0x%08lx", sourceName, deviceName, hr);
@@ -161,7 +164,7 @@ bool getAndCheckMixFormat(const char* sourceName,
 	}
 	
 	if (*sampleFormat == SAMPLEFORMAT::SampleFloat) {
-	    if ((*waveFormatEx)->wBitsPerSample != (sizeof(float) * 8)) {
+		if ((*waveFormatEx)->wBitsPerSample != (sizeof(float) * 8)) {
 			qWarning() << sourceName << ":" << deviceName << "unexpected number of bits per sample for IEEE Float:" << (*waveFormatEx)->wBitsPerSample;
 			return false;
 		}
@@ -954,12 +957,12 @@ void WASAPIOutput::run() {
 			if (hr == S_FALSE) {
 				qWarning("WASAPIOutput: Driver says no to 2 channel output. Closest format: %d channels @ %d kHz", closestFormat->nChannels, closestFormat->nSamplesPerSec);
 				CoTaskMemFree(pwfx);
-				CoTaskMemFree(closestFormat);
 				
 				// Fall back to whatever the device offers.
 				
 				if (!getAndCheckMixFormat("WASAPIOutput", "Output", pAudioClient,
 				                          &pwfx, &pwfxe, &eSampleFormat)) {
+					CoTaskMemFree(closestFormat);
 					goto cleanup;
 				}
 			} else if (FAILED(hr)) {
