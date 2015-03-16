@@ -519,7 +519,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+228"/>
+        <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
         <translation>%1 (versio %2)</translation>
     </message>
@@ -2462,7 +2462,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
         <translation>Mumblen käyttäjä</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+419"/>
+        <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifikaatti vanhenee:&lt;/b&gt; Sertifikaattisi on vanhentumassa. Sinun tulee uusia sertifikaattisi tai et voi enään yhdistää rekisteröimiisi palvelimiin.</translation>
     </message>
@@ -4222,7 +4222,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Käyttöliittymä</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+159"/>
         <source>Choose skin file</source>
         <translation>Valitse ulkoasutiedosto</translation>
     </message>
@@ -4482,17 +4482,22 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <source>Filter automatically hides empty channels</source>
         <translation>Automaattinen suodatus piilottaa tyhjät kanavat</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show transmit mode dropdown in toolbar</source>
+        <translation>Näytä lähetystilan pudotusvalikko työkalupalkissa</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2324"/>
+        <location line="+2386"/>
         <source>Root</source>
         <translation>Juuri</translation>
     </message>
     <message>
-        <location line="-2270"/>
+        <location line="-2332"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Puhepikanäppäin</translation>
@@ -4571,28 +4576,28 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2394"/>
+        <location line="+2456"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2389"/>
+        <location line="-2451"/>
         <source>&amp;Window</source>
         <translation>&amp;Ikkuna</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+140"/>
+        <location line="+156"/>
         <source>Minimize</source>
         <translation>Pienennä</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-156"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+155"/>
         <source>Close</source>
         <translation>Sulje</translation>
     </message>
@@ -4602,7 +4607,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Mumble on yhdistetty palvelimeen. Haluatko sulkea vai pienentää sen?</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mykistä itsesi</translation>
@@ -4645,13 +4650,13 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2410"/>
+        <location line="+2472"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ei yhteyttä&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2110"/>
+        <location line="-2142"/>
         <source>Clear</source>
         <translation>Tyhjennä</translation>
     </message>
@@ -4697,7 +4702,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+15"/>
-        <location line="+196"/>
+        <location line="+206"/>
         <source>Connecting to server %1.</source>
         <translation>Yhdistetään palvelimeen %1.</translation>
     </message>
@@ -4707,7 +4712,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Yhdistetään uudelleen.</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+167"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Versiotietoja ei ole saatavilla.&lt;/p&gt;</translation>
     </message>
@@ -4722,14 +4727,14 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>&lt;h2&gt;Äänikanava&lt;/h2&gt;&lt;p&gt;Salattu 128 bit OCB-AES128:lla&lt;br /&gt;%1 ms keskimääräinen viive (%4 poikkeama)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+357"/>
+        <location line="-123"/>
+        <location line="+376"/>
         <source>Register yourself as %1</source>
         <translation>Rekisteröidy käyttäjänimellä %1</translation>
     </message>
     <message>
-        <location line="-357"/>
-        <location line="+357"/>
+        <location line="-376"/>
+        <location line="+376"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Olet rekisteröitymässä palvelimelle . Rekisteröintiä ei voi peruuttaa ja et voi muuttaa käyttäjänimeäsi tällä palvelimella sen jälkeen.&lt;/p&gt;&lt;p&gt;Haluatko rekisteröityä tälle palvelimelle nimellä &apos;%1&apos;?&lt;/p&gt;  </translation>
     </message>
@@ -4765,7 +4770,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Viesti kanavalle %1</translation>
     </message>
     <message>
-        <location line="+635"/>
+        <location line="+638"/>
         <source>Connected.</source>
         <translation>Yhdistetty.</translation>
     </message>
@@ -4815,12 +4820,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Kuvan tiedostomuotoa ei tunneta.</translation>
     </message>
     <message>
-        <location line="-1776"/>
+        <location line="-1779"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Äänikanavan tiedot lähetetään käyttäen ohjauskanavaa.</translation>
     </message>
     <message>
-        <location line="-950"/>
+        <location line="-1009"/>
         <source>&amp;User</source>
         <translation>&amp;Käyttäjä</translation>
     </message>
@@ -4855,17 +4860,47 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Vaihda lähetystilaa</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+84"/>
+        <source>Continuous</source>
+        <translation>Jatkuva</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Voice Activity</source>
+        <translation>Ääniaktiviteetti</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Push-to-Talk</source>
+        <translation>Puhepikanäppäin</translation>
+    </message>
+    <message>
+        <location line="+87"/>
         <source>Cancel</source>
         <translation>Peruuta</translation>
     </message>
     <message>
-        <location line="+577"/>
+        <location line="+601"/>
         <source>Change your comment</source>
         <translation>Muokkaa kommenttiasi</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+36"/>
+        <source>Transmit Mode set to Continous</source>
+        <translation>Lähetystilaksi vaihdettu jatkuva</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Voice Activity</source>
+        <translation>Lähetystilaksi valittu ääniaktiviteett</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Push-to-Talk</source>
+        <translation>Lähetystilaksi valittu puhepikanäppäin</translation>
+    </message>
+    <message>
+        <location line="+78"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Versio&lt;/h2&gt;&lt;p&gt;Protokolla %1.&lt;/p&gt;</translation>
     </message>
@@ -4921,12 +4956,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1446"/>
+        <location line="+1449"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Näytä sertifikaatti</translation>
     </message>
     <message>
-        <location line="-1168"/>
+        <location line="-1171"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Kirjoita syy</translation>
@@ -5012,7 +5047,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Hiljennys poistettu.</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+93"/>
         <source>About Qt</source>
         <translation>Tietoa Qt:sta</translation>
     </message>
@@ -5022,7 +5057,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Lähetystilaksi vaihdettu %1</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+150"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL vahvistus epäonnistui: %1</translation>
     </message>
@@ -6103,7 +6138,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>UserModel::dropMimeData sisältää lukemattoman kanavien vetämistilan.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-278"/>
+        <location filename="main.cpp" line="-335"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6119,30 +6154,81 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+
 </source>
         <translation>Käyttö: mumble [valinnat] [&lt;url&gt;]
 
-&lt;url&gt; määrittää URL-osoitteen johon yhdistää käynnistämisen jälkeen
-yhteysikkunan sijaan. Muoto on seuraava:
-mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;isäntä&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?versio=&lt;x.y.z&gt;]
+&lt;url&gt; määrittää URL-osoitteen johon käynnistämisen jälkeen yhdistetään
+yhteysikkunan näyttämisen sijaan. Muoto on seuraava:
+mumble://[&lt;käyttäjänimi&gt;[:&lt;salasana&gt;]@]&lt;isäntä&gt;[:&lt;portti&gt;][/&lt;kanava&gt;[/&lt;alikanava&gt;...]][?version=&lt;x.y.z&gt;]
 
-Version parametri tulee olla asetettuna, jotta ohjelman kutsut pystytään asettamaan oikeisiin versioihin. Tämänhetkinen oletusarvo on 1.2.0.
+Version-parametrin tulee olla asetettuna, jotta komennot voidaan osoittaa oikealle asiakasohjelman versiolle. Tämänhetkinen oletusarvo on 1.2.0.
 
-Mahdollisia muuttujia:
--h, --help Näytä tämä ohje teksti ja lopeta.
+Käytettävät valinnat ovat:
+-h, --help Näytä tämä ohjeteksti ja lopeta.
 -m, --multiple
-Sallii usean yhtäaikaisen ohjelman käynnistyksen.
--nn --noidentity
-Estää identiteeti tiedostojen lataamisen (sertifikaatit, jne.).
+Salli usean yhtäaikaisen ohjelman käynnistyksen.
+-n --noidentity
+Estä identiteetitiedostojen lataaminen (esimerkiksi varmenteet).
 </translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <source>Remote controlling Mumble:
+
+</source>
+        <translation>Ohjataan Mumblea etänä:</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+
+</source>
+        <translation>Käyttö: mumble rpc &lt;toiminto&gt; [valinnat]
+
+Käynnissä olevaa Mumble-ohjelmaa on mahdollista etäohjata käyttämällä komentoa &quot;mumble rpc&quot;.
+
+Käytettävät toiminnot ovat:
+mute
+Mykistä itsesi
+unmute
+Poista itsesi mykistys
+deaf
+Vaimenna itsesi
+undeaf
+Poista itsesi vaimennus
+</translation>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Invocation</source>
         <translation>Kutsu</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+15"/>
+        <source>Error: No RPC command specified</source>
+        <translation>Virhe: RPC-komentoa ei määritelty</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>RPC</source>
+        <translation>RPC</translation>
+    </message>
+    <message>
+        <location line="+207"/>
         <source>Welcome to Mumble.</source>
         <translation>Tervetuloa Mumbleen.</translation>
     </message>
@@ -7341,7 +7427,7 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+772"/>
+        <location filename="PulseAudio.cpp" line="+771"/>
         <source>Default Input</source>
         <translation>Oletus Sisääntulo</translation>
     </message>
@@ -8481,7 +8567,7 @@ Ota yhteyttä palvelintarjoajaan jos haluat lisätietoja.</translation>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+184"/>
+        <location filename="WASAPI.cpp" line="+250"/>
         <source>Default Device</source>
         <translation>Oletuslaite</translation>
     </message>

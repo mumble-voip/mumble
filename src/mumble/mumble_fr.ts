@@ -519,7 +519,7 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+228"/>
+        <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
         <translation>%1 (version %2)</translation>
     </message>
@@ -2466,7 +2466,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+419"/>
+        <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -4225,7 +4225,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Interface utilisateur</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+159"/>
         <source>Choose skin file</source>
         <translation>Choisissez le fichier de thème</translation>
     </message>
@@ -4485,17 +4485,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Filter automatically hides empty channels</source>
         <translation>Le filtrage masque automatiquement les salons vides</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show transmit mode dropdown in toolbar</source>
+        <translation>Afficher le sélecteur de mode de transmission dans la barre d&apos;outils</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2324"/>
+        <location line="+2386"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
     <message>
-        <location line="-2270"/>
+        <location line="-2332"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Appuyer-pour-parler</translation>
@@ -4574,28 +4579,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2394"/>
+        <location line="+2456"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2389"/>
+        <location line="-2451"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+140"/>
+        <location line="+156"/>
         <source>Minimize</source>
         <translation>Réduire</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-156"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+155"/>
         <source>Close</source>
         <translation>Fermer</translation>
     </message>
@@ -4605,7 +4610,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches         ?</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet</translation>
@@ -4648,13 +4653,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2410"/>
+        <location line="+2472"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2110"/>
+        <location line="-2142"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -4700,7 +4705,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+196"/>
+        <location line="+206"/>
         <source>Connecting to server %1.</source>
         <translation>Connexion au serveur %1.</translation>
     </message>
@@ -4710,7 +4715,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Reconnexion.</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+167"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Aucune information de version de système disponible.&lt;/p&gt;</translation>
     </message>
@@ -4725,14 +4730,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;Salon vocal&lt;/h2&gt;&lt;p&gt;Chiffré en OCB-AES128 128 bits&lt;br /&gt;%1 ms de latence moyenne (déviation de %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+357"/>
+        <location line="-123"/>
+        <location line="+376"/>
         <source>Register yourself as %1</source>
         <translation>S&apos;enregistrer en tant que %1</translation>
     </message>
     <message>
-        <location line="-357"/>
-        <location line="+357"/>
+        <location line="-376"/>
+        <location line="+376"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Vous êtes sur le point de vous enregistrer sur ce serveur. Cette action ne peut pas être annulée, et votre identifiant ne pourra plus être modifié une fois cette étape effectuée. Vous serez pour toujours connu comme &apos;%1&apos; sur ce serveur&lt;/p&gt;&lt;p&gt;Êtes-vous sûr de vouloir vous enregistrer ?&lt;/p&gt;</translation>
     </message>
@@ -4768,7 +4773,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location line="+635"/>
+        <location line="+638"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
@@ -4818,12 +4823,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1776"/>
+        <location line="-1779"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au-dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-950"/>
+        <location line="-1009"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -4858,17 +4863,47 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Cycle Mode de Transmission</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+84"/>
+        <source>Continuous</source>
+        <translation>Continu</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Voice Activity</source>
+        <translation>Activité Vocale</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Push-to-Talk</source>
+        <translation>Appuyer pour Parler</translation>
+    </message>
+    <message>
+        <location line="+87"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
     </message>
     <message>
-        <location line="+577"/>
+        <location line="+601"/>
         <source>Change your comment</source>
         <translation>Changer votre commentaire</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+36"/>
+        <source>Transmit Mode set to Continous</source>
+        <translation>Mode de transmission réglé sur Continu</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Voice Activity</source>
+        <translation>Mode de transmission réglé sur Activité Vocale</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Push-to-Talk</source>
+        <translation>Mode de transmission réglé sur Appuyer pour Parler</translation>
+    </message>
+    <message>
+        <location line="+78"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.&lt;/p&gt;</translation>
     </message>
@@ -4924,12 +4959,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1446"/>
+        <location line="+1449"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1168"/>
+        <location line="-1171"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -5015,7 +5050,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>N&apos;est pas sourd.</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+93"/>
         <source>About Qt</source>
         <translation>À propos de Qt</translation>
     </message>
@@ -5025,7 +5060,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Cycle Mode de Transmission sur %1</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+150"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué : %1</translation>
     </message>
@@ -6105,7 +6140,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Mode de déplacement du salon inconnu dans UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-278"/>
+        <location filename="main.cpp" line="-335"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6121,11 +6156,12 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+
 </source>
         <translation>Utilisation : mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; spécifie une URL à laquelle une connexion sera établie après
-le démarrage au lieu de l&apos;affichage de la fenêtre de connexion et a la forme suivante :
+le démarrage au lieu de l&apos;affichage de la fenêtre de connexion sous la forme suivante :
 mumble://[&lt;nomutilisateur&gt;[:&lt;motdepasse&gt;]@]&lt;hôte&gt;[:&lt;port&gt;][/&lt;salon&gt;[/&lt;soussalon&gt;...]][?version=&lt;x.y.z&gt;]
 
 Le paramètre de demande de version doit être réglé afin d&apos;invoquer
@@ -6140,12 +6176,51 @@ Les options valides sont :
 </translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <source>Remote controlling Mumble:
+
+</source>
+        <translation>Contrôle distant de Mumble :
+
+</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Invocation</source>
         <translation>Invocation</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+15"/>
+        <source>Error: No RPC command specified</source>
+        <translation>Erreur : Pas de commande RPC spécifiée</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>RPC</source>
+        <translation>RPC</translation>
+    </message>
+    <message>
+        <location line="+207"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>
@@ -7345,7 +7420,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+772"/>
+        <location filename="PulseAudio.cpp" line="+771"/>
         <source>Default Input</source>
         <translation>Entrée par défaut</translation>
     </message>
@@ -8485,7 +8560,7 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+184"/>
+        <location filename="WASAPI.cpp" line="+250"/>
         <source>Default Device</source>
         <translation>Périphérique par défaut</translation>
     </message>

@@ -520,7 +520,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+228"/>
+        <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
         <translation>%1 (גירסא %2)</translation>
     </message>
@@ -2465,7 +2465,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>משתמש Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+419"/>
+        <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;פקיעת תעודה:&lt;/b&gt; תוקפה של תעודת האבטחה שלכם עומד לפקוע. עליכם לחדש אותה או שלא תוכלו להתחבר יותר אל השרתים שאתם רשומים בהם.</translation>
     </message>
@@ -4223,7 +4223,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ממשק משתמש</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+159"/>
         <source>Choose skin file</source>
         <translation>בחירת קובץ סקין</translation>
     </message>
@@ -4483,17 +4483,22 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Filter automatically hides empty channels</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;סנן ערוצים ריקים אוטומטית.&lt;/p&gt;</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show transmit mode dropdown in toolbar</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2324"/>
+        <location line="+2386"/>
         <source>Root</source>
         <translation>שורש</translation>
     </message>
     <message>
-        <location line="-2270"/>
+        <location line="-2332"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>לחץ-כדי-לדבר</translation>
@@ -4572,28 +4577,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2394"/>
+        <location line="+2456"/>
         <source>Mumble -- %1</source>
         <translation>ממבל -- %1</translation>
     </message>
     <message>
-        <location line="-2389"/>
+        <location line="-2451"/>
         <source>&amp;Window</source>
         <translation>&amp;חלון</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+140"/>
+        <location line="+156"/>
         <source>Minimize</source>
         <translation>מזער</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-156"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+155"/>
         <source>Close</source>
         <translation>סגור</translation>
     </message>
@@ -4603,7 +4608,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p dir=&quot;RTL&quot;&gt;‫Mumble מחוברת כרגע לשרת, האם ברצונך לסגור או למזער אותה?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>השתק את עצמך</translation>
@@ -4646,13 +4651,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2410"/>
+        <location line="+2472"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;לא מחובר&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2110"/>
+        <location line="-2142"/>
         <source>Clear</source>
         <translation>טהר</translation>
     </message>
@@ -4698,7 +4703,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+196"/>
+        <location line="+206"/>
         <source>Connecting to server %1.</source>
         <translation>מתחבר כעת אל שרת %1.</translation>
     </message>
@@ -4708,7 +4713,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>מתחבר מחדש כעת.</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+167"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אין מידע זמין עבור הגרסא או גרסאת מערכת ההפעלה.&lt;/p&gt;</translation>
     </message>
@@ -4723,14 +4728,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;h2&gt;ערוץ קול&lt;/h2&gt;&lt;p&gt;מוצפן עם 128 bit OCB-AES128&lt;br /&gt;אחזור ממוצע של %1 מ&quot;ש (סטייה של %4)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+357"/>
+        <location line="-123"/>
+        <location line="+376"/>
         <source>Register yourself as %1</source>
         <translation>רשום את עצמך בשם %1</translation>
     </message>
     <message>
-        <location line="-357"/>
-        <location line="+357"/>
+        <location line="-376"/>
+        <location line="+376"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אתם עומדים לרשום את עצמכם לשרת. אין אפשרות לבטל פעולה זו, ואין אפשרות לשנות את שם המשתמש מרגע שנרשמתם. אתם תמיד תוצגו תחת השם &apos;%1&apos; בשרת הזה, גם אם תשנו אותו בעת ההתחברות. &lt;/p&gt;&lt;p dir=&quot;RTL&quot;&gt;האם אתם בטוחים שברצונכם להרשם?&lt;/p&gt;</translation>
     </message>
@@ -4766,7 +4771,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>הודעה לערוץ %1</translation>
     </message>
     <message>
-        <location line="+635"/>
+        <location line="+638"/>
         <source>Connected.</source>
         <translation>מחובר.</translation>
     </message>
@@ -4816,12 +4821,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>פורמט תמונה לא מזוהה.</translation>
     </message>
     <message>
-        <location line="-1776"/>
+        <location line="-1779"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>ערוץ הקול נשלח דרך ערוץ בקרה.</translation>
     </message>
     <message>
-        <location line="-950"/>
+        <location line="-1009"/>
         <source>&amp;User</source>
         <translation>&amp;משתמש</translation>
     </message>
@@ -4856,17 +4861,47 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p dir=&quot;RTL&quot;&gt;החלף מצב שידור&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+84"/>
+        <source>Continuous</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Voice Activity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Push-to-Talk</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+87"/>
         <source>Cancel</source>
         <translation>ביטול</translation>
     </message>
     <message>
-        <location line="+577"/>
+        <location line="+601"/>
         <source>Change your comment</source>
         <translation>שנה את הודעתך האישית</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+36"/>
+        <source>Transmit Mode set to Continous</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Voice Activity</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Push-to-Talk</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+78"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p&gt;פרוטוקול %1.&lt;/p&gt;</translation>
     </message>
@@ -4922,12 +4957,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1446"/>
+        <location line="+1449"/>
         <source>&amp;View Certificate</source>
         <translation>ה&amp;צג תעודת אבטחה</translation>
     </message>
     <message>
-        <location line="-1168"/>
+        <location line="-1171"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>הכנס סיבה</translation>
@@ -5013,7 +5048,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>החרשה בוטלה.</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+93"/>
         <source>About Qt</source>
         <translation>אודות Qt</translation>
     </message>
@@ -5023,7 +5058,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p dir=&quot;RTL&quot;&gt;מצב השידור הוחלף למצב %1&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+150"/>
         <source>SSL Verification failed: %1</source>
         <translation>אימות SSL נכשל: %1</translation>
     </message>
@@ -6101,7 +6136,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אופס! מצב גרירת ערוץ לא יודע בפעולה UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-278"/>
+        <location filename="main.cpp" line="-335"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6117,37 +6152,54 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+
 </source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;
-שימוש: mumble [options] [&lt;url&gt;]
-
-&lt;url&gt; מגדיר את כתובת השרת אליה יש להתחבר במקום להציג את חלון ההתחברות, וזוהי התצורה:&lt;/p&gt;
-&lt;p dir=&quot;LTR&quot;&gt;
-mumble://[&lt;שם משתמש&gt;[:&lt;סיסמא&gt;]@]&lt;כתובת השרת&gt;[:&lt;פורט&gt;][/&lt;ערוץ&gt;[/&lt;ערוץ משנה&gt;...]][?verion=&lt;גרסה x.y.z&gt;]
-או באנגלית:
-mumble://[&lt;username&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;port&gt;][/&lt;channel&gt;[/&lt;subchannel&gt;...]][?version=&lt;x.y.z&gt;
-&lt;/p&gt;
-&lt;p dir=&quot;RTL&quot;&gt;
-פרמטר הגרסה נדרש כדי להפעיל את הגרסה הנכונה של ממבל. ברירת המחדל כרגע היא 1.2.0.
-
-האפשרויות הנוספות הן:
-&lt;/p&gt;
-&lt;p dir=&quot;LTR&quot;&gt;
--h, --help
-להצגת טקסט העזרה הזה ויציאה לאחר מכן.
--m, --multiple
-מאפשר מספר הפעלות של ממבל בו זמנית.
--n, --noidentity
-מונע שימוש באמצעי זיהוי (אישורי אבטחה וכדומה)
-&lt;/p&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <source>Remote controlling Mumble:
+
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+
+</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Invocation</source>
         <translation>קריאה</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+15"/>
+        <source>Error: No RPC command specified</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>RPC</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+207"/>
         <source>Welcome to Mumble.</source>
         <translation>ברוך בואך אל Mumble.</translation>
     </message>
@@ -7347,7 +7399,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+772"/>
+        <location filename="PulseAudio.cpp" line="+771"/>
         <source>Default Input</source>
         <translation>קלט ברירת מחדל</translation>
     </message>
@@ -8486,7 +8538,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+184"/>
+        <location filename="WASAPI.cpp" line="+250"/>
         <source>Default Device</source>
         <translation>התקן ברירת מחדל</translation>
     </message>

@@ -519,7 +519,7 @@ Contiene la lista dei membri ereditati dal canale attuale. Deseleziona &lt;i&gt;
 <context>
     <name>ASIOConfig</name>
     <message>
-        <location filename="ASIOInput.cpp" line="+228"/>
+        <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
         <translation>%1 (versione %2)</translation>
     </message>
@@ -2466,7 +2466,7 @@ Parla ad alta voce, come quando sei infastidito o eccitato. Poi diminuisci il vo
         <translation>Utente Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+419"/>
+        <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Scadenza certificato:&lt;/b&gt; Il tuo certificato sta per scadere. Devi rinnovarlo, o non sarai più in grado di connetterti ai server a cui ti sei registrato.</translation>
     </message>
@@ -4226,7 +4226,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Interfaccia Utente</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+159"/>
         <source>Choose skin file</source>
         <translation>Scegli file della skin</translation>
     </message>
@@ -4486,17 +4486,22 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <source>Filter automatically hides empty channels</source>
         <translation>Nascondi canali vuoti quando usi il filtro</translation>
     </message>
+    <message>
+        <location/>
+        <source>Show transmit mode dropdown in toolbar</source>
+        <translation>Mostra selettore della modalità di trasmissione nella toolbar</translation>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2324"/>
+        <location line="+2386"/>
         <source>Root</source>
         <translation>Canale principale</translation>
     </message>
     <message>
-        <location line="-2270"/>
+        <location line="-2332"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Push-To-Talk</translation>
@@ -4575,28 +4580,28 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
-        <location line="+2394"/>
+        <location line="+2456"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2389"/>
+        <location line="-2451"/>
         <source>&amp;Window</source>
         <translation>&amp;Finestra</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+140"/>
+        <location line="+156"/>
         <source>Minimize</source>
         <translation>Minimizza</translation>
     </message>
     <message>
-        <location line="-140"/>
+        <location line="-156"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+139"/>
+        <location line="+155"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -4606,7 +4611,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Mumble è attualmente connesso ad un server. Vuoi Chiuderlo o Minimizzarlo?</translation>
     </message>
     <message>
-        <location line="-200"/>
+        <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mutati</translation>
@@ -4649,13 +4654,13 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+67"/>
-        <location line="+2410"/>
+        <location line="+2472"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Disconnesso&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2110"/>
+        <location line="-2142"/>
         <source>Clear</source>
         <translation>Cancella</translation>
     </message>
@@ -4701,7 +4706,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+15"/>
-        <location line="+196"/>
+        <location line="+206"/>
         <source>Connecting to server %1.</source>
         <translation>Connessione al server %1.</translation>
     </message>
@@ -4711,7 +4716,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Riconnessione.</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+167"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p&gt;Nessuna informazione disponibile sul SO.&lt;/p&gt;</translation>
     </message>
@@ -4726,14 +4731,14 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>&lt;h2&gt;Canale di voce&lt;/h2&gt;&lt;p&gt;Crittografato con 128 bit OCB-AES128&lt;br/&gt;%1 ms latenza media (%4 deviazione)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-104"/>
-        <location line="+357"/>
+        <location line="-123"/>
+        <location line="+376"/>
         <source>Register yourself as %1</source>
         <translation>Registrati come %1</translation>
     </message>
     <message>
-        <location line="-357"/>
-        <location line="+357"/>
+        <location line="-376"/>
+        <location line="+376"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Stai per registrarti sul server. Quest&apos;azione non può essere annullata, il tuo nome utente non potrà essere cambiato. Sarai per sempre conosciuto come &apos;%1&apos; su questo server.&lt;p&gt;Se sicuro di volerti registrare?&lt;/p&gt;</translation>
     </message>
@@ -4769,7 +4774,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Messaggio per il canale %1</translation>
     </message>
     <message>
-        <location line="+635"/>
+        <location line="+638"/>
         <source>Connected.</source>
         <translation>Connesso.</translation>
     </message>
@@ -4819,12 +4824,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Formato dell&apos;immagine non riconosciuto.</translation>
     </message>
     <message>
-        <location line="-1776"/>
+        <location line="-1779"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>Il canale voce viene trasmesso sul canale di controllo.</translation>
     </message>
     <message>
-        <location line="-950"/>
+        <location line="-1009"/>
         <source>&amp;User</source>
         <translation>&amp;Utente</translation>
     </message>
@@ -4859,17 +4864,47 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Cambia modalità di trasmissione</translation>
     </message>
     <message>
-        <location line="+157"/>
+        <location line="+84"/>
+        <source>Continuous</source>
+        <translation>Sempre Attivo</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Voice Activity</source>
+        <translation>Attività Vocale</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Push-to-Talk</source>
+        <translation>Push-To-Talk</translation>
+    </message>
+    <message>
+        <location line="+87"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location line="+577"/>
+        <location line="+601"/>
         <source>Change your comment</source>
         <translation>Modifica il tuo commento</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+36"/>
+        <source>Transmit Mode set to Continous</source>
+        <translation>Modalità trasmissione impostata su Sempre Attivo</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Voice Activity</source>
+        <translation>Modalità trasmissione impostata su Attività Vocale</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Transmit Mode set to Push-to-Talk</source>
+        <translation>Modalità trasmissione impostata su Push-to-Talk</translation>
+    </message>
+    <message>
+        <location line="+78"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Versione&lt;/h2&gt;&lt;p&gt;Protocollo %1.&lt;/p&gt;</translation>
     </message>
@@ -4925,12 +4960,12 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1446"/>
+        <location line="+1449"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Visualizza certificato</translation>
     </message>
     <message>
-        <location line="-1168"/>
+        <location line="-1171"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Inserisci motivazione</translation>
@@ -5016,7 +5051,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Ti sei riattivato.</translation>
     </message>
     <message>
-        <location line="+92"/>
+        <location line="+93"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
@@ -5026,7 +5061,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
         <translation>Cambia modalità di trasmissione in %1</translation>
     </message>
     <message>
-        <location line="+148"/>
+        <location line="+150"/>
         <source>SSL Verification failed: %1</source>
         <translation>Verifica SSL fallita: %1</translation>
     </message>
@@ -6107,7 +6142,7 @@ certificato ed il nome utente.</translation>
         <translation>Modalità trascinamento canale sconosciuta in UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-278"/>
+        <location filename="main.cpp" line="-335"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6123,31 +6158,86 @@ Valid options are:
                 Allow multiple instances of the client to be started.
   -n, --noidentity
                 Suppress loading of identity files (i.e., certificates.)
+
 </source>
         <translation>Utilizzo: mumble [opzioni] [&lt;url&gt;]
 
 &lt;url&gt;Specifica un URL a cui connettersi dopo l&apos;avvio, invece
-di visualizzare la finestra di connessione, e deve avere questa forma:
+di visualizzare la finestra di connessione, ed ha la seguente forma:
 mumble://[&lt;nomeutente&gt;[:&lt;password&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canale&gt;[/&lt;sottocanale&gt;...]][?version=&lt;x.y.z&gt;]
 
 I parametri di versione devone essere messi nel giusto ordine.
 Il valore attuale di default è 1.2.0.
 
 Opzioni valide:
-  -h, --help    Visualizza questo messaggio di aiuto ed esce.
-  -m, --multiple
-                Permette di avviare più di un&apos;instanza del programma contemporaneamente.
-  -n, --noidentity
-                Impedisce il caricamente di file di identificazione (es. certificati)
+-h, --help    Visualizza questo messaggio di aiuto ed esce.
+-m, --multiple
+Permette di avviare più di un&apos;instanza del programma contemporaneamente.
+-n, --noidentity
+Impedisce il caricamento di file di identificazione (es. certificati)
+
 </translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+18"/>
+        <source>Remote controlling Mumble:
+
+</source>
+        <translation>Controllare Mumble da remoto:
+
+</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Usage: mumble rpc &lt;action&gt; [options]
+
+It is possible to remote control a running instance of Mumble by using
+the 'mumble rpc' command.
+
+Valid actions are:
+  mute
+                Mute self
+  unmute
+                Unmute self
+  deaf
+                Deafen self
+  undeaf
+                Undeafen self
+
+</source>
+        <translation>Utilizzo: mumble rpc &lt;azione&gt; [opzioni]
+
+È possibile controllare da remoto un&apos;istanza di Mumble già avviata utilizzando il comando &quot;mumble rpc&quot;.
+
+Le azioni valide sono:
+mute
+Mute self
+unmute
+Unmute self
+deaf
+Deafen self
+undeaf
+Undeafen self
+
+</translation>
+    </message>
+    <message>
+        <location line="+24"/>
         <source>Invocation</source>
         <translation>Invocazione</translation>
     </message>
     <message>
-        <location line="+196"/>
+        <location line="+15"/>
+        <source>Error: No RPC command specified</source>
+        <translation>Errore: Nessun comando RPC specificato</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>RPC</source>
+        <translation>RPC</translation>
+    </message>
+    <message>
+        <location line="+207"/>
         <source>Welcome to Mumble.</source>
         <translation>Benvenuto su Mumble.</translation>
     </message>
@@ -7347,7 +7437,7 @@ Per aggiornare questi file all&apos;ultima versione, premi il pulsante sottostan
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+772"/>
+        <location filename="PulseAudio.cpp" line="+771"/>
         <source>Default Input</source>
         <translation>Ingresso predefinito</translation>
     </message>
@@ -8487,7 +8577,7 @@ Per favore contatta l&apos;amministratore del server per maggiori informazioni.<
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+184"/>
+        <location filename="WASAPI.cpp" line="+250"/>
         <source>Default Device</source>
         <translation>Dispositivo predefinito</translation>
     </message>
