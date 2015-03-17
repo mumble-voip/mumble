@@ -527,7 +527,7 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 näyte bufferi, 3% näyte resoluutiolla (4% suositeltu) 5% hZ</translation>
+        <translation>%1 -&gt; %2 näytepuskuri, näyteresoluutiolla %3 (4% suositeltu) 5% hZ</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -794,7 +794,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Hae lähetyksen aloittamisen äänitiedosto.</translation>
+        <translation>Hae lähetyksen aloittamisen äänitiedosto</translation>
     </message>
     <message>
         <location/>
@@ -1235,7 +1235,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Sijainninmukainen Audio</translation>
+        <translation>Sijainninmukainen audio</translation>
     </message>
     <message>
         <location/>
@@ -1245,7 +1245,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Oletus &amp;Huojuntapuskuri</translation>
+        <translation>Oletus &amp;huojuntapuskuri</translation>
     </message>
     <message>
         <location/>
@@ -1371,7 +1371,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation>Takaisinkierrätyksen Testaus</translation>
+        <translation>Takaisinkierrätyksen testaus</translation>
     </message>
     <message>
         <location/>
@@ -1482,17 +1482,17 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Valittuna Mumble vaimentaa muiden käyttäjien äänenvoimakkuutta puhuessasi, jos statuksesi on &quot;Etuoikeutettu Puhuja&quot;.</translation>
+        <translation>Mikäli valittu, Mumble alentaa muiden käyttäjien äänenvoimakkuutta puhuessasi, jos statuksesi on &quot;etuoikeutettu puhuja&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Vaimentaa muut käyttäjät puhuttaessa Etuoikeutettuna Puhujana.&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden käyttäjien äänenvoimakkuuden vaimentamista kun puhut &lt;i&gt;Etuoikeutettuna Puhujana&lt;/i&gt; välttääksesi häirintää. Valitsemalla asetuksen otat toiminnon käyttöön.</translation>
+        <translation>&lt;b&gt;Vaimentaa muut käyttäjät puhuttaessa etuoikeutettuna puhujana.&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden käyttäjien äänenvoimakkuuden vaimentamista kun puhut &lt;i&gt;etuoikeutettuna puhujana&lt;/i&gt; välttääksesi häiriöitä. Valitsemalla asetuksen otat toiminnon käyttöön.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation>Vaimentaa muut puhujat puhuttaessa Etuoikeutettuna Puhujana.</translation>
+        <translation>Vaimentaa muut puhujat puhuttaessa etuoikeutettuna puhujana.</translation>
     </message>
 </context>
 <context>
@@ -1933,7 +1933,7 @@ Puhu yhtä äänekkäästi kuin olisit ärsyyntynyt tai innoissasi jostain. Väh
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Sijainninmukainen Audio</translation>
+        <translation>Sijainninmukainen audio</translation>
     </message>
     <message>
         <location/>
@@ -2404,7 +2404,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Sähköpostin varmentaminen epäonnistui. &lt;br/&gt;Syötä voimassaoleva sähköpostiosoite (tai tyhjä) jatkaaksesi.</translation>
+        <translation>Sähköpostin varmentaminen epäonnistui. &lt;br/&gt;Syötä voimassaoleva (tai tyhjä) sähköpostiosoite jatkaaksesi.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3180,7 +3180,7 @@ On &lt;b&gt;erittäin&lt;/b&gt; suositeltavaa että &lt;a href=&quot;http://mumb
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumble palvelimeen yhdistäminen</translation>
+        <translation>Mumble-palvelimeen yhdistäminen</translation>
     </message>
     <message>
         <location/>
@@ -3877,7 +3877,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation>Toinen käyttäjä mykistää/hiljentää itsensä</translation>
+        <translation>Toinen käyttäjä mykistyi/hiljeni</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3917,7 +3917,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation>Mykistät itsesi</translation>
+        <translation>Mykistit itsesi</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4140,7 +4140,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Vain kaverilistasi käyttäjät voivat kuiskata sinulle, jos tämä on valittuna.</translation>
+        <translation>Jos tämä on valittuna, vain kaverilistasi käyttäjät voivat kuiskata sinulle.</translation>
     </message>
     <message>
         <location/>
@@ -4165,7 +4165,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation>Kentän maksimi pituus</translation>
+        <translation>Kentän maksimipituus</translation>
     </message>
     <message>
         <location/>
@@ -4385,7 +4385,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Piilota tehtäväpalkkiin pienennettäessä.</translation>
+        <translation>Piilota tehtäväpalkkiin pienennettäessä</translation>
     </message>
     <message>
         <location/>
@@ -4445,7 +4445,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation>Optimoi korkea kontrasti</translation>
+        <translation>Optimoi korkealle kontrastille</translation>
     </message>
     <message>
         <location/>
@@ -4518,7 +4518,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+3"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation>Nollaa audio prosessori</translation>
+        <translation>Nollaa ääniprosessori</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4867,7 +4867,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation>Ääniaktiviteetti</translation>
+        <translation>Puheaktivointi</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4887,17 +4887,17 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+36"/>
         <source>Transmit Mode set to Continous</source>
-        <translation>Lähetystilaksi vaihdettu jatkuva</translation>
+        <translation>Lähetystila vaihdettu jatkuvaksi</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation>Lähetystilaksi valittu ääniaktiviteett</translation>
+        <translation>Lähetystila vaihdettu puheaktivoinniksi</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation>Lähetystilaksi valittu puhepikanäppäin</translation>
+        <translation>Lähetystila vaihdettu puhepikanäppäimeksi</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -5415,7 +5415,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location/>
         <source>Reset audio preprocessor</source>
-        <translation>Nollaa audio esiprosessori</translation>
+        <translation>Nollaa äänen esiprosessori</translation>
     </message>
     <message>
         <location/>
@@ -5957,12 +5957,12 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation>Sinun vaimennus poistettiin.</translation>
+        <translation>Vaimennuksesi poistettiin.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>%1 poisti sinun vaimennuksen.</translation>
+        <translation>%1 poisti vaimennuksesi.</translation>
     </message>
     <message>
         <location line="+83"/>
@@ -6169,7 +6169,7 @@ Käytettävät valinnat ovat:
 -m, --multiple
 Salli usean yhtäaikaisen ohjelman käynnistyksen.
 -n --noidentity
-Estä identiteetitiedostojen lataaminen (esimerkiksi varmenteet).
+Estä identiteetitiedostojen lataaminen (esimerkiksi sertifikaatit).
 </translation>
     </message>
     <message>
@@ -6671,12 +6671,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation>Tarkasta liitännäisten uudet versiot automaattisesti.</translation>
+        <translation>Tarkista liitännäisten uudet versiot automaattisesti.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation>Tarkastaa liitännäisten uudet versiot ohjelman käynnistyksen yhteydessä ja lataa ne automaattisesti. </translation>
+        <translation>Tarkistaa liitännäisten uudet versiot ohjelman käynnistyksen yhteydessä ja lataa ne automaattisesti. </translation>
     </message>
     <message>
         <location/>
@@ -6696,7 +6696,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation>Yhdistä uudelleen viimeksi käytettyyn palvelimeen Mumblen käynnistyksessä.</translation>
+        <translation>Yhdistä uudelleen viimeksi käytettyyn palvelimeen Mumblen käynnistyessä.</translation>
     </message>
     <message>
         <location/>
@@ -6706,7 +6706,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation>Lataa liitännäis- ja overlay-päivitykset ohjelman käynnistymisen yhteydessä</translation>
+        <translation>Lataa liitännäisten ja overlayn päivitykset ohjelman käynnistymisen yhteydessä</translation>
     </message>
 </context>
 <context>

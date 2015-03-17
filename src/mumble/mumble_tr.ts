@@ -4489,7 +4489,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location/>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Aktarma kipi menüsünü araç çubuğunda göster</translation>
     </message>
 </context>
 <context>
@@ -4866,17 +4866,17 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Devamlı</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Ses Etkinliği</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Bas-ve-Konuş</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -4891,17 +4891,17 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+36"/>
         <source>Transmit Mode set to Continous</source>
-        <translation type="unfinished"/>
+        <translation>Aktarma Kipi Devamlı olarak ayarlandı</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Aktarma Kipi Ses Etkinliği olarak ayarlandı</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Aktarma Kipi Bas-ve-Konuş olarak ayarlandı</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -6159,14 +6159,30 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Kullanım: mumble [seçenekler] [&lt;url&gt;]
+
+&lt;url&gt;, başlangıçta bağlantı penceresinin gösterilmesi yerine bağlanılacak bir bağlantı belirtir ve şu şekildedir:
+mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
+
+Sürüm sorgu parametresi doğru istemci sürümünün çağrılabilmesi için belirtilmelidir. Güncel olarak 1.2.0 değeri varsayılır.
+
+Geçerli seçenekler şunlardır:
+-h, --help Bu yardım metnini göster ve çık.
+-m, --multiple
+İstemcinin birden çok örneklemesinin başlatılmasına müsaade et.
+-n, --noidentity
+Kimlik dosyalarının (yani sertifikaların) yüklenmesini devre dışı bırak.
+
+</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Mumble&apos;ın uzaktan kontrolü:
+
+</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6186,7 +6202,21 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Kullanım: mumble rpc &lt;eylem&gt; [seçenekler]
+
+Mumble&apos;ın çalışmakta olan bir örneklemesini &apos;mumble rpc&apos; komutunu kullanarak uzaktan kontrol etmek mümkündür.
+
+Geçerli eylemler şunlardır:
+mute (sustur)
+Mute self (kendini sustur)
+unmute (susturmayı kaldır)
+Unmute self (kendini susturmayı kaldır)
+deaf (sağır et)
+Deafen self (kendini sağır et)
+undeaf (sağır etmeyi kaldır)
+Undeafen self (kendini sağır etmeyi kaldır)
+
+</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -6196,12 +6226,12 @@ Valid actions are:
     <message>
         <location line="+15"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>Hata: Hiçbir RPC komutu belirtilmedi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+207"/>
