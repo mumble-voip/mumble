@@ -181,40 +181,44 @@ QString OSInfo::getOSDisplayableVersion() {
 	_SYSTEM_INFO si;
 	GetNativeSystemInfo(&si);
 
-	if (ovi.dwMajorVersion == 6) {
-		if(ovi.dwMinorVersion == 0) {
-			if (ovi.wProductType == VER_NT_WORKSTATION) {
-				osdispver = QLatin1String("Windows Vista");
-			} else {
-				osdispver = QLatin1String("Windows Server 2008");
-			}
-		}
-		else if (ovi.dwMinorVersion == 1) {
-			if (ovi.wProductType == VER_NT_WORKSTATION) {
-				osdispver = QLatin1String("Windows 7");
-			} else {
-				osdispver = QLatin1String("Windows Server 2008 R2");
-			}
-		}
-		else if (ovi.dwMinorVersion == 2) {
-			if (ovi.wProductType == VER_NT_WORKSTATION) {
-				osdispver = QLatin1String("Windows 8");
-			} else {
-				osdispver = QLatin1String("Windows Server 2012");
-			}
-		}
-		else if (ovi.dwMinorVersion == 3) {
-			if (ovi.wProductType == VER_NT_WORKSTATION) {
-				osdispver = QLatin1String("Windows 8.1");
-			} else {
-				osdispver = QLatin1String("Windows Server 2012 R2");
-			}
-		}
-		else if (ovi.dwMinorVersion == 4) {
+	if (ovi.dwMajorVersion >= 6) {
+		if (ovi.dwMajorVersion == 10) {
 			if (ovi.wProductType == VER_NT_WORKSTATION) {
 				osdispver = QLatin1String("Windows 10");
 			} else {
 				osdispver = QLatin1String("Windows 10 Server");
+			}
+		} else if (ovi.dwMajorVersion == 6) {
+			if (ovi.dwMinorVersion == 0) {
+				if (ovi.wProductType == VER_NT_WORKSTATION) {
+					osdispver = QLatin1String("Windows Vista");
+				} else {
+					osdispver = QLatin1String("Windows Server 2008");
+				}
+			} else if (ovi.dwMinorVersion == 1) {
+				if (ovi.wProductType == VER_NT_WORKSTATION) {
+					osdispver = QLatin1String("Windows 7");
+				} else {
+					osdispver = QLatin1String("Windows Server 2008 R2");
+				}
+			} else if (ovi.dwMinorVersion == 2) {
+				if (ovi.wProductType == VER_NT_WORKSTATION) {
+					osdispver = QLatin1String("Windows 8");
+				} else {
+					osdispver = QLatin1String("Windows Server 2012");
+				}
+			} else if (ovi.dwMinorVersion == 3) {
+				if (ovi.wProductType == VER_NT_WORKSTATION) {
+					osdispver = QLatin1String("Windows 8.1");
+				} else {
+					osdispver = QLatin1String("Windows Server 2012 R2");
+				}
+			} else if (ovi.dwMinorVersion == 4) {
+				if (ovi.wProductType == VER_NT_WORKSTATION) {
+					osdispver = QLatin1String("Windows 10");
+				} else {
+					osdispver = QLatin1String("Windows 10 Server");
+				}
 			}
 		}
 
