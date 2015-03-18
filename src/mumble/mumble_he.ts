@@ -885,7 +885,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה&lt;/b&gt;&lt;br /&gt;זה יקבע בכמה רוחב פס מותר לממבל להשתמש עבור שידור שמע.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;אפשרות זו קובעת את איכות הדחיסה&lt;/b&gt;&lt;br /&gt;זה יקבע בכמה רוחב פס מותר ל-Mumble להשתמש עבור שידור שמע.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1428,7 +1428,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכניות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה תונמך עוצמת הקול של תוכניות אחרות כשאפשרות זו מופעלת.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן דיבור&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בזמן קליטה ו/או שידור של דיבור. ערך זה קובע בכמה תונמך עוצמת הקול של תוכניות אחרות כשאפשרות זו מופעלת.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1438,7 +1438,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכנות אחרות בזמן דיבור נכנס או יוצא. סימון התיבה יגרום לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שמשתמשים אחרים מדברים&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכנות אחרות בזמן דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1453,7 +1453,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;ממבל תומך בהפחתת העוצמה של תוכניות אחרות בעת דיבור נכנס או יוצא. סימון התיבה יגרום לממבל להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת תוכניות אחרות בזמן שאתה מדבר&lt;/b&gt;&lt;br /&gt;Mumble תומך בהפחתת העוצמה של תוכניות אחרות בעת דיבור נכנס או יוצא. סימון התיבה יגרום ל-Mumble להנמיך תוכניות אחרות בזמן שמשתמשים אחרים מדברים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1488,7 +1488,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת משתמשים אחרים בזמן דיבור כמועדף דיבור&lt;/b&gt;&lt;br /&gt;ממבל תומכת בהנמכת עוצמת הקול של משתמשים אחרים כאשר אתם מדברים בתור &lt;i&gt;מועדפי דיבור&lt;/i&gt; כדי למנוע מאחרים להפריע לכם. סימון תיבה זו יפעיל את האפשרות הזו.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;&lt;b&gt;הנמכת משתמשים אחרים בזמן דיבור כמועדף דיבור&lt;/b&gt;&lt;br /&gt;Mumble תומך בהנמכת עוצמת הקול של משתמשים אחרים כאשר אתם מדברים בתור &lt;i&gt;מועדפי דיבור&lt;/i&gt; כדי למנוע מאחרים להפריע לכם. סימון תיבה זו יפעיל את האפשרות הזו.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1774,7 +1774,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;בחירת התקני הקלט והפלט לשימוש עם ממבל.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;בחירת התקני הקלט והפלט לשימוש עם Mumble.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1891,7 +1891,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מאפשרת לממבל להשתמש בצלילים מבוססי מיקום כדי למקם קולות בתאם למרחקם ממכם.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשרות זו מאפשרת ל-Mumble להשתמש בצלילים מבוססי מיקום כדי למקם קולות בתאם למרחקם ממכם.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1954,7 +1954,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;
-ממבל תומכת בצליל מבוסס מיקום עבור משחקים מסוימים, ותמקם את הצליל של משתמשים אחרים בהתאם למיקומם במשחק. לפי מיקום זה, עוצמת הקול של המשתמש תשתנה בין שני זוגות הרמקולים או האוזניות כדי ליצור אשליה של דיבור ממקום אחר. אפשרות זו דורשת הגדרה נכונה של הרמקולים במערכת ההפעלה, ולכן נבצע כאן בדיקה.
+Mumble תומך בצליל מבוסס מיקום עבור משחקים מסוימים, וימקם את הצליל של משתמשים אחרים בהתאם למיקומם במשחק. לפי מיקום זה, עוצמת הקול של המשתמש תשתנה בין שני זוגות הרמקולים או האוזניות כדי ליצור אשליה של דיבור ממקום אחר. אפשרות זו דורשת הגדרה נכונה של הרמקולים במערכת ההפעלה, ולכן נבצע כאן בדיקה.
 &lt;/p&gt;
 &lt;p dir=&quot;RTL&quot;&gt;
 בתרשים למטה מוצג המיקום font color=&quot;red&quot;&gt;שלכם&lt;/font&gt;, של &lt;font color=&quot;yellow&quot;&gt;הרמקולים&lt;/font&gt; ושל &lt;font color=&quot;green&quot;&gt;מקור הקול הנע&lt;/font&gt;, במבט מלמעלה. אם הכל מוגדר כראוי, אתם אמורים לשמוע את הצליל משתנה לפי מיקומו מסביבכם.
@@ -2015,7 +2015,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשר לממבל להבין מתי אתם מדברים ומתי אתם שותקים.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;אפשר ל-Mumble להבין מתי אתם מדברים ומתי אתם שותקים.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2131,7 +2131,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;מאפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך. הכוונה היא שברגע שמישהו מתחיל לדבר אליך בממבל, העוצמה של כל שאר התוכניות (כמו נגני מוזיקה) יונמכו כדי שיהיה אפשר לשמוע אותם טוב יותר.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;מאפשר הנמכה של תוכניות אחרות בזמן שמשתמשים מדברים אליך. הכוונה היא שברגע שמישהו מתחיל לדבר אליך ב-Mumble, העוצמה של כל שאר התוכניות (כמו נגני מוזיקה) יונמכו כדי שיהיה אפשר לשמוע אותם טוב יותר.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3183,7 +3183,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>התחברות לשרת ממבל</translation>
+        <translation>התחברות לשרת Mumble</translation>
     </message>
     <message>
         <location/>
@@ -4366,7 +4366,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;שאל האם לסגור או למזער את ממבל ביציאה.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;שאל האם לסגור או למזער את Mumble ביציאה.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4396,7 +4396,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;הגדרה זו קובעת מתי ממבל תוצג תמיד מעל לכל החלונות.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;הגדרה זו קובעת מתי Mumble יוצג תמיד מעל לכל החלונות.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4572,14 +4572,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation>ממבל</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
         <location line="+2456"/>
         <source>Mumble -- %1</source>
-        <translation>ממבל -- %1</translation>
+        <translation>Mumble -- %1</translation>
     </message>
     <message>
         <location line="-2451"/>
@@ -4863,17 +4863,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>מתמשך</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>פעילות קול</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>לחץ-כדי-לדבר</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -4888,17 +4888,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+36"/>
         <source>Transmit Mode set to Continous</source>
-        <translation type="unfinished"/>
+        <translation>מצב שידור הוחלף למצב מתמשך</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>מצב שידור הוחלף למצב פעילות קול</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>מצב שידור הוחלף למצב לחץ-כדי-לדבר</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -5171,7 +5171,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation>&lt;p dir=&quot;RTL&quot;&gt;יוצא מממבל.&lt;/p&gt;</translation>
+        <translation>&lt;p dir=&quot;RTL&quot;&gt;יוצא מתוך היישום.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6326,7 +6326,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation>צלמית סרגל כלים</translation>
+        <translation>סמל סרגל כלים</translation>
     </message>
     <message>
         <location/>
