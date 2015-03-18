@@ -6162,7 +6162,7 @@ Valid options are:
         <translation>Kullanım: mumble [seçenekler] [&lt;url&gt;]
 
 &lt;url&gt;, başlangıçta bağlantı penceresinin gösterilmesi yerine bağlanılacak bir bağlantı belirtir ve şu şekildedir:
-mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?sürüm=&lt;x.y.z&gt;]
+mumble://[&lt;kullanıcıismi&gt;[:&lt;parola&gt;]@]&lt;makine&gt;[:&lt;port&gt;][/&lt;kanal&gt;[/&lt;altkanal&gt;...]][?version=&lt;x.y.z&gt;]
 
 Sürüm sorgu parametresi doğru istemci sürümünün çağrılabilmesi için belirtilmelidir. Güncel olarak 1.2.0 değeri varsayılır.
 
