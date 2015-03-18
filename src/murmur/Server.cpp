@@ -1152,8 +1152,12 @@ void Server::newClient() {
 
 		u->setToS();
 
-#if QT_VERSION >= 0x050000
-		sock->setProtocol(QSsl::TlsV1_0);
+#if QT_VERSION >= 0x050500
+		sock->setProtocol(QSsl::TlsV1_0OrLater);
+#elif QT_VERSION == 0x050400
+		// In Qt 5.4, QSsl::SecureProtocols is equivalent
+		// to "TLSv1.0 or later", which we require.
+		sock->setProtocol(QSsl::SecureProtocols);
 #else
 		sock->setProtocol(QSsl::TlsV1);
 #endif
