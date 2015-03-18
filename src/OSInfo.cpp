@@ -181,8 +181,84 @@ QString OSInfo::getOSDisplayableVersion() {
 	_SYSTEM_INFO si;
 	GetNativeSystemInfo(&si);
 
-	if (ovi.dwMajorVersion == 6) {
-		if(ovi.dwMinorVersion == 0) {
+	if (ovi.dwMajorVersion == 10) {
+		if (ovi.dwMinorVersion == 0) {
+			if (ovi.wProductType == VER_NT_WORKSTATION) {
+				osdispver = QLatin1String("Windows 10");
+			} else {
+				osdispver = QLatin1String("Windows 10 Server");
+			}
+		}
+
+		typedef BOOL (WINAPI *PGPI)(DWORD, DWORD, DWORD, DWORD, PDWORD);
+		PGPI pGetProductInfo = (PGPI) GetProcAddress(GetModuleHandle(TEXT("kernel32.dll")), "GetProductInfo");
+		if (pGetProductInfo == NULL) {
+			return QString();
+		}
+
+		DWORD dwType = 0;
+		if (!pGetProductInfo(ovi.dwMajorVersion, ovi.dwMinorVersion, 0, 0, &dwType)) {
+			return QString();
+		}
+
+		switch(dwType) {
+		case PRODUCT_ULTIMATE:
+			osdispver.append(QLatin1String(" Ultimate Edition"));
+			break;
+		case PRODUCT_PROFESSIONAL:
+			osdispver.append(QLatin1String(" Professional"));
+			break;
+		case PRODUCT_HOME_PREMIUM:
+			osdispver.append(QLatin1String(" Home Premium Edition"));
+			break;
+		case PRODUCT_HOME_BASIC:
+			osdispver.append(QLatin1String(" Home Basic Edition"));
+			break;
+		case PRODUCT_ENTERPRISE:
+			osdispver.append(QLatin1String(" Enterprise Edition"));
+			break;
+		case PRODUCT_BUSINESS:
+			osdispver.append(QLatin1String(" Business Edition"));
+			break;
+		case PRODUCT_STARTER:
+			osdispver.append(QLatin1String(" Starter Edition"));
+			break;
+		case PRODUCT_CLUSTER_SERVER:
+			osdispver.append(QLatin1String(" Cluster Server Edition"));
+			break;
+		case PRODUCT_DATACENTER_SERVER:
+			osdispver.append(QLatin1String(" Datacenter Edition"));
+			break;
+		case PRODUCT_DATACENTER_SERVER_CORE:
+			osdispver.append(QLatin1String(" Datacenter Edition (core installation)"));
+			break;
+		case PRODUCT_ENTERPRISE_SERVER:
+			osdispver.append(QLatin1String(" Enterprise Edition"));
+			break;
+		case PRODUCT_ENTERPRISE_SERVER_CORE:
+			osdispver.append(QLatin1String(" Enterprise Edition (core installation)"));
+			break;
+		case PRODUCT_ENTERPRISE_SERVER_IA64:
+			osdispver.append(QLatin1String(" Enterprise Edition for Itanium-based Systems"));
+			break;
+		case PRODUCT_SMALLBUSINESS_SERVER:
+			osdispver.append(QLatin1String(" Small Business Server"));
+			break;
+		case PRODUCT_SMALLBUSINESS_SERVER_PREMIUM:
+			osdispver.append(QLatin1String(" Small Business Server Premium Edition"));
+			break;
+		case PRODUCT_STANDARD_SERVER:
+			osdispver.append(QLatin1String(" Standard Edition"));
+			break;
+		case PRODUCT_STANDARD_SERVER_CORE:
+			osdispver.append(QLatin1String(" Standard Edition (core installation)"));
+			break;
+		case PRODUCT_WEB_SERVER:
+			osdispver.append(QLatin1String(" Web Server Edition"));
+			break;
+		}
+	} else if (ovi.dwMajorVersion == 6) {
+		if (ovi.dwMinorVersion == 0) {
 			if (ovi.wProductType == VER_NT_WORKSTATION) {
 				osdispver = QLatin1String("Windows Vista");
 			} else {
