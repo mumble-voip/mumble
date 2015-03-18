@@ -248,6 +248,9 @@ void MainWindow::createActions() {
 	gsCycleTransmitMode=new GlobalShortcut(this, idx++, tr("Cycle Transmit Mode", "Global Shortcut"));
 	gsCycleTransmitMode->setObjectName(QLatin1String("gsCycleTransmitMode"));
 
+	gsSendTextMessage=new GlobalShortcut(this, idx++, tr("Send Text Message", "Global Shortcut"), true, QVariant(QString()));
+	gsSendTextMessage->setObjectName(QLatin1String("gsSendTextMessage"));
+
 #ifndef Q_OS_MAC
 	qstiIcon->show();
 #endif
@@ -2467,6 +2470,20 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 	}
 
 	updateTransmitModeComboBox();
+}
+
+void MainWindow::on_gsSendTextMessage_triggered(bool down, QVariant scdata)
+{
+	if (!down || !g.sh || !g.sh->isRunning() || g.uiSession == 0) {
+		return;
+	}
+	QString qsText = scdata.toString();
+	if (qsText.isEmpty()) {
+		return;
+	}
+	Channel *c = ClientUser::get(g.uiSession)->cChannel;
+	g.sh->sendChannelTextMessage(c->iId, qsText, false);
+	g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatChannel(c), qsText), tr("Message to channel %1").arg(c->qsName), true);
 }
 
 void MainWindow::whisperReleased(QVariant scdata) {
