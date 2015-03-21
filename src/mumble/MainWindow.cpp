@@ -285,7 +285,12 @@ void MainWindow::setupGui()  {
 
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
+#if !defined(Q_OS_LINUX) || (defined(Q_OS_LINUX) && defined(USE_SPEECHD)) //With TTS
 	qaAudioTTS->setChecked(g.s.bTTS);
+#else //Linux but no TTS:
+	qaAudioTTS->setChecked(false);
+	qaAudioTTS->setDisabled(true);
+#endif
 	qaFilterToggle->setChecked(g.s.bFilterActive);
 
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);

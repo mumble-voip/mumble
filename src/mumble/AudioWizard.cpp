@@ -118,15 +118,21 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 	for (int i = Log::firstMsgType;i <= Log::lastMsgType; ++i) {
 		iMessage |= (g.s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
 	}
-
+#if !defined(Q_OS_LINUX) || (defined(Q_OS_LINUX) && defined(USE_SPEECHD)) //TTS enabled
 	if (iMessage == Settings::LogTTS && g.s.bTTS)
 		qrbNotificationTTS->setChecked(true);
 	else if (iMessage == Settings::LogSoundfile)
 		qrbNotificationSounds->setChecked(true);
 	else // If we find mixed message types or only tts with main tts disable assume custom
 		qrbNotificationCustom->setChecked(true);
-
 	qrbNotificationCustom->setVisible(qrbNotificationCustom->isChecked());
+#else // No tts on Linux
+	qrbNotificationCustom->setChecked(false);
+	qrbNotificationCustom->setDisabled(true);
+	qrbNotificationTTS->setChecked(false);
+	qrbNotificationTTS->setDisabled(true);
+	qrbNotificationSounds->setChecked(true);
+#endif
 
 	qrbQualityCustom->setVisible(qrbQualityCustom->isChecked());
 	qlQualityCustom->setVisible(qrbQualityCustom->isChecked());
