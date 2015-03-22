@@ -58,7 +58,7 @@ win32 {
   }
 } else {
   CONFIG += staticlib
-  INCLUDEPATH += ../speex-srcbuild
+  INCLUDEPATH += ../speex-build
 }
 
 DIST = config.h speex.def speex/speex_config_types.h
