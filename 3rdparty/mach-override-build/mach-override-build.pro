@@ -21,6 +21,7 @@ TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG += staticlib
+CONFIG += x86_64 x86
 VPATH	= ../mach-override-src
 TARGET = mach-override
 INCLUDEPATH = ../mach-override-src/ ../mach-override-src/libudis86
