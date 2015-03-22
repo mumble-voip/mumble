@@ -15,6 +15,7 @@ CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
+CONFIG += no_include_pwd
 VPATH	= ../$$SOURCEDIR/libcelt
 TARGET = celt0
 RC_FILE = celt-0.7.0.rc

@@ -27,6 +27,7 @@ CONFIG -= qt
 CONFIG += debug_and_release
 CONFIG -= warn_on
 CONFIG += warn_off
+CONFIG += no_include_pwd
 VPATH	= ../speex-src/libspeex
 TARGET = speex
 DEFINES += NDEBUG HAVE_CONFIG_H
