@@ -2454,19 +2454,17 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 		{
 			case Settings::Continous:
 				g.s.atTransmit = Settings::VAD;
-				qsNewMode = QString::fromLatin1("Voice Activity");
+				g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
 				break;
 			case Settings::VAD:
 				g.s.atTransmit = Settings::PushToTalk;
-				qsNewMode = QString::fromLatin1("Push To Talk");
+				g.l->log(Log::Information, tr("Transmit Mode set to Push-to-Talk"));
 				break;
 			case Settings::PushToTalk:
 				g.s.atTransmit = Settings::Continous;
-				qsNewMode = QString::fromLatin1("Continuous");
+				g.l->log(Log::Information, tr("Transmit Mode set to Continous"));
 				break;
 		}
-
-		g.l->log(Log::Information, tr("Cycled Transmit Mode to %1").arg(qsNewMode));
 	}
 
 	updateTransmitModeComboBox();
