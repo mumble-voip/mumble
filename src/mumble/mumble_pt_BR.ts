@@ -6155,7 +6155,23 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso: mumble [opções] [&lt;url&gt;]
+
+&lt;url&gt; especifica uma URL para se conectar após inicializar
+ao invés de mostrar a janela de conexão, e tem o seguinte
+formato:
+mumble://[&lt;nome-de-usuário&gt;[:&lt;senha&gt;]@]&lt;host&gt;[:&lt;porta&gt;][/&lt;canal&gt;[/&lt;subcanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+O parâmetro de pergunta de versão deve ser configurado para
+se invocar a versão correta do cliente. O padrão atual é 1.2.0.
+
+Opções válidas são:
+  -h, --help    Mostra esse texto de ajuda e termina.
+  -m, --multiple
+                Permite múltiplas instâncias do cliente executando.
+  -n, --noidentity
+                Suprime o carregamento de arquivos de identidade (ex. certificados)
+</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -6184,7 +6200,20 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Uso mumble rpc &lt;action&gt; [options]
+
+É possível controlar instânciar remotas do Mumble via comandos rpc.
+
+Comandos válidos são:
+  mute
+                Mutar-se
+  unmute
+                Desmutar-se
+  deaf
+               Ensurdecer
+  undeaf
+               Vocalizar
+</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -6284,7 +6313,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation>&amp;Si mesmo</translation>
+        <translation>&amp;Perfil</translation>
     </message>
     <message>
         <location/>

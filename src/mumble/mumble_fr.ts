@@ -6202,7 +6202,21 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilisation: mumble rpc &lt;action&gt; [options]
+
+Il est possible de prendre le contrôle à distance d&apos;une instance de
+Mumble en utilisant la commande &apos;mumble rpc&apos;
+
+Les actions valides sont :
+mute
+Mute self
+unmute
+Unmute self
+deaf
+Deafen self
+undeaf
+Undeafen self
+</translation>
     </message>
     <message>
         <location line="+24"/>

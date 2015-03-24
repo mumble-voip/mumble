@@ -100,7 +100,7 @@
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Valor de posicionamento da canle</translation>
     </message>
     <message>
         <location/>
@@ -108,7 +108,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Posición&lt;/b&gt;&lt;br/&gt;
+Este valor permíteche cambiar o xeito no que Mumble coloca as canles na árbore. Unha canle cun valor de &lt;i&gt;Posición&lt;/i&gt; maior  sempre será situado debaixo dun cun valor menor e viceversa. Se o valor &lt;i&gt;Posición&lt;/i&gt; de dúas canles é a mesma ordenaránse alfabéticamente.</translation>
     </message>
     <message>
         <location/>
@@ -278,12 +279,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Borrar</translation>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation type="unfinished"/>
+        <translation>Contexto</translation>
     </message>
     <message>
         <location/>
