@@ -4479,7 +4479,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Mostrar menu de seleção do modo de transmissão na barra de ferramentas</translation>
     </message>
 </context>
 <context>
@@ -4856,17 +4856,17 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Contínuo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Atividade de voz</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Pressionar-para-Falar</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -4881,17 +4881,17 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+36"/>
         <source>Transmit Mode set to Continous</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmissão definido para Contínuo</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmissão definido para Atividade de Voz</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmissão definido para Pressionar-para-Falar</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -6150,14 +6150,35 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilização: mumble [opções] [&lt;url&gt;]
+
+&lt;url&gt; especifica um URL para se ligar após iniciar em vez de 
+mostrar a janela de  ligação, e que tem o seguinte formato:
+mumble://[&lt;nome-do-utilizador&gt;[:&lt;senha&gt;]@]&lt;nome-do-servidor&gt;[:&lt;porta&gt;][/&lt;canal&gt;[/&lt;subcanal&gt;...]][?version=&lt;x.y.z&gt;]
+
+O parâmetro version tem de ser definido para invocar a versão
+correta do cliente. O valor por omissão é 1.2.0.
+
+Opções válidas são:
+
+Valid options are:
+  -h, --help    Mostrar este texto de ajuda e terminar.
+  -m, --multiple
+               Permite iniciar múltiplas instâncias do cliente.
+  -n, --noidentity
+                Suprime o carregamento de ficheiros de identidade (i.e., certificados)
+
+
+</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Controlando remotamente Mumble:
+
+</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6177,7 +6198,22 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Utilização: mumble rpc &lt;ação&gt; [opções]
+
+É possível controlar remotamente uma instância do Mumble usando
+o comando &apos;mumble rpc&apos;.
+
+Ações válidas são:
+  mute
+                Silenciar microfone
+  unmute
+                Ativar microfone
+  deaf
+                Ensurdecer
+  undeaf
+                Retirar ensurdecer
+
+</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -6187,12 +6223,12 @@ Valid actions are:
     <message>
         <location line="+15"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>Erro: Nenhum comando RPC especificado</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+207"/>
