@@ -84,5 +84,5 @@ For raw representation of each packet type see the attached Mumble.proto [#f2]_ 
 
 ..      rubric:: Footnotes
 
-.. [#f1] http://code.google.com/p/protobuf
+.. [#f1] https://github.com/google/protobuf
 .. [#f2] https://raw.github.com/mumble-voip/mumble/master/src/Mumble.proto
