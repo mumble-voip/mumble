@@ -285,11 +285,11 @@ void MainWindow::setupGui()  {
 
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
-#if !defined(Q_OS_LINUX) || (defined(Q_OS_LINUX) && defined(USE_SPEECHD)) //With TTS
-	qaAudioTTS->setChecked(g.s.bTTS);
-#else //Linux but no TTS:
+#ifdef USE_NO_TTS
 	qaAudioTTS->setChecked(false);
 	qaAudioTTS->setDisabled(true);
+#else
+	qaAudioTTS->setChecked(g.s.bTTS);
 #endif
 	qaFilterToggle->setChecked(g.s.bFilterActive);
 
