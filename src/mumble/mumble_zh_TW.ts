@@ -3360,27 +3360,27 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>本地伺服器標籤</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>您的帳號</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>您的密碼</translation>
     </message>
 </context>
 <context>
@@ -4840,17 +4840,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>連續</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>語音活動</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>按鍵發話</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -5595,7 +5595,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"/>
+        <translation>使用者將永久註冊在伺服器上。</translation>
     </message>
     <message>
         <location/>
@@ -5640,7 +5640,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"/>
+        <translation>好友的名稱與資料庫紀錄不同。即將更新。</translation>
     </message>
     <message>
         <location/>
@@ -5655,7 +5655,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation type="unfinished"/>
+        <translation>開啟註冊帳號編輯器，允許您變更他們的名稱或取消註冊。</translation>
     </message>
     <message>
         <location/>
@@ -5761,22 +5761,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>您在 %2 的 %1 權限被拒絕。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 在 %2 的 %1 權限被拒絕。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：無法修改超級使用者。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：無效的頻道名稱。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5786,22 +5786,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：此操作無法使用於臨時頻道。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"/>
+        <translation>您需要憑證才可進行此操作。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>%1 沒有憑證。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>無效的使用者名稱: %1 </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5811,7 +5811,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>頻道已滿。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5942,27 +5942,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>您已移動 %1 到 %2。</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"/>
+        <translation>%1 正在錄音</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 更改名稱為 %2</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 left channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 離開頻道。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 離線。</translation>
     </message>
     <message>
         <location line="+110"/>
@@ -5974,32 +5974,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"/>
+        <translation>(樹)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"/>
+        <translation>(頻道)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求使用 %1 以上版本客戶端</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求啟動定位音效。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求關閉定位音效。</translation>
     </message>
     <message>
         <location line="+4"/>
