@@ -24,13 +24,13 @@
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Voeg kanaal toe</translation>
+        <translation>Mumble - Kanaal toevoegen</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Mislukt: ongeldig kanaal</translation>
+        <translation>Mislukt: Ongeldig kanaal</translation>
     </message>
     <message>
         <location line="-155"/>
@@ -45,17 +45,17 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit verleent de %1 machtiging. Als een machtiging zowel toegestaan is als geweigerd, dan wordt het geweigerd.&lt;br /&gt;%2</translation>
+        <translation>Dit verleent de %1 machtiging. Het wordt geweigerd als een machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Kanalen moeten een naam hebben</translation>
+        <translation>Kanaal moet een naam hebben</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit trekt de %1 machtiging in. Als een machtiging zowel toegestaan is als geweigerd, dan wordt het geweigerd.&lt;br /&gt;%2 </translation>
+        <translation>Dit trekt de %1 machtiging in. Het wordt geweigerd als de machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -70,12 +70,12 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Vul het kanaal naam hier in.</translation>
+        <translation>Vul hier de kanaalnaam in.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Beschrijving</translation>
+        <translation>Omschrijving</translation>
     </message>
     <message>
         <location/>
@@ -90,7 +90,7 @@
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Selecteer om een tijdelijke kanaal aan te maken.</translation>
+        <translation>Selecteer om een tijdelijk kanaal aan te maken.</translation>
     </message>
     <message>
         <location/>
@@ -109,7 +109,7 @@ This value enables you to change the way Mumble arranges the channels in the tre
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
         <translation>&lt;b&gt;Positie&lt;/b&gt;&lt;br/&gt;
-Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen plaatst in de boom. Een kanaal met een hogere &lt;i&gt;Positie&lt;/i&gt; waarde zal altijd onder een kanaal met een lagere waarde worden geplaatst en omgekeerd. Als de &lt;i&gt;Positie&lt;/i&gt; waarde van twee kanalen gelijk zijn, dan zullen deze alfabetisch gesorteerd worden op naam.</translation>
+Deze waarde geeft je de mogelijkheid om de volgorde te wijzigen waarin Mumble kanalen plaatst in de boomstructuur. Een kanaal met een hogere &lt;i&gt;Positie&lt;/i&gt; waarde zal altijd onder een kanaal met een lagere waarde worden geplaatst en omgekeerd. Indien de &lt;i&gt;Positie&lt;/i&gt; waarde van twee kanalen gelijk zijn, dan worden deze alfabetisch op naam gesorteerd.</translation>
     </message>
     <message>
         <location/>
@@ -134,12 +134,12 @@ Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen 
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Verwijder geselecteerde group</translation>
+        <translation>Geselecteerde groep verwijderen</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location/>
@@ -154,7 +154,7 @@ Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen 
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Maak groep overerfbaar voor sub-kanalen</translation>
+        <translation>Groep overerfbaar maken voor sub-kanalen</translation>
     </message>
     <message>
         <location/>
@@ -179,17 +179,17 @@ Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen 
     <message>
         <location/>
         <source>Add</source>
-        <translation>Voeg toe</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Voeg lid toe aan groep</translation>
+        <translation>Lid aan groep toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Verwijder lid van groep</translation>
+        <translation>Lid van groep verwijderen</translation>
     </message>
     <message>
         <location/>
@@ -209,12 +209,12 @@ Deze waarde maakt het mogelijk om de volgorde te wijzigen waarin Mumble kanalen 
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Erf ACL van bovenliggende kanaal?</translation>
+        <translation>Erf ACL van bovenliggend kanaal?</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Dit stelt in of de ACL van bovenliggende kanalen moeten worden toegepast op dit object. Alleen de regels die in het bovenliggende kanaal zijn gemarkeerd als &quot;Pas toe op sub-kanalen&quot; zullen worden geërfd. </translation>
+        <translation>Dit stelt in of de ACL van bovenliggende kanalen moeten worden toegepast op dit object. Regels die in het bovenliggende kanaal zijn gemarkeerd als &quot;Toepassen op sub-kanalen&quot; worden geërfd. </translation>
     </message>
     <message>
         <location/>
