@@ -1,41 +1,41 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="nl" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="eu" version="2.1">
 <context>
     <name>ACLEditor</name>
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation>Weigeren</translation>
+        <translation>Ukatu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Toestaan</translation>
+        <translation>Onartu</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Sta %1 toe</translation>
+        <translation>Onartu %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Weiger %1</translation>
+        <translation>Ukatu %1</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation>Mumble - Kanaal toevoegen</translation>
+        <translation>Mumble - Gehitu kanala</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>Mislukt: Ongeldig kanaal</translation>
+        <translation>Akatsa: Baliogabeko kanala</translation>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumble - Bewerk %1</translation>
+        <translation>Mumble - Editatu %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -45,62 +45,62 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit verleent de %1 machtiging. Het wordt geweigerd als een machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation>Kanaal moet een naam hebben</translation>
+        <translation>Kanalak izena eduki behar du</translation>
     </message>
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit trekt de %1 machtiging in. Het wordt geweigerd als de machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation>Dialoogvenster</translation>
+        <translation>Elkarrizketa</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation>Izena</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Vul hier de kanaalnaam in.</translation>
+        <translation>Sartu kanalaren izena hemen.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation>Omschrijving</translation>
+        <translation>Deskribapena</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation>Pasahitza</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Vul hier het kanaalwachtwoord in.</translation>
+        <translation>Sartu kanalaren pasahitza hemen.</translation>
     </message>
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation>Selecteer om een tijdelijk kanaal aan te maken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation>Tijdelijk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation>Kanaal positioneering waarde</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -108,386 +108,379 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation>&lt;b&gt;Positie&lt;/b&gt;&lt;br/&gt;
-Deze waarde geeft je de mogelijkheid om de volgorde te wijzigen waarin Mumble kanalen plaatst in de boomstructuur. Een kanaal met een hogere &lt;i&gt;Positie&lt;/i&gt; waarde zal altijd onder een kanaal met een lagere waarde worden geplaatst en omgekeerd. Indien de &lt;i&gt;Positie&lt;/i&gt; waarde van twee kanalen gelijk zijn, dan worden deze alfabetisch op naam gesorteerd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation>Positie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation>&amp;Groepen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation>Groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation>Lijst van groepen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation>Geselecteerde groep verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation>Erf groepsleden van bovenliggende kanalen </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation>Erven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation>Groep voor sub-kanalen overerfbaar maken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation>Overerfbaar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation>Groep was van het bovenliggende kanaal geërfd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited</source>
-        <translation>Overgeërfd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation>Leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation>Lid aan groep toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation>Lid van groep verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;ACL</source>
-        <translation>&amp;ACL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Active ACLs</source>
-        <translation>Actieve ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Lijst van regels</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation>Erf ACL van bovenliggend kanaal?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>Dit stelt in of de ACL van bovenliggende kanalen moeten worden toegepast op dit object. Regels die in het bovenliggende kanaal zijn gemarkeerd als &quot;Toepassen op sub-kanalen&quot; worden geërfd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation>Overerf ACLs</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation>Naar regel omhoog verplaatsen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>Dit verplaatst de regel in de lijst omhoog. Omdat regels worden toegepast op volgorde kan dit de effectieve permissies van gebruikers veranderen. Je kunt geen regel boven een overgeërfde regel plaatsen, als je dat toch wilt doen dan moet je de overgeërfde regel dupliceren.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation>&amp;Omhoog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation>Regel omlaag verplaatsen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>Dit verplaatst de regel in de lijst omlaag. Omdat regels worden toegepast op volgorde kan dit de effectieve permissies van gebruikers veranderen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation>Om&amp;laag</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation>Nieuwe regel toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>Dit voegt een nieuwe regel toe, initieel zonder permissies en wordt toegepast op alle groepen. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Regel verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Dit verwijdert de huidig geselecteerde regel.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijderen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Context</source>
-        <translation>Context</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation>Regel moet toegepast worden op dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation>Dit past de regel toe op dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation>Van toepassing op dit kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Entry should apply to sub-channels.</source>
-        <translation>Regel moet toegepast worden op sub-kanalen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>Nieuwe groep maken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation>&lt;b&gt;Maken&lt;/b&gt;&lt;br/&gt;
-Maak een nieuwe groep.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation>Overgeërfde leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation>Bevat de lijst van leden die zijn toegevoegd aan de groep door dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>Bevat de lijst van leden die waarvan groepslidmaatschap van het bovenliggende kanaal niet wordt overgeërfd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation>Bevat de lijst van leden die door andere kanalen worden overgeërfd. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Vul de naam in van een gebruiker die je wilt toevoegen aan de groep en klik op Toevoegen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Vul de naam in van een gebruiker die je wilt verwijderen aan de groep en druk op Verwijderen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation>Uitsluiten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation>Uitgesloten leden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to sub-channels of this channel.</source>
-        <translation>Dit zorgt ervoor dat de regel wordt toegepast op sub-kanalen van dit kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Applies to sub-channels</source>
-        <translation>Toepassen op sub-kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation>Permissies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation>Gebruiker/Groep</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>Groep waarop deze regel wordt toegepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User ID</source>
-        <translation>Gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation>Gebruiker waarop deze regel wordt toegepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation>Dit beheert voor welke gebruiker deze regel van toepassing is. Vul even de gebruikersnaam in en druk op Enter om de server op een overeenkomst te doorzoeken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation>&amp;Eigenschappen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation>&lt;b&gt;Naam&lt;/b&gt;&lt;br /&gt;Vul de kanaalnaam in dit veld in. De naam moet voldoen aan de eisen die gesteld worden door de server waarmee je verbonden bent.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation>&lt;b&gt;Tijdelijk&lt;/b&gt;&lt;br /&gt;
-Wanneer geselecteerd wordt het kanaal gemarkeerd als tijdelijk. Dit betekent dat het kanaal automatisch door de server wordt verwijderd wanneer de laatste speler het kanaal verlaat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation>&lt;b&gt;Groep&lt;/b&gt;&lt;br /&gt;
-Dit zijn alle groepen die momenteel voor het kanaal gedefinieerd zijn. Om een nieuwe groep te maken, vul even de naam in en druk op Enter.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation>&lt;b&gt;Verwijderen&lt;/b&gt;&lt;br /&gt;Dit verwijdert de huidig geselecteerde groep. Als de groep werd geërfd, dan wordt deze niet van de lijst verwijderd, maar alle lokale informatie over de groep wordt wel gewist.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation>&lt;b&gt;Erven&lt;/b&gt;&lt;br /&gt;Dit zorgt ervoor dat alle leden van de bovenliggende groep worden geërfd als de groep is gemarkeerd als &lt;i&gt;Overerfbaar&lt;/i&gt;.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation>&lt;b&gt;Overerfbaar&lt;/b&gt;&lt;br /&gt;Dit zorgt ervoor dat deze groep voor sub-kanalen overerfbaar is. Als de groep niet overerfbaar is dan kunnen sub-kanalen nog steeds een nieuwe groep onder dezelfde naam maken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation>&lt;b&gt;Overgeërfd&lt;/b&gt;&lt;br /&gt;Dit geeft aan dat de groep geërfd was van het bovenliggende kanaal. Je kunt dit vakje niet bewerken, het is slechts ter informatie.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation>&lt;b&gt;Leden&lt;/b&gt;&lt;br /&gt;
-Deze lijst bevat alle leden die aan de groep door het huidige kanaal zijn toegevoegd. Let op dat dit geen leden bevat die van bovenliggende kanalen zijn geërfd. Deze in de &lt;i&gt;Overgeërfde leden&lt;/i&gt; lijst gevonden worden. Om te voorkomen dat deze lijst wordt geërfd door onderliggende kanalen, deselecteer &lt;i&gt;Overerfbaar&lt;/i&gt; of voeg de leden handmatig toe aan de &lt;i&gt;Uitgesloten leden&lt;i&gt; lijst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation>&lt;b&gt;Uitgesloten leden&lt;/b&gt;&lt;br /&gt;
-Bevat een lijst van leden waarvan het groepslidmaatschap niet van het bovenliggende kanaal wordt geërfd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation>&lt;b&gt;Overgeërfde leden&lt;b&gt;&lt;br /&gt;
-Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &lt;i&gt;Erven&lt;/i&gt; om erving van bovenliggende kanalen te voorkomen. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Dit beheert welke gebruikersgroepen deze regel op van toepassing is.&lt;br /&gt;Merk op dat de groep wordt geëvalueerd in de context van het kanaal waarin de regel gebruikt wordt. De ACL die standaard op het hoogste kanaal ingesteld is geeft bijvoorbeeld &lt;i&gt;Schrijf&lt;/i&gt; permissie aan de &lt;i&gt;admin&lt;/i&gt; groep. Deze regel, indien het wordt overgeërfd, geeft de gebruiker schrijfrechten als deze behoort tot de &lt;i&gt;admin&lt;/i&gt; groep. zelfs, als de gebruiker niet behoort tot de groep van de oorspronkelijke ACL. &lt;br /&gt;Als een groepsnaam begint met &apos;!&apos; wordt het lidmaatschap omgekeerd en als het begint met &apos;~&apos;, dan wordt het geëvalueerd in het kanaal waar de ACL gedefinieerd is, in plaats van het kanaal waar de ACL van toepassing is.&lt;br /&gt;Als een groepsnaam begint met &apos;#&apos;, dan wordt het geïnterpreteerd als een toegangssleutel. Gebruikers moeten wat dan ook na de &apos;#&apos; komt in hun lijst van toegangssleutels hebben. Dit kan gebruikt worden als zeer eenvoudige wachtwoord-gebaseerde toegang tot kanalen voor ongeregistreerde gebruikers.&lt;br /&gt;Als een groepsnaam met &apos;$&apos; begint, dan zal het alleen op gebruikers waarvan het certificaat hash overeenkomt met wat volgt na &apos;$&apos; van toepassing zijn.&lt;br /&gt;Enkele speciale voorgedefinieerde groepen zijn:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle geregistreerde gebruikers.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Gebruikers momenteel in een kanaal met &lt;i&gt;a&lt;/i&gt; gedeelde bovenliggende kanalen, en met tussen &lt;i&gt;b&lt;/i&gt; en &lt;i&gt;c&lt;/i&gt; kanalen eronder. Zie de website voor meer uitgebreide documentatie over deze.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers momenteel in het huidige kanaal (gemak t.o.v. &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruikers buiten het kanaal (gemak t.o.v. &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Merk op dat een regel louter op een gebruiker of een groep van toepassing is, niet beiden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br /&gt;This field allows you to easily set and change the password of a channel. It uses Mumble&apos;s access tokens feature in the background. Use ACLs and groups if you need more fine grained and powerful access control.</source>
-        <translation>&lt;b&gt;Wachtwoord&lt;/b&gt;&lt;br /&gt;Dit veld laat je gemakkelijk een wachtwoord instellen op of wijzigen van een kanaal. Het gebruikt Mumbles&apos; toegangssleutel-functie achter de schermen. Gebruik ACLs en groepen als je meer  nauwkeurige en krachtige toegangscontrole nodig hebt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This shows all the entries active on this channel. Entries inherited from parent channels will be shown in italics.&lt;br /&gt;ACLs are evaluated top to bottom, meaning priority increases as you move down the list.</source>
-        <translation>Dit toont alle regels die actief zijn op dit kanaal. Regels die zijn geërfd worden schuingedrukt weergegeven.&lt;br /&gt;ACLs worden toegepast van boven naar beneden, dat wil zeggen dat de prioriteit toeneemt naarmate je lager door de lijst gaat.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation>ID van het kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation>KanaalID</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -495,12 +488,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation>Standaard ALSA kaart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation>Openen van de gekozen ALSA Invoer is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -508,12 +501,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation>Standaard ALSA kaart</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+325"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation>Openen van de gekozen ALSA Uitvoer is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -521,140 +514,140 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
-        <translation>%1 (versie %2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 samples buffer, met %3 sample resolutie (%4 bij voorkeur) op %5 Hz</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+43"/>
         <location line="+25"/>
         <source>ASIO Initialization failed: %1</source>
-        <translation>ASIO initialisatie is mislukt: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation>Initialiseren van het ASIO stuurprogramma is mislukt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation>ASIO</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Apparaatselectie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device to use for microphone</source>
-        <translation>Apparaat om voor microfoon te gebruiken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation>Hiermee kan het apparaat worden gekozen waarvan je de kanalen wilt opvragen. Je moet wel nog het apparaat om kanalen vragen en deze selecteren.  </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation>Haal kanalen op van het geselecteerde apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dit vraagt kanalen van het geselecteerde apparaat op. Let op dat veel ASIO stuurprogramma&apos;s uiterst instabiel zijn, en dat het opvragen daarvan een crash van het programma of systeem kan veroorzaken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation>&amp;Opvragen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure selected device</source>
-        <translation>Geselecteerd apparaat configureren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This configures the selected device. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation>Dit configureert het geselecteerde apparaat. Let op dat veel ASIO stuurprogramma&apos;s uiterst instabiel zijn, en dat het opvragen daarvan een crash van het programma of systeem kan veroorzaken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Configureren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Capabilities</source>
-        <translation>Mogelijkheden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Driver name</source>
-        <translation>Naam van het stuurprogramma</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation>Buffergrootte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Dit zal invoerkanalen voor ASIO configureren. Zorg ervoor dat je minstend één kanaal hebt als microfoon en luidspreker. &lt;i&gt;Microfoon&lt;/i&gt; moet het kanaal zijn waaraan de microfoon verbonden is en &lt;i&gt;Luidspreeker&lt;/i&gt; het kanaal dat afspeelt &apos;&lt;i&gt;wat je hoort&lt;/i&gt;&apos;. &lt;br /&gt;Als voorbeeld, voor de Audigy 2 ZS zou &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; een goede keuze zijn voor Microfoon terwijl Luidspreker het beste &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; en &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; is.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation>Invoerkanalen configureren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channels</source>
-        <translation>Kanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation>Microfoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation>&lt;-</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation>-&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Unused</source>
-        <translation>Ongebruikt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speakers</source>
-        <translation>Luidsprekers</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -662,12 +655,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Je moet minstens één microfoon- en luidsprekerbron selecteren om ASIO te gebruiken. Als je alleen de microfoon wilt samplen, gebruik DirectSound. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Het openen van de geselecteerde ASIO apparaat is mislukt. Invoer zal niet mogelijk zijn.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -675,7 +668,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Over Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+30"/>
@@ -685,22 +678,22 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Over Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Licensie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>Licensies van &amp;derden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -708,57 +701,57 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Input methode voor audio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt; Dit is de invoer manier voor geluid. &lt;br&gt;&lt;br /&gt; Waarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation>Invoerapparaat voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Dit is het invoerapparaat voor geluid. &lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation>Overdracht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation>&amp;Overbrengen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Wanneer het verzenden van jouw spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -768,22 +761,22 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Dubbeldruk Tijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Als je de PTT knop twee keer binnen deze tijd gebruikt word ie vastgehouden. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Dubbeldruk Tijd&lt;b&gt;&lt;br /&gt;als je meerdere keren binnen enkele seconden op de push-to-talk knop drukt dan wordt deze knop vastgezet waardoor je oneindig kan praten. Het blijft zo doorgaan totdat je nog 1 keer op de knop drukt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Reset geluidscue naar standaard</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -793,37 +786,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Blader voor &quot;aan&quot; geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Blader voor &quot;uit&quot; geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Off</source>
-        <translation>Uit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation>Aan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation>Luister naar een voorbeeld van de geluids cue</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Gebruik SNR gebaseerde spraakherkenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaal naar ruis</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -833,22 +826,22 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation>Amplitude</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation>Spraak &amp;Vasthouden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation>Hoe lang moet ik nog verzenden na stilte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation>Stilte Onder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -858,27 +851,27 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation>Spraak Boven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation>Signaal waardes boven dit tellen als spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Compression</source>
-        <translation>Compressie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation>&amp;Kwaliteit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kwaliteit van compressie (top bandbreedte)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -888,12 +881,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Audio per packet</source>
-        <translation>Geluid per pakket</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation>Hoeveel geluidsframes per pakket te sturen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -908,17 +901,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation>Geluidsverwerking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation>Ruisonderdrukking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation>Ruisonderdrukking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -928,7 +921,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximale versterking van invoer geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -938,12 +931,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>Huidige spraakherkenningskans</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation>Onderdruk galm van boxen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -953,22 +946,22 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>Uitgeschakeld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mixed</source>
-        <translation>Gecombineerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Mulikanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Echo</source>
-        <translation>Galm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -983,17 +976,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation>Signaal waardes onder dit tellen als stilte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation>Maximale bandbreedte om geluid te verzenden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Gebruik amplitude gebaseerde spraakherkenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1003,7 +996,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation>Exclusieve modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1013,27 +1006,27 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Exclusief</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>R&amp;eset</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Verkennen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>Verkennen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation>&amp;Voorbeeld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1043,17 +1036,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>laat altijd de topvenster zien met de push to talk knop </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Laat push to talk venster zien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Overig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1068,67 +1061,67 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation>geluids cue</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation>Wordt afgespeeld wanneer er gestart wordt met verzenden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>Wordt afgespeeld wanneer er gestopt worden met verzenden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation>Vasthoud Tijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>De tijd voor de microfoon die open blijft nadat de knop niet wordt ingedrukt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>Server maximale netwerk bandbreedte is  %1 kbit/s. geluidskwaliteit wordt automatisch gevormd naar %2 kbit/s (%3 ms)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation>Max.Versterking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>Idle actie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation>Minuten doe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation>niets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation>doof maken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation>dempen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation>na</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1136,56 +1129,56 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation>Continue</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation>Stemactiviteit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation>Druk een knop in om te praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation>Geluidsinvoer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation>Uit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation>%1 s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation>%1 kb/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation>-%1 dB</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation>%1 kbit/s (Geluid %2, Positie %4, Overhead %3)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1193,63 +1186,63 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation>Interface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>uitvoermethode voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation>&lt;b&gt; Dit is de invoer manier voor geluid. &lt;br&gt;&lt;br /&gt; Het is verstandig om DirectSound gebruiken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>uitvoermethode voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Dit is het uitvoerapparaat voor geluid. &lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Positie Gebaseerd Geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation>geluidsuitvoer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation>Standaard &amp;Jitter Buffer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Veilige afstand voor jitter buffer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1259,7 +1252,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimale afstand tot de gebruiker voordat het geluidvolume verminderd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1279,12 +1272,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Volume</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation>Volume van inkomende spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1294,33 +1287,33 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation>uitvoervertraging</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Hoeveelheid van data om te bufferen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>De aangesloten &quot;speakers&quot; is eigenlijk een koptelefoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation>Factor om het geluidsvolume te verlagen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Bloom</source>
-        <translation>Bloei</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation>Factor om het geluidsvolume te verhogen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1340,47 +1333,47 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Headphones</source>
-        <translation>Koptelefoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation>Minimale Afstand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation>Maximale Afstand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Maximimale afstand, zodat de spraak volume niet verminderd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation>Minimale Volume</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation>Wat moet de volume zijn bij de maximale afstand?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation>Loopback Test</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Delay Variance</source>
-        <translation>Vertragingsonenigheid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation>Onenigheid in pakket latency</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1391,12 +1384,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation>Pakket verlies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation>Pakket verlies bij loopback mode</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1406,22 +1399,22 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&amp;Loopback</source>
-        <translation>&amp;Loopback</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Desired loopback mode</source>
-        <translation>gewenste loopback modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation>verzwak applicaties door...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation>Verzwak andere applicaties tijdens spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1441,12 +1434,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation>terwijl andere gebruiken praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Als het aangevinkt is in mumble, dan kan mumble de volume van andere applicaties verlagen terwijl je praat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1456,27 +1449,27 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>while you talk</source>
-        <translation>wanneer jij praat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation>Exclusieve modus, niet aanbevolen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Dit opent het apparaat in exclusieve modus.&lt;br /&gt;Geen andere applicatie kan geen gebruik ervan maken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation>Exclusief</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation>Prioriteit van de spreker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1499,29 +1492,29 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation>Niets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation>Lokaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation>Server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation>geluidsuitvoer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+108"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-16"/>
@@ -1530,13 +1523,13 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation>%1 %</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation>%1 m</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1544,17 +1537,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation>Kies je geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation>Ongeldig geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Het bestand &apos;%1&apos; kan niet gebruikt worden door Mumble. Selecteer een bestand die compatibel is met het formaat en codering.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -1563,37 +1556,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
         <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation>&gt;1000 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
-        <translation>Geluidsstatestieken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input Levels</source>
-        <translation>invoerniveaus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Peak microphone level</source>
-        <translation>Piek microfoon niveau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation>Piekstroom in de laatste frame</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Dit laat zien dat de piekstroom in het laatste frame (20 ms),en is dezelfde meting als je normaal zou vinden, wordt weergegeven als &quot;invoer stroom&quot;. Negeer dit en kijk naar &lt;b&gt; Microfoon stroom &lt;/ b&gt; in plaats daarvan is dat veel stabieler en negeert het uitschieters.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Peak speaker level</source>
-        <translation>Piek speaker niveau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1604,7 +1597,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>Piek schoon niveau</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1614,12 +1607,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Signal Analysis</source>
-        <translation>Signaal analyse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Microphone power</source>
-        <translation>Microfoonkracht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1634,12 +1627,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation>Signaal naar ruis ratio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Signaal naar ruis ratio van de microfoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1649,12 +1642,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation>Spraak waarschijnlijkheid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation>waarschijnlijkheid van spraak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1664,37 +1657,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Configuration feedback</source>
-        <translation>Configuratie feedback</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Current audio bitrate</source>
-        <translation>Huidige geluids bitrate</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation>Bitrate van de laatste frame</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>DoublePush interval</source>
-        <translation>Dubbeldruk interval</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tijd tussen de laatste twee gedrukte Push-To-Talk knop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation>Spraakherkenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>Huidige spraakherkenningskans</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1719,12 +1712,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation>Echo Analyse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Weights of the echo canceller</source>
-        <translation>Gewicht van de echo canceller</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1742,67 +1735,67 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation>Geluidsoptimalisatie configuratiescherm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Introduction</source>
-        <translation>Introductie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Welkom bij de Mumble geluids configuratiescherm</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Finished</source>
-        <translation>Klaar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Veel plezier met het gebruiken van Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation>Apparaatselectie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>Selecteer de invoer en uitvoer apparaat om het te gebruiken in Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Dit is het apparaat dat met jouw microfoon is mee verbonden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation>Systeem</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Invoerapparaat voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt; Dit is de invoer methode voor het geluid. &lt;br&gt;&lt;br /&gt; Waarschijnlijk wilt u DirectSound gebruiken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Device</source>
-        <translation>Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation>Invoerapparaat om te gebruiken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1812,53 +1805,53 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Cancel echo from headset or speakers</source>
-        <translation>Onderdruk echo van je koptelefoon of speakers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation>gebruik echo onderdrukking</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Dit gebruikt echo onderdrukking van uitgaande geluid, het helpt zowel voor je koptelefoon als je speakers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Dit is het apparaat dat je speakers of koptelefoon verbind met</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>uitvoermethode voor geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt; Dit is de uitvoer methode voor geluid. &lt;br&gt;&lt;br /&gt; Het is verstandig om DirectSound gebruiken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output device to use</source>
-        <translation>uitvoerapparaat om te gebruiken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;selecteert welke geluidskaart gebruikt kan worden voor geluidsuitvoer.&lt;/b&gt;</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Het aanzetten van Positie Gebaseerd Geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation>Het toestaan van het positioneren van geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1873,12 +1866,12 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>Input Device</source>
-        <translation>Invoerapparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation>uitvoerapparaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1899,7 +1892,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Hoeveelheid van data om te bufferen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1920,7 +1913,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>gepositioneerde geluid</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1941,7 +1934,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation>gebruik een koptelefoon i.p.v speakers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1957,22 +1950,22 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation>gebruik een koptelefoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Dit negeert de ingebouwde speaker configuratie en configureert de positionering van de koptelefoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation>Volume optimaliseren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>Optimaliseren van de microfoon volume</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -1982,12 +1975,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation>Activiteit van Stemherkenning</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Laat Mumble beslissen wanneer je praat en wanneer je stil bent.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2002,7 +1995,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation>Signaal naar ruis ratio</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2013,7 +2006,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Device tuning</source>
-        <translation>Aparaatoptimalisatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2028,52 +2021,52 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation>Druk een knop in om te praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation>Kwaliteit &amp; Notificaties</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation>Het aanpassen van kwaliteits en notificatie instellingen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation>kwaliteitsinstellingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation>Laag</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation>gebalanceerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation>Notificatie-instellingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Gebruik tekst naar spraak zodat de notificaties en berichten worden voorgelezen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation>Schakel Tekst-naar-Spraak uit en gebruik geluid.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2088,12 +2081,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation>Hoog</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation>aangepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2118,7 +2111,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Houd deze aangepaste tekst naar spraak instellingen.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2172,167 +2165,167 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Bewerk Bans</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation>&amp;Adres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation>&amp;Mask</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reason</source>
-        <translation>Reden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation>Eind</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation>Gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation>Hash</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation>&amp;Update</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation>Ban Lijst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation>Zoekveld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation>Dit is een zoekveld. gebruik dit om te kijken of iemand ergens verbannen is door zijn gebruikersnaam in het gebruikersnaam veld neer te zetten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation>Wie zoek je?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation>Geen bijnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation>IP Adres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation>Geen IP Adres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation>Reden voor de ban</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation>Geen Reden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation>Ban einddatum</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation>Ban einddatum. als je zowel dezelfde datum invult bij start en de eind, dan is die ban voor altijd. (het verloopt niet) </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation>Certificaat hash</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation>Geen certificaat hash</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation>Gebande gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation>Dit is lijst met de gebande gebruikers.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Gebruik deze knop als je iemand wilt toevoegen aan de ban lijst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Gebruik deze knop als je de ban informatie wilt updaten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation>Gebruik deze knop als je een gebruiker wilt verwijderen van de ban lijst.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation>Maak alle velden schoon</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Deze knop maakt alle velden schoon. Gebruik dit als je iemand opnieuw wilt bannen. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation>Maak Leeg</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Ban Lijst - %n Ban</numerusform><numerusform>Ban Lijst - %n Ban(s)</numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -2340,32 +2333,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+43"/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation>E-mailadres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation>verlener</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Expiry Date</source>
-        <translation>Verloopdatum</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation>(niets)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation>Zelf-gesigneerd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2373,67 +2366,67 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Kan niet het email adres valideren.&lt;br /&gt;zet een geldige (of geen) email adres .om door te gaan.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Er is een fout opgetreden bij het genereren van jou certificaat.&lt;br /&gt; Probeer opnieuw.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Jouw certificaat en sleutel konden niet geëxporteerd worden naar het PKCS#12 formaat. Er kan een fout in het certificaat zitten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Dit bestand kon niet geopend worden om te kunnen bewerken. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>De bestandspermissies konden niet gezet worden. Geen certificaat en sleutel konden ernaar toegeschreven worden. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>Het bestand kon niet succesvol worden weggeschreven. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>Dit bestand kon niet geopend worden om het te bekijken. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>Dit bestand is leeg of kon niet gelezen worden. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Dit bestand bevatte niet een gevalideerde certificaat en sleutel. Gebruik een ander bestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation>Selecteer het bestand om het certificaat te exporteren naar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation>Selecteer het bestand om het certificaat te importen van</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation>Mumble Gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Cerificaat Verloop:&lt;/b&gt; Jouw certificaat is bijna ten einde. Je moet het vernieuwen of je kan niet meer met de servers verbinden waarop je geregistreerd bent.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2441,82 +2434,82 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>Certificaat Beheer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Certificaat Authenticatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Authenticeren bij servers zonder het gebruik van wachtwoorden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation>Huidige certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Dit is het certificaat dat Mumble nu gebruikt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Huidige Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>Maak een nieuw certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Dit zorgt ervoor dat je een nieuwe certificaat kan aanmaken.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>importeer certificaat van bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Dit importeert de certificaat van een bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation>Importeer een certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Exporteer Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Dit exporteert de certificaat naar een bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation>Exporteer huidige certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Importeer Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation>PKCS #12 Certificaat importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2527,22 +2520,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import from</source>
-        <translation>Importeer vanuit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Bestandsnaam om te importeren vanuit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>Dit is het bestandsnaam die hebt opgegeven om het certificaat te importeren vanuit.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>Selecteer een bestand om te importeren vanuit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2552,17 +2545,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation>Openen...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>Wachtwoord voor PKCS#12 bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2572,7 +2565,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation>Certificaat om te importeren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2582,12 +2575,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation>Certificaat Details.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>Vervang Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2615,7 +2608,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New certificate</source>
-        <translation>Nieuw certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2625,17 +2618,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>Nieuw Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation>Maak een reservekopie van uw certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Export to</source>
-        <translation>Exporteer naar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2650,7 +2643,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>Opslaan Als...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2670,17 +2663,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Jouw email adres (bijv. johndoe@mumble.info)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2690,7 +2683,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Jouw naam (bijv. John Doe)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2700,22 +2693,22 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Finish</source>
-        <translation>voltooien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>Certificaatgebaseerde authenticatie is klaar om te gebruiken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Geniet om Mumble te gebruiken met sterke authenticatie. </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>Automatische certificaat creëren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -2738,42 +2731,42 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation>Niets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation>Traverse</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation>Spreek</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Dempen/Doof</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation>Maak kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation>Maak tijdelijk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation>Link kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-87"/>
@@ -2858,37 +2851,37 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation>Fluister</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation>Beweeg</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation>Tekstbericht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation>Schop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation>Verban</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation>Registreer Gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation>Registreer Jezelf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-28"/>
@@ -2902,7 +2895,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>Plak en &amp;Verzend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
@@ -2915,52 +2908,52 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation>Vriend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation>Geauthenticeerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation>Prioriteit van de spreker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation>Opnemen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>Dempen (server)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation>Doven (server)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation>Lokaal Negeren (Tekstberichtjes)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Lokaal dempen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>dempen (self)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>doven (self)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2968,7 +2961,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation>Accepteer veranderingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2978,7 +2971,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation>Weiger veranderingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -2988,7 +2981,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Pas veranderingen toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -3019,12 +3012,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation>Mumble Instellingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Advanced</source>
-        <translation>Geavanceerd</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3032,198 +3025,198 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation>Verbinden met %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-545"/>
         <location line="+545"/>
         <source>Enter username</source>
-        <translation>Typ hier je gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation>Host %1 aan het toevoegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation>Servernaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation>hostnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation>Bonjour naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation>Poort</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation>Adressen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation>Website</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation>Pakketverlies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation>Ping (80%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation>%1 ms</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation>Ping (95%)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation>Bandbreedte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Verbind</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+57"/>
         <source>&amp;Filters</source>
-        <translation>&amp;Filters</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation>Gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation>Versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1051"/>
         <source>Failed to fetch server list</source>
-        <translation>gefaald om de serverlijst op te halen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumble Server verbinden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ping</source>
-        <translation>Ping</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation>Verwijder uit Favorieten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation>Voeg aangepaste server toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation>Laat alle servers zien dat reageren op ping</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation>Laat alle servers zien met gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation>Laat alle servers zien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopieer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation>kopieer favoriete link naar klembord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation>&amp;Plak</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation>Plak favoriet vanuit klembord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-745"/>
         <source>&amp;Edit...</source>
-        <translation>&amp;bewerk...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation>&amp;voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation>voeg toe &amp; favorieten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation>Open &amp;Webpagina</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation>laat zien &amp;bereikbaar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation>laat zien &amp;gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation>Laat zien &amp;Alles</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3231,23 +3224,23 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation>Bewerk Server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation>Naam van de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation>A&amp;dres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>Internet adres van de server.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3260,29 +3253,28 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation>&amp;Poort</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation>Welke poort openstaat van de server die daarop luistert.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation>&lt;b&gt;Poort&lt;/b&gt;&lt;br/&gt;
-De poort die openstaat van de server die daarop luistert. Als de server geïdentificeerd is via de bonjour service dan wordt dit genegeerd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation>&amp;Gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Gebruikersnaam wordt verzonden naar de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3298,17 +3290,17 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation>Voeg server toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation>Wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation>Wachtwoord wordt verzonden naar de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3319,7 +3311,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation>Laat het wachtwoord zien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3358,7 +3350,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation>Standaardapparaat</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3376,7 +3368,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation>E-mailadres (optioneel)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
@@ -3387,12 +3379,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation>Rapport verzenden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation>Geen rapport verzenden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+24"/>
@@ -3497,7 +3489,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation>Hiernaartoe slepen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -3545,7 +3537,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3575,7 +3567,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation>Overslaan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -3647,12 +3639,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4003,12 +3995,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui"/>
         <source>Messages</source>
-        <translation>Berichten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Message</source>
-        <translation>Bericht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4028,12 +4020,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation>Geluidsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation>Pad</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4043,7 +4035,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Volume</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4147,22 +4139,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation>Vragen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation>Niets doen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation>Bewegen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>User Interface</source>
-        <translation>Gebruikersinterface</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+159"/>
@@ -4207,7 +4199,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language</source>
-        <translation>Taal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4227,27 +4219,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation>Layout</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Classic</source>
-        <translation>Klassiek</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation>Gestapeld</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation>Gemengd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Aangepast</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4343,12 +4335,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Never</source>
-        <translation>Nooit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation>Altijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -4611,12 +4603,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation>Bestand bestaat niet.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation>Bestand is geen configuratiebestand.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -4647,12 +4639,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+15"/>
         <location line="+206"/>
         <source>Connecting to server %1.</source>
-        <translation>Verbinden met server %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation>Opnieuw aan het verbinden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+167"/>
@@ -4715,7 +4707,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+638"/>
         <source>Connected.</source>
-        <translation>Verbonden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+104"/>
@@ -4742,14 +4734,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation>Kies je afbeeldingsbestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation>Het is niet gelukt om deze afbeelding te laden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-27"/>
@@ -4760,7 +4752,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation>Bestandsformaat van afbeelding wordt niet herkend.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-1779"/>
@@ -4820,7 +4812,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+87"/>
         <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+601"/>
@@ -4972,27 +4964,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>Gedempt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>Dempen en doven.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>Doven.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Maak doven ongedaan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+93"/>
         <source>About Qt</source>
-        <translation>Over Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+279"/>
@@ -5022,40 +5014,40 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation>Server verbinding gefaald: %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Disconnected from server.</source>
-        <translation>Verbinding verbroken van server.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+11"/>
         <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
-        <translation>Ongeldig gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>Je probeerde met een ongeldig gebruikersnaam te verbinden. Probeer opnieuw.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
-        <translation>Gebruikersnaam is in gebruik</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>Deze gebruikersnaam is al in gebruik, probeer een ander.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Wrong certificate or password</source>
-        <translation>Verkeerd certificaat of wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -5068,7 +5060,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+7"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
-        <translation>Verkeerd wachtwoord</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -5078,22 +5070,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+221"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
-        <translation>Afbeeldingen (*.png *.jpg *.jpeg)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation>C&amp;onfigureren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Help</source>
-        <translation>&amp;Help</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Log</source>
-        <translation>Log</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5103,27 +5095,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Afsluiten Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Closes the program</source>
-        <translation>Dit programma wordt afgesloten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation>Sluit het programma.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+Q</source>
-        <translation>Ctrl+Q</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Connect</source>
-        <translation>&amp;Verbinden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5133,97 +5125,97 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Disconnect</source>
-        <translation>&amp;Verbinding verbreken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Disconnect from server</source>
-        <translation>Verbinding verbroken met server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation>Verbinding verbroken door de server.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Information</source>
-        <translation>&amp;Informatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show information about the server connection</source>
-        <translation>Laat de informatie zien over deze verbinding met de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Laat de uitgebreide informatie zien over deze verbinding met de server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation>&amp;Schop</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Demp</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation>&amp;Ban</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation>&amp;Doven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation>&amp;Lokaal Dempen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Send a Text Message</source>
-        <translation>Zend een tekstbericht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Sends a text message to another user.</source>
-        <translation>Zend een tekstbericht naar een andere gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add new channel</source>
-        <translation>Voeg nieuwe kanaal toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation>Dit voegt de nieuwe subkanaal toe aan de huidige geselecteerde kanaal.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove channel</source>
-        <translation>Verwijder kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation>Dit verwijderd een kanaal en al z&apos;n subkanalen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5273,17 +5265,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation>Demp gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Demp of ontdemp gebruiker op de server. Ontdempen van een dove gebruiker zal ook ontdooft worden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation>Schop en ban de gebruiker (met een reden)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5313,7 +5305,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation>&amp;Bewerk</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5350,7 +5342,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation>&amp;Reset</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5365,12 +5357,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>&amp;demp zelf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Demp mezelf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5430,12 +5422,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation>&amp;Instellingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation>Configureer Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5475,7 +5467,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;Over</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5505,12 +5497,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation>Over Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation>Informatie over Qt</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5520,12 +5512,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation>Check voor &amp;Updates</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation>Check voor een nieuwe versie van Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5565,12 +5557,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation>Voeg &amp;Vriend toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Je hebt een gebruiker toegevoegd als jou vriend.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5580,27 +5572,27 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation>&amp;Verwijder Vriend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation>Je hebt een gebruiker verwijderd van als jou vriend.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation>Deze gebruiker zal van jou vriendenlijst worden.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation>&amp;Update Vriend</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation>Update de naam van je vriend.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5635,12 +5627,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation>&amp;Minimale zicht</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation>pin minimale venster modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -5650,22 +5642,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
-        <translation>Je bent gedempt en gedooft %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Je bent ontdempt en ontdooft %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>jij maakte het doven ongedaan bij %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation>jij onderdrukt %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
@@ -5710,7 +5702,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-206"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation>Jouw account informatie kan momenteel niet geverifieerd worden. Probeer het op een later tijdstip opnieuw alstublieft</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
@@ -5766,17 +5758,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation>Ongeldig gebruikersnaam: %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation>Ongeldig gebruikersnaam.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation>Deze kanaal is vol.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
@@ -5786,7 +5778,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation>Toegang geweigerd.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+39"/>
@@ -5816,12 +5808,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation>%1 heeft een opname gestart.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation>%1 heeft een opname gestopt.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
@@ -6198,7 +6190,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation>&amp;Join Kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6218,12 +6210,12 @@ Valid actions are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation>S&amp;erver</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation>&amp;Zelf</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6238,7 +6230,7 @@ Valid actions are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation>R&amp;egistreer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6625,31 +6617,31 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation>Stilte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation>Praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation>Fluisteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation>Schreeuw</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation>Kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+106"/>
@@ -6677,57 +6669,57 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation>Alle in het huidige kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation>alle in het sub kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation>Altijd jezelf laten zien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation>Configureer recente actieve tijd (%1 seconds)...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation>Kolommen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation>Sorteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation>Alfabetisch</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation>Laatste statuswijziging</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation>&amp;bewerk...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation>Reset Zoom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation>Configureer recentelijk actieve tijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -6757,17 +6749,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+262"/>
         <source>Overlay</source>
-        <translation>Cover</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+82"/>
         <source>Choose executable</source>
-        <translation>Kies een uitvoerbaar bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation>Kies een applicatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+95"/>
@@ -6788,17 +6780,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation>Opties</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation>Aanzetten cover.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>Aanzetten Cover</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6809,32 +6801,32 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Layout</source>
-        <translation>Indeling</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation>Cover uitzonderingen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation>Blacklist</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation>Whitelist</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation>Verwijder Cover</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation>Cover Installatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6846,12 +6838,12 @@ Click the button below to install the overlay.</source>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation>Installeer Mumble Cover</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation>Cover Upgrade</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6863,7 +6855,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation>Upgrade Mumble Cover</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6873,7 +6865,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation>Laat FPS zien</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6883,47 +6875,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Load…</source>
-        <translation>Laden...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation>Sla je cover instellingen op in een bestand</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Save…</source>
-        <translation>Opslaan...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation>Stel de cover lettertype in.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation>Stel de cover tekst kleur in.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation>Kleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation>Voeg toe...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation>Lettertype</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6943,7 +6935,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation>FPS en de klok</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -6953,7 +6945,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation>Laat de klok zien</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -6961,82 +6953,82 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation>Status</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation>Gebruiker is niet aan het praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation>Passief</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Gebruiker is aan het praten in jouw kanaal of in een gelinkte kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation>Praten</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation>Gebruiker is geheimelijk tegen jou aan het fluisteren </translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation>Privé Fluisteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation>Een gebruiker is aan het schreeuwen in jouw kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation>Kanaal Fluisteren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation>Zoom</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation>Zoom Factor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation>Ingeschakelde Elementen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation>Gebruikers Avatar, Gekozen door elke gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation>Avatar</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation>naam van de gebruiker</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation>Gebruikersnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7046,17 +7038,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel</source>
-        <translation>Kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Dempen of gedooft</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation>Demp status</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7100,7 +7092,7 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation>%1%</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-5"/>
@@ -7115,38 +7107,38 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation>Links</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation>Midden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation>Rechts</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation>Boven</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation>Beneden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation>Kleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation>Lettertype</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
@@ -7176,22 +7168,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation>Kies pen kleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation>kies een vulkleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation>kies een kleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation>kies een lettertype</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7200,27 +7192,27 @@ To upgrade these files to their latest versions, click the button below.</source
         <location filename="Plugins.ui"/>
         <location filename="Plugins.cpp" line="+98"/>
         <source>Plugins</source>
-        <translation>Plugins</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation>Plugin heeft geen configureerbare functie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation>Plugin heeft geen Over functie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation>Formulier</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Options</source>
-        <translation>Opties</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7240,7 +7232,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Reloads all plugins</source>
-        <translation>Herlaad alle plugins</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7250,12 +7242,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation>&amp;Herlaad plugins</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation>Informatie over deze plugin</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7265,12 +7257,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation>&amp;Over</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation>laad de configuratiepagina zien van de plugin</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7280,17 +7272,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>&amp;Configureer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation>Naam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>ingeschakeld</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7309,17 +7301,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation>Het is niet gelukt om de nieuwe plugin te installeren naar %1.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-286"/>
         <source>%1 lost link.</source>
-        <translation>%1 verloor verbinding.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+74"/>
         <source>%1 linked.</source>
-        <translation>%1 verbonden.</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7327,7 +7319,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation>Standaard Apparaat</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7335,12 +7327,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PulseAudio.cpp" line="+771"/>
         <source>Default Input</source>
-        <translation>Standaard Invoer</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation>Standaard Uitvoer</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7348,7 +7340,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
-        <translation>Het is niet gelukt om deze afbeelding te laden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
@@ -7358,72 +7350,72 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation>Het bericht is te lang</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
         <source>Display</source>
-        <translation>Venster</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Source Text</source>
-        <translation>Bron Tekst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation>&amp;Bold</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation>Ctrl+B</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation>&amp;Italic</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Italic</source>
-        <translation>Italic</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation>Ctrl+I</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Underline</source>
-        <translation>Underline</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation>Ctrl+U</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation>Kleur</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation>voeg link toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation>Ctrl+L</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation>voeg afbeelding toe</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7431,17 +7423,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>voeg link toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation>URL</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation>Tekst</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7449,27 +7441,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ServerHandler.cpp" line="+475"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation>De UDP pakketjes kunnen niet verzonden of ontvangen worden door de server. Schakelt nu over naar TCP modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation>De UDP pakketjes kunnen niet verzonden worden door de server. Schakelt nu over naar TCP modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation>De UDP pakketjes kunnen niet ontvangen worden door de server. Schakelt nu over naar TCP modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation>De UDP pakketjes kunnen nu verzonden of ontvangen worden door de server. Schakelt nu terug naar UDP modus</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+39"/>
         <source>Connection timed out</source>
-        <translation>Verbinding timeout</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7477,47 +7469,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-640"/>
         <source>Favorite</source>
-        <translation>Favoriet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation>LAN</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation>Publiek Internet</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation>Afrika</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation>Azië</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation>Noord Amerika</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation>Zuid Amerika</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation>Europa</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation>Oceanië</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7525,7 +7517,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation>Niet Toegewezen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7533,22 +7525,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation>Aan</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation>Uit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>Wisseltoets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation>Niet Toegewezen</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7564,23 +7556,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation>Root</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation>Ouder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation>Huidig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation>Subkanaal #%1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7588,44 +7580,44 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation>,</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation>Root</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation>Ouder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation>Huidig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation>Subkanaal #%1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation>Ongeldig</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation>Leeg</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7633,17 +7625,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation>Uit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>Wisseltoets</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation>Aan</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7651,7 +7643,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.h" line="+45"/>
         <source>Enter text</source>
-        <translation>Typ hier tekst</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="TextMessage.ui"/>
@@ -7669,17 +7661,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation>Lege Token</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation>Mumble - Toegangstokens</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation>Lijst van toegangstokens van de huidige server</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7692,22 +7684,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Add a token</source>
-        <translation>Voeg een token toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation>Verwijder een token</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7715,54 +7707,54 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation>Geregistreerde Gebruikers</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation>Hernoemen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation>Wie zoek je?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation>Dagen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation>Weken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation>Maanden</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation>Jaren</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation>Inactief voor</translation>
+        <translation type="unfinished"/>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation><numerusform>Geregistreerde gebruiker: %n account</numerusform><numerusform>Geregistreerde gebruikers: %n accounts</numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -7770,87 +7762,87 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation>Gebruikersinformatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation>Verbindinginformatie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation>Versie</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation>OS</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation>Certificaat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation>IP Adres</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation>CELT Versies</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation>Details...</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation>Ping Statestieken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation>Pings ontvangen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation>Gemiddelde ping</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation>TCP (Controle)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation>UDP (Voice)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation>UDP Netwerk Statestieken</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation>Goed</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation>Laat</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation>verloor</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
@@ -7860,102 +7852,102 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>From Client</source>
-        <translation>Van Client</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation>Naar Client</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation>Verbindingstijd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation>%1w</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation>%1d</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation>%1h</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation>%1m</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation>%1s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation>,</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation>%1 (%2)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation>Ondersteund</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation>Niet Ondersteund</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-123"/>
         <source>Not Reported</source>
-        <translation>Niet gerapporteerd</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation>%1 online (%2 inactief)</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation>%1 online</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation>%1 kbit/s</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation>Bandbreedte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation>Bandbreedte</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation>Ping afwijking</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7963,32 +7955,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation>Bijnaam</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation>Inactieve dagen</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation>Laatste Kanaal</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation>Laatst gezien; %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation>Nooit</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation>Kanaal ID: %1</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -8132,7 +8124,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation>Weet u het zeker dat u dit kanaal wilt slepen?</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+94"/>
@@ -8146,7 +8138,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
-        <translation>Upgrade Mumble</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -8156,7 +8148,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation>Het is niet gelukt om de snapshot installer te starten.</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+5"/>
@@ -8212,7 +8204,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="-36"/>
         <location line="+37"/>
         <source>Organization: %1</source>
-        <translation>Organisatie: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="-36"/>
@@ -8260,12 +8252,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+0"/>
         <source>RSA</source>
-        <translation>RSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+0"/>
         <source>DSA</source>
-        <translation>DSA</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
@@ -8280,7 +8272,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation>DNS: %1</translation>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location line="+9"/>
