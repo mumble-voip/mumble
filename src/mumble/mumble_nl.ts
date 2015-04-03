@@ -14,12 +14,12 @@
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation>Sta %1 toe</translation>
+        <translation>%1 toestaan</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation>Weiger %1</translation>
+        <translation>%1 weigeren</translation>
     </message>
     <message>
         <location line="-66"/>
@@ -45,7 +45,7 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit verleent de %1 machtiging. Het wordt geweigerd als een machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
+        <translation>Dit verleent de %1 machtiging. Het wordt geweigerd als een machtiging op toestaan én op weigeren staat.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -55,7 +55,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation>Dit trekt de %1 machtiging in. Het wordt geweigerd als de machtiging op toestaan én weigeren staat.&lt;br /&gt;%2</translation>
+        <translation>Dit trekt de %1 machtiging in. Het wordt geweigerd als de machtiging op toestaan én op weigeren staat.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -619,7 +619,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>This will configure the input channels for ASIO. Make sure you select at least one channel as microphone and speaker. &lt;i&gt;Microphone&lt;/i&gt; should be where your microphone is attached, and &lt;i&gt;Speaker&lt;/i&gt; should be a channel that samples &apos;&lt;i&gt;What you hear&lt;/i&gt;&apos;.&lt;br /&gt;For example, on the Audigy 2 ZS, a good selection for Microphone would be &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; while Speaker should be &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; and &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos;.</source>
-        <translation>Dit zal invoerkanalen voor ASIO configureren. Zorg ervoor dat je minstend één kanaal hebt als microfoon en luidspreker. &lt;i&gt;Microfoon&lt;/i&gt; moet het kanaal zijn waaraan de microfoon verbonden is en &lt;i&gt;Luidspreeker&lt;/i&gt; het kanaal dat afspeelt &apos;&lt;i&gt;wat je hoort&lt;/i&gt;&apos;. &lt;br /&gt;Als voorbeeld, voor de Audigy 2 ZS zou &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; een goede keuze zijn voor Microfoon terwijl Luidspreker het beste &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; en &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; is.</translation>
+        <translation>Dit configureert invoerkanalen voor ASIO. Zorg ervoor dat je minstens één kanaal hebt als microfoon en luidspreker. &lt;i&gt;Microfoon&lt;/i&gt; moet het kanaal zijn waaraan de microfoon verbonden is en &lt;i&gt;Luidspreker&lt;/i&gt; het kanaal dat afspeelt &apos;&lt;i&gt;Wat je hoort&lt;/i&gt;&apos;. &lt;br /&gt;Bijvoorbeeld, met de Audigy 2 ZS is bij Microfoon &apos;&lt;i&gt;Mic L&lt;/i&gt;&apos; een goede keuze terwijl het bij Luidspreker &apos;&lt;i&gt;Mix L&lt;/i&gt;&apos; en &apos;&lt;i&gt;Mix R&lt;/i&gt;&apos; moeten zijn.</translation>
     </message>
     <message>
         <location/>
@@ -662,12 +662,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>Je moet minstens één microfoon- en luidsprekerbron selecteren om ASIO te gebruiken. Als je alleen de microfoon wilt samplen, gebruik DirectSound. </translation>
+        <translation>Je moet minstens één microfoon- en luidsprekerbron selecteren om ASIO te gebruiken. Als je alleen de microfoon wilt instellen, gebruik DirectSound.</translation>
     </message>
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Het openen van de geselecteerde ASIO apparaat is mislukt. Invoer zal niet mogelijk zijn.</translation>
+        <translation>Openen van het geselecteerde ASIO apparaat is mislukt. Invoer wordt niet verwerkt.</translation>
     </message>
 </context>
 <context>
@@ -680,7 +680,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Het Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;Een spraak-chat hulpprogramma voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -690,12 +690,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation>&amp;Licensie</translation>
+        <translation>&amp;Licentie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation>Licensies van &amp;derden</translation>
+        <translation>Licenties van &amp;derden</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -723,12 +723,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Input methode voor audio</translation>
+        <translation>Invoermethode voor geluid</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt; Dit is de invoer manier voor geluid. &lt;br&gt;&lt;br /&gt; Waarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt; Dit is de te gebruiken invoermethode voor geluid. &lt;br&gt;&lt;br /&gt; Hoogstwaarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -743,12 +743,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Dit is het invoerapparaat voor geluid. &lt;/b&gt;</translation>
+        <translation>&lt;b&gt; Dit is het te gebruiken invoerapparaat voor geluid. &lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation>Overdracht</translation>
+        <translation>Transmissie</translation>
     </message>
     <message>
         <location/>
@@ -758,47 +758,47 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Wanneer het verzenden van jouw spraak</translation>
+        <translation>Wanneer je spraak te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt in wanneer spraak moet worden verzonden.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continue&lt;/i&gt; - Heel de tijd&lt;br /&gt;&lt;i&gt;Spreek Activiteit&lt;/i&gt; - Wanneer je duidelijk spreekt.&lt;br /&gt;&lt;i&gt;Druk Om Te Praten&lt;/i&gt; - Wanneer je de sneltoets ingesteld onder snelkoppelingen &lt;i&gt;Snelkoppelingen&lt;/i&gt; ingedrukt houdt.</translation>
     </message>
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation>Dubbeldruk Tijd</translation>
+        <translation>DubbelDruk Tijd</translation>
     </message>
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Als je de PTT knop twee keer binnen deze tijd gebruikt word ie vastgehouden. </translation>
+        <translation>Als je de DOTP knop tweemaal binnen deze tijd indrukt wordt die ingehouden.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;Dubbeldruk Tijd&lt;b&gt;&lt;br /&gt;als je meerdere keren binnen enkele seconden op de push-to-talk knop drukt dan wordt deze knop vastgezet waardoor je oneindig kan praten. Het blijft zo doorgaan totdat je nog 1 keer op de knop drukt.</translation>
+        <translation>&lt;b&gt;DubbelDruk Tijd&lt;b&gt;&lt;br /&gt;Als je tweemaal binnen de ingestelde interval van tijd op de druk-om-te-praten knop drukt dan wordt die ingehouden. Mumble blijft zenden totdat je nog éénmaal op de knop drukt om DOTP los te laten.</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Reset geluidscue naar standaard</translation>
+        <translation>Herstel geluidssignaal naar standaardwaarde</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Herstel&lt;/b&gt;&lt;br/&gt;Herstel de paden voor de bestanden naar hun standaardwaarden</translation>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Blader voor &quot;aan&quot; geluidsbestand</translation>
+        <translation>Bladeren voor &quot;aan&quot; geluidsbestand</translation>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Blader voor &quot;uit&quot; geluidsbestand</translation>
+        <translation>Bladeren voor &quot;uit&quot; geluidsbestand</translation>
     </message>
     <message>
         <location/>
@@ -813,7 +813,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Preview the audio cues</source>
-        <translation>Luister naar een voorbeeld van de geluids cue</translation>
+        <translation>Voorbeelden van de geluidssignalen beluisteren</translation>
     </message>
     <message>
         <location/>
@@ -823,12 +823,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation>Signaal naar ruis</translation>
+        <translation>Signaal-ruis</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation type="unfinished"/>
+        <translation>Dit stelt spraakherkenning in om Amplitude te gebruiken. &lt;/b&gt;&lt;br /&gt; In deze modus, wordt de ruwe sterkte van het ingangssignaal gebruikt om spraak te herkennen.</translation>
     </message>
     <message>
         <location/>
@@ -843,7 +843,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation>Hoe lang moet ik nog verzenden na stilte</translation>
+        <translation>Hoe lang te blijven verzenden na stilte</translation>
     </message>
     <message>
         <location/>
@@ -853,7 +853,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt de drempelwaarden voor spraakherkenning in.&lt;/b&gt;&lt;br /&gt;Gebruik dit samen met het geluidsstatistieken venster om handmatig de drempelwaarden af te stemmen voor spraakherkenning. Waarden onder &quot;Stilte Onder&quot; tellen altijd als stilte. Waarden boven &quot;Spraak Boven&quot; tellen altijd als spraak. Waarden tussenin tellen als spraak als je al praat, maar leiden niet tot een nieuwe herkenning.</translation>
     </message>
     <message>
         <location/>
@@ -878,12 +878,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kwaliteit van compressie (top bandbreedte)</translation>
+        <translation>Kwaliteit van compressie (piekbandbreedte)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt; Dit stelt de kwaliteit van de compressie in.&lt;/b&gt;&lt;br /&gt;Dit bepaalt hoeveel bandbreedte Mumble mag gebruiken voor uitgaand geluid.</translation>
     </message>
     <message>
         <location/>
@@ -893,17 +893,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>How many audio frames to send per packet</source>
-        <translation>Hoeveel geluidsframes per pakket te sturen</translation>
+        <translation>Hoeveel geluidsframes per pakket te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit selecteert hoeveel geluidsframes in één pakket moeten komen.&lt;/b&gt;&lt;br /&gt;Dit verhogen, verhoogt de latentie van je spraak, maar vermindert de vereiste bandbreedte.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit toont piekgebruik uitgaande bandbreedte.&lt;/b&gt;&lt;br /&gt;Dit toont de piekhoeveelheid bandbreedte verzonden vanaf uw machine. Geluidsbitsnelheid is de maximum bitsnelheid (zoals we VBR gebruiken) voor louter geluidsgegevens. Positie is de bitsnelheid gebruikt voor positionele-informatie. Overhead bestaat uit het frame en de IP-pakket hoofding (bij IP en UDP is 75% van dit overhead).</translation>
     </message>
     <message>
         <location/>
@@ -923,17 +923,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt de toe te passen hoeveelheid van geluidsonderdrukking in.&lt;/b&gt;&lt;br /&gt;Hoe hoger deze waarde, des te agressiever stationaire ruis wordt onderdrukt.</translation>
     </message>
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximale versterking van invoer geluid</translation>
+        <translation>Maximale versterking van invoergeluid</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maximale versterking van input.&lt;/b&gt;&lt;br /&gt;Mumble normaliseert het ingangsvolume voor het te comprimeren, en dit stelt hoeveel het toestaat om te versterken in.&lt;br /&gt;Het werkelijke niveau wordt voortdurend bijgewerkt op basis van je huidige spraakpatroon, maar het gaat nooit boven het hier gespecificeerde niveau.&lt;br /&gt;Als het &lt;i&gt;Microfoon luidheid&lt;/i&gt; niveau van de geluidsstatistieken schommelt rond 100%, wil je dit waarschijnlijk instellen op 2,0 of zo, maar als, zoals de meeste mensen, het je niet lukt om 100% te bereiken, verstel dit naar iets veel hogers.&lt;br /&gt;Idealiter, stel het in zodat &lt;i&gt; Microfoon Luidheid* Versterkingsfactor&gt; = 100 &lt;/i&gt;, zelfs wanneer je echt zachtjes praat. &lt;br /&gt;&lt;br /&gt; Merk op dat het geen kwaad kan om deze instelling op maximaal te zetten, maar Mumble begint dan andere gesprekken op te pakken als je het overlaat om automatisch af te stellen op dat niveau.</translation>
     </message>
     <message>
         <location/>
@@ -943,12 +943,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation>Onderdruk galm van boxen</translation>
+        <translation>Onderdruk galm van luidsprekers</translation>
     </message>
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation type="unfinished"/>
+        <translation>Dit aanzetten stopt de echo van je luidsprekers. Gemengd heeft een lage CPU-impact, maar werkt alleen goed als je luidsprekers even luid en op gelijke afstand van de microfoon staan. Multi-kanaal galm stopper voorziet in veel betere galm stopping, maar tegen hogere CPU kracht.</translation>
     </message>
     <message>
         <location/>
@@ -963,7 +963,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Mulikanaal</translation>
+        <translation>Multi-kanaal</translation>
     </message>
     <message>
         <location/>
@@ -973,32 +973,32 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt spraakdetectie in om Signaal naar Ruis verhouding te gebruiken.&lt;/b&gt;&lt;br /&gt;In deze modus wordt de input geanalyseerd voor iets dat op een duidelijk signaal lijkt, en de helderheid van dat signaal wordt gebruikt om spraak te herkennen.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit toont de huidige spraakherkenningsinstellingen.&lt;/b&gt;&lt;br /&gt;Je kunt de instellingen vanuit het dialoogvenster Instellingen of de Geluidswizard veranderen.</translation>
     </message>
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation>Signaal waardes onder dit tellen als stilte</translation>
+        <translation>Signaalwaardes onder dit tellen als stilte</translation>
     </message>
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation>Maximale bandbreedte om geluid te verzenden</translation>
+        <translation>Maximale bandbreedte te gebruiken om geluid te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Gebruik amplitude gebaseerde spraakherkenning</translation>
+        <translation>Gebruik Amplitude gebaseerde spraakherkenning</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit selecteert hoe lang een onderbreking in spraakverzending moet aanhouden.&lt;/b&gt;&lt;br /&gt;Verhoog dit als je spraak hapert wanneer je spreekt (te zien door een knipperend praaticoon naast je naam).</translation>
     </message>
     <message>
         <location/>
@@ -1008,7 +1008,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit opent het apparaat in exclusieve modus.&lt;/b&gt;&lt;br /&gt;Geen andere applicatie kan het apparaat dan gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1018,17 +1018,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>R&amp;eset</translation>
+        <translation>&amp;Herstel</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation>&amp;Verkennen...</translation>
+        <translation>&amp;Bladeren...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation>Verkennen</translation>
+        <translation>B&amp;laderen</translation>
     </message>
     <message>
         <location/>
@@ -1038,37 +1038,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Voorbeeld&lt;/b&gt;&lt;br/&gt;Speelt het huidige &lt;i&gt;aan&lt;/ i&gt; geluid gevolgd door de huidige &lt;i&gt;uit&lt;/i&gt; geluid af.</translation>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>laat altijd de topvenster zien met de push to talk knop </translation>
+        <translation>Toont een venster met een druk-om-te-praten knop erop altijd op de voorgrond.</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Laat push to talk venster zien</translation>
+        <translation>Toon druk-om-te-praten venster</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation>Overig</translation>
+        <translation>Diversen</translation>
     </message>
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Hoorbaar geluidssignaal bij het starten of stoppen van zenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit genereert geluidssignalen bij zenden.&lt;/b&gt;&lt;br /&gt;Dit instellen geeft je een kort geluidssignaal wanneer je start en stopt met zenden.</translation>
     </message>
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation>geluids cue</translation>
+        <translation>Geluidssignaal</translation>
     </message>
     <message>
         <location/>
@@ -1078,7 +1078,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>Wordt afgespeeld wanneer er gestopt worden met verzenden</translation>
+        <translation>Wordt afgespeeld wanneer er gestopt wordt met verzenden</translation>
     </message>
     <message>
         <location/>
@@ -1088,27 +1088,27 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>De tijd voor de microfoon die open blijft nadat de knop niet wordt ingedrukt</translation>
+        <translation>De tijdsduur dat de microfoon openblijft nadat de druk-om-te-praten knop wordt losgelaten</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>Server maximale netwerk bandbreedte is  %1 kbit/s. geluidskwaliteit wordt automatisch gevormd naar %2 kbit/s (%3 ms)</translation>
+        <translation>Servers&apos; maximale bandbreedte van het netwerk is slechts %1 kbit/s. Audiokwaliteit is automatisch aangepast naar %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation>Max.Versterking</translation>
+        <translation>Max. Versterking</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation>Idle actie</translation>
+        <translation>Inactief actie</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation>Minuten doe</translation>
+        <translation>minuten doe</translation>
     </message>
     <message>
         <location/>
@@ -1118,7 +1118,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>deafen</source>
-        <translation>doof maken</translation>
+        <translation>Doven</translation>
     </message>
     <message>
         <location/>
@@ -1141,7 +1141,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation>Stemactiviteit</translation>
+        <translation>Spraakactiviteit</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1208,13 +1208,13 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>uitvoermethode voor geluid</translation>
+        <translation>Uitvoermethode voor geluid</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation>&lt;b&gt; Dit is de invoer manier voor geluid. &lt;br&gt;&lt;br /&gt; Het is verstandig om DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt;Dit is de te gebruiken uitvoermethode voor geluid.&lt;br&gt;&lt;br /&gt;Hoogstwaarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1224,7 +1224,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>uitvoermethode voor geluid</translation>
+        <translation>Uitvoerapparaat voor geluid</translation>
     </message>
     <message>
         <location/>
@@ -1234,12 +1234,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Positie Gebaseerd Geluid</translation>
+        <translation>Positioneel Geluid</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation>geluidsuitvoer</translation>
+        <translation>Geluidsuitvoer</translation>
     </message>
     <message>
         <location/>
@@ -1249,32 +1249,32 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Veilige afstand voor jitter buffer</translation>
+        <translation>Veiligheidsmarge voor jitter buffer</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt de minimale veiligheidsmarge voor de jitter buffer in.&lt;/b&gt;&lt;br /&gt;Al het inkomend geluid wordt gebufferd, en de jitter buffer probeert voortdurend om de buffer tot het minimale wat je netwerk aankan, zodat latentie het laagst mogelijke kan zijn. Dit stelt de minimale bufferomvang in. Als de beginnen van zinnen die je hoort erg zenuwachtig klinken, verhoog je deze waarde.</translation>
     </message>
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimale afstand tot de gebruiker voordat het geluidvolume verminderd</translation>
+        <translation>Minimale afstand tot de gebruiker voordat het geluidvolume afneemt</translation>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation type="unfinished"/>
+        <translation>Dit stelt de minimumafstand voor geluidsberekeningen in. Het volume van spraak van andere gebruikers nemen niet af, totdat ze minstens zo ver van je af zijn.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation type="unfinished"/>
+        <translation>Dit stelt de maximumafstand voor geluidsberekeningen in. Wanneer verder weg dan dit, neemt het spraakvolume van andere gebruikers niet verder af.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit activeert een van de loopback-test modes&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Geen&lt;/i&gt; - Loopback uitgeschakeld&lt;br /&gt;&lt;i&gt;Lokaal&lt;/i&gt; - Emuleer een lokale server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; -. Verzoek loopback van server.&lt;br /&gt;Graag opletten wanneer loopback ingeschakeld is, niemand anders hoort je dan spreken. Deze instelling gaat verloren als de applicatie wordt afgesloten.</translation>
     </message>
     <message>
         <location/>
@@ -1289,17 +1289,17 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit past het volume van inkomende spraak aan.&lt;/b&gt;&lt;br /&gt;Merk op dat als je dit voorbij 100% verhoogd, dat het geluid vervormd.</translation>
     </message>
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation>uitvoervertraging</translation>
+        <translation>Uitvoervertraging</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Hoeveelheid van data om te bufferen</translation>
+        <translation>Hoeveelheid gegevens om te bufferen</translation>
     </message>
     <message>
         <location/>
@@ -1634,12 +1634,12 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation>Signaal naar ruis ratio</translation>
+        <translation>Signaal-ruisverhouding</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Signaal naar ruis ratio van de microfoon</translation>
+        <translation>Signaal-ruisverhouding van de microfoon</translation>
     </message>
     <message>
         <location/>
@@ -2002,7 +2002,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation>Signaal naar ruis ratio</translation>
+        <translation>Signaal-ruisverhouding</translation>
     </message>
     <message>
         <location/>
@@ -2758,7 +2758,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation>Dempen/Doof</translation>
+        <translation>Dempen/Doven</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2798,7 +2798,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat toestemming om in een kanaal te spreken. Gebruikers zonder machtiging worden onderdrukt door de server (te zien als gedempt), en kunnen niet spreken totdat de demping wordt opgeheven door iemand met de juiste bevoegdheden.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2808,7 +2808,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat toestemming om andere gebruiker te dempen en te doven. Eenmaal gedempt, blijft een gebruiker gedempt totdat de demping wordt opgeheven door een bevoegde gebruiker of totdat de gebruiker opnieuw verbindt met de server.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2935,12 +2935,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation>Dempen (server)</translation>
+        <translation>Gedempt (server)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation>Doven (server)</translation>
+        <translation>Gedoofd (server)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2955,12 +2955,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>dempen (self)</translation>
+        <translation>Gedempt (zelf)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation>doven (self)</translation>
+        <translation>Gedoofd (zelf)</translation>
     </message>
 </context>
 <context>
@@ -3821,7 +3821,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"/>
+        <translation>Andere zelf-gedempt/gedoofd</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3861,22 +3861,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Je dempte jezelf</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User muted (you)</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker gedempt (jij)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker gedempt (door jou)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker gedempt (andere)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3891,17 +3891,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>Je hief je demping op</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>Je doofde jezelf</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>Je hief je doving op</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -4473,7 +4473,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Push-to-Mute</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Druk-om-te-dempen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4553,7 +4553,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Demp jezelf</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4565,13 +4565,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Dit wisselt je demping-status. Als je dit uitzet, gaat ook je doving uit.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Demp jezelf</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4583,7 +4583,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Dit wisselt je doving-status. Als je dit aanzet, doof je ook jezelf.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4962,12 +4962,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation type="unfinished"/>
+        <translation>Demping en doving opgeheven.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>Demping opgeheven.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4977,17 +4977,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>Dempen en doven.</translation>
+        <translation>Gedempt en gedoofd.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation>Doven.</translation>
+        <translation>Gedoofd.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Maak doven ongedaan</translation>
+        <translation>Doving opgeheven</translation>
     </message>
     <message>
         <location line="+93"/>
@@ -5168,7 +5168,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Demp</translation>
+        <translation>&amp;Dempen</translation>
     </message>
     <message>
         <location/>
@@ -5273,12 +5273,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation>Demp gebruiker</translation>
+        <translation>Gebruiker dempen</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Demp of ontdemp gebruiker op de server. Ontdempen van een dove gebruiker zal ook ontdooft worden.</translation>
+        <translation>Gebruiker op server dempen of demping opheffen. Opheffing van demping leidt ook tot opheffing van doving.</translation>
     </message>
     <message>
         <location/>
@@ -5293,22 +5293,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker doven</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker op server doven of doving opheffen. Doven leidt ook tot dempen.</translation>
     </message>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker lokaal dempen</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker lokaal dempen of demping opheffen. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -5365,32 +5365,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>&amp;demp zelf</translation>
+        <translation>Jezelf &amp;dempen</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation>Demp mezelf</translation>
+        <translation>Jezelf dempen</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation type="unfinished"/>
+        <translation>Demp jezelf of hef je demping op. Wanneer gedempt, verzend je geen gegevens naar de server. Opheffing van demping terwijl gedoofd leidt ook tot opheffing van doving.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished"/>
+        <translation>Jezelf &amp;doven</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation type="unfinished"/>
+        <translation>Jezelf doven</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation type="unfinished"/>
+        <translation>Doof jezelf of hef je doving op. Wanneer gedoofd, hoor je niets.  Jezelf doven leidt ook tot jezelf dempen.</translation>
     </message>
     <message>
         <location/>
@@ -5650,17 +5650,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
-        <translation>Je bent gedempt en gedooft %1.</translation>
+        <translation>Je dempte en doofde %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Je bent ontdempt en ontdooft %1.</translation>
+        <translation>Je hief de demping en doving van %1 op.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>jij maakte het doven ongedaan bij %1.</translation>
+        <translation>Je hief de doving van %1 op.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5670,17 +5670,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 gedempt en gedoofd door %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 hief de demping en doving van %1 op.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation> %2 hief de doving van %1 op.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5705,7 +5705,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>%1 is nu gedempt en gedoofd.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5796,12 +5796,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 is nu gedempt.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 is nu niet meer gedempt.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5876,17 +5876,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je demping en doving werden opgeheven door %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je wordt gedempt door %1.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je doving werd opgeheven door %1.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5979,12 +5979,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-504"/>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je wordt niet meer gedempt door %1.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je dempte %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5994,12 +5994,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Je hief de demping van %1 op.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 gedempt door %2.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6009,7 +6009,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 hief de demping van %1 op.</translation>
     </message>
     <message>
         <location line="+407"/>
@@ -6020,7 +6020,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-473"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Je werd gedempt en gedoofd door %1.</translation>
     </message>
     <message>
         <location line="+171"/>
@@ -7051,12 +7051,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>Dempen of gedooft</translation>
+        <translation>Gedempt of gedoofd</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation>Demp status</translation>
+        <translation>Demping-status</translation>
     </message>
     <message>
         <location/>
@@ -7543,7 +7543,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>Wisseltoets</translation>
+        <translation>Wissel</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7638,7 +7638,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>Wisseltoets</translation>
+        <translation>Wissel</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -8057,32 +8057,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"/>
+        <translation>Gedempt (handmatig gedempt door jezelf)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"/>
+        <translation>Gedempt (handmatig gedempt door admin)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"/>
+        <translation>Gedempt (niet toegestaan om te spreken in huidig kanaal)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"/>
+        <translation>Gedempt (gedempt door jou, slechts op jouw machine)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"/>
+        <translation>Gedoofd (door jezelf)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"/>
+        <translation>Gedoofd (door admin)</translation>
     </message>
     <message>
         <location line="+1"/>

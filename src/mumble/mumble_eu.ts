@@ -118,47 +118,47 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Taldeak</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>Taldea</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>Talde zerrenda</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>Ezabatu aukeratutako taldea</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Ezabatu</translation>
     </message>
     <message>
         <location/>
         <source>Inherit group members from parent</source>
-        <translation type="unfinished"/>
+        <translation>Taldeko kideak gurasotik heredatu</translation>
     </message>
     <message>
         <location/>
         <source>Inherit</source>
-        <translation type="unfinished"/>
+        <translation>Heredatu</translation>
     </message>
     <message>
         <location/>
         <source>Make group inheritable to sub-channels</source>
-        <translation type="unfinished"/>
+        <translation>Taldea azpi-kanalentzat heredagarria egin </translation>
     </message>
     <message>
         <location/>
         <source>Inheritable</source>
-        <translation type="unfinished"/>
+        <translation>Heredagarria</translation>
     </message>
     <message>
         <location/>
@@ -168,27 +168,27 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Inherited</source>
-        <translation type="unfinished"/>
+        <translation>Heredatua</translation>
     </message>
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>Kideak</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Gehitu</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>Taldera kidea gehitu</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>Kidea taldetik ezabatu</translation>
     </message>
     <message>
         <location/>
@@ -203,7 +203,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>List of entries</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera zerrenda</translation>
     </message>
     <message>
         <location/>
@@ -223,7 +223,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera igo</translation>
     </message>
     <message>
         <location/>
@@ -233,12 +233,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Up</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Gora</translation>
     </message>
     <message>
         <location/>
         <source>Move entry down</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera jeitsi</translation>
     </message>
     <message>
         <location/>
@@ -248,12 +248,12 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Down</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Behera</translation>
     </message>
     <message>
         <location/>
         <source>Add new entry</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera gehitu</translation>
     </message>
     <message>
         <location/>
@@ -263,22 +263,22 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Gehitu</translation>
     </message>
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera ezabatu</translation>
     </message>
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>Honek aukeratutako sarrerak ezabatzen ditu</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ezabatu</translation>
     </message>
     <message>
         <location/>
@@ -309,18 +309,19 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>Taldea gehitu</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Gehitu&lt;/b&gt;&lt;br/&gt;
+Talde berria gehitu.</translation>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Heredatutako jokalariak</translation>
     </message>
     <message>
         <location/>
@@ -340,22 +341,22 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Taldera gehitu nahi duzun erabiltzailearen izena idatzi, eta &apos;Gehitu&apos; botoia sakatu.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation type="unfinished"/>
+        <translation>Taldetik ezabatu nahi duzun erabiltzailearen izena idatzi, eta &apos;Ezabatu&apos; botoia sakatu.</translation>
     </message>
     <message>
         <location/>
         <source>Exclude</source>
-        <translation type="unfinished"/>
+        <translation>Baztertu</translation>
     </message>
     <message>
         <location/>
         <source>Excluded members</source>
-        <translation type="unfinished"/>
+        <translation>Baztertutako kideak</translation>
     </message>
     <message>
         <location/>
@@ -370,12 +371,12 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>Baimenak</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailea/Taldea</translation>
     </message>
     <message>
         <location/>
@@ -385,7 +386,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>User ID</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzaile ID</translation>
     </message>
     <message>
         <location/>
@@ -400,7 +401,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>&amp;Properties</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Propietateak</translation>
     </message>
     <message>
         <location/>
@@ -552,7 +553,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Gailua</translation>
     </message>
     <message>
         <location/>
@@ -577,7 +578,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Query</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kontsulta</translation>
     </message>
     <message>
         <location/>
@@ -592,7 +593,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ezarpenak</translation>
     </message>
     <message>
         <location/>
@@ -632,12 +633,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;-</source>
-        <translation type="unfinished"/>
+        <translation>&lt;-</translation>
     </message>
     <message>
         <location/>
         <source>-&gt;</source>
-        <translation type="unfinished"/>
+        <translation>-&gt;</translation>
     </message>
     <message>
         <location/>
@@ -683,7 +684,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Lizentzia</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -693,7 +694,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+2"/>
         <source>OK</source>
-        <translation type="unfinished"/>
+        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -706,17 +707,17 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Interfazea</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Sistema</translation>
     </message>
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audioaren sarrera mota</translation>
     </message>
     <message>
         <location/>
@@ -726,12 +727,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Gailua</translation>
     </message>
     <message>
         <location/>
         <source>Input device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audioaren sarrera gailua</translation>
     </message>
     <message>
         <location/>
@@ -746,7 +747,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Emititu</translation>
     </message>
     <message>
         <location/>
@@ -826,7 +827,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>Amplitudea</translation>
     </message>
     <message>
         <location/>
@@ -866,7 +867,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Quality</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kalitatea</translation>
     </message>
     <message>
         <location/>
@@ -1116,12 +1117,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>ixildu</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>ondoren</translation>
     </message>
 </context>
 <context>
@@ -1151,7 +1152,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-9"/>
@@ -1338,12 +1339,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Distantzia minimoa</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Distantzia maximoa</translation>
     </message>
     <message>
         <location/>
@@ -1353,7 +1354,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"/>
+        <translation>Bolumen minimoa</translation>
     </message>
     <message>
         <location/>
@@ -1434,7 +1435,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>besteek hitz egiten duten bitartean</translation>
     </message>
     <message>
         <location/>
@@ -1449,7 +1450,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"/>
+        <translation>zuk hitz egiten duzun bitartean</translation>
     </message>
     <message>
         <location/>
@@ -1502,7 +1503,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzaria</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -1514,7 +1515,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-16"/>
@@ -1523,13 +1524,13 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+31"/>
         <location line="+4"/>
         <source>%1 %</source>
-        <translation type="unfinished"/>
+        <translation>%1 %</translation>
     </message>
     <message>
         <location line="-16"/>
         <location line="+6"/>
         <source>%1 m</source>
-        <translation type="unfinished"/>
+        <translation>%1 m</translation>
     </message>
 </context>
 <context>
@@ -1537,12 +1538,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation type="unfinished"/>
+        <translation>Ahots fitxategia aukeratu</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation type="unfinished"/>
+        <translation>Ahots fitxategi baliogabea</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1556,12 +1557,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location filename="AudioStats.cpp" line="+388"/>
         <source>&gt;1000 ms</source>
         <oldsource>&gt;1000ms</oldsource>
-        <translation type="unfinished"/>
+        <translation>&gt;1000 ms</translation>
     </message>
     <message>
         <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Audio estatistikak</translation>
     </message>
     <message>
         <location/>
@@ -1750,7 +1751,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Finished</source>
-        <translation type="unfinished"/>
+        <translation>Amaituta</translation>
     </message>
     <message>
         <location/>
@@ -1790,7 +1791,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Gailua</translation>
     </message>
     <message>
         <location/>
@@ -2066,7 +2067,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.cpp" line="+309"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2235,7 +2236,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>Noren bila zabiltza?</translation>
     </message>
     <message>
         <location/>
@@ -2245,7 +2246,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP helbidea</translation>
     </message>
     <message>
         <location/>
@@ -2255,17 +2256,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>Zigorraren arrazoia</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>Arrazoirik ez</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>Zigorraren iraungintzea</translation>
     </message>
     <message>
         <location/>
@@ -2741,12 +2742,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Sartu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation type="unfinished"/>
+        <translation>Hitz egin</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2756,7 +2757,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanala sortu</translation>
     </message>
     <message>
         <location line="+2"/>
