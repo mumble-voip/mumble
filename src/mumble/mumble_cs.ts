@@ -4489,7 +4489,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location/>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Zobrazit režim přenosu v nástrojové liště</translation>
     </message>
 </context>
 <context>
@@ -4614,7 +4614,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <location line="-216"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
-        <translation>Zeslabit Se</translation>
+        <translation>Ztlumit se</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4644,7 +4644,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Toto nastaví nebo přepne Váš stav ohlušení. Pokud toto zapnete, zapnete tím i sebe-zeslabení.</translation>
+        <translation>Toto nastaví nebo přepne Váš stav ohlušení. Pokud toto zapnete, zapnete tím i sebe-ztlumení.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4866,17 +4866,17 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Průběžný</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Při aktivitě hlasu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Mluvení při stisku klávesy</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -4891,17 +4891,17 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+36"/>
         <source>Transmit Mode set to Continous</source>
-        <translation type="unfinished"/>
+        <translation>Režim přenosu přepnut na Průběžný</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Režim přenosu přepnut na Při aktivitě hlasu</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Režim přenosu přepnut na Mluvení při stisku klávesy</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -5033,12 +5033,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation>Zeslaben.</translation>
+        <translation>Ztlumen.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation>Zeslaben a ohlušen.</translation>
+        <translation>Ztlumen a ohlušen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6159,14 +6159,30 @@ Valid options are:
                 Suppress loading of identity files (i.e., certificates.)
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Použití: mumble [možnosti] [&lt;url&gt;]
+
+&lt;url&gt; určuje URL pro připojení po spuštění, aniž by bylo
+zobrazeno okno s připojeními, a má následující formát:
+mumble://[&lt;uživatelské jméno&gt;[:&lt;heslo&gt;]@]&lt;hostitel&gt;[:&lt;port&gt;][/&lt;kanál&gt;[/&lt;podkanál&gt;...]][?verze=&lt;x.y.z&gt;]
+
+Parametr pro dotaz na verzi musí být nastaven, aby mohla být
+vyvolána správná verze klienta. Výchozí hodnota je nyní 1.2.0.
+
+Platné možnosti jsou:
+-h, --help    Zobrazí tuto nápovědu a ukončí se.
+  -m, --multiple
+                Povolí spuštění více instancí klienta.
+  -n, --noidentity
+                Potlačí načtení souborů s identitou (např. certifikátů.)
+
+</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Vzdálené ovládání Mumble:</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6186,7 +6202,20 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Použití: mumble rpc &lt;činnost&gt; [možnosti]
+
+Je možné ovládat běžící instanci Mumble vzdáleně pomocí
+příkazu &apos;mumble rpc&apos;.
+
+Platné možnosti jsou:
+  mute
+                Ztlumit se
+  unmute
+                Zesílit se
+  deaf
+                Ohlušit se
+  undeaf
+                Zrušit své ohlušení</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -6196,12 +6225,12 @@ Valid actions are:
     <message>
         <location line="+15"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>Chyba: Nezadán příkaz RPC</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+207"/>

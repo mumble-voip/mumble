@@ -113,7 +113,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>kokapena</translation>
     </message>
     <message>
         <location/>
@@ -476,7 +476,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalaren ID-a</translation>
     </message>
     <message>
         <location/>
@@ -623,12 +623,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Channels</source>
-        <translation type="unfinished"/>
+        <translation>kanalak</translation>
     </message>
     <message>
         <location/>
         <source>Microphone</source>
-        <translation type="unfinished"/>
+        <translation>mikrofonoa</translation>
     </message>
     <message>
         <location/>
@@ -669,7 +669,8 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumbleri buruz.
+</translation>
     </message>
     <message>
         <location line="+30"/>
