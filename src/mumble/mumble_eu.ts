@@ -481,7 +481,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ChannelID</source>
-        <translation type="unfinished"/>
+        <translation>KanalID</translation>
     </message>
 </context>
 <context>
@@ -521,7 +521,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 -&gt; %2 lagindun buffer-a, %3 lagin bereizmenarekin (%4 nahiago) %5 Hz-tan</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -538,12 +538,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location/>
@@ -608,7 +608,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Buffer tamaina</translation>
     </message>
     <message>
         <location/>
@@ -618,7 +618,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Configure input channels</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera kanalak prestatu</translation>
     </message>
     <message>
         <location/>
@@ -680,7 +680,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-ri &amp;Buruz</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -723,7 +723,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>Hau da audioarentzat erabiltzeko sarrera metodoa.&lt;/b&gt;&lt;br /&gt;Ziurrenik DirectSound erabili nahi duzu.</translation>
     </message>
     <message>
         <location/>
@@ -738,7 +738,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Hau da audioarentzat erabiltzeko sarrera gailua.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -783,7 +783,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Berrezarri&lt;/b&gt;&lt;br/&gt;Berrezarri fitxategi bideak lehenetsietakoetara.</translation>
     </message>
     <message>
         <location/>
@@ -798,12 +798,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Itzali</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>Piztu</translation>
     </message>
     <message>
         <location/>
@@ -818,7 +818,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Zaratara Seinalea</translation>
     </message>
     <message>
         <location/>
@@ -878,7 +878,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Honek konprimitze kalitatea ezartzen du.&lt;/b&gt;&lt;br /&gt;Honek Mumble-ek zenbat banda zabalera erabiltzeko baimena duen zehazten du irteera audiorako.</translation>
     </message>
     <message>
         <location/>
@@ -893,7 +893,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Honek zenbat audio marko jarri behar diren pakete batean aukeratzen du.&lt;/b&gt;&lt;br /&gt;Hau handitzeak zure ahotsaren atzerapena handituko du, baina banda zabalera eskakizunak ere gutxituko ditu.</translation>
     </message>
     <message>
         <location/>
@@ -988,7 +988,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Erabili anplitudean oinarritutako hizketa detekzioa</translation>
     </message>
     <message>
         <location/>
@@ -1013,7 +1013,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"/>
+        <translation>B&amp;errezarri</translation>
     </message>
     <message>
         <location/>
@@ -1043,7 +1043,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"/>
+        <translation>Sakatu hitz egiteko leihoa erakutsi</translation>
     </message>
     <message>
         <location/>
@@ -1063,7 +1063,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation type="unfinished"/>
+        <translation>Audio seinalea</translation>
     </message>
     <message>
         <location/>
@@ -1093,7 +1093,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"/>
+        <translation>Gehienezko Anplifikazioa</translation>
     </message>
     <message>
         <location/>
@@ -1108,12 +1108,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>ezer ez</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>gortu</translation>
     </message>
     <message>
         <location/>
@@ -1131,22 +1131,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Etengabekoa</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Ahots Jarduera</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>Sakatu Hitz egiteko</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation type="unfinished"/>
+        <translation>Audio Sarrera</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -1165,7 +1165,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation type="unfinished"/>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -1175,7 +1175,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -1188,7 +1188,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location/>
@@ -1203,7 +1203,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Irteera metodoa audioarentzat</translation>
     </message>
     <message>
         <location/>
@@ -1219,12 +1219,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Audioarentzat irteera gailua</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Hau da audioarentzat erabiltzeko irteera gailua.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1234,7 +1234,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Audio Irteera</translation>
     </message>
     <message>
         <location/>
@@ -1279,7 +1279,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>Sarrerako hizketaren bolumena</translation>
     </message>
     <message>
         <location/>
@@ -1289,23 +1289,23 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation type="unfinished"/>
+        <translation>Irteera Atzerapena</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Buffer-ean gordetzeko datu kantitatea</translation>
     </message>
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Konektatutako &quot;bozgorailuak&quot; egia esan, aurikularrak dira</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation type="unfinished"/>
+        <translation>Soinu bolumena jaisteko faktorea</translation>
     </message>
     <message>
         <location/>
@@ -1315,12 +1315,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation type="unfinished"/>
+        <translation>Soinu bolumena igotzeko faktorea</translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation type="unfinished"/>
+        <translation>Zenbat igo beharko litzateke soinu bolumena oso hurbil dauden iturrientzat?</translation>
     </message>
     <message>
         <location/>
@@ -1335,7 +1335,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"/>
+        <translation>Aurikularrak</translation>
     </message>
     <message>
         <location/>
@@ -1370,12 +1370,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Delay Variance</source>
-        <translation type="unfinished"/>
+        <translation>Atzerapen Diferentzia</translation>
     </message>
     <message>
         <location/>
         <source>Variance in packet latency</source>
-        <translation type="unfinished"/>
+        <translation>Diferentzia pakete latentzian</translation>
     </message>
     <message>
         <location/>
@@ -1386,7 +1386,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation type="unfinished"/>
+        <translation>Pakete Galera</translation>
     </message>
     <message>
         <location/>
@@ -1456,7 +1456,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation type="unfinished"/>
+        <translation>Modu esklusiboa, ez gomendatua.</translation>
     </message>
     <message>
         <location/>
@@ -1466,12 +1466,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Esklusiboa</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Lehentasun Bozgorailua</translation>
     </message>
     <message>
         <location/>
@@ -1494,12 +1494,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+137"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Bat ere ez</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation type="unfinished"/>
+        <translation>Lokala</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1509,7 +1509,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+6"/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Audio Irteera</translation>
     </message>
     <message>
         <location line="+108"/>
@@ -1549,7 +1549,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-k ezin du %1 fitxategia erabili. Mesedez, aukeratu formatu eta kodeketa bateragarria duen fitxategi bat.</translation>
     </message>
 </context>
 <context>
@@ -1568,7 +1568,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input Levels</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera Mailak</translation>
     </message>
     <message>
         <location/>
@@ -1629,12 +1629,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Seinalea-Zaratara ratioa</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"/>
+        <translation>Seinalea-Zaratara ratioa mikrofonotik</translation>
     </message>
     <message>
         <location/>
@@ -1644,12 +1644,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation type="unfinished"/>
+        <translation>Hizketa Probabilitatea</translation>
     </message>
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation type="unfinished"/>
+        <translation>Hizketaren probabilitatea</translation>
     </message>
     <message>
         <location/>
@@ -1664,7 +1664,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"/>
+        <translation>Oraingo audio bitrate-a</translation>
     </message>
     <message>
         <location/>
@@ -1684,7 +1684,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation type="unfinished"/>
+        <translation>Hizketa Detekzioa</translation>
     </message>
     <message>
         <location/>
@@ -1714,7 +1714,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Oihartzun Analisia</translation>
     </message>
     <message>
         <location/>
@@ -1742,12 +1742,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Introduction</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera</translation>
     </message>
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>Ongi etorri Mumble Audio Laguntzailera</translation>
     </message>
     <message>
         <location/>
@@ -1757,12 +1757,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Gozatu Mumble erabiltzen</translation>
     </message>
     <message>
         <location/>
         <source>Device selection</source>
-        <translation type="unfinished"/>
+        <translation>Gailu aukeraketa</translation>
     </message>
     <message>
         <location/>
@@ -1782,7 +1782,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera metodoa audioarentzat</translation>
     </message>
     <message>
         <location/>

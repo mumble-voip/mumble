@@ -1554,7 +1554,7 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Het bestand &apos;%1&apos; kan niet door Mumble gebruikt worden. Graag een bestand selecteren met een compatibel formaat en codering.</translation>
+        <translation>Het bestand &apos;%1&apos; kan niet door Mumble gebruikt worden. Graag een bestand met een bruikbare indeling en codering selecteren.</translation>
     </message>
 </context>
 <context>
@@ -2006,7 +2006,7 @@ Mumble is continue in ontwikkeling en het ontwikkelteam wil zich richten op func
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Praat nu zachtjes, zoals je zou doen wanneer je &apos;s avonds laat praat en niemand wilt storen. Pas de schuifbalk hieronder aan zodat de balk in het groene beweegt wanneer je praat, en blauw blijft als je stil blijft.</translation>
+        <translation>Praat nu zachtjes, zoals je zou doen wanneer je &apos;s avonds laat praat en niemand wilt storen. Pas de onderstaande schuifbalk aan zodat de balk in het groene beweegt wanneer je praat, en blauw blijft als je stil blijft.</translation>
     </message>
     <message>
         <location/>
@@ -2137,12 +2137,12 @@ Mumble is continue in ontwikkeling en het ontwikkelteam wil zich richten op func
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Enkele hoog contrast optimalisaties voor visueel gehandicapte gebruikers toepassen</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>Gebruik grafisch hoog contrast</translation>
     </message>
     <message>
         <location/>
@@ -2167,39 +2167,38 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Zorg ervoor dat de microfoon als actieve ingang is geselecteerd met een maximaal opnamevolume. Als er een functie is om &apos;Microfoonversterking&quot; in te stellen, bevestig dat die functie is geactiveerd.
+Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Zorg ervoor dat de microfoon als actieve invoer is geselecteerd met een maximaal opnamevolume. Als er een functie is om &apos;Microfoonversterking&quot; in te stellen, bevestig dat het geactiveerd is.
 &lt;/p&gt;
 &lt;p&gt;
-Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het volume van het geluidsconfiguratiescherm totdat de balk hieronder zo hoog mogelijk in het gestreepte en de lege blijft, maar &lt;b&gt;niet&lt;/b&gt; het kriskras doorkruiste gebied terwijl je spreekt.
-&lt;/p&gt;
-</translation>
+Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het volume van het geluidsconfiguratiescherm totdat de onderstaande balk zo hoog mogelijk in het lege en gestreepte blijft, en &lt;b&gt;niet&lt;/b&gt; in het kriskras doorkruiste gebied komt terwijl je spreekt.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Praat nu zachtjes, zoals je zou doen wanneer je &apos;s avonds laat praat en niemand wilt storen. Pas de onderstaande schuifbalk aan zodat de balk in de lege zone beweegt wanneer je praat, en in het gestreepte blijft als je stil blijft.</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation type="unfinished"/>
+        <translation>Vervolgens moet je de volgende schuiven aanpassen. De eerste paar uitingen die je zegt moeten eindigen in het lege gebied (vastgestelde spraak). Tijdens het praten, moet je in het gestreepte (mogelijke spraak) blijven en als je niet praat, moet alles in het kriskras doorkruiste (nooit spraak) blijven.</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>In deze configuratie gebruikt Mumble een &lt;b&gt;lage hoeveelheid bandbreedte&lt;/b&gt;. Dit leidt onvermijdelijk tot een hoge latentie en slechte kwaliteit. Kies dit alleen als je verbinding niet kan omgaan met de andere instellingen. (16kbit/s, 60ms per pakket)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Dit is de &lt;b&gt;aanbevolen standaard&lt;/b&gt; configuratie. Het voorziet in een goede balans tussen kwaliteit, latentie en bandbreedtegebruik. (40kbit/s, 20ms per pakket)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Deze configuratie wordt alleen aanbevolen voor gebruik wanneer bandbreedte geen probleem is, zoals in een lokaal netwerk. Het biedt de laagste door Mumble ondersteunde latentie en &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72kbit/s, 10ms per pakket)</translation>
     </message>
 </context>
 <context>
@@ -2207,7 +2206,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Bewerk Bans</translation>
+        <translation>Mumble - Bans Bewerken</translation>
     </message>
     <message>
         <location/>
@@ -2217,7 +2216,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>&amp;Mask</source>
-        <translation>&amp;Mask</translation>
+        <translation>&amp;Masker</translation>
     </message>
     <message>
         <location/>
@@ -2247,22 +2246,22 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation>&amp;Toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation>&amp;Update</translation>
+        <translation>&amp;Bijwerken</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Verwijder</translation>
+        <translation>&amp;Verwijderen</translation>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation>Ban Lijst</translation>
+        <translation>Banlijst</translation>
     </message>
     <message>
         <location/>
@@ -2272,7 +2271,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation>Dit is een zoekveld. gebruik dit om te kijken of iemand ergens verbannen is door zijn gebruikersnaam in het gebruikersnaam veld neer te zetten.</translation>
+        <translation>Dit is een zoekveld. Gebruik het om bans te vinden van de gebruikersnaam neergezet in het gebruikersnaam veld.</translation>
     </message>
     <message>
         <location/>
@@ -2287,12 +2286,12 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>IP address</source>
-        <translation>IP Adres</translation>
+        <translation>IP-Adres</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation>Geen IP Adres</translation>
+        <translation>Geen IP-Adres</translation>
     </message>
     <message>
         <location/>
@@ -2312,62 +2311,62 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation>Ban einddatum. als je zowel dezelfde datum invult bij start en de eind, dan is die ban voor altijd. (het verloopt niet) </translation>
+        <translation>Ban einddatum. Als je dezelfde datum bij start en de eind invult, dan is de ban permanent (het verloopt niet).</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation>Certificaat hash</translation>
+        <translation>Certificaathash</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation>Geen certificaat hash</translation>
+        <translation>Geen certificaathash</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation>Gebande gebruikers</translation>
+        <translation>Verbannen gebruikers</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation>Dit is lijst met de gebande gebruikers.</translation>
+        <translation>Dit is een lijst met verbannen gebruikers.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Gebruik deze knop als je iemand wilt toevoegen aan de ban lijst.</translation>
+        <translation>Gebruik deze knop als je een nieuwe ban wilt toevoegen.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Gebruik deze knop als je de ban informatie wilt updaten.</translation>
+        <translation>Gebruik deze knop als je ban-informatie wilt bijwerken.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation>Gebruik deze knop als je een gebruiker wilt verwijderen van de ban lijst.</translation>
+        <translation>Gebruik deze knop als je een gebruiker van de banlijst wilt verwijderen.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation>Maak alle velden schoon</translation>
+        <translation>Alle velden wissen</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Deze knop maakt alle velden schoon. Gebruik dit als je iemand opnieuw wilt bannen. </translation>
+        <translation>Deze knop wist alle velden. Gebruik het als je een nieuwe ban wilt toevoegen.</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation>Maak Leeg</translation>
+        <translation>Wissen</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Ban Lijst - %n Ban</numerusform><numerusform>Ban Lijst - %n Ban(s)</numerusform></translation>
+        <translation><numerusform>Banlijst - %n Ban</numerusform><numerusform>Banlijst - %n Ban(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2385,7 +2384,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation>verlener</translation>
+        <translation>Uitdeler</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2395,12 +2394,12 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation>(niets)</translation>
+        <translation>(geen)</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation>Zelf-gesigneerd</translation>
+        <translation>Zelfondertekend</translation>
     </message>
 </context>
 <context>
@@ -2418,47 +2417,47 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Jouw certificaat en sleutel konden niet geëxporteerd worden naar het PKCS#12 formaat. Er kan een fout in het certificaat zitten.</translation>
+        <translation>Jouw certificaat en sleutel konden niet worden geëxporteerd naar een PKCS#12 bestand. Er kan een fout in het certificaat zitten.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Dit bestand kon niet geopend worden om te kunnen bewerken. Gebruik een ander bestand.</translation>
+        <translation>Het bestand kon niet voor bewerking geopend worden. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>De bestandsrechten konden niet gezet worden. Geen certificaat en sleutel konden werden weggeschreven. Graag een ander bestand gebruiken.</translation>
+        <translation>De bestandsrechten konden niet gezet worden. Geen certificaat of sleutel is weggeschreven. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>Het bestand kon niet succesvol worden weggeschreven. Gebruik een ander bestand.</translation>
+        <translation>Het bestand werd niet succesvol weggeschreven. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>Dit bestand kon niet geopend worden om het te bekijken. Gebruik een ander bestand.</translation>
+        <translation>Het bestand kon niet gelezen worden. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>Dit bestand is leeg of kon niet gelezen worden. Gebruik een ander bestand.</translation>
+        <translation>Het bestand is leeg of kon niet gelezen worden. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Dit bestand bevatte niet een gevalideerde certificaat en sleutel. Gebruik een ander bestand.</translation>
+        <translation>Het bestand bevat geen gevalideerd certificaat en sleutel. Graag een ander bestand gebruiken.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation>Selecteer het bestand om het certificaat te exporteren naar</translation>
+        <translation>Selecteer bestand om het certificaat naar te exporteren</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation>Selecteer het bestand om het certificaat te importen van</translation>
+        <translation>Selecteer bestand om het certificaat van te importen</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -2468,7 +2467,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location filename="main.cpp" line="+478"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Cerificaat Verloop:&lt;/b&gt;Jouw certificaat is gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer met servers waarop je geregistreerd bent verbinden.</translation>
+        <translation>&lt;b&gt;Cerificaat Geldigheid:&lt;/b&gt;Jouw certificaat gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer verbinden met servers waarop je geregistreerd bent.</translation>
     </message>
 </context>
 <context>
@@ -2481,72 +2480,72 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Certificaat Authenticatie</translation>
+        <translation>Certificaatauthenticatie</translation>
     </message>
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Authenticeren bij servers zonder wachtwoordgebruik</translation>
+        <translation>Authenticeren zonder wachtwoord bij servers</translation>
     </message>
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation>Huidige certificaat</translation>
+        <translation>Huidig certificaat</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Dit is het certificaat dat Mumble nu gebruikt.</translation>
+        <translation>Dit is het certificaat momenteel door Mumble in gebruik.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Huidige Certificaat</translation>
+        <translation>Huidig Certificaat</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>Maak een nieuw certificaat</translation>
+        <translation>Een nieuw certificaat maken</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Dit zorgt ervoor dat je een nieuw certificaat kunt aanmaken.</translation>
+        <translation>Dit maakt een nieuw certificaat.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>importeer certificaat van bestand</translation>
+        <translation>Certificaat uit bestand importeren</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Dit importeert de certificaat van een bestand</translation>
+        <translation>Dit importeert een certificaat uit een bestand</translation>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation>Importeer een certificaat</translation>
+        <translation>Een certificaat importeren</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Exporteer Certificaat</translation>
+        <translation>Certificaat Exporteren</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Dit exporteert de certificaat naar een bestand</translation>
+        <translation>Dit exporteert het certificaat naar een bestand</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation>Exporteer huidige certificaat</translation>
+        <translation>Huidig certificaat exporteren</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Importeer Certificaat</translation>
+        <translation>Certificaat Importeren</translation>
     </message>
     <message>
         <location/>
@@ -2557,32 +2556,32 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble kan certificaten opgeslagen in PKCS #12 indeling importeren. Dit is de indeling die gebruikt wordt bij het exporteren van een sleutel uit Mumble, en ook bij het exporteren sleutels uit Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;Als het bestand met een wachtwoord beveiligd is, dan heb je die nodig om het certificaat te importeren.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Import from</source>
-        <translation>Importeer vanuit</translation>
+        <translation>Importeren vanuit</translation>
     </message>
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Bestandsnaam om te importeren vanuit</translation>
+        <translation>Bestandsnaam om vanuit te importeren</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>Dit is het bestandsnaam die hebt opgegeven om het certificaat te importeren vanuit.</translation>
+        <translation>Dit is de bestandsnaam vanuit waar je het certificaat wilt importeren.</translation>
     </message>
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>Selecteer een bestand om te importeren vanuit</translation>
+        <translation>Een bestand om vanuit te importeren selecteren</translation>
     </message>
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>Dit opent een bestandsselectievenster om een te importeren certificaatbestand te kiezen.</translation>
+        <translation>Dit opent een bestandsselectievenster vanwaaruit een certificaatbestand gekozen kan worden om te importeren.</translation>
     </message>
     <message>
         <location/>
@@ -2597,12 +2596,12 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation>Wachtwoord voor PKCS#12 bestand</translation>
+        <translation>Wachtwoord voor PKCS#12-bestand</translation>
     </message>
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is het wachtwoord voor het PKCS#12-bestand dat je certificaat bevat.</translation>
     </message>
     <message>
         <location/>
@@ -2612,22 +2611,22 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is het certificaat wat je importeert.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation>Certificaat Details.</translation>
+        <translation>Certificaatdetails</translation>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation>Vervang Certificaat</translation>
+        <translation>Certificaat vervangen</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"/>
+        <translation>Bestaand certificaat met nieuw certificaat vervangen?</translation>
     </message>
     <message>
         <location/>
@@ -2640,10 +2639,10 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Je hebt al een certificaat opgeslagen in Mumble, en je staat op het punt om het te vervangen.&lt;/p&gt;
-&lt;p&gt;Als je upgradet naar een afgegeven certificaat door een vertrouwde certificaatautoriteit waarop de e-mailadressen overeenkomen met je huidige certificaat, dan is dit volkomen veilig, en servers waarmee je verbindt herkennen automatisch het sterke certificaat aan je e-mailadres.
+        <translation>&lt;p&gt;Je hebt al een certificaat in Mumble opgeslagen, en je staat op het punt om het te vervangen.&lt;/p&gt;
+&lt;p&gt;Als je upgradet naar een certificaat afgegeven door een vertrouwde certificaatautoriteit waarop de e-mailadressen overeenkomen met je huidige certificaat, dan is dit volkomen veilig, en servers waarmee je verbindt herkennen automatisch het sterke certificaat aan je e-mailadres.
 &lt;/p&gt;
-&lt;p&gt;Als dit niet het geval is, wordt je niet langer erkend alle servers waar je niet eerder op hebt geauthenticeerd. Als je op geen enkele server geregistreerd was, dan is er niets om je druk over te maken.
+&lt;p&gt;Als dit niet het geval is, wordt je niet langer herkend door alle servers waar je eerder op hebt geauthenticeerd. Als je op geen enkele server geregistreerd was, dan is er niets om je druk over te maken.
 &lt;/p&gt;
 &lt;p&gt;
 Weet je zeker dat je jouw certificaat wenst te vervangen? 
@@ -2653,7 +2652,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is het certificaat momenteel door Mumble in gebruik. Het wordt vervangen.</translation>
     </message>
     <message>
         <location/>
@@ -2663,12 +2662,12 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is het nieuwe certificaat dat het oude vervangt.</translation>
     </message>
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation>Nieuw Certificaat</translation>
+        <translation>Nieuw certificaat</translation>
     </message>
     <message>
         <location/>
@@ -2678,37 +2677,37 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Export to</source>
-        <translation>Exporteer naar</translation>
+        <translation>Exporteren naar</translation>
     </message>
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation type="unfinished"/>
+        <translation>Bestandsnaam om naar te exporteren</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is de bestandsnaam waarnaar je een certificaat wilt exporteren.</translation>
     </message>
     <message>
         <location/>
         <source>Save As...</source>
-        <translation>Opslaan Als...</translation>
+        <translation>Opslaan als...</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is het certificaat momenteel door Mumble in gebruik. Het wordt geëxporteerd.</translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Een nieuwe certificaat voor sterke authenticatie genereren.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>e-mailadres</translation>
+        <translation>&lt;p&gt;Mumble gaat nu een sterk certificaat voor authenticatie tot servers genereren.&lt;/p&gt;&lt;p&gt;Als je wilt, kun je wat extra informatie opgeven om in het certificaat op te slaan, wat wordt voorgelegd aan servers als je verbindt. Als je een geldig e-mailadres opgeeft, kun je op een later moment upgraden naar een door een certificaatautoriteit uitgegeven e-certificaat, welke sterke identificatie biedt. &lt;/ P&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2723,12 +2722,12 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation>Jouw e-mail adres (bijv. johndoe@mumble.info)</translation>
+        <translation>Jouw e-mailadres (bijv. johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Dit is jouw e-mailadres. Het is sterk aanbevolen om een geldig e-mailadres op  te geven, omdat dit je toestaat om te upgraden naar een sterk certificaat zonder authenticatieproblemen.</translation>
+        <translation>Dit is jouw e-mailadres. Het is sterk aanbevolen om een geldig e-mailadres op te geven, omdat dit upgraden naar een sterk certificaat zonder authenticatieproblemen voor je mogelijk maakt.</translation>
     </message>
     <message>
         <location/>
@@ -2738,12 +2737,12 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is jouw naam, en wordt op het certificaat ingevuld. Dit veld is volledig optioneel.</translation>
     </message>
     <message>
         <location/>
         <source>Finish</source>
-        <translation>voltooien</translation>
+        <translation>Voltooien</translation>
     </message>
     <message>
         <location/>
@@ -2758,7 +2757,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation>Automatische certificaat creëren</translation>
+        <translation>Automatische certificaatcreatie</translation>
     </message>
     <message>
         <location/>
@@ -4809,7 +4808,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation>Bestandsformaat van afbeelding wordt niet herkend.</translation>
+        <translation>Bestandsindeling van afbeelding wordt niet herkend.</translation>
     </message>
     <message>
         <location line="-1779"/>
@@ -8426,7 +8425,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Output format</source>
-        <translation>Uitvoerformaat</translation>
+        <translation>Uitvoerindeling</translation>
     </message>
     <message>
         <location/>
