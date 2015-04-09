@@ -2766,13 +2766,18 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble kan certificaten voor verificatie met servers gebruiken. Certificaatgebruik vermijdt wachtwoorden, wat betekent dat je geen wachtwoord hoef af te geven. Het maakt het ook gebruikersregistratie heel makkelijk.&lt;/p&gt;&lt;p&gt;Alhoewel Mumble ook werkt zonder certificaten, vereist de meerderheid van de servers dat je er een hebt.&lt;/p&gt;
+&lt;p&gt;
+Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;een vertrouwd certificaat maakt&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Als je ooit je huidige certificaat verliest, wat gebeurt als je computeropslag faalt of of jouw machine opnieuw installeert, kan je niet langer authenticeren op servers waarop je geregistreerd bent.. Het is daarom &lt;b&gt;verplicht&lt;/b&gt; dat je een back-up van je certificaat maakt. Wij raden je sterk aan om deze back-up op een verwisselbaar opslagmedium op te slaan, zoals een USB-stick.&lt;/p&gt;
+&lt;p&gt;Merk op dat dit bestand niet wordt versleuteld, en als er toe toegang krijgt, kunnen ze doen alsof ze jou zijn, dus denk hier goed over na.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2780,22 +2785,22 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation>Niets</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation>Traverse</translation>
+        <translation>Doorkruisen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation>Enter</translation>
+        <translation>Toetreden</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation>Spreek</translation>
+        <translation>Spreken</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2805,107 +2810,107 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation>Maak kanaal</translation>
+        <translation>Kanaal maken</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation>Maak tijdelijk</translation>
+        <translation>Tijdelijk maken</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation>Link kanaal</translation>
+        <translation>Kanaal koppelen</translation>
     </message>
     <message>
         <location line="-87"/>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Dit houdt geen machtigingen in.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat volledige toegang tot het kanaal, inclusief de mogelijkheid om de groep en ACL informatie te wijzigen. Deze machtiging impliceert alle andere machtigingen.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om het kanaal te doorkruisen. Als een gebruiker deze bevoegdheid wordt geweigerd, kan hij geen wijze toegang krijgen tot dit kanaal én eventuele sub-kanalen, onafhankelijk van andere bevoegdheden in de sub-kanalen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is de bevoegheid om het kanaal binnen te komen. Als je een hiërarchische kanaalstructuur hebt, wil je waarschijnlijk iedereen Doorkruisen geven, maar Toetreden beperken stam van je hiërarchie.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Dit omvat toestemming om in een kanaal te spreken. Gebruikers zonder machtiging worden onderdrukt door de server (te zien als gedempt), en kunnen niet spreken totdat de demping wordt opgeheven door iemand met de juiste bevoegdheden.</translation>
+        <translation>Dit omvat de machtiging om in een kanaal te spreken. Gebruikers zonder bevoegdheid worden onderdrukt door de server (te zien als gedempt), en kunnen niet spreken totdat de demping wordt opgeheven door iemand met de juiste bevoegdheden.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om te fluisteren naar dit kanaal van buitenaf. Dit werkt precies zoals als de &lt;i&gt;spreken&lt;/a&gt; bevoegdheid, maar geldt voor pakketten gesproken met de Fluisteren-toets ingedrukt. Dit kan worden gebruikt om naar een hiërarchie van kanalen zonder koppeling te zenden.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Dit omvat toestemming om andere gebruiker te dempen en te doven. Eenmaal gedempt, blijft een gebruiker gedempt totdat de demping wordt opgeheven door een bevoegde gebruiker of totdat de gebruiker opnieuw verbindt met de server.</translation>
+        <translation>Dit omvat de machtiging om andere gebruikers te dempen en doven. Eenmaal gedempt, blijft een gebruiker gedempt totdat de demping wordt opgeheven door een andere bevoegde gebruiker of totdat de gebruiker opnieuw verbindt met de server.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om een gebruiker naar een ander kanaal verplaatsen of hem uit de server te gooien. Om daadwerkelijk de gebruiker te verplaatsen, ofwel de verplaatsende gebruiker moet Verplaatsen bevoegdheid hebben in het bestemmingskanaal, of de gebruiker moet normaal worden toegestaan om het kanaal toe te treden. Gebruikers met deze bevoegdheid kunnen gebruikers verplaatsen naar kanalen waarin de beoogde gebruiker normaliter geen toestemming heeft om toe te treden.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om sub-kanalen te maken. De gebruiker die het sub-kanaal maakt wordt toegevoegd aan de admin groep van het sub-kanaal.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om een tijdelijk sub-kanalen te maken. De gebruiker die het sub-kanaal maakt wordt toegevoegd aan de admin groep van het sub-kanaal. Tijdelijke kanalen worden niet opgeslagen en verdwijnen wanneer de laatste gebruiker verlaat.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation type="unfinished"/>
+        <translation>Dit is omvat de machtiging om kanalen te koppelen. Gebruikers in gekoppelde kanalen horen elkaar, zolang de sprekende gebruiker de &lt;i&gt;spreken&lt;/i&gt; bevoegdheid in het kanaal van de luisteraar heeft. Je moet de koppelen-bevoegdheid in beide kanalen hebben om een koppeling te maken, maar slechts in een enkel kanaal om het te verwijderen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om tekstberichten naar andere gebruikers in dit kanaal te schrijven.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om gebruikers forcerend van de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om gebruikers permanent van de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de machtiging om gebruikers op de server te registreren en de registraties van de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Dit omvat de toestemming dat iemand zichzelf op de server kan registeren.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation>Fluister</translation>
+        <translation>Fluisteren</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation>Beweeg</translation>
+        <translation>Verplaatsen</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2915,27 +2920,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation>Schop</translation>
+        <translation>Eruit gooien</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation>Verban</translation>
+        <translation>Verbannen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation>Registreer Gebruiker</translation>
+        <translation>Gebruiker registreren</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation>Registreer Jezelf</translation>
+        <translation>Jezelf registeren</translation>
     </message>
     <message>
         <location line="-28"/>
         <source>Write ACL</source>
-        <translation type="unfinished"/>
+        <translation>ACL schrijven</translation>
     </message>
 </context>
 <context>
@@ -2944,12 +2949,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation>Plak en &amp;Verzend</translation>
+        <translation>Plakken en &amp;Verzenden</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Schrijf chatbericht hier&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -2967,12 +2972,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation>Prioriteit van de spreker</translation>
+        <translation>Prioriteitsspreker</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation>Opnemen</translation>
+        <translation>Aan het opnemen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3218,7 +3223,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation>kopieer favoriete link naar klembord</translation>
+        <translation>Favoriete koppeling naar klembord kopiëren</translation>
     </message>
     <message>
         <location/>
@@ -3715,22 +3720,22 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"/>
+        <translation>Schreeuw naar gekoppelde kanalen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Schreeuw naar subkanalen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation type="unfinished"/>
+        <translation>Schreeuw naar kanaal</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>Het gefluister wordt ook verzonden naar gekoppelde kanalen.</translation>
     </message>
     <message>
         <location/>
@@ -3970,27 +3975,27 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>koppel aan %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"/>
+        <translation>ftp koppeling naar %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"/>
+        <translation>speler koppeling</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"/>
+        <translation>kanaal koppeling</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"/>
+        <translation>%1 koppeling</translation>
     </message>
 </context>
 <context>
@@ -4515,7 +4520,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Plugin ontkoppelen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4637,7 +4642,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"/>
+        <translation>Fluisteren/Schreeuwen</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4842,7 +4847,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+19"/>
         <source>Link Channel</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Kanaal koppelen</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5286,12 +5291,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Link</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Koppeling</translation>
     </message>
     <message>
         <location/>
         <source>Link your channel to another channel</source>
-        <translation type="unfinished"/>
+        <translation>Je kanaal aan een ander kanaal koppelen</translation>
     </message>
     <message>
         <location/>
@@ -5367,33 +5372,33 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dit koppelt je huidige kanaal aan het geselecteerde kanaal. Als gebruikers in een kanaal bevoegd zijn om in het andere kanaal te spreken, kunnen gebruikers elkaar daardoor horen. Dit is een permanente koppeling, en blijft tot handmatig ontkoppeld of de server opnieuw wordt opgestart. Voor druk-om-te-koppelen graag de snelkoppelingen bekijken.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished"/>
+        <translation>&amp;Ontkoppelen</translation>
     </message>
     <message>
         <location/>
         <source>Unlink your channel from another channel</source>
-        <translation type="unfinished"/>
+        <translation>Je kanaal van een ander kanaal ontkoppelen</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation type="unfinished"/>
+        <translation>Dit ontkoppeld je huidige kanaal uit het geselecteerde kanaal.</translation>
     </message>
     <message>
         <location/>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>Je kanaal van alle gekoppelde kanalen ontkoppelen.</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>Dit ontkoppelt je huidige kanaal (niet de geselecteerde) van alle gekoppelde kanalen.</translation>
     </message>
     <message>
         <location/>
@@ -5468,12 +5473,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"/>
+        <translation>Plugin forcerend ontkoppelen</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"/>
+        <translation>Dit forceert ontkoppeling van de huidige plugin, wat handig is als het volledig verkeerde gegevens leest.</translation>
     </message>
     <message>
         <location/>
@@ -5774,12 +5779,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+36"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>Je werd %1 toestemming geweigerd in %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 werd %1 toestemming geweigerd in %2.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6221,7 +6226,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"/>
+        <translation>Alles &amp;ontkoppelen</translation>
     </message>
     <message>
         <location/>
@@ -6281,7 +6286,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"/>
+        <translation>Plugins &amp;ontkoppelen</translation>
     </message>
     <message>
         <location/>
@@ -6341,7 +6346,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>Kopieert een koppeling naar dit kanaal naar het klembord.</translation>
     </message>
     <message>
         <location/>
@@ -6691,7 +6696,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation>Schreeuw</translation>
+        <translation>Schreeuwen</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -6730,7 +6735,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation>alle in het sub kanaal</translation>
+        <translation>???</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7024,7 +7029,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Gebruiker is aan het praten in jouw kanaal of in een gelinkt kanaal</translation>
+        <translation>Gebruiker praat in je kanaal of in een gekoppeld kanaal</translation>
     </message>
     <message>
         <location/>
@@ -7044,7 +7049,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation>Een gebruiker is aan het schreeuwen in jouw kanaal</translation>
+        <translation>Gebruiker schreeuwt naar je kanaal</translation>
     </message>
     <message>
         <location/>
@@ -7283,7 +7288,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"/>
+        <translation>Aan spel koppelen en positie zenden</translation>
     </message>
     <message>
         <location/>
@@ -7461,7 +7466,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation>voeg link toe</translation>
+        <translation>Koppeling invoegen</translation>
     </message>
     <message>
         <location/>
@@ -7479,7 +7484,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>voeg link toe</translation>
+        <translation>Koppeling toevoegen</translation>
     </message>
     <message>
         <location/>
@@ -8055,7 +8060,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Schreeuw rechtstreeks naar je kanaal</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8080,12 +8085,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"/>
+        <translation>Een kanaal dat is gekoppeld aan je kanaal. Gekoppelde kanalen kunnen met elkaar praten.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"/>
+        <translation>Een kanaal op de server waaraan je niet bent gekoppeld.</translation>
     </message>
     <message>
         <location line="+17"/>
