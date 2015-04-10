@@ -2992,7 +2992,7 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation>Lokaal Negeren (Tekstberichtjes)</translation>
+        <translation>Lokaal negeren (Tekstberichten)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3015,58 +3015,58 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation>Accepteer veranderingen</translation>
+        <translation>Wijzigingen accepteren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation type="unfinished"/>
+        <translation>Deze knop slaat de huidige instellingen op en keert daarna terug naar de applicatie. &lt;br /&gt;De instellingen worden toegepast zodra je de applicatie verlaat.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation>Weiger veranderingen</translation>
+        <translation>Veranderingen weigeren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation type="unfinished"/>
+        <translation>Deze knop weigert alle wijzigingen en keert daarna terug naar de applicatie.&lt;br /&gt;De instellingen worden naar het oude teruggezet.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Pas veranderingen toe</translation>
+        <translation>Wijzigingen opslaan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"/>
+        <translation>Deze knop past alle wijzigingen meteen toe.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"/>
+        <translation>Wijzigingen voor huidige pagina ongedaan maken.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"/>
+        <translation>Deze knop maakt eventuele wijzigingen op de huidige pagina ongedaan en zet de laatst toegepaste instellingen terug.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation type="unfinished"/>
+        <translation>Herstel naar standaardwaarden op huidige pagina </translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Deze knop herstelt de huidige pagina naar standaardwaarden. Andere pagina&apos;s worden niet gewijzigd.&lt;br /&gt;Om alle instellingen naar standaardwaarden te herstellen, moet je deze knop op elke pagina gebruiken.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation>Mumble Instellingen</translation>
+        <translation>Mumble configuratie</translation>
     </message>
     <message>
         <location/>
@@ -3085,7 +3085,7 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
         <location line="-545"/>
         <location line="+545"/>
         <source>Enter username</source>
-        <translation>Typ hier je gebruikersnaam</translation>
+        <translation>Typ gebruikersnaam</translation>
     </message>
     <message>
         <location line="-545"/>
@@ -3101,12 +3101,12 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation>hostnaam</translation>
+        <translation>Hostnaam</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation>Bonjour naam</translation>
+        <translation>Bonjour-naam</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3157,7 +3157,7 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location line="+299"/>
         <source>&amp;Connect</source>
-        <translation>&amp;Verbind</translation>
+        <translation>&amp;Verbinden</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -3178,7 +3178,7 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location line="+1051"/>
         <source>Failed to fetch server list</source>
-        <translation>gefaald om de serverlijst op te halen</translation>
+        <translation>Serverlijst ophalen mislukt</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3193,32 +3193,32 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation>Verwijder uit Favorieten</translation>
+        <translation>Uit Favorieten verwijderen</translation>
     </message>
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation>Voeg aangepaste server toe</translation>
+        <translation>Aangepaste server toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation>Laat alle servers zien dat reageren op ping</translation>
+        <translation>Toon alle servers die op ping reageren</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation>Laat alle servers zien met gebruikers</translation>
+        <translation>Toon alle servers met gebruikers</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation>Laat alle servers zien</translation>
+        <translation>Toon alle servers</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Copy</source>
-        <translation>&amp;Kopieer</translation>
+        <translation>&amp;Kopiëren</translation>
     </message>
     <message>
         <location/>
@@ -3228,49 +3228,49 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation>&amp;Plak</translation>
+        <translation>&amp;Plakken</translation>
     </message>
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation>Plak favoriet vanuit klembord</translation>
+        <translation>Favoriete uit klembord plakken</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-745"/>
         <source>&amp;Edit...</source>
-        <translation>&amp;bewerk...</translation>
+        <translation>&amp;Bewerken...</translation>
     </message>
     <message>
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation>&amp;voeg toe</translation>
+        <translation>&amp;Toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation>voeg toe &amp; favorieten</translation>
+        <translation>Aan &amp;favorieten toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation>Open &amp;Webpagina</translation>
+        <translation>&amp;Webpagina openen</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation>laat zien &amp;bereikbaar</translation>
+        <translation>&amp;Bereikbaren tonen</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation>laat zien &amp;gebruikers</translation>
+        <translation>&amp;Gebruikers tonen</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation>Laat zien &amp;Alles</translation>
+        <translation>&amp;Alles tonen</translation>
     </message>
 </context>
 <context>
@@ -3278,7 +3278,7 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation>Bewerk Server</translation>
+        <translation>Server bewerken</translation>
     </message>
     <message>
         <location/>
@@ -3288,13 +3288,13 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation>A&amp;dres</translation>
+        <translation>&amp;Adres</translation>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>Internet adres van de server.</translation>
+        <translation>Internetadres van de server.</translation>
     </message>
     <message>
         <location/>
@@ -3302,7 +3302,8 @@ Het is &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;
+Internetadres van de server. Dit kan een normale hostname, een IPv4/IPv6-adres of een Bonjour-service-ID zijn. Bonjour-service-ID&apos;s moeten beginnen met een &apos;@&apos; om door Mumble te worden herkend.</translation>
     </message>
     <message>
         <location/>
@@ -3312,14 +3313,14 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation>Welke poort openstaat van de server die daarop luistert.</translation>
+        <translation>Poort waarnaar de server luistert.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
-        <translation>&lt;b&gt;Poort&lt;/b&gt;&lt;br/&gt;
-De poort die openstaat van de server die daarop luistert. Als de server geïdentificeerd is via de bonjour service dan wordt dit genegeerd.</translation>
+        <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
+Poort waarnaar de server luistert. Als de server door een Bonjour-service-id wordt geïdentificeerd telt dit veld niet mee.</translation>
     </message>
     <message>
         <location/>
@@ -3329,14 +3330,14 @@ De poort die openstaat van de server die daarop luistert. Als de server geïdent
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Gebruikersnaam wordt verzonden naar de server</translation>
+        <translation>Gebruikersnaam om naar de server te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Gebruikersnaam&lt;/b&gt;&lt;br/&gt;
-Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen kan opleggen over hoe een gebruikersnaam eruit zou kunnen zien. Je gebruikersnaam kan ook al bezet zijn door een andere gebruiker.</translation>
+Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen op kan leggen over hoe een gebruikersnaam eruit zou kunnen zien. Je gebruikersnaam kan ook al vergeven zijn door een andere gebruiker.</translation>
     </message>
     <message>
         <location/>
@@ -3346,7 +3347,7 @@ Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen 
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation>Voeg server toe</translation>
+        <translation>Server toevoegen</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3356,18 +3357,19 @@ Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen 
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation>Wachtwoord wordt verzonden naar de server</translation>
+        <translation>Wachtwoord om naar de server te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Wachtwoord&lt;/b&gt;&lt;br/&gt;
+Wachtwoord om naar de server te verzenden bij verbinden. Dit wachtwoord is nodig bij verbinden als &lt;i&gt;SuperUser&lt;/in&gt; of naar een server die wachtwoord vereist. Als hier niet het wachtwoord invoert wordt dan zal er om worden gevraagd tijdens verbinden.</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation>Laat het wachtwoord zien</translation>
+        <translation>Wachtwoord tonen</translation>
     </message>
     <message>
         <location/>
@@ -3393,12 +3395,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Jouw gebruikersnaam</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Jouw wachtwoord</translation>
     </message>
 </context>
 <context>
@@ -3414,12 +3416,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"/>
+        <translation>Mumble crashrapportage</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;&lt;b&gt; Het spijt ons vreselijk, maar blijkbaar is Mumble gecrasht. Wilt u een crashrapportage met de Mumble ontwikkelaars delen?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;De crashrapportage bevat een gedeeltelijke kopie van het Mumble&apos;s geheugen op het moment van de crash, en helpt de ontwikkelaars om het probleem op te lossen. &lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3430,53 +3432,53 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Graag in het kort beschrijven, in het Engels, wat je deed op het moment van de crash</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation>Rapport verzenden</translation>
+        <translation>Rapportage verzenden</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation>Geen rapport verzenden</translation>
+        <translation>Geen rapportage verzenden</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Crash upload successful</source>
-        <translation type="unfinished"/>
+        <translation>Crash uploaden succesvol</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"/>
+        <translation>Dank je voor Mumble beter te maken!</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation type="unfinished"/>
+        <translation>Crash uploaden mislukt</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation type="unfinished"/>
+        <translation>We het spijt ons zeer, maar blijkbaar is het mislukt om de crash te uploaden door fout %1 %2. Graag een ontwikkelaar informeren.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation type="unfinished"/>
+        <translation>Dit is niet grappig meer, maar blijkbaar zit er een bug in de crash-meldcode, en we slaagden niet om de rapportage te uploaden. Je mag een ontwikkelaar over fout %1 informeren.</translation>
     </message>
     <message>
         <location line="+102"/>
         <source>Uploading crash report</source>
-        <translation type="unfinished"/>
+        <translation>Crashrapporage aan het uploaden</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation type="unfinished"/>
+        <translation>Uploaden afbreken</translation>
     </message>
 </context>
 <context>
@@ -3484,12 +3486,12 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation>Standaard DirectSound Spraakinvoer</translation>
+        <translation>Standaard DirectSound spraakinvoer</translation>
     </message>
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation>Openen gekozen DIrectSound-invoerapparaat mislukt. Geen microfoonopname zal plaatsvinden.</translation>
+        <translation>Openen gekozen DIrectSound-invoerapparaat mislukt. Geen microfoonopname vindt plaats.</translation>
     </message>
     <message>
         <location line="-83"/>
@@ -3507,7 +3509,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
-        <translation>Standaard DirectSound Spraakuitvoer.</translation>
+        <translation>Standaard DirectSound spraakuitvoer.</translation>
     </message>
     <message>
         <location line="+243"/>
@@ -3522,7 +3524,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+4"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation>Openen gekozen DirectSound-uitvoer mislukt. Geen geluid kan worden gehoord.</translation>
+        <translation>Gekozen DirectSound-uitvoer openen mislukt. Geen geluid kan worden gehoord.</translation>
     </message>
 </context>
 <context>
@@ -3531,13 +3533,13 @@ Label of the server. This is what the server will be named like in your server l
         <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation type="unfinished"/>
+        <translation>Een database initialiseren op enige mogelijke locatie is door Mumble mislukt.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation type="unfinished"/>
+        <translation>De database &apos;%1&apos; is alleen-lezen. Mumble kan geen serverinstellingen (bijv. SSL-certificaten) opslaan, totdat je dit probleem oplost.</translation>
     </message>
 </context>
 <context>
@@ -3553,72 +3555,72 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Snelkoppelingen</translation>
     </message>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Lijst van geconfigureerde sneltoetsen</translation>
     </message>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished"/>
+        <translation>Functie</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"/>
+        <translation>Gegevens</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Sneltoets</translation>
     </message>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation type="unfinished"/>
+        <translation>Ondrukken</translation>
     </message>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Nieuwe sneltoets toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Dit voegt een nieuwe globale sneltoets toe</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation>&amp;Voeg toe</translation>
+        <translation>&amp;Toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Geselecteerde sneltoets verwijderen</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Dit verwijderd een geselecteerde sneltoets permanent.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Verwijderen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan momenteel alleen van muisknoppen en speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) gebruikmaken voor de globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Als je meer flexibiliteit wil, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in het Toegankelijkheidscentrum van het systeem instellen. Merk echter op dat deze verandering ook potentieel schadelijke programma&apos;s mogelijk maakt om te lezen wat er getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Open Accessibility Preferences</source>
-        <translation type="unfinished"/>
+        <translation>Toegankelijkheidscentrum openen</translation>
     </message>
     <message>
         <location/>
@@ -3628,7 +3630,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Globale sneltoetsen gebruiken</translation>
     </message>
 </context>
 <context>
@@ -3636,28 +3638,28 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Sneltoetsen</translation>
     </message>
     <message>
         <location line="+52"/>
         <source>Shortcut button combination.</source>
-        <translation type="unfinished"/>
+        <translation>Sneltoets-combinatie.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de globale sneltoets combinatie.&lt;/b&gt;&lt;br /&gt;Klik op dit veld en druk vervolgens op de gewenste toets/knop-combi om te binden. Dubbelklik om te wissen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Suppress keys from other applications</source>
-        <translation type="unfinished"/>
+        <translation>Toetsen van andere applicaties onderdrukken.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit verbergt de knop-indrukkingen van andere toepassingen.&lt;/b&gt;&lt;br /&gt;Dit gebruiken verbergt de toets (of de laatste toets van een meerdere-knoppen-combi) van andere applicaties. Merk op dat niet alle knoppen onderdrukt kunnen worden.</translation>
     </message>
 </context>
 <context>
@@ -3665,42 +3667,42 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"/>
+        <translation>Fluister doel</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"/>
+        <translation>Fluister naar lijst van gebruikers</translation>
     </message>
     <message>
         <location/>
         <source>Channel Target</source>
-        <translation type="unfinished"/>
+        <translation>Doelkanaal</translation>
     </message>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation type="unfinished"/>
+        <translation>Tot groep beperken</translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation type="unfinished"/>
+        <translation>Indien gespecificeerd, kunnen alleen leden van deze groep het gefluister ontvangen.</translation>
     </message>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished"/>
+        <translation>Lijst van gebruikers</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation>Voeg toe</translation>
+        <translation>Toevoegen</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation>Verwijder</translation>
+        <translation>Verwijderen</translation>
     </message>
     <message>
         <location/>
@@ -3710,12 +3712,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Verzend geen positionele geluidsinformatie bij fluistertoetsgebruik.</translation>
     </message>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Positioneel geluid negeren</translation>
     </message>
     <message>
         <location/>
@@ -3740,7 +3742,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation type="unfinished"/>
+        <translation>Het gefluister wordt ook verzonden naar de subkanalen van het doelkanaal.</translation>
     </message>
 </context>
 <context>
@@ -3748,7 +3750,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="+344"/>
         <source>Mouse %1</source>
-        <translation type="unfinished"/>
+        <translation>Muis %1</translation>
     </message>
 </context>
 <context>
@@ -3756,7 +3758,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="+282"/>
         <source>Not connected</source>
-        <translation type="unfinished"/>
+        <translation>Niet verbonden</translation>
     </message>
 </context>
 <context>
@@ -3764,27 +3766,27 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation type="unfinished"/>
+        <translation>Dit apparaat activeren</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>LCD</source>
-        <translation type="unfinished"/>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Vorm</translation>
     </message>
     <message>
         <location/>
         <source>Devices</source>
-        <translation type="unfinished"/>
+        <translation>Apparaten</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Naam</translation>
     </message>
     <message>
         <location/>
@@ -3804,12 +3806,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Formaat</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>Aan</translation>
     </message>
     <message>
         <location/>
@@ -3819,24 +3821,26 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"/>
+        <translation>Minimale kolombreedte</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Deze optie bepaalt de minimale breedte van een kolom vanuit het Gebruikersperspectief.&lt;/p&gt;
+&lt;p&gt;Als er te veel mensen tegelijk spreken, splitst de gebruikerslijst in kolommen. Je kunt deze optie gebruiken om een compromis te vinden tussen het tonen van een aantal gebruikers op het LCD-scherm, en de breedte van gebruikersnamen.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"/>
+        <translation>Deze instelling bepaalt de breedte bij kolomsplitsing.</translation>
     </message>
     <message>
         <location/>
         <source>Splitter Width</source>
-        <translation type="unfinished"/>
+        <translation>Splitsbreedte</translation>
     </message>
 </context>
 <context>
@@ -3844,32 +3848,32 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location filename="Log.cpp" line="+225"/>
         <source>Debug</source>
-        <translation type="unfinished"/>
+        <translation>Debug</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation type="unfinished"/>
+        <translation>Kritiek</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>Waarschuwing</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>Informatie</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="unfinished"/>
+        <translation>Server verbonden</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Server ontbonden</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3879,37 +3883,37 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Toegang geweigerd</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Text Message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstbericht</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker kwam in server</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker verliet server</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"/>
+        <translation>Gebruikers&apos; opnamestatus veranderde</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker eruit gegooid (jij of door jou)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker eruit gegooid</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3934,12 +3938,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker kwam in kanaal</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker verliet kanaal</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3959,18 +3963,19 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+58"/>
         <source>the server</source>
-        <translation type="unfinished"/>
+        <translation>de server</translation>
     </message>
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Tekstobject te groot om te laten zien ]]</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"/>
+        <translation>[Datum naar %1 veranderd]
+</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -4003,17 +4008,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-471"/>
         <source>Toggle console for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Toon console bij %1 gebeurtenissen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Toon venstermeldingen voor %1 gebeurtenissen.</translation>
+        <translation>Toon venstermeldingen bij %1 gebeurtenissen.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation type="unfinished"/>
+        <translation>Toon Text-Naar-Spraak bij %1 gebeurtenissen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4045,7 +4050,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Klik hier voor Tekst-naar-Spraak bij %1 gebeurtenissen.&lt;br /&gt;Indien aangevinkt, gebruikt Mumble Tekst-naar-Spraak om %1 gebeurtenissen hardop voor te lezen. Tekst-naar-Spraak kan ook de inhoud van de gebeurtenis lezen, in tegenstelling tot geluidsbestanden. Tekst-naar-Spraak en geluidsbestanden kunnen niet tegelijk gebruikt worden.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4076,7 +4081,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Tekst-naar-Spraak</translation>
     </message>
     <message>
         <location/>
@@ -4091,7 +4096,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Text To Speech</source>
-        <translation type="unfinished"/>
+        <translation>Tekst naar Spraak</translation>
     </message>
     <message>
         <location/>
@@ -4101,77 +4106,77 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"/>
+        <translation>Volume van Tekst-naar-Spraak-engine</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is het volume voor de spraaksynthese.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation type="unfinished"/>
+        <translation>Drempellengte</translation>
     </message>
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation type="unfinished"/>
+        <translation>Berichtlengtedrempel voor Tekst-naar-Spraak-engine</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit is de drempellengte voor de Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Berichten langer dan deze limiet worden niet voluit hardop voorgelezen.</translation>
     </message>
     <message>
         <location/>
         <source> Characters</source>
-        <translation type="unfinished"/>
+        <translation>Karakters</translation>
     </message>
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Fluisteren</translation>
     </message>
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation type="unfinished"/>
+        <translation>Indien aangevinkt hoor je alleen gefluister van gebruikers die je aan hun vriendenlijst hebben toegevoegd.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation type="unfinished"/>
+        <translation>Louter gefluister van vrienden accepteren.</translation>
     </message>
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation type="unfinished"/>
+        <translation>Indien geactiveerd worden tekstberichten die je verzendt terug aan je voorgelezen met TNS.</translation>
     </message>
     <message>
         <location/>
         <source>Read back own messages</source>
-        <translation type="unfinished"/>
+        <translation>Eigen berichten terug voorlezen</translation>
     </message>
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"/>
+        <translation>Chatgeschiedenis</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"/>
+        <translation>Maximale chatlengte</translation>
     </message>
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"/>
+        <translation>Ongelimiteerd</translation>
     </message>
     <message>
         <location/>
         <source> Lines</source>
-        <translation type="unfinished"/>
+        <translation>Lijnen</translation>
     </message>
 </context>
 <context>
@@ -4180,22 +4185,22 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location filename="LookConfig.cpp" line="+55"/>
         <location line="+23"/>
         <source>System default</source>
-        <translation type="unfinished"/>
+        <translation>Standaardinstelling</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Geen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Only with users</source>
-        <translation type="unfinished"/>
+        <translation>Slechts met gebruikers</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Alle</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4210,7 +4215,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation>Bewegen</translation>
+        <translation>Verplaatsen</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4220,42 +4225,42 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+159"/>
         <source>Choose skin file</source>
-        <translation type="unfinished"/>
+        <translation>Themabestand kiezen</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation type="unfinished"/>
+        <translation>Dit bepaalt welke kanalen automatisch uit moeten uit- en samenvouwen. &lt;I&gt;Géén&lt;/i&gt; en &lt;i&gt;Alle&lt;/i&gt; vouwt geen of all kanalen uit, terwijl de &lt;i&gt;Slechts met gebruikers&lt;/i&gt; kanalen uit- en samenvouwt als gebruikers ze toetreden en verlaten.</translation>
     </message>
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation type="unfinished"/>
+        <translation>Toon gebruikers bóven subkanalen (vereist herstart).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Indien ingesteld, worden gebruikers boven subkanalen in de kanaalweergave getoond. &lt;/b&gt;&lt;br /&gt;Een herstart van Mumble is nodig om verandering te zien.</translation>
     </message>
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation type="unfinished"/>
+        <translation>Gebruikers boven kanalen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Indien ingesteld, wordt om bevestiging gevraagd als je wil stoppen indien verbonden.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"/>
+        <translation>Toon aantal gebruikers per kanaal</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished"/>
+        <translation>Toon gebruikerstelling per kanaal</translation>
     </message>
     <message>
         <location/>
@@ -4265,22 +4270,22 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>Te gebruiken taal (vereist herstart)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt; Dit stelt in welke taal Mumble moet gebruiken.&lt;/b&gt;&lt;br /&gt;Je moet Mumble herstarten voor de nieuwe taal.</translation>
     </message>
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation type="unfinished"/>
+        <translation>Sfeer en uiterlijk</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation>Layout</translation>
+        <translation>Lay-out</translation>
     </message>
     <message>
         <location/>
@@ -4305,33 +4310,33 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation type="unfinished"/>
+        <translation>Dit verandert het gedrag tijdens het verplaatsen van kanalen.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Dit stelt het gedrag van kanaal slepen in; het kan worden gebruikt om onbedoeld slepen te voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt; verplaatst het kanaal zonder te vragen. &lt;i&gt;Niets doen &lt;/i&gt; doet niets uit en toont een foutmelding. &lt;i&gt;Vragen&lt;/i&gt; gebruikt een berichtvenster om te bevestigen of je daadwerkelijk het kanaal wilt verplaatsen.</translation>
     </message>
     <message>
         <location/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Stijl</translation>
     </message>
     <message>
         <location/>
         <source>Basic widget style</source>
-        <translation type="unfinished"/>
+        <translation>Standaard widget-stijl</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dit stelt het standaard sfeer en uiterlijk in.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Skin</source>
-        <translation type="unfinished"/>
+        <translation>Thema</translation>
     </message>
     <message>
         <location/>
@@ -4346,12 +4351,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Uitvouwen</translation>
     </message>
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"/>
+        <translation>Wanneer automatisch kanalen uitvouwen</translation>
     </message>
     <message>
         <location/>
@@ -4471,7 +4476,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation type="unfinished"/>
+        <translation>Gebruik geselecteerd item als de doel in de chatbalk.</translation>
     </message>
     <message>
         <location/>
@@ -4538,19 +4543,19 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+4"/>
         <source>Toggle Overlay</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Overlay tonen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle state of in-game overlay.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>In-game overlay tonen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Minimale modus</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5146,7 +5151,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Log</source>
-        <translation>Log</translation>
+        <translation>Geschiedenis</translation>
     </message>
     <message>
         <location/>
@@ -5448,12 +5453,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Tekst-naar-Spraak</translation>
     </message>
     <message>
         <location/>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Text-naar-Spraak gebruiken</translation>
     </message>
     <message>
         <location/>
@@ -5693,12 +5698,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation>pin minimale venster modus</translation>
+        <translation>Minimaal venster modus wisselen</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"/>
+        <translation>Dit wisselt minimale modus, waar het geschiedenisvenster en menu zijn verborgen.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+318"/>
@@ -6012,7 +6017,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>De server verzoekt activering van positioneel geluid.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6022,7 +6027,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation>De server verzoekt om Druk-om-te-Praten in te stellen.</translation>
+        <translation>De server verzoekt activering van Druk-om-te-Praten.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6211,12 +6216,12 @@ Valid actions are:
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"/>
+        <translation>Toon frame op minimaal venster</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"/>
+        <translation>Dit wisselt of een minimaal venster een frame moet hebben voor verplaatsen en resizen.</translation>
     </message>
     <message>
         <location/>
@@ -6386,7 +6391,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Gebruik het kanaalfilter (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6598,7 +6603,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>Voorkomen dat geschiedenis afbeeldingen downloadt</translation>
     </message>
     <message>
         <location/>
@@ -7069,7 +7074,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation>Ingeschakelde Elementen</translation>
+        <translation>Geactiveerde Elementen</translation>
     </message>
     <message>
         <location/>
@@ -7343,7 +7348,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enabled</source>
-        <translation>ingeschakeld</translation>
+        <translation>Geactiveerd</translation>
     </message>
 </context>
 <context>
@@ -7596,7 +7601,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>Wissel</translation>
+        <translation>Wisselen</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7691,7 +7696,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>Wissel</translation>
+        <translation>Wisselen</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -8170,7 +8175,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>Kanaal wordt verborgen wanneer gefilterd wordt</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -8435,7 +8440,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"/>
+        <translation>Doelmap</translation>
     </message>
     <message>
         <location/>
@@ -8511,7 +8516,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location line="+26"/>
         <source>Select target directory</source>
-        <translation type="unfinished"/>
+        <translation>Doelmap selecteren</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
