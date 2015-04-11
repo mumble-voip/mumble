@@ -45,7 +45,7 @@
     <message>
         <location line="+37"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Honek %1 pribilegioa ematen du. Pribilegio bat aldi berean onartua eta ukatua baldin bada, ukatua izango da.&lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -55,7 +55,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Honek %1 pribilegioa ezeztatzen du. Pribilegio bat aldi berean onartua eta ukatua baldin bada, ukatua izango da.&lt;br /&gt; %2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -100,7 +100,7 @@
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Kanalaren kokapen zerbitzuaren balioa</translation>
     </message>
     <message>
         <location/>
@@ -108,7 +108,8 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Kokapena&lt;/b&gt;&lt;br/&gt;
+Balio honek Mumblek zuhaitzean zehar kanalak antolatzeko duen modua aldatzeko gaitzen zaitu. &lt;i&gt;Kokapen&lt;/i&gt; handiagoa duen kanal bat balio txikiagoa duen beste baten aurretik kokatua egongo da beti eta baita alderantziz. Bi kanalen &lt;i&gt;Kokapen&lt;/i&gt; balioa berdina denean hauen izenen arabera alfabetikoki ordenatuak izango dira.</translation>
     </message>
     <message>
         <location/>
@@ -1967,7 +1968,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofonoaren hardware bolumena egokitzen ezarpen ezin hobeak edukitzeko.</translation>
     </message>
     <message>
         <location/>
@@ -2008,7 +2009,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Device tuning</source>
-        <translation type="unfinished"/>
+        <translation>Gailu sintonia</translation>
     </message>
     <message>
         <location/>
@@ -2093,7 +2094,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"/>
+        <translation>Dagoeneko, kalitate konfigurazio pertsonalizatua ezarri duzu Mumblen. Hautatu ezarpena hau, mantentzeko.</translation>
     </message>
     <message>
         <location/>
@@ -2345,7 +2346,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation type="unfinished"/>
+        <translation>Igorle</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2522,7 +2523,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import from</source>
-        <translation type="unfinished"/>
+        <translation>Inportatu -tik</translation>
     </message>
     <message>
         <location/>
@@ -2630,7 +2631,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Export to</source>
-        <translation type="unfinished"/>
+        <translation>Esprtatu -ra</translation>
     </message>
     <message>
         <location/>
@@ -2675,7 +2676,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"/>
+        <translation>Zure post elektronikoa (Adb. johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -2738,7 +2739,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation type="unfinished"/>
+        <translation>Zeharkatu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2868,7 +2869,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation type="unfinished"/>
+        <translation>Ostikatu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2930,7 +2931,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"/>
+        <translation>Isilik (zerbitzaria)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2950,7 +2951,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"/>
+        <translation>Isilik (niretzat)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3370,7 +3371,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"/>
+        <translation>Post elektronikoa (aukerazkoa)</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3524,7 +3525,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Suppress</source>
-        <translation type="unfinished"/>
+        <translation>Zigortu</translation>
     </message>
     <message>
         <location/>
