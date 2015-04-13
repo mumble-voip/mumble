@@ -1670,7 +1670,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation type="unfinished"/>
+        <translation>Azken frame-aren bitrate-a</translation>
     </message>
     <message>
         <location/>
@@ -1700,12 +1700,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"/>
+        <translation>Seinalea eta zarataren espektru energetikoa</translation>
     </message>
     <message>
         <location/>
         <source>Power spectrum of input signal and noise estimate</source>
-        <translation type="unfinished"/>
+        <translation>Sarrerako seinalearen eta estimatutako zarataren espektru energetikoa</translation>
     </message>
     <message>
         <location/>
@@ -1720,7 +1720,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Weights of the echo canceller</source>
-        <translation type="unfinished"/>
+        <translation>Oihartzun indargabetzailearen pisuak</translation>
     </message>
     <message>
         <location/>
@@ -1738,7 +1738,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Audio Tuning Wizard</source>
-        <translation type="unfinished"/>
+        <translation>Audioa doitzeko laguntzailea</translation>
     </message>
     <message>
         <location/>
@@ -1773,7 +1773,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation type="unfinished"/>
+        <translation>Zure mikrofonoa gailu honetara dago konektatua.</translation>
     </message>
     <message>
         <location/>
@@ -1813,7 +1813,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Oihartzun indargabetzailea erabili</translation>
     </message>
     <message>
         <location/>
@@ -1823,7 +1823,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>Zure bozgorailu edo aurikularrak gailu honetara daude konektatuak.</translation>
     </message>
     <message>
         <location/>
@@ -2686,7 +2686,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation>Zure izena (adib. Jon Doe)</translation>
+        <translation>Zure izena (adib. Pernando Amezketarra)</translation>
     </message>
     <message>
         <location/>
