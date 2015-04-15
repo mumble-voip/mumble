@@ -164,7 +164,7 @@ Balio honek Mumblek zuhaitzean zehar kanalak antolatzeko duen modua aldatzeko ga
     <message>
         <location/>
         <source>Group was inherited from parent channel</source>
-        <translation type="unfinished"/>
+        <translation>Talde hau kanal nagusi batetik heredatua izan da</translation>
     </message>
     <message>
         <location/>
@@ -397,7 +397,7 @@ Talde berria gehitu.</translation>
     <message>
         <location/>
         <source>This controls which user this entry applies to. Just type in the user name and hit enter to query the server for a match.</source>
-        <translation type="unfinished"/>
+        <translation>Honek zein erabiltzaileri ezartzen zaion sarrera hau kontrolatzen du. Erabiltzaile izena idatzi besterik ez duzu zerbitzariari bat etortzerik dagoen galdetzeko.</translation>
     </message>
     <message>
         <location/>
@@ -407,24 +407,26 @@ Talde berria gehitu.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Name&lt;/b&gt;&lt;br /&gt;Enter the channel name in this field. The name has to comply with the restriction imposed by the server you are connected to.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Izena&lt;/b&gt;&lt;br /&gt;Sartu kanalaren izena eremu honetan. Izenak konektatuta zauden zerbitzariak ezarritako murrizketak bete behar ditu.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Behin behinekoa&lt;/b&gt;&lt;br /&gt;
+Aukeratutakoan sortutako kanala behin behineko bezala markatua izango da. Honek esan nahi du azken jokalariak kanala uztean, hau automatikoki ezabatua izango dela zerbitzariagatik.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Group&lt;/b&gt;&lt;br /&gt;
 These are all the groups currently defined for the channel. To create a new group, just type in the name and press enter.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Taldea&lt;/b&gt;&lt;br /&gt;
+Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko izena idatzi eta enter sakatu besterik ez duzu.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Remove&lt;/b&gt;&lt;br /&gt;This removes the currently selected group. If the group was inherited, it will not be removed from the list, but all local information about the group will be cleared.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ezabatu&lt;/b&gt;&lt;br /&gt;Honek uneko aukeratutako taldea ezabatzen du. Taldea heredatua bada, ez da ezabatua izango zerrendatik baina taldeari buruzko informazio lokal guztia garbitua izango da.</translation>
     </message>
     <message>
         <location/>
@@ -1392,7 +1394,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Pakete galera loopback modurako</translation>
     </message>
     <message>
         <location/>
@@ -1402,7 +1404,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Loopback</translation>
     </message>
     <message>
         <location/>
@@ -1625,7 +1627,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation type="unfinished"/>
+        <translation>Honek zure oraingo sarrera bolumena balio egokienetik zein gertu dagoen erakusten du. Zure mikrofonoaren maila doitzeko, zabaldu  grabaketa bolumena doitzeko erabiltzen duzun programa eta begiratu hemengo balioa hitz egiten duzun biartean.&lt;br /&gt;&lt;b&gt;Hitz egin altu, hasiberri batek zirikatuko balizu bezala.&lt;/b&gt;&lt;br /&gt;Doitu bolumena balio hau %100-etik ahalik eta gertuen utziz, baina pasatu gabe. Pasatuz gero, ziurrenik mozketak izango dituzu zure hizketaldien zati batzuetan eta honek soinu kalitatea gutxituko du.</translation>
     </message>
     <message>
         <location/>
@@ -1680,7 +1682,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"/>
+        <translation>Azken bi Sakatu-hitz-egiteko sakaketen arteko denbora.</translation>
     </message>
     <message>
         <location/>
@@ -1768,7 +1770,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-rekin erabiltzeko sarrera eta irteera gailuak aukeratzen. </translation>
     </message>
     <message>
         <location/>
@@ -1788,7 +1790,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Hau da audioarentzat erabiltzeko sarrera metodoa.&lt;/b&gt;&lt;br /&gt;Ziurrenik DirectSound erabili nahi duzu.</translation>
     </message>
     <message>
         <location/>
@@ -1833,7 +1835,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;This is the Output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Hau da audioarentzat erabiltzeko Irteera metodoa.&lt;/b&gt;&lt;br /&gt;Ziurrenik DirectSound erabili nahi duzu.</translation>
     </message>
     <message>
         <location/>
@@ -1843,7 +1845,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Zein soinu txartel erabili Irteera audioarentzat aukeratzen du.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1854,7 +1856,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Soinuaren posizionamendua baimentzen du</translation>
     </message>
     <message>
         <location/>
@@ -1921,7 +1923,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"/>
+        <translation>Audio posizionalaren ahultzea doitzen.</translation>
     </message>
     <message>
         <location/>
@@ -1958,7 +1960,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation type="unfinished"/>
+        <translation>Honek ez dio kasurik egiten SE-ren bozgorailu konfigurazioari eta honen ordez aurikularrentza posizionamendua konfiguratzen du.</translation>
     </message>
     <message>
         <location/>
@@ -1973,7 +1975,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Orain hitz egin suabe, gauez hitz egingo bazenu bezala, inor gogaitu nahi gabe. Beheko graduatzailea doitu, hitz egiten duzunean barra berde egon dadin, baina isilik zaudenean urdin egon dadila.</translation>
     </message>
     <message>
         <location/>
@@ -1983,17 +1985,17 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-i uzten pentsatzen ea hitz egiten ari zaren edo isilik zauden.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"/>
+        <translation>Honek Mumble lagunduko du noiz ari  zaren hitz egiten jakiten. Lehen pausua zein datu balio erabili aukeratzea da.</translation>
     </message>
     <message>
         <location/>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"/>
+        <translation>Anplitude gordina sarreratik</translation>
     </message>
     <message>
         <location/>
@@ -2019,7 +2021,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Estatistika anonimoak bidali Mumble proiektura</translation>
     </message>
     <message>
         <location/>
