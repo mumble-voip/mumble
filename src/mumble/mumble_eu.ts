@@ -7301,12 +7301,12 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Eguneratutako edo berria den gehigarria deskargatuta %1 -era.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1-era gehigarri berria instalatzean errorea.</translation>
     </message>
     <message>
         <location line="-286"/>
@@ -7540,7 +7540,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>Aktibatu</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7653,7 +7653,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>Ezarriz gero mezua errekurtsiboki azpikanal guztietara bidaltzen da</translation>
     </message>
     <message>
         <location/>
@@ -7671,12 +7671,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Sarrera Tokenak</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>Oraingo zerbitzariko sarrera tokenen zerrenda</translation>
     </message>
     <message>
         <location/>
@@ -7759,7 +7759,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Erregistratutako erabiltzaileak: %n kontu</numerusform><numerusform>Erregistratutako erabiltzaileak: %n kontu</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7782,7 +7782,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>SE</translation>
     </message>
     <message>
         <location/>
@@ -7797,7 +7797,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"/>
+        <translation>CELT bertsioak</translation>
     </message>
     <message>
         <location/>
@@ -7852,7 +7852,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>Bersinkronizatu</translation>
     </message>
     <message>
         <location/>
@@ -7925,7 +7925,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"/>
+        <translation>%1 online (%2 egonean)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7993,7 +7993,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"/>
+        <translation>Hau zerbitzarira konektatutako erabiltzaile bat da. Erabiltzailearen ezkerrean dagoen ikonoak hitz egiten daogen edo ez adierazten du:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8029,17 +8029,17 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"/>
+        <translation>Zure kanalarekin lotuta dagoen kanal bat. Lotutako kanalek beraien artean hitz egin dezakete.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"/>
+        <translation>Kanal bat zerbitzarian zeinari lotuta ez zauden.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"/>
+        <translation>Honek erabiltzaileak zerbitzarian dituen banderak erakusten ditu, baldin baditu:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8084,32 +8084,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzaileak iruzkin multzo berri bat du (egin klik ikusteko)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzaileak iruzkin multzo bat du, jadanik ikusita duzuna (egin klik ikusteko)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"/>
+        <translation>Mezuak alde batera uzten</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"/>
+        <translation>Honek kanalak dituen banderak erakusten ditu, baldin baditu:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Kanalak iruzkin multzo berri bat du (egin klik ikusteko)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>Kanalak iruzkin multzo bat du, jadanik ikusita duzuna (egin klik ikusteko)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8135,7 +8135,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Ezin da mugimendua automatikoki egin, mesedez berrezarri zenbaki ordenatze adierazleak edo eskuz doitu.</translation>
     </message>
 </context>
 <context>
@@ -8143,12 +8143,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+147"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble eguneratu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble bertsio berri bat detektatu da eta automatikoki deskargatu da. Bertsio honetara eguneratzea edo azken bertsio egonkorrera bertsioa jaistea gomendatzen da. Nahi al duzu instalatzailea martxan jartzea orain?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8174,7 +8174,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-k huts egin du zerbitzari zentraletik bertsio informazioa lortzen.</translation>
     </message>
 </context>
 <context>
@@ -8203,7 +8203,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>Izen Komuna: %1</translation>
     </message>
     <message>
         <location line="-36"/>
@@ -8237,12 +8237,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"/>
+        <translation>Balio honetatik aurrera onargarria: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"/>
+        <translation>Balio honetaraino onargarria: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8252,7 +8252,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"/>
+        <translation>Gako Publikoa: %1 bits %2</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -8267,7 +8267,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"/>
+        <translation>Laburpena (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+13"/>
