@@ -332,12 +332,12 @@ Talde berria gehitu.</translation>
     <message>
         <location/>
         <source>Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>Kideen zerrenda du. Kideen talde-jatorria ez da pareko kanaletik heredatuko.</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members inherited by other channels.</source>
-        <translation type="unfinished"/>
+        <translation>Beste kanaletatik jasotako kideen zerrenda du.</translation>
     </message>
     <message>
         <location/>
@@ -571,7 +571,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Query selected device</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako gailua galdetu</translation>
     </message>
     <message>
         <location/>
@@ -936,7 +936,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Momentuko abiadura atzemateko aukera</translation>
     </message>
     <message>
         <location/>
@@ -1071,22 +1071,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Transmititzen hasi ondoren, martxan jartzen da</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Transmititzen gelditu ondoren, martxan jartzen da</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"/>
+        <translation>Eutsi Denbora</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"/>
+        <translation>PTT tekla aske utzi ondoren, mikrofonoa irekia dagoen denbora.</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
@@ -1101,7 +1101,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>Ekintza baliogabea????</translation>
     </message>
     <message>
         <location/>
