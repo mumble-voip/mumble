@@ -664,7 +664,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako ASIO gailuaren irekierak huts egin du. Sarrerarik ez da egingo.</translation>
     </message>
 </context>
 <context>
@@ -771,7 +771,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation type="unfinished"/>
+        <translation>Orain PTT tekla bi aldiz sakatuz gero, blokeatuko da.</translation>
     </message>
     <message>
         <location/>
