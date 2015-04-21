@@ -846,7 +846,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Isiltasuna Behean</translation>
     </message>
     <message>
         <location/>
@@ -856,7 +856,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Hizketa Goian</translation>
     </message>
     <message>
         <location/>
@@ -1041,7 +1041,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"/>
+        <translation>Beti gainkaldean dagoen leiho bat erakusten du sakatu hitz egiteko botoi batekin</translation>
     </message>
     <message>
         <location/>
@@ -1051,7 +1051,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Misc</translation>
     </message>
     <message>
         <location/>
@@ -1091,7 +1091,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzariko gehienezko sare banda zabalera %1 kbit/s-koa da soilik. Audio kalitatea automatikoki doitua dago %2 kbit/s-ra (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1805,7 +1805,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Zein soinu txartel erabili Sarrera audioarentzat aukeratzen du.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1820,7 +1820,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation type="unfinished"/>
+        <translation>Honek irteera audioaren ohiartzunaren ezabatzea gaitzen du, zeinak bozgorailu eta aurikularretan laguntzen duen.</translation>
     </message>
     <message>
         <location/>
@@ -1881,7 +1881,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"/>
+        <translation>Honek Mumble ahotsak kokatzeko audio posizionala erabiltzera baimentzen du.</translation>
     </message>
     <message>
         <location/>
@@ -2016,7 +2016,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"/>
+        <translation>Hardware-aren irteera atzerapenak gutxienezko balioetara aldatzen.</translation>
     </message>
     <message>
         <location/>
@@ -2330,7 +2330,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Kanporaketen Zerrenda - %n Kanporaketa</numerusform><numerusform>Kanporaketen Zerrenda - %n Kanporaketa</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2363,7 +2363,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>Autosinatua</translation>
     </message>
 </context>
 <context>
@@ -2376,7 +2376,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"/>
+        <translation>Zure ziurtagiria sortzen errore bat egon da.&lt;br /&gt;Mesedez saiatu berriro.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2386,7 +2386,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Fitxategia ezin izan da idazteko zabaldu. Mesedez erabili beste fitxategi bat.</translation>
     </message>
     <message>
         <location line="+4"/>
