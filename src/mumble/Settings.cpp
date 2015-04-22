@@ -345,6 +345,11 @@ Settings::Settings() {
 	fAudioMaxDistVolume = 0.80f;
 	fAudioBloom = 0.5f;
 
+	// OverlayPrivateWin
+	iOverlayWinHelperRestartCooldownMsec = 10000;
+	bOverlayWinHelperX86Enable = true;
+	bOverlayWinHelperX64Enable = true;
+
 	iLCDUserViewMinColWidth = 50;
 	iLCDUserViewSplitterWidth = 2;
 
@@ -696,7 +701,11 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
-	
+
+	// OverlayPrivateWin
+	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");
@@ -989,6 +998,11 @@ void Settings::save() {
 	SAVELOAD(bDisableCELT, "audio/disablecelt");
 	SAVELOAD(disablePublicList, "ui/disablepubliclist");
 	SAVELOAD(disableConnectDialogEditing, "ui/disableconnectdialogediting");
+
+	// OverlayPrivateWin
+	SAVELOAD(iOverlayWinHelperRestartCooldownMsec, "overlay_win/helper/restart_cooldown_msec");
+	SAVELOAD(bOverlayWinHelperX86Enable, "overlay_win/helper/x86/enable");
+	SAVELOAD(bOverlayWinHelperX64Enable, "overlay_win/helper/x64/enable");
 
 	// LCD
 	SAVELOAD(iLCDUserViewMinColWidth, "lcd/userview/mincolwidth");

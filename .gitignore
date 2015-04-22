@@ -20,6 +20,7 @@ ui_*.h
 *.qm
 installer/Mumble.exe
 overlay/*.hex
+overlay_winx64/*.hex
 scripts/Murmur.ice
 scripts/murmur.ini.*
 src/murmur/Murmur.h

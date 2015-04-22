@@ -230,6 +230,10 @@ struct Settings {
 
 	OverlaySettings os;
 
+	int iOverlayWinHelperRestartCooldownMsec;
+	bool bOverlayWinHelperX86Enable;
+	bool bOverlayWinHelperX64Enable;
+
 	int iLCDUserViewMinColWidth;
 	int iLCDUserViewSplitterWidth;
 	QMap<QString, bool> qmLCDDevices;

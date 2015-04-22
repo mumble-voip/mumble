@@ -448,11 +448,27 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9();
 // Via dxgi.cpp
 extern "C" __declspec(dllexport) void __cdecl PrepareDXGI();
 
-extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic) {
+void __stdcall OverlayHelperProcessParentDeathThread(void *udata) {
+	HANDLE parent = reinterpret_cast<HANDLE>(udata);
+	DWORD status = WaitForSingleObject(parent, INFINITE);
+	if (status != WAIT_OBJECT_0) {
+		ExitProcess(OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL);
+	}
+
+	ExitProcess(0);
+}
+
+extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned int magic, HANDLE parent) {
 	int retval = 0;
 
 	if (GetOverlayMagicVersion() != magic) {
 		return OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH;
+	}
+
+	HANDLE pcheckHandle = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) OverlayHelperProcessParentDeathThread,
+	                                   reinterpret_cast<void *>(parent), 0, NULL);
+	if (pcheckHandle == 0) {
+		return OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR;
 	}
 
 	PrepareD3D9();
@@ -473,6 +489,11 @@ extern "C" __declspec(dllexport) int __cdecl OverlayHelperProcessMain(unsigned i
 			break;
 		} else if (ret == -1) {
 			retval = -1001;
+			break;
+		}
+
+		if (msg.message == WM_CLOSE) {
+			retval = 0;
 			break;
 		}
 
@@ -673,7 +694,15 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 static bool createSharedDataMap() {
 	DWORD dwSharedSize = sizeof(SharedData) + sizeof(Direct3D9Data) + sizeof(DXGIData) + sizeof(D3D10Data) + sizeof(D3D11Data);
 
-	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, "MumbleOverlayPrivate");
+#if defined(_M_IX86)
+	const char *name = "MumbleOverlayPrivate-x86";
+#elif defined(_M_X64)
+	const char *name = "MumbleOverlayPrivate-x64";
+#else
+# error Unsupported architecture
+#endif
+
+	hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, dwSharedSize, name);
 	if (hMapObject == NULL) {
 		ods("Lib: CreateFileMapping failed");
 		return false;

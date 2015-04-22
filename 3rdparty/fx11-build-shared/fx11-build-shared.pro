@@ -1,11 +1,20 @@
 include(../../compiler.pri)
 
 BUILDDIR=$$basename(PWD)
-SOURCEDIR=$$replace(BUILDDIR,-build,-src)
+SOURCEDIR=$$replace(BUILDDIR,-build-shared,-src)
 
 !exists(../$$SOURCEDIR/Effect.h) {
 	message("The $$SOURCEDIR/ directory was not found. Please update your submodules (git submodule update --init).")
 	error("Aborting configuration")
+}
+
+CONFIG(debug, debug|release) {
+  CONFIG += console
+  DESTDIR   = ../../debug
+}
+
+CONFIG(release, debug|release) {
+  DESTDIR   = ../../release
 }
 
 TEMPLATE = lib
