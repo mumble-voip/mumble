@@ -42,49 +42,49 @@ const wchar_t *MUMBLE_OVERLAY_DLL_NAME = L"mumble_ol_x64.dll";
 enum OverlayHelperError {
 	/// The overlay helper process was not passed any
 	/// arguments.
-	OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS            = -1,
+	OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS            = 0x0F000001,
 	/// The magic number on the command line of the overlay
 	/// helper process could not be converted to an integer.
-	OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT  = -2,
+	OVERLAY_HELPER_ERROR_EXE_INVALID_MAGIC_ARGUMENT  = 0x0F000002,
 	/// The magic number on the command line of the overlay
 	/// helper did not match the built-in magic number of
 	/// the helper process.
-	OVERLAY_HELPER_ERROR_EXE_MAGIC_MISMATCH          = -3,
+	OVERLAY_HELPER_ERROR_EXE_MAGIC_MISMATCH          = 0x0F000003,
 	/// The overlay helper process was unable to configure
 	/// its environment in preparation of loading the
 	/// overlay DLL.
-	OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT   = -4,
+	OVERLAY_HELPER_ERROR_EXE_CONFIGURE_ENVIRONMENT   = 0x0F000004,
 	/// The overlay helper process was unable to get the
 	/// path to the overlay DLL.
-	OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH            = -5,
+	OVERLAY_HELPER_ERROR_EXE_GET_DLL_PATH            = 0x0F000005,
 	/// The overlay helper process was unable to load the
 	/// overlay DLL.
-	OVERLAY_HELPER_ERROR_EXE_LOAD_DLL                = -6,
+	OVERLAY_HELPER_ERROR_EXE_LOAD_DLL                = 0x0F000006,
 	/// The overlay helper process was uanble to look up
 	/// the 'OverlayHelperProcessMain' entry point in the
 	/// overlay DLL.
-	OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT      = -7,
+	OVERLAY_HELPER_ERROR_EXE_LOOKUP_ENTRY_POINT      = 0x0F000007,
 	/// The overlay helper process was uanble to parse
 	/// the commandline arguments it was passed.
 	/// The helper process exepcts two arguments, and this
 	/// error occurs if it only finds one.
-	OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS           = -8,
+	OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS           = 0x0F000008,
 	/// The magic number on the command line of the overlay
 	/// helper process could not be converted to a HANDLE.
-	OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT = -9,
+	OVERLAY_HELPER_ERROR_EXE_INVALID_HANDLE_ARGUMENT = 0x0F000009,
 
 	/// The magic number passed to the overlay DLL's
 	/// OverlayHelperProcessMain function did not match
 	/// the overlay DLL's built-in magic number.
-	OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH          = -1000,
+	OVERLAY_HELPER_ERROR_DLL_MAGIC_MISMATCH          = 0x0FF00000,
 	/// The overlay helper process exited due to an error
 	/// in the Windows message loop.
-	OVERLAY_HELPER_ERROR_DLL_MESSAGE_LOOP            = -1001,
+	OVERLAY_HELPER_ERROR_DLL_MESSAGE_LOOP            = 0x0FF00001,
 	/// The parent death thread could not be created.
-	OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR     = -1002,
+	OVERLAY_HELPER_ERROR_DLL_PDEATH_THREAD_ERROR     = 0x0FF00002,
 	/// The helper's WaitForSingleObject call on its parent
 	/// process failed unexpectedly.
-	OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL        = -1003,
+	OVERLAY_HELPER_ERROR_DLL_PDEATH_WAIT_FAIL        = 0x0FF00003,
 };
 
 /// OverlayHelperErrorToString converts an OverlayHelperError value
