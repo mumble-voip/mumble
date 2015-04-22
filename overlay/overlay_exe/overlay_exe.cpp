@@ -116,7 +116,7 @@ static std::vector<std::wstring> GetCommandLineArgs() {
 	}
 
 	for (int i = 0; i < argc; i++) {
-		args.push_back(std::wstring(argv[0]));
+		args.push_back(std::wstring(argv[i]));
 	}
 
 	return args;
