@@ -32,8 +32,10 @@
 #include <windows.h>
 #include <shlwapi.h>
 #include <stdio.h>
+#include <shellapi.h>
 
 #include <string>
+#include <vector>
 
 #include "../overlay.h"
 #include "overlay_exe.h"
@@ -95,6 +97,31 @@ static std::wstring GetAbsoluteMumbleOverlayDllPath() {
 	return absDLLPath;
 }
 
+// GetCommandLineArgs returns the command line arguments
+// passed to the process.
+// If the returned vector has a length of 0, an unknown
+// error occurred.
+static std::vector<std::wstring> GetCommandLineArgs() {
+	std::vector<std::wstring> args;
+
+	LPWSTR cmdLine = GetCommandLine();
+	if (cmdLine == NULL) {
+		return args;
+	}
+
+	int argc = 0;
+	LPWSTR *argv = CommandLineToArgvW(cmdLine, &argc);
+	if (argv == NULL) {
+		return args;
+	}
+
+	for (int i = 0; i < argc; i++) {
+		args.push_back(std::wstring(argv[0]));
+	}
+
+	return args;
+}
+
 int main(int argc, char **argv) {
 	UNUSED(argc);
 	UNUSED(argv);
@@ -118,32 +145,28 @@ int main(int argc, char **argv) {
 	unsigned int magic = 0;
 	HANDLE parent = 0;
 	{
-		std::wstring commandLine(GetCommandLine());
+		std::vector<std::wstring> args = GetCommandLineArgs();
 
-		// The command line will contain two consecutive spaces
-		// if the program was passed any arguments. If we don't
-		// find them, it probably means that a user has double-clicked
+		// If there is only a single argument, it's the program name.
+		// That probably means that a user has double-clicked
 		// the executable. Tell them to run 'mumble.exe' instead.
-		std::wstring doubleSpace = std::wstring(L"  ");
-		size_t sep = commandLine.find(doubleSpace);
-		if (sep == std::string::npos) {
+		//
+		// This also handles the case where GetCommandLineArgs returns
+		// an empty vector (the error case).
+		if (args.size() <= 1) {
 			Alert(L"Mumble Overlay", L"This program is not meant to be run by itself. Run 'mumble.exe' instead.");
 			return OVERLAY_HELPER_ERROR_EXE_NO_ARGUMENTS;
 		}
 
 		// The Mumble process passes the overlay magic number,
 		// and a HANDLE in numeric form as its only two arguments.
-		// Let's try to parse the command line to extract them...
-		std::wstring args = commandLine.substr(sep + doubleSpace.length());
-		sep = args.find(std::wstring(L" "));
-		if (sep == std::string::npos) {
+		// We must have both of them to continue.
+		if (args.size() < 3) {
 			return OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS;
 		}
-		if (args.length() <= sep + 1) {
-			return OVERLAY_HELPER_ERROR_TOO_FEW_ARGUMENTS;
-		}
-		std::wstring magicNumberStr = args.substr(0, sep);
-		std::wstring handleStr = args.substr(sep+1);
+
+		std::wstring magicNumberStr = args[1];
+		std::wstring handleStr = args[2];
 
 		try {
 			unsigned long passedInMagic = std::stoul(magicNumberStr);

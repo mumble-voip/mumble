@@ -8,7 +8,7 @@ TARGET = mumble_ol
 win32 {
   DEFINES += WIN32 _WIN32
   RC_FILE = overlay_exe.rc
-  LIBS *= -luser32 -lshlwapi
+  LIBS *= -luser32 -lshlwapi -lshell32
 
   CONFIG(release, debug|release) {
     QMAKE_CXXFLAGS_RELEASE -= -MD
