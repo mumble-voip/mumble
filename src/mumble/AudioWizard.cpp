@@ -119,14 +119,21 @@ AudioWizard::AudioWizard(QWidget *p) : QWizard(p) {
 		iMessage |= (g.s.qmMessages[i] & (Settings::LogSoundfile | Settings::LogTTS));
 	}
 
+#ifdef USE_NO_TTS
+	qrbNotificationCustom->setChecked(false);
+	qrbNotificationCustom->setDisabled(true);
+	qrbNotificationTTS->setChecked(false);
+	qrbNotificationTTS->setDisabled(true);
+	qrbNotificationSounds->setChecked(true);
+#else
 	if (iMessage == Settings::LogTTS && g.s.bTTS)
 		qrbNotificationTTS->setChecked(true);
 	else if (iMessage == Settings::LogSoundfile)
 		qrbNotificationSounds->setChecked(true);
 	else // If we find mixed message types or only tts with main tts disable assume custom
 		qrbNotificationCustom->setChecked(true);
-
 	qrbNotificationCustom->setVisible(qrbNotificationCustom->isChecked());
+#endif
 
 	qrbQualityCustom->setVisible(qrbQualityCustom->isChecked());
 	qlQualityCustom->setVisible(qrbQualityCustom->isChecked());

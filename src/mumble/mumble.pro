@@ -437,6 +437,8 @@ unix {
 
     !CONFIG(no-speechd) {
       CONFIG *= speechd
+    } else {
+      DEFINES *= USE_NO_TTS
     }
   }
 }

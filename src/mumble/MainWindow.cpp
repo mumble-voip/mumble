@@ -285,7 +285,12 @@ void MainWindow::setupGui()  {
 
 	qaAudioMute->setChecked(g.s.bMute);
 	qaAudioDeaf->setChecked(g.s.bDeaf);
+#ifdef USE_NO_TTS
+	qaAudioTTS->setChecked(false);
+	qaAudioTTS->setDisabled(true);
+#else
 	qaAudioTTS->setChecked(g.s.bTTS);
+#endif
 	qaFilterToggle->setChecked(g.s.bFilterActive);
 
 	qaHelpWhatsThis->setShortcuts(QKeySequence::WhatsThis);
