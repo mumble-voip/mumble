@@ -1,5 +1,6 @@
 # Build rules for G15 helper daemon
 
+CONFIG += force-x86-toolchain
 include (../compiler.pri)
 
 TEMPLATE = app
