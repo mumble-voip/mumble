@@ -981,7 +981,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation type="unfinished"/>
+        <translation>Honen azpiko balio-seinaleak isilunetzat hartzen dira</translation>
     </message>
     <message>
         <location/>
