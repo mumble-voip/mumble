@@ -148,21 +148,12 @@
       <?endif ?>
 
       <?ifdef D3DCompilerDLL ?>
-        <?if $(sys.BUILDARCH) = "x86" ?>
-          <Component Id="d3dcompiler_43.dll">
-            <!--
-              The DirectX SDK (June 2010) only provides d3dcompiler_43.dll in CAB
-              files in the SDK directory. However, it's also installed to the
-              System32 dir. It's not particularly elegant, but we'll lift it from
-              there. It will be there on systems with the SDK installed.
-            -->
-            <File Source="$(var.System32x86Dir)\d3dcompiler_43.dll" KeyPath="yes" />
-          </Component>
-        <?elseif $(sys.BUILDARCH) = "x64" ?>
-          <Component Id="d3dcompiler_47.dll">
-            <File Source="$(var.Win81SDKDir)\Redist\D3D\x64\d3dcompiler_47.dll" KeyPath="yes" />
-          </Component>
-        <?endif ?>
+        <Component Id="d3dcompiler_43.dll">
+          <File Source="$(var.System32x86Dir)\d3dcompiler_43.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="d3dcompiler_47.dll">
+          <File Source="$(var.Win81SDKDir)\Redist\D3D\x64\d3dcompiler_47.dll" KeyPath="yes" />
+        </Component>
       <?endif ?>
     </DirectoryRef>
   </Fragment>
