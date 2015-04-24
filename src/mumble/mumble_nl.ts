@@ -6258,7 +6258,7 @@ Undeafen self
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation>Verstuur &amp;Bericht</translation>
+        <translation>&amp;Bericht versturen</translation>
     </message>
     <message>
         <location/>
@@ -6378,7 +6378,7 @@ Undeafen self
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation>URL &amp;Kopiëren</translation>
+        <translation>URL &amp;kopiëren</translation>
     </message>
     <message>
         <location/>
@@ -6890,7 +6890,7 @@ Voorkomt dat Mumble afbeeldingen in chatberichten uit de img tag downloadt.</tra
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation>Overlay tonen.</translation>
+        <translation>Overlay tonen</translation>
     </message>
     <message>
         <location/>
