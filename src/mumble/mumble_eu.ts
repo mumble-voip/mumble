@@ -8287,7 +8287,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>Unitate Izena: %1</translation>
     </message>
 </context>
 <context>
