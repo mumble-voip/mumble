@@ -2291,7 +2291,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>No IP address</source>
-        <translation>Geen IP-Adres</translation>
+        <translation>Geen IP-adres</translation>
     </message>
     <message>
         <location/>
@@ -2301,7 +2301,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>No reason</source>
-        <translation>Geen Reden</translation>
+        <translation>Geen reden</translation>
     </message>
     <message>
         <location/>
@@ -3643,7 +3643,7 @@ of the possible locations.</source>
     <message>
         <location line="+52"/>
         <source>Shortcut button combination.</source>
-        <translation>Sneltoets-combinatie.</translation>
+        <translation>Sneltoets-combinatie</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4411,12 +4411,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation>In minimale-modus</translation>
+        <translation>In minimalistisch venster</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation>In normale-modus</translation>
+        <translation>In normaal venster</translation>
     </message>
     <message>
         <location/>
@@ -4555,7 +4555,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+4"/>
         <source>Toggle Minimal</source>
         <comment>Global Shortcut</comment>
-        <translation>Minimale-modus</translation>
+        <translation>Minimalistisch venster</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4873,7 +4873,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation>Druk-om-te-Praten:</translation>
+        <translation>Druk-om-te-Praten</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -5693,17 +5693,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation>&amp;Minimale-modus</translation>
+        <translation>&amp;Minimalistisch venster</translation>
     </message>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation>Minimaal venster-modus wisselen</translation>
+        <translation>Venstermodus wisselen</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Dit wisselt minimale-modus, waar het geschiedenisvenster en menu zijn verborgen.</translation>
+        <translation>Dit wisselt naar minimalistisch venster waar het geschiedenisvenster en menu zijn verborgen.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+318"/>
@@ -6258,7 +6258,7 @@ Undeafen self
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation>&amp;Bericht versturen</translation>
+        <translation>&amp;Bericht verzenden</translation>
     </message>
     <message>
         <location/>
@@ -7346,7 +7346,7 @@ Om deze bestanden naar hun laatste versies te upgraden, klik de onderstaande kno
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation>&amp;Herlaad plugins</translation>
+        <translation>Plugins &amp;herladen</translation>
     </message>
     <message>
         <location/>
