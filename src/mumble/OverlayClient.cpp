@@ -99,8 +99,12 @@ OverlayClient::~OverlayClient() {
 	delete qgpiCursor;
 	delete qgpiLogo;
 
-	qlsSocket->disconnect();
-	qlsSocket->abort();
+	qlsSocket->disconnectFromServer();
+	if (!qlsSocket->waitForDisconnected(1000)) {
+		qDebug() << "OverlayClient: Failed to cleanly disconnect: " << qlsSocket->errorString();
+		qlsSocket->abort();
+	}
+	
 	qlsSocket->deleteLater();
 
 	ougUsers.reset();
