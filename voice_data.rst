@@ -3,176 +3,286 @@
 Voice data
 ==========
 
-.. _enable-udp-channel:
+Mumble audio channel is used to transmit the actual audio packets over the
+network. Unlike the TCP control channel, the audio channel uses a custom
+encoding for the audio packets. The audio channel is transport independent and
+features such as encryption are implemented by the transport layer. Integers
+above 8-bits are encoded using the `Variable length integer encoding`_.
 
-Enabling the UDP channel
-------------------------
+.. _packet-format:
 
-Before the UDP channel can reliably be used both sides should
-be certain that the connection works. Before the server may use
-the UDP connection to the client the client must first open a UDP
-socket and communicate its address to the server by sending a packet
-over UDP. Once the server has received an UDP transmission the server
-should start using the UDP channel for the voice packets. Respectively 
-he client should not use the UDP channel for voice data until it is
-certain that the packets go through to the server.
+Packet format
+-------------
 
-In practice these requirements are filled with UDP ping. When the server
-receives a UDP ping packet from the client it echoes the packet back.
-When the client receives this packet it can ascertain that the UDP channel
-works for two-way communication.
+The mumble audio channel packets are variable length packets that begin with an
+8-bit header field which describes the packet type and target. The most
+significant 3 bits define the packet type while the remaining 5 bits define the
+target. The header is followed by the packet payload. The maximum size for the
+whole audio data packet is 1020 bytes. This allows applications to use 1024
+byte buffers for receiving UDP datagrams with the 4-byte encryption header
+overhead.
 
-.. _udp-ping-packet:
+.. _Audio packet structure:
+.. table:: Audio packet structure
+    :class: bits8
 
-.. table:: UDP ping packet
-   
-   +---------------------------------------------------------+
-   | UDP ping packet                                         |
-   +======================+==================================+
-   | byte                 | type/flags (0010 0000 for Ping)  |
-   +----------------------+----------------------------------+
-   | varint               | timestamp                        |
-   +----------------------+----------------------------------+
+    +-------------------------------+
+    | Audio packet structure        |
+    +===+===+===+===+===+===+===+===+
+    | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+    +---+---+---+---+---+---+---+---+
+    |  ``type`` |    ``target``     |
+    +-----------+-------------------+
+    |          Payload...           |
+    +-------------------------------+
 
-If the client stops receiving replies to the UDP packets at some point or never
-receives the first one it should immediately start tunneling the voice communication
-through TCP as described in the *UDP tunnel* section. When the server
-receives a tunneled packet over the TCP connection it must also stop using
-the UDP for communication. The client may continue sending UDP ping packets
-over the UDP channel and the server must echo these if it receives them. If
-the client later receives these echoes it may switch back to the UDP channel
-for voice communication. When the server receives an UDP voice communication
-packet from the client it should stop tunneling the packets as well.
+type
+  The audio packet type. The packets transmitted over the audio channel are
+  either ping packets used to diagnose the transport layer connectivity or
+  audio packets encoded with different codecs. Different types are listed in
+  `Audio packet types`_ table.
 
+.. _Audio packet types:
+.. table:: Audio packet types
 
-.. _udp-data:
+   +---------+---------------+--------------------------------------------+
+   | Type    |   Bitfield    | Description                                |
+   +=========+===============+============================================+
+   | ``0``   | ``000xxxxx``  | CELT Alpha encoded voice data              |
+   +---------+---------------+--------------------------------------------+
+   | ``1``   | ``001xxxxx``  | Ping packet                                |
+   +---------+---------------+--------------------------------------------+
+   | ``2``   | ``010xxxxx``  | Speex encoded voice data                   |
+   +---------+---------------+--------------------------------------------+
+   | ``3``   | ``011xxxxx``  | CELT Beta encoded voice data               |
+   +---------+---------------+--------------------------------------------+
+   | ``4``   | ``100xxxxx``  | OPUS encoded voice data                    |
+   +---------+---------------+--------------------------------------------+
+   | ``5-7`` |               | Unused                                     |
+   +---------+---------------+--------------------------------------------+
+
+target
+  The target portion defines the recipient for the audio data. The two constant
+  targets are *Normal talking* (``0``) and *Server Loopback* (``31``). The
+  range 1-30 is reserved for whisper targets. These targets are specified
+  separately in the control channel using the ``VoiceTarget`` packets. The
+  targets are listed in `Audio targets`_ table.
+
+  When a client registers a VoiceTarget on the server, it gives the target an
+  ID. This voice target ID can be used as a target in the voice packets to send
+  audio to specific users or channels. When receiving whisper-audio the server
+  uses target 1 to specify the audio results from a whisper to a channel and
+  target 2 to specify that the audio results from a direct whisper to the user.
+
+.. _Audio targets:
+.. table:: Audio targets
+
+   +-----------+-----------------------------------------------------+
+   | Target    | Description                                         |
+   +===========+=====================================================+
+   | ``0``     | Normal talking                                      |
+   +-----------+-----------------------------------------------------+
+   | ``1-30``  | Whisper target                                      |
+   |           |                                                     |
+   |           | - VoiceTarget ID when sending whisper from client.  |
+   |           | - 1 when receiving whisper to channel.              |
+   |           | - 2 when receiving direct whisper to user.          |
+   +-----------+-----------------------------------------------------+
+   | ``31``    | Server loopback                                     |
+   +-----------+-----------------------------------------------------+
+
+Ping packet
+~~~~~~~~~~~
+
+Audio channel ping packets are used as part of the connectivity checks on the
+audio transport layer. These packets contain only varint encoded timestamp as
+data.  See `UDP connectivity checks`_ section below for the logic involved in
+the connectivity checks.
+
+.. _Audio transport ping packet:
+
+.. table:: Audio transport ping packet
+
+   +------------+-------------+----------------------------------+
+   | Field      | Type        | Description                      |
+   +============+=============+==================================+
+   | Header     | ``byte``    | ``00100000b`` (``0x20``)         |
+   +------------+-------------+----------------------------------+
+   | Data       | ``varint``  | Timestamp                        |
+   +------------+-------------+----------------------------------+
+
+Header
+  Common audio packet header. For ping packets this should have the value of
+  0x20.
 
 Data
-----
+  Timestamp. The packet should be echoed back so the timestamp format can be
+  decided by the original sender - the only limitation is that it must fit in a
+  64-bit integer for the varint encoding.
 
-The voice data is transmitted in variable length packets that consist of header portion,
-followed by repeated data segments and an optional position part. The full packet
-structure is shown in the figure below, and consists of three parts. The decrypted
-data should never be longer than 1020 bytes, this allows the use of 1024 byte UDP
-buffer even after the 4-byte encryption header is added to the packet during the
-encryption. The protocol transfers 64-bit integers using variable length encoding.
-This encoding is specified in the *varint* section.
+Encoded audio data packet
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   A voice packet starts with a header:
+Encoded audio packets contain the actual user audio data for the voice
+communication. Incoming audio data packets contain the common header byte
+followed by varint encoded session ID of the source user and varint encoded
+sequence number of the packet. Outgoing audio data packets contain only the
+header byte and the sequence number of the packet. The server matches these to
+the correct session using the transport layer information.
 
-   +------------------------------------------------------------------------------+
-   | Voice packet header                                                          |
-   +----------------------+---------------+---------------------------------------+
-   | Type                 | Field         | Description                           |
-   +======================+===============+=======================================+
-   | byte                 | Type/Flags    | Bitfield  **76543210**   ,            |
-   |                      |               | 7-5 Type(*), 4-0 Target               |
-   +----------------------+---------------+---------------------------------------+
-   | varint               | Session       | The session number of the source user |
-   |                      |               | (only from server)                    |
-   +----------------------+---------------+---------------------------------------+
-   | varint               | Sequence      |                                       |
-   +----------------------+---------------+---------------------------------------+
+The remainder of the packet is made up of multiple encoded audio segments and
+optional positional audio information. The audio segment format depends on the
+codec of the whole audio packets. The audio segments contain codec
+implementation specific information on where the audio segments end so the
+possible positional audio data can be read from the end.
 
-   Followed by one or more audio data segments:
+.. _Incoming encoded audio packet:
+.. table:: Incoming encoded audio packet
 
-   +--------------------------------------------------------------------------------+
-   | Voice packet audio data                                                        |
-   +----------------------+---------------+-----------------------------------------+
-   | Type                 | Field         | Description                             |
-   +==============+=======+===============+=========================================+
-   | Header       | byte  | Header (CELT) | Bitfield **76543210**,                  |
-   |              |       |               | Bit 7: Terminator, Bit 6-0: Data length |
-   | depends on   +-------+---------------+-----------------------------------------+
-   |              | varint| Header (OPUS) | Bitfield **FEDCBA9876543210**           |
-   | packet type  | int16 |               | Bit D: Terminator, Bit C-0: Data length |
-   +--------------+-------+---------------+-----------------------------------------+
-   | byte[]               | Data          | Encoded voice frames                    |
-   +----------------------+---------------+-----------------------------------------+
-  
-   Followed by an optional set of positional audio coordinates:
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Field              | Type         | Description                                               |
+   +====================+==============+===========================================================+
+   | Header             | ``byte``     | Codec type/Audio target                                   |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Session ID         | ``varint``   | Session ID of the source user.                            |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Sequence Number    | ``varint``   | Sequence number of the first audio data **segment**.      |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Payload            | ``byte[]``   | Audio payload                                             |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Position Info      | ``float[3]`` | Positional audio information                              |
+   +--------------------+--------------+-----------------------------------------------------------+
 
-   +--------------------------------------------------------------------------------+
-   | Voice packet positional audio data                                             |
-   +----------------------+---------------+-----------------------------------------+
-   | Type                 | Field         | Description                             |
-   +======================+===============+=========================================+
-   | float                | Position 1    |                                         |
-   +----------------------+---------------+-----------------------------------------+
-   | float                | Position 2    |                                         |
-   +----------------------+---------------+-----------------------------------------+
-   | float                | Position 3    |                                         |
-   +----------------------+---------------+-----------------------------------------+
 
-The first byte of the header contains the packet type and additional target specifier.
-The format of this byte is described below. If the voice packet comes from the server,
-the type is followed by a *varint* encoded value that specifies the session this
-voice packet originated from -- this information is added by the server and the client
-omits this field. The last segment in the header is a sequence number for the first
-audio frame of the packet. If there are for example two frames in the packet, the sequence
-field of the next packet should be incremented by two.
+.. _Outgoing encoded audio packet:
+.. table:: Outgoing encoded audio packet
 
-The type is stored in the first three bits and specifies the type and encoding of the packet.
-Current types are listed in *UDP Types* table. The remaining 5 bits specify additional
-packet-wide options. For voice packets the values specify the voice target as listed in the
-table below:
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Field              | Type         | Description                                               |
+   +====================+==============+===========================================================+
+   | Header             | ``byte``     | Codec type/Audio target                                   |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Sequence Number    | ``varint``   | Sequence number of the first audio data **segment**.      |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Payload            | ``byte[]``   | Audio payload                                             |
+   +--------------------+--------------+-----------------------------------------------------------+
+   | Position Info      | ``float[3]`` | Positional audio information                              |
+   +--------------------+--------------+-----------------------------------------------------------+
 
-.. _udp-types:
+Header
+  The common audio packet header
 
-.. table:: UDP Types
+Session ID
+  Session ID of the user to whom the audio packet belongs.
 
-   +--------------------------+--------------------------------------------+
-   | Type      Bitfield       | Description                                |
-   +==========================+============================================+
-   | 0        [000xxxxx]      | CELT Alpha encoded voice data              |
-   +--------------------------+--------------------------------------------+
-   | 1        [001xxxxx]      | Ping packet                                |
-   +--------------------------+--------------------------------------------+
-   | 2        [010xxxxx]      | Speex encoded voice data                   |
-   +--------------------------+--------------------------------------------+
-   | 3        [011xxxxx]      | CELT Beta encoded voice data               |
-   +--------------------------+--------------------------------------------+
-   | 4        [100xxxxx]      | OPUS encoded voice data                    |
-   +--------------------------+--------------------------------------------+
-   | 5-7                      | Unused                                     |
-   +--------------------------+--------------------------------------------+
+Sequence Number
+  Audio data sequence number. The sequence number is used to maintain the
+  packet order when the audio data is transported over unreliable transports
+  such as UDP.
 
-.. _udp-targets:
+  The sequence number might increase by more than one between subsequent audio
+  packets in case the audio packets contain multiple audio segments. This
+  allows the packet loss concealment algorithms to figure out how many audio
+  frames were lost between two received packets.
 
-.. table:: UDP targets
+Payload
+  Audio payload. Format depends on the audio codec defined in the Header. The
+  payload must be self-delimiting to determine whether the position info exists
+  at the end of the packet.
 
-   +-----------+--------------------------------------------+
-   | Target    | Description                                |
-   +===========+============================================+
-   | 0         | Normal talking                             |
-   +-----------+--------------------------------------------+
-   | 1         | Whisper to channel                         |
-   +-----------+--------------------------------------------+
-   | 2-30      | Direct whisper (always 2 for incoming      |
-   |           | whisper)                                   |
-   +-----------+--------------------------------------------+
-   | 31        | Server loopback                            |
-   +-----------+--------------------------------------------+
+Position Info
+  The XYZ coordinates of the audio source. In addition to sending the position
+  information, the user must be using a positional plugin defined in the
+  ``UserState`` message. The plugins might define different contexts which
+  prevent voice communication between users in other contexts.
 
-The audio frames consist of one byte long header and up to 127 bytes long data portion.
-The first bit in the header is the *terminator bit* which informs the receiver
-whether there are more audio frames after this one. This bit is turned on (value *1*)
-for all but the last frame in the current UDP packet. Rest of the seven bits in the header
-specify the length of the data portion. The data portion is encoded using one of the
-supported codecs. The exact codec is specified in the type portion of the whole packet
-(See the UDP types table). *The data in each frame is encoded separately.*
+Speex and CELT audio frames
+"""""""""""""""""""""""""""
+
+Encoded Speex and CELT audio is transported as individual encoded frames. Each
+frame is prefixed with a single byte length and terminator header.
+
+.. _celt-encoded-audio-data:
+
+.. table:: CELT encoded audio data
+
+   +---------+-------------+-----------------------------------------+
+   | Field   | Type        | Description                             |
+   +=========+=============+=========================================+
+   | Header  | ``byte``    | length/continuation header              |
+   +---------+-------------+-----------------------------------------+
+   | Data    | ``byte[]``  | Encoded voice frame                     |
+   +---------+-------------+-----------------------------------------+
+
+Header
+  The length of the Data field. The most significant bit (``0x80``) acts as the
+  continuation bit and is set for all but the last frame in the payload. The
+  remaining 7 bits of the header contain the actual length of the Data frame.
+
+  Note the length may be zero, which is used to signal the end of a voice
+  transmission. In this case the audio data is a single zero-byte which can be
+  interpreted normally as length of 0 with no continuation bit set.
+
+Data
+  Single encoded audio frame. The encoding depends on the codec ``type`` header
+  of the whole audio packet
+
+Opus audio frames
+"""""""""""""""""
+
+Encoded Opus audio is transported as a single Opus audio frame. The frame is prefixed with a variable byte header.
+
+.. _opus-encoded-audio-data:
+
+.. table:: Opus encoded audio data
+
+   +---------+-------------+-----------------------------------------+
+   | Field   | Type        | Description                             |
+   +=========+=============+=========================================+
+   | Header  | ``varint``  | length/terminator header                |
+   +---------+-------------+-----------------------------------------+
+   | Data    | ``byte[]``  | Encoded voice frame                     |
+   +---------+-------------+-----------------------------------------+
+
+Header
+  The length of the Data field. 16-bit variable length integer encoded length
+  and terminator bit value. The varint encoding is the same as with 64-bit
+  values, but only 16-bit unencoded values are allowed.
+
+  The maximum voice frame size is 8191 (``0x1FFF``) bytes requiring the 13 least
+  significant bits of the header. The 14th bit (mask: ``0x2000``) is the terminator
+  bit which signals whether the packet is the last one in the voice
+  transmission.
+
+  Note: In CELT the "continuation bit" in the header defines whether there are
+  more audio frames in the current packet. Opus always contains only one frame
+  in the packet. In CELT the voice transmission end is signaled with a
+  zero-byte CELT packet while in Opus we have a dedicated termination bit in
+  the header.
+
+Data
+  The encoded Opus data.
 
 Codecs
 ------
 
-Mumble supports two distinct codecs; Low bit rate audio uses Speex and higher quality
-audio is encoded with CELT. Both of these codecs must be supported for full support
-of the Mumble protocol. Furthermore, as the CELT bitstream has not been frozen yet
-which places requirements for the exact CELT version: The clients must support
-CELT 0.7.1 bitstream. The protocol includes codec negotiation which allows clients
-to support other codec versions as well, in which case the server should attempt
-to negotiate a version that all clients support. The clients must respect the
-server resolution.
+Mumble supports three distinct codecs; Older Mumble versions use Speex for low
+bitrate audio and CELT for higher quality audio while new Mumble versions
+prefer Opus for all audio. When multiple clients with different capabilities
+communicate together the server is responsible for resolving the codec to use.
+The clients should respect the server resolution if they are capable.
+
+If the server resolves a codec a client doesn't support, that client is free to
+use any codec it prefers. Usually this means the client will not be able to
+decode incoming audio, but it can still send encoded audio out.
+
+The CELT bitstream was never frozen which makes most CELT versions incompatible
+with each other. The two CELT bitstreams supported by Mumble are: CELT 0.7.0
+(CELT Alpha) and CELT 0.11.0 (CELT Beta). While CELT 0.7.0 should technically
+be supported by most Mumble implementations, some servers might be configured
+to force Opus codec for the users. Mumble has had Opus support since 1.2.4
+(June 2013) so it should be safe to assume most clients in use support this
+now.
 
 Whispering
 ----------
@@ -184,20 +294,77 @@ use whispering. This is achieved by registering a voice target using the
 VoiceTarget message and specifying the target ID as the target in the first
 byte of the UDP packet.
 
-Varint and 64-bit integer encoding
-----------------------------------
+UDP connectivity checks
+-----------------------
 
-The variable length integer encoding is used to encode long, 64-bit,
-integers so that short values do not need the full 8 bytes to be transferred.
-The basic idea behind the encoding is prefixing the value with a length prefix
-and then removing the leading zeroes from the value. The positive numbers are
-always right justified. That is to say that the least significant bit in the
-encoded presentation matches the least significant bit in the decoded presentation.
-The *varint prefixes* table contains the definitions of the different length
-prefixes. The encoded **x** bits are part of the decoded number while the **_**
-signifies a unused bit. Encoding should be done by searching the first decoded
-description that fits the number that should be decoded, truncating it to the
-required bytes and combining it with the defined encoding prefix. 
+Since UDP is a connectionless protocol, it is heavily affected by network
+topology such as NAT configuration. It should not be used for audio
+transmission before the connectivity has been determined.
+
+The client starts the connectivity checks by sending a `Ping packet`_ to the
+server. When the server receives this packet it will respond by echoing it back
+to the address it received it from. Once the client receives the response from
+the server it can start using the UDP transport for audio data. When the server
+receives incoming audio data over the UDP transport it can switch the outgoing
+audio over to UDP transport as well.
+
+If the client stops receiving replies to the UDP pings at some point, it should
+start tunneling the voice communication through the TCP tunnel as described in
+the `Tunneling audio over TCP`_ below. When the server receives a tunneled
+packet over the TCP connection it must also stop using the UDP for
+communication. The client should still continue sending audio ping packets over
+the UDP transport in case the UDP connection is restored and the communication
+can be switched back to it.
+
+Tunneling audio over TCP
+------------------------
+
+If the UDP channel isn't available the voice packets can be transmitted through
+the TCP transport used for the control channel. These messages use the normal
+TCP prefixing, as shown in figure :ref:`mumble-packet`: 16-bit message type
+followed by 32-bit message length. However unlike other TCP messages, the audio
+packets are not encoded as protocol buffer messages but instead the raw audio
+packet described in `Packet format`_ should be written to the TCP socket
+verbatim.
+
+When the packets are received it is safe to parse the type and length fields
+normally.  If the type matches that of the audio tunnel the rest of the message
+should be processed as an UDP packet without attempting a protocol buffer
+decoding.
+
+Implementation note
+~~~~~~~~~~~~~~~~~~~
+
+When implementing the protocol it is easier to ignore the UDP transfer layer at
+first and just tunnel the UDP data through the TCP tunnel. The TCP layer must
+be implemented for authentication in any case. Making sure that the voice
+transmission works before implementing the UDP protocol simplifies debugging
+greatly.
+
+Encryption
+----------
+
+All the packets are encrypted once during transfer. The actual encryption
+depends on the used transport layer. If the packets are tunneled through TCP
+they are encrypted using the TLS that encrypts the whole control channel
+connection and if they are sent directly using UDP they must be encrypted using
+the OCB-AES128 encryption.
+
+Variable length integer encoding
+--------------------------------
+
+The variable length integer encoding (``varint``) is used to encode long,
+64-bit, integers so that short values do not need the full 8 bytes to be
+transferred. The basic idea behind the encoding is prefixing the value with a
+length prefix and then removing the leading zeroes from the value. The positive
+numbers are always right justified. That is to say that the least significant
+bit in the encoded presentation matches the least significant bit in the
+decoded presentation.  The *varint prefixes* table contains the definitions of
+the different length prefixes. The encoded ``x`` bits are part of the decoded
+number while the ``_`` signifies a unused bit. Encoding should be done by
+searching the first decoded description that fits the number that should be
+decoded, truncating it to the required bytes and combining it with the defined
+encoding prefix.
 
 See the *quint64* shift operators in
 https://github.com/mumble-voip/mumble/blob/master/src/PacketDataStream.h
@@ -205,102 +372,22 @@ for a reference implementation.
 
 .. table:: Varint prefixes
 
-   +-----------------------------------+--------------------------------------------------------+
-   | Encoded                           | Decoded                                                |
-   +===================================+========================================================+
-   | **0xxxxxxx**                      | 1 byte with :math:`7 \cdot 8 + 1` leading zeroes       |
-   +-----------------------------------+--------------------------------------------------------+
-   | **10xxxxxx** + 1 byte             | 2 bytes with :math:`6 \cdot 8 + 2` leading zeroes      |
-   +-----------------------------------+--------------------------------------------------------+
-   | **110xxxxx** + 2 bytes            | 3 bytes with :math:`5 \cdot 8 + 3` leading zeroes      |
-   +-----------------------------------+--------------------------------------------------------+
-   | **1110xxxx** + 3 bytes            | 4 bytes with :math:`4 \cdot 8 + 4` leading zeroes      |
-   +-----------------------------------+--------------------------------------------------------+
-   | **111100__** + **int** (4 bytes)  | 32-bit positive number                                 |
-   +-----------------------------------+--------------------------------------------------------+
-   | **111101__** + **long** (8 bytes) | 64-bit number                                          |
-   +-----------------------------------+--------------------------------------------------------+
-   | **111110__** + **varint**         | Negative varint                                        |
-   +-----------------------------------+--------------------------------------------------------+
-   | **111111xx**                      | Byte-inverted negative two byte number (~xx)           |
-   +-----------------------------------+--------------------------------------------------------+
-
-The variable length integer encoding is used to encode long (64-bit) integers so that
-short values do not need the full 8 bytes to be transferred. The encoding function is
-given below. While it might seem complex it is worth noting that the
-:math:`(a_v, a_p) \append (b_v, b_p)` function equals appending the :math:`a_p` bits
-long value :math:`a_v` to a byte stream that already has the :math:`b_p` bits long
-value :math:`b_v`.
-
-.. % Encoding function
-.. % \begin{align*}
-.. % 	(a_v, a_p) \append (b_v, b_p) &= (2^{b_p} a_v + b_v, a_p + b_p) \\
-.. % %
-.. % 	e &: \mathbb{N} \rightarrow \mathbb{N}_{\geq0}^2 \\
-.. % 	e(x) &= \begin{dcases*}
-.. % 			e_+(x, 1)										& when $ 0 \leq x < 2^{28} $ \\
-.. % 			\left((2^8 - 2^4) \cdot {2^8}^4 + x, 2^{40}\right)			& when $ 2^{28} \leq x < 2^{32} $ \\
-.. % 			\left((2^8 - 2^4 + 2^2) \cdot {2^8}^8 + x, 2^{72}\right)	& when $ 2^{32} \leq x $ \\
-.. % 			(2^8 - 2^2 - x, 8)								& when $ -4 < x < 0 $ \\
-.. % 			(2^8 - 2^3, 8) \append e(-x)					& when $ x \leq -4 $ \\
-.. % 		\end{dcases*} \\
-.. % %
-.. % 	e_+(x, b) &= \begin{dcases*}
-.. % 			(p(b) + x, 8)												& when $ r < 2^(8-b) $ \\
-.. % 			e_+\left(\left\lfloor \frac{x}{2^8} \right\rfloor, b + 1\right) \append (x \bmod 2^8, 8)	& when $ r \geq 2^(8-b) $
-.. % 		\end{dcases*} \\
-.. % %
-.. % 	p(b) &= 2^8 - 2^{9-b}
-.. % \end{align*}
-.. 
-.. % Decoding is performed by analyzing the first byte after which the rest of the number can be read from the byte stream.
-.. 
-.. % Decoding function
-.. % \begin{align*}
-.. % 	s_0(x) &= 8 - \left\lfloor log_2(2^8-1 - x) \right\rfloor \\
-.. % %
-.. % 	f_x &: \mathbb{N}_{\geq0} \rightarrow [0, 2^8) \\
-.. % 	d &: f \rightarrow \mathbb{N}, f = \{ f_1, f_2, f_3, ... \} \\
-.. % 	d(f) &= \begin{dcases*}
-.. % 			d_+\Big(f, s_0\big(f(0)\big)\Big)													& when $f(0) \leq 2^8 - 2^4 $ \\
-.. % 			\sum_{i=0}^4 2^{32-8i}f(i)								& when $f(0) = 2^8 - 2^4 $ \\
-.. % 			\sum_{i=0}^8 2^{64-8i}f(i)								& when $f(0) = 2^8 - 2^4 + 2^2 $ \\
-.. % 			-d(g : g(n) = f(n+1))									& when $f(0) = 2^8 - 2^3 $ \\
-.. % 			(2^8 - 2^2) - f(0)										& when $f(0) \geq 2^8 - 2^2 $ \\
-.. % 		\end{dcases*} \\
-.. % %
-.. % 	d_+(f, z) &= -2^{8z - 7z} + \sum_{i=1}^z 2^{8z-8i}f(i-1)
-.. % \end{align*}
-
-.. _tcp-tunnel:
-
-TCP tunnel
-----------
-
-If the UDP channel isn't available the voice packets must be transmitted
-through the TCP socket. These messages use the normal TCP prefixing, as seen in shown in
-figure :ref:`mumble-packet`: 16-bit message type followed by 32-bit message
-length. However unlike other TCP messages, the UDP packets are not encoded as
-protocol buffer messages but instead the raw UDP packet described in section :ref:`udp-data`
-should be written to the TCP socket directly.
-
-When the packets are received it is safe to parse the type and length fields normally.
-If the type matches that of the UDP tunnel the rest of the message should be processed
-as an UDP packet without attempting a protocol buffer decoding.
-
-Encryption
-----------
-
-All the packets are encrypted once during transfer. The actual encryption depends on the
-used transport layer. If the packets are tunneled through TCP they are encrypted using the
-TLS that encrypts the whole TCP connection and if they are sent directly using UDP they must
-be encrypted using the OCB-AES128 encryption.
-
-Implementation notes
---------------------
-
-When implementing the protocol it is easier to ignore the UDP transfer layer at
-first and just tunnel the UDP data through the TCP tunnel. The TCP layer must be implemented
-for authentication in any case. Making sure that the voice transmission works before
-implementing the UDP protocol simplifies debugging greatly. The UDP protocol is a required
-part of the specification though.
+   +----------------------------------+--------------------------------------------------------+
+   | Encoded                          | Decoded                                                |
+   +==================================+========================================================+
+   | ``0xxxxxxx``                     | 7-bit positive number                                  |
+   +----------------------------------+--------------------------------------------------------+
+   | ``10xxxxxx`` + 1 byte            | 14-bit positive number                                 |
+   +----------------------------------+--------------------------------------------------------+
+   | ``110xxxxx`` + 2 bytes           | 21-bit positive number                                 |
+   +----------------------------------+--------------------------------------------------------+
+   | ``1110xxxx`` + 3 bytes           | 28-bit positive number                                 |
+   +----------------------------------+--------------------------------------------------------+
+   | ``111100__`` + ``int`` (32-bit)  | 32-bit positive number                                 |
+   +----------------------------------+--------------------------------------------------------+
+   | ``111101__`` + ``long`` (64-bit) | 64-bit number                                          |
+   +----------------------------------+--------------------------------------------------------+
+   | ``111110__`` + ``varint``        | Negative recursive varint                              |
+   +----------------------------------+--------------------------------------------------------+
+   | ``111111xx``                     | Byte-inverted negative two bit number (``~xx``)        |
+   +----------------------------------+--------------------------------------------------------+

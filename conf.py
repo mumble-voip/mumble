@@ -2,6 +2,9 @@
 
 import sys, os
 
+# on_rtd is whether we are on readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
 extensions = [
 	'sphinx.ext.pngmath',
 ]
@@ -32,16 +35,22 @@ exclude_patterns = ['_build']
 
 pygments_style = 'sphinx'
 
-html_theme = 'default'
-html_theme_options = {
-	'footerbgcolor':    '#555555',
-	'relbarbgcolor':    '#222222',
-	'sidebarbgcolor':   '#333333',
-	'linkcolor':        '#696969',
-	'visitedlinkcolor': '#adadad',
-	'sidebarlinkcolor': '#cacaca',
-	'headtextcolor':    '#000000',
-}
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+else:
+    html_theme = 'default'
+
+    html_theme_options = {
+            'footerbgcolor':    '#555555',
+            'relbarbgcolor':    '#222222',
+            'sidebarbgcolor':   '#333333',
+            'linkcolor':        '#696969',
+            'visitedlinkcolor': '#adadad',
+            'sidebarlinkcolor': '#cacaca',
+            'headtextcolor':    '#000000',
+    }
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []

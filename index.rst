@@ -1,10 +1,11 @@
 Mumble Protocol Documentation
 =============================
 
-Contents:
+Contents
+--------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    introduction
    overview
@@ -13,8 +14,10 @@ Contents:
    voice_data
 
 
-Indices and tables
-==================
+.. # These are empty pages:
 
-* :ref:`genindex`
-* :ref:`search`
+.. # Indices and tables
+.. # ==================
+
+.. # * :ref:`genindex`
+.. # * :ref:`search`
