@@ -765,14 +765,18 @@ void ConnectDialogEdit::validate() {
 		adjustSize();
 	}
 
-	bOk = ! qsName.isEmpty() && ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
+	bOk = ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 }
 
 void ConnectDialogEdit::accept() {
 	validate();
-	if (bOk)
+	if (bOk) {
+		if (qleName->text().simplified().isEmpty()) {
+			qleName->setText(qleServer->text());
+		}
 		QDialog::accept();
+    }
 }
 
 void ConnectDialogEdit::on_qcbShowPassword_toggled(bool checked) {
