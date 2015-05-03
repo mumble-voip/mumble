@@ -190,11 +190,14 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		Q_DISABLE_COPY(ConnectDialogEdit)
 	protected:
 		bool bOk;
+		bool bCustomLabel;
 	public slots:
 		void validate();
 		void accept();
 
 		void on_qcbShowPassword_toggled(bool);
+		void on_qleName_textEdited(const QString&);
+		void on_qleServer_textEdited(const QString&);
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;

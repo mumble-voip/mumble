@@ -732,6 +732,7 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QStr
 
 	usPort = 0;
 	bOk = true;
+	bCustomLabel = ! name.simplified().isEmpty();
 
 	connect(qleName, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 	connect(qleServer, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
@@ -740,6 +741,29 @@ ConnectDialogEdit::ConnectDialogEdit(QWidget *p, const QString &name, const QStr
 	connect(qlePassword, SIGNAL(textChanged(const QString &)), this, SLOT(validate()));
 
 	validate();
+}
+
+void ConnectDialogEdit::on_qleName_textEdited(const QString& name) {
+	if (bCustomLabel) {
+		// If empty, then reset to automatic label.
+		// NOTE(nik@jnstw.us): You may be tempted to set qleName to qleServer, but that results in the odd
+		// UI behavior that clearing the field doesn't clear it; it'll immediately equal qleServer. Instead,
+		// leave it empty and let it update the next time qleServer updates. Code in accept will default it
+		// to qleServer if it isn't updated beforehand.
+		if (name.simplified().isEmpty()) {
+			bCustomLabel = false;
+		}
+	} else {
+		// If manually edited, set to Custom
+		bCustomLabel = true;
+	}
+}
+
+void ConnectDialogEdit::on_qleServer_textEdited(const QString& server) {
+	// If using automatic label, update it
+	if (!bCustomLabel) {
+		qleName->setText(server);
+	}
 }
 
 void ConnectDialogEdit::validate() {
@@ -765,14 +789,18 @@ void ConnectDialogEdit::validate() {
 		adjustSize();
 	}
 
-	bOk = ! qsName.isEmpty() && ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
+	bOk = ! qsHostname.isEmpty() && ! qsUsername.isEmpty() && usPort;
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(bOk);
 }
 
 void ConnectDialogEdit::accept() {
 	validate();
-	if (bOk)
+	if (bOk) {
+		if (qleName->text().simplified().isEmpty()) {
+			qleName->setText(qleServer->text());
+		}
 		QDialog::accept();
+    }
 }
 
 void ConnectDialogEdit::on_qcbShowPassword_toggled(bool checked) {

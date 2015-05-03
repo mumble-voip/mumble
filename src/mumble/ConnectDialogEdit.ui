@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>243</width>
-    <height>194</height>
+    <width>265</width>
+    <height>197</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,30 +20,6 @@
    <string>Edit Server</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="qliName">
-     <property name="text">
-      <string>Label</string>
-     </property>
-     <property name="buddy">
-      <cstring>qleName</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="qleName">
-     <property name="toolTip">
-      <string>Name of the server</string>
-     </property>
-     <property name="whatsThis">
-      <string>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
-Label of the server. This is what the server will be named like in your server list and can be chosen freely.</string>
-     </property>
-     <property name="placeholderText">
-      <string>Local server label</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="QLabel" name="qliServer">
      <property name="text">
@@ -92,7 +68,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item row="4" column="0">
     <widget class="QLabel" name="qliUsername">
      <property name="text">
       <string>&amp;Username</string>
@@ -102,7 +78,14 @@ Port on which the server is listening. If the server is identified by a Bonjour 
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
+   <item row="5" column="0">
+    <widget class="QLabel" name="qliPassword">
+     <property name="text">
+      <string>Password</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
     <widget class="QLineEdit" name="qleUsername">
      <property name="toolTip">
       <string>Username to send to the server</string>
@@ -116,21 +99,14 @@ Username to send to the server. Be aware that the server can impose restrictions
      </property>
     </widget>
    </item>
-   <item row="6" column="1">
+   <item row="8" column="1">
     <widget class="QDialogButtonBox" name="qdbbButtonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="qliPassword">
-     <property name="text">
-      <string>Password</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
+   <item row="5" column="1">
     <widget class="QLineEdit" name="qlePassword">
      <property name="toolTip">
       <string>Password to send to the server</string>
@@ -144,7 +120,7 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
     </widget>
    </item>
-   <item row="5" column="1">
+   <item row="7" column="1">
     <widget class="QCheckBox" name="qcbShowPassword">
      <property name="toolTip">
       <string/>
@@ -154,14 +130,38 @@ Password to be sent to the server on connect. This password is needed when conne
      </property>
     </widget>
    </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="qliName">
+     <property name="text">
+      <string>Label</string>
+     </property>
+     <property name="buddy">
+      <cstring>qleName</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QLineEdit" name="qleName">
+     <property name="toolTip">
+      <string>Name of the server</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
+Label of the server. This is what the server will be named like in your server list and can be chosen freely.</string>
+     </property>
+     <property name="placeholderText">
+      <string>Local server label</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>qleName</tabstop>
   <tabstop>qleServer</tabstop>
   <tabstop>qlePort</tabstop>
   <tabstop>qleUsername</tabstop>
   <tabstop>qlePassword</tabstop>
+  <tabstop>qleName</tabstop>
   <tabstop>qcbShowPassword</tabstop>
   <tabstop>qdbbButtonBox</tabstop>
  </tabstops>
