@@ -161,6 +161,7 @@ Label of the server. This is what the server will be named like in your server l
   <tabstop>qlePort</tabstop>
   <tabstop>qleUsername</tabstop>
   <tabstop>qlePassword</tabstop>
+  <tabstop>qleName</tabstop>
   <tabstop>qcbShowPassword</tabstop>
   <tabstop>qdbbButtonBox</tabstop>
  </tabstops>
