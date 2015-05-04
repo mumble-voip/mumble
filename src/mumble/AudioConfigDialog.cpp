@@ -454,6 +454,7 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadCheckBox(qcbAttenuateUsersOnPrioritySpeak, r.bAttenuateUsersOnPrioritySpeak);
+	loadCheckBox(qcbOnlyAttenuateSameSink, r.bOnlyAttenuateSameSink);
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
 	loadSlider(qsPacketDelay, static_cast<int>(r.dMaxPacketDelay));
@@ -475,6 +476,7 @@ void AudioOutputDialog::save() const {
 	s.fOtherVolume = 1.0f - (static_cast<float>(qsOtherVolume->value()) / 100.0f);
 	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
 	s.bAttenuateOthers = qcbAttenuateOthers->isChecked();
+	s.bOnlyAttenuateSameSink = qcbOnlyAttenuateSameSink->isChecked();
 	s.bAttenuateUsersOnPrioritySpeak = qcbAttenuateUsersOnPrioritySpeak->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
 	s.qsAudioOutput = qcbSystem->currentText();
@@ -522,6 +524,7 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);
 		qcbAttenuateOthersOnTalk->setEnabled(canmute);
+		qcbOnlyAttenuateSameSink->setEnabled((aor->name == QString::fromAscii("PulseAudio")?true:false));
 		qcbAttenuateOthers->setEnabled(canmute);
 		qlOtherVolume->setEnabled(canmute);
 
