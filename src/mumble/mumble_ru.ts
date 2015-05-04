@@ -2332,7 +2332,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation><numerusform>Бан-лист - %n бан</numerusform><numerusform>Бан-лист - %n бана</numerusform><numerusform>Бан-лист - %n банов</numerusform></translation>
+        <translation><numerusform>Бан-лист - %n бан</numerusform><numerusform>Бан-лист - %n бана</numerusform><numerusform>Бан-лист - %n банов</numerusform><numerusform>Бан-лист - %n банов</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7777,7 +7777,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation><numerusform>Зарегистрировано: %n пользователь</numerusform><numerusform>Зарегистрировано: %n пользователя</numerusform><numerusform>Зарегистрировано: %n пользователей</numerusform></translation>
+        <translation><numerusform>Зарегистрировано: %n пользователь</numerusform><numerusform>Зарегистрировано: %n пользователя</numerusform><numerusform>Зарегистрировано: %n пользователей</numerusform><numerusform>Зарегистрировано: %n пользователей</numerusform></translation>
     </message>
 </context>
 <context>
