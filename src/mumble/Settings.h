@@ -205,6 +205,7 @@ struct Settings {
 	bool bAttenuateOthers;
 	bool bAttenuateUsersOnPrioritySpeak;
 	bool bOnlyAttenuateSameSink;
+	bool bAttenuateLoopbacks;
 	int iOutputDelay;
 
 	QString qsALSAInput, qsALSAOutput;

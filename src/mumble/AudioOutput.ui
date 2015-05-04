@@ -337,8 +337,24 @@
           <property name="toolTip">
            <string>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</string>
           </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</string>
+          </property>
           <property name="text">
-           <string>Only attenuate same output</string>
+           <string>Only same output</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="qcbAttenuateLoopbacks">
+          <property name="toolTip">
+           <string>PulseAudio only: If checked, loopback modules will be attenuated</string>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;b&gt;PulseAudio only: Also attenuate loopback modules.&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble's output/sink, they will also be attenuated.</string>
+          </property>
+          <property name="text">
+           <string>Include loopbacks</string>
           </property>
          </widget>
         </item>
