@@ -1014,7 +1014,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation>重設(&amp;e)</translation>
+        <translation>重設(&amp;E)</translation>
     </message>
     <message>
         <location/>
@@ -3157,12 +3157,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1051"/>
         <source>Failed to fetch server list</source>
-        <translation>無法獲取服務器列表</translation>
+        <translation>無法抓取伺服器清單</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <source>Mumble Server Connect</source>
-        <translation>Mumble 服務器連接</translation>
+        <translation>Mumble 伺服器連線</translation>
     </message>
     <message>
         <location/>
@@ -3321,7 +3321,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation>標簽</translation>
+        <translation>標籤</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3629,7 +3629,7 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;這是全局快速鍵組合。&lt;/b&gt;&lt;br /&gt;雙擊該區域然后綁定想要的按鍵/按鈕組合。</translation>
+        <translation>&lt;b&gt;這是全域快速鍵組合。&lt;/b&gt;&lt;br /&gt;雙擊該區域然後綁定想要的按鍵/按鈕組合。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4027,7 +4027,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-2"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>點擊這里為 %1 事件啟用聲音通知。&lt;br /&gt;如果選中， Mumble 會使用一個你預先定義的聲音文件來標示 %1 事件。聲音文件和文本語音轉換不能同時被使用。</translation>
+        <translation>點擊這裡為 %1 事件啟用聲音通知。&lt;br /&gt;如果選中， Mumble 會使用一個你預先定義的聲音文件來標示 %1 事件。聲音文件和文本語音轉換不能同時被使用。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4108,7 +4108,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source> Characters</source>
-        <translation>字符</translation>
+        <translation>字元</translation>
     </message>
     <message>
         <location/>
@@ -4463,7 +4463,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show transmit mode dropdown in toolbar</source>
-        <translation type="unfinished"/>
+        <translation>在工具列顯示傳輸模式的下拉選單</translation>
     </message>
 </context>
 <context>
@@ -5550,7 +5550,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation>顯示一個 Qt 相關信息的小對話框。</translation>
+        <translation>顯示一個 Qt 相關訊息的小對話框。</translation>
     </message>
     <message>
         <location/>
@@ -6253,7 +6253,7 @@ Valid actions are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation>伺服器(&amp;e)</translation>
+        <translation>伺服器(&amp;E)</translation>
     </message>
     <message>
         <location/>
