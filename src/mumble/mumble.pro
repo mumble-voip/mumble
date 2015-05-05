@@ -243,7 +243,7 @@ isEmpty(QMAKE_LRELEASE) {
   }
 }
 
-unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
+unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
   CONFIG	*= no-bundled-speex
 }
 
@@ -265,7 +265,7 @@ CONFIG(no-bundled-speex) {
 }
 
 !CONFIG(no-bundled-speex) {
-  INCLUDEPATH	*= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build
+  INCLUDEPATH	*= ../../3rdparty/speex-src/include ../../3rdparty/speex-src/libspeex ../../3rdparty/speex-build ../../3rdparty/speexdsp-src/include ../../3rdparty/speexdsp-src/libspeexdsp
   LIBS 		*= -lspeex
 }
 

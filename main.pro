@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 CONFIG *= ordered debug_and_release
 
 !CONFIG(no-client) {
-  unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp) {
+  unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
 	CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {
