@@ -72,7 +72,7 @@ AudioInputDialog::AudioInputDialog(Settings &st) : ConfigWidget(st) {
 	}
 	qcbSystem->setEnabled(qcbSystem->count() > 1);
 
-	qcbTransmit->addItem(tr("Continuous"), Settings::Continous);
+	qcbTransmit->addItem(tr("Continuous"), Settings::Continuous);
 	qcbTransmit->addItem(tr("Voice Activity"), Settings::VAD);
 	qcbTransmit->addItem(tr("Push To Talk"), Settings::PushToTalk);
 

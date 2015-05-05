@@ -22,5 +22,5 @@ However, be aware that this will most likely only last until the next reboot
 (at which point devfs is recreated) and you also allow any program run by any
 user to monitor the physical keyboard.
 
-Without this, Mumble will continously poll the mouse and keyboard state for
+Without this, Mumble will continuously poll the mouse and keyboard state for
 changes, which will use a tiny bit of processing power.
