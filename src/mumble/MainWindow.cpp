@@ -536,7 +536,7 @@ void MainWindow::updateTrayIcon() {
 
 void MainWindow::updateTransmitModeComboBox() {
 	switch (g.s.atTransmit) {
-		case Settings::Continous:
+		case Settings::Continuous:
 			qcbTransmitMode->setCurrentIndex(0);
 			return;
 		case Settings::VAD:
@@ -1060,10 +1060,10 @@ void MainWindow::on_qaSelfRegister_triggered() {
 }
 
 void MainWindow::qcbTransmitMode_activated(int index) {
-	switch(index) {
+	switch (index) {
 		case 0: // Continuous
-			g.s.atTransmit = Settings::Continous;
-			g.l->log(Log::Information, tr("Transmit Mode set to Continous"));
+			g.s.atTransmit = Settings::Continuous;
+			g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
 			return;
 
 		case 1: // Voice Activity
@@ -2457,7 +2457,7 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 
 		switch (g.s.atTransmit)
 		{
-			case Settings::Continous:
+			case Settings::Continuous:
 				g.s.atTransmit = Settings::VAD;
 				g.l->log(Log::Information, tr("Transmit Mode set to Voice Activity"));
 				break;
@@ -2466,8 +2466,8 @@ void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant scdata)
 				g.l->log(Log::Information, tr("Transmit Mode set to Push-to-Talk"));
 				break;
 			case Settings::PushToTalk:
-				g.s.atTransmit = Settings::Continous;
-				g.l->log(Log::Information, tr("Transmit Mode set to Continous"));
+				g.s.atTransmit = Settings::Continuous;
+				g.l->log(Log::Information, tr("Transmit Mode set to Continuous"));
 				break;
 		}
 	}

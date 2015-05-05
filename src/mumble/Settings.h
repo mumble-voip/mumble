@@ -159,7 +159,7 @@ struct OverlaySettings {
 };
 
 struct Settings {
-	enum AudioTransmit { Continous, VAD, PushToTalk };
+	enum AudioTransmit { Continuous, VAD, PushToTalk };
 	enum VADSource { Amplitude, SignalToNoise };
 	enum LoopMode { None, Local, Server };
 	enum ChannelExpand { NoChannels, ChannelsWithUsers, AllChannels };

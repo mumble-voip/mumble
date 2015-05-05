@@ -364,7 +364,7 @@ void AudioWizard::showPage(int pageid) {
 		else
 			g.s.atTransmit = Settings::VAD;
 	} else {
-		g.s.atTransmit = Settings::Continous;
+		g.s.atTransmit = Settings::Continuous;
 	}
 }
 
