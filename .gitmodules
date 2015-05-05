@@ -22,3 +22,6 @@
 [submodule "3rdparty/mach-override-src"]
 	path = 3rdparty/mach-override-src
 	url = https://github.com/mumble-voip/mach_override.git
+[submodule "3rdparty/speexdsp-src"]
+	path = 3rdparty/speexdsp-src
+	url = https://git.xiph.org/speexdsp.git
