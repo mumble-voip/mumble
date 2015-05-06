@@ -1111,15 +1111,6 @@ void Server::newClient() {
 			saveBans();
 		}
 
-		foreach(const Ban &ban, qlBans) {
-			if (ban.haAddress.match(ha, ban.iMask)) {
-				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
-				sock->disconnectFromHost();
-				sock->deleteLater();
-				return;
-			}
-		}
-
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 		sock->addCaCertificate(qscCert);
@@ -1211,13 +1202,6 @@ void Server::encrypted() {
 			QString issuer = certs.first().issuerInfo(QSslCertificate::CommonName);
 #endif
 			log(uSource, QString::fromUtf8("Strong certificate for %1 <%2> (signed by %3)").arg(subject).arg(uSource->qslEmail.join(", ")).arg(issuer));
-		}
-
-		foreach(const Ban &ban, qlBans) {
-			if (ban.qsHash == uSource->qsHash) {
-				log(uSource, QString("Certificate hash is banned."));
-				uSource->disconnectSocket();
-			}
 		}
 	}
 }

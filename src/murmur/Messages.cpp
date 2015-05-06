@@ -128,6 +128,29 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	QString reason;
 	MumbleProto::Reject_RejectType rtType = MumbleProto::Reject_RejectType_None;
 
+	short banned = 0;
+	//Check the banlist for the user to give a meaningful ban message (not just a server rejection as before)
+	foreach(const Ban &ban, qlBans) {
+		if (ban.qsHash == uSource->qsHash) {
+			banned |= 1;
+			reason = ban.qsReason;
+		}
+		if (ban.haAddress.match(uSource->haAddress, ban.iMask)) {
+			banned |= 2;
+			reason = ban.qsReason;
+		}
+	}
+
+	QString bantype;
+	if (banned > 0) {
+		if( banned == 1 )
+			bantype = QLatin1String("IP has");
+		if( banned == 2 )
+			bantype = QLatin1String("certificate has");
+		if( banned == 3 )
+			bantype = QLatin1String("IP and certificate have");
+	}
+
 	if (id==-2 && ! nameok) {
 		reason = "Invalid username";
 		rtType = MumbleProto::Reject_RejectType_InvalidUsername;
@@ -140,6 +163,10 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	} else if (id==-3) {
 		reason = "Your account information can not be verified currently. Please try again later";
 		rtType = MumbleProto::Reject_RejectType_AuthenticatorFail;
+	} else if (banned) {
+		reason = QString::fromLatin1("Your %1 been banned. Reason: %2").arg(bantype).arg(reason);
+		//This is a bit hacky but I don't think this is use and there isn't a Reject_RejectType_Ban.
+		rtType = MumbleProto::Reject_RejectType_None;
 	} else {
 		ok = true;
 	}
