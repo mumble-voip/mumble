@@ -334,6 +334,44 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="qgbAdvancedAttenuation">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="title">
+      <string>Advanced Attenuation Options</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QCheckBox" name="qcbOnlyAttenuateSameOutput">
+        <property name="toolTip">
+         <string>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</string>
+        </property>
+        <property name="text">
+         <string>Only attenuate applications using the same output device</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="qcbAttenuateLoopbacks">
+        <property name="toolTip">
+         <string>If checked, PulseAudio loopback modules will be attenuated</string>
+        </property>
+        <property name="whatsThis">
+         <string>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble's output device/sink, they will also be attenuated.</string>
+        </property>
+        <property name="text">
+         <string>Attenuate PulseAudio loopback modules</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="qgbPrioritySpeaker">
      <property name="title">
       <string>Priority Speaker</string>

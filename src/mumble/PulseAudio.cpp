@@ -106,6 +106,7 @@ PulseAudioSystem::PulseAudioSystem() {
 	bAttenuating = false;
 	iRemainingOperations = 0;
 	bPulseIsGood = false;
+	iSinkId = -1;
 
 	pam = pa_threaded_mainloop_new();
 	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
@@ -229,6 +230,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 		if (do_stop) {
 			qWarning("PulseAudio: Stopping output");
 			pa_stream_disconnect(pasOutput);
+			iSinkId = -1;
 		} else if (do_start) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
@@ -245,6 +247,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qsOutputCache = odev;
 
 			pa_stream_connect_playback(pasOutput, qPrintable(odev), &buff, PA_STREAM_ADJUST_LATENCY, NULL, NULL);
+			pa_context_get_sink_info_by_name(pacContext, qPrintable(odev), sink_info_callback, this);
 		}
 	}
 
@@ -438,6 +441,16 @@ void PulseAudioSystem::server_callback(pa_context *, const pa_server_info *i, vo
 	pas->wakeup();
 }
 
+void PulseAudioSystem::sink_info_callback(pa_context *, const pa_sink_info *i, int eol, void *userdata) {
+	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
+	if (!i || eol) {
+		return;
+	}
+
+	pas->iSinkId = i->index;
+}
+
+
 void PulseAudioSystem::stream_callback(pa_stream *s, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 	switch (pa_stream_get_state(s)) {
@@ -614,6 +627,19 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	if (eol == 0) {
+		// If we're using the default of "enable attenuation on all ouputs" and output from an application is loopbacked,
+		// both the loopback and the application will be attenuated leading to double attenuation.
+		if (!g.s.bOnlyAttenuateSameOutput && pas->iSinkId > -1 && !strcmp(i->driver, "module-loopback.c")) {
+			return;
+		}
+		// If we're not attenuating different sinks and the input is not on this sink, don't attenuate. Or,
+		// if the input is a loopback module and connected to Mumble's sink, also ignore it (loopbacks are used to connect
+		// sinks). An attenuated loopback means an indirect application attenuation.
+		if (g.s.bOnlyAttenuateSameOutput && pas->iSinkId > -1) {
+			if (int(i->sink) != pas->iSinkId || (int(i->sink) == pas->iSinkId && !strcmp(i->driver, "module-loopback.c") && !g.s.bAttenuateLoopbacks)) {
+				return;
+			}
+		}
 		// ensure we're not attenuating ourselves!
 		if (strcmp(i->name, mumble_sink_input) != 0) {
 			// create a new entry
