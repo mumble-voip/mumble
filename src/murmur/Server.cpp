@@ -1111,6 +1111,15 @@ void Server::newClient() {
 			saveBans();
 		}
 
+    foreach(const Ban &ban, qlBans) {
+			if (ban.haAddress.match(ha, ban.iMask)) {
+				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
+				sock->disconnectFromHost();
+				sock->deleteLater();
+				return;
+			}
+		}
+
 		sock->setPrivateKey(qskKey);
 		sock->setLocalCertificate(qscCert);
 		sock->addCaCertificate(qscCert);
