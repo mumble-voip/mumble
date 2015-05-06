@@ -627,10 +627,14 @@ void PulseAudioSystem::volume_sink_input_list_callback(pa_context *c, const pa_s
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	if (eol == 0) {
-	  	//If we're not attenuating diffent sinks and the input is not on this sink, don't attenuate
-		//If the input is a loopback driver and connected to Mumble's sink, also ignore it (loopbacks are used to connect
-                //sinks). An attenuated loopback means an indirect application attenuation.
-		if ( g.s.bOnlyAttenuateSameOutput && pas->iSinkId > -1 )
+		//If we're using the default of "enable attenuation on all ouputs" and output from an application is loopbacked,
+		//both the loopback and the application will be attenuated leading to double attenuation.
+		if (!g.s.bOnlyAttenuateSameOutput && pas->iSinkId > -1 && !strcmp(i->driver, "module-loopback.c"))
+			return;
+		//If we're not attenuating different sinks and the input is not on this sink, don't attenuate. Or,
+		//if the input is a loopback module and connected to Mumble's sink, also ignore it (loopbacks are used to connect
+		//sinks). An attenuated loopback means an indirect application attenuation.
+		if (g.s.bOnlyAttenuateSameOutput && pas->iSinkId > -1)
 		{
 			if (int(i->sink) != pas->iSinkId || (int(i->sink) == pas->iSinkId && !strcmp(i->driver, "module-loopback.c") && !g.s.bAttenuateLoopbacks))
 				return;

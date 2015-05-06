@@ -572,7 +572,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameOutput, "audio/OnlyAttenuateSameOutput");
+	SAVELOAD(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
 	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
@@ -874,7 +874,7 @@ void Settings::save() {
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameOutput, "audio/OnlyAttenuateSameOutput");
+	SAVELOAD(bOnlyAttenuateSameOutput, "audio/onlyattenuatesameoutput");
 	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");

@@ -474,6 +474,7 @@ void AudioOutputDialog::load(const Settings &r) {
 
 	qsOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
 	qlOtherVolume->setEnabled(r.bAttenuateOthersOnTalk || r.bAttenuateOthers);
+	qcbAttenuateLoopbacks->setEnabled(r.bOnlyAttenuateSameOutput);
 }
 
 void AudioOutputDialog::save() const {
@@ -627,4 +628,8 @@ void AudioOutputDialog::on_qcbAttenuateOthers_clicked(bool checked) {
 	qsOtherVolume->setEnabled(b);
 	qlOtherVolume->setEnabled(b);
 	qgbAdvancedAttenuation->setEnabled(b);
+}
+
+void AudioOutputDialog::on_qcbOnlyAttenuateSameOutput_clicked(bool checked) {
+  qcbAttenuateLoopbacks->setEnabled(checked);
 }

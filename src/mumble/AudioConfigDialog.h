@@ -103,6 +103,7 @@ class AudioOutputDialog : public ConfigWidget, public Ui::AudioOutput {
 		void on_qcbPositional_stateChanged(int);
 		void on_qcbAttenuateOthersOnTalk_clicked(bool checked);
 		void on_qcbAttenuateOthers_clicked(bool checked);
+		void on_qcbOnlyAttenuateSameOutput_clicked(bool checked);
 };
 
 #endif
