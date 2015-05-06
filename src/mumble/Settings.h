@@ -204,7 +204,7 @@ struct Settings {
 	bool bAttenuateOthersOnTalk;
 	bool bAttenuateOthers;
 	bool bAttenuateUsersOnPrioritySpeak;
-	bool bOnlyAttenuateSameSink;
+	bool bOnlyAttenuateSameOutput;
 	bool bAttenuateLoopbacks;
 	int iOutputDelay;
 

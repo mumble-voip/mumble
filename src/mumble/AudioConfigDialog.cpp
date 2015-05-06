@@ -454,14 +454,12 @@ void AudioOutputDialog::load(const Settings &r) {
 	loadCheckBox(qcbAttenuateOthersOnTalk, r.bAttenuateOthersOnTalk);
 	loadCheckBox(qcbAttenuateOthers, r.bAttenuateOthers);
 	loadCheckBox(qcbAttenuateUsersOnPrioritySpeak, r.bAttenuateUsersOnPrioritySpeak);
-	loadCheckBox(qcbOnlyAttenuateSameSink, r.bOnlyAttenuateSameSink);
+	loadCheckBox(qcbOnlyAttenuateSameOutput, r.bOnlyAttenuateSameOutput);
 	loadCheckBox(qcbAttenuateLoopbacks, r.bAttenuateLoopbacks);
-	if (AudioOutputRegistrar::current == QString::fromAscii("PulseAudio")){
-		qcbOnlyAttenuateSameSink->setVisible(true);
-		qcbAttenuateLoopbacks->setVisible(true);
+	if (AudioOutputRegistrar::current == QLatin1String("PulseAudio")){
+		qgbAdvancedAttenuation->setVisible(true);
 	} else {
-		qcbOnlyAttenuateSameSink->setVisible(false);
-		qcbAttenuateLoopbacks->setVisible(false);
+		qgbAdvancedAttenuation->setVisible(false);
 	}
 	loadSlider(qsJitter, r.iJitterBufferSize);
 	loadComboBox(qcbLoopback, r.lmLoopMode);
@@ -484,7 +482,7 @@ void AudioOutputDialog::save() const {
 	s.fOtherVolume = 1.0f - (static_cast<float>(qsOtherVolume->value()) / 100.0f);
 	s.bAttenuateOthersOnTalk = qcbAttenuateOthersOnTalk->isChecked();
 	s.bAttenuateOthers = qcbAttenuateOthers->isChecked();
-	s.bOnlyAttenuateSameSink = qcbOnlyAttenuateSameSink->isChecked();
+	s.bOnlyAttenuateSameOutput = qcbOnlyAttenuateSameOutput->isChecked();
 	s.bAttenuateLoopbacks = qcbAttenuateLoopbacks->isChecked();
 	s.bAttenuateUsersOnPrioritySpeak = qcbAttenuateUsersOnPrioritySpeak->isChecked();
 	s.iJitterBufferSize = qsJitter->value();
@@ -533,16 +531,10 @@ void AudioOutputDialog::on_qcbSystem_currentIndexChanged(int) {
 		bool canmute = aor->canMuteOthers();
 		qsOtherVolume->setEnabled(canmute);
 		qcbAttenuateOthersOnTalk->setEnabled(canmute);
-		if (aor->name == QString::fromAscii("PulseAudio")) {
-			qcbOnlyAttenuateSameSink->setVisible(true);
-			qcbOnlyAttenuateSameSink->setEnabled(true);
-			qcbAttenuateLoopbacks->setVisible(true);
-			qcbAttenuateLoopbacks->setEnabled(true);
+		if (aor->name == QLatin1String("PulseAudio")) {
+			qgbAdvancedAttenuation->setVisible(true);
 		} else {
-			qcbOnlyAttenuateSameSink->setVisible(false);
-			qcbOnlyAttenuateSameSink->setEnabled(false);
-			qcbAttenuateLoopbacks->setVisible(false);
-			qcbAttenuateLoopbacks->setEnabled(false);
+			qgbAdvancedAttenuation->setVisible(false);
 		}
 		qcbAttenuateOthers->setEnabled(canmute);
 		qlOtherVolume->setEnabled(canmute);
@@ -627,10 +619,12 @@ void AudioOutputDialog::on_qcbAttenuateOthersOnTalk_clicked(bool checked) {
 	bool b = qcbAttenuateOthers->isChecked() || checked;
 	qsOtherVolume->setEnabled(b);
 	qlOtherVolume->setEnabled(b);
+	qgbAdvancedAttenuation->setEnabled(b);
 }
 
 void AudioOutputDialog::on_qcbAttenuateOthers_clicked(bool checked) {
 	bool b = qcbAttenuateOthersOnTalk->isChecked() || checked;
 	qsOtherVolume->setEnabled(b);
 	qlOtherVolume->setEnabled(b);
+	qgbAdvancedAttenuation->setEnabled(b);
 }

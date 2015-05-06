@@ -256,7 +256,7 @@ Settings::Settings() {
 	bAttenuateOthersOnTalk = false;
 	bAttenuateOthers = true;
 	bAttenuateUsersOnPrioritySpeak = false;
-	bOnlyAttenuateSameSink = false;
+	bOnlyAttenuateSameOutput = false;
 	bAttenuateLoopbacks = false;
 	iMinLoudness = 1000;
 	iVoiceHold = 50;
@@ -572,7 +572,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameSink, "audio/onlyattenuatesamesink");
+	SAVELOAD(bOnlyAttenuateSameOutput, "audio/OnlyAttenuateSameOutput");
 	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
 	LOADENUM(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
@@ -874,7 +874,7 @@ void Settings::save() {
 	SAVELOAD(bAttenuateOthers, "audio/attenuateothers");
 	SAVELOAD(bAttenuateOthersOnTalk, "audio/attenuateothersontalk");
 	SAVELOAD(bAttenuateUsersOnPrioritySpeak, "audio/attenuateusersonpriorityspeak");
-	SAVELOAD(bOnlyAttenuateSameSink, "audio/onlyattenuatesamesink");
+	SAVELOAD(bOnlyAttenuateSameOutput, "audio/OnlyAttenuateSameOutput");
 	SAVELOAD(bAttenuateLoopbacks, "audio/attenuateloopbacks");
 	SAVELOAD(vsVAD, "audio/vadsource");
 	SAVELOAD(fVADmin, "audio/vadmin");
