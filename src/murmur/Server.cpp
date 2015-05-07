@@ -1111,7 +1111,7 @@ void Server::newClient() {
 			saveBans();
 		}
 
-    foreach(const Ban &ban, qlBans) {
+		foreach(const Ban &ban, qlBans) {
 			if (ban.haAddress.match(ha, ban.iMask)) {
 				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
 				sock->disconnectFromHost();
