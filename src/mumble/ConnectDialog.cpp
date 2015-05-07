@@ -364,7 +364,7 @@ ServerItem::~ServerItem() {
 		delete si;
 }
 
-ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
+ServerItem *ServerItem::fromMimeData(const QMimeData *mime, bool default_name, QWidget *p) {
 	if (mime->hasFormat(QLatin1String("OriginatedInMumble")))
 		return NULL;
 
@@ -413,7 +413,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	}
 
 #if QT_VERSION >= 0x050000
-	if (! query.hasQueryItem(QLatin1String("title")))
+	if (! query.hasQueryItem(QLatin1String("title")) && default_name)
 		query.addQueryItem(QLatin1String("title"), url.host());
 
 	ServerItem *si = new ServerItem(query.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
@@ -421,7 +421,7 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 	if (query.hasQueryItem(QLatin1String("url")))
 		si->qsUrl = query.queryItemValue(QLatin1String("url"));
 #else
-	if (! url.hasQueryItem(QLatin1String("title")))
+	if (! url.hasQueryItem(QLatin1String("title")) && default_name)
 		url.addQueryItem(QLatin1String("title"), url.host());
 
 	ServerItem *si = new ServerItem(url.queryItemValue(QLatin1String("title")), url.host(), static_cast<unsigned short>(url.port(DEFAULT_MUMBLE_PORT)), url.userName(), url.password());
@@ -1017,7 +1017,7 @@ void ConnectDialog::on_qaFavoriteAddNew_triggered() {
 
 	// Try to fill out fields if possible
 	{
-		ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData());
+		ServerItem *si = ServerItem::fromMimeData(QApplication::clipboard()->mimeData(), false);
 		if (si) {
 			// If there is server information in the clipboard assume user wants to add it
 			name = si->qsName;

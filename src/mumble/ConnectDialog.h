@@ -166,7 +166,23 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);
 		~ServerItem();
-		static ServerItem *fromMimeData(const QMimeData *mime, QWidget *p = NULL);
+
+		/// Converts given mime data into a ServerItem object
+		///
+		/// This function checks the clipboard for a valid mumble:// style
+		/// URL and converts it into a ServerItem ready to add to the connect
+		/// dialog. It also parses .lnk files of InternetShortcut/URL type
+		/// to enable those to be dropped onto the clipboard.
+		///
+		/// @note If needed can query the user for a user name using a modal dialog.
+		/// @note If a server item is returned it's the callers reponsibility to delete it.
+		///
+		/// @param mime Mime data to analyze
+		/// @param default_name If true the hostname is set as item name if none is given
+		/// @param p Parent widget to use in case the user has to be queried
+		/// @return Server item or NULL if mime data invalid.
+		///
+		static ServerItem *fromMimeData(const QMimeData *mime, bool default_name = true, QWidget *p = NULL);
 
 		void addServerItem(ServerItem *child);
 
@@ -201,7 +217,13 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 	public:
 		QString qsName, qsHostname, qsUsername, qsPassword;
 		unsigned short usPort;
-		ConnectDialogEdit(QWidget *parent, const QString &name = QString(), const QString &host = QString(), const QString &user = QString(), unsigned short port = DEFAULT_MUMBLE_PORT, const QString &password = QString(), bool add = false);
+		ConnectDialogEdit(QWidget *parent,
+		                  const QString &name = QString(),
+		                  const QString &host = QString(),
+		                  const QString &user = QString(),
+		                  unsigned short port = DEFAULT_MUMBLE_PORT,
+		                  const QString &password = QString(),
+		                  bool add = false);
 };
 
 class ConnectDialog : public QDialog, public Ui::ConnectDialog {
