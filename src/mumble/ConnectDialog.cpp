@@ -369,9 +369,6 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 		return NULL;
 
 	QUrl url;
-#if QT_VERSION >= 0x050000
-	QUrlQuery query(url);
-#endif
 	if (mime->hasUrls() && ! mime->urls().isEmpty())
 		url = mime->urls().at(0);
 	else if (mime->hasText())
@@ -394,6 +391,10 @@ ServerItem *ServerItem::fromMimeData(const QMimeData *mime, QWidget *p) {
 			}
 		}
 	}
+
+#if QT_VERSION >= 0x050000
+	QUrlQuery query(url);
+#endif
 
 	if (! url.isValid() || (url.scheme() != QLatin1String("mumble")))
 		return NULL;
