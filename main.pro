@@ -3,7 +3,7 @@ CONFIG *= ordered debug_and_release
 
 !CONFIG(no-client) {
   unix:!CONFIG(bundled-speex):system(pkg-config --atleast-version=1.2 speexdsp):system(pkg-config --atleast-version=1.2 speex) {
-	CONFIG *= no-bundled-speex
+    CONFIG *= no-bundled-speex
   }
   !CONFIG(no-bundled-speex) {
     SUBDIRS *= 3rdparty/speex-build
@@ -25,7 +25,7 @@ CONFIG *= ordered debug_and_release
   }
 
   CONFIG(opus):!CONFIG(no-bundled-opus) {
-	SUBDIRS *= 3rdparty/opus-build
+    SUBDIRS *= 3rdparty/opus-build
   }
 
   win32 {
