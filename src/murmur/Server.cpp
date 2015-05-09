@@ -1212,13 +1212,6 @@ void Server::encrypted() {
 #endif
 			log(uSource, QString::fromUtf8("Strong certificate for %1 <%2> (signed by %3)").arg(subject).arg(uSource->qslEmail.join(", ")).arg(issuer));
 		}
-
-		foreach(const Ban &ban, qlBans) {
-			if (ban.qsHash == uSource->qsHash) {
-				log(uSource, QString("Certificate hash is banned."));
-				uSource->disconnectSocket();
-			}
-		}
 	}
 }
 
