@@ -92,7 +92,17 @@ Overlay::Overlay() : QObject() {
 #ifdef Q_OS_WIN
 	pipepath = QLatin1String("MumbleOverlayPipe");
 #else
-	pipepath = QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe"));
+	{
+		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
+		QDir xdgRuntimeDir = QDir(xdgRuntimePath);
+
+		if (! xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
+			pipepath = xdgRuntimeDir.absoluteFilePath(QLatin1String("MumbleOverlayPipe"));
+		} else {
+			pipepath = QDir::home().absoluteFilePath(QLatin1String(".MumbleOverlayPipe"));
+		}
+	}
+
 	{
 		QFile f(pipepath);
 		if (f.exists()) {

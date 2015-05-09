@@ -231,7 +231,17 @@ SocketRPC::SocketRPC(const QString &basename, QObject *p) : QObject(p) {
 #ifdef Q_OS_WIN
 	pipepath = basename;
 #else
-	pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
+	{
+		QString xdgRuntimePath = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_RUNTIME_DIR"));
+		QDir xdgRuntimeDir = QDir(xdgRuntimePath);
+
+		if (! xdgRuntimePath.isNull() && xdgRuntimeDir.exists()) {
+			pipepath = xdgRuntimeDir.absoluteFilePath(basename + QLatin1String("Socket"));
+		} else {
+			pipepath = QDir::home().absoluteFilePath(QLatin1String(".") + basename + QLatin1String("Socket"));
+		}
+	}
+
 	{
 		QFile f(pipepath);
 		if (f.exists()) {

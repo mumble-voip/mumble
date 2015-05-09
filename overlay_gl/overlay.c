@@ -180,7 +180,13 @@ static void newContext(Context * ctx) {
 		}
 	}
 
-	if (home) {
+	char *xdgRuntimeDir = getenv("XDG_RUNTIME_DIR");
+
+	if (xdgRuntimeDir != NULL) {
+		ctx->saName.sun_family = PF_UNIX;
+		strcpy(ctx->saName.sun_path, xdgRuntimeDir);
+		strcat(ctx->saName.sun_path, "/MumbleOverlayPipe");
+	} else if (home) {
 		ctx->saName.sun_family = PF_UNIX;
 		strcpy(ctx->saName.sun_path, home);
 		strcat(ctx->saName.sun_path, "/.MumbleOverlayPipe");
