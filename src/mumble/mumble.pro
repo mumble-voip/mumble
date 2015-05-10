@@ -4,6 +4,31 @@ DEFINES		*= MUMBLE
 TEMPLATE	= app
 TARGET		= mumble
 
+!CONFIG(qt4-legacy-compat) {
+  CONFIG += no-qt4-legacy-compat
+}
+
+CONFIG(no-qt4-legacy-compat):isEqual(QT_MAJOR_VERSION, 4) {
+  error("$$escape_expand(\\n)$$escape_expand(\\n)"\
+        "Mumble client support for Qt 4 is deprecated and will be dropped$$escape_expand(\\n)"\
+        "completely in the future. We highly recommend switching to$$escape_expand(\\n)"\
+        "building Mumble with Qt 5. For now CONFIG+=qt4-legacy-compat$$escape_expand(\\n)"\
+        "can be used to build with Qt 4. Note that if built this way,$$escape_expand(\\n)"\
+        "Mumble might lack certain bug-fixes and capabilities available$$escape_expand(\\n)"\
+        "when built with Qt 5.$$escape_expand(\\n)"\
+        "$$escape_expand(\\n)")
+}
+
+isEqual(QT_MAJOR_VERSION, 4) {
+  warning("$$escape_expand(\\n)$$escape_expand(\\n)"\
+          "Mumble client support for Qt 4 is deprecated and will be dropped$$escape_expand(\\n)"\
+          "completely in the future. We highly recommend switching to$$escape_expand(\\n)"\
+          "building Mumble with Qt 5. When built with Qt 4, Mumble might$$escape_expand(\\n)"\
+          "lack certain bug-fixes and capabilities available when built$$escape_expand(\\n)"\
+          "with Qt 5 already.$$escape_expand(\\n)"\
+          "$$escape_expand(\\n)")
+}
+
 CONFIG(static) {
   # On Windows, building a static client
   # means building the main app into a DLL.
