@@ -966,7 +966,7 @@ ConnectDialog::~ConnectDialog() {
 void ConnectDialog::accept() {
 	ServerItem *si = static_cast<ServerItem *>(qtwServers->currentItem());
 	if (! si || si->qlAddresses.isEmpty() || si->qsHostname.isEmpty()) {
-		qWarning() << "Sad panda";
+		qWarning() << "Invalid server";
 		return;
 	}
 
