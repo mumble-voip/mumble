@@ -821,6 +821,7 @@ ConnectDialog::ConnectDialog(QWidget *p, bool autoconnect) : QDialog(p), bAutoCo
 		qlPublicServers.clear();
 	}
 
+	qdbbButtonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	qdbbButtonBox->button(QDialogButtonBox::Ok)->setText(tr("&Connect"));
 
 	QPushButton *qpbAdd = new QPushButton(tr("&Add New..."), this);
