@@ -166,11 +166,13 @@ win32 {
 		# (https://msdn.microsoft.com/en-us/library/fsk896zz.aspx).
 		# This includes explicitely disabling /Oy to help debugging
 		# (https://msdn.microsoft.com/en-us/library/2kxx5t2c.aspx).
+		# Also set /Zo to enhance optimized debugging
+		# (https://msdn.microsoft.com/en-us/library/dn785163.aspx?f=255&MSPPError=-2147217396).
 		QMAKE_CFLAGS_RELEASE -= -Oy
 		QMAKE_CXXFLAGS_RELEASE -= -Oy
 
-		QMAKE_CFLAGS_RELEASE *= -GR -Zi -Oy-
-		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
+		QMAKE_CFLAGS_RELEASE *= -GR -Zi -Zo -Oy-
+		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Zo -Oy-
 
 		QMAKE_LFLAGS *= /DEBUG /OPT:REF /OPT:ICF /INCREMENTAL:NO
 	}
