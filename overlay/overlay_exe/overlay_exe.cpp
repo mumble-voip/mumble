@@ -54,7 +54,7 @@ static void Alert(LPCWSTR title, LPCWSTR msg) {
 }
 
 // GetExecutableDirPath returns the directory that
-// mumble_ol.exe resides in.
+// mumble_ol_helper.exe resides in.
 static std::wstring GetExecutableDirPath() {
 	wchar_t path[MAX_PATH];
 
@@ -68,7 +68,7 @@ static std::wstring GetExecutableDirPath() {
 	return exePath.append(L"\\");
 }
 
-// ConfigureEnvironment prepares mumble_ol.exe's environment to
+// ConfigureEnvironment prepares mumble_ol_helper.exe's environment to
 // run mumble_ol.dll's OverlayHelperProcessMain() function.
 static bool ConfigureEnvironment() {
 	std::wstring exePath = GetExecutableDirPath();
@@ -77,7 +77,7 @@ static bool ConfigureEnvironment() {
 	if (!SetDllDirectoryW(L""))
 		return false;
 
-	// Set mumble_ol.exe's directory as the current working directory.
+	// Set mumble_ol_helper.exe's directory as the current working directory.
 	if (!SetCurrentDirectoryW(exePath.c_str()))
 		return false;
 

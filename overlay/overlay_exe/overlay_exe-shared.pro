@@ -3,7 +3,7 @@ include(../../compiler.pri)
 TEMPLATE = app
 CONFIG -= qt
 CONFIG += debug_and_release
-TARGET = mumble_ol
+TARGET = mumble_ol_helper
 
 win32 {
   DEFINES += WIN32 _WIN32

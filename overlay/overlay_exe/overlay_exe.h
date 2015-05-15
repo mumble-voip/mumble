@@ -38,7 +38,7 @@ const wchar_t *MUMBLE_OVERLAY_DLL_NAME = L"mumble_ol_x64.dll";
 #endif
 
 /// OverlayHelperError represents exit codes returned by the
-/// overlay helper process (mumble_ol.exe) on Windows.
+/// overlay helper process (mumble_ol_helper.exe) on Windows.
 enum OverlayHelperError {
 	/// The overlay helper process was not passed any
 	/// arguments.

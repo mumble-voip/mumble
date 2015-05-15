@@ -30,7 +30,7 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileVersion", "1.3.0"
 				VALUE "ProductVersion", "1.3.0"
 				VALUE "LegalCopyright", "Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>"
-				VALUE "OriginalFilename", "mumble_ol_x64.exe"
+				VALUE "OriginalFilename", "mumble_ol_helper_x64.exe"
 				VALUE "ProductName", "Mumble"
 #ifdef SNAPSHOT_BUILD
 				VALUE "SpecialBuild", "Snapshot development release"

@@ -98,7 +98,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 		return;
 	}
 
-	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol.exe").arg(qApp->applicationDirPath());
+	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol_helper.exe").arg(qApp->applicationDirPath());
 	m_helper_exe_args << QString::number(OVERLAY_MAGIC_NUMBER)
 	                  << QString::number(reinterpret_cast<quintptr>(m_mumble_handle));
 	m_helper_process = new QProcess(this);
@@ -117,11 +117,11 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 
 	if (!g.s.bOverlayWinHelperX86Enable) {
-		qWarning("OverlayPrivateWin: mumble_ol.exe (32-bit overlay helper) disabled via 'overlay_win/enable_x86_helper' config option.");
+		qWarning("OverlayPrivateWin: mumble_ol_helper.exe (32-bit overlay helper) disabled via 'overlay_win/enable_x86_helper' config option.");
 		m_helper_enabled = false;
 	}
 
-	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_x64.exe").arg(qApp->applicationDirPath());
+	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_helper_x64.exe").arg(qApp->applicationDirPath());
 	m_helper64_exe_args = m_helper_exe_args;
 	m_helper64_process = new QProcess(this);
 
@@ -139,10 +139,10 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 	connect(m_helper64_restart_timer, SIGNAL(timeout()), this, SLOT(onDelayedRestartTimerTriggered()));
 
 	if (!canRun64BitPrograms()) {
-		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
+		qWarning("OverlayPrivateWin: mumble_ol_helper_x64.exe (64-bit overlay helper) disabled because the host is not x64 capable.");
 		m_helper64_enabled = false;
 	} else if (!g.s.bOverlayWinHelperX64Enable) {
-		qWarning("OverlayPrivateWin: mumble_ol_x64.exe (64-bit overlay helper) disabled via 'overlay_win/enable_x64_helper' config option.");
+		qWarning("OverlayPrivateWin: mumble_ol_helper_x64.exe (64-bit overlay helper) disabled via 'overlay_win/enable_x64_helper' config option.");
 		m_helper64_enabled = false;
 	}
 }
