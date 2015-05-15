@@ -81,9 +81,9 @@ win32 {
 			QMAKE_CXXFLAGS *= -Qprof-use
 		}
 	} else {
-		QMAKE_CFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
-		QMAKE_CXXFLAGS_RELEASE *= -Ox -Ot /fp:fast /Qfast_transcendentals -Ob2
-		QMAKE_LFLAGS_RELEASE *= /NXCOMPAT /DYNAMICBASE
+		QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
+		QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
+
 		equals(QMAKE_TARGET.arch, x86) {
 			QMAKE_LFLAGS_RELEASE -= /SafeSEH
 		}
@@ -92,11 +92,9 @@ win32 {
 		# unless an explict arch is set.
 		# For our non-64 x86 builds, our binaries should not contain any
 		# SSE2 code, so override the default by using -arch:SSE.
-		win32-msvc2012|win32-msvc2013 {
-			equals(QMAKE_TARGET.arch, x86) {
-				QMAKE_CFLAGS_RELEASE *= -arch:SSE
-				QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
-			}
+		equals(QMAKE_TARGET.arch, x86) {
+			QMAKE_CFLAGS_RELEASE *= -arch:SSE
+			QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
 		}
 
 		# Qt 5.4 uses -Zc:strictStrings by default on MSVS 2013.
@@ -164,14 +162,17 @@ win32 {
 	}
 
 	CONFIG(symbols) {
-		QMAKE_CFLAGS_RELEASE *= -GR -Zi -Oy-
-		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
-
+		# Configure build to be able to properly debug release builds
+		# (https://msdn.microsoft.com/en-us/library/fsk896zz.aspx).
+		# This includes explicitely disabling /Oy to help debugging
+		# (https://msdn.microsoft.com/en-us/library/2kxx5t2c.aspx).
 		QMAKE_CFLAGS_RELEASE -= -Oy
 		QMAKE_CXXFLAGS_RELEASE -= -Oy
 
-		QMAKE_LFLAGS *= /debug
-		QMAKE_LFLAGS *= /OPT:REF /OPT:ICF
+		QMAKE_CFLAGS_RELEASE *= -GR -Zi -Oy-
+		QMAKE_CXXFLAGS_RELEASE *= -GR -Zi -Oy-
+
+		QMAKE_LFLAGS *= /DEBUG /OPT:REF /OPT:ICF /INCREMENTAL:NO
 	}
 
 	CONFIG(vld) {
