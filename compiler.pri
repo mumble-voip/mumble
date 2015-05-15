@@ -45,120 +45,83 @@ win32 {
 		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
 	}
 
-	CONFIG(intelcpp) {
-		DEFINES *= USE_INTEL_IPP
-		DEFINES *= RESTRICT=restrict
-		DEFINES *= VAR_ARRAYS
-		QMAKE_CC = icl
-		QMAKE_CXX = icl
-		QMAKE_LIB = xilib /nologo
-		QMAKE_LINK = xilink
-		QMAKE_CFLAGS *= -Qstd=c99 -Qrestrict -Qvc9
-		QMAKE_CXXFLAGS *= -Qstd=c++0x -Qrestrict -Qvc9
+	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
+	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
 
-		QMAKE_CFLAGS_LTCG =
-		QMAKE_CXXFLAGS_LTCG =
-		QMAKE_LFLAGS_LTCG =
+	equals(QMAKE_TARGET.arch, x86) {
+		QMAKE_LFLAGS_RELEASE -= /SafeSEH
+	}
 
-		QMAKE_CFLAGS_RELEASE *= -O3 -Ot -QxSSE2 -Qprec-div-
-		QMAKE_CFLAGS_RELEASE -=-arch:SSE
-		QMAKE_CFLAGS_RELEASE -= -GL
+	# MSVS 2012 and 2013's cl.exe will generate SSE2 code by default,
+	# unless an explict arch is set.
+	# For our non-64 x86 builds, our binaries should not contain any
+	# SSE2 code, so override the default by using -arch:SSE.
+	equals(QMAKE_TARGET.arch, x86) {
+		QMAKE_CFLAGS_RELEASE *= -arch:SSE
+		QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
+	}
 
-		QMAKE_CXXFLAGS_RELEASE *= -O3 -Ot -QxSSE2 -Qprec-div-
-		QMAKE_CXXFLAGS_RELEASE -=-arch:SSE
-		QMAKE_CXXFLAGS_RELEASE -= -GL
+	# Qt 5.4 uses -Zc:strictStrings by default on MSVS 2013.
+	# TextToSpeech_win.cpp uses sapi.h, which isn't compatible
+	# with the strictStrings option due to bad conversions
+	# in some of its functions's default parameters.
+	QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
+	QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
+	QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
+	QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
 
-		QMAKE_CFLAGS_DEBUG *= -O2 -Ob0
-		QMAKE_CXXFLAGS_DEBUG *= -O2 -Ob0
+	# Explicitly set the subsystem versions to
+	# 5.01 (XP) for x86 and 6.00 (Vista) for x64.
+	#
+	# Qt expands the @QMAKE_SUBSYSTEM_SUFFIX@ via
+	# qt_config.prf, which doesn't seem to trigger
+	# for us. So we'll just try our luck.
+	QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE
+	QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE@QMAKE_SUBSYSTEM_SUFFIX@
+	QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS
+	QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS@QMAKE_SUBSYSTEM_SUFFIX@
+	!isEmpty(QMAKE_LFLAGS_WINDOWS) {
+		error("QMAKE_LFLAGS_WINDOWS is not empty. Please adjust the pri file.")
+	}
+	!isEmpty(QMAKE_LFLAGS_CONSOLE) {
+		error("QMAKE_LFLAGS_CONSOLE is not empty. Please adjust the pri file.")
+	}
+	equals(QMAKE_TARGET.arch, x86) {
+		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
+		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
+	}
+	equals(QMAKE_TARGET.arch, x86_64) {
+		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,6.00
+		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
+	}
 
-		CONFIG(optgen) {
-			QMAKE_CFLAGS *= -Qprof-gen
-			QMAKE_CXXFLAGS *= -Qprof-gen
-		}
+	CONFIG(analyze) {
+		QMAKE_CFLAGS_DEBUG *= /analyze
+		QMAKE_CXXFLAGS_DEBUG *= /analyze
+		QMAKE_CFLAGS_RELEASE *= /analyze
+		QMAKE_CXXFLAGS_RELEASE *= /analyze
+	}
+	DEFINES *= RESTRICT=
+	CONFIG(sse2) {
+	      QMAKE_CFLAGS_RELEASE -= -arch:SSE
+	      QMAKE_CFLAGS_DEBUG -= -arch:SSE
+	      QMAKE_CFLAGS += -arch:SSE2
+	}
 
-		CONFIG(optimize) {
-			QMAKE_CFLAGS *= -Qprof-use
-			QMAKE_CXXFLAGS *= -Qprof-use
-		}
-	} else {
-		QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
-		QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
+	# Define the CONFIG options 'force-x86-toolchain' and
+	# 'force-x86_64-toolchain'. These can be used to force
+	# the target of a .pro file to be built for a specific
+	# architecture, regardless of the actual architecture
+	# used by the current build environment.
+	FULL_MKSPEC_PATH = $$QMAKESPEC
+	CURRENT_MKSPEC = $$basename(QMAKESPEC)
 
-		equals(QMAKE_TARGET.arch, x86) {
-			QMAKE_LFLAGS_RELEASE -= /SafeSEH
-		}
+	CONFIG(force-x86-toolchain) {
+		include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
+	}
 
-		# MSVS 2012 and 2013's cl.exe will generate SSE2 code by default,
-		# unless an explict arch is set.
-		# For our non-64 x86 builds, our binaries should not contain any
-		# SSE2 code, so override the default by using -arch:SSE.
-		equals(QMAKE_TARGET.arch, x86) {
-			QMAKE_CFLAGS_RELEASE *= -arch:SSE
-			QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
-		}
-
-		# Qt 5.4 uses -Zc:strictStrings by default on MSVS 2013.
-		# TextToSpeech_win.cpp uses sapi.h, which isn't compatible
-		# with the strictStrings option due to bad conversions
-		# in some of its functions's default parameters.
-		QMAKE_CFLAGS_RELEASE -= -Zc:strictStrings
-		QMAKE_CXXFLAGS_RELEASE -= -Zc:strictStrings
-		QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
-		QMAKE_CXXFLAGS_RELEASE_WITH_DEBUGINFO -= -Zc:strictStrings
-
-		# Explicitly set the subsystem versions to
-		# 5.01 (XP) for x86 and 6.00 (Vista) for x64.
-		#
-		# Qt expands the @QMAKE_SUBSYSTEM_SUFFIX@ via
-		# qt_config.prf, which doesn't seem to trigger
-		# for us. So we'll just try our luck.
-		QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE
-		QMAKE_LFLAGS_CONSOLE -= /SUBSYSTEM:CONSOLE@QMAKE_SUBSYSTEM_SUFFIX@
-		QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS
-		QMAKE_LFLAGS_WINDOWS -= /SUBSYSTEM:WINDOWS@QMAKE_SUBSYSTEM_SUFFIX@
-		!isEmpty(QMAKE_LFLAGS_WINDOWS) {
-			error("QMAKE_LFLAGS_WINDOWS is not empty. Please adjust the pri file.")
-		}
-		!isEmpty(QMAKE_LFLAGS_CONSOLE) {
-			error("QMAKE_LFLAGS_CONSOLE is not empty. Please adjust the pri file.")
-		}
-		equals(QMAKE_TARGET.arch, x86) {
-			QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
-			QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
-		}
-		equals(QMAKE_TARGET.arch, x86_64) {
-			QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,6.00
-			QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
-		}
-
-		CONFIG(analyze) {
-			QMAKE_CFLAGS_DEBUG *= /analyze
-			QMAKE_CXXFLAGS_DEBUG *= /analyze
-			QMAKE_CFLAGS_RELEASE *= /analyze
-			QMAKE_CXXFLAGS_RELEASE *= /analyze
-		}
-		DEFINES *= RESTRICT=
-		CONFIG(sse2) {
-		      QMAKE_CFLAGS_RELEASE -= -arch:SSE
-		      QMAKE_CFLAGS_DEBUG -= -arch:SSE
-		      QMAKE_CFLAGS += -arch:SSE2
-		}
-
-		# Define the CONFIG options 'force-x86-toolchain' and
-		# 'force-x86_64-toolchain'. These can be used to force
-		# the target of a .pro file to be built for a specific
-		# architecture, regardless of the actual architecture
-		# used by the current build environment.
-		FULL_MKSPEC_PATH = $$QMAKESPEC
-		CURRENT_MKSPEC = $$basename(QMAKESPEC)
-
-		CONFIG(force-x86-toolchain) {
-			include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
-		}
-
-		CONFIG(force-x86_64-toolchain) {
-			include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
-		}
+	CONFIG(force-x86_64-toolchain) {
+		include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
 	}
 
 	CONFIG(symbols) {

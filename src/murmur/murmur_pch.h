@@ -5,9 +5,6 @@
 #define WIN32_LEAN_AND_MEAN
 
 #define _USE_MATH_DEFINES
-#if defined(__INTEL_COMPILER)
-#include <mathimf.h>
-#endif
 
 #ifdef __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
@@ -83,11 +80,9 @@ extern "C" {
 #endif
 #endif
 
-#if !defined (Q_CC_INTEL) && !defined (Q_OS_WIN)
 #include <math.h>
-#endif
-#if defined (Q_OS_WIN) && (defined (Q_CC_INTEL) || defined (Q_CC_MSVC))
-#define lroundf(x) ( static_cast<int>( (x) + ((x) >= 0 ? 0.5 : -0.5) ) )
+
+#if defined (Q_OS_WIN)
 #define snprintf ::_snprintf
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
 #else

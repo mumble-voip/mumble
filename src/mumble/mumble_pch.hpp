@@ -10,12 +10,7 @@
 #define NOMINMAX
 #define _WINSOCKAPI_
 
-#if defined(__INTEL_COMPILER)
-#define _MSC_EXTENSIONS
-#include <mathimf.h>
-#else
 #define BOOST_TYPEOF_SUPPRESS_UNNAMED_NAMESPACE
-#endif
 
 #ifdef __APPLE__
 #include <Carbon/Carbon.h>
@@ -104,16 +99,11 @@
 #include <shlobj.h>
 #include <tlhelp32.h>
 #include <psapi.h>
-#ifndef Q_CC_INTEL
 #include <math.h>
-#define lroundf(x) ( static_cast<long int>( (x) + ((x) >= 0.0f ? 0.5f : -0.5f) ) )
-#define lround(x) ( static_cast<long int>( (x) + ((x) >= 0.0 ? 0.5 : -0.5) ) )
-#endif
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
+
 #define STACKVAR(type, varname, count) type *varname=reinterpret_cast<type *>(_alloca(sizeof(type) * (count)))
-#else
+
+#else // ifndef Q_OS_WIN
 #include <math.h>
 #define STACKVAR(type, varname, count) type varname[count]
 #define CopyMemory(dst,ptr,len) memcpy(dst,ptr,len)

@@ -49,13 +49,8 @@ win32 {
     QMAKE_CFLAGS_DEBUG -= -arch:SSE
   }
 
-  !CONFIG(intelcpp) {
-    DEFINES+=USE_SMALLFT
-  } else {
-    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippsemerged"
-    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippsmerged"
-    LIBS	*= -l"\\Program Files (x86)\\Intel/Compiler\\11.1\\054\\ipp\\ia32\\lib\\ippcorel"
-  }
+  DEFINES+=USE_SMALLFT
+
 } else {
   CONFIG += staticlib
   INCLUDEPATH += ../speex-build
