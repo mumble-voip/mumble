@@ -10,6 +10,7 @@ indent.sh
 *.sln
 *.sdf
 *.suo
+*.aps
 *.vcxproj
 *.vcxproj.*
 *~
