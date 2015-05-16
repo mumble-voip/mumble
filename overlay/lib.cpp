@@ -45,7 +45,6 @@ static BOOL bBlackListed = FALSE;
 
 static HardHook hhLoad;
 static HardHook hhLoadW;
-static HardHook hhFree;
 
 static SharedData *sd = NULL;
 
@@ -385,20 +384,6 @@ static HMODULE WINAPI MyLoadLibraryW(const wchar_t *lpFileName) {
 	return h;
 }
 
-typedef BOOL(__stdcall *FreeLibraryType)(HMODULE hModule);
-static BOOL WINAPI MyFreeLibrary(HMODULE hModule) {
-	ods("Lib: MyFreeLibrary %p", hModule);
-
-	//TODO: Move logic to HardHook.
-	// Call base without active hook in case of no trampoline.
-	FreeLibraryType oFreeLibrary = (FreeLibraryType) hhFree.call;
-	hhFree.restore();
-	BOOL r = oFreeLibrary(hModule);
-	hhFree.inject();
-
-	return r;
-}
-
 static LRESULT CALLBACK CallWndProc(int nCode, WPARAM wParam, LPARAM lParam) {
 	return CallNextHookEx(hhookWnd, nCode, wParam, lParam);
 }
@@ -547,7 +532,6 @@ static void dllmainProcAttach(char *procname) {
 		// Hook our own LoadLibrary functions so we notice when a new library (like the d3d ones) is loaded.
 		hhLoad.setup(reinterpret_cast<voidFunc>(LoadLibraryA), reinterpret_cast<voidFunc>(MyLoadLibrary));
 		hhLoadW.setup(reinterpret_cast<voidFunc>(LoadLibraryW), reinterpret_cast<voidFunc>(MyLoadLibraryW));
-		hhFree.setup(reinterpret_cast<voidFunc>(FreeLibrary), reinterpret_cast<voidFunc>(MyFreeLibrary));
 
 		checkHooks(true);
 		ods("Lib: Injected into %s", procname);
@@ -744,8 +728,6 @@ static void dllmainProcDetach() {
 	hhLoad.reset();
 	hhLoadW.restore(true);
 	hhLoadW.reset();
-	hhFree.restore(true);
-	hhFree.reset();
 
 	if (sd)
 		UnmapViewOfFile(sd);
