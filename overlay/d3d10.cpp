@@ -37,8 +37,6 @@
 D3D10Data *d3d10 = NULL;
 
 static bool bHooked = false;
-static HardHook hhPresent;
-static HardHook hhResize;
 static HardHook hhAddRef;
 static HardHook hhRelease;
 

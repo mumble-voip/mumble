@@ -41,8 +41,6 @@
 D3D11Data *d3d11 = NULL;
 
 static bool bHooked = false;
-static HardHook hhPresent;
-static HardHook hhResize;
 static HardHook hhAddRef;
 static HardHook hhRelease;
 
