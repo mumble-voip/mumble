@@ -67,7 +67,10 @@ static const char *minhook_status_string(MH_STATUS status) {
 static void EnsureMinHookInitialized() {
 	// Ensure MH_Initialize is only called once.
 	if (InterlockedCompareExchange(&minhook_init_once, 1, 0) == 0) {
-		MH_Initialize();
+		MH_STATUS status = MH_Initialize();
+		if (status != MH_OK && status != MH_ERROR_ALREADY_INITIALIZED) {
+			fods("HardHook: Failed to initialize minhook; MH_Initialize returned %s", minhook_status_string(status));
+		}
 	}
 }
 
@@ -87,11 +90,11 @@ HardHook::HardHook()
  * @param func Funktion to inject replacement into.
  * @param replacement Function to inject into func.
  */
-HardHook::HardHook(voidFunc func, voidFunc replacement) {
+HardHook::HardHook(voidFunc func, voidFunc replacement)
+	: m_func(NULL)
+	, m_replacement(NULL)
+	, call(NULL) {
 	EnsureMinHookInitialized();
-
-	m_func = func;
-	m_replacement = replacement;
 
 	setup(func, replacement);
 }
@@ -105,15 +108,15 @@ HardHook::HardHook(voidFunc func, voidFunc replacement) {
  * @param replacement Pointer to code to redirect to.
  */
 void HardHook::setup(voidFunc func, voidFunc replacement) {
+	m_func = func;
+	m_replacement = replacement;
+
 	MH_STATUS status = MH_CreateHook((LPVOID) func, (LPVOID)replacement, (LPVOID *)&call);
 	if (status != MH_OK) {
 		fods("HardHook: setup failed, MH_CreateHook returned %s", minhook_status_string(status));
 	}
 
-	status = MH_EnableHook((LPVOID)m_func);
-	if (status != MH_OK) {
-		fods("HardHook: setup failed, MH_EnableHook returned %s", minhook_status_string(status));
-	}
+	inject(true);
 }
 
 void HardHook::setupInterface(IUnknown *unkn, LONG funcoffset, voidFunc replacement) {
