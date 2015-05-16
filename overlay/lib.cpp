@@ -396,8 +396,6 @@ static BOOL WINAPI MyFreeLibrary(HMODULE hModule) {
 	BOOL r = oFreeLibrary(hModule);
 	hhFree.inject();
 
-	freeD3D9Hook(hModule);
-
 	return r;
 }
 

@@ -136,8 +136,6 @@ extern void checkDXGI11Hook(bool preonly = false);
 extern void checkD3D9Hook(bool preonly = false);
 // From opengl.cpp
 extern void checkOpenGLHook();
-// From d3d9.cpp
-extern void freeD3D9Hook(HMODULE hModule);
 
 // From d3d9.cpp
 extern Direct3D9Data *d3dd;

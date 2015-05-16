@@ -1010,25 +1010,6 @@ static void hookD3D9(HMODULE hD3D, bool preonly) {
 	}
 }
 
-void freeD3D9Hook(HMODULE hModule) {
-	HMODULE hD3D = GetModuleHandle("D3D9.DLL");
-	if (bHooked && !hD3D) {
-		ods("D3D9: Freeing hooks for module %p", hModule);
-
-		hhCreateDevice.reset();
-		hhCreateDeviceEx.reset();
-		hhReset.reset();
-		hhResetEx.reset();
-		hhAddRef.reset();
-		hhRelease.reset();
-		hhPresent.reset();
-		hhPresentEx.reset();
-		hhSwapPresent.reset();
-
-		bHooked = false;
-	}
-}
-
 extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 	if (! d3dd)
 		return;
