@@ -325,7 +325,7 @@ module Murmur
 		 *  @param action Action to be performed.
 		 *  @param usr User which initiated the action.
 		 *  @param session If nonzero, session of target user.
-		 *  @param channelid If nonzero, session of target channel.
+		 *  @param channelid If not -1, id of target channel.
 		 */
 		idempotent void contextAction(string action, User usr, int session, int channelid);
 	};
