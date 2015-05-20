@@ -45,6 +45,9 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 	SSL *ssl = NULL;
 	const SSL_METHOD *meth = NULL;
 
+	QByteArray csbuf = cipherString.toLatin1();
+	const char *ciphers = csbuf.constData();
+
 	meth = SSLv23_server_method();
 	if (meth == NULL) {
 		qWarning("MumbleSSL: unable to get SSL method");
@@ -56,9 +59,6 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 		qWarning("MumbleSSL: unable to allocate SSL_CTX");
 		goto out;
 	}
-
-	QByteArray csbuf = cipherString.toLatin1();
-	const char *ciphers = csbuf.constData();
 
 	if (!SSL_CTX_set_cipher_list(ctx, ciphers)) {
 		qWarning("MumbleSSL: error parsing OpenSSL cipher string in ciphersFromOpenSSLCipherString");
