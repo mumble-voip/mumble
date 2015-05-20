@@ -118,6 +118,7 @@ ServerHandler::ServerHandler() {
 			if (c.usedBits() < 128) {
 				continue;
 			}
+			qWarning("ServerHandler: using cipher '%s'", qPrintable(c.name()));
 			pref << c;
 		}
 

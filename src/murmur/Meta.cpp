@@ -461,6 +461,7 @@ void MetaParams::read(QString fname) {
 			if (c.usedBits() < 128) {
 				continue;
 			}
+			qWarning("Meta: using cipher '%s'", qPrintable(c.name()));
 			pref << c;
 		}
 
