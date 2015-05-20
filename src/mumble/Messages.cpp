@@ -121,7 +121,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 	g.uiSession = msg.session();
 	g.pPermissions = ChanACL::Permissions(static_cast<unsigned int>(msg.permissions()));
 	g.l->clearIgnore();
-	g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
+	if (msg.has_welcome_text()) {
+		QString str = u8(msg.welcome_text());
+		if (!str.isEmpty()) {
+			g.l->log(Log::Information, tr("Welcome message: %1").arg(str));
+		}
+	}
 	pmModel->ensureSelfVisible();
 	pmModel->recheckLinks();
 
@@ -171,8 +176,12 @@ void MainWindow::msgServerSync(const MumbleProto::ServerSync &msg) {
 
 
 void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
-	if (msg.has_welcome_text())
-		g.l->log(Log::Information, tr("Welcome message: %1").arg(u8(msg.welcome_text())));
+	if (msg.has_welcome_text()) {
+		QString str = u8(msg.welcome_text());
+		if (!str.isEmpty()) {
+			g.l->log(Log::Information, tr("Welcome message: %1").arg(str));
+		}
+	}
 	if (msg.has_max_bandwidth())
 		AudioInput::setMaxBandwidth(msg.max_bandwidth());
 	if (msg.has_allow_html())
