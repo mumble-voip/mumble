@@ -60,7 +60,7 @@ MetaParams::MetaParams() {
 	bAllowHTML = true;
 	iDefaultChan = 0;
 	bRememberChan = true;
-	qsWelcomeText = QString("Welcome to this server");
+	qsWelcomeText = QString();
 	qsDatabase = QString();
 	iDBPort = 0;
 	qsDBusService = "net.sourceforge.mumble.murmur";
