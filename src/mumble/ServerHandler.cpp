@@ -106,7 +106,7 @@ ServerHandler::ServerHandler() {
 		}
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(cipherString);
 		if (ciphers.isEmpty()) {
-			qFatal("Unable to parse cipher string: %s", qPrintable(cipherString));
+			qFatal("Invalid 'net/sslciphers' config option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
 		}
 
 		// This check is from before we had user-selectable ciphers.
