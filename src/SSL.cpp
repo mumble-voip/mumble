@@ -34,6 +34,67 @@
 
 #include "Version.h"
 
+QString MumbleSSL::defaultOpenSSLCipherString() {
+	return QLatin1String("ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!CAMELLIA:!MD5:!PSK:!SRP:!DH:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA");
+}
+
+QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
+	QList<QSslCipher> chosenCiphers;
+
+	SSL_CTX *ctx = NULL;
+	SSL *ssl = NULL;
+	const SSL_METHOD *meth = NULL;
+
+	meth = SSLv23_server_method();
+	if (meth == NULL) {
+		qWarning("MumbleSSL: unable to get SSL method");
+		goto out;
+	}
+
+	ctx = SSL_CTX_new(meth);
+	if (ctx == NULL) {
+		qWarning("MumbleSSL: unable to allocate SSL_CTX");
+		goto out;
+	}
+
+	QByteArray csbuf = cipherString.toLatin1();
+	const char *ciphers = csbuf.constData();
+
+	if (!SSL_CTX_set_cipher_list(ctx, ciphers)) {
+		qWarning("MumbleSSL: error parsing OpenSSL cipher string in ciphersFromOpenSSLCipherString");
+		goto out;
+	}
+
+	ssl = SSL_new(ctx);
+	if (ssl == NULL) {
+		qWarning("MumbleSSL: unable to create SSL object in ciphersFromOpenSSLCipherString");
+		goto out;
+	}
+
+	int i = 0;
+	while (1) {
+		const char *name = SSL_get_cipher_list(ssl, i);
+		if (name == NULL) {
+			break;
+		}
+		QSslCipher c = QSslCipher(QString::fromLatin1(name));
+		if (!c.isNull()) {
+			chosenCiphers << c;
+		}
+		++i;
+	}
+
+out:
+	if (ctx != NULL) {
+		SSL_CTX_free(ctx);
+	}
+	if (ssl != NULL) {
+		SSL_free(ssl);
+	}
+
+	return chosenCiphers;
+}
+
 void MumbleSSL::addSystemCA() {
 #if QT_VERSION < 0x040700 && !defined(NO_SYSTEM_CA_OVERRIDE)
 #if defined(Q_OS_WIN)

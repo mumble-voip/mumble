@@ -100,14 +100,28 @@ ServerHandler::ServerHandler() {
 	MumbleSSL::addSystemCA();
 
 	{
+		QString cipherString = MumbleSSL::defaultOpenSSLCipherString();
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(cipherString);
+		if (ciphers.isEmpty()) {
+			qFatal("Unable to parse cipher string: %s", qPrintable(cipherString));
+		}
+
+		// This check is from before we had user-selectable ciphers.
+		// We haven't ever accepted < 128 bits ciphers before, so
+		// let us continue not accepting them, no matter the user
+		// selection.
 		QList<QSslCipher> pref;
-		foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-			if (c.usedBits() < 128)
+		foreach(QSslCipher c, ciphers) {
+			if (c.usedBits() < 128) {
 				continue;
+			}
 			pref << c;
 		}
-		if (pref.isEmpty())
-			qFatal("No ciphers of at least 128 bit found");
+
+		if (pref.isEmpty()) {
+			qFatal("No suitable SSL ciphers found");
+		}
+
 		QSslSocket::setDefaultCiphers(pref);
 	}
 
