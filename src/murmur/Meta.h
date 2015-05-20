@@ -115,6 +115,7 @@ public:
 	QSslCertificate qscCert;
 	QSslKey qskKey;
 	QByteArray qbaPassPhrase;
+	QString qsCiphers;
 
 	QMap<QString, QString> qmConfig;
 

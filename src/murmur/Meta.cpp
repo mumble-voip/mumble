@@ -38,6 +38,7 @@
 #include "Server.h"
 #include "OSInfo.h"
 #include "Version.h"
+#include "SSL.h"
 
 MetaParams Meta::mp;
 
@@ -440,15 +441,35 @@ void MetaParams::read(QString fname) {
 		qFatal("Qt without SSL Support");
 	}
 
-	QList<QSslCipher> pref;
-	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-		if (c.usedBits() < 128)
-			continue;
-		pref << c;
+	qsCiphers = qsSettings->value("sslCiphers").toString().trimmed();
+
+	{
+		if (qsCiphers.isEmpty()) {
+			qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
+		}
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
+		if (ciphers.isEmpty()) {
+			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
+		}
+
+		// This check is from before we had user-selectable ciphers.
+		// We haven't ever accepted < 128 bits ciphers before, so
+		// let us continue not accepting them, no matter the user
+		// selection.
+		QList<QSslCipher> pref;
+		foreach(QSslCipher c, ciphers) {
+			if (c.usedBits() < 128) {
+				continue;
+			}
+			pref << c;
+		}
+
+		if (pref.isEmpty()) {
+			qFatal("No suitable SSL ciphers found");
+		}
+
+		QSslSocket::setDefaultCiphers(pref);
 	}
-	if (pref.isEmpty())
-		qFatal("No SSL ciphers of at least 128 bit found");
-	QSslSocket::setDefaultCiphers(pref);
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
 
