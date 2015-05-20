@@ -449,7 +449,7 @@ void MetaParams::read(QString fname) {
 		}
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
 		if (ciphers.isEmpty()) {
-			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
+			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(qsCiphers));
 		}
 
 		// This check is from before we had user-selectable ciphers.
