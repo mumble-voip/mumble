@@ -38,6 +38,7 @@
 #include "Server.h"
 #include "OSInfo.h"
 #include "Version.h"
+#include "SSL.h"
 
 MetaParams Meta::mp;
 
@@ -89,6 +90,8 @@ MetaParams::MetaParams() {
 
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
+
+	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
 	qsSettings = NULL;
 }
@@ -358,6 +361,8 @@ void MetaParams::read(QString fname) {
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing = typeCheckedFromSettings("allowping", bAllowPing);
 
+	qsCiphers = typeCheckedFromSettings("sslCiphers", qsCiphers);
+
 	QString qsSSLCert = qsSettings->value("sslCert").toString();
 	QString qsSSLKey = qsSettings->value("sslKey").toString();
 	QString qsSSLCA = qsSettings->value("sslCA").toString();
@@ -440,15 +445,20 @@ void MetaParams::read(QString fname) {
 		qFatal("Qt without SSL Support");
 	}
 
-	QList<QSslCipher> pref;
-	foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-		if (c.usedBits() < 128)
-			continue;
-		pref << c;
+	{
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
+		if (ciphers.isEmpty()) {
+			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(qsCiphers));
+		}
+
+		QSslSocket::setDefaultCiphers(ciphers);
+
+		QStringList pref;
+		foreach (QSslCipher c, ciphers) {
+			pref << c.name();
+		}
+		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
-	if (pref.isEmpty())
-		qFatal("No SSL ciphers of at least 128 bit found");
-	QSslSocket::setDefaultCiphers(pref);
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
 
@@ -488,6 +498,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
+	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
 }
 
 Meta::Meta() {

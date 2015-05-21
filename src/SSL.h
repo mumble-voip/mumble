@@ -31,8 +31,14 @@
 #ifndef MUMBLE_SSL_H_
 #define MUMBLE_SSL_H_
 
+#include <QString>
+#include <QList>
+#include <QSslCipher>
+
 class MumbleSSL {
 	public:
+		static QString MumbleSSL::defaultOpenSSLCipherString();
+		static QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString);
 		static void addSystemCA();
 };
 

@@ -100,15 +100,18 @@ ServerHandler::ServerHandler() {
 	MumbleSSL::addSystemCA();
 
 	{
-		QList<QSslCipher> pref;
-		foreach(QSslCipher c, QSslSocket::defaultCiphers()) {
-			if (c.usedBits() < 128)
-				continue;
-			pref << c;
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(g.s.qsSslCiphers);
+		if (ciphers.isEmpty()) {
+			qFatal("Invalid 'net/sslciphers' config option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
 		}
-		if (pref.isEmpty())
-			qFatal("No ciphers of at least 128 bit found");
-		QSslSocket::setDefaultCiphers(pref);
+
+		QSslSocket::setDefaultCiphers(ciphers);
+
+		QStringList pref;
+		foreach (QSslCipher c, ciphers) {
+			pref << c.name();
+		}
+		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
 #ifdef Q_OS_WIN

@@ -298,6 +298,9 @@ struct Settings {
 	unsigned short usProxyPort;
 	QString qsRegionalHost;
 
+	// Network settings - SSL
+	QString qsSslCiphers;
+
 	static const int ciDefaultMaxImageSize = 50 * 1024; // Restrict to 50KiB as a default
 	int iMaxImageSize;
 	int iMaxImageWidth;
