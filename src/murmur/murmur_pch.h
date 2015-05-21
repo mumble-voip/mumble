@@ -36,14 +36,6 @@ extern "C" {
 };
 #endif
 
-#include <openssl/aes.h>
-#include <openssl/rand.h>
-#include <openssl/pem.h>
-#include <openssl/conf.h>
-#include <openssl/x509v3.h>
-/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
-#undef set_key
-
 #ifdef Q_OS_UNIX
 #include <stdio.h>
 #include <stdlib.h>
@@ -96,6 +88,16 @@ extern "C" {
 #ifdef USE_BONJOUR
 #include <dns_sd.h>
 #endif
+
+#include <openssl/aes.h>
+#include <openssl/rand.h>
+#include <openssl/pem.h>
+#include <openssl/conf.h>
+#include <openssl/x509v3.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
+/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
+#undef set_key
 
 #endif
 #endif

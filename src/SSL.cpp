@@ -34,6 +34,58 @@
 
 #include "Version.h"
 
+QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
+	QList<QSslCipher> chosenCiphers;
+
+	SSL_CTX *ctx = NULL;
+	SSL *ssl = NULL;
+	const SSL_METHOD *meth = NULL;
+
+	QByteArray csbuf = cipherString.toLatin1();
+	const char *ciphers = csbuf.constData();
+
+	meth = SSLv23_server_method();
+	if (meth == NULL) {
+		qWarning("MumbleSSL: unable to get SSL method");
+		goto out;
+	}
+
+	ctx = SSL_CTX_new(meth);
+	if (ctx == NULL) {
+		qWarning("MumbleSSL: unable to allocate SSL_CTX");
+		goto out;
+	}
+
+	if (!SSL_CTX_set_cipher_list(ctx, ciphers)) {
+		qWarning("MumbleSSL: error parsing OpenSSL cipher string in ciphersFromOpenSSLCipherString");
+		goto out;
+	}
+
+	ssl = SSL_new(ctx);
+	if (ssl == NULL) {
+		qWarning("MumbleSSL: unable to create SSL object in ciphersFromOpenSSLCipherString");
+		goto out;
+	}
+
+	int i = 0;
+	while (1) {
+		const char *name = SSL_get_cipher_list(ssl, i);
+		if (name == NULL) {
+			break;
+		}
+		QSslCipher c = QSslCipher(QString::fromLatin1(name));
+		if (!c.isNull()) {
+			chosenCiphers << c;
+		}
+		++i;
+	}
+
+out:
+	SSL_CTX_free(ctx);
+	SSL_free(ssl);
+	return chosenCiphers;
+}
+
 void MumbleSSL::addSystemCA() {
 #if QT_VERSION < 0x040700 && !defined(NO_SYSTEM_CA_OVERRIDE)
 #if defined(Q_OS_WIN)
