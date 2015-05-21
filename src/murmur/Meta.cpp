@@ -91,6 +91,8 @@ MetaParams::MetaParams() {
 	qrUserName = QRegExp(QLatin1String("[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+"));
 	qrChannelName = QRegExp(QLatin1String("[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+"));
 
+	qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
+
 	qsSettings = NULL;
 }
 
@@ -359,6 +361,8 @@ void MetaParams::read(QString fname) {
 	bSendVersion = typeCheckedFromSettings("sendversion", bSendVersion);
 	bAllowPing = typeCheckedFromSettings("allowping", bAllowPing);
 
+	qsCiphers = typeCheckedFromSettings("sslCiphers", qsCiphers);
+
 	QString qsSSLCert = qsSettings->value("sslCert").toString();
 	QString qsSSLKey = qsSettings->value("sslKey").toString();
 	QString qsSSLCA = qsSettings->value("sslCA").toString();
@@ -441,13 +445,7 @@ void MetaParams::read(QString fname) {
 		qFatal("Qt without SSL Support");
 	}
 
-	qsCiphers = qsSettings->value("sslCiphers").toString().trimmed();
-
 	{
-		if (qsCiphers.isEmpty()) {
-			qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
-		}
-
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(qsCiphers));
@@ -500,6 +498,7 @@ void MetaParams::read(QString fname) {
 	qmConfig.insert(QLatin1String("suggestpushtotalk"), qvSuggestPushToTalk.isNull() ? QString() : qvSuggestPushToTalk.toString());
 	qmConfig.insert(QLatin1String("opusthreshold"), QString::number(iOpusThreshold));
 	qmConfig.insert(QLatin1String("channelnestinglimit"), QString::number(iChannelNestingLimit));
+	qmConfig.insert(QLatin1String("sslCiphers"), qsCiphers);
 }
 
 Meta::Meta() {
