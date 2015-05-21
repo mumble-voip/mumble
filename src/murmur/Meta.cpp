@@ -447,29 +447,19 @@ void MetaParams::read(QString fname) {
 		if (qsCiphers.isEmpty()) {
 			qsCiphers = MumbleSSL::defaultOpenSSLCipherString();
 		}
+
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(qsCiphers);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid sslCiphers option. Could not parse cipher string: \"%s\"", qPrintable(qsCiphers));
 		}
 
-		// This check is from before we had user-selectable ciphers.
-		// We haven't ever accepted < 128 bits ciphers before, so
-		// let us continue not accepting them, no matter the user
-		// selection.
-		QList<QSslCipher> pref;
-		foreach(QSslCipher c, ciphers) {
-			if (c.usedBits() < 128) {
-				continue;
-			}
-			qWarning("Meta: using cipher '%s'", qPrintable(c.name()));
-			pref << c;
-		}
+		QSslSocket::setDefaultCiphers(ciphers);
 
-		if (pref.isEmpty()) {
-			qFatal("No suitable SSL ciphers found");
+		QStringList pref;
+		foreach (QSslCipher c, ciphers) {
+			pref << c.name();
 		}
-
-		QSslSocket::setDefaultCiphers(pref);
+		qWarning("Meta: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));

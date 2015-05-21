@@ -104,29 +104,19 @@ ServerHandler::ServerHandler() {
 		if (cipherString.isEmpty()) {
 			cipherString = MumbleSSL::defaultOpenSSLCipherString();
 		}
+
 		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(cipherString);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid 'net/sslciphers' config option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
 		}
 
-		// This check is from before we had user-selectable ciphers.
-		// We haven't ever accepted < 128 bits ciphers before, so
-		// let us continue not accepting them, no matter the user
-		// selection.
-		QList<QSslCipher> pref;
-		foreach(QSslCipher c, ciphers) {
-			if (c.usedBits() < 128) {
-				continue;
-			}
-			qWarning("ServerHandler: using cipher '%s'", qPrintable(c.name()));
-			pref << c;
-		}
+		QSslSocket::setDefaultCiphers(ciphers);
 
-		if (pref.isEmpty()) {
-			qFatal("No suitable SSL ciphers found");
+		QStringList pref;
+		foreach (QSslCipher c, ciphers) {
+			pref << c.name();
 		}
-
-		QSslSocket::setDefaultCiphers(pref);
+		qWarning("ServerHandler: TLS cipher preference is \"%s\"", qPrintable(pref.join(QLatin1String(":"))));
 	}
 
 #ifdef Q_OS_WIN
