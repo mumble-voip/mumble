@@ -100,12 +100,7 @@ ServerHandler::ServerHandler() {
 	MumbleSSL::addSystemCA();
 
 	{
-		QString cipherString = g.s.qsSslCiphers.trimmed();
-		if (cipherString.isEmpty()) {
-			cipherString = MumbleSSL::defaultOpenSSLCipherString();
-		}
-
-		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(cipherString);
+		QList<QSslCipher> ciphers = MumbleSSL::ciphersFromOpenSSLCipherString(g.s.qsSslCiphers);
 		if (ciphers.isEmpty()) {
 			qFatal("Invalid 'net/sslciphers' config option. Could not parse cipher string: \"%s\"", qPrintable(cipherString));
 		}
