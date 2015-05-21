@@ -36,15 +36,6 @@
 #include <QtSql/QtSql>
 #include <QtXml/QtXml>
 
-#include <openssl/aes.h>
-#include <openssl/rand.h>
-#include <openssl/pem.h>
-#include <openssl/conf.h>
-#include <openssl/x509v3.h>
-#include <openssl/pkcs12.h>
-/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
-#undef set_key
-
 #ifdef Q_OS_WIN
 #define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
 #endif
@@ -126,6 +117,16 @@ typedef WId HWND;
 #ifdef __OBJC__
  #define nil 0
 #endif
+
+#include <openssl/aes.h>
+#include <openssl/rand.h>
+#include <openssl/pem.h>
+#include <openssl/conf.h>
+#include <openssl/x509v3.h>
+#include <openssl/pkcs12.h>
+#include <openssl/ssl.h>
+/* OpenSSL defines set_key. This breaks our protobuf-generated setters. */
+#undef set_key
 
 #endif
 #endif
