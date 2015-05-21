@@ -37,6 +37,8 @@
 #include "Cert.h"
 #include "Log.h"
 #include "Global.h"
+#include "SSL.h"
+
 #include "../../overlay/overlay.h"
 #include "../../overlay/overlay_blacklist.h"
 
@@ -362,6 +364,7 @@ Settings::Settings() {
 	iMaxImageWidth = 1024; // Allow 1024x1024 resolution
 	iMaxImageHeight = 1024;
 	bSuppressIdentity = false;
+	qsSslCiphers = MumbleSSL::defaultOpenSSLCipherString();
 
 	// Accessibility
 	bHighContrast = false;
@@ -627,6 +630,9 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsRegionalHost, "net/region");
+
+	// Network settings - SSL
+	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
@@ -914,6 +920,9 @@ void Settings::save() {
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
 	SAVELOAD(qsRegionalHost, "net/region");
+
+	// Network settings - SSL
+	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
