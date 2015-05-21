@@ -34,6 +34,10 @@
 
 #include "Version.h"
 
+QString MumbleSSL::defaultOpenSSLCipherString() {
+	return QLatin1String("EECDH+AESGCM:AES256-SHA:AES128-SHA");
+}
+
 QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString) {
 	QList<QSslCipher> chosenCiphers;
 

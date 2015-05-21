@@ -37,6 +37,7 @@
 
 class MumbleSSL {
 	public:
+		static QString MumbleSSL::defaultOpenSSLCipherString();
 		static QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString);
 		static void addSystemCA();
 };
