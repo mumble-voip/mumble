@@ -44,6 +44,7 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 	SSL_CTX *ctx = NULL;
 	SSL *ssl = NULL;
 	const SSL_METHOD *meth = NULL;
+	int i = 0;
 
 	QByteArray csbuf = cipherString.toLatin1();
 	const char *ciphers = csbuf.constData();
@@ -71,7 +72,6 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 		goto out;
 	}
 
-	int i = 0;
 	while (1) {
 		const char *name = SSL_get_cipher_list(ssl, i);
 		if (name == NULL) {
