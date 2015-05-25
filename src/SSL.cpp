@@ -77,9 +77,10 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 		if (name == NULL) {
 			break;
 		}
-		QSslCipher c = QSslCipher(QString::fromLatin1(name));
-		if (!c.isNull()) {
-			chosenCiphers << c;
+		foreach (const QSslCipher &c, QSslSocket::supportedCiphers()) {
+			if (c.name() == QString::fromLatin1(name)) {
+				chosenCiphers << c;
+			}
 		}
 		++i;
 	}
