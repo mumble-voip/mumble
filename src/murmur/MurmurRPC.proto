@@ -1,1 +1,440 @@
+syntax = "proto3";
 
+package MurmurRPC;
+
+message Void {
+}
+
+message Version {
+	// 2-byte Major, 1-byte Minor and 1-byte Patch version number.
+	uint32 version = 1;
+	// Client release name.
+	string release = 2;
+	// Client OS name.
+	string os = 3;
+	// Client OS version.
+	string os_version = 4;
+}
+
+message Uptime {
+	uint32 secs = 1;
+}
+
+message Server {
+	uint32 id = 1;
+	bool running = 2;
+	uint32 uptime = 3;
+
+	message Event {
+		enum Type {
+			UserConnected = 0;
+			UserDisconnected = 1;
+			UserStateChanged = 2;
+			UserTextMessage = 3;
+			ChannelCreated = 4;
+			ChannelRemoved = 5;
+			ChannelStateChanged = 6;
+		};
+		Server server = 1;
+		Type type = 2;
+		User user = 3;
+		TextMessage message = 4;
+		Channel channel = 5;
+	}
+
+	message Query {
+	}
+}
+
+service ServerService {
+	rpc new(Void) returns(Server);
+
+	rpc query(Server.Query) returns(stream Server);
+	rpc get(Server) returns(Server);
+
+	rpc start(Server) returns(Void);
+	rpc stop(Server) returns(Void);
+	rpc delete(Server) returns(Void);
+
+	rpc events(Server) returns(stream Server.Event);
+}
+
+message Event {
+	enum Type {
+		ServerStarted = 0;
+		ServerStopped = 1;
+	};
+	Type type = 1;
+	Server server = 2;
+}
+
+service MetaService {
+	rpc uptime(Void) returns(Uptime);
+	rpc version(Void) returns(Version);
+	rpc events(Void) returns(stream Event);
+}
+
+message ContextAction {
+	enum Context {
+		None = 0x00;
+		Server = 0x01;
+		Channel = 0x02;
+		Users = 0x04;
+	};
+
+	Server server = 1;
+
+	Context context = 2;
+	string action = 3;
+	User actor = 4;
+	User user = 5;
+	Channel channel = 6;
+}
+
+service ContextActionService {
+	rpc add(ContextAction) returns(Void);
+	rpc remove(ContextAction) returns(Void);
+	rpc events(ContextAction) returns(stream ContextAction);
+}
+
+message TextMessage {
+	Server server = 1;
+
+	User actor = 2;
+	repeated User sessions = 3;
+	repeated Channel channels = 4;
+	repeated Channel trees = 5;
+	string text = 6;
+}
+
+service TextMessageService {
+	rpc send(TextMessage) returns(Void);
+	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
+}
+
+message Log {
+	message Entry {
+		Server server = 1;
+		int64 timestamp = 2;
+		string text = 3;
+	}
+
+	message Query {
+		Server server = 1;
+		int64 start_timestamp = 2;
+		int64 end_timestamp = 3;
+		uint32 limit = 4;
+	}
+}
+
+service LogService {
+	rpc query(Log.Query) returns(stream Log.Entry);
+}
+
+// Having "Config" seems preferable to having a map (map<string, string>),
+// since. we are able to get some type safety. The downside to this is that
+// arbitrary config values cannot be set (i.e. a user cannot set the "county"
+// config value without changing the protocol buffer on both the client and
+// server).
+message Config {
+	Server server = 55; // TODO: reindex
+
+	string password = 1;
+	uint32 timeout = 2;
+	uint32 bandwidth = 3;
+	uint32 users = 4;
+	uint32 users_per_channel = 5;
+	uint32 text_message_length = 6;
+	uint32 image_message_length = 7;
+	bool allow_help = 8;
+	Channel default_channel = 9;
+	bool remember_channel = 10;
+	string welcome_text = 11;
+
+	string register_name = 12;
+	string register_password = 13;
+	string register_hostname = 14;
+	string register_location = 15;
+	string register_url = 16;
+
+	bool cert_required = 17;
+	bool force_external_auth = 18;
+	bool bonjour = 19;
+	bool allow_ping = 20;
+
+	string username = 21;
+	string channelname = 22;
+
+	Version suggest_version = 23;
+	bool suggest_positional = 24;
+	bool suggest_push_to_talk = 25;
+
+	uint32 opus_threshold = 26;
+	uint32 channel_nesting_limit = 27;
+
+	message Query {
+		Server server = 1;
+	}
+}
+
+service ConfigService {
+	rpc default(Void) returns(Config);
+	rpc setDefault(Config) returns(Void);
+	rpc query(Config.Query) returns(Config);
+}
+
+message Channel {
+	Server server = 1;
+
+	uint32 id = 2;
+	string name = 3;
+	uint32 parent = 4;
+	repeated Channel links = 5;
+	string description = 6;
+	bool temporary = 7;
+	int32 position = 8;
+
+	message Query {
+		Server server = 1;
+	}
+}
+
+service ChannelService {
+	rpc query(Channel.Query) returns(stream Channel);
+	rpc get(Channel) returns(Channel);
+
+	rpc add(Channel) returns(Channel);
+	rpc remove(Channel) returns(Void);
+	rpc update(Channel) returns(Channel);
+}
+
+message User {
+	Server server = 50; // TODO: reindex
+
+	uint32 session = 1;
+	uint32 id = 2;
+
+	bool mute = 3;
+	bool deaf = 4;
+	bool suppress = 5;
+	bool priority_speaker = 6;
+	bool self_mute = 7;
+	bool self_deaf = 8;
+	bool recording = 9;
+	Channel channel = 10;
+	string name = 11;
+	uint32 online_secs = 12;
+	uint32 idle_secs = 13;
+	uint32 bytes_per_sec = 14;
+	Version version = 15;
+
+	bytes plugin_context = 16;
+	string plugin_identity = 17;
+
+	string comment = 18;
+	bytes texture = 19;
+	bytes address = 20;
+	bool tcp_only = 21;
+
+	float udp_ping = 22;
+	float tcp_ping = 23;
+
+	message Query {
+		Server server = 1;
+	}
+
+	message Kick {
+		Server server = 1;
+		User user = 2;
+		string reason = 3;
+	}
+}
+
+service UserService {
+	rpc query(User.Query) returns(stream User);
+	rpc get(User) returns(User);
+	rpc update(User) returns(User);
+
+	rpc kick(User.Kick) returns(Void);
+}
+
+message Tree {
+	Server server = 1;
+
+	Channel channel = 2;
+	repeated Channel children = 3;
+	repeated User users = 4;
+}
+
+service TreeService {
+	// Worth considering this: http://stackoverflow.com/a/5945674 ?
+	rpc get(Tree) returns(Tree);
+}
+
+message Ban {
+	Server server = 1;
+
+	bytes address = 2;
+	uint32 bits = 3;
+	string name = 4;
+	string hash = 5;
+	string reason = 6;
+	int64 start = 7;
+	int64 duration = 8;
+}
+
+service BanService {
+	rpc get(Ban) returns(stream Ban);
+	rpc set(stream Ban) returns(Void);
+}
+
+message ACL {
+	enum Permission {
+		None = 0x00;
+		Write = 0x01;
+		Traverse = 0x02;
+		Enter = 0x04;
+		Speak = 0x08;
+		Whisper = 0x100;
+		MuteDeafen = 0x10;
+		Move = 0x20;
+		MakeChannel = 0x40;
+		MakeTemporaryChannel = 0x400;
+		LinkChannel = 0x80;
+		TextMessage = 0x200;
+
+		Kick = 0x10000;
+		Ban = 0x20000;
+		Register = 0x40000;
+		RegisterSelf = 0x80000;
+	}
+
+	message Group {
+		string name = 1;
+		bool inherited = 2;
+		bool inherit = 3;
+		bool inheritable = 4;
+
+		repeated Database.User users_add = 5;
+		repeated Database.User users_remove = 6;
+		repeated Database.User users = 7;
+	}
+
+	bool apply_here = 3;
+	bool apply_subs = 4;
+	bool inherited = 5;
+
+	Database.User user = 6;
+	string group = 7;
+
+	Permission allow = 8;
+	Permission deny = 9;
+
+	// TODO: need a better name than "List"
+	message List {
+		Server server = 1;
+		Channel channel = 2;
+
+		repeated ACL acls = 3;
+		repeated string groups = 4;
+		bool inherit = 5;
+	}
+
+	message TemporaryGroup {
+		Server server = 1;
+
+		Channel channel = 2;
+		User user = 3;
+		string group = 4;
+	}
+}
+
+service ACLService {
+	rpc get(Channel) returns(ACL.List);
+	rpc set(ACL.List) returns(Void);
+
+	rpc effectivePermissions(User) returns(ACL);
+
+	rpc addTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	rpc removeTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+}
+
+message Authenticator {
+	message Message {
+		enum Type {
+			Initialize = 0;
+			Authenticate = 1;
+			AuthenticateTemporaryFailure = 2;
+			AuthenticateFailure = 3;
+			Information = 4;
+
+			// Below types are only sent when "registrationStream" used.
+			Register = 5;
+			Unregister = 6;
+			Update = 7;
+			Query = 8;
+		}
+
+		Server server = 1;
+
+		Type type = 2;
+		User user = 3;
+		repeated Database.User database_user = 4;
+		repeated string groups = 5;
+	}
+}
+
+service AuthenticatorService {
+	// an initial Authenticator.Response with the "server" set needs to be sent
+	// before requests start coming in.
+	rpc stream(stream Authenticator.Message) returns(stream Authenticator.Message);
+
+	// same as "stream", but accepts updated registration information.
+	rpc registrationStream(stream Authenticator.Message) returns(stream Authenticator.Message);
+}
+
+message Database {
+	message Query {
+		Server server = 1;
+	}
+
+	message VerifyPassword {
+		Server server = 1;
+		string username = 2;
+		string password  = 3;
+	}
+
+	message User {
+		Server server = 1;
+
+		uint32 id = 2;
+		string name = 3;
+		string email = 4;
+		string comment = 5;
+		string hash = 6;
+		string password = 7;
+		string last_active = 8;
+		bytes texture = 9;
+	}
+}
+
+service DatabaseService {
+	rpc query(Database.Query) returns(stream Database.User);
+	rpc get(Database.User) returns(Database.User);
+	rpc update(Database.User) returns(Database.User);
+	rpc register(Database.User) returns(Database.User);
+	rpc deregister(Database.User) returns(Void);
+	rpc verifyPassword(Database.VerifyPassword) returns(Database.User);
+}
+
+message RedirectWhisperGroup {
+	Server server = 1;
+
+	User user = 2;
+	string source = 3;
+	string target = 4;
+}
+
+service AudioService {
+	rpc redirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+}
