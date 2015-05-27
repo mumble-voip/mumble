@@ -423,7 +423,8 @@ service DatabaseService {
 	rpc query(Database.Query) returns(stream Database.User);
 	rpc get(Database.User) returns(Database.User);
 	rpc update(Database.User) returns(Database.User);
-	rpc register(Database.User) returns(Database.User);
+	// TODO(grpc): "register" currently cannot be used as a name
+	rpc registerFIXME(Database.User) returns(Database.User);
 	rpc deregister(Database.User) returns(Void);
 	rpc verifyPassword(Database.VerifyPassword) returns(Database.User);
 }
