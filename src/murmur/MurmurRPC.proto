@@ -1,4 +1,4 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package MurmurRPC;
 
@@ -7,23 +7,23 @@ message Void {
 
 message Version {
 	// 2-byte Major, 1-byte Minor and 1-byte Patch version number.
-	uint32 version = 1;
+	optional uint32 version = 1;
 	// Client release name.
-	string release = 2;
+	optional string release = 2;
 	// Client OS name.
-	string os = 3;
+	optional string os = 3;
 	// Client OS version.
-	string os_version = 4;
+	optional string os_version = 4;
 }
 
 message Uptime {
-	uint32 secs = 1;
+	optional uint64 secs = 1;
 }
 
 message Server {
-	uint32 id = 1;
-	bool running = 2;
-	uint32 uptime = 3;
+	required uint32 id = 1;
+	optional bool running = 2;
+	optional uint32 uptime = 3;
 
 	message Event {
 		enum Type {
@@ -35,11 +35,11 @@ message Server {
 			ChannelRemoved = 5;
 			ChannelStateChanged = 6;
 		};
-		Server server = 1;
-		Type type = 2;
-		User user = 3;
-		TextMessage message = 4;
-		Channel channel = 5;
+		optional Server server = 1;
+		optional Type type = 2;
+		optional User user = 3;
+		optional TextMessage message = 4;
+		optional Channel channel = 5;
 	}
 
 	message Query {
@@ -64,8 +64,8 @@ message Event {
 		ServerStarted = 0;
 		ServerStopped = 1;
 	};
-	Type type = 1;
-	Server server = 2;
+	optional Type type = 1;
+	optional Server server = 2;
 }
 
 service MetaService {
@@ -82,13 +82,13 @@ message ContextAction {
 		Users = 0x04;
 	};
 
-	Server server = 1;
+	optional Server server = 1;
 
-	Context context = 2;
-	string action = 3;
-	User actor = 4;
-	User user = 5;
-	Channel channel = 6;
+	optional Context context = 2;
+	optional string action = 3;
+	optional User actor = 4;
+	optional User user = 5;
+	optional Channel channel = 6;
 }
 
 service ContextActionService {
@@ -98,13 +98,13 @@ service ContextActionService {
 }
 
 message TextMessage {
-	Server server = 1;
+	optional Server server = 1;
 
-	User actor = 2;
+	optional User actor = 2;
 	repeated User sessions = 3;
 	repeated Channel channels = 4;
 	repeated Channel trees = 5;
-	string text = 6;
+	optional string text = 6;
 }
 
 service TextMessageService {
@@ -114,16 +114,16 @@ service TextMessageService {
 
 message Log {
 	message Entry {
-		Server server = 1;
-		int64 timestamp = 2;
-		string text = 3;
+		optional Server server = 1;
+		optional int64 timestamp = 2;
+		optional string text = 3;
 	}
 
 	message Query {
-		Server server = 1;
-		int64 start_timestamp = 2;
-		int64 end_timestamp = 3;
-		uint32 limit = 4;
+		optional Server server = 1;
+		optional int64 start_timestamp = 2;
+		optional int64 end_timestamp = 3;
+		optional uint32 limit = 4;
 	}
 }
 
@@ -137,43 +137,43 @@ service LogService {
 // config value without changing the protocol buffer on both the client and
 // server).
 message Config {
-	Server server = 55; // TODO: reindex
+	optional Server server = 55; // TODO: reindex
 
-	string password = 1;
-	uint32 timeout = 2;
-	uint32 bandwidth = 3;
-	uint32 users = 4;
-	uint32 users_per_channel = 5;
-	uint32 text_message_length = 6;
-	uint32 image_message_length = 7;
-	bool allow_help = 8;
-	Channel default_channel = 9;
-	bool remember_channel = 10;
-	string welcome_text = 11;
+	optional string password = 1;
+	optional uint32 timeout = 2;
+	optional uint32 bandwidth = 3;
+	optional uint32 users = 4;
+	optional uint32 users_per_channel = 5;
+	optional uint32 text_message_length = 6;
+	optional uint32 image_message_length = 7;
+	optional bool allow_help = 8;
+	optional Channel default_channel = 9;
+	optional bool remember_channel = 10;
+	optional string welcome_text = 11;
 
-	string register_name = 12;
-	string register_password = 13;
-	string register_hostname = 14;
-	string register_location = 15;
-	string register_url = 16;
+	optional string register_name = 12;
+	optional string register_password = 13;
+	optional string register_hostname = 14;
+	optional string register_location = 15;
+	optional string register_url = 16;
 
-	bool cert_required = 17;
-	bool force_external_auth = 18;
-	bool bonjour = 19;
-	bool allow_ping = 20;
+	optional bool cert_required = 17;
+	optional bool force_external_auth = 18;
+	optional bool bonjour = 19;
+	optional bool allow_ping = 20;
 
-	string username = 21;
-	string channelname = 22;
+	optional string username = 21;
+	optional string channelname = 22;
 
-	Version suggest_version = 23;
-	bool suggest_positional = 24;
-	bool suggest_push_to_talk = 25;
+	optional Version suggest_version = 23;
+	optional bool suggest_positional = 24;
+	optional bool suggest_push_to_talk = 25;
 
-	uint32 opus_threshold = 26;
-	uint32 channel_nesting_limit = 27;
+	optional uint32 opus_threshold = 26;
+	optional uint32 channel_nesting_limit = 27;
 
 	message Query {
-		Server server = 1;
+		optional Server server = 1;
 	}
 }
 
@@ -184,18 +184,18 @@ service ConfigService {
 }
 
 message Channel {
-	Server server = 1;
+	optional Server server = 1;
 
-	uint32 id = 2;
-	string name = 3;
-	uint32 parent = 4;
+	optional uint32 id = 2;
+	optional string name = 3;
+	optional uint32 parent = 4;
 	repeated Channel links = 5;
-	string description = 6;
-	bool temporary = 7;
-	int32 position = 8;
+	optional string description = 6;
+	optional bool temporary = 7;
+	optional int32 position = 8;
 
 	message Query {
-		Server server = 1;
+		optional Server server = 1;
 	}
 }
 
@@ -209,44 +209,44 @@ service ChannelService {
 }
 
 message User {
-	Server server = 50; // TODO: reindex
+	optional Server server = 50; // TODO: reindex
 
-	uint32 session = 1;
-	uint32 id = 2;
+	optional uint32 session = 1;
+	optional uint32 id = 2;
 
-	bool mute = 3;
-	bool deaf = 4;
-	bool suppress = 5;
-	bool priority_speaker = 6;
-	bool self_mute = 7;
-	bool self_deaf = 8;
-	bool recording = 9;
-	Channel channel = 10;
-	string name = 11;
-	uint32 online_secs = 12;
-	uint32 idle_secs = 13;
-	uint32 bytes_per_sec = 14;
-	Version version = 15;
+	optional bool mute = 3;
+	optional bool deaf = 4;
+	optional bool suppress = 5;
+	optional bool priority_speaker = 6;
+	optional bool self_mute = 7;
+	optional bool self_deaf = 8;
+	optional bool recording = 9;
+	optional Channel channel = 10;
+	optional string name = 11;
+	optional uint32 online_secs = 12;
+	optional uint32 idle_secs = 13;
+	optional uint32 bytes_per_sec = 14;
+	optional Version version = 15;
 
-	bytes plugin_context = 16;
-	string plugin_identity = 17;
+	optional bytes plugin_context = 16;
+	optional string plugin_identity = 17;
 
-	string comment = 18;
-	bytes texture = 19;
-	bytes address = 20;
-	bool tcp_only = 21;
+	optional string comment = 18;
+	optional bytes texture = 19;
+	optional bytes address = 20;
+	optional bool tcp_only = 21;
 
-	float udp_ping = 22;
-	float tcp_ping = 23;
+	optional float udp_ping = 22;
+	optional float tcp_ping = 23;
 
 	message Query {
-		Server server = 1;
+		optional Server server = 1;
 	}
 
 	message Kick {
-		Server server = 1;
-		User user = 2;
-		string reason = 3;
+		optional Server server = 1;
+		optional User user = 2;
+		optional string reason = 3;
 	}
 }
 
@@ -260,9 +260,9 @@ service UserService {
 }
 
 message Tree {
-	Server server = 1;
+	optional Server server = 1;
 
-	Channel channel = 2;
+	optional Channel channel = 2;
 	repeated Channel children = 3;
 	repeated User users = 4;
 }
@@ -273,15 +273,15 @@ service TreeService {
 }
 
 message Ban {
-	Server server = 1;
+	optional Server server = 1;
 
-	bytes address = 2;
-	uint32 bits = 3;
-	string name = 4;
-	string hash = 5;
-	string reason = 6;
-	int64 start = 7;
-	int64 duration = 8;
+	optional bytes address = 2;
+	optional uint32 bits = 3;
+	optional string name = 4;
+	optional string hash = 5;
+	optional string reason = 6;
+	optional int64 start = 7;
+	optional int64 duration = 8;
 }
 
 service BanService {
@@ -311,42 +311,42 @@ message ACL {
 	}
 
 	message Group {
-		string name = 1;
-		bool inherited = 2;
-		bool inherit = 3;
-		bool inheritable = 4;
+		optional string name = 1;
+		optional bool inherited = 2;
+		optional bool inherit = 3;
+		optional bool inheritable = 4;
 
 		repeated Database.User users_add = 5;
 		repeated Database.User users_remove = 6;
 		repeated Database.User users = 7;
 	}
 
-	bool apply_here = 3;
-	bool apply_subs = 4;
-	bool inherited = 5;
+	optional bool apply_here = 3;
+	optional bool apply_subs = 4;
+	optional bool inherited = 5;
 
-	Database.User user = 6;
-	string group = 7;
+	optional Database.User user = 6;
+	optional string group = 7;
 
-	Permission allow = 8;
-	Permission deny = 9;
+	optional Permission allow = 8;
+	optional Permission deny = 9;
 
 	// TODO: need a better name than "List"
 	message List {
-		Server server = 1;
-		Channel channel = 2;
+		optional Server server = 1;
+		optional Channel channel = 2;
 
 		repeated ACL acls = 3;
 		repeated string groups = 4;
-		bool inherit = 5;
+		optional bool inherit = 5;
 	}
 
 	message TemporaryGroup {
-		Server server = 1;
+		optional Server server = 1;
 
-		Channel channel = 2;
-		User user = 3;
-		string group = 4;
+		optional Channel channel = 2;
+		optional User user = 3;
+		optional string group = 4;
 	}
 }
 
@@ -376,10 +376,10 @@ message Authenticator {
 			Query = 8;
 		}
 
-		Server server = 1;
+		optional Server server = 1;
 
-		Type type = 2;
-		User user = 3;
+		optional Type type = 2;
+		optional User user = 3;
 		repeated Database.User database_user = 4;
 		repeated string groups = 5;
 	}
@@ -396,26 +396,26 @@ service AuthenticatorService {
 
 message Database {
 	message Query {
-		Server server = 1;
+		optional Server server = 1;
 	}
 
 	message VerifyPassword {
-		Server server = 1;
-		string username = 2;
-		string password  = 3;
+		optional Server server = 1;
+		optional string username = 2;
+		optional string password  = 3;
 	}
 
 	message User {
-		Server server = 1;
+		optional Server server = 1;
 
-		uint32 id = 2;
-		string name = 3;
-		string email = 4;
-		string comment = 5;
-		string hash = 6;
-		string password = 7;
-		string last_active = 8;
-		bytes texture = 9;
+		optional uint32 id = 2;
+		optional string name = 3;
+		optional string email = 4;
+		optional string comment = 5;
+		optional string hash = 6;
+		optional string password = 7;
+		optional string last_active = 8;
+		optional bytes texture = 9;
 	}
 }
 
@@ -429,11 +429,11 @@ service DatabaseService {
 }
 
 message RedirectWhisperGroup {
-	Server server = 1;
+	optional Server server = 1;
 
-	User user = 2;
-	string source = 3;
-	string target = 4;
+	optional User user = 2;
+	optional string source = 3;
+	optional string target = 4;
 }
 
 service AudioService {
