@@ -47,14 +47,14 @@ message Server {
 }
 
 service ServerService {
-	rpc new(Void) returns(Server);
+	rpc create(Void) returns(Server);
 
 	rpc query(Server.Query) returns(stream Server);
 	rpc get(Server) returns(Server);
 
 	rpc start(Server) returns(Void);
 	rpc stop(Server) returns(Void);
-	rpc delete(Server) returns(Void);
+	rpc remove(Server) returns(Void);
 
 	rpc events(Server) returns(stream Server.Event);
 }
@@ -178,9 +178,9 @@ message Config {
 }
 
 service ConfigService {
-	rpc default(Void) returns(Config);
+	rpc get(Void) returns(Config);
 	rpc setDefault(Config) returns(Void);
-	rpc query(Config.Query) returns(Config);
+	rpc query(Config.Query) returns(Config); // TODO: Remove in favor of a field in "Server"?
 }
 
 message Channel {
@@ -256,6 +256,7 @@ service UserService {
 	rpc update(User) returns(User);
 
 	rpc kick(User.Kick) returns(Void);
+	// FEATURE: rpc ban(User.Ban) returns(Void);
 }
 
 message Tree {
