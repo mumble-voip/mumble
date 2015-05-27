@@ -310,6 +310,8 @@ void MetaParams::read(QString fname) {
 	qsIceSecretRead = typeCheckedFromSettings("icesecretread", qsIceSecretRead);
 	qsIceSecretWrite = typeCheckedFromSettings("icesecretwrite", qsIceSecretRead);
 
+	qsGRPCAddress = typeCheckedFromSettings("grpc", qsGRPCAddress);
+
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
 	qsDBus = typeCheckedFromSettings("dbus", qsDBus);
