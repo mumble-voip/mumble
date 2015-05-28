@@ -101,13 +101,15 @@ message TextMessage {
 	optional Server server = 1;
 
 	optional User actor = 2;
-	repeated User sessions = 3;
+	repeated User users = 3;
 	repeated Channel channels = 4;
 	repeated Channel trees = 5;
 	optional string text = 6;
 }
 
 service TextMessageService {
+	// If users, channels, and trees are not send, the message will be broadcast
+	// to the entire server.
 	rpc send(TextMessage) returns(Void);
 	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
 }
