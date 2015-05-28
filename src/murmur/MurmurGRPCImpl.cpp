@@ -30,10 +30,14 @@
 
 #include "murmur_pch.h"
 
+#include "Mumble.pb.h"
+
 #include "../Message.h"
 #include "MurmurGRPCImpl.h"
 #include "Meta.h"
 #include "ServerDB.h"
+#include "ServerUser.h"
+#include "Server.h"
 
 /*
 static MurmurGRPC *mrpc = NULL;
@@ -62,6 +66,18 @@ void RPCStop() {
 MurmurRPCImpl::MurmurRPCImpl() {
 }
 
+#define FIND_SERVER(r) \
+	if (!r->has_server()) { \
+		return grpc::Status(grpc::OUT_OF_RANGE, "request does not contain a server"); \
+	} \
+	::Server *server = meta->qhServers.value(r->server().id());
+
+#define NEED_SERVER_EXISTS(r) \
+	FIND_SERVER(r) \
+	if (!server && ! ::ServerDB::serverExists(r->server().id())) { \
+		return grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID"); \
+	}
+
 // MetaService
 
 ::grpc::Status MurmurRPCImpl::MetaService::uptime(::grpc::ServerContext*, const ::MurmurRPC::Void*, ::MurmurRPC::Uptime* response) {
@@ -84,23 +100,26 @@ MurmurRPCImpl::MurmurRPCImpl() {
 
 // TextMessageService
 
-::grpc::Status MurmurRPCImpl::TextMessageService::send(::grpc::ServerContext* context, const ::MurmurRPC::TextMessage* request, ::MurmurRPC::Void* response) {
-	if (!request->has_server()) {
-		return grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID");
-	}
-	int server_id = request->server().id();
-	::Server *server = meta->qhServers.value(server_id);
-	if (!server && ! ::ServerDB::serverExists(server_id)) {
-		return grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID");
+::grpc::Status MurmurRPCImpl::TextMessageService::send(::grpc::ServerContext*, const ::MurmurRPC::TextMessage* request, ::MurmurRPC::Void*) {
+	NEED_SERVER_EXISTS(request)
+
+	::MumbleProto::TextMessage mptm;
+	mptm.set_message(request->text());
+	if (request->has_actor()) {
+		::ServerUser *actor = server->qhUsers.value(request->actor().session());
+		if (actor) {
+			mptm.set_actor(actor->uiSession);
+		}
 	}
 
+	// Broadcast
+	if (!request->users_size() && !request->channels_size() && !request->trees_size()) {
+		server->sendAll(mptm);
+		return grpc::Status::OK;
+	}
+	// TODO(grpc): send message to specific users, channels
 	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
 #undef FIND_SERVER
 #undef NEED_SERVER_EXISTS
-
-/*
-MurmurGRPC::MurmurGRPC() {
-}
-*/
