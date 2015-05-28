@@ -44,6 +44,7 @@
       <Component Id="mumble_ol_helper_x64.exe">
          <File Source="$(var.SourceDir)\release\mumble_ol_helper_x64.exe" KeyPath="yes" />
       </Component>
+
       <Component Id="celt0.0.7.0.dll">
         <File Source="$(var.SourceDir)\release\celt0.0.7.0.dll" KeyPath="yes" />
       </Component>
@@ -56,7 +57,28 @@
       <Component Id="opus.dll">
         <File Source="$(var.SourceDir)\release\opus.dll" KeyPath="yes" />
       </Component>
-      
+
+      <?ifdef SSE ?>
+        <Component Id="celt0.0.7.0.sse.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="celt0.0.11.0.sse.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>
+
+      <?ifdef SSE2 ?>
+        <Component Id="celt0.0.7.0.sse2.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="celt0.0.11.0.sse2.dll">
+          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse2.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="opus.sse2.dll">
+          <File Source="$(var.SourceDir)\release\opus.sse2.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>
+
       <?ifdef G15 ?>
         <Component Id="mumble_g15_helper.exe">
           <File Source="$(var.SourceDir)\release\mumble-g15-helper.exe" KeyPath="yes" />
@@ -115,27 +137,6 @@
       <Component Id="libmmd.dll">
         <File Source="$(var.IntelCppDir)\libmmd.dll" KeyPath="yes" />
       </Component>
-      <?endif ?>
-
-      <?ifdef SSE ?>
-        <Component Id="celt0.0.7.0.sse.dll">
-          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="celt0.0.11.0.sse.dll">
-          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse.dll" KeyPath="yes" />
-        </Component>
-      <?endif ?>
-
-      <?ifdef SSE2 ?>
-        <Component Id="celt0.0.7.0.sse2.dll">
-          <File Source="$(var.SourceDir)\release\celt0.0.7.0.sse2.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="celt0.0.11.0.sse2.dll">
-          <File Source="$(var.SourceDir)\release\celt0.0.11.0.sse2.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="opus.sse2.dll">
-          <File Source="$(var.SourceDir)\release\opus.sse2.dll" KeyPath="yes" />
-        </Component>
       <?endif ?>
 
       <?ifdef RedistDirVC12 ?>
