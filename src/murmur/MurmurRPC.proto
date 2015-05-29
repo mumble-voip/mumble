@@ -182,7 +182,7 @@ message Config {
 }
 
 service ConfigService {
-	rpc get(Void) returns(Config);
+	rpc getDefault(Void) returns(Config);
 	rpc setDefault(Config) returns(Void);
 	rpc query(Config.Query) returns(Config); // TODO: Remove in favor of a field in "Server"?
 }
@@ -192,7 +192,7 @@ message Channel {
 
 	optional uint32 id = 2;
 	optional string name = 3;
-	optional uint32 parent = 4;
+	optional Channel parent = 4;
 	repeated Channel links = 5;
 	optional string description = 6;
 	optional bool temporary = 7;
