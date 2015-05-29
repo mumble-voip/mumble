@@ -203,7 +203,7 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 				return grpc::Status::OK;
 			}
 		}
-		return grpc::Status(grpc::UNIMPLEMENTED);
+		return grpc::Status(grpc::NOT_FOUND, "invalid user");
 	}
 
 	return grpc::Status(grpc::INVALID_ARGUMENT, "session or name required");
