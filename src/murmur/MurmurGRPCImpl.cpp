@@ -90,6 +90,25 @@ MurmurRPCImpl::MurmurRPCImpl() {
 		return grpc::Status(grpc::NOT_FOUND, "invalid user"); \
 	}
 
+static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
+	rc->mutable_server()->set_id(srv->iServerNum);
+
+	rc->set_id(c->iId);
+	rc->set_name(u8(c->qsName));
+	if (c->cParent) {
+		rc->mutable_parent()->mutable_server()->set_id(srv->iServerNum);
+		rc->mutable_parent()->set_id(c->cParent->iId);
+	}
+	rc->set_description(u8(c->qsDesc));
+	rc->set_position(c->iPosition);
+	foreach(::Channel *chn, c->qsPermLinks) {
+		::MurmurRPC::Channel *linked = rc->add_links();
+		linked->mutable_server()->set_id(srv->iServerNum);
+		linked->set_id(chn->iId);
+	}
+	rc->set_temporary(c->bTemporary);
+}
+
 static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::User* ru) {
 	ru->mutable_server()->set_id(srv->iServerNum);
 
@@ -233,8 +252,18 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::get(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::ChannelService::get(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	NEED_SERVER_EXISTS(request)
+
+	if (!request->has_id()) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
+	}
+	Channel *channel = server->qhChannels.value(request->id());
+	if (!channel) {
+		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+	}
+	channelToRPCChannel(server, channel, response);
+	return grpc::Status::OK;
 }
 
 ::grpc::Status MurmurRPCImpl::ChannelService::add(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
