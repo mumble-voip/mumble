@@ -162,8 +162,15 @@ static void userToRPCUser(const ::Server *s, const ::User *u, ::MurmurRPC::User*
 
 // UserService
 
-::grpc::Status MurmurRPCImpl::UserService::query(::grpc::ServerContext* context, const ::MurmurRPC::User_Query* request, ::grpc::ServerWriter< ::MurmurRPC::User>* writer) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::UserService::query(::grpc::ServerContext*, const ::MurmurRPC::User_Query* request, ::grpc::ServerWriter< ::MurmurRPC::User>* writer) {
+	NEED_SERVER_EXISTS(request)
+
+	foreach(const ::ServerUser *user, server->qhUsers) {
+		::MurmurRPC::User rpcUser;
+		userToRPCUser(server, user, &rpcUser);
+		writer->Write(rpcUser);
+	}
+	return grpc::Status::OK;
 }
 
 ::grpc::Status MurmurRPCImpl::UserService::get(::grpc::ServerContext*, const ::MurmurRPC::User* request, ::MurmurRPC::User* response) {

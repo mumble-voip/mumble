@@ -255,8 +255,10 @@ message User {
 }
 
 service UserService {
+	// Query returns the currently connected users.
 	rpc query(User.Query) returns(stream User);
-	// Get returns information on the user, given by the user's session or name.
+	// Get returns information on the connected user, given by the user's session
+	// or name.
 	rpc get(User) returns(User);
 	rpc update(User) returns(User);
 
