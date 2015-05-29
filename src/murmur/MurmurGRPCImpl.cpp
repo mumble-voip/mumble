@@ -70,7 +70,7 @@ MurmurRPCImpl::MurmurRPCImpl() {
 
 #define FIND_SERVER(r) \
 	if (!r->has_server()) { \
-		return grpc::Status(grpc::INVALID_ARGUMENT, "request does not contain a server"); \
+		return grpc::Status(grpc::INVALID_ARGUMENT, "missing server"); \
 	} \
 	::Server *server = meta->qhServers.value(r->server().id());
 
@@ -80,8 +80,17 @@ MurmurRPCImpl::MurmurRPCImpl() {
 		return grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID"); \
 	}
 
-static void userToRPCUser(const ::Server *s, const ::User *u, ::MurmurRPC::User* ru) {
-	ru->mutable_server()->set_id(s->iServerNum);
+#define NEED_USER(r) \
+	if (!r->has_user()) { \
+		return grpc::Status(grpc::INVALID_ARGUMENT, "missing user"); \
+	} \
+	::ServerUser *user = server->qhUsers.value(r->user().session()); \
+	if (!user) { \
+		return grpc::Status(grpc::NOT_FOUND, "invalid user"); \
+	}
+
+static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::User* ru) {
+	ru->mutable_server()->set_id(srv->iServerNum);
 
 	ru->set_session(u->uiSession);
 	if (u->iId >= 0) {
@@ -95,7 +104,7 @@ static void userToRPCUser(const ::Server *s, const ::User *u, ::MurmurRPC::User*
 	ru->set_priority_speaker(u->bPrioritySpeaker);
 	ru->set_self_mute(u->bSelfMute);
 	ru->set_self_deaf(u->bSelfDeaf);
-	ru->mutable_channel()->mutable_server()->set_id(s->iServerNum);
+	ru->mutable_channel()->mutable_server()->set_id(srv->iServerNum);
 	ru->mutable_channel()->set_id(u->cChannel->iId);
 	ru->set_comment(u8(u->qsComment));
 
@@ -180,7 +189,7 @@ static void userToRPCUser(const ::Server *s, const ::User *u, ::MurmurRPC::User*
 		// Lookup user by session
 		::ServerUser *user = server->qhUsers.value(request->session());
 		if (!user) {
-			return grpc::Status(grpc::NOT_FOUND, "invalid session");
+			return grpc::Status(grpc::NOT_FOUND, "invalid user");
 		}
 		userToRPCUser(server, user, response);
 		return grpc::Status::OK;
@@ -203,9 +212,20 @@ static void userToRPCUser(const ::Server *s, const ::User *u, ::MurmurRPC::User*
 	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
-::grpc::Status MurmurRPCImpl::UserService::kick(::grpc::ServerContext* context, const ::MurmurRPC::User_Kick* request, ::MurmurRPC::Void* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::UserService::kick(::grpc::ServerContext*, const ::MurmurRPC::User_Kick* request, ::MurmurRPC::Void*) {
+	NEED_SERVER_EXISTS(request)
+	NEED_USER(request)
+
+	MumbleProto::UserRemove mpur;
+	mpur.set_session(user->uiSession);
+	if (request->has_reason()) {
+		mpur.set_reason(request->reason());
+	}
+	server->sendAll(mpur);
+	user->disconnectSocket();
+	return grpc::Status::OK;
 }
 
 #undef FIND_SERVER
 #undef NEED_SERVER_EXISTS
+#undef NEED_USER
