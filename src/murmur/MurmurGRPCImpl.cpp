@@ -58,6 +58,7 @@ void RPCStart() {
 	builder.RegisterService(&service.sMetaService);
 	builder.RegisterService(&service.sTextMessageService);
 	builder.RegisterService(&service.sUserService);
+	builder.RegisterService(&service.sChannelService);
 	// TODO(grpc): single conn? look into this
 	s = builder.BuildAndStart();
 }
@@ -224,6 +225,28 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	server->sendAll(mpur);
 	user->disconnectSocket();
 	return grpc::Status::OK;
+}
+
+// ChannelService
+
+::grpc::Status MurmurRPCImpl::ChannelService::query(::grpc::ServerContext* context, const ::MurmurRPC::Channel_Query* request, ::grpc::ServerWriter< ::MurmurRPC::Channel>* writer) {
+	return grpc::Status(grpc::UNIMPLEMENTED);
+}
+
+::grpc::Status MurmurRPCImpl::ChannelService::get(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	return grpc::Status(grpc::UNIMPLEMENTED);
+}
+
+::grpc::Status MurmurRPCImpl::ChannelService::add(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	return grpc::Status(grpc::UNIMPLEMENTED);
+}
+
+::grpc::Status MurmurRPCImpl::ChannelService::remove(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void* response) {
+	return grpc::Status(grpc::UNIMPLEMENTED);
+}
+
+::grpc::Status MurmurRPCImpl::ChannelService::update(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
 #undef FIND_SERVER
