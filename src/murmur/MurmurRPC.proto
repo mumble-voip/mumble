@@ -248,6 +248,8 @@ message User {
 	}
 
 	message Kick {
+		// TODO(grpc): server is not really required here, since it's embedded in
+		// user.
 		optional Server server = 1;
 		optional User user = 2;
 		optional string reason = 3;
@@ -262,6 +264,7 @@ service UserService {
 	rpc get(User) returns(User);
 	rpc update(User) returns(User);
 
+	// Kick kicks the user from the server.
 	rpc kick(User.Kick) returns(Void);
 	// FEATURE: rpc ban(User.Ban) returns(Void);
 }
