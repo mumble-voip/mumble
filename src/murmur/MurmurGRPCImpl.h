@@ -57,6 +57,14 @@ class MurmurRPCImpl : public QObject {
 			::grpc::Status send(::grpc::ServerContext* context, const ::MurmurRPC::TextMessage* request, ::MurmurRPC::Void* response);
 		};
 		MurmurRPCImpl::TextMessageService sTextMessageService;
+		// UserService
+		struct UserService : public MurmurRPC::UserService::Service {
+			::grpc::Status query(::grpc::ServerContext* context, const ::MurmurRPC::User_Query* request, ::grpc::ServerWriter< ::MurmurRPC::User>* writer);
+			::grpc::Status get(::grpc::ServerContext* context, const ::MurmurRPC::User* request, ::MurmurRPC::User* response);
+			::grpc::Status update(::grpc::ServerContext* context, const ::MurmurRPC::User* request, ::MurmurRPC::User* response);
+			::grpc::Status kick(::grpc::ServerContext* context, const ::MurmurRPC::User_Kick* request, ::MurmurRPC::Void* response);
+		};
+		MurmurRPCImpl::UserService sUserService;
 };
 
 #endif

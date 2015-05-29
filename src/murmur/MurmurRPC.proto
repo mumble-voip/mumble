@@ -69,7 +69,9 @@ message Event {
 }
 
 service MetaService {
+	// Get murmur's uptime.
 	rpc uptime(Void) returns(Uptime);
+	// Get murmur's version.
 	rpc version(Void) returns(Version);
 	rpc events(Void) returns(stream Event);
 }
@@ -108,8 +110,8 @@ message TextMessage {
 }
 
 service TextMessageService {
-	// If users, channels, and trees are not send, the message will be broadcast
-	// to the entire server.
+	// If users, channels, and trees are not set in the TextMessage, the message
+	// will be broadcast the entire server.
 	rpc send(TextMessage) returns(Void);
 	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
 }
@@ -254,6 +256,7 @@ message User {
 
 service UserService {
 	rpc query(User.Query) returns(stream User);
+	// Get returns information on the user, given by the user's session or name.
 	rpc get(User) returns(User);
 	rpc update(User) returns(User);
 
