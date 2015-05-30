@@ -44,8 +44,12 @@ class MumbleApplication : public QApplication {
 #endif
 		Q_OBJECT
 	public:
+		static MumbleApplication *instance();
+
 		MumbleApplication(int &pargc, char **pargv);
-		
+
+		QString applicationVersionRootPath();
+
 		bool event(QEvent *e) Q_DECL_OVERRIDE;
 #ifdef Q_OS_WIN
 # if QT_VERSION >= 0x050000

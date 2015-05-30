@@ -36,6 +36,10 @@
 #include "GlobalShortcut.h"
 #include "Global.h"
 
+MumbleApplication *MumbleApplication::instance() {
+	return static_cast<MumbleApplication *>(QCoreApplication::instance());
+}
+
 MumbleApplication::MumbleApplication(int &pargc, char **pargv)
     : QApplication(pargc, pargv) {
 	
@@ -43,6 +47,14 @@ MumbleApplication::MumbleApplication(int &pargc, char **pargv)
 	        SIGNAL(commitDataRequest(QSessionManager&)),
 	        SLOT(onCommitDataRequest(QSessionManager&)),
 	        Qt::DirectConnection);
+}
+
+QString MumbleApplication::applicationVersionRootPath() {
+	QByteArray versionRoot = qgetenv("MUMBLE_VERSION_ROOT");
+	if (versionRoot.count() > 0) {
+		return QString::fromUtf8(versionRoot.constData());
+	}
+	return this->applicationDirPath();
 }
 
 void MumbleApplication::onCommitDataRequest(QSessionManager &) {
