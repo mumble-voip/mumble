@@ -45,6 +45,20 @@ static void Alert(LPCWSTR title, LPCWSTR msg) {
 	MessageBox(NULL, msg, title, MB_OK|MB_ICONERROR);
 }
 
+// Get the current Mumble version built into this executable.
+// If no version is available, this function returns an empty
+// string.
+static std::wstring GetMumbleVersion() {
+#ifdef MUMBLE_VERSION
+#  define MUMXTEXT(X) L#X
+#  define MUMTEXT(X) MUMXTEXT(X)
+
+	std::wstring version(MUMTEXT(MUMBLE_VERSION));
+	return version;
+#endif
+	return std::wstring();
+}
+
 // GetExecutableDirPath returns the directory that
 // mumble.exe resides in.
 static std::wstring GetExecutableDirPath() {
@@ -76,15 +90,41 @@ static bool ConfigureEnvironment() {
 	return true;
 }
 
+// GetVersionedRootPath returns the versioned root path if
+// Mumble is configured to work with versioned paths.
+// If Mumble is not configured for versioned paths, this
+// function returns an empty string.
+static std::wstring GetVersionedRootPath() {
+	std::wstring versionedRootPath = GetExecutableDirPath();
+	if (versionedRootPath.empty()) {
+		return std::wstring();
+	}
+
+	std::wstring version = GetMumbleVersion();
+	if (version.length() > 0) {
+		versionedRootPath.append(L"Versions\\");
+		versionedRootPath.append(version);
+		return versionedRootPath;
+	}
+
+	return std::wstring();
+}
+
 // GetAbsoluteMumbleAppDllPath returns the absolute path to
 // mumble_app.dll - the DLL containing the Mumble client
 // application code.
-static std::wstring GetAbsoluteMumbleAppDllPath() {
-	std::wstring exe_path = GetExecutableDirPath();
-	if (exe_path.empty())
-		return std::wstring();
+static std::wstring GetAbsoluteMumbleAppDllPath(std::wstring suggested_base_dir) {
+	std::wstring base_dir = suggested_base_dir;
 
-	std::wstring abs_dll_path(exe_path);
+	if (base_dir.empty()) {
+		base_dir = GetExecutableDirPath();
+	}
+
+	if (base_dir.empty()) {
+		return std::wstring();
+	}
+
+	std::wstring abs_dll_path(base_dir);
 	abs_dll_path.append(L"\\");
 	abs_dll_path.append(L"mumble_app.dll");
 	return abs_dll_path;
@@ -97,7 +137,20 @@ int main(int argc, char **argv) {
 		return -1;
 	}
 
-	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath();
+	std::wstring versioned_root_path = GetVersionedRootPath();
+
+	bool ok = false;
+	if (!versioned_root_path.empty()) {
+		if (PathFileExists(versioned_root_path.c_str())) {
+			_wputenv_s(L"MUMBLE_VERSION_ROOT", versioned_root_path.c_str());
+			ok = true;
+		}
+	}
+	if (!ok) {
+		_wputenv_s(L"MUMBLE_VERSION_ROOT", L"");
+	}
+
+	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath(ok ? versioned_root_path : std::wstring());
 	if (abs_dll_path.empty()) {
 		Alert(L"Mumble Launcher Error -2", L"Unable to find the absolute path of mumble_app.dll.");
 		return -2;
@@ -127,7 +180,20 @@ int APIENTRY wWinMain(HINSTANCE instance, HINSTANCE prevInstance, wchar_t *cmdAr
 		return -1;
 	}
 
-	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath();
+	std::wstring versioned_root_path = GetVersionedRootPath();
+
+	bool ok = false;
+	if (!versioned_root_path.empty()) {
+		if (PathFileExists(versioned_root_path.c_str())) {
+			_wputenv_s(L"MUMBLE_VERSION_ROOT", versioned_root_path.c_str());
+			ok = true;
+		}
+	}
+	if (!ok) {
+		_wputenv_s(L"MUMBLE_VERSION_ROOT", L"");
+	}
+
+	std::wstring abs_dll_path = GetAbsoluteMumbleAppDllPath(ok ? versioned_root_path : std::wstring());
 	if (abs_dll_path.empty()) {
 		Alert(L"Mumble Launcher Error -2", L"Unable to find the absolute path of mumble_app.dll.");
 		return -2;
