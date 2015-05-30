@@ -38,6 +38,7 @@
 #include "OverlayConfig.h"
 #include "MainWindow.h"
 #include "Global.h"
+#include "MumbleApplication.h"
 
 #include "Overlay_win.h"
 
@@ -98,7 +99,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 		return;
 	}
 
-	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol_helper.exe").arg(qApp->applicationDirPath());
+	m_helper_exe_path = QString::fromLatin1("%1/mumble_ol_helper.exe").arg(MumbleApplication::instance()->applicationVersionRootPath());
 	m_helper_exe_args << QString::number(OVERLAY_MAGIC_NUMBER)
 	                  << QString::number(reinterpret_cast<quintptr>(m_mumble_handle));
 	m_helper_process = new QProcess(this);
@@ -121,7 +122,7 @@ OverlayPrivateWin::OverlayPrivateWin(QObject *p) : OverlayPrivate(p) {
 		m_helper_enabled = false;
 	}
 
-	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_helper_x64.exe").arg(qApp->applicationDirPath());
+	m_helper64_exe_path = QString::fromLatin1("%1/mumble_ol_helper_x64.exe").arg(MumbleApplication::instance()->applicationVersionRootPath());
 	m_helper64_exe_args = m_helper_exe_args;
 	m_helper64_process = new QProcess(this);
 

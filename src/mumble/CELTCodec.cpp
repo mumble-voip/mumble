@@ -34,6 +34,7 @@
 
 #include "Audio.h"
 #include "Version.h"
+#include "MumbleApplication.h"
 
 #ifdef Q_CC_GNU
 #define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlCELT.resolve(#var)); bValid = bValid && (var != NULL); }
@@ -80,7 +81,7 @@ CELTCodec::CELTCodec(const QString &version) {
 	alternatives << QString::fromLatin1("celt0.%1.dll").arg(version);
 #endif
 	foreach(const QString &lib, alternatives) {
-		qlCELT.setFileName(QApplication::instance()->applicationDirPath() + QLatin1String("/") + lib);
+		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
 		if (qlCELT.load()) {
 			bValid = true;
 			break;
