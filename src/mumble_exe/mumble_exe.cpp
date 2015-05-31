@@ -48,20 +48,19 @@ static void Alert(LPCWSTR title, LPCWSTR msg) {
 // Get the current Mumble version built into this executable.
 // If no version is available, this function returns an empty
 // string.
-static std::wstring GetMumbleVersion() {
+static const std::wstring GetMumbleVersion() {
 #ifdef MUMBLE_VERSION
-#  define MUMXTEXT(X) L#X
-#  define MUMTEXT(X) MUMXTEXT(X)
-
-	std::wstring version(MUMTEXT(MUMBLE_VERSION));
+#   define MUMTEXT(X) L#X
+	const std::wstring version(MUMTEXT(MUMBLE_VERSION));
 	return version;
-#endif
+#else
 	return std::wstring();
+#endif
 }
 
 // GetExecutableDirPath returns the directory that
 // mumble.exe resides in.
-static std::wstring GetExecutableDirPath() {
+static const std::wstring GetExecutableDirPath() {
 	wchar_t path[MAX_PATH];
 
 	if (GetModuleFileNameW(NULL, path, MAX_PATH) == 0)
@@ -77,7 +76,7 @@ static std::wstring GetExecutableDirPath() {
 // ConfigureEnvironment prepares mumble.exe's environment to
 // run mumble_app.dll.
 static bool ConfigureEnvironment() {
-	std::wstring exe_path = GetExecutableDirPath();
+	const std::wstring exe_path = GetExecutableDirPath();
 
 	// Remove the current directory from the DLL search path.
 	if (!SetDllDirectoryW(L""))
@@ -94,17 +93,15 @@ static bool ConfigureEnvironment() {
 // Mumble is configured to work with versioned paths.
 // If Mumble is not configured for versioned paths, this
 // function returns an empty string.
-static std::wstring GetVersionedRootPath() {
-	std::wstring versionedRootPath = GetExecutableDirPath();
+static const std::wstring GetVersionedRootPath() {
+	const std::wstring versionedRootPath = GetExecutableDirPath();
 	if (versionedRootPath.empty()) {
 		return std::wstring();
 	}
 
-	std::wstring version = GetMumbleVersion();
+	const std::wstring version = GetMumbleVersion();
 	if (version.length() > 0) {
-		versionedRootPath.append(L"Versions\\");
-		versionedRootPath.append(version);
-		return versionedRootPath;
+		return versionedRootPath + L"Versions\\" + version;
 	}
 
 	return std::wstring();
@@ -113,7 +110,7 @@ static std::wstring GetVersionedRootPath() {
 // GetAbsoluteMumbleAppDllPath returns the absolute path to
 // mumble_app.dll - the DLL containing the Mumble client
 // application code.
-static std::wstring GetAbsoluteMumbleAppDllPath(std::wstring suggested_base_dir) {
+static const std::wstring GetAbsoluteMumbleAppDllPath(std::wstring suggested_base_dir) {
 	std::wstring base_dir = suggested_base_dir;
 
 	if (base_dir.empty()) {
@@ -124,10 +121,7 @@ static std::wstring GetAbsoluteMumbleAppDllPath(std::wstring suggested_base_dir)
 		return std::wstring();
 	}
 
-	std::wstring abs_dll_path(base_dir);
-	abs_dll_path.append(L"\\");
-	abs_dll_path.append(L"mumble_app.dll");
-	return abs_dll_path;
+	return base_dir + L"\\mumble_app.dll";
 }
 
 #ifdef DEBUG
