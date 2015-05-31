@@ -145,18 +145,19 @@
         <File Source="$(var.SourceDir)\src\murmur\Murmur.ice" KeyPath="yes" />
       </Component>
 
-      <?ifdef RedistDirVC12 ?>
-      <Component Id="Murmur_msvcp120.dll" Guid="8a683ad2-541b-4434-8ec2-84c3b4cbe9c8">
-        <File Id="Murmur_msvcp120.dll" Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="Murmur_msvcr120.dll" Guid="8e3a70d3-a695-4b3c-9fdd-8cd7fc77c097">
-        <File Id="Murmur_msvcr120.dll" Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
-      </Component>
+      <?ifdef VersionSubDir ?>
+        <?ifdef RedistDirVC12 ?>
+        <Component Id="Murmur_msvcp120.dll">
+          <File Id="Murmur_msvcp120.dll" Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="Murmur_msvcr120.dll">
+          <File Id="Murmur_msvcr120.dll" Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+        </Component>
+        <?endif ?>
+        <Component Id="Murmur_dbghelp.dll">
+          <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
+        </Component>
       <?endif ?>
-
-      <Component Id="Murmur_dbghelp.dll" Guid="b8aed776-1159-4211-8510-5054d86a13a7">
-        <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-      </Component>
 
       <?ifndef StaticBuild ?>
         <Component Id="qt.conf">
