@@ -15,6 +15,9 @@
       <ProgressText Action="NSISUninstall">Uninstalling old version</ProgressText>
     </UI>
 
+    <Property Id="QtExecCmdLine" Value='"$(env.SystemRoot)\System32\taskkill.exe" /f /im mumble.exe' />
+    <CustomAction Id="CloseApplication" BinaryKey="WixCA" DllEntry="CAQuietExec" Execute="immediate" Return="ignore" />
+
     <Property Id="WixShellExecTarget" Value="[#mumble.exe]" />
     <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
     <UI>
@@ -41,6 +44,7 @@
     <Property Id="ARPURLINFOABOUT" Value="http://www.mumble.info/" />
     <Property Id="ARPURLUPDATEINFO" Value="http://www.mumble.info/" />
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
+    <Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable" />
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SourceDir)\installer\gpl.rtf" />
     <WixVariable Id="WixUIBannerBmp" Value="$(var.SourceDir)\installer\bannrbmp.bmp" />
@@ -116,8 +120,6 @@
       <ComponentRef Id="Changes.txt" />
       <ComponentRef Id="qt.txt" />
 
-      <ComponentRef Id="dbghelp.dll" />
-
       <?ifndef StaticBuild ?>
         <?ifdef ProtoBufDir ?>
           <ComponentRef Id="libprotobuf.dll" />
@@ -129,16 +131,6 @@
 
       <?ifdef IntelCppDir ?>
         <ComponentRef Id="libmmd.dll"/>
-      <?endif ?>
-
-      <?ifdef RedistDirVC12 ?>
-        <ComponentRef Id="msvcp120.dll" />
-        <ComponentRef Id="msvcr120.dll" />
-      <?endif ?>
-
-      <?ifdef D3DCompilerDLL ?>
-        <ComponentRef Id="d3dcompiler_43.dll" />
-        <ComponentRef Id="d3dcompiler_47.dll" />
       <?endif ?>
     </ComponentGroup>
 
@@ -176,6 +168,18 @@
         <ComponentRef Id="mumble_g15_helper.exe" />
       <?endif ?>
 
+      <?ifdef RedistDirVC12 ?>
+        <ComponentRef Id="msvcp120.dll" />
+        <ComponentRef Id="msvcr120.dll" />
+      <?endif ?>
+
+      <ComponentRef Id="dbghelp.dll" />
+
+      <?ifdef D3DCompilerDLL ?>
+        <ComponentRef Id="d3dcompiler_43.dll" />
+        <ComponentRef Id="d3dcompiler_47.dll" />
+      <?endif ?>
+
       <Feature Id="MumbleDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)" InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MumbleDesktopShortcutComponent" />
       </Feature>
@@ -196,7 +200,14 @@
       <ComponentRef Id="murmur.exe" />
       <ComponentRef Id="murmur.ini" />
       <ComponentRef Id="Murmur.ice" />
-      
+
+      <?ifdef RedistDirVC12 ?>
+        <ComponentRef Id="Murmur_msvcp120.dll" />
+        <ComponentRef Id="Murmur_msvcr120.dll" />
+      <?endif ?>
+
+      <ComponentRef Id="Murmur_dbghelp.dll" />
+
       <Feature Id="MurmurDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)"  InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MurmurDesktopShortcutComponent" />
       </Feature>
@@ -220,6 +231,7 @@
       <AppSearch Sequence='1' />
       <Custom Action="SetNSISPath" After="AppSearch">NSISINSTALL</Custom>
       <Custom Action='NSISUninstall' After='InstallInitialize'>NSISINSTALL AND NOT Installed</Custom>
+      <Custom Action="CloseApplication" Before="InstallValidate">WIX_UPGRADE_DETECTED</Custom>
     </InstallExecuteSequence>
   </Product>
 </Wix>
