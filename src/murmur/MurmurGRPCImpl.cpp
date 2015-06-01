@@ -267,8 +267,40 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	return grpc::Status::OK;
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::add(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::ChannelService::add(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	// TODO(grpc): convert to "NEED_SERVER"?
+	NEED_SERVER_EXISTS(request)
+
+	if (!request->has_parent() || !request->has_name()) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel and name required");
+	}
+	// TODO(grpc): verify request->parent().server() ?
+	if (!request->parent().has_id()) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID");
+	}
+	Channel *parent = server->qhChannels.value(request->parent().id());
+	if (!parent) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist");
+	}
+
+	if (!server->canNest(parent)) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "cannot nest channel in given parent");
+	}
+
+	QString qsName = u8(request->name());
+
+	Channel *nc = server->addChannel(parent, qsName);
+	server->updateChannel(nc);
+	int newid = nc->iId;
+
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(newid);
+	mpcs.set_parent(parent->iId);
+	mpcs.set_name(request->name());
+	server->sendAll(mpcs);
+
+	channelToRPCChannel(server, nc, response);
+	return grpc::Status::OK;
 }
 
 ::grpc::Status MurmurRPCImpl::ChannelService::remove(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void*) {
