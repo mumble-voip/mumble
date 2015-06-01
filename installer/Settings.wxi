@@ -155,4 +155,8 @@
     <?define D3DCompilerDLL = true ?>
   <?endif ?>
 
+  <?ifdef env.MumbleVersionSubDir ?>
+    <?define VersionSubDir = "$(env.MumbleVersionSubDir)" ?>
+  <?endif ?>
+
 </Include>

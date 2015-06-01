@@ -2,31 +2,14 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <?include "Settings.wxi" ?>
 
-  <!-- Mumble -->
+  <!-- Mumble Version Specific -->
   <Fragment>
-    <DirectoryRef Id="INSTALLDIR">
-      <Component Id="MumbleDesktopShortcutComponent" Guid="$(var.MumbleDesktopShortcutGuid)" KeyPath="yes">
-        <Shortcut Id="MumbleDesktopShortcut"
-                  Directory="DesktopFolder"
-                  Name="Mumble"
-                  WorkingDirectory="INSTALLDIR"
-                  Target="[INSTALLDIR]mumble.exe">
-          <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
-        </Shortcut>
-      </Component>
-      
-      <Component Id="mumble.exe" Guid="$(var.MumbleExeGuid)">
-        <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
-          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
-            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
-          </Shortcut>
-        </File>
+      <?ifdef VersionSubDir ?>
+        <DirectoryRef Id="VersionFolder">
+      <?else ?>
+        <DirectoryRef Id="INSTALLDIR">
+      <?endif ?>
 
-        <RegistryValue Root="HKCR" Key="mumble" Value="URL:Mumble" Type="string" />
-        <RegistryValue Root="HKCR" Key="mumble" Name="URL Protocol" Value="" Type="string" />
-        <RegistryValue Root="HKCR" Key="mumble\DefaultIcon" Value="[#mumble.exe]" Type="string" />
-        <RegistryValue Root="HKCR" Key="mumble\shell\open\command" Value="[#mumble.exe] &quot;%1&quot;" Type="string" />
-      </Component>
       <?ifdef StaticBuild ?>
         <Component Id="mumble_app.dll">
           <File Source="$(var.SourceDir)\release\mumble_app.dll" KeyPath="yes" />
@@ -85,6 +68,61 @@
         </Component>
       <?endif ?>
 
+      <?ifdef RedistDirVC12 ?>
+      <Component Id="msvcp120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="msvcr120.dll">
+        <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+      </Component>
+      <?endif ?>
+
+      <Component Id="dbghelp.dll">
+        <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
+      </Component>
+
+      <?ifdef D3DCompilerDLL ?>
+        <Component Id="d3dcompiler_43.dll">
+          <File Source="$(var.System32x86Dir)\d3dcompiler_43.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="d3dcompiler_47.dll">
+          <File Source="$(var.Win81SDKDir)\Redist\D3D\x64\d3dcompiler_47.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>
+
+    <?ifdef VersionSubDir ?>
+      </DirectoryRef>
+    <?else ?>
+      </DirectoryRef>
+    <?endif ?>
+  </Fragment>
+
+  <!-- Mumble -->
+  <Fragment>
+    <DirectoryRef Id="INSTALLDIR">
+      <Component Id="MumbleDesktopShortcutComponent" Guid="$(var.MumbleDesktopShortcutGuid)" KeyPath="yes">
+        <Shortcut Id="MumbleDesktopShortcut"
+                  Directory="DesktopFolder"
+                  Name="Mumble"
+                  WorkingDirectory="INSTALLDIR"
+                  Target="[INSTALLDIR]mumble.exe">
+          <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+        </Shortcut>
+      </Component>
+      
+      <Component Id="mumble.exe" Guid="$(var.MumbleExeGuid)">
+        <File Id="mumble.exe" Source="$(var.SourceDir)\release\mumble.exe" KeyPath="yes">
+          <Shortcut Id="MumbleShortcut" Directory="ApplicationProgramsFolder" Name="Mumble" WorkingDirectory="INSTALLDIR">
+            <ShortcutProperty Key="System.AppUserModel.ID" Value="net.sourceforge.mumble.Mumble" />
+          </Shortcut>
+        </File>
+
+        <RegistryValue Root="HKCR" Key="mumble" Value="URL:Mumble" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble" Name="URL Protocol" Value="" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble\DefaultIcon" Value="[#mumble.exe]" Type="string" />
+        <RegistryValue Root="HKCR" Key="mumble\shell\open\command" Value="[#mumble.exe] &quot;%1&quot;" Type="string" />
+      </Component>
+
       <Component Id="MurmurDesktopShortcutComponent" Guid="$(var.MurmurDesktopShortcutGuid)" KeyPath="yes">
         <Shortcut Id="MurmurDesktopShortcut"
                   Directory="DesktopFolder"
@@ -106,6 +144,20 @@
       <Component Id="Murmur.ice">
         <File Source="$(var.SourceDir)\src\murmur\Murmur.ice" KeyPath="yes" />
       </Component>
+
+      <?ifdef VersionSubDir ?>
+        <?ifdef RedistDirVC12 ?>
+        <Component Id="Murmur_msvcp120.dll">
+          <File Id="Murmur_msvcp120.dll" Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
+        </Component>
+        <Component Id="Murmur_msvcr120.dll">
+          <File Id="Murmur_msvcr120.dll" Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
+        </Component>
+        <?endif ?>
+        <Component Id="Murmur_dbghelp.dll">
+          <File Id="Murmur_dbghelp.dll" Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
+        </Component>
+      <?endif ?>
 
       <?ifndef StaticBuild ?>
         <Component Id="qt.conf">
@@ -129,33 +181,12 @@
         <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes" />
       </Component>
 
-      <Component Id="dbghelp.dll">
-        <File Source="$(var.DebugToolsDir)\dbghelp.dll" KeyPath="yes" />
-      </Component>
-
       <?ifdef IntelCppDir ?>
       <Component Id="libmmd.dll">
         <File Source="$(var.IntelCppDir)\libmmd.dll" KeyPath="yes" />
       </Component>
       <?endif ?>
 
-      <?ifdef RedistDirVC12 ?>
-      <Component Id="msvcp120.dll">
-        <File Source="$(var.RedistDirVC12)\msvcp120.dll" KeyPath="yes" />
-      </Component>
-      <Component Id="msvcr120.dll">
-        <File Source="$(var.RedistDirVC12)\msvcr120.dll" KeyPath="yes" />
-      </Component>
-      <?endif ?>
-
-      <?ifdef D3DCompilerDLL ?>
-        <Component Id="d3dcompiler_43.dll">
-          <File Source="$(var.System32x86Dir)\d3dcompiler_43.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="d3dcompiler_47.dll">
-          <File Source="$(var.Win81SDKDir)\Redist\D3D\x64\d3dcompiler_47.dll" KeyPath="yes" />
-        </Component>
-      <?endif ?>
     </DirectoryRef>
   </Fragment>
 
@@ -364,7 +395,15 @@
   <!-- Directory tree -->
     <Fragment>
       <DirectoryRef Id="INSTALLDIR">
-        <Directory Id="PluginFolder" Name="plugins" />
+        <?ifdef VersionSubDir ?>
+          <Directory Id="VersionContainerFolder" Name="Versions">
+            <Directory Id="VersionFolder" Name="$(var.VersionSubDir)">
+              <Directory Id="PluginFolder" Name="plugins" />
+            </Directory>
+          </Directory>
+        <?else ?>
+          <Directory Id="PluginFolder" Name="plugins" />
+        <?endif ?>
         <?ifndef StaticBuild ?>
           <Directory Id="QtPluginFolder" Name="QtPlugins">
             <Directory Id="QtPluginIconEnginesFolder" Name="iconengines" />
