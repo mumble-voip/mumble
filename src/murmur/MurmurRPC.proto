@@ -208,6 +208,8 @@ service ChannelService {
 	// Get returns the channel with the given ID.
 	rpc get(Channel) returns(Channel);
 
+	// Add adds the channel to the given server. The parent and name of the
+	// channel must be set.
 	rpc add(Channel) returns(Channel);
 	// Remove removes the given channel from the server.
 	rpc remove(Channel) returns(Void);
