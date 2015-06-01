@@ -274,8 +274,136 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::update(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::ChannelService::update(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	NEED_SERVER_EXISTS(request)
+
+	bool changed = false;
+	bool updated = false;
+
+	if (!request->has_id()) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "channel ID required");
+	}
+	Channel *channel = server->qhChannels.value(request->id());
+	if (!channel) {
+		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+	}
+
+	MumbleProto::ChannelState mpcs;
+	mpcs.set_channel_id(channel->iId);
+
+
+	// Links and parent channel are processed first, because they can return
+	// errors. Without doing this, the server state can be changed without
+	// notifying users.
+	QSet<Channel *> newLinksSet;
+	for (int i = 0; i < request->links_size(); i++) {
+		const MurmurRPC::Channel &linkRef = request->links(i);
+		// TODO(grpc): verify linkRef.server() ?
+		if (!linkRef.has_id()) {
+			return grpc::Status(grpc::INVALID_ARGUMENT, "link channel is missing ID");
+		}
+		Channel *link = server->qhChannels.value(linkRef.id());
+		if (!link) {
+			return grpc::Status(grpc::INVALID_ARGUMENT, "link channel does not exist");
+		}
+		newLinksSet.insert(link);
+	}
+
+	if (request->has_parent()) {
+		// TODO(grpc): verify request->parent().server() ?
+		if (!request->parent().has_id()) {
+			return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID");
+		}
+		Channel *parent = server->qhChannels.value(request->parent().id());
+		if (!parent) {
+			return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist");
+		}
+		if (parent != channel->cParent) {
+			Channel *p = parent;
+			while (p) {
+				if (p == channel) {
+					return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel");
+				}
+				p = p->cParent;
+			}
+			if (!server->canNest(parent, channel)) {
+				return grpc::Status(grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent");
+			}
+			channel->cParent->removeChannel(channel);
+			parent->addChannel(channel);
+			mpcs.set_parent(parent->iId);
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (request->has_name()) {
+		QString qsName = u8(request->name());
+		if (channel->qsName != qsName) {
+			channel->qsName = qsName;
+			mpcs.set_name(request->name());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	const QSet<Channel *> &oldLinksSet = channel->qsPermLinks;
+
+	if (newLinksSet != oldLinksSet) {
+		// Remove
+		foreach(Channel *l, oldLinksSet) {
+			if (!newLinksSet.contains(l)) {
+				server->removeLink(channel, l);
+				mpcs.add_links_remove(l->iId);
+			}
+		}
+		// Add
+		foreach(Channel *l, newLinksSet) {
+			if (! oldLinksSet.contains(l)) {
+				server->addLink(channel, l);
+				mpcs.add_links_add(l->iId);
+			}
+		}
+
+		changed = true;
+	}
+
+	if (request->has_position() && request->position() != channel->iPosition) {
+		channel->iPosition = request->position();
+		mpcs.set_position(request->position());
+
+		changed = true;
+		updated = true;
+	}
+
+	if (request->has_description()) {
+		QString qsDescription = u8(request->description());
+		if (qsDescription != channel->qsDesc) {
+			server->hashAssign(channel->qsDesc, channel->qbaDescHash, qsDescription);
+			mpcs.set_description(request->description());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (updated) {
+		server->updateChannel(channel);
+	}
+	if (changed) {
+		server->sendAll(mpcs, ~ 0x010202);
+		if (mpcs.has_description() && !channel->qbaDescHash.isEmpty()) {
+			mpcs.clear_description();
+			mpcs.set_description_hash(blob(channel->qbaDescHash));
+		}
+		server->sendAll(mpcs, 0x010202);
+		emit server->channelStateChanged(channel);
+	}
+
+	channelToRPCChannel(server, channel, response);
+	return grpc::Status::OK;
 }
 
 #undef FIND_SERVER

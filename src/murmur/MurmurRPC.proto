@@ -205,10 +205,13 @@ message Channel {
 
 service ChannelService {
 	rpc query(Channel.Query) returns(stream Channel);
+	// Get returns the channel with the given ID.
 	rpc get(Channel) returns(Channel);
 
 	rpc add(Channel) returns(Channel);
 	rpc remove(Channel) returns(Void);
+	// Update updates the given channel's attributes. Only the fields that are
+	// set will be updated.
 	rpc update(Channel) returns(Channel);
 }
 
