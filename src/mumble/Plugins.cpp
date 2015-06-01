@@ -39,6 +39,7 @@
 #include "ServerHandler.h"
 #include "../../plugins/mumble_plugin.h"
 #include "WebFetch.h"
+#include "MumbleApplication.h"
 
 #ifdef Q_OS_WIN
 // from os_win.cpp
@@ -228,9 +229,8 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 
 #ifdef QT_NO_DEBUG
 #ifndef PLUGIN_PATH
-#ifndef Q_OS_MAC
-	qsSystemPlugins=QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
-#else
+	qsSystemPlugins=QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
+#ifdef Q_OS_MAC
 	qsSystemPlugins=QString::fromLatin1("%1/../Plugins").arg(qApp->applicationDirPath());
 #endif
 #else
@@ -239,7 +239,7 @@ Plugins::Plugins(QObject *p) : QObject(p) {
 
 	qsUserPlugins = g.qdBasePath.absolutePath() + QLatin1String("/Plugins");
 #else
-	qsSystemPlugins = QString::fromLatin1("%1/plugins").arg(qApp->applicationDirPath());
+	qsSystemPlugins = QString::fromLatin1("%1/plugins").arg(MumbleApplication::instance()->applicationVersionRootPath());
 	qsUserPlugins = QString();
 #endif
 

@@ -33,6 +33,8 @@
 
 #include "G15LCDEngine_helper.h"
 
+#include "MumbleApplication.h"
+
 static LCDEngine *G15LCDEngineNew() {
 	return new G15LCDEngineHelper();
 }
@@ -44,9 +46,9 @@ G15LCDEngineHelper::G15LCDEngineHelper() : LCDEngine() {
 	bUnavailable = true;
 
 #if defined(Q_OS_WIN)
-	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(qApp->applicationDirPath());
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper.exe\"").arg(MumbleApplication::instance()->applicationVersionRootPath());
 #elif defined(Q_OS_MAC)
-	qsHelperExecutable = QString::fromLatin1("%1/mumble-g15-helper").arg(qApp->applicationDirPath());
+	qsHelperExecutable = QString::fromLatin1("\"%1/mumble-g15-helper\"").arg(MumbleApplication::instance()->applicationVersionRootPath());
 #endif
 
 	qpHelper = new QProcess(this);

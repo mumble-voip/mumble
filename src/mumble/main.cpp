@@ -113,8 +113,7 @@ int main(int argc, char **argv) {
 
 	#ifdef USE_SBCELT
 	{
-		// For now, force Mumble to use sbcelt-helper from the same directory as the 'mumble' executable.
-		QDir d(a.applicationDirPath());
+		QDir d(a.applicationVersionRootPath());
 		QString helper = d.absoluteFilePath(QString::fromLatin1("sbcelt-helper"));
 		setenv("SBCELT_HELPER_BINARY", helper.toUtf8().constData(), 1);
 	}
@@ -236,7 +235,7 @@ int main(int argc, char **argv) {
 		if (reqSize > 0) {
 			STACKVAR(wchar_t, buff, reqSize+1);
 			_wgetenv_s(&reqSize, buff, reqSize, L"PATH");
-			QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(a.applicationDirPath())).arg(QString::fromWCharArray(buff));
+			QString path = QString::fromLatin1("%1;%2").arg(QDir::toNativeSeparators(MumbleApplication::instance()->applicationVersionRootPath())).arg(QString::fromWCharArray(buff));
 			STACKVAR(wchar_t, buffout, path.length() + 1);
 			path.toWCharArray(buffout);
 			_wputenv_s(L"PATH", buffout);
