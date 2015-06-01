@@ -253,6 +253,7 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 }
 
 ::grpc::Status MurmurRPCImpl::ChannelService::get(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	// TODO(grpc): convert to "NEED_SERVER"?
 	NEED_SERVER_EXISTS(request)
 
 	if (!request->has_id()) {
@@ -270,18 +271,33 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	return grpc::Status(grpc::UNIMPLEMENTED);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::remove(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+::grpc::Status MurmurRPCImpl::ChannelService::remove(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void*) {
+	// TODO(grpc): convert to "NEED_SERVER"?
+	NEED_SERVER_EXISTS(request)
+
+	if (!request->has_id()) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
+	}
+	Channel *channel = server->qhChannels.value(request->id());
+	if (!channel) {
+		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+	}
+	if (!channel->cParent) {
+		return grpc::Status(grpc::INVALID_ARGUMENT, "cannot remove the root channel");
+	}
+	server->removeChannel(channel);
+	return grpc::Status::OK;
 }
 
 ::grpc::Status MurmurRPCImpl::ChannelService::update(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
+	// TODO(grpc): convert to "NEED_SERVER"?
 	NEED_SERVER_EXISTS(request)
 
 	bool changed = false;
 	bool updated = false;
 
 	if (!request->has_id()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "channel ID required");
+		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
 	}
 	Channel *channel = server->qhChannels.value(request->id());
 	if (!channel) {

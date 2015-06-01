@@ -209,6 +209,7 @@ service ChannelService {
 	rpc get(Channel) returns(Channel);
 
 	rpc add(Channel) returns(Channel);
+	// Remove removes the given channel from the server.
 	rpc remove(Channel) returns(Void);
 	// Update updates the given channel's attributes. Only the fields that are
 	// set will be updated.
