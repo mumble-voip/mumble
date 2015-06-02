@@ -136,8 +136,11 @@ public:
 	void read(QString fname = QString("murmur.ini"));
 
 private:
-		template <class T>
-		T typeCheckedFromSettings(const QString &name, const T &variable);
+	template <class T>
+	T typeCheckedFromSettings(const QString &name, const T &variable);
+
+	/// Checks whether the AF_INET6 socket has dual-stack support
+	static bool hasDualStackSupport();
 };
 
 class Meta : public QObject {
