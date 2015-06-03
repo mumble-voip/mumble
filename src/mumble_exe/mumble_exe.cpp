@@ -50,7 +50,8 @@ static void Alert(LPCWSTR title, LPCWSTR msg) {
 // string.
 static const std::wstring GetMumbleVersion() {
 #ifdef MUMBLE_VERSION
-#   define MUMTEXT(X) L#X
+# define MUMXTEXT(X) L#X
+# define MUMTEXT(X) MUMXTEXT(X)
 	const std::wstring version(MUMTEXT(MUMBLE_VERSION));
 	return version;
 #else
