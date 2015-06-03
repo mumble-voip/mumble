@@ -99,6 +99,9 @@ class SslServer : public QTcpServer {
 	public:
 		QSslSocket *nextPendingSSLConnection();
 		SslServer(QObject *parent = NULL);
+
+		/// Checks whether the AF_INET6 socket on this system has dual-stack support.
+		static bool hasDualStackSupport();
 };
 
 #define EXEC_QEVENT (QEvent::User + 959)

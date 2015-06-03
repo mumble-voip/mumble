@@ -125,25 +125,6 @@ T MetaParams::typeCheckedFromSettings(const QString &name, const T &defaultValue
 	return cfgVariable.value<T>();
 }
 
-bool MetaParams::hasDualStackSupport() {
-#ifdef Q_OS_UNIX
-	int s = ::socket(AF_INET6, SOCK_STREAM, 0);
-	if (s != -1) {
-		int ipv6only = 0;
-		socklen_t optlen = sizeof(ipv6only);
-		if (getsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, &ipv6only, &optlen) == 0) {
-			if (ipv6only == 0)
-				return true;
-		}
-		close(s);
-	}
-	return false;
-#else
-	// Assume dual-stacked for non-unix systems
-	return true;
-#endif
-}
-
 void MetaParams::read(QString fname) {
 	if (fname.isEmpty()) {
 		QStringList datapaths;
@@ -262,7 +243,7 @@ void MetaParams::read(QString fname) {
 
 #if QT_VERSION >= 0x050000
 		if (hasipv6) {
-			if (hasDualStackSupport() && hasipv4) {
+			if (SslServer::hasDualStackSupport() && hasipv4) {
 				qlBind << QHostAddress(QHostAddress::Any);
 				hasipv4 = false; // No need to add a separate ipv4 socket
 			} else {
@@ -281,7 +262,7 @@ void MetaParams::read(QString fname) {
 
 		if (hasipv6) {
 			qlBind << QHostAddress(QHostAddress::AnyIPv6);
-			if (hasDualStackSupport() && hasipv4) {
+			if (SslServer::hasDualStackSupport() && hasipv4) {
 				hasipv4 = false; // No need to add a separate ipv4 socket
 			}
 		}
