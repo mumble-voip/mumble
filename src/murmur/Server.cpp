@@ -73,6 +73,41 @@ void ExecEvent::execute() {
 SslServer::SslServer(QObject *p) : QTcpServer(p) {
 }
 
+bool SslServer::hasDualStackSupport() {
+	// Create a AF_INET6 socket and try to switch off IPV6_V6ONLY. This
+	// should only fail if the system does not support dual-stack mode
+	// for this socket type.
+
+	bool result = false;
+#ifdef Q_OS_UNIX
+	int s = ::socket(AF_INET6, SOCK_STREAM, 0);
+#else
+	WSADATA wsaData;
+	WORD wVersionRequested = MAKEWORD(2, 2);
+	if (WSAStartup(wVersionRequested, &wsaData) != 0) {
+		// Seems like we won't be doing any network stuff anyways
+		return false;
+	}
+
+	SOCKET s = ::WSASocket(AF_INET6, SOCK_STREAM, IPPROTO_TCP, NULL, 0, WSA_FLAG_OVERLAPPED);
+#endif
+
+	if (s != -1) { // Equals INVALID_SOCKET
+		const int ipv6only = 0;
+		if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, (const char*)&ipv6only, sizeof(ipv6only)) == 0) {
+			result = true;
+		}
+#ifdef Q_OS_UNIX
+		::close(s);
+	}
+#else
+		closesocket(s);
+	}
+	WSACleanup();
+#endif
+	return result;
+}
+
 #if QT_VERSION >= 0x050000
 void SslServer::incomingConnection(qintptr v) {
 #else
@@ -166,6 +201,20 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 			bValid = false;
 			return;
 		} else {
+			if (addr.ss_family == AF_INET6) {
+				// Copy IPV6_V6ONLY attribute from tcp socket, it defaults to nonzero on Windows
+				// See https://msdn.microsoft.com/en-us/library/windows/desktop/ms738574%28v=vs.85%29.aspx
+				// This will fail for WindowsXP which is ok. Our TCP code will have split that up
+				// into two sockets.
+				int ipv6only = 0;
+				socklen_t optlen = sizeof(ipv6only);
+				if (::getsockopt(tcpsock, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&ipv6only, &optlen) == 0) {
+					if (::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, (const char*)&ipv6only, optlen) == SOCKET_ERROR) {
+						log(QString("Failed to copy IPV6_V6ONLY socket attribute from tcp to udp socket"));
+					}
+				}
+			}
+
 			if (::bind(sock, reinterpret_cast<sockaddr *>(&addr), len) == SOCKET_ERROR) {
 				log(QString("Failed to bind UDP Socket to %1").arg(addressToString(ss->serverAddress(), usPort)));
 			} else {
