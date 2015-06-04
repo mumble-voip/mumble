@@ -98,7 +98,8 @@ bool SslServer::hasDualStackSupport() {
 			result = true;
 		}
 #ifdef Q_OS_UNIX
-		close(s);
+		::close(s);
+	}
 #else
 		closesocket(s);
 	}
