@@ -67,13 +67,15 @@ class WrapperGenerator : public CodeGenerator {
 		}
 		cpp.Print("namespace Wrapper {\n", "ns", ns);
 
+		map<string, string> tpl;
+		tpl["ns"] = ns;
+
 		for (int i = 0; i < input->service_count(); i++) {
 			auto service = input->service(i);
+			tpl["service"] = service->name();
+
 			for (int j = 0; j < service->method_count(); j++) {
 				auto method = service->method(j);
-				map<string, string> tpl;
-				tpl["ns"] = ns;
-				tpl["service"] = service->name();
 				tpl["method"] = method->name();
 				tpl["in"] = ConvertDot(method->input_type()->full_name());
 				tpl["out"] = ConvertDot(method->output_type()->full_name());
@@ -96,7 +98,6 @@ class WrapperGenerator : public CodeGenerator {
 
 				cpp.Print(tpl, "void $service$_$method$_Handle(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service, ::grpc::ServerContext *context, ::$in$ *in, ::grpc::ServerAsyncResponseWriter< ::$out$ > *out) {\n");
 				cpp.Indent();
-				// 	qWarning() << ":::::::: _Handle";
 				cpp.Print(tpl, "$service$_$method$_Create(impl, service);\n");
 				cpp.Print(tpl, "auto done_fn = ::boost::bind($service$_$method$_Done, impl, service, context, in, out);\n");
 				cpp.Print(tpl, "auto done_fn_ptr = new ::boost::function<void()>(done_fn);\n");
@@ -118,6 +119,19 @@ class WrapperGenerator : public CodeGenerator {
 
 				cpp.Print("\n");
 			}
+
+			cpp.Print(tpl, "void $service$_Init(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service) {\n");
+			cpp.Indent();
+			for (int j = 0; j < service->method_count(); j++) {
+				auto method = service->method(j);
+				tpl["method"] = method->name();
+				if (method->client_streaming() || method->server_streaming()) {
+					continue;
+				}
+				cpp.Print(tpl, "$service$_$method$_Create(impl, service);\n");
+			}
+			cpp.Outdent();
+			cpp.Print("}\n");
 		}
 
 		while (namespaces--) {
