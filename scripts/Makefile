@@ -1,7 +1,7 @@
 BIN=protoc-gen-grpcwrapper
 OUT=MurmurRPC.proto.Wrapper.cpp
 
-../src/murmur/$(OUT): $(BIN)
+../src/murmur/$(OUT): $(BIN) ../src/murmur/MurmurRPC.proto
 	protoc --plugin=./$(BIN) -I ../src/murmur/ --grpcwrapper_out=../src/murmur/ ../src/murmur/MurmurRPC.proto
 
 $(BIN): protoc-gen-grpcwrapper.cpp
