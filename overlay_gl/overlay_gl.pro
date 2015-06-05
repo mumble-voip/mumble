@@ -21,7 +21,6 @@ unix:!macx {
 	QMAKE_LFLAGS -= -Wl,--no-undefined
 	QMAKE_LFLAGS *= $(LFLAGS_ADD)
 	equals(QMAKE_LINK,g++) {
-	  message(Overriding linker)
 	  QMAKE_LINK = gcc
 	  QMAKE_LINK_SHLIB = gcc
 	}
