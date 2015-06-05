@@ -176,6 +176,12 @@ unix {
 	}
 }
 
+freebsd-clang {
+	QMAKE_CFLAGS *= -isystem /usr/local/include
+	QMAKE_CXXFLAGS	*= -isystem /usr/local/include
+	QMAKE_LFLAGS *= -L/usr/local/lib -lssl
+}
+
 unix:!macx {
 	CONFIG(debug, debug|release) {
 		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
