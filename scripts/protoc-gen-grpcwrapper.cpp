@@ -71,6 +71,9 @@ class WrapperGenerator : public CodeGenerator {
 		tpl["ns"] = ns;
 
 		for (int i = 0; i < input->service_count(); i++) {
+			if (i > 0) {
+				cpp.Print("\n\n");
+			}
 			auto service = input->service(i);
 			tpl["service"] = service->name();
 
@@ -134,6 +137,7 @@ class WrapperGenerator : public CodeGenerator {
 			cpp.Print("}\n");
 		}
 
+		cpp.Print("\n");
 		while (namespaces--) {
 			cpp.Print("}\n");
 		}

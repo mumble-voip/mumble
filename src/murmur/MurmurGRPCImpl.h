@@ -41,39 +41,32 @@
 #include <grpc++/server_credentials.h>
 #include <grpc++/status.h>
 
-class MurmurRPCImpl : public QObject {
+class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
+		std::unique_ptr<grpc::Server> mServer;
+	protected:
+		void customEvent(QEvent *evt);
 	public:
-		MurmurRPCImpl();
-		// MetaService
-		struct MetaService : public MurmurRPC::MetaService::Service {
-			::grpc::Status uptime(::grpc::ServerContext* context, const ::MurmurRPC::Void* request, ::MurmurRPC::Uptime* response);
-			::grpc::Status version(::grpc::ServerContext* context, const ::MurmurRPC::Void* request, ::MurmurRPC::Version* response);
-			::grpc::Status events(::grpc::ServerContext* context, const ::MurmurRPC::Void* request, ::grpc::ServerWriter< ::MurmurRPC::Event>* writer);
-		};
-		MurmurRPCImpl::MetaService sMetaService;
-		// TextMessageService
-		struct TextMessageService : public MurmurRPC::TextMessageService::Service {
-			::grpc::Status send(::grpc::ServerContext* context, const ::MurmurRPC::TextMessage* request, ::MurmurRPC::Void* response);
-		};
-		MurmurRPCImpl::TextMessageService sTextMessageService;
-		// UserService
-		struct UserService : public MurmurRPC::UserService::Service {
-			::grpc::Status query(::grpc::ServerContext* context, const ::MurmurRPC::User_Query* request, ::grpc::ServerWriter< ::MurmurRPC::User>* writer);
-			::grpc::Status get(::grpc::ServerContext* context, const ::MurmurRPC::User* request, ::MurmurRPC::User* response);
-			::grpc::Status update(::grpc::ServerContext* context, const ::MurmurRPC::User* request, ::MurmurRPC::User* response);
-			::grpc::Status kick(::grpc::ServerContext* context, const ::MurmurRPC::User_Kick* request, ::MurmurRPC::Void* response);
-		};
-		MurmurRPCImpl::UserService sUserService;
-		// ChannelService
-		struct ChannelService : public MurmurRPC::ChannelService::Service {
-			::grpc::Status query(::grpc::ServerContext* context, const ::MurmurRPC::Channel_Query* request, ::grpc::ServerWriter< ::MurmurRPC::Channel>* writer);
-			::grpc::Status get(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response);
-			::grpc::Status add(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response);
-			::grpc::Status remove(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void* response);
-			::grpc::Status update(::grpc::ServerContext* context, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response);
-		};
-		MurmurRPCImpl::ChannelService sChannelService;
+		MurmurRPCImpl(const QString &address);
+		~MurmurRPCImpl();
+		void run();
+		std::unique_ptr<grpc::ServerCompletionQueue> mCQ;
+
+		// Services
+		MurmurRPC::ACLService::AsyncService aACLService;
+		MurmurRPC::AudioService::AsyncService aAudioService;
+		MurmurRPC::AuthenticatorService::AsyncService aAuthenticatorService;
+		MurmurRPC::BanService::AsyncService aBanService;
+		MurmurRPC::ChannelService::AsyncService aChannelService;
+		MurmurRPC::ConfigService::AsyncService aConfigService;
+		MurmurRPC::ContextActionService::AsyncService aContextActionService;
+		MurmurRPC::DatabaseService::AsyncService aDatabaseService;
+		MurmurRPC::LogService::AsyncService aLogService;
+		MurmurRPC::MetaService::AsyncService aMetaService;
+		MurmurRPC::ServerService::AsyncService aServerService;
+		MurmurRPC::TextMessageService::AsyncService aTextMessageService;
+		MurmurRPC::TreeService::AsyncService aTreeService;
+		MurmurRPC::UserService::AsyncService aUserService;
 };
 
 #endif

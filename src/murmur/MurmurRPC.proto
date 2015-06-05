@@ -2,6 +2,8 @@ syntax = "proto2";
 
 package MurmurRPC;
 
+// TODO(grpc): ensure all service methods are named as actions (e.g. "Get...")
+
 message Void {
 }
 
@@ -47,16 +49,16 @@ message Server {
 }
 
 service ServerService {
-	rpc create(Void) returns(Server);
+	rpc Create(Void) returns(Server);
 
-	rpc query(Server.Query) returns(stream Server);
-	rpc get(Server) returns(Server);
+	rpc Query(Server.Query) returns(stream Server);
+	rpc Get(Server) returns(Server);
 
-	rpc start(Server) returns(Void);
-	rpc stop(Server) returns(Void);
-	rpc remove(Server) returns(Void);
+	rpc Start(Server) returns(Void);
+	rpc Stop(Server) returns(Void);
+	rpc Remove(Server) returns(Void);
 
-	rpc events(Server) returns(stream Server.Event);
+	rpc Events(Server) returns(stream Server.Event);
 }
 
 message Event {
@@ -70,10 +72,10 @@ message Event {
 
 service MetaService {
 	// Get murmur's uptime.
-	rpc uptime(Void) returns(Uptime);
+	rpc GetUptime(Void) returns(Uptime);
 	// Get murmur's version.
-	rpc version(Void) returns(Version);
-	rpc events(Void) returns(stream Event);
+	rpc GetVersion(Void) returns(Version);
+	rpc Events(Void) returns(stream Event);
 }
 
 message ContextAction {
@@ -94,9 +96,9 @@ message ContextAction {
 }
 
 service ContextActionService {
-	rpc add(ContextAction) returns(Void);
-	rpc remove(ContextAction) returns(Void);
-	rpc events(ContextAction) returns(stream ContextAction);
+	rpc Add(ContextAction) returns(Void);
+	rpc Remove(ContextAction) returns(Void);
+	rpc Events(ContextAction) returns(stream ContextAction);
 }
 
 message TextMessage {
@@ -112,7 +114,7 @@ message TextMessage {
 service TextMessageService {
 	// If users, channels, and trees are not set in the TextMessage, the message
 	// will be broadcast the entire server.
-	rpc send(TextMessage) returns(Void);
+	rpc Send(TextMessage) returns(Void);
 	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
 }
 
@@ -132,7 +134,7 @@ message Log {
 }
 
 service LogService {
-	rpc query(Log.Query) returns(stream Log.Entry);
+	rpc Query(Log.Query) returns(stream Log.Entry);
 }
 
 // Having "Config" seems preferable to having a map (map<string, string>),
@@ -182,9 +184,9 @@ message Config {
 }
 
 service ConfigService {
-	rpc getDefault(Void) returns(Config);
-	rpc setDefault(Config) returns(Void);
-	rpc query(Config.Query) returns(Config); // TODO: Remove in favor of a field in "Server"?
+	rpc GetDefault(Void) returns(Config);
+	rpc SetDefault(Config) returns(Void);
+	rpc Query(Config.Query) returns(Config); // TODO: Remove in favor of a field in "Server"?
 }
 
 message Channel {
@@ -204,18 +206,18 @@ message Channel {
 }
 
 service ChannelService {
-	rpc query(Channel.Query) returns(stream Channel);
+	rpc Query(Channel.Query) returns(stream Channel);
 	// Get returns the channel with the given ID.
-	rpc get(Channel) returns(Channel);
+	rpc Get(Channel) returns(Channel);
 
 	// Add adds the channel to the given server. The parent and name of the
 	// channel must be set.
-	rpc add(Channel) returns(Channel);
+	rpc Add(Channel) returns(Channel);
 	// Remove removes the given channel from the server.
-	rpc remove(Channel) returns(Void);
+	rpc Remove(Channel) returns(Void);
 	// Update updates the given channel's attributes. Only the fields that are
 	// set will be updated.
-	rpc update(Channel) returns(Channel);
+	rpc Update(Channel) returns(Channel);
 }
 
 message User {
@@ -263,15 +265,14 @@ message User {
 }
 
 service UserService {
-	// Query returns the currently connected users.
-	rpc query(User.Query) returns(stream User);
+	rpc Query(User.Query) returns(stream User);
 	// Get returns information on the connected user, given by the user's session
 	// or name.
-	rpc get(User) returns(User);
-	rpc update(User) returns(User);
+	rpc Get(User) returns(User);
+	rpc Update(User) returns(User);
 
 	// Kick kicks the user from the server.
-	rpc kick(User.Kick) returns(Void);
+	rpc Kick(User.Kick) returns(Void);
 	// FEATURE: rpc ban(User.Ban) returns(Void);
 }
 
@@ -285,7 +286,7 @@ message Tree {
 
 service TreeService {
 	// Worth considering this: http://stackoverflow.com/a/5945674 ?
-	rpc get(Tree) returns(Tree);
+	rpc Get(Tree) returns(Tree);
 }
 
 message Ban {
@@ -301,8 +302,8 @@ message Ban {
 }
 
 service BanService {
-	rpc get(Ban) returns(stream Ban);
-	rpc set(stream Ban) returns(Void);
+	rpc Get(Ban) returns(stream Ban);
+	rpc Set(stream Ban) returns(Void);
 }
 
 message ACL {
@@ -367,13 +368,13 @@ message ACL {
 }
 
 service ACLService {
-	rpc get(Channel) returns(ACL.List);
-	rpc set(ACL.List) returns(Void);
+	rpc Get(Channel) returns(ACL.List);
+	rpc Set(ACL.List) returns(Void);
 
-	rpc effectivePermissions(User) returns(ACL);
+	rpc GetEffectivePermissions(User) returns(ACL);
 
-	rpc addTemporaryGroup(ACL.TemporaryGroup) returns(Void);
-	rpc removeTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	rpc AddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
 
 message Authenticator {
@@ -404,10 +405,10 @@ message Authenticator {
 service AuthenticatorService {
 	// an initial Authenticator.Response with the "server" set needs to be sent
 	// before requests start coming in.
-	rpc stream(stream Authenticator.Message) returns(stream Authenticator.Message);
+	rpc Stream(stream Authenticator.Message) returns(stream Authenticator.Message);
 
 	// same as "stream", but accepts updated registration information.
-	rpc registrationStream(stream Authenticator.Message) returns(stream Authenticator.Message);
+	rpc RegistrationStream(stream Authenticator.Message) returns(stream Authenticator.Message);
 }
 
 message Database {
@@ -436,13 +437,12 @@ message Database {
 }
 
 service DatabaseService {
-	rpc query(Database.Query) returns(stream Database.User);
-	rpc get(Database.User) returns(Database.User);
-	rpc update(Database.User) returns(Database.User);
-	// TODO(grpc): "register" currently cannot be used as a name
-	rpc registerFIXME(Database.User) returns(Database.User);
-	rpc deregister(Database.User) returns(Void);
-	rpc verifyPassword(Database.VerifyPassword) returns(Database.User);
+	rpc Query(Database.Query) returns(stream Database.User);
+	rpc Get(Database.User) returns(Database.User);
+	rpc Update(Database.User) returns(Database.User);
+	rpc Register(Database.User) returns(Database.User);
+	rpc Deregister(Database.User) returns(Void);
+	rpc VerifyPassword(Database.VerifyPassword) returns(Database.User);
 }
 
 message RedirectWhisperGroup {
@@ -454,5 +454,5 @@ message RedirectWhisperGroup {
 }
 
 service AudioService {
-	rpc redirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+	rpc SetRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
 }
