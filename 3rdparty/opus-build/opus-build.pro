@@ -15,12 +15,17 @@ SOURCEDIR=$$replace(BUILDDIR,-build,-src)
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
-#CONFIG -= warn_on
-#CONFIG += warn_off
 CONFIG += no_include_pwd
 VPATH	= ../$$SOURCEDIR
 TARGET = opus
 DEFINES += HAVE_CONFIG_H
+
+!CONFIG(third-party-warnings) {
+	# We ignore warnings in third party builds. We won't actually look
+	# at them and they clutter out our warnings.
+	CONFIG -= warn_on
+	CONFIG += warn_off
+}
 
 QMAKE_CFLAGS -= -fPIE -pie
 

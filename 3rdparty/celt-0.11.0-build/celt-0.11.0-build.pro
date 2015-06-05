@@ -13,8 +13,6 @@ VERSION=$$replace(VERSION,celt-,)
 TEMPLATE = lib
 CONFIG -= qt
 CONFIG += debug_and_release
-CONFIG -= warn_on
-CONFIG += warn_off
 CONFIG += no_include_pwd
 VPATH	= ../$$SOURCEDIR/libcelt
 TARGET = celt0
@@ -25,6 +23,13 @@ TARGET_VERSION_EXT = .$$VERSION
 CONFIG(static) {
 	CONFIG -= static
 	CONFIG += shared
+}
+
+!CONFIG(third-party-warnings) {
+	# We ignore warnings in third party builds. We won't actually look
+	# at them and they clutter out our warnings.
+	CONFIG -= warn_on
+	CONFIG += warn_off
 }
 
 QMAKE_CFLAGS -= -fPIE -pie
