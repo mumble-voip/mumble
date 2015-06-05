@@ -34,12 +34,23 @@
 
 #include "MurmurRPC.grpc.pb.h"
 
+#include "Server.h"
+
 #include <grpc/grpc.h>
 #include <grpc++/server.h>
 #include <grpc++/server_builder.h>
 #include <grpc++/server_context.h>
 #include <grpc++/server_credentials.h>
 #include <grpc++/status.h>
+
+class RPCExecEvent : public ExecEvent {
+	Q_DISABLE_COPY(RPCExecEvent);
+public:
+	::boost::function<void(::grpc::Status&)> *Error;
+	::boost::function<void()> *Next;
+	RPCExecEvent(boost::function<void ()> fn, ::boost::function<void(::grpc::Status&)> *error, ::boost::function<void()> *next) : ExecEvent(fn), Error(error), Next(next) {
+	}
+};
 
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
