@@ -104,7 +104,9 @@ class WrapperGenerator : public CodeGenerator {
 				cpp.Print(tpl, "$service$_$method$_Create(impl, service);\n");
 				cpp.Print(tpl, "auto done_fn = ::boost::bind($service$_$method$_Done, impl, service, context, in, out);\n");
 				cpp.Print(tpl, "auto done_fn_ptr = new ::boost::function<void()>(done_fn);\n");
-				cpp.Print(tpl, "auto ie = new ExecEvent(::boost::bind($service$_$method$_Impl, context, in, out, done_fn_ptr));\n");
+				cpp.Print(tpl, "auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::$out$ >::FinishWithError, out, _1, done_fn_ptr);\n");
+				cpp.Print(tpl, "auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);\n");
+				cpp.Print(tpl, "auto ie = new RPCExecEvent(::boost::bind($service$_$method$_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);\n");
 				cpp.Print(tpl, "QCoreApplication::instance()->postEvent(impl, ie);\n");
 				cpp.Outdent();
 				cpp.Print("}\n");

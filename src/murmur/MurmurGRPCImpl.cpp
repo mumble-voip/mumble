@@ -89,7 +89,13 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 
 void MurmurRPCImpl::customEvent(QEvent *evt) {
 	if (evt->type() == EXEC_QEVENT) {
-		static_cast<ExecEvent *>(evt)->execute();
+		auto event = static_cast<RPCExecEvent *>(evt);
+		try {
+			event->execute();
+		} catch (::grpc::Status &ex) {
+			(*event->Error)(ex);
+		}
+		delete event->Error;
 	}
 }
 
@@ -124,30 +130,29 @@ void MurmurRPCImpl::run() {
 	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
-#define FIND_SERVER(r) \
-	if (!r->has_server()) { \
-		response->FinishWithError(::grpc::Status(grpc::INVALID_ARGUMENT, "missing server"), next); \
-		return; \
-	} \
-	::Server *server = meta->qhServers.value(r->server().id());
-
-#define NEED_SERVER_EXISTS(r) \
-	FIND_SERVER(r) \
-	if (!server && ! ::ServerDB::serverExists(r->server().id())) { \
-		response->FinishWithError(grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID"), next); \
-		return; \
+template <class T>
+static ::ServerUser *MustUser(const ::Server *server, const T *msg) {
+	if (!msg->has_user()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing user");
 	}
-
-#define NEED_USER(r) \
-	if (!r->has_user()) { \
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "missing user"), next); \
-		return; \
-	} \
-	::ServerUser *user = server->qhUsers.value(r->user().session()); \
-	if (!user) { \
-		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next); \
-		return; \
+	auto user = server->qhUsers.value(msg->user().session());
+	if (!user) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
+	return user;
+}
+
+template <class T>
+static ::Server *MustServer(const T *msg) {
+	if (!msg->has_server()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server");
+	}
+	auto server = meta->qhServers.value(msg->server().id());
+	if (!server) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
+	}
+	return server;
+}
 
 static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
 	rc->mutable_server()->set_id(srv->iServerNum);
@@ -209,23 +214,23 @@ namespace MurmurRPC {
 namespace Wrapper {
 
 void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void MetaService_GetUptime_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *response, ::boost::function<void()> *next) {
@@ -245,15 +250,15 @@ void MetaService_GetVersion_Impl(::grpc::ServerContext *context, ::MurmurRPC::Vo
 }
 
 void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	NEED_SERVER_EXISTS(request)
+	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage mptm;
 	mptm.set_message(request->text());
@@ -273,25 +278,23 @@ void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::T
 		return;
 	}
 	// TODO(grpc): send message to specific users, channels
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ConfigService_GetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ConfigService_SetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ConfigService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config::Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
-
-	// TODO(grpc): convert to "NEED_SERVER"?
-	NEED_SERVER_EXISTS(request)
+	auto server = MustServer(request);
 
 	if (!request->has_id()) {
 		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
@@ -356,8 +359,7 @@ void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channe
 }
 
 void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	// TODO(grpc): convert to "NEED_SERVER"?
-	NEED_SERVER_EXISTS(request)
+	auto server = MustServer(request);
 
 	if (!request->has_id()) {
 		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
@@ -378,8 +380,7 @@ void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 }
 
 void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
-		// TODO(grpc): convert to "NEED_SERVER"?
-	NEED_SERVER_EXISTS(request)
+	auto server = MustServer(request);
 
 	bool changed = false;
 	bool updated = false;
@@ -520,7 +521,7 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 }
 
 void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
-	NEED_SERVER_EXISTS(request)
+	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
 
@@ -552,14 +553,12 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 }
 
 void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User::Kick *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
-
-	NEED_SERVER_EXISTS(request)
-	NEED_USER(request)
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
 
 	::MumbleProto::UserRemove mpur;
 	mpur.set_session(user->uiSession);
@@ -574,56 +573,52 @@ void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User::Ki
 }
 
 void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Tree *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL::List > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_Set_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::List *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_GetEffectivePermissions_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_AddTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_RemoveTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void AudioService_SetRedirectWhisperGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 }
 }
-
-#undef FIND_SERVER
-#undef NEED_SERVER_EXISTS
-#undef NEED_USER
