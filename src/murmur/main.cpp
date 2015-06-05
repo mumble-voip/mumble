@@ -150,14 +150,14 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
-static void murmurMessageOutput(QtMsgType type, const char *msg) {
-	murmurMessageOutputQString(type, QString::fromUtf8(msg));
-}
-
 #if QT_VERSION >= 0x050000
 static void murmurMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	murmurMessageOutputQString(type, msg);
+}
+#else
+static void murmurMessageOutput(QtMsgType type, const char *msg) {
+	murmurMessageOutputQString(type, QString::fromUtf8(msg));
 }
 #endif
 

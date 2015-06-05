@@ -52,6 +52,7 @@
 #include <math.h>
 #include <errno.h>
 #include <time.h>
+#include <limits.h>
 
 #if defined(TARGET_UNIX)
 # define GLX_GLXEXT_LEGACY
@@ -322,7 +323,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 	// receive and process overlay messages
 	while (1) {
-		if (ctx->omMsg.omh.iLength == -1) {
+		if (ctx->omMsg.omh.iLength < 0) {
 			// receive the overlay message header
 			ssize_t length = recv(ctx->iSocket, ctx->omMsg.headerbuffer, sizeof(struct OverlayMsgHeader), 0);
 			if (length < 0) {
@@ -337,7 +338,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 			}
 		} else {
 			// receive the overlay message body
-			ssize_t  length = recv(ctx->iSocket, ctx->omMsg.msgbuffer, ctx->omMsg.omh.iLength, 0);
+			ssize_t length = recv(ctx->iSocket, ctx->omMsg.msgbuffer, (size_t)ctx->omMsg.omh.iLength, 0);
 			if (length < 0) {
 				if ((errno == EAGAIN) || (errno == EWOULDBLOCK))
 					break;
@@ -362,8 +363,8 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							struct stat buf;
 							fstat(fd, &buf);
 							if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4) {
-								ctx->uiMappedLength = buf.st_size;
-								ctx->a_ucTexture = mmap(NULL, buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+								ctx->uiMappedLength = (unsigned int)buf.st_size;
+								ctx->a_ucTexture = mmap(NULL, (size_t)buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
 								if (ctx->a_ucTexture != MAP_FAILED) {
 									// mmap successfull; send a new bodyless sharedmemory overlay message and regenerate the overlay texture
 									struct OverlayMsg om;
@@ -508,7 +509,7 @@ static void drawContext(Context * ctx, int width, int height) {
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_FPS;
 		om.omh.iLength = sizeof(struct OverlayMsgFps);
-		om.omf.fps = ctx->frameCount / elapsed;
+		om.omf.fps = (float)ctx->frameCount / elapsed;
 
 		sendMessage(ctx, &om);
 
@@ -516,14 +517,14 @@ static void drawContext(Context * ctx, int width, int height) {
 		ctx->timeT = t;
 	}
 
-	GLint program;
+	GLuint program;
 	GLint viewport[4];
 	int i;
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
 	glGetIntegerv(GL_VIEWPORT, viewport);
-	glGetIntegerv(GL_CURRENT_PROGRAM, &program);
+	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint *)&program);
 
 	glViewport(0, 0, width, height);
 
@@ -635,9 +636,9 @@ static void drawContext(Context * ctx, int width, int height) {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	GLint bound = 0, vbobound = 0;
-	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, &bound);
-	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &vbobound);
+	GLuint bound = 0, vbobound = 0;
+	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, (GLint *)&bound);
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, (GLint *)&vbobound);
 
 	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);

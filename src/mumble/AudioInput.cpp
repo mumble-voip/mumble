@@ -845,7 +845,7 @@ void AudioInput::encodeAudioFrame() {
 	EncodingOutputBuffer buffer;
 	Q_ASSERT(buffer.size() >= static_cast<size_t>(iAudioQuality / 100 * iAudioFrames / 8));
 	
-	int len;
+	int len = 0;
 
 	bool encoded = true;
 	if (!selectCodec())

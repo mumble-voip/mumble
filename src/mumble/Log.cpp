@@ -606,9 +606,9 @@ void Log::postQtNotification(MsgType mt, const QString &plain) {
 
 LogDocument::LogDocument(QObject *p)
 	: QTextDocument(p)
+	, m_allowHTTPResources(true)
 	, m_valid(true)
-	, m_onlyLoadDataURLs(false)
-	, m_allowHTTPResources(true) {
+	, m_onlyLoadDataURLs(false) {
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {

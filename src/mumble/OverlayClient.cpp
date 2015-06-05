@@ -44,12 +44,13 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
-OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p) :
-		QObject(p),
-		ougUsers(&g.s.os),
-		iMouseX(0),
-		iMouseY(0),
-		fFps(0) {
+OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
+	: QObject(p)
+	, fFps(0)
+	, ougUsers(&g.s.os)
+	, iMouseX(0)
+	, iMouseY(0) {
+	
 	qlsSocket = socket;
 	qlsSocket->setParent(NULL);
 	connect(qlsSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));

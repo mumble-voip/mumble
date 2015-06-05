@@ -45,7 +45,9 @@
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
 
+#ifdef Q_OS_WIN
 #include "../../overlay/overlay_blacklist.h"
+#endif
 
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
