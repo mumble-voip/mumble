@@ -66,10 +66,11 @@ struct LinkedMem {
 	wchar_t description[2048];
 };
 
-static int32_t GetTickCount() {
+/// Non-monotonic tick count in ms resolution
+static int64_t GetTickCount() {
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
-
+	
 	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
 }
 
@@ -77,7 +78,7 @@ static int32_t GetTickCount() {
 static struct LinkedMem *lm = lm_invalid;
 static int shmfd = -1;
 
-static uint32_t last_tick = 0;
+static int64_t last_tick = 0;
 static uint32_t last_count = 0;
 
 static void unlock() {

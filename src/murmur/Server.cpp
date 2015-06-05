@@ -757,6 +757,7 @@ void Server::run() {
 				msg.msg_controllen = sizeof(controldata);
 
 				len=static_cast<quint32>(::recvmsg(sock, &msg, MSG_TRUNC));
+				Q_UNUSED(fromlen);
 #else
 				len=static_cast<qint32>(::recvfrom(sock, encrypt, UDP_PACKET_SIZE, MSG_TRUNC, reinterpret_cast<struct sockaddr *>(&from), &fromlen));
 #endif

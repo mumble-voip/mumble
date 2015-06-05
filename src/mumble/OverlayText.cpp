@@ -57,16 +57,17 @@ BasepointPixmap::BasepointPixmap(int w, int h, const QPoint& bp) :
 		iAscent(-1),
 		iDescent(-1) { }
 
-OverlayTextLine::OverlayTextLine(const QString& s, const QFont& f) :
-		fEdgeFactor(0.05f),
-		qsText(s),
-		qfFont(f),
-		iCurWidth(-1),
-		iCurHeight(-1),
-		fBaseliningThreshold(0.5f),
-		bElided(false),
-		fXCorrection(0.0),
-		fYCorrection(0.0) {
+OverlayTextLine::OverlayTextLine(const QString& s, const QFont& f)
+	: fEdgeFactor(0.05f)
+	, qsText(s)
+	, qfFont(f)
+	, fXCorrection(0.0)
+	, fYCorrection(0.0)
+	, iCurWidth(-1)
+	, iCurHeight(-1)
+	, fBaseliningThreshold(0.5f)
+	, bElided(false) {
+	
 	QFontMetrics fm(f);
 	fAscent = static_cast<float>(fm.ascent());
 	fDescent = static_cast<float>(fm.descent());
