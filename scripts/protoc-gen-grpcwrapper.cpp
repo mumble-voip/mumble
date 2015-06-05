@@ -84,7 +84,7 @@ class WrapperGenerator : public CodeGenerator {
 				}
 
 				cpp.Print(tpl, "void $service$_$method$_Create(MurmurRPCImpl*, ::$ns$::$service$::AsyncService*);\n");
-				cpp.Print(tpl, "void $service$_$method$_Impl(MurmurRPCImpl*, ::$ns$::$service$::AsyncService*, ::grpc::ServerContext*, ::$in$*, ::grpc::ServerAsyncResponseWriter< ::$out$ >*, ::boost::function<void()> *next);\n");
+				cpp.Print(tpl, "void $service$_$method$_Impl(::grpc::ServerContext *context, ::$in$ *request, ::grpc::ServerAsyncResponseWriter< ::$out$ > *response, ::boost::function<void()> *next);\n");
 
 				cpp.Print(tpl, "void $service$_$method$_Done(MurmurRPCImpl*, ::$ns$::$service$::AsyncService*, ::grpc::ServerContext *context, ::$in$ *in, ::grpc::ServerAsyncResponseWriter< ::$out$ > *out) {\n");
 				cpp.Indent();
@@ -100,7 +100,7 @@ class WrapperGenerator : public CodeGenerator {
 				cpp.Print(tpl, "$service$_$method$_Create(impl, service);\n");
 				cpp.Print(tpl, "auto done_fn = ::boost::bind($service$_$method$_Done, impl, service, context, in, out);\n");
 				cpp.Print(tpl, "auto done_fn_ptr = new ::boost::function<void()>(done_fn);\n");
-				cpp.Print(tpl, "auto ie = new ExecEvent(::boost::bind($service$_$method$_Impl, impl, service, context, in, out, done_fn_ptr));\n");
+				cpp.Print(tpl, "auto ie = new ExecEvent(::boost::bind($service$_$method$_Impl, context, in, out, done_fn_ptr));\n");
 				cpp.Print(tpl, "QCoreApplication::instance()->postEvent(impl, ie);\n");
 				cpp.Outdent();
 				cpp.Print("}\n");
