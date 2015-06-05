@@ -6,7 +6,7 @@ win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
-	INCLUDEPATH *= "$$BOOST_PATH/include" "$$BOOST_PATH/include/boost-1_49/"
+	INCLUDEPATH *= "$$BOOST_PATH/include"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib" "$$LIBSNDFILE_PATH/lib" "$$BOOST_PATH/lib"
 	INCLUDEPATH *= "$$OPENSSL_PATH/include" "$$LIBSNDFILE_PATH/include"
 
@@ -193,7 +193,7 @@ unix:!macx {
 }
 
 macx {
-	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$(MUMBLE_PREFIX)/include/boost_1_54_0 $$[QT_INSTALL_HEADERS]
+	SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$[QT_INSTALL_HEADERS]
 	QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
 
 	for(inc, $$list($$SYSTEM_INCLUDES)) {
