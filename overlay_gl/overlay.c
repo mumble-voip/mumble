@@ -108,7 +108,7 @@ typedef struct _Context {
 	unsigned int uiMappedLength;
 
 	bool bValid;
-	bool bGlx;
+	bool bMesa;
 
 	GLuint uiProgram;
 

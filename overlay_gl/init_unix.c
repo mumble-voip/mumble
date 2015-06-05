@@ -80,31 +80,37 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 		c->dpy = dpy;
 		c->draw = draw;
 
-		c->bGlx = false;
+		c->bMesa = false;
 		c->bValid = false;
 
 		int major, minor;
 		if (glXQueryVersion(dpy, &major, &minor)) {
 			ods("GLX version %d.%d", major, minor);
 			c->bValid = true;
-			if ((major > 1) || (major==1 && minor >= 3)) {
-				c->bGlx = true;
+		}
+
+		const char *version = (const char *) glGetString(GL_VERSION);
+		if (version) {
+			ods("GL version string: %s", version);
+			if (strstr(version, "Mesa") != NULL) {
+				c->bMesa = true;
 			}
 		}
+
 		contexts = c;
 		newContext(c);
 	}
 
 	if (c->bValid) {
 		GLuint width, height;
-		if (c->bGlx) {
-			glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
-			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
-		} else {
+		if (c->bMesa) {
 			GLint viewport[4];
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			width = viewport[2];
 			height = viewport[3];
+		} else {
+			glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
+			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
 		}
 
 		drawContext(c, width, height);
