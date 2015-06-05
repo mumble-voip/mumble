@@ -14,11 +14,10 @@ indent.sh
 *.vcxproj
 *.vcxproj.*
 *~
-*.pb.h
-*.pb.cc
 *.pro.user
 ui_*.h
 *.qm
+*.pb.*
 installer/Mumble.exe
 overlay/*.hex
 overlay_winx64/*.hex

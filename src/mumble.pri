@@ -2,26 +2,17 @@ include(../compiler.pri)
 include(../qt.pri)
 
 VERSION		= 1.3.0
-DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h Mumble.proto
+DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
 CONFIG		+= qt thread debug_and_release warn_on
 DEFINES		*= MUMBLE_VERSION_STRING=$$VERSION
-INCLUDEPATH	+= $$PWD .
+INCLUDEPATH	+= $$PWD . ../mumble_proto
 VPATH		+= $$PWD
 HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h User.h Net.h OSInfo.h Timer.h SSL.h Version.h
 SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
-PROTOBUF	*= ../Mumble.proto
-
-pbh.output = ${QMAKE_FILE_BASE}.pb.h
-pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
-pbh.commands = $$escape_expand(\\n)
-pbh.input = PROTOBUF
-pbh.CONFIG *= no_link explicit_dependencies target_predeps
-
-pb.output = ${QMAKE_FILE_BASE}.pb.cc
-pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
-pb.input = PROTOBUF
-pb.CONFIG *= no_link explicit_dependencies
-pb.variable_out = SOURCES
+LIBS		*= -lmumble_proto
+# Note: Protobuf generates into its own directory so we can mark it as a
+#       system include folder for unix. Otherwise the generated code creates
+#       a lot of spurious warnings in ours.
 
 CONFIG(packaged) {
 	MUMDEFVER = $$find(DEFINES, "MUMBLE_VERSION=")
@@ -31,7 +22,7 @@ CONFIG(packaged) {
 }
 
 win32 {
-	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src"
+	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
 	CONFIG(debug, debug|release) {
 		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Debug"
 	} else {
@@ -51,6 +42,9 @@ unix {
 		PKG_CONFIG = pkg-config --static
 	}
 
+	QMAKE_CFLAGS *= -isystem ../mumble_proto
+	QMAKE_CXXFLAGS *= -isystem ../mumble_proto
+
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
 
@@ -67,9 +61,6 @@ isEqual(QT_MAJOR_VERSION, 4) {
 	DEFINES *= Q_DECL_OVERRIDE=
 	DEFINES *= Q_DECL_FINAL=
 }
-
-
-QMAKE_EXTRA_COMPILERS *= pb pbh
 
 CONFIG(debug, debug|release) {
   CONFIG += console
