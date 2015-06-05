@@ -11,17 +11,21 @@ HEADERS		*= ACL.h Channel.h CryptState.h Connection.h Group.h User.h Net.h OSInf
 SOURCES 	*= ACL.cpp Group.cpp Channel.cpp Connection.cpp User.cpp Timer.cpp CryptState.cpp OSInfo.cpp Net.cpp SSL.cpp Version.cpp
 PROTOBUF	*= ../Mumble.proto
 
-pbh.output = ${QMAKE_FILE_BASE}.pb.h
-pbh.depends = ${QMAKE_FILE_BASE}.pb.cc
+pbh.output = protobuf/${QMAKE_FILE_BASE}.pb.h
+pbh.depends = protobuf/${QMAKE_FILE_BASE}.pb.cc
 pbh.commands = $$escape_expand(\\n)
 pbh.input = PROTOBUF
 pbh.CONFIG *= no_link explicit_dependencies target_predeps
 
-pb.output = ${QMAKE_FILE_BASE}.pb.cc
-pb.commands = protoc --cpp_out=. -I. -I.. ${QMAKE_FILE_NAME}
+pb.output = protobuf/${QMAKE_FILE_BASE}.pb.cc
+pb.commands = protoc --cpp_out=protobuf/ -I. -I.. ${QMAKE_FILE_NAME}
 pb.input = PROTOBUF
 pb.CONFIG *= no_link explicit_dependencies
 pb.variable_out = SOURCES
+
+# Note: Protobuf generates into its own directory so we can mark it as a
+#       system include folder for unix. Otherwise the generated code creates
+#       a lot of spurious warnings in ours.
 
 CONFIG(packaged) {
 	MUMDEFVER = $$find(DEFINES, "MUMBLE_VERSION=")
@@ -31,7 +35,7 @@ CONFIG(packaged) {
 }
 
 win32 {
-	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src"
+	INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protobuf
 	CONFIG(debug, debug|release) {
 		QMAKE_LIBDIR *= "$$PROTOBUF_PATH/vsprojects/Debug"
 	} else {
@@ -50,6 +54,9 @@ unix {
 	CONFIG(static) {
 		PKG_CONFIG = pkg-config --static
 	}
+
+	QMAKE_CFLAGS = -isystem protobuf
+	QMAKE_CXXFLAGS = -isystem protobuf
 
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
