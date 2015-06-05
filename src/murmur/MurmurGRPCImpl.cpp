@@ -28,6 +28,10 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#ifndef Q_MOC_RUN
+# include <boost/function.hpp>
+#endif
+
 #include "murmur_pch.h"
 
 #include "Mumble.pb.h"
@@ -40,54 +44,109 @@
 #include "Server.h"
 #include "Channel.h"
 
-/*
-static MurmurGRPC *mrpc = NULL;
-*/
+#include "MurmurRPC.proto.Wrapper.cpp"
 
-static MurmurRPCImpl service;
-static std::unique_ptr<grpc::Server> s;
+static MurmurRPCImpl *service;
 
 void RPCStart() {
-	QString &address = meta->mp.qsGRPCAddress;
+	const QString &address = meta->mp.qsGRPCAddress;
 	if (address.isEmpty()) {
 		return;
 	}
-
-	grpc::ServerBuilder builder;
-	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
-	builder.RegisterService(&service.sMetaService);
-	builder.RegisterService(&service.sTextMessageService);
-	builder.RegisterService(&service.sUserService);
-	builder.RegisterService(&service.sChannelService);
-	// TODO(grpc): single conn? look into this
-	s = builder.BuildAndStart();
+	service = new MurmurRPCImpl(address);
 }
 
 void RPCStop() {
+	if (service) {
+		delete service;
+	}
 }
 
-MurmurRPCImpl::MurmurRPCImpl() {
+MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
+	grpc::ServerBuilder builder;
+	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
+	builder.RegisterAsyncService(&aACLService);
+	builder.RegisterAsyncService(&aAudioService);
+	builder.RegisterAsyncService(&aAuthenticatorService);
+	builder.RegisterAsyncService(&aBanService);
+	builder.RegisterAsyncService(&aChannelService);
+	builder.RegisterAsyncService(&aConfigService);
+	builder.RegisterAsyncService(&aContextActionService);
+	builder.RegisterAsyncService(&aDatabaseService);
+	builder.RegisterAsyncService(&aLogService);
+	builder.RegisterAsyncService(&aMetaService);
+	builder.RegisterAsyncService(&aServerService);
+	builder.RegisterAsyncService(&aTextMessageService);
+	builder.RegisterAsyncService(&aTreeService);
+	builder.RegisterAsyncService(&aUserService);
+	mCQ = builder.AddCompletionQueue();
+	mServer = builder.BuildAndStart();
+	this->start();
+}
+
+MurmurRPCImpl::~MurmurRPCImpl() {
+}
+
+void MurmurRPCImpl::customEvent(QEvent *evt) {
+	if (evt->type() == EXEC_QEVENT) {
+		static_cast<ExecEvent *>(evt)->execute();
+	}
+}
+
+void MurmurRPCImpl::run() {
+	MurmurRPC::Wrapper::ACLService_Init(this, &aACLService);
+	MurmurRPC::Wrapper::AudioService_Init(this, &aAudioService);
+	MurmurRPC::Wrapper::AuthenticatorService_Init(this, &aAuthenticatorService);
+	MurmurRPC::Wrapper::BanService_Init(this, &aBanService);
+	MurmurRPC::Wrapper::ChannelService_Init(this, &aChannelService);
+	MurmurRPC::Wrapper::ConfigService_Init(this, &aConfigService);
+	MurmurRPC::Wrapper::ContextActionService_Init(this, &aContextActionService);
+	MurmurRPC::Wrapper::DatabaseService_Init(this, &aDatabaseService);
+	MurmurRPC::Wrapper::LogService_Init(this, &aLogService);
+	MurmurRPC::Wrapper::MetaService_Init(this, &aMetaService);
+	MurmurRPC::Wrapper::ServerService_Init(this, &aServerService);
+	MurmurRPC::Wrapper::TextMessageService_Init(this, &aTextMessageService);
+	MurmurRPC::Wrapper::TreeService_Init(this, &aTreeService);
+	MurmurRPC::Wrapper::UserService_Init(this, &aUserService);
+
+	void *tag;
+	bool ok;
+	while (true) {
+		if (!mCQ->Next(&tag, &ok)) {
+			break;
+		}
+		if (tag != nullptr) {
+			auto op = static_cast<boost::function<void()> *>(tag);
+			(*op)();
+			delete op;
+		}
+	}
+	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
 #define FIND_SERVER(r) \
 	if (!r->has_server()) { \
-		return grpc::Status(grpc::INVALID_ARGUMENT, "missing server"); \
+		response->FinishWithError(::grpc::Status(grpc::INVALID_ARGUMENT, "missing server"), next); \
+		return; \
 	} \
 	::Server *server = meta->qhServers.value(r->server().id());
 
 #define NEED_SERVER_EXISTS(r) \
 	FIND_SERVER(r) \
 	if (!server && ! ::ServerDB::serverExists(r->server().id())) { \
-		return grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID"); \
+		response->FinishWithError(grpc::Status(grpc::OUT_OF_RANGE, "invalid server ID"), next); \
+		return; \
 	}
 
 #define NEED_USER(r) \
 	if (!r->has_user()) { \
-		return grpc::Status(grpc::INVALID_ARGUMENT, "missing user"); \
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "missing user"), next); \
+		return; \
 	} \
 	::ServerUser *user = server->qhUsers.value(r->user().session()); \
 	if (!user) { \
-		return grpc::Status(grpc::NOT_FOUND, "invalid user"); \
+		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next); \
+		return; \
 	}
 
 static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -146,29 +205,54 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	ru->set_address(su->haAddress.toStdString());
 }
 
-// MetaService
+namespace MurmurRPC {
+namespace Wrapper {
 
-::grpc::Status MurmurRPCImpl::MetaService::uptime(::grpc::ServerContext*, const ::MurmurRPC::Void*, ::MurmurRPC::Uptime* response) {
-	response->set_secs(meta->tUptime.elapsed()/1000000LL);
-	return grpc::Status::OK;
+void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-::grpc::Status MurmurRPCImpl::MetaService::version(::grpc::ServerContext*, const ::MurmurRPC::Void*, ::MurmurRPC::Version* response) {
+void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void MetaService_GetUptime_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *response, ::boost::function<void()> *next) {
+	::MurmurRPC::Uptime uptime;
+	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
+	response->Finish(uptime, ::grpc::Status::OK, next);
+}
+
+void MetaService_GetVersion_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version > *response, ::boost::function<void()> *next) {
+	::MurmurRPC::Version version;
 	int major, minor, patch;
 	QString release;
 	Meta::getVersion(major, minor, patch, release);
-	response->set_version(major << 16 | minor << 8 | patch);
-	response->set_release(u8(release));
-	return grpc::Status::OK;
+	version.set_version(major << 16 | minor << 8 | patch);
+	version.set_release(u8(release));
+	response->Finish(version, ::grpc::Status::OK, next);
 }
 
-::grpc::Status MurmurRPCImpl::MetaService::events(::grpc::ServerContext*, const ::MurmurRPC::Void* request, ::grpc::ServerWriter< ::MurmurRPC::Event>* writer) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-// TextMessageService
+void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
 
-::grpc::Status MurmurRPCImpl::TextMessageService::send(::grpc::ServerContext*, const ::MurmurRPC::TextMessage* request, ::MurmurRPC::Void*) {
+void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
 	NEED_SERVER_EXISTS(request)
 
 	::MumbleProto::TextMessage mptm;
@@ -176,6 +260,7 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	if (request->has_actor()) {
 		::ServerUser *actor = server->qhUsers.value(request->actor().session());
 		if (actor) {
+			// TODO(grpc): verify actor?
 			mptm.set_actor(actor->uiSession);
 		}
 	}
@@ -183,176 +268,151 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	// Broadcast
 	if (!request->users_size() && !request->channels_size() && !request->trees_size()) {
 		server->sendAll(mptm);
-		return grpc::Status::OK;
+		::MurmurRPC::Void vd;
+		response->Finish(vd, grpc::Status::OK, next);
+		return;
 	}
 	// TODO(grpc): send message to specific users, channels
-	return grpc::Status(grpc::UNIMPLEMENTED);
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-// UserService
-
-::grpc::Status MurmurRPCImpl::UserService::query(::grpc::ServerContext*, const ::MurmurRPC::User_Query* request, ::grpc::ServerWriter< ::MurmurRPC::User>* writer) {
-	NEED_SERVER_EXISTS(request)
-
-	foreach(const ::ServerUser *user, server->qhUsers) {
-		::MurmurRPC::User rpcUser;
-		userToRPCUser(server, user, &rpcUser);
-		writer->Write(rpcUser);
-	}
-	return grpc::Status::OK;
+void ConfigService_GetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-::grpc::Status MurmurRPCImpl::UserService::get(::grpc::ServerContext*, const ::MurmurRPC::User* request, ::MurmurRPC::User* response) {
-	NEED_SERVER_EXISTS(request)
-
-	if (request->has_session()) {
-		// Lookup user by session
-		::ServerUser *user = server->qhUsers.value(request->session());
-		if (!user) {
-			return grpc::Status(grpc::NOT_FOUND, "invalid user");
-		}
-		userToRPCUser(server, user, response);
-		return grpc::Status::OK;
-	} else if (request->has_name()) {
-		// Lookup user by name
-		QString qsName = u8(request->name());
-		foreach(const ::ServerUser *user, server->qhUsers) {
-			if (user->qsName == qsName) {
-				userToRPCUser(server, user, response);
-				return grpc::Status::OK;
-			}
-		}
-		return grpc::Status(grpc::NOT_FOUND, "invalid user");
-	}
-
-	return grpc::Status(grpc::INVALID_ARGUMENT, "session or name required");
+void ConfigService_SetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-::grpc::Status MurmurRPCImpl::UserService::update(::grpc::ServerContext* context, const ::MurmurRPC::User* request, ::MurmurRPC::User* response) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
+void ConfigService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config::Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
 }
 
-::grpc::Status MurmurRPCImpl::UserService::kick(::grpc::ServerContext*, const ::MurmurRPC::User_Kick* request, ::MurmurRPC::Void*) {
-	NEED_SERVER_EXISTS(request)
-	NEED_USER(request)
+void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
 
-	MumbleProto::UserRemove mpur;
-	mpur.set_session(user->uiSession);
-	if (request->has_reason()) {
-		mpur.set_reason(request->reason());
-	}
-	server->sendAll(mpur);
-	user->disconnectSocket();
-	return grpc::Status::OK;
-}
-
-// ChannelService
-
-::grpc::Status MurmurRPCImpl::ChannelService::query(::grpc::ServerContext* context, const ::MurmurRPC::Channel_Query* request, ::grpc::ServerWriter< ::MurmurRPC::Channel>* writer) {
-	return grpc::Status(grpc::UNIMPLEMENTED);
-}
-
-::grpc::Status MurmurRPCImpl::ChannelService::get(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
 	// TODO(grpc): convert to "NEED_SERVER"?
 	NEED_SERVER_EXISTS(request)
 
 	if (!request->has_id()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
+		return;
 	}
-	Channel *channel = server->qhChannels.value(request->id());
+	::Channel *channel = server->qhChannels.value(request->id());
 	if (!channel) {
-		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
+		return;
 	}
-	channelToRPCChannel(server, channel, response);
-	return grpc::Status::OK;
+	::MurmurRPC::Channel rpcChannel;
+	channelToRPCChannel(server, channel, &rpcChannel);
+	response->Finish(rpcChannel, ::grpc::Status::OK, next);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::add(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
-	// TODO(grpc): convert to "NEED_SERVER"?
-	NEED_SERVER_EXISTS(request)
+void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
+	if (!request->has_server()) {
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "missing server"), next);
+		return;
+	}
+	::Server *server = meta->qhServers.value(request->server().id());
+	if (!server && ! ::ServerDB::serverExists(request->server().id())) {
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "invalid server ID"), next);
+		return;
+	}
 
 	if (!request->has_parent() || !request->has_name()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel and name required");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel and name required"), next);
+		return;
 	}
 	// TODO(grpc): verify request->parent().server() ?
 	if (!request->parent().has_id()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID"), next);
+		return;
 	}
-	Channel *parent = server->qhChannels.value(request->parent().id());
+	::Channel *parent = server->qhChannels.value(request->parent().id());
 	if (!parent) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist"), next);
+		return;
 	}
 
 	if (!server->canNest(parent)) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "cannot nest channel in given parent");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "cannot nest channel in given parent"), next);
+		return;
 	}
 
 	QString qsName = u8(request->name());
 
-	Channel *nc = server->addChannel(parent, qsName);
+	::Channel *nc = server->addChannel(parent, qsName);
 	server->updateChannel(nc);
 	int newid = nc->iId;
 
-	MumbleProto::ChannelState mpcs;
+	::MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(newid);
 	mpcs.set_parent(parent->iId);
 	mpcs.set_name(request->name());
 	server->sendAll(mpcs);
 
-	channelToRPCChannel(server, nc, response);
-	return grpc::Status::OK;
+	::MurmurRPC::Channel resChannel;
+	channelToRPCChannel(server, nc, &resChannel);
+	response->Finish(resChannel, grpc::Status::OK, next);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::remove(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Void*) {
+void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
 	// TODO(grpc): convert to "NEED_SERVER"?
 	NEED_SERVER_EXISTS(request)
 
 	if (!request->has_id()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
+		return;
 	}
-	Channel *channel = server->qhChannels.value(request->id());
+	::Channel *channel = server->qhChannels.value(request->id());
 	if (!channel) {
-		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
+		return;
 	}
 	if (!channel->cParent) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "cannot remove the root channel");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "cannot remove the root channel"), next);
+		return;
 	}
 	server->removeChannel(channel);
-	return grpc::Status::OK;
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
-::grpc::Status MurmurRPCImpl::ChannelService::update(::grpc::ServerContext*, const ::MurmurRPC::Channel* request, ::MurmurRPC::Channel* response) {
-	// TODO(grpc): convert to "NEED_SERVER"?
+void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
+		// TODO(grpc): convert to "NEED_SERVER"?
 	NEED_SERVER_EXISTS(request)
 
 	bool changed = false;
 	bool updated = false;
 
 	if (!request->has_id()) {
-		return grpc::Status(grpc::INVALID_ARGUMENT, "id required");
+		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
+		return;
 	}
-	Channel *channel = server->qhChannels.value(request->id());
+	::Channel *channel = server->qhChannels.value(request->id());
 	if (!channel) {
-		return grpc::Status(grpc::NOT_FOUND, "invalid channel");
+		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
+		return;
 	}
 
-	MumbleProto::ChannelState mpcs;
+	::MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel->iId);
 
 
 	// Links and parent channel are processed first, because they can return
 	// errors. Without doing this, the server state can be changed without
 	// notifying users.
-	QSet<Channel *> newLinksSet;
+	::QSet<::Channel *> newLinksSet;
 	for (int i = 0; i < request->links_size(); i++) {
-		const MurmurRPC::Channel &linkRef = request->links(i);
+		const ::MurmurRPC::Channel &linkRef = request->links(i);
 		// TODO(grpc): verify linkRef.server() ?
 		if (!linkRef.has_id()) {
-			return grpc::Status(grpc::INVALID_ARGUMENT, "link channel is missing ID");
+			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "link channel is missing ID"), next);
+			return;
 		}
-		Channel *link = server->qhChannels.value(linkRef.id());
+		::Channel *link = server->qhChannels.value(linkRef.id());
 		if (!link) {
-			return grpc::Status(grpc::INVALID_ARGUMENT, "link channel does not exist");
+			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "link channel does not exist"), next);
+			return;
 		}
 		newLinksSet.insert(link);
 	}
@@ -360,22 +420,26 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 	if (request->has_parent()) {
 		// TODO(grpc): verify request->parent().server() ?
 		if (!request->parent().has_id()) {
-			return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID");
+			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID"), next);
+			return;
 		}
-		Channel *parent = server->qhChannels.value(request->parent().id());
+		::Channel *parent = server->qhChannels.value(request->parent().id());
 		if (!parent) {
-			return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist");
+			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist"), next);
+			return;
 		}
 		if (parent != channel->cParent) {
-			Channel *p = parent;
+			::Channel *p = parent;
 			while (p) {
 				if (p == channel) {
-					return grpc::Status(grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel");
+					response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel"), next);
+					return;
 				}
 				p = p->cParent;
 			}
 			if (!server->canNest(parent, channel)) {
-				return grpc::Status(grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent");
+				response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent"), next);
+				return;
 			}
 			channel->cParent->removeChannel(channel);
 			parent->addChannel(channel);
@@ -397,18 +461,18 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 		}
 	}
 
-	const QSet<Channel *> &oldLinksSet = channel->qsPermLinks;
+	const QSet<::Channel *> &oldLinksSet = channel->qsPermLinks;
 
 	if (newLinksSet != oldLinksSet) {
 		// Remove
-		foreach(Channel *l, oldLinksSet) {
+		foreach(::Channel *l, oldLinksSet) {
 			if (!newLinksSet.contains(l)) {
 				server->removeLink(channel, l);
 				mpcs.add_links_remove(l->iId);
 			}
 		}
 		// Add
-		foreach(Channel *l, newLinksSet) {
+		foreach(::Channel *l, newLinksSet) {
 			if (! oldLinksSet.contains(l)) {
 				server->addLink(channel, l);
 				mpcs.add_links_add(l->iId);
@@ -450,8 +514,114 @@ static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::Use
 		emit server->channelStateChanged(channel);
 	}
 
-	channelToRPCChannel(server, channel, response);
-	return grpc::Status::OK;
+	::MurmurRPC::Channel rpcChannel;
+	channelToRPCChannel(server, channel, &rpcChannel);
+	response->Finish(rpcChannel, grpc::Status::OK, next);
+}
+
+void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
+	NEED_SERVER_EXISTS(request)
+
+	::MurmurRPC::User rpcUser;
+
+	if (request->has_session()) {
+		// Lookup user by session
+		::ServerUser *user = server->qhUsers.value(request->session());
+		if (!user) {
+			response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next);
+			return;
+		}
+		userToRPCUser(server, user, &rpcUser);
+		response->Finish(rpcUser, grpc::Status::OK, next);
+		return;
+	} else if (request->has_name()) {
+		// Lookup user by name
+		QString qsName = u8(request->name());
+		foreach(const ::ServerUser *user, server->qhUsers) {
+			if (user->qsName == qsName) {
+				userToRPCUser(server, user, &rpcUser);
+				response->Finish(rpcUser, grpc::Status::OK, next);
+				return;
+			}
+		}
+		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next);
+		return;
+	}
+
+	response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "session or name required"), next);
+}
+
+void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User::Kick *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+
+	NEED_SERVER_EXISTS(request)
+	NEED_USER(request)
+
+	::MumbleProto::UserRemove mpur;
+	mpur.set_session(user->uiSession);
+	if (request->has_reason()) {
+		mpur.set_reason(request->reason());
+	}
+	server->sendAll(mpur);
+	user->disconnectSocket();
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
+}
+
+void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Tree *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ACLService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL::List > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ACLService_Set_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::List *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ACLService_GetEffectivePermissions_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ACLService_AddTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void ACLService_RemoveTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+void AudioService_SetRedirectWhisperGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	response->FinishWithError(::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED), next);
+}
+
+}
 }
 
 #undef FIND_SERVER
