@@ -4,17 +4,17 @@
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>ردکردن</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>اجازه</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>اجازه %1</translation>
     </message>
     <message>
         <location line="-8"/>
@@ -24,13 +24,13 @@
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-اضافه کردن کانال</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>ناموفق: کانال غلظ</translation>
     </message>
     <message>
         <location line="-155"/>
@@ -50,7 +50,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>کانال باید نام داشته باشد</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -65,27 +65,27 @@
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>نام</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation type="unfinished"/>
+        <translation>نام کانال را اینجا وارد نمایید.</translation>
     </message>
     <message>
         <location/>
         <source>Description</source>
-        <translation type="unfinished"/>
+        <translation>توضیحات</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>رمزعبور</translation>
     </message>
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation type="unfinished"/>
+        <translation>رمز کانال را اینجا وارد نمایید.</translation>
     </message>
     <message>
         <location/>
