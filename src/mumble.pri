@@ -16,6 +16,7 @@ pbh.depends = protobuf/${QMAKE_FILE_BASE}.pb.cc
 pbh.commands = $$escape_expand(\\n)
 pbh.input = PROTOBUF
 pbh.CONFIG *= no_link explicit_dependencies target_predeps
+pbh.variable_out = HEADERS
 
 pb.output = protobuf/${QMAKE_FILE_BASE}.pb.cc
 pb.commands = protoc --cpp_out=protobuf/ -I. -I.. ${QMAKE_FILE_NAME}
@@ -55,8 +56,8 @@ unix {
 		PKG_CONFIG = pkg-config --static
 	}
 
-	QMAKE_CFLAGS = -isystem protobuf
-	QMAKE_CXXFLAGS = -isystem protobuf
+	QMAKE_CFLAGS *= -isystem protobuf
+	QMAKE_CXXFLAGS *= -isystem protobuf
 
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
