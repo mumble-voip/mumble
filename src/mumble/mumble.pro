@@ -145,7 +145,8 @@ HEADERS *= BanEditor.h \
     OverlayEditor.h \
     OverlayEditorScene.h \
     MumbleApplication.h \
-    ApplicationPalette.h
+    ApplicationPalette.h \
+    System.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -205,7 +206,8 @@ SOURCES *= BanEditor.cpp \
     VoiceRecorderDialog.cpp \
     WebFetch.cpp \
     MumbleApplication.cpp \
-    smallft.cpp
+    smallft.cpp \
+    System.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc
@@ -450,7 +452,7 @@ unix {
     HEADERS *= GlobalShortcut_unix.h
     SOURCES *= GlobalShortcut_unix.cpp TextToSpeech_unix.cpp Overlay_unix.cpp SharedMemory_unix.cpp Log_unix.cpp
     PKGCONFIG *= x11
-    LIBS *= -lrt -lXi
+    LIBS *= -lrt -lXi -lXss
 
     !CONFIG(no-oss) {
       CONFIG  *= oss
