@@ -166,6 +166,17 @@ template <class T>
 	return server;
 }
 
+::Channel *MustChannel(const Server *server, const ::MurmurRPC::Channel *msg) {
+	if (!msg->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel id");
+	}
+	auto channel = server->qhChannels.value(msg->id());
+	if (!channel) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid channel");
+	}
+	return channel;
+}
+
 static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
 	rc->mutable_server()->set_id(srv->iServerNum);
 
@@ -372,16 +383,8 @@ void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channe
 
 void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
+	auto channel = MustChannel(server, request);
 
-	if (!request->has_id()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
-		return;
-	}
-	::Channel *channel = server->qhChannels.value(request->id());
-	if (!channel) {
-		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
-		return;
-	}
 	if (!channel->cParent) {
 		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "cannot remove the root channel"), next);
 		return;
