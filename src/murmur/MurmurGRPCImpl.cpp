@@ -63,7 +63,7 @@ void RPCStop() {
 }
 
 MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
-	grpc::ServerBuilder builder;
+	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
 	builder.RegisterAsyncService(&aACLService);
 	builder.RegisterAsyncService(&aAudioService);
@@ -81,7 +81,7 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
 	builder.RegisterAsyncService(&aUserService);
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
-	this->start();
+	start();
 }
 
 MurmurRPCImpl::~MurmurRPCImpl() {
@@ -273,7 +273,29 @@ void MetaService_GetVersion_Impl(::grpc::ServerContext *context, ::MurmurRPC::Vo
 }
 
 void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+
+	if (!request->has_action()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
+	}
+	if (!request->has_text()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing text");
+	}
+	// TODO(grpc): verify that context is valid value?
+	if (!request->has_context()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing context");
+	}
+
+	::MumbleProto::ContextActionModify mpcam;
+	mpcam.set_action(request->action());
+	mpcam.set_text(request->text());
+	mpcam.set_context(request->context());
+	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Add);
+	server->sendMessage(user, mpcam);
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
 void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {

@@ -83,19 +83,22 @@ message ContextAction {
 		None = 0x00;
 		Server = 0x01;
 		Channel = 0x02;
-		Users = 0x04;
+		User = 0x04;
 	};
 
 	optional Server server = 1;
 
 	optional Context context = 2;
 	optional string action = 3;
-	optional User actor = 4;
-	optional User user = 5;
-	optional Channel channel = 6;
+	optional string text = 4;
+	optional User actor = 5;
+	optional User user = 6;
+	optional Channel channel = 7;
 }
 
 service ContextActionService {
+	// Add adds a context action to the given user's client. Fields must be set:
+	//   context, action, text, and user.
 	rpc Add(ContextAction) returns(Void);
 	rpc Remove(ContextAction) returns(Void);
 	rpc Events(ContextAction) returns(stream ContextAction);
