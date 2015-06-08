@@ -131,19 +131,31 @@ void MurmurRPCImpl::run() {
 }
 
 template <class T>
-static ::ServerUser *MustUser(const ::Server *server, const T *msg) {
+::ServerUser *MustUser(const ::Server *server, const T *msg) {
 	if (!msg->has_user()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing user");
 	}
 	auto user = server->qhUsers.value(msg->user().session());
 	if (!user) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
+	}
+	return user;
+}
+
+template <>
+::ServerUser *MustUser(const Server *server, const ::MurmurRPC::User *msg) {
+	if (!msg->has_session()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing user session");
+	}
+	auto user = server->qhUsers.value(msg->session());
+	if (!user) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
 	}
 	return user;
 }
 
 template <class T>
-static ::Server *MustServer(const T *msg) {
+::Server *MustServer(const T *msg) {
 	if (!msg->has_server()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server");
 	}
@@ -527,11 +539,7 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 
 	if (request->has_session()) {
 		// Lookup user by session
-		::ServerUser *user = server->qhUsers.value(request->session());
-		if (!user) {
-			response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next);
-			return;
-		}
+		auto user = MustUser(server, request);
 		userToRPCUser(server, user, &rpcUser);
 		response->Finish(rpcUser, grpc::Status::OK, next);
 		return;
