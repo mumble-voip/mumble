@@ -371,23 +371,19 @@ void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channe
 	auto server = MustServer(request);
 
 	if (!request->has_parent() || !request->has_name()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel and name required"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel and name required");
 	}
 	// TODO(grpc): verify request->parent().server() ?
 	if (!request->parent().has_id()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel is missing ID");
 	}
 	::Channel *parent = server->qhChannels.value(request->parent().id());
 	if (!parent) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel does not exist");
 	}
 
 	if (!server->canNest(parent)) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "cannot nest channel in given parent"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "cannot nest channel in given parent");
 	}
 
 	QString qsName = u8(request->name());
@@ -412,8 +408,7 @@ void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 	auto channel = MustChannel(server, request);
 
 	if (!channel->cParent) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "cannot remove the root channel"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "cannot remove the root channel");
 	}
 	server->removeChannel(channel);
 	::MurmurRPC::Void vd;
@@ -427,13 +422,11 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 	bool updated = false;
 
 	if (!request->has_id()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
-		return;
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "id required");
 	}
 	::Channel *channel = server->qhChannels.value(request->id());
 	if (!channel) {
-		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
-		return;
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid channel");
 	}
 
 	::MumbleProto::ChannelState mpcs;
@@ -448,13 +441,11 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 		const ::MurmurRPC::Channel &linkRef = request->links(i);
 		// TODO(grpc): verify linkRef.server() ?
 		if (!linkRef.has_id()) {
-			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "link channel is missing ID"), next);
-			return;
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "link channel is missing ID");
 		}
 		::Channel *link = server->qhChannels.value(linkRef.id());
 		if (!link) {
-			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "link channel does not exist"), next);
-			return;
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "link channel does not exist");
 		}
 		newLinksSet.insert(link);
 	}
@@ -462,26 +453,22 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 	if (request->has_parent()) {
 		// TODO(grpc): verify request->parent().server() ?
 		if (!request->parent().has_id()) {
-			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel is missing ID"), next);
-			return;
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel is missing ID");
 		}
 		::Channel *parent = server->qhChannels.value(request->parent().id());
 		if (!parent) {
-			response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel does not exist"), next);
-			return;
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel does not exist");
 		}
 		if (parent != channel->cParent) {
 			::Channel *p = parent;
 			while (p) {
 				if (p == channel) {
-					response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel"), next);
-					return;
+					throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel");
 				}
 				p = p->cParent;
 			}
 			if (!server->canNest(parent, channel)) {
-				response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent"), next);
-				return;
+				throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent");
 			}
 			channel->cParent->removeChannel(channel);
 			parent->addChannel(channel);
@@ -582,11 +569,10 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 				return;
 			}
 		}
-		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid user"), next);
-		return;
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
 	}
 
-	response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "session or name required"), next);
+	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
 void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
