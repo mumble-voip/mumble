@@ -299,7 +299,27 @@ void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::
 }
 
 void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+
+	if (!request->has_action()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
+	}
+
+	::MumbleProto::ContextActionModify mpcam;
+	mpcam.set_action(request->action());
+	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Remove);
+
+	if (request->has_user()) {
+		// Remove context action from specific user
+		auto user = MustUser(server, request);
+		server->sendMessage(user, mpcam);
+	} else {
+		// Remove context action from all users
+		server->sendAll(mpcam);
+	}
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
 void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
