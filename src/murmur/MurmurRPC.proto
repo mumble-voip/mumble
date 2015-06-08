@@ -49,6 +49,7 @@ message Server {
 }
 
 service ServerService {
+	// Create creates a new virtual server.
 	rpc Create(Void) returns(Server);
 
 	rpc Query(Server.Query) returns(stream Server);
