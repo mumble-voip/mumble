@@ -318,31 +318,15 @@ void ConfigService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Confi
 
 void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
+	auto channel = MustChannel(server, request);
 
-	if (!request->has_id()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "id required"), next);
-		return;
-	}
-	::Channel *channel = server->qhChannels.value(request->id());
-	if (!channel) {
-		response->FinishWithError(grpc::Status(grpc::NOT_FOUND, "invalid channel"), next);
-		return;
-	}
 	::MurmurRPC::Channel rpcChannel;
 	channelToRPCChannel(server, channel, &rpcChannel);
 	response->Finish(rpcChannel, ::grpc::Status::OK, next);
 }
 
 void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
-	if (!request->has_server()) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "missing server"), next);
-		return;
-	}
-	::Server *server = meta->qhServers.value(request->server().id());
-	if (!server && ! ::ServerDB::serverExists(request->server().id())) {
-		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "invalid server ID"), next);
-		return;
-	}
+	auto server = MustServer(request);
 
 	if (!request->has_parent() || !request->has_name()) {
 		response->FinishWithError(grpc::Status(grpc::INVALID_ARGUMENT, "parent channel and name required"), next);
