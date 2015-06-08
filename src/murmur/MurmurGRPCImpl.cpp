@@ -130,6 +130,9 @@ void MurmurRPCImpl::run() {
 	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
+// TODO(grpc): ensure that all implementation methods are using the correct
+// Must* kind (Must*, MustExist*, etc.)
+
 template <class T>
 ::ServerUser *MustUser(const ::Server *server, const T *msg) {
 	if (!msg->has_user()) {
@@ -159,7 +162,22 @@ template <class T>
 	if (!msg->has_server()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server");
 	}
+	if (!msg->server().has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
 	auto server = meta->qhServers.value(msg->server().id());
+	if (!server) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
+	}
+	return server;
+}
+
+template <>
+::Server *MustServer(const ::MurmurRPC::Server *msg) {
+	if (!msg->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
+	auto server = meta->qhServers.value(msg->id());
 	if (!server) {
 		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
 	}
@@ -253,7 +271,11 @@ void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Serve
 }
 
 void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	meta->kill(server->iServerNum);
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, ::grpc::Status::OK, next);
 }
 
 void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
