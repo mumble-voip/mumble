@@ -100,6 +100,10 @@ service ContextActionService {
 	// Add adds a context action to the given user's client. Fields must be set:
 	//   context, action, text, and user.
 	rpc Add(ContextAction) returns(Void);
+	// Remove removes a context action from the given user's client. Fields must
+	// be set:
+	//   action
+	// If no user is given, the context action is removed from all users.
 	rpc Remove(ContextAction) returns(Void);
 	rpc Events(ContextAction) returns(stream ContextAction);
 }
