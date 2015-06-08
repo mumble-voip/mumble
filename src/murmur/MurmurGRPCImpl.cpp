@@ -237,7 +237,11 @@ namespace MurmurRPC {
 namespace Wrapper {
 
 void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto id = ServerDB::addServer();
+
+	::MurmurRPC::Server rpcServer;
+	rpcServer.set_id(id);
+	response->Finish(rpcServer, ::grpc::Status::OK, next);
 }
 
 void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
