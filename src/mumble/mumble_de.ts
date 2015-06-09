@@ -342,12 +342,12 @@ Fügt eine neue Gruppe hinzu.</translation>
     <message>
         <location/>
         <source>Type in the name of a user you wish to add to the group and click Add.</source>
-        <translation>Geben Sie den Namen des Benutzers ein der zur Gruppe hinzugefügt werden soll und klicken Sie auf Hinzufügen.</translation>
+        <translation>Geben Sie den Namen des Benutzers ein, der zur Gruppe hinzugefügt werden soll und klicken Sie auf Hinzufügen.</translation>
     </message>
     <message>
         <location/>
         <source>Type in the name of a user you wish to remove from the group and click Add.</source>
-        <translation>Geben Sie den Namen des Benutzers ein der aus der Gruppe entfernt werden soll und klicken Sie auf Hinzufügen.</translation>
+        <translation>Geben Sie den Namen des Benutzers ein, der aus der Gruppe entfernt werden soll und klicken Sie auf Hinzufügen.</translation>
     </message>
     <message>
         <location/>
