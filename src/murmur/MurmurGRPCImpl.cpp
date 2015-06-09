@@ -263,7 +263,13 @@ void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void
 }
 
 void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+
+	::MurmurRPC::Server rpcServer;
+	rpcServer.set_id(server->iServerNum);
+	rpcServer.set_running(true);  // TODO(grpc): fix me
+	rpcServer.set_uptime(server->tUptime.elapsed()/1000000LL);
+	response->Finish(rpcServer, ::grpc::Status::OK, next);
 }
 
 void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {

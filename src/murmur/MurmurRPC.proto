@@ -53,6 +53,7 @@ service ServerService {
 	rpc Create(Void) returns(Server);
 
 	rpc Query(Server.Query) returns(stream Server);
+	// Get returns information about the given server.
 	rpc Get(Server) returns(Server);
 
 	rpc Start(Server) returns(Void);
