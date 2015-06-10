@@ -78,6 +78,20 @@ class MurmurRPCImpl : public QThread {
 		MurmurRPC::TextMessageService::AsyncService aTextMessageService;
 		MurmurRPC::TreeService::AsyncService aTreeService;
 		MurmurRPC::UserService::AsyncService aUserService;
+
+	public slots:
+		void started(Server *server);
+		void stopped(Server *server);
+
+		void userStateChanged(const User *user);
+		void userTextMessage(const User *user, const TextMessage &message);
+		void userConnected(const User *user);
+		void userDisconnected(const User *user);
+		void channelStateChanged(const Channel *channel);
+		void channelCreated(const Channel *channel);
+		void channelRemoved(const Channel *channel);
+
+		void contextAction(const User *user, const QString &action, unsigned int session, int channel);
 };
 
 #endif
