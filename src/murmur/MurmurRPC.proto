@@ -52,7 +52,7 @@ service ServerService {
 	// Create creates a new virtual server.
 	rpc Create(Void) returns(Server);
 
-	rpc Query(Server.Query) returns(stream Server);
+	//TODO(grpc): rpc Query(Server.Query) returns(stream Server);
 	// Get returns information about the given server.
 	rpc Get(Server) returns(Server);
 
@@ -144,7 +144,7 @@ message Log {
 }
 
 service LogService {
-	rpc Query(Log.Query) returns(stream Log.Entry);
+	//TODO(grpc): rpc Query(Log.Query) returns(stream Log.Entry);
 }
 
 // Having "Config" seems preferable to having a map (map<string, string>),
@@ -216,7 +216,7 @@ message Channel {
 }
 
 service ChannelService {
-	rpc Query(Channel.Query) returns(stream Channel);
+	//TODO(grpc): rpc Query(Channel.Query) returns(stream Channel);
 	// Get returns the channel with the given ID.
 	rpc Get(Channel) returns(Channel);
 
@@ -275,7 +275,7 @@ message User {
 }
 
 service UserService {
-	rpc Query(User.Query) returns(stream User);
+	//TODO(grpc): rpc Query(User.Query) returns(stream User);
 	// Get returns information on the connected user, given by the user's session
 	// or name.
 	rpc Get(User) returns(User);
@@ -312,8 +312,8 @@ message Ban {
 }
 
 service BanService {
-	rpc Get(Ban) returns(stream Ban);
-	rpc Set(stream Ban) returns(Void);
+	//TODO(grpc): rpc Get(Ban) returns(stream Ban);
+	//TODO(grpc): rpc Set(stream Ban) returns(Void);
 }
 
 message ACL {
@@ -447,7 +447,7 @@ message Database {
 }
 
 service DatabaseService {
-	rpc Query(Database.Query) returns(stream Database.User);
+	//TODO(grpc): rpc Query(Database.Query) returns(stream Database.User);
 	rpc Get(Database.User) returns(Database.User);
 	rpc Update(Database.User) returns(Database.User);
 	rpc Register(Database.User) returns(Database.User);
