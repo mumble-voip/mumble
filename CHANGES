@@ -1,5 +1,78 @@
+2015-05-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    2c50f04  SSL: fix build for Qt 4.
+
+2015-05-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    af381bc  SSL: move declaration of 'i' in
+	     MumbleSSL::ciphersFromOpenSSLCipherString() to the top of the
+	     function.
+    521fe62  SSL: remove class name qualifier in SSL.h for new cipher
+	     string methods.
+
+2015-05-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    57f9bf9  Mumble: add 'net/sslciphers' hidden setting to allow
+	     configuring the client's advertised TLS cipher suites.
+    efdd790  Murmur: add 'sslCiphers' option to allow server admins full
+	     control of Murmur's advertised TLS cipher suites.
+    7b086e8  SSL: add MumbleSSL::defaultOpenSSLCipherString().
+    0a89171  SSL: implement OpenSSL cipher list format reader.
+
+2015-03-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    7efa896  Fix Qt 4 build of mach-override to build both x86 and x86-64
+	     binaries.
+
+2015-03-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    03e4c5b  Bump version to 1.2.9.
+
+2015-03-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    6edf2c6  GlobalShortcut_unix: disable evdev by default.
+
+2015-02-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    258e845  macx/osax: bump OS X overlay version to 19.
+
+2015-02-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    390d09b  Add setting 'asio/enable' to allow users to disable ASIO via
+	     the Mumble configuration.
+
+2015-02-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    169c49e  Make 3rdparty/mach-override-src point to
+	     mumble-voip/mach_override, and use https instead of ssh.
+
+2015-02-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    85aa591  Use glDrawArrays instead of immediate mode in OS X's
+	     drawOverlay().
+    003b593  Port 6e9a7e7c to the OS X overlay.
+    2f63ff3  Port ec7e78d1 to the OS X overlay.
+    3a6f206  Add mach_override as a 3rdparty dep and hook it into the OS X
+	     overlay.
+
+2014-11-02
+  Mikkel Krautz <mikkel@krautz.dk>
+    a532004  Fix format string. (qWarning's << operators add spaces around
+	     items)
+
+2014-11-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    21ef2d4  Overlay, OverlayClient: add PID and process name diagnostics
+	     to 'Dead client detected' notice.
+
+2014-09-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    440a783  GlobalShortcut: do not require expert mode for Mac event tap
+	     warning message in GlobalShortcutConfig.
+
 2014-08-08
   Mikkel Krautz <mikkel@krautz.dk>
+    98e2e1b  Update changelog
     82c483e  scripts: modify git2cl.pl to work on the currently checked-out
 	     branch rather than origin/master.
 
@@ -52,6 +125,15 @@
     e30d7ac  mumble: fix Mumble-SA-2014-006.
     c7aecb2  mumble: fix Mumble-SA-2014-005.
 
+2014-04-28
+  Christian Krause <chkr@plauener.de>
+    b0b43cb  Avoid "jump to label crosses initialization" error.
+
+2014-02-08
+  Mikkel Krautz <mikkel@krautz.dk>
+    36b618d  compiler.pri: tweak OS X SDK detection when building with Qt
+	     4.
+
 2014-01-31
   Mikkel Krautz <mikkel@krautz.dk>
     c3c13f9  Update changelog
@@ -59,10 +141,25 @@
     7e31c32  mumble: fix Mumble-SA-2014-001 (CVE-2014-0044).
     f5ebe9d  Bump version to 1.2.5
 
+2014-01-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    b1fd224  TextToSpeech_macx: selectively conform to
+	     NSSpeechSynthesizerDelegate protocol.
+
+2014-01-21
+  Zorg <zorgiepoo@gmail.com>
+    67d4f95  TextToSpeech_macx: fix 10.4 compatibility.
+    215b3d2  TextToSpeech_macx: reimplement using NSSpeechSynthesizer.
+
 2013-12-14
   Mikkel Krautz <mikkel@krautz.dk>
     8323bd4  mumble: allow Log_macx.mm to build against the OS X 10.4 SDK
 	     (for universal builds).
+
+2013-10-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    ece10af  mumble: allow GlobalShortcut_macx.mm to build using the OS X
+	     10.9 SDK.
 
 2013-08-02
   Mikkel Krautz <mikkel@krautz.dk>
