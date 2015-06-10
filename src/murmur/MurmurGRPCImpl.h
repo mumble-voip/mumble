@@ -36,6 +36,8 @@
 
 #include "Server.h"
 
+#include <QMultiHash>
+
 #include <grpc/grpc.h>
 #include <grpc++/server.h>
 #include <grpc++/server_builder.h>
@@ -78,6 +80,15 @@ class MurmurRPCImpl : public QThread {
 		MurmurRPC::TextMessageService::AsyncService aTextMessageService;
 		MurmurRPC::TreeService::AsyncService aTreeService;
 		MurmurRPC::UserService::AsyncService aUserService;
+
+		// ContextActionService
+		struct ContextActionListener {
+			::grpc::ServerAsyncWriter<::MurmurRPC::ContextAction> *w;
+			::boost::function<void()> *next;
+			ContextActionListener(::grpc::ServerAsyncWriter<::MurmurRPC::ContextAction> *w, ::boost::function<void()> *next) : w(w), next(next) {
+			}
+		};
+		QHash<int, QMultiHash<QString, ContextActionListener *> > qhContextActionListeners;
 
 	public slots:
 		void started(Server *server);

@@ -108,6 +108,8 @@ service ContextActionService {
 	//   action
 	// If no user is given, the context action is removed from all users.
 	rpc Remove(ContextAction) returns(Void);
+	// Events returns a stream of context action events that are triggered by
+	// users.
 	rpc Events(ContextAction) returns(stream ContextAction);
 }
 
