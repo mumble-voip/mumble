@@ -127,6 +127,25 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 
 void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, unsigned int session, int channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	::MurmurRPC::ContextAction ca;
+	ca.mutable_server()->set_id(s->iServerNum);
+	ca.mutable_actor()->mutable_server()->set_id(s->iServerNum);
+	ca.mutable_actor()->set_session(user->uiSession);
+	ca.set_action(u8(action));
+	// TODO(grpc): valid these values?
+	ca.mutable_user()->mutable_server()->set_id(s->iServerNum);
+	ca.mutable_user()->set_session(session);
+	ca.mutable_channel()->mutable_server()->set_id(s->iServerNum);
+	ca.mutable_channel()->set_id(channel);
+
+	auto &ref = this->qhContextActionListeners[s->iServerNum];
+	auto itr = ref.find(action);
+	for ( ; itr != ref.end() && itr.key() == action; ++itr) {
+		auto listener = itr.value();
+		// TODO(grpc): remove listener upon failure or disconnect (will probably
+		// need a timer for that).
+		listener->w->Write(ca, nullptr);
+	}
 }
 
 
@@ -406,7 +425,14 @@ void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRP
 }
 
 void ContextActionService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+
+	if (!request->has_action()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
+	}
+
+	auto listener = new ::MurmurRPCImpl::ContextActionListener(response, next);
+	service->qhContextActionListeners[server->iServerNum].insert(u8(request->action()), listener);
 }
 
 void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
