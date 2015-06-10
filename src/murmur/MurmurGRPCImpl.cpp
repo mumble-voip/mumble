@@ -81,11 +81,54 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
 	builder.RegisterAsyncService(&aUserService);
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
+	meta->connectListener(this);
 	start();
 }
 
 MurmurRPCImpl::~MurmurRPCImpl() {
 }
+
+void MurmurRPCImpl::started(::Server *server) {
+	server->connectListener(this);
+	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
+}
+
+void MurmurRPCImpl::stopped(::Server *server) {
+
+}
+
+void MurmurRPCImpl::userStateChanged(const ::User *user) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::userTextMessage(const ::User *user, const ::TextMessage &message) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::userConnected(const ::User *user) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::userDisconnected(const ::User *user) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::channelStateChanged(const ::Channel *channel) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::channelCreated(const ::Channel *channel) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, unsigned int session, int channel) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
 
 void MurmurRPCImpl::customEvent(QEvent *evt) {
 	if (evt->type() == EXEC_QEVENT) {
