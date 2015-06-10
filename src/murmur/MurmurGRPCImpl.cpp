@@ -288,6 +288,10 @@ void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Serv
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
+void ServerService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *response, ::boost::function<void()> *next) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+}
+
 void MetaService_GetUptime_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *response, ::boost::function<void()> *next) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
@@ -302,6 +306,10 @@ void MetaService_GetVersion_Impl(::grpc::ServerContext *context, ::MurmurRPC::Vo
 	version.set_version(major << 16 | minor << 8 | patch);
 	version.set_release(u8(release));
 	response->Finish(version, ::grpc::Status::OK, next);
+}
+
+void MetaService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Event > *response, ::boost::function<void()> *next) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
@@ -352,6 +360,10 @@ void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRP
 
 	::MurmurRPC::Void vd;
 	response->Finish(vd, grpc::Status::OK, next);
+}
+
+void ContextActionService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction > *response, ::boost::function<void()> *next) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
@@ -648,6 +660,14 @@ void ACLService_AddTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurR
 }
 
 void ACLService_RemoveTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL::TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+}
+
+void AuthenticatorService_Stream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+}
+
+void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
