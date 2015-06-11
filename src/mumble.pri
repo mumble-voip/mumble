@@ -39,7 +39,7 @@ win32 {
 	INCLUDEPATH *= "$$OPENSSL_PATH/include"
 	QMAKE_LIBDIR *= "$$OPENSSL_PATH/lib"
 
-	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32
+	LIBS *= -llibprotobuf -lcrypt32 -lws2_32 -llibeay32 -lssleay32
 	LIBS *= -ldelayimp -lQwave -delayload:Qwave.DLL
 }
 
