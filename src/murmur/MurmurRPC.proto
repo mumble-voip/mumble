@@ -59,6 +59,7 @@ service ServerService {
 	rpc Start(Server) returns(Void);
 	// Stop stops the given virtual server.
 	rpc Stop(Server) returns(Void);
+	// Remove removes the given virtual server and its configuration.
 	rpc Remove(Server) returns(Void);
 
 	rpc Events(Server) returns(stream Server.Event);
