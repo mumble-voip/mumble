@@ -335,7 +335,15 @@ void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server 
 }
 
 void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	if (!request->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
+	if (!meta->boot(request->id())) {
+		throw ::grpc::Status(::grpc::UNKNOWN, "server could not be started, or is already started");
+	}
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, ::grpc::Status::OK, next);
 }
 
 void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
