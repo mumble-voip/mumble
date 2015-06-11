@@ -56,6 +56,7 @@ service ServerService {
 	// Get returns information about the given server.
 	rpc Get(Server) returns(Server);
 
+	// Start starts the given stopped server.
 	rpc Start(Server) returns(Void);
 	// Stop stops the given virtual server.
 	rpc Stop(Server) returns(Void);
