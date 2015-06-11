@@ -347,7 +347,20 @@ void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server
 }
 
 void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	if (!request->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
+	if (!ServerDB::serverExists(request->id())) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
+	}
+	if (meta->qhServers.value(request->id())) {
+		throw ::grpc::Status(::grpc::FAILED_PRECONDITION, "cannot remove started server");
+	}
+
+	ServerDB::deleteServer(request->id());
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, ::grpc::Status::OK, next);
 }
 
 void ServerService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *response, ::boost::function<void()> *next) {
