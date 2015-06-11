@@ -38,8 +38,10 @@
 #include <QtXml/QtXml>
 
 #ifdef Q_OS_WIN
+#include <windows.h>
 #define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
 #endif
+
 #define __int64_t __int64
 #include <sndfile.h>
 #undef __int64_t
@@ -70,7 +72,6 @@
 #include <boost/weak_ptr.hpp>
 
 #ifdef Q_OS_WIN
-#include <windows.h>
 #include <shellapi.h>
 #include <winsock2.h>
 #include <qos2.h>
