@@ -103,7 +103,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		GlobalShortcut *gsMinimal, *gsVolumeUp, *gsVolumeDown, *gsWhisper, *gsLinkChannel;
 		GlobalShortcut *gsCycleTransmitMode;
 		GlobalShortcut *gsSendTextMessage;
-		DockTitleBar *dtbLogDockTitle, *dtbChatDockTitle;
+		DockTitleBar *dtbLogDockTitle, *dtbMsgDockTitle, *dtbChatDockTitle;
 
 		ACLEditor *aclEdit;
 		BanEditor *banEdit;
@@ -248,13 +248,18 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteChat_tabPressed();
 		void on_qteChat_ctrlSpacePressed();
 		void on_qtvUsers_customContextMenuRequested(const QPoint &mpos);
-		void on_qteLog_customContextMenuRequested(const QPoint &pos);
+		void on_qteLog_customContextMenuRequested(const QPoint &mpos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);
+		void on_qteMsg_anchorClicked(const QUrl &url);
+		void on_qteMsg_highlighted(const QUrl &url);
+		void on_qteMsg_customContextMenuRequested(const QPoint &mpos);
 		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
+		void on_qdwMsg_dockLocationChanged(const Qt::DockWidgetArea);
 		void on_qdwChat_visibilityChanged(bool);
 		void on_qdwLog_visibilityChanged(bool);
+		void on_qdwMsg_visibilityChanged(bool);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
