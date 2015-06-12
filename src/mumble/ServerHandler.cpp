@@ -46,6 +46,7 @@
 #include "RichTextEditor.h"
 #include "SSL.h"
 #include "User.h"
+#include "Net.h"
 
 ServerHandlerMessageEvent::ServerHandlerMessageEvent(const QByteArray &msg, unsigned int mtype, bool flush) : QEvent(static_cast<QEvent::Type>(SERVERSEND_EVENT)) {
 	qbaMsg = msg;
@@ -846,5 +847,23 @@ void ServerHandler::announceRecordingState(bool recording) {
 	MumbleProto::UserState mpus;
 	mpus.set_recording(recording);
 	sendMessage(mpus);
+}
+
+QUrl ServerHandler::getServerURL(bool withPassword) const {
+	QUrl url;
+	
+	url.setScheme(QLatin1String("mumble"));
+	url.setHost(qsHostName);
+	if (usPort != DEFAULT_MUMBLE_PORT) {
+		url.setPort(usPort);
+	}
+	
+	url.setUserName(qsUserName);
+	
+	if (withPassword && !qsPassword.isEmpty()) {
+		url.setPassword(qsPassword);
+	}
+	
+	return url;
 }
 

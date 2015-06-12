@@ -138,6 +138,9 @@ class DeferInit {
 		static void run_destroyers();
 };
 
+/// Special exit code which causes mumble to restart itself. The outward facing return code with be 0
+const int MUMBLE_EXIT_CODE_RESTART = 64738;
+
 // -Wshadow is bugged. If an inline function of a class uses a variable or
 // parameter named 'g', that will generate a warning even if the class header
 // is included long before this definition.

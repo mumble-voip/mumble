@@ -128,6 +128,7 @@ int main(int argc, char **argv) {
 #endif
 
 	bool bAllowMultiple = false;
+	bool suppressIdentity = false;
 	bool bRpcMode = false;
 	QString rpcCommand;
 	QUrl url;
@@ -193,6 +194,7 @@ int main(int argc, char **argv) {
 			} else if (args.at(i) == QLatin1String("-m") || args.at(i) == QLatin1String("--multiple")) {
 				bAllowMultiple = true;
 			} else if (args.at(i) == QLatin1String("-n") || args.at(i) == QLatin1String("--noidentity")) {
+				suppressIdentity = true;
 				g.s.bSuppressIdentity = true;
 			} else if (args.at(i) == QLatin1String("rpc")) {
 				bRpcMode = true;
@@ -508,10 +510,13 @@ int main(int argc, char **argv) {
 
 	g.s.save();
 
+	url.clear();
+	
 	ServerHandlerPtr sh = g.sh;
-
-	if (sh && sh->isRunning())
+	if (sh && sh->isRunning()) {
+		url = sh->getServerURL();
 		Database::setShortcuts(g.sh->qbaDigest, g.s.qlShortcuts);
+	}
 
 	Audio::stop();
 
@@ -553,6 +558,32 @@ int main(int argc, char **argv) {
 	google::protobuf::ShutdownProtobufLibrary();
 #endif
 #endif
+	
+	// At this point termination of our process is immenent. We can safely
+	// launch another version of Mumble. The reason we do an actual
+	// restart instead of re-creating our data structures is that making
+	// sure we won't leave state is quite tricky. Mumble has quite a
+	// few spots which might not consider seeing to basic initializations.
+	// Until we invest the time to verify this, rather be safe (and a bit slower)
+	// than sorry (and crash/bug out). Also take care to reconnect if possible.
+	if (res == MUMBLE_EXIT_CODE_RESTART) {
+		QStringList arguments;
+		
+		if (bAllowMultiple)   arguments << QLatin1String("--multiple");
+		if (suppressIdentity) arguments << QLatin1String("--noidentity");
+		if (!url.isEmpty())   arguments << url.toString();
+		
+		qWarning() << "Triggering restart of Mumble with arguments: " << arguments;
+		
+		if(!QProcess::startDetached(qApp->applicationFilePath(), arguments)) {
+			QMessageBox::warning(NULL,
+			                     QApplication::tr("Failed to restart mumble"),
+			                     QApplication::tr("Mumble failed to restart itself. Please restart it manually.")
+			);
+			return 1;
+		}
+		return 0;
+	}
 	return res;
 }
 

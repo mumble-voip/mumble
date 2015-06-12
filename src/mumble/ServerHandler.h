@@ -146,6 +146,9 @@ class ServerHandler : public QThread {
 		void requestChannelPermissions(unsigned int channel);
 		void setSelfMuteDeafState(bool mute, bool deaf);
 		void announceRecordingState(bool recording);
+		
+		/// Return connection information as a URL
+		QUrl getServerURL(bool withPassword = false) const;
 
 		void disconnect();
 		void run() Q_DECL_OVERRIDE;
