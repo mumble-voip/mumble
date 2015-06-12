@@ -496,6 +496,35 @@ void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncSe
 	ConfigService_Query_Create(impl, service);
 }
 
+void ChannelService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
+void ChannelService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *response, ::boost::function<void()> *next);
+
+void ChannelService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *out) {
+	delete context;
+	delete in;
+	delete out;
+}
+
+void ChannelService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *out) {
+	ChannelService_Query_Create(impl, service);
+	auto done_fn = ::boost::bind(ChannelService_Query_Done, impl, service, context, in, out);
+	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
+	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
+	QCoreApplication::instance()->postEvent(impl, ie);
+}
+
+void ChannelService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
+	auto context = new ::grpc::ServerContext();
+	auto request = new ::MurmurRPC::Channel_Query();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >(context);
+	auto fn = ::boost::bind(ChannelService_Query_Handle, impl, service, context, request, response);
+	auto fn_ptr = new ::boost::function<void()>(fn);
+	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+}
+
+
 void ChannelService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
 void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next);
 
@@ -612,6 +641,7 @@ void ChannelService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelServi
 }
 
 void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
+	ChannelService_Query_Create(impl, service);
 	ChannelService_Get_Create(impl, service);
 	ChannelService_Add_Create(impl, service);
 	ChannelService_Remove_Create(impl, service);

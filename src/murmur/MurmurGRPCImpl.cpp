@@ -558,6 +558,20 @@ void ConfigService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Confi
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
+void ChannelService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	::MurmurRPC::Channel_List list;
+	list.mutable_server()->set_id(server->iServerNum);
+
+	foreach(const ::Channel *channel, server->qhChannels) {
+		auto rpcChannel = list.add_channels();
+		channelToRPCChannel(server, channel, rpcChannel);
+	}
+
+	response->Finish(list, ::grpc::Status::OK, next);
+}
+
 void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
