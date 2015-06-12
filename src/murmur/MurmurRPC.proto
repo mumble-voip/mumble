@@ -46,13 +46,18 @@ message Server {
 
 	message Query {
 	}
+
+	message List {
+		repeated Server servers = 1;
+	}
 }
 
 service ServerService {
 	// Create creates a new virtual server.
 	rpc Create(Void) returns(Server);
 
-	//TODO(grpc): rpc Query(Server.Query) returns(stream Server);
+	// Query returns a list of servers that match the given query.
+	rpc Query(Server.Query) returns(Server.List);
 	// Get returns information about the given server.
 	rpc Get(Server) returns(Server);
 
