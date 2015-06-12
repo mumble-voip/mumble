@@ -648,6 +648,35 @@ void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::Async
 	ChannelService_Update_Create(impl, service);
 }
 
+void UserService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
+void UserService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::User_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *response, ::boost::function<void()> *next);
+
+void UserService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *out) {
+	delete context;
+	delete in;
+	delete out;
+}
+
+void UserService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *out) {
+	UserService_Query_Create(impl, service);
+	auto done_fn = ::boost::bind(UserService_Query_Done, impl, service, context, in, out);
+	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
+	auto ie = new RPCExecEvent(::boost::bind(UserService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
+	QCoreApplication::instance()->postEvent(impl, ie);
+}
+
+void UserService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
+	auto context = new ::grpc::ServerContext();
+	auto request = new ::MurmurRPC::User_Query();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >(context);
+	auto fn = ::boost::bind(UserService_Query_Handle, impl, service, context, request, response);
+	auto fn_ptr = new ::boost::function<void()>(fn);
+	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+}
+
+
 void UserService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
 void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next);
 
@@ -735,6 +764,7 @@ void UserService_Kick_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::Asyn
 }
 
 void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
+	UserService_Query_Create(impl, service);
 	UserService_Get_Create(impl, service);
 	UserService_Update_Create(impl, service);
 	UserService_Kick_Create(impl, service);
