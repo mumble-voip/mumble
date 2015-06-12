@@ -300,13 +300,13 @@ message Tree {
 	optional Server server = 1;
 
 	optional Channel channel = 2;
-	repeated Channel children = 3;
+	repeated Tree children = 3;
 	repeated User users = 4;
 }
 
 service TreeService {
-	// Worth considering this: http://stackoverflow.com/a/5945674 ?
-	rpc Get(Tree) returns(Tree);
+	// Get returns a representation of the server's channel/user tree.
+	rpc Get(Server) returns(Tree);
 }
 
 message Ban {
