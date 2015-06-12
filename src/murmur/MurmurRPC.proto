@@ -220,10 +220,16 @@ message Channel {
 	message Query {
 		optional Server server = 1;
 	}
+
+	message List {
+		optional Server server = 1;
+		repeated Channel channels = 2;
+	}
 }
 
 service ChannelService {
-	//TODO(grpc): rpc Query(Channel.Query) returns(stream Channel);
+	// Query returns a list of channels that match the given query.
+	rpc Query(Channel.Query) returns(Channel.List);
 	// Get returns the channel with the given ID.
 	rpc Get(Channel) returns(Channel);
 
