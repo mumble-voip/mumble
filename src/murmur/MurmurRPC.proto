@@ -278,6 +278,11 @@ message User {
 		optional Server server = 1;
 	}
 
+	message List {
+		optional Server server = 1;
+		repeated User users = 2;
+	}
+
 	message Kick {
 		// TODO(grpc): server is not really required here, since it's embedded in
 		// user.
@@ -288,7 +293,8 @@ message User {
 }
 
 service UserService {
-	//TODO(grpc): rpc Query(User.Query) returns(stream User);
+	// Query returns a list of connected users who match the given query.
+	rpc Query(User.Query) returns(User.List);
 	// Get returns information on the connected user, given by the user's session
 	// or name.
 	rpc Get(User) returns(User);
