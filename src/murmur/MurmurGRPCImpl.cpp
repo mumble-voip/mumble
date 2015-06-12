@@ -762,6 +762,20 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 	response->Finish(rpcChannel, grpc::Status::OK, next);
 }
 
+void UserService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::User_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	::MurmurRPC::User_List list;
+	list.mutable_server()->set_id(server->iServerNum);
+
+	foreach(const ::ServerUser *user, server->qhUsers) {
+		auto rpcUser = list.add_users();
+		userToRPCUser(server, user, rpcUser);
+	}
+
+	response->Finish(list, grpc::Status::OK, next);
+}
+
 void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
 
