@@ -195,16 +195,20 @@ void MurmurRPCImpl::run() {
 // TODO(grpc): ensure that all implementation methods are using the correct
 // Must* kind (Must*, MustExist*, etc.)
 
+::ServerUser *MustUser(const Server *server, int session) {
+	auto user = server->qhUsers.value(session);
+	if (!user) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
+	}
+	return user;
+}
+
 template <class T>
 ::ServerUser *MustUser(const ::Server *server, const T *msg) {
 	if (!msg->has_user()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing user");
 	}
-	auto user = server->qhUsers.value(msg->user().session());
-	if (!user) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
-	}
-	return user;
+	return MustUser(server, msg->user().session());
 }
 
 template <>
@@ -212,11 +216,7 @@ template <>
 	if (!msg->has_session()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing user session");
 	}
-	auto user = server->qhUsers.value(msg->session());
-	if (!user) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid user");
-	}
-	return user;
+	return MustUser(server, msg->session());
 }
 
 template <class T>
@@ -480,8 +480,70 @@ void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::T
 		response->Finish(vd, grpc::Status::OK, next);
 		return;
 	}
-	// TODO(grpc): send message to specific users, channels
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+
+	// Single targets
+	for (int i = 0; i < request->users_size(); i++) {
+		auto target = request->users(i);
+		// TODO(grpc): more validation?
+		if (!target.has_session()) {
+			continue;
+		}
+		try {
+			auto user = MustUser(server, target.session());
+			mptm.add_session(user->uiSession);
+			server->sendMessage(user, mptm);
+		} catch (::grpc::Status &ex) {
+		}
+		mptm.clear_session();
+	}
+
+	// Channel targets
+	QSet<::Channel *> chans;
+
+	for (int i = 0; i < request->channels_size(); i++) {
+		// TODO(grpc): more validation?
+		auto target = request->channels(i);
+		if (!target.has_id()) {
+			continue;
+		}
+		try {
+			auto channel = MustChannel(server, target.id());
+			chans.insert(channel);
+			mptm.add_channel_id(target.id());
+		} catch (::grpc::Status &ex) {
+		}
+	}
+
+	QQueue<::Channel *> chansQ;
+	for (int i = 0; i < request->trees_size(); i++) {
+		// TODO(grpc): more validation?
+		auto target = request->trees(i);
+		if (!target.has_id()) {
+			continue;
+		}
+		try {
+			auto channel = MustChannel(server, target.id());
+			chansQ.enqueue(channel);
+			mptm.add_tree_id(target.id());
+		} catch (::grpc::Status &ex) {
+		}
+	}
+	while (!chansQ.isEmpty()) {
+		auto c = chansQ.dequeue();
+		chans.insert(c);
+		foreach(c, c->qlChannels) {
+			chansQ.enqueue(c);
+		}
+	}
+
+	foreach(::Channel *c, chans) {
+		foreach(::User *p, c->qlUsers) {
+			server->sendMessage(static_cast<::ServerUser *>(p), mptm);
+		}
+	}
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
 void ConfigService_GetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next) {
