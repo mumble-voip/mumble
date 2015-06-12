@@ -833,8 +833,39 @@ void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User::Ki
 	response->Finish(vd, grpc::Status::OK, next);
 }
 
-void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Tree *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	auto channel = MustChannel(server, 0);
+	::MurmurRPC::Tree root;
+
+	// TODO(grpc): convert to a container of pairs?
+	QQueue<const ::Channel *> qChan;
+	QQueue<::MurmurRPC::Tree *> qTree;
+
+	qChan.enqueue(channel);
+	qTree.enqueue(&root);
+
+	while (!qChan.isEmpty()) {
+		auto currentChannel = qChan.dequeue();
+		auto currentTree = qTree.dequeue();
+
+		channelToRPCChannel(server, currentChannel, currentTree->mutable_channel());
+		// TODO(grpc): sort users?
+		foreach(const ::User *u, currentChannel->qlUsers) {
+			auto rpcUser = currentTree->add_users();
+			// TODO(grpc): don't include every user field
+			userToRPCUser(server, u, rpcUser);
+		}
+		// TODO(grpc): sort channels?
+		foreach(const ::Channel *subChannel, currentChannel->qlChannels) {
+			auto subTree = currentTree->add_children();
+			qChan.enqueue(subChannel);
+			qTree.enqueue(subTree);
+		}
+	}
+
+	response->Finish(root, grpc::Status::OK, next);
 }
 
 void ACLService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL::List > *response, ::boost::function<void()> *next) {
