@@ -246,15 +246,19 @@ template <>
 	return server;
 }
 
-::Channel *MustChannel(const Server *server, const ::MurmurRPC::Channel *msg) {
-	if (!msg->has_id()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel id");
-	}
-	auto channel = server->qhChannels.value(msg->id());
+::Channel *MustChannel(const Server *server, int channel_id) {
+	auto channel = server->qhChannels.value(channel_id);
 	if (!channel) {
 		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid channel");
 	}
 	return channel;
+}
+
+::Channel *MustChannel(const Server *server, const ::MurmurRPC::Channel *msg) {
+	if (!msg->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel id");
+	}
+	return MustChannel(server, msg->id());
 }
 
 static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -710,7 +714,45 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 }
 
 void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+
+	auto channel = user->cChannel;
+	if (request->has_channel()) {
+		// TODO(grpc): more validation?
+		channel = MustChannel(server, request->channel().id());
+	}
+	auto mute = user->bMute;
+	if (request->has_mute()) {
+		mute = request->mute();
+	}
+	auto deaf = user->bDeaf;
+	if (request->has_deaf()) {
+		deaf = request->deaf();
+	}
+	auto suppress = user->bSuppress;
+	if (request->has_suppress()) {
+		suppress = request->suppress();
+	}
+	auto prioritySpeaker = user->bPrioritySpeaker;
+	if (request->has_priority_speaker()) {
+		prioritySpeaker = request->priority_speaker();
+	}
+	auto name = user->qsName;
+	if (request->has_name()) {
+		name = u8(request->name());
+	}
+	auto comment = user->qsComment;
+	if (request->has_comment()) {
+		comment = u8(request->comment());
+	}
+	// TODO(grpc): support texture updating
+
+	server->setUserState(user, channel, mute, deaf, suppress, prioritySpeaker, name, comment);
+
+	::MurmurRPC::User rpcUser;
+	userToRPCUser(server, user, &rpcUser);
+	response->Finish(rpcUser, grpc::Status::OK, next);
 }
 
 void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User::Kick *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
