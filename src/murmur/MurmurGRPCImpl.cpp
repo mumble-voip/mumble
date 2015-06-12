@@ -261,7 +261,7 @@ template <>
 	return MustChannel(server, msg->id());
 }
 
-static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
+void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
 	rc->mutable_server()->set_id(srv->iServerNum);
 
 	rc->set_id(c->iId);
@@ -280,7 +280,7 @@ static void channelToRPCChannel(const ::Server *srv, const ::Channel *c, ::Murmu
 	rc->set_temporary(c->bTemporary);
 }
 
-static void userToRPCUser(const ::Server *srv, const ::User *u, ::MurmurRPC::User* ru) {
+void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->mutable_server()->set_id(srv->iServerNum);
 
 	ru->set_session(u->uiSession);
@@ -566,7 +566,7 @@ void ChannelService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Chan
 
 	foreach(const ::Channel *channel, server->qhChannels) {
 		auto rpcChannel = list.add_channels();
-		channelToRPCChannel(server, channel, rpcChannel);
+		ToRPC(server, channel, rpcChannel);
 	}
 
 	response->Finish(list, ::grpc::Status::OK, next);
@@ -577,7 +577,7 @@ void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channe
 	auto channel = MustChannel(server, request);
 
 	::MurmurRPC::Channel rpcChannel;
-	channelToRPCChannel(server, channel, &rpcChannel);
+	ToRPC(server, channel, &rpcChannel);
 	response->Finish(rpcChannel, ::grpc::Status::OK, next);
 }
 
@@ -613,7 +613,7 @@ void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channe
 	server->sendAll(mpcs);
 
 	::MurmurRPC::Channel resChannel;
-	channelToRPCChannel(server, nc, &resChannel);
+	ToRPC(server, nc, &resChannel);
 	response->Finish(resChannel, grpc::Status::OK, next);
 }
 
@@ -758,7 +758,7 @@ void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Cha
 	}
 
 	::MurmurRPC::Channel rpcChannel;
-	channelToRPCChannel(server, channel, &rpcChannel);
+	ToRPC(server, channel, &rpcChannel);
 	response->Finish(rpcChannel, grpc::Status::OK, next);
 }
 
@@ -770,7 +770,7 @@ void UserService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::User_Qu
 
 	foreach(const ::ServerUser *user, server->qhUsers) {
 		auto rpcUser = list.add_users();
-		userToRPCUser(server, user, rpcUser);
+		ToRPC(server, user, rpcUser);
 	}
 
 	response->Finish(list, grpc::Status::OK, next);
@@ -784,7 +784,7 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 	if (request->has_session()) {
 		// Lookup user by session
 		auto user = MustUser(server, request);
-		userToRPCUser(server, user, &rpcUser);
+		ToRPC(server, user, &rpcUser);
 		response->Finish(rpcUser, grpc::Status::OK, next);
 		return;
 	} else if (request->has_name()) {
@@ -792,7 +792,7 @@ void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *req
 		QString qsName = u8(request->name());
 		foreach(const ::ServerUser *user, server->qhUsers) {
 			if (user->qsName == qsName) {
-				userToRPCUser(server, user, &rpcUser);
+				ToRPC(server, user, &rpcUser);
 				response->Finish(rpcUser, grpc::Status::OK, next);
 				return;
 			}
@@ -841,7 +841,7 @@ void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *
 	server->setUserState(user, channel, mute, deaf, suppress, prioritySpeaker, name, comment);
 
 	::MurmurRPC::User rpcUser;
-	userToRPCUser(server, user, &rpcUser);
+	ToRPC(server, user, &rpcUser);
 	response->Finish(rpcUser, grpc::Status::OK, next);
 }
 
@@ -878,12 +878,12 @@ void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *r
 		auto currentChannel = qChan.dequeue();
 		auto currentTree = qTree.dequeue();
 
-		channelToRPCChannel(server, currentChannel, currentTree->mutable_channel());
+		ToRPC(server, currentChannel, currentTree->mutable_channel());
 		// TODO(grpc): sort users?
 		foreach(const ::User *u, currentChannel->qlUsers) {
 			auto rpcUser = currentTree->add_users();
 			// TODO(grpc): don't include every user field
-			userToRPCUser(server, u, rpcUser);
+			ToRPC(server, u, rpcUser);
 		}
 		// TODO(grpc): sort channels?
 		foreach(const ::Channel *subChannel, currentChannel->qlChannels) {
