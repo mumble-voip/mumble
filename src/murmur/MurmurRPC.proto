@@ -126,8 +126,11 @@ message TextMessage {
 }
 
 service TextMessageService {
+	// Send sends the given TextMessage to the server.
+	//
 	// If users, channels, and trees are not set in the TextMessage, the message
-	// will be broadcast the entire server.
+	// will be broadcast the entire server. Otherwise, the message will be
+	// targeted to the specified users, channels, and trees.
 	rpc Send(TextMessage) returns(Void);
 	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
 }
