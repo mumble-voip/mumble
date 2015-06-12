@@ -239,6 +239,7 @@ message User {
 
 	optional uint32 session = 1;
 	optional uint32 id = 2;
+	optional string name = 11;
 
 	optional bool mute = 3;
 	optional bool deaf = 4;
@@ -248,7 +249,6 @@ message User {
 	optional bool self_deaf = 8;
 	optional bool recording = 9;
 	optional Channel channel = 10;
-	optional string name = 11;
 	optional uint32 online_secs = 12;
 	optional uint32 idle_secs = 13;
 	optional uint32 bytes_per_sec = 14;
@@ -283,6 +283,9 @@ service UserService {
 	// Get returns information on the connected user, given by the user's session
 	// or name.
 	rpc Get(User) returns(User);
+	// Update changes the given user's state. Only the following fields can be
+	// changed:
+	//   name, mute, deaf, suppress, priority_speaker, channel, comment.
 	rpc Update(User) returns(User);
 
 	// Kick kicks the user from the server.
