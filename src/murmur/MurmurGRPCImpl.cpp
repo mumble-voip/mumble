@@ -219,6 +219,14 @@ template <>
 	return MustUser(server, msg->session());
 }
 
+::Server *MustServer(int id) {
+	auto server = meta->qhServers.value(id);
+	if (!server) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
+	}
+	return server;
+}
+
 template <class T>
 ::Server *MustServer(const T *msg) {
 	if (!msg->has_server()) {
@@ -227,11 +235,7 @@ template <class T>
 	if (!msg->server().has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
 	}
-	auto server = meta->qhServers.value(msg->server().id());
-	if (!server) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
-	}
-	return server;
+	return MustServer(msg->server().id());
 }
 
 template <>
@@ -239,11 +243,7 @@ template <>
 	if (!msg->has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
 	}
-	auto server = meta->qhServers.value(msg->id());
-	if (!server) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
-	}
-	return server;
+	return MustServer(msg->id());
 }
 
 ::Channel *MustChannel(const Server *server, int channel_id) {
@@ -326,6 +326,23 @@ void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void
 	::MurmurRPC::Server rpcServer;
 	rpcServer.set_id(id);
 	response->Finish(rpcServer, ::grpc::Status::OK, next);
+}
+
+void ServerService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *response, ::boost::function<void()> *next) {
+	::MurmurRPC::Server_List list;
+
+	foreach(int id, ServerDB::getAllServers()) {
+		auto rpcServer = list.add_servers();
+		rpcServer->set_id(id);
+		try {
+			auto server = MustServer(id);
+			rpcServer->set_running(true);
+			rpcServer->set_uptime(server->tUptime.elapsed()/1000000LL);
+		} catch (::grpc::Status &ex) {
+		}
+	}
+
+	response->Finish(list, ::grpc::Status::OK, next);
 }
 
 void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next) {

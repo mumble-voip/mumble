@@ -33,6 +33,35 @@ void ServerService_Create_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService
 }
 
 
+void ServerService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
+void ServerService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *response, ::boost::function<void()> *next);
+
+void ServerService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *out) {
+	delete context;
+	delete in;
+	delete out;
+}
+
+void ServerService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *out) {
+	ServerService_Query_Create(impl, service);
+	auto done_fn = ::boost::bind(ServerService_Query_Done, impl, service, context, in, out);
+	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
+	auto ie = new RPCExecEvent(::boost::bind(ServerService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
+	QCoreApplication::instance()->postEvent(impl, ie);
+}
+
+void ServerService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
+	auto context = new ::grpc::ServerContext();
+	auto request = new ::MurmurRPC::Server_Query();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >(context);
+	auto fn = ::boost::bind(ServerService_Query_Handle, impl, service, context, request, response);
+	auto fn_ptr = new ::boost::function<void()>(fn);
+	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+}
+
+
 void ServerService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
 void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next);
 
@@ -179,6 +208,7 @@ void ServerService_Events_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService
 
 void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
 	ServerService_Create_Create(impl, service);
+	ServerService_Query_Create(impl, service);
 	ServerService_Get_Create(impl, service);
 	ServerService_Start_Create(impl, service);
 	ServerService_Stop_Create(impl, service);
