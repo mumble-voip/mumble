@@ -711,15 +711,15 @@ void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncServic
 }
 
 void TreeService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::TreeService::AsyncService*);
-void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Tree *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next);
+void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next);
 
-void TreeService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::TreeService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Tree *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
+void TreeService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::TreeService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void TreeService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Tree *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
+void TreeService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
 	TreeService_Get_Create(impl, service);
 	auto done_fn = ::boost::bind(TreeService_Get_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
@@ -731,7 +731,7 @@ void TreeService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::Async
 
 void TreeService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Tree();
+	auto request = new ::MurmurRPC::Server();
 	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree >(context);
 	auto fn = ::boost::bind(TreeService_Get_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
