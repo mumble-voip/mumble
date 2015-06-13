@@ -256,7 +256,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteMsg_customContextMenuRequested(const QPoint &mpos);
 		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
-		void on_qdwMsg_dockLocationChanged(const Qt::DockWidgetArea);
+		void on_qdwMsg_dockLocationChanged(Qt::DockWidgetArea);
 		void on_qdwChat_visibilityChanged(bool);
 		void on_qdwLog_visibilityChanged(bool);
 		void on_qdwMsg_visibilityChanged(bool);

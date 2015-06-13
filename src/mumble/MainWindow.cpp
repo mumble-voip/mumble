@@ -904,8 +904,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwMsg);
 			addDockWidget(Qt::RightDockWidgetArea, qdwMsg);
-			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwMsg->show();
+			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
 			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
@@ -914,8 +914,8 @@ void MainWindow::setupView(bool toggle_minimize) {
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwMsg);
 			addDockWidget(Qt::BottomDockWidgetArea, qdwMsg);
-			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwMsg->show();
+			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
 			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
@@ -936,7 +936,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 			break;
 	}
 	qteChat->updateGeometry();
-	g.s.wlWindowLayout = wlTmp;
 
 	QRect geom = frameGeometry();
 
@@ -1024,6 +1023,9 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
+
+	// The view is properly set up now(after adjusting sizes etc) so we can update g.s.wlWindowLayout safely
+	g.s.wlWindowLayout = wlTmp;
 
 	// If activated show the PTT window
 	if (g.s.bShowPTTButtonWindow && g.s.atTransmit == Settings::PushToTalk) {
@@ -2972,7 +2974,7 @@ void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
-void MainWindow::on_qdwMsg_dockLocationChanged(const Qt::DockWidgetArea)
+void MainWindow::on_qdwMsg_dockLocationChanged(Qt::DockWidgetArea)
 {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
