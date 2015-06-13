@@ -903,33 +903,31 @@ void MainWindow::setupView(bool toggle_minimize) {
 		case Settings::LayoutClassic:
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwMsg);
-			addDockWidget(Qt::LeftDockWidgetArea, qdwMsg);
+			addDockWidget(Qt::RightDockWidgetArea, qdwMsg);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwMsg->show();
 			qdwLog->show();
-			splitDockWidget(qdwMsg, qdwLog, Qt::Vertical);
-			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
 			break;
 		case Settings::LayoutStacked:
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwMsg);
-			addDockWidget(Qt::LeftDockWidgetArea, qdwMsg);
+			addDockWidget(Qt::BottomDockWidgetArea, qdwMsg);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwMsg->show();
 			qdwLog->show();
-			splitDockWidget(qdwMsg, qdwLog, Qt::Vertical);
-			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
 			break;
 		case Settings::LayoutHybrid:
 			removeDockWidget(qdwMsg);
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwChat);
-			addDockWidget(Qt::LeftDockWidgetArea, qdwMsg);
-			qdwMsg->show();
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
+			addDockWidget(Qt::LeftDockWidgetArea, qdwMsg);
+			qdwMsg->show();
 			addDockWidget(Qt::BottomDockWidgetArea, qdwChat);
 			qdwChat->show();
 			break;

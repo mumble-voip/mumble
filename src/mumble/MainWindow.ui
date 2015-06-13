@@ -137,7 +137,7 @@
     <string>Messages</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="LogTextBrowser" name="qteMsg">
     <property name="contextMenuPolicy">
@@ -171,7 +171,7 @@
     <string>Chatbar</string>
    </property>
    <attribute name="dockWidgetArea">
-    <number>1</number>
+    <number>2</number>
    </attribute>
    <widget class="ChatbarTextEdit" name="qteChat">
     <property name="sizePolicy">
