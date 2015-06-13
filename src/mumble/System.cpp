@@ -30,7 +30,7 @@
 
 #include "System.h"
 
-#if defined(Q_WS_X11)
+#if defined(Q_OS_LINUX)
 #include <X11/Xlib.h>
 #include <X11/extensions/scrnsaver.h>
 #elif defined(Q_OS_WIN)
@@ -40,13 +40,13 @@
 #include <limits>
 
 unsigned int System::getIdleSeconds() {
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 	LASTINPUTINFO info;
 	info.cbSize = sizeof(LASTINPUTINFO);
 	if (GetLastInputInfo(&info)) {
 		return static_cast<unsigned int>((GetTickCount() - info.dwTime) / 1000);
 	}
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 	Display *display;
 	int event_base, error_base;
 	XScreenSaverInfo info;
@@ -59,5 +59,5 @@ unsigned int System::getIdleSeconds() {
 		return static_cast<unsigned int>(info.idle / 1000);
 	}
 #endif
-	return std::numeric_limits<unsigned int>::max();
+	return std::numeric_limits<unsigned int>::min();
 }
