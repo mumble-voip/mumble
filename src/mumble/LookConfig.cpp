@@ -152,10 +152,15 @@ void LookConfig::load(const Settings &r) {
 }
 
 void LookConfig::save() const {
+	const QString oldLanguage = s.qsLanguage;
 	if (qcbLanguage->currentIndex() == 0)
 		s.qsLanguage = QString();
 	else
 		s.qsLanguage = qcbLanguage->itemData(qcbLanguage->currentIndex()).toString();
+	
+	if (s.qsLanguage != oldLanguage) {
+		s.requireRestartToApply = true;
+	}
 
 	if (qcbStyle->currentIndex() == 0)
 		s.qsStyle = QString();
@@ -180,7 +185,12 @@ void LookConfig::save() const {
 
 	s.ceExpand=static_cast<Settings::ChannelExpand>(qcbExpand->currentIndex());
 	s.ceChannelDrag=static_cast<Settings::ChannelDrag>(qcbChannelDrag->currentIndex());
-	s.bUserTop=qcbUsersTop->isChecked();
+	
+	if (qcbUsersTop->isChecked() != s.bUserTop) {
+		s.bUserTop = qcbUsersTop->isChecked();
+		s.requireRestartToApply = true;
+	}
+	
 	s.aotbAlwaysOnTop = static_cast<Settings::AlwaysOnTopBehaviour>(qcbAlwaysOnTop->currentIndex());
 	s.bAskOnQuit = qcbAskOnQuit->isChecked();
 	s.bHideInTray = qcbHideTray->isChecked();
