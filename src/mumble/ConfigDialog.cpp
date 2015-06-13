@@ -215,6 +215,15 @@ void ConfigDialog::apply() {
 
 	foreach(ConfigWidget *cw, qmWidgets)
 		cw->accept();
+	
+	if (g.s.requireRestartToApply && QMessageBox::question(
+		        this,
+		        tr("Restart Mumble?"),
+		        tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
+		        QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+		
+		qApp->exit(MUMBLE_EXIT_CODE_RESTART);
+	}
 
 	if (!g.s.bAttenuateOthersOnTalk)
 		g.bAttenuateOthers = false;

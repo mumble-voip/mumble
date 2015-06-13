@@ -404,6 +404,8 @@ Settings::Settings() {
 #endif
 	dPacketLoss = 0;
 	dMaxPacketDelay = 0.0f;
+	
+	requireRestartToApply = false;
 
 	iMaxLogBlocks = 0;
 

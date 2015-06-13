@@ -338,6 +338,8 @@ struct Settings {
 	LoopMode lmLoopMode;
 	float dPacketLoss;
 	float dMaxPacketDelay;
+	/// If true settings in this structure require a client restart to apply fully
+	bool requireRestartToApply;
 
 	bool doEcho() const;
 	bool doPositionalAudio() const;
