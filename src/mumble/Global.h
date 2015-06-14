@@ -55,6 +55,7 @@ class LCD;
 class BonjourClient;
 class OverlayClient;
 class CELTCodec;
+class System;
 
 class QNetworkAccessManager;
 
@@ -68,6 +69,7 @@ public:
 	boost::shared_ptr<ServerHandler> sh;
 	boost::shared_ptr<AudioInput> ai;
 	boost::shared_ptr<AudioOutput> ao;
+	System *sys;
 	Database *db;
 	Log *l;
 	Plugins *p;

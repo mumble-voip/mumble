@@ -39,9 +39,9 @@
 #include "User.h"
 #include "PacketDataStream.h"
 #include "Plugins.h"
-#include "System.h"
 #include "Message.h"
 #include "Global.h"
+#include "System.h"
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
 
@@ -822,7 +822,7 @@ void AudioInput::encodeAudioFrame() {
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 
-		if (g.s.iaeIdleAction != Settings::Nothing && (System::getIdleSeconds() > g.s.iIdleTime)) {
+		if (g.s.iaeIdleAction != Settings::Nothing && (g.sys->getIdleSeconds() > g.s.iIdleTime)) {
 
 			if (g.s.iaeIdleAction == Settings::Deafen && !g.s.bDeaf) {
 				emit doDeaf();

@@ -57,6 +57,7 @@
 #include "SocketRPC.h"
 #include "MumbleApplication.h"
 #include "ApplicationPalette.h"
+#include "System.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -381,6 +382,9 @@ int main(int argc, char **argv) {
 	// Initialize database
 	g.db = new Database();
 
+	//Initialize System
+	g.sys = new System();
+
 #ifdef USE_BONJOUR
 	// Initialize bonjour
 	g.bc = new BonjourClient();
@@ -538,6 +542,7 @@ int main(int argc, char **argv) {
 	delete g.db;
 	delete g.p;
 	delete g.l;
+	delete g.sys;
 
 #ifdef USE_BONJOUR
 	delete g.bc;

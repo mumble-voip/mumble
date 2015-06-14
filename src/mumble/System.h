@@ -31,11 +31,20 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#if defined(Q_OS_LINUX)
+#include <X11/Xlib.h>
+#endif
+
 class System {
-	System() {};
-	~System() {};
+#if defined(Q_OS_LINUX)
+private:
+	Display *display;
+#endif
+
 public:
-	static unsigned int getIdleSeconds();
+	unsigned int getIdleSeconds();
+	System();
+	~System();
 };
 
 #endif // SYSTEM_H
