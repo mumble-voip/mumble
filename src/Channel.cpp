@@ -79,6 +79,25 @@ Channel *Channel::get(int id) {
 	return c_qhChannels.value(id);
 }
 
+Channel *Channel::get(const QString &path) {
+	Channel *cur = get(0);
+	QStringList channelsInPath = path.split(QString::fromUtf8("/"), QString::SkipEmptyParts);
+	int depth = channelsInPath.length();
+	int traversed = 0;
+
+	while (traversed < depth) {
+		foreach (Channel *child, cur->qlChannels) {
+			if (child->qsName == channelsInPath.value(traversed)) {
+				cur = child;
+				traversed++;
+				break;
+			}
+			return NULL;
+		}
+	}
+	return cur;
+}
+
 Channel *Channel::add(int id, const QString &name) {
 	QWriteLocker lock(&c_qrwlChannels);
 

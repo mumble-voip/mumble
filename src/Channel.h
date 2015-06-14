@@ -79,6 +79,7 @@ class Channel : public QObject {
 		static QReadWriteLock c_qrwlChannels;
 
 		static Channel *get(int);
+		static Channel *get(const QString &);
 		static Channel *add(int, const QString &);
 		static void remove(Channel *);
 
