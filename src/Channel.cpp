@@ -85,6 +85,10 @@ Channel *Channel::get(const QString &path) {
 	int depth = channelsInPath.length();
 	int traversed = 0;
 
+	if (cur->qlChannels.length() < 1) {
+		return NULL;
+	}
+
 	while (traversed < depth) {
 		foreach (Channel *child, cur->qlChannels) {
 			if (child->qsName == channelsInPath.value(traversed)) {
