@@ -1072,8 +1072,33 @@ void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC
 	response->Finish(vd, grpc::Status::OK, next);
 }
 
-void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+void DatabaseService_Verify_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser::Verify *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	if (!request->has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing name");
+	}
+	if (!request->has_password()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing password");
+	}
+
+	auto name = u8(request->name());
+	auto password = u8(request->password());
+
+	auto ret = server->authenticate(name, password);
+	switch (ret) {
+	case -1: // authentication failures
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid username and/or password");
+	case -2: // unknown user
+		throw ::grpc::Status(::grpc::NOT_FOUND, "unknown user");
+	case -3: // authentication failures where the data could (temporarily) not be verified
+		throw ::grpc::Status(::grpc::UNAVAILABLE);
+	}
+
+	::MurmurRPC::DatabaseUser rpcDatabaseUser;
+	rpcDatabaseUser.mutable_server()->set_id(server->iServerNum);
+	rpcDatabaseUser.set_id(ret);
+	response->Finish(rpcDatabaseUser, grpc::Status::OK, next);
 }
 
 void AudioService_SetRedirectWhisperGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
