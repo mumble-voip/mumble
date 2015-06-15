@@ -479,6 +479,7 @@ service DatabaseService {
 	// Register registers a user with the given information on the server. The
 	// returned DatabaseUser will contain the newly registered user's ID.
 	rpc Register(DatabaseUser) returns(DatabaseUser);
+	// Deregister deregisters the given user.
 	rpc Deregister(DatabaseUser) returns(Void);
 	rpc VerifyPassword(DatabaseUser.VerifyPassword) returns(DatabaseUser);
 }
