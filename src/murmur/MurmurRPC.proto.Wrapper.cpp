@@ -1045,19 +1045,19 @@ void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorSe
 }
 
 void DatabaseService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database_User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *response, ::boost::function<void()> *next);
+void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	DatabaseService_Get_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_Get_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
 	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
@@ -1065,8 +1065,8 @@ void DatabaseService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseServic
 
 void DatabaseService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Database_User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >(context);
+	auto request = new ::MurmurRPC::DatabaseUser();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
 	auto fn = ::boost::bind(DatabaseService_Get_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
 	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
@@ -1074,19 +1074,19 @@ void DatabaseService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseServic
 
 
 void DatabaseService_Update_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database_User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *response, ::boost::function<void()> *next);
+void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	DatabaseService_Update_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_Update_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
 	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Update_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
@@ -1094,8 +1094,8 @@ void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseSer
 
 void DatabaseService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Database_User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >(context);
+	auto request = new ::MurmurRPC::DatabaseUser();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
 	auto fn = ::boost::bind(DatabaseService_Update_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
 	service->RequestUpdate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
@@ -1103,19 +1103,19 @@ void DatabaseService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseSer
 
 
 void DatabaseService_Register_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database_User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *response, ::boost::function<void()> *next);
+void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Register_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Register_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_Register_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_Register_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	DatabaseService_Register_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_Register_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
 	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Register_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
@@ -1123,8 +1123,8 @@ void DatabaseService_Register_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseS
 
 void DatabaseService_Register_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Database_User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >(context);
+	auto request = new ::MurmurRPC::DatabaseUser();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
 	auto fn = ::boost::bind(DatabaseService_Register_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
 	service->RequestRegister(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
@@ -1132,15 +1132,15 @@ void DatabaseService_Register_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseS
 
 
 void DatabaseService_Deregister_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database_User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Deregister_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
+void DatabaseService_Deregister_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_Deregister_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Database_User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
+void DatabaseService_Deregister_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
 	DatabaseService_Deregister_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_Deregister_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
@@ -1152,7 +1152,7 @@ void DatabaseService_Deregister_Handle(MurmurRPCImpl *impl, ::MurmurRPC::Databas
 
 void DatabaseService_Deregister_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Database_User();
+	auto request = new ::MurmurRPC::DatabaseUser();
 	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
 	auto fn = ::boost::bind(DatabaseService_Deregister_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
@@ -1161,19 +1161,19 @@ void DatabaseService_Deregister_Create(MurmurRPCImpl *impl, ::MurmurRPC::Databas
 
 
 void DatabaseService_VerifyPassword_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database_VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *response, ::boost::function<void()> *next);
+void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_VerifyPassword_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Database_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_VerifyPassword_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_VerifyPassword_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Database_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User > *out) {
+void DatabaseService_VerifyPassword_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	DatabaseService_VerifyPassword_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_VerifyPassword_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
 	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_VerifyPassword_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
@@ -1181,8 +1181,8 @@ void DatabaseService_VerifyPassword_Handle(MurmurRPCImpl *impl, ::MurmurRPC::Dat
 
 void DatabaseService_VerifyPassword_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Database_VerifyPassword();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database_User >(context);
+	auto request = new ::MurmurRPC::DatabaseUser_VerifyPassword();
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
 	auto fn = ::boost::bind(DatabaseService_VerifyPassword_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
 	service->RequestVerifyPassword(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);

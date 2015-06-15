@@ -317,6 +317,29 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->set_address(su->haAddress.toStdString());
 }
 
+void ToRPC(const ::Server *srv, const QMap<int, QString> info, ::MurmurRPC::DatabaseUser *du) {
+	du->mutable_server()->set_id(srv->iServerNum);
+
+	if (info.contains(::ServerDB::User_Name)) {
+		du->set_name(u8(info[::ServerDB::User_Name]));
+	}
+	if (info.contains(::ServerDB::User_Email)) {
+		du->set_email(u8(info[::ServerDB::User_Email]));
+	}
+	if (info.contains(::ServerDB::User_Comment)) {
+		du->set_comment(u8(info[::ServerDB::User_Comment]));
+	}
+	if (info.contains(::ServerDB::User_Hash)) {
+		du->set_hash(u8(info[::ServerDB::User_Hash]));
+	}
+	if (info.contains(::ServerDB::User_Password)) {
+		du->set_password(u8(info[::ServerDB::User_Password]));
+	}
+	if (info.contains(::ServerDB::User_LastActive)) {
+		du->set_last_active(u8(info[::ServerDB::User_LastActive]));
+	}
+}
+
 namespace MurmurRPC {
 namespace Wrapper {
 
@@ -941,23 +964,37 @@ void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	// TODO(grpc): more verification?
+	if (!request->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing id");
+	}
+	auto info = server->getRegistration(request->id());
+	if (info.isEmpty()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+
+	::MurmurRPC::DatabaseUser rpcDatabaseUser;
+	// TODO(grpc): support rpcDatabaseUser.Texture
+	ToRPC(server, info, &rpcDatabaseUser);
+	response->Finish(rpcDatabaseUser, grpc::Status::OK, next);
+}
+
+void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
-}
-
-void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::Database::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Database::User > *response, ::boost::function<void()> *next) {
+void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
