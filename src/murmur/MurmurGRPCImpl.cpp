@@ -350,9 +350,14 @@ void FromRPC(const ::MurmurRPC::DatabaseUser *du, QMap<int, QString> &info) {
 	if (du->has_comment()) {
 		info.insert(::ServerDB::User_Comment, u8(du->comment()));
 	}
-	// TODO(grpc): allow updating user hash?
+	if (du->has_hash()) {
+		info.insert(::ServerDB::User_Hash, u8(du->hash()));
+	}
 	if (du->has_password()) {
 		info.insert(::ServerDB::User_Password, u8(du->password()));
+	}
+	if (du->has_last_active()) {
+		info.insert(::ServerDB::User_LastActive, u8(du->last_active()));
 	}
 }
 
@@ -1036,7 +1041,20 @@ void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Da
 }
 
 void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+
+	QMap<int, QString> info;
+	FromRPC(request, info);
+
+	auto userid = server->registerUser(info);
+	if (userid < 0) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+
+	::MurmurRPC::DatabaseUser rpcDatabaseUser;
+	rpcDatabaseUser.set_id(userid);
+	ToRPC(server, info, &rpcDatabaseUser);
+	response->Finish(rpcDatabaseUser, grpc::Status::OK, next);
 }
 
 void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
