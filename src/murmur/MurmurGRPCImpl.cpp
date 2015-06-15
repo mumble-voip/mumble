@@ -317,7 +317,7 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->set_address(su->haAddress.toStdString());
 }
 
-void ToRPC(const ::Server *srv, const QMap<int, QString> info, ::MurmurRPC::DatabaseUser *du) {
+void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::DatabaseUser *du) {
 	du->mutable_server()->set_id(srv->iServerNum);
 
 	if (info.contains(::ServerDB::User_Name)) {
@@ -337,6 +337,22 @@ void ToRPC(const ::Server *srv, const QMap<int, QString> info, ::MurmurRPC::Data
 	}
 	if (info.contains(::ServerDB::User_LastActive)) {
 		du->set_last_active(u8(info[::ServerDB::User_LastActive]));
+	}
+}
+
+void FromRPC(const ::MurmurRPC::DatabaseUser *du, QMap<int, QString> &info) {
+	if (du->has_name()) {
+		info.insert(::ServerDB::User_Name, u8(du->name()));
+	}
+	if (du->has_email()) {
+		info.insert(::ServerDB::User_Email, u8(du->email()));
+	}
+	if (du->has_comment()) {
+		info.insert(::ServerDB::User_Comment, u8(du->comment()));
+	}
+	// TODO(grpc): allow updating user hash?
+	if (du->has_password()) {
+		info.insert(::ServerDB::User_Password, u8(du->password()));
 	}
 }
 
@@ -967,7 +983,6 @@ void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context
 void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
 
-	// TODO(grpc): more verification?
 	if (!request->has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing id");
 	}
@@ -982,8 +997,42 @@ void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Datab
 	response->Finish(rpcDatabaseUser, grpc::Status::OK, next);
 }
 
-void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	if (!request->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing id");
+	}
+	if (!server->isUserId(request->id())) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+
+	QMap<int, QString> info;
+	FromRPC(request, info);
+
+	if (!server->setInfo(request->id(), info)) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+
+	if (info.contains(ServerDB::User_Name) || info.contains(ServerDB::User_Comment)) {
+		foreach(::ServerUser *u, server->qhUsers) {
+			if (u->iId == request->id()) {
+				QString name = u->qsName;
+				QString comment = u->qsComment;
+				if (info.contains(ServerDB::User_Name)) {
+					comment = info.value(ServerDB::User_Name);
+				}
+				if (info.contains(ServerDB::User_Comment)) {
+					comment = info.value(ServerDB::User_Comment);
+				}
+				server->setUserState(u, u->cChannel, u->bMute, u->bDeaf, u->bSuppress, u->bPrioritySpeaker, name, comment);
+				break;
+			}
+		}
+	}
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
 void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {

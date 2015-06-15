@@ -1074,19 +1074,19 @@ void DatabaseService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseServic
 
 
 void DatabaseService_Update_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
+void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
+void DatabaseService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
+void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
 	DatabaseService_Update_Create(impl, service);
 	auto done_fn = ::boost::bind(DatabaseService_Update_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
+	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
 	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Update_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
@@ -1095,7 +1095,7 @@ void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseSer
 void DatabaseService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
 	auto request = new ::MurmurRPC::DatabaseUser();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
+	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
 	auto fn = ::boost::bind(DatabaseService_Update_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
 	service->RequestUpdate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
