@@ -1160,32 +1160,32 @@ void DatabaseService_Deregister_Create(MurmurRPCImpl *impl, ::MurmurRPC::Databas
 }
 
 
-void DatabaseService_VerifyPassword_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
+void DatabaseService_Verify_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
+void DatabaseService_Verify_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_VerifyPassword_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
+void DatabaseService_Verify_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
 	delete context;
 	delete in;
 	delete out;
 }
 
-void DatabaseService_VerifyPassword_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_VerifyPassword *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	DatabaseService_VerifyPassword_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_VerifyPassword_Done, impl, service, context, in, out);
+void DatabaseService_Verify_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
+	DatabaseService_Verify_Create(impl, service);
+	auto done_fn = ::boost::bind(DatabaseService_Verify_Done, impl, service, context, in, out);
 	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
 	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
 	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_VerifyPassword_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
+	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Verify_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
 	QCoreApplication::instance()->postEvent(impl, ie);
 }
 
-void DatabaseService_VerifyPassword_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
+void DatabaseService_Verify_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser_VerifyPassword();
+	auto request = new ::MurmurRPC::DatabaseUser_Verify();
 	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
-	auto fn = ::boost::bind(DatabaseService_VerifyPassword_Handle, impl, service, context, request, response);
+	auto fn = ::boost::bind(DatabaseService_Verify_Handle, impl, service, context, request, response);
 	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestVerifyPassword(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+	service->RequestVerify(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
 }
 
 void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
@@ -1193,7 +1193,7 @@ void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::Asy
 	DatabaseService_Update_Create(impl, service);
 	DatabaseService_Register_Create(impl, service);
 	DatabaseService_Deregister_Create(impl, service);
-	DatabaseService_VerifyPassword_Create(impl, service);
+	DatabaseService_Verify_Create(impl, service);
 }
 
 void AudioService_SetRedirectWhisperGroup_Create(MurmurRPCImpl*, ::MurmurRPC::AudioService::AsyncService*);
