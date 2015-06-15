@@ -370,22 +370,21 @@ message ACL {
 		optional bool inherit = 3;
 		optional bool inheritable = 4;
 
-		repeated Database.User users_add = 5;
-		repeated Database.User users_remove = 6;
-		repeated Database.User users = 7;
+		repeated DatabaseUser users_add = 5;
+		repeated DatabaseUser users_remove = 6;
+		repeated DatabaseUser users = 7;
 	}
 
 	optional bool apply_here = 3;
 	optional bool apply_subs = 4;
 	optional bool inherited = 5;
 
-	optional Database.User user = 6;
+	optional DatabaseUser user = 6;
 	optional string group = 7;
 
 	optional Permission allow = 8;
 	optional Permission deny = 9;
 
-	// TODO: need a better name than "List"
 	message List {
 		optional Server server = 1;
 		optional Channel channel = 2;
@@ -434,7 +433,7 @@ message Authenticator {
 
 		optional Type type = 2;
 		optional User user = 3;
-		repeated Database.User database_user = 4;
+		repeated DatabaseUser database_user = 4;
 		repeated string groups = 5;
 	}
 }
@@ -448,7 +447,18 @@ service AuthenticatorService {
 	rpc RegistrationStream(stream Authenticator.Message) returns(stream Authenticator.Message);
 }
 
-message Database {
+message DatabaseUser {
+	optional Server server = 1;
+
+	optional uint32 id = 2;
+	optional string name = 3;
+	optional string email = 4;
+	optional string comment = 5;
+	optional string hash = 6;
+	optional string password = 7;
+	optional string last_active = 8;
+	optional bytes texture = 9;
+
 	message Query {
 		optional Server server = 1;
 	}
@@ -458,28 +468,16 @@ message Database {
 		optional string username = 2;
 		optional string password  = 3;
 	}
-
-	message User {
-		optional Server server = 1;
-
-		optional uint32 id = 2;
-		optional string name = 3;
-		optional string email = 4;
-		optional string comment = 5;
-		optional string hash = 6;
-		optional string password = 7;
-		optional string last_active = 8;
-		optional bytes texture = 9;
-	}
 }
 
 service DatabaseService {
-	//TODO(grpc): rpc Query(Database.Query) returns(stream Database.User);
-	rpc Get(Database.User) returns(Database.User);
-	rpc Update(Database.User) returns(Database.User);
-	rpc Register(Database.User) returns(Database.User);
-	rpc Deregister(Database.User) returns(Void);
-	rpc VerifyPassword(Database.VerifyPassword) returns(Database.User);
+	//TODO(grpc): rpc Query(Database.Query) returns(stream DatabaseUser);
+	// Get returns the database user with the given id.
+	rpc Get(DatabaseUser) returns(DatabaseUser);
+	rpc Update(DatabaseUser) returns(DatabaseUser);
+	rpc Register(DatabaseUser) returns(DatabaseUser);
+	rpc Deregister(DatabaseUser) returns(Void);
+	rpc VerifyPassword(DatabaseUser.VerifyPassword) returns(DatabaseUser);
 }
 
 message RedirectWhisperGroup {
