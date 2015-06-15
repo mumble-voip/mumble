@@ -474,10 +474,10 @@ service DatabaseService {
 	//TODO(grpc): rpc Query(Database.Query) returns(stream DatabaseUser);
 	// Get returns the database user with the given id.
 	rpc Get(DatabaseUser) returns(DatabaseUser);
-	// Update updates the given database user. Currently, the fields that can be
-	// updated are:
-	//   name, email, comment, password
+	// Update updates the given database user.
 	rpc Update(DatabaseUser) returns(Void); // TODO(grpc): should the updated user be returned?
+	// Register registers a user with the given information on the server. The
+	// returned DatabaseUser will contain the newly registered user's ID.
 	rpc Register(DatabaseUser) returns(DatabaseUser);
 	rpc Deregister(DatabaseUser) returns(Void);
 	rpc VerifyPassword(DatabaseUser.VerifyPassword) returns(DatabaseUser);
