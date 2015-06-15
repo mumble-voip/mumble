@@ -1058,7 +1058,18 @@ void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::
 }
 
 void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+
+	if (!request->has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing id");
+	}
+
+	if (!server->unregisterUser(request->id())) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+
+	::MurmurRPC::Void vd;
+	response->Finish(vd, grpc::Status::OK, next);
 }
 
 void DatabaseService_VerifyPassword_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser::VerifyPassword *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
