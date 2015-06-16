@@ -985,6 +985,28 @@ void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
+void DatabaseService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List > *response, ::boost::function<void()> *next) {
+	auto server = MustServer(request);
+
+	QString filter;
+	if (request->has_filter()) {
+		filter = u8(request->filter());
+	}
+	auto users = server->getRegisteredUsers(filter);
+
+	::MurmurRPC::DatabaseUser_List list;
+	list.mutable_server()->set_id(server->iServerNum);
+
+	for (auto itr = users.constBegin(); itr != users.constEnd(); ++itr) {
+		auto user = list.add_users();
+		user->mutable_server()->set_id(server->iServerNum);
+		user->set_id(itr.key());
+		user->set_name(u8(itr.value()));
+	}
+
+	response->Finish(list, grpc::Status::OK, next);
+}
+
 void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next) {
 	auto server = MustServer(request);
 
@@ -997,7 +1019,7 @@ void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Datab
 	}
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
-	// TODO(grpc): support rpcDatabaseUser.Texture
+	// TODO(grpc): support rpcDatabaseUser.Texture in all DatabaseMethods
 	ToRPC(server, info, &rpcDatabaseUser);
 	response->Finish(rpcDatabaseUser, grpc::Status::OK, next);
 }

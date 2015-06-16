@@ -461,17 +461,27 @@ message DatabaseUser {
 
 	message Query {
 		optional Server server = 1;
+
+		optional string filter = 2;
+	}
+
+	message List {
+		optional Server server = 1;
+
+		repeated DatabaseUser users = 2;
 	}
 
 	message Verify {
 		optional Server server = 1;
+
 		optional string name = 2;
 		optional string password  = 3;
 	}
 }
 
 service DatabaseService {
-	//TODO(grpc): rpc Query(Database.Query) returns(stream DatabaseUser);
+	// Query returns a list of registered users who match given query.
+	rpc Query(DatabaseUser.Query) returns(DatabaseUser.List);
 	// Get returns the database user with the given id.
 	rpc Get(DatabaseUser) returns(DatabaseUser);
 	// Update updates the given database user.
