@@ -4,7 +4,6 @@
 namespace MurmurRPC {
 namespace Wrapper {
 
-
 struct ServerService_Create : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
@@ -45,8 +44,6 @@ struct ServerService_Create : public RPCCall {
 		service->RequestCreate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct ServerService_Query : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -89,8 +86,6 @@ struct ServerService_Query : public RPCCall {
 	}
 };
 
-
-
 struct ServerService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
@@ -131,8 +126,6 @@ struct ServerService_Get : public RPCCall {
 		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct ServerService_Start : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -175,8 +168,6 @@ struct ServerService_Start : public RPCCall {
 	}
 };
 
-
-
 struct ServerService_Stop : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
@@ -217,8 +208,6 @@ struct ServerService_Stop : public RPCCall {
 		service->RequestStop(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct ServerService_Remove : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -261,6 +250,46 @@ struct ServerService_Remove : public RPCCall {
 	}
 };
 
+struct ServerService_Events : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > response;
+
+	ServerService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Events::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event >::Finish, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ServerService_Events::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Events::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Events(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Events::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
 	ServerService_Create::create(impl, service);
 	ServerService_Query::create(impl, service);
@@ -268,8 +297,8 @@ void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncSe
 	ServerService_Start::create(impl, service);
 	ServerService_Stop::create(impl, service);
 	ServerService_Remove::create(impl, service);
+	ServerService_Events::create(impl, service);
 }
-
 
 struct MetaService_GetUptime : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -312,8 +341,6 @@ struct MetaService_GetUptime : public RPCCall {
 	}
 };
 
-
-
 struct MetaService_GetVersion : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::MetaService::AsyncService *service;
@@ -355,11 +382,51 @@ struct MetaService_GetVersion : public RPCCall {
 	}
 };
 
+struct MetaService_Events : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::MetaService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Void request;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > response;
+
+	MetaService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&MetaService_Events::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Event >::Finish, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		MetaService_Events::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&MetaService_Events::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) {
+		auto call = new MetaService_Events(rpc, service);
+		auto fn = ::boost::bind(&MetaService_Events::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 void MetaService_Init(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
 	MetaService_GetUptime::create(impl, service);
 	MetaService_GetVersion::create(impl, service);
+	MetaService_Events::create(impl, service);
 }
-
 
 struct ContextActionService_Add : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -402,8 +469,6 @@ struct ContextActionService_Add : public RPCCall {
 	}
 };
 
-
-
 struct ContextActionService_Remove : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ContextActionService::AsyncService *service;
@@ -445,11 +510,51 @@ struct ContextActionService_Remove : public RPCCall {
 	}
 };
 
+struct ContextActionService_Events : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ContextActionService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::ContextAction request;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > response;
+
+	ContextActionService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ContextActionService_Events::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction >::Finish, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ContextActionService_Events::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ContextActionService_Events::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) {
+		auto call = new ContextActionService_Events(rpc, service);
+		auto fn = ::boost::bind(&ContextActionService_Events::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 void ContextActionService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
 	ContextActionService_Add::create(impl, service);
 	ContextActionService_Remove::create(impl, service);
+	ContextActionService_Events::create(impl, service);
 }
-
 
 struct TextMessageService_Send : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -491,13 +596,11 @@ struct TextMessageService_Send : public RPCCall {
 		service->RequestSend(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void TextMessageService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service) {
 	TextMessageService_Send::create(impl, service);
 }
 void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService *service) {
 }
-
 
 struct ConfigService_GetDefault : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -540,8 +643,6 @@ struct ConfigService_GetDefault : public RPCCall {
 	}
 };
 
-
-
 struct ConfigService_SetDefault : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
@@ -583,8 +684,6 @@ struct ConfigService_SetDefault : public RPCCall {
 	}
 };
 
-
-
 struct ConfigService_Query : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
@@ -625,13 +724,11 @@ struct ConfigService_Query : public RPCCall {
 		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
 	ConfigService_GetDefault::create(impl, service);
 	ConfigService_SetDefault::create(impl, service);
 	ConfigService_Query::create(impl, service);
 }
-
 
 struct ChannelService_Query : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -674,8 +771,6 @@ struct ChannelService_Query : public RPCCall {
 	}
 };
 
-
-
 struct ChannelService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
@@ -716,8 +811,6 @@ struct ChannelService_Get : public RPCCall {
 		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct ChannelService_Add : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -760,8 +853,6 @@ struct ChannelService_Add : public RPCCall {
 	}
 };
 
-
-
 struct ChannelService_Remove : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
@@ -803,8 +894,6 @@ struct ChannelService_Remove : public RPCCall {
 	}
 };
 
-
-
 struct ChannelService_Update : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
@@ -845,7 +934,6 @@ struct ChannelService_Update : public RPCCall {
 		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
 	ChannelService_Query::create(impl, service);
 	ChannelService_Get::create(impl, service);
@@ -853,7 +941,6 @@ void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::Async
 	ChannelService_Remove::create(impl, service);
 	ChannelService_Update::create(impl, service);
 }
-
 
 struct UserService_Query : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -896,8 +983,6 @@ struct UserService_Query : public RPCCall {
 	}
 };
 
-
-
 struct UserService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
@@ -938,8 +1023,6 @@ struct UserService_Get : public RPCCall {
 		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct UserService_Update : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -982,8 +1065,6 @@ struct UserService_Update : public RPCCall {
 	}
 };
 
-
-
 struct UserService_Kick : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
@@ -1024,14 +1105,12 @@ struct UserService_Kick : public RPCCall {
 		service->RequestKick(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
 	UserService_Query::create(impl, service);
 	UserService_Get::create(impl, service);
 	UserService_Update::create(impl, service);
 	UserService_Kick::create(impl, service);
 }
-
 
 struct TreeService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1073,13 +1152,11 @@ struct TreeService_Get : public RPCCall {
 		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
 	TreeService_Get::create(impl, service);
 }
 void BanService_Init(MurmurRPCImpl *impl, ::MurmurRPC::BanService::AsyncService *service) {
 }
-
 
 struct ACLService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1122,8 +1199,6 @@ struct ACLService_Get : public RPCCall {
 	}
 };
 
-
-
 struct ACLService_Set : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
@@ -1164,8 +1239,6 @@ struct ACLService_Set : public RPCCall {
 		service->RequestSet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct ACLService_GetEffectivePermissions : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1208,8 +1281,6 @@ struct ACLService_GetEffectivePermissions : public RPCCall {
 	}
 };
 
-
-
 struct ACLService_AddTemporaryGroup : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
@@ -1251,8 +1322,6 @@ struct ACLService_AddTemporaryGroup : public RPCCall {
 	}
 };
 
-
-
 struct ACLService_RemoveTemporaryGroup : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
@@ -1293,7 +1362,6 @@ struct ACLService_RemoveTemporaryGroup : public RPCCall {
 		service->RequestRemoveTemporaryGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void ACLService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
 	ACLService_Get::create(impl, service);
 	ACLService_Set::create(impl, service);
@@ -1301,9 +1369,90 @@ void ACLService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService 
 	ACLService_AddTemporaryGroup::create(impl, service);
 	ACLService_RemoveTemporaryGroup::create(impl, service);
 }
-void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
-}
 
+struct AuthenticatorService_Stream : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::AuthenticatorService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > stream;
+
+	AuthenticatorService_Stream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&AuthenticatorService_Stream::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, &this->stream, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		AuthenticatorService_Stream::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&AuthenticatorService_Stream::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
+		auto call = new AuthenticatorService_Stream(rpc, service);
+		auto fn = ::boost::bind(&AuthenticatorService_Stream::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestStream(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+struct AuthenticatorService_RegistrationStream : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::AuthenticatorService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > stream;
+
+	AuthenticatorService_RegistrationStream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&AuthenticatorService_RegistrationStream::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, &this->stream, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		AuthenticatorService_RegistrationStream::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&AuthenticatorService_RegistrationStream::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
+		auto call = new AuthenticatorService_RegistrationStream(rpc, service);
+		auto fn = ::boost::bind(&AuthenticatorService_RegistrationStream::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRegistrationStream(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
+	AuthenticatorService_Stream::create(impl, service);
+	AuthenticatorService_RegistrationStream::create(impl, service);
+}
 
 struct DatabaseService_Query : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1346,8 +1495,6 @@ struct DatabaseService_Query : public RPCCall {
 	}
 };
 
-
-
 struct DatabaseService_Get : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
@@ -1388,8 +1535,6 @@ struct DatabaseService_Get : public RPCCall {
 		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct DatabaseService_Update : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1432,8 +1577,6 @@ struct DatabaseService_Update : public RPCCall {
 	}
 };
 
-
-
 struct DatabaseService_Register : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
@@ -1474,8 +1617,6 @@ struct DatabaseService_Register : public RPCCall {
 		service->RequestRegister(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-
 
 struct DatabaseService_Deregister : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1518,8 +1659,6 @@ struct DatabaseService_Deregister : public RPCCall {
 	}
 };
 
-
-
 struct DatabaseService_Verify : public RPCCall {
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
@@ -1560,7 +1699,6 @@ struct DatabaseService_Verify : public RPCCall {
 		service->RequestVerify(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
 	DatabaseService_Query::create(impl, service);
 	DatabaseService_Get::create(impl, service);
@@ -1569,7 +1707,6 @@ void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::Asy
 	DatabaseService_Deregister::create(impl, service);
 	DatabaseService_Verify::create(impl, service);
 }
-
 
 struct AudioService_SetRedirectWhisperGroup : public RPCCall {
 	MurmurRPCImpl *rpc;
@@ -1611,7 +1748,6 @@ struct AudioService_SetRedirectWhisperGroup : public RPCCall {
 		service->RequestSetRedirectWhisperGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
 void AudioService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service) {
 	AudioService_SetRedirectWhisperGroup::create(impl, service);
 }
