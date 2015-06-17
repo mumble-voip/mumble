@@ -35,6 +35,7 @@
 #include "MurmurRPC.grpc.pb.h"
 
 #include "Server.h"
+#include "Meta.h"
 
 #include <QMultiHash>
 
@@ -54,9 +55,15 @@ class RPCExecEvent : public ExecEvent {
 	Q_DISABLE_COPY(RPCExecEvent);
 public:
 	RPCCall *call;
-	RPCExecEvent(boost::function<void()> fn, RPCCall *call) : ExecEvent(fn), call(call) {
+	RPCExecEvent(::boost::function<void()> fn, RPCCall *call) : ExecEvent(fn), call(call) {
 	}
 };
+
+namespace MurmurRPC {
+namespace Wrapper {
+struct ContextActionService_Events;
+}
+}
 
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
@@ -86,13 +93,8 @@ class MurmurRPCImpl : public QThread {
 		MurmurRPC::UserService::AsyncService aUserService;
 
 		// ContextActionService
-		struct ContextActionListener {
-			::grpc::ServerAsyncWriter<::MurmurRPC::ContextAction> *w;
-			::boost::function<void()> *next;
-			ContextActionListener(::grpc::ServerAsyncWriter<::MurmurRPC::ContextAction> *w, ::boost::function<void()> *next) : w(w), next(next) {
-			}
-		};
-		QHash<int, QMultiHash<QString, ContextActionListener *> > qhContextActionListeners;
+		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::ContextActionService_Events *> > qhContextActionListeners;
+		void contextActionCb(::MurmurRPC::Wrapper::ContextActionService_Events *stream, bool ok);
 
 	public slots:
 		void started(Server *server);

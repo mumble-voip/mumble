@@ -39,7 +39,6 @@
 #include "../Message.h"
 #include "../Group.h"
 #include "MurmurGRPCImpl.h"
-#include "Meta.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Server.h"
@@ -133,7 +132,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	ca.mutable_actor()->mutable_server()->set_id(s->iServerNum);
 	ca.mutable_actor()->set_session(user->uiSession);
 	ca.set_action(u8(action));
-	// TODO(grpc): valid these values?
+	// TODO(grpc): validate these values?
 	ca.mutable_user()->mutable_server()->set_id(s->iServerNum);
 	ca.mutable_user()->set_session(session);
 	ca.mutable_channel()->mutable_server()->set_id(s->iServerNum);
@@ -145,51 +144,9 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 		auto listener = itr.value();
 		// TODO(grpc): remove listener upon failure or disconnect (will probably
 		// need a timer for that).
-		listener->w->Write(ca, nullptr);
+
+		listener->response.Write(ca, nullptr);
 	}
-}
-
-
-void MurmurRPCImpl::customEvent(QEvent *evt) {
-	if (evt->type() == EXEC_QEVENT) {
-		auto event = static_cast<RPCExecEvent *>(evt);
-		try {
-			event->execute();
-		} catch (::grpc::Status &ex) {
-			event->call->error(ex);
-		}
-	}
-}
-
-void MurmurRPCImpl::run() {
-	MurmurRPC::Wrapper::ACLService_Init(this, &aACLService);
-	MurmurRPC::Wrapper::AudioService_Init(this, &aAudioService);
-	MurmurRPC::Wrapper::AuthenticatorService_Init(this, &aAuthenticatorService);
-	MurmurRPC::Wrapper::BanService_Init(this, &aBanService);
-	MurmurRPC::Wrapper::ChannelService_Init(this, &aChannelService);
-	MurmurRPC::Wrapper::ConfigService_Init(this, &aConfigService);
-	MurmurRPC::Wrapper::ContextActionService_Init(this, &aContextActionService);
-	MurmurRPC::Wrapper::DatabaseService_Init(this, &aDatabaseService);
-	MurmurRPC::Wrapper::LogService_Init(this, &aLogService);
-	MurmurRPC::Wrapper::MetaService_Init(this, &aMetaService);
-	MurmurRPC::Wrapper::ServerService_Init(this, &aServerService);
-	MurmurRPC::Wrapper::TextMessageService_Init(this, &aTextMessageService);
-	MurmurRPC::Wrapper::TreeService_Init(this, &aTreeService);
-	MurmurRPC::Wrapper::UserService_Init(this, &aUserService);
-
-	void *tag;
-	bool ok;
-	while (true) {
-		if (!mCQ->Next(&tag, &ok)) {
-			break;
-		}
-		if (tag != nullptr) {
-			auto op = static_cast<boost::function<void(bool)> *>(tag);
-			(*op)(ok);
-			delete op;
-		}
-	}
-	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
 // TODO(grpc): ensure that all implementation methods are using the correct
@@ -268,6 +225,48 @@ template <>
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel id");
 	}
 	return MustChannel(server, msg.id());
+}
+
+void MurmurRPCImpl::customEvent(QEvent *evt) {
+	if (evt->type() == EXEC_QEVENT) {
+		auto event = static_cast<RPCExecEvent *>(evt);
+		try {
+			event->execute();
+		} catch (::grpc::Status &ex) {
+			event->call->error(ex);
+		}
+	}
+}
+
+void MurmurRPCImpl::run() {
+	MurmurRPC::Wrapper::ACLService_Init(this, &aACLService);
+	MurmurRPC::Wrapper::AudioService_Init(this, &aAudioService);
+	MurmurRPC::Wrapper::AuthenticatorService_Init(this, &aAuthenticatorService);
+	MurmurRPC::Wrapper::BanService_Init(this, &aBanService);
+	MurmurRPC::Wrapper::ChannelService_Init(this, &aChannelService);
+	MurmurRPC::Wrapper::ConfigService_Init(this, &aConfigService);
+	MurmurRPC::Wrapper::ContextActionService_Init(this, &aContextActionService);
+	MurmurRPC::Wrapper::DatabaseService_Init(this, &aDatabaseService);
+	MurmurRPC::Wrapper::LogService_Init(this, &aLogService);
+	MurmurRPC::Wrapper::MetaService_Init(this, &aMetaService);
+	MurmurRPC::Wrapper::ServerService_Init(this, &aServerService);
+	MurmurRPC::Wrapper::TextMessageService_Init(this, &aTextMessageService);
+	MurmurRPC::Wrapper::TreeService_Init(this, &aTreeService);
+	MurmurRPC::Wrapper::UserService_Init(this, &aUserService);
+
+	void *tag;
+	bool ok;
+	while (true) {
+		if (!mCQ->Next(&tag, &ok)) {
+			break;
+		}
+		if (tag != nullptr) {
+			auto op = static_cast<boost::function<void(bool)> *>(tag);
+			(*op)(ok);
+			delete op;
+		}
+	}
+	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -543,17 +542,13 @@ void ContextActionService_Remove::impl(bool) {
 }
 
 void ContextActionService_Events::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
-	/*
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
 	}
 
-	auto listener = new ::MurmurRPCImpl::ContextActionListener(response);
-	service->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), listener);
-	*/
+	rpc->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), this);
 }
 
 void TextMessageService_Send::impl(bool) {
