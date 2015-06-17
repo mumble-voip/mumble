@@ -266,6 +266,11 @@ struct ServerService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
+	::boost::function<void(bool)> *callback(::boost::function<void(ServerService_Events *, bool)> cb) {
+		auto fn = ::boost::bind(&ServerService_Events::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
 	void error(::grpc::Status &err) {
 		response.Finish(err, this->done());
 	}
@@ -281,6 +286,13 @@ struct ServerService_Events : public RPCCall {
 		auto fn = ::boost::bind(&ServerService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void(ServerService_Events *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 };
 void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
@@ -395,6 +407,11 @@ struct MetaService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
+	::boost::function<void(bool)> *callback(::boost::function<void(MetaService_Events *, bool)> cb) {
+		auto fn = ::boost::bind(&MetaService_Events::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
 	void error(::grpc::Status &err) {
 		response.Finish(err, this->done());
 	}
@@ -410,6 +427,13 @@ struct MetaService_Events : public RPCCall {
 		auto fn = ::boost::bind(&MetaService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void(MetaService_Events *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 };
 void MetaService_Init(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
@@ -520,6 +544,11 @@ struct ContextActionService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
+	::boost::function<void(bool)> *callback(::boost::function<void(ContextActionService_Events *, bool)> cb) {
+		auto fn = ::boost::bind(&ContextActionService_Events::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
 	void error(::grpc::Status &err) {
 		response.Finish(err, this->done());
 	}
@@ -535,6 +564,13 @@ struct ContextActionService_Events : public RPCCall {
 		auto fn = ::boost::bind(&ContextActionService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void(ContextActionService_Events *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 };
 void ContextActionService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
