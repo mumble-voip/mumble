@@ -4,1258 +4,1616 @@
 namespace MurmurRPC {
 namespace Wrapper {
 
-void ServerService_Create_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Create_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next);
 
-void ServerService_Create_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ServerService_Create : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
 
-void ServerService_Create_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *out) {
-	ServerService_Create_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Create_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Create_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Void request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > response;
 
-void ServerService_Create_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Void();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >(context);
-	auto fn = ::boost::bind(ServerService_Create_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestCreate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ServerService_Create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ServerService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ServerService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Create::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ServerService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List > *out) {
-	ServerService_Query_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Query_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ServerService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server_Query();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >(context);
-	auto fn = ::boost::bind(ServerService_Query_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ServerService_Create::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Create::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Create(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Create::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestCreate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ServerService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *response, ::boost::function<void()> *next);
 
-void ServerService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ServerService_Query : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
 
-void ServerService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server > *out) {
-	ServerService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Server_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > response;
 
-void ServerService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >(context);
-	auto fn = ::boost::bind(ServerService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ServerService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ServerService_Start_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Start_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ServerService_Start_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Query::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ServerService_Start_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ServerService_Start_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Start_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Start_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ServerService_Start_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ServerService_Start_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestStart(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ServerService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Query::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Query(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Query::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ServerService_Stop_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Stop_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void ServerService_Stop_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ServerService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
 
-void ServerService_Stop_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ServerService_Stop_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Stop_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Stop_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > response;
 
-void ServerService_Stop_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ServerService_Stop_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestStop(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ServerService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ServerService_Remove_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ServerService_Remove_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ServerService_Remove_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ServerService_Remove_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Remove_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Remove_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ServerService_Remove_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ServerService_Remove_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRemove(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ServerService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Get(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ServerService_Events_Create(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*);
-void ServerService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *response, ::boost::function<void()> *next);
 
-void ServerService_Events_Done(MurmurRPCImpl*, ::MurmurRPC::ServerService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ServerService_Start : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
 
-void ServerService_Events_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *out) {
-	ServerService_Events_Create(impl, service);
-	auto done_fn = ::boost::bind(ServerService_Events_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event >::Finish, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ServerService_Events_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void ServerService_Events_Create(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event >(context);
-	auto fn = ::boost::bind(ServerService_Events_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestEvents(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ServerService_Start(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Start::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ServerService_Start::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Start::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Start(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Start::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestStart(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ServerService_Stop : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ServerService_Stop(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Stop::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ServerService_Stop::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Stop::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Stop(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Stop::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestStop(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ServerService_Remove : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ServerService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ServerService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ServerService_Remove::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ServerService_Remove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ServerService_Remove::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) {
+		auto call = new ServerService_Remove(rpc, service);
+		auto fn = ::boost::bind(&ServerService_Remove::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncService *service) {
-	ServerService_Create_Create(impl, service);
-	ServerService_Query_Create(impl, service);
-	ServerService_Get_Create(impl, service);
-	ServerService_Start_Create(impl, service);
-	ServerService_Stop_Create(impl, service);
-	ServerService_Remove_Create(impl, service);
-	ServerService_Events_Create(impl, service);
-}
-
-void MetaService_GetUptime_Create(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*);
-void MetaService_GetUptime_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *response, ::boost::function<void()> *next);
-
-void MetaService_GetUptime_Done(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
-
-void MetaService_GetUptime_Handle(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime > *out) {
-	MetaService_GetUptime_Create(impl, service);
-	auto done_fn = ::boost::bind(MetaService_GetUptime_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(MetaService_GetUptime_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void MetaService_GetUptime_Create(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Void();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime >(context);
-	auto fn = ::boost::bind(MetaService_GetUptime_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGetUptime(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+	ServerService_Create::create(impl, service);
+	ServerService_Query::create(impl, service);
+	ServerService_Get::create(impl, service);
+	ServerService_Start::create(impl, service);
+	ServerService_Stop::create(impl, service);
+	ServerService_Remove::create(impl, service);
 }
 
 
-void MetaService_GetVersion_Create(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*);
-void MetaService_GetVersion_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version > *response, ::boost::function<void()> *next);
+struct MetaService_GetUptime : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::MetaService::AsyncService *service;
 
-void MetaService_GetVersion_Done(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Void request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Uptime > response;
 
-void MetaService_GetVersion_Handle(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version > *out) {
-	MetaService_GetVersion_Create(impl, service);
-	auto done_fn = ::boost::bind(MetaService_GetVersion_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(MetaService_GetVersion_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	MetaService_GetUptime(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
-void MetaService_GetVersion_Create(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Void();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version >(context);
-	auto fn = ::boost::bind(MetaService_GetVersion_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGetVersion(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&MetaService_GetUptime::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		MetaService_GetUptime::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&MetaService_GetUptime::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) {
+		auto call = new MetaService_GetUptime(rpc, service);
+		auto fn = ::boost::bind(&MetaService_GetUptime::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGetUptime(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void MetaService_Events_Create(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*);
-void MetaService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Event > *response, ::boost::function<void()> *next);
 
-void MetaService_Events_Done(MurmurRPCImpl*, ::MurmurRPC::MetaService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::Event > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct MetaService_GetVersion : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::MetaService::AsyncService *service;
 
-void MetaService_Events_Handle(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::Event > *out) {
-	MetaService_Events_Create(impl, service);
-	auto done_fn = ::boost::bind(MetaService_Events_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Event >::Finish, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(MetaService_Events_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Void request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Version > response;
 
-void MetaService_Events_Create(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Void();
-	auto response = new ::grpc::ServerAsyncWriter< ::MurmurRPC::Event >(context);
-	auto fn = ::boost::bind(MetaService_Events_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestEvents(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	MetaService_GetVersion(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&MetaService_GetVersion::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		MetaService_GetVersion::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&MetaService_GetVersion::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) {
+		auto call = new MetaService_GetVersion(rpc, service);
+		auto fn = ::boost::bind(&MetaService_GetVersion::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGetVersion(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void MetaService_Init(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncService *service) {
-	MetaService_GetUptime_Create(impl, service);
-	MetaService_GetVersion_Create(impl, service);
-	MetaService_Events_Create(impl, service);
-}
-
-void ContextActionService_Add_Create(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*);
-void ContextActionService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
-
-void ContextActionService_Add_Done(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
-
-void ContextActionService_Add_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ContextActionService_Add_Create(impl, service);
-	auto done_fn = ::boost::bind(ContextActionService_Add_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ContextActionService_Add_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void ContextActionService_Add_Create(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ContextAction();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ContextActionService_Add_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestAdd(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+	MetaService_GetUptime::create(impl, service);
+	MetaService_GetVersion::create(impl, service);
 }
 
 
-void ContextActionService_Remove_Create(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*);
-void ContextActionService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+struct ContextActionService_Add : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ContextActionService::AsyncService *service;
 
-void ContextActionService_Remove_Done(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::ContextAction request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void ContextActionService_Remove_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ContextActionService_Remove_Create(impl, service);
-	auto done_fn = ::boost::bind(ContextActionService_Remove_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ContextActionService_Remove_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	ContextActionService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
-void ContextActionService_Remove_Create(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ContextAction();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ContextActionService_Remove_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRemove(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ContextActionService_Add::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ContextActionService_Add::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ContextActionService_Add::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) {
+		auto call = new ContextActionService_Add(rpc, service);
+		auto fn = ::boost::bind(&ContextActionService_Add::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestAdd(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ContextActionService_Events_Create(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*);
-void ContextActionService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::ContextAction *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction > *response, ::boost::function<void()> *next);
 
-void ContextActionService_Events_Done(MurmurRPCImpl*, ::MurmurRPC::ContextActionService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ContextActionService_Remove : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ContextActionService::AsyncService *service;
 
-void ContextActionService_Events_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ContextAction *in, ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction > *out) {
-	ContextActionService_Events_Create(impl, service);
-	auto done_fn = ::boost::bind(ContextActionService_Events_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction >::Finish, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ContextActionService_Events_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::ContextAction request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void ContextActionService_Events_Create(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ContextAction();
-	auto response = new ::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction >(context);
-	auto fn = ::boost::bind(ContextActionService_Events_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestEvents(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ContextActionService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ContextActionService_Remove::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ContextActionService_Remove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ContextActionService_Remove::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) {
+		auto call = new ContextActionService_Remove(rpc, service);
+		auto fn = ::boost::bind(&ContextActionService_Remove::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void ContextActionService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionService::AsyncService *service) {
-	ContextActionService_Add_Create(impl, service);
-	ContextActionService_Remove_Create(impl, service);
-	ContextActionService_Events_Create(impl, service);
+	ContextActionService_Add::create(impl, service);
+	ContextActionService_Remove::create(impl, service);
 }
 
-void TextMessageService_Send_Create(MurmurRPCImpl*, ::MurmurRPC::TextMessageService::AsyncService*);
-void TextMessageService_Send_Impl(::grpc::ServerContext *context, ::MurmurRPC::TextMessage *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void TextMessageService_Send_Done(MurmurRPCImpl*, ::MurmurRPC::TextMessageService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::TextMessage *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct TextMessageService_Send : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::TextMessageService::AsyncService *service;
 
-void TextMessageService_Send_Handle(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::TextMessage *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	TextMessageService_Send_Create(impl, service);
-	auto done_fn = ::boost::bind(TextMessageService_Send_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(TextMessageService_Send_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::TextMessage request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void TextMessageService_Send_Create(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::TextMessage();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(TextMessageService_Send_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestSend(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	TextMessageService_Send(MurmurRPCImpl *rpc, ::MurmurRPC::TextMessageService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&TextMessageService_Send::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		TextMessageService_Send::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&TextMessageService_Send::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::TextMessageService::AsyncService *service) {
+		auto call = new TextMessageService_Send(rpc, service);
+		auto fn = ::boost::bind(&TextMessageService_Send::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestSend(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void TextMessageService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service) {
-	TextMessageService_Send_Create(impl, service);
+	TextMessageService_Send::create(impl, service);
 }
 void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService *service) {
 }
 
-void ConfigService_GetDefault_Create(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*);
-void ConfigService_GetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next);
 
-void ConfigService_GetDefault_Done(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ConfigService_GetDefault : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
 
-void ConfigService_GetDefault_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Void *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *out) {
-	ConfigService_GetDefault_Create(impl, service);
-	auto done_fn = ::boost::bind(ConfigService_GetDefault_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ConfigService_GetDefault_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Void request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
 
-void ConfigService_GetDefault_Create(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Void();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >(context);
-	auto fn = ::boost::bind(ConfigService_GetDefault_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGetDefault(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ConfigService_GetDefault(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ConfigService_SetDefault_Create(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*);
-void ConfigService_SetDefault_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ConfigService_SetDefault_Done(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Config *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_GetDefault::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ConfigService_SetDefault_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Config *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ConfigService_SetDefault_Create(impl, service);
-	auto done_fn = ::boost::bind(ConfigService_SetDefault_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ConfigService_SetDefault_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ConfigService_SetDefault_Create(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Config();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ConfigService_SetDefault_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestSetDefault(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ConfigService_GetDefault::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_GetDefault::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_GetDefault(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_GetDefault::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGetDefault(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ConfigService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*);
-void ConfigService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Config_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *response, ::boost::function<void()> *next);
 
-void ConfigService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::ConfigService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Config_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ConfigService_SetDefault : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
 
-void ConfigService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Config_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config > *out) {
-	ConfigService_Query_Create(impl, service);
-	auto done_fn = ::boost::bind(ConfigService_Query_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ConfigService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Config request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void ConfigService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Config_Query();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >(context);
-	auto fn = ::boost::bind(ConfigService_Query_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ConfigService_SetDefault(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_SetDefault::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ConfigService_SetDefault::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_SetDefault::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_SetDefault(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_SetDefault::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestSetDefault(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ConfigService_Query : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Config_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
+
+	ConfigService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_Query::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ConfigService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_Query::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_Query(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_Query::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
-	ConfigService_GetDefault_Create(impl, service);
-	ConfigService_SetDefault_Create(impl, service);
-	ConfigService_Query_Create(impl, service);
-}
-
-void ChannelService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
-void ChannelService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *response, ::boost::function<void()> *next);
-
-void ChannelService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
-
-void ChannelService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List > *out) {
-	ChannelService_Query_Create(impl, service);
-	auto done_fn = ::boost::bind(ChannelService_Query_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void ChannelService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel_Query();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >(context);
-	auto fn = ::boost::bind(ChannelService_Query_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+	ConfigService_GetDefault::create(impl, service);
+	ConfigService_SetDefault::create(impl, service);
+	ConfigService_Query::create(impl, service);
 }
 
 
-void ChannelService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
-void ChannelService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next);
+struct ChannelService_Query : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ChannelService::AsyncService *service;
 
-void ChannelService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > response;
 
-void ChannelService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	ChannelService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(ChannelService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	ChannelService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
-void ChannelService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >(context);
-	auto fn = ::boost::bind(ChannelService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void impl();
 
+	void finish() {
+		delete this;
+	}
 
-void ChannelService_Add_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
-void ChannelService_Add_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next);
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ChannelService_Query::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ChannelService_Add_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ChannelService_Add_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	ChannelService_Add_Create(impl, service);
-	auto done_fn = ::boost::bind(ChannelService_Add_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Add_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	void handle() {
+		ChannelService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ChannelService_Query::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
 
-void ChannelService_Add_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >(context);
-	auto fn = ::boost::bind(ChannelService_Add_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestAdd(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) {
+		auto call = new ChannelService_Query(rpc, service);
+		auto fn = ::boost::bind(&ChannelService_Query::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ChannelService_Remove_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
-void ChannelService_Remove_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void ChannelService_Remove_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ChannelService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ChannelService::AsyncService *service;
 
-void ChannelService_Remove_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ChannelService_Remove_Create(impl, service);
-	auto done_fn = ::boost::bind(ChannelService_Remove_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Remove_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
 
-void ChannelService_Remove_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ChannelService_Remove_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRemove(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ChannelService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ChannelService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ChannelService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ChannelService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) {
+		auto call = new ChannelService_Get(rpc, service);
+		auto fn = ::boost::bind(&ChannelService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ChannelService_Update_Create(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*);
-void ChannelService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *response, ::boost::function<void()> *next);
 
-void ChannelService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::ChannelService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ChannelService_Add : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ChannelService::AsyncService *service;
 
-void ChannelService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel > *out) {
-	ChannelService_Update_Create(impl, service);
-	auto done_fn = ::boost::bind(ChannelService_Update_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ChannelService_Update_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
 
-void ChannelService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >(context);
-	auto fn = ::boost::bind(ChannelService_Update_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestUpdate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ChannelService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ChannelService_Add::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ChannelService_Add::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ChannelService_Add::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) {
+		auto call = new ChannelService_Add(rpc, service);
+		auto fn = ::boost::bind(&ChannelService_Add::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestAdd(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ChannelService_Remove : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ChannelService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ChannelService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ChannelService_Remove::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ChannelService_Remove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ChannelService_Remove::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) {
+		auto call = new ChannelService_Remove(rpc, service);
+		auto fn = ::boost::bind(&ChannelService_Remove::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ChannelService_Update : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ChannelService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
+
+	ChannelService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ChannelService_Update::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ChannelService_Update::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ChannelService_Update::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) {
+		auto call = new ChannelService_Update(rpc, service);
+		auto fn = ::boost::bind(&ChannelService_Update::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
-	ChannelService_Query_Create(impl, service);
-	ChannelService_Get_Create(impl, service);
-	ChannelService_Add_Create(impl, service);
-	ChannelService_Remove_Create(impl, service);
-	ChannelService_Update_Create(impl, service);
-}
-
-void UserService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
-void UserService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::User_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *response, ::boost::function<void()> *next);
-
-void UserService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
-
-void UserService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List > *out) {
-	UserService_Query_Create(impl, service);
-	auto done_fn = ::boost::bind(UserService_Query_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(UserService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void UserService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::User_Query();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >(context);
-	auto fn = ::boost::bind(UserService_Query_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
+	ChannelService_Query::create(impl, service);
+	ChannelService_Get::create(impl, service);
+	ChannelService_Add::create(impl, service);
+	ChannelService_Remove::create(impl, service);
+	ChannelService_Update::create(impl, service);
 }
 
 
-void UserService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
-void UserService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next);
+struct UserService_Query : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::UserService::AsyncService *service;
 
-void UserService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::User_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > response;
 
-void UserService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *out) {
-	UserService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(UserService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(UserService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	UserService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
-void UserService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >(context);
-	auto fn = ::boost::bind(UserService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void impl();
 
+	void finish() {
+		delete this;
+	}
 
-void UserService_Update_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
-void UserService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *response, ::boost::function<void()> *next);
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&UserService_Query::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void UserService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void UserService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User > *out) {
-	UserService_Update_Create(impl, service);
-	auto done_fn = ::boost::bind(UserService_Update_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(UserService_Update_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	void handle() {
+		UserService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&UserService_Query::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
 
-void UserService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >(context);
-	auto fn = ::boost::bind(UserService_Update_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestUpdate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) {
+		auto call = new UserService_Query(rpc, service);
+		auto fn = ::boost::bind(&UserService_Query::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void UserService_Kick_Create(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*);
-void UserService_Kick_Impl(::grpc::ServerContext *context, ::MurmurRPC::User_Kick *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void UserService_Kick_Done(MurmurRPCImpl*, ::MurmurRPC::UserService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User_Kick *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct UserService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::UserService::AsyncService *service;
 
-void UserService_Kick_Handle(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User_Kick *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	UserService_Kick_Create(impl, service);
-	auto done_fn = ::boost::bind(UserService_Kick_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(UserService_Kick_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::User request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > response;
 
-void UserService_Kick_Create(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::User_Kick();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(UserService_Kick_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestKick(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	UserService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&UserService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		UserService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&UserService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) {
+		auto call = new UserService_Get(rpc, service);
+		auto fn = ::boost::bind(&UserService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct UserService_Update : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::UserService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::User request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > response;
+
+	UserService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&UserService_Update::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		UserService_Update::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&UserService_Update::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) {
+		auto call = new UserService_Update(rpc, service);
+		auto fn = ::boost::bind(&UserService_Update::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct UserService_Kick : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::UserService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::User_Kick request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	UserService_Kick(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&UserService_Kick::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		UserService_Kick::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&UserService_Kick::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) {
+		auto call = new UserService_Kick(rpc, service);
+		auto fn = ::boost::bind(&UserService_Kick::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestKick(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
-	UserService_Query_Create(impl, service);
-	UserService_Get_Create(impl, service);
-	UserService_Update_Create(impl, service);
-	UserService_Kick_Create(impl, service);
+	UserService_Query::create(impl, service);
+	UserService_Get::create(impl, service);
+	UserService_Update::create(impl, service);
+	UserService_Kick::create(impl, service);
 }
 
-void TreeService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::TreeService::AsyncService*);
-void TreeService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *response, ::boost::function<void()> *next);
 
-void TreeService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::TreeService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct TreeService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::TreeService::AsyncService *service;
 
-void TreeService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Server *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree > *out) {
-	TreeService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(TreeService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(TreeService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > response;
 
-void TreeService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Server();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree >(context);
-	auto fn = ::boost::bind(TreeService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	TreeService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&TreeService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		TreeService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&TreeService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) {
+		auto call = new TreeService_Get(rpc, service);
+		auto fn = ::boost::bind(&TreeService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
-	TreeService_Get_Create(impl, service);
+	TreeService_Get::create(impl, service);
 }
 void BanService_Init(MurmurRPCImpl *impl, ::MurmurRPC::BanService::AsyncService *service) {
 }
 
-void ACLService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*);
-void ACLService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::Channel *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List > *response, ::boost::function<void()> *next);
 
-void ACLService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ACLService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ACLService::AsyncService *service;
 
-void ACLService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::Channel *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List > *out) {
-	ACLService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(ACLService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ACLService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::Channel request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > response;
 
-void ACLService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::Channel();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List >(context);
-	auto fn = ::boost::bind(ACLService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ACLService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ACLService_Set_Create(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*);
-void ACLService_Set_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL_List *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ACLService_Set_Done(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ACL_List *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ACLService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ACLService_Set_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ACL_List *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ACLService_Set_Create(impl, service);
-	auto done_fn = ::boost::bind(ACLService_Set_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ACLService_Set_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ACLService_Set_Create(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ACL_List();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ACLService_Set_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestSet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ACLService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ACLService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) {
+		auto call = new ACLService_Get(rpc, service);
+		auto fn = ::boost::bind(&ACLService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ACLService_GetEffectivePermissions_Create(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*);
-void ACLService_GetEffectivePermissions_Impl(::grpc::ServerContext *context, ::MurmurRPC::User *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL > *response, ::boost::function<void()> *next);
 
-void ACLService_GetEffectivePermissions_Done(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ACLService_Set : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ACLService::AsyncService *service;
 
-void ACLService_GetEffectivePermissions_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::User *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL > *out) {
-	ACLService_GetEffectivePermissions_Create(impl, service);
-	auto done_fn = ::boost::bind(ACLService_GetEffectivePermissions_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ACLService_GetEffectivePermissions_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::ACL_List request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void ACLService_GetEffectivePermissions_Create(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::User();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL >(context);
-	auto fn = ::boost::bind(ACLService_GetEffectivePermissions_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGetEffectivePermissions(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ACLService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void ACLService_AddTemporaryGroup_Create(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*);
-void ACLService_AddTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void ACLService_AddTemporaryGroup_Done(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ACLService_Set::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void ACLService_AddTemporaryGroup_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ACLService_AddTemporaryGroup_Create(impl, service);
-	auto done_fn = ::boost::bind(ACLService_AddTemporaryGroup_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ACLService_AddTemporaryGroup_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void ACLService_AddTemporaryGroup_Create(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ACL_TemporaryGroup();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ACLService_AddTemporaryGroup_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestAddTemporaryGroup(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		ACLService_Set::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ACLService_Set::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) {
+		auto call = new ACLService_Set(rpc, service);
+		auto fn = ::boost::bind(&ACLService_Set::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestSet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void ACLService_RemoveTemporaryGroup_Create(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*);
-void ACLService_RemoveTemporaryGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void ACLService_RemoveTemporaryGroup_Done(MurmurRPCImpl*, ::MurmurRPC::ACLService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct ACLService_GetEffectivePermissions : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ACLService::AsyncService *service;
 
-void ACLService_RemoveTemporaryGroup_Handle(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::ACL_TemporaryGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	ACLService_RemoveTemporaryGroup_Create(impl, service);
-	auto done_fn = ::boost::bind(ACLService_RemoveTemporaryGroup_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(ACLService_RemoveTemporaryGroup_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::User request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > response;
 
-void ACLService_RemoveTemporaryGroup_Create(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::ACL_TemporaryGroup();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(ACLService_RemoveTemporaryGroup_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRemoveTemporaryGroup(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ACLService_GetEffectivePermissions::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ACLService_GetEffectivePermissions::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ACLService_GetEffectivePermissions::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) {
+		auto call = new ACLService_GetEffectivePermissions(rpc, service);
+		auto fn = ::boost::bind(&ACLService_GetEffectivePermissions::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGetEffectivePermissions(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ACLService_AddTemporaryGroup : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ACLService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::ACL_TemporaryGroup request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ACLService_AddTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ACLService_AddTemporaryGroup::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ACLService_AddTemporaryGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ACLService_AddTemporaryGroup::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) {
+		auto call = new ACLService_AddTemporaryGroup(rpc, service);
+		auto fn = ::boost::bind(&ACLService_AddTemporaryGroup::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestAddTemporaryGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct ACLService_RemoveTemporaryGroup : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ACLService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::ACL_TemporaryGroup request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ACLService_RemoveTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&ACLService_RemoveTemporaryGroup::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		ACLService_RemoveTemporaryGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ACLService_RemoveTemporaryGroup::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) {
+		auto call = new ACLService_RemoveTemporaryGroup(rpc, service);
+		auto fn = ::boost::bind(&ACLService_RemoveTemporaryGroup::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRemoveTemporaryGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void ACLService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
-	ACLService_Get_Create(impl, service);
-	ACLService_Set_Create(impl, service);
-	ACLService_GetEffectivePermissions_Create(impl, service);
-	ACLService_AddTemporaryGroup_Create(impl, service);
-	ACLService_RemoveTemporaryGroup_Create(impl, service);
+	ACLService_Get::create(impl, service);
+	ACLService_Set::create(impl, service);
+	ACLService_GetEffectivePermissions::create(impl, service);
+	ACLService_AddTemporaryGroup::create(impl, service);
+	ACLService_RemoveTemporaryGroup::create(impl, service);
 }
-
-void AuthenticatorService_Stream_Create(MurmurRPCImpl*, ::MurmurRPC::AuthenticatorService::AsyncService*);
-void AuthenticatorService_Stream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next);
-
-void AuthenticatorService_Stream_Done(MurmurRPCImpl*, ::MurmurRPC::AuthenticatorService::AsyncService*, ::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream) {
-	delete context;
-	delete stream;
-}
-
-void AuthenticatorService_Stream_Handle(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service, ::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream) {
-	AuthenticatorService_Stream_Create(impl, service);
-	auto done_fn = ::boost::bind(AuthenticatorService_Stream_Done, impl, service, context, stream);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, stream, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(AuthenticatorService_Stream_Impl, context, stream, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void AuthenticatorService_Stream_Create(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto stream = new ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >(context);
-	auto fn = ::boost::bind(AuthenticatorService_Stream_Handle, impl, service, context, stream);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestStream(context, stream, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
-
-
-void AuthenticatorService_RegistrationStream_Create(MurmurRPCImpl*, ::MurmurRPC::AuthenticatorService::AsyncService*);
-void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next);
-
-void AuthenticatorService_RegistrationStream_Done(MurmurRPCImpl*, ::MurmurRPC::AuthenticatorService::AsyncService*, ::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream) {
-	delete context;
-	delete stream;
-}
-
-void AuthenticatorService_RegistrationStream_Handle(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service, ::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream) {
-	AuthenticatorService_RegistrationStream_Create(impl, service);
-	auto done_fn = ::boost::bind(AuthenticatorService_RegistrationStream_Done, impl, service, context, stream);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, stream, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(AuthenticatorService_RegistrationStream_Impl, context, stream, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void AuthenticatorService_RegistrationStream_Create(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto stream = new ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >(context);
-	auto fn = ::boost::bind(AuthenticatorService_RegistrationStream_Handle, impl, service, context, stream);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRegistrationStream(context, stream, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
-
 void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
-	AuthenticatorService_Stream_Create(impl, service);
-	AuthenticatorService_RegistrationStream_Create(impl, service);
-}
-
-void DatabaseService_Query_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Query_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Query *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List > *response, ::boost::function<void()> *next);
-
-void DatabaseService_Query_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
-
-void DatabaseService_Query_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Query *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List > *out) {
-	DatabaseService_Query_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Query_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Query_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
-
-void DatabaseService_Query_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser_Query();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List >(context);
-	auto fn = ::boost::bind(DatabaseService_Query_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestQuery(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
 }
 
 
-void DatabaseService_Get_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Get_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
+struct DatabaseService_Query : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
 
-void DatabaseService_Get_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > response;
 
-void DatabaseService_Get_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	DatabaseService_Get_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Get_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Get_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	DatabaseService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
-void DatabaseService_Get_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
-	auto fn = ::boost::bind(DatabaseService_Get_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestGet(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void impl();
 
+	void finish() {
+		delete this;
+	}
 
-void DatabaseService_Update_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Update_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Query::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void DatabaseService_Update_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void DatabaseService_Update_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	DatabaseService_Update_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Update_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Update_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	void handle() {
+		DatabaseService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Query::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
 
-void DatabaseService_Update_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(DatabaseService_Update_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestUpdate(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Query(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Query::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void DatabaseService_Register_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Register_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Register_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct DatabaseService_Get : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
 
-void DatabaseService_Register_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	DatabaseService_Register_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Register_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Register_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
 
-void DatabaseService_Register_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
-	auto fn = ::boost::bind(DatabaseService_Register_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestRegister(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	DatabaseService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
 
+	void impl();
 
-void DatabaseService_Deregister_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Deregister_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
+	void finish() {
+		delete this;
+	}
 
-void DatabaseService_Deregister_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Get::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
 
-void DatabaseService_Deregister_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	DatabaseService_Deregister_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Deregister_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Deregister_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
 
-void DatabaseService_Deregister_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(DatabaseService_Deregister_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestDeregister(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	void handle() {
+		DatabaseService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Get::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Get(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Get::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 
-void DatabaseService_Verify_Create(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*);
-void DatabaseService_Verify_Impl(::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *response, ::boost::function<void()> *next);
 
-void DatabaseService_Verify_Done(MurmurRPCImpl*, ::MurmurRPC::DatabaseService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct DatabaseService_Update : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
 
-void DatabaseService_Verify_Handle(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::DatabaseUser_Verify *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser > *out) {
-	DatabaseService_Verify_Create(impl, service);
-	auto done_fn = ::boost::bind(DatabaseService_Verify_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(DatabaseService_Verify_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void DatabaseService_Verify_Create(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::DatabaseUser_Verify();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >(context);
-	auto fn = ::boost::bind(DatabaseService_Verify_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestVerify(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	DatabaseService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Update::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		DatabaseService_Update::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Update::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Update(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Update::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct DatabaseService_Register : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
+
+	DatabaseService_Register(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Register::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		DatabaseService_Register::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Register::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Register(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Register::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestRegister(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct DatabaseService_Deregister : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	DatabaseService_Deregister(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Deregister::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		DatabaseService_Deregister::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Deregister::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Deregister(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Deregister::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestDeregister(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+
+
+struct DatabaseService_Verify : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::DatabaseService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::DatabaseUser_Verify request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
+
+	DatabaseService_Verify(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&DatabaseService_Verify::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		DatabaseService_Verify::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&DatabaseService_Verify::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) {
+		auto call = new DatabaseService_Verify(rpc, service);
+		auto fn = ::boost::bind(&DatabaseService_Verify::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestVerify(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
-	DatabaseService_Query_Create(impl, service);
-	DatabaseService_Get_Create(impl, service);
-	DatabaseService_Update_Create(impl, service);
-	DatabaseService_Register_Create(impl, service);
-	DatabaseService_Deregister_Create(impl, service);
-	DatabaseService_Verify_Create(impl, service);
+	DatabaseService_Query::create(impl, service);
+	DatabaseService_Get::create(impl, service);
+	DatabaseService_Update::create(impl, service);
+	DatabaseService_Register::create(impl, service);
+	DatabaseService_Deregister::create(impl, service);
+	DatabaseService_Verify::create(impl, service);
 }
 
-void AudioService_SetRedirectWhisperGroup_Create(MurmurRPCImpl*, ::MurmurRPC::AudioService::AsyncService*);
-void AudioService_SetRedirectWhisperGroup_Impl(::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *request, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *response, ::boost::function<void()> *next);
 
-void AudioService_SetRedirectWhisperGroup_Done(MurmurRPCImpl*, ::MurmurRPC::AudioService::AsyncService*, ::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct AudioService_SetRedirectWhisperGroup : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::AudioService::AsyncService *service;
 
-void AudioService_SetRedirectWhisperGroup_Handle(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service, ::grpc::ServerContext *context, ::MurmurRPC::RedirectWhisperGroup *in, ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void > *out) {
-	AudioService_SetRedirectWhisperGroup_Create(impl, service);
-	auto done_fn = ::boost::bind(AudioService_SetRedirectWhisperGroup_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind(AudioService_SetRedirectWhisperGroup_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::MurmurRPC::RedirectWhisperGroup request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
 
-void AudioService_SetRedirectWhisperGroup_Create(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::MurmurRPC::RedirectWhisperGroup();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >(context);
-	auto fn = ::boost::bind(AudioService_SetRedirectWhisperGroup_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->RequestSetRedirectWhisperGroup(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	AudioService_SetRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&AudioService_SetRedirectWhisperGroup::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		AudioService_SetRedirectWhisperGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&AudioService_SetRedirectWhisperGroup::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) {
+		auto call = new AudioService_SetRedirectWhisperGroup(rpc, service);
+		auto fn = ::boost::bind(&AudioService_SetRedirectWhisperGroup::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->RequestSetRedirectWhisperGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 void AudioService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service) {
-	AudioService_SetRedirectWhisperGroup_Create(impl, service);
+	AudioService_SetRedirectWhisperGroup::create(impl, service);
 }
 
 }
