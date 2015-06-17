@@ -351,7 +351,7 @@ void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::Dat
 	}
 }
 
-void FromRPC(::MurmurRPC::DatabaseUser &du, QMap<int, QString> &info) {
+void FromRPC(const ::MurmurRPC::DatabaseUser &du, QMap<int, QString> &info) {
 	if (du.has_name()) {
 		info.insert(::ServerDB::User_Name, u8(du.name()));
 	}
@@ -470,7 +470,7 @@ void ServerService_Remove::impl() {
 	response.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Server *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event > *response, ::boost::function<void()> *next) {
+void ServerService_Events::impl() {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
@@ -490,7 +490,7 @@ void MetaService_GetVersion::impl() {
 	response.Finish(version, ::grpc::Status::OK, done());
 }
 
-void MetaService_Events_Impl(::grpc::ServerContext *context, ::MurmurRPC::Void *request, ::grpc::ServerAsyncWriter< ::MurmurRPC::Event > *response, ::boost::function<void()> *next) {
+void MetaService_Events::impl() {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
@@ -544,18 +544,19 @@ void ContextActionService_Remove::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-/*
 void ContextActionService_Events::impl() {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	/*
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
 	}
 
-	auto listener = new ::MurmurRPCImpl::ContextActionListener(response, next);
+	auto listener = new ::MurmurRPCImpl::ContextActionListener(response);
 	service->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), listener);
+	*/
 }
-*/
 
 void TextMessageService_Send::impl() {
 	auto server = MustServer(request);
@@ -1014,11 +1015,11 @@ void ACLService_RemoveTemporaryGroup::impl() {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void AuthenticatorService_Stream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next) {
+void AuthenticatorService_Stream::impl() {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void AuthenticatorService_RegistrationStream_Impl(::grpc::ServerContext *context, ::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > *stream, ::boost::function<void()> *next) {
+void AuthenticatorService_RegistrationStream::impl() {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
