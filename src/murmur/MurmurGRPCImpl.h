@@ -47,7 +47,7 @@
 
 struct RPCCall {
 	virtual ::boost::function<void(bool)> *done() = 0;
-	virtual ::boost::function<void(::grpc::Status&)> *error() = 0;
+	virtual void error(::grpc::Status&) = 0;
 };
 
 class RPCExecEvent : public ExecEvent {
