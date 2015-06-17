@@ -110,6 +110,11 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
+	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
+		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
 	void error(::grpc::Status &err) {
 		response.Finish(err, this->done());
 	}
@@ -125,6 +130,13 @@ struct $service$_$method$ : public RPCCall {
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void($service$_$method$ *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 };
 )";
