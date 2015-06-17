@@ -39,6 +39,7 @@ struct FavoriteServer {
 	QString qsPassword;
 	QString qsHostname;
 	QString qsUrl;
+	QString qsIdleChannel;
 	unsigned short usPort;
 };
 

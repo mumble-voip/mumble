@@ -152,6 +152,8 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		QString qsUrl;
 
+		QString qsIdleChannel;
+
 		QString qsBonjourHost;
 		BonjourRecord brRecord;
 
@@ -161,7 +163,7 @@ class ServerItem : public QTreeWidgetItem, public PingStats {
 
 		ServerItem(const FavoriteServer &fs);
 		ServerItem(const PublicInfo &pi);
-		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString());
+		ServerItem(const QString &name, const QString &host, unsigned short port, const QString &uname, const QString &password = QString(), const QString &qsIdleChannel = QString());
 		ServerItem(const BonjourRecord &br);
 		ServerItem(const QString &name, ItemType itype, const QString &continent = QString(), const QString &country = QString());
 		ServerItem(const ServerItem *si);
@@ -215,7 +217,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		void on_qleName_textEdited(const QString&);
 		void on_qleServer_textEdited(const QString&);
 	public:
-		QString qsName, qsHostname, qsUsername, qsPassword;
+		QString qsName, qsHostname, qsUsername, qsPassword, qsIdleChannel;
 		unsigned short usPort;
 		ConnectDialogEdit(QWidget *parent,
 		                  const QString &name = QString(),
@@ -223,6 +225,7 @@ class ConnectDialogEdit : public QDialog, protected Ui::ConnectDialogEdit {
 		                  const QString &user = QString(),
 		                  unsigned short port = DEFAULT_MUMBLE_PORT,
 		                  const QString &password = QString(),
+				  const QString &idleChannel = QString(),
 		                  bool add = false);
 };
 

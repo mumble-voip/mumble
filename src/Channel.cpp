@@ -34,10 +34,13 @@
 #include "User.h"
 #include "Group.h"
 #include "ACL.h"
+#include "Global.h"
 
 #ifdef MUMBLE
 QHash<int, Channel *> Channel::c_qhChannels;
 QReadWriteLock Channel::c_qrwlChannels;
+QString Channel::qsIdleChannel;
+Channel *Channel::cIdleChannel;
 #endif
 
 Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
@@ -58,14 +61,17 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 Channel::~Channel() {
 	if (cParent)
 		cParent->removeChannel(this);
-
+#ifdef MUMBLE
+	if (this == cIdleChannel)
+		cIdleChannel = NULL;
+#endif
 	foreach(Channel *c, qlChannels)
 		delete c;
 
 	foreach(ChanACL *acl, qlACL)
 		delete acl;
-	foreach(Group *g, qhGroups)
-		delete g;
+	foreach(Group *grp, qhGroups)
+		delete grp;
 	foreach(Channel *l, qhLinks.keys())
 		unlink(l);
 
@@ -90,14 +96,17 @@ Channel *Channel::get(const QString &path) {
 	}
 
 	while (traversed < depth) {
+		bool found = false;
 		foreach (Channel *child, cur->qlChannels) {
 			if (child->qsName == channelsInPath.value(traversed)) {
 				cur = child;
 				traversed++;
+				found = true;
 				break;
 			}
-			return NULL;
 		}
+		if (!found)
+			return NULL;
 	}
 	return cur;
 }
@@ -248,6 +257,10 @@ size_t Channel::getDepth() const {
 QString Channel::getPath() const {
 	QString out;
 
+	//Return '/' for root
+	if (this->iId == 0)
+		return QString::fromLatin1("/");
+
 	const Channel *tmp = this;
 	while (tmp->cParent) {
 		// Skip the root channel.
@@ -255,11 +268,23 @@ QString Channel::getPath() const {
 			break;
 		}
 
-		out.prepend(QString::fromLatin1("/"));
 		out.prepend(tmp->qsName);
+		out.prepend(QString::fromLatin1("/"));
 
 		tmp = tmp->cParent;
 	}
 
 	return out;
 }
+
+#ifdef MUMBLE
+Channel *Channel::getIdleChannel() {
+	//If the idle channel pointer is already set, use it instead of scanning the tree again
+	if (cIdleChannel != NULL)
+		return cIdleChannel;
+	else
+		cIdleChannel = get(qsIdleChannel);
+
+	return cIdleChannel;
+}
+#endif

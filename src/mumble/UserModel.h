@@ -93,7 +93,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiPrioritySpeaker;
 		QIcon qiRecording;
 		QIcon qiDeafenedSelf, qiDeafenedServer;
-		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
+		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel, qiIdleChannel;
 		QIcon qiFriend;
 		QIcon qiComment, qiCommentSeen, qiFilter;
 		ModelItem *miRoot;

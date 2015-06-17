@@ -232,6 +232,7 @@ UserModel::UserModel(QObject *p) : QAbstractItemModel(p) {
 	qiChannel=QIcon(QLatin1String("skin:channel.svg"));
 	qiActiveChannel=QIcon(QLatin1String("skin:channel_active.svg"));
 	qiLinkedChannel=QIcon(QLatin1String("skin:channel_linked.svg"));
+	qiIdleChannel=QIcon(QLatin1String("skin:Zzz_sleep.svg"));
 	qiFriend=QIcon(QLatin1String("skin:emblems/emblem-favorite.svg"));
 	qiComment=QIcon(QLatin1String("skin:comment.svg"));
 	qiCommentSeen=QIcon(QLatin1String("skin:comment_seen.svg"));
@@ -453,6 +454,9 @@ QVariant UserModel::data(const QModelIndex &idx, int role) const {
 
 				if (c->bFiltered)
 					l << (qiFilter);
+
+				if (c == Channel::getIdleChannel())
+					l << (qiIdleChannel);
 
 				return l;
 			case Qt::FontRole:
@@ -1259,6 +1263,7 @@ void UserModel::removeAll() {
 	}
 
 	qsLinked.clear();
+	Channel::cIdleChannel = NULL;
 
 	updateOverlay();
 }

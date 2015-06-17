@@ -133,8 +133,9 @@ Database::Database() {
 
 	QSqlQuery query;
 
-	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `servers` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `hostname` TEXT, `port` INTEGER DEFAULT " MUMTEXT(DEFAULT_MUMBLE_PORT) ", `username` TEXT, `password` TEXT, `idleChannel` TEXT)"));
 	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `url` TEXT")); // Upgrade path, failing this query is not noteworthy
+	query.exec(QLatin1String("ALTER TABLE `servers` ADD COLUMN `idleChannel` TEXT"));
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `comments` (`who` TEXT, `comment` BLOB, `seen` DATE)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `comments_comment` ON `comments`(`who`, `comment`)"));
@@ -201,7 +202,7 @@ QList<FavoriteServer> Database::getFavorites() {
 	QSqlQuery query;
 	QList<FavoriteServer> ql;
 
-	query.prepare(QLatin1String("SELECT `name`, `hostname`, `port`, `username`, `password`, `url` FROM `servers` ORDER BY `name`"));
+	query.prepare(QLatin1String("SELECT `name`, `hostname`, `port`, `username`, `password`, `url`, `idleChannel` FROM `servers` ORDER BY `name`"));
 	execQueryAndLogFailure(query);
 
 	while (query.next()) {
@@ -212,6 +213,7 @@ QList<FavoriteServer> Database::getFavorites() {
 		fs.qsUsername = query.value(3).toString();
 		fs.qsPassword = query.value(4).toString();
 		fs.qsUrl = query.value(5).toString();
+		fs.qsIdleChannel = query.value(6).toString();
 		ql << fs;
 	}
 	return ql;
@@ -224,7 +226,7 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 	query.prepare(QLatin1String("DELETE FROM `servers`"));
 	execQueryAndLogFailure(query);
 
-	query.prepare(QLatin1String("REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`) VALUES (?,?,?,?,?,?)"));
+	query.prepare(QLatin1String("REPLACE INTO `servers` (`name`, `hostname`, `port`, `username`, `password`, `url`, `idleChannel`) VALUES (?,?,?,?,?,?,?)"));
 	foreach(const FavoriteServer &s, servers) {
 		query.addBindValue(s.qsName);
 		query.addBindValue(s.qsHostname);
@@ -232,6 +234,7 @@ void Database::setFavorites(const QList<FavoriteServer> &servers) {
 		query.addBindValue(s.qsUsername);
 		query.addBindValue(s.qsPassword);
 		query.addBindValue(s.qsUrl);
+		query.addBindValue(s.qsIdleChannel);
 		execQueryAndLogFailure(query);
 	}
 

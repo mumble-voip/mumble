@@ -78,6 +78,10 @@ class Channel : public QObject {
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;
 
+		static QString qsIdleChannel;
+		static Channel *cIdleChannel;
+
+		static Channel *getIdleChannel();
 		static Channel *get(int);
 		static Channel *get(const QString &);
 		static Channel *add(int, const QString &);
@@ -99,6 +103,8 @@ class Channel : public QObject {
 		bool isLinked(Channel *c) const;
 		void link(Channel *c);
 		void unlink(Channel *c = NULL);
+
+		bool isIdleChannel() const;
 
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();
