@@ -45,12 +45,16 @@
 #include <grpc++/server_credentials.h>
 #include <grpc++/status.h>
 
+struct RPCCall {
+	virtual ::boost::function<void()> *done() = 0;
+	virtual ::boost::function<void(::grpc::Status&)> *error() = 0;
+};
+
 class RPCExecEvent : public ExecEvent {
 	Q_DISABLE_COPY(RPCExecEvent);
 public:
-	::boost::function<void(::grpc::Status&)> *Error;
-	::boost::function<void()> *Next;
-	RPCExecEvent(boost::function<void ()> fn, ::boost::function<void(::grpc::Status&)> *error, ::boost::function<void()> *next) : ExecEvent(fn), Error(error), Next(next) {
+	RPCCall *call;
+	RPCExecEvent(boost::function<void ()> fn, RPCCall *call) : ExecEvent(fn), call(call) {
 	}
 };
 
