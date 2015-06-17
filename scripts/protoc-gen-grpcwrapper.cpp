@@ -46,33 +46,47 @@ using namespace google::protobuf::compiler;
 using namespace google::protobuf::io;
 
 const char *CSingle_SSingle = R"(
-void $service$_$method$_Create(MurmurRPCImpl*, ::$ns$::$service$::AsyncService*);
-void $service$_$method$_Impl(::grpc::ServerContext *context, ::$in$ *request, ::grpc::ServerAsyncResponseWriter< ::$out$ > *response, ::boost::function<void()> *next);
 
-void $service$_$method$_Done(MurmurRPCImpl*, ::$ns$::$service$::AsyncService*, ::grpc::ServerContext *context, ::$in$ *in, ::grpc::ServerAsyncResponseWriter< ::$out$ > *out) {
-	delete context;
-	delete in;
-	delete out;
-}
+struct $service$_$method$ : public RPCCall {
+	MurmurRPCImpl *rpc;
+	::$ns$::$service$::AsyncService *service;
 
-void $service$_$method$_Handle(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service, ::grpc::ServerContext *context, ::$in$ *in, ::grpc::ServerAsyncResponseWriter< ::$out$ > *out) {
-	$service$_$method$_Create(impl, service);
-	auto done_fn = ::boost::bind($service$_$method$_Done, impl, service, context, in, out);
-	auto done_fn_ptr = new ::boost::function<void()>(done_fn);
-	auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::$out$ >::FinishWithError, out, _1, done_fn_ptr);
-	auto error_fn_ptr = new ::boost::function<void(::grpc::Status&)>(error_fn);
-	auto ie = new RPCExecEvent(::boost::bind($service$_$method$_Impl, context, in, out, done_fn_ptr), error_fn_ptr, done_fn_ptr);
-	QCoreApplication::instance()->postEvent(impl, ie);
-}
+	::grpc::ServerContext context;
+	::$in$ request;
+	::grpc::ServerAsyncResponseWriter < ::$out$ > response;
 
-void $service$_$method$_Create(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service) {
-	auto context = new ::grpc::ServerContext();
-	auto request = new ::$in$();
-	auto response = new ::grpc::ServerAsyncResponseWriter< ::$out$ >(context);
-	auto fn = ::boost::bind($service$_$method$_Handle, impl, service, context, request, response);
-	auto fn_ptr = new ::boost::function<void()>(fn);
-	service->Request$method$(context, request, response, impl->mCQ.get(), impl->mCQ.get(), fn_ptr);
-}
+	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl();
+
+	void finish() {
+		delete this;
+	}
+
+	::boost::function<void()> *done() {
+		auto done_fn = ::boost::bind(&$service$_$method$::finish, this);
+		return new ::boost::function<void()>(done_fn);
+	}
+
+	::boost::function<void(::grpc::Status&)> *error() {
+		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::$out$ >::FinishWithError, &this->response, _1, this->done());
+		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	}
+
+	void handle() {
+		$service$_$method$::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
+		auto call = new $service$_$method$(rpc, service);
+		auto fn = ::boost::bind(&$service$_$method$::handle, call);
+		auto fn_ptr = new ::boost::function<void()>(fn);
+		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 
 )";
 
@@ -200,6 +214,10 @@ class WrapperGenerator : public CodeGenerator {
 				tpl["in"] = CompiledName(ns, method->input_type());
 				tpl["out"] = CompiledName(ns, method->output_type());
 
+				if (method->client_streaming() || method->server_streaming()) {
+					continue;
+				}
+
 				const char *template_str;
 				if (method->client_streaming()) {
 					if (method->server_streaming()) {
@@ -220,8 +238,11 @@ class WrapperGenerator : public CodeGenerator {
 			cpp.Print(tpl, "void $service$_Init(MurmurRPCImpl *impl, ::$ns$::$service$::AsyncService *service) {\n");
 			for (int j = 0; j < service->method_count(); j++) {
 				auto method = service->method(j);
+				if (method->client_streaming() || method->server_streaming()) {
+					continue;
+				}
 				tpl["method"] = method->name();
-				cpp.Print(tpl, "\t$service$_$method$_Create(impl, service);\n");
+				cpp.Print(tpl, "\t$service$_$method$::create(impl, service);\n");
 			}
 			cpp.Print("}\n");
 		}
