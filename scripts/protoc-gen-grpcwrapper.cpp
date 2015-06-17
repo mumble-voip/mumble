@@ -57,15 +57,15 @@ struct $service$_$method$ : public RPCCall {
 	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), response(&context) {
 	}
 
-	void impl();
+	void impl(bool ok);
 
-	void finish() {
+	void finish(bool) {
 		delete this;
 	}
 
-	::boost::function<void()> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this);
-		return new ::boost::function<void()>(done_fn);
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
 	}
 
 	::boost::function<void(::grpc::Status&)> *error() {
@@ -73,16 +73,16 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(::grpc::Status&)>(error_fn);
 	}
 
-	void handle() {
+	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this), this);
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call);
-		auto fn_ptr = new ::boost::function<void()>(fn);
+		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
@@ -100,15 +100,15 @@ struct $service$_$method$ : public RPCCall {
 	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), response(&context) {
 	}
 
-	void impl();
+	void impl(bool ok);
 
-	void finish() {
+	void finish(bool) {
 		delete this;
 	}
 
-	::boost::function<void()> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this);
-		return new ::boost::function<void()>(done_fn);
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
 	}
 
 	::boost::function<void(::grpc::Status&)> *error() {
@@ -116,16 +116,16 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(::grpc::Status&)>(error_fn);
 	}
 
-	void handle() {
+	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this), this);
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call);
-		auto fn_ptr = new ::boost::function<void()>(fn);
+		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
@@ -142,15 +142,15 @@ struct $service$_$method$ : public RPCCall {
 	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
-	void impl();
+	void impl(bool ok);
 
-	void finish() {
+	void finish(bool) {
 		delete this;
 	}
 
-	::boost::function<void()> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this);
-		return new ::boost::function<void()>(done_fn);
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
 	}
 
 	::boost::function<void(::grpc::Status&)> *error() {
@@ -158,16 +158,16 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(::grpc::Status&)>(error_fn);
 	}
 
-	void handle() {
+	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this), this);
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call);
-		auto fn_ptr = new ::boost::function<void()>(fn);
+		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
@@ -184,15 +184,15 @@ struct $service$_$method$ : public RPCCall {
 	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
-	void impl();
+	void impl(bool ok);
 
-	void finish() {
+	void finish(bool) {
 		delete this;
 	}
 
-	::boost::function<void()> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this);
-		return new ::boost::function<void()>(done_fn);
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
 	}
 
 	::boost::function<void(::grpc::Status&)> *error() {
@@ -200,16 +200,16 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(::grpc::Status&)>(error_fn);
 	}
 
-	void handle() {
+	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this), this);
+		auto ie = new RPCExecEvent(::boost::bind(&$service$_$method$::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) {
 		auto call = new $service$_$method$(rpc, service);
-		auto fn = ::boost::bind(&$service$_$method$::handle, call);
-		auto fn_ptr = new ::boost::function<void()>(fn);
+		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->Request$method$(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
