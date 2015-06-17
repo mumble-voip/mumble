@@ -26,9 +26,8 @@ struct ServerService_Create : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -67,9 +66,8 @@ struct ServerService_Query : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server_List >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -108,9 +106,8 @@ struct ServerService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Server >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -149,9 +146,8 @@ struct ServerService_Start : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -190,9 +186,8 @@ struct ServerService_Stop : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -231,9 +226,8 @@ struct ServerService_Remove : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -272,9 +266,8 @@ struct ServerService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Server_Event >::Finish, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -322,9 +315,8 @@ struct MetaService_GetUptime : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Uptime >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -363,9 +355,8 @@ struct MetaService_GetVersion : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Version >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -404,9 +395,8 @@ struct MetaService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::Event >::Finish, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -450,9 +440,8 @@ struct ContextActionService_Add : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -491,9 +480,8 @@ struct ContextActionService_Remove : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -532,9 +520,8 @@ struct ContextActionService_Events : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::MurmurRPC::ContextAction >::Finish, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -578,9 +565,8 @@ struct TextMessageService_Send : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -624,9 +610,8 @@ struct ConfigService_GetDefault : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -665,9 +650,8 @@ struct ConfigService_SetDefault : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -706,9 +690,8 @@ struct ConfigService_Query : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Config >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -752,9 +735,8 @@ struct ChannelService_Query : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel_List >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -793,9 +775,8 @@ struct ChannelService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -834,9 +815,8 @@ struct ChannelService_Add : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -875,9 +855,8 @@ struct ChannelService_Remove : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -916,9 +895,8 @@ struct ChannelService_Update : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Channel >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -964,9 +942,8 @@ struct UserService_Query : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User_List >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1005,9 +982,8 @@ struct UserService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1046,9 +1022,8 @@ struct UserService_Update : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::User >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1087,9 +1062,8 @@ struct UserService_Kick : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1134,9 +1108,8 @@ struct TreeService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Tree >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1180,9 +1153,8 @@ struct ACLService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL_List >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1221,9 +1193,8 @@ struct ACLService_Set : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1262,9 +1233,8 @@ struct ACLService_GetEffectivePermissions : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::ACL >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1303,9 +1273,8 @@ struct ACLService_AddTemporaryGroup : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1344,9 +1313,8 @@ struct ACLService_RemoveTemporaryGroup : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1391,9 +1359,8 @@ struct AuthenticatorService_Stream : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, &this->stream, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1431,9 +1398,8 @@ struct AuthenticatorService_RegistrationStream : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message >::Finish, &this->stream, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1476,9 +1442,8 @@ struct DatabaseService_Query : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser_List >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1517,9 +1482,8 @@ struct DatabaseService_Get : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1558,9 +1522,8 @@ struct DatabaseService_Update : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1599,9 +1562,8 @@ struct DatabaseService_Register : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1640,9 +1602,8 @@ struct DatabaseService_Deregister : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1681,9 +1642,8 @@ struct DatabaseService_Verify : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::DatabaseUser >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1730,9 +1690,8 @@ struct AudioService_SetRedirectWhisperGroup : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::MurmurRPC::Void >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {

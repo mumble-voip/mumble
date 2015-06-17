@@ -68,9 +68,8 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncResponseWriter< ::$out$ >::FinishWithError, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -111,9 +110,8 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncWriter< ::$out$ >::Finish, &this->response, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		response.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -153,9 +151,8 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReader< ::$out$, ::$in$ >::FinishWithError, &this->stream, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -195,9 +192,8 @@ struct $service$_$method$ : public RPCCall {
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	::boost::function<void(::grpc::Status&)> *error() {
-		auto error_fn = ::boost::bind(&::grpc::ServerAsyncReaderWriter< ::$out$, ::$in$ >::Finish, &this->stream, _1, this->done());
-		return new ::boost::function<void(::grpc::Status&)>(error_fn);
+	void error(::grpc::Status &err) {
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {

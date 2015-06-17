@@ -156,9 +156,7 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
 		try {
 			event->execute();
 		} catch (::grpc::Status &ex) {
-			auto err = event->call->error();
-			(*err)(ex);
-			delete err;
+			event->call->error(ex);
 		}
 	}
 }
