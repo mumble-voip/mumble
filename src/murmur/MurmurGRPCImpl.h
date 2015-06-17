@@ -46,7 +46,7 @@
 #include <grpc++/status.h>
 
 struct RPCCall {
-	virtual ::boost::function<void()> *done() = 0;
+	virtual ::boost::function<void(bool)> *done() = 0;
 	virtual ::boost::function<void(::grpc::Status&)> *error() = 0;
 };
 
@@ -54,7 +54,7 @@ class RPCExecEvent : public ExecEvent {
 	Q_DISABLE_COPY(RPCExecEvent);
 public:
 	RPCCall *call;
-	RPCExecEvent(boost::function<void ()> fn, RPCCall *call) : ExecEvent(fn), call(call) {
+	RPCExecEvent(boost::function<void()> fn, RPCCall *call) : ExecEvent(fn), call(call) {
 	}
 };
 

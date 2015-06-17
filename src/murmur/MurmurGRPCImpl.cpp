@@ -186,8 +186,8 @@ void MurmurRPCImpl::run() {
 			break;
 		}
 		if (tag != nullptr) {
-			auto op = static_cast<boost::function<void()> *>(tag);
-			(*op)();
+			auto op = static_cast<boost::function<void(bool)> *>(tag);
+			(*op)(ok);
 			delete op;
 		}
 	}
@@ -398,7 +398,7 @@ void ToRPC(const ::Server *srv, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
 namespace MurmurRPC {
 namespace Wrapper {
 
-void ServerService_Create::impl() {
+void ServerService_Create::impl(bool) {
 	auto id = ServerDB::addServer();
 
 	::MurmurRPC::Server rpcServer;
@@ -406,7 +406,7 @@ void ServerService_Create::impl() {
 	response.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void ServerService_Query::impl() {
+void ServerService_Query::impl(bool) {
 	::MurmurRPC::Server_List list;
 
 	foreach(int id, ServerDB::getAllServers()) {
@@ -423,7 +423,7 @@ void ServerService_Query::impl() {
 	response.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ServerService_Get::impl() {
+void ServerService_Get::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -433,7 +433,7 @@ void ServerService_Get::impl() {
 	response.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void ServerService_Start::impl() {
+void ServerService_Start::impl(bool) {
 	if (!request.has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
 	}
@@ -445,7 +445,7 @@ void ServerService_Start::impl() {
 	response.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Stop::impl() {
+void ServerService_Stop::impl(bool) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
 
@@ -453,7 +453,7 @@ void ServerService_Stop::impl() {
 	response.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Remove::impl() {
+void ServerService_Remove::impl(bool) {
 	if (!request.has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
 	}
@@ -470,17 +470,17 @@ void ServerService_Remove::impl() {
 	response.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Events::impl() {
+void ServerService_Events::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void MetaService_GetUptime::impl() {
+void MetaService_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
 	response.Finish(uptime, ::grpc::Status::OK, done());
 }
 
-void MetaService_GetVersion::impl() {
+void MetaService_GetVersion::impl(bool) {
 	::MurmurRPC::Version version;
 	int major, minor, patch;
 	QString release;
@@ -490,11 +490,11 @@ void MetaService_GetVersion::impl() {
 	response.Finish(version, ::grpc::Status::OK, done());
 }
 
-void MetaService_Events::impl() {
+void MetaService_Events::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ContextActionService_Add::impl() {
+void ContextActionService_Add::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -520,7 +520,7 @@ void ContextActionService_Add::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void ContextActionService_Remove::impl() {
+void ContextActionService_Remove::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -544,7 +544,7 @@ void ContextActionService_Remove::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void ContextActionService_Events::impl() {
+void ContextActionService_Events::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 	/*
 	auto server = MustServer(request);
@@ -558,7 +558,7 @@ void ContextActionService_Events::impl() {
 	*/
 }
 
-void TextMessageService_Send::impl() {
+void TextMessageService_Send::impl(bool) {
 	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage mptm;
@@ -644,19 +644,19 @@ void TextMessageService_Send::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void ConfigService_GetDefault::impl() {
+void ConfigService_GetDefault::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ConfigService_SetDefault::impl() {
+void ConfigService_SetDefault::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ConfigService_Query::impl() {
+void ConfigService_Query::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ChannelService_Query::impl() {
+void ChannelService_Query::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Channel_List list;
@@ -670,7 +670,7 @@ void ChannelService_Query::impl() {
 	response.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ChannelService_Get::impl() {
+void ChannelService_Get::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -679,7 +679,7 @@ void ChannelService_Get::impl() {
 	response.Finish(rpcChannel, ::grpc::Status::OK, done());
 }
 
-void ChannelService_Add::impl() {
+void ChannelService_Add::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_parent() || !request.has_name()) {
@@ -715,7 +715,7 @@ void ChannelService_Add::impl() {
 	response.Finish(resChannel, grpc::Status::OK, done());
 }
 
-void ChannelService_Remove::impl() {
+void ChannelService_Remove::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -727,7 +727,7 @@ void ChannelService_Remove::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void ChannelService_Update::impl() {
+void ChannelService_Update::impl(bool) {
 	auto server = MustServer(request);
 
 	bool changed = false;
@@ -861,7 +861,7 @@ void ChannelService_Update::impl() {
 	response.Finish(rpcChannel, grpc::Status::OK, done());
 }
 
-void UserService_Query::impl() {
+void UserService_Query::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User_List list;
@@ -875,7 +875,7 @@ void UserService_Query::impl() {
 	response.Finish(list, grpc::Status::OK, done());
 }
 
-void UserService_Get::impl() {
+void UserService_Get::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
@@ -902,7 +902,7 @@ void UserService_Get::impl() {
 	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
-void UserService_Update::impl() {
+void UserService_Update::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -944,7 +944,7 @@ void UserService_Update::impl() {
 	response.Finish(rpcUser, grpc::Status::OK, done());
 }
 
-void UserService_Kick::impl() {
+void UserService_Kick::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -960,7 +960,7 @@ void UserService_Kick::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void TreeService_Get::impl() {
+void TreeService_Get::impl(bool) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -995,35 +995,35 @@ void TreeService_Get::impl() {
 	response.Finish(root, grpc::Status::OK, done());
 }
 
-void ACLService_Get::impl() {
+void ACLService_Get::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ACLService_Set::impl() {
+void ACLService_Set::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ACLService_GetEffectivePermissions::impl() {
+void ACLService_GetEffectivePermissions::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ACLService_AddTemporaryGroup::impl() {
+void ACLService_AddTemporaryGroup::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ACLService_RemoveTemporaryGroup::impl() {
+void ACLService_RemoveTemporaryGroup::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void AuthenticatorService_Stream::impl() {
+void AuthenticatorService_Stream::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void AuthenticatorService_RegistrationStream::impl() {
+void AuthenticatorService_RegistrationStream::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void DatabaseService_Query::impl() {
+void DatabaseService_Query::impl(bool) {
 	auto server = MustServer(request);
 
 	QString filter;
@@ -1045,7 +1045,7 @@ void DatabaseService_Query::impl() {
 	response.Finish(list, grpc::Status::OK, done());
 }
 
-void DatabaseService_Get::impl() {
+void DatabaseService_Get::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1062,7 +1062,7 @@ void DatabaseService_Get::impl() {
 	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void DatabaseService_Update::impl() {
+void DatabaseService_Update::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1100,7 +1100,7 @@ void DatabaseService_Update::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void DatabaseService_Register::impl() {
+void DatabaseService_Register::impl(bool) {
 	auto server = MustServer(request);
 
 	QMap<int, QString> info;
@@ -1117,7 +1117,7 @@ void DatabaseService_Register::impl() {
 	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void DatabaseService_Deregister::impl() {
+void DatabaseService_Deregister::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1132,7 +1132,7 @@ void DatabaseService_Deregister::impl() {
 	response.Finish(vd, grpc::Status::OK, done());
 }
 
-void DatabaseService_Verify::impl() {
+void DatabaseService_Verify::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_name()) {
@@ -1161,7 +1161,7 @@ void DatabaseService_Verify::impl() {
 	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void AudioService_SetRedirectWhisperGroup::impl() {
+void AudioService_SetRedirectWhisperGroup::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
