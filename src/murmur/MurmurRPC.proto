@@ -73,18 +73,19 @@ service ServerService {
 
 message Event {
 	enum Type {
-		ServerStarted = 0;
-		ServerStopped = 1;
+		ServerStopped = 0;
+		ServerStarted = 1;
 	};
 	optional Type type = 1;
 	optional Server server = 2;
 }
 
 service MetaService {
-	// Get murmur's uptime.
+	// GetUptime returns murmur's uptime.
 	rpc GetUptime(Void) returns(Uptime);
-	// Get murmur's version.
+	// GetVersion returns murmur's version.
 	rpc GetVersion(Void) returns(Version);
+	// Events returns a stream of murmur events.
 	rpc Events(Void) returns(stream Event);
 }
 

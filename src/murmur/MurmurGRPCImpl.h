@@ -62,7 +62,8 @@ public:
 
 namespace MurmurRPC {
 namespace Wrapper {
-struct ContextActionService_Events;
+class ContextActionService_Events;
+class MetaService_Events;
 }
 }
 
@@ -96,6 +97,9 @@ class MurmurRPCImpl : public QThread {
 
 		// ContextActionService
 		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::ContextActionService_Events *> > qhContextActionListeners;
+
+		// MetaService
+		QSet<::MurmurRPC::Wrapper::MetaService_Events *> qsMetaServiceListeners;
 
 	public slots:
 		void cleanup();
