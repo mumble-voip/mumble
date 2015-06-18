@@ -46,7 +46,8 @@
 #include <grpc++/server_credentials.h>
 #include <grpc++/status.h>
 
-struct RPCCall {
+class RPCCall {
+public:
 	virtual ::boost::function<void(bool)> *done() = 0;
 	virtual void error(::grpc::Status&) = 0;
 };
@@ -68,6 +69,7 @@ struct ContextActionService_Events;
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
 		std::unique_ptr<grpc::Server> mServer;
+		QTimer qtCleanup;
 	protected:
 		void customEvent(QEvent *evt);
 	public:
@@ -97,6 +99,8 @@ class MurmurRPCImpl : public QThread {
 		void contextActionCb(::MurmurRPC::Wrapper::ContextActionService_Events *stream, bool ok);
 
 	public slots:
+		void cleanup();
+
 		void started(Server *server);
 		void stopped(Server *server);
 

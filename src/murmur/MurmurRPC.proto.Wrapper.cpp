@@ -4,7 +4,8 @@
 namespace MurmurRPC {
 namespace Wrapper {
 
-struct ServerService_Create : public RPCCall {
+class ServerService_Create : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -44,7 +45,8 @@ struct ServerService_Create : public RPCCall {
 	}
 };
 
-struct ServerService_Query : public RPCCall {
+class ServerService_Query : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -84,7 +86,8 @@ struct ServerService_Query : public RPCCall {
 	}
 };
 
-struct ServerService_Get : public RPCCall {
+class ServerService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -124,7 +127,8 @@ struct ServerService_Get : public RPCCall {
 	}
 };
 
-struct ServerService_Start : public RPCCall {
+class ServerService_Start : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -164,7 +168,8 @@ struct ServerService_Start : public RPCCall {
 	}
 };
 
-struct ServerService_Stop : public RPCCall {
+class ServerService_Stop : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -204,7 +209,8 @@ struct ServerService_Stop : public RPCCall {
 	}
 };
 
-struct ServerService_Remove : public RPCCall {
+class ServerService_Remove : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -244,7 +250,8 @@ struct ServerService_Remove : public RPCCall {
 	}
 };
 
-struct ServerService_Events : public RPCCall {
+class ServerService_Events : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ServerService::AsyncService *service;
 
@@ -305,7 +312,8 @@ void ServerService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ServerService::AsyncSe
 	ServerService_Events::create(impl, service);
 }
 
-struct MetaService_GetUptime : public RPCCall {
+class MetaService_GetUptime : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::MetaService::AsyncService *service;
 
@@ -345,7 +353,8 @@ struct MetaService_GetUptime : public RPCCall {
 	}
 };
 
-struct MetaService_GetVersion : public RPCCall {
+class MetaService_GetVersion : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::MetaService::AsyncService *service;
 
@@ -385,7 +394,8 @@ struct MetaService_GetVersion : public RPCCall {
 	}
 };
 
-struct MetaService_Events : public RPCCall {
+class MetaService_Events : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::MetaService::AsyncService *service;
 
@@ -442,7 +452,8 @@ void MetaService_Init(MurmurRPCImpl *impl, ::MurmurRPC::MetaService::AsyncServic
 	MetaService_Events::create(impl, service);
 }
 
-struct ContextActionService_Add : public RPCCall {
+class ContextActionService_Add : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ContextActionService::AsyncService *service;
 
@@ -482,7 +493,8 @@ struct ContextActionService_Add : public RPCCall {
 	}
 };
 
-struct ContextActionService_Remove : public RPCCall {
+class ContextActionService_Remove : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ContextActionService::AsyncService *service;
 
@@ -522,7 +534,8 @@ struct ContextActionService_Remove : public RPCCall {
 	}
 };
 
-struct ContextActionService_Events : public RPCCall {
+class ContextActionService_Events : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ContextActionService::AsyncService *service;
 
@@ -579,7 +592,8 @@ void ContextActionService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ContextActionSe
 	ContextActionService_Events::create(impl, service);
 }
 
-struct TextMessageService_Send : public RPCCall {
+class TextMessageService_Send : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::TextMessageService::AsyncService *service;
 
@@ -624,7 +638,8 @@ void TextMessageService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageServic
 void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService *service) {
 }
 
-struct ConfigService_GetDefault : public RPCCall {
+class ConfigService_GetDefault : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
 
@@ -664,7 +679,8 @@ struct ConfigService_GetDefault : public RPCCall {
 	}
 };
 
-struct ConfigService_SetDefault : public RPCCall {
+class ConfigService_SetDefault : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
 
@@ -704,7 +720,8 @@ struct ConfigService_SetDefault : public RPCCall {
 	}
 };
 
-struct ConfigService_Query : public RPCCall {
+class ConfigService_Query : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
 
@@ -749,7 +766,8 @@ void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncSe
 	ConfigService_Query::create(impl, service);
 }
 
-struct ChannelService_Query : public RPCCall {
+class ChannelService_Query : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
 
@@ -789,7 +807,8 @@ struct ChannelService_Query : public RPCCall {
 	}
 };
 
-struct ChannelService_Get : public RPCCall {
+class ChannelService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
 
@@ -829,7 +848,8 @@ struct ChannelService_Get : public RPCCall {
 	}
 };
 
-struct ChannelService_Add : public RPCCall {
+class ChannelService_Add : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
 
@@ -869,7 +889,8 @@ struct ChannelService_Add : public RPCCall {
 	}
 };
 
-struct ChannelService_Remove : public RPCCall {
+class ChannelService_Remove : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
 
@@ -909,7 +930,8 @@ struct ChannelService_Remove : public RPCCall {
 	}
 };
 
-struct ChannelService_Update : public RPCCall {
+class ChannelService_Update : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ChannelService::AsyncService *service;
 
@@ -956,7 +978,8 @@ void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::Async
 	ChannelService_Update::create(impl, service);
 }
 
-struct UserService_Query : public RPCCall {
+class UserService_Query : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
 
@@ -996,7 +1019,8 @@ struct UserService_Query : public RPCCall {
 	}
 };
 
-struct UserService_Get : public RPCCall {
+class UserService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
 
@@ -1036,7 +1060,8 @@ struct UserService_Get : public RPCCall {
 	}
 };
 
-struct UserService_Update : public RPCCall {
+class UserService_Update : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
 
@@ -1076,7 +1101,8 @@ struct UserService_Update : public RPCCall {
 	}
 };
 
-struct UserService_Kick : public RPCCall {
+class UserService_Kick : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::UserService::AsyncService *service;
 
@@ -1122,7 +1148,8 @@ void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncServic
 	UserService_Kick::create(impl, service);
 }
 
-struct TreeService_Get : public RPCCall {
+class TreeService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::TreeService::AsyncService *service;
 
@@ -1167,7 +1194,8 @@ void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncServic
 void BanService_Init(MurmurRPCImpl *impl, ::MurmurRPC::BanService::AsyncService *service) {
 }
 
-struct ACLService_Get : public RPCCall {
+class ACLService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
 
@@ -1207,7 +1235,8 @@ struct ACLService_Get : public RPCCall {
 	}
 };
 
-struct ACLService_Set : public RPCCall {
+class ACLService_Set : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
 
@@ -1247,7 +1276,8 @@ struct ACLService_Set : public RPCCall {
 	}
 };
 
-struct ACLService_GetEffectivePermissions : public RPCCall {
+class ACLService_GetEffectivePermissions : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
 
@@ -1287,7 +1317,8 @@ struct ACLService_GetEffectivePermissions : public RPCCall {
 	}
 };
 
-struct ACLService_AddTemporaryGroup : public RPCCall {
+class ACLService_AddTemporaryGroup : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
 
@@ -1327,7 +1358,8 @@ struct ACLService_AddTemporaryGroup : public RPCCall {
 	}
 };
 
-struct ACLService_RemoveTemporaryGroup : public RPCCall {
+class ACLService_RemoveTemporaryGroup : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ACLService::AsyncService *service;
 
@@ -1374,7 +1406,8 @@ void ACLService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService 
 	ACLService_RemoveTemporaryGroup::create(impl, service);
 }
 
-struct AuthenticatorService_Stream : public RPCCall {
+class AuthenticatorService_Stream : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::AuthenticatorService::AsyncService *service;
 
@@ -1413,7 +1446,8 @@ struct AuthenticatorService_Stream : public RPCCall {
 	}
 };
 
-struct AuthenticatorService_RegistrationStream : public RPCCall {
+class AuthenticatorService_RegistrationStream : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::AuthenticatorService::AsyncService *service;
 
@@ -1456,7 +1490,8 @@ void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorSe
 	AuthenticatorService_RegistrationStream::create(impl, service);
 }
 
-struct DatabaseService_Query : public RPCCall {
+class DatabaseService_Query : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1496,7 +1531,8 @@ struct DatabaseService_Query : public RPCCall {
 	}
 };
 
-struct DatabaseService_Get : public RPCCall {
+class DatabaseService_Get : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1536,7 +1572,8 @@ struct DatabaseService_Get : public RPCCall {
 	}
 };
 
-struct DatabaseService_Update : public RPCCall {
+class DatabaseService_Update : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1576,7 +1613,8 @@ struct DatabaseService_Update : public RPCCall {
 	}
 };
 
-struct DatabaseService_Register : public RPCCall {
+class DatabaseService_Register : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1616,7 +1654,8 @@ struct DatabaseService_Register : public RPCCall {
 	}
 };
 
-struct DatabaseService_Deregister : public RPCCall {
+class DatabaseService_Deregister : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1656,7 +1695,8 @@ struct DatabaseService_Deregister : public RPCCall {
 	}
 };
 
-struct DatabaseService_Verify : public RPCCall {
+class DatabaseService_Verify : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::DatabaseService::AsyncService *service;
 
@@ -1704,7 +1744,8 @@ void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::Asy
 	DatabaseService_Verify::create(impl, service);
 }
 
-struct AudioService_SetRedirectWhisperGroup : public RPCCall {
+class AudioService_SetRedirectWhisperGroup : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::AudioService::AsyncService *service;
 
