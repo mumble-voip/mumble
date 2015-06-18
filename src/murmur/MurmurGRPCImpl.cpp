@@ -62,7 +62,7 @@ void RPCStop() {
 	}
 }
 
-MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
+MurmurRPCImpl::MurmurRPCImpl(const QString &address) : qtCleanup(this) {
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
 	builder.RegisterAsyncService(&aACLService);
@@ -82,10 +82,18 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address) {
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
 	meta->connectListener(this);
+	connect(&qtCleanup, SIGNAL(timeout()), this, SLOT(cleanup()));
+	qtCleanup.setSingleShot(false);
+	qtCleanup.start(1000 * 60);
 	start();
 }
 
 MurmurRPCImpl::~MurmurRPCImpl() {
+}
+
+void MurmurRPCImpl::cleanup() {
+	// TODO(grpc): cleanup any old connections that are stored in our listener
+	// lists.
 }
 
 void MurmurRPCImpl::started(::Server *server) {
