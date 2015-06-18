@@ -94,16 +94,30 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 void MurmurRPCImpl::cleanup() {
 	// TODO(grpc): cleanup any old connections that are stored in our listener
 	// lists.
-	// TODO(grpc): qhContextActionListeners
+	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners
 }
 
 void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
+
+	::MurmurRPC::Event rpcEvent;
+	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStarted);
+	rpcEvent.mutable_server()->set_id(server->iServerNum);
+	foreach(auto listener, qsMetaServiceListeners) {
+		// TODO(grpc): remove listener on error
+		listener->response.Write(rpcEvent, nullptr);
+	}
 }
 
 void MurmurRPCImpl::stopped(::Server *server) {
-
+	::MurmurRPC::Event rpcEvent;
+	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStopped);
+	rpcEvent.mutable_server()->set_id(server->iServerNum);
+	foreach(auto listener, qsMetaServiceListeners) {
+		// TODO(grpc): remove listener on error
+		listener->response.Write(rpcEvent, nullptr);
+	}
 }
 
 void MurmurRPCImpl::userStateChanged(const ::User *user) {
@@ -203,7 +217,6 @@ template <>
 	}
 	return server;
 }
-
 
 template <class T>
 ::Server *MustServer(const T &msg) {
@@ -433,6 +446,7 @@ void ServerService_Query::impl(bool) {
 }
 
 void ServerService_Get::impl(bool) {
+	// TODO(grpc): fix for non-started servers
 	auto server = MustServer(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -500,7 +514,7 @@ void MetaService_GetVersion::impl(bool) {
 }
 
 void MetaService_Events::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	rpc->qsMetaServiceListeners.insert(this);
 }
 
 void ContextActionService_Add::impl(bool) {
