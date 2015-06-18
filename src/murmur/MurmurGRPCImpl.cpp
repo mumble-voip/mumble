@@ -94,6 +94,7 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 void MurmurRPCImpl::cleanup() {
 	// TODO(grpc): cleanup any old connections that are stored in our listener
 	// lists.
+	// TODO(grpc): qhContextActionListeners
 }
 
 void MurmurRPCImpl::started(::Server *server) {
@@ -150,10 +151,13 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	auto itr = ref.find(action);
 	for ( ; itr != ref.end() && itr.key() == action; ++itr) {
 		auto listener = itr.value();
-		// TODO(grpc): remove listener upon failure or disconnect (will probably
-		// need a timer for that).
-
-		listener->response.Write(ca, nullptr);
+		auto cb = [this, s, action](::MurmurRPC::Wrapper::ContextActionService_Events *listener, bool ok) {
+			if (ok) {
+				return;
+			}
+			this->qhContextActionListeners[s->iServerNum].remove(action, listener);
+		};
+		listener->response.Write(ca, listener->callback(cb));
 	}
 }
 

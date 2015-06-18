@@ -96,7 +96,6 @@ class MurmurRPCImpl : public QThread {
 
 		// ContextActionService
 		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::ContextActionService_Events *> > qhContextActionListeners;
-		void contextActionCb(::MurmurRPC::Wrapper::ContextActionService_Events *stream, bool ok);
 
 	public slots:
 		void cleanup();
