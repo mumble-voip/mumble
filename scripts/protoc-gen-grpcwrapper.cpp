@@ -46,7 +46,8 @@ using namespace google::protobuf::compiler;
 using namespace google::protobuf::io;
 
 const char *CSingle_SSingle = R"(
-struct $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
@@ -88,7 +89,8 @@ struct $service$_$method$ : public RPCCall {
 )";
 
 const char *CSingle_SStream = R"(
-struct $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
@@ -142,7 +144,8 @@ private:
 )";
 
 const char *CStream_SSingle = R"(
-struct $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
@@ -183,7 +186,8 @@ struct $service$_$method$ : public RPCCall {
 )";
 
 const char *CStream_SStream = R"(
-struct $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCCall {
+public:
 	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
