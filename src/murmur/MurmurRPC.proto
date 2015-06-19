@@ -521,10 +521,14 @@ message RedirectWhisperGroup {
 	optional Server server = 1;
 
 	optional User user = 2;
-	optional string source = 3;
-	optional string target = 4;
+	optional string source = 3; // TODO(grpc): should be ACL.Group?
+	optional string target = 4; // TODO(grpc): should be ACL.Group?
 }
 
 service AudioService {
+	// SetRedirectWhisperGroup redirects whisper targets for the given user.
+	// Whenever a user tries to whisper to group "source", the whisper will be
+	// redirected to group "target". Omitting "target" will remove the redirect.
 	rpc SetRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+	// TODO(grpc): convert to AddRedirectWhisperGroup + RemoveRedirectWhisperGroup?
 }
