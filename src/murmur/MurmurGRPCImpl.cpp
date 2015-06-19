@@ -94,7 +94,159 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 void MurmurRPCImpl::cleanup() {
 	// TODO(grpc): cleanup any old connections that are stored in our listener
 	// lists.
-	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners
+	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners
+}
+
+void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
+	rc->mutable_server()->set_id(srv->iServerNum);
+
+	rc->set_id(c->iId);
+	rc->set_name(u8(c->qsName));
+	if (c->cParent) {
+		rc->mutable_parent()->mutable_server()->set_id(srv->iServerNum);
+		rc->mutable_parent()->set_id(c->cParent->iId);
+	}
+	rc->set_description(u8(c->qsDesc));
+	rc->set_position(c->iPosition);
+	foreach(::Channel *chn, c->qsPermLinks) {
+		::MurmurRPC::Channel *linked = rc->add_links();
+		linked->mutable_server()->set_id(srv->iServerNum);
+		linked->set_id(chn->iId);
+	}
+	rc->set_temporary(c->bTemporary);
+}
+
+void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
+	ru->mutable_server()->set_id(srv->iServerNum);
+
+	ru->set_session(u->uiSession);
+	if (u->iId >= 0) {
+		ru->set_id(u->iId);
+	}
+	ru->set_name(u8(u->qsName));
+	ru->set_mute(u->bMute);
+	ru->set_deaf(u->bDeaf);
+	ru->set_suppress(u->bSuppress);
+	ru->set_recording(u->bRecording);
+	ru->set_priority_speaker(u->bPrioritySpeaker);
+	ru->set_self_mute(u->bSelfMute);
+	ru->set_self_deaf(u->bSelfDeaf);
+	ru->mutable_channel()->mutable_server()->set_id(srv->iServerNum);
+	ru->mutable_channel()->set_id(u->cChannel->iId);
+	ru->set_comment(u8(u->qsComment));
+
+	const ServerUser *su=static_cast<const ServerUser *>(u);
+	ru->set_online_secs(su->bwr.onlineSeconds());
+	ru->set_bytes_per_sec(su->bwr.bandwidth());
+	ru->mutable_version()->set_version(su->uiVersion);
+	ru->mutable_version()->set_release(u8(su->qsRelease));
+	ru->mutable_version()->set_os(u8(su->qsOS));
+	ru->mutable_version()->set_os_version(u8(su->qsOSVersion));
+	ru->set_plugin_identity(u8(su->qsIdentity));
+	ru->set_plugin_context(su->ssContext);
+	ru->set_idle_secs(su->bwr.idleSeconds());
+	ru->set_udp_ping(su->dUDPPingAvg);
+	ru->set_tcp_ping(su->dTCPPingAvg);
+
+	ru->set_tcp_only(!su->bUdp);
+
+	ru->set_address(su->haAddress.toStdString());
+}
+
+void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::DatabaseUser *du) {
+	du->mutable_server()->set_id(srv->iServerNum);
+
+	if (info.contains(::ServerDB::User_Name)) {
+		du->set_name(u8(info[::ServerDB::User_Name]));
+	}
+	if (info.contains(::ServerDB::User_Email)) {
+		du->set_email(u8(info[::ServerDB::User_Email]));
+	}
+	if (info.contains(::ServerDB::User_Comment)) {
+		du->set_comment(u8(info[::ServerDB::User_Comment]));
+	}
+	if (info.contains(::ServerDB::User_Hash)) {
+		du->set_hash(u8(info[::ServerDB::User_Hash]));
+	}
+	if (info.contains(::ServerDB::User_Password)) {
+		du->set_password(u8(info[::ServerDB::User_Password]));
+	}
+	if (info.contains(::ServerDB::User_LastActive)) {
+		du->set_last_active(u8(info[::ServerDB::User_LastActive]));
+	}
+}
+
+void FromRPC(const ::MurmurRPC::DatabaseUser &du, QMap<int, QString> &info) {
+	if (du.has_name()) {
+		info.insert(::ServerDB::User_Name, u8(du.name()));
+	}
+	if (du.has_email()) {
+		info.insert(::ServerDB::User_Email, u8(du.email()));
+	}
+	if (du.has_comment()) {
+		info.insert(::ServerDB::User_Comment, u8(du.comment()));
+	}
+	if (du.has_hash()) {
+		info.insert(::ServerDB::User_Hash, u8(du.hash()));
+	}
+	if (du.has_password()) {
+		info.insert(::ServerDB::User_Password, u8(du.password()));
+	}
+	if (du.has_last_active()) {
+		info.insert(::ServerDB::User_LastActive, u8(du.last_active()));
+	}
+}
+
+void ToRPC(const ::Server *srv, const ::ChanACL *acl, ::MurmurRPC::ACL *ra) {
+	ra->set_apply_here(acl->bApplyHere);
+	ra->set_apply_subs(acl->bApplySubs);
+	ra->set_inherited(false);
+
+	if (acl->iUserId >= 0) {
+		ra->mutable_user()->mutable_server()->set_id(srv->iServerNum);
+		ra->mutable_user()->set_id(acl->iUserId);
+	}
+	if (!acl->qsGroup.isEmpty()) {
+		ra->set_group(u8(acl->qsGroup));
+	}
+
+	ra->set_allow(MurmurRPC::ACL_Permission(int(acl->pAllow)));
+	ra->set_deny(MurmurRPC::ACL_Permission(int(acl->pDeny)));
+}
+
+void ToRPC(const ::Server *srv, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
+	rg->set_name(u8(g->qsName));
+	rg->set_inherit(g->bInherit);
+	rg->set_inheritable(g->bInheritable);
+}
+
+void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
+	rb->mutable_server()->set_id(srv->iServerNum);
+
+	rb->set_address(ban.haAddress.toStdString());
+	rb->set_bits(ban.iMask);
+	rb->set_name(u8(ban.qsUsername));
+	rb->set_hash(u8(ban.qsHash));
+	rb->set_reason(u8(ban.qsReason));
+	rb->set_start(ban.qdtStart.toLocalTime().toTime_t());
+	rb->set_duration(ban.iDuration);
+}
+
+void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
+	ban.haAddress = HostAddress(rb.address());
+	ban.iMask = rb.bits();
+	ban.qsUsername = u8(rb.name());
+	ban.qsHash = u8(rb.hash());
+	ban.qsReason = u8(rb.reason());
+	ban.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(rb.start())).toUTC();
+	ban.iDuration = rb.duration();
+}
+
+void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
+	rl->mutable_server()->set_id(srv->iServerNum);
+
+	rl->set_timestamp(log.first);
+	rl->set_text(u8(log.second));
 }
 
 void MurmurRPCImpl::started(::Server *server) {
@@ -130,6 +282,18 @@ void MurmurRPCImpl::userTextMessage(const ::User *user, const ::TextMessage &mes
 
 void MurmurRPCImpl::userConnected(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_UserConnected);
+	ToRPC(s, user, event.mutable_user());
+
+	auto i = qmhServerServiceListeners.find(s->iServerNum);
+	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
+		auto listener = i.value();
+		// TODO(grpc): remove listener on error
+		listener->response.Write(event, nullptr);
+	}
 }
 
 void MurmurRPCImpl::userDisconnected(const ::User *user) {
@@ -294,158 +458,6 @@ void MurmurRPCImpl::run() {
 	// TODO(grpc): cleanup allocated memory? not super important, because murmur should be exiting now
 }
 
-void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
-	rc->mutable_server()->set_id(srv->iServerNum);
-
-	rc->set_id(c->iId);
-	rc->set_name(u8(c->qsName));
-	if (c->cParent) {
-		rc->mutable_parent()->mutable_server()->set_id(srv->iServerNum);
-		rc->mutable_parent()->set_id(c->cParent->iId);
-	}
-	rc->set_description(u8(c->qsDesc));
-	rc->set_position(c->iPosition);
-	foreach(::Channel *chn, c->qsPermLinks) {
-		::MurmurRPC::Channel *linked = rc->add_links();
-		linked->mutable_server()->set_id(srv->iServerNum);
-		linked->set_id(chn->iId);
-	}
-	rc->set_temporary(c->bTemporary);
-}
-
-void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
-	ru->mutable_server()->set_id(srv->iServerNum);
-
-	ru->set_session(u->uiSession);
-	if (u->iId >= 0) {
-		ru->set_id(u->iId);
-	}
-	ru->set_name(u8(u->qsName));
-	ru->set_mute(u->bMute);
-	ru->set_deaf(u->bDeaf);
-	ru->set_suppress(u->bSuppress);
-	ru->set_recording(u->bRecording);
-	ru->set_priority_speaker(u->bPrioritySpeaker);
-	ru->set_self_mute(u->bSelfMute);
-	ru->set_self_deaf(u->bSelfDeaf);
-	ru->mutable_channel()->mutable_server()->set_id(srv->iServerNum);
-	ru->mutable_channel()->set_id(u->cChannel->iId);
-	ru->set_comment(u8(u->qsComment));
-
-	const ServerUser *su=static_cast<const ServerUser *>(u);
-	ru->set_online_secs(su->bwr.onlineSeconds());
-	ru->set_bytes_per_sec(su->bwr.bandwidth());
-	ru->mutable_version()->set_version(su->uiVersion);
-	ru->mutable_version()->set_release(u8(su->qsRelease));
-	ru->mutable_version()->set_os(u8(su->qsOS));
-	ru->mutable_version()->set_os_version(u8(su->qsOSVersion));
-	ru->set_plugin_identity(u8(su->qsIdentity));
-	ru->set_plugin_context(su->ssContext);
-	ru->set_idle_secs(su->bwr.idleSeconds());
-	ru->set_udp_ping(su->dUDPPingAvg);
-	ru->set_tcp_ping(su->dTCPPingAvg);
-
-	ru->set_tcp_only(!su->bUdp);
-
-	ru->set_address(su->haAddress.toStdString());
-}
-
-void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::DatabaseUser *du) {
-	du->mutable_server()->set_id(srv->iServerNum);
-
-	if (info.contains(::ServerDB::User_Name)) {
-		du->set_name(u8(info[::ServerDB::User_Name]));
-	}
-	if (info.contains(::ServerDB::User_Email)) {
-		du->set_email(u8(info[::ServerDB::User_Email]));
-	}
-	if (info.contains(::ServerDB::User_Comment)) {
-		du->set_comment(u8(info[::ServerDB::User_Comment]));
-	}
-	if (info.contains(::ServerDB::User_Hash)) {
-		du->set_hash(u8(info[::ServerDB::User_Hash]));
-	}
-	if (info.contains(::ServerDB::User_Password)) {
-		du->set_password(u8(info[::ServerDB::User_Password]));
-	}
-	if (info.contains(::ServerDB::User_LastActive)) {
-		du->set_last_active(u8(info[::ServerDB::User_LastActive]));
-	}
-}
-
-void FromRPC(const ::MurmurRPC::DatabaseUser &du, QMap<int, QString> &info) {
-	if (du.has_name()) {
-		info.insert(::ServerDB::User_Name, u8(du.name()));
-	}
-	if (du.has_email()) {
-		info.insert(::ServerDB::User_Email, u8(du.email()));
-	}
-	if (du.has_comment()) {
-		info.insert(::ServerDB::User_Comment, u8(du.comment()));
-	}
-	if (du.has_hash()) {
-		info.insert(::ServerDB::User_Hash, u8(du.hash()));
-	}
-	if (du.has_password()) {
-		info.insert(::ServerDB::User_Password, u8(du.password()));
-	}
-	if (du.has_last_active()) {
-		info.insert(::ServerDB::User_LastActive, u8(du.last_active()));
-	}
-}
-
-void ToRPC(const ::Server *srv, const ::ChanACL *acl, ::MurmurRPC::ACL *ra) {
-	ra->set_apply_here(acl->bApplyHere);
-	ra->set_apply_subs(acl->bApplySubs);
-	ra->set_inherited(false);
-
-	if (acl->iUserId >= 0) {
-		ra->mutable_user()->mutable_server()->set_id(srv->iServerNum);
-		ra->mutable_user()->set_id(acl->iUserId);
-	}
-	if (!acl->qsGroup.isEmpty()) {
-		ra->set_group(u8(acl->qsGroup));
-	}
-
-	ra->set_allow(MurmurRPC::ACL_Permission(int(acl->pAllow)));
-	ra->set_deny(MurmurRPC::ACL_Permission(int(acl->pDeny)));
-}
-
-void ToRPC(const ::Server *srv, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
-	rg->set_name(u8(g->qsName));
-	rg->set_inherit(g->bInherit);
-	rg->set_inheritable(g->bInheritable);
-}
-
-void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
-	rb->mutable_server()->set_id(srv->iServerNum);
-
-	rb->set_address(ban.haAddress.toStdString());
-	rb->set_bits(ban.iMask);
-	rb->set_name(u8(ban.qsUsername));
-	rb->set_hash(u8(ban.qsHash));
-	rb->set_reason(u8(ban.qsReason));
-	rb->set_start(ban.qdtStart.toLocalTime().toTime_t());
-	rb->set_duration(ban.iDuration);
-}
-
-void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
-	ban.haAddress = HostAddress(rb.address());
-	ban.iMask = rb.bits();
-	ban.qsUsername = u8(rb.name());
-	ban.qsHash = u8(rb.hash());
-	ban.qsReason = u8(rb.reason());
-	ban.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(rb.start())).toUTC();
-	ban.iDuration = rb.duration();
-}
-
-void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
-	rl->mutable_server()->set_id(srv->iServerNum);
-
-	rl->set_timestamp(log.first);
-	rl->set_text(u8(log.second));
-}
-
 namespace MurmurRPC {
 namespace Wrapper {
 
@@ -523,7 +535,8 @@ void ServerService_Remove::impl(bool) {
 }
 
 void ServerService_Events::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	rpc->qmhServerServiceListeners.insert(server->iServerNum, this);
 }
 
 void MetaService_GetUptime::impl(bool) {
