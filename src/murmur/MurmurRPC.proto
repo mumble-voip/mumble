@@ -351,6 +351,7 @@ message Ban {
 service BanService {
 	// Get returns a list of bans for the given server.
 	rpc Get(Ban.Query) returns(Ban.List);
+	// Set replaces the server's ban list with the given list.
 	rpc Set(Ban.List) returns(Void);
 }
 
