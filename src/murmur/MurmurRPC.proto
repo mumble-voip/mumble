@@ -68,6 +68,7 @@ service ServerService {
 	// Remove removes the given virtual server and its configuration.
 	rpc Remove(Server) returns(Void);
 
+	// Events returns a stream of events that happen on the given server.
 	rpc Events(Server) returns(stream Server.Event);
 }
 
