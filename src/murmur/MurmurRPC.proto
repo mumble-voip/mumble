@@ -142,22 +142,32 @@ service TextMessageService {
 }
 
 message Log {
-	message Entry {
-		optional Server server = 1;
-		optional int64 timestamp = 2;
-		optional string text = 3;
-	}
+	optional Server server = 1;
+
+	optional int64 timestamp = 2;
+	optional string text = 3;
 
 	message Query {
 		optional Server server = 1;
-		optional int64 start_timestamp = 2;
-		optional int64 end_timestamp = 3;
-		optional uint32 limit = 4;
+		optional uint32 min = 2;
+		optional uint32 max = 3;
+	}
+
+	message List {
+		optional Server server = 1;
+		optional uint32 total = 2;
+		optional uint32 min = 3;
+		optional uint32 max = 4;
+		repeated Log entries = 5;
 	}
 }
 
 service LogService {
-	//TODO(grpc): rpc Query(Log.Query) returns(stream Log.Entry);
+	// Query returns a list of log entries from the given server.
+	//
+	// To get the total number of log entries, omit min and/or max from the
+	// query.
+	rpc Query(Log.Query) returns(Log.List);
 }
 
 // Having "Config" seems preferable to having a map (map<string, string>),

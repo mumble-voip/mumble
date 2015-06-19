@@ -439,6 +439,13 @@ void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
 	ban.iDuration = rb.duration();
 }
 
+void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
+	rl->mutable_server()->set_id(srv->iServerNum);
+
+	rl->set_timestamp(log.first);
+	rl->set_text(u8(log.second));
+}
+
 namespace MurmurRPC {
 namespace Wrapper {
 
@@ -683,6 +690,34 @@ void TextMessageService_Send::impl(bool) {
 
 	::MurmurRPC::Void vd;
 	response.Finish(vd, grpc::Status::OK, done());
+}
+
+void LogService_Query::impl(bool) {
+	auto server = MustServer(request);
+
+	int total = ::ServerDB::getLogLen(server->iServerNum);
+	if (total < 0) {
+		throw ::grpc::Status(::grpc::StatusCode::UNAVAILABLE);
+	}
+
+	::MurmurRPC::Log_List list;
+	list.mutable_server()->set_id(server->iServerNum);
+	list.set_total(total);
+
+	if (!request.has_min() || !request.has_max()) {
+		response.Finish(list, ::grpc::Status::OK, done());
+		return;
+	}
+	list.set_min(request.min());
+	list.set_max(request.max());
+
+	auto dblog = ::ServerDB::getLog(server->iServerNum, request.min(), request.max());
+	foreach(const ::ServerDB::LogRecord &record, dblog) {
+		auto rpcLog = list.add_entries();
+		ToRPC(server, record, rpcLog);
+	}
+
+	response.Finish(list, ::grpc::Status::OK, done());
 }
 
 void ConfigService_GetDefault::impl(bool) {

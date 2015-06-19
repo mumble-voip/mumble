@@ -635,7 +635,49 @@ public:
 void TextMessageService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service) {
 	TextMessageService_Send::create(impl, service);
 }
+
+class LogService_Query : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::LogService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Log_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > response;
+
+	LogService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::LogService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&LogService_Query::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		LogService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&LogService_Query::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::LogService::AsyncService *service) {
+		auto call = new LogService_Query(rpc, service);
+		auto fn = ::boost::bind(&LogService_Query::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService *service) {
+	LogService_Query::create(impl, service);
 }
 
 class ConfigService_GetDefault : public RPCCall {
