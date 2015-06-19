@@ -1267,7 +1267,25 @@ void DatabaseService_Verify::impl(bool) {
 }
 
 void AudioService_SetRedirectWhisperGroup::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+
+	if (!request.has_source()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source");
+	}
+
+	QString qssource = u8(request.source());
+	QString qstarget = u8(request.target());
+	if (qstarget.isEmpty()) {
+		user->qmWhisperRedirect.remove(qssource);
+	} else {
+		user->qmWhisperRedirect.insert(qssource, qstarget);
+	}
+
+	server->clearACLCache(user);
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 }
