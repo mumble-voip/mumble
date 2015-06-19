@@ -1191,7 +1191,91 @@ public:
 void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
 	TreeService_Get::create(impl, service);
 }
+
+class BanService_Get : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::BanService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Ban_Query request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > response;
+
+	BanService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&BanService_Get::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		BanService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&BanService_Get::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) {
+		auto call = new BanService_Get(rpc, service);
+		auto fn = ::boost::bind(&BanService_Get::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+class BanService_Set : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::BanService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Ban_List request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	BanService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&BanService_Set::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		BanService_Set::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&BanService_Set::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) {
+		auto call = new BanService_Set(rpc, service);
+		auto fn = ::boost::bind(&BanService_Set::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestSet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
 void BanService_Init(MurmurRPCImpl *impl, ::MurmurRPC::BanService::AsyncService *service) {
+	BanService_Get::create(impl, service);
+	BanService_Set::create(impl, service);
 }
 
 class ACLService_Get : public RPCCall {
