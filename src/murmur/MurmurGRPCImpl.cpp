@@ -249,6 +249,33 @@ void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::L
 	rl->set_text(u8(log.second));
 }
 
+void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message, ::MurmurRPC::TextMessage *rtm) {
+	rtm->mutable_server()->set_id(srv->iServerNum);
+
+	rtm->mutable_actor()->mutable_server()->set_id(srv->iServerNum);
+	rtm->mutable_actor()->set_session(user->uiSession);
+
+	foreach(auto session, message.qlSessions) {
+		auto target = rtm->add_users();
+		target->mutable_server()->set_id(srv->iServerNum);
+		target->set_session(session);
+	}
+
+	foreach(auto id, message.qlChannels) {
+		auto target = rtm->add_channels();
+		target->mutable_server()->set_id(srv->iServerNum);
+		target->set_id(id);
+	}
+
+	foreach(auto id, message.qlTrees) {
+		auto target = rtm->add_trees();
+		target->mutable_server()->set_id(srv->iServerNum);
+		target->set_id(id);
+	}
+
+	rtm->set_text(u8(message.qsText));
+}
+
 void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
@@ -272,12 +299,34 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	}
 }
 
+void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
+	auto i = qmhServerServiceListeners.find(s->iServerNum);
+	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
+		auto listener = i.value();
+		// TODO(grpc): remove listener on error
+		listener->response.Write(e, nullptr);
+	}
+}
+
 void MurmurRPCImpl::userStateChanged(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_UserStateChanged);
+	ToRPC(s, user, event.mutable_user());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::userTextMessage(const ::User *user, const ::TextMessage &message) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_UserTextMessage);
+	ToRPC(s, user, event.mutable_user());
+	ToRPC(s, user, message, event.mutable_message());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::userConnected(const ::User *user) {
@@ -287,29 +336,47 @@ void MurmurRPCImpl::userConnected(const ::User *user) {
 	event.mutable_server()->set_id(s->iServerNum);
 	event.set_type(::MurmurRPC::Server_Event_Type_UserConnected);
 	ToRPC(s, user, event.mutable_user());
-
-	auto i = qmhServerServiceListeners.find(s->iServerNum);
-	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
-		auto listener = i.value();
-		// TODO(grpc): remove listener on error
-		listener->response.Write(event, nullptr);
-	}
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::userDisconnected(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_UserDisconnected);
+	ToRPC(s, user, event.mutable_user());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::channelStateChanged(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_ChannelStateChanged);
+	ToRPC(s, channel, event.mutable_channel());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::channelCreated(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_ChannelCreated);
+	ToRPC(s, channel, event.mutable_channel());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	::MurmurRPC::Server_Event event;
+	event.mutable_server()->set_id(s->iServerNum);
+	event.set_type(::MurmurRPC::Server_Event_Type_ChannelRemoved);
+	ToRPC(s, channel, event.mutable_channel());
+	sendServerEvent(s, event);
 }
 
 void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, unsigned int session, int channel) {
