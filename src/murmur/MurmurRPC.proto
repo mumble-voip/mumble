@@ -337,11 +337,21 @@ message Ban {
 	optional string reason = 6;
 	optional int64 start = 7;
 	optional int64 duration = 8;
+
+	message Query {
+		optional Server server = 1;
+	}
+
+	message List {
+		optional Server server = 1;
+		repeated Ban bans = 2;
+	}
 }
 
 service BanService {
-	//TODO(grpc): rpc Get(Ban) returns(stream Ban);
-	//TODO(grpc): rpc Set(stream Ban) returns(Void);
+	// Get returns a list of bans for the given server.
+	rpc Get(Ban.Query) returns(Ban.List);
+	rpc Set(Ban.List) returns(Void);
 }
 
 message ACL {

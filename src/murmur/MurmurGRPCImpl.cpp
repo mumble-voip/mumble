@@ -417,6 +417,18 @@ void ToRPC(const ::Server *srv, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
 	rg->set_inheritable(g->bInheritable);
 }
 
+void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
+	rb->mutable_server()->set_id(srv->iServerNum);
+
+	rb->set_address(ban.haAddress.toStdString());
+	rb->set_bits(ban.iMask);
+	rb->set_name(u8(ban.qsUsername));
+	rb->set_hash(u8(ban.qsHash));
+	rb->set_reason(u8(ban.qsReason));
+	rb->set_start(ban.qdtStart.toLocalTime().toTime_t());
+	rb->set_duration(ban.iDuration);
+}
+
 namespace MurmurRPC {
 namespace Wrapper {
 
@@ -1012,6 +1024,23 @@ void TreeService_Get::impl(bool) {
 	}
 
 	response.Finish(root, grpc::Status::OK, done());
+}
+
+void BanService_Get::impl(bool) {
+	auto server = MustServer(request);
+
+	::MurmurRPC::Ban_List list;
+	list.mutable_server()->set_id(server->iServerNum);
+	foreach(const ::Ban &ban, server->qlBans) {
+		auto rpcBan = list.add_bans();
+		ToRPC(server, ban, rpcBan);
+	}
+
+	response.Finish(list, grpc::Status::OK, done());
+}
+
+void BanService_Set::impl(bool) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
 void ACLService_Get::impl(bool) {
