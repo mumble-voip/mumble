@@ -101,6 +101,8 @@ class MurmurRPCImpl : public QThread {
 		QSet<::MurmurRPC::Wrapper::MetaService_Events *> qsMetaServiceListeners;
 		QMultiHash<int, ::MurmurRPC::Wrapper::ServerService_Events *> qmhServerServiceListeners;
 
+		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
+
 	public slots:
 		void cleanup();
 
