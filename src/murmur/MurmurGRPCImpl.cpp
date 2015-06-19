@@ -429,6 +429,16 @@ void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
 	rb->set_duration(ban.iDuration);
 }
 
+void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
+	ban.haAddress = HostAddress(rb.address());
+	ban.iMask = rb.bits();
+	ban.qsUsername = u8(rb.name());
+	ban.qsHash = u8(rb.hash());
+	ban.qsReason = u8(rb.reason());
+	ban.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(rb.start())).toUTC();
+	ban.iDuration = rb.duration();
+}
+
 namespace MurmurRPC {
 namespace Wrapper {
 
@@ -1040,7 +1050,19 @@ void BanService_Get::impl(bool) {
 }
 
 void BanService_Set::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	server->qlBans.clear();
+
+	for (int i = 0; i < request.bans_size(); i++) {
+		const auto &rpcBan = request.bans(i);
+		::Ban ban;
+		FromRPC(server, rpcBan, ban);
+		server->qlBans << ban;
+	}
+	server->saveBans();
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_Get::impl(bool) {
