@@ -214,7 +214,7 @@ Balio honek Mumblek zuhaitzean zehar kanalak antolatzeko duen modua aldatzeko ga
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation type="unfinished"/>
+        <translation>Hemen ACL sistemaren objektu gurasoak kanal honi eragingo dioten edo ez zehazten da. Soilik &quot;sub-kanalak aplikatu&quot;  doituta duten sarrera horiek heredatuko dira.</translation>
     </message>
     <message>
         <location/>
@@ -229,7 +229,7 @@ Balio honek Mumblek zuhaitzean zehar kanalak antolatzeko duen modua aldatzeko ga
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation type="unfinished"/>
+        <translation>Honek sarrera gorantz mugitzen du zerrendan. Sarrerak ordenean ebaluatzen direnez, honek erabiltzaileen baimenetan eragina izan lezake. Ezin duzu heredatutako sarrera baten gainera mugitu, hori egin nahi baduzu, sarrera bikoiztu beharko duzu.</translation>
     </message>
     <message>
         <location/>
@@ -431,7 +431,7 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
     <message>
         <location/>
         <source>&lt;b&gt;Inherit&lt;/b&gt;&lt;br /&gt;This inherits all the members in the group from the parent, if the group is marked as &lt;i&gt;Inheritable&lt;/i&gt; in the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt; Oinordetza &lt;/ b&gt; &lt;br /&gt; Honek gurasoaren taldeko kide guztiak heredatuko ditu, taldea &lt;i&gt; Heredagarri &lt;/ i&gt; bezala markatua badago.</translation>
     </message>
     <message>
         <location/>
@@ -459,7 +459,10 @@ Contains a list of members whose group membership will not be inherited from the
         <location/>
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Heredatutako kideak&lt;/b&gt;&lt;br&gt;
+
+Momentuko kanalak heredatutako kideen zerrenda du.
+Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekiditeko.</translation>
     </message>
     <message>
         <location/>
@@ -816,7 +819,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>SNR sisteman oinarritutako sistema</translation>
     </message>
     <message>
         <location/>
@@ -2771,7 +2774,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanala lotu</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -3394,7 +3397,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+24"/>
         <source>Crash upload successful</source>
-        <translation type="unfinished"/>
+        <translation>Errore informea bidalia izan da</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3517,7 +3520,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"/>
+        <translation>Datuak</translation>
     </message>
     <message>
         <location/>
@@ -3793,7 +3796,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation type="unfinished"/>
+        <translation>Kritikoa</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3853,7 +3856,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailea kanporatua</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3878,7 +3881,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailea kanalera batu da</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3919,27 +3922,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>esteka %1 -era</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"/>
+        <translation>ftp esteka %1 -era</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"/>
+        <translation>jokalariaren esteka</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"/>
+        <translation>kanalaren esteka</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"/>
+        <translation>esteka %1</translation>
     </message>
 </context>
 <context>
@@ -4100,7 +4103,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"/>
+        <translation>Txataren erregistroa</translation>
     </message>
     <message>
         <location/>
@@ -4219,12 +4222,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation type="unfinished"/>
+        <translation>Itxura eta izaera</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Maketazioa</translation>
     </message>
     <message>
         <location/>
@@ -4260,7 +4263,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Style</source>
-        <translation type="unfinished"/>
+        <translation>Estiloa</translation>
     </message>
     <message>
         <location/>
