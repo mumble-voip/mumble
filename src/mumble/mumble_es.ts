@@ -5939,12 +5939,12 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>%1 le dio voz y escucha.</translation>
+        <translation>%1 le dio voz y sonido.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation>Fue enmudecido por %1.</translation>
+        <translation>Fue silenciado por %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5955,17 +5955,17 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation>Fue contenido.</translation>
+        <translation>Ha sido silenciado.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation>Fue liberado.</translation>
+        <translation>Ya no está silenciado</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>Fue liberado por %1.</translation>
+        <translation>%1 le ha desmuteado</translation>
     </message>
     <message>
         <location line="+83"/>
