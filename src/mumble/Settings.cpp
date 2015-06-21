@@ -661,8 +661,8 @@ void Settings::load(QSettings* settings_ptr) {
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(qsStyle, "ui/style");
-	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(themeName, "ui/theme");
+	SAVELOAD(themeStyleName, "ui/themestyle");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
@@ -965,8 +965,8 @@ void Settings::save() {
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(qsStyle, "ui/style");
-	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(themeName, "ui/theme");
+	SAVELOAD(themeStyleName, "ui/themestyle");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");

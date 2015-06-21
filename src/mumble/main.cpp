@@ -57,6 +57,7 @@
 #include "SocketRPC.h"
 #include "MumbleApplication.h"
 #include "ApplicationPalette.h"
+#include "Themes.h"
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -312,25 +313,8 @@ int main(int argc, char **argv) {
 
 	ApplicationPalette applicationPalette;
 	
-	if (! g.s.qsStyle.isEmpty()) {
-		a.setStyle(g.s.qsStyle);
-		g.qsCurrentStyle = g.s.qsStyle;
-	}
-	
-	if (! g.s.qsSkin.isEmpty()) {
-		QFile file(g.s.qsSkin);
-		file.open(QFile::ReadOnly);
-		QString styleSheet=QLatin1String(file.readAll());
-		if (! styleSheet.isEmpty()) {
-			QFileInfo fi(g.s.qsSkin);
-			QDir::addSearchPath(QLatin1String("skin"), fi.path());
-			a.setStyleSheet(styleSheet);
-		}
-	} else {
-		a.setStyleSheet(MainWindow::defaultStyleSheet);
-	}
+	Themes::apply();
 
-	QDir::addSearchPath(QLatin1String("skin"),QLatin1String(":/"));
 	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
 
 	QString qsSystemLocale = QLocale::system().name();

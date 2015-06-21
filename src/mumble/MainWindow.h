@@ -136,8 +136,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void updateTrayIcon();
 		void updateTransmitModeComboBox();
 		QPair<QByteArray, QImage> openImageFile();
-		static const QString defaultStyleSheet;
-
+		
 		void updateChatBar();
 		void openTextMessageDialog(ClientUser *p);
 
