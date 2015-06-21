@@ -442,6 +442,10 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+	
+	// Default theme
+	themeName = QLatin1String("Metro Mumble");
+	themeStyleName = QLatin1String("Lite");
 }
 
 bool Settings::doEcho() const {
