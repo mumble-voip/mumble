@@ -148,6 +148,8 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbHighContrast, r.bHighContrast);
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
+	loadCheckBox(qcbShowLinkedColored, r.bShowLinkedColored);
+	
 	
 }
 
@@ -201,6 +203,9 @@ void LookConfig::save() const {
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
+	s.bShowLinkedColored = qcbShowLinkedColored->isChecked();
+	s.qcShowLinkedColor = g.s.qcShowLinkedColor;
+	
 }
 
 void LookConfig::accept() const {
@@ -235,6 +240,8 @@ bool LookConfig::expert(bool b) {
 	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
+	qcbShowLinkedColored->setVisible(b);
+	qpbShowLinkedColor->setVisible(b);
 	return true;
 }
 
@@ -262,4 +269,11 @@ void LookConfig::on_qpbSkinFile_clicked(bool) {
 	if (! file.isEmpty()) {
 		qleCSS->setText(file);
 	}
+}
+
+void LookConfig::on_qpbShowLinkedColor_clicked(bool) {
+    QColor color = QColorDialog::getColor(g.s.qcShowLinkedColor, this, tr("Pick background color for linked channels"), QColorDialog::DontUseNativeDialog | QColorDialog::ShowAlphaChannel);
+    if (color.isValid()) {
+        g.s.qcShowLinkedColor = color;
+    }
 }
