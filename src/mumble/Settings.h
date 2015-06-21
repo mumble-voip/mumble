@@ -251,8 +251,12 @@ struct Settings {
 	QMap<int, quint32> qmMessages;
 
 	QString qsLanguage;
-	QString qsStyle;
-	QString qsSkin;
+
+	/// Name of the theme to use. @see Themes
+	QString themeName;
+	/// Name of the style to use from theme. @see Themes
+	QString themeStyleName;
+	
 	QByteArray qbaMainWindowGeometry, qbaMainWindowState, qbaMinimalViewGeometry, qbaMinimalViewState, qbaSplitterState, qbaHeaderState;
 	QByteArray qbaConfigGeometry;
 	enum WindowLayout { LayoutClassic, LayoutStacked, LayoutHybrid, LayoutCustom };

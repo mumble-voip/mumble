@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2015 Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -27,27 +27,50 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#ifndef MUMBLE_MUMBLE_THEMES_H_
+#define MUMBLE_MUMBLE_THEMES_H_
 
-#ifndef MUMBLE_MUMBLE_LOOKCONFIG_H_
-#define MUMBLE_MUMBLE_LOOKCONFIG_H_
+#include <ThemeInfo.h>
+#include <Settings.h>
+#ifndef Q_MOC_RUN
+#include <boost/optional.hpp>
+#endif
 
-#include "ConfigDialog.h"
+class Themes {
+public:
+	/// Returns the style configured in the given settings structure
+	static boost::optional<ThemeInfo::StyleInfo> getConfiguredStyle(const Settings& settings);
+	
+	/// Updates the given settings object to be configured to the given style
+	/// 
+	/// @note Does not apply the theme @see apply
+	/// 
+	/// @param settings Settings object to update
+	/// @param style Style to set
+	/// @param outChanged Will be set to true if the style in settings actually changed. Will not be changed otherwise.
+	static void setConfiguredStyle(Settings& settings, boost::optional<ThemeInfo::StyleInfo> style, bool& outChanged);
+	
+	/// Applies the theme
+	/// 
+	/// @note Can only apply a theme before MainWindow etc. is opened
+	static bool apply();
+	
+	/// Return a theme name to theme map
+	static ThemeMap getThemes();
 
-#include "ui_LookConfig.h"
-
-class LookConfig : public ConfigWidget, Ui::LookConfig {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(LookConfig)
-	public:
-		LookConfig(Settings &st);
-		virtual QString title() const Q_DECL_OVERRIDE;
-		virtual QIcon icon() const Q_DECL_OVERRIDE;
-	public slots:
-		void accept() const Q_DECL_OVERRIDE;
-		void save() const Q_DECL_OVERRIDE;
-		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
+private:
+	/// Applies the fallback stylesheet
+	static void applyFallback();
+	
+	/// Tries to apply the configured theme.
+	/// @return True on success. False on failure.
+	static bool applyConfigured();
+	
+	/// Returns list of theme search directories ordered ascending by priorty (lowest first)
+	static QVector<QDir> getSearchDirectories();
+	
+	/// Returns default style-sheet used for fall-backs
+	static QString getDefaultStylesheet();
 };
 
-#endif
+#endif // MUMBLE_MUMBLE_THEMES_H_
