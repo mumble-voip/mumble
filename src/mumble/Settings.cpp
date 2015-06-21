@@ -443,6 +443,10 @@ Settings::Settings() {
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	qmMessages[Log::UserRenamed] = Settings::LogConsole;
+	
+	// Default theme
+	themeName = QLatin1String("Mumble");
+	themeStyleName = QLatin1String("Lite");
 }
 
 bool Settings::doEcho() const {
