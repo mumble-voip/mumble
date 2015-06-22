@@ -1408,7 +1408,7 @@ public:
 	::MurmurRPC::ACLService::AsyncService *service;
 
 	::grpc::ServerContext context;
-	::MurmurRPC::User request;
+	::MurmurRPC::ACL_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > response;
 
 	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {

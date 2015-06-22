@@ -408,6 +408,12 @@ message ACL {
 	optional Permission allow = 8;
 	optional Permission deny = 9;
 
+	message Query {
+		optional Server server = 1;
+		optional User user = 2;
+		optional Channel channel = 3;
+	}
+
 	message List {
 		optional Server server = 1;
 		optional Channel channel = 2;
@@ -430,7 +436,9 @@ service ACLService {
 	rpc Get(Channel) returns(ACL.List);
 	rpc Set(ACL.List) returns(Void);
 
-	rpc GetEffectivePermissions(User) returns(ACL);
+	// GetEffectivePermissions returns the effective permissions for the given
+	// user in the given channel.
+	rpc GetEffectivePermissions(ACL.Query) returns(ACL);
 
 	// AddTemporaryGroup adds a user to a temporary group.
 	rpc AddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
