@@ -422,7 +422,7 @@ message ACL {
 
 		optional Channel channel = 2;
 		optional User user = 3;
-		optional string group = 4;
+		optional string group_name = 4;
 	}
 }
 
@@ -432,6 +432,7 @@ service ACLService {
 
 	rpc GetEffectivePermissions(User) returns(ACL);
 
+	// AddTemporaryGroup adds a user to a temporary group.
 	rpc AddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
