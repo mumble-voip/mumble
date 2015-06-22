@@ -1206,7 +1206,15 @@ void ACLService_Set::impl(bool) {
 }
 
 void ACLService_GetEffectivePermissions::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+	auto channel = MustChannel(server, request);
+
+	auto flags = int(server->effectivePermissions(user, channel));
+
+	::MurmurRPC::ACL rpcACL;
+	rpcACL.set_allow(::MurmurRPC::ACL_Permission(flags));
+	response.Finish(rpcACL, grpc::Status::OK, done());
 }
 
 void ACLService_AddTemporaryGroup::impl(bool) {
