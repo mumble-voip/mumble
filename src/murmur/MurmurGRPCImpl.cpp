@@ -1236,7 +1236,29 @@ void ACLService_AddTemporaryGroup::impl(bool) {
 }
 
 void ACLService_RemoveTemporaryGroup::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+	auto channel = MustChannel(server, request);
+
+	if (!request.has_group_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing group name");
+	}
+
+	QString qsgroup = u8(request.group_name());
+	if (qsgroup.isEmpty()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty group name");
+	}
+
+	::Group *g = channel->qhGroups.value(qsgroup);
+	if (!g) {
+		g = new ::Group(channel, qsgroup);
+	}
+
+	g->qsTemporary.remove(-user->uiSession);
+	server->clearACLCache(user);
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 void AuthenticatorService_Stream::impl(bool) {

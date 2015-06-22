@@ -434,6 +434,7 @@ service ACLService {
 
 	// AddTemporaryGroup adds a user to a temporary group.
 	rpc AddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	// RemoveTemporaryGroup removes a user from a temporary group.
 	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
 
