@@ -205,12 +205,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>List of entries</source>
-        <translation>Listo da eroj</translation>
+        <translation>Listo da elementoj</translation>
     </message>
     <message>
         <location/>
         <source>Inherit ACL of parent?</source>
-        <translation type="unfinished"/>
+        <translation>Ĉu heredu ACLon de patro?</translation>
     </message>
     <message>
         <location/>
@@ -220,12 +220,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>Inherit ACLs</source>
-        <translation type="unfinished"/>
+        <translation>Heredi ACLojn</translation>
     </message>
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Movi elementon supren</translation>
     </message>
     <message>
         <location/>
@@ -270,7 +270,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>Remove entry</source>
-        <translation>Forigi ero</translation>
+        <translation>Forigi elementon</translation>
     </message>
     <message>
         <location/>
@@ -311,24 +311,24 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>Add new group</source>
-        <translation>aldoni novan gupon</translation>
+        <translation>Aldoni novan gupon</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Add&lt;/b&gt;&lt;br/&gt;
 Add a new group.</source>
         <translation>&lt;b&gt;Aldoni&lt;/b&gt;&lt;br/&gt;
-Aldoni novan grupon</translation>
+Aldoni novan grupon.</translation>
     </message>
     <message>
         <location/>
         <source>Inherited members</source>
-        <translation type="unfinished"/>
+        <translation>Heriditaj anoj</translation>
     </message>
     <message>
         <location/>
         <source>Contains the list of members added to the group by this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Enhavas la liston da anoj, kiuj aldoniĝis de ĉi tiu kanalo al la grupo.</translation>
     </message>
     <message>
         <location/>
@@ -383,7 +383,7 @@ Aldoni novan grupon</translation>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Grupo, al kiu tiu ĉi elemento aplikas</translation>
     </message>
     <message>
         <location/>
@@ -393,7 +393,7 @@ Aldoni novan grupon</translation>
     <message>
         <location/>
         <source>User this entry applies to</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto, al kiu tiu ĉi elemento aplikas</translation>
     </message>
     <message>
         <location/>
@@ -1341,12 +1341,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation type="unfinished"/>
+        <translation>Minimuma Distanco</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation type="unfinished"/>
+        <translation> Maksimuma Distanco</translation>
     </message>
     <message>
         <location/>
@@ -1437,7 +1437,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>dum aliaj uzantoj parolas</translation>
     </message>
     <message>
         <location/>
@@ -1540,7 +1540,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutputSample.cpp" line="+211"/>
         <source>Choose sound file</source>
-        <translation>Eleki sondosieron</translation>
+        <translation>Elektu sondosieron</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -1564,7 +1564,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioStats.ui"/>
         <source>Audio Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Sonaj Statistikaĵoj</translation>
     </message>
     <message>
         <location/>
@@ -2879,12 +2879,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation type="unfinished"/>
+        <translation>Registrigi Uzanton</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation type="unfinished"/>
+        <translation>Registriĝi</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -4187,7 +4187,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Se agordata, kontrolos ke vi volas ĉesi se estos konektita.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4532,7 +4532,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-156"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -4631,7 +4631,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+36"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished"/>
+        <translation>Konektante al %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4642,12 +4642,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+15"/>
         <location line="+206"/>
         <source>Connecting to server %1.</source>
-        <translation type="unfinished"/>
+        <translation>Konektante al servilo %1.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation type="unfinished"/>
+        <translation>Rekonektante.</translation>
     </message>
     <message>
         <location line="+167"/>
@@ -4657,7 +4657,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -4668,7 +4668,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="-123"/>
         <location line="+376"/>
         <source>Register yourself as %1</source>
-        <translation type="unfinished"/>
+        <translation>Registrigi vin kiel %1</translation>
     </message>
     <message>
         <location line="-376"/>
@@ -4679,7 +4679,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Register user %1</source>
-        <translation type="unfinished"/>
+        <translation>Registrigi uzanton %1</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -4699,13 +4699,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"/>
+        <translation>Vidi komenton de uzanto %1</translation>
     </message>
     <message>
         <location line="+72"/>
         <location line="+263"/>
         <source>Message to channel %1</source>
-        <translation type="unfinished"/>
+        <translation>Mesaĝo por la kanalo %1</translation>
     </message>
     <message>
         <location line="+638"/>
@@ -4726,36 +4726,36 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Tajpu mesaĝon por la kanalo &apos;%1&apos; ĉi tie&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Tajpu mesaĝon por la uzanto &apos;%1&apos; ĉi tie&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation type="unfinished"/>
+        <translation>Elektu bildodosieron</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Malsukcesis ŝargi la bildon</translation>
     </message>
     <message>
         <location line="-27"/>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"/>
+        <translation>Ne povas malfermi la dosieron por legi.</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Ne rekonis bildformaton.</translation>
     </message>
     <message>
         <location line="-1779"/>
@@ -5039,12 +5039,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
-        <translation type="unfinished"/>
+        <translation>Uzantnomo estas uzata</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished"/>
+        <translation>Tiu uzantnomo jam estas uzata, bonvolu provi alian uzantnomon.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5098,7 +5098,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Quit Mumble</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ĉesi Mumblon</translation>
     </message>
     <message>
         <location/>
@@ -5108,17 +5108,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation type="unfinished"/>
+        <translation>Eliras la aplikaĵon.</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Connect</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Konekti</translation>
     </message>
     <message>
         <location/>
@@ -5253,7 +5253,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation type="unfinished"/>
+        <translation>Montras dialogon de registritaj serviloj, kaj ankaŭ permesas tujkonekti.</translation>
     </message>
     <message>
         <location/>
@@ -5550,7 +5550,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Register user on server</source>
-        <translation type="unfinished"/>
+        <translation>Registrigi uzanton en la servilon</translation>
     </message>
     <message>
         <location/>
@@ -5605,12 +5605,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"/>
+        <translation>Registritaj &amp;Uzantoj</translation>
     </message>
     <message>
         <location/>
         <source>Edit registered users list</source>
-        <translation type="unfinished"/>
+        <translation>Redakti liston da registritaj uzantoj</translation>
     </message>
     <message>
         <location/>
@@ -6178,7 +6178,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Registriĝi</translation>
     </message>
     <message>
         <location/>
@@ -6238,7 +6238,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"/>
+        <translation>Registrigi vin en la servilon</translation>
     </message>
     <message>
         <location/>
@@ -6410,12 +6410,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Type</source>
-        <translation>Tajpi</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>Tipo de prokurilo por konekti tra</translation>
     </message>
     <message>
         <location/>
@@ -6505,7 +6505,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username</source>
-        <translation>Uzantonomo</translation>
+        <translation>Uzantnomo</translation>
     </message>
     <message>
         <location/>
@@ -6520,14 +6520,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password</source>
-        <translation>pasvorto</translation>
+        <translation>Pasvorto</translation>
     </message>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation>pasvorto por prokuriloaûtentikeco
-
-</translation>
+        <translation>Pasvorto por prokuriloaûtentikeco</translation>
     </message>
     <message>
         <location/>
@@ -7712,7 +7710,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation type="unfinished"/>
+        <translation>Registritaj Uzantoj</translation>
     </message>
     <message>
         <location/>
@@ -7759,7 +7757,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Registritaj uzantoj: %n konto(j)</numerusform><numerusform>Registritaj uzantoj: %n konto(j)</numerusform></translation>
     </message>
 </context>
 <context>
