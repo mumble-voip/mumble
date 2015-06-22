@@ -476,6 +476,23 @@ template <>
 	return channel;
 }
 
+::Channel *MustChannel(const Server *server, unsigned int channel_id) {
+	auto channel = server->qhChannels.value(channel_id);
+	if (!channel) {
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid channel");
+	}
+	return channel;
+}
+
+template <class T>
+::Channel *MustChannel(const Server *server, const T &msg) {
+	if (!msg.has_channel()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel");
+	}
+	return MustChannel(server, msg.channel());
+}
+
+template <>
 ::Channel *MustChannel(const Server *server, const ::MurmurRPC::Channel &msg) {
 	if (!msg.has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing channel id");
@@ -1193,7 +1210,29 @@ void ACLService_GetEffectivePermissions::impl(bool) {
 }
 
 void ACLService_AddTemporaryGroup::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+	auto channel = MustChannel(server, request);
+
+	if (!request.has_group_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing group name");
+	}
+
+	QString qsgroup = u8(request.group_name());
+	if (qsgroup.isEmpty()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty group name");
+	}
+
+	::Group *g = channel->qhGroups.value(qsgroup);
+	if (!g) {
+		g = new ::Group(channel, qsgroup);
+	}
+
+	g->qsTemporary.insert(-user->uiSession);
+	server->clearACLCache(user);
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_RemoveTemporaryGroup::impl(bool) {
