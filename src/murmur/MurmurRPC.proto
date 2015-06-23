@@ -183,6 +183,7 @@ message Config {
 }
 
 service ConfigService {
+	// Get returns the explicitly set configuration for the given server.
 	rpc Get(Server) returns(Config);
 	// GetField returns the configuration value for the given key.
 	rpc GetField(Config.Field) returns(Config.Field);
