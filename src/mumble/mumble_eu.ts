@@ -569,7 +569,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>This chooses what device to query. You still need to actually query the device and select which channels to use.</source>
-        <translation type="unfinished"/>
+        <translation>Honekin ze gailu kontsultatu nahi duzun zehazten da. Oraindik gailua kontsultatu eta ze kanal erabali zehaztu behar duzu.</translation>
     </message>
     <message>
         <location/>
@@ -579,7 +579,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>This queries the selected device for channels. Be aware that many ASIO drivers are buggy to the extreme, and querying them might cause a crash of either the application or the system.</source>
-        <translation type="unfinished"/>
+        <translation>Honek gailua kontsultatuko du kanalen bila. Jakin ezazu ASIO kontroladore askok akatsak dituztela eta berauek kontsultatzeak aplikazioan edo sisteman erroreak sor ditzake.</translation>
     </message>
     <message>
         <location/>
@@ -769,7 +769,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>DoublePush Time</source>
-        <translation type="unfinished"/>
+        <translation>Pultsazio bikoitzerako denbora</translation>
     </message>
     <message>
         <location/>
@@ -864,7 +864,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation type="unfinished"/>
+        <translation>Nibel honetatik goragoko seinaleak ahots kontsideratuak izango dira</translation>
     </message>
     <message>
         <location/>
@@ -1029,7 +1029,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;ukeratu...</translation>
     </message>
     <message>
         <location/>
@@ -1059,7 +1059,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation type="unfinished"/>
+        <translation>Audio seinale entzungarria transmisioa hasi edo amaitzerakoan</translation>
     </message>
     <message>
         <location/>
@@ -1245,12 +1245,12 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"/>
+        <translation>Fluktuazio bufer lehenetsia</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"/>
+        <translation>Fluktuazio buferrarentzako segurtasun marjina</translation>
     </message>
     <message>
         <location/>
@@ -1371,7 +1371,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation type="unfinished"/>
+        <translation>Itzulera bukle testa</translation>
     </message>
     <message>
         <location/>
@@ -1417,7 +1417,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"/>
+        <translation>Aplikazioen ahultze balorea</translation>
     </message>
     <message>
         <location/>
@@ -1584,7 +1584,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation type="unfinished"/>
+        <translation>Azken frame-aren potentzia maximoa</translation>
     </message>
     <message>
         <location/>
@@ -1605,7 +1605,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation type="unfinished"/>
+        <translation>Maila garbi maximoa</translation>
     </message>
     <message>
         <location/>
