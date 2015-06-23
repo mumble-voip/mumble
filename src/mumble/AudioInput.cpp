@@ -823,17 +823,35 @@ void AudioInput::encodeAudioFrame() {
 	if (! bIsSpeech && ! bPreviousVoice) {
 		iBitrate = 0;
 
-		if (g.s.iaeIdleAction != Settings::Nothing && (g.sys->getIdleSeconds() > g.s.iIdleTime)) {
-
+		unsigned int idleSeconds = g.sys->getIdleSeconds();
+		if (g.s.iaeIdleAction != Settings::Nothing && (idleSeconds > g.s.iIdleTime)) {
+			uiLastIdleTime = idleSeconds;
 			if (g.s.iaeIdleAction == Settings::Deafen && !g.s.bDeaf) {
+				iaeLastIdleAction = Settings::Deafen;
 				emit doDeaf();
 			} else if (g.s.iaeIdleAction == Settings::Mute && !g.s.bMute) {
+				iaeLastIdleAction = Settings::Mute;
 				emit doMute();
 			} else if (g.s.iaeIdleAction == Settings::IdleMove){
+				iaeLastIdleAction = Settings::IdleMove;
 				Channel *ic = Channel::getIdleChannel();
-				if (ic && ClientUser::get(g.uiSession)->cChannel != ic)
+				if (ic && ClientUser::get(g.uiSession)->cChannel != ic) {
+					cLastChannel = ClientUser::get(g.uiSession)->cChannel;
 					g.sh->joinChannel(g.uiSession, ic->iId);
+				}
 			}
+		// Reset the state when the user returns
+		} else if (idleSeconds < uiLastIdleTime) {
+			if (iaeLastIdleAction == Settings::Deafen && g.s.bDeaf)
+				emit doDeaf();
+			else if (iaeLastIdleAction == Settings::Mute && g.s.bMute)
+				emit doMute();
+			else if (iaeLastIdleAction == Settings::IdleMove) {
+				if (ClientUser::get(g.uiSession)->cChannel == Channel::getIdleChannel() && cLastChannel)
+					g.sh->joinChannel(g.uiSession, cLastChannel->iId);
+				cLastChannel = NULL;
+			}
+			uiLastIdleTime = 0;
 		}
 
 		spx_int32_t increment = 0;

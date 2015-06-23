@@ -99,11 +99,17 @@ class AudioInput : public QThread {
 
 		OpusEncoder *opusState;
 		bool selectCodec();
-		
+
 		typedef boost::array<unsigned char, 960> EncodingOutputBuffer;
 		
 		int encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer);
 		int encodeCELTFrame(short *pSource, EncodingOutputBuffer& buffer);
+
+		//Idle tracking variables. These should probably be moved eventually
+		unsigned int uiLastIdleTime;
+		Channel *cLastChannel;
+		Settings::IdleAction iaeLastIdleAction;
+
 	protected:
 		MessageHandler::UDPMessageType umtType;
 		SampleFormat eMicFormat, eEchoFormat;
