@@ -823,6 +823,11 @@
           </item>
           <item>
            <property name="text">
+            <string>move to idle channel</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
             <string>deafen</string>
            </property>
           </item>

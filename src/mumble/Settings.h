@@ -166,7 +166,7 @@ struct Settings {
 	enum ChannelDrag { Ask, DoNothing, Move };
 	enum ServerShow { ShowPopulated, ShowReachable, ShowAll };
 	enum TalkState { Passive, Talking, Whispering, Shouting };
-	enum IdleAction { Nothing, Deafen, Mute };
+	enum IdleAction { Nothing, IdleMove, Deafen, Mute };
 	typedef QPair<QList<QSslCertificate>, QSslKey> KeyPair;
 
 	AudioTransmit atTransmit;

@@ -44,6 +44,7 @@
 #include "System.h"
 #include "NetworkConfig.h"
 #include "VoiceRecorder.h"
+#include "Channel.h"
 
 #ifdef USE_OPUS
 #include "opus.h"
@@ -828,6 +829,10 @@ void AudioInput::encodeAudioFrame() {
 				emit doDeaf();
 			} else if (g.s.iaeIdleAction == Settings::Mute && !g.s.bMute) {
 				emit doMute();
+			} else if (g.s.iaeIdleAction == Settings::IdleMove){
+				Channel *ic = Channel::getIdleChannel();
+				if (ic && ClientUser::get(g.uiSession)->cChannel != ic)
+					g.sh->joinChannel(g.uiSession, ic->iId);
 			}
 		}
 
