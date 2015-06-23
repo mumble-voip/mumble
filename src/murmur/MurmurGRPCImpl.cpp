@@ -817,15 +817,20 @@ void LogService_Query::impl(bool) {
 	response.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ConfigService_GetDefault::impl(bool) {
+
+void ConfigService_Get::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ConfigService_SetDefault::impl(bool) {
+void ConfigService_GetField::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void ConfigService_Query::impl(bool) {
+void ConfigService_SetField::impl(bool) {
+	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+}
+
+void ConfigService_GetDefaults::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
