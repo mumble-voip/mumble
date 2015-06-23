@@ -823,7 +823,15 @@ void ConfigService_Get::impl(bool) {
 }
 
 void ConfigService_GetField::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	if (!request.has_key()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
+	}
+	::MurmurRPC::Config_Field rpcField;
+	rpcField.mutable_server()->set_id(server->iServerNum);
+	rpcField.set_key(request.key());
+	rpcField.set_value(u8(server->getConf(u8(request.key()), QVariant()).toString()));
+	response.Finish(rpcField, ::grpc::Status::OK, done());
 }
 
 void ConfigService_SetField::impl(bool) {

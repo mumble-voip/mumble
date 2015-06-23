@@ -184,6 +184,7 @@ message Config {
 
 service ConfigService {
 	rpc Get(Server) returns(Config);
+	// GetField returns the configuration value for the given key.
 	rpc GetField(Config.Field) returns(Config.Field);
 	rpc SetField(Config.Field) returns(Void);
 
