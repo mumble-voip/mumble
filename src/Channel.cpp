@@ -91,7 +91,7 @@ Channel *Channel::get(const QString &path) {
 	int depth = channelsInPath.length();
 	int traversed = 0;
 
-	if (cur->qlChannels.length() < 1) {
+	if (cur->qlChannels.length() < 1 || path.isEmpty()) {
 		return NULL;
 	}
 
