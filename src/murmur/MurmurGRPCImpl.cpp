@@ -820,7 +820,17 @@ void LogService_Query::impl(bool) {
 
 
 void ConfigService_Get::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto config = ServerDB::getAllConf(server->iServerNum);
+
+	::MurmurRPC::Config rpcConfig;
+	rpcConfig.mutable_server()->set_id(server->iServerNum);
+	auto &fields = *rpcConfig.mutable_fields();
+	for (auto i = config.constBegin(); i != config.constEnd(); ++i) {
+		fields[u8(i.key())] = u8(i.value());
+	}
+
+	response.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
 void ConfigService_GetField::impl(bool) {
