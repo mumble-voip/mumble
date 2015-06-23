@@ -190,6 +190,7 @@ service ConfigService {
 	// SetField sets the configuration value to the given value.
 	rpc SetField(Config.Field) returns(Void);
 
+	// GetDefaults returns the default server configuration.
 	rpc GetDefaults(Void) returns(Config);
 }
 
