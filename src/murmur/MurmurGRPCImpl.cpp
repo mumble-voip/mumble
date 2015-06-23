@@ -407,7 +407,8 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 }
 
 // TODO(grpc): ensure that all implementation methods are using the correct
-// Must* kind (Must*, MustExist*, etc.)
+// Must* kind (Must*, MustExist*, etc.). Some calls should be able to run
+// even if the server is not started (i.e. MustServer() returns NULL).
 
 ::ServerUser *MustUser(const Server *server, unsigned int session) {
 	auto user = server->qhUsers.value(session);
@@ -835,7 +836,20 @@ void ConfigService_GetField::impl(bool) {
 }
 
 void ConfigService_SetField::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	if (!request.has_key()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
+	}
+	QString key = u8(request.key());
+	QString value;
+	if (request.has_value()) {
+		value = u8(request.value());
+	}
+	server->setConf(key, value);
+	server->setLiveConf(key, value);
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 void ConfigService_GetDefaults::impl(bool) {
