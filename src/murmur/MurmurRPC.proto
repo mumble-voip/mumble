@@ -186,6 +186,7 @@ service ConfigService {
 	rpc Get(Server) returns(Config);
 	// GetField returns the configuration value for the given key.
 	rpc GetField(Config.Field) returns(Config.Field);
+	// SetField sets the configuration value to the given value.
 	rpc SetField(Config.Field) returns(Void);
 
 	rpc GetDefaults(Void) returns(Config);
