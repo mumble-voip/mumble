@@ -680,7 +680,130 @@ void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService 
 	LogService_Query::create(impl, service);
 }
 
-class ConfigService_GetDefault : public RPCCall {
+class ConfigService_Get : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Server request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
+
+	ConfigService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_Get::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		ConfigService_Get::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_Get::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_Get(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_Get::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+class ConfigService_GetField : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Config_Field request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > response;
+
+	ConfigService_GetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_GetField::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		ConfigService_GetField::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_GetField::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_GetField(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_GetField::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestGetField(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+class ConfigService_SetField : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::ConfigService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::Config_Field request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+
+	ConfigService_SetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&ConfigService_SetField::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(::grpc::Status &err) {
+		response.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		ConfigService_SetField::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_SetField::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
+		auto call = new ConfigService_SetField(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_SetField::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestSetField(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+class ConfigService_GetDefaults : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::ConfigService::AsyncService *service;
@@ -689,7 +812,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
 
-	ConfigService_GetDefault(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ConfigService_GetDefaults(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
 	}
 
 	void impl(bool ok);
@@ -699,7 +822,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&ConfigService_GetDefault::finish, this, _1);
+		auto done_fn = ::boost::bind(&ConfigService_GetDefaults::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -708,104 +831,23 @@ public:
 	}
 
 	void handle(bool ok) {
-		ConfigService_GetDefault::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_GetDefault::impl, this, ok), this);
+		ConfigService_GetDefaults::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_GetDefaults::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
-		auto call = new ConfigService_GetDefault(rpc, service);
-		auto fn = ::boost::bind(&ConfigService_GetDefault::handle, call, _1);
+		auto call = new ConfigService_GetDefaults(rpc, service);
+		auto fn = ::boost::bind(&ConfigService_GetDefaults::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetDefault(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
-	}
-};
-
-class ConfigService_SetDefault : public RPCCall {
-public:
-	MurmurRPCImpl *rpc;
-	::MurmurRPC::ConfigService::AsyncService *service;
-
-	::grpc::ServerContext context;
-	::MurmurRPC::Config request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
-
-	ConfigService_SetDefault(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
-	}
-
-	void impl(bool ok);
-
-	void finish(bool) {
-		delete this;
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&ConfigService_SetDefault::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
-	}
-
-	void handle(bool ok) {
-		ConfigService_SetDefault::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_SetDefault::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
-		auto call = new ConfigService_SetDefault(rpc, service);
-		auto fn = ::boost::bind(&ConfigService_SetDefault::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetDefault(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
-	}
-};
-
-class ConfigService_Query : public RPCCall {
-public:
-	MurmurRPCImpl *rpc;
-	::MurmurRPC::ConfigService::AsyncService *service;
-
-	::grpc::ServerContext context;
-	::MurmurRPC::Config_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
-
-	ConfigService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
-	}
-
-	void impl(bool ok);
-
-	void finish(bool) {
-		delete this;
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&ConfigService_Query::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
-	}
-
-	void handle(bool ok) {
-		ConfigService_Query::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&ConfigService_Query::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) {
-		auto call = new ConfigService_Query(rpc, service);
-		auto fn = ::boost::bind(&ConfigService_Query::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetDefaults(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
-	ConfigService_GetDefault::create(impl, service);
-	ConfigService_SetDefault::create(impl, service);
-	ConfigService_Query::create(impl, service);
+	ConfigService_Get::create(impl, service);
+	ConfigService_GetField::create(impl, service);
+	ConfigService_SetField::create(impl, service);
+	ConfigService_GetDefaults::create(impl, service);
 }
 
 class ChannelService_Query : public RPCCall {

@@ -171,56 +171,23 @@ service LogService {
 	rpc Query(Log.Query) returns(Log.List);
 }
 
-// Having "Config" seems preferable to having a map (map<string, string>),
-// since. we are able to get some type safety. The downside to this is that
-// arbitrary config values cannot be set (i.e. a user cannot set the "county"
-// config value without changing the protocol buffer on both the client and
-// server).
 message Config {
-	optional Server server = 55; // TODO: reindex
+	optional Server server = 1;
+	map<string, string> fields = 2;
 
-	optional string password = 1;
-	optional uint32 timeout = 2;
-	optional uint32 bandwidth = 3;
-	optional uint32 users = 4;
-	optional uint32 users_per_channel = 5;
-	optional uint32 text_message_length = 6;
-	optional uint32 image_message_length = 7;
-	optional bool allow_help = 8;
-	optional Channel default_channel = 9;
-	optional bool remember_channel = 10;
-	optional string welcome_text = 11;
-
-	optional string register_name = 12;
-	optional string register_password = 13;
-	optional string register_hostname = 14;
-	optional string register_location = 15;
-	optional string register_url = 16;
-
-	optional bool cert_required = 17;
-	optional bool force_external_auth = 18;
-	optional bool bonjour = 19;
-	optional bool allow_ping = 20;
-
-	optional string username = 21;
-	optional string channelname = 22;
-
-	optional Version suggest_version = 23;
-	optional bool suggest_positional = 24;
-	optional bool suggest_push_to_talk = 25;
-
-	optional uint32 opus_threshold = 26;
-	optional uint32 channel_nesting_limit = 27;
-
-	message Query {
+	message Field {
 		optional Server server = 1;
+		optional string key = 2;
+		optional string value = 3;
 	}
 }
 
 service ConfigService {
-	rpc GetDefault(Void) returns(Config);
-	rpc SetDefault(Config) returns(Void);
-	rpc Query(Config.Query) returns(Config); // TODO: Remove in favor of a field in "Server"?
+	rpc Get(Server) returns(Config);
+	rpc GetField(Config.Field) returns(Config.Field);
+	rpc SetField(Config.Field) returns(Void);
+
+	rpc GetDefaults(Void) returns(Config);
 }
 
 message Channel {
