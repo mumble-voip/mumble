@@ -863,7 +863,13 @@ void ConfigService_SetField::impl(bool) {
 }
 
 void ConfigService_GetDefaults::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	::MurmurRPC::Config rpcConfig;
+	auto &fields = *rpcConfig.mutable_fields();
+	for (auto i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
+		fields[u8(i.key())] = u8(i.value());
+	}
+
+	response.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
 void ChannelService_Query::impl(bool) {
