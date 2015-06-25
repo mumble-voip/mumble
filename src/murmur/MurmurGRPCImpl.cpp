@@ -1245,7 +1245,62 @@ void ACLService_Get::impl(bool) {
 }
 
 void ACLService_Set::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto channel = MustChannel(server, request);
+
+	::Group *g;
+	::ChanACL *acl;
+
+	QHash<QString, QSet<int> > hOldTemp;
+	foreach(g, channel->qhGroups) {
+		hOldTemp.insert(g->qsName, g->qsTemporary);
+		delete g;
+	}
+	foreach(acl, channel->qlACL) {
+		delete acl;
+	}
+
+	channel->qhGroups.clear();
+	channel->qlACL.clear();
+
+	channel->bInheritACL = request.inherit();
+
+	// TODO(grpc): better validation?
+	for (int i = 0; i < request.groups_size(); i++) {
+		auto &rpcGroup = request.groups(i);
+		auto name = u8(rpcGroup.name());
+		g = new ::Group(channel, name);
+		g->bInherit = rpcGroup.inherit();
+		g->bInheritable = rpcGroup.inheritable();
+		for (int j = 0; j < rpcGroup.users_add_size(); j++) {
+			g->qsAdd.insert(rpcGroup.users_add(j).id());
+		}
+		for (int j = 0; j < rpcGroup.users_remove_size(); j++) {
+			g->qsRemove.insert(rpcGroup.users_remove(j).id());
+		}
+		g->qsTemporary = hOldTemp.value(name);
+	}
+	// TODO(grpc): better validation?
+	for (int i = 0; i < request.acls_size(); i++) {
+		auto &rpcACL = request.acls(i);
+		acl = new ChanACL(channel);
+		acl->bApplyHere = rpcACL.apply_here();
+		acl->bApplySubs = rpcACL.apply_subs();
+		if (rpcACL.has_user()) {
+			acl->iUserId = rpcACL.user().id();
+		}
+		if (rpcACL.has_group()) {
+			acl->qsGroup = u8(rpcACL.group());
+		}
+		acl->pDeny = static_cast<ChanACL::Permissions>(rpcACL.deny()) & ChanACL::All;
+		acl->pAllow = static_cast<ChanACL::Permissions>(rpcACL.allow()) & ChanACL::All;
+	}
+
+	server->clearACLCache();
+	server->updateChannel(channel);
+
+	::MurmurRPC::Void vd;
+	response.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_GetEffectivePermissions::impl(bool) {
