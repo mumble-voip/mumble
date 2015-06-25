@@ -404,6 +404,7 @@ message ACL {
 }
 
 service ACLService {
+	// Get returns the ACL for the given channel.
 	rpc Get(Channel) returns(ACL.List);
 	// Set overrides the ACL of the given channel to what is provided.
 	rpc Set(ACL.List) returns(Void);
