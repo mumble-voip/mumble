@@ -1241,7 +1241,76 @@ void BanService_Set::impl(bool) {
 }
 
 void ACLService_Get::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto server = MustServer(request);
+	auto channel = MustChannel(server, request);
+
+	::MurmurRPC::ACL_List list;
+	list.set_inherit(channel->bInheritACL);
+
+	QStack< ::Channel *> chans;
+	ChanACL *acl;
+	::Channel *p = channel;
+	while (p) {
+		chans.push(p);
+		if ((p == channel) || p->bInheritACL) {
+			p = p->cParent;
+		} else {
+			p = NULL;
+		}
+	}
+
+	while (!chans.isEmpty()) {
+		p = chans.pop();
+		foreach(acl, p->qlACL) {
+			if (p == channel || acl->bApplySubs) {
+				auto rpcACL = list.add_acls();
+				ToRPC(server, acl, rpcACL);
+				if (p != channel) {
+					rpcACL->set_inherited(true);
+				}
+			}
+		}
+	}
+
+	p = channel->cParent;
+	const QSet<QString> allnames = ::Group::groupNames(channel);
+	foreach(const QString &name, allnames) {
+		::Group *g = channel->qhGroups.value(name);
+		::Group *pg = p ? ::Group::getGroup(p, name) : NULL;
+		if (!g && ! pg) {
+			continue;
+		}
+		auto aclGroup = list.add_groups();
+		ToRPC(server, g ? g : pg, aclGroup);
+		QSet<int> members;
+		if (pg) {
+			members = pg->members();
+		}
+		if (g) {
+			foreach(auto id, g->qsAdd) {
+				auto rpcUser = aclGroup->add_users_add();
+				rpcUser->mutable_server()->set_id(server->iServerNum);
+				rpcUser->set_id(id);
+			}
+			foreach(auto id, g->qsRemove) {
+				auto rpcUser = aclGroup->add_users_remove();
+				rpcUser->mutable_server()->set_id(server->iServerNum);
+				rpcUser->set_id(id);
+			}
+			aclGroup->set_inherited(false);
+			members += g->qsAdd;
+			members -= g->qsRemove;
+		} else {
+			aclGroup->set_inherited(true);
+		}
+		foreach(auto id, members) {
+			auto rpcUser = aclGroup->add_users();
+			rpcUser->mutable_server()->set_id(server->iServerNum);
+			rpcUser->set_id(id);
+		}
+	}
+
+	response.Finish(list, grpc::Status::OK, done());
 }
 
 void ACLService_Set::impl(bool) {
