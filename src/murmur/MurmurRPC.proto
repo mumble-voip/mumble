@@ -374,7 +374,7 @@ message ACL {
 	optional bool inherited = 5;
 
 	optional DatabaseUser user = 6;
-	optional string group = 7;
+	optional string group = 7; // TODO(grpc): change to ACL.Group?
 
 	optional Permission allow = 8;
 	optional Permission deny = 9;
@@ -390,7 +390,7 @@ message ACL {
 		optional Channel channel = 2;
 
 		repeated ACL acls = 3;
-		repeated string groups = 4;
+		repeated ACL.Group groups = 4;
 		optional bool inherit = 5;
 	}
 
@@ -405,6 +405,7 @@ message ACL {
 
 service ACLService {
 	rpc Get(Channel) returns(ACL.List);
+	// Set overrides the ACL of the given channel to what is provided.
 	rpc Set(ACL.List) returns(Void);
 
 	// GetEffectivePermissions returns the effective permissions for the given
