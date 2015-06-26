@@ -50,20 +50,11 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 Running Murmur on Mac OS X
 ==========================
 
-On Mac OS X, Murmur is available inside your Mumble application bundle. If you
-copied the Mumble program into your Applications directory, you should be able
-to run it by executing:
+Murmur is distributed seperately from the Mumble client on Mac OS X.
+It is called Static OS X Server and can be downloaded from the main webpage.
 
- /Applications/Mumble.app/Contents/MacOS/murmurd -v -fg
-
-in a Terminal. For more information, please see the 'Running Murmur on Unix-
-like sytems' above.
-
-To easily override the default Murmur configuration, a murmur.ini file can be placed in
-your user's 'Library/Preferences/Mumble/' directory.
-
-Example configuration files and other scripts can be found inside the Murmur
-directory of the Mumble installation disk image.
+Once downloaded it can be run in the same way as on any other Unix-like system.
+For more information please see the 'Running Murmur on Unix-like systems' above.
 
 Running Murmur on Win32
 =======================
