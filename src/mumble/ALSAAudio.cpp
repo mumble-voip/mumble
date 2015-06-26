@@ -382,8 +382,11 @@ void ALSAAudioInput::run() {
 #endif
 		readblapp = snd_pcm_readi(capture_handle, inbuff, static_cast<int>(wantPeriod));
 		if (readblapp == -ESTRPIPE) {
-			// suspend event - what to do?
-			qWarning("ALSAAudioInput: %s", snd_strerror(static_cast<int>(readblapp)));
+			qWarning("ALSAAudioInput: PCM suspended, trying to resume");
+			while (bRunning && snd_pcm_resume(capture_handle) == -EAGAIN)
+				msleep(1000);
+			if ((err = snd_pcm_prepare(capture_handle)) < 0)
+				qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
 		} else if (readblapp == -EPIPE) {
 			err = snd_pcm_prepare(capture_handle);
 			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
