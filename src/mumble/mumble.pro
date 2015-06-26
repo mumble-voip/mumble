@@ -374,6 +374,11 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
+  CONFIG(gkeys) {
+    HEADERS *= Gkey.h
+    SOURCES *= Gkey.cpp
+    DEFINES *= USE_GKEYS
+  }
 
   !CONFIG(mumble_dll) {
     !CONFIG(no-elevation) {

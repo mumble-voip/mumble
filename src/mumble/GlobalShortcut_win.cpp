@@ -151,6 +151,11 @@ void GlobalShortcutWin::run() {
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 	}
 
+#ifdef USE_GKEYS
+	gkey = new GkeyLibrary();
+	qWarning("Gkeys initialized %d", gkey->isValid());
+#endif
+
 	QTimer * timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
@@ -158,6 +163,10 @@ void GlobalShortcutWin::run() {
 	setPriority(QThread::TimeCriticalPriority);
 
 	exec();
+
+#ifdef USE_GKEYS
+	delete gkey;
+#endif
 
 	if (bHook) {
 		UnhookWindowsHookEx(hhKeyboard);

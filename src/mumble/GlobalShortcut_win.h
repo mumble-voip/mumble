@@ -34,6 +34,10 @@
 #include "GlobalShortcut.h"
 #include "Timer.h"
 
+#ifdef USE_GKEYS
+#include "Gkey.h"
+#endif
+
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
@@ -70,6 +74,9 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		unsigned int uiHardwareDevices;
 		Timer tDoubleClick;
 		bool bHook;
+#ifdef USE_GKEYS
+		GkeyLibrary *gkey;
+#endif
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
