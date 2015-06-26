@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2015 Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -27,27 +27,28 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#ifndef MUMBLE_MUMBLE_SCOPEDQSETTINGSGROUP_H_
+#define MUMBLE_MUMBLE_SCOPEDQSETTINGSGROUP_H_
 
-#ifndef MUMBLE_MUMBLE_LOOKCONFIG_H_
-#define MUMBLE_MUMBLE_LOOKCONFIG_H_
+class QSettings;
+class QString;
 
-#include "ConfigDialog.h"
+///
+/// RAII helper for QSettings beginGroup/endGroup calls
+///
+class ScopedQSettingsGroup {
+public:
+	///
+	/// Calls enterGroup on the given settings object.
+	///
+	ScopedQSettingsGroup(QSettings& settings, const QString& group);
+	///
+	/// Calls endGroup on settings object
+	///
+	~ScopedQSettingsGroup();
 
-#include "ui_LookConfig.h"
-
-class LookConfig : public ConfigWidget, Ui::LookConfig {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(LookConfig)
-	public:
-		LookConfig(Settings &st);
-		virtual QString title() const Q_DECL_OVERRIDE;
-		virtual QIcon icon() const Q_DECL_OVERRIDE;
-	public slots:
-		void accept() const Q_DECL_OVERRIDE;
-		void save() const Q_DECL_OVERRIDE;
-		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
+private:
+	QSettings& m_settings;
 };
 
-#endif
+#endif // MUMBLE_MUMBLE_SCOPEDQSETTINGSGROUP_H_

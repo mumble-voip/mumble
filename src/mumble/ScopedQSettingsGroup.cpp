@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2015 Stefan Hacker <dd0t@users.sourceforge.net>
 
    All rights reserved.
 
@@ -27,27 +27,15 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include "mumble_pch.hpp"
 
-#ifndef MUMBLE_MUMBLE_LOOKCONFIG_H_
-#define MUMBLE_MUMBLE_LOOKCONFIG_H_
+#include "ScopedQSettingsGroup.h"
 
-#include "ConfigDialog.h"
+ScopedQSettingsGroup::ScopedQSettingsGroup(QSettings &settings, const QString &group)
+    : m_settings(settings) {
+	m_settings.beginGroup(group);
+}
 
-#include "ui_LookConfig.h"
-
-class LookConfig : public ConfigWidget, Ui::LookConfig {
-	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(LookConfig)
-	public:
-		LookConfig(Settings &st);
-		virtual QString title() const Q_DECL_OVERRIDE;
-		virtual QIcon icon() const Q_DECL_OVERRIDE;
-	public slots:
-		void accept() const Q_DECL_OVERRIDE;
-		void save() const Q_DECL_OVERRIDE;
-		void load(const Settings &r) Q_DECL_OVERRIDE;
-		bool expert(bool) Q_DECL_OVERRIDE;
-};
-
-#endif
+ScopedQSettingsGroup::~ScopedQSettingsGroup() {
+	m_settings.endGroup();
+}

@@ -25,3 +25,6 @@
 [submodule "3rdparty/speexdsp-src"]
 	path = 3rdparty/speexdsp-src
 	url = https://git.xiph.org/speexdsp.git
+[submodule "themes/MetroMumble"]
+	path = themes/MetroMumble
+	url = https://github.com/mumble-voip/MetroMumble.git

@@ -442,6 +442,10 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+	
+	// Default theme
+	themeName = QLatin1String("Metro Mumble");
+	themeStyleName = QLatin1String("Lite");
 }
 
 bool Settings::doEcho() const {
@@ -660,8 +664,8 @@ void Settings::load(QSettings* settings_ptr) {
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(qsStyle, "ui/style");
-	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(themeName, "ui/theme");
+	SAVELOAD(themeStyleName, "ui/themestyle");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(aotbAlwaysOnTop, "ui/alwaysontop");
@@ -964,8 +968,8 @@ void Settings::save() {
 
 	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
-	SAVELOAD(qsStyle, "ui/style");
-	SAVELOAD(qsSkin, "ui/skin");
+	SAVELOAD(themeName, "ui/theme");
+	SAVELOAD(themeStyleName, "ui/themestyle");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(aotbAlwaysOnTop, "ui/alwaysontop");

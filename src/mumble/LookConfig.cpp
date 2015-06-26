@@ -32,6 +32,7 @@
 #include "mumble_pch.hpp"
 
 #include "LookConfig.h"
+#include "Themes.h";
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
@@ -73,12 +74,6 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		qcbLanguage->addItem(displayName, QVariant(cc));
 	}
 
-	QStringList styles = QStyleFactory::keys();
-	styles.sort();
-	qcbStyle->addItem(tr("System default"));
-	foreach(QString key, styles) {
-		qcbStyle->addItem(key);
-	}
 	qcbExpand->addItem(tr("None"), Settings::NoChannels);
 	qcbExpand->addItem(tr("Only with users"), Settings::ChannelsWithUsers);
 	qcbExpand->addItem(tr("All"), Settings::AllChannels);
@@ -98,7 +93,6 @@ QIcon LookConfig::icon() const {
 
 void LookConfig::load(const Settings &r) {
 	loadComboBox(qcbLanguage, 0);
-	loadComboBox(qcbStyle, 0);
 	loadComboBox(qcbChannelDrag, 0);
 
 	// Load Layout checkbox state
@@ -126,16 +120,9 @@ void LookConfig::load(const Settings &r) {
 			break;
 		}
 	}
-	for (int i=0;i<qcbStyle->count();i++) {
-		if (qcbStyle->itemText(i) == r.qsStyle) {
-			loadComboBox(qcbStyle, i);
-			break;
-		}
-	}
-
+	
 	loadComboBox(qcbAlwaysOnTop, r.aotbAlwaysOnTop);
 
-	qleCSS->setText(r.qsSkin);
 	loadComboBox(qcbExpand, r.ceExpand);
 	loadComboBox(qcbChannelDrag, r.ceChannelDrag);
 	loadCheckBox(qcbUsersTop, r.bUserTop);
@@ -149,6 +136,33 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 	
+	
+	qcbTheme->clear();
+	
+	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
+	const ThemeMap themes = Themes::getThemes();
+	
+	int selectedThemeEntry = 0;
+	qcbTheme->addItem(tr("None"));
+	for (ThemeMap::const_iterator theme = themes.begin();
+	     theme != themes.end();
+	     ++theme) {
+		
+		for (ThemeInfo::StylesMap::const_iterator style = theme->styles.begin();
+		     style != theme->styles.end();
+		     ++style) {
+			
+			if (configuredStyle
+			     && configuredStyle->themeName == style->themeName
+			     && configuredStyle->name == style->name) {
+				selectedThemeEntry = qcbTheme->count();
+			}
+			
+			qcbTheme->addItem(theme->name + QLatin1String(" - ") + style->name, QVariant::fromValue(*style));
+		}
+	}
+	
+	qcbTheme->setCurrentIndex(selectedThemeEntry);
 }
 
 void LookConfig::save() const {
@@ -161,16 +175,6 @@ void LookConfig::save() const {
 	if (s.qsLanguage != oldLanguage) {
 		s.requireRestartToApply = true;
 	}
-
-	if (qcbStyle->currentIndex() == 0)
-		s.qsStyle = QString();
-	else
-		s.qsStyle = qcbStyle->currentText();
-
-	if (qleCSS->text().isEmpty())
-		s.qsSkin = QString();
-	else
-		s.qsSkin = qleCSS->text();
 
 	// Save Layout radioboxes state
 	if (qrbLClassic->isChecked()) {
@@ -201,29 +205,16 @@ void LookConfig::save() const {
 	s.bHighContrast = qcbHighContrast->isChecked();
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
+	
+	QVariant themeData = qcbTheme->currentData();
+	if (themeData.isNull()) {
+		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
+	} else {
+		Themes::setConfiguredStyle(s, themeData.value<ThemeInfo::StyleInfo>(), s.requireRestartToApply);
+	}
 }
 
 void LookConfig::accept() const {
-	if (! s.qsStyle.isEmpty() && g.qsCurrentStyle != s.qsStyle) {
-		qApp->setStyle(s.qsStyle);
-		g.qsCurrentStyle = s.qsStyle;
-	}
-	if (s.qsSkin.isEmpty()) {
-		if (qApp->styleSheet() != MainWindow::defaultStyleSheet) {
-			qApp->setStyleSheet(MainWindow::defaultStyleSheet);
-			g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
-		}
-	} else {
-		QFile file(s.qsSkin);
-		file.open(QFile::ReadOnly);
-		QString sheet = QLatin1String(file.readAll());
-		if (! sheet.isEmpty() && (sheet != qApp->styleSheet())) {
-			QFileInfo fi(g.s.qsSkin);
-			QDir::addSearchPath(QLatin1String("skin"), fi.path());
-			qApp->setStyleSheet(sheet);
-			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
-		}
-	}
 	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
 }
 
@@ -231,35 +222,7 @@ bool LookConfig::expert(bool b) {
 	qcbExpand->setVisible(b);
 	qliExpand->setVisible(b);
 	qcbUsersTop->setVisible(b);
-	qcbStyle->setVisible(b);
-	qliStyle->setVisible(b);
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
 	return true;
-}
-
-void LookConfig::on_qpbSkinFile_clicked(bool) {
-	QString currentPath(qleCSS->text());
-	if (currentPath.isEmpty()) {
-		QDir p;
-		#if defined(Q_OS_WIN)
-			p.setPath(QApplication::applicationDirPath());
-		#else
-			p = g.qdBasePath;
-		#endif
-		currentPath = p.path();
-
-		p.cd(QString::fromLatin1("skins"));
-		if (p.exists() && p.isReadable()) {
-			currentPath = p.path();
-		}
-	}
-	QDir path(currentPath);
-	if (!path.exists() || !path.isReadable()) {
-		path.cdUp();
-	}
-	QString file = QFileDialog::getOpenFileName(this, tr("Choose skin file"), path.path(), QLatin1String("*.qss"));
-	if (! file.isEmpty()) {
-		qleCSS->setText(file);
-	}
 }

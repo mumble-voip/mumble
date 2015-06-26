@@ -145,7 +145,10 @@ HEADERS *= BanEditor.h \
     OverlayEditor.h \
     OverlayEditorScene.h \
     MumbleApplication.h \
-    ApplicationPalette.h
+    ApplicationPalette.h \
+    ThemeInfo.h \
+    ScopedQSettingsGroup.h \
+    Themes.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -205,10 +208,13 @@ SOURCES *= BanEditor.cpp \
     VoiceRecorderDialog.cpp \
     WebFetch.cpp \
     MumbleApplication.cpp \
-    smallft.cpp
+    smallft.cpp \
+    ThemeInfo.cpp \
+    ScopedQSettingsGroup.cpp \
+    Themes.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
-RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc
+RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MetroMumble.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
     ConnectDialog.ui \
