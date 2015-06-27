@@ -442,6 +442,7 @@ Settings::Settings() {
 	qmMessages[Log::UserKicked] = Settings::LogConsole;
 	qmMessages[Log::OtherSelfMute] = Settings::LogConsole;
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
+	qmMessages[Log::UserRenamed] = Settings::LogConsole;
 }
 
 bool Settings::doEcho() const {

@@ -230,6 +230,7 @@ const Log::MsgType Log::msgOrder[] = {
 	UserJoin, UserLeave,
 	Recording,
 	YouKicked, UserKicked,
+	UserRenamed,
 	SelfMute, SelfUnmute, SelfDeaf, SelfUndeaf,
 	OtherSelfMute, YouMuted, YouMutedOther, OtherMutedOther,
 	ChannelJoin, ChannelLeave,
@@ -260,7 +261,8 @@ const char *Log::msgNames[] = {
 	QT_TRANSLATE_NOOP("Log", "Text Message"),
 	QT_TRANSLATE_NOOP("Log", "You self-unmuted"),
 	QT_TRANSLATE_NOOP("Log", "You self-deafened"),
-	QT_TRANSLATE_NOOP("Log", "You self-undeafened")
+	QT_TRANSLATE_NOOP("Log", "You self-undeafened"),
+	QT_TRANSLATE_NOOP("Log", "User renamed")
 };
 
 QString Log::msgName(MsgType t) const {
