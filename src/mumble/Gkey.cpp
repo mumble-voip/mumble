@@ -40,7 +40,6 @@
 
 GkeyLibrary::GkeyLibrary()
 {
-	qWarning("GlobalShortcutWinGkey: initialize and load");
 	// TODO: lookup from registry first and then try the default location
 	qlLogiGkey.setFileName(QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION));
 

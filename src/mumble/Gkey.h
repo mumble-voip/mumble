@@ -51,6 +51,9 @@
 #define GKEY_MIN_KEYBOARD_MODE 1
 #define GKEY_MAX_KEYBOARD_MODE 3
 
+#define GKEY_BUTTON_MOUSE 1
+#define GKEY_BUTTON_KEYBOARD 2
+
 typedef bool (*fnLogiGkeyInit)(void *);
 typedef void (*fnLogiGkeyShutdown)();
 typedef bool (*fnLogiGkeyIsMouseButtonPressed)(int button);
