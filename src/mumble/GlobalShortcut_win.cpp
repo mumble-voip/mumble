@@ -569,19 +569,19 @@ void GlobalShortcutWin::timeTicked() {
 #ifdef USE_GKEYS
 	if (gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
-            QList<QVariant> ql;
-            ql << GKEY_BUTTON_MOUSE;
-            ql << button;
-            ql << 0; // 3 entries in the list means gkey; add '0' as a dummy
-            handleButton(ql, gkey->isMouseButtonPressed(button));
+			QList<QVariant> ql;
+			ql << GKEY_BUTTON_MOUSE;
+			ql << button;
+			ql << 0; // 3 entries in the list means gkey; add '0' as a dummy
+			handleButton(ql, gkey->isMouseButtonPressed(button));
 		}
 		for (int mode = GKEY_MIN_KEYBOARD_MODE; mode <= GKEY_MAX_KEYBOARD_MODE; mode++) {
-            for (int key = GKEY_MIN_KEYBOARD_BUTTON; key <= GKEY_MAX_KEYBOARD_BUTTON; key++) {
-                QList<QVariant> ql;
-                ql << GKEY_BUTTON_KEYBOARD;
-                ql << key;
-                ql << mode;
-                handleButton(ql, gkey->isKeyboardGkeyPressed(key, mode));
+			for (int key = GKEY_MIN_KEYBOARD_BUTTON; key <= GKEY_MAX_KEYBOARD_BUTTON; key++) {
+				QList<QVariant> ql;
+				ql << GKEY_BUTTON_KEYBOARD;
+				ql << key;
+				ql << mode;
+				handleButton(ql, gkey->isKeyboardGkeyPressed(key, mode));
 			}
 		}
 	}
