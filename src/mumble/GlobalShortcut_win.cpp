@@ -152,8 +152,10 @@ void GlobalShortcutWin::run() {
 	}
 
 #ifdef USE_GKEYS
-	gkey = new GKeyLibrary();
-	qWarning("Gkeys initialized %d", gkey->isValid());
+	if (g.s.bEnableGKey) {
+		gkey = new GKeyLibrary();
+		qWarning("GlobalShortcutWin: GKeys initialized, isValid: %d", gkey->isValid());
+	}
 #endif
 
 	QTimer * timer = new QTimer(this);
@@ -567,7 +569,7 @@ void GlobalShortcutWin::timeTicked() {
 		}
 	}
 #ifdef USE_GKEYS
-	if (gkey->isValid()) {
+	if (g.s.bEnableGKey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
 			ql << GKEY_BUTTON_MOUSE;
@@ -593,7 +595,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 	const QList<QVariant> &sublist = v.toList();
 #ifdef USE_GKEYS
-	if (sublist.count() == 3 && gkey->isValid())  {
+	if (g.s.bEnableGKey && sublist.count() == 3 && gkey->isValid())  {
 		bool ok = false;
 		int button_type = sublist.at(0).toInt(&ok);
 		if (ok) {
