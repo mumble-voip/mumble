@@ -35,7 +35,7 @@
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation>Mumblo - Ŝanĝi na %1</translation>
+        <translation>Mumble - Redakti na %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -671,7 +671,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation>Pri Mumblo</translation>
+        <translation>Pri Mumble</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -681,7 +681,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+10"/>
         <source>&amp;About Mumble</source>
-        <translation>&amp;Pri Mumblo</translation>
+        <translation>&amp;Pri Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1336,7 +1336,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Headphones</source>
-        <translation type="unfinished"/>
+        <translation>Kapaŭskultiloj</translation>
     </message>
     <message>
         <location/>
@@ -1356,7 +1356,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation type="unfinished"/>
+        <translation>Minimuma Sonforteco</translation>
     </message>
     <message>
         <location/>
@@ -1366,7 +1366,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Loopback Test</source>
-        <translation type="unfinished"/>
+        <translation>Testo de Inversa Ciklo</translation>
     </message>
     <message>
         <location/>
@@ -1387,12 +1387,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Packet Loss</source>
-        <translation type="unfinished"/>
+        <translation>Perditaj Paketoj</translation>
     </message>
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Perditaj paketoj en la reĝimo de inversa ciklo</translation>
     </message>
     <message>
         <location/>
@@ -1402,22 +1402,22 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Loopback</source>
-        <translation type="unfinished"/>
+        <translation>Inversa Cik&amp;lo</translation>
     </message>
     <message>
         <location/>
         <source>Desired loopback mode</source>
-        <translation type="unfinished"/>
+        <translation>Dezirita reĝimo de inversa ciklo</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"/>
+        <translation>Atenui aplikaĵojn de...</translation>
     </message>
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>Atenuo de aliaj aplikaĵoj dum parolado</translation>
     </message>
     <message>
         <location/>
@@ -1472,7 +1472,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Prioritata Parolanto</translation>
     </message>
     <message>
         <location/>
@@ -1487,7 +1487,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation type="unfinished"/>
+        <translation>Atenui aliajn uzantojn dum paroli kiel Prioritata Parolanto.</translation>
     </message>
 </context>
 <context>
@@ -1610,12 +1610,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Analizo de la signalo</translation>
     </message>
     <message>
         <location/>
         <source>Microphone power</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofonforteco</translation>
     </message>
     <message>
         <location/>
@@ -1630,12 +1630,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Proporcio de signalo al bruo</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation type="unfinished"/>
+        <translation>Proporcio de signalo al bruo el la mikrofono</translation>
     </message>
     <message>
         <location/>
@@ -1645,12 +1645,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation type="unfinished"/>
+        <translation>Probablo de Parolo</translation>
     </message>
     <message>
         <location/>
         <source>Probability of speech</source>
-        <translation type="unfinished"/>
+        <translation>Probablo de parolo</translation>
     </message>
     <message>
         <location/>
@@ -1665,32 +1665,32 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"/>
+        <translation>Aktuala sona bitrapido</translation>
     </message>
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation type="unfinished"/>
+        <translation>Bitrapido de la lasta sonadero</translation>
     </message>
     <message>
         <location/>
         <source>DoublePush interval</source>
-        <translation type="unfinished"/>
+        <translation>DuoblaPrema intertempo</translation>
     </message>
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation type="unfinished"/>
+        <translation>Tempo inter la du lastaj premoj de Premi-por-Paroli</translation>
     </message>
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation type="unfinished"/>
+        <translation>Rekono de Parolado</translation>
     </message>
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation type="unfinished"/>
+        <translation>Aktuala ŝanco de rekono de parolado</translation>
     </message>
     <message>
         <location/>
@@ -1715,7 +1715,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Analizo de eĥo</translation>
     </message>
     <message>
         <location/>
@@ -1748,7 +1748,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Bonvenon al la son-asistanto de Mumblo</translation>
+        <translation>Bonvenon al la son-asistanto de Mumble</translation>
     </message>
     <message>
         <location/>
@@ -1758,7 +1758,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Ĝuu uzi Mumblon</translation>
+        <translation>Ĝuu uzi na Mumble</translation>
     </message>
     <message>
         <location/>
@@ -2424,7 +2424,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation>Mumblo-uzanto</translation>
+        <translation>Uzanto de Mumble</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+478"/>
@@ -4509,14 +4509,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation>Mumblo</translation>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+19"/>
         <location line="+2456"/>
         <source>Mumble -- %1</source>
-        <translation>Mumblo -- %1</translation>
+        <translation>Mumble -- %1</translation>
     </message>
     <message>
         <location line="-2451"/>
@@ -5098,7 +5098,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Quit Mumble</source>
-        <translation>&amp;Ĉesi Mumblon</translation>
+        <translation>&amp;Ĉesi na Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5475,7 +5475,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation>Informoj pri Mumblo</translation>
+        <translation>Informoj pri Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5565,7 +5565,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"/>
+        <translation>Aldonas uzanton kiel via amiko.</translation>
     </message>
     <message>
         <location/>
@@ -5580,7 +5580,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>Forigas uzanton de via amikoj.</translation>
     </message>
     <message>
         <location/>
@@ -5590,12 +5590,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"/>
+        <translation>Ĝisdatigi Amikon</translation>
     </message>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"/>
+        <translation>Ĝisdatigi la nomon de via amiko.</translation>
     </message>
     <message>
         <location/>
@@ -5630,7 +5630,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"/>
+        <translation>Plejeta Vido</translation>
     </message>
     <message>
         <location/>
@@ -5685,17 +5685,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 moviĝis al %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 moviĝis al %2 de %3.</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 enmoviĝis el %2 de %3.</translation>
     </message>
     <message>
         <location line="-200"/>
@@ -5711,7 +5711,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+17"/>
         <location line="+51"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"/>
+        <translation>Bonvenmesaĝo: %1</translation>
     </message>
     <message>
         <location line="-15"/>
@@ -5912,7 +5912,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation>%1 renomita al %2</translation>
+        <translation>%1 renomiĝis al %2</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -6138,7 +6138,7 @@ Valid actions are:
     <message>
         <location line="+207"/>
         <source>Welcome to Mumble.</source>
-        <translation>Bonvenon al Mumblo.</translation>
+        <translation>Bonvenon al Mumble.</translation>
     </message>
     <message>
         <location line="+76"/>
