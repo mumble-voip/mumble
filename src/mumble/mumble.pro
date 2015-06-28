@@ -375,8 +375,8 @@ win32 {
     CONFIG	*= wasapi
   }
   CONFIG(gkeys) {
-    HEADERS *= Gkey.h
-    SOURCES *= Gkey.cpp
+    HEADERS *= GKeys.h
+    SOURCES *= GKeys.cpp
     DEFINES *= USE_GKEYS
   }
 
@@ -441,7 +441,7 @@ unix {
         LIBS += -lxar
       }
 
-      LIBS += -framework ScriptingBridge 
+      LIBS += -framework ScriptingBridge
       OBJECTIVE_SOURCES += Overlay_macx.mm
     } else {
       SOURCES += Overlay_unix.cpp

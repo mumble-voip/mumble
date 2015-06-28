@@ -30,7 +30,7 @@
 
 #include "mumble_pch.hpp"
 
-#include "Gkey.h"
+#include "GKeys.h"
 
 #ifdef Q_CC_GNU
 #define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }
@@ -38,7 +38,7 @@
 #define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }
 #endif
 
-GkeyLibrary::GkeyLibrary()
+GKeyLibrary::GKeyLibrary()
 {
 	// TODO: lookup from registry first and then try the default location
 	qlLogiGkey.setFileName(QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION));
@@ -57,27 +57,27 @@ GkeyLibrary::GkeyLibrary()
 		bValid = LogiGkeyInit(NULL);
 }
 
-GkeyLibrary::~GkeyLibrary() {
+GKeyLibrary::~GKeyLibrary() {
 	if (LogiGkeyShutdown != NULL)
 		LogiGkeyShutdown();
 }
 
-bool GkeyLibrary::isValid() const {
+bool GKeyLibrary::isValid() const {
 	return bValid;
 }
 
-bool GkeyLibrary::isMouseButtonPressed(int button) {
+bool GKeyLibrary::isMouseButtonPressed(int button) {
 	return LogiGkeyIsMouseButtonPressed(button);
 }
 
-bool GkeyLibrary::isKeyboardGkeyPressed(int key, int mode) {
+bool GKeyLibrary::isKeyboardGkeyPressed(int key, int mode) {
 	return LogiGkeyIsKeyboardGkeyPressed(key, mode);
 }
 
-QString GkeyLibrary::getMouseButtonString(int button) {
+QString GKeyLibrary::getMouseButtonString(int button) {
 	return QString::fromWCharArray(LogiGkeyGetMouseButtonString(button));
 }
 
-QString GkeyLibrary::getKeyboardGkeyString(int key, int mode) {
+QString GKeyLibrary::getKeyboardGkeyString(int key, int mode) {
 	return QString::fromWCharArray(LogiGkeyGetKeyboardGkeyString(key, mode));
 }

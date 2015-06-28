@@ -61,11 +61,11 @@ typedef bool (*fnLogiGkeyIsKeyboardGkeyPressed)(int key, int mode);
 typedef wchar_t* (*fnLogiGkeyGetMouseButtonString)(int button);
 typedef wchar_t* (*fnLogiGkeyGetKeyboardGkeyString)(int key, int mode);
 
-class GkeyLibrary
+class GKeyLibrary
 {
 public:
-	GkeyLibrary();
-	virtual ~GkeyLibrary();
+	GKeyLibrary();
+	virtual ~GKeyLibrary();
 	bool isValid() const;
 
 	bool isMouseButtonPressed(int button);

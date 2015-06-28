@@ -152,7 +152,7 @@ void GlobalShortcutWin::run() {
 	}
 
 #ifdef USE_GKEYS
-	gkey = new GkeyLibrary();
+	gkey = new GKeyLibrary();
 	qWarning("Gkeys initialized %d", gkey->isValid());
 #endif
 
