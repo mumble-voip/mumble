@@ -420,37 +420,87 @@ service ACLService {
 }
 
 message Authenticator {
-	message Message {
-		enum Type {
-			Initialize = 0;
-			Authenticate = 1;
-			AuthenticateTemporaryFailure = 2;
-			AuthenticateFailure = 3;
-			Information = 4;
-
-			// Below types are only sent when "registrationStream" used.
-			Register = 5;
-			Unregister = 6;
-			Update = 7;
-			Query = 8;
+	message Request {
+		message Authenticate {
+			optional string name = 1;
+			optional string password = 2;
+			repeated bytes certificates = 3;
+			optional string certificate_hash = 4;
+			optional bool strong_certificate = 5;
 		}
 
-		optional Server server = 1;
+		message Query {
+			optional uint32 id = 1;
+			optional string name = 2;
+		}
 
-		optional Type type = 2;
-		optional User user = 3;
-		repeated DatabaseUser database_user = 4;
-		repeated string groups = 5;
+		message Register {
+			optional DatabaseUser user = 1;
+		}
+
+		message Deregister {
+			optional DatabaseUser user = 1;
+		}
+
+		message Update {
+			optional DatabaseUser user = 1;
+		}
+
+		optional Authenticate authenticate = 1;
+		optional Query query = 2;
+		optional Register register = 3;
+		optional Deregister deregister = 4;
+		optional Update update = 5;
+	}
+
+	message Response {
+		message Initialize {
+			optional Server server = 1;
+			// TODO(grpc): optional bool updating = 2;
+		}
+
+		enum Status {
+			Success = 0;
+			Failure = 1;
+			Fallthrough = 2;
+			TemporaryFailure = 3;
+		}
+
+		message Authenticate {
+			optional Status status = 1;
+			optional uint32 id = 2;
+			optional string name = 3;
+			repeated string groups = 4; // TODO(grpc): ACL.Group?
+		}
+
+		message Query {
+			repeated DatabaseUser users = 1;
+		}
+
+		message Register {
+			optional Status status = 1;
+			optional DatabaseUser user = 2;
+		}
+
+		message Deregister {
+			optional Status status = 1;
+		}
+
+		message Update {
+			optional Status status = 1;
+		}
+
+		optional Initialize initialize = 1;
+		optional Authenticate authenticate = 2;
+		optional Query query = 3;
+		optional Register register = 4;
+		optional Deregister deregister = 5;
+		optional Update update = 6;
 	}
 }
 
 service AuthenticatorService {
-	// an initial Authenticator.Response with the "server" set needs to be sent
-	// before requests start coming in.
-	rpc Stream(stream Authenticator.Message) returns(stream Authenticator.Message);
-
-	// same as "stream", but accepts updated registration information.
-	rpc RegistrationStream(stream Authenticator.Message) returns(stream Authenticator.Message);
+	rpc Stream(stream Authenticator.Response) returns(stream Authenticator.Request);
 }
 
 message DatabaseUser {
