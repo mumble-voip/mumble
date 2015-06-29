@@ -109,6 +109,17 @@ class MurmurRPCImpl : public QThread {
 		void started(Server *server);
 		void stopped(Server *server);
 
+		void authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw);
+		void registerUserSlot(int &res, const QMap<int, QString> &);
+		void unregisterUserSlot(int &res, int id);
+		void getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res);
+		void getRegistrationSlot(int &, int, QMap<int, QString> &);
+		void setInfoSlot(int &, int, const QMap<int, QString> &);
+		void setTextureSlot(int &res, int id, const QByteArray &texture);
+		void nameToIdSlot(int &res, const QString &name);
+		void idToNameSlot(QString &res, int id);
+		void idToTextureSlot(QByteArray &res, int id);
+
 		void userStateChanged(const User *user);
 		void userTextMessage(const User *user, const TextMessage &message);
 		void userConnected(const User *user);
