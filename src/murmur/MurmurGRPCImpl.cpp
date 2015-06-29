@@ -1480,10 +1480,6 @@ void AuthenticatorService_Stream::impl(bool) {
 	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
 }
 
-void AuthenticatorService_RegistrationStream::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
-}
-
 void DatabaseService_Query::impl(bool) {
 	auto server = MustServer(request);
 

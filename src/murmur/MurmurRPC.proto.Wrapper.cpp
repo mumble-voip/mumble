@@ -1580,7 +1580,7 @@ public:
 	::MurmurRPC::AuthenticatorService::AsyncService *service;
 
 	::grpc::ServerContext context;
-	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > stream;
+	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Request, ::MurmurRPC::Authenticator_Response > stream;
 
 	AuthenticatorService_Stream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
@@ -1613,49 +1613,8 @@ public:
 		service->RequestStream(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
-
-class AuthenticatorService_RegistrationStream : public RPCCall {
-public:
-	MurmurRPCImpl *rpc;
-	::MurmurRPC::AuthenticatorService::AsyncService *service;
-
-	::grpc::ServerContext context;
-	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Message, ::MurmurRPC::Authenticator_Message > stream;
-
-	AuthenticatorService_RegistrationStream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
-	}
-
-	void impl(bool ok);
-
-	void finish(bool) {
-		delete this;
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&AuthenticatorService_RegistrationStream::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(::grpc::Status &err) {
-		stream.Finish(err, this->done());
-	}
-
-	void handle(bool ok) {
-		AuthenticatorService_RegistrationStream::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&AuthenticatorService_RegistrationStream::impl, this, ok), this);
-		QCoreApplication::instance()->postEvent(rpc, ie);
-	}
-
-	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
-		auto call = new AuthenticatorService_RegistrationStream(rpc, service);
-		auto fn = ::boost::bind(&AuthenticatorService_RegistrationStream::handle, call, _1);
-		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRegistrationStream(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
-	}
-};
 void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
 	AuthenticatorService_Stream::create(impl, service);
-	AuthenticatorService_RegistrationStream::create(impl, service);
 }
 
 class DatabaseService_Query : public RPCCall {
