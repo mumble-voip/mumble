@@ -374,6 +374,10 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
+  !CONFIG(no-gkeys) {
+    CONFIG *= gkeys
+  }
+
   CONFIG(gkeys) {
     HEADERS *= GKeys.h
     SOURCES *= GKeys.cpp
