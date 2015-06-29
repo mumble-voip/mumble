@@ -1596,6 +1596,11 @@ public:
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
+	::boost::function<void(bool)> *callback(::boost::function<void(AuthenticatorService_Stream *, bool)> cb) {
+		auto fn = ::boost::bind(&AuthenticatorService_Stream::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
 	void error(::grpc::Status &err) {
 		stream.Finish(err, this->done());
 	}
@@ -1611,6 +1616,13 @@ public:
 		auto fn = ::boost::bind(&AuthenticatorService_Stream::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
 		service->RequestStream(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void(AuthenticatorService_Stream *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 };
 void AuthenticatorService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AuthenticatorService::AsyncService *service) {
