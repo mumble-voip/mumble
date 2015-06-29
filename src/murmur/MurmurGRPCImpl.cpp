@@ -299,6 +299,46 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	}
 }
 
+void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::getRegistrationSlot(int &, int, QMap<int, QString> &) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::setInfoSlot(int &, int, const QMap<int, QString> &) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
+void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+}
+
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
 	auto i = qmhServerServiceListeners.find(s->iServerNum);
 	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
