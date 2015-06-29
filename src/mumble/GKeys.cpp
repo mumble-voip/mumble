@@ -105,11 +105,35 @@ const QUuid GKeyLibrary::quKeyboard = QUuid(QString::fromLatin1(GKEY_KEYBOARD_GU
 
 GKeyLibrary::GKeyLibrary()
 {
-	// TODO: lookup from registry first and then try the default location
-	qlLogiGkey.setFileName(QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION));
+	QStringList alternatives;
 
-	if (!qlLogiGkey.load())
-		bValid = false;
+	HKEY key = NULL;
+	DWORD type = 0;
+	LPSTR libLocation[255];
+	DWORD len = 255;
+	LONG errOpen = RegOpenKeyExA(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key);
+	if (errOpen == ERROR_SUCCESS) {
+		// XXX: Should the unicode variants be used instead?
+		LONG err = RegQueryValueExA(key, "", NULL, &type, reinterpret_cast<LPBYTE>(libLocation), &len);
+		if (err == ERROR_SUCCESS && type == REG_SZ) {
+			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %d", libLocation, len);
+			alternatives << QString::fromLatin1(reinterpret_cast<const char *>(libLocation), len);
+		} else {
+			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%x, Type: 0x%x, len: %d)", err, type, len);
+		}
+	} else {
+		qWarning("GKeyLibrary: Could not open lib location regkey (Error: 0x%x)", errOpen);
+	}
+
+	alternatives << QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION);
+	foreach(const QString &lib, alternatives) {
+		qlLogiGkey.setFileName(lib);
+
+		if (qlLogiGkey.load()) {
+			bValid = true;
+			break;
+		}
+	}
 
 	RESOLVE(LogiGkeyInit);
 	RESOLVE(LogiGkeyShutdown);
