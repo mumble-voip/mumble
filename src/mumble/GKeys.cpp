@@ -100,6 +100,9 @@
 #define RESOLVE(var) { * reinterpret_cast<void **>(&var) = static_cast<void *>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }
 #endif
 
+const QUuid GKeyLibrary::quMouse = QUuid(QString::fromLatin1(GKEY_MOUSE_GUID));
+const QUuid GKeyLibrary::quKeyboard = QUuid(QString::fromLatin1(GKEY_KEYBOARD_GUID));
+
 GKeyLibrary::GKeyLibrary()
 {
 	// TODO: lookup from registry first and then try the default location

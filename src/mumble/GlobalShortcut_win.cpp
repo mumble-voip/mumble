@@ -572,17 +572,17 @@ void GlobalShortcutWin::timeTicked() {
 	if (g.s.bEnableGKey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
-			ql << GKEY_BUTTON_MOUSE;
 			ql << button;
-			ql << 0; // 3 entries in the list means gkey; add '0' as a dummy
+			ql << GKeyLibrary::quMouse;
 			handleButton(ql, gkey->isMouseButtonPressed(button));
 		}
 		for (int mode = GKEY_MIN_KEYBOARD_MODE; mode <= GKEY_MAX_KEYBOARD_MODE; mode++) {
 			for (int key = GKEY_MIN_KEYBOARD_BUTTON; key <= GKEY_MAX_KEYBOARD_BUTTON; key++) {
 				QList<QVariant> ql;
-				ql << GKEY_BUTTON_KEYBOARD;
-				ql << key;
-				ql << mode;
+				// Store the key and mode in one int
+				// bit 0..15: mode, bit 16..31: key
+				ql << (key | (mode << 16));
+				ql << GKeyLibrary::quKeyboard;
 				handleButton(ql, gkey->isKeyboardGkeyPressed(key, mode));
 			}
 		}
@@ -594,27 +594,6 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	GlobalShortcutWin *gsw = static_cast<GlobalShortcutWin *>(GlobalShortcutEngine::engine);
 
 	const QList<QVariant> &sublist = v.toList();
-#ifdef USE_GKEYS
-	if (g.s.bEnableGKey && sublist.count() == 3 && gkey->isValid())  {
-		bool ok = false;
-		int button_type = sublist.at(0).toInt(&ok);
-		if (ok) {
-			QString device = QLatin1String("GKey:");
-			QString name = QLatin1String("Unknown");
-			int button = sublist.at(1).toInt(&ok);
-			if (ok) {
-				if (button_type == GKEY_BUTTON_MOUSE)
-					name = gkey->getMouseButtonString(button);
-				else if (button_type == GKEY_BUTTON_KEYBOARD) {
-					int mode = sublist.at(2).toInt(&ok);
-					if (ok)
-						name = gkey->getKeyboardGkeyString(button, mode);
-				}
-			}
-			return device + name; // Example output: "Gkey:G6/M1"
-		}
-	}
-#endif
 	if (sublist.count() != 2)
 		return QString();
 
@@ -627,6 +606,24 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 	QString device=guid.toString();
 	QString name=QLatin1String("Unknown");
+
+#ifdef USE_GKEYS
+	if (g.s.bEnableGKey && gkey->isValid()) {
+		bool isGKey = false;
+		if (guid == GKeyLibrary::quMouse) {
+			isGKey = true;
+			name = gkey->getMouseButtonString(type);
+		} else if (guid == GKeyLibrary::quKeyboard) {
+			isGKey = true;
+			name = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
+		}
+		if (isGKey) {
+			device = QLatin1String("GKey:");
+			return device + name; // Example output: "Gkey:G6/M1"
+		}
+	}
+#endif
+
 	InputDevice *id = gsw->qhInputDevices.value(guid);
 	if (guid == GUID_SysMouse)
 		device=QLatin1String("M:");

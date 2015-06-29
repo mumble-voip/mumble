@@ -34,6 +34,7 @@
 // #include <stdint.h>
 #include <QtCore/QLibrary>
 #include <QtCore/QString>
+#include <QtCore/QUuid>
 
 #ifdef _M_X64
 #define GKEY_LOGITECH_DLL_REGKEY "HKEY_CLASSES_ROOT\\Wow6432Node\\CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
@@ -54,6 +55,9 @@
 #define GKEY_BUTTON_MOUSE 1
 #define GKEY_BUTTON_KEYBOARD 2
 
+#define GKEY_MOUSE_GUID "c41e60af-9022-46cf-bc39-37981082d716"
+#define GKEY_KEYBOARD_GUID "153e64e6-98c8-4e03-80ef-5ffd33d25b8a"
+
 typedef bool (*fnLogiGkeyInit)(void *);
 typedef void (*fnLogiGkeyShutdown)();
 typedef bool (*fnLogiGkeyIsMouseButtonPressed)(int button);
@@ -67,6 +71,8 @@ public:
 	GKeyLibrary();
 	virtual ~GKeyLibrary();
 	bool isValid() const;
+	static const QUuid quMouse;
+	static const QUuid quKeyboard;
 
 	bool isMouseButtonPressed(int button);
 	bool isKeyboardGkeyPressed(int key, int mode);
