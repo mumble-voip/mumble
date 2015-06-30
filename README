@@ -50,7 +50,7 @@ murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]
 Running Murmur on Mac OS X
 ==========================
 
-Murmur is now distributed seperately from the Mumble client on Mac OS X.
+Murmur is distributed seperately from the Mumble client on Mac OS X.
 It is called Static OS X Server and can be downloaded from the main webpage.
 
 Once downloaded it can be run in the same way as on any other Unix-like system.
