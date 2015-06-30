@@ -374,14 +374,14 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
-  !CONFIG(no-gkeys) {
-    CONFIG *= gkeys
+  !CONFIG(no-gkey) {
+    CONFIG *= gkey
   }
 
-  CONFIG(gkeys) {
-    HEADERS *= GKeys.h
-    SOURCES *= GKeys.cpp
-    DEFINES *= USE_GKEYS
+  CONFIG(gkey) {
+    HEADERS *= GKey.h
+    SOURCES *= GKey.cpp
+    DEFINES *= USE_GKEY
   }
 
   !CONFIG(mumble_dll) {

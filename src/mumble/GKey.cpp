@@ -92,7 +92,7 @@
 
 #include "mumble_pch.hpp"
 
-#include "GKeys.h"
+#include "GKey.h"
 
 #ifdef Q_CC_GNU
 #define RESOLVE(var) { var = reinterpret_cast<__typeof__(var)>(qlLogiGkey.resolve(#var)); bValid = bValid && (var != NULL); }

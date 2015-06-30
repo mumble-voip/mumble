@@ -151,7 +151,7 @@ void GlobalShortcutWin::run() {
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 	}
 
-#ifdef USE_GKEYS
+#ifdef USE_GKEY
 	if (g.s.bEnableGKey) {
 		gkey = new GKeyLibrary();
 		qWarning("GlobalShortcutWin: GKeys initialized, isValid: %d", gkey->isValid());
@@ -166,7 +166,7 @@ void GlobalShortcutWin::run() {
 
 	exec();
 
-#ifdef USE_GKEYS
+#ifdef USE_GKEY
 	delete gkey;
 #endif
 
@@ -568,7 +568,7 @@ void GlobalShortcutWin::timeTicked() {
 			handleButton(ql, rgdod[j].dwData & 0x80);
 		}
 	}
-#ifdef USE_GKEYS
+#ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
 			QList<QVariant> ql;
@@ -607,7 +607,7 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 	QString device=guid.toString();
 	QString name=QLatin1String("Unknown");
 
-#ifdef USE_GKEYS
+#ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey->isValid()) {
 		bool isGKey = false;
 		if (guid == GKeyLibrary::quMouse) {
