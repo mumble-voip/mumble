@@ -192,6 +192,8 @@ public:
 	::$ns$::$service$::AsyncService *service;
 
 	::grpc::ServerContext context;
+	::$in$ request;
+	::$out$ response;
 	::grpc::ServerAsyncReaderWriter< ::$out$, ::$in$ > stream;
 
 	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
