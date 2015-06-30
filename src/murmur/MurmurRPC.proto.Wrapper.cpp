@@ -1580,6 +1580,8 @@ public:
 	::MurmurRPC::AuthenticatorService::AsyncService *service;
 
 	::grpc::ServerContext context;
+	::MurmurRPC::Authenticator_Response request;
+	::MurmurRPC::Authenticator_Request response;
 	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Request, ::MurmurRPC::Authenticator_Response > stream;
 
 	AuthenticatorService_Stream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
