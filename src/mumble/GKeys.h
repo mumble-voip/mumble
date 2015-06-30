@@ -31,17 +31,16 @@
 #ifndef MUMBLE_MUMBLE_GKEY_H
 #define MUMBLE_MUMBLE_GKEY_H
 
-// #include <stdint.h>
 #include <QtCore/QLibrary>
 #include <QtCore/QString>
 #include <QtCore/QUuid>
 
 #define GKEY_LOGITECH_DLL_REG_HKEY HKEY_CLASSES_ROOT
 #ifdef _M_X64
-#define GKEY_LOGITECH_DLL_REG_PATH "Wow6432Node\\CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
+#define GKEY_LOGITECH_DLL_REG_PATH L"Wow6432Node\\CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
 #define GKEY_LOGITECH_DLL_DEFAULT_LOCATION "C:/Program Files/Logitech Gaming Software/SDK/G-key/x64/LogitechGkey.dll"
 #else
-#define GKEY_LOGITECH_DLL_REG_PATH "CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
+#define GKEY_LOGITECH_DLL_REG_PATH L"CLSID\\{7bded654-f278-4977-a20f-6e72a0d07859}\\ServerBinary"
 #define GKEY_LOGITECH_DLL_DEFAULT_LOCATION "C:/Program Files/Logitech Gaming Software/SDK/G-key/x86/LogitechGkey.dll"
 #endif
 
@@ -57,13 +56,6 @@
 
 #define GKEY_MOUSE_GUID "c41e60af-9022-46cf-bc39-37981082d716"
 #define GKEY_KEYBOARD_GUID "153e64e6-98c8-4e03-80ef-5ffd33d25b8a"
-
-typedef bool (*fnLogiGkeyInit)(void *);
-typedef void (*fnLogiGkeyShutdown)();
-typedef bool (*fnLogiGkeyIsMouseButtonPressed)(int button);
-typedef bool (*fnLogiGkeyIsKeyboardGkeyPressed)(int key, int mode);
-typedef wchar_t* (*fnLogiGkeyGetMouseButtonString)(int button);
-typedef wchar_t* (*fnLogiGkeyGetKeyboardGkeyString)(int key, int mode);
 
 class GKeyLibrary
 {
@@ -83,10 +75,10 @@ protected:
 	QLibrary qlLogiGkey;
 	bool bValid;
 
-	bool (*LogiGkeyInit)(void *);
+	BOOL (*LogiGkeyInit)(void *);
 	void (*LogiGkeyShutdown)();
-	bool (*LogiGkeyIsMouseButtonPressed)(int button);
-	bool (*LogiGkeyIsKeyboardGkeyPressed)(int key, int mode);
+	BOOL (*LogiGkeyIsMouseButtonPressed)(int button);
+	BOOL (*LogiGkeyIsKeyboardGkeyPressed)(int key, int mode);
 	wchar_t *(*LogiGkeyGetMouseButtonString)(int button);
 	wchar_t *(*LogiGkeyGetKeyboardGkeyString)(int key, int mode);
 };

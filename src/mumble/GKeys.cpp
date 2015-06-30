@@ -109,20 +109,18 @@ GKeyLibrary::GKeyLibrary()
 
 	HKEY key = NULL;
 	DWORD type = 0;
-	LPSTR libLocation[255];
-	DWORD len = 255;
-	LONG errOpen = RegOpenKeyExA(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key);
+	WCHAR wcLocation[510];
+	DWORD len = 510;
+	LONG errOpen = RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key);
 	if (errOpen == ERROR_SUCCESS) {
-		// XXX: Should the unicode variants be used instead?
-		LONG err = RegQueryValueExA(key, "", NULL, &type, reinterpret_cast<LPBYTE>(libLocation), &len);
+		LONG err = RegQueryValueEx(key, L"", NULL, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
-			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %d", libLocation, len);
-			alternatives << QString::fromLatin1(reinterpret_cast<const char *>(libLocation), len);
+			QString qsLocation = QString::fromUtf16(reinterpret_cast<ushort *>(wcLocation), len / 2);
+			qWarning("GKeyLibrary: Found ServerBinary with libLocation = \"%s\", len = %d", qPrintable(qsLocation), len);
+			alternatives << qsLocation;
 		} else {
 			qWarning("GKeyLibrary: Error looking up ServerBinary (Error: 0x%x, Type: 0x%x, len: %d)", err, type, len);
 		}
-	} else {
-		qWarning("GKeyLibrary: Could not open lib location regkey (Error: 0x%x)", errOpen);
 	}
 
 	alternatives << QString::fromLatin1(GKEY_LOGITECH_DLL_DEFAULT_LOCATION);
