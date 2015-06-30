@@ -378,6 +378,15 @@ win32 {
   !CONFIG(no-wasapi) {
     CONFIG	*= wasapi
   }
+  !CONFIG(no-gkey) {
+    CONFIG *= gkey
+  }
+
+  CONFIG(gkey) {
+    HEADERS *= GKey.h
+    SOURCES *= GKey.cpp
+    DEFINES *= USE_GKEY
+  }
 
   !CONFIG(mumble_dll) {
     !CONFIG(no-elevation) {
@@ -440,7 +449,7 @@ unix {
         LIBS += -lxar
       }
 
-      LIBS += -framework ScriptingBridge 
+      LIBS += -framework ScriptingBridge
       OBJECTIVE_SOURCES += Overlay_macx.mm
     } else {
       SOURCES += Overlay_unix.cpp

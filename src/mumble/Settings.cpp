@@ -412,7 +412,8 @@ Settings::Settings() {
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
-	
+	bEnableGKey = true;
+
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
 		qmMessageSounds.insert(i, QString());
@@ -735,6 +736,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
+	SAVELOAD(bEnableGKey, "shortcut/gkey");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {

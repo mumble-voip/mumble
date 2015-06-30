@@ -151,6 +151,13 @@ void GlobalShortcutWin::run() {
 		hhMouse = SetWindowsHookEx(WH_MOUSE_LL, HookMouse, hSelf, 0);
 	}
 
+#ifdef USE_GKEY
+	if (g.s.bEnableGKey) {
+		gkey = new GKeyLibrary();
+		qWarning("GlobalShortcutWin: GKeys initialized, isValid: %d", gkey->isValid());
+	}
+#endif
+
 	QTimer * timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
@@ -158,6 +165,10 @@ void GlobalShortcutWin::run() {
 	setPriority(QThread::TimeCriticalPriority);
 
 	exec();
+
+#ifdef USE_GKEY
+	delete gkey;
+#endif
 
 	if (bHook) {
 		UnhookWindowsHookEx(hhKeyboard);
@@ -557,6 +568,26 @@ void GlobalShortcutWin::timeTicked() {
 			handleButton(ql, rgdod[j].dwData & 0x80);
 		}
 	}
+#ifdef USE_GKEY
+	if (g.s.bEnableGKey && gkey->isValid()) {
+		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
+			QList<QVariant> ql;
+			ql << button;
+			ql << GKeyLibrary::quMouse;
+			handleButton(ql, gkey->isMouseButtonPressed(button));
+		}
+		for (int mode = GKEY_MIN_KEYBOARD_MODE; mode <= GKEY_MAX_KEYBOARD_MODE; mode++) {
+			for (int key = GKEY_MIN_KEYBOARD_BUTTON; key <= GKEY_MAX_KEYBOARD_BUTTON; key++) {
+				QList<QVariant> ql;
+				// Store the key and mode in one int
+				// bit 0..15: mode, bit 16..31: key
+				ql << (key | (mode << 16));
+				ql << GKeyLibrary::quKeyboard;
+				handleButton(ql, gkey->isKeyboardGkeyPressed(key, mode));
+			}
+		}
+	}
+#endif
 }
 
 QString GlobalShortcutWin::buttonName(const QVariant &v) {
@@ -575,6 +606,24 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 
 	QString device=guid.toString();
 	QString name=QLatin1String("Unknown");
+
+#ifdef USE_GKEY
+	if (g.s.bEnableGKey && gkey->isValid()) {
+		bool isGKey = false;
+		if (guid == GKeyLibrary::quMouse) {
+			isGKey = true;
+			name = gkey->getMouseButtonString(type);
+		} else if (guid == GKeyLibrary::quKeyboard) {
+			isGKey = true;
+			name = gkey->getKeyboardGkeyString(type & 0xFFFF, type >> 16);
+		}
+		if (isGKey) {
+			device = QLatin1String("GKey:");
+			return device + name; // Example output: "Gkey:G6/M1"
+		}
+	}
+#endif
+
 	InputDevice *id = gsw->qhInputDevices.value(guid);
 	if (guid == GUID_SysMouse)
 		device=QLatin1String("M:");
