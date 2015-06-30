@@ -111,8 +111,7 @@ GKeyLibrary::GKeyLibrary()
 	DWORD type = 0;
 	WCHAR wcLocation[510];
 	DWORD len = 510;
-	LONG errOpen = RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key);
-	if (errOpen == ERROR_SUCCESS) {
+	if (RegOpenKeyEx(GKEY_LOGITECH_DLL_REG_HKEY, GKEY_LOGITECH_DLL_REG_PATH, NULL, KEY_READ, &key) == ERROR_SUCCESS) {
 		LONG err = RegQueryValueEx(key, L"", NULL, &type, reinterpret_cast<LPBYTE>(wcLocation), &len);
 		if (err == ERROR_SUCCESS && type == REG_SZ) {
 			QString qsLocation = QString::fromUtf16(reinterpret_cast<ushort *>(wcLocation), len / 2);
