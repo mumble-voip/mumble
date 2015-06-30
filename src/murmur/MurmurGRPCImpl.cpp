@@ -285,7 +285,7 @@ void MurmurRPCImpl::started(::Server *server) {
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
 	foreach(auto listener, qsMetaServiceListeners) {
 		// TODO(grpc): remove listener on error
-		listener->response.Write(rpcEvent, nullptr);
+		listener->stream.Write(rpcEvent, nullptr);
 	}
 }
 
@@ -295,7 +295,7 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
 	foreach(auto listener, qsMetaServiceListeners) {
 		// TODO(grpc): remove listener on error
-		listener->response.Write(rpcEvent, nullptr);
+		listener->stream.Write(rpcEvent, nullptr);
 	}
 }
 
@@ -344,7 +344,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
 		auto listener = i.value();
 		// TODO(grpc): remove listener on error
-		listener->response.Write(e, nullptr);
+		listener->stream.Write(e, nullptr);
 	}
 }
 
@@ -442,7 +442,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 			}
 			this->qhContextActionListeners[s->iServerNum].remove(action, listener);
 		};
-		listener->response.Write(ca, listener->callback(cb));
+		listener->stream.Write(ca, listener->callback(cb));
 	}
 }
 
@@ -591,7 +591,7 @@ void ServerService_Create::impl(bool) {
 
 	::MurmurRPC::Server rpcServer;
 	rpcServer.set_id(id);
-	response.Finish(rpcServer, ::grpc::Status::OK, done());
+	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
 void ServerService_Query::impl(bool) {
@@ -608,7 +608,7 @@ void ServerService_Query::impl(bool) {
 		}
 	}
 
-	response.Finish(list, ::grpc::Status::OK, done());
+	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
 void ServerService_Get::impl(bool) {
@@ -619,7 +619,7 @@ void ServerService_Get::impl(bool) {
 	rpcServer.set_id(server->iServerNum);
 	rpcServer.set_running(true);  // TODO(grpc): fix me
 	rpcServer.set_uptime(server->tUptime.elapsed()/1000000LL);
-	response.Finish(rpcServer, ::grpc::Status::OK, done());
+	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
 void ServerService_Start::impl(bool) {
@@ -631,7 +631,7 @@ void ServerService_Start::impl(bool) {
 	}
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, ::grpc::Status::OK, done());
+	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
 void ServerService_Stop::impl(bool) {
@@ -639,7 +639,7 @@ void ServerService_Stop::impl(bool) {
 	meta->kill(server->iServerNum);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, ::grpc::Status::OK, done());
+	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
 void ServerService_Remove::impl(bool) {
@@ -656,7 +656,7 @@ void ServerService_Remove::impl(bool) {
 	ServerDB::deleteServer(request.id());
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, ::grpc::Status::OK, done());
+	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
 void ServerService_Events::impl(bool) {
@@ -667,7 +667,7 @@ void ServerService_Events::impl(bool) {
 void MetaService_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
-	response.Finish(uptime, ::grpc::Status::OK, done());
+	stream.Finish(uptime, ::grpc::Status::OK, done());
 }
 
 void MetaService_GetVersion::impl(bool) {
@@ -677,7 +677,7 @@ void MetaService_GetVersion::impl(bool) {
 	Meta::getVersion(major, minor, patch, release);
 	version.set_version(major << 16 | minor << 8 | patch);
 	version.set_release(u8(release));
-	response.Finish(version, ::grpc::Status::OK, done());
+	stream.Finish(version, ::grpc::Status::OK, done());
 }
 
 void MetaService_Events::impl(bool) {
@@ -707,7 +707,7 @@ void ContextActionService_Add::impl(bool) {
 	server->sendMessage(user, mpcam);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ContextActionService_Remove::impl(bool) {
@@ -731,7 +731,7 @@ void ContextActionService_Remove::impl(bool) {
 	}
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ContextActionService_Events::impl(bool) {
@@ -761,7 +761,7 @@ void TextMessageService_Send::impl(bool) {
 	if (!request.users_size() && !request.channels_size() && !request.trees_size()) {
 		server->sendAll(mptm);
 		::MurmurRPC::Void vd;
-		response.Finish(vd, grpc::Status::OK, done());
+		stream.Finish(vd, grpc::Status::OK, done());
 		return;
 	}
 
@@ -827,7 +827,7 @@ void TextMessageService_Send::impl(bool) {
 	}
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void LogService_Query::impl(bool) {
@@ -843,7 +843,7 @@ void LogService_Query::impl(bool) {
 	list.set_total(total);
 
 	if (!request.has_min() || !request.has_max()) {
-		response.Finish(list, ::grpc::Status::OK, done());
+		stream.Finish(list, ::grpc::Status::OK, done());
 		return;
 	}
 	list.set_min(request.min());
@@ -855,7 +855,7 @@ void LogService_Query::impl(bool) {
 		ToRPC(server, record, rpcLog);
 	}
 
-	response.Finish(list, ::grpc::Status::OK, done());
+	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
 
@@ -870,7 +870,7 @@ void ConfigService_Get::impl(bool) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	response.Finish(rpcConfig, ::grpc::Status::OK, done());
+	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
 void ConfigService_GetField::impl(bool) {
@@ -882,7 +882,7 @@ void ConfigService_GetField::impl(bool) {
 	rpcField.mutable_server()->set_id(server->iServerNum);
 	rpcField.set_key(request.key());
 	rpcField.set_value(u8(server->getConf(u8(request.key()), QVariant()).toString()));
-	response.Finish(rpcField, ::grpc::Status::OK, done());
+	stream.Finish(rpcField, ::grpc::Status::OK, done());
 }
 
 void ConfigService_SetField::impl(bool) {
@@ -899,7 +899,7 @@ void ConfigService_SetField::impl(bool) {
 	server->setLiveConf(key, value);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ConfigService_GetDefaults::impl(bool) {
@@ -909,7 +909,7 @@ void ConfigService_GetDefaults::impl(bool) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	response.Finish(rpcConfig, ::grpc::Status::OK, done());
+	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
 void ChannelService_Query::impl(bool) {
@@ -923,7 +923,7 @@ void ChannelService_Query::impl(bool) {
 		ToRPC(server, channel, rpcChannel);
 	}
 
-	response.Finish(list, ::grpc::Status::OK, done());
+	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
 void ChannelService_Get::impl(bool) {
@@ -932,7 +932,7 @@ void ChannelService_Get::impl(bool) {
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	response.Finish(rpcChannel, ::grpc::Status::OK, done());
+	stream.Finish(rpcChannel, ::grpc::Status::OK, done());
 }
 
 void ChannelService_Add::impl(bool) {
@@ -968,7 +968,7 @@ void ChannelService_Add::impl(bool) {
 
 	::MurmurRPC::Channel resChannel;
 	ToRPC(server, nc, &resChannel);
-	response.Finish(resChannel, grpc::Status::OK, done());
+	stream.Finish(resChannel, grpc::Status::OK, done());
 }
 
 void ChannelService_Remove::impl(bool) {
@@ -980,7 +980,7 @@ void ChannelService_Remove::impl(bool) {
 	}
 	server->removeChannel(channel);
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ChannelService_Update::impl(bool) {
@@ -1114,7 +1114,7 @@ void ChannelService_Update::impl(bool) {
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	response.Finish(rpcChannel, grpc::Status::OK, done());
+	stream.Finish(rpcChannel, grpc::Status::OK, done());
 }
 
 void UserService_Query::impl(bool) {
@@ -1128,7 +1128,7 @@ void UserService_Query::impl(bool) {
 		ToRPC(server, user, rpcUser);
 	}
 
-	response.Finish(list, grpc::Status::OK, done());
+	stream.Finish(list, grpc::Status::OK, done());
 }
 
 void UserService_Get::impl(bool) {
@@ -1140,7 +1140,7 @@ void UserService_Get::impl(bool) {
 		// Lookup user by session
 		auto user = MustUser(server, request);
 		ToRPC(server, user, &rpcUser);
-		response.Finish(rpcUser, grpc::Status::OK, done());
+		stream.Finish(rpcUser, grpc::Status::OK, done());
 		return;
 	} else if (request.has_name()) {
 		// Lookup user by name
@@ -1148,7 +1148,7 @@ void UserService_Get::impl(bool) {
 		foreach(const ::ServerUser *user, server->qhUsers) {
 			if (user->qsName == qsName) {
 				ToRPC(server, user, &rpcUser);
-				response.Finish(rpcUser, grpc::Status::OK, done());
+				stream.Finish(rpcUser, grpc::Status::OK, done());
 				return;
 			}
 		}
@@ -1197,7 +1197,7 @@ void UserService_Update::impl(bool) {
 
 	::MurmurRPC::User rpcUser;
 	ToRPC(server, user, &rpcUser);
-	response.Finish(rpcUser, grpc::Status::OK, done());
+	stream.Finish(rpcUser, grpc::Status::OK, done());
 }
 
 void UserService_Kick::impl(bool) {
@@ -1213,7 +1213,7 @@ void UserService_Kick::impl(bool) {
 	user->disconnectSocket();
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void TreeService_Get::impl(bool) {
@@ -1248,7 +1248,7 @@ void TreeService_Get::impl(bool) {
 		}
 	}
 
-	response.Finish(root, grpc::Status::OK, done());
+	stream.Finish(root, grpc::Status::OK, done());
 }
 
 void BanService_Get::impl(bool) {
@@ -1261,7 +1261,7 @@ void BanService_Get::impl(bool) {
 		ToRPC(server, ban, rpcBan);
 	}
 
-	response.Finish(list, grpc::Status::OK, done());
+	stream.Finish(list, grpc::Status::OK, done());
 }
 
 void BanService_Set::impl(bool) {
@@ -1277,7 +1277,7 @@ void BanService_Set::impl(bool) {
 	server->saveBans();
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_Get::impl(bool) {
@@ -1350,7 +1350,7 @@ void ACLService_Get::impl(bool) {
 		}
 	}
 
-	response.Finish(list, grpc::Status::OK, done());
+	stream.Finish(list, grpc::Status::OK, done());
 }
 
 void ACLService_Set::impl(bool) {
@@ -1409,7 +1409,7 @@ void ACLService_Set::impl(bool) {
 	server->updateChannel(channel);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_GetEffectivePermissions::impl(bool) {
@@ -1421,7 +1421,7 @@ void ACLService_GetEffectivePermissions::impl(bool) {
 
 	::MurmurRPC::ACL rpcACL;
 	rpcACL.set_allow(::MurmurRPC::ACL_Permission(flags));
-	response.Finish(rpcACL, grpc::Status::OK, done());
+	stream.Finish(rpcACL, grpc::Status::OK, done());
 }
 
 void ACLService_AddTemporaryGroup::impl(bool) {
@@ -1447,7 +1447,7 @@ void ACLService_AddTemporaryGroup::impl(bool) {
 	server->clearACLCache(user);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void ACLService_RemoveTemporaryGroup::impl(bool) {
@@ -1473,7 +1473,7 @@ void ACLService_RemoveTemporaryGroup::impl(bool) {
 	server->clearACLCache(user);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void AuthenticatorService_Stream::impl(bool) {
@@ -1499,7 +1499,7 @@ void DatabaseService_Query::impl(bool) {
 		user->set_name(u8(itr.value()));
 	}
 
-	response.Finish(list, grpc::Status::OK, done());
+	stream.Finish(list, grpc::Status::OK, done());
 }
 
 void DatabaseService_Get::impl(bool) {
@@ -1516,7 +1516,7 @@ void DatabaseService_Get::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	// TODO(grpc): support rpcDatabaseUser.Texture in all DatabaseMethods
 	ToRPC(server, info, &rpcDatabaseUser);
-	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
 void DatabaseService_Update::impl(bool) {
@@ -1554,7 +1554,7 @@ void DatabaseService_Update::impl(bool) {
 	}
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void DatabaseService_Register::impl(bool) {
@@ -1571,7 +1571,7 @@ void DatabaseService_Register::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.set_id(userid);
 	ToRPC(server, info, &rpcDatabaseUser);
-	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
 void DatabaseService_Deregister::impl(bool) {
@@ -1586,7 +1586,7 @@ void DatabaseService_Deregister::impl(bool) {
 	}
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 void DatabaseService_Verify::impl(bool) {
@@ -1615,7 +1615,7 @@ void DatabaseService_Verify::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.mutable_server()->set_id(server->iServerNum);
 	rpcDatabaseUser.set_id(ret);
-	response.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
 void AudioService_SetRedirectWhisperGroup::impl(bool) {
@@ -1637,7 +1637,7 @@ void AudioService_SetRedirectWhisperGroup::impl(bool) {
 	server->clearACLCache(user);
 
 	::MurmurRPC::Void vd;
-	response.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, grpc::Status::OK, done());
 }
 
 }

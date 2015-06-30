@@ -53,9 +53,9 @@ public:
 
 	::grpc::ServerContext context;
 	::$in$ request;
-	::grpc::ServerAsyncResponseWriter < ::$out$ > response;
+	::grpc::ServerAsyncResponseWriter < ::$out$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -70,7 +70,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -83,7 +83,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 )";
@@ -96,9 +96,9 @@ public:
 
 	::grpc::ServerContext context;
 	::$in$ request;
-	::grpc::ServerAsyncWriter < ::$out$ > response;
+	::grpc::ServerAsyncWriter < ::$out$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -118,7 +118,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.Finish(err, this->done());
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -131,7 +131,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 
 private:
