@@ -11,9 +11,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	ServerService_Create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -28,7 +28,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -41,7 +41,7 @@ public:
 		auto call = new ServerService_Create(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Create::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestCreate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestCreate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -52,9 +52,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > stream;
 
-	ServerService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -69,7 +69,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -82,7 +82,7 @@ public:
 		auto call = new ServerService_Query(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -93,9 +93,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	ServerService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -110,7 +110,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -123,7 +123,7 @@ public:
 		auto call = new ServerService_Get(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -134,9 +134,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Start(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Start(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -151,7 +151,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -164,7 +164,7 @@ public:
 		auto call = new ServerService_Start(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Start::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestStart(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestStart(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -175,9 +175,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Stop(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Stop(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -192,7 +192,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -205,7 +205,7 @@ public:
 		auto call = new ServerService_Stop(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Stop::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestStop(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestStop(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -216,9 +216,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -233,7 +233,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -246,7 +246,7 @@ public:
 		auto call = new ServerService_Remove(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Remove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -257,9 +257,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > response;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > stream;
 
-	ServerService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ServerService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -279,7 +279,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.Finish(err, this->done());
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -292,7 +292,7 @@ public:
 		auto call = new ServerService_Events(rpc, service);
 		auto fn = ::boost::bind(&ServerService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestEvents(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 
 private:
@@ -319,9 +319,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Uptime > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Uptime > stream;
 
-	MetaService_GetUptime(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	MetaService_GetUptime(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -336,7 +336,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -349,7 +349,7 @@ public:
 		auto call = new MetaService_GetUptime(rpc, service);
 		auto fn = ::boost::bind(&MetaService_GetUptime::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetUptime(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetUptime(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -360,9 +360,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Version > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Version > stream;
 
-	MetaService_GetVersion(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	MetaService_GetVersion(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -377,7 +377,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -390,7 +390,7 @@ public:
 		auto call = new MetaService_GetVersion(rpc, service);
 		auto fn = ::boost::bind(&MetaService_GetVersion::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetVersion(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetVersion(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -401,9 +401,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > response;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > stream;
 
-	MetaService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	MetaService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -423,7 +423,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.Finish(err, this->done());
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -436,7 +436,7 @@ public:
 		auto call = new MetaService_Events(rpc, service);
 		auto fn = ::boost::bind(&MetaService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestEvents(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 
 private:
@@ -459,9 +459,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ContextActionService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ContextActionService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -476,7 +476,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -489,7 +489,7 @@ public:
 		auto call = new ContextActionService_Add(rpc, service);
 		auto fn = ::boost::bind(&ContextActionService_Add::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAdd(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestAdd(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -500,9 +500,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ContextActionService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ContextActionService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -517,7 +517,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -530,7 +530,7 @@ public:
 		auto call = new ContextActionService_Remove(rpc, service);
 		auto fn = ::boost::bind(&ContextActionService_Remove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -541,9 +541,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > response;
+	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > stream;
 
-	ContextActionService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ContextActionService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -563,7 +563,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.Finish(err, this->done());
+		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -576,7 +576,7 @@ public:
 		auto call = new ContextActionService_Events(rpc, service);
 		auto fn = ::boost::bind(&ContextActionService_Events::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestEvents(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestEvents(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 
 private:
@@ -599,9 +599,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::TextMessage request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	TextMessageService_Send(MurmurRPCImpl *rpc, ::MurmurRPC::TextMessageService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	TextMessageService_Send(MurmurRPCImpl *rpc, ::MurmurRPC::TextMessageService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -616,7 +616,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -629,7 +629,7 @@ public:
 		auto call = new TextMessageService_Send(rpc, service);
 		auto fn = ::boost::bind(&TextMessageService_Send::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSend(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestSend(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void TextMessageService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TextMessageService::AsyncService *service) {
@@ -643,9 +643,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Log_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > stream;
 
-	LogService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::LogService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	LogService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::LogService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -660,7 +660,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -673,7 +673,7 @@ public:
 		auto call = new LogService_Query(rpc, service);
 		auto fn = ::boost::bind(&LogService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void LogService_Init(MurmurRPCImpl *impl, ::MurmurRPC::LogService::AsyncService *service) {
@@ -687,9 +687,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	ConfigService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ConfigService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -704,7 +704,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -717,7 +717,7 @@ public:
 		auto call = new ConfigService_Get(rpc, service);
 		auto fn = ::boost::bind(&ConfigService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -728,9 +728,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Config_Field request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > stream;
 
-	ConfigService_GetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ConfigService_GetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -745,7 +745,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -758,7 +758,7 @@ public:
 		auto call = new ConfigService_GetField(rpc, service);
 		auto fn = ::boost::bind(&ConfigService_GetField::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetField(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -769,9 +769,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Config_Field request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ConfigService_SetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ConfigService_SetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -786,7 +786,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -799,7 +799,7 @@ public:
 		auto call = new ConfigService_SetField(rpc, service);
 		auto fn = ::boost::bind(&ConfigService_SetField::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetField(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestSetField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -810,9 +810,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	ConfigService_GetDefaults(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ConfigService_GetDefaults(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -827,7 +827,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -840,7 +840,7 @@ public:
 		auto call = new ConfigService_GetDefaults(rpc, service);
 		auto fn = ::boost::bind(&ConfigService_GetDefaults::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetDefaults(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetDefaults(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void ConfigService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ConfigService::AsyncService *service) {
@@ -857,9 +857,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > stream;
 
-	ChannelService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ChannelService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -874,7 +874,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -887,7 +887,7 @@ public:
 		auto call = new ChannelService_Query(rpc, service);
 		auto fn = ::boost::bind(&ChannelService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -898,9 +898,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ChannelService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -915,7 +915,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -928,7 +928,7 @@ public:
 		auto call = new ChannelService_Get(rpc, service);
 		auto fn = ::boost::bind(&ChannelService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -939,9 +939,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ChannelService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -956,7 +956,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -969,7 +969,7 @@ public:
 		auto call = new ChannelService_Add(rpc, service);
 		auto fn = ::boost::bind(&ChannelService_Add::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAdd(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestAdd(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -980,9 +980,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ChannelService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ChannelService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -997,7 +997,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1010,7 +1010,7 @@ public:
 		auto call = new ChannelService_Remove(rpc, service);
 		auto fn = ::boost::bind(&ChannelService_Remove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemove(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1021,9 +1021,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ChannelService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1038,7 +1038,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1051,7 +1051,7 @@ public:
 		auto call = new ChannelService_Update(rpc, service);
 		auto fn = ::boost::bind(&ChannelService_Update::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void ChannelService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ChannelService::AsyncService *service) {
@@ -1069,9 +1069,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::User_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > stream;
 
-	UserService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	UserService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1086,7 +1086,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1099,7 +1099,7 @@ public:
 		auto call = new UserService_Query(rpc, service);
 		auto fn = ::boost::bind(&UserService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1110,9 +1110,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::User request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	UserService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	UserService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1127,7 +1127,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1140,7 +1140,7 @@ public:
 		auto call = new UserService_Get(rpc, service);
 		auto fn = ::boost::bind(&UserService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1151,9 +1151,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::User request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	UserService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	UserService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1168,7 +1168,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1181,7 +1181,7 @@ public:
 		auto call = new UserService_Update(rpc, service);
 		auto fn = ::boost::bind(&UserService_Update::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1192,9 +1192,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::User_Kick request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	UserService_Kick(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	UserService_Kick(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1209,7 +1209,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1222,7 +1222,7 @@ public:
 		auto call = new UserService_Kick(rpc, service);
 		auto fn = ::boost::bind(&UserService_Kick::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestKick(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestKick(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncService *service) {
@@ -1239,9 +1239,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > stream;
 
-	TreeService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	TreeService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1256,7 +1256,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1269,7 +1269,7 @@ public:
 		auto call = new TreeService_Get(rpc, service);
 		auto fn = ::boost::bind(&TreeService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
@@ -1283,9 +1283,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Ban_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > stream;
 
-	BanService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	BanService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1300,7 +1300,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1313,7 +1313,7 @@ public:
 		auto call = new BanService_Get(rpc, service);
 		auto fn = ::boost::bind(&BanService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1324,9 +1324,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Ban_List request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	BanService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	BanService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1341,7 +1341,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1354,7 +1354,7 @@ public:
 		auto call = new BanService_Set(rpc, service);
 		auto fn = ::boost::bind(&BanService_Set::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestSet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void BanService_Init(MurmurRPCImpl *impl, ::MurmurRPC::BanService::AsyncService *service) {
@@ -1369,9 +1369,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > stream;
 
-	ACLService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ACLService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1386,7 +1386,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1399,7 +1399,7 @@ public:
 		auto call = new ACLService_Get(rpc, service);
 		auto fn = ::boost::bind(&ACLService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1410,9 +1410,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ACL_List request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ACLService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1427,7 +1427,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1440,7 +1440,7 @@ public:
 		auto call = new ACLService_Set(rpc, service);
 		auto fn = ::boost::bind(&ACLService_Set::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestSet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1451,9 +1451,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ACL_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > stream;
 
-	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1468,7 +1468,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1481,7 +1481,7 @@ public:
 		auto call = new ACLService_GetEffectivePermissions(rpc, service);
 		auto fn = ::boost::bind(&ACLService_GetEffectivePermissions::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetEffectivePermissions(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGetEffectivePermissions(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1492,9 +1492,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ACL_TemporaryGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_AddTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ACLService_AddTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1509,7 +1509,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1522,7 +1522,7 @@ public:
 		auto call = new ACLService_AddTemporaryGroup(rpc, service);
 		auto fn = ::boost::bind(&ACLService_AddTemporaryGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAddTemporaryGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestAddTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1533,9 +1533,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::ACL_TemporaryGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_RemoveTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	ACLService_RemoveTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1550,7 +1550,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1563,7 +1563,7 @@ public:
 		auto call = new ACLService_RemoveTemporaryGroup(rpc, service);
 		auto fn = ::boost::bind(&ACLService_RemoveTemporaryGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveTemporaryGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRemoveTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void ACLService_Init(MurmurRPCImpl *impl, ::MurmurRPC::ACLService::AsyncService *service) {
@@ -1636,9 +1636,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > stream;
 
-	DatabaseService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1653,7 +1653,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1666,7 +1666,7 @@ public:
 		auto call = new DatabaseService_Query(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQuery(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1677,9 +1677,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1694,7 +1694,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1707,7 +1707,7 @@ public:
 		auto call = new DatabaseService_Get(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Get::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1718,9 +1718,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	DatabaseService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1735,7 +1735,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1748,7 +1748,7 @@ public:
 		auto call = new DatabaseService_Update(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Update::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdate(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1759,9 +1759,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Register(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Register(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1776,7 +1776,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1789,7 +1789,7 @@ public:
 		auto call = new DatabaseService_Register(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Register::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRegister(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRegister(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1800,9 +1800,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	DatabaseService_Deregister(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Deregister(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1817,7 +1817,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1830,7 +1830,7 @@ public:
 		auto call = new DatabaseService_Deregister(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Deregister::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestDeregister(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDeregister(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1841,9 +1841,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::DatabaseUser_Verify request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Verify(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	DatabaseService_Verify(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1858,7 +1858,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1871,7 +1871,7 @@ public:
 		auto call = new DatabaseService_Verify(rpc, service);
 		auto fn = ::boost::bind(&DatabaseService_Verify::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestVerify(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestVerify(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::AsyncService *service) {
@@ -1890,9 +1890,9 @@ public:
 
 	::grpc::ServerContext context;
 	::MurmurRPC::RedirectWhisperGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > response;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	AudioService_SetRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), response(&context) {
+	AudioService_SetRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1907,7 +1907,7 @@ public:
 	}
 
 	void error(::grpc::Status &err) {
-		response.FinishWithError(err, this->done());
+		stream.FinishWithError(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1920,7 +1920,7 @@ public:
 		auto call = new AudioService_SetRedirectWhisperGroup(rpc, service);
 		auto fn = ::boost::bind(&AudioService_SetRedirectWhisperGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetRedirectWhisperGroup(&call->context, &call->request, &call->response, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestSetRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void AudioService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service) {
