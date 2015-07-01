@@ -361,26 +361,31 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 						int fd = shm_open(oms->a_cName, O_RDONLY, 0600);
 						if (fd != -1) {
 							struct stat buf;
-							fstat(fd, &buf);
-							if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4) {
-								ctx->uiMappedLength = (unsigned int)buf.st_size;
-								ctx->a_ucTexture = mmap(NULL, (size_t)buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
-								if (ctx->a_ucTexture != MAP_FAILED) {
-									// mmap successfull; send a new bodyless sharedmemory overlay message and regenerate the overlay texture
-									struct OverlayMsg om;
-									om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
-									om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
-									om.omh.iLength = 0;
-
-									if (! sendMessage(ctx, &om))
-										return;
-
-									regenTexture(ctx);
-									continue;
+							
+							if (fstat(fd, &buf) != -1) {
+								if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4
+								        && buf.st_size < 512 * 1024 * 1024) {
+									ctx->uiMappedLength = (unsigned int)buf.st_size;
+									ctx->a_ucTexture = mmap(NULL, (size_t)buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+									if (ctx->a_ucTexture != MAP_FAILED) {
+										// mmap successfull; send a new bodyless sharedmemory overlay message and regenerate the overlay texture
+										struct OverlayMsg om;
+										om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
+										om.omh.uiType = OVERLAY_MSGTYPE_SHMEM;
+										om.omh.iLength = 0;
+	
+										if (! sendMessage(ctx, &om))
+											return;
+	
+										regenTexture(ctx);
+										continue;
+									}
+									ctx->a_ucTexture = NULL;
 								}
-								ctx->a_ucTexture = NULL;
+								ctx->uiMappedLength = 0;
+							} else {
+								ods("Failed to fstat memory map");
 							}
-							ctx->uiMappedLength = 0;
 							close(fd);
 						}
 						ods("Failed to map memory");
