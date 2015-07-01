@@ -2,30 +2,30 @@ Binary versions
 ===============
 
 Binary versions for Win32 of the most recent version of mumble are provided
-on sourceforge.net, see http://www.sourceforge.net/projects/mumble/
+at http://www.mumble.info/
 
-The only legitimate releases of Mumble will be on sourceforge, any other
+The only legitimate releases of Mumble will be on www.mumble.info, any other
 place offering Mumble is likely to contain trojans or viruses.
 
 Windows pre-requisites
 ======================
 
 Detailed build instructions are available at
-http://mumble.sourceforge.net/BuildingWindows and it is highly recommended
+http://wiki.mumble.info/wiki/BuildingWindows and it is highly recommended
 to follow them to the letter.
 
 Mac OS X pre-requisites
 =======================
 
 Detailed build instructions are available at
-http://mumble.sourceforge.net/BuildingMacOSX and it is highly recommended
+http://wiki.mumble.info/wiki/BuildingMacOSX and it is highly recommended
 to follow them to the letter.
 
 Linux pre-requisites
 ====================
 
 Detailed build instructions are available at
-http://mumble.sourceforge.net/BuildingLinux and it is highly recommended
+http://wiki.mumble.info/wiki/BuildingLinux and it is highly recommended
 to follow them to the letter.
 
 Please note that in addition to the depending libraries, you also need
