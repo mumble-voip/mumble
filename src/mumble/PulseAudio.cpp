@@ -775,7 +775,7 @@ void PulseAudioSystem::stream_restore_read_callback(pa_context *c, const pa_ext_
 	}
 }
 
-void PulseAudioSystem::restore_volume_success_callback(pa_context * /*c*/, int /*success*/, void *userdata) {
+void PulseAudioSystem::restore_volume_success_callback(pa_context *, int, void *userdata) {
 	PulseAudioSystem *pas = reinterpret_cast<PulseAudioSystem *>(userdata);
 
 	pas->iRemainingOperations--;

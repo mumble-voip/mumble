@@ -2449,7 +2449,7 @@ void MainWindow::removeTarget(ShortcutTarget *st)
 		qmCurrentTargets[*st] -= 1;
 }
 
-void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant /*scdata*/)
+void MainWindow::on_gsCycleTransmitMode_triggered(bool down, QVariant)
 {
 	if (down) 
 	{
