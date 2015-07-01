@@ -70,7 +70,7 @@ struct LinkedMem {
 static int64_t GetTickCount() {
 	struct timeval tv;
 	gettimeofday(&tv,NULL);
-	
+
 	return tv.tv_usec / 1000 + tv.tv_sec * 1000;
 }
 
