@@ -14,8 +14,6 @@ indent.sh
 *.vcxproj
 *.vcxproj.*
 *~
-*.pb.h
-*.pb.cc
 *.pro.user
 ui_*.h
 *.qm
@@ -31,6 +29,8 @@ src/mumble/mumble_plugin_import.cpp
 src/mumble/mumble_app_plugin_import.cpp
 src/murmur/murmurd_plugin_import.cpp
 src/murmur/murmur_plugin_import.cpp
+src/mumble/protobuf/
+src/murmur/protobuf/
 doxygen/
 .qmake.cache
 .qmake.stash
