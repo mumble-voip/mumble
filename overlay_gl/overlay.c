@@ -529,7 +529,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glPushClientAttrib(GL_ALL_ATTRIB_BITS);
 	glGetIntegerv(GL_VIEWPORT, viewport);
-	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*)&program);
+	glGetIntegerv(GL_CURRENT_PROGRAM, (GLint *)&program);
 
 	glViewport(0, 0, width, height);
 
@@ -642,8 +642,8 @@ static void drawContext(Context * ctx, int width, int height) {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	GLuint bound = 0, vbobound = 0;
-	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, (GLint*)&bound);
-	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, (GLint*)&vbobound);
+	glGetIntegerv(GL_PIXEL_UNPACK_BUFFER_BINDING, (GLint *)&bound);
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, (GLint *)&vbobound);
 
 	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
