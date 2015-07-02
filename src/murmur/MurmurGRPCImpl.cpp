@@ -94,7 +94,7 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 void MurmurRPCImpl::cleanup() {
 	// TODO(grpc): cleanup any old connections that are stored in our listener
 	// lists.
-	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners
+	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners, qhAuthenticators
 }
 
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -299,8 +299,91 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	}
 }
 
+// TODO(grpc): add timeout param?
+template <class T, class T2>
+bool BlockingWrite(T *wrapper, T2 &msg) {
+	bool processed = false;
+	bool success;
+	auto cb = [&success, &processed] (T *, bool ok) {
+		success = ok;
+		processed = true;
+	};
+	wrapper->stream.Write(msg, wrapper->callback(cb));
+	while (!processed) {
+		QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+	}
+	return success;
+}
+
+// TODO(grpc): add timeout param?
+template <class T, class T2>
+bool BlockingRead(T *wrapper, T2 *msg) {
+	bool processed = false;
+	bool success;
+	auto cb = [&success, &processed] (T *, bool ok) {
+		success = ok;
+		processed = true;
+	};
+	wrapper->stream.Read(msg, wrapper->callback(cb));
+	while (!processed) {
+		QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+	}
+	return success;
+}
+
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.mutable_authenticate()->set_name(u8(uname));
+	if (!pw.isEmpty()) {
+		request.mutable_authenticate()->set_password(u8(pw));
+	}
+	// TODO(grpc): include certlist
+	if (!certhash.isEmpty()) {
+		request.mutable_authenticate()->set_certificate_hash(u8(certhash));
+		request.mutable_authenticate()->set_strong_certificate(certstrong);
+	}
+
+	auto &response = authenticator->request;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_authenticate()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting authenticate");
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		res = -1;
+		return;
+	}
+	switch (response.authenticate().status()) {
+	case ::MurmurRPC::Authenticator_Response_Status_Success:
+		// TODO(grpc): ensure id field is actually set
+		res = response.authenticate().id();
+		if (response.authenticate().has_name()) {
+			uname = u8(response.authenticate().name());
+		}
+		break;
+	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
+		res = -2;
+		break;
+	case ::MurmurRPC::Authenticator_Response_Status_TemporaryFailure:
+		res = -3;
+		break;
+	case ::MurmurRPC::Authenticator_Response_Status_Failure:
+	default:
+		res = -1;
+		break;
+	}
 }
 
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &) {
@@ -1473,11 +1556,30 @@ void ACLService_RemoveTemporaryGroup::impl(bool) {
 	server->clearACLCache(user);
 
 	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
 void AuthenticatorService_Stream::impl(bool) {
-	throw ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED);
+	auto onInitialize = [this] (AuthenticatorService_Stream *, bool ok) {
+		if (!ok) {
+			finish(ok);
+			return;
+		}
+		if (!request.has_initialize()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
+		}
+		auto server = MustServer(request.initialize());
+		if (rpc->qhAuthenticators[server->iServerNum]) {
+			auto oldAuth = rpc->qhAuthenticators[server->iServerNum];
+			server->disconnectAuthenticator(rpc);
+			rpc->qhAuthenticators.remove(server->iServerNum);
+			oldAuth->stream.Finish(::grpc::Status(::grpc::CANCELLED, "another authenticator was attached"), oldAuth->done());
+		}
+		// TODO(grpc): check request.initialize().updating()
+		rpc->qhAuthenticators[server->iServerNum] = this;
+		server->connectAuthenticator(rpc);
+	};
+	stream.Read(&request, callback(onInitialize));
 }
 
 void DatabaseService_Query::impl(bool) {

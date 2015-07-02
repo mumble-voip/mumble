@@ -65,6 +65,7 @@ namespace Wrapper {
 class ContextActionService_Events;
 class MetaService_Events;
 class ServerService_Events;
+class AuthenticatorService_Stream;
 }
 }
 
@@ -100,6 +101,7 @@ class MurmurRPCImpl : public QThread {
 		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::ContextActionService_Events *> > qhContextActionListeners;
 		QSet<::MurmurRPC::Wrapper::MetaService_Events *> qsMetaServiceListeners;
 		QMultiHash<int, ::MurmurRPC::Wrapper::ServerService_Events *> qmhServerServiceListeners;
+		QHash<int, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *> qhAuthenticators;
 
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
 
