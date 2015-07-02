@@ -340,7 +340,10 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	if (!pw.isEmpty()) {
 		request.mutable_authenticate()->set_password(u8(pw));
 	}
-	// TODO(grpc): include certlist
+	foreach(const auto &cert, certlist) {
+		auto data = cert.toDer();
+		request.mutable_authenticate()->add_certificates(data.constData(), data.size());
+	}
 	if (!certhash.isEmpty()) {
 		request.mutable_authenticate()->set_certificate_hash(u8(certhash));
 		request.mutable_authenticate()->set_strong_certificate(certstrong);
