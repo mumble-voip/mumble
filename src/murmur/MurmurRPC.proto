@@ -427,6 +427,7 @@ message Authenticator {
 			repeated bytes certificates = 3;
 			optional string certificate_hash = 4;
 			optional bool strong_certificate = 5;
+			// TODO(grpc): include IP address?
 		}
 
 		message Query {
@@ -470,7 +471,10 @@ message Authenticator {
 			optional Status status = 1;
 			optional uint32 id = 2;
 			optional string name = 3;
-			repeated string groups = 4; // TODO(grpc): ACL.Group?
+			//repeated string groups = 4; // TODO(grpc): ACL.Group?
+			// TODO(grpc): is groups really needed? Can't we just call
+			// ACLService.AddTemporaryGroup? Will need to pass the session/User object
+			// to the authenticator for this to happen.
 		}
 
 		message Query {
