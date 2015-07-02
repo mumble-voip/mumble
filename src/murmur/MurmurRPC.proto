@@ -430,9 +430,13 @@ message Authenticator {
 			// TODO(grpc): include IP address?
 		}
 
-		message Query {
+		message Find {
 			optional uint32 id = 1;
 			optional string name = 2;
+		}
+
+		message Query {
+			optional string filter = 1;
 		}
 
 		message Register {
@@ -448,10 +452,11 @@ message Authenticator {
 		}
 
 		optional Authenticate authenticate = 1;
-		optional Query query = 2;
-		optional Register register = 3;
-		optional Deregister deregister = 4;
-		optional Update update = 5;
+		optional Find find = 2;
+		optional Query query = 3;
+		optional Register register = 4;
+		optional Deregister deregister = 5;
+		optional Update update = 6;
 	}
 
 	message Response {
@@ -477,6 +482,10 @@ message Authenticator {
 			// to the authenticator for this to happen.
 		}
 
+		message Find {
+			optional DatabaseUser user = 1;
+		}
+
 		message Query {
 			repeated DatabaseUser users = 1;
 		}
@@ -496,10 +505,11 @@ message Authenticator {
 
 		optional Initialize initialize = 1;
 		optional Authenticate authenticate = 2;
-		optional Query query = 3;
-		optional Register register = 4;
-		optional Deregister deregister = 5;
-		optional Update update = 6;
+		optional Find find = 3;
+		optional Query query = 4;
+		optional Register register = 5;
+		optional Deregister deregister = 6;
+		optional Update update = 7;
 	}
 }
 
