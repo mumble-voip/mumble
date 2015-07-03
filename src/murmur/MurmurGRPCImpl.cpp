@@ -447,6 +447,33 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	request.mutable_find()->set_name(u8(name));
+
+	auto &response = authenticator->request;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_find()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		return;
+	}
+	if (response.find().has_user() && response.find().user().has_id()) {
+		res = response.find().user().id();
+	}
 }
 
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
