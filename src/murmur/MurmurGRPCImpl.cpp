@@ -336,6 +336,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	auto authenticator = qhAuthenticators[s->iServerNum];
 
 	auto &request = authenticator->response;
+	request.Clear();
 	request.mutable_authenticate()->set_name(u8(uname));
 	if (!pw.isEmpty()) {
 		request.mutable_authenticate()->set_password(u8(pw));
@@ -401,8 +402,39 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 	::Server *s = qobject_cast< ::Server *> (sender());
 }
 
-void MurmurRPCImpl::getRegistrationSlot(int &, int, QMap<int, QString> &) {
+void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	request.mutable_find()->set_id(id);
+
+	auto &response = authenticator->request;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_find()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		res = -1;
+		return;
+	}
+	if (!response.find().has_user()) {
+		res = -1;
+		return;
+	}
+	FromRPC(response.find().user(), info);
+	res = 1;
 }
 
 void MurmurRPCImpl::setInfoSlot(int &, int, const QMap<int, QString> &) {
