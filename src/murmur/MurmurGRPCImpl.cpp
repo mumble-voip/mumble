@@ -451,6 +451,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 
 	auto &request = authenticator->response;
 	request.Clear();
+	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_name(u8(name));
 
 	auto &response = authenticator->request;
@@ -482,6 +483,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 	auto &request = authenticator->response;
 	request.Clear();
+	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
 	auto &response = authenticator->request;
@@ -509,6 +511,35 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	// TODO(grpc): hint what data we want
+	request.mutable_find()->set_id(id);
+
+	auto &response = authenticator->request;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_find()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		return;
+	}
+	if (response.find().has_user() && response.find().user().has_texture()) {
+		const auto &texture = response.find().user().texture();
+		res = QByteArray(texture.data(), texture.size());
+	}
 }
 
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
