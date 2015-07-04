@@ -128,9 +128,6 @@ QVector<QDir> Themes::getSearchDirectories()
 	themeSearchDirectories << QDir(QLatin1String(":builtin/themes"));
 	// Next come themes found in the applications Themes directory
 	themeSearchDirectories << QDir(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/Themes"));
-#ifdef Q_OS_MAC //FIXME: Do we need that and if so what is its priority
-	themeSearchDirectories << QDir(QString::fromLatin1("%1/../Themes").arg(qApp->applicationDirPath()));
-#endif
 	// Highest priorty have themes located in the user directory
 	themeSearchDirectories << QDir(g.qdBasePath.absolutePath() + QLatin1String("/Themes"));
 	
