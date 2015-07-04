@@ -29,7 +29,6 @@
     <file alias="layout_custom.svg">MetroMumble/layout_custom.svg</file>
     <file alias="layout_hybrid.svg">MetroMumble/layout_hybrid.svg</file>
     <file alias="layout_stacked.svg">MetroMumble/layout_stacked.svg</file>
-    <file alias="LICENSE">MetroMumble/LICENSE</file>
     <file alias="MetroDark.qss">MetroMumble/MetroDark.qss</file>
     <file alias="MetroLite.qss">MetroMumble/MetroLite.qss</file>
     <file alias="mumble.ico">MetroMumble/mumble.ico</file>
@@ -42,7 +41,6 @@
     <file alias="muted_suppressed.svg">MetroMumble/muted_suppressed.svg</file>
     <file alias="overlay.mumblelay">MetroMumble/overlay.mumblelay</file>
     <file alias="priority_speaker.svg">MetroMumble/priority_speaker.svg</file>
-    <file alias="README.md">MetroMumble/README.md</file>
     <file alias="self_comment.svg">MetroMumble/self_comment.svg</file>
     <file alias="self_undeafened.svg">MetroMumble/self_undeafened.svg</file>
     <file alias="talking_alt.svg">MetroMumble/talking_alt.svg</file>
