@@ -87,7 +87,7 @@ public:
 	/// @param themesDirectories List of directories to search for theme directories.
 	/// @return Map of theme name to Theme
 	///
-	static ThemeMap scanDirectories(const QVector<QDir>& themesDirectories);
+	static ThemeMap scanDirectories(const QVector<QDir> &themesDirectories);
 	
 	///
 	/// Takes stock of all mumble themes in the given folder
@@ -98,7 +98,7 @@ public:
 	/// @param themesDirectory Directory to scan for theme directories
 	/// @return Map of theme name to Theme
 	///
-	static ThemeMap scanDirectory(const QDir& themesDirectory);
+	static ThemeMap scanDirectory(const QDir &themesDirectory);
 	
 	///
 	/// Loads the theme description from a given directory
@@ -106,7 +106,7 @@ public:
 	/// @param themeDirectory 
 	/// @return Theme if description was correctly loaded. boost::none if not.
 	///
-	static boost::optional<ThemeInfo> load(const QDir& themeDirectory);
+	static boost::optional<ThemeInfo> load(const QDir &themeDirectory);
 	
 	///
 	/// @return Style with given name or default

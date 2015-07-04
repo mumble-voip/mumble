@@ -45,7 +45,7 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 #endif
 }
 
-boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig, const QString& styleId, const ThemeInfo &theme, const QDir& themeDir) {
+boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig, const QString &styleId, const ThemeInfo &theme, const QDir &themeDir) {
 	ScopedQSettingsGroup group(themeConfig, styleId);
 	
 	QRegExp qssPlatformRegex(QLatin1String("^qss_(.*)"));
@@ -66,7 +66,7 @@ boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig
 		return boost::none;
 	}
 	
-	foreach (const QString& platformQssConfig, themeConfig.allKeys().filter(qssPlatformRegex)) {
+	foreach (const QString &platformQssConfig, themeConfig.allKeys().filter(qssPlatformRegex)) {
 		qssPlatformRegex.indexIn(platformQssConfig);
 		const QString platform = qssPlatformRegex.cap(1);
 		
@@ -82,7 +82,7 @@ boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig
 	return style;
 }
 
-boost::optional<ThemeInfo> loadLegacyThemeInfo(const QDir& themeDirectory) {
+boost::optional<ThemeInfo> loadLegacyThemeInfo(const QDir &themeDirectory) {
 	ThemeInfo theme;
 	theme.name = themeDirectory.dirName();
 	
@@ -108,7 +108,7 @@ boost::optional<ThemeInfo> loadLegacyThemeInfo(const QDir& themeDirectory) {
 	return theme;
 }
 
-boost::optional<ThemeInfo> ThemeInfo::load(const QDir& themeDirectory) {
+boost::optional<ThemeInfo> ThemeInfo::load(const QDir &themeDirectory) {
 	QFile themeFile(themeDirectory.absoluteFilePath(QLatin1String("theme.ini")));
 	if (!themeFile.exists()) {
 		qWarning() << "Directory " << themeDirectory.absolutePath() << " has no theme.ini, trying fallback";
@@ -163,7 +163,7 @@ ThemeInfo::StyleInfo ThemeInfo::getStyle(QString name) const {
 }
 
 
-ThemeMap ThemeInfo::scanDirectory(const QDir& themesDirectory) {
+ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 	ThemeMap themes;
 	
 	foreach (const QFileInfo &subdirInfo, themesDirectory.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot)) {
@@ -180,8 +180,7 @@ ThemeMap ThemeInfo::scanDirectory(const QDir& themesDirectory) {
 	return themes;
 }
 
-ThemeMap ThemeInfo::scanDirectories(const QVector<QDir> &themesDirectories)
-{
+ThemeMap ThemeInfo::scanDirectories(const QVector<QDir> &themesDirectories) {
 	ThemeMap themes;
 	
 	foreach (const QDir& themesDirectory, themesDirectories) {
