@@ -32,7 +32,7 @@
 #include "mumble_pch.hpp"
 
 #include "LookConfig.h"
-#include "Themes.h";
+#include "Themes.h"
 
 #include "AudioInput.h"
 #include "AudioOutput.h"
