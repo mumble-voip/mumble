@@ -89,7 +89,7 @@ bool Themes::applyConfigured() {
 	qWarning() << "--> qss:" << qssFile.absoluteFilePath();
 	
 	QFile file(qssFile.absoluteFilePath());
-	if(!file.open(QFile::ReadOnly)) {
+	if (!file.open(QFile::ReadOnly)) {
 		qWarning() << "Failed to open theme stylesheet:" << file.errorString();
 		return false;
 	}
@@ -120,8 +120,7 @@ ThemeMap Themes::getThemes() {
 	return ThemeInfo::scanDirectories(getSearchDirectories());
 }
 
-QVector<QDir> Themes::getSearchDirectories()
-{
+QVector<QDir> Themes::getSearchDirectories() {
 	QVector<QDir> themeSearchDirectories;
 
 	// Built-in themes contained in the binary have the lowest priority
