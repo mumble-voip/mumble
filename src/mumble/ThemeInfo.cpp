@@ -31,8 +31,6 @@
 
 #include "ThemeInfo.h"
 
-#include "ScopedQSettingsGroup.h"
-
 QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 #if defined(Q_OS_WIN)
 	return qssFiles.value(QLatin1String("WIN"), defaultQss);
@@ -46,15 +44,13 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 }
 
 boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig, const QString &styleId, const ThemeInfo &theme, const QDir &themeDir) {
-	ScopedQSettingsGroup group(themeConfig, styleId);
-	
 	QRegExp qssPlatformRegex(QLatin1String("^qss_(.*)"));
 	
 	ThemeInfo::StyleInfo style;
 	
-	style.name = themeConfig.value(QLatin1String("name")).toString();
+	style.name = themeConfig.value(QString::fromLatin1("%1/name").arg(styleId)).toString();
 	style.themeName = theme.name;
-	style.defaultQss = QFileInfo(themeDir.filePath(themeConfig.value(QLatin1String("qss")).toString()));
+	style.defaultQss = QFileInfo(themeDir.filePath(themeConfig.value(QString::fromLatin1("%1/qss").arg(styleId)).toString()));
 	
 	if (style.name.isNull()) {
 		qWarning() << "Style " << styleId << " of theme" << theme.name << " has no name, skipping theme";
@@ -70,7 +66,7 @@ boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig
 		qssPlatformRegex.indexIn(platformQssConfig);
 		const QString platform = qssPlatformRegex.cap(1);
 		
-		QFileInfo platformQss = (themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
+		QFileInfo platformQss = (themeDir.filePath(themeConfig.value(QString::fromLatin1("%1/%2").arg(styleId, platformQssConfig)).toString()));
 		if (!platformQss.exists() || !platformQss.isFile()) {
 			qWarning() << "Style" << style.name << " of theme " << theme.name << " references invalid qss " << platformQss.filePath() << " for platform " << platform << ", skipping theme";
 			return boost::none;
@@ -125,12 +121,8 @@ boost::optional<ThemeInfo> ThemeInfo::load(const QDir &themeDirectory) {
 	ThemeInfo theme;
 	QStringList styleIds;
 	
-	{
-		ScopedQSettingsGroup group(themeConfig, QLatin1String("theme"));
-		
-		theme.name = themeConfig.value(QLatin1String("name")).toString();
-		styleIds = themeConfig.value(QLatin1String("styles")).toStringList();
-	}
+	theme.name = themeConfig.value(QLatin1String("theme/name")).toString();
+	styleIds = themeConfig.value(QLatin1String("theme/styles")).toStringList();
 	
 	if (theme.name.isNull()) {
 		qWarning() << "Theme in " << themeFile.fileName() << " does not have a name, skipping";

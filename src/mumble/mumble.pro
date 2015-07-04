@@ -147,7 +147,6 @@ HEADERS *= BanEditor.h \
     MumbleApplication.h \
     ApplicationPalette.h \
     ThemeInfo.h \
-    ScopedQSettingsGroup.h \
     Themes.h
 
 SOURCES *= BanEditor.cpp \
@@ -210,7 +209,6 @@ SOURCES *= BanEditor.cpp \
     MumbleApplication.cpp \
     smallft.cpp \
     ThemeInfo.cpp \
-    ScopedQSettingsGroup.cpp \
     Themes.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
