@@ -212,7 +212,7 @@ SOURCES *= BanEditor.cpp \
     Themes.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
-RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MetroMumble.qrc
+RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
     ConnectDialog.ui \

@@ -444,7 +444,7 @@ Settings::Settings() {
 	qmMessages[Log::OtherMutedOther] = Settings::LogConsole;
 	
 	// Default theme
-	themeName = QLatin1String("Metro Mumble");
+	themeName = QLatin1String("Mumble");
 	themeStyleName = QLatin1String("Lite");
 }
 
