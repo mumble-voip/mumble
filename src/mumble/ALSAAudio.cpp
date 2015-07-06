@@ -306,6 +306,8 @@ ALSAAudioInput::~ALSAAudioInput() {
 
 #define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=(x)) < 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
 #define ALSA_ERRCHECK(x) if (!bOk) {} else if ((err=(x)) < 0) {qWarning("ALSAAudio: Non-critical: %s: %s", #x, snd_strerror(err));}
+#define ALSA_RECOVER(pcm, x) if (bOk && (err=(x)) < 0) { qWarning("ALSAAudio: Attempting recovery of %s", snd_strerror(err)); \
+                                                         ALSA_ERRBAIL(snd_pcm_recover(pcm, err, true));}
 
 void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
@@ -373,27 +375,15 @@ void ALSAAudioInput::run() {
 
 	qml.unlock();
 
-	while (bRunning) {
+	while (bRunning && bOk) {
 #ifdef ALSA_VERBOSE
 		snd_pcm_status_malloc(&status);
 		snd_pcm_status(capture_handle, status);
 		snd_pcm_status_dump(status, log);
 		snd_pcm_status_free(status);
 #endif
-		readblapp = snd_pcm_readi(capture_handle, inbuff, static_cast<int>(wantPeriod));
-		if (readblapp == -ESTRPIPE) {
-			qWarning("ALSAAudioInput: PCM suspended, trying to resume");
-			while (bRunning && snd_pcm_resume(capture_handle) == -EAGAIN)
-				msleep(1000);
-			if ((err = snd_pcm_prepare(capture_handle)) < 0)
-				qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
-		} else if (readblapp == -EPIPE) {
-			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
-		} else if (readblapp < 0) {
-			err = snd_pcm_prepare(capture_handle);
-			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
-		} else if (wantPeriod == static_cast<unsigned int>(readblapp)) {
+		ALSA_RECOVER(capture_handle, readblapp=snd_pcm_readi(capture_handle, inbuff, static_cast<int>(wantPeriod)));
+		if (wantPeriod == static_cast<unsigned int>(readblapp)) {
 			addMic(inbuff, static_cast<int>(readblapp));
 		}
 	}
@@ -497,7 +487,7 @@ void ALSAAudioOutput::run() {
 	// Fill buffer
 	if (bOk && pcm_handle)
 		for (unsigned int i = 0; i < buffer_size / period_size; i++)
-			snd_pcm_writei(pcm_handle, zerobuff, period_size);
+			ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
 
 	if (! bOk) {
 		g.mw->msgBox(tr("Opening chosen ALSA Output failed: %1").arg(Qt::escape(QLatin1String(snd_strerror(err)))));
@@ -548,7 +538,7 @@ void ALSAAudioOutput::run() {
 				stillRun = mix(outbuff, static_cast<int>(period_size));
 				if (stillRun) {
 					snd_pcm_sframes_t w = 0;
-					ALSA_ERRCHECK(w=snd_pcm_writei(pcm_handle, outbuff, period_size));
+					ALSA_RECOVER(pcm_handle, w=snd_pcm_writei(pcm_handle, outbuff, period_size));
 					if (w < 0) {
 						avail = w;
 						break;
@@ -562,7 +552,7 @@ void ALSAAudioOutput::run() {
 				snd_pcm_drain(pcm_handle);
 				ALSA_ERRCHECK(snd_pcm_prepare(pcm_handle));
 				for (unsigned int i=0;i< buffer_size / period_size;++i)
-					ALSA_ERRCHECK(snd_pcm_writei(pcm_handle, zerobuff, period_size));
+					ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
 			}
 
 			if (! stillRun) {
@@ -579,9 +569,9 @@ void ALSAAudioOutput::run() {
 
 				// Fill one frame
 				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++)
-					snd_pcm_writei(pcm_handle, zerobuff, period_size);
+					ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
 
-				snd_pcm_writei(pcm_handle, outbuff, period_size);
+				ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, outbuff, period_size));
 			}
 		}
 	}
