@@ -478,6 +478,40 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	if (!filter.isEmpty()) {
+		request.mutable_query()->set_filter(u8(filter));
+	}
+
+	auto &response = authenticator->request;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_query()) {
+			return;
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		return;
+	}
+
+	for (int i = 0; i < response.query().users_size(); i++) {
+		const auto &user = response.query().users(i);
+		if (!user.has_id() || !user.has_name()) {
+			continue;
+		}
+		res.insert(user.id(), u8(user.name()));
+	}
 }
 
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
