@@ -439,7 +439,6 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-
 	auto authenticator = qhAuthenticators[s->iServerNum];
 
 	auto &request = authenticator->response;
@@ -473,6 +472,35 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	request.mutable_update()->mutable_user()->set_id(id);
+	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
+
+	auto &response = authenticator->request;
+	res = -1;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_update()) {
+			return;
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		return;
+	}
+	if (response.update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
+		res = 1;
+	}
 }
 
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
