@@ -392,6 +392,47 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+	auto authenticator = qhAuthenticators[s->iServerNum];
+
+	auto &request = authenticator->response;
+	request.Clear();
+	ToRPC(s, info, request.mutable_register_()->mutable_user());
+
+	auto &response = authenticator->request;
+	res = -2;
+	try {
+		auto ok = BlockingWrite(authenticator, request);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		ok = BlockingRead(authenticator, &response);
+		if (!ok) {
+			throw ::grpc::Status::Cancelled;
+		}
+		if (!response.has_register_()) {
+			return;
+		}
+	} catch (::grpc::Status &ex) {
+		// TODO(grpc): remove old handler
+		authenticator->error(ex);
+		return;
+	}
+
+	switch (response.register_().status()) {
+	case ::MurmurRPC::Authenticator_Response_Status_Success:
+		if (!response.register_().has_user() || !response.register_().user().has_id()) {
+			res = -1;
+			return;
+		}
+		// TODO(grpc): ensure user().id() is valid?
+		res = response.register_().user().id();
+		return;
+	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
+		return;
+	default:
+		res = -1;
+		return;
+	}
 }
 
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
