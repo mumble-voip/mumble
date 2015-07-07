@@ -270,6 +270,7 @@ void MainWindow::setupGui()  {
 	qteChat->setAttribute(Qt::WA_MacShowFocusRect, false);
 	qteChat->setFrameShape(QFrame::NoFrame);
 	qteLog->setFrameStyle(QFrame::NoFrame);
+	qteMsg->setFrameStyle(QFrame::NoFrame);
 #endif
 
 	LogDocument *ld = new LogDocument(qteLog);
@@ -277,6 +278,12 @@ void MainWindow::setupGui()  {
 
 	qteLog->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
 	qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+
+	LogDocument *md = new LogDocument(qteMsg);
+	qteMsg->setDocument(md);
+
+	qteMsg->document()->setMaximumBlockCount(g.s.iMaxLogBlocks);
+	qteMsg->document()->setDefaultStyleSheet(qApp->styleSheet());
 
 	pmModel = new UserModel(qtvUsers);
 	qtvUsers->setModel(pmModel);
@@ -307,6 +314,14 @@ void MainWindow::setupGui()  {
 
 	foreach(QWidget *w, qdwLog->findChildren<QWidget *>()) {
 		w->installEventFilter(dtbLogDockTitle);
+		w->setMouseTracking(true);
+	}
+
+	dtbMsgDockTitle = new DockTitleBar();
+	qdwMsg->setTitleBarWidget(dtbMsgDockTitle);
+
+	foreach(QWidget *w, qdwMsg->findChildren<QWidget *>()) {
+		w->installEventFilter(dtbMsgDockTitle);
 		w->setMouseTracking(true);
 	}
 
@@ -389,11 +404,13 @@ void MainWindow::setupGui()  {
 // dock widgets.
 void MainWindow::setShowDockTitleBars(bool doShow) {
 	dtbLogDockTitle->setEnabled(doShow);
+	dtbMsgDockTitle->setEnabled(doShow);
 	dtbChatDockTitle->setEnabled(doShow);
 }
 
 MainWindow::~MainWindow() {
 	delete qwPTTButtonWidget;
+	delete qdwMsg->titleBarWidget();
 	delete qdwLog->titleBarWidget();
 	delete pmModel;
 	delete qtvUsers;
@@ -648,6 +665,57 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 	delete menu;
 }
 
+void MainWindow::on_qteMsg_anchorClicked(const QUrl &url)
+{
+	if (!handleSpecialContextMenu(url, QCursor::pos(), true)) {
+#ifdef Q_OS_MAC
+		// Clicking a link can cause the user's default browser to pop up while
+		// we're intercepting all events. This can be very confusing (because
+		// the user can't click on anything before they dismiss the overlay
+		// by hitting their toggle hotkey), so let's disallow clicking links
+		// when embedded into the overlay for now.
+		if (g.ocIntercept)
+			return;
+#endif
+		if (url.scheme() != QLatin1String("file")
+				&& url.scheme() != QLatin1String("qrc")
+				&& !url.isRelative())
+			QDesktopServices::openUrl(url);
+	}
+}
+
+void MainWindow::on_qteMsg_highlighted(const QUrl &url)
+{
+	if (url.scheme() == QString::fromLatin1("clientid") || url.scheme() == QString::fromLatin1("channelid"))
+		return;
+
+	if (! url.isValid())
+		QToolTip::hideText();
+	else {
+		if (qApp->activeWindow() != NULL) {
+			QToolTip::showText(QCursor::pos(), url.toString(), qteMsg, QRect());
+		}
+	}
+}
+
+void MainWindow::on_qteMsg_customContextMenuRequested(const QPoint &mpos)
+{
+	QString link = qteMsg->anchorAt(mpos);
+	if (! link.isEmpty()) {
+		QUrl l(link);
+
+		if (handleSpecialContextMenu(l, qteMsg->mapToGlobal(mpos)))
+			return;
+	}
+
+	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteMsg->horizontalScrollBar()->maximum() - qteMsg->horizontalScrollBar()->value()) : qteMsg->horizontalScrollBar()->value(), qteMsg->verticalScrollBar()->value());
+	QMenu *menu = qteMsg->createStandardContextMenu(mpos + contentPosition);
+	menu->addSeparator();
+	menu->addAction(tr("Clear"), qteMsg, SLOT(clear(void)));
+	menu->exec(qteMsg->mapToGlobal(mpos));
+	delete menu;
+}
+
 static void recreateServerHandler() {
 	ServerHandlerPtr sh = g.sh;
 	if (sh && sh->isRunning()) {
@@ -834,23 +902,32 @@ void MainWindow::setupView(bool toggle_minimize) {
 	switch (wlTmp) {
 		case Settings::LayoutClassic:
 			removeDockWidget(qdwLog);
+			removeDockWidget(qdwMsg);
+			addDockWidget(Qt::RightDockWidgetArea, qdwMsg);
+			qdwMsg->show();
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
-			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
 			break;
 		case Settings::LayoutStacked:
 			removeDockWidget(qdwLog);
-			addDockWidget(Qt::BottomDockWidgetArea, qdwLog);
+			removeDockWidget(qdwMsg);
+			addDockWidget(Qt::BottomDockWidgetArea, qdwMsg);
+			qdwMsg->show();
+			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
-			splitDockWidget(qdwLog, qdwChat, Qt::Vertical);
+			splitDockWidget(qdwMsg, qdwChat, Qt::Vertical);
 			qdwChat->show();
 			break;
 		case Settings::LayoutHybrid:
+			removeDockWidget(qdwMsg);
 			removeDockWidget(qdwLog);
 			removeDockWidget(qdwChat);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
 			qdwLog->show();
+			addDockWidget(Qt::LeftDockWidgetArea, qdwMsg);
+			qdwMsg->show();
 			addDockWidget(Qt::BottomDockWidgetArea, qdwChat);
 			qdwChat->show();
 			break;
@@ -859,7 +936,6 @@ void MainWindow::setupView(bool toggle_minimize) {
 			break;
 	}
 	qteChat->updateGeometry();
-	g.s.wlWindowLayout = wlTmp;
 
 	QRect geom = frameGeometry();
 
@@ -909,6 +985,7 @@ void MainWindow::setupView(bool toggle_minimize) {
 	}
 
 	if (! showit) {
+		qdwMsg->setVisible(showit);
 		qdwLog->setVisible(showit);
 		qdwChat->setVisible(showit);
 		qtIconToolbar->setVisible(showit);
@@ -946,6 +1023,9 @@ void MainWindow::setupView(bool toggle_minimize) {
 
 	show();
 	activateWindow();
+
+	// The view is properly set up now(after adjusting sizes etc) so we can update g.s.wlWindowLayout safely
+	g.s.wlWindowLayout = wlTmp;
 
 	// If activated show the PTT window
 	if (g.s.bShowPTTButtonWindow && g.s.atTransmit == Settings::PushToTalk) {
@@ -2894,11 +2974,21 @@ void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
+void MainWindow::on_qdwMsg_dockLocationChanged(Qt::DockWidgetArea)
+{
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
 void MainWindow::on_qdwChat_visibilityChanged(bool) {
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
 void MainWindow::on_qdwLog_visibilityChanged(bool) {
+	g.s.wlWindowLayout = Settings::LayoutCustom;
+}
+
+void MainWindow::on_qdwMsg_visibilityChanged(bool)
+{
 	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
@@ -2986,4 +3076,3 @@ void MainWindow::destroyUserInformation() {
 		}
 	}
 }
-

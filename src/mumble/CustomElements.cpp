@@ -69,7 +69,6 @@ void LogTextBrowser::scrollLogToBottom() {
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 }
 
-
 void ChatbarTextEdit::focusInEvent(QFocusEvent *qfe) {
 	inFocus(true);
 	QTextEdit::focusInEvent(qfe);

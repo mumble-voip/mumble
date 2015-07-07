@@ -484,9 +484,14 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message output on console
 	if ((flags & Settings::LogConsole)) {
-		QTextCursor tc = g.mw->qteLog->textCursor();
+		LogTextBrowser *tlog;
+		if(mt == TextMessage)
+			tlog = g.mw->qteMsg;
+		else
+			tlog = g.mw->qteLog;
 
-		LogTextBrowser *tlog = g.mw->qteLog;
+		QTextCursor tc = tlog->textCursor();
+
 		const int oldscrollvalue = tlog->getLogScroll();
 		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
 
@@ -505,13 +510,13 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			qttf.setPadding(2);
 			qttf.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
 			tc.insertFrame(qttf);
-		} else if (! g.mw->qteLog->document()->isEmpty()) {
+		} else if (! tlog->document()->isEmpty()) {
 			tc.insertBlock();
 		}
 		tc.insertHtml(Log::msgColor(QString::fromLatin1("[%1] ").arg(Qt::escape(dt.time().toString())), Log::Time));
 		validHtml(console, true, &tc);
 		tc.movePosition(QTextCursor::End);
-		g.mw->qteLog->setTextCursor(tc);
+		tlog->setTextCursor(tc);
 
 		if (scroll || ownMessage)
 			tlog->scrollLogToBottom();

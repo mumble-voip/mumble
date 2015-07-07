@@ -212,6 +212,7 @@ void LookConfig::accept() const {
 		if (qApp->styleSheet() != MainWindow::defaultStyleSheet) {
 			qApp->setStyleSheet(MainWindow::defaultStyleSheet);
 			g.mw->qteLog->document()->setDefaultStyleSheet(qApp->styleSheet());
+			g.mw->qteMsg->document()->setDefaultStyleSheet(qApp->styleSheet());
 		}
 	} else {
 		QFile file(s.qsSkin);
@@ -222,6 +223,7 @@ void LookConfig::accept() const {
 			QDir::addSearchPath(QLatin1String("skin"), fi.path());
 			qApp->setStyleSheet(sheet);
 			g.mw->qteLog->document()->setDefaultStyleSheet(sheet);
+			g.mw->qteMsg->document()->setDefaultStyleSheet(sheet);
 		}
 	}
 	g.mw->setShowDockTitleBars(g.s.wlWindowLayout == Settings::LayoutCustom);
