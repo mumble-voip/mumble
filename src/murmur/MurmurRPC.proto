@@ -419,6 +419,8 @@ service ACLService {
 	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
 
+// TODO(grpc): document which request messages have to be responded to, and
+// which ones don't (i.e. "updating" messages)
 message Authenticator {
 	message Request {
 		message Authenticate {
@@ -462,7 +464,6 @@ message Authenticator {
 	message Response {
 		message Initialize {
 			optional Server server = 1;
-			// TODO(grpc): optional bool updating = 2;
 		}
 
 		enum Status {
