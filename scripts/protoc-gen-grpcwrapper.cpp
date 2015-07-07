@@ -69,7 +69,7 @@ public:
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	void error(::grpc::Status &err) {
+	void error(const ::grpc::Status &err) {
 		stream.FinishWithError(err, this->done());
 	}
 
@@ -117,7 +117,7 @@ public:
 		return new ::boost::function<void(bool)>(fn);
 	}
 
-	void error(::grpc::Status &err) {
+	void error(const ::grpc::Status &err) {
 		stream.Finish(err, this->done());
 	}
 
@@ -166,7 +166,7 @@ public:
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
-	void error(::grpc::Status &err) {
+	void error(const ::grpc::Status &err) {
 		stream.FinishWithError(err, this->done());
 	}
 
@@ -215,7 +215,7 @@ public:
 		return new ::boost::function<void(bool)>(fn);
 	}
 
-	void error(::grpc::Status &err) {
+	void error(const ::grpc::Status &err) {
 		stream.Finish(err, this->done());
 	}
 
