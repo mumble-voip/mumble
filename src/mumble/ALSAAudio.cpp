@@ -386,8 +386,6 @@ ALSAAudioOutput::~ALSAAudioOutput() {
 void ALSAAudioOutput::run() {
 	QMutexLocker qml(&qmALSA);
 	snd_pcm_t *pcm_handle = NULL;
-	struct pollfd fds[16];
-	int count;
 	bool stillRun = true;
 	int err = 0;
 	bool bOk = true;
@@ -494,60 +492,51 @@ void ALSAAudioOutput::run() {
 	qWarning("ALSAAudioOutput: Initializing %d channel, %d hz mixer", iChannels, iMixerFreq);
 	initializeMixer(chanmasks);
 
-	count = snd_pcm_poll_descriptors_count(pcm_handle);
-	snd_pcm_poll_descriptors(pcm_handle, fds, count);
-
 	qml.unlock();
 
 	while (bRunning && bOk) {
-		poll(fds, count, 20);
-		unsigned short revents;
+		ALSA_RECOVER(pcm_handle, snd_pcm_wait(pcm_handle, 20));
 
-		snd_pcm_poll_descriptors_revents(pcm_handle, fds, count, &revents);
-		if (revents & POLLERR) {
-			snd_pcm_prepare(pcm_handle);
-		} else if (revents & POLLOUT) {
-			snd_pcm_sframes_t avail;
-			ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
-			while (avail >= static_cast<int>(period_size)) {
-				stillRun = mix(outbuff, static_cast<int>(period_size));
-				if (stillRun) {
-					snd_pcm_sframes_t w = 0;
-					ALSA_RECOVER(pcm_handle, w=snd_pcm_writei(pcm_handle, outbuff, period_size));
-					if (w < 0) {
-						avail = w;
-						break;
-					}
-				} else
+		snd_pcm_sframes_t avail;
+		ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
+		while (avail >= static_cast<int>(period_size)) {
+			stillRun = mix(outbuff, static_cast<int>(period_size));
+			if (stillRun) {
+				snd_pcm_sframes_t w = 0;
+				ALSA_RECOVER(pcm_handle, w=snd_pcm_writei(pcm_handle, outbuff, period_size));
+				if (w < 0) {
+					avail = w;
 					break;
-				ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
-			}
-
-			if (avail == -EPIPE) {
-				snd_pcm_drain(pcm_handle);
-				ALSA_ERRCHECK(snd_pcm_prepare(pcm_handle));
-				for (unsigned int i=0;i< buffer_size / period_size;++i)
-					ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
-			}
-
-			if (! stillRun) {
-				snd_pcm_drain(pcm_handle);
-
-				while (bRunning && !mix(outbuff, static_cast<unsigned int>(period_size))) {
-					this->msleep(10);
 				}
+			} else
+				break;
+			ALSA_ERRCHECK(avail = snd_pcm_avail_update(pcm_handle));
+		}
 
-				if (! bRunning)
-					break;
+		if (avail == -EPIPE) {
+			snd_pcm_drain(pcm_handle);
+			ALSA_ERRCHECK(snd_pcm_prepare(pcm_handle));
+			for (unsigned int i=0;i< buffer_size / period_size;++i)
+				ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
+		}
 
-				snd_pcm_prepare(pcm_handle);
+		if (! stillRun) {
+			snd_pcm_drain(pcm_handle);
 
-				// Fill one frame
-				for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++)
-					ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
-
-				ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, outbuff, period_size));
+			while (bRunning && !mix(outbuff, static_cast<unsigned int>(period_size))) {
+				this->msleep(10);
 			}
+
+			if (! bRunning)
+				break;
+
+			snd_pcm_prepare(pcm_handle);
+
+			// Fill one frame
+			for (unsigned int i = 0; i < (buffer_size / period_size) - 1 ; i++)
+				ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, zerobuff, period_size));
+
+			ALSA_RECOVER(pcm_handle, snd_pcm_writei(pcm_handle, outbuff, period_size));
 		}
 	}
 	snd_pcm_close(pcm_handle);
