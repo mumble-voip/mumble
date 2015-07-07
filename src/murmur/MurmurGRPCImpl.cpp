@@ -1900,7 +1900,6 @@ void AuthenticatorService_Stream::impl(bool) {
 		}
 		auto server = MustServer(request.initialize());
 		rpc->removeAuthenticator(server);
-		// TODO(grpc): check request.initialize().updating()
 		rpc->qhAuthenticators.insert(server->iServerNum, this);
 	};
 	stream.Read(&request, callback(onInitialize));
