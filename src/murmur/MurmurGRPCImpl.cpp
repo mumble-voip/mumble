@@ -278,6 +278,7 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 
 void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
+	server->connectAuthenticator(this);
 	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
 
 	::MurmurRPC::Event rpcEvent;
@@ -331,9 +332,21 @@ bool BlockingRead(T *wrapper, T2 *msg) {
 	return success;
 }
 
+void MurmurRPCImpl::removeAuthenticator(const ::Server *s, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *old) {
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator || authenticator == old) {
+		return;
+	}
+	authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
+	qhAuthenticators.remove(s->iServerNum);
+}
+
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -364,7 +377,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting authenticate");
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		res = -1;
 		return;
@@ -392,7 +405,10 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -413,7 +429,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 			return;
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -437,7 +453,10 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -459,7 +478,7 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 			return;
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -478,7 +497,10 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -500,7 +522,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 			return;
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -516,7 +538,10 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -536,7 +561,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		res = -1;
 		return;
@@ -551,7 +576,10 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -573,7 +601,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 			return;
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -584,7 +612,10 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -606,7 +637,7 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 			return;
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -617,7 +648,10 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -638,7 +672,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -649,7 +683,10 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -670,7 +707,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -681,7 +718,10 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators[s->iServerNum];
+	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	if (!authenticator) {
+		return;
+	}
 
 	auto &request = authenticator->response;
 	request.Clear();
@@ -702,7 +742,7 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
 		}
 	} catch (::grpc::Status &ex) {
-		// TODO(grpc): remove old handler
+		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
@@ -1859,15 +1899,9 @@ void AuthenticatorService_Stream::impl(bool) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
 		}
 		auto server = MustServer(request.initialize());
-		if (rpc->qhAuthenticators[server->iServerNum]) {
-			auto oldAuth = rpc->qhAuthenticators[server->iServerNum];
-			server->disconnectAuthenticator(rpc);
-			rpc->qhAuthenticators.remove(server->iServerNum);
-			oldAuth->stream.Finish(::grpc::Status(::grpc::CANCELLED, "another authenticator was attached"), oldAuth->done());
-		}
+		rpc->removeAuthenticator(server);
 		// TODO(grpc): check request.initialize().updating()
-		rpc->qhAuthenticators[server->iServerNum] = this;
-		server->connectAuthenticator(rpc);
+		rpc->qhAuthenticators.insert(server->iServerNum, this);
 	};
 	stream.Read(&request, callback(onInitialize));
 }
