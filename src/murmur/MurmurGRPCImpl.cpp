@@ -135,7 +135,7 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->mutable_channel()->set_id(u->cChannel->iId);
 	ru->set_comment(u8(u->qsComment));
 
-	const ServerUser *su=static_cast<const ServerUser *>(u);
+	const auto su = static_cast<const ServerUser *>(u);
 	ru->set_online_secs(su->bwr.onlineSeconds());
 	ru->set_bytes_per_sec(su->bwr.bandwidth());
 	ru->mutable_version()->set_version(su->uiVersion);
@@ -276,6 +276,13 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 	rtm->set_text(u8(message.qsText));
 }
 
+void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
+	foreach(auto listener, qsMetaServiceListeners) {
+		// TODO(grpc): remove listener on error
+		listener->stream.Write(e, nullptr);
+	}
+}
+
 void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	server->connectAuthenticator(this);
@@ -284,20 +291,14 @@ void MurmurRPCImpl::started(::Server *server) {
 	::MurmurRPC::Event rpcEvent;
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStarted);
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
-	foreach(auto listener, qsMetaServiceListeners) {
-		// TODO(grpc): remove listener on error
-		listener->stream.Write(rpcEvent, nullptr);
-	}
+	sendMetaEvent(rpcEvent);
 }
 
 void MurmurRPCImpl::stopped(::Server *server) {
 	::MurmurRPC::Event rpcEvent;
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStopped);
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
-	foreach(auto listener, qsMetaServiceListeners) {
-		// TODO(grpc): remove listener on error
-		listener->stream.Write(rpcEvent, nullptr);
-	}
+	sendMetaEvent(rpcEvent);
 }
 
 // TODO(grpc): add timeout param?
