@@ -104,6 +104,7 @@ class MurmurRPCImpl : public QThread {
 		QHash<int, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *> qhAuthenticators;
 
 		void removeAuthenticator(const ::Server *, ::MurmurRPC::Wrapper::AuthenticatorService_Stream * = 0);
+		void sendMetaEvent(const ::MurmurRPC::Event &e);
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
 
 	public slots:
