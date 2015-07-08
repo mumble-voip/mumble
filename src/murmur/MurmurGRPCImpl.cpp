@@ -923,6 +923,17 @@ template <>
 	return MustServer(msg.id());
 }
 
+int MustServerID(const ::MurmurRPC::Server &msg) {
+	if (!msg.has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
+	auto id = msg.id();
+	if (!ServerDB::serverExists(id)) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid server id");
+	}
+	return id;
+}
+
 ::Channel *MustChannel(const Server *server, int channel_id) {
 	auto channel = server->qhChannels.value(channel_id);
 	if (!channel) {
@@ -1026,13 +1037,17 @@ void ServerService_Query::impl(bool) {
 }
 
 void ServerService_Get::impl(bool) {
-	// TODO(grpc): fix for non-started servers
-	auto server = MustServer(request);
+	auto serverID = MustServerID(request);
 
 	::MurmurRPC::Server rpcServer;
-	rpcServer.set_id(server->iServerNum);
-	rpcServer.set_running(true);  // TODO(grpc): fix me
-	rpcServer.set_uptime(server->tUptime.elapsed()/1000000LL);
+	rpcServer.set_id(serverID);
+	rpcServer.set_running(false);
+	try {
+		auto server = MustServer(serverID);
+		rpcServer.set_running(true);
+		rpcServer.set_uptime(server->tUptime.elapsed()/1000000LL);
+	} catch (::grpc::Status &ex) {
+	}
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
