@@ -1028,7 +1028,7 @@ void ServerService_Query::impl(bool) {
 		try {
 			auto server = MustServer(id);
 			rpcServer->set_running(true);
-			rpcServer->set_uptime(server->tUptime.elapsed()/1000000LL);
+			rpcServer->mutable_uptime()->set_seconds(server->tUptime.elapsed()/1000000LL);
 		} catch (::grpc::Status &ex) {
 		}
 	}
@@ -1045,7 +1045,7 @@ void ServerService_Get::impl(bool) {
 	try {
 		auto server = MustServer(serverID);
 		rpcServer.set_running(true);
-		rpcServer.set_uptime(server->tUptime.elapsed()/1000000LL);
+		rpcServer.mutable_uptime()->set_seconds(server->tUptime.elapsed()/1000000LL);
 	} catch (::grpc::Status &ex) {
 	}
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
@@ -1090,7 +1090,7 @@ void ServerService_Events::impl(bool) {
 
 void MetaService_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
-	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
+	uptime.set_seconds(meta->tUptime.elapsed()/1000000LL);
 	stream.Finish(uptime, ::grpc::Status::OK, done());
 }
 

@@ -19,13 +19,16 @@ message Version {
 }
 
 message Uptime {
-	optional uint64 secs = 1;
+	optional uint64 seconds = 1;
 }
 
 message Server {
+	// The unique server ID.
 	required uint32 id = 1;
+	// Is the server currently running?
 	optional bool running = 2;
-	optional uint32 uptime = 3;
+	// The update of the server.
+	optional Uptime uptime = 3;
 
 	message Event {
 		enum Type {
@@ -233,7 +236,7 @@ service ChannelService {
 }
 
 message User {
-	optional Server server = 50; // TODO: reindex
+	optional Server server = 50; // TODO(grpc): reindex
 
 	optional uint32 session = 1;
 	optional uint32 id = 2;
