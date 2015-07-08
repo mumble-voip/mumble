@@ -53,7 +53,8 @@ message Server {
 }
 
 service ServerService {
-	// Create creates a new virtual server.
+	// Create creates a new virtual server. The returned server object contains
+	// the newly created server's ID.
 	rpc Create(Void) returns(Server);
 
 	// Query returns a list of servers that match the given query.
