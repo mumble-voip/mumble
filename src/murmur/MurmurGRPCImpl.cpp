@@ -1052,10 +1052,9 @@ void ServerService_Get::impl(bool) {
 }
 
 void ServerService_Start::impl(bool) {
-	if (!request.has_id()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
-	}
-	if (!meta->boot(request.id())) {
+	auto serverID = MustServerID(request);
+
+	if (!meta->boot(serverID)) {
 		throw ::grpc::Status(::grpc::UNKNOWN, "server could not be started, or is already started");
 	}
 
@@ -1072,17 +1071,13 @@ void ServerService_Stop::impl(bool) {
 }
 
 void ServerService_Remove::impl(bool) {
-	if (!request.has_id()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
-	}
-	if (!ServerDB::serverExists(request.id())) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server");
-	}
-	if (meta->qhServers.value(request.id())) {
+	auto serverID = MustServerID(request);
+
+	if (meta->qhServers.value(serverID)) {
 		throw ::grpc::Status(::grpc::FAILED_PRECONDITION, "cannot remove started server");
 	}
 
-	ServerDB::deleteServer(request.id());
+	ServerDB::deleteServer(serverID);
 
 	::MurmurRPC::Void vd;
 	stream.Finish(vd, ::grpc::Status::OK, done());
@@ -1179,12 +1174,14 @@ void TextMessageService_Send::impl(bool) {
 	::MumbleProto::TextMessage mptm;
 	mptm.set_message(request.text());
 	if (request.has_actor()) {
-		::ServerUser *actor = server->qhUsers.value(request.actor().session());
-		if (actor) {
-			// TODO(grpc): verify actor?
+		try {
+			auto actor = MustUser(server, request.actor());
 			mptm.set_actor(actor->uiSession);
+		} catch (::grpc::Status &ex) {
 		}
 	}
+
+	// TODO(grpc): move logic to RPC.cpp
 
 	// Broadcast
 	if (!request.users_size() && !request.channels_size() && !request.trees_size()) {
@@ -1414,22 +1411,15 @@ void ChannelService_Remove::impl(bool) {
 
 void ChannelService_Update::impl(bool) {
 	auto server = MustServer(request);
+	auto channel = MustChannel(server, request);
 
 	bool changed = false;
 	bool updated = false;
 
-	if (!request.has_id()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "id required");
-	}
-	// TODO(grpc): replace with MustChannel 
-	::Channel *channel = server->qhChannels.value(request.id());
-	if (!channel) {
-		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid channel");
-	}
-
 	::MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel->iId);
 
+	// TODO(grpc): move logic to RPC.cpp
 
 	// Links and parent channel are processed first, because they can return
 	// errors. Without doing this, the server state can be changed without
@@ -1716,6 +1706,8 @@ void ACLService_Get::impl(bool) {
 	::MurmurRPC::ACL_List list;
 	list.set_inherit(channel->bInheritACL);
 
+	// TODO(grpc): move logic to RPC.cpp
+
 	QStack< ::Channel *> chans;
 	ChanACL *acl;
 	::Channel *p = channel;
@@ -1785,6 +1777,8 @@ void ACLService_Get::impl(bool) {
 void ACLService_Set::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
+
+	// TODO(grpc): move logic to RPC.cpp
 
 	::Group *g;
 	::ChanACL *acl;
@@ -2021,7 +2015,6 @@ void DatabaseService_Deregister::impl(bool) {
 	if (!request.has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing id");
 	}
-
 	if (!server->unregisterUser(request.id())) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
