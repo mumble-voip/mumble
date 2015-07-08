@@ -5836,42 +5836,42 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dizu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dizu</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Hizlari lehentasun egoera kendu diozu %1 -eri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Hizlari lehentasun egoera eman diozu %1 -eri</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dio bere buruari</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dio bere buruari</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dio %2 -ri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dio %2 -ri</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5907,7 +5907,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -a %2-ra mugitu duzu</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5917,7 +5917,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ri izena aldatu zaio %2 -ra</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -5949,7 +5949,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5994,7 +5994,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>%2 -k %1 -ra mugitua dizu</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -6055,7 +6055,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-397"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzarira konexioa ezeztatua: %1</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -6153,7 +6153,7 @@ Valid actions are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>Markoa ezkutatu</translation>
     </message>
     <message>
         <location/>
@@ -6218,7 +6218,7 @@ Valid actions are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"/>
+        <translation>Z&amp;erbitzaria</translation>
     </message>
     <message>
         <location/>
@@ -6268,7 +6268,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Ikonoen barra</translation>
     </message>
     <message>
         <location/>
