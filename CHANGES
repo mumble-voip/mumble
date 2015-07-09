@@ -1,5 +1,10 @@
+2015-07-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    18cbd46  Bump version to 1.2.10.
+
 2015-06-11
   Mikkel Krautz <mikkel@krautz.dk>
+    db60193  Update changelog.
     363db28  The Windows build now requires linking against ssleay32 due to
 	     the new cipher suite code.
     ec95e38  Fix libsndfile Windows header error.
