@@ -103,7 +103,7 @@ class MurmurRPCImpl : public QThread {
 		QMultiHash<int, ::MurmurRPC::Wrapper::ServerService_Events *> qmhServerServiceListeners;
 		QHash<int, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *> qhAuthenticators;
 
-		void removeAuthenticator(const ::Server *, ::MurmurRPC::Wrapper::AuthenticatorService_Stream * = 0);
+		void removeAuthenticator(const ::Server *);
 		void sendMetaEvent(const ::MurmurRPC::Event &e);
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
 

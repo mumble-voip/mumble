@@ -205,6 +205,38 @@ public:
 		delete this;
 	}
 
+	bool write() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] ($service$_$method$ *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Write(response, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool read() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] ($service$_$method$ *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Read(&request, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool writeRead() {
+		return write() && read();
+	}
+
 	::boost::function<void(bool)> *done() {
 		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
