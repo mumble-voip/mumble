@@ -1593,6 +1593,38 @@ public:
 		delete this;
 	}
 
+	bool write() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] (AuthenticatorService_Stream *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Write(response, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool read() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] (AuthenticatorService_Stream *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Read(&request, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool writeRead() {
+		return write() && read();
+	}
+
 	::boost::function<void(bool)> *done() {
 		auto done_fn = ::boost::bind(&AuthenticatorService_Stream::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);

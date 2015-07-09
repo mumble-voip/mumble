@@ -301,41 +301,9 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	sendMetaEvent(rpcEvent);
 }
 
-// TODO(grpc): add timeout param?
-template <class T, class T2>
-bool BlockingWrite(T *wrapper, T2 &msg) {
-	bool processed = false;
-	bool success;
-	auto cb = [&success, &processed] (T *, bool ok) {
-		success = ok;
-		processed = true;
-	};
-	wrapper->stream.Write(msg, wrapper->callback(cb));
-	while (!processed) {
-		QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
-	}
-	return success;
-}
-
-// TODO(grpc): add timeout param?
-template <class T, class T2>
-bool BlockingRead(T *wrapper, T2 *msg) {
-	bool processed = false;
-	bool success;
-	auto cb = [&success, &processed] (T *, bool ok) {
-		success = ok;
-		processed = true;
-	};
-	wrapper->stream.Read(msg, wrapper->callback(cb));
-	while (!processed) {
-		QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
-	}
-	return success;
-}
-
-void MurmurRPCImpl::removeAuthenticator(const ::Server *s, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *old) {
+void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 	auto authenticator = qhAuthenticators.value(s->iServerNum);
-	if (!authenticator || authenticator == old) {
+	if (!authenticator) {
 		return;
 	}
 	authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
@@ -364,23 +332,14 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 		request.mutable_authenticate()->set_strong_certificate(certstrong);
 	}
 
-	auto &response = authenticator->request;
-	try {
-		// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		res = -1;
 		return;
 	}
+
+	auto &response = authenticator->request;
 	switch (response.authenticate().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		// TODO(grpc): ensure id field is actually set
@@ -409,22 +368,13 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	request.Clear();
 	ToRPC(s, info, request.mutable_register_()->mutable_user());
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
 
+	auto &response = authenticator->request;
 	switch (response.register_().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		if (!response.register_().has_user() || !response.register_().user().has_id()) {
@@ -454,21 +404,13 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	request.mutable_deregister()->mutable_user()->mutable_server()->set_id(s->iServerNum);
 	request.mutable_deregister()->mutable_user()->set_id(id);
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 
 	if (response.deregister().status() != ::MurmurRPC::Authenticator_Response_Status_Fallthrough) {
 		res = 0;
@@ -488,21 +430,13 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 		request.mutable_query()->set_filter(u8(filter));
 	}
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 
 	for (int i = 0; i < response.query().users_size(); i++) {
 		const auto &user = response.query().users(i);
@@ -524,31 +458,19 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 	request.Clear();
 	request.mutable_find()->set_id(id);
 
+	res = -1;
+
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
+		return;
+	}
+
 	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		if (!response.has_find()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
-		res = -1;
-		return;
+	if (response.find().has_user()) {
+		FromRPC(response.find().user(), info);
+		res = 1;
 	}
-	if (!response.find().has_user()) {
-		res = -1;
-		return;
-	}
-	FromRPC(response.find().user(), info);
-	res = 1;
 }
 
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
@@ -563,22 +485,15 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	request.mutable_update()->mutable_user()->set_id(id);
 	ToRPC(s, info, request.mutable_update()->mutable_user());
 
-	auto &response = authenticator->request;
 	res = 0;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 	switch (response.update().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		res = 1;
@@ -601,21 +516,13 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 	request.mutable_update()->mutable_user()->set_id(id);
 	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 	if (response.update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
 		res = 1;
 	}
@@ -633,21 +540,13 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_name(u8(name));
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_id()) {
 		res = response.find().user().id();
 	}
@@ -665,21 +564,13 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_name()) {
 		res = u8(response.find().user().name());
 	}
@@ -697,21 +588,13 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
-	auto &response = authenticator->request;
-	try {
-		auto ok = BlockingWrite(authenticator, request);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-		ok = BlockingRead(authenticator, &response);
-		if (!ok) {
-			throw ::grpc::Status::Cancelled;
-		}
-	} catch (::grpc::Status &ex) {
-		removeAuthenticator(s, authenticator);
-		authenticator->error(ex);
+	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
+	if (!authenticator->writeRead()) {
+		removeAuthenticator(s);
 		return;
 	}
+
+	auto &response = authenticator->request;
 	if (response.find().has_user() && response.find().user().has_texture()) {
 		const auto &texture = response.find().user().texture();
 		res = QByteArray(texture.data(), texture.size());
