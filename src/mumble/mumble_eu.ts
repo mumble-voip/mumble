@@ -6223,12 +6223,12 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ni</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"/>
+        <translation>Audio estatistikak</translation>
     </message>
     <message>
         <location/>
@@ -6238,7 +6238,7 @@ Valid actions are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>Erregistratu</translation>
     </message>
     <message>
         <location/>
