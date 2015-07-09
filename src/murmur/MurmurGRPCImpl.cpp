@@ -375,9 +375,6 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
 		}
-		if (!response.has_authenticate()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting authenticate");
-		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
@@ -392,14 +389,10 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 			uname = u8(response.authenticate().name());
 		}
 		break;
-	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
-		res = -2;
-		break;
 	case ::MurmurRPC::Authenticator_Response_Status_TemporaryFailure:
 		res = -3;
 		break;
 	case ::MurmurRPC::Authenticator_Response_Status_Failure:
-	default:
 		res = -1;
 		break;
 	}
@@ -417,7 +410,6 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	ToRPC(s, info, request.mutable_register_()->mutable_user());
 
 	auto &response = authenticator->request;
-	res = -2;
 	try {
 		auto ok = BlockingWrite(authenticator, request);
 		if (!ok) {
@@ -426,9 +418,6 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 		ok = BlockingRead(authenticator, &response);
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
-		}
-		if (!response.has_register_()) {
-			return;
 		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
@@ -466,7 +455,6 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	request.mutable_deregister()->mutable_user()->set_id(id);
 
 	auto &response = authenticator->request;
-	res = -1;
 	try {
 		auto ok = BlockingWrite(authenticator, request);
 		if (!ok) {
@@ -476,24 +464,14 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
 		}
-		if (!response.has_deregister()) {
-			return;
-		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
 
-	switch (response.deregister().status()) {
-	case ::MurmurRPC::Authenticator_Response_Status_Success:
+	if (response.deregister().status() != ::MurmurRPC::Authenticator_Response_Status_Fallthrough) {
 		res = 0;
-		break;
-	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
-		break;
-	default:
-		res = 0;
-		break;
 	}
 }
 
@@ -519,9 +497,6 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 		ok = BlockingRead(authenticator, &response);
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
-		}
-		if (!response.has_query()) {
-			return;
 		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
@@ -589,7 +564,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	ToRPC(s, info, request.mutable_update()->mutable_user());
 
 	auto &response = authenticator->request;
-	res = -1;
+	res = 0;
 	try {
 		auto ok = BlockingWrite(authenticator, request);
 		if (!ok) {
@@ -599,16 +574,18 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
 		}
-		if (!response.has_update()) {
-			return;
-		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
 		return;
 	}
-	if (response.update().status() == ::MurmurRPC::Authenticator_Response_Status_Success) {
+	switch (response.update().status()) {
+	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		res = 1;
+		break;
+	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
+		res = -1;
+		break;
 	}
 }
 
@@ -625,7 +602,6 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
 
 	auto &response = authenticator->request;
-	res = -1;
 	try {
 		auto ok = BlockingWrite(authenticator, request);
 		if (!ok) {
@@ -634,9 +610,6 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 		ok = BlockingRead(authenticator, &response);
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
-		}
-		if (!response.has_update()) {
-			return;
 		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
@@ -670,9 +643,6 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
 		}
-		if (!response.has_find()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
-		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
@@ -705,9 +675,6 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
 		}
-		if (!response.has_find()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
-		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
 		authenticator->error(ex);
@@ -739,9 +706,6 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 		ok = BlockingRead(authenticator, &response);
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
-		}
-		if (!response.has_find()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "expecting find");
 		}
 	} catch (::grpc::Status &ex) {
 		removeAuthenticator(s, authenticator);
