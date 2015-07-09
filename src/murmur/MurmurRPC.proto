@@ -2,7 +2,8 @@ syntax = "proto2";
 
 package MurmurRPC;
 
-// TODO(grpc): ensure all service methods are named as actions (e.g. "Get...")
+// TODO(grpc): should all time related (uptime, etc.) fields be replaced with
+// a new message that has an absolute (i.e. epoch timestamp)?
 
 message Void {
 }
@@ -19,7 +20,8 @@ message Version {
 }
 
 message Uptime {
-	optional uint64 seconds = 1;
+	// The number of seconds from the starting time.
+	optional uint64 secs = 1;
 }
 
 message Server {
@@ -40,10 +42,15 @@ message Server {
 			ChannelRemoved = 5;
 			ChannelStateChanged = 6;
 		};
+		// The server on which the event happened.
 		optional Server server = 1;
+		// The type of event that happened.
 		optional Type type = 2;
+		// The user tied to the event (if applicable).
 		optional User user = 3;
+		// The text message tied to the event (if applicable).
 		optional TextMessage message = 4;
+		// The channel tied to the event (if applicable).
 		optional Channel channel = 5;
 	}
 
@@ -51,6 +58,7 @@ message Server {
 	}
 
 	message List {
+		// The servers.
 		repeated Server servers = 1;
 	}
 }
@@ -81,8 +89,10 @@ message Event {
 		ServerStopped = 0;
 		ServerStarted = 1;
 	};
-	optional Type type = 1;
-	optional Server server = 2;
+	// The server for which the event happened.
+	optional Server server = 1;
+	// The type of event that happened.
+	optional Type type = 2;
 }
 
 service MetaService {
@@ -102,22 +112,29 @@ message ContextAction {
 		User = 0x04;
 	};
 
+	// The server on which the action is.
 	optional Server server = 1;
-
+	// The context in which the action is.
 	optional Context context = 2;
+	// The action name.
 	optional string action = 3;
+	// The user-visible descriptive name of the action.
 	optional string text = 4;
+	// The user that triggered the ContextAction.
 	optional User actor = 5;
+	// The user on which the ContextAction was triggered.
 	optional User user = 6;
+	// The channel on which the ContextAction was triggered.
 	optional Channel channel = 7;
 }
 
 service ContextActionService {
-	// Add adds a context action to the given user's client. Fields must be set:
+	// Add adds a context action to the given user's client. The following
+	// ContextAction fields must be set:
 	//   context, action, text, and user.
 	rpc Add(ContextAction) returns(Void);
-	// Remove removes a context action from the given user's client. Fields must
-	// be set:
+	// Remove removes a context action from the given user's client. The
+	// following ContextAction must be set:
 	//   action
 	// If no user is given, the context action is removed from all users.
 	rpc Remove(ContextAction) returns(Void);
@@ -127,42 +144,59 @@ service ContextActionService {
 }
 
 message TextMessage {
+	// The server on which the TextMessage originates.
 	optional Server server = 1;
 
+	// The user who sent the message.
 	optional User actor = 2;
+	// The users to whom the message is sent.
 	repeated User users = 3;
+	// The channels to which the message is sent.
 	repeated Channel channels = 4;
+	// The channels to which the message is sent, including the channels'
+	// ancestors.
 	repeated Channel trees = 5;
+	// The message body that is sent.
 	optional string text = 6;
 }
 
 service TextMessageService {
 	// Send sends the given TextMessage to the server.
 	//
-	// If users, channels, and trees are not set in the TextMessage, the message
+	// If no users, channels, or trees are added to the TextMessage, the message
 	// will be broadcast the entire server. Otherwise, the message will be
 	// targeted to the specified users, channels, and trees.
 	rpc Send(TextMessage) returns(Void);
-	// FEATURE: add "rpc filter(stream TextMessage) returns(stream TextMessage)"
 }
 
 message Log {
+	// The server on which the log message was generated.
 	optional Server server = 1;
 
+	// The unix timestamp of when the message was generated.
 	optional int64 timestamp = 2;
+	// The log message.
 	optional string text = 3;
 
 	message Query {
+		// The server whose logs will be queried.
 		optional Server server = 1;
+		// The minimum log index to receive.
 		optional uint32 min = 2;
+		// The maximum log index to receive.
 		optional uint32 max = 3;
 	}
 
 	message List {
+		// The server where the log entries are from.
 		optional Server server = 1;
+		// The total number of logs entries on the server.
 		optional uint32 total = 2;
+		// The minimum log index that was sent.
 		optional uint32 min = 3;
+		// The maximum log index that was sent.
 		optional uint32 max = 4;
+		// The log entries.
 		repeated Log entries = 5;
 	}
 }
@@ -175,13 +209,19 @@ service LogService {
 	rpc Query(Log.Query) returns(Log.List);
 }
 
+// TODO(grpc): list common configuration field names?
 message Config {
+	// The server for which the configuration is for.
 	optional Server server = 1;
+	// The configuration keys and values.
 	map<string, string> fields = 2;
 
 	message Field {
+		// The server for which the configuration field is for.
 		optional Server server = 1;
+		// The field key.
 		optional string key = 2;
+		// The field value.
 		optional string value = 3;
 	}
 }
@@ -199,22 +239,33 @@ service ConfigService {
 }
 
 message Channel {
+	// The server on which the channel exists.
 	optional Server server = 1;
 
+	// The unique channel identifier.
 	optional uint32 id = 2;
+	// The channel name.
 	optional string name = 3;
+	// The channel's parent.
 	optional Channel parent = 4;
+	// Linked channels.
 	repeated Channel links = 5;
+	// The channel's description.
 	optional string description = 6;
+	// Is the channel temporary?
 	optional bool temporary = 7;
+	// The position in which the channel should appear in a sorted list.
 	optional int32 position = 8;
 
 	message Query {
+		// The server on which the channels are.
 		optional Server server = 1;
 	}
 
 	message List {
+		// The server on which the channels are.
 		optional Server server = 1;
+		// The channels.
 		repeated Channel channels = 2;
 	}
 }
@@ -236,51 +287,80 @@ service ChannelService {
 }
 
 message User {
-	optional Server server = 50; // TODO(grpc): reindex
+	// The server to which the user is connected.
+	optional Server server = 1;
 
-	optional uint32 session = 1;
-	optional uint32 id = 2;
-	optional string name = 11;
+	// The user's session ID.
+	optional uint32 session = 2;
+	// The user's registered ID.
+	optional uint32 id = 3;
+	// The user's name.
+	optional string name = 4;
 
-	optional bool mute = 3;
-	optional bool deaf = 4;
-	optional bool suppress = 5;
-	optional bool priority_speaker = 6;
-	optional bool self_mute = 7;
-	optional bool self_deaf = 8;
-	optional bool recording = 9;
-	optional Channel channel = 10;
-	optional uint32 online_secs = 12;
-	optional uint32 idle_secs = 13;
-	optional uint32 bytes_per_sec = 14;
-	optional Version version = 15;
+	// Is the user muted?
+	optional bool mute = 5;
+	// Is the user deafened?
+	optional bool deaf = 6;
+	// Is the user suppressed?
+	optional bool suppress = 7;
+	// Is the user a priority speaker?
+	optional bool priority_speaker = 8;
+	// Has the user muted him/herself?
+	optional bool self_mute = 9;
+	// Has the user muted him/herself?
+	optional bool self_deaf = 10;
+	// Is the user recording?
+	optional bool recording = 11;
+	// The channel the user is in.
+	optional Channel channel = 12;
+	// How long the user has been connected to the server.
+	optional uint32 online_secs = 13;
+	// How long the user has been idle on the server.
+	optional uint32 idle_secs = 14;
+	// How many bytes per second is the user transmitting to the server.
+	optional uint32 bytes_per_sec = 15;
+	// The user's client version.
+	optional Version version = 16;
 
-	optional bytes plugin_context = 16;
-	optional string plugin_identity = 17;
+	// The user's  plugin context.
+	optional bytes plugin_context = 17;
+	// The user's plugin identity.
+	optional string plugin_identity = 18;
 
-	optional string comment = 18;
-	optional bytes texture = 19;
-	optional bytes address = 20;
-	optional bool tcp_only = 21;
+	// The user's comment.
+	optional string comment = 19;
+	// The user's texture.
+	optional bytes texture = 20;
+	// The user's IP address.
+	optional bytes address = 21;
+	// Is the user in TCP-only mode?
+	optional bool tcp_only = 22;
 
-	optional float udp_ping = 22;
-	optional float tcp_ping = 23;
+	// The user's UDP ping in milliseconds.
+	optional float udp_ping_msecs = 23;
+	// The user's TCP ping in milliseconds.
+	optional float tcp_ping_msecs = 24;
 
 	message Query {
+		// The server whose users will be queried.
 		optional Server server = 1;
 	}
 
 	message List {
+		// The server to which the users are connected.
 		optional Server server = 1;
+		// The users.
 		repeated User users = 2;
 	}
 
 	message Kick {
-		// TODO(grpc): server is not really required here, since it's embedded in
-		// user.
+		// The server to which the user is connected.
 		optional Server server = 1;
+		// The user to kick.
 		optional User user = 2;
-		optional string reason = 3;
+		// TODO(grpc): optional User actor = 3;
+		// The reason for why the user is being kicked.
+		optional string reason = 4;
 	}
 }
 
@@ -297,14 +377,17 @@ service UserService {
 
 	// Kick kicks the user from the server.
 	rpc Kick(User.Kick) returns(Void);
-	// FEATURE: rpc ban(User.Ban) returns(Void);
 }
 
 message Tree {
+	// The server which the tree represents.
 	optional Server server = 1;
 
+	// The current channel.
 	optional Channel channel = 2;
+	// Channels below the current channel.
 	repeated Tree children = 3;
+	// The users in the current channel.
 	repeated User users = 4;
 }
 
@@ -314,22 +397,33 @@ service TreeService {
 }
 
 message Ban {
+	// The server on which the ban is applied.
 	optional Server server = 1;
 
+	// The banned IP address.
 	optional bytes address = 2;
+	// The number of leading bits in the address to which the ban applies.
 	optional uint32 bits = 3;
+	// The name of the banned user.
 	optional string name = 4;
+	// The certificate hash of the banned user.
 	optional string hash = 5;
+	// The reason for the ban.
 	optional string reason = 6;
+	// The ban start time (in epoch form).
 	optional int64 start = 7;
-	optional int64 duration = 8;
+	// The ban duration.
+	optional int64 duration_secs = 8;
 
 	message Query {
+		// The server whose bans to query.
 		optional Server server = 1;
 	}
 
 	message List {
+		// The server for which the bans apply.
 		optional Server server = 1;
+		// The bans.
 		repeated Ban bans = 2;
 	}
 }
@@ -423,10 +517,12 @@ service ACLService {
 	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
 
-// TODO(grpc): document which request messages have to be responded to, and
-// which ones don't (i.e. "updating" messages)
+// When building a custom authenticator, only Authenticate and Find messages
+// need to have valid replies. All other request responses messages can be
+// omitted in the Response.
 message Authenticator {
 	message Request {
+		// An authentication request for a connecting user.
 		message Authenticate {
 			optional string name = 1;
 			optional string password = 2;
@@ -436,23 +532,31 @@ message Authenticator {
 			// TODO(grpc): include IP address?
 		}
 
+		// A request for information about a user, given by either the user's ID
+		// or name.
 		message Find {
 			optional uint32 id = 1;
 			optional string name = 2;
 		}
 
+		// A query of all the registered users, optionally filtered by the given
+		// filter string.
 		message Query {
 			optional string filter = 1;
 		}
 
+		// A request for a new user registration.
 		message Register {
 			optional DatabaseUser user = 1;
 		}
 
+		// A request for deregistering a registered user.
 		message Deregister {
 			optional DatabaseUser user = 1;
 		}
 
+		// A request to update a registered user's information. The information
+		// provided should be merged with existing data.
 		message Update {
 			optional DatabaseUser user = 1;
 		}
@@ -466,14 +570,16 @@ message Authenticator {
 	}
 
 	message Response {
+		// The initialization for the authenticator stream. This message must be
+		// sent before authentication requests will start streaming.
 		message Initialize {
 			optional Server server = 1;
 		}
 
 		enum Status {
-			Success = 0;
-			Failure = 1;
-			Fallthrough = 2;
+			Fallthrough = 0;
+			Success = 1;
+			Failure = 2;
 			TemporaryFailure = 3;
 		}
 
@@ -519,37 +625,54 @@ message Authenticator {
 }
 
 service AuthenticatorService {
+	// Stream opens an authentication stream to the server.
+	//
+	// There can only be one RPC client with an open Stream. If a new
+	// authenticator connects, the open connected will be closed.
 	rpc Stream(stream Authenticator.Response) returns(stream Authenticator.Request);
 }
 
 message DatabaseUser {
+	// The server on which the user is registered.
 	optional Server server = 1;
 
+	// The unique user ID.
 	optional uint32 id = 2;
+	// The user's name.
 	optional string name = 3;
+	// The user's email address.
 	optional string email = 4;
+	// The user's comment.
 	optional string comment = 5;
+	// The user's certificate hash.
 	optional string hash = 6;
+	// The user's password (never sent; used only when updating).
 	optional string password = 7;
+	// When the user was last on the server.
 	optional string last_active = 8;
+	// The user's texture.
 	optional bytes texture = 9;
 
 	message Query {
+		// The server whose users will be queried.
 		optional Server server = 1;
-
+		// A string to filter the users by.
 		optional string filter = 2;
 	}
 
 	message List {
+		// The server on which the users are registered.
 		optional Server server = 1;
-
+		// The users.
 		repeated DatabaseUser users = 2;
 	}
 
 	message Verify {
+		// The server on which the user-password pair will be authenticated.
 		optional Server server = 1;
-
+		// The user's name.
 		optional string name = 2;
+		// The user's password.
 		optional string password  = 3;
 	}
 }
@@ -571,10 +694,13 @@ service DatabaseService {
 }
 
 message RedirectWhisperGroup {
+	// The server on which the whisper redirection will take place.
 	optional Server server = 1;
-
+	// The user to whom the redirection will be applied.
 	optional User user = 2;
+	// The source group.
 	optional string source = 3; // TODO(grpc): should be ACL.Group?
+	// The target group.
 	optional string target = 4; // TODO(grpc): should be ACL.Group?
 }
 
