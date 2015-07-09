@@ -145,8 +145,8 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->set_plugin_identity(u8(su->qsIdentity));
 	ru->set_plugin_context(su->ssContext);
 	ru->set_idle_secs(su->bwr.idleSeconds());
-	ru->set_udp_ping(su->dUDPPingAvg);
-	ru->set_tcp_ping(su->dTCPPingAvg);
+	ru->set_udp_ping_msecs(su->dUDPPingAvg);
+	ru->set_tcp_ping_msecs(su->dTCPPingAvg);
 
 	ru->set_tcp_only(!su->bUdp);
 
@@ -229,7 +229,7 @@ void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
 	rb->set_hash(u8(ban.qsHash));
 	rb->set_reason(u8(ban.qsReason));
 	rb->set_start(ban.qdtStart.toLocalTime().toTime_t());
-	rb->set_duration(ban.iDuration);
+	rb->set_duration_secs(ban.iDuration);
 }
 
 void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
@@ -239,7 +239,7 @@ void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
 	ban.qsHash = u8(rb.hash());
 	ban.qsReason = u8(rb.reason());
 	ban.qdtStart = QDateTime::fromTime_t(static_cast<quint32>(rb.start())).toUTC();
-	ban.iDuration = rb.duration();
+	ban.iDuration = rb.duration_secs();
 }
 
 void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
@@ -366,6 +366,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 
 	auto &response = authenticator->request;
 	try {
+		// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
 		auto ok = BlockingWrite(authenticator, request);
 		if (!ok) {
 			throw ::grpc::Status::Cancelled;
@@ -1028,7 +1029,7 @@ void ServerService_Query::impl(bool) {
 		try {
 			auto server = MustServer(id);
 			rpcServer->set_running(true);
-			rpcServer->mutable_uptime()->set_seconds(server->tUptime.elapsed()/1000000LL);
+			rpcServer->mutable_uptime()->set_secs(server->tUptime.elapsed()/1000000LL);
 		} catch (::grpc::Status &ex) {
 		}
 	}
@@ -1045,7 +1046,7 @@ void ServerService_Get::impl(bool) {
 	try {
 		auto server = MustServer(serverID);
 		rpcServer.set_running(true);
-		rpcServer.mutable_uptime()->set_seconds(server->tUptime.elapsed()/1000000LL);
+		rpcServer.mutable_uptime()->set_secs(server->tUptime.elapsed()/1000000LL);
 	} catch (::grpc::Status &ex) {
 	}
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
@@ -1090,7 +1091,7 @@ void ServerService_Events::impl(bool) {
 
 void MetaService_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
-	uptime.set_seconds(meta->tUptime.elapsed()/1000000LL);
+	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
 	stream.Finish(uptime, ::grpc::Status::OK, done());
 }
 
@@ -1909,6 +1910,7 @@ void AuthenticatorService_Stream::impl(bool) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
 		}
 		auto server = MustServer(request.initialize());
+		// TODO(grpc): lock to prevent race when new authenticator is connecting (#2)
 		rpc->removeAuthenticator(server);
 		rpc->qhAuthenticators.insert(server->iServerNum, this);
 	};
