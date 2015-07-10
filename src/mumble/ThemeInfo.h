@@ -44,12 +44,9 @@ class QDir;
 class ThemeInfo;
 typedef QMap<QString, ThemeInfo> ThemeMap;
 
-///
 /// Description of a Mumble theme with multiple styles
-///
 class ThemeInfo {
 public:
-	///
 	/// A specific style of a Mumble theme
 	///
 	/// Multiple styles can for example be used to differentiate light/dark
@@ -57,7 +54,6 @@ public:
 	/// 
 	/// A single style can refer to multiple run-time platform specific qss
 	/// theme files.
-	///
 	class StyleInfo {
 	public:
 		/// Name of the theme containing this style
@@ -65,9 +61,7 @@ public:
 		/// Name for the style
 		QString name;
 		
-		///
 		/// @return Returns platform specific qss or defaultQss if none available
-		///
 		QFileInfo getPlatformQss() const;
 		
 		/// Default QSS file for the style
@@ -78,7 +72,6 @@ public:
 
 	typedef QMap<QString, StyleInfo> StylesMap;
 
-	///
 	/// Takes stock of all mumble themes in the given folders.
 	/// 
 	/// If a theme with the same name is available in multiple directories
@@ -86,10 +79,8 @@ public:
 	/// 
 	/// @param themesDirectories List of directories to search for theme directories.
 	/// @return Map of theme name to Theme
-	///
 	static ThemeMap scanDirectories(const QVector<QDir> &themesDirectories);
 	
-	///
 	/// Takes stock of all mumble themes in the given folder
 	/// 
 	/// Uses loadThemeInfoFromDirectory on each directory in the folder
@@ -97,20 +88,15 @@ public:
 	/// 
 	/// @param themesDirectory Directory to scan for theme directories
 	/// @return Map of theme name to Theme
-	///
 	static ThemeMap scanDirectory(const QDir &themesDirectory);
 	
-	///
 	/// Loads the theme description from a given directory
 	/// 
 	/// @param themeDirectory 
 	/// @return Theme if description was correctly loaded. boost::none if not.
-	///
 	static boost::optional<ThemeInfo> load(const QDir &themeDirectory);
 	
-	///
 	/// @return Style with given name or default
-	///
 	StyleInfo getStyle(QString name) const;
 	
 	/// Ideally unique theme name. A theme with identical name can override.
