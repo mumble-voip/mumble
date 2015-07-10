@@ -344,18 +344,21 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	auto &response = authenticator->request;
 	switch (response.authenticate().status()) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
-		// TODO(grpc): ensure id field is actually set
+		if (!response.authenticate().has_id()) {
+			res = -3;
+			return;
+		}
 		res = response.authenticate().id();
 		if (response.authenticate().has_name()) {
 			uname = u8(response.authenticate().name());
 		}
-		break;
+		return;
 	case ::MurmurRPC::Authenticator_Response_Status_TemporaryFailure:
 		res = -3;
-		break;
+		return;
 	case ::MurmurRPC::Authenticator_Response_Status_Failure:
 		res = -1;
-		break;
+		return;
 	}
 }
 
@@ -385,7 +388,6 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 			res = -1;
 			return;
 		}
-		// TODO(grpc): ensure user().id() is valid?
 		res = response.register_().user().id();
 		return;
 	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
@@ -1404,8 +1406,7 @@ void UserService_Update::impl(bool) {
 
 	auto channel = user->cChannel;
 	if (request.has_channel()) {
-		// TODO(grpc): more validation?
-		channel = MustChannel(server, request.channel().id());
+		channel = MustChannel(server, request.channel());
 	}
 	auto mute = user->bMute;
 	if (request.has_mute()) {
