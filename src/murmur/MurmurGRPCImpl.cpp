@@ -730,10 +730,6 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	}
 }
 
-// TODO(grpc): ensure that all implementation methods are using the correct
-// Must* kind (Must*, MustExist*, etc.). Some calls should be able to run
-// even if the server is not started (i.e. MustServer() returns NULL).
-
 ::ServerUser *MustUser(const Server *server, unsigned int session) {
 	auto user = server->qhUsers.value(session);
 	if (!user) {
@@ -1460,7 +1456,7 @@ void UserService_Kick::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void TreeService_Get::impl(bool) {
+void TreeService_Query::impl(bool) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -1481,7 +1477,6 @@ void TreeService_Get::impl(bool) {
 		// TODO(grpc): sort users?
 		foreach(const ::User *u, currentChannel->qlUsers) {
 			auto rpcUser = currentTree->add_users();
-			// TODO(grpc): don't include every user field
 			ToRPC(server, u, rpcUser);
 		}
 		// TODO(grpc): sort channels?

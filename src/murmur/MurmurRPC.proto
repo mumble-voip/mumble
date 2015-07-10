@@ -390,11 +390,15 @@ message Tree {
 	repeated Tree children = 3;
 	// The users in the current channel.
 	repeated User users = 4;
+
+	message Query {
+		optional Server server = 1;
+	}
 }
 
 service TreeService {
-	// Get returns a representation of the server's channel/user tree.
-	rpc Get(Server) returns(Tree);
+	// Query returns a representation of the given server's channel/user tree.
+	rpc Query(Tree.Query) returns(Tree);
 }
 
 message Ban {

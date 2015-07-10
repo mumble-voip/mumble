@@ -1232,16 +1232,16 @@ void UserService_Init(MurmurRPCImpl *impl, ::MurmurRPC::UserService::AsyncServic
 	UserService_Kick::create(impl, service);
 }
 
-class TreeService_Get : public RPCCall {
+class TreeService_Query : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::TreeService::AsyncService *service;
 
 	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
+	::MurmurRPC::Tree_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > stream;
 
-	TreeService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	TreeService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1251,7 +1251,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&TreeService_Get::finish, this, _1);
+		auto done_fn = ::boost::bind(&TreeService_Query::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1260,20 +1260,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		TreeService_Get::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&TreeService_Get::impl, this, ok), this);
+		TreeService_Query::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&TreeService_Query::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) {
-		auto call = new TreeService_Get(rpc, service);
-		auto fn = ::boost::bind(&TreeService_Get::handle, call, _1);
+		auto call = new TreeService_Query(rpc, service);
+		auto fn = ::boost::bind(&TreeService_Query::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void TreeService_Init(MurmurRPCImpl *impl, ::MurmurRPC::TreeService::AsyncService *service) {
-	TreeService_Get::create(impl, service);
+	TreeService_Query::create(impl, service);
 }
 
 class BanService_Get : public RPCCall {
