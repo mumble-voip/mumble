@@ -1496,6 +1496,9 @@ void UserService_Kick::impl(bool) {
 	if (request.has_reason()) {
 		mpur.set_reason(request.reason());
 	}
+	if (request.has_actor() && request.actor().has_session()) {
+		mpur.set_actor(request.actor().session());
+	}
 	server->sendAll(mpur);
 	user->disconnectSocket();
 
