@@ -189,6 +189,67 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	return true;
 }
 
+void Server::sendTextMessage(const ::MumbleProto::TextMessage &tm) {
+	MumbleProto::TextMessage mptm;
+	mptm.set_message(tm.message());
+
+	if (tm.has_actor()) {
+		mptm.set_actor(tm.actor());
+	}
+
+	// Broadcast
+	if (!tm.session_size() && !tm.channel_id_size() && !tm.tree_id_size()) {
+		sendAll(mptm);
+		return;
+	}
+
+	// Single targets
+	for (int i = 0; i < tm.session_size(); i++) {
+		ServerUser *user = qhUsers.value(tm.session(i));
+		if (!user) {
+			continue;
+		}
+		mptm.add_session(user->uiSession);
+		sendMessage(user, mptm);
+		mptm.clear_session();
+	}
+
+	// Channel targets
+	QSet<Channel *> chans;
+
+	for (int i = 0; i < tm.channel_id_size(); i++) {
+		Channel *channel = qhChannels.value(tm.channel_id(i));
+		if (!channel) {
+			continue;
+		}
+		chans.insert(channel);
+		mptm.add_channel_id(channel->iId);
+	}
+
+	QQueue<Channel *> chansQ;
+	for (int i = 0; i < tm.tree_id_size(); i++) {
+		Channel *channel = qhChannels.value(tm.tree_id(i));
+		if (!channel) {
+			continue;
+		}
+		chansQ.enqueue(channel);
+		mptm.add_tree_id(channel->iId);
+	}
+	while (!chansQ.isEmpty()) {
+		Channel *c = chansQ.dequeue();
+		chans.insert(c);
+		foreach(c, c->qlChannels) {
+			chansQ.enqueue(c);
+		}
+	}
+
+	foreach(Channel *c, chans) {
+		foreach(::User *p, c->qlUsers) {
+			sendMessage(static_cast<::ServerUser *>(p), mptm);
+		}
+	}
+}
+
 void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text) {
 	MumbleProto::TextMessage mptm;
 	mptm.set_message(u8(text));

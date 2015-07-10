@@ -1054,74 +1054,28 @@ void ContextActionService_Events::impl(bool) {
 void TextMessageService_Send::impl(bool) {
 	auto server = MustServer(request);
 
-	::MumbleProto::TextMessage mptm;
-	mptm.set_message(request.text());
-	if (request.has_actor()) {
-		try {
-			auto actor = MustUser(server, request.actor());
-			mptm.set_actor(actor->uiSession);
-		} catch (::grpc::Status &ex) {
-		}
+	::MumbleProto::TextMessage tm;
+	tm.set_message(request.text());
+	if (request.has_actor() && request.actor().has_session()) {
+		tm.set_actor(request.actor().session());
 	}
-
-	// TODO(grpc): move logic to RPC.cpp
-
-	// Broadcast
-	if (!request.users_size() && !request.channels_size() && !request.trees_size()) {
-		server->sendAll(mptm);
-		::MurmurRPC::Void vd;
-		stream.Finish(vd, grpc::Status::OK, done());
-		return;
-	}
-
-	// Single targets
 	for (int i = 0; i < request.users_size(); i++) {
-		auto target = request.users(i);
-		try {
-			auto user = MustUser(server, target);
-			mptm.add_session(user->uiSession);
-			server->sendMessage(user, mptm);
-		} catch (::grpc::Status &ex) {
+		if (request.users(i).has_session()) {
+			tm.add_session(request.users(i).session());
 		}
-		mptm.clear_session();
 	}
-
-	// Channel targets
-	QSet<::Channel *> chans;
-
 	for (int i = 0; i < request.channels_size(); i++) {
-		auto target = request.channels(i);
-		try {
-			auto channel = MustChannel(server, target);
-			chans.insert(channel);
-			mptm.add_channel_id(target.id());
-		} catch (::grpc::Status &ex) {
+		if (request.channels(i).has_id()) {
+			tm.add_channel_id(request.channels(i).id());
 		}
 	}
-
-	QQueue<::Channel *> chansQ;
 	for (int i = 0; i < request.trees_size(); i++) {
-		auto target = request.trees(i);
-		try {
-			auto channel = MustChannel(server, target);
-			chansQ.enqueue(channel);
-			mptm.add_tree_id(target.id());
-		} catch (::grpc::Status &ex) {
-		}
-	}
-	while (!chansQ.isEmpty()) {
-		auto c = chansQ.dequeue();
-		chans.insert(c);
-		foreach(c, c->qlChannels) {
-			chansQ.enqueue(c);
+		if (request.trees(i).has_id()) {
+			tm.add_tree_id(request.trees(i).id());
 		}
 	}
 
-	foreach(::Channel *c, chans) {
-		foreach(::User *p, c->qlUsers) {
-			server->sendMessage(static_cast<::ServerUser *>(p), mptm);
-		}
-	}
+	server->sendTextMessage(tm);
 
 	::MurmurRPC::Void vd;
 	stream.Finish(vd, grpc::Status::OK, done());
@@ -1154,7 +1108,6 @@ void LogService_Query::impl(bool) {
 
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
-
 
 void ConfigService_Get::impl(bool) {
 	auto serverID = MustServerID(request);
