@@ -153,7 +153,7 @@ void ToRPC(const ::Server *srv, const ::User *u, ::MurmurRPC::User *ru) {
 	ru->set_address(su->haAddress.toStdString());
 }
 
-void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::DatabaseUser *du) {
+void ToRPC(const ::Server *srv, const QMap<int, QString> &info, const QByteArray &texture, ::MurmurRPC::DatabaseUser *du) {
 	du->mutable_server()->set_id(srv->iServerNum);
 
 	if (info.contains(::ServerDB::User_Name)) {
@@ -173,6 +173,9 @@ void ToRPC(const ::Server *srv, const QMap<int, QString> &info, ::MurmurRPC::Dat
 	}
 	if (info.contains(::ServerDB::User_LastActive)) {
 		du->set_last_active(u8(info[::ServerDB::User_LastActive]));
+	}
+	if (!texture.isNull()) {
+		du->set_texture(texture.constData(), texture.size());
 	}
 }
 
@@ -371,7 +374,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 
 	auto &request = authenticator->response;
 	request.Clear();
-	ToRPC(s, info, request.mutable_register_()->mutable_user());
+	ToRPC(s, info, QByteArray(), request.mutable_register_()->mutable_user());
 
 	{
 		QMutexLocker l(&qmAuthenticatorsLock);
@@ -495,7 +498,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	auto &request = authenticator->response;
 	request.Clear();
 	request.mutable_update()->mutable_user()->set_id(id);
-	ToRPC(s, info, request.mutable_update()->mutable_user());
+	ToRPC(s, info, QByteArray(), request.mutable_update()->mutable_user());
 
 	res = 0;
 
@@ -1768,10 +1771,10 @@ void DatabaseService_Get::impl(bool) {
 	if (info.isEmpty()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
+	auto texture = server->getUserTexture(request.id());
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
-	// TODO(grpc): support rpcDatabaseUser.Texture in all DatabaseMethods
-	ToRPC(server, info, &rpcDatabaseUser);
+	ToRPC(server, info, texture, &rpcDatabaseUser);
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
@@ -1790,6 +1793,9 @@ void DatabaseService_Update::impl(bool) {
 
 	if (!server->setInfo(request.id(), info)) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
+	}
+	if (request.has_texture()) {
+		server->setTexture(request.id(), QByteArray(request.texture().c_str(), request.texture().size()));
 	}
 
 	if (info.contains(ServerDB::User_Name) || info.contains(ServerDB::User_Comment)) {
@@ -1823,10 +1829,15 @@ void DatabaseService_Register::impl(bool) {
 	if (userid < 0) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
+	QByteArray texture;
+	if (request.has_texture()) {
+		texture = QByteArray(request.texture().c_str(), request.texture().size());
+		server->setTexture(request.id(), texture);
+	}
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.set_id(userid);
-	ToRPC(server, info, &rpcDatabaseUser);
+	ToRPC(server, info, texture, &rpcDatabaseUser);
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
