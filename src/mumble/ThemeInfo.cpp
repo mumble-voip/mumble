@@ -85,7 +85,7 @@ boost::optional<ThemeInfo> loadLegacyThemeInfo(const QDir &themeDirectory) {
 	QStringList filters;
 	filters << QLatin1String("*.qss");
 	
-	foreach (const QFileInfo& qssFile, themeDirectory.entryInfoList(filters, QDir::Files)) {
+	foreach (const QFileInfo &qssFile, themeDirectory.entryInfoList(filters, QDir::Files)) {
 		ThemeInfo::StyleInfo style;
 		style.name = qssFile.baseName();
 		style.themeName = theme.name;
@@ -175,8 +175,8 @@ ThemeMap ThemeInfo::scanDirectory(const QDir &themesDirectory) {
 ThemeMap ThemeInfo::scanDirectories(const QVector<QDir> &themesDirectories) {
 	ThemeMap themes;
 	
-	foreach (const QDir& themesDirectory, themesDirectories) {
-		foreach (const ThemeInfo& theme, scanDirectory(themesDirectory)) {
+	foreach (const QDir &themesDirectory, themesDirectories) {
+		foreach (const ThemeInfo &theme, scanDirectory(themesDirectory)) {
 			themes.insert(theme.name, theme);
 		}
 	}
