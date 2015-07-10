@@ -1295,25 +1295,20 @@ void ChannelService_Update::impl(bool) {
 	::QSet<::Channel *> newLinksSet;
 	for (int i = 0; i < request.links_size(); i++) {
 		const ::MurmurRPC::Channel &linkRef = request.links(i);
-		// TODO(grpc): verify linkRef.server() ?
-		if (!linkRef.has_id()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "link channel is missing ID");
+		try {
+			auto link = MustChannel(server, linkRef);
+			newLinksSet.insert(link);
+		} catch (::grpc::Status &ex) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid link channel");
 		}
-		::Channel *link = server->qhChannels.value(linkRef.id());
-		if (!link) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "link channel does not exist");
-		}
-		newLinksSet.insert(link);
 	}
 
 	if (request.has_parent()) {
-		// TODO(grpc): verify request->parent().server() ?
-		if (!request.parent().has_id()) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel is missing ID");
-		}
-		::Channel *parent = server->qhChannels.value(request.parent().id());
-		if (!parent) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel does not exist");
+		::Channel *parent;
+		try {
+			parent = MustChannel(server, request.parent());
+		} catch (::grpc::Status &ex) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid parent channel");
 		}
 		if (parent != channel->cParent) {
 			::Channel *p = parent;
