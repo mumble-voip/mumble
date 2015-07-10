@@ -2,9 +2,6 @@ syntax = "proto2";
 
 package MurmurRPC;
 
-// TODO(grpc): should all time related (uptime, etc.) fields be replaced with
-// a new message that has an absolute (i.e. epoch timestamp)?
-
 message Void {
 }
 
@@ -209,7 +206,7 @@ service LogService {
 	rpc Query(Log.Query) returns(Log.List);
 }
 
-// TODO(grpc): list common configuration field names?
+// TODO(grpc): list built-in configuration field names?
 message Config {
 	// The server for which the configuration is for.
 	optional Server server = 1;
@@ -477,7 +474,7 @@ message ACL {
 	optional bool inherited = 5;
 
 	optional DatabaseUser user = 6;
-	optional string group = 7; // TODO(grpc): change to ACL.Group?
+	optional ACL.Group group = 7;
 
 	optional Permission allow = 8;
 	optional Permission deny = 9;
@@ -687,7 +684,7 @@ service DatabaseService {
 	// Get returns the database user with the given id.
 	rpc Get(DatabaseUser) returns(DatabaseUser);
 	// Update updates the given database user.
-	rpc Update(DatabaseUser) returns(Void); // TODO(grpc): should the updated user be returned?
+	rpc Update(DatabaseUser) returns(Void);
 	// Register registers a user with the given information on the server. The
 	// returned DatabaseUser will contain the newly registered user's ID.
 	rpc Register(DatabaseUser) returns(DatabaseUser);
@@ -703,9 +700,9 @@ message RedirectWhisperGroup {
 	// The user to whom the redirection will be applied.
 	optional User user = 2;
 	// The source group.
-	optional string source = 3; // TODO(grpc): should be ACL.Group?
+	optional ACL.Group source = 3;
 	// The target group.
-	optional string target = 4; // TODO(grpc): should be ACL.Group?
+	optional ACL.Group target = 4;
 }
 
 service AudioService {
