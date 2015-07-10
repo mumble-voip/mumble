@@ -147,7 +147,6 @@ grpc {
 	HEADERS *= MurmurGRPCImpl.h
 	SOURCES *= MurmurGRPCImpl.cpp
 
-	# TODO(grpc): other platforms
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
 		LIBS *= -lgrpc++ -lgrpc -lgpr

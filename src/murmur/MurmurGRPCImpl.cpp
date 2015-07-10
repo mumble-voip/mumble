@@ -210,7 +210,7 @@ void ToRPC(const ::Server *srv, const ::ChanACL *acl, ::MurmurRPC::ACL *ra) {
 		ra->mutable_user()->set_id(acl->iUserId);
 	}
 	if (!acl->qsGroup.isEmpty()) {
-		ra->set_group(u8(acl->qsGroup));
+		ra->mutable_group()->set_name(u8(acl->qsGroup));
 	}
 
 	ra->set_allow(MurmurRPC::ACL_Permission(int(acl->pAllow)));
@@ -1431,7 +1431,6 @@ void UserService_Update::impl(bool) {
 	if (request.has_comment()) {
 		comment = u8(request.comment());
 	}
-	// TODO(grpc): support texture updating
 
 	server->setUserState(user, channel, mute, deaf, suppress, prioritySpeaker, name, comment);
 
@@ -1644,8 +1643,8 @@ void ACLService_Set::impl(bool) {
 		if (rpcACL.has_user()) {
 			acl->iUserId = rpcACL.user().id();
 		}
-		if (rpcACL.has_group()) {
-			acl->qsGroup = u8(rpcACL.group());
+		if (rpcACL.has_group() && rpcACL.group().has_name()) {
+			acl->qsGroup = u8(rpcACL.group().name());
 		}
 		acl->pDeny = static_cast<ChanACL::Permissions>(rpcACL.deny()) & ChanACL::All;
 		acl->pAllow = static_cast<ChanACL::Permissions>(rpcACL.allow()) & ChanACL::All;
@@ -1891,9 +1890,12 @@ void AudioService_SetRedirectWhisperGroup::impl(bool) {
 	if (!request.has_source()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source");
 	}
+	if (!request.source().has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source name");
+	}
 
-	QString qssource = u8(request.source());
-	QString qstarget = u8(request.target());
+	QString qssource = u8(request.source().name());
+	QString qstarget = u8(request.target().name());
 	if (qstarget.isEmpty()) {
 		user->qmWhisperRedirect.remove(qssource);
 	} else {
