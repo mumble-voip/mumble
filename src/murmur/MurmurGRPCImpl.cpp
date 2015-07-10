@@ -1077,12 +1077,8 @@ void TextMessageService_Send::impl(bool) {
 	// Single targets
 	for (int i = 0; i < request.users_size(); i++) {
 		auto target = request.users(i);
-		// TODO(grpc): more validation?
-		if (!target.has_session()) {
-			continue;
-		}
 		try {
-			auto user = MustUser(server, target.session());
+			auto user = MustUser(server, target);
 			mptm.add_session(user->uiSession);
 			server->sendMessage(user, mptm);
 		} catch (::grpc::Status &ex) {
@@ -1094,13 +1090,9 @@ void TextMessageService_Send::impl(bool) {
 	QSet<::Channel *> chans;
 
 	for (int i = 0; i < request.channels_size(); i++) {
-		// TODO(grpc): more validation?
 		auto target = request.channels(i);
-		if (!target.has_id()) {
-			continue;
-		}
 		try {
-			auto channel = MustChannel(server, target.id());
+			auto channel = MustChannel(server, target);
 			chans.insert(channel);
 			mptm.add_channel_id(target.id());
 		} catch (::grpc::Status &ex) {
@@ -1109,13 +1101,9 @@ void TextMessageService_Send::impl(bool) {
 
 	QQueue<::Channel *> chansQ;
 	for (int i = 0; i < request.trees_size(); i++) {
-		// TODO(grpc): more validation?
 		auto target = request.trees(i);
-		if (!target.has_id()) {
-			continue;
-		}
 		try {
-			auto channel = MustChannel(server, target.id());
+			auto channel = MustChannel(server, target);
 			chansQ.enqueue(channel);
 			mptm.add_tree_id(target.id());
 		} catch (::grpc::Status &ex) {
