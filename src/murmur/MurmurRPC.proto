@@ -588,10 +588,7 @@ message Authenticator {
 			optional Status status = 1;
 			optional uint32 id = 2;
 			optional string name = 3;
-			//repeated string groups = 4; // TODO(grpc): ACL.Group?
-			// TODO(grpc): is groups really needed? Can't we just call
-			// ACLService.AddTemporaryGroup? Will need to pass the session/User object
-			// to the authenticator for this to happen.
+			repeated ACL.Group groups = 4;
 		}
 
 		message Find {

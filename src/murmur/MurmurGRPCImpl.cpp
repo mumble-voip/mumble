@@ -355,6 +355,18 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 		if (response.authenticate().has_name()) {
 			uname = u8(response.authenticate().name());
 		}
+		{
+			QStringList qsl;
+			for (int i = 0; i < response.authenticate().groups_size(); i++) {
+				auto &group = response.authenticate().groups(i);
+				if (group.has_name()) {
+					qsl << u8(group.name());
+				}
+			}
+			if (!qsl.isEmpty()) {
+				s->setTempGroups(res, sessionId, NULL, qsl);
+			}
+		}
 		return;
 	case ::MurmurRPC::Authenticator_Response_Status_TemporaryFailure:
 		res = -3;
