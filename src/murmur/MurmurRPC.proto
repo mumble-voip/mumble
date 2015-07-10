@@ -358,7 +358,8 @@ message User {
 		optional Server server = 1;
 		// The user to kick.
 		optional User user = 2;
-		// TODO(grpc): optional User actor = 3;
+		// The user who performed the kick.
+		optional User actor = 3;
 		// The reason for why the user is being kicked.
 		optional string reason = 4;
 	}
@@ -529,7 +530,6 @@ message Authenticator {
 			repeated bytes certificates = 3;
 			optional string certificate_hash = 4;
 			optional bool strong_certificate = 5;
-			// TODO(grpc): include IP address?
 		}
 
 		// A request for information about a user, given by either the user's ID
