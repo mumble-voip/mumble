@@ -332,11 +332,13 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 		request.mutable_authenticate()->set_strong_certificate(certstrong);
 	}
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		res = -1;
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			res = -1;
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -368,10 +370,12 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	request.Clear();
 	ToRPC(s, info, request.mutable_register_()->mutable_user());
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -404,10 +408,12 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	request.mutable_deregister()->mutable_user()->mutable_server()->set_id(s->iServerNum);
 	request.mutable_deregister()->mutable_user()->set_id(id);
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -430,10 +436,12 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 		request.mutable_query()->set_filter(u8(filter));
 	}
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -460,10 +468,12 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 
 	res = -1;
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -487,10 +497,12 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 
 	res = 0;
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -516,10 +528,12 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 	request.mutable_update()->mutable_user()->set_id(id);
 	request.mutable_update()->mutable_user()->set_texture(texture.constData(), texture.size());
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -540,10 +554,12 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_name(u8(name));
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -564,10 +580,12 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -588,10 +606,12 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
-	// TODO(grpc): lock to prevent race when new authenticator is connecting (#1)
-	if (!authenticator->writeRead()) {
-		removeAuthenticator(s);
-		return;
+	{
+		QMutexLocker l(&qmAuthenticatorsLock);
+		if (!authenticator->writeRead()) {
+			removeAuthenticator(s);
+			return;
+		}
 	}
 
 	auto &response = authenticator->request;
@@ -1757,7 +1777,7 @@ void AuthenticatorService_Stream::impl(bool) {
 			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing initialize");
 		}
 		auto server = MustServer(request.initialize());
-		// TODO(grpc): lock to prevent race when new authenticator is connecting (#2)
+		QMutexLocker l(&rpc->qmAuthenticatorsLock);
 		rpc->removeAuthenticator(server);
 		rpc->qhAuthenticators.insert(server->iServerNum, this);
 	};
