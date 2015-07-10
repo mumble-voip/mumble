@@ -1,5 +1,8 @@
+#!/usr/bin/env python
 
+#
 # Improved version of rcc --project
+#
 import sys
 import os
 import re
