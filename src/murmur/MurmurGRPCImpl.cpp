@@ -801,7 +801,7 @@ int MustServerID(const T &msg) {
 	}
 	auto id = msg.server().id();
 	if (!ServerDB::serverExists(id)) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid server id");
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server id");
 	}
 	return id;
 }
@@ -812,7 +812,7 @@ int MustServerID(const ::MurmurRPC::Server &msg) {
 	}
 	auto id = msg.id();
 	if (!ServerDB::serverExists(id)) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid server id");
+		throw ::grpc::Status(::grpc::NOT_FOUND, "invalid server id");
 	}
 	return id;
 }
