@@ -4278,12 +4278,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Skin</source>
-        <translation type="unfinished"/>
+        <translation>Azala</translation>
     </message>
     <message>
         <location/>
         <source>Skin file to use</source>
-        <translation type="unfinished"/>
+        <translation>Erabili nahi den azal fitxategia</translation>
     </message>
     <message>
         <location/>
@@ -4313,12 +4313,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"/>
+        <translation>Galdetu irteterakoan konektatua zauden bitarten</translation>
     </message>
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished"/>
+        <translation>Beti gainean</translation>
     </message>
     <message>
         <location/>
@@ -4328,7 +4328,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"/>
+        <translation>Ikonoan ezkutatu minimizatzerakoan</translation>
     </message>
     <message>
         <location/>
@@ -4368,7 +4368,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"/>
+        <translation>Erakutsi hizketa egoera sistemaren ikonoan</translation>
     </message>
     <message>
         <location/>
@@ -4403,12 +4403,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"/>
+        <translation>Sistema ikonoa</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"/>
+        <translation>Kanalen zuhaitza</translation>
     </message>
     <message>
         <location/>
@@ -4437,7 +4437,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="+139"/>
         <location line="+2386"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Erro</translation>
     </message>
     <message>
         <location line="-2332"/>
@@ -4589,7 +4589,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"/>
+        <translation>Ahopeka/Ohiuka</translation>
     </message>
     <message>
         <location line="+67"/>
@@ -4616,7 +4616,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Fitxategia ez da konfigurazio fitxategia</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4694,7 +4694,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 erabiltzailea bidaltzen</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -5093,7 +5093,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Log</source>
-        <translation type="unfinished"/>
+        <translation>Loga</translation>
     </message>
     <message>
         <location/>
@@ -5263,7 +5263,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>Bidali erabiltzailea (arrazoiarekin)</translation>
     </message>
     <message>
         <location/>
@@ -5460,7 +5460,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zer da hau?</translation>
     </message>
     <message>
         <location/>
@@ -5475,7 +5475,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Honi buruz</translation>
     </message>
     <message>
         <location/>
