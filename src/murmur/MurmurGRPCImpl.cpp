@@ -242,8 +242,8 @@ void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
 	ban.iDuration = rb.duration_secs();
 }
 
-void ToRPC(const ::Server *srv, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
-	rl->mutable_server()->set_id(srv->iServerNum);
+void ToRPC(int serverID, const ::ServerDB::LogRecord &log, ::MurmurRPC::Log *rl) {
+	rl->mutable_server()->set_id(serverID);
 
 	rl->set_timestamp(log.first);
 	rl->set_text(u8(log.second));
@@ -799,7 +799,11 @@ int MustServerID(const T &msg) {
 	if (!msg.server().has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
 	}
-	return msg.server().id();
+	auto id = msg.server().id();
+	if (!ServerDB::serverExists(id)) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid server id");
+	}
+	return id;
 }
 
 int MustServerID(const ::MurmurRPC::Server &msg) {
@@ -1136,15 +1140,15 @@ void TextMessageService_Send::impl(bool) {
 }
 
 void LogService_Query::impl(bool) {
-	auto server = MustServer(request);
+	auto serverID = MustServerID(request);
 
-	int total = ::ServerDB::getLogLen(server->iServerNum);
+	int total = ::ServerDB::getLogLen(serverID);
 	if (total < 0) {
 		throw ::grpc::Status(::grpc::StatusCode::UNAVAILABLE);
 	}
 
 	::MurmurRPC::Log_List list;
-	list.mutable_server()->set_id(server->iServerNum);
+	list.mutable_server()->set_id(serverID);
 	list.set_total(total);
 
 	if (!request.has_min() || !request.has_max()) {
@@ -1154,10 +1158,10 @@ void LogService_Query::impl(bool) {
 	list.set_min(request.min());
 	list.set_max(request.max());
 
-	auto dblog = ::ServerDB::getLog(server->iServerNum, request.min(), request.max());
+	auto dblog = ::ServerDB::getLog(serverID, request.min(), request.max());
 	foreach(const ::ServerDB::LogRecord &record, dblog) {
 		auto rpcLog = list.add_entries();
-		ToRPC(server, record, rpcLog);
+		ToRPC(serverID, record, rpcLog);
 	}
 
 	stream.Finish(list, ::grpc::Status::OK, done());
@@ -1165,11 +1169,11 @@ void LogService_Query::impl(bool) {
 
 
 void ConfigService_Get::impl(bool) {
-	auto server = MustServer(request);
-	auto config = ServerDB::getAllConf(server->iServerNum);
+	auto serverID = MustServerID(request);
+	auto config = ServerDB::getAllConf(serverID);
 
 	::MurmurRPC::Config rpcConfig;
-	rpcConfig.mutable_server()->set_id(server->iServerNum);
+	rpcConfig.mutable_server()->set_id(serverID);
 	auto &fields = *rpcConfig.mutable_fields();
 	for (auto i = config.constBegin(); i != config.constEnd(); ++i) {
 		fields[u8(i.key())] = u8(i.value());
@@ -1179,14 +1183,14 @@ void ConfigService_Get::impl(bool) {
 }
 
 void ConfigService_GetField::impl(bool) {
-	auto server = MustServer(request);
+	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
 	}
 	::MurmurRPC::Config_Field rpcField;
-	rpcField.mutable_server()->set_id(server->iServerNum);
+	rpcField.mutable_server()->set_id(serverID);
 	rpcField.set_key(request.key());
-	rpcField.set_value(u8(server->getConf(u8(request.key()), QVariant()).toString()));
+	rpcField.set_value(u8(ServerDB::getConf(serverID, u8(request.key()), QVariant()).toString()));
 	stream.Finish(rpcField, ::grpc::Status::OK, done());
 }
 
