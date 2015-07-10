@@ -791,6 +791,17 @@ template <>
 	return MustServer(msg.id());
 }
 
+template <class T>
+int MustServerID(const T &msg) {
+	if (!msg.has_server()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server");
+	}
+	if (!msg.server().has_id()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
+	}
+	return msg.server().id();
+}
+
 int MustServerID(const ::MurmurRPC::Server &msg) {
 	if (!msg.has_id()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing server id");
@@ -1180,7 +1191,7 @@ void ConfigService_GetField::impl(bool) {
 }
 
 void ConfigService_SetField::impl(bool) {
-	auto server = MustServer(request);
+	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
 	}
@@ -1189,8 +1200,12 @@ void ConfigService_SetField::impl(bool) {
 	if (request.has_value()) {
 		value = u8(request.value());
 	}
-	server->setConf(key, value);
-	server->setLiveConf(key, value);
+	ServerDB::setConf(serverID, key, value);
+	try {
+		auto server = MustServer(serverID);
+		server->setLiveConf(key, value);
+	} catch (::grpc::Status &ex) {
+	}
 
 	::MurmurRPC::Void vd;
 	stream.Finish(vd, grpc::Status::OK, done());
