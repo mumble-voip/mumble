@@ -183,6 +183,14 @@ freebsd-clang {
 }
 
 unix:!macx {
+	# If we're building in a Mumble build environment,
+	# add its include and lib dirs to the build configuration.
+	MUMBLE_PREFIX=$$(MUMBLE_PREFIX)
+	!isEmpty(MUMBLE_PREFIX) {
+		SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$[QT_INSTALL_HEADERS]
+		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
+	}
+
 	CONFIG(debug, debug|release) {
 		QMAKE_CFLAGS *= -fstack-protector -fPIE -pie
 		QMAKE_CXXFLAGS *= -fstack-protector -fPIE -pie
