@@ -189,6 +189,11 @@ unix:!macx {
 	!isEmpty(MUMBLE_PREFIX) {
 		SYSTEM_INCLUDES = $$(MUMBLE_PREFIX)/include $$[QT_INSTALL_HEADERS]
 		QMAKE_LIBDIR *= $$(MUMBLE_PREFIX)/lib
+
+		for(inc, $$list($$SYSTEM_INCLUDES)) {
+			QMAKE_CFLAGS += -isystem $$inc
+			QMAKE_CXXFLAGS += -isystem $$inc
+		}
 	}
 
 	CONFIG(debug, debug|release) {
