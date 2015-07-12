@@ -35,6 +35,10 @@
 #include "MumbleApplication.h"
 
 boost::optional<ThemeInfo::StyleInfo> Themes::getConfiguredStyle(const Settings &settings) {
+	if (settings.themeName.isEmpty() && settings.themeStyleName.isEmpty()) {
+			return boost::none;
+	}
+
 	const ThemeMap themes = getThemes();
 	ThemeMap::const_iterator themeIt = themes.find(settings.themeName);
 	if (themeIt == themes.end()) {
