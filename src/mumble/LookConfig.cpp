@@ -206,7 +206,7 @@ void LookConfig::save() const {
 	s.bChatBarUseSelection = qcbChatBarUseSelection->isChecked();
 	s.bFilterHidesEmptyChannels = qcbFilterHidesEmptyChannels->isChecked();
 	
-	QVariant themeData = qcbTheme->currentData();
+	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
 	if (themeData.isNull()) {
 		Themes::setConfiguredStyle(s, boost::none, s.requireRestartToApply);
 	} else {
