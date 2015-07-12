@@ -67,6 +67,7 @@
 #include "VoiceRecorderDialog.h"
 #include "../SignalCurry.h"
 #include "Settings.h"
+#include "Themes.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -2140,7 +2141,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 	// stylesheet set.  Also, the Mac dialog doesn't work when embedded
 	// inside the interactive overlay, so there we always force a regular
 	// ConfigDialog.
-	if (! g.ocIntercept && (g.qsCurrentStyle == QLatin1String("Macintosh (aqua)") || g.qsCurrentStyle.isEmpty())  && g.s.qsSkin.isEmpty())
+	if (! g.ocIntercept && !Themes::getConfiguredStyle(g.s))
 		dlg = new ConfigDialogMac(this);
 #endif
 	if (! dlg)

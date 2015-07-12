@@ -43,6 +43,7 @@
 #include "ServerHandler.h"
 #include "MainWindow.h"
 #include "GlobalShortcut.h"
+#include "Themes.h"
 
 OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	: QObject(p)
@@ -374,14 +375,7 @@ void OverlayClient::hideGui() {
 #ifdef Q_OS_MAC
 	qApp->setAttribute(Qt::AA_DontUseNativeMenuBar, false);
 	g.mw->setUnifiedTitleAndToolBarOnMac(true);
-	if (! g.qsCurrentStyle.isEmpty()) {
-		qApp->setStyle(g.qsCurrentStyle);
-	} else {
-		// Assume that an empty qsCurrentStyle means "use the aqua theme".
-		// This might not always be the case (for example, the default style
-		// can be changed via the Qt command line argument "-style".
-		qApp->setStyle(QLatin1String("Macintosh (aqua)"));
-	}
+	Themes::apply();
 #endif
 
 	setupScene(false);

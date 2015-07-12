@@ -104,7 +104,6 @@ public:
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
 	bool bQuit;
-	QString qsCurrentStyle;
 
 	bool bHappyEaster;
 	static const char ccHappyEaster[];
