@@ -48,7 +48,7 @@ boost::optional<ThemeInfo::StyleInfo> Themes::getConfiguredStyle(const Settings 
 	
 	ThemeInfo::StylesMap::const_iterator styleIt = themeIt->styles.find(settings.themeStyleName);
 	if (styleIt == themeIt->styles.end()) {
-		qWarning() << "Configured theme" << g.s.themeName << "does not have configured style" << settings.themeStyleName;
+		qWarning() << "Configured theme" << settings.themeName << "does not have configured style" << settings.themeStyleName;
 		return boost::none;
 	}
 	
