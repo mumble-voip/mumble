@@ -1099,7 +1099,7 @@ void LogService_Query::impl(bool) {
 
 	int total = ::ServerDB::getLogLen(serverID);
 	if (total < 0) {
-		throw ::grpc::Status(::grpc::StatusCode::UNAVAILABLE);
+		throw ::grpc::Status(::grpc::StatusCode::UNAVAILABLE, "could not access database");
 	}
 
 	::MurmurRPC::Log_List list;
@@ -1881,12 +1881,12 @@ void DatabaseService_Verify::impl(bool) {
 
 	auto ret = server->authenticate(name, password);
 	switch (ret) {
-	case -1: // authentication failures
+	case -1:
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid username and/or password");
-	case -2: // unknown user
+	case -2:
 		throw ::grpc::Status(::grpc::NOT_FOUND, "unknown user");
-	case -3: // authentication failures where the data could (temporarily) not be verified
-		throw ::grpc::Status(::grpc::UNAVAILABLE);
+	case -3:
+		throw ::grpc::Status(::grpc::UNAVAILABLE, "authenticator temporarily unavailable");
 	}
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
