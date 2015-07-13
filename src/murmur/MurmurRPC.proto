@@ -206,7 +206,6 @@ service LogService {
 	rpc Query(Log.Query) returns(Log.List);
 }
 
-// TODO(grpc): list built-in configuration field names?
 message Config {
 	// The server for which the configuration is for.
 	optional Server server = 1;
