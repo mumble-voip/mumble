@@ -278,9 +278,15 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 }
 
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
-	foreach(auto listener, qsMetaServiceListeners) {
-		// TODO(grpc): remove listener on error
-		listener->stream.Write(e, nullptr);
+	auto listeners = qsMetaServiceListeners;
+	foreach(auto listener, listeners) {
+		auto cb = [this] (::MurmurRPC::Wrapper::MetaService_Events *listener, bool ok) {
+			if (ok) {
+				return;
+			}
+			this->qsMetaServiceListeners.remove(listener);
+		};
+		listener->stream.Write(e, listener->callback(cb));
 	}
 }
 
@@ -566,7 +572,6 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 
 	auto &request = authenticator->response;
 	request.Clear();
-	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_name(u8(name));
 
 	{
@@ -592,7 +597,6 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 	auto &request = authenticator->response;
 	request.Clear();
-	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
 	{
@@ -618,7 +622,6 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 
 	auto &request = authenticator->response;
 	request.Clear();
-	// TODO(grpc): hint what data we want
 	request.mutable_find()->set_id(id);
 
 	{
@@ -637,11 +640,19 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 }
 
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
-	auto i = qmhServerServiceListeners.find(s->iServerNum);
-	for ( ; i != qmhServerServiceListeners.end() && i.key() == s->iServerNum; ++i) {
+	auto listeners = qmhServerServiceListeners;
+	auto serverID = s->iServerNum;
+	auto i = listeners.find(serverID);
+
+	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
 		auto listener = i.value();
-		// TODO(grpc): remove listener on error
-		listener->stream.Write(e, nullptr);
+		auto cb = [this, serverID] (::MurmurRPC::Wrapper::ServerService_Events *listener, bool ok) {
+			if (ok) {
+				return;
+			}
+			this->qmhServerServiceListeners.remove(serverID, listener);
+		};
+		listener->stream.Write(e, listener->callback(cb));
 	}
 }
 
@@ -732,15 +743,18 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 		ca.mutable_channel()->set_id(channel);
 	}
 
-	auto &ref = this->qhContextActionListeners[s->iServerNum];
-	auto itr = ref.find(action);
-	for ( ; itr != ref.end() && itr.key() == action; ++itr) {
-		auto listener = itr.value();
-		auto cb = [this, s, action](::MurmurRPC::Wrapper::ContextActionService_Events *listener, bool ok) {
+	auto serverID = s->iServerNum;
+	auto listeners = this->qhContextActionListeners.value(serverID);
+	auto i = listeners.find(action);
+	for ( ; i != listeners.end() && i.key() == action; ++i) {
+		auto listener = i.value();
+		auto cb = [this, serverID, action] (::MurmurRPC::Wrapper::ContextActionService_Events *listener, bool ok) {
 			if (ok) {
 				return;
 			}
-			this->qhContextActionListeners[s->iServerNum].remove(action, listener);
+			if (this->qhContextActionListeners.contains(serverID)) {
+				this->qhContextActionListeners[serverID].remove(action, listener);
+			}
 		};
 		listener->stream.Write(ca, listener->callback(cb));
 	}
@@ -1635,7 +1649,6 @@ void ACLService_Set::impl(bool) {
 
 	channel->bInheritACL = request.inherit();
 
-	// TODO(grpc): better validation?
 	for (int i = 0; i < request.groups_size(); i++) {
 		auto &rpcGroup = request.groups(i);
 		auto name = u8(rpcGroup.name());
@@ -1650,7 +1663,6 @@ void ACLService_Set::impl(bool) {
 		}
 		g->qsTemporary = hOldTemp.value(name);
 	}
-	// TODO(grpc): better validation?
 	for (int i = 0; i < request.acls_size(); i++) {
 		auto &rpcACL = request.acls(i);
 		acl = new ChanACL(channel);
