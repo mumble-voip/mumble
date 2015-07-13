@@ -103,6 +103,131 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 	}
 }
 
+// Sets err to error message on failure.
+bool Server::setChannelState(const MumbleProto::ChannelState &cs, QString &err) {
+	::MumbleProto::ChannelState mpcs;
+	bool changed = false;
+	bool updated = false;
+
+	if (!cs.has_channel_id()) {
+		err = "missing channel ID";
+		return false;
+	}
+	Channel *channel = qhChannels.value(cs.channel_id());
+	if (!channel) {
+		err = "invalid channel";
+		return false;
+	}
+	mpcs.set_channel_id(cs.channel_id());
+
+	// Links and parent channel are processed first, because they can return
+	// errors. Without doing this, the server state can be changed without
+	// notifying users.
+	QSet<::Channel *> newLinksSet;
+	for (int i = 0; i < cs.links_size(); i++) {
+		Channel *link = qhChannels.value(cs.links(i));
+		if (!link) {
+			err = "invalid channel link";
+			return false;
+		}
+		newLinksSet.insert(link);
+	}
+
+	if (cs.has_parent()) {
+		Channel *parent = qhChannels.value(cs.parent());
+		if (!parent) {
+			err = "invalid parent channel";
+			return false;
+		}
+		if (parent != channel->cParent) {
+			Channel *p = parent;
+			while (p) {
+				if (p == channel) {
+					err = "parent channel cannot be a descendant of channel";
+					return false;
+				}
+				p = p->cParent;
+			}
+			if (!canNest(parent, channel)) {
+				err = "channel cannot be nested in the given parent";
+				return false;
+			}
+			channel->cParent->removeChannel(channel);
+			parent->addChannel(channel);
+			mpcs.set_parent(parent->iId);
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (cs.has_name()) {
+		QString qsName = u8(cs.name());
+		if (channel->qsName != qsName) {
+			channel->qsName = qsName;
+			mpcs.set_name(cs.name());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	const QSet<Channel *> &oldLinksSet = channel->qsPermLinks;
+
+	if (newLinksSet != oldLinksSet) {
+		// Remove
+		foreach(Channel *l, oldLinksSet) {
+			if (!newLinksSet.contains(l)) {
+				removeLink(channel, l);
+				mpcs.add_links_remove(l->iId);
+			}
+		}
+		// Add
+		foreach(Channel *l, newLinksSet) {
+			if (! oldLinksSet.contains(l)) {
+				addLink(channel, l);
+				mpcs.add_links_add(l->iId);
+			}
+		}
+
+		changed = true;
+	}
+
+	if (cs.has_position() && cs.position() != channel->iPosition) {
+		channel->iPosition = cs.position();
+		mpcs.set_position(cs.position());
+
+		changed = true;
+		updated = true;
+	}
+
+	if (cs.has_description()) {
+		QString qsDescription = u8(cs.description());
+		if (qsDescription != channel->qsDesc) {
+			hashAssign(channel->qsDesc, channel->qbaDescHash, qsDescription);
+			mpcs.set_description(cs.description());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (updated) {
+		updateChannel(channel);
+	}
+	if (changed) {
+		sendAll(mpcs, ~ 0x010202);
+		if (mpcs.has_description() && !channel->qbaDescHash.isEmpty()) {
+			mpcs.clear_description();
+			mpcs.set_description_hash(blob(channel->qbaDescHash));
+		}
+		sendAll(mpcs, 0x010202);
+		emit channelStateChanged(channel);
+	}
+
+	return true;
+}
+
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc, const int position) {
 	bool changed = false;
 	bool updated = false;
