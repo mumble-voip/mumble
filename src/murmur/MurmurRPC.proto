@@ -703,9 +703,12 @@ message RedirectWhisperGroup {
 }
 
 service AudioService {
-	// SetRedirectWhisperGroup redirects whisper targets for the given user.
-	// Whenever a user tries to whisper to group "source", the whisper will be
-	// redirected to group "target". Omitting "target" will remove the redirect.
-	rpc SetRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
-	// TODO(grpc): convert to AddRedirectWhisperGroup + RemoveRedirectWhisperGroup?
+	// AddRedirectWhisperGroup add a whisper targets redirection for the given
+	// user. Whenever a user whispers to group "source", the whisper will be
+	// redirected to group "target".
+	rpc AddRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+
+	// RemoveRedirectWhisperGroup removes a whisper target redirection for
+	// the the given user.
+	rpc RemoveRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
 }
