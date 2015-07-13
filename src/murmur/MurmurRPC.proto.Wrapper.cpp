@@ -1917,7 +1917,7 @@ void DatabaseService_Init(MurmurRPCImpl *impl, ::MurmurRPC::DatabaseService::Asy
 	DatabaseService_Verify::create(impl, service);
 }
 
-class AudioService_SetRedirectWhisperGroup : public RPCCall {
+class AudioService_AddRedirectWhisperGroup : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::AudioService::AsyncService *service;
@@ -1926,7 +1926,7 @@ public:
 	::MurmurRPC::RedirectWhisperGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	AudioService_SetRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	AudioService_AddRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1936,7 +1936,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&AudioService_SetRedirectWhisperGroup::finish, this, _1);
+		auto done_fn = ::boost::bind(&AudioService_AddRedirectWhisperGroup::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1945,20 +1945,62 @@ public:
 	}
 
 	void handle(bool ok) {
-		AudioService_SetRedirectWhisperGroup::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&AudioService_SetRedirectWhisperGroup::impl, this, ok), this);
+		AudioService_AddRedirectWhisperGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&AudioService_AddRedirectWhisperGroup::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) {
-		auto call = new AudioService_SetRedirectWhisperGroup(rpc, service);
-		auto fn = ::boost::bind(&AudioService_SetRedirectWhisperGroup::handle, call, _1);
+		auto call = new AudioService_AddRedirectWhisperGroup(rpc, service);
+		auto fn = ::boost::bind(&AudioService_AddRedirectWhisperGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestAddRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+};
+
+class AudioService_RemoveRedirectWhisperGroup : public RPCCall {
+public:
+	MurmurRPCImpl *rpc;
+	::MurmurRPC::AudioService::AsyncService *service;
+
+	::grpc::ServerContext context;
+	::MurmurRPC::RedirectWhisperGroup request;
+	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
+
+	AudioService_RemoveRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	}
+
+	void impl(bool ok);
+
+	void finish(bool) {
+		delete this;
+	}
+
+	::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&AudioService_RemoveRedirectWhisperGroup::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	void error(const ::grpc::Status &err) {
+		stream.FinishWithError(err, this->done());
+	}
+
+	void handle(bool ok) {
+		AudioService_RemoveRedirectWhisperGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&AudioService_RemoveRedirectWhisperGroup::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) {
+		auto call = new AudioService_RemoveRedirectWhisperGroup(rpc, service);
+		auto fn = ::boost::bind(&AudioService_RemoveRedirectWhisperGroup::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestRemoveRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void AudioService_Init(MurmurRPCImpl *impl, ::MurmurRPC::AudioService::AsyncService *service) {
-	AudioService_SetRedirectWhisperGroup::create(impl, service);
+	AudioService_AddRedirectWhisperGroup::create(impl, service);
+	AudioService_RemoveRedirectWhisperGroup::create(impl, service);
 }
 
 }

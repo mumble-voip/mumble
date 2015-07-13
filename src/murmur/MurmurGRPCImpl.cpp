@@ -1899,24 +1899,37 @@ void DatabaseService_Verify::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void AudioService_SetRedirectWhisperGroup::impl(bool) {
+void AudioService_AddRedirectWhisperGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
-	if (!request.has_source()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source");
+	if (!request.source().has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source name");
 	}
+	if (!request.target().has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing target name");
+	}
+
+	QString qssource = u8(request.source().name());
+	QString qstarget = u8(request.target().name());
+	user->qmWhisperRedirect.insert(qssource, qstarget);
+
+	server->clearACLCache(user);
+
+	::MurmurRPC::Void vd;
+	stream.Finish(vd, grpc::Status::OK, done());
+}
+
+void AudioService_RemoveRedirectWhisperGroup::impl(bool) {
+	auto server = MustServer(request);
+	auto user = MustUser(server, request);
+
 	if (!request.source().has_name()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing source name");
 	}
 
 	QString qssource = u8(request.source().name());
-	QString qstarget = u8(request.target().name());
-	if (qstarget.isEmpty()) {
-		user->qmWhisperRedirect.remove(qssource);
-	} else {
-		user->qmWhisperRedirect.insert(qssource, qstarget);
-	}
+	user->qmWhisperRedirect.remove(qssource);
 
 	server->clearACLCache(user);
 
