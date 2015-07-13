@@ -1474,8 +1474,6 @@ void ACLService_Get::impl(bool) {
 	::MurmurRPC::ACL_List list;
 	list.set_inherit(channel->bInheritACL);
 
-	// TODO(grpc): move logic to RPC.cpp
-
 	QStack< ::Channel *> chans;
 	ChanACL *acl;
 	::Channel *p = channel;
@@ -1545,8 +1543,6 @@ void ACLService_Get::impl(bool) {
 void ACLService_Set::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
-
-	// TODO(grpc): move logic to RPC.cpp
 
 	::Group *g;
 	::ChanACL *acl;
