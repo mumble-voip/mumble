@@ -92,9 +92,7 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 }
 
 void MurmurRPCImpl::cleanup() {
-	// TODO(grpc): cleanup any old connections that are stored in our listener
-	// lists.
-	// TODO(grpc): qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners, qhAuthenticators
+	// TODO(grpc): cleanup old connections in: qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners, qhAuthenticators
 }
 
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -725,11 +723,14 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	ca.mutable_actor()->mutable_server()->set_id(s->iServerNum);
 	ca.mutable_actor()->set_session(user->uiSession);
 	ca.set_action(u8(action));
-	// TODO(grpc): validate these values?
-	ca.mutable_user()->mutable_server()->set_id(s->iServerNum);
-	ca.mutable_user()->set_session(session);
-	ca.mutable_channel()->mutable_server()->set_id(s->iServerNum);
-	ca.mutable_channel()->set_id(channel);
+	if (session > 0) {
+		ca.mutable_user()->mutable_server()->set_id(s->iServerNum);
+		ca.mutable_user()->set_session(session);
+	}
+	if (channel >= 0) {
+		ca.mutable_channel()->mutable_server()->set_id(s->iServerNum);
+		ca.mutable_channel()->set_id(channel);
+	}
 
 	auto &ref = this->qhContextActionListeners[s->iServerNum];
 	auto itr = ref.find(action);
@@ -1014,7 +1015,6 @@ void ContextActionService_Add::impl(bool) {
 	if (!request.has_text()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing text");
 	}
-	// TODO(grpc): verify that context is valid value?
 	if (!request.has_context()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing context");
 	}
@@ -1476,28 +1476,32 @@ void TreeService_Query::impl(bool) {
 	auto channel = MustChannel(server, 0);
 	::MurmurRPC::Tree root;
 
-	// TODO(grpc): convert to a container of pairs?
-	QQueue<const ::Channel *> qChan;
-	QQueue<::MurmurRPC::Tree *> qTree;
+	QQueue< QPair<const ::Channel *, ::MurmurRPC::Tree *> > qQueue;
+	qQueue.enqueue(qMakePair(channel, &root));
 
-	qChan.enqueue(channel);
-	qTree.enqueue(&root);
-
-	while (!qChan.isEmpty()) {
-		auto currentChannel = qChan.dequeue();
-		auto currentTree = qTree.dequeue();
+	while (!qQueue.isEmpty()) {
+		auto current = qQueue.dequeue();
+		auto currentChannel = current.first;
+		auto currentTree = current.second;
 
 		ToRPC(server, currentChannel, currentTree->mutable_channel());
-		// TODO(grpc): sort users?
-		foreach(const ::User *u, currentChannel->qlUsers) {
+
+		QList< ::User *> users = currentChannel->qlUsers;
+		qSort(users.begin(), users.end(), [] (const ::User *a, const ::User *b) -> bool {
+			return ::User::lessThan(a, b);
+		});
+		foreach(const ::User *u, users) {
 			auto rpcUser = currentTree->add_users();
 			ToRPC(server, u, rpcUser);
 		}
-		// TODO(grpc): sort channels?
-		foreach(const ::Channel *subChannel, currentChannel->qlChannels) {
+
+		QList< ::Channel *> channels = currentChannel->qlChannels;
+		qSort(channels.begin(), channels.end(), [] (const ::Channel *a, const ::Channel *b) -> bool {
+			return ::Channel::lessThan(a, b);
+		});
+		foreach(const ::Channel *subChannel, channels) {
 			auto subTree = currentTree->add_children();
-			qChan.enqueue(subChannel);
-			qTree.enqueue(subTree);
+			qQueue.enqueue(qMakePair(subChannel, subTree));
 		}
 	}
 
