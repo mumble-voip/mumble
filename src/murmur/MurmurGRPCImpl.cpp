@@ -1702,13 +1702,13 @@ void ACLService_AddTemporaryGroup::impl(bool) {
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
 
-	if (!request.has_group_name()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing group name");
+	if (!request.has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing name");
 	}
 
-	QString qsgroup = u8(request.group_name());
+	QString qsgroup = u8(request.name());
 	if (qsgroup.isEmpty()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty group name");
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty name");
 	}
 
 	::Group *g = channel->qhGroups.value(qsgroup);
@@ -1728,13 +1728,13 @@ void ACLService_RemoveTemporaryGroup::impl(bool) {
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
 
-	if (!request.has_group_name()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing group name");
+	if (!request.has_name()) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing name");
 	}
 
-	QString qsgroup = u8(request.group_name());
+	QString qsgroup = u8(request.name());
 	if (qsgroup.isEmpty()) {
-		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty group name");
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty name");
 	}
 
 	::Group *g = channel->qhGroups.value(qsgroup);
