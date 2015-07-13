@@ -388,6 +388,7 @@ message Tree {
 	repeated User users = 4;
 
 	message Query {
+		// The server to query.
 		optional Server server = 1;
 	}
 }
@@ -458,47 +459,71 @@ message ACL {
 	}
 
 	message Group {
+		// The ACL group name.
 		optional string name = 1;
+		// Is the group inherited?
 		optional bool inherited = 2;
+		// Does the group inherit members?
 		optional bool inherit = 3;
+		// Can this group be inherited by its children?
 		optional bool inheritable = 4;
 
+		// The users explicitly added by this group.
 		repeated DatabaseUser users_add = 5;
+		// The users explicitly removed by this group.
 		repeated DatabaseUser users_remove = 6;
+		// All of the users who are part of this group.
 		repeated DatabaseUser users = 7;
 	}
 
+	// Does the ACL apply to the current channel?
 	optional bool apply_here = 3;
+	// Does the ACL apply to the current channel's sub-channels?
 	optional bool apply_subs = 4;
+	// Was the ACL inherited?
 	optional bool inherited = 5;
 
+	// The user to whom the ACL applies.
 	optional DatabaseUser user = 6;
+	// The group to whom the ACL applies.
 	optional ACL.Group group = 7;
 
+	// The permissions granted by the ACL.
 	optional Permission allow = 8;
+	// The permissions denied by the ACL.
 	optional Permission deny = 9;
 
 	message Query {
+		// The server where the user and channel exist.
 		optional Server server = 1;
+		// The user to query.
 		optional User user = 2;
+		// The channel to query.
 		optional Channel channel = 3;
 	}
 
 	message List {
+		// The server on which the ACLs exist.
 		optional Server server = 1;
+		// The channel to which the ACL refers.
 		optional Channel channel = 2;
-
+		// The ACLs part of the given channel.
 		repeated ACL acls = 3;
+		// The groups part of the given channel.
 		repeated ACL.Group groups = 4;
+		// Should ACLs be inherited from the parent channel.
 		optional bool inherit = 5;
 	}
 
 	message TemporaryGroup {
+		// The server where the temporary group exists.
 		optional Server server = 1;
-
+		// The channel to which the temporary user group is added.
 		optional Channel channel = 2;
+		// The user who is added to the group.
 		optional User user = 3;
-		optional string group_name = 4;
+		// The name of the temporary group.
+		optional string name = 4;
 	}
 }
 
@@ -518,17 +543,19 @@ service ACLService {
 	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 }
 
-// When building a custom authenticator, only Authenticate and Find messages
-// need to have valid replies. All other request responses messages can be
-// omitted in the Response.
 message Authenticator {
 	message Request {
 		// An authentication request for a connecting user.
 		message Authenticate {
+			// The user's name.
 			optional string name = 1;
+			// The user's password.
 			optional string password = 2;
+			// The user's certificate chain in DER format.
 			repeated bytes certificates = 3;
+			// The hexadecimal hash of the user's certificate.
 			optional string certificate_hash = 4;
+			// If the user is connecting with a strong certificate.
 			optional bool strong_certificate = 5;
 		}
 
