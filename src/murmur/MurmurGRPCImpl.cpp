@@ -1266,117 +1266,33 @@ void ChannelService_Update::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
-	bool changed = false;
-	bool updated = false;
-
 	::MumbleProto::ChannelState mpcs;
 	mpcs.set_channel_id(channel->iId);
-
-	// TODO(grpc): move logic to RPC.cpp
-
-	// Links and parent channel are processed first, because they can return
-	// errors. Without doing this, the server state can be changed without
-	// notifying users.
-	::QSet<::Channel *> newLinksSet;
 	for (int i = 0; i < request.links_size(); i++) {
-		const ::MurmurRPC::Channel &linkRef = request.links(i);
-		try {
-			auto link = MustChannel(server, linkRef);
-			newLinksSet.insert(link);
-		} catch (::grpc::Status &ex) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid link channel");
+		if (!request.links(i).has_id()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid channel link");
 		}
+		mpcs.add_links(request.links(i).id());
 	}
-
 	if (request.has_parent()) {
-		::Channel *parent;
-		try {
-			parent = MustChannel(server, request.parent());
-		} catch (::grpc::Status &ex) {
-			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid parent channel");
+		if (!request.parent().has_id()) {
+			throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid channel parent");
 		}
-		if (parent != channel->cParent) {
-			::Channel *p = parent;
-			while (p) {
-				if (p == channel) {
-					throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "parent channel cannot be a descendant of channel");
-				}
-				p = p->cParent;
-			}
-			if (!server->canNest(parent, channel)) {
-				throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "channel cannot be nested in the given parent");
-			}
-			channel->cParent->removeChannel(channel);
-			parent->addChannel(channel);
-			mpcs.set_parent(parent->iId);
-
-			changed = true;
-			updated = true;
-		}
+		mpcs.set_parent(request.parent().id());
 	}
-
 	if (request.has_name()) {
-		QString qsName = u8(request.name());
-		if (channel->qsName != qsName) {
-			channel->qsName = qsName;
-			mpcs.set_name(request.name());
-
-			changed = true;
-			updated = true;
-		}
+		mpcs.set_name(request.name());
 	}
-
-	const QSet<::Channel *> &oldLinksSet = channel->qsPermLinks;
-
-	if (newLinksSet != oldLinksSet) {
-		// Remove
-		foreach(::Channel *l, oldLinksSet) {
-			if (!newLinksSet.contains(l)) {
-				server->removeLink(channel, l);
-				mpcs.add_links_remove(l->iId);
-			}
-		}
-		// Add
-		foreach(::Channel *l, newLinksSet) {
-			if (! oldLinksSet.contains(l)) {
-				server->addLink(channel, l);
-				mpcs.add_links_add(l->iId);
-			}
-		}
-
-		changed = true;
-	}
-
-	if (request.has_position() && request.position() != channel->iPosition) {
-		channel->iPosition = request.position();
+	if (request.has_position()) {
 		mpcs.set_position(request.position());
-
-		changed = true;
-		updated = true;
 	}
-
 	if (request.has_description()) {
-		QString qsDescription = u8(request.description());
-		if (qsDescription != channel->qsDesc) {
-			server->hashAssign(channel->qsDesc, channel->qbaDescHash, qsDescription);
-			mpcs.set_description(request.description());
-
-			changed = true;
-			updated = true;
-		}
+		mpcs.set_description(request.description());
 	}
 
-	if (updated) {
-		server->updateChannel(channel);
-	}
-	if (changed) {
-		server->sendAll(mpcs, ~ 0x010202);
-		if (mpcs.has_description() && !channel->qbaDescHash.isEmpty()) {
-			mpcs.clear_description();
-			mpcs.set_description_hash(blob(channel->qbaDescHash));
-		}
-		server->sendAll(mpcs, 0x010202);
-		emit server->channelStateChanged(channel);
+	QString err;
+	if (!server->setChannelState(mpcs, err)) {
+		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, u8(err));
 	}
 
 	::MurmurRPC::Channel rpcChannel;
