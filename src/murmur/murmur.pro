@@ -149,7 +149,8 @@ grpc {
 
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
-		LIBS *= -lgrpc++ -lgrpc -lgpr
+		CONFIG += link_pkgconfig
+		PKGCONFIG += gpr grpc grpc++
 	}
 }
 
