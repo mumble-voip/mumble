@@ -20,10 +20,6 @@ PRECOMPILED_HEADER = murmur_pch.h
 	CONFIG *= ice
 }
 
-!CONFIG(no-grpc) {
-	CONFIG *= grpc
-}
-
 !CONFIG(no-dbus):!win32:!macx {
 	CONFIG *= dbus
 }
@@ -138,18 +134,16 @@ ice {
 	}
 }
 
-grpc {
+!CONFIG(no-grpc) {
 	DEFINES *= USE_GRPC
-
-	GRPC *= MurmurRPC.proto
-	PROTOBUF *= MurmurRPC.proto
+	INCLUDEPATH *= murmur_grpc
+	LIBS *= -lmurmur_grpc
 
 	HEADERS *= MurmurGRPCImpl.h
 	SOURCES *= MurmurGRPCImpl.cpp
 
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
-		CONFIG += link_pkgconfig
 		PKGCONFIG += gpr grpc grpc++
 	}
 }

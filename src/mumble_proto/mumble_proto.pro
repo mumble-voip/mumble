@@ -25,10 +25,10 @@ INCLUDEPATH *= "$$PROTOBUF_PATH/vsprojects/include" "$$PROTOBUF_PATH/src" protob
 QMAKE_EXTRA_COMPILERS *= pb pbh
 
 !CONFIG(third-party-warnings) {
-    # We ignore warnings in third party builds. We won't actually look
-    # at them and they clutter out our warnings.
-    CONFIG -= warn_on
-    CONFIG += warn_off
+	# We ignore warnings in third party builds. We won't actually look
+	# at them and they clutter out our warnings.
+	CONFIG -= warn_on
+	CONFIG += warn_off
 }
 
 CONFIG(debug, debug|release) {
@@ -40,4 +40,3 @@ CONFIG(release, debug|release) {
 }
 
 include(../../symbols.pri)
-

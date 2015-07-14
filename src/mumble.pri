@@ -15,20 +15,6 @@ LIBS		*= -lmumble_proto
 #       system include folder for unix. Otherwise the generated code creates
 #       a lot of spurious warnings in ours.
 
-grpch.output = ${QMAKE_FILE_BASE}.grpc.pb.h
-grpch.depends = ${QMAKE_FILE_BASE}.grpc.pb.cc
-grpch.commands = $$escape_expand(\\n)
-grpch.input = GRPC
-grpch.CONFIG *= no_link explicit_dependencies target_predeps
-
-grpc.output = ${QMAKE_FILE_BASE}.grpc.pb.cc
-grpc.depends = ${QMAKE_FILE_BASE}.pb.h
-# TODO(grpc): plugin path needs to be set for other systems
-grpc.commands = protoc --grpc_out=. --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin -I. -I.. ${QMAKE_FILE_NAME}
-grpc.input = GRPC
-grpc.CONFIG *= no_link explicit_dependencies
-grpc.variable_out = SOURCES
-
 CONFIG(packaged) {
 	MUMDEFVER = $$find(DEFINES, "MUMBLE_VERSION=")
 	count(MUMDEFVER, 0) {
@@ -76,8 +62,6 @@ isEqual(QT_MAJOR_VERSION, 4) {
 	DEFINES *= Q_DECL_OVERRIDE=
 	DEFINES *= Q_DECL_FINAL=
 }
-
-QMAKE_EXTRA_COMPILERS *= grpc grpch
 
 CONFIG(debug, debug|release) {
   CONFIG += console
