@@ -110,34 +110,34 @@ void MurmurRPCImpl::cleanup() {
 				ref.erase(j);
 				listener->deref();
 			} else {
-				j++;
+				++j;
 			}
 		}
 
 		if (ref.isEmpty()) {
 			qhContextActionListeners.erase(i);
 		} else {
-			i++;
+			++i;
 		}
 	}
 
-	for (auto i = qmhServerServiceListeners.begin(); i != qmhServerServiceListeners.end(); i++) {
+	for (auto i = qmhServerServiceListeners.begin(); i != qmhServerServiceListeners.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
 			qmhServerServiceListeners.erase(i);
 			listener->deref();
 		} else {
-			i++;
+			++i;
 		}
 	}
 
-	for (auto i = qhAuthenticators.begin(); i != qhAuthenticators.end(); i++) {
+	for (auto i = qhAuthenticators.begin(); i != qhAuthenticators.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
 			qhAuthenticators.erase(i);
 			listener->deref();
 		} else {
-			i++;
+			++i;
 		}
 	}
 }
