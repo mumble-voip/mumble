@@ -55,7 +55,7 @@ public:
 	::$in$ request;
 	::grpc::ServerAsyncResponseWriter < ::$out$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -98,7 +98,7 @@ public:
 	::$in$ request;
 	::grpc::ServerAsyncWriter < ::$out$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -152,7 +152,7 @@ public:
 	::grpc::ServerContext context;
 	::grpc::ServerAsyncReader< ::$out$, ::$in$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -196,7 +196,7 @@ public:
 	::$out$ response;
 	::grpc::ServerAsyncReaderWriter< ::$out$, ::$in$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc, ::$ns$::$service$::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
