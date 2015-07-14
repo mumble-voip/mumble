@@ -545,11 +545,12 @@ dbus {
 
 speechd {
 	DEFINES *= USE_SPEECHD
-	system(pkg-config --atleast-version=0.8 speech-dispatcher) {
+	system(pkg-config --atleast-version=0.8 --cflags --libs speech-dispatcher) {
 		DEFINES *= USE_SPEECHD_PKGCONFIG
 		PKGCONFIG *= speech-dispatcher
 	} else {
 		LIBS *= -lspeechd
+		INCLUDEPATH	*= /usr/include/speech-dispatcher
 	}
 }
 
