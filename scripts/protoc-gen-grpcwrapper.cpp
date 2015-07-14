@@ -61,7 +61,7 @@ public:
 	void impl(bool ok);
 
 	void finish(bool) {
-		delete this;
+		deref();
 	}
 
 	::boost::function<void(bool)> *done() {
@@ -104,7 +104,7 @@ public:
 	void impl(bool ok);
 
 	void finish(bool) {
-		delete this;
+		deref();
 	}
 
 	::boost::function<void(bool)> *done() {
@@ -158,7 +158,7 @@ public:
 	void impl(bool ok);
 
 	void finish(bool) {
-		delete this;
+		deref();
 	}
 
 	::boost::function<void(bool)> *done() {
@@ -202,7 +202,7 @@ public:
 	void impl(bool ok);
 
 	void finish(bool) {
-		delete this;
+		deref();
 	}
 
 	bool write() {
