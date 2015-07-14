@@ -154,3 +154,9 @@ CONFIG+=no-overlay (Mumble, Linux)
 CONFIG+=no-xinput2 (Mumble, Linux)
  Don't build support for XI2.
 
+CONFIG+=no-gkey (Mumble, Win32)
+ Don't build in support for Logitech G-Keys.
+ Note: This feature does not require any build-
+ time dependencies, and requires Logitech Gaming
+ Software to be installed to have any effect at
+ runtime.
