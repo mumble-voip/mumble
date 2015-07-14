@@ -285,6 +285,7 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 				return;
 			}
 			this->qsMetaServiceListeners.remove(listener);
+			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -313,13 +314,16 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 	if (!authenticator) {
 		return;
 	}
-	authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
+	if (!authenticator->context.IsCancelled()) {
+		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
+	}
 	qhAuthenticators.remove(s->iServerNum);
+	authenticator->deref();
 }
 
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -385,7 +389,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -421,7 +425,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -448,7 +452,7 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -480,7 +484,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -508,7 +512,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -543,7 +547,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -569,7 +573,7 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -594,7 +598,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -619,7 +623,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -655,6 +659,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 				return;
 			}
 			this->qmhServerServiceListeners.remove(serverID, listener);
+			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -758,6 +763,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 			}
 			if (this->qhContextActionListeners.contains(serverID)) {
 				this->qhContextActionListeners[serverID].remove(action, listener);
+				listener->deref();
 			}
 		};
 		listener->stream.Write(ca, listener->callback(cb));
