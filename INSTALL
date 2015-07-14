@@ -144,7 +144,10 @@ CONFIG+=no-embed-tango-icons (Mumble)
 
 CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
- 
+
+CONFIG+=no-grpc (Murmur, Linux)
+ Don't build support for gRPC.
+
 CONFIG+=no-bonjour
  Don't build support for Bonjour.
 
