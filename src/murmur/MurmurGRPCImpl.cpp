@@ -215,7 +215,7 @@ void ToRPC(const ::Server *srv, const ::ChanACL *acl, ::MurmurRPC::ACL *ra) {
 	ra->set_deny(MurmurRPC::ACL_Permission(int(acl->pDeny)));
 }
 
-void ToRPC(const ::Server *srv, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
+void ToRPC(const ::Server *, const ::Group *g, ::MurmurRPC::ACL_Group *rg) {
 	rg->set_name(u8(g->qsName));
 	rg->set_inherit(g->bInherit);
 	rg->set_inheritable(g->bInheritable);
@@ -233,7 +233,7 @@ void ToRPC(const ::Server *srv, const ::Ban &ban, ::MurmurRPC::Ban *rb) {
 	rb->set_duration_secs(ban.iDuration);
 }
 
-void FromRPC(const ::Server *srv, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
+void FromRPC(const ::Server *, const ::MurmurRPC::Ban &rb, ::Ban &ban) {
 	ban.haAddress = HostAddress(rb.address());
 	ban.iMask = rb.bits();
 	ban.qsUsername = u8(rb.name());
@@ -280,7 +280,7 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	auto listeners = qsMetaServiceListeners;
 	foreach(auto listener, listeners) {
-		auto cb = [this] (::MurmurRPC::Wrapper::MetaService_Events *listener, bool ok) {
+		auto cb = [this, listener] (::MurmurRPC::Wrapper::MetaService_Events *, bool ok) {
 			if (ok) {
 				return;
 			}
@@ -353,7 +353,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		if (!response.authenticate().has_id()) {
 			res = -3;
-			return;
+			break;
 		}
 		res = response.authenticate().id();
 		if (response.authenticate().has_name()) {
@@ -371,13 +371,15 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 				s->setTempGroups(res, sessionId, NULL, qsl);
 			}
 		}
-		return;
+		break;
 	case ::MurmurRPC::Authenticator_Response_Status_TemporaryFailure:
 		res = -3;
-		return;
+		break;
 	case ::MurmurRPC::Authenticator_Response_Status_Failure:
 		res = -1;
-		return;
+		break;
+	default:
+		break;
 	}
 }
 
@@ -405,15 +407,15 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	case ::MurmurRPC::Authenticator_Response_Status_Success:
 		if (!response.register_().has_user() || !response.register_().user().has_id()) {
 			res = -1;
-			return;
+			break;
 		}
 		res = response.register_().user().id();
-		return;
+		break;
 	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
-		return;
+		break;
 	default:
 		res = -1;
-		return;
+		break;
 	}
 }
 
@@ -534,6 +536,8 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	case ::MurmurRPC::Authenticator_Response_Status_Fallthrough:
 		res = -1;
 		break;
+	default:
+		break;
 	}
 }
 
@@ -646,7 +650,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 
 	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
 		auto listener = i.value();
-		auto cb = [this, serverID] (::MurmurRPC::Wrapper::ServerService_Events *listener, bool ok) {
+		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::ServerService_Events *, bool ok) {
 			if (ok) {
 				return;
 			}
@@ -748,7 +752,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	auto i = listeners.find(action);
 	for ( ; i != listeners.end() && i.key() == action; ++i) {
 		auto listener = i.value();
-		auto cb = [this, serverID, action] (::MurmurRPC::Wrapper::ContextActionService_Events *listener, bool ok) {
+		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::ContextActionService_Events *, bool ok) {
 			if (ok) {
 				return;
 			}

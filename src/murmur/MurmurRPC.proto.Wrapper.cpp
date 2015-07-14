@@ -13,7 +13,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	ServerService_Create(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Create(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -54,7 +54,7 @@ public:
 	::MurmurRPC::Server_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > stream;
 
-	ServerService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -95,7 +95,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	ServerService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -136,7 +136,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Start(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Start(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -177,7 +177,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Stop(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Stop(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -218,7 +218,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ServerService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Remove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -259,7 +259,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > stream;
 
-	ServerService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ServerService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ServerService_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ServerService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -321,7 +321,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Uptime > stream;
 
-	MetaService_GetUptime(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	MetaService_GetUptime(MurmurRPCImpl *rpc_impl, ::MurmurRPC::MetaService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -362,7 +362,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Version > stream;
 
-	MetaService_GetVersion(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	MetaService_GetVersion(MurmurRPCImpl *rpc_impl, ::MurmurRPC::MetaService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -403,7 +403,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > stream;
 
-	MetaService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::MetaService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	MetaService_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::MetaService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -461,7 +461,7 @@ public:
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ContextActionService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ContextActionService_Add(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ContextActionService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -502,7 +502,7 @@ public:
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ContextActionService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ContextActionService_Remove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ContextActionService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -543,7 +543,7 @@ public:
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > stream;
 
-	ContextActionService_Events(MurmurRPCImpl *rpc, ::MurmurRPC::ContextActionService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ContextActionService_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ContextActionService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -601,7 +601,7 @@ public:
 	::MurmurRPC::TextMessage request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	TextMessageService_Send(MurmurRPCImpl *rpc, ::MurmurRPC::TextMessageService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	TextMessageService_Send(MurmurRPCImpl *rpc_impl, ::MurmurRPC::TextMessageService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -645,7 +645,7 @@ public:
 	::MurmurRPC::Log_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > stream;
 
-	LogService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::LogService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	LogService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::LogService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -689,7 +689,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	ConfigService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ConfigService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ConfigService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -730,7 +730,7 @@ public:
 	::MurmurRPC::Config_Field request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > stream;
 
-	ConfigService_GetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ConfigService_GetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ConfigService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -771,7 +771,7 @@ public:
 	::MurmurRPC::Config_Field request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ConfigService_SetField(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ConfigService_SetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ConfigService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -812,7 +812,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	ConfigService_GetDefaults(MurmurRPCImpl *rpc, ::MurmurRPC::ConfigService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ConfigService_GetDefaults(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ConfigService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -859,7 +859,7 @@ public:
 	::MurmurRPC::Channel_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > stream;
 
-	ChannelService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ChannelService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ChannelService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -900,7 +900,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ChannelService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ChannelService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -941,7 +941,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Add(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ChannelService_Add(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ChannelService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -982,7 +982,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ChannelService_Remove(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ChannelService_Remove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ChannelService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1023,7 +1023,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	ChannelService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::ChannelService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ChannelService_Update(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ChannelService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1071,7 +1071,7 @@ public:
 	::MurmurRPC::User_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > stream;
 
-	UserService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	UserService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::UserService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1112,7 +1112,7 @@ public:
 	::MurmurRPC::User request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	UserService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	UserService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::UserService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1153,7 +1153,7 @@ public:
 	::MurmurRPC::User request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	UserService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	UserService_Update(MurmurRPCImpl *rpc_impl, ::MurmurRPC::UserService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1194,7 +1194,7 @@ public:
 	::MurmurRPC::User_Kick request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	UserService_Kick(MurmurRPCImpl *rpc, ::MurmurRPC::UserService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	UserService_Kick(MurmurRPCImpl *rpc_impl, ::MurmurRPC::UserService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1241,7 +1241,7 @@ public:
 	::MurmurRPC::Tree_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > stream;
 
-	TreeService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::TreeService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	TreeService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::TreeService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1285,7 +1285,7 @@ public:
 	::MurmurRPC::Ban_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > stream;
 
-	BanService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	BanService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::BanService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1326,7 +1326,7 @@ public:
 	::MurmurRPC::Ban_List request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	BanService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::BanService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	BanService_Set(MurmurRPCImpl *rpc_impl, ::MurmurRPC::BanService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1371,7 +1371,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > stream;
 
-	ACLService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ACLService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ACLService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1412,7 +1412,7 @@ public:
 	::MurmurRPC::ACL_List request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_Set(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ACLService_Set(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ACLService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1453,7 +1453,7 @@ public:
 	::MurmurRPC::ACL_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > stream;
 
-	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ACLService_GetEffectivePermissions(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ACLService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1494,7 +1494,7 @@ public:
 	::MurmurRPC::ACL_TemporaryGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_AddTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ACLService_AddTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ACLService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1535,7 +1535,7 @@ public:
 	::MurmurRPC::ACL_TemporaryGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	ACLService_RemoveTemporaryGroup(MurmurRPCImpl *rpc, ::MurmurRPC::ACLService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	ACLService_RemoveTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::ACLService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1584,7 +1584,7 @@ public:
 	::MurmurRPC::Authenticator_Request response;
 	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Request, ::MurmurRPC::Authenticator_Response > stream;
 
-	AuthenticatorService_Stream(MurmurRPCImpl *rpc, ::MurmurRPC::AuthenticatorService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	AuthenticatorService_Stream(MurmurRPCImpl *rpc_impl, ::MurmurRPC::AuthenticatorService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1672,7 +1672,7 @@ public:
 	::MurmurRPC::DatabaseUser_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > stream;
 
-	DatabaseService_Query(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Query(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1713,7 +1713,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Get(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Get(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1754,7 +1754,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	DatabaseService_Update(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Update(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1795,7 +1795,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Register(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Register(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1836,7 +1836,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	DatabaseService_Deregister(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Deregister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1877,7 +1877,7 @@ public:
 	::MurmurRPC::DatabaseUser_Verify request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	DatabaseService_Verify(MurmurRPCImpl *rpc, ::MurmurRPC::DatabaseService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	DatabaseService_Verify(MurmurRPCImpl *rpc_impl, ::MurmurRPC::DatabaseService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1926,7 +1926,7 @@ public:
 	::MurmurRPC::RedirectWhisperGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	AudioService_AddRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	AudioService_AddRedirectWhisperGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::AudioService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1967,7 +1967,7 @@ public:
 	::MurmurRPC::RedirectWhisperGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	AudioService_RemoveRedirectWhisperGroup(MurmurRPCImpl *rpc, ::MurmurRPC::AudioService::AsyncService *service) : rpc(rpc), service(service), stream(&context) {
+	AudioService_RemoveRedirectWhisperGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::AudioService::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
