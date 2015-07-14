@@ -47,11 +47,45 @@
 #include <grpc++/status.h>
 
 class RPCCall {
+	int mRefs;
 public:
+	RPCCall() {
+		ref();
+	}
 	virtual ~RPCCall() {
 	}
 	virtual ::boost::function<void(bool)> *done() = 0;
 	virtual void error(const ::grpc::Status&) = 0;
+	void deref() {
+		if (--mRefs <= 0) {
+			delete this;
+		}
+	}
+	void ref() {
+		mRefs++;
+	}
+
+	template<class T>
+	class Ref {
+		T *mO;
+	public:
+		Ref(T *o) : mO(o) {
+			if (o) {
+				o->ref();
+			}
+		}
+		~Ref() {
+			if (mO) {
+				mO->deref();
+			}
+		}
+		operator bool() const {
+			return mO != nullptr && !mO->context.IsCancelled();
+		}
+		T *operator->() {
+			return mO;
+		}
+	};
 };
 
 class RPCExecEvent : public ExecEvent {
