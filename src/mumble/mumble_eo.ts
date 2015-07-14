@@ -1114,12 +1114,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>surdigi</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>mutigi</translation>
     </message>
     <message>
         <location/>
@@ -1142,7 +1142,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>Premi Por Paroli</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1916,7 +1916,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Pozicia Sono</translation>
     </message>
     <message>
         <location/>
@@ -1937,7 +1937,7 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"/>
+        <translation>Uzi kapaŭskultilojn anstataŭ laŭtparolilojn</translation>
     </message>
     <message>
         <location/>
@@ -1998,7 +1998,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Proporcio de signalo al bruo</translation>
     </message>
     <message>
         <location/>
@@ -2024,7 +2024,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"/>
+        <translation>Premi Por Paroli:</translation>
     </message>
     <message>
         <location/>
@@ -2739,37 +2739,37 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Traverse</source>
-        <translation type="unfinished"/>
+        <translation>Trairi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>Eniri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation type="unfinished"/>
+        <translation>Paroli</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"/>
+        <translation>Mutigi/Surdigi</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>Fari kanalon</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Make temporary</source>
-        <translation type="unfinished"/>
+        <translation>Dumtempigi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Link channel</source>
-        <translation type="unfinished"/>
+        <translation>Ligi kanalon</translation>
     </message>
     <message>
         <location line="-87"/>
@@ -2903,7 +2903,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+25"/>
         <source>&lt;center&gt;Type chat message here&lt;/center&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Tajpu babilmesaĝon ĉi tie&lt;/center&gt;</translation>
     </message>
 </context>
 <context>
@@ -2931,32 +2931,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"/>
+        <translation>Mutigite (servilo)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"/>
+        <translation>Surdigite (servilo)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"/>
+        <translation>Loke Ignori (Tekstmesaĝojn)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Loke Mutigi</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation type="unfinished"/>
+        <translation>Mutigite (mem)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"/>
+        <translation>Surdigite (mem)</translation>
     </message>
 </context>
 <context>
@@ -2964,7 +2964,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation type="unfinished"/>
+        <translation>Akcepti ŝanĝojn</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2974,7 +2974,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Reject changes</source>
-        <translation type="unfinished"/>
+        <translation>Rifuzi ŝanĝojn</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3015,7 +3015,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"/>
+        <translation>Agordo de Mumble</translation>
     </message>
     <message>
         <location/>
@@ -3028,7 +3028,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+949"/>
         <source>Connecting to %1</source>
-        <translation type="unfinished"/>
+        <translation>Konektante al %1</translation>
     </message>
     <message>
         <location line="-545"/>
@@ -3039,7 +3039,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation type="unfinished"/>
+        <translation>Aldonante gastigon %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3050,7 +3050,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Nomo de gastigo</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3075,12 +3075,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation type="unfinished"/>
+        <translation>Perditaj paketoj</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation type="unfinished"/>
+        <translation>Eĥosondo (80%)</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3091,7 +3091,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation type="unfinished"/>
+        <translation>Eĥosondo (95%)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3137,12 +3137,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Ping</source>
-        <translation type="unfinished"/>
+        <translation>Eĥosondo</translation>
     </message>
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Forigi de Favoratoj</translation>
     </message>
     <message>
         <location/>
@@ -3152,7 +3152,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"/>
+        <translation>Montri ĉiujn servilojn, kiuj respondas eĥosondon</translation>
     </message>
     <message>
         <location/>
@@ -3172,7 +3172,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Copy favorite link to clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Kopii favoratan ligilon al tondujo</translation>
     </message>
     <message>
         <location/>
@@ -3182,7 +3182,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Paste favorite from clipboard</source>
-        <translation type="unfinished"/>
+        <translation>Alglui favoraton de tondujo</translation>
     </message>
     <message>
         <location/>
@@ -3199,17 +3199,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Aldoni al Favoratoj</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"/>
+        <translation>Malfermi Retpaĝon</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;Reachable</source>
-        <translation type="unfinished"/>
+        <translation>Montri Atingeblajn</translation>
     </message>
     <message>
         <location/>
@@ -3219,7 +3219,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>Montri Ĉion</translation>
     </message>
 </context>
 <context>
@@ -3227,7 +3227,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished"/>
+        <translation>Redakti Servilon</translation>
     </message>
     <message>
         <location/>
@@ -3293,7 +3293,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation>Aldoni servilo</translation>
+        <translation>Aldoni Servilon</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3637,7 +3637,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished"/>
+        <translation>Listo da uzantoj</translation>
     </message>
     <message>
         <location/>
@@ -3652,7 +3652,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Modifiers</source>
-        <translation type="unfinished"/>
+        <translation>Modifiloj</translation>
     </message>
     <message>
         <location/>
@@ -3662,7 +3662,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Ignori pozician sonon</translation>
     </message>
     <message>
         <location/>
@@ -3693,7 +3693,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+357"/>
         <source>Mouse %1</source>
         <translation>Muso %1</translation>
     </message>
@@ -3711,7 +3711,7 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation type="unfinished"/>
+        <translation>Ebligi ĉi tiun aparaton</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3761,7 +3761,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"/>
+        <translation>Minimuma Kolumnolarĝo</translation>
     </message>
     <message>
         <location/>
@@ -3816,7 +3816,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation type="unfinished"/>
+        <translation>Aliulo sin mutigis/surdigis</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3836,7 +3836,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto Foriris la Servilon</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3856,47 +3856,47 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Vi vin mutigis</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User muted (you)</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto mutiĝis (vi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (by you)</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto mutiĝis (de vi)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto mutiĝis (aliulo)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto Eniris la Kanalon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto Foriris la Kanalon</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>Vi vin malmutigis</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>Vi vin surdigis</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>Vi vin malsurdigis</translation>
     </message>
     <message>
         <location line="+58"/>
@@ -3906,13 +3906,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Teksta objekto tro grandas por montri ]]</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"/>
+        <translation>[La dato ŝanĝis al %1]
+</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -4073,7 +4074,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Flustro</translation>
     </message>
     <message>
         <location/>
@@ -4182,7 +4183,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Users above Channels</source>
-        <translation type="unfinished"/>
+        <translation>Uzantoj supre de la Kanaloj</translation>
     </message>
     <message>
         <location/>
@@ -4192,12 +4193,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"/>
+        <translation>Montri nombron da uzantoj en ĉiu kanalo</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished"/>
+        <translation>Montri nombron da uzantoj en la kanalo</translation>
     </message>
     <message>
         <location/>
@@ -4207,7 +4208,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>Lingvo por uzi (relanĉo nepras)</translation>
     </message>
     <message>
         <location/>
@@ -4430,21 +4431,21 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2386"/>
+        <location line="+2402"/>
         <source>Root</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2332"/>
+        <location line="-2348"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Premi-por-Paroli</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Premadi ĉi tiun butonon por sendadi voĉon.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4513,13 +4514,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+19"/>
-        <location line="+2456"/>
+        <location line="+22"/>
+        <location line="+2469"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2451"/>
+        <location line="-2464"/>
         <source>&amp;Window</source>
         <translation type="unfinished"/>
     </message>
@@ -4545,7 +4546,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-216"/>
+        <location line="-219"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation type="unfinished"/>
@@ -4587,14 +4588,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+67"/>
-        <location line="+2472"/>
+        <location line="+70"/>
+        <location line="+2485"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-2142"/>
+        <location line="-2155"/>
         <source>Clear</source>
         <translation>Vakigi</translation>
     </message>
@@ -4704,11 +4705,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+72"/>
         <location line="+263"/>
+        <location line="+601"/>
         <source>Message to channel %1</source>
         <translation>Mesaĝo por la kanalo %1</translation>
     </message>
     <message>
-        <location line="+638"/>
+        <location line="+50"/>
         <source>Connected.</source>
         <translation>Konektite.</translation>
     </message>
@@ -4758,12 +4760,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ne rekonis bildformaton.</translation>
     </message>
     <message>
-        <location line="-1779"/>
+        <location line="-1792"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1009"/>
+        <location line="-1012"/>
         <source>&amp;User</source>
         <translation>&amp;Uzanto</translation>
     </message>
@@ -4798,6 +4800,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Send Text Message</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+84"/>
         <source>Continuous</source>
         <translation type="unfinished"/>
@@ -4810,7 +4818,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Premi-por-Paroli</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -4824,21 +4832,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+36"/>
+        <location line="+1404"/>
         <source>Transmit Mode set to Continous</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1399"/>
+        <location line="+1391"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1386"/>
+        <location line="+1390"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="-1312"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -4894,12 +4905,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1449"/>
+        <location line="+1462"/>
         <source>&amp;View Certificate</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1171"/>
+        <location line="-1184"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Enigu kialon</translation>
@@ -4914,11 +4925,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+99"/>
         <location line="+4"/>
         <location line="+259"/>
+        <location line="+601"/>
         <source>To %1: %2</source>
         <translation>Al %1: %2</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-963"/>
         <location line="+103"/>
         <source>Message to %1</source>
         <translation>Mesaĝo al %1</translation>
@@ -4957,32 +4969,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation type="unfinished"/>
+        <translation>Malmutigite kaj malsurdigite.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>Malmutigite.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted.</source>
-        <translation type="unfinished"/>
+        <translation>Mutigite.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>Mutigite kaj surdigite.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened.</source>
-        <translation type="unfinished"/>
+        <translation>Surdigite.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation type="unfinished"/>
+        <translation>Malsurdigite</translation>
     </message>
     <message>
         <location line="+93"/>
@@ -4990,12 +5002,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Pri Qt</translation>
     </message>
     <message>
-        <location line="+279"/>
-        <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+150"/>
+        <location line="+442"/>
         <source>SSL Verification failed: %1</source>
         <translation type="unfinished"/>
     </message>
@@ -5163,7 +5170,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute</source>
-        <translation>&amp;Silentigi</translation>
+        <translation>Mutigi</translation>
     </message>
     <message>
         <location/>
@@ -5173,12 +5180,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation type="unfinished"/>
+        <translation>Surdigi</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Loke Mutigi</translation>
     </message>
     <message>
         <location/>
@@ -5268,12 +5275,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation type="unfinished"/>
+        <translation>Mutigi uzanton</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"/>
+        <translation>Mutigi aŭ malmutigi uzanton servile. Malmutigi surdan uzanton ankaŭ malsurdigos ĝin.</translation>
     </message>
     <message>
         <location/>
@@ -5288,17 +5295,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>Surdigi uzanton</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"/>
+        <translation>Surdigi aŭ malsurdigi uzanton servile. Surdigi uzanton ankaŭ mutigos ĝin.</translation>
     </message>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished"/>
+        <translation>Loke mutigi uzanton</translation>
     </message>
     <message>
         <location/>
@@ -5365,7 +5372,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation type="unfinished"/>
+        <translation>Mutigi vin</translation>
     </message>
     <message>
         <location/>
@@ -5380,7 +5387,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation type="unfinished"/>
+        <translation>Surdigi vin</translation>
     </message>
     <message>
         <location/>
@@ -5645,17 +5652,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi mutigis kaj surdigis na %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malmutigis kaj malsurdigis na %1.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malsurdigis na %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5665,17 +5672,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 mutiĝis kaj surdiĝis de %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 malmutiĝis kaj malsurdiĝis de %2.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 malsurdiĝis de %2.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5700,7 +5707,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>%1 nun estas muta kaj surda.</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -5756,22 +5763,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>%1 ne havas atestilon.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Nevalida uzantnomo: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>Nevalida uzantnomo.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalo estas plena.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5786,17 +5793,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 konektis.</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 nun estas muta.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 nun estas malmuta.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5871,17 +5878,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malmutiĝis kaj malsurdiĝis de %1.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi mutiĝis de %1.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malsurdiĝis de %1.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5902,7 +5909,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>Vi movis na %1 al %2.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5915,17 +5922,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 renomiĝis al %2</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>%1 left channel.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 malkonektis.</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+111"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -5934,7 +5936,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"/>
+        <translation>(Arbo)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5972,14 +5974,14 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-506"/>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malmutiĝis de %1.</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi mutigis na %1.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5989,12 +5991,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>Vi malmutigis na %1.</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 mutiĝis de %2.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6004,18 +6006,18 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 malmutiĝis de %2.</translation>
     </message>
     <message>
-        <location line="+407"/>
+        <location line="+409"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Vi mutiĝis kaj surdiĝis de %1.</translation>
     </message>
     <message>
         <location line="+171"/>
@@ -6040,12 +6042,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>Vi moviĝis de %2 al %1.</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 eniris la kanalon.</translation>
     </message>
     <message>
         <location line="-397"/>
@@ -6058,9 +6060,14 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+309"/>
+        <source>%1 left channel and disconnected.</source>
+        <translation>%1 foriris la kanalon kaj malkonektis.</translation>
+    </message>
+    <message>
+        <location line="+123"/>
         <source>Message from %1</source>
-        <translation type="unfinished"/>
+        <translation>Mesaĝo de %1</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
@@ -6692,7 +6699,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>Kolumnoj</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -6702,12 +6709,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>Alfabete</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"/>
+        <translation>Lasta ŝanĝo de la stato</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7046,12 +7053,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"/>
+        <translation>Mutigite aŭ surdigite</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"/>
+        <translation>Mutstato</translation>
     </message>
     <message>
         <location/>
@@ -7442,7 +7449,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+475"/>
+        <location filename="ServerHandler.cpp" line="+481"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation type="unfinished"/>
     </message>
@@ -7785,7 +7792,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Atestilo</translation>
     </message>
     <message>
         <location/>
@@ -8139,7 +8146,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+147"/>
+        <location filename="VersionCheck.cpp" line="+145"/>
         <source>Upgrade Mumble</source>
         <translation type="unfinished"/>
     </message>
@@ -8195,7 +8202,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation type="unfinished"/>
+        <translation>Detaloj de la atestilo</translation>
     </message>
     <message>
         <location line="+26"/>
@@ -8464,7 +8471,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+250"/>
+        <location filename="WASAPI.cpp" line="+253"/>
         <source>Default Device</source>
         <translation>Defaŭlta aparato</translation>
     </message>
@@ -8479,7 +8486,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation>Puŝi por paroli</translation>
+        <translation>Premi por paroli</translation>
     </message>
 </context>
 </TS>

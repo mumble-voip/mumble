@@ -3751,7 +3751,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+357"/>
         <source>Mouse %1</source>
         <translation>Souris %1</translation>
     </message>
@@ -4495,12 +4495,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2386"/>
+        <location line="+2402"/>
         <source>Root</source>
         <translation>Racine</translation>
     </message>
     <message>
-        <location line="-2332"/>
+        <location line="-2348"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Appuyer-pour-parler</translation>
@@ -4578,13 +4578,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+19"/>
-        <location line="+2456"/>
+        <location line="+22"/>
+        <location line="+2469"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2451"/>
+        <location line="-2464"/>
         <source>&amp;Window</source>
         <translation>&amp;Fenêtre</translation>
     </message>
@@ -4610,7 +4610,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches         ?</translation>
     </message>
     <message>
-        <location line="-216"/>
+        <location line="-219"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Se rendre muet</translation>
@@ -4652,14 +4652,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Chuchoter/Crier</translation>
     </message>
     <message>
-        <location line="+67"/>
-        <location line="+2472"/>
+        <location line="+70"/>
+        <location line="+2485"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Non connecté&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2142"/>
+        <location line="-2155"/>
         <source>Clear</source>
         <translation>Effacer</translation>
     </message>
@@ -4769,11 +4769,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+72"/>
         <location line="+263"/>
+        <location line="+601"/>
         <source>Message to channel %1</source>
         <translation>Message pour le salon %1</translation>
     </message>
     <message>
-        <location line="+638"/>
+        <location line="+50"/>
         <source>Connected.</source>
         <translation>Connecté.</translation>
     </message>
@@ -4823,12 +4824,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Format d&apos;image non reconnu.</translation>
     </message>
     <message>
-        <location line="-1779"/>
+        <location line="-1792"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>La voix est envoyée au-dessus du canal de contrôle.</translation>
     </message>
     <message>
-        <location line="-1009"/>
+        <location line="-1012"/>
         <source>&amp;User</source>
         <translation>&amp;Utilisateur</translation>
     </message>
@@ -4863,6 +4864,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Cycle Mode de Transmission</translation>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Send Text Message</source>
+        <comment>Global Shortcut</comment>
+        <translation>Envoyer un message textuel</translation>
+    </message>
+    <message>
         <location line="+84"/>
         <source>Continuous</source>
         <translation>Continu</translation>
@@ -4889,21 +4896,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+36"/>
+        <location line="+1404"/>
         <source>Transmit Mode set to Continous</source>
         <translation>Mode de transmission réglé sur Continu</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1399"/>
+        <location line="+1391"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Mode de transmission réglé sur Activité Vocale</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1386"/>
+        <location line="+1390"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Mode de transmission réglé sur Appuyer pour Parler</translation>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="-1312"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocole %1.&lt;/p&gt;</translation>
     </message>
@@ -4959,12 +4969,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1449"/>
+        <location line="+1462"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Voir le certificat</translation>
     </message>
     <message>
-        <location line="-1171"/>
+        <location line="-1184"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Entrez la raison</translation>
@@ -4979,11 +4989,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+99"/>
         <location line="+4"/>
         <location line="+259"/>
+        <location line="+601"/>
         <source>To %1: %2</source>
         <translation>À %1 : %2</translation>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-963"/>
         <location line="+103"/>
         <source>Message to %1</source>
         <translation>Message à %1</translation>
@@ -5055,12 +5066,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location line="+279"/>
-        <source>Cycled Transmit Mode to %1</source>
-        <translation>Cycle Mode de Transmission sur %1</translation>
-    </message>
-    <message>
-        <location line="+150"/>
+        <location line="+442"/>
         <source>SSL Verification failed: %1</source>
         <translation>Vérification SSL échoué : %1</translation>
     </message>
@@ -5982,17 +5988,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>%1 a été renommé %2</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>%1 left channel.</source>
-        <translation>%1 a quitté le salon.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>%1 disconnected.</source>
         <translation>%1 déconnecté.</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+111"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -6039,7 +6040,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Le serveur requière la désactivation d&apos;appuyer-pour-parler.</translation>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-506"/>
         <source>You were unmuted by %1.</source>
         <translation>%1 vous a rendu le droit à la parole.</translation>
     </message>
@@ -6074,12 +6075,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>%2 a rendu la voix à %1.</translation>
     </message>
     <message>
-        <location line="+407"/>
+        <location line="+409"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation>Incapable de trouver des codecs CELT correspondant aux autres clients. Vous ne serez pas capable de parler aux autres utilisateurs.</translation>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation>%1 vous a rendu sourd et muet.</translation>
@@ -6125,7 +6126,12 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Refusé : %1.</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+309"/>
+        <source>%1 left channel and disconnected.</source>
+        <translation>%1 a quitté le salon et s&apos;est déconnecté.</translation>
+    </message>
+    <message>
+        <location line="+123"/>
         <source>Message from %1</source>
         <translation>Message de la part de %1</translation>
     </message>
@@ -7548,7 +7554,7 @@ Pour mettre à jour l&apos;overlay, cliquez sur le bouton ci-dessous.</translati
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+475"/>
+        <location filename="ServerHandler.cpp" line="+481"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>Les paquets UDP ne peuvent pas être envoyés ni reçus du serveur. Passage en mode TCP.</translation>
     </message>
@@ -8248,7 +8254,7 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+147"/>
+        <location filename="VersionCheck.cpp" line="+145"/>
         <source>Upgrade Mumble</source>
         <translation>Mettre Mumble à jour</translation>
     </message>
@@ -8574,7 +8580,7 @@ Contactez l&apos;administrateur de votre serveur pour de plus amples information
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+250"/>
+        <location filename="WASAPI.cpp" line="+253"/>
         <source>Default Device</source>
         <translation>Périphérique par défaut</translation>
     </message>

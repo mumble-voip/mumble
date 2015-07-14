@@ -3698,7 +3698,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+344"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+357"/>
         <source>Mouse %1</source>
         <translation>Sagua %1</translation>
     </message>
@@ -4278,12 +4278,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Skin</source>
-        <translation type="unfinished"/>
+        <translation>Azala</translation>
     </message>
     <message>
         <location/>
         <source>Skin file to use</source>
-        <translation type="unfinished"/>
+        <translation>Erabili nahi den azal fitxategia</translation>
     </message>
     <message>
         <location/>
@@ -4313,12 +4313,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation type="unfinished"/>
+        <translation>Galdetu irteterakoan konektatua zauden bitarten</translation>
     </message>
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished"/>
+        <translation>Beti gainean</translation>
     </message>
     <message>
         <location/>
@@ -4328,7 +4328,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"/>
+        <translation>Ikonoan ezkutatu minimizatzerakoan</translation>
     </message>
     <message>
         <location/>
@@ -4368,7 +4368,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"/>
+        <translation>Erakutsi hizketa egoera sistemaren ikonoan</translation>
     </message>
     <message>
         <location/>
@@ -4403,12 +4403,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Tray Icon</source>
-        <translation type="unfinished"/>
+        <translation>Sistema ikonoa</translation>
     </message>
     <message>
         <location/>
         <source>Channel Tree</source>
-        <translation type="unfinished"/>
+        <translation>Kanalen zuhaitza</translation>
     </message>
     <message>
         <location/>
@@ -4435,12 +4435,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2386"/>
+        <location line="+2402"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location line="-2332"/>
+        <location line="-2348"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Sakatu-hitz-egiteko</translation>
@@ -4518,13 +4518,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+19"/>
-        <location line="+2456"/>
+        <location line="+22"/>
+        <location line="+2469"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2451"/>
+        <location line="-2464"/>
         <source>&amp;Window</source>
         <translation>&amp;Leihoa</translation>
     </message>
@@ -4550,7 +4550,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble zerbitzari batera dago konektatuta orain. Itxi edo Minimizatu nahi al duzu?</translation>
     </message>
     <message>
-        <location line="-216"/>
+        <location line="-219"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mututu</translation>
@@ -4589,17 +4589,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"/>
+        <translation>Ahopeka/Ohiuka</translation>
     </message>
     <message>
-        <location line="+67"/>
-        <location line="+2472"/>
+        <location line="+70"/>
+        <location line="+2485"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Konektatu gabe&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2142"/>
+        <location line="-2155"/>
         <source>Clear</source>
         <translation>Garbitu</translation>
     </message>
@@ -4616,7 +4616,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Fitxategia ez da konfigurazio fitxategia</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4694,7 +4694,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 erabiltzailea bidaltzen</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -4709,11 +4709,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+72"/>
         <location line="+263"/>
+        <location line="+601"/>
         <source>Message to channel %1</source>
         <translation>Mezua %1 kanalera</translation>
     </message>
     <message>
-        <location line="+638"/>
+        <location line="+50"/>
         <source>Connected.</source>
         <translation>Konektatuta.</translation>
     </message>
@@ -4763,12 +4764,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Irudi formatua ez da ezagutzen.</translation>
     </message>
     <message>
-        <location line="-1779"/>
+        <location line="-1792"/>
         <source>Voice channel is sent over control channel.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1009"/>
+        <location line="-1012"/>
         <source>&amp;User</source>
         <translation>&amp;Erabiltzailea</translation>
     </message>
@@ -4803,6 +4804,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
+        <location line="+3"/>
+        <source>Send Text Message</source>
+        <comment>Global Shortcut</comment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+84"/>
         <source>Continuous</source>
         <translation>Etengabekoa</translation>
@@ -4829,21 +4836,24 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+36"/>
+        <location line="+1404"/>
         <source>Transmit Mode set to Continous</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1399"/>
+        <location line="+1391"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-1386"/>
+        <location line="+1390"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+78"/>
+        <location line="-1312"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Bertsioa&lt;/h2&gt;&lt;p&gt;%1 Protokoloa.&lt;/p&gt;</translation>
     </message>
@@ -4899,12 +4909,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1449"/>
+        <location line="+1462"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ziurtagiria ikusi</translation>
     </message>
     <message>
-        <location line="-1171"/>
+        <location line="-1184"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Sartu arrazoia</translation>
@@ -4919,11 +4929,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+99"/>
         <location line="+4"/>
         <location line="+259"/>
+        <location line="+601"/>
         <source>To %1: %2</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-362"/>
+        <location line="-963"/>
         <location line="+103"/>
         <source>Message to %1</source>
         <translation>%1-ri mezua</translation>
@@ -4995,12 +5006,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Qt-ri buruz</translation>
     </message>
     <message>
-        <location line="+279"/>
-        <source>Cycled Transmit Mode to %1</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+150"/>
+        <location line="+442"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL egiaztapenak huts egin du: %1</translation>
     </message>
@@ -5093,7 +5099,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Log</source>
-        <translation type="unfinished"/>
+        <translation>Loga</translation>
     </message>
     <message>
         <location/>
@@ -5263,7 +5269,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>Bidali erabiltzailea (arrazoiarekin)</translation>
     </message>
     <message>
         <location/>
@@ -5460,7 +5466,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Zer da hau?</translation>
     </message>
     <message>
         <location/>
@@ -5475,7 +5481,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Honi buruz</translation>
     </message>
     <message>
         <location/>
@@ -5836,42 +5842,42 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dizu</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dizu</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>Hizlari lehentasun egoera kendu diozu %1 -eri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Hizlari lehentasun egoera eman diozu %1 -eri</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dio bere buruari</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dio bere buruari</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera ezeztatu dio %2 -ri</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ek hizlari lehentasun egoera eman dio %2 -ri</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -5907,7 +5913,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -a %2-ra mugitu duzu</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -5917,20 +5923,15 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+9"/>
         <source>%1 renamed to %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 -ri izena aldatu zaio %2 -ra</translation>
     </message>
     <message>
-        <location line="+45"/>
-        <source>%1 left channel.</source>
-        <translation>%1-ek kanala utzi du.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+47"/>
         <source>%1 disconnected.</source>
         <translation>%1 deskonektatua.</translation>
     </message>
     <message>
-        <location line="+110"/>
+        <location line="+111"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
@@ -5949,7 +5950,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -5977,7 +5978,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-504"/>
+        <location line="-506"/>
         <source>You were unmuted by %1.</source>
         <translation type="unfinished"/>
     </message>
@@ -5994,7 +5995,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>%2 -k %1 -ra mugitua dizu</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -6012,12 +6013,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+407"/>
+        <location line="+409"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-473"/>
+        <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
         <translation type="unfinished"/>
@@ -6055,7 +6056,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-397"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzarira konexioa ezeztatua: %1</translation>
     </message>
     <message>
         <location line="+147"/>
@@ -6063,7 +6064,12 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Ukatua: %1.</translation>
     </message>
     <message>
-        <location line="+430"/>
+        <location line="+309"/>
+        <source>%1 left channel and disconnected.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+123"/>
         <source>Message from %1</source>
         <translation>%1-en mezua</translation>
     </message>
@@ -6153,7 +6159,7 @@ Valid actions are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>Markoa ezkutatu</translation>
     </message>
     <message>
         <location/>
@@ -6218,17 +6224,17 @@ Valid actions are:
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"/>
+        <translation>Z&amp;erbitzaria</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Ni</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"/>
+        <translation>Audio estatistikak</translation>
     </message>
     <message>
         <location/>
@@ -6238,7 +6244,7 @@ Valid actions are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>Erregistratu</translation>
     </message>
     <message>
         <location/>
@@ -6268,7 +6274,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>Ikonoen barra</translation>
     </message>
     <message>
         <location/>
@@ -7447,7 +7453,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+475"/>
+        <location filename="ServerHandler.cpp" line="+481"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>UDP paketeak ezin dira zerbitzariruntz bidali edo zerbitzaritik jaso. TCP modura aldatzen.</translation>
     </message>
@@ -8144,7 +8150,7 @@ An access token is a text string, which can be used as a password for very simpl
 <context>
     <name>VersionCheck</name>
     <message>
-        <location filename="VersionCheck.cpp" line="+147"/>
+        <location filename="VersionCheck.cpp" line="+145"/>
         <source>Upgrade Mumble</source>
         <translation>Mumble eguneratu</translation>
     </message>
@@ -8469,7 +8475,7 @@ Please contact your server administrator for further information.</source>
 <context>
     <name>WASAPISystem</name>
     <message>
-        <location filename="WASAPI.cpp" line="+250"/>
+        <location filename="WASAPI.cpp" line="+253"/>
         <source>Default Device</source>
         <translation>Gailu Lehenetsia</translation>
     </message>
