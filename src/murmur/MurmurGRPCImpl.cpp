@@ -92,7 +92,54 @@ MurmurRPCImpl::~MurmurRPCImpl() {
 }
 
 void MurmurRPCImpl::cleanup() {
-	// TODO(grpc): cleanup old connections in: qhContextActionListeners, qsMetaServiceListeners, qmhServerServiceListeners, qhAuthenticators
+	for (auto i = qsMetaServiceListeners.begin(); i != qsMetaServiceListeners.end(); ) {
+		auto listener = *i;
+		if (listener->context.IsCancelled()) {
+			qsMetaServiceListeners.erase(i);
+			listener->deref();
+		} else {
+			++i;
+		}
+	}
+
+	for (auto i = qhContextActionListeners.begin(); i != qhContextActionListeners.end(); ) {
+		auto &ref = i.value();
+		for (auto j = ref.begin(); j != ref.end(); ) {
+			auto listener = j.value();
+			if (listener->context.IsCancelled()) {
+				ref.erase(j);
+				listener->deref();
+			} else {
+				j++;
+			}
+		}
+
+		if (ref.isEmpty()) {
+			qhContextActionListeners.erase(i);
+		} else {
+			i++;
+		}
+	}
+
+	for (auto i = qmhServerServiceListeners.begin(); i != qmhServerServiceListeners.end(); i++) {
+		auto listener = i.value();
+		if (listener->context.IsCancelled()) {
+			qmhServerServiceListeners.erase(i);
+			listener->deref();
+		} else {
+			i++;
+		}
+	}
+
+	for (auto i = qhAuthenticators.begin(); i != qhAuthenticators.end(); i++) {
+		auto listener = i.value();
+		if (listener->context.IsCancelled()) {
+			qhAuthenticators.erase(i);
+			listener->deref();
+		} else {
+			i++;
+		}
+	}
 }
 
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
@@ -279,7 +326,9 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	auto listeners = qsMetaServiceListeners;
-	foreach(auto listener, listeners) {
+
+	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
+		auto listener = *i;
 		auto cb = [this, listener] (::MurmurRPC::Wrapper::MetaService_Events *, bool ok) {
 			if (ok) {
 				return;
