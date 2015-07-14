@@ -550,6 +550,7 @@ speechd {
 		PKGCONFIG *= speech-dispatcher
 	} else {
 		LIBS *= -lspeechd
+		INCLUDEPATH	*= /usr/include/speech-dispatcher
 	}
 }
 
