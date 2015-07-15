@@ -599,7 +599,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>설정(&amp;C)</translation>
+        <translation>설정</translation>
     </message>
     <message>
         <location/>
@@ -2349,7 +2349,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform></translation>
+        <translation><numerusform>차단 리스트-%n Ban(s)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2898,7 +2898,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation>킥</translation>
+        <translation>강퇴</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5028,7 +5028,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation> 청취 금지를 해제 되었습니다.</translation>
+        <translation> 청취 금지를 해제했습니다.</translation>
     </message>
     <message>
         <location line="+93"/>
@@ -5199,7 +5199,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Kick</source>
-        <translation type="unfinished"/>
+        <translation>강퇴</translation>
     </message>
     <message>
         <location/>
@@ -5209,7 +5209,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation type="unfinished"/>
+        <translation>차단</translation>
     </message>
     <message>
         <location/>
@@ -5943,7 +5943,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>당신은 %1 를 %2로 이동 시켰습니다.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -6096,7 +6096,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 채널 및 서버를 접속 종료 하였습니다.</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -6349,7 +6349,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>차단 리스트</translation>
     </message>
     <message>
         <location/>
@@ -7093,7 +7093,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation>발언 금지 또는 조사 금지</translation>
+        <translation>발언 금지 또는 청취 금지</translation>
     </message>
     <message>
         <location/>
@@ -7322,7 +7322,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>설정(&amp;C)</translation>
+        <translation>설정</translation>
     </message>
     <message>
         <location/>

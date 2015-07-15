@@ -70,7 +70,7 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Entajpu la kanal-nomon ĉi tien!</translation>
+        <translation>Enigu la kanal-nomon ĉi tien.</translation>
     </message>
     <message>
         <location/>
@@ -85,7 +85,7 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Entajpu la kanal-pasvorton ĉi tien!</translation>
+        <translation>Enigu la kanal-pasvorton ĉi tien.</translation>
     </message>
     <message>
         <location/>
@@ -478,7 +478,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>Identigilo de la kanalo.</translation>
     </message>
     <message>
         <location/>
@@ -1295,7 +1295,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Kiom da datenoj por bufri</translation>
     </message>
     <message>
         <location/>
@@ -1895,7 +1895,7 @@ You should hear a voice sample. Change the slider below to the lowest value whic
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Kiom da datenoj por bufri</translation>
     </message>
     <message>
         <location/>
@@ -3039,7 +3039,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation>Aldonante gastigon %1</translation>
+        <translation>Aldonante gastigan komputilon %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3050,7 +3050,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation>Nomo de gastigo</translation>
+        <translation>Nomo de gastiga komputilo</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3277,13 +3277,14 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation type="unfinished"/>
+        <translation>La uzantnomo por sendi al la servilo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Uzantnomo&lt;/b&gt;&lt;br/&gt;
+La uzantnomo por sendi al la servilo. Konsciu ke la servilo povas trudi limigojn pri kiel uzantnomo povas aspekti. Krome via uzantnomo jam povas esti uzata de alia uzanto.</translation>
     </message>
     <message>
         <location/>
@@ -3298,23 +3299,24 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation>pasvorto</translation>
+        <translation>Pasvorto</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"/>
+        <translation>La pasvorto por sendi al la servilo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Pasvorto&lt;/b&gt;&lt;br/&gt;
+La pasvorto por sendi al la servilo ekkonekte. La pasvorto nepras, kiam oni konektas kiel &lt;i&gt;SuperUser&lt;i&gt; aŭ al servilo, kiu uzas perpasvortan aŭtentigon. Se la pasvorto ne estas enigita, ĝi estos petata ekkonekte.</translation>
     </message>
     <message>
         <location/>
         <source>Show password</source>
-        <translation>Montri pasvorto</translation>
+        <translation>Montri pasvorton</translation>
     </message>
     <message>
         <location/>
@@ -3330,22 +3332,22 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Via uzantnomo</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Via pasvorto</translation>
     </message>
 </context>
 <context>
@@ -3423,7 +3425,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation type="unfinished"/>
+        <translation>Ĉesigi alŝuton</translation>
     </message>
 </context>
 <context>
@@ -3500,27 +3502,27 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.ui"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Fulmoklavoj</translation>
     </message>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Listo da agorditaj fulmoklavoj</translation>
     </message>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished"/>
+        <translation>Funkcio</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"/>
+        <translation>Datenoj</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Fulmoklavo</translation>
     </message>
     <message>
         <location/>
@@ -3530,12 +3532,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Aldoni novan fulmoklavon</translation>
     </message>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Tio aldonos novan mallokan fulmoklavon</translation>
     </message>
     <message>
         <location/>
@@ -3545,12 +3547,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Forigi la elektitan fulmoklavon</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Tio daŭre forigi elektitan fulmoklavon.</translation>
     </message>
     <message>
         <location/>
@@ -3575,7 +3577,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Ebligi Mallokajn Fulmoklavojn</translation>
     </message>
 </context>
 <context>
@@ -3583,7 +3585,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Fulmoklavoj</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -5024,7 +5026,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Servila konekto malsukcesis: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5220,7 +5222,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Remove channel</source>
-        <translation>Forigi kanalo</translation>
+        <translation>Forigi kanalon</translation>
     </message>
     <message>
         <location/>
@@ -5738,22 +5740,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"/>
+        <translation>Malpermesis: Ne povas modifi la uzanton SuperUser.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>Malpermesis: Nevalida kanal-nomo.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>Malpermesis: Teksta mesaĝo tro longas.</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>Malpermesis: Operacio ne estas permesata en provizora kanalo.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -6052,12 +6054,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-397"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Malakceptis la servilan konekton: %1.</translation>
     </message>
     <message>
         <location line="+147"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Malpermesis: %1.</translation>
     </message>
     <message>
         <location line="+309"/>
@@ -6130,17 +6132,17 @@ Valid actions are:
     <message>
         <location line="+24"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>Alvoko</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>Eraro: Ne specifis komandon de RPC </translation>
     </message>
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+207"/>
@@ -6155,7 +6157,7 @@ Valid actions are:
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation>Kaŝi kadron</translation>
+        <translation>Kaŝi la Kadron</translation>
     </message>
     <message>
         <location/>
@@ -6170,12 +6172,12 @@ Valid actions are:
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>Sendi la &amp;Mesaĝon</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"/>
+        <translation>Malligi Ĉion</translation>
     </message>
     <message>
         <location/>
@@ -6190,12 +6192,12 @@ Valid actions are:
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"/>
+        <translation>Nuligi la Komenton</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Nuligi la komenton de la elektita uzanto.</translation>
     </message>
     <message>
         <location/>
@@ -6240,7 +6242,7 @@ Valid actions are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>Registriĝi</translation>
     </message>
     <message>
         <location/>
@@ -6250,17 +6252,17 @@ Valid actions are:
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Ŝanĝi la Avataron</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"/>
+        <translation>Ŝanĝi vian avatarbildon en la servilo</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Forigi la Avataron</translation>
     </message>
     <message>
         <location/>
@@ -6275,7 +6277,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>Ŝanĝi vian propran komenton</translation>
     </message>
     <message>
         <location/>
@@ -6290,7 +6292,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kopii na la URL</translation>
     </message>
     <message>
         <location/>
@@ -6300,12 +6302,12 @@ Valid actions are:
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>Ignori Mesaĝojn</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>Loke ignori la tekstajn babilmesaĝojn de la uzanto.</translation>
     </message>
     <message>
         <location/>
@@ -6330,12 +6332,12 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Filtrilo ŝaltita/malŝaltita</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Baskuligi la kanal-filtron (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6353,7 +6355,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>Kaŝi Kanalon dum Filtrante</translation>
     </message>
     <message>
         <location/>
@@ -6397,17 +6399,17 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect when disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Rekonekti post malkonektiĝo</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Rekonekti post malkonektiĝo&lt;/b&gt;.&lt;br/&gt;Tio igos na Mumble aŭtomate provi rekonekti post 10 sekundoj, se via servila konekto fiaskas.</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"/>
+        <translation>Rekonekti aŭtomate</translation>
     </message>
     <message>
         <location/>
@@ -6427,7 +6429,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>Senpera konekto</translation>
     </message>
     <message>
         <location/>
@@ -6442,12 +6444,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation>Komputilonomo</translation>
+        <translation>Nomo de gastiga komputilo</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation>Komputilonomo de la prokurilo</translation>
+        <translation>Nomo de la prokurila gastiga komputilo</translation>
     </message>
     <message>
         <location/>
@@ -6497,12 +6499,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>Pordo</translation>
     </message>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>Porda numero de la prokurilo</translation>
     </message>
     <message>
         <location/>
@@ -6517,7 +6519,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>Uzantnomo por prokuril-aŭtentikeco</translation>
     </message>
     <message>
         <location/>
@@ -6532,7 +6534,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation>Pasvorto por prokuriloaûtentikeco</translation>
+        <translation>Pasvorto por prokuril-aŭtentikeco</translation>
     </message>
     <message>
         <location/>
@@ -6558,12 +6560,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation type="unfinished"/>
+        <translation>Malebligi elŝuton de bildoj</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Servoj de Mumble</translation>
     </message>
     <message>
         <location/>
@@ -6669,12 +6671,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>Nur parolante</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"/>
+        <translation>Parolante kaj aktive antaŭ ne longe</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6968,7 +6970,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto ne estas parolanta</translation>
     </message>
     <message>
         <location/>
@@ -6978,22 +6980,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"/>
+        <translation>La uzanto estas parolanta en aŭ via kanalo aŭ ligita kanalo.</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>Parolante</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"/>
+        <translation>La uzanto estas flustranta private al vi</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Privata Flustro</translation>
     </message>
     <message>
         <location/>
@@ -7003,7 +7005,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Kanala Flustro</translation>
     </message>
     <message>
         <location/>
@@ -7033,7 +7035,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>Nomo de la uzanto</translation>
     </message>
     <message>
         <location/>
@@ -7068,7 +7070,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>Limiga kesto</translation>
     </message>
     <message>
         <location/>
@@ -7112,48 +7114,48 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"/>
+        <translation>Ĝisrandigo</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>Maldekstra</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>Centra</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"/>
+        <translation>Dekstra</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"/>
+        <translation>Supra</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"/>
+        <translation>Malsupra</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"/>
+        <translation>Koloro...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"/>
+        <translation>Tiparo...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>Limiga kesto</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7415,7 +7417,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation type="unfinished"/>
+        <translation>Enmeti Ligilon</translation>
     </message>
     <message>
         <location/>
@@ -7425,7 +7427,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation>Enmeti bildon</translation>
+        <translation>Enmeti Bildon</translation>
     </message>
 </context>
 <context>
@@ -7433,7 +7435,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>Aldoni ligilon</translation>
+        <translation>Aldoni Ligilon</translation>
     </message>
     <message>
         <location/>
@@ -7489,7 +7491,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation type="unfinished"/>
+        <translation>Publika Interreto</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7499,7 +7501,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation>Asio</translation>
+        <translation>Azio</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7519,7 +7521,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>Oceanio</translation>
     </message>
 </context>
 <context>
@@ -7527,7 +7529,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Neatribuite</translation>
     </message>
 </context>
 <context>
@@ -7545,12 +7547,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation>Ŝalti</translation>
+        <translation>Baskuligi</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Neatribuite</translation>
     </message>
 </context>
 <context>
@@ -7558,7 +7560,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-450"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Premi Fulmoklavon</translation>
     </message>
 </context>
 <context>
@@ -7566,23 +7568,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Radiko</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>Patro</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>Aktuala</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>La %1a Subkanalo</translation>
     </message>
 </context>
 <context>
@@ -7590,7 +7592,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation>…</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -7600,23 +7602,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Radiko</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>Patro</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>Aktuala</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>La %1a Subkanalo</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -7635,17 +7637,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation>El</translation>
+        <translation>Malŝaltite</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation>Ŝalti</translation>
+        <translation>Baskule</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation>En</translation>
+        <translation>Ŝaltite</translation>
     </message>
 </context>
 <context>
@@ -7676,12 +7678,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Atingoĵetonoj</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>Listo da atingoĵetonoj en aktuala servilo</translation>
     </message>
     <message>
         <location/>
@@ -7694,7 +7696,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"/>
+        <translation>Aldoni ĵetonon</translation>
     </message>
     <message>
         <location/>
@@ -7704,7 +7706,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation type="unfinished"/>
+        <translation>Forigi ĵetonon</translation>
     </message>
     <message>
         <location/>
@@ -8419,7 +8421,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"/>
+        <translation>Enmetas la nomon de gastiga komputilo</translation>
     </message>
     <message>
         <location line="+26"/>

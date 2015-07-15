@@ -4868,7 +4868,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Poslat textovou zprávu</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -6129,7 +6129,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 opustil kanál a odpojil se.</translation>
     </message>
     <message>
         <location line="+123"/>
