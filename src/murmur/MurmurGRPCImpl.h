@@ -56,12 +56,12 @@ public:
 	}
 	virtual ::boost::function<void(bool)> *done() = 0;
 	virtual void error(const ::grpc::Status&) = 0;
-	void deref() {
+	virtual void deref() {
 		if (--mRefs <= 0) {
 			delete this;
 		}
 	}
-	void ref() {
+	virtual void ref() {
 		mRefs++;
 	}
 

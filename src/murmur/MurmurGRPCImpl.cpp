@@ -95,7 +95,7 @@ void MurmurRPCImpl::cleanup() {
 	for (auto i = qsMetaServiceListeners.begin(); i != qsMetaServiceListeners.end(); ) {
 		auto listener = *i;
 		if (listener->context.IsCancelled()) {
-			qsMetaServiceListeners.erase(i);
+			i = qsMetaServiceListeners.erase(i);
 			listener->deref();
 		} else {
 			++i;
@@ -107,7 +107,7 @@ void MurmurRPCImpl::cleanup() {
 		for (auto j = ref.begin(); j != ref.end(); ) {
 			auto listener = j.value();
 			if (listener->context.IsCancelled()) {
-				ref.erase(j);
+				j = ref.erase(j);
 				listener->deref();
 			} else {
 				++j;
@@ -115,7 +115,7 @@ void MurmurRPCImpl::cleanup() {
 		}
 
 		if (ref.isEmpty()) {
-			qhContextActionListeners.erase(i);
+			i = qhContextActionListeners.erase(i);
 		} else {
 			++i;
 		}
@@ -124,7 +124,7 @@ void MurmurRPCImpl::cleanup() {
 	for (auto i = qmhServerServiceListeners.begin(); i != qmhServerServiceListeners.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
-			qmhServerServiceListeners.erase(i);
+			i = qmhServerServiceListeners.erase(i);
 			listener->deref();
 		} else {
 			++i;
@@ -134,7 +134,7 @@ void MurmurRPCImpl::cleanup() {
 	for (auto i = qhAuthenticators.begin(); i != qhAuthenticators.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
-			qhAuthenticators.erase(i);
+			i = qhAuthenticators.erase(i);
 			listener->deref();
 		} else {
 			++i;
@@ -330,11 +330,9 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
 		auto listener = *i;
 		auto cb = [this, listener] (::MurmurRPC::Wrapper::MetaService_Events *, bool ok) {
-			if (ok) {
-				return;
+			if (!ok && qsMetaServiceListeners.remove(listener)) {
+				listener->deref();
 			}
-			this->qsMetaServiceListeners.remove(listener);
-			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -364,6 +362,7 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 		return;
 	}
 	if (!authenticator->context.IsCancelled()) {
+		authenticator->ref();
 		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
 	}
 	qhAuthenticators.remove(s->iServerNum);
@@ -704,11 +703,9 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
 		auto listener = i.value();
 		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::ServerService_Events *, bool ok) {
-			if (ok) {
-				return;
+			if (!ok && qmhServerServiceListeners.remove(serverID, listener) > 0) {
+				listener->deref();
 			}
-			this->qmhServerServiceListeners.remove(serverID, listener);
-			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -807,11 +804,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	for ( ; i != listeners.end() && i.key() == action; ++i) {
 		auto listener = i.value();
 		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::ContextActionService_Events *, bool ok) {
-			if (ok) {
-				return;
-			}
-			if (this->qhContextActionListeners.contains(serverID)) {
-				this->qhContextActionListeners[serverID].remove(action, listener);
+			if (!ok && qhContextActionListeners[serverID].remove(action, listener) > 0) {
 				listener->deref();
 			}
 		};
