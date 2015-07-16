@@ -73,7 +73,6 @@ message Event {
 
 message ContextAction {
 	enum Context {
-		None = 0x00;
 		Server = 0x01;
 		Channel = 0x02;
 		User = 0x04;
