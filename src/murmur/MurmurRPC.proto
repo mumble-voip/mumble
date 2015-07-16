@@ -82,7 +82,7 @@ message ContextAction {
 	// The server on which the action is.
 	optional Server server = 1;
 	// The context in which the action is.
-	optional Context context = 2;
+	optional uint32 context = 2;
 	// The action name.
 	optional string action = 3;
 	// The user-visible descriptive name of the action.
@@ -371,10 +371,10 @@ message ACL {
 	// The group to whom the ACL applies.
 	optional ACL.Group group = 7;
 
-	// The permissions granted by the ACL.
-	optional Permission allow = 8;
-	// The permissions denied by the ACL.
-	optional Permission deny = 9;
+	// The permissions granted by the ACL (bitmask of ACL.Permission).
+	optional uint32 allow = 8;
+	// The permissions denied by the ACL (bitmask of ACL.Permission).
+	optional uint32 deny = 9;
 
 	message Query {
 		// The server where the user and channel exist.
