@@ -65,20 +65,7 @@ void RPCStop() {
 MurmurRPCImpl::MurmurRPCImpl(const QString &address) : qtCleanup(this) {
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
-	builder.RegisterAsyncService(&aACLService);
-	builder.RegisterAsyncService(&aAudioService);
-	builder.RegisterAsyncService(&aAuthenticatorService);
-	builder.RegisterAsyncService(&aBanService);
-	builder.RegisterAsyncService(&aChannelService);
-	builder.RegisterAsyncService(&aConfigService);
-	builder.RegisterAsyncService(&aContextActionService);
-	builder.RegisterAsyncService(&aDatabaseService);
-	builder.RegisterAsyncService(&aLogService);
-	builder.RegisterAsyncService(&aMetaService);
-	builder.RegisterAsyncService(&aServerService);
-	builder.RegisterAsyncService(&aTextMessageService);
-	builder.RegisterAsyncService(&aTreeService);
-	builder.RegisterAsyncService(&aUserService);
+	builder.RegisterAsyncService(&aV1Service);
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
 	meta->connectListener(this);
@@ -329,7 +316,7 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 
 	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
 		auto listener = *i;
-		auto cb = [this, listener] (::MurmurRPC::Wrapper::MetaService_Events *, bool ok) {
+		auto cb = [this, listener] (::MurmurRPC::Wrapper::V1_Events *, bool ok) {
 			if (!ok && qsMetaServiceListeners.remove(listener)) {
 				listener->deref();
 			}
@@ -371,7 +358,7 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -437,7 +424,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -473,7 +460,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -500,7 +487,7 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -532,7 +519,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -560,7 +547,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -595,7 +582,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -621,7 +608,7 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -646,7 +633,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -671,7 +658,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::AuthenticatorService_Stream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -702,7 +689,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 
 	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
 		auto listener = i.value();
-		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::ServerService_Events *, bool ok) {
+		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::V1_ServerEvents *, bool ok) {
 			if (!ok && qmhServerServiceListeners.remove(serverID, listener) > 0) {
 				listener->deref();
 			}
@@ -803,7 +790,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	auto i = listeners.find(action);
 	for ( ; i != listeners.end() && i.key() == action; ++i) {
 		auto listener = i.value();
-		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::ContextActionService_Events *, bool ok) {
+		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::V1_ContextActionEvents *, bool ok) {
 			if (!ok && qhContextActionListeners[serverID].remove(action, listener) > 0) {
 				listener->deref();
 			}
@@ -941,20 +928,7 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
 }
 
 void MurmurRPCImpl::run() {
-	MurmurRPC::Wrapper::ACLService_Init(this, &aACLService);
-	MurmurRPC::Wrapper::AudioService_Init(this, &aAudioService);
-	MurmurRPC::Wrapper::AuthenticatorService_Init(this, &aAuthenticatorService);
-	MurmurRPC::Wrapper::BanService_Init(this, &aBanService);
-	MurmurRPC::Wrapper::ChannelService_Init(this, &aChannelService);
-	MurmurRPC::Wrapper::ConfigService_Init(this, &aConfigService);
-	MurmurRPC::Wrapper::ContextActionService_Init(this, &aContextActionService);
-	MurmurRPC::Wrapper::DatabaseService_Init(this, &aDatabaseService);
-	MurmurRPC::Wrapper::LogService_Init(this, &aLogService);
-	MurmurRPC::Wrapper::MetaService_Init(this, &aMetaService);
-	MurmurRPC::Wrapper::ServerService_Init(this, &aServerService);
-	MurmurRPC::Wrapper::TextMessageService_Init(this, &aTextMessageService);
-	MurmurRPC::Wrapper::TreeService_Init(this, &aTreeService);
-	MurmurRPC::Wrapper::UserService_Init(this, &aUserService);
+	MurmurRPC::Wrapper::V1_Init(this, &aV1Service);
 
 	void *tag;
 	bool ok;
@@ -974,7 +948,7 @@ void MurmurRPCImpl::run() {
 namespace MurmurRPC {
 namespace Wrapper {
 
-void ServerService_Create::impl(bool) {
+void V1_CreateServer::impl(bool) {
 	auto id = ServerDB::addServer();
 
 	::MurmurRPC::Server rpcServer;
@@ -982,7 +956,7 @@ void ServerService_Create::impl(bool) {
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void ServerService_Query::impl(bool) {
+void V1_QueryServers::impl(bool) {
 	::MurmurRPC::Server_List list;
 
 	foreach(int id, ServerDB::getAllServers()) {
@@ -999,7 +973,7 @@ void ServerService_Query::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ServerService_Get::impl(bool) {
+void V1_GetServer::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -1014,7 +988,7 @@ void ServerService_Get::impl(bool) {
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void ServerService_Start::impl(bool) {
+void V1_StartServer::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	if (!meta->boot(serverID)) {
@@ -1025,7 +999,7 @@ void ServerService_Start::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Stop::impl(bool) {
+void V1_StopServer::impl(bool) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
 
@@ -1033,7 +1007,7 @@ void ServerService_Stop::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Remove::impl(bool) {
+void V1_RemoveServer::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	if (meta->qhServers.value(serverID)) {
@@ -1046,18 +1020,18 @@ void ServerService_Remove::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void ServerService_Events::impl(bool) {
+void V1_ServerEvents::impl(bool) {
 	auto server = MustServer(request);
 	rpc->qmhServerServiceListeners.insert(server->iServerNum, this);
 }
 
-void MetaService_GetUptime::impl(bool) {
+void V1_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
 	stream.Finish(uptime, ::grpc::Status::OK, done());
 }
 
-void MetaService_GetVersion::impl(bool) {
+void V1_GetVersion::impl(bool) {
 	::MurmurRPC::Version version;
 	int major, minor, patch;
 	QString release;
@@ -1067,11 +1041,11 @@ void MetaService_GetVersion::impl(bool) {
 	stream.Finish(version, ::grpc::Status::OK, done());
 }
 
-void MetaService_Events::impl(bool) {
+void V1_Events::impl(bool) {
 	rpc->qsMetaServiceListeners.insert(this);
 }
 
-void ContextActionService_Add::impl(bool) {
+void V1_AddContextAction::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1096,7 +1070,7 @@ void ContextActionService_Add::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ContextActionService_Remove::impl(bool) {
+void V1_RemoveContextAction::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -1120,7 +1094,7 @@ void ContextActionService_Remove::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ContextActionService_Events::impl(bool) {
+void V1_ContextActionEvents::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -1130,7 +1104,7 @@ void ContextActionService_Events::impl(bool) {
 	rpc->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), this);
 }
 
-void TextMessageService_Send::impl(bool) {
+void V1_SendTextMessage::impl(bool) {
 	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage tm;
@@ -1160,7 +1134,7 @@ void TextMessageService_Send::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void LogService_Query::impl(bool) {
+void V1_QueryLogs::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	int total = ::ServerDB::getLogLen(serverID);
@@ -1188,7 +1162,7 @@ void LogService_Query::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ConfigService_Get::impl(bool) {
+void V1_GetConfig::impl(bool) {
 	auto serverID = MustServerID(request);
 	auto config = ServerDB::getAllConf(serverID);
 
@@ -1202,7 +1176,7 @@ void ConfigService_Get::impl(bool) {
 	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
-void ConfigService_GetField::impl(bool) {
+void V1_GetConfigField::impl(bool) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1214,7 +1188,7 @@ void ConfigService_GetField::impl(bool) {
 	stream.Finish(rpcField, ::grpc::Status::OK, done());
 }
 
-void ConfigService_SetField::impl(bool) {
+void V1_SetConfigField::impl(bool) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1235,7 +1209,7 @@ void ConfigService_SetField::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ConfigService_GetDefaults::impl(bool) {
+void V1_GetDefaultConfig::impl(bool) {
 	::MurmurRPC::Config rpcConfig;
 	auto &fields = *rpcConfig.mutable_fields();
 	for (auto i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
@@ -1245,7 +1219,7 @@ void ConfigService_GetDefaults::impl(bool) {
 	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
-void ChannelService_Query::impl(bool) {
+void V1_QueryChannels::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Channel_List list;
@@ -1259,7 +1233,7 @@ void ChannelService_Query::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void ChannelService_Get::impl(bool) {
+void V1_GetChannel::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1268,7 +1242,7 @@ void ChannelService_Get::impl(bool) {
 	stream.Finish(rpcChannel, ::grpc::Status::OK, done());
 }
 
-void ChannelService_Add::impl(bool) {
+void V1_AddChannel::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_parent() || !request.has_name()) {
@@ -1302,7 +1276,7 @@ void ChannelService_Add::impl(bool) {
 	stream.Finish(resChannel, grpc::Status::OK, done());
 }
 
-void ChannelService_Remove::impl(bool) {
+void V1_RemoveChannel::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1314,7 +1288,7 @@ void ChannelService_Remove::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ChannelService_Update::impl(bool) {
+void V1_UpdateChannel::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1352,7 +1326,7 @@ void ChannelService_Update::impl(bool) {
 	stream.Finish(rpcChannel, grpc::Status::OK, done());
 }
 
-void UserService_Query::impl(bool) {
+void V1_QueryUsers::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User_List list;
@@ -1366,7 +1340,7 @@ void UserService_Query::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void UserService_Get::impl(bool) {
+void V1_GetUser::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
@@ -1393,7 +1367,7 @@ void UserService_Get::impl(bool) {
 	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
-void UserService_Update::impl(bool) {
+void V1_UpdateUser::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1433,7 +1407,7 @@ void UserService_Update::impl(bool) {
 	stream.Finish(rpcUser, grpc::Status::OK, done());
 }
 
-void UserService_Kick::impl(bool) {
+void V1_KickUser::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1452,7 +1426,7 @@ void UserService_Kick::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void TreeService_Query::impl(bool) {
+void V1_QueryTree::impl(bool) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -1490,7 +1464,7 @@ void TreeService_Query::impl(bool) {
 	stream.Finish(root, grpc::Status::OK, done());
 }
 
-void BanService_Get::impl(bool) {
+void V1_GetBans::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Ban_List list;
@@ -1503,7 +1477,7 @@ void BanService_Get::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void BanService_Set::impl(bool) {
+void V1_SetBans::impl(bool) {
 	auto server = MustServer(request);
 	server->qlBans.clear();
 
@@ -1519,7 +1493,7 @@ void BanService_Set::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ACLService_Get::impl(bool) {
+void V1_GetACL::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1592,7 +1566,7 @@ void ACLService_Get::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void ACLService_Set::impl(bool) {
+void V1_SetACL::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1649,7 +1623,7 @@ void ACLService_Set::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ACLService_GetEffectivePermissions::impl(bool) {
+void V1_GetEffectivePermissions::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1661,7 +1635,7 @@ void ACLService_GetEffectivePermissions::impl(bool) {
 	stream.Finish(rpcACL, grpc::Status::OK, done());
 }
 
-void ACLService_AddTemporaryGroup::impl(bool) {
+void V1_AddTemporaryGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1687,7 +1661,7 @@ void ACLService_AddTemporaryGroup::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void ACLService_RemoveTemporaryGroup::impl(bool) {
+void V1_RemoveTemporaryGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1713,8 +1687,8 @@ void ACLService_RemoveTemporaryGroup::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void AuthenticatorService_Stream::impl(bool) {
-	auto onInitialize = [this] (AuthenticatorService_Stream *, bool ok) {
+void V1_AuthenticatorStream::impl(bool) {
+	auto onInitialize = [this] (V1_AuthenticatorStream *, bool ok) {
 		if (!ok) {
 			finish(ok);
 			return;
@@ -1730,7 +1704,7 @@ void AuthenticatorService_Stream::impl(bool) {
 	stream.Read(&request, callback(onInitialize));
 }
 
-void DatabaseService_Query::impl(bool) {
+void V1_QueryDatabaseUsers::impl(bool) {
 	auto server = MustServer(request);
 
 	QString filter;
@@ -1752,7 +1726,7 @@ void DatabaseService_Query::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void DatabaseService_Get::impl(bool) {
+void V1_GetDatabaseUser::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1769,7 +1743,7 @@ void DatabaseService_Get::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void DatabaseService_Update::impl(bool) {
+void V1_UpdateDatabaseUser::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1810,7 +1784,7 @@ void DatabaseService_Update::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void DatabaseService_Register::impl(bool) {
+void V1_RegisterDatabaseUser::impl(bool) {
 	auto server = MustServer(request);
 
 	QMap<int, QString> info;
@@ -1832,7 +1806,7 @@ void DatabaseService_Register::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void DatabaseService_Deregister::impl(bool) {
+void V1_DeregisterDatabaseUser::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1846,7 +1820,7 @@ void DatabaseService_Deregister::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void DatabaseService_Verify::impl(bool) {
+void V1_VerifyDatabaseUser::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_name()) {
@@ -1875,7 +1849,7 @@ void DatabaseService_Verify::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void AudioService_AddRedirectWhisperGroup::impl(bool) {
+void V1_AddRedirectWhisperGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1896,7 +1870,7 @@ void AudioService_AddRedirectWhisperGroup::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void AudioService_RemoveRedirectWhisperGroup::impl(bool) {
+void V1_RemoveRedirectWhisperGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 

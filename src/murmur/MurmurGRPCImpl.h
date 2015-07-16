@@ -98,10 +98,10 @@ public:
 
 namespace MurmurRPC {
 namespace Wrapper {
-class ContextActionService_Events;
-class MetaService_Events;
-class ServerService_Events;
-class AuthenticatorService_Stream;
+class V1_ContextActionEvents;
+class V1_Events;
+class V1_ServerEvents;
+class V1_AuthenticatorStream;
 }
 }
 
@@ -118,27 +118,14 @@ class MurmurRPCImpl : public QThread {
 		std::unique_ptr<grpc::ServerCompletionQueue> mCQ;
 
 		// Services
-		MurmurRPC::ACLService::AsyncService aACLService;
-		MurmurRPC::AudioService::AsyncService aAudioService;
-		MurmurRPC::AuthenticatorService::AsyncService aAuthenticatorService;
-		MurmurRPC::BanService::AsyncService aBanService;
-		MurmurRPC::ChannelService::AsyncService aChannelService;
-		MurmurRPC::ConfigService::AsyncService aConfigService;
-		MurmurRPC::ContextActionService::AsyncService aContextActionService;
-		MurmurRPC::DatabaseService::AsyncService aDatabaseService;
-		MurmurRPC::LogService::AsyncService aLogService;
-		MurmurRPC::MetaService::AsyncService aMetaService;
-		MurmurRPC::ServerService::AsyncService aServerService;
-		MurmurRPC::TextMessageService::AsyncService aTextMessageService;
-		MurmurRPC::TreeService::AsyncService aTreeService;
-		MurmurRPC::UserService::AsyncService aUserService;
+		MurmurRPC::V1::AsyncService aV1Service;
 
 		// Listeners
-		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::ContextActionService_Events *> > qhContextActionListeners;
-		QSet<::MurmurRPC::Wrapper::MetaService_Events *> qsMetaServiceListeners;
-		QMultiHash<int, ::MurmurRPC::Wrapper::ServerService_Events *> qmhServerServiceListeners;
+		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::V1_ContextActionEvents *> > qhContextActionListeners;
+		QSet<::MurmurRPC::Wrapper::V1_Events *> qsMetaServiceListeners;
+		QMultiHash<int, ::MurmurRPC::Wrapper::V1_ServerEvents *> qmhServerServiceListeners;
 		QMutex qmAuthenticatorsLock;
-		QHash<int, ::MurmurRPC::Wrapper::AuthenticatorService_Stream *> qhAuthenticators;
+		QHash<int, ::MurmurRPC::Wrapper::V1_AuthenticatorStream *> qhAuthenticators;
 
 		void removeAuthenticator(const ::Server *);
 		void sendMetaEvent(const ::MurmurRPC::Event &e);
