@@ -587,45 +587,45 @@ service V1 {
 	// Servers
 	//
 
-	// Create creates a new virtual server. The returned server object contains
-	// the newly created server's ID.
+	// CreateServer creates a new virtual server. The returned server object
+	// contains the newly created server's ID.
 	rpc CreateServer(Void) returns(Server);
-	// Query returns a list of servers that match the given query.
+	// QueryServers returns a list of servers that match the given query.
 	rpc QueryServers(Server.Query) returns(Server.List);
-	// Get returns information about the given server.
+	// GetServer returns information about the given server.
 	rpc GetServer(Server) returns(Server);
 
-	// Start starts the given stopped server.
+	// StartServer starts the given stopped server.
 	rpc StartServer(Server) returns(Void);
-	// Stop stops the given virtual server.
+	// StopServer stops the given virtual server.
 	rpc StopServer(Server) returns(Void);
-	// Remove removes the given virtual server and its configuration.
+	// RemoveServer removes the given virtual server and its configuration.
 	rpc RemoveServer(Server) returns(Void);
-	// Events returns a stream of events that happen on the given server.
+	// ServerEvents returns a stream of events that happen on the given server.
 	rpc ServerEvents(Server) returns(stream Server.Event);
 
 	//
 	// ContextActions
 	//
 
-	// Add adds a context action to the given user's client. The following
-	// ContextAction fields must be set:
+	// AddContextAction adds a context action to the given user's client. The
+	// following ContextAction fields must be set:
 	//   context, action, text, and user.
 	rpc AddContextAction(ContextAction) returns(Void);
-	// Remove removes a context action from the given user's client. The
-	// following ContextAction must be set:
+	// RemoveContextAction removes a context action from the given user's client.
+	// The following ContextAction must be set:
 	//   action
 	// If no user is given, the context action is removed from all users.
 	rpc RemoveContextAction(ContextAction) returns(Void);
-	// Events returns a stream of context action events that are triggered by
-	// users.
+	// ContextActionEvents returns a stream of context action events that are
+	// triggered by users.
 	rpc ContextActionEvents(ContextAction) returns(stream ContextAction);
 
 	//
 	// TextMessage
 	//
 
-	// Send sends the given TextMessage to the server.
+	// SendTextMessage sends the given TextMessage to the server.
 	//
 	// If no users, channels, or trees are added to the TextMessage, the message
 	// will be broadcast the entire server. Otherwise, the message will be
@@ -637,7 +637,7 @@ service V1 {
 	// Logs
 	//
 
-	// Query returns a list of log entries from the given server.
+	// QueryLogs returns a list of log entries from the given server.
 	//
 	// To get the total number of log entries, omit min and/or max from the
 	// query.
@@ -647,71 +647,72 @@ service V1 {
 	// Config
 	//
 
-	// Get returns the explicitly set configuration for the given server.
+	// GetConfig returns the explicitly set configuration for the given server.
 	rpc GetConfig(Server) returns(Config);
-	// GetField returns the configuration value for the given key.
+	// GetConfigField returns the configuration value for the given key.
 	rpc GetConfigField(Config.Field) returns(Config.Field);
-	// SetField sets the configuration value to the given value.
+	// SetConfigField sets the configuration value to the given value.
 	rpc SetConfigField(Config.Field) returns(Void);
-	// GetDefaults returns the default server configuration.
+	// GetDefaultConfig returns the default server configuration.
 	rpc GetDefaultConfig(Void) returns(Config);
 
 	//
 	// Channels
 	//
 
-	// Query returns a list of channels that match the given query.
+	// QueryChannels returns a list of channels that match the given query.
 	rpc QueryChannels(Channel.Query) returns(Channel.List);
-	// Get returns the channel with the given ID.
+	// GetChannel returns the channel with the given ID.
 	rpc GetChannel(Channel) returns(Channel);
-	// Add adds the channel to the given server. The parent and name of the
-	// channel must be set.
+	// AddChannel adds the channel to the given server. The parent and name of
+	// the channel must be set.
 	rpc AddChannel(Channel) returns(Channel);
-	// Remove removes the given channel from the server.
+	// RemoveChannel removes the given channel from the server.
 	rpc RemoveChannel(Channel) returns(Void);
-	// Update updates the given channel's attributes. Only the fields that are
-	// set will be updated.
+	// UpdateChannel updates the given channel's attributes. Only the fields that
+	// are set will be updated.
 	rpc UpdateChannel(Channel) returns(Channel);
 
 	//
 	// Users
 	//
 
-	// Query returns a list of connected users who match the given query.
+	// QueryUsers returns a list of connected users who match the given query.
 	rpc QueryUsers(User.Query) returns(User.List);
-	// Get returns information on the connected user, given by the user's session
-	// or name.
+	// GetUser returns information on the connected user, given by the user's
+	// session or name.
 	rpc GetUser(User) returns(User);
-	// Update changes the given user's state. Only the following fields can be
-	// changed:
+	// UpdateUser changes the given user's state. Only the following fields can
+	// be changed:
 	//   name, mute, deaf, suppress, priority_speaker, channel, comment.
 	rpc UpdateUser(User) returns(User);
-	// Kick kicks the user from the server.
+	// KickUser kicks the user from the server.
 	rpc KickUser(User.Kick) returns(Void);
 
 	//
 	// Tree
 	//
 
-	// Query returns a representation of the given server's channel/user tree.
+	// QueryTree returns a representation of the given server's channel/user
+	// tree.
 	rpc QueryTree(Tree.Query) returns(Tree);
 
 	//
 	// Bans
 	//
 
-	// Get returns a list of bans for the given server.
+	// GetBans returns a list of bans for the given server.
 	rpc GetBans(Ban.Query) returns(Ban.List);
-	// Set replaces the server's ban list with the given list.
+	// SetBans replaces the server's ban list with the given list.
 	rpc SetBans(Ban.List) returns(Void);
 
 	//
 	// ACL
 	//
 
-	// Get returns the ACL for the given channel.
+	// GetACL returns the ACL for the given channel.
 	rpc GetACL(Channel) returns(ACL.List);
-	// Set overrides the ACL of the given channel to what is provided.
+	// SetACL overrides the ACL of the given channel to what is provided.
 	rpc SetACL(ACL.List) returns(Void);
 	// GetEffectivePermissions returns the effective permissions for the given
 	// user in the given channel.
@@ -725,7 +726,7 @@ service V1 {
 	// Authenticator
 	//
 
-	// Stream opens an authentication stream to the server.
+	// AuthenticatorStream opens an authentication stream to the server.
 	//
 	// There can only be one RPC client with an open Stream. If a new
 	// authenticator connects, the open connected will be closed.
@@ -735,18 +736,21 @@ service V1 {
 	// Database
 	//
 
-	// Query returns a list of registered users who match given query.
+	// QueryDatabaseUsers returns a list of registered users who match given
+	// query.
 	rpc QueryDatabaseUsers(DatabaseUser.Query) returns(DatabaseUser.List);
-	// Get returns the database user with the given ID.
+	// GetDatabaseUser returns the database user with the given ID.
 	rpc GetDatabaseUser(DatabaseUser) returns(DatabaseUser);
-	// Update updates the given database user.
+	// UpdateDatabaseUser updates the given database user.
 	rpc UpdateDatabaseUser(DatabaseUser) returns(Void);
-	// Register registers a user with the given information on the server. The
-	// returned DatabaseUser will contain the newly registered user's ID.
+	// RegisterDatabaseUser registers a user with the given information on the
+	// server. The returned DatabaseUser will contain the newly registered user's
+	// ID.
 	rpc RegisterDatabaseUser(DatabaseUser) returns(DatabaseUser);
-	// Deregister deregisters the given user.
+	// DeregisterDatabaseUser deregisters the given user.
 	rpc DeregisterDatabaseUser(DatabaseUser) returns(Void);
-	// Verify verifies the that the given user-password pair is correct.
+	// VerifyDatabaseUser verifies the that the given user-password pair is
+	// correct.
 	rpc VerifyDatabaseUser(DatabaseUser.Verify) returns(DatabaseUser);
 
 	//
