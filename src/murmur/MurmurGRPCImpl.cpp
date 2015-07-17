@@ -316,10 +316,12 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 
 	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
 		auto listener = *i;
+		listener->ref();
 		auto cb = [this, listener] (::MurmurRPC::Wrapper::V1_Events *, bool ok) {
 			if (!ok && qsMetaServiceListeners.remove(listener)) {
 				listener->deref();
 			}
+			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -689,10 +691,12 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 
 	for ( ; i != listeners.end() && i.key() == serverID; ++i) {
 		auto listener = i.value();
+		listener->ref();
 		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::V1_ServerEvents *, bool ok) {
 			if (!ok && qmhServerServiceListeners.remove(serverID, listener) > 0) {
 				listener->deref();
 			}
+			listener->deref();
 		};
 		listener->stream.Write(e, listener->callback(cb));
 	}
@@ -790,10 +794,12 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	auto i = listeners.find(action);
 	for ( ; i != listeners.end() && i.key() == action; ++i) {
 		auto listener = i.value();
+		listener->ref();
 		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::V1_ContextActionEvents *, bool ok) {
 			if (!ok && qhContextActionListeners[serverID].remove(action, listener) > 0) {
 				listener->deref();
 			}
+			listener->deref();
 		};
 		listener->stream.Write(ca, listener->callback(cb));
 	}
