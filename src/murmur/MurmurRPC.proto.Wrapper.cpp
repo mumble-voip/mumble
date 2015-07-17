@@ -139,7 +139,7 @@ private:
 	}
 };
 
-class V1_CreateServer : public RPCCall {
+class V1_ServerCreate : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -148,7 +148,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	V1_CreateServer(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerCreate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -158,7 +158,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_CreateServer::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerCreate::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -167,20 +167,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_CreateServer::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_CreateServer::impl, this, ok), this);
+		V1_ServerCreate::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerCreate::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_CreateServer(rpc, service);
-		auto fn = ::boost::bind(&V1_CreateServer::handle, call, _1);
+		auto call = new V1_ServerCreate(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerCreate::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestCreateServer(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerCreate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_QueryServers : public RPCCall {
+class V1_ServerQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -189,7 +189,7 @@ public:
 	::MurmurRPC::Server_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > stream;
 
-	V1_QueryServers(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -199,7 +199,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryServers::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -208,20 +208,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryServers::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryServers::impl, this, ok), this);
+		V1_ServerQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryServers(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryServers::handle, call, _1);
+		auto call = new V1_ServerQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryServers(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetServer : public RPCCall {
+class V1_ServerGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -230,7 +230,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
 
-	V1_GetServer(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -240,7 +240,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetServer::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -249,20 +249,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetServer::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetServer::impl, this, ok), this);
+		V1_ServerGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetServer(rpc, service);
-		auto fn = ::boost::bind(&V1_GetServer::handle, call, _1);
+		auto call = new V1_ServerGet(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetServer(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_StartServer : public RPCCall {
+class V1_ServerStart : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -271,7 +271,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_StartServer(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerStart(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -281,7 +281,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_StartServer::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerStart::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -290,20 +290,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_StartServer::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_StartServer::impl, this, ok), this);
+		V1_ServerStart::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerStart::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_StartServer(rpc, service);
-		auto fn = ::boost::bind(&V1_StartServer::handle, call, _1);
+		auto call = new V1_ServerStart(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerStart::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestStartServer(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerStart(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_StopServer : public RPCCall {
+class V1_ServerStop : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -312,7 +312,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_StopServer(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerStop(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -322,7 +322,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_StopServer::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerStop::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -331,20 +331,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_StopServer::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_StopServer::impl, this, ok), this);
+		V1_ServerStop::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerStop::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_StopServer(rpc, service);
-		auto fn = ::boost::bind(&V1_StopServer::handle, call, _1);
+		auto call = new V1_ServerStop(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerStop::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestStopServer(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerStop(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RemoveServer : public RPCCall {
+class V1_ServerRemove : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -353,7 +353,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_RemoveServer(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -363,7 +363,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RemoveServer::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ServerRemove::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -372,16 +372,16 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RemoveServer::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RemoveServer::impl, this, ok), this);
+		V1_ServerRemove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ServerRemove::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RemoveServer(rpc, service);
-		auto fn = ::boost::bind(&V1_RemoveServer::handle, call, _1);
+		auto call = new V1_ServerRemove(rpc, service);
+		auto fn = ::boost::bind(&V1_ServerRemove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveServer(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestServerRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -438,7 +438,7 @@ private:
 	}
 };
 
-class V1_AddContextAction : public RPCCall {
+class V1_ContextActionAdd : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -447,7 +447,7 @@ public:
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_AddContextAction(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -457,7 +457,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_AddContextAction::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ContextActionAdd::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -466,20 +466,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_AddContextAction::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_AddContextAction::impl, this, ok), this);
+		V1_ContextActionAdd::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ContextActionAdd::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_AddContextAction(rpc, service);
-		auto fn = ::boost::bind(&V1_AddContextAction::handle, call, _1);
+		auto call = new V1_ContextActionAdd(rpc, service);
+		auto fn = ::boost::bind(&V1_ContextActionAdd::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAddContextAction(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestContextActionAdd(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RemoveContextAction : public RPCCall {
+class V1_ContextActionRemove : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -488,7 +488,7 @@ public:
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_RemoveContextAction(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -498,7 +498,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RemoveContextAction::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ContextActionRemove::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -507,16 +507,16 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RemoveContextAction::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RemoveContextAction::impl, this, ok), this);
+		V1_ContextActionRemove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ContextActionRemove::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RemoveContextAction(rpc, service);
-		auto fn = ::boost::bind(&V1_RemoveContextAction::handle, call, _1);
+		auto call = new V1_ContextActionRemove(rpc, service);
+		auto fn = ::boost::bind(&V1_ContextActionRemove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveContextAction(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestContextActionRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -573,7 +573,7 @@ private:
 	}
 };
 
-class V1_SendTextMessage : public RPCCall {
+class V1_TextMessageSend : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -582,7 +582,7 @@ public:
 	::MurmurRPC::TextMessage request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_SendTextMessage(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_TextMessageSend(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -592,7 +592,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_SendTextMessage::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_TextMessageSend::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -601,20 +601,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_SendTextMessage::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_SendTextMessage::impl, this, ok), this);
+		V1_TextMessageSend::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_TextMessageSend::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_SendTextMessage(rpc, service);
-		auto fn = ::boost::bind(&V1_SendTextMessage::handle, call, _1);
+		auto call = new V1_TextMessageSend(rpc, service);
+		auto fn = ::boost::bind(&V1_TextMessageSend::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSendTextMessage(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestTextMessageSend(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_QueryLogs : public RPCCall {
+class V1_LogQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -623,7 +623,7 @@ public:
 	::MurmurRPC::Log_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > stream;
 
-	V1_QueryLogs(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_LogQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -633,7 +633,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryLogs::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_LogQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -642,20 +642,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryLogs::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryLogs::impl, this, ok), this);
+		V1_LogQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_LogQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryLogs(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryLogs::handle, call, _1);
+		auto call = new V1_LogQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_LogQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryLogs(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestLogQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetConfig : public RPCCall {
+class V1_ConfigGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -664,7 +664,7 @@ public:
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	V1_GetConfig(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -674,7 +674,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetConfig::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ConfigGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -683,20 +683,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetConfig::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetConfig::impl, this, ok), this);
+		V1_ConfigGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ConfigGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetConfig(rpc, service);
-		auto fn = ::boost::bind(&V1_GetConfig::handle, call, _1);
+		auto call = new V1_ConfigGet(rpc, service);
+		auto fn = ::boost::bind(&V1_ConfigGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetConfig(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestConfigGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetConfigField : public RPCCall {
+class V1_ConfigGetField : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -705,7 +705,7 @@ public:
 	::MurmurRPC::Config_Field request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > stream;
 
-	V1_GetConfigField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -715,7 +715,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetConfigField::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ConfigGetField::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -724,20 +724,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetConfigField::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetConfigField::impl, this, ok), this);
+		V1_ConfigGetField::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ConfigGetField::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetConfigField(rpc, service);
-		auto fn = ::boost::bind(&V1_GetConfigField::handle, call, _1);
+		auto call = new V1_ConfigGetField(rpc, service);
+		auto fn = ::boost::bind(&V1_ConfigGetField::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetConfigField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestConfigGetField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_SetConfigField : public RPCCall {
+class V1_ConfigSetField : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -746,7 +746,7 @@ public:
 	::MurmurRPC::Config_Field request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_SetConfigField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigSetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -756,7 +756,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_SetConfigField::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ConfigSetField::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -765,20 +765,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_SetConfigField::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_SetConfigField::impl, this, ok), this);
+		V1_ConfigSetField::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ConfigSetField::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_SetConfigField(rpc, service);
-		auto fn = ::boost::bind(&V1_SetConfigField::handle, call, _1);
+		auto call = new V1_ConfigSetField(rpc, service);
+		auto fn = ::boost::bind(&V1_ConfigSetField::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetConfigField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestConfigSetField(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetDefaultConfig : public RPCCall {
+class V1_ConfigGetDefault : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -787,7 +787,7 @@ public:
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
 
-	V1_GetDefaultConfig(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGetDefault(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -797,7 +797,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetDefaultConfig::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ConfigGetDefault::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -806,20 +806,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetDefaultConfig::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetDefaultConfig::impl, this, ok), this);
+		V1_ConfigGetDefault::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ConfigGetDefault::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetDefaultConfig(rpc, service);
-		auto fn = ::boost::bind(&V1_GetDefaultConfig::handle, call, _1);
+		auto call = new V1_ConfigGetDefault(rpc, service);
+		auto fn = ::boost::bind(&V1_ConfigGetDefault::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetDefaultConfig(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestConfigGetDefault(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_QueryChannels : public RPCCall {
+class V1_ChannelQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -828,7 +828,7 @@ public:
 	::MurmurRPC::Channel_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > stream;
 
-	V1_QueryChannels(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -838,7 +838,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryChannels::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ChannelQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -847,20 +847,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryChannels::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryChannels::impl, this, ok), this);
+		V1_ChannelQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ChannelQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryChannels(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryChannels::handle, call, _1);
+		auto call = new V1_ChannelQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_ChannelQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryChannels(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestChannelQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetChannel : public RPCCall {
+class V1_ChannelGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -869,7 +869,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	V1_GetChannel(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -879,7 +879,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetChannel::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ChannelGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -888,20 +888,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetChannel::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetChannel::impl, this, ok), this);
+		V1_ChannelGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ChannelGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetChannel(rpc, service);
-		auto fn = ::boost::bind(&V1_GetChannel::handle, call, _1);
+		auto call = new V1_ChannelGet(rpc, service);
+		auto fn = ::boost::bind(&V1_ChannelGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetChannel(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestChannelGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_AddChannel : public RPCCall {
+class V1_ChannelAdd : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -910,7 +910,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	V1_AddChannel(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -920,7 +920,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_AddChannel::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ChannelAdd::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -929,20 +929,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_AddChannel::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_AddChannel::impl, this, ok), this);
+		V1_ChannelAdd::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ChannelAdd::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_AddChannel(rpc, service);
-		auto fn = ::boost::bind(&V1_AddChannel::handle, call, _1);
+		auto call = new V1_ChannelAdd(rpc, service);
+		auto fn = ::boost::bind(&V1_ChannelAdd::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAddChannel(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestChannelAdd(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RemoveChannel : public RPCCall {
+class V1_ChannelRemove : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -951,7 +951,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_RemoveChannel(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -961,7 +961,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RemoveChannel::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ChannelRemove::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -970,20 +970,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RemoveChannel::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RemoveChannel::impl, this, ok), this);
+		V1_ChannelRemove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ChannelRemove::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RemoveChannel(rpc, service);
-		auto fn = ::boost::bind(&V1_RemoveChannel::handle, call, _1);
+		auto call = new V1_ChannelRemove(rpc, service);
+		auto fn = ::boost::bind(&V1_ChannelRemove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveChannel(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestChannelRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_UpdateChannel : public RPCCall {
+class V1_ChannelUpdate : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -992,7 +992,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
 
-	V1_UpdateChannel(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1002,7 +1002,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UpdateChannel::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ChannelUpdate::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1011,20 +1011,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_UpdateChannel::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_UpdateChannel::impl, this, ok), this);
+		V1_ChannelUpdate::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ChannelUpdate::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_UpdateChannel(rpc, service);
-		auto fn = ::boost::bind(&V1_UpdateChannel::handle, call, _1);
+		auto call = new V1_ChannelUpdate(rpc, service);
+		auto fn = ::boost::bind(&V1_ChannelUpdate::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdateChannel(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestChannelUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_QueryUsers : public RPCCall {
+class V1_UserQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1033,7 +1033,7 @@ public:
 	::MurmurRPC::User_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > stream;
 
-	V1_QueryUsers(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1043,7 +1043,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryUsers::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_UserQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1052,20 +1052,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryUsers::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryUsers::impl, this, ok), this);
+		V1_UserQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_UserQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryUsers(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryUsers::handle, call, _1);
+		auto call = new V1_UserQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_UserQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryUsers(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUserQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetUser : public RPCCall {
+class V1_UserGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1074,7 +1074,7 @@ public:
 	::MurmurRPC::User request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	V1_GetUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1084,7 +1084,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_UserGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1093,20 +1093,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetUser::impl, this, ok), this);
+		V1_UserGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_UserGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetUser(rpc, service);
-		auto fn = ::boost::bind(&V1_GetUser::handle, call, _1);
+		auto call = new V1_UserGet(rpc, service);
+		auto fn = ::boost::bind(&V1_UserGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUserGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_UpdateUser : public RPCCall {
+class V1_UserUpdate : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1115,7 +1115,7 @@ public:
 	::MurmurRPC::User request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
 
-	V1_UpdateUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1125,7 +1125,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UpdateUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_UserUpdate::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1134,20 +1134,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_UpdateUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_UpdateUser::impl, this, ok), this);
+		V1_UserUpdate::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_UserUpdate::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_UpdateUser(rpc, service);
-		auto fn = ::boost::bind(&V1_UpdateUser::handle, call, _1);
+		auto call = new V1_UserUpdate(rpc, service);
+		auto fn = ::boost::bind(&V1_UserUpdate::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdateUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUserUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_KickUser : public RPCCall {
+class V1_UserKick : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1156,7 +1156,7 @@ public:
 	::MurmurRPC::User_Kick request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_KickUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserKick(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1166,7 +1166,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_KickUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_UserKick::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1175,20 +1175,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_KickUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_KickUser::impl, this, ok), this);
+		V1_UserKick::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_UserKick::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_KickUser(rpc, service);
-		auto fn = ::boost::bind(&V1_KickUser::handle, call, _1);
+		auto call = new V1_UserKick(rpc, service);
+		auto fn = ::boost::bind(&V1_UserKick::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestKickUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestUserKick(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_QueryTree : public RPCCall {
+class V1_TreeQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1197,7 +1197,7 @@ public:
 	::MurmurRPC::Tree_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > stream;
 
-	V1_QueryTree(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_TreeQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1207,7 +1207,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryTree::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_TreeQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1216,20 +1216,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryTree::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryTree::impl, this, ok), this);
+		V1_TreeQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_TreeQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryTree(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryTree::handle, call, _1);
+		auto call = new V1_TreeQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_TreeQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryTree(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestTreeQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetBans : public RPCCall {
+class V1_BansGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1238,7 +1238,7 @@ public:
 	::MurmurRPC::Ban_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > stream;
 
-	V1_GetBans(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_BansGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1248,7 +1248,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetBans::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_BansGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1257,20 +1257,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetBans::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetBans::impl, this, ok), this);
+		V1_BansGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_BansGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetBans(rpc, service);
-		auto fn = ::boost::bind(&V1_GetBans::handle, call, _1);
+		auto call = new V1_BansGet(rpc, service);
+		auto fn = ::boost::bind(&V1_BansGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetBans(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestBansGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_SetBans : public RPCCall {
+class V1_BansSet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1279,7 +1279,7 @@ public:
 	::MurmurRPC::Ban_List request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_SetBans(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_BansSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1289,7 +1289,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_SetBans::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_BansSet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1298,20 +1298,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_SetBans::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_SetBans::impl, this, ok), this);
+		V1_BansSet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_BansSet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_SetBans(rpc, service);
-		auto fn = ::boost::bind(&V1_SetBans::handle, call, _1);
+		auto call = new V1_BansSet(rpc, service);
+		auto fn = ::boost::bind(&V1_BansSet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetBans(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestBansSet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetACL : public RPCCall {
+class V1_ACLGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1320,7 +1320,7 @@ public:
 	::MurmurRPC::Channel request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > stream;
 
-	V1_GetACL(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1330,7 +1330,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetACL::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ACLGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1339,20 +1339,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetACL::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetACL::impl, this, ok), this);
+		V1_ACLGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ACLGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetACL(rpc, service);
-		auto fn = ::boost::bind(&V1_GetACL::handle, call, _1);
+		auto call = new V1_ACLGet(rpc, service);
+		auto fn = ::boost::bind(&V1_ACLGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetACL(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestACLGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_SetACL : public RPCCall {
+class V1_ACLSet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1361,7 +1361,7 @@ public:
 	::MurmurRPC::ACL_List request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_SetACL(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1371,7 +1371,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_SetACL::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ACLSet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1380,20 +1380,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_SetACL::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_SetACL::impl, this, ok), this);
+		V1_ACLSet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ACLSet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_SetACL(rpc, service);
-		auto fn = ::boost::bind(&V1_SetACL::handle, call, _1);
+		auto call = new V1_ACLSet(rpc, service);
+		auto fn = ::boost::bind(&V1_ACLSet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestSetACL(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestACLSet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetEffectivePermissions : public RPCCall {
+class V1_ACLGetEffectivePermissions : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1402,7 +1402,7 @@ public:
 	::MurmurRPC::ACL_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > stream;
 
-	V1_GetEffectivePermissions(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLGetEffectivePermissions(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1412,7 +1412,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetEffectivePermissions::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ACLGetEffectivePermissions::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1421,20 +1421,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetEffectivePermissions::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetEffectivePermissions::impl, this, ok), this);
+		V1_ACLGetEffectivePermissions::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ACLGetEffectivePermissions::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetEffectivePermissions(rpc, service);
-		auto fn = ::boost::bind(&V1_GetEffectivePermissions::handle, call, _1);
+		auto call = new V1_ACLGetEffectivePermissions(rpc, service);
+		auto fn = ::boost::bind(&V1_ACLGetEffectivePermissions::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetEffectivePermissions(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestACLGetEffectivePermissions(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_AddTemporaryGroup : public RPCCall {
+class V1_ACLAddTemporaryGroup : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1443,7 +1443,7 @@ public:
 	::MurmurRPC::ACL_TemporaryGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_AddTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLAddTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1453,7 +1453,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_AddTemporaryGroup::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ACLAddTemporaryGroup::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1462,20 +1462,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_AddTemporaryGroup::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_AddTemporaryGroup::impl, this, ok), this);
+		V1_ACLAddTemporaryGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ACLAddTemporaryGroup::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_AddTemporaryGroup(rpc, service);
-		auto fn = ::boost::bind(&V1_AddTemporaryGroup::handle, call, _1);
+		auto call = new V1_ACLAddTemporaryGroup(rpc, service);
+		auto fn = ::boost::bind(&V1_ACLAddTemporaryGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAddTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestACLAddTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RemoveTemporaryGroup : public RPCCall {
+class V1_ACLRemoveTemporaryGroup : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1484,7 +1484,7 @@ public:
 	::MurmurRPC::ACL_TemporaryGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_RemoveTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLRemoveTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1494,7 +1494,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RemoveTemporaryGroup::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_ACLRemoveTemporaryGroup::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1503,16 +1503,16 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RemoveTemporaryGroup::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RemoveTemporaryGroup::impl, this, ok), this);
+		V1_ACLRemoveTemporaryGroup::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_ACLRemoveTemporaryGroup::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RemoveTemporaryGroup(rpc, service);
-		auto fn = ::boost::bind(&V1_RemoveTemporaryGroup::handle, call, _1);
+		auto call = new V1_ACLRemoveTemporaryGroup(rpc, service);
+		auto fn = ::boost::bind(&V1_ACLRemoveTemporaryGroup::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestACLRemoveTemporaryGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
@@ -1602,7 +1602,7 @@ private:
 	}
 };
 
-class V1_QueryDatabaseUsers : public RPCCall {
+class V1_DatabaseUserQuery : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1611,7 +1611,7 @@ public:
 	::MurmurRPC::DatabaseUser_Query request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > stream;
 
-	V1_QueryDatabaseUsers(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1621,7 +1621,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_QueryDatabaseUsers::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserQuery::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1630,20 +1630,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_QueryDatabaseUsers::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_QueryDatabaseUsers::impl, this, ok), this);
+		V1_DatabaseUserQuery::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserQuery::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_QueryDatabaseUsers(rpc, service);
-		auto fn = ::boost::bind(&V1_QueryDatabaseUsers::handle, call, _1);
+		auto call = new V1_DatabaseUserQuery(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserQuery::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestQueryDatabaseUsers(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserQuery(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_GetDatabaseUser : public RPCCall {
+class V1_DatabaseUserGet : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1652,7 +1652,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	V1_GetDatabaseUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1662,7 +1662,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetDatabaseUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserGet::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1671,20 +1671,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_GetDatabaseUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_GetDatabaseUser::impl, this, ok), this);
+		V1_DatabaseUserGet::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserGet::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_GetDatabaseUser(rpc, service);
-		auto fn = ::boost::bind(&V1_GetDatabaseUser::handle, call, _1);
+		auto call = new V1_DatabaseUserGet(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserGet::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestGetDatabaseUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserGet(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_UpdateDatabaseUser : public RPCCall {
+class V1_DatabaseUserUpdate : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1693,7 +1693,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_UpdateDatabaseUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1703,7 +1703,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UpdateDatabaseUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserUpdate::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1712,20 +1712,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_UpdateDatabaseUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_UpdateDatabaseUser::impl, this, ok), this);
+		V1_DatabaseUserUpdate::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserUpdate::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_UpdateDatabaseUser(rpc, service);
-		auto fn = ::boost::bind(&V1_UpdateDatabaseUser::handle, call, _1);
+		auto call = new V1_DatabaseUserUpdate(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserUpdate::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestUpdateDatabaseUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserUpdate(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RegisterDatabaseUser : public RPCCall {
+class V1_DatabaseUserRegister : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1734,7 +1734,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	V1_RegisterDatabaseUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserRegister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1744,7 +1744,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RegisterDatabaseUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserRegister::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1753,20 +1753,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RegisterDatabaseUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RegisterDatabaseUser::impl, this, ok), this);
+		V1_DatabaseUserRegister::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserRegister::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RegisterDatabaseUser(rpc, service);
-		auto fn = ::boost::bind(&V1_RegisterDatabaseUser::handle, call, _1);
+		auto call = new V1_DatabaseUserRegister(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserRegister::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRegisterDatabaseUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserRegister(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_DeregisterDatabaseUser : public RPCCall {
+class V1_DatabaseUserDeregister : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1775,7 +1775,7 @@ public:
 	::MurmurRPC::DatabaseUser request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_DeregisterDatabaseUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserDeregister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1785,7 +1785,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DeregisterDatabaseUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserDeregister::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1794,20 +1794,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_DeregisterDatabaseUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_DeregisterDatabaseUser::impl, this, ok), this);
+		V1_DatabaseUserDeregister::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserDeregister::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_DeregisterDatabaseUser(rpc, service);
-		auto fn = ::boost::bind(&V1_DeregisterDatabaseUser::handle, call, _1);
+		auto call = new V1_DatabaseUserDeregister(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserDeregister::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestDeregisterDatabaseUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserDeregister(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_VerifyDatabaseUser : public RPCCall {
+class V1_DatabaseUserVerify : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1816,7 +1816,7 @@ public:
 	::MurmurRPC::DatabaseUser_Verify request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
 
-	V1_VerifyDatabaseUser(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserVerify(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1826,7 +1826,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_VerifyDatabaseUser::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_DatabaseUserVerify::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1835,20 +1835,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_VerifyDatabaseUser::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_VerifyDatabaseUser::impl, this, ok), this);
+		V1_DatabaseUserVerify::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_DatabaseUserVerify::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_VerifyDatabaseUser(rpc, service);
-		auto fn = ::boost::bind(&V1_VerifyDatabaseUser::handle, call, _1);
+		auto call = new V1_DatabaseUserVerify(rpc, service);
+		auto fn = ::boost::bind(&V1_DatabaseUserVerify::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestVerifyDatabaseUser(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestDatabaseUserVerify(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_AddRedirectWhisperGroup : public RPCCall {
+class V1_RedirectWhisperGroupAdd : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1857,7 +1857,7 @@ public:
 	::MurmurRPC::RedirectWhisperGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_AddRedirectWhisperGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_RedirectWhisperGroupAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1867,7 +1867,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_AddRedirectWhisperGroup::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_RedirectWhisperGroupAdd::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1876,20 +1876,20 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_AddRedirectWhisperGroup::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_AddRedirectWhisperGroup::impl, this, ok), this);
+		V1_RedirectWhisperGroupAdd::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_RedirectWhisperGroupAdd::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_AddRedirectWhisperGroup(rpc, service);
-		auto fn = ::boost::bind(&V1_AddRedirectWhisperGroup::handle, call, _1);
+		auto call = new V1_RedirectWhisperGroupAdd(rpc, service);
+		auto fn = ::boost::bind(&V1_RedirectWhisperGroupAdd::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestAddRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRedirectWhisperGroupAdd(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 
-class V1_RemoveRedirectWhisperGroup : public RPCCall {
+class V1_RedirectWhisperGroupRemove : public RPCCall {
 public:
 	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
@@ -1898,7 +1898,7 @@ public:
 	::MurmurRPC::RedirectWhisperGroup request;
 	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
 
-	V1_RemoveRedirectWhisperGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_RedirectWhisperGroupRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
@@ -1908,7 +1908,7 @@ public:
 	}
 
 	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RemoveRedirectWhisperGroup::finish, this, _1);
+		auto done_fn = ::boost::bind(&V1_RedirectWhisperGroupRemove::finish, this, _1);
 		return new ::boost::function<void(bool)>(done_fn);
 	}
 
@@ -1917,64 +1917,64 @@ public:
 	}
 
 	void handle(bool ok) {
-		V1_RemoveRedirectWhisperGroup::create(this->rpc, this->service);
-		auto ie = new RPCExecEvent(::boost::bind(&V1_RemoveRedirectWhisperGroup::impl, this, ok), this);
+		V1_RedirectWhisperGroupRemove::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_RedirectWhisperGroupRemove::impl, this, ok), this);
 		QCoreApplication::instance()->postEvent(rpc, ie);
 	}
 
 	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
-		auto call = new V1_RemoveRedirectWhisperGroup(rpc, service);
-		auto fn = ::boost::bind(&V1_RemoveRedirectWhisperGroup::handle, call, _1);
+		auto call = new V1_RedirectWhisperGroupRemove(rpc, service);
+		auto fn = ::boost::bind(&V1_RedirectWhisperGroupRemove::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->RequestRemoveRedirectWhisperGroup(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->RequestRedirectWhisperGroupRemove(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
 	}
 };
 void V1_Init(MurmurRPCImpl *impl, ::MurmurRPC::V1::AsyncService *service) {
 	V1_GetUptime::create(impl, service);
 	V1_GetVersion::create(impl, service);
 	V1_Events::create(impl, service);
-	V1_CreateServer::create(impl, service);
-	V1_QueryServers::create(impl, service);
-	V1_GetServer::create(impl, service);
-	V1_StartServer::create(impl, service);
-	V1_StopServer::create(impl, service);
-	V1_RemoveServer::create(impl, service);
+	V1_ServerCreate::create(impl, service);
+	V1_ServerQuery::create(impl, service);
+	V1_ServerGet::create(impl, service);
+	V1_ServerStart::create(impl, service);
+	V1_ServerStop::create(impl, service);
+	V1_ServerRemove::create(impl, service);
 	V1_ServerEvents::create(impl, service);
-	V1_AddContextAction::create(impl, service);
-	V1_RemoveContextAction::create(impl, service);
+	V1_ContextActionAdd::create(impl, service);
+	V1_ContextActionRemove::create(impl, service);
 	V1_ContextActionEvents::create(impl, service);
-	V1_SendTextMessage::create(impl, service);
-	V1_QueryLogs::create(impl, service);
-	V1_GetConfig::create(impl, service);
-	V1_GetConfigField::create(impl, service);
-	V1_SetConfigField::create(impl, service);
-	V1_GetDefaultConfig::create(impl, service);
-	V1_QueryChannels::create(impl, service);
-	V1_GetChannel::create(impl, service);
-	V1_AddChannel::create(impl, service);
-	V1_RemoveChannel::create(impl, service);
-	V1_UpdateChannel::create(impl, service);
-	V1_QueryUsers::create(impl, service);
-	V1_GetUser::create(impl, service);
-	V1_UpdateUser::create(impl, service);
-	V1_KickUser::create(impl, service);
-	V1_QueryTree::create(impl, service);
-	V1_GetBans::create(impl, service);
-	V1_SetBans::create(impl, service);
-	V1_GetACL::create(impl, service);
-	V1_SetACL::create(impl, service);
-	V1_GetEffectivePermissions::create(impl, service);
-	V1_AddTemporaryGroup::create(impl, service);
-	V1_RemoveTemporaryGroup::create(impl, service);
+	V1_TextMessageSend::create(impl, service);
+	V1_LogQuery::create(impl, service);
+	V1_ConfigGet::create(impl, service);
+	V1_ConfigGetField::create(impl, service);
+	V1_ConfigSetField::create(impl, service);
+	V1_ConfigGetDefault::create(impl, service);
+	V1_ChannelQuery::create(impl, service);
+	V1_ChannelGet::create(impl, service);
+	V1_ChannelAdd::create(impl, service);
+	V1_ChannelRemove::create(impl, service);
+	V1_ChannelUpdate::create(impl, service);
+	V1_UserQuery::create(impl, service);
+	V1_UserGet::create(impl, service);
+	V1_UserUpdate::create(impl, service);
+	V1_UserKick::create(impl, service);
+	V1_TreeQuery::create(impl, service);
+	V1_BansGet::create(impl, service);
+	V1_BansSet::create(impl, service);
+	V1_ACLGet::create(impl, service);
+	V1_ACLSet::create(impl, service);
+	V1_ACLGetEffectivePermissions::create(impl, service);
+	V1_ACLAddTemporaryGroup::create(impl, service);
+	V1_ACLRemoveTemporaryGroup::create(impl, service);
 	V1_AuthenticatorStream::create(impl, service);
-	V1_QueryDatabaseUsers::create(impl, service);
-	V1_GetDatabaseUser::create(impl, service);
-	V1_UpdateDatabaseUser::create(impl, service);
-	V1_RegisterDatabaseUser::create(impl, service);
-	V1_DeregisterDatabaseUser::create(impl, service);
-	V1_VerifyDatabaseUser::create(impl, service);
-	V1_AddRedirectWhisperGroup::create(impl, service);
-	V1_RemoveRedirectWhisperGroup::create(impl, service);
+	V1_DatabaseUserQuery::create(impl, service);
+	V1_DatabaseUserGet::create(impl, service);
+	V1_DatabaseUserUpdate::create(impl, service);
+	V1_DatabaseUserRegister::create(impl, service);
+	V1_DatabaseUserDeregister::create(impl, service);
+	V1_DatabaseUserVerify::create(impl, service);
+	V1_RedirectWhisperGroupAdd::create(impl, service);
+	V1_RedirectWhisperGroupRemove::create(impl, service);
 }
 
 }
