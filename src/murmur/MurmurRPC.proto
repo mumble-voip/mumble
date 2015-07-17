@@ -586,20 +586,19 @@ service V1 {
 	// Servers
 	//
 
-	// CreateServer creates a new virtual server. The returned server object
+	// ServerCreate creates a new virtual server. The returned server object
 	// contains the newly created server's ID.
-	rpc CreateServer(Void) returns(Server);
-	// QueryServers returns a list of servers that match the given query.
-	rpc QueryServers(Server.Query) returns(Server.List);
-	// GetServer returns information about the given server.
-	rpc GetServer(Server) returns(Server);
-
-	// StartServer starts the given stopped server.
-	rpc StartServer(Server) returns(Void);
-	// StopServer stops the given virtual server.
-	rpc StopServer(Server) returns(Void);
-	// RemoveServer removes the given virtual server and its configuration.
-	rpc RemoveServer(Server) returns(Void);
+	rpc ServerCreate(Void) returns(Server);
+	// ServerQuery returns a list of servers that match the given query.
+	rpc ServerQuery(Server.Query) returns(Server.List);
+	// ServerGet returns information about the given server.
+	rpc ServerGet(Server) returns(Server);
+	// ServerStart starts the given stopped server.
+	rpc ServerStart(Server) returns(Void);
+	// ServerStop stops the given virtual server.
+	rpc ServerStop(Server) returns(Void);
+	// ServerRemove removes the given virtual server and its configuration.
+	rpc ServerRemove(Server) returns(Void);
 	// ServerEvents returns a stream of events that happen on the given server.
 	rpc ServerEvents(Server) returns(stream Server.Event);
 
@@ -607,15 +606,15 @@ service V1 {
 	// ContextActions
 	//
 
-	// AddContextAction adds a context action to the given user's client. The
+	// ContextActionAdd adds a context action to the given user's client. The
 	// following ContextAction fields must be set:
 	//   context, action, text, and user.
-	rpc AddContextAction(ContextAction) returns(Void);
-	// RemoveContextAction removes a context action from the given user's client.
+	rpc ContextActionAdd(ContextAction) returns(Void);
+	// ContextActionRemove removes a context action from the given user's client.
 	// The following ContextAction must be set:
 	//   action
 	// If no user is given, the context action is removed from all users.
-	rpc RemoveContextAction(ContextAction) returns(Void);
+	rpc ContextActionRemove(ContextAction) returns(Void);
 	// ContextActionEvents returns a stream of context action events that are
 	// triggered by users.
 	rpc ContextActionEvents(ContextAction) returns(stream ContextAction);
@@ -624,102 +623,102 @@ service V1 {
 	// TextMessage
 	//
 
-	// SendTextMessage sends the given TextMessage to the server.
+	// TextMessageSend sends the given TextMessage to the server.
 	//
 	// If no users, channels, or trees are added to the TextMessage, the message
 	// will be broadcast the entire server. Otherwise, the message will be
 	// targeted to the specified users, channels, and trees.
-	rpc SendTextMessage(TextMessage) returns(Void);
+	rpc TextMessageSend(TextMessage) returns(Void);
 
 
 	//
 	// Logs
 	//
 
-	// QueryLogs returns a list of log entries from the given server.
+	// LogQuery returns a list of log entries from the given server.
 	//
 	// To get the total number of log entries, omit min and/or max from the
 	// query.
-	rpc QueryLogs(Log.Query) returns(Log.List);
+	rpc LogQuery(Log.Query) returns(Log.List);
 
 	//
 	// Config
 	//
 
-	// GetConfig returns the explicitly set configuration for the given server.
-	rpc GetConfig(Server) returns(Config);
-	// GetConfigField returns the configuration value for the given key.
-	rpc GetConfigField(Config.Field) returns(Config.Field);
-	// SetConfigField sets the configuration value to the given value.
-	rpc SetConfigField(Config.Field) returns(Void);
-	// GetDefaultConfig returns the default server configuration.
-	rpc GetDefaultConfig(Void) returns(Config);
+	// ConfigGet returns the explicitly set configuration for the given server.
+	rpc ConfigGet(Server) returns(Config);
+	// ConfigGetField returns the configuration value for the given key.
+	rpc ConfigGetField(Config.Field) returns(Config.Field);
+	// ConfigSetField sets the configuration value to the given value.
+	rpc ConfigSetField(Config.Field) returns(Void);
+	// ConfigGetDefault returns the default server configuration.
+	rpc ConfigGetDefault(Void) returns(Config);
 
 	//
 	// Channels
 	//
 
-	// QueryChannels returns a list of channels that match the given query.
-	rpc QueryChannels(Channel.Query) returns(Channel.List);
-	// GetChannel returns the channel with the given ID.
-	rpc GetChannel(Channel) returns(Channel);
-	// AddChannel adds the channel to the given server. The parent and name of
+	// ChannelQuery returns a list of channels that match the given query.
+	rpc ChannelQuery(Channel.Query) returns(Channel.List);
+	// ChannelGet returns the channel with the given ID.
+	rpc ChannelGet(Channel) returns(Channel);
+	// ChannelAdd adds the channel to the given server. The parent and name of
 	// the channel must be set.
-	rpc AddChannel(Channel) returns(Channel);
-	// RemoveChannel removes the given channel from the server.
-	rpc RemoveChannel(Channel) returns(Void);
-	// UpdateChannel updates the given channel's attributes. Only the fields that
+	rpc ChannelAdd(Channel) returns(Channel);
+	// ChannelRemove removes the given channel from the server.
+	rpc ChannelRemove(Channel) returns(Void);
+	// ChannelUpdate updates the given channel's attributes. Only the fields that
 	// are set will be updated.
-	rpc UpdateChannel(Channel) returns(Channel);
+	rpc ChannelUpdate(Channel) returns(Channel);
 
 	//
 	// Users
 	//
 
-	// QueryUsers returns a list of connected users who match the given query.
-	rpc QueryUsers(User.Query) returns(User.List);
-	// GetUser returns information on the connected user, given by the user's
+	// UserQuery returns a list of connected users who match the given query.
+	rpc UserQuery(User.Query) returns(User.List);
+	// UserGet returns information on the connected user, given by the user's
 	// session or name.
-	rpc GetUser(User) returns(User);
-	// UpdateUser changes the given user's state. Only the following fields can
+	rpc UserGet(User) returns(User);
+	// UserUpdate changes the given user's state. Only the following fields can
 	// be changed:
 	//   name, mute, deaf, suppress, priority_speaker, channel, comment.
-	rpc UpdateUser(User) returns(User);
-	// KickUser kicks the user from the server.
-	rpc KickUser(User.Kick) returns(Void);
+	rpc UserUpdate(User) returns(User);
+	// UserKick kicks the user from the server.
+	rpc UserKick(User.Kick) returns(Void);
 
 	//
 	// Tree
 	//
 
-	// QueryTree returns a representation of the given server's channel/user
+	// TreeQuery returns a representation of the given server's channel/user
 	// tree.
-	rpc QueryTree(Tree.Query) returns(Tree);
+	rpc TreeQuery(Tree.Query) returns(Tree);
 
 	//
 	// Bans
 	//
 
-	// GetBans returns a list of bans for the given server.
-	rpc GetBans(Ban.Query) returns(Ban.List);
-	// SetBans replaces the server's ban list with the given list.
-	rpc SetBans(Ban.List) returns(Void);
+	// BansGet returns a list of bans for the given server.
+	rpc BansGet(Ban.Query) returns(Ban.List);
+	// BansSet replaces the server's ban list with the given list.
+	rpc BansSet(Ban.List) returns(Void);
 
 	//
 	// ACL
 	//
 
-	// GetACL returns the ACL for the given channel.
-	rpc GetACL(Channel) returns(ACL.List);
-	// SetACL overrides the ACL of the given channel to what is provided.
-	rpc SetACL(ACL.List) returns(Void);
-	// GetEffectivePermissions returns the effective permissions for the given
+	// ACLGet returns the ACL for the given channel.
+	rpc ACLGet(Channel) returns(ACL.List);
+	// ACLSet overrides the ACL of the given channel to what is provided.
+	rpc ACLSet(ACL.List) returns(Void);
+	// ACLGetEffectivePermissions returns the effective permissions for the given
 	// user in the given channel.
-	rpc GetEffectivePermissions(ACL.Query) returns(ACL);
-	// AddTemporaryGroup adds a user to a temporary group.
-	rpc AddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
-	// RemoveTemporaryGroup removes a user from a temporary group.
-	rpc RemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	rpc ACLGetEffectivePermissions(ACL.Query) returns(ACL);
+	// ACLAddTemporaryGroup adds a user to a temporary group.
+	rpc ACLAddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	// ACLRemoveTemporaryGroup removes a user from a temporary group.
+	rpc ACLRemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
 
 	//
 	// Authenticator
@@ -735,22 +734,22 @@ service V1 {
 	// Database
 	//
 
-	// QueryDatabaseUsers returns a list of registered users who match given
+	// DatabaseUserQuery returns a list of registered users who match given
 	// query.
-	rpc QueryDatabaseUsers(DatabaseUser.Query) returns(DatabaseUser.List);
-	// GetDatabaseUser returns the database user with the given ID.
-	rpc GetDatabaseUser(DatabaseUser) returns(DatabaseUser);
-	// UpdateDatabaseUser updates the given database user.
-	rpc UpdateDatabaseUser(DatabaseUser) returns(Void);
-	// RegisterDatabaseUser registers a user with the given information on the
+	rpc DatabaseUserQuery(DatabaseUser.Query) returns(DatabaseUser.List);
+	// DatabaseUserGet returns the database user with the given ID.
+	rpc DatabaseUserGet(DatabaseUser) returns(DatabaseUser);
+	// DatabaseUserUpdate updates the given database user.
+	rpc DatabaseUserUpdate(DatabaseUser) returns(Void);
+	// DatabaseUserRegister registers a user with the given information on the
 	// server. The returned DatabaseUser will contain the newly registered user's
 	// ID.
-	rpc RegisterDatabaseUser(DatabaseUser) returns(DatabaseUser);
-	// DeregisterDatabaseUser deregisters the given user.
-	rpc DeregisterDatabaseUser(DatabaseUser) returns(Void);
-	// VerifyDatabaseUser verifies the that the given user-password pair is
+	rpc DatabaseUserRegister(DatabaseUser) returns(DatabaseUser);
+	// DatabaseUserDeregister deregisters the given user.
+	rpc DatabaseUserDeregister(DatabaseUser) returns(Void);
+	// DatabaseUserVerify verifies the that the given user-password pair is
 	// correct.
-	rpc VerifyDatabaseUser(DatabaseUser.Verify) returns(DatabaseUser);
+	rpc DatabaseUserVerify(DatabaseUser.Verify) returns(DatabaseUser);
 
 	//
 	// Audio
@@ -759,9 +758,9 @@ service V1 {
 	// AddRedirectWhisperGroup add a whisper targets redirection for the given
 	// user. Whenever a user whispers to group "source", the whisper will be
 	// redirected to group "target".
-	rpc AddRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+	rpc RedirectWhisperGroupAdd(RedirectWhisperGroup) returns(Void);
 
 	// RemoveRedirectWhisperGroup removes a whisper target redirection for
 	// the the given user.
-	rpc RemoveRedirectWhisperGroup(RedirectWhisperGroup) returns(Void);
+	rpc RedirectWhisperGroupRemove(RedirectWhisperGroup) returns(Void);
 }

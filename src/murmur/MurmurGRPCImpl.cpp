@@ -948,7 +948,7 @@ void MurmurRPCImpl::run() {
 namespace MurmurRPC {
 namespace Wrapper {
 
-void V1_CreateServer::impl(bool) {
+void V1_ServerCreate::impl(bool) {
 	auto id = ServerDB::addServer();
 
 	::MurmurRPC::Server rpcServer;
@@ -956,7 +956,7 @@ void V1_CreateServer::impl(bool) {
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void V1_QueryServers::impl(bool) {
+void V1_ServerQuery::impl(bool) {
 	::MurmurRPC::Server_List list;
 
 	foreach(int id, ServerDB::getAllServers()) {
@@ -973,7 +973,7 @@ void V1_QueryServers::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void V1_GetServer::impl(bool) {
+void V1_ServerGet::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	::MurmurRPC::Server rpcServer;
@@ -988,7 +988,7 @@ void V1_GetServer::impl(bool) {
 	stream.Finish(rpcServer, ::grpc::Status::OK, done());
 }
 
-void V1_StartServer::impl(bool) {
+void V1_ServerStart::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	if (!meta->boot(serverID)) {
@@ -999,7 +999,7 @@ void V1_StartServer::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void V1_StopServer::impl(bool) {
+void V1_ServerStop::impl(bool) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
 
@@ -1007,7 +1007,7 @@ void V1_StopServer::impl(bool) {
 	stream.Finish(vd, ::grpc::Status::OK, done());
 }
 
-void V1_RemoveServer::impl(bool) {
+void V1_ServerRemove::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	if (meta->qhServers.value(serverID)) {
@@ -1045,7 +1045,7 @@ void V1_Events::impl(bool) {
 	rpc->qsMetaServiceListeners.insert(this);
 }
 
-void V1_AddContextAction::impl(bool) {
+void V1_ContextActionAdd::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1070,7 +1070,7 @@ void V1_AddContextAction::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_RemoveContextAction::impl(bool) {
+void V1_ContextActionRemove::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_action()) {
@@ -1104,7 +1104,7 @@ void V1_ContextActionEvents::impl(bool) {
 	rpc->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), this);
 }
 
-void V1_SendTextMessage::impl(bool) {
+void V1_TextMessageSend::impl(bool) {
 	auto server = MustServer(request);
 
 	::MumbleProto::TextMessage tm;
@@ -1134,7 +1134,7 @@ void V1_SendTextMessage::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_QueryLogs::impl(bool) {
+void V1_LogQuery::impl(bool) {
 	auto serverID = MustServerID(request);
 
 	int total = ::ServerDB::getLogLen(serverID);
@@ -1162,7 +1162,7 @@ void V1_QueryLogs::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void V1_GetConfig::impl(bool) {
+void V1_ConfigGet::impl(bool) {
 	auto serverID = MustServerID(request);
 	auto config = ServerDB::getAllConf(serverID);
 
@@ -1176,7 +1176,7 @@ void V1_GetConfig::impl(bool) {
 	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
-void V1_GetConfigField::impl(bool) {
+void V1_ConfigGetField::impl(bool) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1188,7 +1188,7 @@ void V1_GetConfigField::impl(bool) {
 	stream.Finish(rpcField, ::grpc::Status::OK, done());
 }
 
-void V1_SetConfigField::impl(bool) {
+void V1_ConfigSetField::impl(bool) {
 	auto serverID = MustServerID(request);
 	if (!request.has_key()) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing key");
@@ -1209,7 +1209,7 @@ void V1_SetConfigField::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_GetDefaultConfig::impl(bool) {
+void V1_ConfigGetDefault::impl(bool) {
 	::MurmurRPC::Config rpcConfig;
 	auto &fields = *rpcConfig.mutable_fields();
 	for (auto i = meta->mp.qmConfig.constBegin(); i != meta->mp.qmConfig.constEnd(); ++i) {
@@ -1219,7 +1219,7 @@ void V1_GetDefaultConfig::impl(bool) {
 	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
 }
 
-void V1_QueryChannels::impl(bool) {
+void V1_ChannelQuery::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Channel_List list;
@@ -1233,7 +1233,7 @@ void V1_QueryChannels::impl(bool) {
 	stream.Finish(list, ::grpc::Status::OK, done());
 }
 
-void V1_GetChannel::impl(bool) {
+void V1_ChannelGet::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1242,7 +1242,7 @@ void V1_GetChannel::impl(bool) {
 	stream.Finish(rpcChannel, ::grpc::Status::OK, done());
 }
 
-void V1_AddChannel::impl(bool) {
+void V1_ChannelAdd::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_parent() || !request.has_name()) {
@@ -1276,7 +1276,7 @@ void V1_AddChannel::impl(bool) {
 	stream.Finish(resChannel, grpc::Status::OK, done());
 }
 
-void V1_RemoveChannel::impl(bool) {
+void V1_ChannelRemove::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1288,7 +1288,7 @@ void V1_RemoveChannel::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_UpdateChannel::impl(bool) {
+void V1_ChannelUpdate::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1326,7 +1326,7 @@ void V1_UpdateChannel::impl(bool) {
 	stream.Finish(rpcChannel, grpc::Status::OK, done());
 }
 
-void V1_QueryUsers::impl(bool) {
+void V1_UserQuery::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User_List list;
@@ -1340,7 +1340,7 @@ void V1_QueryUsers::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void V1_GetUser::impl(bool) {
+void V1_UserGet::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::User rpcUser;
@@ -1367,7 +1367,7 @@ void V1_GetUser::impl(bool) {
 	throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "session or name required");
 }
 
-void V1_UpdateUser::impl(bool) {
+void V1_UserUpdate::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1407,7 +1407,7 @@ void V1_UpdateUser::impl(bool) {
 	stream.Finish(rpcUser, grpc::Status::OK, done());
 }
 
-void V1_KickUser::impl(bool) {
+void V1_UserKick::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1426,7 +1426,7 @@ void V1_KickUser::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_QueryTree::impl(bool) {
+void V1_TreeQuery::impl(bool) {
 	auto server = MustServer(request);
 
 	auto channel = MustChannel(server, 0);
@@ -1464,7 +1464,7 @@ void V1_QueryTree::impl(bool) {
 	stream.Finish(root, grpc::Status::OK, done());
 }
 
-void V1_GetBans::impl(bool) {
+void V1_BansGet::impl(bool) {
 	auto server = MustServer(request);
 
 	::MurmurRPC::Ban_List list;
@@ -1477,7 +1477,7 @@ void V1_GetBans::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void V1_SetBans::impl(bool) {
+void V1_BansSet::impl(bool) {
 	auto server = MustServer(request);
 	server->qlBans.clear();
 
@@ -1493,7 +1493,7 @@ void V1_SetBans::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_GetACL::impl(bool) {
+void V1_ACLGet::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1566,7 +1566,7 @@ void V1_GetACL::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void V1_SetACL::impl(bool) {
+void V1_ACLSet::impl(bool) {
 	auto server = MustServer(request);
 	auto channel = MustChannel(server, request);
 
@@ -1623,7 +1623,7 @@ void V1_SetACL::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_GetEffectivePermissions::impl(bool) {
+void V1_ACLGetEffectivePermissions::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1635,7 +1635,7 @@ void V1_GetEffectivePermissions::impl(bool) {
 	stream.Finish(rpcACL, grpc::Status::OK, done());
 }
 
-void V1_AddTemporaryGroup::impl(bool) {
+void V1_ACLAddTemporaryGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1661,7 +1661,7 @@ void V1_AddTemporaryGroup::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_RemoveTemporaryGroup::impl(bool) {
+void V1_ACLRemoveTemporaryGroup::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 	auto channel = MustChannel(server, request);
@@ -1704,7 +1704,7 @@ void V1_AuthenticatorStream::impl(bool) {
 	stream.Read(&request, callback(onInitialize));
 }
 
-void V1_QueryDatabaseUsers::impl(bool) {
+void V1_DatabaseUserQuery::impl(bool) {
 	auto server = MustServer(request);
 
 	QString filter;
@@ -1726,7 +1726,7 @@ void V1_QueryDatabaseUsers::impl(bool) {
 	stream.Finish(list, grpc::Status::OK, done());
 }
 
-void V1_GetDatabaseUser::impl(bool) {
+void V1_DatabaseUserGet::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1743,7 +1743,7 @@ void V1_GetDatabaseUser::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void V1_UpdateDatabaseUser::impl(bool) {
+void V1_DatabaseUserUpdate::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1784,7 +1784,7 @@ void V1_UpdateDatabaseUser::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_RegisterDatabaseUser::impl(bool) {
+void V1_DatabaseUserRegister::impl(bool) {
 	auto server = MustServer(request);
 
 	QMap<int, QString> info;
@@ -1806,7 +1806,7 @@ void V1_RegisterDatabaseUser::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void V1_DeregisterDatabaseUser::impl(bool) {
+void V1_DatabaseUserDeregister::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_id()) {
@@ -1820,7 +1820,7 @@ void V1_DeregisterDatabaseUser::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_VerifyDatabaseUser::impl(bool) {
+void V1_DatabaseUserVerify::impl(bool) {
 	auto server = MustServer(request);
 
 	if (!request.has_name()) {
@@ -1849,7 +1849,7 @@ void V1_VerifyDatabaseUser::impl(bool) {
 	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
 }
 
-void V1_AddRedirectWhisperGroup::impl(bool) {
+void V1_RedirectWhisperGroupAdd::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
@@ -1870,7 +1870,7 @@ void V1_AddRedirectWhisperGroup::impl(bool) {
 	stream.Finish(vd, grpc::Status::OK, done());
 }
 
-void V1_RemoveRedirectWhisperGroup::impl(bool) {
+void V1_RedirectWhisperGroupRemove::impl(bool) {
 	auto server = MustServer(request);
 	auto user = MustUser(server, request);
 
