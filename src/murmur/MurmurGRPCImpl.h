@@ -37,6 +37,8 @@
 #include "Server.h"
 #include "Meta.h"
 
+#include <atomic>
+
 #include <QMultiHash>
 
 #include <grpc/grpc.h>
@@ -47,7 +49,7 @@
 #include <grpc++/status.h>
 
 class RPCCall {
-	int mRefs;
+	::std::atomic_int mRefs;
 public:
 	RPCCall() {
 		ref();
