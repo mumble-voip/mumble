@@ -1037,7 +1037,7 @@ void Settings::save() {
 
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
-	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/linux/evdev/enable");
+	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;
