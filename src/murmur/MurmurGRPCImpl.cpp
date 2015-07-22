@@ -936,9 +936,9 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
 void MurmurRPCImpl::run() {
 	MurmurRPC::Wrapper::V1_Init(this, &aV1Service);
 
-	void *tag;
-	bool ok;
 	while (true) {
+		void *tag;
+		bool ok;
 		if (!mCQ->Next(&tag, &ok)) {
 			break;
 		}
