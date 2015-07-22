@@ -48,55 +48,7 @@
 #include <grpc++/server_credentials.h>
 #include <grpc++/status.h>
 
-class RPCCall {
-	::std::atomic_int mRefs;
-public:
-	RPCCall() {
-		ref();
-	}
-	virtual ~RPCCall() {
-	}
-	virtual ::boost::function<void(bool)> *done() = 0;
-	virtual void error(const ::grpc::Status&) = 0;
-	virtual void deref() {
-		if (--mRefs <= 0) {
-			delete this;
-		}
-	}
-	virtual void ref() {
-		mRefs++;
-	}
-
-	template<class T>
-	class Ref {
-		T *mO;
-	public:
-		Ref(T *o) : mO(o) {
-			if (o) {
-				o->ref();
-			}
-		}
-		~Ref() {
-			if (mO) {
-				mO->deref();
-			}
-		}
-		operator bool() const {
-			return mO != nullptr && !mO->context.IsCancelled();
-		}
-		T *operator->() {
-			return mO;
-		}
-	};
-};
-
-class RPCExecEvent : public ExecEvent {
-	Q_DISABLE_COPY(RPCExecEvent);
-public:
-	RPCCall *call;
-	RPCExecEvent(::boost::function<void()> fn, RPCCall *rpc_call) : ExecEvent(fn), call(rpc_call) {
-	}
-};
+class RPCCall;
 
 namespace MurmurRPC {
 namespace Wrapper {
@@ -160,6 +112,98 @@ class MurmurRPCImpl : public QThread {
 
 		void contextAction(const User *user, const QString &action, unsigned int session, int channel);
 };
+
+class RPCExecEvent : public ExecEvent {
+	Q_DISABLE_COPY(RPCExecEvent);
+public:
+	RPCCall *call;
+	RPCExecEvent(::boost::function<void()> fn, RPCCall *rpc_call) : ExecEvent(fn), call(rpc_call) {
+	}
+};
+
+class RPCCall {
+	::std::atomic_int mRefs;
+public:
+	MurmurRPCImpl *rpc;
+	::grpc::ServerContext context;
+
+	RPCCall(MurmurRPCImpl *rpcImpl) : rpc(rpcImpl) {
+		ref();
+	}
+	virtual ~RPCCall() {
+	}
+	virtual ::boost::function<void(bool)> *done() {
+		auto done_fn = ::boost::bind(&RPCCall::finish, this, _1);
+		return new ::boost::function<void(bool)>(done_fn);
+	}
+
+	virtual void error(const ::grpc::Status&) = 0;
+
+	virtual void finish(bool) {
+		deref();
+	}
+
+	virtual void deref() {
+		if (--mRefs <= 0) {
+			delete this;
+		}
+	}
+	virtual void ref() {
+		mRefs++;
+	}
+
+	template<class T>
+	class Ref {
+		T *mO;
+	public:
+		Ref(T *o) : mO(o) {
+			if (o) {
+				o->ref();
+			}
+		}
+		~Ref() {
+			if (mO) {
+				mO->deref();
+			}
+		}
+		operator bool() const {
+			return mO != nullptr && !mO->context.IsCancelled();
+		}
+		T *operator->() {
+			return mO;
+		}
+	};
+};
+
+template <class InType, class OutType>
+class RPCSingleSingleCall : public RPCCall {
+public:
+	InType request;
+	::grpc::ServerAsyncResponseWriter < OutType > stream;
+
+	RPCSingleSingleCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {
+	}
+
+	virtual void error(const ::grpc::Status &err) {
+		stream.FinishWithError(err, done());
+	}
+};
+
+template <class InType, class OutType>
+class RPCStreamStreamCall : public RPCCall {
+public:
+	InType request;
+	OutType response;
+	::grpc::ServerAsyncReaderWriter< OutType, InType > stream;
+
+	RPCStreamStreamCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {
+	}
+
+	virtual void error(const ::grpc::Status &err) {
+		stream.Finish(err, done());
+	}
+};
+
 
 #endif
 #endif

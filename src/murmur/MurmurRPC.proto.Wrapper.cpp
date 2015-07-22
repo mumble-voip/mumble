@@ -4,32 +4,14 @@
 namespace MurmurRPC {
 namespace Wrapper {
 
-class V1_GetUptime : public RPCCall {
+class V1_GetUptime : public RPCSingleSingleCall< ::MurmurRPC::Void, ::MurmurRPC::Uptime > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Uptime > stream;
-
-	V1_GetUptime(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_GetUptime(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetUptime::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_GetUptime::create(this->rpc, this->service);
@@ -45,32 +27,14 @@ public:
 	}
 };
 
-class V1_GetVersion : public RPCCall {
+class V1_GetVersion : public RPCSingleSingleCall< ::MurmurRPC::Void, ::MurmurRPC::Version > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Version > stream;
-
-	V1_GetVersion(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_GetVersion(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_GetVersion::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_GetVersion::create(this->rpc, this->service);
@@ -88,26 +52,15 @@ public:
 
 class V1_Events : public RPCCall {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
 	::MurmurRPC::Void request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > stream;
 
-	V1_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_Events::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
 
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_Events *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_Events::callbackAction, this, cb, _1);
@@ -139,32 +92,14 @@ private:
 	}
 };
 
-class V1_ServerCreate : public RPCCall {
+class V1_ServerCreate : public RPCSingleSingleCall< ::MurmurRPC::Void, ::MurmurRPC::Server > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
-
-	V1_ServerCreate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerCreate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerCreate::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerCreate::create(this->rpc, this->service);
@@ -180,32 +115,14 @@ public:
 	}
 };
 
-class V1_ServerQuery : public RPCCall {
+class V1_ServerQuery : public RPCSingleSingleCall< ::MurmurRPC::Server_Query, ::MurmurRPC::Server_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server_List > stream;
-
-	V1_ServerQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerQuery::create(this->rpc, this->service);
@@ -221,32 +138,14 @@ public:
 	}
 };
 
-class V1_ServerGet : public RPCCall {
+class V1_ServerGet : public RPCSingleSingleCall< ::MurmurRPC::Server, ::MurmurRPC::Server > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Server > stream;
-
-	V1_ServerGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerGet::create(this->rpc, this->service);
@@ -262,32 +161,14 @@ public:
 	}
 };
 
-class V1_ServerStart : public RPCCall {
+class V1_ServerStart : public RPCSingleSingleCall< ::MurmurRPC::Server, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ServerStart(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerStart(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerStart::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerStart::create(this->rpc, this->service);
@@ -303,32 +184,14 @@ public:
 	}
 };
 
-class V1_ServerStop : public RPCCall {
+class V1_ServerStop : public RPCSingleSingleCall< ::MurmurRPC::Server, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ServerStop(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerStop(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerStop::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerStop::create(this->rpc, this->service);
@@ -344,32 +207,14 @@ public:
 	}
 };
 
-class V1_ServerRemove : public RPCCall {
+class V1_ServerRemove : public RPCSingleSingleCall< ::MurmurRPC::Server, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ServerRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerRemove::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ServerRemove::create(this->rpc, this->service);
@@ -387,26 +232,15 @@ public:
 
 class V1_ServerEvents : public RPCCall {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
 	::MurmurRPC::Server request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > stream;
 
-	V1_ServerEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ServerEvents::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
 
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_ServerEvents *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_ServerEvents::callbackAction, this, cb, _1);
@@ -438,32 +272,14 @@ private:
 	}
 };
 
-class V1_ContextActionAdd : public RPCCall {
+class V1_ContextActionAdd : public RPCSingleSingleCall< ::MurmurRPC::ContextAction, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ContextActionAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ContextActionAdd::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ContextActionAdd::create(this->rpc, this->service);
@@ -479,32 +295,14 @@ public:
 	}
 };
 
-class V1_ContextActionRemove : public RPCCall {
+class V1_ContextActionRemove : public RPCSingleSingleCall< ::MurmurRPC::ContextAction, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ContextActionRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ContextActionRemove::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ContextActionRemove::create(this->rpc, this->service);
@@ -522,26 +320,15 @@ public:
 
 class V1_ContextActionEvents : public RPCCall {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
 	::MurmurRPC::ContextAction request;
 	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > stream;
 
-	V1_ContextActionEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ContextActionEvents::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
 
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_ContextActionEvents *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_ContextActionEvents::callbackAction, this, cb, _1);
@@ -573,32 +360,14 @@ private:
 	}
 };
 
-class V1_TextMessageSend : public RPCCall {
+class V1_TextMessageSend : public RPCSingleSingleCall< ::MurmurRPC::TextMessage, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::TextMessage request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_TextMessageSend(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_TextMessageSend(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_TextMessageSend::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_TextMessageSend::create(this->rpc, this->service);
@@ -614,32 +383,14 @@ public:
 	}
 };
 
-class V1_LogQuery : public RPCCall {
+class V1_LogQuery : public RPCSingleSingleCall< ::MurmurRPC::Log_Query, ::MurmurRPC::Log_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Log_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Log_List > stream;
-
-	V1_LogQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_LogQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_LogQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_LogQuery::create(this->rpc, this->service);
@@ -655,32 +406,14 @@ public:
 	}
 };
 
-class V1_ConfigGet : public RPCCall {
+class V1_ConfigGet : public RPCSingleSingleCall< ::MurmurRPC::Server, ::MurmurRPC::Config > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
-
-	V1_ConfigGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ConfigGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ConfigGet::create(this->rpc, this->service);
@@ -696,32 +429,14 @@ public:
 	}
 };
 
-class V1_ConfigGetField : public RPCCall {
+class V1_ConfigGetField : public RPCSingleSingleCall< ::MurmurRPC::Config_Field, ::MurmurRPC::Config_Field > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Config_Field request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config_Field > stream;
-
-	V1_ConfigGetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ConfigGetField::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ConfigGetField::create(this->rpc, this->service);
@@ -737,32 +452,14 @@ public:
 	}
 };
 
-class V1_ConfigSetField : public RPCCall {
+class V1_ConfigSetField : public RPCSingleSingleCall< ::MurmurRPC::Config_Field, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Config_Field request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ConfigSetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigSetField(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ConfigSetField::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ConfigSetField::create(this->rpc, this->service);
@@ -778,32 +475,14 @@ public:
 	}
 };
 
-class V1_ConfigGetDefault : public RPCCall {
+class V1_ConfigGetDefault : public RPCSingleSingleCall< ::MurmurRPC::Void, ::MurmurRPC::Config > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Void request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Config > stream;
-
-	V1_ConfigGetDefault(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ConfigGetDefault(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ConfigGetDefault::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ConfigGetDefault::create(this->rpc, this->service);
@@ -819,32 +498,14 @@ public:
 	}
 };
 
-class V1_ChannelQuery : public RPCCall {
+class V1_ChannelQuery : public RPCSingleSingleCall< ::MurmurRPC::Channel_Query, ::MurmurRPC::Channel_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel_List > stream;
-
-	V1_ChannelQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ChannelQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ChannelQuery::create(this->rpc, this->service);
@@ -860,32 +521,14 @@ public:
 	}
 };
 
-class V1_ChannelGet : public RPCCall {
+class V1_ChannelGet : public RPCSingleSingleCall< ::MurmurRPC::Channel, ::MurmurRPC::Channel > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
-
-	V1_ChannelGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ChannelGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ChannelGet::create(this->rpc, this->service);
@@ -901,32 +544,14 @@ public:
 	}
 };
 
-class V1_ChannelAdd : public RPCCall {
+class V1_ChannelAdd : public RPCSingleSingleCall< ::MurmurRPC::Channel, ::MurmurRPC::Channel > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
-
-	V1_ChannelAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ChannelAdd::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ChannelAdd::create(this->rpc, this->service);
@@ -942,32 +567,14 @@ public:
 	}
 };
 
-class V1_ChannelRemove : public RPCCall {
+class V1_ChannelRemove : public RPCSingleSingleCall< ::MurmurRPC::Channel, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ChannelRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ChannelRemove::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ChannelRemove::create(this->rpc, this->service);
@@ -983,32 +590,14 @@ public:
 	}
 };
 
-class V1_ChannelUpdate : public RPCCall {
+class V1_ChannelUpdate : public RPCSingleSingleCall< ::MurmurRPC::Channel, ::MurmurRPC::Channel > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Channel > stream;
-
-	V1_ChannelUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ChannelUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ChannelUpdate::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ChannelUpdate::create(this->rpc, this->service);
@@ -1024,32 +613,14 @@ public:
 	}
 };
 
-class V1_UserQuery : public RPCCall {
+class V1_UserQuery : public RPCSingleSingleCall< ::MurmurRPC::User_Query, ::MurmurRPC::User_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::User_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User_List > stream;
-
-	V1_UserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UserQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_UserQuery::create(this->rpc, this->service);
@@ -1065,32 +636,14 @@ public:
 	}
 };
 
-class V1_UserGet : public RPCCall {
+class V1_UserGet : public RPCSingleSingleCall< ::MurmurRPC::User, ::MurmurRPC::User > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::User request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
-
-	V1_UserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UserGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_UserGet::create(this->rpc, this->service);
@@ -1106,32 +659,14 @@ public:
 	}
 };
 
-class V1_UserUpdate : public RPCCall {
+class V1_UserUpdate : public RPCSingleSingleCall< ::MurmurRPC::User, ::MurmurRPC::User > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::User request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::User > stream;
-
-	V1_UserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UserUpdate::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_UserUpdate::create(this->rpc, this->service);
@@ -1147,32 +682,14 @@ public:
 	}
 };
 
-class V1_UserKick : public RPCCall {
+class V1_UserKick : public RPCSingleSingleCall< ::MurmurRPC::User_Kick, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::User_Kick request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_UserKick(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_UserKick(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_UserKick::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_UserKick::create(this->rpc, this->service);
@@ -1188,32 +705,14 @@ public:
 	}
 };
 
-class V1_TreeQuery : public RPCCall {
+class V1_TreeQuery : public RPCSingleSingleCall< ::MurmurRPC::Tree_Query, ::MurmurRPC::Tree > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Tree_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Tree > stream;
-
-	V1_TreeQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_TreeQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_TreeQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_TreeQuery::create(this->rpc, this->service);
@@ -1229,32 +728,14 @@ public:
 	}
 };
 
-class V1_BansGet : public RPCCall {
+class V1_BansGet : public RPCSingleSingleCall< ::MurmurRPC::Ban_Query, ::MurmurRPC::Ban_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Ban_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Ban_List > stream;
-
-	V1_BansGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_BansGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_BansGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_BansGet::create(this->rpc, this->service);
@@ -1270,32 +751,14 @@ public:
 	}
 };
 
-class V1_BansSet : public RPCCall {
+class V1_BansSet : public RPCSingleSingleCall< ::MurmurRPC::Ban_List, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Ban_List request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_BansSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_BansSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_BansSet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_BansSet::create(this->rpc, this->service);
@@ -1311,32 +774,14 @@ public:
 	}
 };
 
-class V1_ACLGet : public RPCCall {
+class V1_ACLGet : public RPCSingleSingleCall< ::MurmurRPC::Channel, ::MurmurRPC::ACL_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Channel request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL_List > stream;
-
-	V1_ACLGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ACLGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ACLGet::create(this->rpc, this->service);
@@ -1352,32 +797,14 @@ public:
 	}
 };
 
-class V1_ACLSet : public RPCCall {
+class V1_ACLSet : public RPCSingleSingleCall< ::MurmurRPC::ACL_List, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ACL_List request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ACLSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLSet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ACLSet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ACLSet::create(this->rpc, this->service);
@@ -1393,32 +820,14 @@ public:
 	}
 };
 
-class V1_ACLGetEffectivePermissions : public RPCCall {
+class V1_ACLGetEffectivePermissions : public RPCSingleSingleCall< ::MurmurRPC::ACL_Query, ::MurmurRPC::ACL > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ACL_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::ACL > stream;
-
-	V1_ACLGetEffectivePermissions(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLGetEffectivePermissions(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ACLGetEffectivePermissions::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ACLGetEffectivePermissions::create(this->rpc, this->service);
@@ -1434,32 +843,14 @@ public:
 	}
 };
 
-class V1_ACLAddTemporaryGroup : public RPCCall {
+class V1_ACLAddTemporaryGroup : public RPCSingleSingleCall< ::MurmurRPC::ACL_TemporaryGroup, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ACL_TemporaryGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ACLAddTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLAddTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ACLAddTemporaryGroup::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ACLAddTemporaryGroup::create(this->rpc, this->service);
@@ -1475,32 +866,14 @@ public:
 	}
 };
 
-class V1_ACLRemoveTemporaryGroup : public RPCCall {
+class V1_ACLRemoveTemporaryGroup : public RPCSingleSingleCall< ::MurmurRPC::ACL_TemporaryGroup, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::ACL_TemporaryGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_ACLRemoveTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_ACLRemoveTemporaryGroup(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_ACLRemoveTemporaryGroup::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_ACLRemoveTemporaryGroup::create(this->rpc, this->service);
@@ -1516,24 +889,14 @@ public:
 	}
 };
 
-class V1_AuthenticatorStream : public RPCCall {
+class V1_AuthenticatorStream : public RPCStreamStreamCall< ::MurmurRPC::Authenticator_Response, ::MurmurRPC::Authenticator_Request > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::Authenticator_Response request;
-	::MurmurRPC::Authenticator_Request response;
-	::grpc::ServerAsyncReaderWriter< ::MurmurRPC::Authenticator_Request, ::MurmurRPC::Authenticator_Response > stream;
-
-	V1_AuthenticatorStream(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_AuthenticatorStream(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCStreamStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
 
 	bool write() {
 		bool processed = false;
@@ -1567,18 +930,9 @@ public:
 		return write() && read();
 	}
 
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_AuthenticatorStream::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_AuthenticatorStream *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_AuthenticatorStream::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -1602,32 +956,14 @@ private:
 	}
 };
 
-class V1_DatabaseUserQuery : public RPCCall {
+class V1_DatabaseUserQuery : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser_Query, ::MurmurRPC::DatabaseUser_List > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser_Query request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser_List > stream;
-
-	V1_DatabaseUserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserQuery(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserQuery::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserQuery::create(this->rpc, this->service);
@@ -1643,32 +979,14 @@ public:
 	}
 };
 
-class V1_DatabaseUserGet : public RPCCall {
+class V1_DatabaseUserGet : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser, ::MurmurRPC::DatabaseUser > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
-
-	V1_DatabaseUserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserGet(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserGet::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserGet::create(this->rpc, this->service);
@@ -1684,32 +1002,14 @@ public:
 	}
 };
 
-class V1_DatabaseUserUpdate : public RPCCall {
+class V1_DatabaseUserUpdate : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_DatabaseUserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserUpdate(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserUpdate::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserUpdate::create(this->rpc, this->service);
@@ -1725,32 +1025,14 @@ public:
 	}
 };
 
-class V1_DatabaseUserRegister : public RPCCall {
+class V1_DatabaseUserRegister : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser, ::MurmurRPC::DatabaseUser > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
-
-	V1_DatabaseUserRegister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserRegister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserRegister::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserRegister::create(this->rpc, this->service);
@@ -1766,32 +1048,14 @@ public:
 	}
 };
 
-class V1_DatabaseUserDeregister : public RPCCall {
+class V1_DatabaseUserDeregister : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_DatabaseUserDeregister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserDeregister(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserDeregister::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserDeregister::create(this->rpc, this->service);
@@ -1807,32 +1071,14 @@ public:
 	}
 };
 
-class V1_DatabaseUserVerify : public RPCCall {
+class V1_DatabaseUserVerify : public RPCSingleSingleCall< ::MurmurRPC::DatabaseUser_Verify, ::MurmurRPC::DatabaseUser > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::DatabaseUser_Verify request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::DatabaseUser > stream;
-
-	V1_DatabaseUserVerify(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_DatabaseUserVerify(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_DatabaseUserVerify::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_DatabaseUserVerify::create(this->rpc, this->service);
@@ -1848,32 +1094,14 @@ public:
 	}
 };
 
-class V1_RedirectWhisperGroupAdd : public RPCCall {
+class V1_RedirectWhisperGroupAdd : public RPCSingleSingleCall< ::MurmurRPC::RedirectWhisperGroup, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::RedirectWhisperGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_RedirectWhisperGroupAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_RedirectWhisperGroupAdd(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RedirectWhisperGroupAdd::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_RedirectWhisperGroupAdd::create(this->rpc, this->service);
@@ -1889,32 +1117,14 @@ public:
 	}
 };
 
-class V1_RedirectWhisperGroupRemove : public RPCCall {
+class V1_RedirectWhisperGroupRemove : public RPCSingleSingleCall< ::MurmurRPC::RedirectWhisperGroup, ::MurmurRPC::Void > {
 public:
-	MurmurRPCImpl *rpc;
 	::MurmurRPC::V1::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::MurmurRPC::RedirectWhisperGroup request;
-	::grpc::ServerAsyncResponseWriter < ::MurmurRPC::Void > stream;
-
-	V1_RedirectWhisperGroupRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	V1_RedirectWhisperGroupRemove(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&V1_RedirectWhisperGroupRemove::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		V1_RedirectWhisperGroupRemove::create(this->rpc, this->service);
