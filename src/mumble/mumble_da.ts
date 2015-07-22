@@ -4866,22 +4866,22 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Send tekstbesked</translation>
     </message>
     <message>
         <location line="+84"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Uafbrudt</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Stemmeaktivering</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Tryk-for-snak</translation>
     </message>
     <message>
         <location line="+87"/>
@@ -6203,7 +6203,7 @@ Valid actions are:
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+207"/>

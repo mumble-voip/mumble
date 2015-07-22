@@ -4863,7 +4863,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Enviar Mensagem de Texto</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -6125,7 +6125,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 deixou o canal e desconectou-se.</translation>
     </message>
     <message>
         <location line="+123"/>
