@@ -46,32 +46,14 @@ using namespace google::protobuf::compiler;
 using namespace google::protobuf::io;
 
 const char *CSingle_SSingle = R"(
-class $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCSingleSingleCall< ::$in$, ::$out$ > {
 public:
-	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::$in$ request;
-	::grpc::ServerAsyncResponseWriter < ::$out$ > stream;
-
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCSingleSingleCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.FinishWithError(err, this->done());
-	}
 
 	void handle(bool ok) {
 		$service$_$method$::create(this->rpc, this->service);
@@ -91,26 +73,15 @@ public:
 const char *CSingle_SStream = R"(
 class $service$_$method$ : public RPCCall {
 public:
-	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
-	::grpc::ServerContext context;
 	::$in$ request;
 	::grpc::ServerAsyncWriter < ::$out$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
 
 	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
 		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
@@ -146,25 +117,14 @@ private:
 const char *CStream_SSingle = R"(
 class $service$_$method$ : public RPCCall {
 public:
-	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
-	::grpc::ServerContext context;
 	::grpc::ServerAsyncReader< ::$out$, ::$in$ > stream;
 
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
-
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
 
 	void error(const ::grpc::Status &err) {
 		stream.FinishWithError(err, this->done());
@@ -186,24 +146,14 @@ public:
 )";
 
 const char *CStream_SStream = R"(
-class $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCStreamStreamCall< ::$in$, ::$out$ > {
 public:
-	MurmurRPCImpl *rpc;
 	::$ns$::$service$::AsyncService *service;
 
-	::grpc::ServerContext context;
-	::$in$ request;
-	::$out$ response;
-	::grpc::ServerAsyncReaderWriter< ::$out$, ::$in$ > stream;
-
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : rpc(rpc_impl), service(async_service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCStreamStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
-
-	void finish(bool) {
-		deref();
-	}
 
 	bool write() {
 		bool processed = false;
@@ -237,18 +187,9 @@ public:
 		return write() && read();
 	}
 
-	::boost::function<void(bool)> *done() {
-		auto done_fn = ::boost::bind(&$service$_$method$::finish, this, _1);
-		return new ::boost::function<void(bool)>(done_fn);
-	}
-
 	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
 		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
