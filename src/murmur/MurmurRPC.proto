@@ -77,7 +77,6 @@ message ContextAction {
 		Channel = 0x02;
 		User = 0x04;
 	};
-
 	// The server on which the action is.
 	optional Server server = 1;
 	// The context in which the action is.
@@ -97,7 +96,6 @@ message ContextAction {
 message TextMessage {
 	// The server on which the TextMessage originates.
 	optional Server server = 1;
-
 	// The user who sent the message.
 	optional User actor = 2;
 	// The users to whom the message is sent.
@@ -114,7 +112,6 @@ message TextMessage {
 message Log {
 	// The server on which the log message was generated.
 	optional Server server = 1;
-
 	// The unix timestamp of when the message was generated.
 	optional int64 timestamp = 2;
 	// The log message.
@@ -162,7 +159,6 @@ message Config {
 message Channel {
 	// The server on which the channel exists.
 	optional Server server = 1;
-
 	// The unique channel identifier.
 	optional uint32 id = 2;
 	// The channel name.
@@ -194,14 +190,12 @@ message Channel {
 message User {
 	// The server to which the user is connected.
 	optional Server server = 1;
-
 	// The user's session ID.
 	optional uint32 session = 2;
 	// The user's registered ID.
 	optional uint32 id = 3;
 	// The user's name.
 	optional string name = 4;
-
 	// Is the user muted?
 	optional bool mute = 5;
 	// Is the user deafened?
@@ -226,12 +220,10 @@ message User {
 	optional uint32 bytes_per_sec = 15;
 	// The user's client version.
 	optional Version version = 16;
-
 	// The user's  plugin context.
 	optional bytes plugin_context = 17;
 	// The user's plugin identity.
 	optional string plugin_identity = 18;
-
 	// The user's comment.
 	optional string comment = 19;
 	// The user's texture.
@@ -240,7 +232,6 @@ message User {
 	optional bytes address = 21;
 	// Is the user in TCP-only mode?
 	optional bool tcp_only = 22;
-
 	// The user's UDP ping in milliseconds.
 	optional float udp_ping_msecs = 23;
 	// The user's TCP ping in milliseconds.
@@ -273,7 +264,6 @@ message User {
 message Tree {
 	// The server which the tree represents.
 	optional Server server = 1;
-
 	// The current channel.
 	optional Channel channel = 2;
 	// Channels below the current channel.
@@ -290,7 +280,6 @@ message Tree {
 message Ban {
 	// The server on which the ban is applied.
 	optional Server server = 1;
-
 	// The banned IP address.
 	optional bytes address = 2;
 	// The number of leading bits in the address to which the ban applies.
@@ -517,7 +506,6 @@ message Authenticator {
 message DatabaseUser {
 	// The server on which the user is registered.
 	optional Server server = 1;
-
 	// The unique user ID.
 	optional uint32 id = 2;
 	// The user's name.
