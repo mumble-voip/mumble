@@ -417,29 +417,35 @@ message Authenticator {
 		// A request for information about a user, given by either the user's ID
 		// or name.
 		message Find {
+			// The user's ID used for lookup.
 			optional uint32 id = 1;
+			// The user's name used for lookup.
 			optional string name = 2;
 		}
 
 		// A query of all the registered users, optionally filtered by the given
 		// filter string.
 		message Query {
+			// A user name filter (% is often used as a wildcard)
 			optional string filter = 1;
 		}
 
 		// A request for a new user registration.
 		message Register {
+			// The database user to register.
 			optional DatabaseUser user = 1;
 		}
 
 		// A request for deregistering a registered user.
 		message Deregister {
+			// The database user to deregister.
 			optional DatabaseUser user = 1;
 		}
 
 		// A request to update a registered user's information. The information
 		// provided should be merged with existing data.
 		message Update {
+			// The database user to update.
 			optional DatabaseUser user = 1;
 		}
 
@@ -459,37 +465,52 @@ message Authenticator {
 		}
 
 		enum Status {
+			// The request should fallthrough to murmur's default action.
 			Fallthrough = 0;
+			// The request was successful.
 			Success = 1;
+			// The request failed; there was some error.
 			Failure = 2;
+			// A temporary failure prevented the request from succeeding (e.g. a
+			// database was unavailable).
 			TemporaryFailure = 3;
 		}
 
 		message Authenticate {
+			// The status of the request.
 			optional Status status = 1;
+			// The user's registered ID.
 			optional uint32 id = 2;
+			// The corrected user's name;
 			optional string name = 3;
+			// Additional ACL groups that the user belongs too.
 			repeated ACL.Group groups = 4;
 		}
 
 		message Find {
+			// The database user (if found).
 			optional DatabaseUser user = 1;
 		}
 
 		message Query {
+			// The matched database users.
 			repeated DatabaseUser users = 1;
 		}
 
 		message Register {
+			// The status of the request.
 			optional Status status = 1;
+			// The registered database user (must contain the registered user's ID).
 			optional DatabaseUser user = 2;
 		}
 
 		message Deregister {
+			// The status of the request.
 			optional Status status = 1;
 		}
 
 		message Update {
+			// The status of the request.
 			optional Status status = 1;
 		}
 
