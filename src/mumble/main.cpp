@@ -559,7 +559,27 @@ int main(int argc, char **argv) {
 		
 		qWarning() << "Triggering restart of Mumble with arguments: " << arguments;
 		
-		if(!QProcess::startDetached(qApp->applicationFilePath(), arguments)) {
+#ifdef Q_OS_WIN
+		// Work around bug related to QTBUG-7645. Mumble has uiaccess=true set
+		// on windows which makes normal CreateProcess calls (like Qt uses in
+		// startDetached) fail unless they specifically enable additional priviledges.
+		// Note that we do not actually require user interaction by UAC nor full admin
+		// rights but only the right token on launch. Here we use ShellExecuteEx
+		// which handles this transparently for us.
+		const std::wstring applicationFilePath = qApp->applicationFilePath().toStdWString();
+		const std::wstring argumentsString = arguments.join(QLatin1String(" ")).toStdWString();
+		
+		SHELLEXECUTEINFO si;
+		ZeroMemory(&si, sizeof(SHELLEXECUTEINFO));
+		si.cbSize = sizeof(SHELLEXECUTEINFO);
+		si.lpFile = applicationFilePath.data();
+		si.lpParameters = argumentsString.data();
+		
+		bool ok = (ShellExecuteEx(&si) == TRUE);
+#else
+		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments)
+#endif
+		if(!ok) {
 			QMessageBox::warning(NULL,
 			                     QApplication::tr("Failed to restart mumble"),
 			                     QApplication::tr("Mumble failed to restart itself. Please restart it manually.")
