@@ -187,6 +187,10 @@ public:
 	virtual void error(const ::grpc::Status &err) {
 		stream.FinishWithError(err, done());
 	}
+
+	virtual void end(const OutType &msg = OutType()) {
+		stream.Finish(msg, ::grpc::Status::OK, done());
+	}
 };
 
 template <class InType, class OutType>
