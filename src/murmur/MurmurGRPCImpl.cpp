@@ -1123,7 +1123,7 @@ void V1_ServerCreate::impl(bool) {
 
 	::MurmurRPC::Server rpcServer;
 	rpcServer.set_id(id);
-	stream.Finish(rpcServer, ::grpc::Status::OK, done());
+	end(rpcServer);
 }
 
 void V1_ServerQuery::impl(bool) {
@@ -1140,7 +1140,7 @@ void V1_ServerQuery::impl(bool) {
 		}
 	}
 
-	stream.Finish(list, ::grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_ServerGet::impl(bool) {
@@ -1155,7 +1155,7 @@ void V1_ServerGet::impl(bool) {
 		rpcServer.mutable_uptime()->set_secs(server->tUptime.elapsed()/1000000LL);
 	} catch (::grpc::Status &ex) {
 	}
-	stream.Finish(rpcServer, ::grpc::Status::OK, done());
+	end(rpcServer);
 }
 
 void V1_ServerStart::impl(bool) {
@@ -1165,16 +1165,13 @@ void V1_ServerStart::impl(bool) {
 		throw ::grpc::Status(::grpc::UNKNOWN, "server could not be started, or is already started");
 	}
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, ::grpc::Status::OK, done());
+	end();
 }
 
 void V1_ServerStop::impl(bool) {
 	auto server = MustServer(request);
 	meta->kill(server->iServerNum);
-
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, ::grpc::Status::OK, done());
+	end();
 }
 
 void V1_ServerRemove::impl(bool) {
@@ -1185,9 +1182,7 @@ void V1_ServerRemove::impl(bool) {
 	}
 
 	ServerDB::deleteServer(serverID);
-
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, ::grpc::Status::OK, done());
+	end();
 }
 
 void V1_ServerEvents::impl(bool) {
@@ -1198,7 +1193,7 @@ void V1_ServerEvents::impl(bool) {
 void V1_GetUptime::impl(bool) {
 	::MurmurRPC::Uptime uptime;
 	uptime.set_secs(meta->tUptime.elapsed()/1000000LL);
-	stream.Finish(uptime, ::grpc::Status::OK, done());
+	end(uptime);
 }
 
 void V1_GetVersion::impl(bool) {
@@ -1208,7 +1203,7 @@ void V1_GetVersion::impl(bool) {
 	Meta::getVersion(major, minor, patch, release);
 	version.set_version(major << 16 | minor << 8 | patch);
 	version.set_release(u8(release));
-	stream.Finish(version, ::grpc::Status::OK, done());
+	end(version);
 }
 
 void V1_Events::impl(bool) {
@@ -1236,8 +1231,7 @@ void V1_ContextActionAdd::impl(bool) {
 	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Add);
 	server->sendMessage(user, mpcam);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ContextActionRemove::impl(bool) {
@@ -1260,8 +1254,7 @@ void V1_ContextActionRemove::impl(bool) {
 		server->sendAll(mpcam);
 	}
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ContextActionEvents::impl(bool) {
@@ -1300,8 +1293,7 @@ void V1_TextMessageSend::impl(bool) {
 
 	server->sendTextMessage(tm);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_LogQuery::impl(bool) {
@@ -1317,7 +1309,7 @@ void V1_LogQuery::impl(bool) {
 	list.set_total(total);
 
 	if (!request.has_min() || !request.has_max()) {
-		stream.Finish(list, ::grpc::Status::OK, done());
+		end(list);
 		return;
 	}
 	list.set_min(request.min());
@@ -1329,7 +1321,7 @@ void V1_LogQuery::impl(bool) {
 		ToRPC(serverID, record, rpcLog);
 	}
 
-	stream.Finish(list, ::grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_ConfigGet::impl(bool) {
@@ -1343,7 +1335,7 @@ void V1_ConfigGet::impl(bool) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
+	end(rpcConfig);
 }
 
 void V1_ConfigGetField::impl(bool) {
@@ -1355,7 +1347,7 @@ void V1_ConfigGetField::impl(bool) {
 	rpcField.mutable_server()->set_id(serverID);
 	rpcField.set_key(request.key());
 	rpcField.set_value(u8(ServerDB::getConf(serverID, u8(request.key()), QVariant()).toString()));
-	stream.Finish(rpcField, ::grpc::Status::OK, done());
+	end(rpcField);
 }
 
 void V1_ConfigSetField::impl(bool) {
@@ -1375,8 +1367,7 @@ void V1_ConfigSetField::impl(bool) {
 	} catch (::grpc::Status &ex) {
 	}
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ConfigGetDefault::impl(bool) {
@@ -1386,7 +1377,7 @@ void V1_ConfigGetDefault::impl(bool) {
 		fields[u8(i.key())] = u8(i.value());
 	}
 
-	stream.Finish(rpcConfig, ::grpc::Status::OK, done());
+	end(rpcConfig);
 }
 
 void V1_ChannelQuery::impl(bool) {
@@ -1400,7 +1391,7 @@ void V1_ChannelQuery::impl(bool) {
 		ToRPC(server, channel, rpcChannel);
 	}
 
-	stream.Finish(list, ::grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_ChannelGet::impl(bool) {
@@ -1409,7 +1400,7 @@ void V1_ChannelGet::impl(bool) {
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	stream.Finish(rpcChannel, ::grpc::Status::OK, done());
+	end(rpcChannel);
 }
 
 void V1_ChannelAdd::impl(bool) {
@@ -1443,7 +1434,7 @@ void V1_ChannelAdd::impl(bool) {
 
 	::MurmurRPC::Channel resChannel;
 	ToRPC(server, nc, &resChannel);
-	stream.Finish(resChannel, grpc::Status::OK, done());
+	end(resChannel);
 }
 
 void V1_ChannelRemove::impl(bool) {
@@ -1454,8 +1445,7 @@ void V1_ChannelRemove::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "cannot remove the root channel");
 	}
 	server->removeChannel(channel);
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ChannelUpdate::impl(bool) {
@@ -1493,7 +1483,7 @@ void V1_ChannelUpdate::impl(bool) {
 
 	::MurmurRPC::Channel rpcChannel;
 	ToRPC(server, channel, &rpcChannel);
-	stream.Finish(rpcChannel, grpc::Status::OK, done());
+	end(rpcChannel);
 }
 
 void V1_UserQuery::impl(bool) {
@@ -1507,7 +1497,7 @@ void V1_UserQuery::impl(bool) {
 		ToRPC(server, user, rpcUser);
 	}
 
-	stream.Finish(list, grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_UserGet::impl(bool) {
@@ -1519,7 +1509,7 @@ void V1_UserGet::impl(bool) {
 		// Lookup user by session
 		auto user = MustUser(server, request);
 		ToRPC(server, user, &rpcUser);
-		stream.Finish(rpcUser, grpc::Status::OK, done());
+		end(rpcUser);
 		return;
 	} else if (request.has_name()) {
 		// Lookup user by name
@@ -1527,7 +1517,7 @@ void V1_UserGet::impl(bool) {
 		foreach(const ::ServerUser *user, server->qhUsers) {
 			if (user->qsName == qsName) {
 				ToRPC(server, user, &rpcUser);
-				stream.Finish(rpcUser, grpc::Status::OK, done());
+				end(rpcUser);
 				return;
 			}
 		}
@@ -1574,7 +1564,7 @@ void V1_UserUpdate::impl(bool) {
 
 	::MurmurRPC::User rpcUser;
 	ToRPC(server, user, &rpcUser);
-	stream.Finish(rpcUser, grpc::Status::OK, done());
+	end(rpcUser);
 }
 
 void V1_UserKick::impl(bool) {
@@ -1592,8 +1582,7 @@ void V1_UserKick::impl(bool) {
 	server->sendAll(mpur);
 	user->disconnectSocket();
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_TreeQuery::impl(bool) {
@@ -1631,7 +1620,7 @@ void V1_TreeQuery::impl(bool) {
 		}
 	}
 
-	stream.Finish(root, grpc::Status::OK, done());
+	end(root);
 }
 
 void V1_BansGet::impl(bool) {
@@ -1644,7 +1633,7 @@ void V1_BansGet::impl(bool) {
 		ToRPC(server, ban, rpcBan);
 	}
 
-	stream.Finish(list, grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_BansSet::impl(bool) {
@@ -1659,8 +1648,7 @@ void V1_BansSet::impl(bool) {
 	}
 	server->saveBans();
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ACLGet::impl(bool) {
@@ -1733,7 +1721,7 @@ void V1_ACLGet::impl(bool) {
 		}
 	}
 
-	stream.Finish(list, grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_ACLSet::impl(bool) {
@@ -1789,8 +1777,7 @@ void V1_ACLSet::impl(bool) {
 	server->clearACLCache();
 	server->updateChannel(channel);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ACLGetEffectivePermissions::impl(bool) {
@@ -1802,7 +1789,7 @@ void V1_ACLGetEffectivePermissions::impl(bool) {
 
 	::MurmurRPC::ACL rpcACL;
 	rpcACL.set_allow(::MurmurRPC::ACL_Permission(flags));
-	stream.Finish(rpcACL, grpc::Status::OK, done());
+	end(rpcACL);
 }
 
 void V1_ACLAddTemporaryGroup::impl(bool) {
@@ -1827,8 +1814,7 @@ void V1_ACLAddTemporaryGroup::impl(bool) {
 	g->qsTemporary.insert(-user->uiSession);
 	server->clearACLCache(user);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_ACLRemoveTemporaryGroup::impl(bool) {
@@ -1853,8 +1839,7 @@ void V1_ACLRemoveTemporaryGroup::impl(bool) {
 	g->qsTemporary.remove(-user->uiSession);
 	server->clearACLCache(user);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, ::grpc::Status::OK, done());
+	end();
 }
 
 void V1_AuthenticatorStream::impl(bool) {
@@ -1893,7 +1878,7 @@ void V1_DatabaseUserQuery::impl(bool) {
 		user->set_name(u8(itr.value()));
 	}
 
-	stream.Finish(list, grpc::Status::OK, done());
+	end(list);
 }
 
 void V1_DatabaseUserGet::impl(bool) {
@@ -1910,7 +1895,7 @@ void V1_DatabaseUserGet::impl(bool) {
 
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	end(rpcDatabaseUser);
 }
 
 void V1_DatabaseUserUpdate::impl(bool) {
@@ -1950,8 +1935,7 @@ void V1_DatabaseUserUpdate::impl(bool) {
 		}
 	}
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_DatabaseUserRegister::impl(bool) {
@@ -1973,7 +1957,7 @@ void V1_DatabaseUserRegister::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.set_id(userid);
 	ToRPC(server, info, texture, &rpcDatabaseUser);
-	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	end(rpcDatabaseUser);
 }
 
 void V1_DatabaseUserDeregister::impl(bool) {
@@ -1986,8 +1970,7 @@ void V1_DatabaseUserDeregister::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "invalid user");
 	}
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_DatabaseUserVerify::impl(bool) {
@@ -2016,7 +1999,7 @@ void V1_DatabaseUserVerify::impl(bool) {
 	::MurmurRPC::DatabaseUser rpcDatabaseUser;
 	rpcDatabaseUser.mutable_server()->set_id(server->iServerNum);
 	rpcDatabaseUser.set_id(ret);
-	stream.Finish(rpcDatabaseUser, grpc::Status::OK, done());
+	end(rpcDatabaseUser);
 }
 
 void V1_RedirectWhisperGroupAdd::impl(bool) {
@@ -2036,8 +2019,7 @@ void V1_RedirectWhisperGroupAdd::impl(bool) {
 
 	server->clearACLCache(user);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 void V1_RedirectWhisperGroupRemove::impl(bool) {
@@ -2053,8 +2035,7 @@ void V1_RedirectWhisperGroupRemove::impl(bool) {
 
 	server->clearACLCache(user);
 
-	::MurmurRPC::Void vd;
-	stream.Finish(vd, grpc::Status::OK, done());
+	end();
 }
 
 }
