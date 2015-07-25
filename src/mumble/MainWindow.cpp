@@ -133,6 +133,7 @@ MainWindow::MainWindow(QWidget *p) : QMainWindow(p) {
 	uiNewHardware = 1;
 #endif
 	bSuppressAskOnQuit = false;
+	restartOnQuit = false;
 	bAutoUnmute = false;
 
 	Channel::add(0, tr("Root"));
@@ -460,7 +461,8 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 	g.bQuit = true;
 
 	QMainWindow::closeEvent(e);
-	qApp->quit();
+	
+	qApp->exit(restartOnQuit ? MUMBLE_EXIT_CODE_RESTART : 0);
 }
 
 void MainWindow::hideEvent(QHideEvent *e) {
@@ -2154,6 +2156,20 @@ void MainWindow::on_qaConfigDialog_triggered() {
 
 		UserModel *um = static_cast<UserModel *>(qtvUsers->model());
 		um->toggleChannelFiltered(NULL); // force a UI refresh
+		
+		if (g.s.requireRestartToApply) {
+			if (g.s.requireRestartToApply && QMessageBox::question(
+				        this,
+				        tr("Restart Mumble?"),
+				        tr("Some settings will only apply after a restart of Mumble. Restart Mumble now?"),
+				        QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) {
+		
+				bSuppressAskOnQuit = true;
+				restartOnQuit = true;
+				
+				close();
+			}
+		}
 	}
 
 	delete dlg;

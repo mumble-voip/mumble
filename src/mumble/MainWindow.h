@@ -117,6 +117,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QString qsDesiredChannel;
 
 		bool bSuppressAskOnQuit;
+		/// Restart the client after shutdown
+		bool restartOnQuit;
 		bool bAutoUnmute;
 
 #if QT_VERSION >= 0x050000
