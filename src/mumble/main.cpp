@@ -577,7 +577,7 @@ int main(int argc, char **argv) {
 		
 		bool ok = (ShellExecuteEx(&si) == TRUE);
 #else
-		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments)
+		bool ok = QProcess::startDetached(qApp->applicationFilePath(), arguments);
 #endif
 		if(!ok) {
 			QMessageBox::warning(NULL,
