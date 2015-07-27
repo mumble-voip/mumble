@@ -71,14 +71,11 @@ public:
 )";
 
 const char *CSingle_SStream = R"(
-class $service$_$method$ : public RPCCall {
+class $service$_$method$ : public RPCSingleStreamCall< ::$in$, ::$out$ > {
 public:
 	::$ns$::$service$::AsyncService *service;
 
-	::$in$ request;
-	::grpc::ServerAsyncWriter < ::$out$ > stream;
-
-	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
+	$service$_$method$(MurmurRPCImpl *rpc_impl, ::$ns$::$service$::AsyncService *async_service) : RPCSingleStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
@@ -86,10 +83,6 @@ public:
 	::boost::function<void(bool)> *callback(::boost::function<void($service$_$method$ *, bool)> cb) {
 		auto fn = ::boost::bind(&$service$_$method$::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
