@@ -50,14 +50,11 @@ public:
 	}
 };
 
-class V1_Events : public RPCCall {
+class V1_Events : public RPCSingleStreamCall< ::MurmurRPC::Void, ::MurmurRPC::Event > {
 public:
 	::MurmurRPC::V1::AsyncService *service;
 
-	::MurmurRPC::Void request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::Event > stream;
-
-	V1_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
+	V1_Events(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
@@ -65,10 +62,6 @@ public:
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_Events *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_Events::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -230,14 +223,11 @@ public:
 	}
 };
 
-class V1_ServerEvents : public RPCCall {
+class V1_ServerEvents : public RPCSingleStreamCall< ::MurmurRPC::Server, ::MurmurRPC::Server_Event > {
 public:
 	::MurmurRPC::V1::AsyncService *service;
 
-	::MurmurRPC::Server request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::Server_Event > stream;
-
-	V1_ServerEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
+	V1_ServerEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
@@ -245,10 +235,6 @@ public:
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_ServerEvents *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_ServerEvents::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {
@@ -318,14 +304,11 @@ public:
 	}
 };
 
-class V1_ContextActionEvents : public RPCCall {
+class V1_ContextActionEvents : public RPCSingleStreamCall< ::MurmurRPC::ContextAction, ::MurmurRPC::ContextAction > {
 public:
 	::MurmurRPC::V1::AsyncService *service;
 
-	::MurmurRPC::ContextAction request;
-	::grpc::ServerAsyncWriter < ::MurmurRPC::ContextAction > stream;
-
-	V1_ContextActionEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCCall(rpc_impl), service(async_service), stream(&context) {
+	V1_ContextActionEvents(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCSingleStreamCall(rpc_impl), service(async_service) {
 	}
 
 	void impl(bool ok);
@@ -333,10 +316,6 @@ public:
 	::boost::function<void(bool)> *callback(::boost::function<void(V1_ContextActionEvents *, bool)> cb) {
 		auto fn = ::boost::bind(&V1_ContextActionEvents::callbackAction, this, cb, _1);
 		return new ::boost::function<void(bool)>(fn);
-	}
-
-	void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
 	}
 
 	void handle(bool ok) {

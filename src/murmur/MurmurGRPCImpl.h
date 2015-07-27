@@ -194,6 +194,19 @@ public:
 };
 
 template <class InType, class OutType>
+class RPCSingleStreamCall : public RPCCall {
+public:
+	InType request;
+	::grpc::ServerAsyncWriter < OutType > stream;
+	RPCSingleStreamCall(MurmurRPCImpl *rpcImpl) : RPCCall(rpcImpl), stream(&context) {
+	}
+
+	virtual void error(const ::grpc::Status &err) {
+		stream.Finish(err, this->done());
+	}
+};
+
+template <class InType, class OutType>
 class RPCStreamStreamCall : public RPCCall {
 public:
 	InType request;
