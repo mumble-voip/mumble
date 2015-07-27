@@ -193,8 +193,17 @@ public:
 	}
 };
 
+/*
+ * Base for "single-stream" RPC methods.
+ *
+ * The helper method "write" automatically queues writes to the stream. Without
+ * write queuing, the grpc crashes if a stream.Write is called before a
+ * previous stream.Write completes.
+ */
 template <class InType, class OutType>
 class RPCSingleStreamCall : public RPCCall {
+	QMutex mWriteLock;
+	QQueue< QPair<OutType, void *> > mWriteQueue;
 public:
 	InType request;
 	::grpc::ServerAsyncWriter < OutType > stream;
@@ -202,7 +211,36 @@ public:
 	}
 
 	virtual void error(const ::grpc::Status &err) {
-		stream.Finish(err, this->done());
+		stream.Finish(err, done());
+	}
+
+	void write(const OutType &msg, void *tag) {
+		QMutexLocker(&RPCSingleStreamCall::mWriteLock);
+		if (mWriteQueue.size() > 0) {
+			mWriteQueue.enqueue(qMakePair(msg, tag));
+		} else {
+			mWriteQueue.enqueue(qMakePair(OutType(), tag));
+			stream.Write(msg, writeCB());
+		}
+	}
+
+private:
+	void *writeCB() {
+		auto callback = ::boost::bind(&RPCSingleStreamCall<InType, OutType>::writeCallback, this, _1);
+		return new ::boost::function<void(bool)>(callback);
+	}
+
+	void writeCallback(bool ok) {
+		QMutexLocker(&RPCSingleStreamCall::mWriteLock);
+		auto processed = mWriteQueue.dequeue();
+		if (processed.second) {
+			auto cb = static_cast< ::boost::function<void(bool)> *>(processed.second);
+			(*cb)(ok);
+			delete cb;
+		}
+		if (mWriteQueue.size() > 0) {
+			stream.Write(mWriteQueue.head().first, writeCB());
+		}
 	}
 };
 
