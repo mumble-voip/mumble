@@ -399,7 +399,7 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 			}
 			listener->deref();
 		};
-		listener->stream.Write(e, listener->callback(cb));
+		listener->write(e, listener->callback(cb));
 	}
 }
 
@@ -816,7 +816,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 			}
 			listener->deref();
 		};
-		listener->stream.Write(e, listener->callback(cb));
+		listener->write(e, listener->callback(cb));
 	}
 }
 
@@ -943,7 +943,7 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 			}
 			listener->deref();
 		};
-		listener->stream.Write(ca, listener->callback(cb));
+		listener->write(ca, listener->callback(cb));
 	}
 }
 
