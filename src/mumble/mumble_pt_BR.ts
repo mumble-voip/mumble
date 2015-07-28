@@ -6206,7 +6206,7 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation>Uso mumble rpc &lt;action&gt; [options]
+        <translation>Uso mumble rpc &lt;ação&gt; [opções]
 
 É possível controlar instânciar remotas do Mumble via comandos rpc.
 
@@ -6216,9 +6216,9 @@ Comandos válidos são:
   unmute
                 Desmutar-se
   deaf
-               Ensurdecer
+               Ensurdecer-se
   undeaf
-               Vocalizar
+               Desensurdecer-se
 </translation>
     </message>
     <message>
