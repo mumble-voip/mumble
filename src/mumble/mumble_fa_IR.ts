@@ -30,7 +30,7 @@
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation>ناموفق: کانال غلظ</translation>
+        <translation>ناموفق: کانال نامعتبر</translation>
     </message>
     <message>
         <location line="-155"/>
@@ -40,7 +40,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>شناسه: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -60,7 +60,7 @@
     <message>
         <location filename="ACLEditor.ui"/>
         <source>Dialog</source>
-        <translation type="unfinished"/>
+        <translation>دیالوگ</translation>
     </message>
     <message>
         <location/>
@@ -90,12 +90,12 @@
     <message>
         <location/>
         <source>Check to create a temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>بررسی برای ایجاد کانال موقت</translation>
     </message>
     <message>
         <location/>
         <source>Temporary</source>
-        <translation type="unfinished"/>
+        <translation>موقتی</translation>
     </message>
     <message>
         <location/>
@@ -113,32 +113,32 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>جایگاه</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Groups</source>
-        <translation type="unfinished"/>
+        <translation>&amp;گروه ها</translation>
     </message>
     <message>
         <location/>
         <source>Group</source>
-        <translation type="unfinished"/>
+        <translation>گروه</translation>
     </message>
     <message>
         <location/>
         <source>List of groups</source>
-        <translation type="unfinished"/>
+        <translation>لیست گروه ها</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected group</source>
-        <translation type="unfinished"/>
+        <translation>پاک کردن گروه انتخاب شده</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>پاک کردن</translation>
     </message>
     <message>
         <location/>
@@ -173,22 +173,22 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Members</source>
-        <translation type="unfinished"/>
+        <translation>اعضا</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن</translation>
     </message>
     <message>
         <location/>
         <source>Add member to group</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن عضو به گروه</translation>
     </message>
     <message>
         <location/>
         <source>Remove member from group</source>
-        <translation type="unfinished"/>
+        <translation>حذف عضو از گروه</translation>
     </message>
     <message>
         <location/>
@@ -299,7 +299,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Applies to this channel</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن به این کانال</translation>
     </message>
     <message>
         <location/>
@@ -309,7 +309,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Add new group</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن گروه جدید</translation>
     </message>
     <message>
         <location/>
@@ -370,12 +370,12 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Permissions</source>
-        <translation type="unfinished"/>
+        <translation>دسترسی ها</translation>
     </message>
     <message>
         <location/>
         <source>User/Group</source>
-        <translation type="unfinished"/>
+        <translation>عضو/گروه</translation>
     </message>
     <message>
         <location/>
@@ -2856,27 +2856,27 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>انتقال</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>پیغام متنی</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation type="unfinished"/>
+        <translation>بیرون انداختن</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation type="unfinished"/>
+        <translation>ممنوع</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation type="unfinished"/>
+        <translation>کاربر ثبت شده</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2908,7 +2908,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation type="unfinished"/>
+        <translation>دوست</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2923,12 +2923,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>درحال ضبط</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Muted (server)</source>
-        <translation type="unfinished"/>
+        <translation>ساکت شده (میزبان)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2943,7 +2943,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>ساکت شده محلی</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2961,7 +2961,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation type="unfinished"/>
+        <translation>قبول تغییرات</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2981,17 +2981,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation type="unfinished"/>
+        <translation>اعمال تغییرات</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation type="unfinished"/>
+        <translation>این کلید به صورت خودکار تمام تغییرات را اعمال می کند.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation type="unfinished"/>
+        <translation>باز گردادن تغییرات برای این صفحه</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3012,12 +3012,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"/>
+        <translation>پیکربندی Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Advanced</source>
-        <translation type="unfinished"/>
+        <translation>پیشرفته</translation>
     </message>
 </context>
 <context>
@@ -3031,7 +3031,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location line="-545"/>
         <location line="+545"/>
         <source>Enter username</source>
-        <translation type="unfinished"/>
+        <translation>نام کاربری خود را وارد کنید</translation>
     </message>
     <message>
         <location line="-545"/>
@@ -3047,7 +3047,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>نام میزبان</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3057,17 +3057,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>پورت</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation type="unfinished"/>
+        <translation>ادرس ها</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation type="unfinished"/>
+        <translation>تارنما</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3093,7 +3093,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"/>
+        <translation>پهنای باند</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3114,7 +3114,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-355"/>
         <source>Users</source>
-        <translation type="unfinished"/>
+        <translation>کاربران</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
@@ -3139,7 +3139,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"/>
+        <translation>حذف کردن از علاقه مندی ها</translation>
     </message>
     <message>
         <location/>
@@ -3154,12 +3154,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation type="unfinished"/>
+        <translation>تمامی میزبان ها و کاربرانشان را نشان بده</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation type="unfinished"/>
+        <translation>تمامی میزبان ها را نشان بده</translation>
     </message>
     <message>
         <location/>
@@ -3174,7 +3174,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"/>
+        <translation>&amp;چسباندن</translation>
     </message>
     <message>
         <location/>
@@ -3196,7 +3196,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>به &amp;علاقه مندی ها اضافه کن</translation>
     </message>
     <message>
         <location/>
@@ -3216,7 +3216,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>&amp;همه را نشان ده</translation>
     </message>
 </context>
 <context>
@@ -3224,7 +3224,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished"/>
+        <translation>ویرایش میزبان</translation>
     </message>
     <message>
         <location/>
@@ -3234,13 +3234,13 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"/>
+        <translation>&amp;آدرس ها</translation>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"/>
+        <translation>آدرس های اینترنتی میزبان</translation>
     </message>
     <message>
         <location/>
@@ -3253,7 +3253,7 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation type="unfinished"/>
+        <translation>&amp;پورت</translation>
     </message>
     <message>
         <location/>
@@ -3269,7 +3269,7 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation type="unfinished"/>
+        <translation>&amp;نام کاربری</translation>
     </message>
     <message>
         <location/>
@@ -3285,22 +3285,22 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>برچسب</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
         <source>Add Server</source>
-        <translation type="unfinished"/>
+        <translation>اضافه کردن میزبان</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>رمزعبور</translation>
     </message>
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation type="unfinished"/>
+        <translation>رمزی که قرار است برای میزبان ارسال شود</translation>
     </message>
     <message>
         <location/>
@@ -3311,7 +3311,7 @@ Password to be sent to the server on connect. This password is needed when conne
     <message>
         <location/>
         <source>Show password</source>
-        <translation type="unfinished"/>
+        <translation>رمز را نشان ده</translation>
     </message>
     <message>
         <location/>
@@ -3327,17 +3327,17 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>۱۲۷.۰.۰.۱</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>۶۴۷۳۸</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>نام کاربری شما</translation>
     </message>
     <message>
         <location/>

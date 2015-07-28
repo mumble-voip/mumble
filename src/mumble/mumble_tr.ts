@@ -4868,7 +4868,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Metin Mesajı Gönder</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -6129,7 +6129,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 kanaldan ayrıldı ve bağlantıyı kesti.</translation>
     </message>
     <message>
         <location line="+123"/>
