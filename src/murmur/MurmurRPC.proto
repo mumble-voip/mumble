@@ -2,6 +2,16 @@ syntax = "proto2";
 
 package MurmurRPC;
 
+// Note about embedded messages:
+//
+// To help save bandwidth, the protocol does not always send complete embedded
+// messages (i.e. an embeddded message with all of the fields filled in). These
+// incomplete messages only contain enough identifying information to get more
+// information from the message's corresponding "Get" method. For example:
+//
+// User.server only ever contains the server ID. Calling ServerGet(User.server)
+// will return a Server message with the server's status and uptime.
+
 message Void {
 }
 
