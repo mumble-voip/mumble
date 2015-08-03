@@ -436,12 +436,12 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
     <message>
         <location/>
         <source>&lt;b&gt;Inheritable&lt;/b&gt;&lt;br /&gt;This makes this group inheritable to sub-channels. If the group is non-inheritable, sub-channels are still free to create a new group with the same name.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Heredagarria/b&gt;&lt;br /&gt;  Taldea azpi-kanalentzako heredagarria bilakatzen du. Taldea ez bada heredagarria, azpi-kanalek, izen berdina duen talde berri bat sor dezakete.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Inherited&lt;/b&gt;&lt;br /&gt;This indicates that the group was inherited from the parent channel. You cannot edit this flag, it&apos;s just for information.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Heredatua&lt;/b&gt;&lt;br /&gt; Talde gurasotik heredatua izan dela erakusten du. Ezin duzu eremu hau aldatu, informazioa bakarrik da.</translation>
     </message>
     <message>
         <location/>
@@ -2288,7 +2288,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Ziurtagiri hash-ik ez</translation>
     </message>
     <message>
         <location/>
@@ -2374,7 +2374,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan da e-posta helbidea balioztatu.&lt;br /&gt;Sartu helbide zuzen bat (edo hutsunea) jarraitzeko.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2384,12 +2384,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan dira zure ziurtagaria eta giltza PKCS#12 formatura exportatu. Baliteke errore bat egotea zure ziurtagirian.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Fitxategia ezin izan da idazteko zabaldu. Mesedez erabili beste fitxategi bat.</translation>
+        <translation>Ezin izan da fitxategian idatzi. Mesedez, erabili beste  bat.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2399,32 +2399,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan da fitxategian idatzi. Mesedez, erabili beste bat.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan da fitxategia irakurri. Mesedez erabili beste bat.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Fitxategia hutsik dago, edo ezin izan da irakurri. Mesedez, erabili beste bat.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Ez da baliozko ziurtagiririk aurkitu. Mesedez, erabili beste bat.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratu  ziurtagaria non exportatuko den</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratu ziurtagiria  nondik inportatuko den</translation>
     </message>
     <message>
         <location line="+86"/>
@@ -2543,7 +2543,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratu nondik inportatu</translation>
     </message>
     <message>
         <location/>
@@ -2779,7 +2779,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-87"/>
         <source>This represents no privileges.</source>
-        <translation type="unfinished"/>
+        <translation>Baimen eza adierazten du</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2834,7 +2834,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Honek, erabiltzaileei testu mezuak bidaltzeko baimena adierazten du kanal honetan.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2844,17 +2844,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Honek, zerbitzaritik erabiltzaileak ezabatzeko baimena 
+adierazten du.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Honek zerbitzarian erabiltzaileak erregistratzeko baimena adierazten du.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation type="unfinished"/>
+        <translation>Honek bere burua zerbitzarian erregistratzeko baimena adierazten du.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2889,7 +2890,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation type="unfinished"/>
+        <translation>Erregistratu zure burua</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -2956,12 +2957,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Muted (self)</source>
-        <translation>Isilik (niretzat)</translation>
+        <translation>Isilik (nik)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (self)</source>
-        <translation type="unfinished"/>
+        <translation>Gortua (nik)</translation>
     </message>
 </context>
 <context>
@@ -3020,7 +3021,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation type="unfinished"/>
+        <translation>Mumble ezarpenak</translation>
     </message>
     <message>
         <location/>
@@ -3044,7 +3045,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-545"/>
         <source>Adding host %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 ostalaria gehitzen</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3055,12 +3056,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Ostalaria</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"/>
+        <translation>Bonjour izena</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3204,12 +3205,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Gehitu &amp;Gogokoetara</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"/>
+        <translation>Ireki  &amp;Webgunea</translation>
     </message>
     <message>
         <location/>
@@ -3256,7 +3257,9 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 Internet address of the server. This can be a normal hostname, an IPv4/IPv6 address or a Bonjour service identifier. Bonjour service identifiers have to be prefixed with a &apos;@&apos; to be recognized by Mumble.</source>
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Helbidea&lt;/b&gt;&lt;br/&gt;
+
+Zerbitzariaren interneteko helbidea. Ostalari arrunt bat, IPv4/IPv6 helbide bat, edo Bounjour zerbitzari identifikatzaile bat izan daiteke. Bounjourren kasuan, @ aurrizkia behar du Mumblek behar bezala detektatzeko.</translation>
     </message>
     <message>
         <location/>
@@ -3288,7 +3291,9 @@ Port on which the server is listening. If the server is identified by a Bonjour 
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Erabiltzaile izena&lt;/b&gt;&lt;br/&gt;
+
+Zerbitzariarian erabiliko duzun erabiltzaile izena. Kontuan hartu zerbitzariak izen baldintza jakin batzuk izan ditzakeela, edo izen hori dagoeneko beste erabiltzaile batek erabil dezakeela.</translation>
     </message>
     <message>
         <location/>
@@ -3402,13 +3407,13 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"/>
+        <translation>Ekerrik asko Mumble hobetzen laguntzeagatik!</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+2"/>
         <source>Crash upload failed</source>
-        <translation type="unfinished"/>
+        <translation>Errore txostenaren bidalketak huts egin du</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -3423,7 +3428,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+102"/>
         <source>Uploading crash report</source>
-        <translation type="unfinished"/>
+        <translation>Errore-txostena bildaltzen</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3436,17 +3441,17 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation type="unfinished"/>
+        <translation>Lehenetsitako DirectSound Ahots Sarrera</translation>
     </message>
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako DirectSound gailuaren irekierak huts egin du. MIkrofono sarrerarik ez da egingo.</translation>
     </message>
     <message>
         <location line="-83"/>
         <source>Opening chosen DirectSound Input failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako DirectSound  sarrera gailuaren irekierak huts egin du. Gailu lehenetsia erabiliko da.</translation>
     </message>
     <message>
         <location line="+78"/>
@@ -3464,7 +3469,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+243"/>
         <source>Opening chosen DirectSound Output failed. Default device will be used.</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako DirectSound  irteera gailuaren irekierak huts egin du. Gailu lehenetsia erabiliko da.</translation>
     </message>
     <message>
         <location line="+73"/>
@@ -3474,7 +3479,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+4"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation type="unfinished"/>
+        <translation>Aukeratutako DirectSound irteera gailuaren irekierak huts egin du. Ez da audiorik entzungo.</translation>
     </message>
 </context>
 <context>
@@ -3497,7 +3502,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation type="unfinished"/>
+        <translation>Askatu hemen</translation>
     </message>
 </context>
 <context>
@@ -3510,7 +3515,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Konfiguratutako laster-teklen zerrenda</translation>
     </message>
     <message>
         <location/>
@@ -3667,12 +3672,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Ez ikusia egin audio posizionalari</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation type="unfinished"/>
+        <translation>Lotutako kanaletara ohiukatu</translation>
     </message>
     <message>
         <location/>
@@ -3801,7 +3806,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>Kontuz</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3861,7 +3866,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>Zure burua isildu duzu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3886,7 +3891,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzaileak kanala utzi du</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3911,13 +3916,14 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation type="unfinished"/>
+        <translation>[[ Testua luzeegia da erakusteko ]]</translation>
     </message>
     <message>
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"/>
+        <translation>[Data %1 -era aldatu da]
+</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -4353,12 +4359,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"/>
+        <translation>Ikuspegi txikituan</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"/>
+        <translation>Ikuspegi arruntean</translation>
     </message>
     <message>
         <location/>
@@ -4559,7 +4565,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Ezarri zure buruaren isiltze egoera</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4571,7 +4577,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2"/>
         <source>Deafen Self</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Gortu zure burua</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4807,7 +4813,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Bidali testu mezua</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -4838,19 +4844,19 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+36"/>
         <location line="+1404"/>
         <source>Transmit Mode set to Continous</source>
-        <translation type="unfinished"/>
+        <translation>Igorpen modua ezarria: etengabe</translation>
     </message>
     <message>
         <location line="-1399"/>
         <location line="+1391"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Igorpen modua ezarria: ahotsa detektatzean</translation>
     </message>
     <message>
         <location line="-1386"/>
         <location line="+1390"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Igorpen modua ezarria: zapaldu hitz egiteko</translation>
     </message>
     <message>
         <location line="-1312"/>
@@ -4895,7 +4901,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>Bersinkronizatu</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4942,7 +4948,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Ziur al zaude  %1 erabiltzailearen iruzkina berrabiarazi nahi duzula?</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -5184,7 +5190,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Gortu</translation>
     </message>
     <message>
         <location/>
@@ -5214,7 +5220,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation type="unfinished"/>
+        <translation>Honek azpi-kanal bat gehitzen du aukeratutako kanalean</translation>
     </message>
     <message>
         <location/>
@@ -5259,7 +5265,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Chatbar</source>
-        <translation type="unfinished"/>
+        <translation>Txat barra</translation>
     </message>
     <message>
         <location/>
@@ -5299,7 +5305,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>Gortu erabiltzailea</translation>
     </message>
     <message>
         <location/>
@@ -5371,7 +5377,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation type="unfinished"/>
+        <translation>Zure burua  &amp;Isildu</translation>
     </message>
     <message>
         <location/>
@@ -5656,7 +5662,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+318"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 isildu eta gortu duzu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5676,7 +5682,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 -(e)k  %1 isildu eta gortu du</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5711,7 +5717,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>%1 isildu eta gortua dago</translation>
     </message>
     <message>
         <location line="-206"/>
@@ -6000,7 +6006,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"/>
+        <translation> %2 -(e)k %1 isildu du.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -6021,17 +6027,17 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 -(e)k isildu eta gortu zaitu</translation>
     </message>
     <message>
         <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 (e)k zerbitzaritik bota zaitu: %2</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1  (e)k %3 zerbitzaritik bota du: %2</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -6046,7 +6052,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 -(e)k &amp;1 -ra mugitu zaitu</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -6066,7 +6072,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -(e)k kanala utzi eta deskonektatu da</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -6109,7 +6115,9 @@ Valid options are:
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Mumble urrutitik kontrolatzen
+
+</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6184,7 +6192,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>%Ziurtagiri Laguntzailea</translation>
     </message>
     <message>
         <location/>
@@ -6249,7 +6257,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"/>
+        <translation>Erregistratu zure burua zerbitzarian</translation>
     </message>
     <message>
         <location/>
@@ -6279,7 +6287,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>Aldatu zure iruzkina</translation>
     </message>
     <message>
         <location/>
@@ -6426,7 +6434,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>Proxy mota</translation>
     </message>
     <message>
         <location/>
@@ -6446,12 +6454,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Ostalaria</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>Proxy-aren ostalaria</translation>
     </message>
     <message>
         <location/>
@@ -6649,7 +6657,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation type="unfinished"/>
+        <translation>Oihukatu</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -7570,7 +7578,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Erro</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -7604,7 +7612,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>Erro</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -8162,12 +8170,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"/>
+        <translation>Errorea gertatu da snapshot instalatzailea abiaraztean.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"/>
+        <translation>Bertsio berri baten deskarga okerra aurkitu da. Automatikoki ezabatu da.</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -8423,7 +8431,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"/>
+        <translation>Ostalari izena sartzen du</translation>
     </message>
     <message>
         <location line="+26"/>

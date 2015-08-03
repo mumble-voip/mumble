@@ -1869,7 +1869,10 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 &lt;p&gt;
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
-        <translation>Tämä on Mumblen audioapuri. Apuri auttaa sinua asettamaan oikein äänikorttisi sisääntulon voimakkuustasoa ja oikeat parametrit äänenkäsittelylle Mumblessa. Huomioi, että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten eikä lähetetä palvelimelle. </translation>
+        <translation>&lt;p&gt;
+Tämä on Mumblen audioapuri. Apuri auttaa sinua asettamaan oikein äänikorttisi sisääntulon voimakkuustason ja oikeat parametrit äänenkäsittelylle Mumblessa.
+&lt;/p&gt;
+&lt;p&gt; Huomioi, että niin kauan kuin audioapuri on aktiivinen, audio kierrätetään paikallisesti kuunteluasi varten eikä lähetetä palvelimelle.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2043,7 +2046,7 @@ Mumblea kehitetään jatkuvasti, ja kehitystiimi haluaa keskittyä useampia käy
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>Laitteiston ulostulon viiveen asettaminen pieninpään mahdolliseen arvoon.</translation>
+        <translation>Laitteiston ulostulon viiveen asettaminen pienimpään mahdolliseen arvoon.</translation>
     </message>
     <message>
         <location/>
