@@ -112,11 +112,42 @@
 static MurmurRPCImpl *service;
 
 void RPCStart() {
-	const QString &address = meta->mp.qsGRPCAddress;
+	const auto &address = meta->mp.qsGRPCAddress;
 	if (address.isEmpty()) {
 		return;
 	}
-	service = new MurmurRPCImpl(address);
+	const auto &cert = meta->mp.qsGRPCCert;
+	const auto &key = meta->mp.qsGRPCKey;
+	std::shared_ptr<::grpc::ServerCredentials> credentials;
+	if (cert.isEmpty() || key.isEmpty()) {
+		credentials = ::grpc::InsecureServerCredentials();
+	} else {
+		::grpc::SslServerCredentialsOptions options;
+		::grpc::SslServerCredentialsOptions::PemKeyCertPair pair;
+		{
+			QFile file(cert);
+			if (!file.open(QIODevice::ReadOnly)) {
+				qFatal("could not open gRPC certificate file: %s", cert.toStdString().c_str());
+				return;
+			}
+			QTextStream stream(&file);
+			auto contents = stream.readAll();
+			pair.cert_chain = contents.toStdString();
+		}
+		{
+			QFile file(key);
+			if (!file.open(QIODevice::ReadOnly)) {
+				qFatal("could not open gRPC key file: %s", key.toStdString().c_str());
+				return;
+			}
+			QTextStream stream(&file);
+			auto contents = stream.readAll();
+			pair.private_key = contents.toStdString();
+		}
+		options.pem_key_cert_pairs.push_back(pair);
+		credentials = ::grpc::SslServerCredentials(options);
+	}
+	service = new MurmurRPCImpl(address, credentials);
 }
 
 void RPCStop() {
@@ -125,9 +156,9 @@ void RPCStop() {
 	}
 }
 
-MurmurRPCImpl::MurmurRPCImpl(const QString &address) : qtCleanup(this) {
+MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) : qtCleanup(this) {
 	::grpc::ServerBuilder builder;
-	builder.AddListeningPort(u8(address), grpc::InsecureServerCredentials());
+	builder.AddListeningPort(u8(address), credentials);
 	builder.RegisterAsyncService(&aV1Service);
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
@@ -198,8 +229,7 @@ void MurmurRPCImpl::cleanup() {
 }
 
 /*
- * ToRPC/FromRPC methods convert data to and from grpc protocol buffer
- * messages.
+ * ToRPC/FromRPC methods convert data to/from grpc protocol buffer messages.
  */
 
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
