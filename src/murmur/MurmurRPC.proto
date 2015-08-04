@@ -628,6 +628,11 @@ service V1 {
 	// ContextActionAdd adds a context action to the given user's client. The
 	// following ContextAction fields must be set:
 	//   context, action, text, and user.
+	//
+	// Added context actions are valid until:
+	//  - The context action is removed with ContextActionRemove, or
+	//  - The user disconnects from the server, or
+	//  - The server stops.
 	rpc ContextActionAdd(ContextAction) returns(Void);
 	// ContextActionRemove removes a context action from the given user's client.
 	// The following ContextAction must be set:
