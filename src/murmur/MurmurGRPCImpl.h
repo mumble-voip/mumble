@@ -81,6 +81,13 @@ class MurmurRPCImpl : public QThread {
 		QMutex qmAuthenticatorsLock;
 		QHash<int, ::MurmurRPC::Wrapper::V1_AuthenticatorStream *> qhAuthenticators;
 
+		QMap<int, QMap<unsigned int, QSet<QString> > > qmActiveContextActions; // server id -> session -> context action
+		bool hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
+		void addActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
+		void removeActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
+		void removeUserActiveContextActions(const ::Server *s, const ::User *u);
+		void removeActiveContextActions(const ::Server *s);
+
 		void removeAuthenticator(const ::Server *);
 		void sendMetaEvent(const ::MurmurRPC::Event &e);
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
