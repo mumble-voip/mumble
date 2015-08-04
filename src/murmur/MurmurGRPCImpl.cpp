@@ -421,6 +421,8 @@ void MurmurRPCImpl::started(::Server *server) {
  * Called when a server stops.
  */
 void MurmurRPCImpl::stopped(::Server *server) {
+	removeActiveContextActions(server);
+
 	::MurmurRPC::Event rpcEvent;
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStopped);
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
@@ -866,6 +868,8 @@ void MurmurRPCImpl::userConnected(const ::User *user) {
 void MurmurRPCImpl::userDisconnected(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
+	removeUserActiveContextActions(s, user);
+
 	::MurmurRPC::Server_Event event;
 	event.mutable_server()->set_id(s->iServerNum);
 	event.set_type(::MurmurRPC::Server_Event_Type_UserDisconnected);
@@ -913,10 +917,77 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 }
 
 /*
+ * Has the user been sent the given context action?
+ */
+bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
+	const auto &m = qmActiveContextActions;
+	if (!m.contains(s->iServerNum)) {
+		return false;
+	}
+	const auto &n = m.value(s->iServerNum);
+	if (!n.contains(u->uiSession)) {
+		return false;
+	}
+	const auto &o = n.value(u->uiSession);
+	if (!o.contains(action)) {
+		return false;
+	}
+	return true;
+}
+
+/*
+ * Add the context action to the user's active context actions.
+ */
+void MurmurRPCImpl::addActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
+	qmActiveContextActions[s->iServerNum][u->uiSession].insert(action);
+}
+
+/*
+ * Remove the context action to the user's active context actions.
+ */
+void MurmurRPCImpl::removeActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
+	auto &m = qmActiveContextActions;
+	if (!m.contains(s->iServerNum)) {
+		return;
+	}
+	auto &n = m[s->iServerNum];
+	if (!n.contains(u->uiSession)) {
+		return;
+	}
+	auto &o = n[u->uiSession];
+	o.remove(action);
+}
+
+/*
+ * Remove all of the user's active context actions.
+ */
+void MurmurRPCImpl::removeUserActiveContextActions(const ::Server *s, const ::User *u) {
+	auto &m = qmActiveContextActions;
+	if (m.contains(s->iServerNum)) {
+		m[s->iServerNum].remove(u->uiSession);
+	}
+}
+
+/*
+ * Remove all of the server's active context actions.
+ */
+void MurmurRPCImpl::removeActiveContextActions(const ::Server *s) {
+	auto &m = qmActiveContextActions;
+	if (m.contains(s->iServerNum)) {
+		m.remove(s->iServerNum);
+	}
+}
+
+/*
  * Called when a context action event is triggered.
  */
 void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, unsigned int session, int channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
+
+	if (!hasActiveContextAction(s, user, action)) {
+		return;
+	}
+
 	::MurmurRPC::ContextAction ca;
 	ca.mutable_server()->set_id(s->iServerNum);
 	ca.mutable_actor()->mutable_server()->set_id(s->iServerNum);
@@ -1224,6 +1295,8 @@ void V1_ContextActionAdd::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing context");
 	}
 
+	rpc->addActiveContextAction(server, user, u8(request.action()));
+
 	::MumbleProto::ContextActionModify mpcam;
 	mpcam.set_action(request.action());
 	mpcam.set_text(request.text());
@@ -1241,6 +1314,8 @@ void V1_ContextActionRemove::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
 	}
 
+	auto action = u8(request.action());
+
 	::MumbleProto::ContextActionModify mpcam;
 	mpcam.set_action(request.action());
 	mpcam.set_operation(::MumbleProto::ContextActionModify_Operation_Remove);
@@ -1248,10 +1323,14 @@ void V1_ContextActionRemove::impl(bool) {
 	if (request.has_user()) {
 		// Remove context action from specific user
 		auto user = MustUser(server, request);
+		rpc->removeActiveContextAction(server, user, action);
 		server->sendMessage(user, mpcam);
 	} else {
 		// Remove context action from all users
-		server->sendAll(mpcam);
+		foreach(::ServerUser *user, server->qhUsers) {
+			rpc->removeActiveContextAction(server, user, action);
+			server->sendMessage(user, mpcam);
+		}
 	}
 
 	end();
