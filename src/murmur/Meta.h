@@ -103,6 +103,8 @@ public:
 	QString qsIceSecretRead, qsIceSecretWrite;
 
 	QString qsGRPCAddress;
+	QString qsGRPCCert;
+	QString qsGRPCKey;
 
 	QString qsRegName;
 	QString qsRegPassword;
