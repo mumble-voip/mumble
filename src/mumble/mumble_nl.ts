@@ -3342,7 +3342,7 @@ Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen 
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>Naam</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3375,12 +3375,13 @@ Wachtwoord om naar de server te verzenden bij verbinden. Dit wachtwoord is nodig
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Naam&lt;/b&gt;&lt;br/&gt;
+Naam van de server. Dit is een zelfgekozen naam van de server die in de serverlijst zal weergegeven worden</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Lokale server naam</translation>
     </message>
     <message>
         <location/>
@@ -3707,7 +3708,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Modifiers</source>
-        <translation type="unfinished"/>
+        <translation>Veranderingsfactoren</translation>
     </message>
     <message>
         <location/>
@@ -4865,7 +4866,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Verstuur tekstbericht</translation>
     </message>
     <message>
         <location line="+84"/>
@@ -6124,7 +6125,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+309"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 heeft het kanaal verlaten en heeft de verbinding verbroken.</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -6404,7 +6405,7 @@ Undeafen self
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>Negeer alle tekstberichten van de gebruiker.</translation>
     </message>
     <message>
         <location/>
@@ -8569,7 +8570,7 @@ Neem contact op met je serverbeheerder voor verdere informatie.</translation>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"/>
+        <translation>Downmix</translation>
     </message>
 </context>
 <context>
