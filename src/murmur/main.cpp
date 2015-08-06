@@ -405,9 +405,10 @@ int main(int argc, char **argv) {
 	}
 #endif
 
-	if (! supw.isEmpty()) {
-		if (supw.isEmpty())
+	if (!supw.isNull()) {
+		if (supw.isEmpty()) {
 			qFatal("Superuser password can not be empty");
+		}
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
 	}
