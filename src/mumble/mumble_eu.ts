@@ -447,13 +447,15 @@ Hauek kanal honetarako definitutako talde guztiak dira. Talde berri bat sortzeko
         <location/>
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Kideak&lt;/b&gt;&lt;br /&gt;
+Zerrenda honek uneko kanalera gehitutako kide guztiak biltzen ditu. Kontuan hartu maila altuagoetatik heredatutakoak ez direla ageri. Horiek &lt;i&gt;Heredatutako kideak&lt;/i&gt; zerrendan aurki ditzakezu. Zerrenda hau maila txikiagoetara heredatzea ekiditeko begiratu  &lt;i&gt;Heredagarria&lt;/i&gt; eremua edo manualki gehitu erabiltzaileak &lt;i&gt;Baztertutako kideaki&gt; zerrendara.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Excluded members&lt;/b&gt;&lt;br /&gt;
 Contains a list of members whose group membership will not be inherited from the parent channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Baztertutako kideak&lt;/b&gt;&lt;br /&gt;
+Baztertutako kideen zerrendu. Kideen talde-jatorria ez da guraso kanaletik heredatuko.</translation>
     </message>
     <message>
         <location/>
@@ -2942,17 +2944,17 @@ adierazten du.</translation>
     <message>
         <location line="+2"/>
         <source>Deafened (server)</source>
-        <translation type="unfinished"/>
+        <translation>Gortua(zerbitzaria)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation type="unfinished"/>
+        <translation>Lokalki alde batera utzi (Testu mezuak)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation type="unfinished"/>
+        <translation>Lokalki Isildu</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3005,7 +3007,7 @@ adierazten du.</translation>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation type="unfinished"/>
+        <translation>Botoi honek orrialdean egindako azken aldaketak alde batera utziko ditu.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3016,7 +3018,7 @@ adierazten du.</translation>
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Botoi honek orrialdeako ezarpen lehenetsiak berreskuratuko ditu. Gainerako orrialdeak ez dira aldatuko.&lt;br /&gt;Ezarpen guztiak berreskuratzeko, orrialdez orrialdea joan beharko zara botoi hau sakatuz.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3298,7 +3300,7 @@ Zerbitzariarian erabiliko duzun erabiltzaile izena. Kontuan hartu zerbitzariak i
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>Etiketa</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-75"/>
@@ -3330,12 +3332,14 @@ Password to be sent to the server on connect. This password is needed when conne
         <location/>
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Etiketa&lt;/b&gt;&lt;br/&gt;
+
+Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, edozein izan daiteke.</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzariaren etiketa lokala</translation>
     </message>
     <message>
         <location/>
@@ -3376,7 +3380,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;&lt;b&gt;Asko sentitzen dugu, badirudi Mumble erori egin dela. Mumble garatzaileei errore txostena bidali nahi al diezu?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Txosten honek Mumble erori deneko informazioaren kopia partzial bat gordetzen du, garatzaileei arazoa konpontzen lagunduko diena.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3387,7 +3391,7 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Mesedez deskribatu laburki, eta ingelesez, Mumble erori denean egiten ari zinena</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3598,7 +3602,7 @@ of the possible locations.</source>
     <message>
         <location line="+52"/>
         <source>Shortcut button combination.</source>
-        <translation type="unfinished"/>
+        <translation>Laster-tekla konbinazioak.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4223,7 +4227,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Honek, Mumblek erabiliko duen hizkuntza zehazten du.&lt;/b&gt;&lt;br /&gt;Mumble berrabiarazi beharko duzu hizkuntza aldatuz gero.</translation>
     </message>
     <message>
         <location/>
@@ -4314,7 +4318,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble ixtean, itxi edo txikitu nahi duzun galdetu.</translation>
     </message>
     <message>
         <location/>
@@ -4543,7 +4547,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-156"/>
         <source>Ctrl+M</source>
-        <translation>Ctrl+M</translation>
+        <translation>Ktrl+M</translation>
     </message>
     <message>
         <location line="+155"/>
@@ -5457,12 +5461,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Audio laguntzailea</translation>
     </message>
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"/>
+        <translation>Hasi audio konfigurazio laguntzailea</translation>
     </message>
     <message>
         <location/>
@@ -5477,12 +5481,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Enter What&apos;s This? mode</source>
-        <translation type="unfinished"/>
+        <translation>Zer da hau? moduan sartu</translation>
     </message>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation type="unfinished"/>
+        <translation>Klikatu &quot;Zer da hau?&quot; moduan sartzeko. Zure kurtsorea galdera ikur batean bilakatuko da. Klikatu edozein botoi edo menutan zertarako den azaltzen duen deskribapena ikusteko.</translation>
     </message>
     <message>
         <location/>
@@ -6042,12 +6046,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 -(e)k zerbitzaritik baneatu eta bota zaitu: %2</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 (e)k %3 zerbitzaritik baneatu eta bota du: %2</translation>
     </message>
     <message>
         <location line="-74"/>
@@ -6317,7 +6321,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>Lokalki alde batera utzi erabiltzaileen mezuak.</translation>
     </message>
     <message>
         <location/>
@@ -6585,22 +6589,22 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>Honek, Mumble eguneraketarik dagoen egiaztatuko du programa hasten duzun bakoitzean, eta baldin badago jakinarazi.   </translation>
     </message>
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>Egiaztatu aplikazio eguneraketak automatikoki.</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Egiaztatu plugin eguneraketak automatikoki.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Honek, plugin eguneraketarik dagoen egiaztatuko du programa hasten duzun bakoitzean, eta ldin badago automatikoki deskargatu.</translation>
     </message>
     <message>
         <location/>
@@ -6766,7 +6770,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Aukera gehiagotarako egin eskuineko klik erabiltzaileari.</translation>
     </message>
     <message>
         <location line="+262"/>
@@ -6957,7 +6961,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>FPS eta Erloju erakuslea</translation>
     </message>
     <message>
         <location/>
@@ -7055,7 +7059,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailearen kanalaren izena, zure kanaletik kanpo badago</translation>
     </message>
     <message>
         <location/>
@@ -7219,12 +7223,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"/>
+        <translation>Pluginak ez dauka ezarpenik.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"/>
+        <translation>Pluginak ez dauka deskribapenik.</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
