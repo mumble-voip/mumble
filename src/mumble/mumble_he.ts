@@ -512,7 +512,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>כרטיס ALSA משתמט</translation>
     </message>
     <message>
-        <location line="+325"/>
+        <location line="+328"/>
         <source>Opening chosen ALSA Output failed: %1</source>
         <translation>פתיחת פלט ה-ALSA שנבחר נכשלה: %1</translation>
     </message>
@@ -1495,6 +1495,41 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>Attenuate other users while talking as Priority Speaker.</source>
         <translation>הנמך משתמשים אחרים בזמן דיבור כמועדף דיבור.</translation>
     </message>
+    <message>
+        <location/>
+        <source>Advanced Attenuation Options</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Only attenuate applications using the same output device</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>If checked, PulseAudio loopback modules will be attenuated</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Attenuate PulseAudio loopback modules</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>AudioOutputDialog</name>
@@ -1519,7 +1554,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <translation>פלט שמע</translation>
     </message>
     <message>
-        <location line="+108"/>
+        <location line="+123"/>
         <location line="+19"/>
         <location line="+8"/>
         <source>%1 ms</source>
@@ -2099,7 +2134,7 @@ Mumble is under continuous development, and the development team wants to focus 
         <translation>בטל את תכונת טקסט-לדיבור והשתמש בצלילים במקומה.</translation>
     </message>
     <message>
-        <location filename="AudioWizard.cpp" line="+309"/>
+        <location filename="AudioWizard.cpp" line="+316"/>
         <source>%1 ms</source>
         <translation>%1 מ&quot;ש</translation>
     </message>
@@ -2465,7 +2500,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>משתמש Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+478"/>
+        <location filename="main.cpp" line="+463"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;פקיעת תעודה:&lt;/b&gt; תוקפה של תעודת האבטחה שלכם עומד לפקוע. עליכם לחדש אותה או שלא תוכלו להתחבר יותר אל השרתים שאתם רשומים בהם.</translation>
     </message>
@@ -3077,18 +3112,18 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+949"/>
+        <location filename="ConnectDialog.cpp" line="+996"/>
         <source>Connecting to %1</source>
         <translation>מתחבר כעת אל %1</translation>
     </message>
     <message>
-        <location line="-545"/>
-        <location line="+545"/>
+        <location line="-591"/>
+        <location line="+591"/>
         <source>Enter username</source>
         <translation>הכנס שם משתמש</translation>
     </message>
     <message>
-        <location line="-545"/>
+        <location line="-591"/>
         <source>Adding host %1</source>
         <translation>הוספת מארח %1</translation>
     </message>
@@ -3155,7 +3190,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>%1 קב&quot;ש</translation>
     </message>
     <message>
-        <location line="+299"/>
+        <location line="+345"/>
         <source>&amp;Connect</source>
         <translation>הת&amp;חבר</translation>
     </message>
@@ -3166,7 +3201,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-355"/>
+        <location filename="ConnectDialog.cpp" line="-401"/>
         <source>Users</source>
         <translation>משתמשים</translation>
     </message>
@@ -3176,7 +3211,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <translation>גירסא</translation>
     </message>
     <message>
-        <location line="+1051"/>
+        <location line="+1097"/>
         <source>Failed to fetch server list</source>
         <translation>נכשל לתפוס רשימת שרתים</translation>
     </message>
@@ -3345,7 +3380,7 @@ Username to send to the server. Be aware that the server can impose restrictions
         <translation>כותרת</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-75"/>
+        <location filename="ConnectDialog.cpp" line="-121"/>
         <source>Add Server</source>
         <translation>הוסף שרת</translation>
     </message>
@@ -3846,7 +3881,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>Log</name>
     <message>
-        <location filename="Log.cpp" line="+225"/>
+        <location filename="Log.cpp" line="+242"/>
         <source>Debug</source>
         <translation>דיבאג</translation>
     </message>
@@ -3961,7 +3996,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ביטלת את ההחרשתך</translation>
     </message>
     <message>
-        <location line="+58"/>
+        <location line="+1"/>
+        <source>User renamed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+59"/>
         <source>the server</source>
         <translation>השרת</translation>
     </message>
@@ -4006,7 +4046,7 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LogConfig</name>
     <message>
-        <location line="-471"/>
+        <location line="-487"/>
         <source>Toggle console for %1 events</source>
         <translation>הפעל/בטל פלט טקסט עבור אירועי %1</translation>
     </message>
@@ -4016,12 +4056,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>הפעל/בטל התראות קופצות עבור אירועי %1</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+10"/>
         <source>Toggle Text-To-Speech for %1 events</source>
         <translation>הפעל/בטל טקסט-לדיבור עבור אירועי %1</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-9"/>
         <source>Click here to toggle sound notification for %1 events</source>
         <translation>לחץ כאן כדי להפעיל/לבטל התראות קוליות עבור אירועי %1</translation>
     </message>
@@ -4042,18 +4082,18 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>לחצו כאן כדי להפעיל/לכבות התראות קופצות עבור אירועי %1.&lt;br /&gt;אם מסומן, התראות קופצות יווצרו על ידי Mumble לכל אירוע %1.</translation>
     </message>
     <message>
-        <location line="+3"/>
+        <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
         <translation>הנתיב אל קובץ הקול שיהיה בשימוש להתראות קוליות עבור אירועי %1.&lt;br /&gt;לחיצה אחת כדי לנגן.&lt;br /&gt;לחיצה כפולה כדי לשנות.&lt;br /&gt;אנא וודאו שאפשרתם שימוש בהתראות קוליות לאירועים הללו או שלהגדרה הזו לא תהיה כל השפעה.</translation>
     </message>
     <message>
-        <location line="-2"/>
+        <location line="+4"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
         <translation>לחצו כאן כדי להפעיל/לכבות את תכונת הטקסט-לדיבור עבור אירועי %1.&lt;br /&gt;אם מסומן, Mumble ישתמש בטקסט-לדיבור כדי להקריא בקול אירועי %1. תכונת הטקסט-לדיבור יכולה גם להקריא את תוכן האירוע, מה שלא אפשרי עם קבצי קול. טקסט-לדיבור וקבצי קול לא יכולים להיות בשימוש בו זמנית.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-5"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
         <translation>לחצו כאן כדי להפעיל/לכבות התראות קוליות עבור אירועי %1. &lt;br /&gt;אם מסומן, Mumble ישתמש בקובץ קול מוגדר מראש על ידיכם כדי להודיע על אירועי %1. קבצי קול ותכונת הטקסט-לדיבור לא יכולים להיות פעילים בו זמנית.</translation>
@@ -4182,18 +4222,18 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>LookConfig</name>
     <message>
-        <location filename="LookConfig.cpp" line="+55"/>
-        <location line="+23"/>
+        <location filename="LookConfig.cpp" line="+56"/>
         <source>System default</source>
         <translation>ברירת מחדל מערכת</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+21"/>
+        <location line="+69"/>
         <source>None</source>
         <translation>ללא</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-68"/>
         <source>Only with users</source>
         <translation>רק עם משתמשים</translation>
     </message>
@@ -4221,11 +4261,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <source>User Interface</source>
         <translation>ממשק משתמש</translation>
-    </message>
-    <message>
-        <location line="+159"/>
-        <source>Choose skin file</source>
-        <translation>בחירת קובץ סקין</translation>
     </message>
     <message>
         <location filename="LookConfig.ui"/>
@@ -4317,36 +4352,6 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
         <translation>אפשרות זו מגדירה את התוצאה של גרירת ערוצים; ניתן להשתמש בה כדי למנוע גרירה לא מכוונת. &lt;i&gt;הזז&lt;/i&gt; תזיז את הערוצים מבלי לשאול. &lt;i&gt;אל תעשה דבר&lt;/i&gt; לא תזיז את הערוצים ותציג הודעה בחלון היומן. &lt;i&gt;שאל&lt;/i&gt; תקפיץ תיבת דו-שיח שבה תשאל אם אתה בטוח כי ברצונך להזיז את הערוץ.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Style</source>
-        <translation>עיצוב</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Basic widget style</source>
-        <translation>עיצוב יישומון בסיסי</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This sets the basic look and feel to use.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;מגדיר את המראה והתחושה לשימוש.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Skin</source>
-        <translation>סקין</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Skin file to use</source>
-        <translation>קובץ סקין לשימוש</translation>
-    </message>
-    <message>
-        <location/>
-        <source>&lt;b&gt;This sets which skin Mumble should use.&lt;/b&gt;&lt;br /&gt;The skin is a style file applied on top of the basic widget style. If there are icons in the same directory as the style sheet, those will replace the default icons.</source>
-        <translation>&lt;b&gt;מגדיר את הסקין שעל Mumble לשתמש בו.&lt;/b&gt;&lt;br /&gt;סקין הוא למעשה קובץ סגנון שייושם במקום סגנון ברירת המחדל של התוכנה. אם יש סמלים באותה התיקייה של קבצי הסגנון, הם יוחלפו בסמלי ברירת המחדל.</translation>
     </message>
     <message>
         <location/>
@@ -4470,11 +4475,6 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location/>
-        <source>&amp;Browse...</source>
-        <translation>&amp;עיון...</translation>
-    </message>
-    <message>
-        <location/>
         <source>Use selected item as the chat bar target</source>
         <translation>ערוץ/משתמש מסומנים יהוו יעד לצ&apos;אט</translation>
     </message>
@@ -4488,17 +4488,32 @@ This field describes the size of an LCD device. The size is given either in pixe
         <source>Show transmit mode dropdown in toolbar</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location/>
+        <source>Theme</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Theme to use to style the user interface</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
+        <translation type="unfinished"/>
+    </message>
 </context>
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2402"/>
+        <location line="+2422"/>
         <source>Root</source>
         <translation>שורש</translation>
     </message>
     <message>
-        <location line="-2348"/>
+        <location line="-2368"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>לחץ-כדי-לדבר</translation>
@@ -4577,28 +4592,28 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+22"/>
-        <location line="+2469"/>
+        <location line="+2489"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2464"/>
+        <location line="-2484"/>
         <source>&amp;Window</source>
         <translation>&amp;חלון</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+156"/>
+        <location line="+161"/>
         <source>Minimize</source>
         <translation>מזער</translation>
     </message>
     <message>
-        <location line="-156"/>
+        <location line="-161"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location line="+155"/>
+        <location line="+160"/>
         <source>Close</source>
         <translation>סגור</translation>
     </message>
@@ -4608,7 +4623,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>&lt;p dir=&quot;RTL&quot;&gt;‫Mumble מחוברת כרגע לשרת, האם ברצונך לסגור או למזער אותה?&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-219"/>
+        <location line="-224"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>השתק את עצמך</translation>
@@ -4650,14 +4665,14 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>לחש/צעק</translation>
     </message>
     <message>
-        <location line="+70"/>
-        <location line="+2485"/>
+        <location line="+75"/>
+        <location line="+2500"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;לא מחובר&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2155"/>
+        <location line="-2169"/>
         <source>Clear</source>
         <translation>טהר</translation>
     </message>
@@ -4713,7 +4728,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>מתחבר מחדש כעת.</translation>
     </message>
     <message>
-        <location line="+167"/>
+        <location line="+76"/>
+        <location line="+1418"/>
+        <source>Transmit Mode set to Continuous</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="-1327"/>
         <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אין מידע זמין עבור הגרסא או גרסאת מערכת ההפעלה.&lt;/p&gt;</translation>
     </message>
@@ -4767,7 +4788,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+72"/>
         <location line="+263"/>
-        <location line="+601"/>
+        <location line="+615"/>
         <source>Message to channel %1</source>
         <translation>הודעה לערוץ %1</translation>
     </message>
@@ -4822,12 +4843,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>פורמט תמונה לא מזוהה.</translation>
     </message>
     <message>
-        <location line="-1792"/>
+        <location line="-1806"/>
         <source>Voice channel is sent over control channel.</source>
         <translation>ערוץ הקול נשלח דרך ערוץ בקרה.</translation>
     </message>
     <message>
-        <location line="-1012"/>
+        <location line="-1018"/>
         <source>&amp;User</source>
         <translation>&amp;משתמש</translation>
     </message>
@@ -4868,7 +4889,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+84"/>
+        <location line="+89"/>
         <source>Continuous</source>
         <translation>מתמשך</translation>
     </message>
@@ -4888,30 +4909,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>ביטול</translation>
     </message>
     <message>
-        <location line="+601"/>
+        <location line="+602"/>
         <source>Change your comment</source>
         <translation>שנה את הודעתך האישית</translation>
     </message>
     <message>
-        <location line="+36"/>
-        <location line="+1404"/>
-        <source>Transmit Mode set to Continous</source>
-        <translation>מצב שידור הוחלף למצב מתמשך</translation>
-    </message>
-    <message>
-        <location line="-1399"/>
-        <location line="+1391"/>
+        <location line="+41"/>
+        <location line="+1405"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>מצב שידור הוחלף למצב פעילות קול</translation>
     </message>
     <message>
-        <location line="-1386"/>
-        <location line="+1390"/>
+        <location line="-1400"/>
+        <location line="+1404"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>מצב שידור הוחלף למצב לחץ-כדי-לדבר</translation>
     </message>
     <message>
-        <location line="-1312"/>
+        <location line="-1326"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
         <translation>&lt;h2&gt;גירסא&lt;/h2&gt;&lt;p&gt;פרוטוקול %1.&lt;/p&gt;</translation>
     </message>
@@ -4967,12 +4982,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1462"/>
+        <location line="+1476"/>
         <source>&amp;View Certificate</source>
         <translation>ה&amp;צג תעודת אבטחה</translation>
     </message>
     <message>
-        <location line="-1184"/>
+        <location line="-1198"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>הכנס סיבה</translation>
@@ -4987,12 +5002,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+99"/>
         <location line="+4"/>
         <location line="+259"/>
-        <location line="+601"/>
+        <location line="+615"/>
         <source>To %1: %2</source>
         <translation>לכבוד %1: %2</translation>
     </message>
     <message>
-        <location line="-963"/>
+        <location line="-977"/>
         <location line="+103"/>
         <source>Message to %1</source>
         <translation>הודעה לכבוד %1</translation>
@@ -5059,7 +5074,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>החרשה בוטלה.</translation>
     </message>
     <message>
-        <location line="+93"/>
+        <location line="+60"/>
+        <source>Restart Mumble?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+46"/>
         <source>About Qt</source>
         <translation>אודות Qt</translation>
     </message>
@@ -5712,7 +5737,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אפשרות זו מפעילה או מכבה את התצוגה המינימלית, שבה התפריט וחלונות הצ&apos;אט והיומן מוסתרים.</translation>
     </message>
     <message>
-        <location filename="Messages.cpp" line="+318"/>
+        <location filename="Messages.cpp" line="+327"/>
         <source>You muted and deafened %1.</source>
         <translation>השתקת והחרשת את %1.</translation>
     </message>
@@ -5772,23 +5797,23 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 מושתק ומוחרש כעת.</translation>
     </message>
     <message>
-        <location line="-206"/>
+        <location line="-215"/>
         <source>Your account information can not be verified currently. Please try again later</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;אנו לא יכולים לאמת את חשבונך. נסה שנית מאוחר יותר&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+17"/>
-        <location line="+51"/>
+        <location line="+20"/>
+        <location line="+55"/>
         <source>Welcome message: %1</source>
         <translation>הודעת פתיחה: %1</translation>
     </message>
     <message>
-        <location line="-15"/>
+        <location line="-17"/>
         <source>Mumble: %1</source>
         <translation>‫Mumble: ‫%1</translation>
     </message>
     <message>
-        <location line="+36"/>
+        <location line="+40"/>
         <source>You were denied %1 privileges in %2.</source>
         <translation>אין לך הרשאת %1 ב-%2.</translation>
     </message>
@@ -5979,12 +6004,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>%1 מקליט</translation>
     </message>
     <message>
-        <location line="+9"/>
-        <source>%1 renamed to %2</source>
-        <translation>השם %1 שונה אל %2</translation>
-    </message>
-    <message>
-        <location line="+47"/>
+        <location line="+56"/>
         <source>%1 disconnected.</source>
         <translation>%1 התנתק.</translation>
     </message>
@@ -6112,17 +6132,22 @@ Otherwise abort and check your certificate and username.</source>
         <translation>&lt;p dir=&quot;RTL&quot;&gt;%1 נכנס לערוץ.&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-397"/>
+        <location line="-406"/>
         <source>Server connection rejected: %1.</source>
         <translation>התקשרות שרת נדחתה: %1.</translation>
     </message>
     <message>
-        <location line="+147"/>
+        <location line="+156"/>
         <source>Denied: %1.</source>
         <translation>נדחה: %1.</translation>
     </message>
     <message>
-        <location line="+309"/>
+        <location line="+264"/>
+        <source>%1 renamed to %2.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+45"/>
         <source>%1 left channel and disconnected.</source>
         <translation type="unfinished"/>
     </message>
@@ -6142,7 +6167,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>אופס! מצב גרירת ערוץ לא יודע בפעולה UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-335"/>
+        <location filename="main.cpp" line="-319"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6195,7 +6220,7 @@ Valid actions are:
         <translation>קריאה</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+16"/>
         <source>Error: No RPC command specified</source>
         <translation type="unfinished"/>
     </message>
@@ -6205,7 +6230,7 @@ Valid actions are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+207"/>
+        <location line="+190"/>
         <source>Welcome to Mumble.</source>
         <translation>ברוך בואך אל Mumble.</translation>
     </message>
@@ -6719,7 +6744,7 @@ Prevents the client from downloading images embedded into chat messages with the
         <translation>ערוץ</translation>
     </message>
     <message>
-        <location filename="Overlay.cpp" line="+106"/>
+        <location filename="Overlay.cpp" line="+116"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
         <translation>נכשל ביצירת קישוריות עם ממשק-המשחק ב-%2:%1. הממשק לא יוצג.</translation>
     </message>
@@ -6805,7 +6830,7 @@ Prevents the client from downloading images embedded into chat messages with the
 <context>
     <name>OverlayConfig</name>
     <message>
-        <location filename="OverlayConfig.cpp" line="+88"/>
+        <location filename="OverlayConfig.cpp" line="+90"/>
         <source>To move the users, drag the little red dot.</source>
         <translation>כדי להזיז משתמשים, גרור את הנקודה האדומה.</translation>
     </message>
@@ -7269,7 +7294,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <name>PluginConfig</name>
     <message>
         <location filename="Plugins.ui"/>
-        <location filename="Plugins.cpp" line="+98"/>
+        <location filename="Plugins.cpp" line="+99"/>
         <source>Plugins</source>
         <translation>תוספות</translation>
     </message>
@@ -7367,7 +7392,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>Plugins</name>
     <message>
-        <location filename="Plugins.cpp" line="+354"/>
+        <location filename="Plugins.cpp" line="+353"/>
         <source>Skipping plugin update in debug mode.</source>
         <translation>מדלג על עדכון תוספים במצב ניפוי-שגיאות.</translation>
     </message>
@@ -7405,7 +7430,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>PulseAudioSystem</name>
     <message>
-        <location filename="PulseAudio.cpp" line="+771"/>
+        <location filename="PulseAudio.cpp" line="+797"/>
         <source>Default Input</source>
         <translation>קלט ברירת מחדל</translation>
     </message>
@@ -7413,6 +7438,19 @@ To upgrade these files to their latest versions, click the button below.</source
         <location line="+1"/>
         <source>Default Output</source>
         <translation>פלט ברירת מחדל</translation>
+    </message>
+</context>
+<context>
+    <name>QApplication</name>
+    <message>
+        <location filename="main.cpp" line="+110"/>
+        <source>Failed to restart mumble</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Mumble failed to restart itself. Please restart it manually.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -7519,7 +7557,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerHandler</name>
     <message>
-        <location filename="ServerHandler.cpp" line="+481"/>
+        <location filename="ServerHandler.cpp" line="+485"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
         <translation>לא ניתן לשלוח או לקבל חבילות UDP. עובר למצב TCP.</translation>
     </message>
@@ -7547,7 +7585,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ServerView</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="-640"/>
+        <location filename="ConnectDialog.cpp" line="-641"/>
         <source>Favorite</source>
         <translation>מועדף</translation>
     </message>
