@@ -1162,6 +1162,32 @@ void ServerDB::setSUPW(int srvnum, const QString &pw) {
 	SQLEXEC();
 }
 
+void ServerDB::disableSU(int srvnum) {
+        TransactionHolder th;
+
+        QSqlQuery &query = *th.qsqQuery;
+
+        SQLPREP("SELECT `user_id` FROM `%1users` WHERE `server_id` = ? AND `user_id` = ?");
+        query.addBindValue(srvnum);
+        query.addBindValue(0);
+        SQLEXEC();
+        if (! query.next()) {
+                SQLPREP("INSERT INTO `%1users` (`server_id`, `user_id`, `name`) VALUES (?, ?, ?)");
+                query.addBindValue(srvnum);
+                query.addBindValue(0);
+                query.addBindValue(QLatin1String("SuperUser"));
+                SQLEXEC();
+        }
+
+        SQLPREP("UPDATE `%1users` SET `pw`=?, `salt`=?, `kdfiterations`=? WHERE `server_id` = ? AND `user_id`=?");
+        query.addBindValue(QVariant()); // NULL
+        query.addBindValue(QVariant()); // NULL
+        query.addBindValue(QVariant()); // NULL
+        query.addBindValue(srvnum);
+        query.addBindValue(0);
+        SQLEXEC();
+}
+
 QString ServerDB::getLegacySHA1Hash(const QString &password) {
 	QByteArray hash = QCryptographicHash::hash(password.toUtf8(), QCryptographicHash::Sha1);
 	return QString::fromLatin1(hash.toHex());
