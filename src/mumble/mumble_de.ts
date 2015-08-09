@@ -7531,7 +7531,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation>Fehler beim Neustarten von Mumble</translation>
+        <translation>Konnte Mumble nicht neustarten</translation>
     </message>
     <message>
         <location line="+1"/>

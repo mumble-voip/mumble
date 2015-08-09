@@ -491,7 +491,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ALSAAudio.cpp" line="+174"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Defaŭlta Karto de ALSA</translation>
     </message>
     <message>
         <location line="+191"/>
@@ -504,7 +504,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="-190"/>
         <source>Default ALSA Card</source>
-        <translation type="unfinished"/>
+        <translation>Defaŭlta Karto de ALSA</translation>
     </message>
     <message>
         <location line="+328"/>
@@ -540,12 +540,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formularo</translation>
     </message>
     <message>
         <location/>
@@ -691,7 +691,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"/>
+        <translation>Permesiloj de eksteraj liverantoj</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -704,7 +704,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formularo</translation>
     </message>
     <message>
         <location/>
@@ -799,7 +799,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation>Elŝalti</translation>
+        <translation>Malŝaltita</translation>
     </message>
     <message>
         <location/>
@@ -819,7 +819,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal to Noise</source>
-        <translation type="unfinished"/>
+        <translation>Proporcio de signalo al bruo</translation>
     </message>
     <message>
         <location/>
@@ -954,7 +954,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Mixed</source>
-        <translation type="unfinished"/>
+        <translation>Miksite</translation>
     </message>
     <message>
         <location/>
@@ -964,7 +964,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Echo</source>
-        <translation type="unfinished"/>
+        <translation>Eĥo</translation>
     </message>
     <message>
         <location/>
@@ -1161,7 +1161,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Malŝaltita</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1189,7 +1189,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formularo</translation>
     </message>
     <message>
         <location/>
@@ -2396,7 +2396,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>Memsubskribita</translation>
     </message>
 </context>
 <context>
@@ -2472,12 +2472,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation type="unfinished"/>
+        <translation>Atestila Administrado</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Atestila Aŭtentigo</translation>
     </message>
     <message>
         <location/>
@@ -2487,12 +2487,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Aktuala atestilo</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"/>
+        <translation>Tiun atestilon Mumble aktuale uzas.</translation>
     </message>
     <message>
         <location/>
@@ -2613,7 +2613,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation type="unfinished"/>
+        <translation>Detaloj de la Atestilo</translation>
     </message>
     <message>
         <location/>
@@ -2641,7 +2641,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"/>
+        <translation>Tiun atestilon Mumble aktuale uzas. Ĝi anstataŭiĝos.</translation>
     </message>
     <message>
         <location/>
@@ -2656,7 +2656,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Nova Atestilo</translation>
     </message>
     <message>
         <location/>
@@ -2691,7 +2691,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Generi novan atestilon por forta aŭtentigo</translation>
     </message>
     <message>
         <location/>
@@ -2721,7 +2721,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"/>
+        <translation>Via nomo (ekz. John Doe)</translation>
     </message>
     <message>
         <location/>
@@ -2933,7 +2933,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="CustomElements.cpp" line="+108"/>
         <source>Paste and &amp;Send</source>
         <oldsource>Paste and send</oldsource>
-        <translation type="unfinished"/>
+        <translation>Alglui kaj &amp;Sendi</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -2951,7 +2951,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation type="unfinished"/>
+        <translation>Aŭtentigita</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3090,7 +3090,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"/>
+        <translation>Bonjour-nomo</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3131,12 +3131,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"/>
+        <translation>Kapacito</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbitoj/s</translation>
     </message>
     <message>
         <location line="+345"/>
@@ -3267,7 +3267,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation type="unfinished"/>
+        <translation>Nomo de la servilo</translation>
     </message>
     <message>
         <location/>
@@ -3278,7 +3278,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"/>
+        <translation>Retadreso de la servilo.</translation>
     </message>
     <message>
         <location/>
@@ -3362,7 +3362,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Loka servil-etikedo</translation>
     </message>
     <message>
         <location/>
@@ -3408,23 +3408,23 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"/>
+        <translation>Retpoŝtadreso (malnepra)</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Bonvolu priskribi koncize en la angla, kion vi faris kiam la kraŝo okazis</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation type="unfinished"/>
+        <translation>Sendi la Raporton</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"/>
+        <translation>Ne sendi la raporton</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -3460,7 +3460,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation>Ĉesigi alŝuton</translation>
+        <translation>Ĉesigi la alŝuton</translation>
     </message>
 </context>
 <context>
@@ -3607,7 +3607,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation>Forlasi</translation>
+        <translation>Preterpasi</translation>
     </message>
     <message>
         <location/>
@@ -3649,12 +3649,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"/>
+        <translation>Flustro-celo</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"/>
+        <translation>Flustri al la listo da Uzantoj</translation>
     </message>
     <message>
         <location/>
@@ -3753,12 +3753,12 @@ of the possible locations.</source>
     <message>
         <location line="+9"/>
         <source>LCD</source>
-        <translation type="unfinished"/>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formularo</translation>
     </message>
     <message>
         <location/>
@@ -3823,12 +3823,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.cpp" line="+242"/>
         <source>Debug</source>
-        <translation type="unfinished"/>
+        <translation>Sencimiga</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation>Kritike</translation>
+        <translation>Grava</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3838,7 +3838,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation>Informo</translation>
+        <translation>Informoj</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3858,7 +3858,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation type="unfinished"/>
+        <translation>Permeso Rifuzita</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3868,12 +3868,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto Eniris la Servilon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Uzanto Foriris la Servilon</translation>
+        <translation>Uzanto Forlasis la Servilon</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3918,7 +3918,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Uzanto Foriris la Kanalon</translation>
+        <translation>Uzanto Forlasis la Kanalon</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3938,7 +3938,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Uzanto renomiĝis</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -3960,12 +3960,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>ligilo al %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ftp link to %1</source>
-        <translation type="unfinished"/>
+        <translation>ftp-ligilo al %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3975,12 +3975,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation type="unfinished"/>
+        <translation>kanal-ligilo</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 link</source>
-        <translation type="unfinished"/>
+        <translation>%1 ligilo</translation>
     </message>
 </context>
 <context>
@@ -4051,7 +4051,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Console</source>
-        <translation>Konsolo</translation>
+        <translation>Konzolo</translation>
     </message>
     <message>
         <location/>
@@ -4141,12 +4141,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Chat Log</source>
-        <translation type="unfinished"/>
+        <translation>Babil-protokolo</translation>
     </message>
     <message>
         <location/>
         <source>Maximum chat length</source>
-        <translation type="unfinished"/>
+        <translation>Maksimuma babil-longo</translation>
     </message>
     <message>
         <location/>
@@ -4265,7 +4265,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"/>
+        <translation>Klasika</translation>
     </message>
     <message>
         <location/>
@@ -4296,7 +4296,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Etendi</translation>
     </message>
     <message>
         <location/>
@@ -4918,7 +4918,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Mumble Server Information</source>
-        <translation type="unfinished"/>
+        <translation>Informoj de la Mumble-servilo</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5177,7 +5177,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Information</source>
-        <translation>&amp;Informo</translation>
+        <translation>&amp;Informoj</translation>
     </message>
     <message>
         <location/>
@@ -5539,7 +5539,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation>Informo pri Qt</translation>
+        <translation>Informoj pri Qt</translation>
     </message>
     <message>
         <location/>
@@ -6084,7 +6084,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renomiĝis al %2.</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -7244,7 +7244,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formularo</translation>
     </message>
     <message>
         <location/>
@@ -7284,7 +7284,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation type="unfinished"/>
+        <translation>Informoj pri la kromprogramo</translation>
     </message>
     <message>
         <location/>
@@ -7580,7 +7580,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation>El</translation>
+        <translation>Malŝaltita</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -7675,7 +7675,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation>Malŝaltite</translation>
+        <translation>Malŝaltita</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -7812,12 +7812,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"/>
+        <translation>Informoj de la Uzanto</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>Informoj de la Konekto</translation>
     </message>
     <message>
         <location/>

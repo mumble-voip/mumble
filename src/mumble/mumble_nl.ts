@@ -1496,37 +1496,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Geavanceerde afzwakkingsopties</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Indien aangevinkt, zwakt Mumble slechts applicaties af die dezelfde uitvoerbron als Mumble gebruiken.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Louter applicaties die dezelfde uitvoer als Mumblr gebruiken afzwakken&lt;/b&gt;&lt;br /&gt;Indien aangevinkt, worden applicaties die een van Mumble verschillende uitvoer gebruiken niet afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Louter applicaties die hetzelfde uitvoerapparaat gebruiken afzwakken.</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Indien aangevinkt, worden PulseAudio loopback modules afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;PulseAudio loopback modules afzwakken&lt;/b&gt;&lt;br /&gt;Als loopback modules aan Mumble&apos;s uitvoerapparaat zijn gekoppeld, worden ze ook afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>PulseAudio loopback modules afzwakken</translation>
     </message>
 </context>
 <context>
@@ -2890,7 +2890,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Dit omvat de machtiging om andere gebruikers te dempen en doven. Eenmaal gedempt, blijft een gebruiker gedempt totdat het dempen wordt opgeheven door een andere bevoegde gebruiker of totdat de gebruiker opnieuw verbindt met de server.</translation>
+        <translation>Dit omvat de machtiging om andere gebruikers te dempen en doven. Eenmaal gedempt, blijft een gebruiker gedempt tot ontdempt door een andere bevoegde gebruiker of tot de gebruiker opnieuw verbindt met de server.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2920,17 +2920,17 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers forcerend van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers geforceerd uit de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers permanent van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers permanent uit de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers op de server te registreren en de registraties van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers te registreren op de server en registraties ervan te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3914,7 +3914,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation>Andere zelf-gedempt/gedoofd</translation>
+        <translation>Andere zelf-gedempten/gedoofden.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3994,12 +3994,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation>Je hief je doven op</translation>
+        <translation>Je ontdoofde jezelf.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Gebruiker hernoemd</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4492,17 +4492,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Thema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Thema om als uiterlijk te gebruiken</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Configureert welk thema &apos;t Mumble uiterlijk moet aannemen.&lt;/b&gt;&lt;br /&gt;Mumble leest themas van bepaalde mappen en toont ze in deze lijst. Welke je selecteert wordt gebruikt om de &apos;look&apos; van Mumble aan te nemen. Dit omvat kleuren, iconen en meer.</translation>
     </message>
 </context>
 <context>
@@ -4541,7 +4541,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>Plugin ontkoppelen</translation>
+        <translation>Plug-in ontkoppelen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4639,7 +4639,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit wisselt je dempen-status. Als je dit uitzet, gaat ook jezelf doven uit.</translation>
+        <translation>Dit wisselt je dempen-status. Als je dit uitzet, ontdoof je jezelf.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4657,7 +4657,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit wisselt je doven-status. Als je dit aanzet, doof je ook jezelf.</translation>
+        <translation>Dit wisselt je doven-status. Als je dit aanzet, doof je jezelf ook.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4732,7 +4732,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Verzendmodus ingesteld op Continue</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -5047,12 +5047,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Dempen en doven opgeheven.</translation>
+        <translation>Ontdempt en ontdoofd.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>Dempen opgeheven.</translation>
+        <translation>Ontdempt.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5072,17 +5072,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Doven opgeheven.</translation>
+        <translation>Ontdoofd.</translation>
     </message>
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble herstarten?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Sommige instellingen worden alleen toegepast na een herstart van Mumble. Mumble nu herstarten?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -5368,7 +5368,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Gebruiker dempen of dempen opheffen op server. Opheffen van dempen leidt ook tot opheffen van doven.</translation>
+        <translation>Gebruiker (ont)dempen op server. Ontdempen leidt ook tot ontdoven.</translation>
     </message>
     <message>
         <location/>
@@ -5388,7 +5388,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Gebruiker doven of doven opheffen op server. Doven leidt ook tot dempen.</translation>
+        <translation>Gebruiker (ont)doven op server. Doven leidt ook tot dempen.</translation>
     </message>
     <message>
         <location/>
@@ -5398,7 +5398,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Gebruiker lokaal dempen of dempen opheffen. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
+        <translation>Gebruiker lokaal (ont)dempen. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -5425,7 +5425,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation>Dit ontkoppeld je huidige kanaal uit het geselecteerde kanaal.</translation>
+        <translation>Dit ontkoppelt je huidige kanaal uit het geselecteerde kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -5465,7 +5465,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Jezelf dempen of je dempen opheffen. Wanneer gedempt, verzend je geen gegevens naar de server. Opheffen van dempen terwijl gedoofd leidt ook tot opheffen van doven.</translation>
+        <translation>Jezelf (ont)dempen. Gedempt verzend je geen gegevens naar de server. Ontdempen terwijl gedoofd leidt ook tot ontdoven.</translation>
     </message>
     <message>
         <location/>
@@ -5480,7 +5480,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Jezelf doven of je doven opheffen. Wanneer gedoofd, hoor je niets.  Jezelf doven leidt ook tot dempen.</translation>
+        <translation>Jezelf (ont)doven. Gedoofd hoor je niets. Jezelf doven leidt ook tot dempen.</translation>
     </message>
     <message>
         <location/>
@@ -5510,12 +5510,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation>Plugin forcerend ontkoppelen</translation>
+        <translation>Plug-in ontkoppelen forceren</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Dit forceert ontkoppeling van de huidige plugin, wat handig is als het volkomen verkeerde gegevens leest.</translation>
+        <translation>Dit forceert ontkoppeling van de huidige plug-in, wat handig is als het onjuiste gegevens leest.</translation>
     </message>
     <message>
         <location/>
@@ -5745,12 +5745,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation>Je hief het dempen en doven van %1 op.</translation>
+        <translation>Je ontdempte en ontdoofde %1.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation>Je hief het doven van %1 op.</translation>
+        <translation>Je ontdoofde %1. </translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5765,12 +5765,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation>%2 hief het dempen en doven van %1 op.</translation>
+        <translation>%2 ontdempte en ontdoofde %1.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation> %2 hief het doven van %1 op.</translation>
+        <translation> %2 ontdoofde %1.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5966,7 +5966,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation>Je dempen en doven wordt opgeheven door %1.</translation>
+        <translation>Je werd ontdempt en ontdoofd door %1.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5976,7 +5976,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation>Je doven wordt opgeheven door %1.</translation>
+        <translation>Je werd ontdoofd door %1.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -6059,7 +6059,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-506"/>
         <source>You were unmuted by %1.</source>
-        <translation>Je wordt niet meer gedempt door %1.</translation>
+        <translation>Je werd ontdempt door %1.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -6074,7 +6074,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation>Je hief het dempen van %1 op.</translation>
+        <translation>Je ontdempte %1.</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -6089,7 +6089,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation>%2 hief het dempen van %1 op.</translation>
+        <translation>%2 ontdempte %1.</translation>
     </message>
     <message>
         <location line="+409"/>
@@ -6100,7 +6100,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>Je wordt gedempt en gedoofd dankzij %1.</translation>
+        <translation>Je werd door %1 gedempt en gedoofd.</translation>
     </message>
     <message>
         <location line="+171"/>
@@ -6145,7 +6145,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 hernoemd naar %2.</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -6355,7 +6355,7 @@ Undeafen self
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation>Plugins &amp;ontkoppelen</translation>
+        <translation>Plug-ins &amp;ontkoppelen</translation>
     </message>
     <message>
         <location/>
@@ -7476,12 +7476,12 @@ Om deze bestanden naar hun laatste versies te upgraden, klik de onderstaande kno
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble herstarten gefaald</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble faalde om te herstarten. Graag handmatig herstarten.</translation>
     </message>
 </context>
 <context>
