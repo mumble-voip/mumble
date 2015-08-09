@@ -52,6 +52,7 @@ class ServerDB {
 		static QSqlDatabase *db;
 		static QString qsUpgradeSuffix;
 		static void setSUPW(int iServNum, const QString &pw);
+		static void disableSU(int srvnum);
 		static QList<int> getBootServers();
 		static QList<int> getAllServers();
 		static int addServer();

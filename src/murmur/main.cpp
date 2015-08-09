@@ -231,6 +231,7 @@ int main(int argc, char **argv) {
 
 	QString inifile;
 	QString supw;
+	bool disableSu = false;
 	bool wipeSsl = false;
 	bool wipeLogs = false;
 	int sunum = 1;
@@ -280,6 +281,14 @@ int main(int argc, char **argv) {
 			}
 			bLast = true;
 #endif
+		} else if ((arg == "-disablesu")) {
+		        detach = false;
+		        disableSu = true;
+		        if (i+1 < args.size()) {
+		                i++;
+		                sunum = args.at(i).toInt();
+		        }
+		        bLast = true;
 		} else if ((arg == "-ini") && (i+1 < args.size())) {
 			i++;
 			inifile = args.at(i);
@@ -301,6 +310,9 @@ int main(int argc, char **argv) {
 			       "  -supw <pw> [srv] Set password for 'SuperUser' account on server srv.\n"
 #ifdef Q_OS_UNIX
 			       "  -readsupw [srv]  Reads password for server srv from standard input.\n"
+#endif
+			       "  -disablesu [srv] Disable password for 'SuperUser' account on server srv.\n"
+#ifdef Q_OS_UNIX
 			       "  -limits          Tests and shows how many file descriptors and threads can be created.\n"
 			       "                   The purpose of this option is to test how many clients Murmur can handle.\n"
 			       "                   Murmur will exit after this test.\n"
@@ -411,6 +423,11 @@ int main(int argc, char **argv) {
 		}
 		ServerDB::setSUPW(sunum, supw);
 		qFatal("Superuser password set on server %d", sunum);
+	}
+
+	if (disableSu) {
+	        ServerDB::disableSU(sunum);
+	        qFatal("SuperUser password disabled on server %d", sunum);
 	}
 
 	if (wipeSsl) {
