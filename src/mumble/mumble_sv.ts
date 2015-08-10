@@ -3998,7 +3998,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Användare omdöpt</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4491,17 +4491,17 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Tema används för att anpassa utseendet av användargränssnittet.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Konfigurerar vilket tema Mumble användargränssnittet ska vara utformad med&lt;b&gt;&lt;br /&gt;Mumble kommer att plocka teman från en vissa kataloger och visar dem i den här listan. Det du väljer kommer att användas för att anpassa utseendet av Mumble. Detta inkluderar färger, ikoner och mer.</translation>
     </message>
 </context>
 <context>
@@ -4731,7 +4731,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Överföringsläge inställt till Kontinuerligt</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -5076,12 +5076,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Starta om Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Några inställningar kommer endast att gälla efter en omstart av Mumble. Starta om Mumble nu?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6146,7 +6146,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 omdöpt till %2</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -7478,12 +7478,12 @@ Tryck på knappen nedan för att uppgradera dessa filer till de senaste versione
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Omstart av Mumble misslyckades</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble misslyckades att starta om själv. Vänligen starta om manuellt.</translation>
     </message>
 </context>
 <context>
