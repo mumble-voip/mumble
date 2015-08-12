@@ -117,6 +117,23 @@ message TextMessage {
 	repeated Channel trees = 5;
 	// The message body that is sent.
 	optional string text = 6;
+
+	message Filter {
+		enum Action {
+			// Accept the message.
+			Accept = 0;
+			// Reject the message with a permission error.
+			Reject = 1;
+			// Silently drop the message.
+			Drop = 2;
+		}
+		// The server on which the message originated.
+		optional Server server = 1;
+		// The action to perform for the message.
+		optional Action action = 2;
+		// The text message.
+		optional TextMessage message = 3;
+	}
 }
 
 message Log {
@@ -653,7 +670,8 @@ service V1 {
 	// will be broadcast the entire server. Otherwise, the message will be
 	// targeted to the specified users, channels, and trees.
 	rpc TextMessageSend(TextMessage) returns(Void);
-
+	// TextMessageFilter filters text messages on a given server.
+	rpc TextMessageFilter(stream TextMessage.Filter) returns(stream TextMessage.Filter);
 
 	//
 	// Logs
