@@ -56,6 +56,7 @@ class V1_ContextActionEvents;
 class V1_Events;
 class V1_ServerEvents;
 class V1_AuthenticatorStream;
+class V1_TextMessageFilter;
 }
 }
 
@@ -76,10 +77,16 @@ class MurmurRPCImpl : public QThread {
 
 		// Listeners
 		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::V1_ContextActionEvents *> > qhContextActionListeners;
+
 		QSet<::MurmurRPC::Wrapper::V1_Events *> qsMetaServiceListeners;
+
 		QMultiHash<int, ::MurmurRPC::Wrapper::V1_ServerEvents *> qmhServerServiceListeners;
+
 		QMutex qmAuthenticatorsLock;
 		QHash<int, ::MurmurRPC::Wrapper::V1_AuthenticatorStream *> qhAuthenticators;
+
+		QMutex qmTextMessageFilterLock;
+		QHash<int, ::MurmurRPC::Wrapper::V1_TextMessageFilter *> qhTextMessageFilters;
 
 		QMap<int, QMap<unsigned int, QSet<QString> > > qmActiveContextActions; // server id -> session -> context action
 		bool hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
@@ -88,7 +95,8 @@ class MurmurRPCImpl : public QThread {
 		void removeUserActiveContextActions(const ::Server *s, const ::User *u);
 		void removeActiveContextActions(const ::Server *s);
 
-		void removeAuthenticator(const ::Server *);
+		void removeTextMessageFilter(const ::Server *s);
+		void removeAuthenticator(const ::Server *s);
 		void sendMetaEvent(const ::MurmurRPC::Event &e);
 		void sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e);
 
@@ -116,6 +124,8 @@ class MurmurRPCImpl : public QThread {
 		void channelStateChanged(const Channel *channel);
 		void channelCreated(const Channel *channel);
 		void channelRemoved(const Channel *channel);
+
+		void textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message);
 
 		void contextAction(const User *user, const QString &action, unsigned int session, int channel);
 };

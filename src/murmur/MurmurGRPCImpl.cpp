@@ -440,6 +440,7 @@ void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	server->connectAuthenticator(this);
 	connect(server, SIGNAL(contextAction(const User *, const QString &, unsigned int, int)), this, SLOT(contextAction(const User *, const QString &, unsigned int, int)));
+	connect(server, SIGNAL(textMessageFilterSig(int &, const User *, MumbleProto::TextMessage &)), this, SLOT(textMessageFilter(int &, const User *, MumbleProto::TextMessage &)));
 
 	::MurmurRPC::Event rpcEvent;
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStarted);
@@ -457,6 +458,22 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	rpcEvent.set_type(::MurmurRPC::Event_Type_ServerStopped);
 	rpcEvent.mutable_server()->set_id(server->iServerNum);
 	sendMetaEvent(rpcEvent);
+}
+
+/*
+ * Removes a connected text message filter.
+ */
+void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
+	auto filter = qhTextMessageFilters.value(s->iServerNum);
+	if (!filter) {
+		return;
+	}
+	if (filter->context.IsCancelled()) {
+		filter->ref();
+		filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
+	}
+	qhTextMessageFilters.remove(s->iServerNum);
+	filter->deref();
 }
 
 /*
@@ -947,6 +964,59 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 }
 
 /*
+ * Called when a user sends a text message.
+ */
+void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message) {
+	::Server *s = qobject_cast< ::Server *> (sender());
+	auto filter = RPCCall::Ref<::MurmurRPC::Wrapper::V1_TextMessageFilter>(qhTextMessageFilters.value(s->iServerNum));
+	if (!filter) {
+		return;
+	}
+
+	auto &request = filter->response;
+	request.Clear();
+	request.mutable_server()->set_id(s->iServerNum);
+	auto m = request.mutable_message();
+	m->mutable_server()->set_id(s->iServerNum);
+	m->mutable_actor()->mutable_server()->set_id(s->iServerNum);
+	m->mutable_actor()->set_session(user->uiSession);
+	for (int i = 0; i < message.session_size(); i++) {
+		auto u = m->add_users();
+		u->mutable_server()->set_id(s->iServerNum);
+		u->set_session(message.session(i));
+	}
+	for (int i = 0; i < message.channel_id_size(); i++) {
+		auto c = m->add_channels();
+		c->mutable_server()->set_id(s->iServerNum);
+		c->set_id(message.channel_id(i));
+	}
+	for (int i = 0; i < message.tree_id_size(); i++) {
+		auto c = m->add_trees();
+		c->mutable_server()->set_id(s->iServerNum);
+		c->set_id(message.tree_id(i));
+	}
+	m->set_text(message.message());
+
+	{
+		QMutexLocker l(&qmTextMessageFilterLock);
+		if (!filter->writeRead()) {
+			removeTextMessageFilter(s);
+			return;
+		}
+	}
+
+	auto &response = filter->request;
+	res = response.action();
+	switch (response.action()) {
+	case ::MurmurRPC::TextMessage_Filter_Action_Accept:
+		if (response.has_message() && response.message().has_text()) {
+			message.set_message(response.message().text());
+		}
+		break;
+	}
+}
+
+/*
  * Has the user been sent the given context action?
  */
 bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
@@ -1403,6 +1473,20 @@ void V1_TextMessageSend::impl(bool) {
 	server->sendTextMessage(tm);
 
 	end();
+}
+
+void V1_TextMessageFilter::impl(bool) {
+	auto onInitialize = [this] (V1_TextMessageFilter *, bool ok) {
+		if (!ok) {
+			finish(ok);
+			return;
+		}
+		auto server = MustServer(request);
+		QMutexLocker l(&rpc->qmTextMessageFilterLock);
+		rpc->removeTextMessageFilter(server);
+		rpc->qhTextMessageFilters.insert(server->iServerNum, this);
+	};
+	stream.Read(&request, callback(onInitialize));
 }
 
 void V1_LogQuery::impl(bool) {

@@ -362,6 +362,73 @@ public:
 	}
 };
 
+class V1_TextMessageFilter : public RPCStreamStreamCall< ::MurmurRPC::TextMessage_Filter, ::MurmurRPC::TextMessage_Filter > {
+public:
+	::MurmurRPC::V1::AsyncService *service;
+
+	V1_TextMessageFilter(MurmurRPCImpl *rpc_impl, ::MurmurRPC::V1::AsyncService *async_service) : RPCStreamStreamCall(rpc_impl), service(async_service) {
+	}
+
+	void impl(bool ok);
+
+	bool write() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] (V1_TextMessageFilter *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Write(response, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool read() {
+		bool processed = false;
+		bool success;
+		auto cb = [&success, &processed] (V1_TextMessageFilter *, bool ok) {
+			success = ok;
+			processed = true;
+		};
+		stream.Read(&request, callback(cb));
+		while (!processed) {
+			QCoreApplication::processEvents(QEventLoop::ExcludeSocketNotifiers, 100);
+		}
+		return success;
+	}
+
+	bool writeRead() {
+		return write() && read();
+	}
+
+	::boost::function<void(bool)> *callback(::boost::function<void(V1_TextMessageFilter *, bool)> cb) {
+		auto fn = ::boost::bind(&V1_TextMessageFilter::callbackAction, this, cb, _1);
+		return new ::boost::function<void(bool)>(fn);
+	}
+
+	void handle(bool ok) {
+		V1_TextMessageFilter::create(this->rpc, this->service);
+		auto ie = new RPCExecEvent(::boost::bind(&V1_TextMessageFilter::impl, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+
+	static void create(MurmurRPCImpl *rpc, ::MurmurRPC::V1::AsyncService *service) {
+		auto call = new V1_TextMessageFilter(rpc, service);
+		auto fn = ::boost::bind(&V1_TextMessageFilter::handle, call, _1);
+		auto fn_ptr = new ::boost::function<void(bool)>(fn);
+		service->RequestTextMessageFilter(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+	}
+
+private:
+
+	void callbackAction(::boost::function<void(V1_TextMessageFilter *, bool)> cb, bool ok) {
+		auto ie = new RPCExecEvent(::boost::bind(cb, this, ok), this);
+		QCoreApplication::instance()->postEvent(rpc, ie);
+	}
+};
+
 class V1_LogQuery : public RPCSingleSingleCall< ::MurmurRPC::Log_Query, ::MurmurRPC::Log_List > {
 public:
 	::MurmurRPC::V1::AsyncService *service;
@@ -1133,6 +1200,7 @@ void V1_Init(MurmurRPCImpl *impl, ::MurmurRPC::V1::AsyncService *service) {
 	V1_ContextActionRemove::create(impl, service);
 	V1_ContextActionEvents::create(impl, service);
 	V1_TextMessageSend::create(impl, service);
+	V1_TextMessageFilter::create(impl, service);
 	V1_LogQuery::create(impl, service);
 	V1_ConfigGet::create(impl, service);
 	V1_ConfigGetField::create(impl, service);
