@@ -327,6 +327,8 @@ class Server : public QThread {
 		void channelCreated(const Channel *);
 		void channelRemoved(const Channel *);
 
+		void textMessageFilterSig(int &, const User *, MumbleProto::TextMessage &);
+
 		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
 		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name = QString(), const QString &comment = QString());
