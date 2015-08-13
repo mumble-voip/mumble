@@ -671,6 +671,16 @@ service V1 {
 	// targeted to the specified users, channels, and trees.
 	rpc TextMessageSend(TextMessage) returns(Void);
 	// TextMessageFilter filters text messages on a given server.
+
+	// TextMessageFilter filters text messages for a given server.
+	//
+	// When a filter stream is active, text messages sent from users to the
+	// server are sent over the stream. The RPC client then sends a message back
+	// on the same stream, containing an action: whether the message should be
+	// accepted, rejected, or dropped.
+	//
+	// To activate the filter stream, an initial TextMessage.Filter message must
+	// be sent that contains the server on which the filter will be active.
 	rpc TextMessageFilter(stream TextMessage.Filter) returns(stream TextMessage.Filter);
 
 	//
