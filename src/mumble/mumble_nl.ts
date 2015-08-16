@@ -1496,37 +1496,37 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Geavanceerde afzwakkingsopties</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Indien aangevinkt, zwakt Mumble slechts applicaties af die dezelfde uitvoerbron als Mumble gebruiken.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Louter applicaties die dezelfde uitvoer als Mumblr gebruiken afzwakken&lt;/b&gt;&lt;br /&gt;Indien aangevinkt, worden applicaties die een van Mumble verschillende uitvoer gebruiken niet afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Louter applicaties die hetzelfde uitvoerapparaat gebruiken afzwakken.</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Indien aangevinkt, worden PulseAudio loopback modules afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;PulseAudio loopback modules afzwakken&lt;/b&gt;&lt;br /&gt;Als loopback modules aan Mumble&apos;s uitvoerapparaat zijn gekoppeld, worden ze ook afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>PulseAudio loopback modules afzwakken</translation>
     </message>
 </context>
 <context>
@@ -2920,17 +2920,17 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers forcerend van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers geforceerd uit de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers permanent van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers permanent uit de server te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers op de server te registreren en de registraties van de server te verwijderen.</translation>
+        <translation>Dit omvat de machtiging om gebruikers te registreren op de server en registraties ervan te verwijderen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3914,7 +3914,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation>Andere zelf-gedempten/gedoofen.</translation>
+        <translation>Andere zelf-gedempten/gedoofden.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4502,7 +4502,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Configureert welk thema &apos;t Mumble uiterlijk moet aannemen.&lt;/b&gt;&lt;br /&gt;Mumble leest themas van bepaalde mappen en toont ze in deze lijst. Welke je selecteert wordt gebruikt om de &apos;look&apos; van Mumble aan te nemen. Dit omvat kleuren, iconen en meer.</translation>
     </message>
 </context>
 <context>
@@ -4541,7 +4541,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation>Plugin ontkoppelen</translation>
+        <translation>Plug-in ontkoppelen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5425,7 +5425,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation>Dit ontkoppeld je huidige kanaal uit het geselecteerde kanaal.</translation>
+        <translation>Dit ontkoppelt je huidige kanaal uit het geselecteerde kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -5510,12 +5510,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation>Plugin forcerend ontkoppelen</translation>
+        <translation>Plug-in ontkoppelen forceren</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Dit forceert ontkoppeling van de huidige plugin, wat handig is als het volkomen verkeerde gegevens leest.</translation>
+        <translation>Dit forceert ontkoppeling van de huidige plug-in, wat handig is als het onjuiste gegevens leest.</translation>
     </message>
     <message>
         <location/>
@@ -6355,7 +6355,7 @@ Undeafen self
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation>Plugins &amp;ontkoppelen</translation>
+        <translation>Plug-ins &amp;ontkoppelen</translation>
     </message>
     <message>
         <location/>
