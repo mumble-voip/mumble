@@ -586,7 +586,7 @@ CONFIG(no-update) {
 
 !CONFIG(no-embed-qt-translations) {
 	# Add additional 3rd party Qt translations not shipped with Qt
-	TRANSLATIONS *= qttranslations/qt_it.ts qttranslations/qt_nl.ts qttranslations/qt_tr.ts
+	TRANSLATIONS *= qttranslations/qt_nl.ts qttranslations/qt_tr.ts
 	DEFINES *= USING_BUNDLED_QT_TRANSLATIONS
 
 	# Add translations shipped with Qt
@@ -596,7 +596,9 @@ CONFIG(no-update) {
 	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
 	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
 
-	QT_TRANSLATION_FILES_SRC *= qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fr.qm qt_he.qm qt_hu.qm qt_ja.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
+	QT_TRANSLATION_FILES_SRC *= qt_ar.qm qt_ca.qm qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fa.qm qt_fi.qm qt_fr.qm qt_gl.qm qt_he.qm qt_hu.qm qt_it.qm qt_ja.qm qt_ko.qm qt_lt.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sk.qm qt_sl.qm qt_sv.qm qt_uk.qm qt_zh_CN.qm qt_zh_TW.qm
+	QT_TRANSLATION_FILES_SRC *= qtbase_ar.qm qtbase_ca.qm qtbase_cs.qm qtbase_da.qm qtbase_de.qm qtbase_es.qm qtbase_fa.qm qtbase_fi.qm qtbase_fr.qm qtbase_gl.qm qtbase_he.qm qtbase_hu.qm qtbase_it.qm qtbase_ja.qm qtbase_ko.qm qtbase_lt.qm qtbase_pl.qm qtbase_pt.qm qtbase_ru.qm qtbase_sk.qm qtbase_sl.qm qtbase_sv.qm qtbase_uk.qm qtbase_zh_CN.qm qtbase_zh_TW.qm
+
 	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
 		QT_TRANSLATION_FILES *= $${lang}
 	}
