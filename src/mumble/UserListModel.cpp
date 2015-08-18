@@ -94,7 +94,7 @@ QVariant UserListModel::data(const QModelIndex &index, int role) const {
 	if (!index.isValid())
 		return QVariant();
 	
-	if (index.row() < 0 && index.row() >= m_userList.size())
+	if (index.row() < 0 || index.row() >= m_userList.size())
 		return QVariant();
 	
 	if (index.column() >= columnCount())
