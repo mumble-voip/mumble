@@ -4886,7 +4886,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>שלח הודעת טקסט</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -5076,7 +5076,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>להתחיל מחדש את Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6227,7 +6227,7 @@ Valid actions are:
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>RPC</translation>
     </message>
     <message>
         <location line="+190"/>
@@ -7445,12 +7445,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>נכשל להתחיל מחדש את Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble failed נכשל להתחיל עצמו מחדש. אנא התחל אותו מחדש ידנית.</translation>
     </message>
 </context>
 <context>

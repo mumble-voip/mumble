@@ -1496,37 +1496,37 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Opções Avançadas de Atenuação</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Ao marcar esta opção o Mumble irá atenuar apenas aplicações que estão usando a mesma saída que o Mumble</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atenuar apenas aplicações usando a mesma saída do Mumble.&lt;/b&gt;&lt;br /&gt;Se marcado, aplicações que usam diferentes saídas que o Mumble não serão atenuados.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Apenas atenuar aplucações usando o mesmo dispositivo de saída</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Se marcada, os módulos de retorno PulseAudio serão atenuados</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt; Atenuação módulo de retorno PulseAudio &lt;/b&gt;&lt;br /&gt; Se os módulos de retorno estão ligados aos disopositivios de saída do Mumble, eles também serão atenuados. </translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Atenuar Módulo de retorno PulseAudio</translation>
     </message>
 </context>
 <context>
@@ -3996,7 +3996,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Usuário renomeado</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4489,17 +4489,17 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Tema usado para estilo de interface de usuario</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Configura quais temas o Mumble usará em sua interface para estilizar com&lt;/b&gt;&lt;br /&gt;Mumble detectará temas de determinados diretórios e mostrará em uma lista. O tema selecionado será usado para customizar a aparência visual do Mumble incluindo cores , ícones e mais.</translation>
     </message>
 </context>
 <context>
@@ -4729,7 +4729,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Modo de Transmissão configurado para contínuo</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -5074,12 +5074,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Reiniciar Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Algumas configurações serão aplicadas somente após o reinicio do Mumble. Reiniciar o Mumble agora?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6145,7 +6145,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renomeado para %2.</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -7477,12 +7477,12 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Falha ao reiniciar o Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble falhou ao reiniciar. Por favor reinicie manualmente.</translation>
     </message>
 </context>
 <context>

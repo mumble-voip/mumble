@@ -1496,37 +1496,37 @@ Güncel kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Gelişmiş Ses Kısma Seçenekleri</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Seçiliyse, Mumble sadece kendisiyle aynı çıktı kaynağını kullanan uygulamaların sesini kısacaktır.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Sadece Mumble ile aynı çıktıyı kullanan uygulamaların sesini kıs&lt;/b&gt;&lt;br /&gt;Seçiliyse, Mumble&apos;dan başka çıktı kullanan uygulamaların sesi kısılmayacaktır.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Sadece aynı çıktı cihazını kullanan uygulamaların sesini kıs</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Seçiliyse, PulseAudio geri döngü öbeklerinin sesi kısılacaktır</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;PulseAudio geri döngü öbeklerinin sesini kıs&lt;/b&gt;&lt;br /&gt;Eğer geri döngü öbekleri Mumble&apos;ın çıktı cihazına bağlı iseler, onların da sesi kısılacaktır.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>PulseAudio geri döngü öbeklerinin sesini kıs</translation>
     </message>
 </context>
 <context>
@@ -4001,7 +4001,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcı yeniden adlandırıldı</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4494,17 +4494,17 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcı arayüzünü biçemlendirecek tema</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Mumble kullanıcı arayüzünün hangi temayla biçemlendirileceğini yapılandır&lt;/b&gt;&lt;br /&gt;Mumble temaları bazı klasörlerden alıp bu listede gösterecektir. Seçtiğiniz tema Mumble&apos;ın görünümünü kişiselleştirmek için kullanılacaktır. Bu, renkleri, ikonları ve daha fazlasını içerir.</translation>
     </message>
 </context>
 <context>
@@ -4734,7 +4734,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Aktarma Kipi Devamlı olarak ayarlandı</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -5079,12 +5079,12 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Mumble tekrar başlatılsın mı?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Bazı ayarlar Mumble&apos;ın tekrar başlatılmasından sonra uygulanacaktır. Şimdi yeniden başlatılsın mı?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6149,7 +6149,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1, %2 olarak yeniden adlandırıldı.</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -7481,12 +7481,12 @@ Bu dosyaları son sürümlerine güncellemek için aşağıdaki düğmeyi tıkla
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble&apos;ın tekrar başlatılması başarısız oldu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble kendini tekrar başlatamadı. Lütfen elle başlatınız.</translation>
     </message>
 </context>
 <context>
