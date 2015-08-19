@@ -337,6 +337,12 @@ int main(int argc, char **argv) {
 	if (loctranslator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
 		a.installTranslator(&loctranslator);
 
+#if QT_VERSION >= 0x050300
+	QTranslator qtbasetranslator;
+	if (qtbasetranslator.load(QLibraryInfo::location(QLibraryInfo::TranslationsPath) + QLatin1String("/qtbase_") + locale))
+		a.installTranslator(&qtbasetranslator);
+#endif
+
 	QTranslator qttranslator;
 	if (qttranslator.load(QLibraryInfo::location(QLibraryInfo::TranslationsPath) + QLatin1String("/qt_") + locale))
 		a.installTranslator(&qttranslator);
