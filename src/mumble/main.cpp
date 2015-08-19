@@ -315,8 +315,6 @@ int main(int argc, char **argv) {
 	
 	Themes::apply();
 
-	QDir::addSearchPath(QLatin1String("translation"), QLatin1String(":/"));
-
 	QString qsSystemLocale = QLocale::system().name();
 
 #ifdef Q_OS_MAC
@@ -330,19 +328,32 @@ int main(int argc, char **argv) {
 	qWarning("Locale is \"%s\" (System: \"%s\")", qPrintable(locale), qPrintable(qsSystemLocale));
 
 	QTranslator translator;
-	if (translator.load(QLatin1String("translation:mumble_") + locale))
+	if (translator.load(QLatin1String(":mumble_") + locale))
 		a.installTranslator(&translator);
 
 	QTranslator loctranslator;
 	if (loctranslator.load(QLatin1String("mumble_") + locale, a.applicationDirPath()))
-		a.installTranslator(&loctranslator);
+		a.installTranslator(&loctranslator); // Can overwrite strings from bundled mumble translation
 
+	// With modularization of Qt 5 some - but not all - of the qt_<locale>.ts files have become
+	// so-called meta catalogues which no longer contain actual translations but refer to other
+	// more specific ts files like qtbase_<locale>.ts . To successfully load a meta catalogue all
+	// of its referenced translations must be available. As we do not want to bundle them all
+	// we now try to load the old qt_<locale>.ts file first and then fall back to loading
+	// qtbase_<locale>.ts if that failed.
+	//
+	// See http://doc.qt.io/qt-5/linguist-programmers.html#deploying-translations for more information
 	QTranslator qttranslator;
-	if (qttranslator.load(QLibraryInfo::location(QLibraryInfo::TranslationsPath) + QLatin1String("/qt_") + locale))
+	if (qttranslator.load(QLatin1String("qt_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) { // Try system qt translations
 		a.installTranslator(&qttranslator);
-	else if (qttranslator.load(QLatin1String("translation:qt_") + locale))
+	} else if (qttranslator.load(QLatin1String("qtbase_") + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath))) {
 		a.installTranslator(&qttranslator);
-
+	} else if (qttranslator.load(QLatin1String(":qt_") + locale)) { // Try bundled translations
+		a.installTranslator(&qttranslator);
+	} else if (qttranslator.load(QLatin1String(":qtbase_") + locale)) {
+		a.installTranslator(&qttranslator);
+	}
+	
 	if (g.s.qsRegionalHost.isEmpty()) {
 		g.s.qsRegionalHost = qsSystemLocale;
 		g.s.qsRegionalHost = g.s.qsRegionalHost.remove(QRegExp(QLatin1String("^.+_"))).toLower() + QLatin1String(".mumble.info");
