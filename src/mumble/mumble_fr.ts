@@ -1516,17 +1516,17 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Si sélectionné, les modules de bouclage PulseAudio seront atténués</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Atténuer les modules de bouclage PulseAudio&lt;/b&gt;&lt;br /&gt;Si les modules de bouclage sont liés au périphérique de sortie de Mumble, ils seront également atténués.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Atténuer les modules de bouclage PulseAudio</translation>
     </message>
 </context>
 <context>
