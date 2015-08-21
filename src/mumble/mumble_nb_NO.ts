@@ -2102,7 +2102,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.cpp" line="+316"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location filename="AudioWizard.ui"/>
@@ -2122,12 +2122,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Egenvalgt</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation type="unfinished"/>
+        <translation>Du har allerede valgt et egendefinert kvalitetsoppsett i Mumble. Velg denne innstillingen for å beholde det.</translation>
     </message>
     <message>
         <location/>
@@ -2142,7 +2142,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation type="unfinished"/>
+        <translation>Bruk høykontrastsgrafikk</translation>
     </message>
     <message>
         <location/>
@@ -2206,7 +2206,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Address</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Adresse</translation>
     </message>
     <message>
         <location/>
@@ -2216,52 +2216,52 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished"/>
+        <translation>Grunn</translation>
     </message>
     <message>
         <location/>
         <source>Start</source>
-        <translation type="unfinished"/>
+        <translation>Begynnelse</translation>
     </message>
     <message>
         <location/>
         <source>End</source>
-        <translation type="unfinished"/>
+        <translation>Slutt</translation>
     </message>
     <message>
         <location/>
         <source>User</source>
-        <translation type="unfinished"/>
+        <translation>Bruker</translation>
     </message>
     <message>
         <location/>
         <source>Hash</source>
-        <translation type="unfinished"/>
+        <translation>Sjekksum</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Legg til</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Oppdater</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Fjern</translation>
     </message>
     <message>
         <location/>
         <source>Ban List</source>
-        <translation type="unfinished"/>
+        <translation>Blokkeringsliste</translation>
     </message>
     <message>
         <location/>
         <source>Search field</source>
-        <translation type="unfinished"/>
+        <translation>Søkefelt</translation>
     </message>
     <message>
         <location/>
@@ -2271,97 +2271,97 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>Hvem leter du etter?</translation>
     </message>
     <message>
         <location/>
         <source>No nickname</source>
-        <translation type="unfinished"/>
+        <translation>Inget brukernavn</translation>
     </message>
     <message>
         <location/>
         <source>IP address</source>
-        <translation type="unfinished"/>
+        <translation>IP-adresse</translation>
     </message>
     <message>
         <location/>
         <source>No IP address</source>
-        <translation type="unfinished"/>
+        <translation>Ingen IP-adresse</translation>
     </message>
     <message>
         <location/>
         <source>Reason for the ban</source>
-        <translation type="unfinished"/>
+        <translation>Grunn til blokkering</translation>
     </message>
     <message>
         <location/>
         <source>No reason</source>
-        <translation type="unfinished"/>
+        <translation>Ingen grunn</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation type="unfinished"/>
+        <translation>Sluttdato for blokkering</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation type="unfinished"/>
+        <translation>Sluttdato for blokkering. Hvis du velger samme dato for begynnelse og slutt, vil blokkeringen være permanent (den utløper altså ikke).</translation>
     </message>
     <message>
         <location/>
         <source>Certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikatets sjekksum</translation>
     </message>
     <message>
         <location/>
         <source>No certificate hash</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikat mangler sjekksum</translation>
     </message>
     <message>
         <location/>
         <source>Banned users</source>
-        <translation type="unfinished"/>
+        <translation>Blokkerte brukere</translation>
     </message>
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation type="unfinished"/>
+        <translation>Liste over blokkerte brukere.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Bruk denne knappen hvis du vil legge til en ny blokkering.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation type="unfinished"/>
+        <translation>Bruk denne kanppen hvis du ønsker å oppdatere blokkeringsinformasjon.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation type="unfinished"/>
+        <translation>Bruk dennne knappen hvis du ønsker å fjerne en bruker fra blokkeringslisten.</translation>
     </message>
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>Tøm alle felter</translation>
     </message>
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation type="unfinished"/>
+        <translation>Denne knappen tømmer alle felter. Bruk den hvis du ønsker å legge til en ny blokkering.</translation>
     </message>
     <message>
         <location/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Tøm</translation>
     </message>
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>Blokkeringsliste - %n blokkering</numerusform><numerusform>Blokkeringsliste - %n blokkeringer</numerusform></translation>
     </message>
 </context>
 <context>
@@ -2369,27 +2369,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+43"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Navn</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>E-post</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation type="unfinished"/>
+        <translation>Utsteder</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"/>
+        <translation>Utløpsdato</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation type="unfinished"/>
+        <translation>(ingen)</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -2457,7 +2457,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation type="unfinished"/>
+        <translation>Mumble-bruker</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+463"/>
@@ -2495,7 +2495,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Gjeldende sertifikat</translation>
     </message>
     <message>
         <location/>
@@ -2520,27 +2520,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation type="unfinished"/>
+        <translation>Importer et sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Eksporter et sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil eksportere et sertifikat til en fil.</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Eksporter gjeldende sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Importer sertifikat</translation>
     </message>
     <message>
         <location/>
