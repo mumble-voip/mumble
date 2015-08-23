@@ -113,7 +113,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Position</source>
-        <translation type="unfinished"/>
+        <translation>Plassering</translation>
     </message>
     <message>
         <location/>
@@ -538,7 +538,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+37"/>
         <source>ASIO</source>
-        <translation type="unfinished"/>
+        <translation>ASIO</translation>
     </message>
     <message>
         <location filename="ASIOInput.ui"/>
@@ -669,7 +669,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="About.cpp" line="+40"/>
         <source>About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Om Mumble</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -842,7 +842,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Fortiet under</translation>
     </message>
     <message>
         <location/>
@@ -952,7 +952,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Mixed</source>
-        <translation type="unfinished"/>
+        <translation>Blandet</translation>
     </message>
     <message>
         <location/>
@@ -1047,7 +1047,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Ymse</translation>
     </message>
     <message>
         <location/>
@@ -1130,7 +1130,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Sammenhengende</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1140,7 +1140,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>Trykk for å snakke</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -1152,7 +1152,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-9"/>
@@ -1533,7 +1533,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Local</source>
-        <translation type="unfinished"/>
+        <translation>Lokal</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1578,7 +1578,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+5"/>
         <source>Invalid sound file</source>
-        <translation type="unfinished"/>
+        <translation>Ugyldig lydfil</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1643,7 +1643,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Signal Analysis</source>
-        <translation type="unfinished"/>
+        <translation>Signalanalyse</translation>
     </message>
     <message>
         <location/>
@@ -1986,7 +1986,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation type="unfinished"/>
+        <translation>Bruk hodetelefoner</translation>
     </message>
     <message>
         <location/>
@@ -2011,7 +2011,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"/>
+        <translation>Stemme-deteksjon</translation>
     </message>
     <message>
         <location/>
@@ -2057,37 +2057,37 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation type="unfinished"/>
+        <translation>Trykk for å snakke:</translation>
     </message>
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"/>
+        <translation>Kvalitet og merknader</translation>
     </message>
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"/>
+        <translation>Juster kvalitet og merknadsinnstillinger.</translation>
     </message>
     <message>
         <location/>
         <source>Quality settings</source>
-        <translation type="unfinished"/>
+        <translation>Kvalitetsinnstillinger</translation>
     </message>
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"/>
+        <translation>Lav</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"/>
+        <translation>Balansert</translation>
     </message>
     <message>
         <location/>
         <source>Notification settings</source>
-        <translation type="unfinished"/>
+        <translation>Merknadsinnstillinger</translation>
     </message>
     <message>
         <location/>
@@ -2117,7 +2117,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"/>
+        <translation>Høy</translation>
     </message>
     <message>
         <location/>
@@ -2201,7 +2201,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Rediger bannlysninger</translation>
     </message>
     <message>
         <location/>
@@ -2394,7 +2394,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>Selv-signert</translation>
     </message>
 </context>
 <context>
@@ -2402,27 +2402,27 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation type="unfinished"/>
+        <translation>Kunne ikke bekrefte e-post.&lt;br /&gt;Skriv en gyldig (eller tom) e-post for å fortsette.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation type="unfinished"/>
+        <translation>Feil oppstod under opprettelse av ditt sertifikat &lt;br /&gt;Prøv igjen.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikat og nøkkel tilhørende deg kunne ikke eksporteres til PKCS#12-format. Det kan være en feil i ditt sertifikat.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Filen kunne ikke åpnes for skriving. Bruk en annen fil.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation type="unfinished"/>
+        <translation>Filens tilgangsinnstillinger kunne ikke endres. Det kunne ikke opprettes noe sertifikat. Bruk en annen fil.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2485,12 +2485,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Gjeldende sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er det sertifikatet Mumble bruker for øyeblikket.</translation>
     </message>
     <message>
         <location/>
@@ -2500,22 +2500,22 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation type="unfinished"/>
+        <translation>Opprett et nytt sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil opprette et nytt sertifikat.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation type="unfinished"/>
+        <translation>Importer et sertifikat fra fil</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil importere et sertifikat fra en fil.</translation>
     </message>
     <message>
         <location/>
@@ -2581,47 +2581,47 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Open...</source>
-        <translation type="unfinished"/>
+        <translation>Åpne...</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>Passord</translation>
     </message>
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"/>
+        <translation>Passord for PKCS#12-filen</translation>
     </message>
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er passordet for PKCS#12-filen som inneholder ditt sertifikat.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikat som skal importeres</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er sertifikatet du importerer.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Details</source>
-        <translation type="unfinished"/>
+        <translation>Sertifikatdetaljer</translation>
     </message>
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Erstatt sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"/>
+        <translation>Erstatt eksisterende sertifikat med nytt?</translation>
     </message>
     <message>
         <location/>
@@ -2644,52 +2644,52 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>New certificate</source>
-        <translation type="unfinished"/>
+        <translation>Nytt sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er det nye sertifikatet som erstatter det gamle.</translation>
     </message>
     <message>
         <location/>
         <source>New Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Nytt serfifikat</translation>
     </message>
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation type="unfinished"/>
+        <translation>Lag sikkerhetskopi av ditt sertifikat</translation>
     </message>
     <message>
         <location/>
         <source>Export to</source>
-        <translation type="unfinished"/>
+        <translation>Eksporter til</translation>
     </message>
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation type="unfinished"/>
+        <translation>Filnavn å ekspotere til</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er filnavnet du ønsker å eksportere et sertifikat til.</translation>
     </message>
     <message>
         <location/>
         <source>Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Lagre som...</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"/>
+        <translation>Dette er sertifikatet Mumble bruker akkurat nå. Det vil bli eksportert.</translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>Opprett et nytt sertifikat for sterk identitetsbekreftelse</translation>
     </message>
     <message>
         <location/>
@@ -2699,17 +2699,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Navn</translation>
     </message>
     <message>
         <location/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>E-post</translation>
     </message>
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"/>
+        <translation>Din e-postadresse (f.eks. ola@nordmann.no)</translation>
     </message>
     <message>
         <location/>
@@ -2719,17 +2719,17 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"/>
+        <translation>Ditt navn (f.eks. Ola Nordmann)</translation>
     </message>
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation type="unfinished"/>
+        <translation>Dett er ditt navn, og vil bli fylt ut sammen med sertifikatet. Dette feltet er helt valgfritt.</translation>
     </message>
     <message>
         <location/>
         <source>Finish</source>
-        <translation type="unfinished"/>
+        <translation>Sluttfør</translation>
     </message>
     <message>
         <location/>
@@ -2782,7 +2782,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation type="unfinished"/>
+        <translation>Snakk</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2792,7 +2792,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+4"/>
         <source>Make channel</source>
-        <translation type="unfinished"/>
+        <translation>Opprett kanal</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2887,42 +2887,42 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Hvisk</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Flytt</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Text message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstmeldinger</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Kick</source>
-        <translation type="unfinished"/>
+        <translation>Spark ut</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation type="unfinished"/>
+        <translation>Bannlys</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register User</source>
-        <translation type="unfinished"/>
+        <translation>Registrer bruker</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Register Self</source>
-        <translation type="unfinished"/>
+        <translation>Registrer deg selv</translation>
     </message>
     <message>
         <location line="-28"/>
         <source>Write ACL</source>
-        <translation type="unfinished"/>
+        <translation>Skriv ACL</translation>
     </message>
 </context>
 <context>
@@ -2944,22 +2944,22 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+134"/>
         <source>Friend</source>
-        <translation type="unfinished"/>
+        <translation>Venn</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Authenticated</source>
-        <translation type="unfinished"/>
+        <translation>Identitetsbekreftet</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Priority speaker</source>
-        <translation type="unfinished"/>
+        <translation>Prioritert taler</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>Spiller inn</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3072,74 +3072,74 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="-591"/>
         <source>Adding host %1</source>
-        <translation type="unfinished"/>
+        <translation>Legger til vert %1</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="+71"/>
         <source>Servername</source>
-        <translation type="unfinished"/>
+        <translation>Tjenernavn</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>Vertsnavn</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Bonjour name</source>
-        <translation type="unfinished"/>
+        <translation>Bonjour-navn</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>Port</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Addresses</source>
-        <translation type="unfinished"/>
+        <translation>Adresser</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation type="unfinished"/>
+        <translation>Nettside</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Packet loss</source>
-        <translation type="unfinished"/>
+        <translation>Pakketap</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Ping (80%)</source>
-        <translation type="unfinished"/>
+        <translation>Ping(80%)</translation>
     </message>
     <message>
         <location line="+0"/>
         <location line="+2"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Ping (95%)</source>
-        <translation type="unfinished"/>
+        <translation>Ping (95%)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Bandwidth</source>
-        <translation type="unfinished"/>
+        <translation>Båndbredde</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location line="+345"/>
         <source>&amp;Connect</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Koble til</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -3150,17 +3150,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location filename="ConnectDialog.ui"/>
         <location filename="ConnectDialog.cpp" line="-401"/>
         <source>Users</source>
-        <translation type="unfinished"/>
+        <translation>Brukere</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>Versjon</translation>
     </message>
     <message>
         <location line="+1097"/>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"/>
+        <translation>Innhenting av tjenerliste feilet</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3170,32 +3170,32 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Ping</source>
-        <translation type="unfinished"/>
+        <translation>Ping</translation>
     </message>
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Fjern fra favoritter</translation>
     </message>
     <message>
         <location/>
         <source>Add custom server</source>
-        <translation type="unfinished"/>
+        <translation>Tilføy brukerdefinert tjener</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"/>
+        <translation>Vis alle tjenerene som besvarte ping</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation type="unfinished"/>
+        <translation>Vis alle de tjenerne som har brukere</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers</source>
-        <translation type="unfinished"/>
+        <translation>Vis alle tjenere</translation>
     </message>
     <message>
         <location/>
@@ -3227,17 +3227,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
         <location/>
         <location filename="ConnectDialog.cpp" line="-7"/>
         <source>&amp;Add New...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Legg til ny...</translation>
     </message>
     <message>
         <location/>
         <source>Add to &amp;Favorites</source>
-        <translation type="unfinished"/>
+        <translation>Legg til i &amp;favoritter</translation>
     </message>
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"/>
+        <translation>Åpne &amp;nettsted</translation>
     </message>
     <message>
         <location/>
@@ -3247,12 +3247,12 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show &amp;Populated</source>
-        <translation type="unfinished"/>
+        <translation>Vis &amp;befolkede</translation>
     </message>
     <message>
         <location/>
         <source>Show &amp;All</source>
-        <translation type="unfinished"/>
+        <translation>Vis &amp;alle</translation>
     </message>
 </context>
 <context>
@@ -3260,23 +3260,23 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Edit Server</source>
-        <translation type="unfinished"/>
+        <translation>Rediger tjener</translation>
     </message>
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation type="unfinished"/>
+        <translation>Navn på tjeneren</translation>
     </message>
     <message>
         <location/>
         <source>A&amp;ddress</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Adresse</translation>
     </message>
     <message>
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation type="unfinished"/>
+        <translation>Internettadresse for tjeneren.</translation>
     </message>
     <message>
         <location/>
@@ -3289,12 +3289,12 @@ Internet address of the server. This can be a normal hostname, an ipv4/6 address
     <message>
         <location/>
         <source>&amp;Port</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Port</translation>
     </message>
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation type="unfinished"/>
+        <translation>Porten tjeneren lytter på</translation>
     </message>
     <message>
         <location/>
@@ -3305,12 +3305,12 @@ Port on which the server is listening. If the server is identified by a Bonjour 
     <message>
         <location/>
         <source>&amp;Username</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Brukernavn</translation>
     </message>
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation type="unfinished"/>
+        <translation>Brukernavn som skal sendes til tjeneren</translation>
     </message>
     <message>
         <location/>
@@ -3321,12 +3321,12 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location/>
         <source>Label</source>
-        <translation type="unfinished"/>
+        <translation>Etikett</translation>
     </message>
     <message>
         <location filename="ConnectDialog.cpp" line="-121"/>
         <source>Add Server</source>
-        <translation type="unfinished"/>
+        <translation>Legg til tjener</translation>
     </message>
     <message>
         <location filename="ConnectDialogEdit.ui"/>
@@ -3358,27 +3358,27 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location/>
         <source>Local server label</source>
-        <translation type="unfinished"/>
+        <translation>Etikett for lokal tjener</translation>
     </message>
     <message>
         <location/>
         <source>127.0.0.1</source>
-        <translation type="unfinished"/>
+        <translation>127.0.0.1</translation>
     </message>
     <message>
         <location/>
         <source>64738</source>
-        <translation type="unfinished"/>
+        <translation>64738</translation>
     </message>
     <message>
         <location/>
         <source>Your username</source>
-        <translation type="unfinished"/>
+        <translation>Ditt brukernavn</translation>
     </message>
     <message>
         <location/>
         <source>Your password</source>
-        <translation type="unfinished"/>
+        <translation>Ditt passord</translation>
     </message>
 </context>
 <context>
@@ -3386,7 +3386,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>Forvalgt enhet</translation>
     </message>
 </context>
 <context>
@@ -3394,7 +3394,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation type="unfinished"/>
+        <translation>Mumble krasjrapport</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3404,23 +3404,23 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+8"/>
         <source>Email address (optional)</source>
-        <translation type="unfinished"/>
+        <translation>E-postadresse (valgfritt)</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Beskriv i korte trekk, på Engelsk, hva du gjorde når Mumble krasjet</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Send Report</source>
-        <translation type="unfinished"/>
+        <translation>Send rapport</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation type="unfinished"/>
+        <translation>Ikke send rapport</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -3456,7 +3456,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Abort upload</source>
-        <translation type="unfinished"/>
+        <translation>Avbryt opplasting</translation>
     </message>
 </context>
 <context>
@@ -3543,17 +3543,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Function</source>
-        <translation type="unfinished"/>
+        <translation>Funksjon</translation>
     </message>
     <message>
         <location/>
         <source>Data</source>
-        <translation type="unfinished"/>
+        <translation>Data</translation>
     </message>
     <message>
         <location/>
         <source>Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Snarvei</translation>
     </message>
     <message>
         <location/>
@@ -3563,7 +3563,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Add new shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Legg til ny snarvei</translation>
     </message>
     <message>
         <location/>
@@ -3573,22 +3573,22 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Legg til</translation>
     </message>
     <message>
         <location/>
         <source>Remove selected shortcut</source>
-        <translation type="unfinished"/>
+        <translation>Fjern valgt snarvei</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation type="unfinished"/>
+        <translation>Dette vil slette valgt snarvei for godt.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Fjern</translation>
     </message>
     <message>
         <location/>
@@ -3603,12 +3603,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>Hopp over</translation>
     </message>
     <message>
         <location/>
         <source>Enable Global Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Aktiver globale snarveier</translation>
     </message>
 </context>
 <context>
@@ -3616,7 +3616,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+654"/>
         <source>Shortcuts</source>
-        <translation type="unfinished"/>
+        <translation>Snarveier</translation>
     </message>
     <message>
         <location line="+52"/>
@@ -3645,12 +3645,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation type="unfinished"/>
+        <translation>Hvisk til utvalgt</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation type="unfinished"/>
+        <translation>Hvisk til liste over brukere</translation>
     </message>
     <message>
         <location/>
@@ -3670,17 +3670,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of users</source>
-        <translation type="unfinished"/>
+        <translation>Liste over brukere</translation>
     </message>
     <message>
         <location/>
         <source>Add</source>
-        <translation type="unfinished"/>
+        <translation>Legg til</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>Fjern</translation>
     </message>
     <message>
         <location/>
@@ -3728,7 +3728,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut_unix.cpp" line="+357"/>
         <source>Mouse %1</source>
-        <translation type="unfinished"/>
+        <translation>Mus %1</translation>
     </message>
 </context>
 <context>
@@ -3736,7 +3736,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.cpp" line="+282"/>
         <source>Not connected</source>
-        <translation type="unfinished"/>
+        <translation>Ikke tilkoblet</translation>
     </message>
 </context>
 <context>
@@ -3744,12 +3744,12 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation type="unfinished"/>
+        <translation>Aktiver denne enheten</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>LCD</source>
-        <translation type="unfinished"/>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui"/>
@@ -3759,12 +3759,12 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Devices</source>
-        <translation type="unfinished"/>
+        <translation>Enheter</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Navn</translation>
     </message>
     <message>
         <location/>
@@ -3779,22 +3779,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Size</source>
-        <translation type="unfinished"/>
+        <translation>Størrelse</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>Aktivert</translation>
     </message>
     <message>
         <location/>
         <source>Views</source>
-        <translation type="unfinished"/>
+        <translation>Visninger</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation type="unfinished"/>
+        <translation>Minimumskolonnebredde</translation>
     </message>
     <message>
         <location/>
@@ -3806,12 +3806,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation type="unfinished"/>
+        <translation>Denne innstillingen avgjør bredden på kollonneoppdalingen.</translation>
     </message>
     <message>
         <location/>
         <source>Splitter Width</source>
-        <translation type="unfinished"/>
+        <translation>Mellomrom på oppdeling</translation>
     </message>
 </context>
 <context>
@@ -3824,27 +3824,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Critical</source>
-        <translation type="unfinished"/>
+        <translation>Kritisk</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation>Advarsel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>Informasjon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Connected</source>
-        <translation type="unfinished"/>
+        <translation>Tilkoblet tjener</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Server Disconnected</source>
-        <translation type="unfinished"/>
+        <translation>Frakoblet tjener</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3859,32 +3859,32 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Text Message</source>
-        <translation type="unfinished"/>
+        <translation>Tekstmelding</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>User Joined Server</source>
-        <translation type="unfinished"/>
+        <translation>Bruker tok del i rommet</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation type="unfinished"/>
+        <translation>Bruker forlot tjeneren</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User recording state changed</source>
-        <translation type="unfinished"/>
+        <translation>Brukerens opptakstilstand ble endret</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation type="unfinished"/>
+        <translation>Bruker kastet ut (deg eller av deg)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>Bruker kastet ut</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3914,7 +3914,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation type="unfinished"/>
+        <translation>Bruker forlot kanalen</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3934,12 +3934,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Bruker tok nytt navn</translation>
     </message>
     <message>
         <location line="+59"/>
         <source>the server</source>
-        <translation type="unfinished"/>
+        <translation>tjeneren</translation>
     </message>
     <message>
         <location line="+127"/>
@@ -3955,7 +3955,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+66"/>
         <source>link to %1</source>
-        <translation type="unfinished"/>
+        <translation>lenk til %1</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3965,7 +3965,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation type="unfinished"/>
+        <translation>bruker-lenke</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4036,22 +4036,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="Log.ui"/>
         <source>Messages</source>
-        <translation type="unfinished"/>
+        <translation>Meldinger</translation>
     </message>
     <message>
         <location/>
         <source>Message</source>
-        <translation type="unfinished"/>
+        <translation>Melding</translation>
     </message>
     <message>
         <location/>
         <source>Console</source>
-        <translation type="unfinished"/>
+        <translation>Konsoll</translation>
     </message>
     <message>
         <location/>
         <source>Notification</source>
-        <translation type="unfinished"/>
+        <translation>Merknad</translation>
     </message>
     <message>
         <location/>
@@ -4061,12 +4061,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation type="unfinished"/>
+        <translation>Lydfil</translation>
     </message>
     <message>
         <location/>
         <source>Path</source>
-        <translation type="unfinished"/>
+        <translation>Sti</translation>
     </message>
     <message>
         <location/>
@@ -4076,7 +4076,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Lydstyrke</translation>
     </message>
     <message>
         <location/>
@@ -4111,7 +4111,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>Hvisk</translation>
     </message>
     <message>
         <location/>
@@ -4190,7 +4190,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>Move</source>
-        <translation type="unfinished"/>
+        <translation>Flytt</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4235,7 +4235,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language</source>
-        <translation type="unfinished"/>
+        <translation>Språk</translation>
     </message>
     <message>
         <location/>
@@ -4255,27 +4255,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Oppsett</translation>
     </message>
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"/>
+        <translation>Klassisk</translation>
     </message>
     <message>
         <location/>
         <source>Stacked</source>
-        <translation type="unfinished"/>
+        <translation>Stablet</translation>
     </message>
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished"/>
+        <translation>Hybrid</translation>
     </message>
     <message>
         <location/>
         <source>Custom</source>
-        <translation type="unfinished"/>
+        <translation>Brukerdefinert</translation>
     </message>
     <message>
         <location/>
@@ -4291,7 +4291,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Utvid</translation>
     </message>
     <message>
         <location/>
@@ -4316,7 +4316,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished"/>
+        <translation>Alltid øverst</translation>
     </message>
     <message>
         <location/>
@@ -4341,22 +4341,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>Aldri</translation>
     </message>
     <message>
         <location/>
         <source>Always</source>
-        <translation type="unfinished"/>
+        <translation>Alltid</translation>
     </message>
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"/>
+        <translation>I minimal visning</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"/>
+        <translation>I normalvisning</translation>
     </message>
     <message>
         <location/>
@@ -4426,7 +4426,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Drakt</translation>
     </message>
     <message>
         <location/>
@@ -4522,35 +4522,35 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="MainWindow.ui"/>
         <source>Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble</translation>
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+22"/>
         <location line="+2489"/>
         <source>Mumble -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble -- %1</translation>
     </message>
     <message>
         <location line="-2484"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Vindu</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+161"/>
         <source>Minimize</source>
-        <translation type="unfinished"/>
+        <translation>Minimer</translation>
     </message>
     <message>
         <location line="-161"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location line="+160"/>
         <source>Close</source>
-        <translation type="unfinished"/>
+        <translation>Lukk</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -4597,34 +4597,34 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+31"/>
         <source>Whisper/Shout</source>
         <oldsource>Whisper</oldsource>
-        <translation type="unfinished"/>
+        <translation>Hvisk/Skrik</translation>
     </message>
     <message>
         <location line="+75"/>
         <location line="+2500"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Ikke tilkoblet&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-2169"/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Tøm</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Opening URL %1</source>
-        <translation type="unfinished"/>
+        <translation>Åpner URL %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Filen finnes ikke</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Filen er ikke en oppsettsfil.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4708,45 +4708,45 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation type="unfinished"/>
+        <translation>Kaster ut brukeren %1</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation type="unfinished"/>
+        <translation>Lyser %1 i bann</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation type="unfinished"/>
+        <translation>Vis kommentar på bruker %1</translation>
     </message>
     <message>
         <location line="+72"/>
         <location line="+263"/>
         <location line="+615"/>
         <source>Message to channel %1</source>
-        <translation type="unfinished"/>
+        <translation>Melding til kanal %1</translation>
     </message>
     <message>
         <location line="+50"/>
         <source>Connected.</source>
-        <translation type="unfinished"/>
+        <translation>Tilkoblet.</translation>
     </message>
     <message>
         <location line="+104"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Tjeneren forela et sertifikat som feilet identitetsbekreftelse.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>SSL Version mismatch</source>
-        <translation type="unfinished"/>
+        <translation>SSL-versjon samsvarer ikke</translation>
     </message>
     <message>
         <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Skriv beskjed til kanalen &apos;%1&apos; her&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4757,25 +4757,25 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation type="unfinished"/>
+        <translation>Velg billedfil</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Innlesning av bilde feilet</translation>
     </message>
     <message>
         <location line="-27"/>
         <source>Could not open file for reading.</source>
-        <translation type="unfinished"/>
+        <translation>Kunne ikke åpne bilde for lesning.</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Billedformat ikke gjenkjent.</translation>
     </message>
     <message>
         <location line="-1806"/>
@@ -4785,7 +4785,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1018"/>
         <source>&amp;User</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Bruker</translation>
     </message>
     <message>
         <location line="+1"/>
