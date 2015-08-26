@@ -223,7 +223,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Move entry up</source>
-        <translation type="unfinished"/>
+        <translation>Flytt oppføring opp</translation>
     </message>
     <message>
         <location/>

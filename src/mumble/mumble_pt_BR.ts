@@ -1521,7 +1521,7 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt; Atenuação módulo de retorno PulseAudio &lt;/b&gt;&lt;br /&gt; Se os módulos de retorno estão ligados aos disopositivios de saída do Mumble, eles também serão atenuados. </translation>
     </message>
     <message>
         <location/>
@@ -4499,7 +4499,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Configura quais temas o Mumble usará em sua interface para estilizar com&lt;/b&gt;&lt;br /&gt;Mumble detectará temas de determinados diretórios e mostrará em uma lista. O tema selecionado será usado para customizar a aparência visual do Mumble incluindo cores , ícones e mais.</translation>
     </message>
 </context>
 <context>
