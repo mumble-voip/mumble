@@ -4468,12 +4468,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>佈景主題</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>佈景主題用來設定使用者介面風格</translation>
     </message>
     <message>
         <location/>
@@ -4863,7 +4863,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>送出文字訊息</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -5053,7 +5053,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>重新啟動 Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6204,7 +6204,7 @@ Valid actions are:
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>遠端程序呼叫</translation>
     </message>
     <message>
         <location line="+190"/>
@@ -7418,12 +7418,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>重新啟動 mumble 失敗</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 自我重新啟動失敗。請手動重啟。</translation>
     </message>
 </context>
 <context>
