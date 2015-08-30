@@ -523,7 +523,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</translation>
+        <translation>%1 -&gt; %2 取樣緩衝, 使用 %3 取樣解析度 (%4 優先) 在 %5 Hz</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -658,7 +658,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation>你至少要選擇一個麥克風和一個喇吧來使用 ASIO.如果你只要使用要麥克風進行取樣,請使用 DirectSound.</translation>
+        <translation>你至少要選擇一個麥克風和一個喇叭來使用 ASIO.如果你只要使用要麥克風進行取樣,請使用 DirectSound.</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -3931,7 +3931,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>您設定關閉麥克風</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3961,22 +3961,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>You self-unmuted</source>
-        <translation type="unfinished"/>
+        <translation>您設定開啟麥克風</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation type="unfinished"/>
+        <translation>您設定關閉喇叭</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation type="unfinished"/>
+        <translation>您設定開啟喇叭</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>使用者已更名</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4468,12 +4468,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>佈景主題</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>佈景主題用來設定使用者介面風格</translation>
     </message>
     <message>
         <location/>
@@ -4708,7 +4708,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>語音發送模式設為連續</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -4863,7 +4863,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>送出文字訊息</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -4894,13 +4894,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+41"/>
         <location line="+1405"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>語音發送模式設為語音活動時</translation>
     </message>
     <message>
         <location line="-1400"/>
         <location line="+1404"/>
         <source>Transmit Mode set to Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>語音發送模式設為按鍵發話</translation>
     </message>
     <message>
         <location line="-1326"/>
@@ -5053,12 +5053,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>重新啟動 Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>部份設定只在 Mumble 重新啟動後生效。現在就重新啟動 Mumble?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -5716,32 +5716,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="Messages.cpp" line="+327"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>你已關閉 %1 麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>你已開啟 %1 麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>你的喇叭被 %1 開啟。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>你抑制了 %1。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 關閉 %1 的麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 開啟 %1 的麥克風與喇叭。</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -5751,7 +5751,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 抑制了 %1。</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -5958,7 +5958,7 @@ Otherwise abort and check your certificate and username.</source>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>你被抑制了。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6040,17 +6040,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"/>
+        <translation>你關閉了 %1 的麥克風。</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>你開啟了 %1 的麥克風。</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>你開啟了 %1 的麥克風。</translation>
     </message>
     <message>
         <location line="+25"/>
@@ -6121,12 +6121,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 更改名稱為 %2。</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 離開頻道且離線。</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -6141,7 +6141,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"/>
+        <translation>UserModel::dropMimeData 中未知的頻道拖放模式。</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-319"/>
@@ -6204,7 +6204,7 @@ Valid actions are:
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>遠端程序呼叫</translation>
     </message>
     <message>
         <location line="+190"/>
@@ -7418,12 +7418,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>重新啟動 mumble 失敗</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 自我重新啟動失敗。請手動重啟。</translation>
     </message>
 </context>
 <context>

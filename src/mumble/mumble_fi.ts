@@ -4000,7 +4000,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Käyttäjä uudelleennimetty</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4493,12 +4493,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Teema</translation>
     </message>
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Käyttöliittymän tyyleihin käytetty teema</translation>
     </message>
     <message>
         <location/>
@@ -4733,7 +4733,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+76"/>
         <location line="+1418"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Lähetystila vaihdettu jatkuvaksi</translation>
     </message>
     <message>
         <location line="-1327"/>
@@ -5078,12 +5078,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleenkäynnistä Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Jotkin asetukset tulevat voimaan vasta uudelleenkäynnistyksen jälkeen. Uudelleenkäynnistä Mumble nyt?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -7476,12 +7476,12 @@ Paina alapuolen napista päivittääksesi Overlay:n tiedostot viimeisimpään ve
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Uudelleenkäynnistys epäonnistui</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumblen uudelleenkäynnistys epäonnistui. Käynnistä Mumble uudestaan manuaalisesti.</translation>
     </message>
 </context>
 <context>
