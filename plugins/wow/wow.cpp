@@ -55,17 +55,21 @@ guid g_playerGUID;
  * call each value, to ease in upgrading. "[_]" means the value name may or may not
  * have an underscore in it depending on who's posting the offset.
  */
-static uint32_t ptr_ClientConnection=0xED5C90; // ClientConnection or CurMgrPointer
+static uint32_t ptr_ClientConnection=0xFF0248; // ClientConnection or CurMgrPointer
 static uint32_t off_ObjectManager=0x62C; // objectManager or CurMgrOffset
-static uint32_t ptr_WorldFrame=0xD93E30; // Camera[_]Pointer, CameraStruct
+static uint32_t ptr_WorldFrame=0xEAF1F0; // Camera[_]Pointer, CameraStruct
 static uint32_t off_CameraOffset=0x7610; // Camera[_]Offset
-static uint32_t ptr_PlayerName=0xED5CD0; // PlayerName
-static uint32_t ptr_RealmName=0xED5E7E; // RealmName
+static uint32_t ptr_PlayerName=0xFF0288; // PlayerName
+static uint32_t ptr_RealmName=0xFF0436; // RealmName
 
 static uint32_t off_localGUID = 0xF8; // localGUID
 static uint32_t off_firstObject = 0xD8; // firstObject
 static uint32_t off_nextObject = 0x3C; // nextObject
 static uint32_t off_objectGUID = 0x28;
+
+static uint32_t off_unitpos = 0xAC0; // UnitOrigin
+static uint32_t off_unitheading = 0xAD0; // UnitAngle
+static uint32_t off_unitpitch = 0xAE0; // Not tracked, but probably off_unitheading + 0x10
 
 uint32_t getInt32(uint32_t ptr) {
 	uint32_t result;
@@ -328,7 +332,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	// ... which isn't a right-hand coordinate system.
 
 	float pos[3];
-	ok = ok && peekProc((BYTE *) p_playerBase + 0xA50, pos, sizeof(float)*3);
+	ok = ok && peekProc((BYTE *) p_playerBase + off_unitpos, pos, sizeof(float)*3);
 	if (! ok) {
 		if (g_playerGUID.second == 0xffffffffffffffff) {
 			return false;
@@ -348,12 +352,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	avatar_pos[2] = pos[0];
 
 	float heading=0.0;
-	ok = ok && peekProc((BYTE *) p_playerBase + 0xA60, &heading, sizeof(heading));
+	ok = ok && peekProc((BYTE *) p_playerBase + off_unitheading, &heading, sizeof(heading));
 	if (! ok)
 		return false;
 
 	float pitch=0.0;
-	ok = ok && peekProc((BYTE *) p_playerBase + 0xA70, &pitch, sizeof(pitch));
+	ok = ok && peekProc((BYTE *) p_playerBase + off_unitpitch, &pitch, sizeof(pitch));
 	if (! ok)
 		return false;
 
@@ -409,10 +413,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports World of Warcraft 6.0.3 (19103), with identity support.");
+	return std::wstring(L"Supports World of Warcraft 32-bit 6.2.2 (20490), with identity support.");
 }
 
-static std::wstring description(L"World of Warcraft 6.0.3 (19103)");
+static std::wstring description(L"World of Warcraft 32-bit 6.2.2 (20490)");
 
 static std::wstring shortname(L"World of Warcraft");
 
