@@ -81,6 +81,13 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	qcbChannelDrag->insertItem(Settings::Ask, tr("Ask"), Settings::Ask);
 	qcbChannelDrag->insertItem(Settings::DoNothing, tr("Do Nothing"), Settings::DoNothing);
 	qcbChannelDrag->insertItem(Settings::Move, tr("Move"), Settings::Move);
+	
+	QDir userThemeDirectory = Themes::getUserThemesDirectory();
+	if (userThemeDirectory.exists()) {
+		QUrl userThemeDirectoryUrl = QUrl::fromLocalFile(userThemeDirectory.path());
+		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
+		qlThemesDirectory->setOpenExternalLinks(true);
+	}
 }
 
 QString LookConfig::title() const {
@@ -148,17 +155,17 @@ void LookConfig::load(const Settings &r) {
 	     theme != themes.end();
 	     ++theme) {
 		
-		for (ThemeInfo::StylesMap::const_iterator style = theme->styles.begin();
-		     style != theme->styles.end();
-		     ++style) {
+		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin();
+		     styleit != theme->styles.end();
+		     ++styleit) {
 			
 			if (configuredStyle
-			     && configuredStyle->themeName == style->themeName
-			     && configuredStyle->name == style->name) {
+			     && configuredStyle->themeName == styleit->themeName
+			     && configuredStyle->name == styleit->name) {
 				selectedThemeEntry = qcbTheme->count();
 			}
 			
-			qcbTheme->addItem(theme->name + QLatin1String(" - ") + style->name, QVariant::fromValue(*style));
+			qcbTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
 		}
 	}
 	

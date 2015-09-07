@@ -124,6 +124,10 @@ ThemeMap Themes::getThemes() {
 	return ThemeInfo::scanDirectories(getSearchDirectories());
 }
 
+QDir Themes::getUserThemesDirectory() {
+	return QDir(g.qdBasePath.absolutePath() + QLatin1String("/Themes"));
+}
+
 QVector<QDir> Themes::getSearchDirectories() {
 	QVector<QDir> themeSearchDirectories;
 
@@ -132,7 +136,7 @@ QVector<QDir> Themes::getSearchDirectories() {
 	// Next come themes found in the applications Themes directory
 	themeSearchDirectories << QDir(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/Themes"));
 	// Highest priorty have themes located in the user directory
-	themeSearchDirectories << QDir(g.qdBasePath.absolutePath() + QLatin1String("/Themes"));
+	themeSearchDirectories << getUserThemesDirectory();
 	
 	return themeSearchDirectories;
 }

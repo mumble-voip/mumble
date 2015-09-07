@@ -58,6 +58,9 @@ public:
 	/// Return a theme name to theme map
 	static ThemeMap getThemes();
 
+	/// Returns the per user themes directory
+	static QDir getUserThemesDirectory();
+	
 private:
 	/// Applies the fallback stylesheet
 	static void applyFallback();
