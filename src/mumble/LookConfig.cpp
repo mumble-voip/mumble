@@ -84,10 +84,24 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 	
 	QDir userThemeDirectory = Themes::getUserThemesDirectory();
 	if (userThemeDirectory.exists()) {
+		m_themeDirectoryWatcher = new QFileSystemWatcher(this);
+		
+		// Use a timer to cut down floods of directory changes. We only want
+		// to trigger a refresh after nothing has happened for 200ms in the
+		// watched directory.
+		m_themeDirectoryDebouncer = new QTimer(this);
+		m_themeDirectoryDebouncer->setSingleShot(true);
+		m_themeDirectoryDebouncer->setInterval(200);
+		m_themeDirectoryDebouncer->connect(m_themeDirectoryWatcher, SIGNAL(directoryChanged(QString)), SLOT(start()));
+		
+		connect(m_themeDirectoryDebouncer, SIGNAL(timeout()), SLOT(themeDirectoryChanged()));
+		m_themeDirectoryWatcher->addPath(userThemeDirectory.path());
+		
 		QUrl userThemeDirectoryUrl = QUrl::fromLocalFile(userThemeDirectory.path());
 		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
+	
 }
 
 QString LookConfig::title() const {
@@ -96,6 +110,34 @@ QString LookConfig::title() const {
 
 QIcon LookConfig::icon() const {
 	return QIcon(QLatin1String("skin:config_ui.png"));
+}
+
+void LookConfig::reloadThemes(const boost::optional<ThemeInfo::StyleInfo> configuredStyle) {
+	const ThemeMap themes = Themes::getThemes();
+	
+	int selectedThemeEntry = 0;
+	
+	qcbTheme->clear();
+	qcbTheme->addItem(tr("None"));
+	for (ThemeMap::const_iterator theme = themes.begin();
+	     theme != themes.end();
+	     ++theme) {
+		
+		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin();
+		     styleit != theme->styles.end();
+		     ++styleit) {
+			
+			if (configuredStyle
+			     && configuredStyle->themeName == styleit->themeName
+			     && configuredStyle->name == styleit->name) {
+				selectedThemeEntry = qcbTheme->count();
+			}
+			
+			qcbTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
+		}
+	}
+	
+	qcbTheme->setCurrentIndex(selectedThemeEntry);
 }
 
 void LookConfig::load(const Settings &r) {
@@ -143,33 +185,8 @@ void LookConfig::load(const Settings &r) {
 	loadCheckBox(qcbChatBarUseSelection, r.bChatBarUseSelection);
 	loadCheckBox(qcbFilterHidesEmptyChannels, r.bFilterHidesEmptyChannels);
 	
-	
-	qcbTheme->clear();
-	
 	const boost::optional<ThemeInfo::StyleInfo> configuredStyle = Themes::getConfiguredStyle(r);
-	const ThemeMap themes = Themes::getThemes();
-	
-	int selectedThemeEntry = 0;
-	qcbTheme->addItem(tr("None"));
-	for (ThemeMap::const_iterator theme = themes.begin();
-	     theme != themes.end();
-	     ++theme) {
-		
-		for (ThemeInfo::StylesMap::const_iterator styleit = theme->styles.begin();
-		     styleit != theme->styles.end();
-		     ++styleit) {
-			
-			if (configuredStyle
-			     && configuredStyle->themeName == styleit->themeName
-			     && configuredStyle->name == styleit->name) {
-				selectedThemeEntry = qcbTheme->count();
-			}
-			
-			qcbTheme->addItem(theme->name + QLatin1String(" - ") + styleit->name, QVariant::fromValue(*styleit));
-		}
-	}
-	
-	qcbTheme->setCurrentIndex(selectedThemeEntry);
+	reloadThemes(configuredStyle);
 }
 
 void LookConfig::save() const {
@@ -232,4 +249,14 @@ bool LookConfig::expert(bool b) {
 	qcbStateInTray->setVisible(b);
 	qcbShowContextMenuInMenuBar->setVisible(b);
 	return true;
+}
+
+void LookConfig::themeDirectoryChanged() {
+	qWarning() << "Theme directory changed";
+	QVariant themeData = qcbTheme->itemData(qcbTheme->currentIndex());
+	if (themeData.isNull()) {
+		reloadThemes(boost::none);
+	} else {
+		reloadThemes(themeData.value<ThemeInfo::StyleInfo>());
+	}
 }

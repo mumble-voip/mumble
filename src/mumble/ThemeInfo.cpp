@@ -95,7 +95,7 @@ boost::optional<ThemeInfo> loadLegacyThemeInfo(const QDir &themeDirectory) {
 	}
 	
 	if (theme.styles.isEmpty()) {
-		qWarning() << themeDirectory << " does not seem to contain a old-style theme, skipping";
+		qWarning() << themeDirectory.absolutePath() << " does not seem to contain a old-style theme, skipping";
 		return boost::none;
 	}
 	

@@ -32,8 +32,12 @@
 #define MUMBLE_MUMBLE_LOOKCONFIG_H_
 
 #include "ConfigDialog.h"
+#include "ThemeInfo.h"
 
 #include "ui_LookConfig.h"
+
+class QFileSystemWatcher;
+class QTimer;
 
 class LookConfig : public ConfigWidget, Ui::LookConfig {
 	private:
@@ -43,11 +47,21 @@ class LookConfig : public ConfigWidget, Ui::LookConfig {
 		LookConfig(Settings &st);
 		virtual QString title() const Q_DECL_OVERRIDE;
 		virtual QIcon icon() const Q_DECL_OVERRIDE;
+
 	public slots:
 		void accept() const Q_DECL_OVERRIDE;
 		void save() const Q_DECL_OVERRIDE;
 		void load(const Settings &r) Q_DECL_OVERRIDE;
 		bool expert(bool) Q_DECL_OVERRIDE;
+		void themeDirectoryChanged();
+	private:
+		/// Reload themes combobox and select given configuredStyle in it
+		void reloadThemes(const boost::optional<ThemeInfo::StyleInfo> configuredStyle);
+		
+		/// Timer to prevent change event floods from triggering theme reloads
+		QTimer *m_themeDirectoryDebouncer;
+		/// Watcher to keep theme list up to date with user theme directory
+		QFileSystemWatcher* m_themeDirectoryWatcher;
 };
 
 #endif
