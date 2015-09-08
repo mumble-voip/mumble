@@ -98,6 +98,7 @@ LookConfig::LookConfig(Settings &st) : ConfigWidget(st) {
 		m_themeDirectoryWatcher->addPath(userThemeDirectory.path());
 		
 		QUrl userThemeDirectoryUrl = QUrl::fromLocalFile(userThemeDirectory.path());
+		//: This link is located next to the theme heading in the ui config and opens the user theme directory
 		qlThemesDirectory->setText(tr("<a href=\"%1\">Browse</a>").arg(userThemeDirectoryUrl.toString()));
 		qlThemesDirectory->setOpenExternalLinks(true);
 	}
