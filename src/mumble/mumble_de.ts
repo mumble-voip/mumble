@@ -1495,12 +1495,12 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Erweiterte Dämpfungsoptionen</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Wenn ausgewählt, wird Mumble nur die Lautstärke von Anwendungen herabsetzen, die das gleiche Ausgabegerät wie Mumble benutzen.</translation>
     </message>
     <message>
         <location/>
@@ -1510,12 +1510,12 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Nur die Lautstärke von Anwendungen herabsetzen, die das gleiche Ausgabegerät wie Mumble benutzen</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Wenn ausgewählt wird die Lautstärke von PulseAudio Rückkopplungsmodule herabgesetzt</translation>
     </message>
     <message>
         <location/>
@@ -1525,7 +1525,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Lautstärke von PulseAudio Rückkopplungsgeräten herabsetzen</translation>
     </message>
 </context>
 <context>
@@ -4304,7 +4304,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Durchsuchen&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4545,12 +4545,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Stil der Benutzeroberfläche</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Wählt den Stil aus, der auf die Benutzeroberfläche angewendet wird&lt;/b&gt;&lt;br /&gt;Mumble sammelt Stile aus bestimmten Verzeichnissen zusammen und führt diese in dieser Liste auf. Der Stil, den Sie auswählen, wird dazu verwendet das Aussehen der Benutzeroberfläche anzupassen. Dies umfasst Farben, Icons und mehr.</translation>
     </message>
 </context>
 <context>
@@ -5132,7 +5132,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Einige Einstellungen werden erst nach dem Neustarten von Mumble wirksam. Mumble jetzt neu starten?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -7537,7 +7537,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Beim Neustarten von Mumble ist ein Fehler aufgetreten. Bitte starten Sie Mumble manuell neu.</translation>
     </message>
 </context>
 <context>
