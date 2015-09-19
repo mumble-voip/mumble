@@ -45,6 +45,10 @@ win32 {
 		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
 	}
 
+	# Increase PCH heap to 150MB: https://msdn.microsoft.com/en-us/library/bdscwf1c.aspx
+	QMAKE_CFLAGS *= -Zm200
+	QMAKE_CXXFLAGS *= -Zm200
+
 	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
 	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
 
