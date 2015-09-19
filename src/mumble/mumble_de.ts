@@ -484,11 +484,6 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
         <source>ID of the channel.</source>
         <translation>ID des Kanals.</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>Kanal-ID</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -1500,12 +1495,12 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Erweiterte Dämpfungsoptionen</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Wenn ausgewählt, wird Mumble nur die Lautstärke von Anwendungen herabsetzen, die das gleiche Ausgabegerät wie Mumble benutzen.</translation>
     </message>
     <message>
         <location/>
@@ -1515,12 +1510,12 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Nur die Lautstärke von Anwendungen herabsetzen, die das gleiche Ausgabegerät wie Mumble benutzen</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Wenn ausgewählt wird die Lautstärke von PulseAudio Rückkopplungsmodule herabgesetzt</translation>
     </message>
     <message>
         <location/>
@@ -1530,7 +1525,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Lautstärke von PulseAudio Rückkopplungsgeräten herabsetzen</translation>
     </message>
 </context>
 <context>
@@ -2521,7 +2516,7 @@ Bitte verwenden Sie eine andere Datei.</translation>
         <translation>Mumble-Benutzer</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Ablauf des Zertifikats:&lt;/b&gt; Ihr Zertifikat wird bald ablaufen. Sie müssen es erneuern oder Sie werden nicht mehr in der Lage sein sich auf Server zu verbinden auf denen Sie registriert sind.</translation>
     </message>
@@ -4276,12 +4271,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Keine</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Nur mit Benutzern</translation>
     </message>
@@ -4306,7 +4301,13 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
         <translation>Bewegen</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Durchsuchen&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Benutzerinterface</translation>
     </message>
@@ -4544,12 +4545,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation type="unfinished"/>
+        <translation>Stil der Benutzeroberfläche</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Wählt den Stil aus, der auf die Benutzeroberfläche angewendet wird&lt;/b&gt;&lt;br /&gt;Mumble sammelt Stile aus bestimmten Verzeichnissen zusammen und führt diese in dieser Liste auf. Der Stil, den Sie auswählen, wird dazu verwendet das Aussehen der Benutzeroberfläche anzupassen. Dies umfasst Farben, Icons und mehr.</translation>
     </message>
 </context>
 <context>
@@ -5131,7 +5132,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Einige Einstellungen werden erst nach dem Neustarten von Mumble wirksam. Mumble jetzt neu starten?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6219,7 +6220,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
         <translation>Unbekannter Kanal-Verschiebe-Modus in UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6313,7 +6314,7 @@ Dämpfen aufheben
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Willkommen in Mumble.</translation>
     </message>
@@ -7536,7 +7537,7 @@ Um diese Dateien zu aktualisieren, klicken Sie unten den Button.</translation>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Beim Neustarten von Mumble ist ein Fehler aufgetreten. Bitte starten Sie Mumble manuell neu.</translation>
     </message>
 </context>
 <context>

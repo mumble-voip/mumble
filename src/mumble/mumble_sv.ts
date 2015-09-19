@@ -484,11 +484,6 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
         <source>ID of the channel.</source>
         <translation>Kanalens ID.</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>KanalID</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2498,7 +2493,7 @@ Tala högt, som om du är irriterad eller upphetsad. Minska volymen i kontrollpa
         <translation>Mumbleanvändare</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Certifikatutgång:&lt;/b&gt; Ditt certifikat håller på att gå ut. Du måste förnya det, annars kan du inte längre ansluta till servrar du är registrerad på.</translation>
     </message>
@@ -4228,12 +4223,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Ingen</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Bara med användare</translation>
     </message>
@@ -4258,7 +4253,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Flytta</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Användargränssnitt</translation>
     </message>
@@ -6169,7 +6170,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
         <translation>Okänd kanaldragnings läge i Användarmodell::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6263,7 +6264,7 @@ Undeafen self
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Välkommen till Mumble.</translation>
     </message>

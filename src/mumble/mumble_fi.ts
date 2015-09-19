@@ -484,11 +484,6 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
         <source>ID of the channel.</source>
         <translation>Kanavan ID.</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>KanavaID</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -1497,22 +1492,22 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Vaimennusasetukset</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Jos valittuna, Mumble vaimentaa vain ne ohjelmat jotka käyttävät samaa ulostuloa kuin Mumble</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Vaimennus toimii vain Mumblen kanssa samalla ulostulolla toimivien ohjelmien kanssa&lt;/b&gt;&lt;br /&gt;Jos valittuna, ohjelmat jotka käyttävät eri ulostuloa kuin Mumble jäävät vaimentamatta.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Vaimennetaan ohjelmat jotka käyttävät samaa laitetta ulostuloon</translation>
     </message>
     <message>
         <location/>
@@ -2500,7 +2495,7 @@ Puhu kovalla äänellä, aivan kuin olisit ärsyyntynyt tai kiihtynyt. Vähennä
         <translation>Mumblen käyttäjä</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Sertifikaatti vanhenee:&lt;/b&gt; Sertifikaattisi on vanhentumassa. Sinun tulee uusia sertifikaattisi tai et voi enään yhdistää rekisteröimiisi palvelimiin.</translation>
     </message>
@@ -4230,12 +4225,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Ei koskaan</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Kanavilla käyttäjiä</translation>
     </message>
@@ -4260,7 +4255,13 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <translation>Siirrä</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Selaa&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Käyttöliittymä</translation>
     </message>
@@ -6149,7 +6150,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 vaihtoi nimensä %2.</translation>
     </message>
     <message>
         <location line="+45"/>
@@ -6172,7 +6173,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
         <translation>UserModel::dropMimeData sisältää lukemattoman kanavien vetämistilan.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6262,7 +6263,7 @@ Poista itsesi vaimennus
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Tervetuloa Mumbleen.</translation>
     </message>

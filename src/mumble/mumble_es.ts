@@ -484,11 +484,6 @@ Contiene la lista de miembros heredados por el canal actual. Desmarque &lt;i&gt;
         <source>ID of the channel.</source>
         <translation>ID del canal</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>CanalID</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2501,7 +2496,7 @@ Hable fuerte en voz alta, como cuando está molesto o entusiasmado. Baje el volu
         <translation>Usuario Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vencimiento del certificado:&lt;/b&gt; Su certificado está a punto de caducar. Debe renovarlo, o de lo contrario no podrá conectarse a los servidores en los que se haya registrado.</translation>
     </message>
@@ -4231,12 +4226,12 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Sólo con usuarios</translation>
     </message>
@@ -4261,7 +4256,13 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <translation>Mover</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Interfaz de usuario</translation>
     </message>
@@ -6172,7 +6173,7 @@ De lo contrario, aborte y compruebe su certificado y nombre de usuario.</transla
         <translation>Modo de arrastre de canales desconocido en UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6237,7 +6238,7 @@ Valid actions are:
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenido a Mumble.</translation>
     </message>

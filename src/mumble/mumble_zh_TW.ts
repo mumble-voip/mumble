@@ -480,11 +480,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>ID of the channel.</source>
         <translation>頻道名稱。</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>頻道名稱</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2488,7 +2483,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble 使用者</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;憑證到期:&lt;/b&gt; 您的憑證即將到期。你需要更新它，否則將不能夠連接到您已註冊的伺服器上。</translation>
     </message>
@@ -4205,12 +4200,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>無</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>只顯示自己所在</translation>
     </message>
@@ -4235,7 +4230,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>移動</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>使用者界面</translation>
     </message>
@@ -6144,7 +6145,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>UserModel::dropMimeData 中未知的頻道拖放模式。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6207,7 +6208,7 @@ Valid actions are:
         <translation>遠端程序呼叫</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>歡迎使用 Mumble。</translation>
     </message>

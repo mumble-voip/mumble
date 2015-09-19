@@ -484,11 +484,6 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
         <source>ID of the channel.</source>
         <translation>ID du salon.</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>ID du salon</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2501,7 +2496,7 @@ Parlez fort, comme lorsque vous êtes irrité ou excité. Diminuez le volume dan
         <translation>Utilisateur Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Expiration du certificat :&lt;/b&gt; Votre certificat va bientôt expirer. Vous devez le renouveler ou vous ne pourrez plus vous connecter aux serveurs sur lesquels vous êtes enregistré.</translation>
     </message>
@@ -4230,12 +4225,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Aucun</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Seulement quand il y a des utilisateurs</translation>
     </message>
@@ -4260,7 +4255,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Déplacer</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Parcourir&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Interface utilisateur</translation>
     </message>
@@ -6171,7 +6172,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
         <translation>Mode de déplacement du salon inconnu dans UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6265,7 +6266,7 @@ Undeafen self
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Bienvenue sur Mumble.</translation>
     </message>

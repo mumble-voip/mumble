@@ -484,11 +484,6 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
         <source>ID of the channel.</source>
         <translation>ID van het kanaal</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>KanaalID</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2500,7 +2495,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
         <translation>Mumble Gebruiker</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Cerificaat Geldigheid:&lt;/b&gt;Jouw certificaat gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer verbinden met servers waarop je geregistreerd bent.</translation>
     </message>
@@ -4229,12 +4224,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Slechts met gebruikers</translation>
     </message>
@@ -4259,7 +4254,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <translation>Verplaatsen</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Gebruikersinterface</translation>
     </message>
@@ -6168,7 +6169,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Onbekende kanalen slepen modus in UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6263,7 +6264,7 @@ Undeafen self
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Welkom bij Mumble.</translation>
     </message>

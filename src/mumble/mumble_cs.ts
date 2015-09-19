@@ -484,11 +484,6 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
         <source>ID of the channel.</source>
         <translation>ID kanálu.</translation>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation>IDKanálu</translation>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2501,7 +2496,7 @@ Mluvte nahlas, jako kdybyste byli podráždění nebo nadšení. Snižujte hlasi
         <translation>Uživatel Mumble</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;Vypršení Certifikátu:&lt;/b&gt; Váš certifikát brzy vyprší. Musíte ho obnovit, nebo se už nebudete moci připojit k serverům, na kterých jste registrování.</translation>
     </message>
@@ -4231,12 +4226,12 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>Žádný</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>Pouze s uživateli</translation>
     </message>
@@ -4261,7 +4256,13 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
         <translation>Přesunout</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Procházet&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>Uživatelské Rozhraní</translation>
     </message>
@@ -6172,7 +6173,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
         <translation>Neznámý režim Táhnutí Kanálů v UserModel::dropMimeData.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6264,7 +6265,7 @@ Platné možnosti jsou:
         <translation>RPC</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Vítejte v aplikaci Mumble.</translation>
     </message>

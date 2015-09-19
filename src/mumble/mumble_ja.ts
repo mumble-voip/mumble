@@ -485,11 +485,6 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <source>ID of the channel.</source>
         <translation type="unfinished"/>
     </message>
-    <message>
-        <location/>
-        <source>ChannelID</source>
-        <translation type="unfinished"/>
-    </message>
 </context>
 <context>
     <name>ALSAAudioInput</name>
@@ -2497,7 +2492,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble ユーザ</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+463"/>
+        <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation>&lt;b&gt;証明書の有効期限:&lt;/b&gt;あなたの証明書の有効期限がもうすぐ切れます。証明書を更新する必要があります。さもないとあなたはユーザ登録したサーバに接続できなくなるでしょう。</translation>
     </message>
@@ -4227,12 +4222,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+21"/>
-        <location line="+69"/>
+        <location line="+45"/>
         <source>None</source>
         <translation>なし</translation>
     </message>
     <message>
-        <location line="-68"/>
+        <location line="-44"/>
         <source>Only with users</source>
         <translation>ユーザが居るチャンネルのみ</translation>
     </message>
@@ -4257,7 +4252,13 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>移動する</translation>
     </message>
     <message>
-        <location line="+4"/>
+        <location line="+19"/>
+        <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
+        <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>User Interface</source>
         <translation>インターフェース</translation>
     </message>
@@ -6167,7 +6168,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation>UserModel::dropMimeData で不明なチャンネルドラッグモードです。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="-319"/>
+        <location filename="main.cpp" line="-330"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6230,7 +6231,7 @@ Valid actions are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+201"/>
         <source>Welcome to Mumble.</source>
         <translation>Mumbleへようこそ。</translation>
     </message>
