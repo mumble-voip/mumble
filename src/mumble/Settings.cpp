@@ -309,7 +309,7 @@ Settings::Settings() {
 #ifdef Q_OS_WIN
 	// Don't enable minimize to tray by default on Windows >= 7
 	const QSysInfo::WinVersion winVer = QSysInfo::windowsVersion();
-	bHideInTray = (winVer != QSysInfo::WV_WINDOWS7 && winVer != QSysInfo::WV_WINDOWS8 && winVer != QSysInfo::WV_WINDOWS8_1);
+	bHideInTray = (winVer < QSysInfo::WV_WINDOWS7);
 #else
 	const bool isUnityDesktop = QProcessEnvironment::systemEnvironment().value(QLatin1String("XDG_CURRENT_DESKTOP")) == QLatin1String("Unity");
 	bHideInTray = !isUnityDesktop;
