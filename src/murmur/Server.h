@@ -49,6 +49,9 @@
 #include <QtNetwork/QSslKey>
 #include <QtNetwork/QSslSocket>
 #include <QtNetwork/QTcpServer>
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+# include <QtNetwork/QSslDiffieHellmanParameters>
+#endif
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
@@ -168,6 +171,9 @@ class Server : public QThread {
 		QList<QSslCertificate> qlCA;
 		QSslCertificate qscCert;
 		QSslKey qskKey;
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+		QSslDiffieHellmanParameters qsdhpDHParams;
+#endif
 
 		Timer tUptime;
 

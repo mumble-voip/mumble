@@ -49,6 +49,15 @@ static int add_ext(X509 * crt, int nid, char *value) {
 	return 1;
 }
 
+// dh_progress is a status callback for DH_generate_parameterss_ex.
+// We use it to run the event loop while generating DH params, in
+// order to keep the Murmur GUI on Windows responsive during the
+// process.
+static int dh_progress(int, int, BN_GENCB *) {
+	qApp->processEvents();
+	return 1;
+}
+
 bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	if (key.isNull() || cert.isNull() || (key.type() != QSsl::PrivateKey))
 		return false;
@@ -85,11 +94,12 @@ bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 }
 
 void Server::initializeCert() {
-	QByteArray crt, key, pass;
+	QByteArray crt, key, pass, dhparams;
 
 	crt = getConf("certificate", QString()).toByteArray();
 	key = getConf("key", QString()).toByteArray();
 	pass = getConf("passphrase", QByteArray()).toByteArray();
+	dhparams = getConf("sslDHParams", Meta::mp.qbaDHParams).toByteArray();
 
 	QList<QSslCertificate> ql;
 
@@ -115,6 +125,21 @@ void Server::initializeCert() {
 		}
 		qlCA = ql;
 	}
+
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+	if (! dhparams.isEmpty()) {
+		QSslDiffieHellmanParameters qdhp = QSslDiffieHellmanParameters(dhparams);
+		if (qdhp.isValid()) {
+			qsdhpDHParams = qdhp;
+		} else {
+			log(QString::fromLatin1("Unable to use specified Diffie-Hellman parameters (sslDHParams): %1").arg(qdhp.errorString()));
+		}
+	}
+#else
+	if (! dhparams.isEmpty()) {
+		log("Diffie-Hellman parameters (sslDHParams) were specified, but will not be used. This version of Murmur does not support Diffie-Hellman parameters.");
+	}
+#endif
 
 	QString issuer;
 #if QT_VERSION >= 0x050000
@@ -190,6 +215,52 @@ void Server::initializeCert() {
 			setConf("key", qskKey.toPem());
 		}
 	}
+
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+	if (qsdhpDHParams.isEmpty()) {
+		log("Generating new server 2048-bit Diffie-Hellman parameters. This could take a while...");
+
+		DH *dh = DH_new();
+		if (dh == NULL) {
+			qFatal("DH_new failed: unable to generate Diffie-Hellman parameters for virtual server");
+		}
+
+		// Generate DH params.
+		// We register a status callback in order to update the UI
+		// for Murmur on Windows. We don't show the actual status,
+		// but we do it to keep Murmur on Windows responsive while
+		// generating the parameters.
+		BN_GENCB cb;
+		memset(&cb, 0, sizeof(BN_GENCB));
+		BN_GENCB_set(&cb, dh_progress, NULL);
+		if (DH_generate_parameters_ex(dh, 2048, 2, &cb) == 0) {
+			qFatal("DH_generate_parameters_ex failed: unable to generate Diffie-Hellman parameters for virtual server");
+		}
+
+		BIO *mem = BIO_new(BIO_s_mem());
+		if (PEM_write_bio_DHparams(mem, dh) == 0) {
+			qFatal("PEM_write_bio_DHparams failed: unable to write generated Diffie-Hellman parameters to memory");
+		}
+
+		char *pem = NULL;
+		long len = BIO_get_mem_data(mem, &pem);
+		if (len <= 0) {
+			qFatal("BIO_get_mem_data returned an empty or invalid buffer");
+		}
+
+		QByteArray pemdh(pem, len);
+		QSslDiffieHellmanParameters qdhp(pemdh);
+		if (!qdhp.isValid()) {
+			qFatal("QSslDiffieHellmanParameters: unable to import generated Diffie-HellmanParameters: %s", qdhp.errorString());
+		}
+
+		qsdhpDHParams = qdhp;
+		setConf("sslDHParams", pemdh);
+
+		BIO_free(mem);
+		DH_free(dh);
+	}
+#endif
 }
 
 const QString Server::getDigest() const {
