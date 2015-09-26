@@ -419,6 +419,7 @@ int main(int argc, char **argv) {
 			ServerDB::setConf(sid, "key");
 			ServerDB::setConf(sid, "certificate");
 			ServerDB::setConf(sid, "passphrase");
+			ServerDB::setConf(sid, "sslDHParams");
 		}
 	}
 
