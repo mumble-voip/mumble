@@ -250,3 +250,23 @@ void MumbleSSL::addSystemCA() {
 	}
 #endif
 }
+
+QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
+	switch(protocol) {
+		case QSsl::SslV3: return QLatin1String("SSL 3");
+		case QSsl::SslV2: return QLatin1String("SSL 2");
+#if QT_VERSION >= 0x050000
+		case QSsl::TlsV1_0: return QLatin1String("TLS 1.0");
+		case QSsl::TlsV1_1: return QLatin1String("TLS 1.1");
+		case QSsl::TlsV1_2: return QLatin1String("TLS 1.2");
+#else
+		case QSsl::TlsV1: return  QLatin1String("TLS 1.0");
+#endif
+		case QSsl::AnyProtocol: return QLatin1String("AnyProtocol");
+#if QT_VERSION >= 0x040800
+		case QSsl::TlsV1SslV3: return QLatin1String("TlsV1SslV3");
+		case QSsl::SecureProtocols: return QLatin1String("SecureProtocols");
+#endif
+		case QSsl::UnknownProtocol: return QLatin1String("UnknownProtocol");
+	}
+}

@@ -1166,12 +1166,24 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	g.sh->getConnectionInfo(host,port,uname,pw);
 
-	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),
+	QString qsControl=tr(
+	            "<h2>Control channel</h2>"
+	            "<p>The connection uses %1.</p>"
+	            "<p>The connection is encrypted using "
+	            "%2, with %3 for "
+	            "message authentication and "
+	            "%4 as the key exchange mechanism.</p>"
+	            "<p>%5 ms average latency (%6 deviation)</p>"
+	            "<p>Remote host %7 (port %8)</p>").arg(
+	                  Qt::escape(c->sessionProtocolString()),
 	                  Qt::escape(qsc.name()),
+	                  Qt::escape(qsc.authenticationMethod()),
+	                  Qt::escape(qsc.keyExchangeMethod()),
 	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
 	                  Qt::escape(host),
 	                  QString::number(port));
+
 	QString qsVoice, qsCrypt, qsAudio;
 
 	if (NetworkConfig::TcpModeEnabled()) {

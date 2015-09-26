@@ -96,6 +96,8 @@ class Connection : public QObject {
 
 		QList<QSslCertificate> peerCertificateChain() const;
 		QSslCipher sessionCipher() const;
+		QSsl::SslProtocol sessionProtocol() const;
+		QString sessionProtocolString() const;
 		QHostAddress peerAddress() const;
 		quint16 peerPort() const;
 		bool bDisconnectedEmitted;
