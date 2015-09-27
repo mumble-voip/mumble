@@ -1,18 +1,18 @@
 [submodule "speex"]
 	path = speex
-	url = git://git.xiph.org/speex.git/
+	url = https://git.xiph.org/speex.git
 [submodule "celt-0.7.0-src"]
 	path = celt-0.7.0-src
-	url = git://git.xiph.org/celt.git/
+	url = https://git.xiph.org/celt.git
 [submodule "celt-0.11.0-src"]
 	path = celt-0.11.0-src
-	url = git://git.xiph.org/celt.git/
+	url = https://git.xiph.org/celt.git
 [submodule "opus-src"]
 	path = opus-src
-	url = git://git.xiph.org/opus.git
+	url = https://git.xiph.org/opus.git
 [submodule "sbcelt-src"]
 	path = sbcelt-src
-	url = git://github.com/mumble-voip/sbcelt.git
+	url = https://github.com/mumble-voip/sbcelt.git
 [submodule "3rdparty/mach-override-src"]
 	path = 3rdparty/mach-override-src
 	url = https://github.com/mumble-voip/mach_override.git
