@@ -1,5 +1,6 @@
 include(../compiler.pri)
 include(../qt.pri)
+include(../rcc.pri)
 
 VERSION		= 1.3.0
 DIST		= mumble.pri Message.h PacketDataStream.h CryptState.h Timer.h Version.h OSInfo.h SSL.h
