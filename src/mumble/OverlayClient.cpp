@@ -31,7 +31,7 @@
 #include "mumble_pch.hpp"
 
 #include "OverlayClient.h"
-
+#include "OverlayPositionableItem.h"
 #include "OverlayEditor.h"
 #include "OverlayText.h"
 #include "User.h"
@@ -80,13 +80,13 @@ OverlayClient::OverlayClient(QLocalSocket *socket, QObject *p)
 	qgs.addItem(&ougUsers);
 	ougUsers.show();
 
-	qgpiFPS = new QGraphicsPixmapItem();
+	qgpiFPS = new OverlayPositionableItem(&g.s.os.qrfFps);
 	qgs.addItem(qgpiFPS);
 	qgpiFPS->setPos(g.s.os.qrfFps.x(), g.s.os.qrfFps.y());
 	qgpiFPS->show();
 
 	// Time
-	qgpiTime = new QGraphicsPixmapItem();
+	qgpiTime = new OverlayPositionableItem(&g.s.os.qrfTime);
 	qgs.addItem(qgpiTime);
 	qgpiTime->setPos(g.s.os.qrfTime.x(), g.s.os.qrfTime.y());
 	qgpiTime->show();
@@ -130,6 +130,7 @@ void OverlayClient::updateFPS() {
 		// offset to use basepoint
 		//TODO: settings are providing a top left anchor, so shift down by ascent
 		qgpiFPS->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
+		qgpiFPS->updateRender();
 	} else {
 		qgpiFPS->setPixmap(QPixmap());
 	}
@@ -140,6 +141,7 @@ void OverlayClient::updateTime() {
 		const BasepointPixmap &pm = OverlayTextLine(QString(QLatin1String("%1")).arg(QTime::currentTime().toString()), g.s.os.qfFps).createPixmap(g.s.os.qcFps);
 		qgpiTime->setPixmap(pm);
 		qgpiTime->setOffset(-pm.qpBasePoint + QPoint(0, pm.iAscent));
+		qgpiTime->updateRender();
 	} else {
 		qgpiTime->setPixmap(QPixmap());
 	}
