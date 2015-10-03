@@ -43,6 +43,7 @@ class ClientUser;
 class Overlay;
 class QLibrary;
 class QLocalServer;
+class OverlayPositionableItem;
 
 class OverlayClient : public QObject {
 		friend class Overlay;
@@ -60,8 +61,8 @@ class OverlayClient : public QObject {
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
 		QGraphicsPixmapItem *qgpiLogo;
-		QGraphicsPixmapItem *qgpiFPS;
-		QGraphicsPixmapItem *qgpiTime;
+		OverlayPositionableItem *qgpiFPS;
+		OverlayPositionableItem *qgpiTime;
 
 		/// The process ID of the process this OverlayClient is connected to.
 		quint64 uiPid;

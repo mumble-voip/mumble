@@ -150,9 +150,9 @@ OverlaySettings::OverlaySettings() {
 	qcFps = Qt::white;
 	fFps = 0.75f;
 	qfFps = qfUserName;
-	qrfFps = QRectF(10, 50, -1, 0.023438f);
+	qrfFps = QRectF(0.0f, 0.05, -1, 0.023438f);
 	bFps = false;
-	qrfTime = QRectF(10, 10, -1, 0.023438f);
+	qrfTime = QRectF(0.0f, 0.0, -1, 0.023438f);
 	bTime = false;
 
 	bUseWhitelist = false;
@@ -549,6 +549,7 @@ void OverlaySettings::load(QSettings* settings_ptr) {
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
 	SAVELOAD(qrfFps, "fpsrect");
+	SAVELOAD(qrfTime, "timerect");
 
 	LOADFLAG(qaUserName, "useralign");
 	LOADFLAG(qaChannel, "channelalign");
@@ -856,6 +857,7 @@ void OverlaySettings::save(QSettings* settings_ptr) {
 	SAVELOAD(qrfMutedDeafened, "mutedrect");
 	SAVELOAD(qrfAvatar, "avatarrect");
 	SAVELOAD(qrfFps, "fpsrect");
+	SAVELOAD(qrfTime, "timerect");
 
 	SAVEFLAG(qaUserName, "useralign");
 	SAVEFLAG(qaChannel, "channelalign");
