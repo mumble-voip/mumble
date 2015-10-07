@@ -81,7 +81,7 @@ SUBDIRS *= src/mumble_proto
   !CONFIG(no-ice) {
     SUBDIRS *= src/murmur/murmur_ice
   }
-  !CONFIG(no-grpc) {
+  CONFIG(grpc) {
     SUBDIRS *= src/murmur/murmur_grpc
   }
   SUBDIRS *= src/murmur
