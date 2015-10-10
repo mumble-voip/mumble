@@ -1266,6 +1266,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
+	qmUser->addAction(qaUserLocalVolume);
 
 	if (self)
 		qmUser->addAction(qaSelfComment);
@@ -1322,6 +1323,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(false);
 		qaUserTextMessage->setEnabled(false);
 		qaUserLocalMute->setEnabled(false);
+		qaUserLocalVolume->setEnabled(false);
 		qaUserLocalIgnore->setEnabled(false);
 		qaUserCommentReset->setEnabled(false);
 		qaUserTextureReset->setEnabled(false);
@@ -1331,6 +1333,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qaUserBan->setEnabled(! self);
 		qaUserTextMessage->setEnabled(true);
 		qaUserLocalMute->setEnabled(! self);
+		qaUserLocalVolume->setEnabled(! self);
 		qaUserLocalIgnore->setEnabled(! self);
 		qaUserCommentReset->setEnabled(! p->qbaCommentHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
 		qaUserTextureReset->setEnabled(! p->qbaTextureHash.isEmpty() && (g.pPermissions & (ChanACL::Move | ChanACL::Write)));
@@ -1385,6 +1388,13 @@ void MainWindow::on_qaUserLocalIgnore_triggered() {
 	p->setLocalIgnore(ignored);
 	if (! p->qsHash.isEmpty())
 		Database::setLocalIgnored(p->qsHash, ignored);
+}
+
+void MainWindow::on_qaUserLocalVolume_triggered() {
+	ClientUser *p = getContextMenuUser();
+	if (!p)
+		return;
+	//Todo: Open volume dialog
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
