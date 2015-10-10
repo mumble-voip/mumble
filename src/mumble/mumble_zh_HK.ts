@@ -1,46 +1,46 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="uk" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="zh_HK" version="2.1">
 <context>
     <name>ACLEditor</name>
     <message>
         <location filename="ACLEditor.cpp" line="+109"/>
         <source>Deny</source>
-        <translation type="unfinished"/>
+        <translation>拒絕</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation type="unfinished"/>
+        <translation>允許</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>允許 %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>拒絕 %1</translation>
     </message>
     <message>
         <location line="-66"/>
         <source>Mumble - Add channel</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 新增頻道</translation>
     </message>
     <message>
         <location line="+24"/>
         <location line="+167"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>失敗: 無效的頻道</translation>
     </message>
     <message>
         <location line="-155"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 編輯 %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -65,7 +65,7 @@
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location/>
@@ -80,7 +80,7 @@
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>密碼</translation>
     </message>
     <message>
         <location/>
@@ -138,7 +138,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>移除</translation>
     </message>
     <message>
         <location/>
@@ -263,7 +263,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;新增</translation>
     </message>
     <message>
         <location/>
@@ -278,7 +278,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除</translation>
     </message>
     <message>
         <location/>
@@ -537,7 +537,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>表單</translation>
     </message>
     <message>
         <location/>
@@ -587,7 +587,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;設定</translation>
     </message>
     <message>
         <location/>
@@ -696,7 +696,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioInput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>表單</translation>
     </message>
     <message>
         <location/>
@@ -791,12 +791,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>關閉</translation>
     </message>
     <message>
         <location/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>開啟</translation>
     </message>
     <message>
         <location/>
@@ -1041,7 +1041,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>其他</translation>
     </message>
     <message>
         <location/>
@@ -1153,7 +1153,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>關閉</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1181,7 +1181,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>表單</translation>
     </message>
     <message>
         <location/>
@@ -1464,7 +1464,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>優先講者</translation>
     </message>
     <message>
         <location/>
@@ -1532,7 +1532,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+1"/>
         <source>Server</source>
-        <translation type="unfinished"/>
+        <translation>伺服器</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -2046,7 +2046,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>遞交匿名統計數據給 Mumble 開發團隊</translation>
     </message>
     <message>
         <location/>
@@ -2235,7 +2235,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;新增</translation>
     </message>
     <message>
         <location/>
@@ -2245,7 +2245,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除</translation>
     </message>
     <message>
         <location/>
@@ -2265,7 +2265,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>您在找誰？</translation>
     </message>
     <message>
         <location/>
@@ -2355,7 +2355,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message numerus="yes">
         <location filename="BanEditor.cpp" line="+201"/>
         <source>Ban List - %n Ban(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished"><numerusform></numerusform></translation>
     </message>
 </context>
 <context>
@@ -2363,7 +2363,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+43"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2580,7 +2580,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>密碼</translation>
     </message>
     <message>
         <location/>
@@ -2693,7 +2693,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location/>
@@ -2881,7 +2881,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+31"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2953,7 +2953,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>錄音</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3077,7 +3077,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>主機名稱</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3087,7 +3087,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>連接埠</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3128,7 +3128,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+0"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location line="+345"/>
@@ -3149,7 +3149,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>版本</translation>
     </message>
     <message>
         <location line="+1097"/>
@@ -3325,7 +3325,7 @@ Username to send to the server. Be aware that the server can impose restrictions
     <message>
         <location filename="ConnectDialogEdit.ui"/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>密碼</translation>
     </message>
     <message>
         <location/>
@@ -3380,7 +3380,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location filename="CoreAudio.cpp" line="+87"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>預設裝置</translation>
     </message>
 </context>
 <context>
@@ -3567,7 +3567,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;新增</translation>
     </message>
     <message>
         <location/>
@@ -3582,7 +3582,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除</translation>
     </message>
     <message>
         <location/>
@@ -3674,7 +3674,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>移除</translation>
     </message>
     <message>
         <location/>
@@ -3748,7 +3748,7 @@ of the possible locations.</source>
     <message>
         <location filename="LCD.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>表單</translation>
     </message>
     <message>
         <location/>
@@ -3758,7 +3758,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location/>
@@ -3778,7 +3778,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>啟用</translation>
     </message>
     <message>
         <location/>
@@ -4105,7 +4105,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location/>
@@ -4255,7 +4255,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗</translation>
     </message>
     <message>
         <location/>
@@ -4445,7 +4445,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location filename="MainWindow.cpp" line="+140"/>
         <location line="+2468"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>根</translation>
     </message>
     <message>
         <location line="-2414"/>
@@ -4804,7 +4804,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>讀取圖片失敗</translation>
     </message>
     <message>
         <location line="-27"/>
@@ -4913,22 +4913,22 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+0"/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>良好</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>延遲</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>遺失</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>重新同步</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5247,7 +5247,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;新增</translation>
     </message>
     <message>
         <location/>
@@ -5262,7 +5262,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除</translation>
     </message>
     <message>
         <location/>
@@ -5312,819 +5312,819 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>踢出使用者 (附帶理由)</translation>
     </message>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>從伺服器踢出使用者。您需要提供理由。</translation>
     </message>
     <message>
         <location/>
         <source>Mute user</source>
-        <translation type="unfinished"/>
+        <translation>關閉使用者語音</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation type="unfinished"/>
+        <translation>禁止或重新開啟使用者語音。重新開啟一個已靜音的使用者語音會一併關閉靜音。</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation type="unfinished"/>
+        <translation>踢出與封鎖使用者 (附帶理由)</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation type="unfinished"/>
+        <translation>從伺服器上踢出與封鎖使用者。您需要提供理由。</translation>
     </message>
     <message>
         <location/>
         <source>Deafen user</source>
-        <translation type="unfinished"/>
+        <translation>開啟使用者靜音狀態</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation type="unfinished"/>
+        <translation>關閉或開啟使用者靜音。開啟靜音的同時會一併禁止語音。</translation>
     </message>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation type="unfinished"/>
+        <translation>關閉局部使用者的語音</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>禁止或開啟局部使用者語音。將此設定套用於同一個房間的使用者。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"/>
+        <translation>&amp;編輯</translation>
     </message>
     <message>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation type="unfinished"/>
+        <translation>這可以關聯您的頻道和您選取的頻道。如果他們擁有發言權限在其他頻道，使用者能聽到其他人對話。這是永久關聯，必須要手動取消或重開伺服器才能取消關聯。請看關聯快捷键。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink</source>
         <comment>Channel</comment>
-        <translation type="unfinished"/>
+        <translation>&amp;取消關聯</translation>
     </message>
     <message>
         <location/>
         <source>Unlink your channel from another channel</source>
-        <translation type="unfinished"/>
+        <translation>取消您的頻道和另一個頻道之間的關聯</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation type="unfinished"/>
+        <translation>取消您的當前頻道和所選頻道之間的關聯。</translation>
     </message>
     <message>
         <location/>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>取消您目前頻道和其他頻道的所有關聯。</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation type="unfinished"/>
+        <translation>取消您目前頻道（非所選頻道）和其他頻道的所有關聯。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"/>
+        <translation>&amp;重設</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio preprocessor</source>
-        <translation type="unfinished"/>
+        <translation>重置音訊預處理器</translation>
     </message>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation type="unfinished"/>
+        <translation>該選項將重置音訊預處理器，包含噪音消除，自動獲取和語音活動檢測。如果音訊環境突然變得惡劣（比如掉麥）並且是暫時的，使用該選項來避免等待預處理器自我調整。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;自我關閉語音</translation>
     </message>
     <message>
         <location/>
         <source>Mute yourself</source>
-        <translation type="unfinished"/>
+        <translation>&amp;自我關閉語音</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation type="unfinished"/>
+        <translation>自我關閉語音或重新開啟語音。當關閉語音時，您將無法發送語音到伺服器。當解除靜音時將同時重新開啟語音。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;自我開啟靜音</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation type="unfinished"/>
+        <translation>自我開啟靜音</translation>
     </message>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation type="unfinished"/>
+        <translation>使自己開啟靜音或取消靜音。當開啟靜音時，您將聽不到聲音。自我開啟靜音時亦關閉語音。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>&amp;文字轉語音</translation>
     </message>
     <message>
         <location/>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>切換文字轉語音</translation>
     </message>
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation type="unfinished"/>
+        <translation>使用或停用文字轉語音引擎。只有在設定對話框裡啟用了文字轉語音時，文字訊息才會讀出來。</translation>
     </message>
     <message>
         <location/>
         <source>Display audio statistics</source>
-        <translation type="unfinished"/>
+        <translation>顯示音訊統計</translation>
     </message>
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation type="unfinished"/>
+        <translation>彈出一個關於您當前音訊輸入信息的對話框。</translation>
     </message>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"/>
+        <translation>強制取消關聯外掛</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"/>
+        <translation>強制取消關聯目前外掛，當外掛讀取的數據完全錯誤時相當有用。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Settings</source>
-        <translation type="unfinished"/>
+        <translation>&amp;設定</translation>
     </message>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>設定 Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>允許您改變 Mumble 的更多設定。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Audio Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;音訊精靈</translation>
     </message>
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"/>
+        <translation>啟動音訊精靈</translation>
     </message>
     <message>
         <location/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation type="unfinished"/>
+        <translation>這將引導您設定您的音訊硬體。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;What&apos;s This?</source>
-        <translation type="unfinished"/>
+        <translation>&amp;這是什麼?</translation>
     </message>
     <message>
         <location/>
         <source>Enter What&apos;s This? mode</source>
-        <translation type="unfinished"/>
+        <translation>進入 這是什麼? 模式</translation>
     </message>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation type="unfinished"/>
+        <translation>點擊進入&quot;這是什麼?&quot;模式。您的滑鼠將變成一個問號。點擊任意按鈕，選單或區域來顯示它的描述。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;關於</translation>
     </message>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 的相關訊息</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>顯示一個 Mumble 相關訊息和許可證的對話框。</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Speex</source>
-        <translation type="unfinished"/>
+        <translation>關於Speex</translation>
     </message>
     <message>
         <location/>
         <source>Information about Speex</source>
-        <translation type="unfinished"/>
+        <translation>Speex 的相關訊息</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished"/>
+        <translation>顯示一個 Speex 相關信息的小對話框。</translation>
     </message>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"/>
+        <translation>關於Qt</translation>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation type="unfinished"/>
+        <translation>Qt 相關訊息</translation>
     </message>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"/>
+        <translation>顯示一個 Qt 相關訊息的小對話框。</translation>
     </message>
     <message>
         <location/>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"/>
+        <translation>檢查更新</translation>
     </message>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation type="unfinished"/>
+        <translation>檢查新版 Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation type="unfinished"/>
+        <translation>連接到 Mumble 首頁檢查是否有新版可用，如果有新版本將通知您下載。</translation>
     </message>
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation type="unfinished"/>
+        <translation>向頻道內所有使用者發送文字訊息。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Change Comment</source>
-        <translation type="unfinished"/>
+        <translation>&amp;變更註解</translation>
     </message>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation type="unfinished"/>
+        <translation>設定高強度驗證憑證</translation>
     </message>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation type="unfinished"/>
+        <translation>開啟引導精靈，新增、匯入與匯出伺服器身份驗證憑證。</translation>
     </message>
     <message>
         <location/>
         <source>Register user on server</source>
-        <translation type="unfinished"/>
+        <translation>伺服器的註冊使用者</translation>
     </message>
     <message>
         <location/>
         <source>This will permanently register the user on the server.</source>
-        <translation type="unfinished"/>
+        <translation>使用者將永久註冊在伺服器。</translation>
     </message>
     <message>
         <location/>
         <source>Add &amp;Friend</source>
-        <translation type="unfinished"/>
+        <translation>新增好友</translation>
     </message>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation type="unfinished"/>
+        <translation>增加一個使用者成為好友。</translation>
     </message>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation type="unfinished"/>
+        <translation>增加一個使用者成為好友，不管在此伺服器或其他伺服器您都可以辨認他。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Friend</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除好友</translation>
     </message>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>自好友中刪除一個使用者。</translation>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"/>
+        <translation>您將從好友列表中刪除一個使用者。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"/>
+        <translation>&amp;更新朋友</translation>
     </message>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation type="unfinished"/>
+        <translation>更新您的好友名稱。</translation>
     </message>
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation type="unfinished"/>
+        <translation>好友的名稱與資料庫紀錄不同。即將更新。</translation>
     </message>
     <message>
         <location/>
         <source>Registered &amp;Users</source>
-        <translation type="unfinished"/>
+        <translation>已註冊使用者</translation>
     </message>
     <message>
         <location/>
         <source>Edit registered users list</source>
-        <translation type="unfinished"/>
+        <translation>編輯已註冊使用者列表</translation>
     </message>
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation type="unfinished"/>
+        <translation>開啟註冊用戶編輯器，允許您變更他們的名稱或取消註冊。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>&amp;授權碼</translation>
     </message>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"/>
+        <translation>增加或移除文字授權碼</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;簡潔視窗</translation>
     </message>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"/>
+        <translation>啟用簡潔視窗模式</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"/>
+        <translation>啟用簡潔視窗模式，該模式將隱藏日誌欄與選單。</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+327"/>
         <source>You muted and deafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>您禁止 %1 的語音及開啟靜音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You unmuted and undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>您重新開啟 %1 的語音及解除靜音。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>You undeafened %1.</source>
-        <translation type="unfinished"/>
+        <translation>您解除了 %1 的靜音狀態。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You suppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>您抑制了 %1。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 muted and deafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 禁止 %1 的語音及開啟靜音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 unmuted and undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 重新開啟 %1 的語音及解除靜音。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>%1 undeafened by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 被 %2 解除靜音狀態。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>%1 suppressed by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 抑制了 %1 的語音。</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 moved to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 移動至 %2。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 moved to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 將 %1 移動至 %2 。</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 將 %1 從 %2 移動到此。</translation>
     </message>
     <message>
         <location line="-200"/>
         <source>%1 is now muted and deafened.</source>
-        <translation type="unfinished"/>
+        <translation>%1 進入完全靜音狀態。</translation>
     </message>
     <message>
         <location line="-215"/>
         <source>Your account information can not be verified currently. Please try again later</source>
-        <translation type="unfinished"/>
+        <translation>您的帳戶訊息目前無法確認。 請稍候再試</translation>
     </message>
     <message>
         <location line="+20"/>
         <location line="+55"/>
         <source>Welcome message: %1</source>
-        <translation type="unfinished"/>
+        <translation>歡迎訊息： %1</translation>
     </message>
     <message>
         <location line="-17"/>
         <source>Mumble: %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble：%1</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>您在 %2 的 %1 權限被拒絕。&lt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 在 %2 的 %1 權限被拒絕。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：無法變更SuperUser。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Invalid channel name.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：無效的頻道名稱。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Text message too long.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：訊息太長。</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕：此操作無法使用於臨時頻道。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You need a certificate to perform this operation.</source>
-        <translation type="unfinished"/>
+        <translation>您需要憑證才可進行此操作。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 does not have a certificate.</source>
-        <translation type="unfinished"/>
+        <translation>%1 沒有憑證。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>無效的使用者名： %1 。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>無效的使用者名稱。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>頻道已滿。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel nesting limit reached.</source>
-        <translation type="unfinished"/>
+        <translation>頻道嵌套已達上限。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation type="unfinished"/>
+        <translation>沒有權限。</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 已連線。</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>%1 is now muted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 禁止語音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation type="unfinished"/>
+        <translation>%1 重新開啟語音。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Recording started</source>
-        <translation type="unfinished"/>
+        <translation>已開始錄音</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation type="unfinished"/>
+        <translation>已停止錄音</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 started recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 已開始錄音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 stopped recording.</source>
-        <translation type="unfinished"/>
+        <translation>%1 已停止錄音。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>You revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>您移除了自己的優先發言權。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>您獲得優先發言權。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked your priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 移除了您的優先發言權。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave you priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 讓您有優先發言權。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You revoked priority speaker status for %1.</source>
-        <translation type="unfinished"/>
+        <translation>您移除了 %1 的優先發言權。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You gave priority speaker status to %1.</source>
-        <translation type="unfinished"/>
+        <translation>您轉讓優先發言權給 %1 。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked own priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 移除了自己的優先發言權。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 assumed priority speaker status.</source>
-        <translation type="unfinished"/>
+        <translation>%1 獲得優先發言權。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 revoked priority speaker status for %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 移除了 %2 的優先發言權 。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 gave priority speaker status to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 轉讓優先發言權給 %2 。</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>You were unmuted and undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 解除了您的完全靜音狀態。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>You were muted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %1 禁止語音。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>You were undeafened by %1.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %1 解除靜音效果。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>You were suppressed.</source>
         <oldsource>You were suppressed by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>您被抑制語音了。</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation type="unfinished"/>
+        <translation>您已解除抑制語音。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %1 抑制語音了。</translation>
     </message>
     <message>
         <location line="+83"/>
         <source>You moved %1 to %2.</source>
-        <translation type="unfinished"/>
+        <translation>您從 %1 移動到 %2。</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>%1 is recording</source>
-        <translation type="unfinished"/>
+        <translation>%1 正在錄音</translation>
     </message>
     <message>
         <location line="+56"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 離線。</translation>
     </message>
     <message>
         <location line="+111"/>
         <location line="+1"/>
         <source>Server</source>
         <comment>message from</comment>
-        <translation type="unfinished"/>
+        <translation>伺服器</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>(Tree) </source>
-        <translation type="unfinished"/>
+        <translation>(樹)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>(Channel) </source>
-        <translation type="unfinished"/>
+        <translation>(頻道)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
         <source>The server requests minimum client version %1</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求使用 %1 以上版本客戶端</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求開啟定位音訊。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求關閉定位音訊。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The server requests Push-to-Talk be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求開啟按鍵說話。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests Push-to-Talk be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器要求關閉按鍵說話。</translation>
     </message>
     <message>
         <location line="-506"/>
         <source>You were unmuted by %1.</source>
-        <translation type="unfinished"/>
+        <translation>%1 重新開啟您的語音。</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>You muted %1.</source>
-        <translation type="unfinished"/>
+        <translation>您禁止了 %1 的語音。</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>You unsuppressed %1.</source>
-        <translation type="unfinished"/>
+        <translation>您解除抑制了 %1 的語音。</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>You unmuted %1.</source>
-        <translation type="unfinished"/>
+        <translation>您重新開啟了 %1 的語音。</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>%1 muted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 被 %2 禁止語音。</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>%1 unsuppressed by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%2 解除抑制 %1 的語音 。</translation>
     </message>
     <message>
         <location line="-14"/>
         <source>%1 unmuted by %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 被 %2 重新開啟語音。</translation>
     </message>
     <message>
         <location line="+409"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation type="unfinished"/>
+        <translation>找不到符合CELT編碼的使用者。您不能對所有人說話。</translation>
     </message>
     <message>
         <location line="-475"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation type="unfinished"/>
+        <translation>您被 %1 關閉語音與聲音。</translation>
     </message>
     <message>
         <location line="+171"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %1 從伺服器踢出: %2。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 被 %1 從伺服器踢出: %2。</translation>
     </message>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %1 從伺服器踢出並封鎖： %2。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation type="unfinished"/>
+        <translation>%3 被 %1 從伺服器踢出並封鎖： %2。</translation>
     </message>
     <message>
         <location line="-74"/>
         <source>You were moved to %1 by %2.</source>
-        <translation type="unfinished"/>
+        <translation>您被 %2 移動到 %1。</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 進入頻道。</translation>
     </message>
     <message>
         <location line="-406"/>
         <source>Server connection rejected: %1.</source>
-        <translation type="unfinished"/>
+        <translation>伺服器拒絕連接: %1。</translation>
     </message>
     <message>
         <location line="+156"/>
         <source>Denied: %1.</source>
-        <translation type="unfinished"/>
+        <translation>拒絕: %1。</translation>
     </message>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 更改名稱為 %2。</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 離開頻道並離線。</translation>
     </message>
     <message>
         <location line="+123"/>
         <source>Message from %1</source>
-        <translation type="unfinished"/>
+        <translation>來自 %1 的消息</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
         <source>You have Channel Dragging set to &quot;Do Nothing&quot; so the channel wasn&apos;t moved.</source>
-        <translation type="unfinished"/>
+        <translation>您設置頻道拖動為&quot;無動作&quot;可以禁止頻道移動。</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unknown Channel Drag mode in UserModel::dropMimeData.</source>
-        <translation type="unfinished"/>
+        <translation>UserModel::dropMimeData 中未知的頻道拖曳模式。</translation>
     </message>
     <message>
         <location filename="main.cpp" line="-330"/>
@@ -6152,7 +6152,8 @@ Valid options are:
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>遠端控制 Mumble
+</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6172,217 +6173,231 @@ Valid actions are:
                 Undeafen self
 
 </source>
-        <translation type="unfinished"/>
+        <translation>用法: mumble rpc &lt;action&gt; [options]
+
+您可以透過遠端控制Mumble使用
+&apos;mumble rpc&apos; 指令。
+
+有效指令：
+mute
+Mute self
+unmute
+Unmute self
+deaf
+Deafen self
+undeaf
+Undeafen self
+</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>Invocation</source>
-        <translation type="unfinished"/>
+        <translation>調用</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>錯誤: 沒有指定的RPC指令</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>RPC</source>
-        <translation type="unfinished"/>
+        <translation>遠端程序呼叫</translation>
     </message>
     <message>
         <location line="+201"/>
         <source>Welcome to Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>歡迎使用 Mumble。</translation>
     </message>
     <message>
         <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>在除錯模式中略過版本檢查。</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>隱藏邊框</translation>
     </message>
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"/>
+        <translation>在簡潔視窗模式下切換邊框顯示</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle whether the minimal window should have a frame for moving and resizing.</source>
-        <translation type="unfinished"/>
+        <translation>該選項切換簡潔視窗是否有一個用來移動和改變大小的邊框。</translation>
     </message>
     <message>
         <location/>
         <source>Send &amp;Message</source>
-        <translation type="unfinished"/>
+        <translation>發送訊息</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink All</source>
-        <translation type="unfinished"/>
+        <translation>取消所有關聯</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>憑證精靈</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Register</source>
-        <translation type="unfinished"/>
+        <translation>註冊</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Comment</source>
-        <translation type="unfinished"/>
+        <translation>重設留言</translation>
     </message>
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>重設使用者留言。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Join Channel</source>
-        <translation type="unfinished"/>
+        <translation>加入頻道</translation>
     </message>
     <message>
         <location/>
         <source>View Comment</source>
-        <translation type="unfinished"/>
+        <translation>檢視註解</translation>
     </message>
     <message>
         <location/>
         <source>View comment in editor</source>
-        <translation type="unfinished"/>
+        <translation>在編輯器中檢視使用者註解</translation>
     </message>
     <message>
         <location/>
         <source>Query server for connection information for user</source>
-        <translation type="unfinished"/>
+        <translation>查詢伺服器的使用者資訊</translation>
     </message>
     <message>
         <location/>
         <source>S&amp;erver</source>
-        <translation type="unfinished"/>
+        <translation>伺服器</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Self</source>
-        <translation type="unfinished"/>
+        <translation>本機</translation>
     </message>
     <message>
         <location/>
         <source>Audio S&amp;tatistics</source>
-        <translation type="unfinished"/>
+        <translation>音訊統計</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"/>
+        <translation>停用外掛</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>註冊</translation>
     </message>
     <message>
         <location/>
         <source>Register yourself on the server</source>
-        <translation type="unfinished"/>
+        <translation>在此伺服器註冊</translation>
     </message>
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>更改頭像</translation>
     </message>
     <message>
         <location/>
         <source>Change your avatar image on this server</source>
-        <translation type="unfinished"/>
+        <translation>更改您在此伺服器的頭像。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除頭像</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"/>
+        <translation>移除目前定義的頭像圖片。</translation>
     </message>
     <message>
         <location/>
         <source>Icon Toolbar</source>
-        <translation type="unfinished"/>
+        <translation>工具欄圖示</translation>
     </message>
     <message>
         <location/>
         <source>Change your own comment</source>
-        <translation type="unfinished"/>
+        <translation>變更您自己的註解</translation>
     </message>
     <message>
         <location/>
         <source>Recording</source>
-        <translation type="unfinished"/>
+        <translation>錄音</translation>
     </message>
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>優先發言</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;複製網址</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>複製頻道網址到剪貼簿。</translation>
     </message>
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>忽略訊息</translation>
     </message>
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation type="unfinished"/>
+        <translation>本地忽略使用者的文字聊天訊息。</translation>
     </message>
     <message>
         <location/>
         <source>Silently drops all text messages from the user.</source>
-        <translation type="unfinished"/>
+        <translation>自動刪除來自使用者的文字訊息。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Ban list</source>
-        <translation type="unfinished"/>
+        <translation>&amp;封鎖名單</translation>
     </message>
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation type="unfinished"/>
+        <translation>編輯伺服器上的封鎖名單</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation type="unfinished"/>
+        <translation>讓您編輯伺服器端的封鎖 IP 列表。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Filter on/off</source>
-        <translation type="unfinished"/>
+        <translation>&amp;開啟/關閉過濾器</translation>
     </message>
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>切換頻道過濾器 (Ctrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -6390,27 +6405,29 @@ Valid actions are:
 By default all empty channels will be filtered.
 You can mark additional channels for filtering from
 the channel&apos;s context menu.</source>
-        <translation type="unfinished"/>
+        <translation>啟用或停用頻道過濾器。
+預設為過濾所有頻道。
+您可以在頻道列表中過濾其他的頻道。</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Hide Channel when Filtering</source>
-        <translation type="unfinished"/>
+        <translation>&amp;隱藏被過濾的頻道</translation>
     </message>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>重設頭像</translation>
     </message>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>重設指定使用者的頭像。</translation>
     </message>
 </context>
 <context>
@@ -6418,23 +6435,23 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>網路</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>Updates are mandatory when using snapshot releases.</source>
-        <translation type="unfinished"/>
+        <translation>使用快照版時將強制更新。</translation>
     </message>
     <message>
         <location filename="NetworkConfig.ui"/>
         <source>Connection</source>
-        <translation type="unfinished"/>
+        <translation>連接</translation>
     </message>
     <message>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished"/>
+        <translation>使用 TCP 相容模式</translation>
     </message>
     <message>
         <location/>
@@ -6449,223 +6466,224 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;連接斷開後重新連接&lt;/b&gt;。&lt;br /&gt;Mumble 會在與伺服器的連接斷開 10秒後自動重新連接。</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"/>
+        <translation>自動重新連接</translation>
     </message>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation type="unfinished"/>
+        <translation>代理伺服器</translation>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>類型</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>代理伺服器類型</translation>
     </message>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>直接連線</translation>
     </message>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTP(S) 代理</translation>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"/>
+        <translation>SOCKS5 代理</translation>
     </message>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation type="unfinished"/>
+        <translation>主機名稱</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>代理伺服器主機名稱</translation>
     </message>
     <message>
         <location/>
         <source>Force TCP mode</source>
-        <translation type="unfinished"/>
+        <translation>強制TCP模式</translation>
     </message>
     <message>
         <location/>
         <source>Enable QoS to prioritize packets</source>
-        <translation type="unfinished"/>
+        <translation>使用 QoS 優先發送封包</translation>
     </message>
     <message>
         <location/>
         <source>This will enable QoS, which will attempt to prioritize voice packets over other traffic.</source>
-        <translation type="unfinished"/>
+        <translation>啟用服務品質(QoS)後，語音封包將優先於其他流量處理。</translation>
     </message>
     <message>
         <location/>
         <source>Use Quality of Service</source>
-        <translation type="unfinished"/>
+        <translation>使用服務品質 (QoS)</translation>
     </message>
     <message>
         <location/>
         <source>Don&apos;t send certificate to server and don&apos;t save passwords. (Not saved).</source>
-        <translation type="unfinished"/>
+        <translation>不要將憑證傳給伺服器也不要儲存密碼。(不儲存)。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;這將阻止辨識客戶端的身份資訊。&lt;/b&gt;&lt;p&gt;客戶端將無法使用憑證證明自己的身份，就算證明了，也無法儲存連線密碼。此為測試用選項且不儲存。&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation type="unfinished"/>
+        <translation>不儲存憑證與密碼</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;通過代理伺服器的通訊協定類型。&lt;/b&gt;&lt;br /&gt;讓 Mumble 所有通訊都透過代理伺服器。注意：使用代理穿隧將使 Mumble 進入 TCP 相容模式，所有語音資料將使用控制頻道發送。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;代理伺服器的主機名稱&lt;/b&gt;&lt;br /&gt;用來指定存取網路的代理伺服器。</translation>
     </message>
     <message>
         <location/>
         <source>Port</source>
-        <translation type="unfinished"/>
+        <translation>連接埠</translation>
     </message>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>代理伺服器連接埠</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;代理伺服器連接埠。&lt;/b&gt;&lt;br /&gt;用來指定代理伺服器的連接埠。</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>使用者名稱</translation>
     </message>
     <message>
         <location/>
         <source>Username for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>用於代理認証的使用者名稱</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the username you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;用於代理認証的使用者名稱。&lt;/b&gt;&lt;br /&gt;用來指定代理認証的使用者名稱。如果代理不需要認証，或者您想要使用匿名連接，請將此位置留空。</translation>
     </message>
     <message>
         <location/>
         <source>Password</source>
-        <translation type="unfinished"/>
+        <translation>密碼</translation>
     </message>
     <message>
         <location/>
         <source>Password for proxy authentication</source>
-        <translation type="unfinished"/>
+        <translation>用於代理認証的密碼</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;用於代理認証的密碼。&lt;/b&gt;&lt;br /&gt;用來指定代理認証的密碼。如果代理不需要認証，或者您想要使用匿名連接，請將此位置留空。</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>其他</translation>
     </message>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>不保留下載圖片的紀錄</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Disable image download&lt;/b&gt;&lt;br/&gt;
 Prevents the client from downloading images embedded into chat messages with the img tag.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;停止下載圖片。&lt;/b&gt;&lt;br/&gt;
+停止下載嵌入聊天訊息中圖片。</translation>
     </message>
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation type="unfinished"/>
+        <translation>停用圖片下載</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 服務</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"/>
+        <translation>讓 Mumble 自動檢查新版本。</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of Mumble every time you start the program, and notify you if one is available.</source>
-        <translation type="unfinished"/>
+        <translation>每次啟動 Mumble 時，將會自動檢查有無新版本發行，如果有新版本，將提醒通知。</translation>
     </message>
     <message>
         <location/>
         <source>Check for application updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>啟動時檢查更新</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>自動檢查外掛更新。</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>當啟動程式的時候，Mumble 會自動檢查並更新外掛模組。</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;遞交匿名統計。&lt;/b&gt;&lt;br /&gt;有一個重視未來發展的開發團隊，透過您的資訊能讓開發團隊更精確的抓住未來的發展方向。</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>遞交匿名統計數據給 Mumble 開發團隊</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"/>
+        <translation>發送匿名統計</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last used server when starting Mumble</source>
-        <translation type="unfinished"/>
+        <translation>當啟動Mumble時連接最後使用的伺服器</translation>
     </message>
     <message>
         <location/>
         <source>Reconnect to last server on startup</source>
-        <translation type="unfinished"/>
+        <translation>啟動時自動連接到最後使用的伺服器</translation>
     </message>
     <message>
         <location/>
         <source>Download plugin and overlay updates on startup</source>
-        <translation type="unfinished"/>
+        <translation>啟動時下載外掛與浮動視窗的更新</translation>
     </message>
 </context>
 <context>
@@ -6674,36 +6692,36 @@ Prevents the client from downloading images embedded into chat messages with the
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation type="unfinished"/>
+        <translation>靜音</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>說話中</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Whisper</source>
-        <translation type="unfinished"/>
+        <translation>悄悄話</translation>
     </message>
     <message>
         <location line="+3"/>
         <location filename="OverlayUser.cpp" line="+3"/>
         <source>Shout</source>
-        <translation type="unfinished"/>
+        <translation>大喊</translation>
     </message>
     <message>
         <location line="+17"/>
         <location filename="OverlayUser.cpp" line="-110"/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>頻道</translation>
     </message>
     <message>
         <location filename="Overlay.cpp" line="+116"/>
         <source>Failed to create communication with overlay at %2: %1. No overlay will be available.</source>
-        <translation type="unfinished"/>
+        <translation>無法在 %2 新增關聯：%1。沒有可用的浮動視窗。</translation>
     </message>
 </context>
 <context>
@@ -6711,77 +6729,77 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>過濾</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>僅說話</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"/>
+        <translation>說話及最近活動</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"/>
+        <translation>所有目前的頻道</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"/>
+        <translation>所有有關聯的頻道</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>總是顯示您自己</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"/>
+        <translation>設定最近活動時間 (%1 秒)…</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>列</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>排序</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>按英文字母排序</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Last state change</source>
-        <translation type="unfinished"/>
+        <translation>最後停留的頻道</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation type="unfinished"/>
+        <translation>編輯…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"/>
+        <translation>重設大小</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"/>
+        <translation>重設最近活動時間</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Amount of seconds users remain active after talking:</source>
-        <translation type="unfinished"/>
+        <translation>多少秒鐘內持續判定語音活動:</translation>
     </message>
 </context>
 <context>
@@ -6789,220 +6807,224 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayConfig.cpp" line="+90"/>
         <source>To move the users, drag the little red dot.</source>
-        <translation type="unfinished"/>
+        <translation>拖動小紅點以移動使用者列表。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>To resize the users, mouse wheel over a user.</source>
         <oldsource>To resize the users, mousewheel over a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>在使用者列表上使用滑鼠滾輪縮放使用者列表。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>For more options, right click a user.</source>
         <oldsource>For more options, rightclick a user.</oldsource>
-        <translation type="unfinished"/>
+        <translation>右鍵點擊使用者開啟更多選項。</translation>
     </message>
     <message>
         <location line="+262"/>
         <source>Overlay</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗</translation>
     </message>
     <message>
         <location line="+82"/>
         <source>Choose executable</source>
-        <translation type="unfinished"/>
+        <translation>選擇執行檔</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Choose application</source>
-        <translation type="unfinished"/>
+        <translation>選擇應用程式</translation>
     </message>
     <message>
         <location line="+95"/>
         <source>Load Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>載入浮動視窗樣板</translation>
     </message>
     <message>
         <location line="+2"/>
         <location line="+28"/>
         <source>Mumble overlay presets (*.mumblelay)</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 浮動視窗樣式 (*.mumblelay)</translation>
     </message>
     <message>
         <location line="-2"/>
         <source>Save Overlay Presets</source>
-        <translation type="unfinished"/>
+        <translation>儲存浮動視窗樣式</translation>
     </message>
     <message>
         <location filename="Overlay.ui"/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>選項</translation>
     </message>
     <message>
         <location/>
         <source>Enable overlay.</source>
-        <translation type="unfinished"/>
+        <translation>啟用浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Enable Overlay</source>
-        <translation type="unfinished"/>
+        <translation>啟用浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start Mumble after starting the application, or if you disable the overlay while the application is running, there is no safe way to restart the overlay without also restarting the application.</source>
         <oldsource>This sets whether the overlay is enabled or not. This setting is only checked when applications are started, so make sure Mumble is running and this option is on before you start the application.&lt;br /&gt;Please note that if you start the application after starting Mumble, or if you disable the overlay while running, there is no safe way to restart the overlay without also restarting the application.</oldsource>
-        <translation type="unfinished"/>
+        <translation>這裡設定開啟或關閉浮動視窗。這個設定只在啟動程式時檢查，因此要確定您啟動應用程式前 Mumble 及本選項是開啟的。&lt;br /&gt;請注意如果您已經開啟 Mumble 與應用程式或者在應用程式執行期間關閉了浮動視窗，除了重新啟動應用程式之外，沒有辦法重新啟動浮動視窗。</translation>
     </message>
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Overlay exceptions</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗例外</translation>
     </message>
     <message>
         <location/>
         <source>Blacklist</source>
-        <translation type="unfinished"/>
+        <translation>黑名單</translation>
     </message>
     <message>
         <location/>
         <source>Whitelist</source>
-        <translation type="unfinished"/>
+        <translation>白名單</translation>
     </message>
     <message>
         <location/>
         <source>Uninstall Overlay</source>
-        <translation type="unfinished"/>
+        <translation>移除浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Installation</source>
-        <translation type="unfinished"/>
+        <translation>安裝浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected that you do not have the Mumble Overlay installed.
 
 Click the button below to install the overlay.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 檢測到您尚未安裝 Mumble 浮動視窗。
+
+點選下方按鍵安裝浮動視窗。</translation>
     </message>
     <message>
         <location/>
         <source>Install Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>安裝 Mumble 浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Upgrade</source>
-        <translation type="unfinished"/>
+        <translation>浮動視窗升級</translation>
     </message>
     <message>
         <location/>
         <source>Mumble has detected an old version of the overlay support files installed on your computer.
 
 To upgrade these files to their latest versions, click the button below.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 檢測到您安裝了舊版的浮動視窗檔。
+
+點選下方按鈕，升級浮動視窗到最新版本。</translation>
     </message>
     <message>
         <location/>
         <source>Upgrade Mumble Overlay</source>
-        <translation type="unfinished"/>
+        <translation>升級 Mumble 浮動視窗</translation>
     </message>
     <message>
         <location/>
         <source>Display a frame counter in the overlay</source>
-        <translation type="unfinished"/>
+        <translation>在浮動視窗中顯示 FPS</translation>
     </message>
     <message>
         <location/>
         <source>Show FPS counter</source>
-        <translation type="unfinished"/>
+        <translation>顯示 FPS</translation>
     </message>
     <message>
         <location/>
         <source>Load an overlay preset from file</source>
-        <translation type="unfinished"/>
+        <translation>從檔案讀取浮動視窗設定</translation>
     </message>
     <message>
         <location/>
         <source>Load…</source>
-        <translation type="unfinished"/>
+        <translation>讀取…</translation>
     </message>
     <message>
         <location/>
         <source>Save your overlay settings to file</source>
-        <translation type="unfinished"/>
+        <translation>儲存浮動視窗設定至檔案</translation>
     </message>
     <message>
         <location/>
         <source>Save…</source>
-        <translation type="unfinished"/>
+        <translation>儲存…</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay font.</source>
-        <translation type="unfinished"/>
+        <translation>設定浮動視窗字型。</translation>
     </message>
     <message>
         <location/>
         <source>Set the overlay text color.</source>
-        <translation type="unfinished"/>
+        <translation>設定浮動視窗文字顏色。</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>顏色</translation>
     </message>
     <message>
         <location/>
         <source>Add...</source>
-        <translation type="unfinished"/>
+        <translation>新增...</translation>
     </message>
     <message>
         <location/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>移除</translation>
     </message>
     <message>
         <location/>
         <source>Font</source>
-        <translation type="unfinished"/>
+        <translation>字型</translation>
     </message>
     <message>
         <location/>
         <source>To list exceptions, use a</source>
-        <translation type="unfinished"/>
+        <translation>列出例外程式，使用</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay in all applicable programs except</source>
-        <translation type="unfinished"/>
+        <translation>顯示浮動視窗在所有應用程式，除了</translation>
     </message>
     <message>
         <location/>
         <source>Show the overlay only in</source>
-        <translation type="unfinished"/>
+        <translation>只顯示浮動視窗在</translation>
     </message>
     <message>
         <location/>
         <source>FPS and Clock Display</source>
-        <translation type="unfinished"/>
+        <translation>顯示 FPS 與時間</translation>
     </message>
     <message>
         <location/>
         <source>Display a clock in the overlay showing the current local time (system time).</source>
-        <translation type="unfinished"/>
+        <translation>在浮動視窗中顯示現在時間 (系統時間)。</translation>
     </message>
     <message>
         <location/>
         <source>Show Clock</source>
-        <translation type="unfinished"/>
+        <translation>顯示時間</translation>
     </message>
 </context>
 <context>
@@ -7010,117 +7032,117 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>狀態</translation>
     </message>
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"/>
+        <translation>使用者沒有說話</translation>
     </message>
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"/>
+        <translation>被動</translation>
     </message>
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者正在您的頻道或與此頻道有關聯的頻道說話。</translation>
     </message>
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>說話中</translation>
     </message>
     <message>
         <location/>
         <source>User is whispering to you privately</source>
-        <translation type="unfinished"/>
+        <translation>使用者正與您私下悄悄話中。</translation>
     </message>
     <message>
         <location/>
         <source>Private Whisper</source>
-        <translation type="unfinished"/>
+        <translation>私人悄悄話</translation>
     </message>
     <message>
         <location/>
         <source>User is shouting to your channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者正在您的頻道中大喊</translation>
     </message>
     <message>
         <location/>
         <source>Channel Whisper</source>
-        <translation type="unfinished"/>
+        <translation>頻道悄悄話</translation>
     </message>
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>縮放</translation>
     </message>
     <message>
         <location/>
         <source>Zoom Factor</source>
-        <translation type="unfinished"/>
+        <translation>縮放因素</translation>
     </message>
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"/>
+        <translation>啟用元素</translation>
     </message>
     <message>
         <location/>
         <source>User avatar, chosen by each user</source>
-        <translation type="unfinished"/>
+        <translation>使用者頭像，由使用者自訂。</translation>
     </message>
     <message>
         <location/>
         <source>Avatar</source>
-        <translation type="unfinished"/>
+        <translation>頭像</translation>
     </message>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>使用者名稱</translation>
     </message>
     <message>
         <location/>
         <source>Username</source>
-        <translation type="unfinished"/>
+        <translation>使用者名稱</translation>
     </message>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation type="unfinished"/>
+        <translation>使用者的頻道名稱，如果不在您目前所在頻道</translation>
     </message>
     <message>
         <location/>
         <source>Channel</source>
-        <translation type="unfinished"/>
+        <translation>頻道</translation>
     </message>
     <message>
         <location/>
         <source>Muted or deafened</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風或喇叭</translation>
     </message>
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"/>
+        <translation>靜音狀態</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box, automatically shrunk to minimum size to contain all visible elements</source>
-        <translation type="unfinished"/>
+        <translation>邊框，自動將所有可見元素以最小顯示。</translation>
     </message>
     <message>
         <location/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>邊框</translation>
     </message>
     <message>
         <location/>
         <source>Overlay Editor</source>
-        <translation type="unfinished"/>
+        <translation>無縫嵌入編輯器</translation>
     </message>
 </context>
 <context>
@@ -7128,119 +7150,119 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditorScene.cpp" line="+397"/>
         <source>Layout preset</source>
-        <translation type="unfinished"/>
+        <translation>預設設計</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Large square avatar</source>
-        <translation type="unfinished"/>
+        <translation>大型頭像</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation type="unfinished"/>
+        <translation>頭像與名稱</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation type="unfinished"/>
+        <translation>用戶列表透明度</translation>
     </message>
     <message>
         <location line="+6"/>
         <location line="+31"/>
         <source>%1%</source>
-        <translation type="unfinished"/>
+        <translation>%1%</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation type="unfinished"/>
+        <translation>物件透明度</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Alignment</source>
-        <translation type="unfinished"/>
+        <translation>對齊方式</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Left</source>
-        <translation type="unfinished"/>
+        <translation>靠左對齊</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+18"/>
         <source>Center</source>
-        <translation type="unfinished"/>
+        <translation>置中對齊</translation>
     </message>
     <message>
         <location line="-13"/>
         <source>Right</source>
-        <translation type="unfinished"/>
+        <translation>靠右對齊</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Top</source>
-        <translation type="unfinished"/>
+        <translation>靠上對齊</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bottom</source>
-        <translation type="unfinished"/>
+        <translation>靠下對齊</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"/>
+        <translation>顏色...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"/>
+        <translation>字型...</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Bounding box</source>
-        <translation type="unfinished"/>
+        <translation>邊框</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen width</source>
-        <translation type="unfinished"/>
+        <translation>線條寬度</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Padding</source>
-        <translation type="unfinished"/>
+        <translation>間距</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Pen color</source>
-        <translation type="unfinished"/>
+        <translation>線條顏色</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Fill color</source>
-        <translation type="unfinished"/>
+        <translation>填充顏色</translation>
     </message>
     <message>
         <location line="+87"/>
         <source>Pick pen color</source>
-        <translation type="unfinished"/>
+        <translation>選擇線條顏色</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Pick fill color</source>
-        <translation type="unfinished"/>
+        <translation>選擇填充顏色</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Pick color</source>
-        <translation type="unfinished"/>
+        <translation>選擇顏色</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Pick font</source>
-        <translation type="unfinished"/>
+        <translation>選擇字型</translation>
     </message>
 </context>
 <context>
@@ -7249,97 +7271,97 @@ To upgrade these files to their latest versions, click the button below.</source
         <location filename="Plugins.ui"/>
         <location filename="Plugins.cpp" line="+99"/>
         <source>Plugins</source>
-        <translation type="unfinished"/>
+        <translation>插件</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"/>
+        <translation>插件沒有設定選項。</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"/>
+        <translation>插件沒有額外資訊。</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>表單</translation>
     </message>
     <message>
         <location/>
         <source>Options</source>
-        <translation type="unfinished"/>
+        <translation>選項</translation>
     </message>
     <message>
         <location/>
         <source>Enable plugins and transmit positional information</source>
-        <translation type="unfinished"/>
+        <translation>啟用插件並傳送位置訊息</translation>
     </message>
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"/>
+        <translation>啟用遊戲插件支援以使用定位音訊，讓其他使用者可以聽到您在遊戲中的大約位置。</translation>
     </message>
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"/>
+        <translation>關聯到遊戲並傳送位置</translation>
     </message>
     <message>
         <location/>
         <source>Reloads all plugins</source>
-        <translation type="unfinished"/>
+        <translation>重新載入所有插件</translation>
     </message>
     <message>
         <location/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation type="unfinished"/>
+        <translation>重新掃描和重新載入外掛。當您新增或更改一個外掛時可使用此選項。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;重新載入插件</translation>
     </message>
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation type="unfinished"/>
+        <translation>插件資訊</translation>
     </message>
     <message>
         <location/>
         <source>This shows a small information message about the plugin.</source>
-        <translation type="unfinished"/>
+        <translation>顯示插件相關訊息。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;About</source>
-        <translation type="unfinished"/>
+        <translation>&amp;關於</translation>
     </message>
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"/>
+        <translation>顯示外掛設定</translation>
     </message>
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation type="unfinished"/>
+        <translation>顯示插件配置頁面。</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation type="unfinished"/>
+        <translation>&amp;設定</translation>
     </message>
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location/>
         <source>Enabled</source>
-        <translation type="unfinished"/>
+        <translation>啟用</translation>
     </message>
 </context>
 <context>
@@ -7347,28 +7369,28 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+353"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>在除錯模式中忽略外掛更新訊息。</translation>
     </message>
     <message>
         <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>下載或更新 %1 外掛。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>安裝 %1 外掛失敗。</translation>
     </message>
     <message>
         <location line="-286"/>
         <source>%1 lost link.</source>
-        <translation type="unfinished"/>
+        <translation>%1 失去關聯。</translation>
     </message>
     <message>
         <location line="+74"/>
         <source>%1 linked.</source>
-        <translation type="unfinished"/>
+        <translation>%1 已關聯。</translation>
     </message>
 </context>
 <context>
@@ -7376,7 +7398,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PAAudio.cpp" line="+275"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>預設裝置</translation>
     </message>
 </context>
 <context>
@@ -7384,12 +7406,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="PulseAudio.cpp" line="+797"/>
         <source>Default Input</source>
-        <translation type="unfinished"/>
+        <translation>預設輸入</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Default Output</source>
-        <translation type="unfinished"/>
+        <translation>預設輸出</translation>
     </message>
 </context>
 <context>
@@ -7397,12 +7419,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>重新啟動 mumble 失敗</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 自我重新啟動失敗。請手動重新啟動。</translation>
     </message>
 </context>
 <context>
@@ -7410,82 +7432,82 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+257"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>讀取圖片失敗</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Image file too large to embed in document. Please use images smaller than %1 kB.</source>
-        <translation type="unfinished"/>
+        <translation>嵌入文件的圖片過大，請使用小於 %1 kB 的圖片。</translation>
     </message>
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation type="unfinished"/>
+        <translation>訊息太長。</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
         <source>Display</source>
-        <translation type="unfinished"/>
+        <translation>顯示</translation>
     </message>
     <message>
         <location/>
         <source>Source Text</source>
-        <translation type="unfinished"/>
+        <translation>原始文字</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Bold</source>
-        <translation type="unfinished"/>
+        <translation>&amp;粗體</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Italic</source>
-        <translation type="unfinished"/>
+        <translation>&amp;斜體</translation>
     </message>
     <message>
         <location/>
         <source>Italic</source>
-        <translation type="unfinished"/>
+        <translation>斜體</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location/>
         <source>Underline</source>
-        <translation type="unfinished"/>
+        <translation>底線</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>CTRL+U</translation>
     </message>
     <message>
         <location/>
         <source>Color</source>
-        <translation type="unfinished"/>
+        <translation>顏色</translation>
     </message>
     <message>
         <location/>
         <source>Insert Link</source>
-        <translation type="unfinished"/>
+        <translation>插入連結</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"/>
+        <translation>CTRL+L</translation>
     </message>
     <message>
         <location/>
         <source>Insert Image</source>
-        <translation type="unfinished"/>
+        <translation>插入圖片</translation>
     </message>
 </context>
 <context>
@@ -7493,17 +7515,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation type="unfinished"/>
+        <translation>新增連結</translation>
     </message>
     <message>
         <location/>
         <source>URL</source>
-        <translation type="unfinished"/>
+        <translation>網址</translation>
     </message>
     <message>
         <location/>
         <source>Text</source>
-        <translation type="unfinished"/>
+        <translation>文字</translation>
     </message>
 </context>
 <context>
@@ -7511,27 +7533,27 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ServerHandler.cpp" line="+485"/>
         <source>UDP packets cannot be sent to or received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP封包無法送發到伺服器或無法從伺服器接收。切換為 TCP 模式。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be sent to the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP封包無法發送到伺服器。切換為 TCP 模式。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>UDP packets cannot be received from the server. Switching to TCP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP封包無法從伺服器接收。切換為 TCP 模式。</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>UDP packets can be sent to and received from the server. Switching back to UDP mode.</source>
-        <translation type="unfinished"/>
+        <translation>UDP封包可以傳送到伺服器並且可以從伺服器接收。切換到 UDP 模式。</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>Connection timed out</source>
-        <translation type="unfinished"/>
+        <translation>連線逾時</translation>
     </message>
 </context>
 <context>
@@ -7539,47 +7561,47 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-641"/>
         <source>Favorite</source>
-        <translation type="unfinished"/>
+        <translation>我的最愛</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>LAN</source>
-        <translation type="unfinished"/>
+        <translation>區域網路</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation type="unfinished"/>
+        <translation>公開網路</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Africa</source>
-        <translation type="unfinished"/>
+        <translation>非洲</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Asia</source>
-        <translation type="unfinished"/>
+        <translation>亞洲</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>North America</source>
-        <translation type="unfinished"/>
+        <translation>北美洲</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>South America</source>
-        <translation type="unfinished"/>
+        <translation>南美洲</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Europe</source>
-        <translation type="unfinished"/>
+        <translation>歐洲</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Oceania</source>
-        <translation type="unfinished"/>
+        <translation>大洋洲</translation>
     </message>
 </context>
 <context>
@@ -7587,7 +7609,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-576"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>未分配</translation>
     </message>
 </context>
 <context>
@@ -7595,22 +7617,22 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+376"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>開啟</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>關閉</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>切換</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>未分配</translation>
     </message>
 </context>
 <context>
@@ -7618,7 +7640,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-450"/>
         <source>Press Shortcut</source>
-        <translation type="unfinished"/>
+        <translation>輸入快捷鍵</translation>
     </message>
 </context>
 <context>
@@ -7626,23 +7648,23 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+206"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>根</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>上層</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>目前</translation>
     </message>
     <message>
         <location line="+5"/>
         <location line="+6"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>子頻道 #%1</translation>
     </message>
 </context>
 <context>
@@ -7650,44 +7672,44 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+85"/>
         <source>...</source>
-        <translation type="unfinished"/>
+        <translation>…</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>，</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Root</source>
-        <translation type="unfinished"/>
+        <translation>根</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Parent</source>
-        <translation type="unfinished"/>
+        <translation>上層</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Current</source>
-        <translation type="unfinished"/>
+        <translation>目前</translation>
     </message>
     <message>
         <location line="+3"/>
         <location line="+2"/>
         <source>Subchannel #%1</source>
-        <translation type="unfinished"/>
+        <translation>子頻道 #%1</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Invalid</source>
-        <translation type="unfinished"/>
+        <translation>無效</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Empty</source>
         <oldsource>&lt;Empty&gt;</oldsource>
-        <translation type="unfinished"/>
+        <translation>空</translation>
     </message>
 </context>
 <context>
@@ -7695,17 +7717,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="-271"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>關閉</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Toggle</source>
-        <translation type="unfinished"/>
+        <translation>切換</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>On</source>
-        <translation type="unfinished"/>
+        <translation>開啟</translation>
     </message>
 </context>
 <context>
@@ -7713,17 +7735,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="TextMessage.h" line="+45"/>
         <source>Enter text</source>
-        <translation type="unfinished"/>
+        <translation>輸入文字</translation>
     </message>
     <message>
         <location filename="TextMessage.ui"/>
         <source>If checked the message is recursively sent to all subchannels</source>
-        <translation type="unfinished"/>
+        <translation>選擇後訊息會發送到子頻道。</translation>
     </message>
     <message>
         <location/>
         <source>Send recursively to subchannels</source>
-        <translation type="unfinished"/>
+        <translation>發送到子頻道。</translation>
     </message>
 </context>
 <context>
@@ -7731,17 +7753,17 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Tokens.cpp" line="+67"/>
         <source>Empty Token</source>
-        <translation type="unfinished"/>
+        <translation>沒有授權碼</translation>
     </message>
     <message>
         <location filename="Tokens.ui"/>
         <source>Mumble - Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 授權碼</translation>
     </message>
     <message>
         <location/>
         <source>List of access tokens on current server</source>
-        <translation type="unfinished"/>
+        <translation>列出目前伺服器所有授權碼</translation>
     </message>
     <message>
         <location/>
@@ -7749,27 +7771,29 @@ To upgrade these files to their latest versions, click the button below.</source
 &lt;br /&gt;
 An access token is a text string, which can be used as a password for very simple access management on channels. Mumble will remember the tokens you've used and resend them to the server next time you reconnect, so you don't have to enter these every time.
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;這是可編輯的伺服器授權碼列表。&lt;/b&gt;
+&lt;br /&gt;
+授權碼是頻道使用的簡單訪問管理系統並以文字方式儲存。Mumble 會記錄您曾經用過的授權碼及在您下次連線時使用，所以您不必使用授權碼登入。</translation>
     </message>
     <message>
         <location/>
         <source>Add a token</source>
-        <translation type="unfinished"/>
+        <translation>新增授權碼</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Add</source>
-        <translation type="unfinished"/>
+        <translation>&amp;新增</translation>
     </message>
     <message>
         <location/>
         <source>Remove a token</source>
-        <translation type="unfinished"/>
+        <translation>移除一個授權碼</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation type="unfinished"/>
+        <translation>&amp;移除</translation>
     </message>
 </context>
 <context>
@@ -7777,54 +7801,54 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserEdit.ui"/>
         <source>Registered Users</source>
-        <translation type="unfinished"/>
+        <translation>註冊使用者</translation>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="+128"/>
         <source>Remove</source>
-        <translation type="unfinished"/>
+        <translation>移除</translation>
     </message>
     <message>
         <location/>
         <location filename="UserEdit.cpp" line="-7"/>
         <source>Rename</source>
-        <translation type="unfinished"/>
+        <translation>更名</translation>
     </message>
     <message>
         <location/>
         <source>Who are you looking for?</source>
-        <translation type="unfinished"/>
+        <translation>您在找誰？</translation>
     </message>
     <message>
         <location/>
         <source>Days</source>
-        <translation type="unfinished"/>
+        <translation>日</translation>
     </message>
     <message>
         <location/>
         <source>Weeks</source>
-        <translation type="unfinished"/>
+        <translation>周</translation>
     </message>
     <message>
         <location/>
         <source>Months</source>
-        <translation type="unfinished"/>
+        <translation>月</translation>
     </message>
     <message>
         <location/>
         <source>Years</source>
-        <translation type="unfinished"/>
+        <translation>年</translation>
     </message>
     <message>
         <location/>
         <source>Inactive for</source>
-        <translation type="unfinished"/>
+        <translation>停止活動</translation>
     </message>
     <message numerus="yes">
         <location filename="UserEdit.cpp" line="-68"/>
         <source>Registered users: %n account(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>已註冊使用者：%n 個</numerusform></translation>
     </message>
 </context>
 <context>
@@ -7832,192 +7856,192 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserInformation.ui"/>
         <source>User Information</source>
-        <translation type="unfinished"/>
+        <translation>用戶資訊</translation>
     </message>
     <message>
         <location/>
         <source>Connection Information</source>
-        <translation type="unfinished"/>
+        <translation>連線資訊</translation>
     </message>
     <message>
         <location/>
         <source>Version</source>
-        <translation type="unfinished"/>
+        <translation>版本</translation>
     </message>
     <message>
         <location/>
         <source>OS</source>
-        <translation type="unfinished"/>
+        <translation>操作系統</translation>
     </message>
     <message>
         <location/>
         <source>Certificate</source>
-        <translation type="unfinished"/>
+        <translation>憑證</translation>
     </message>
     <message>
         <location/>
         <source>IP Address</source>
-        <translation type="unfinished"/>
+        <translation>IP位址</translation>
     </message>
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation type="unfinished"/>
+        <translation>CELT版本</translation>
     </message>
     <message>
         <location/>
         <source>Details...</source>
-        <translation type="unfinished"/>
+        <translation>詳細資料...</translation>
     </message>
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Ping 統計</translation>
     </message>
     <message>
         <location/>
         <source>Pings received</source>
-        <translation type="unfinished"/>
+        <translation>接收 Ping</translation>
     </message>
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"/>
+        <translation>平均 ping</translation>
     </message>
     <message>
         <location/>
         <source>TCP (Control)</source>
-        <translation type="unfinished"/>
+        <translation>TCP (控制)</translation>
     </message>
     <message>
         <location/>
         <source>UDP (Voice)</source>
-        <translation type="unfinished"/>
+        <translation>UDP (語音)</translation>
     </message>
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"/>
+        <translation>UDP 網路統計</translation>
     </message>
     <message>
         <location/>
         <source>Good</source>
-        <translation type="unfinished"/>
+        <translation>良好</translation>
     </message>
     <message>
         <location/>
         <source>Late</source>
-        <translation type="unfinished"/>
+        <translation>延遲</translation>
     </message>
     <message>
         <location/>
         <source>Lost</source>
-        <translation type="unfinished"/>
+        <translation>遺失</translation>
     </message>
     <message>
         <location/>
         <source>Resync</source>
-        <translation type="unfinished"/>
+        <translation>重新同步</translation>
     </message>
     <message>
         <location/>
         <source>From Client</source>
-        <translation type="unfinished"/>
+        <translation>從用戶端</translation>
     </message>
     <message>
         <location/>
         <source>To Client</source>
-        <translation type="unfinished"/>
+        <translation>到用戶端</translation>
     </message>
     <message>
         <location/>
         <source>Connection time</source>
-        <translation type="unfinished"/>
+        <translation>連線時間</translation>
     </message>
     <message>
         <location filename="UserInformation.cpp" line="+106"/>
         <source>%1w</source>
-        <translation type="unfinished"/>
+        <translation>%1周</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1d</source>
-        <translation type="unfinished"/>
+        <translation>%1日</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1h</source>
-        <translation type="unfinished"/>
+        <translation>%1時</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1m</source>
-        <translation type="unfinished"/>
+        <translation>%1分</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1s</source>
-        <translation type="unfinished"/>
+        <translation>%1秒</translation>
     </message>
     <message>
         <location line="+33"/>
         <location line="+39"/>
         <source>, </source>
-        <translation type="unfinished"/>
+        <translation>,</translation>
     </message>
     <message>
         <location line="-13"/>
         <location line="+1"/>
         <source>%1 (%2)</source>
         <oldsource>%1.%2.%3 (%4)</oldsource>
-        <translation type="unfinished"/>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation type="unfinished"/>
+        <translation>支援</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation type="unfinished"/>
+        <translation>不支援</translation>
     </message>
     <message>
         <location line="-123"/>
         <source>Not Reported</source>
-        <translation type="unfinished"/>
+        <translation>不回報</translation>
     </message>
     <message>
         <location line="+164"/>
         <source>%1 online (%2 idle)</source>
-        <translation type="unfinished"/>
+        <translation>在線 %1 (閒置 %2)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%1 online</source>
-        <translation type="unfinished"/>
+        <translation>在線 %1</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%1 kbit/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s</translation>
     </message>
     <message>
         <location filename="UserInformation.ui"/>
         <source>Bandwidth</source>
         <comment>GroupBox</comment>
-        <translation type="unfinished"/>
+        <translation>頻寬</translation>
     </message>
     <message>
         <location/>
         <source>Bandwidth</source>
         <comment>Label</comment>
-        <translation type="unfinished"/>
+        <translation>頻寬</translation>
     </message>
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"/>
+        <translation>Ping 誤差</translation>
     </message>
 </context>
 <context>
@@ -8025,32 +8049,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>暱稱</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inactive days</source>
-        <translation type="unfinished"/>
+        <translation>離線天數</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation type="unfinished"/>
+        <translation>最新頻道</translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>最後上線時間： %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Never</source>
-        <translation type="unfinished"/>
+        <translation>從不</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation>頻道ID： %1</translation>
     </message>
 </context>
 <context>
@@ -8058,149 +8082,149 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"/>
+        <translation>這是一位與伺服器連接的使用者。使用者左邊的圖示顯示他是否正在說話。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation type="unfinished"/>
+        <translation>正在對您的頻道說話。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Shouting directly to your channel.</source>
         <oldsource>Whispering directly to your channel.</oldsource>
-        <translation type="unfinished"/>
+        <translation>直接對您的頻道大喊。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Whispering directly to you.</source>
-        <translation type="unfinished"/>
+        <translation>直接對您發送悄悄話。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation type="unfinished"/>
+        <translation>沒有說話。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"/>
+        <translation>此為伺服器上的一個頻道。圖示顯示頻道狀態：</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Your current channel.</source>
-        <translation type="unfinished"/>
+        <translation>您目前的頻道。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel that is linked with your channel. Linked channels can talk to each other.</source>
-        <translation type="unfinished"/>
+        <translation>一個與您所在的頻道有關聯的頻道。有關聯的頻道可以互相對話。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A channel on the server that you are not linked to.</source>
-        <translation type="unfinished"/>
+        <translation>頻道在伺服器上沒有與其他頻道有任何關聯。</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation type="unfinished"/>
+        <translation>如果有的話，顯示此伺服器上的使用者標示：</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>On your friend list</source>
-        <translation type="unfinished"/>
+        <translation>在好友列表中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Authenticated user</source>
-        <translation type="unfinished"/>
+        <translation>已授權的使用者</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by self)</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風 (手動關閉)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (manually muted by admin)</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風 (管理員手動關閉)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (not allowed to speak in current channel)</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風 (不允許在目前頻道說話)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Muted (muted by you, only on your machine)</source>
-        <translation type="unfinished"/>
+        <translation>關閉麥克風 (只會在您的機器上有效)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Deafened (by self)</source>
-        <translation type="unfinished"/>
+        <translation>關閉喇叭(自我設定)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Deafened (by admin)</source>
-        <translation type="unfinished"/>
+        <translation>關閉喇叭(管理員設定)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>使用者有新註解  (點擊顯示)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>使用者設有註解，您已經查看過了。 (點擊顯示)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Ignoring Text Messages</source>
-        <translation type="unfinished"/>
+        <translation>忽略文字訊息</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation type="unfinished"/>
+        <translation>如果有的話，顯示頻道標誌：</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a new comment set (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>頻道有新註解 (點擊顯示)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel has a comment set, which you&apos;ve already seen. (click to show)</source>
-        <translation type="unfinished"/>
+        <translation>頻道設有註解，您已經查看過了。 (點擊顯示)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Channel will be hidden when filtering is enabled</source>
-        <translation type="unfinished"/>
+        <translation>當啟用過濾時頻道會隱藏</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>名稱</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Flags</source>
-        <translation type="unfinished"/>
+        <translation>標誌</translation>
     </message>
     <message>
         <location line="+732"/>
         <source>Are you sure you want to drag this channel?</source>
-        <translation type="unfinished"/>
+        <translation>您確定要移動這個頻道？</translation>
     </message>
     <message>
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation type="unfinished"/>
+        <translation>無法自動調整位置，請重新修改編號順序。</translation>
     </message>
 </context>
 <context>
@@ -8208,38 +8232,38 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VersionCheck.cpp" line="+145"/>
         <source>Upgrade Mumble</source>
-        <translation type="unfinished"/>
+        <translation>更新 Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation type="unfinished"/>
+        <translation>檢測到新版 Mumble 並已自動下載。建議您更新到此版本，或降版到最新穩定版。需要立即啟動安裝程式嗎？</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Failed to launch snapshot installer.</source>
-        <translation type="unfinished"/>
+        <translation>快照版安裝程式啟動失敗。</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Corrupt download of new version detected. Automatically removed.</source>
-        <translation type="unfinished"/>
+        <translation>新版本下載失敗。已自動移除。</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation type="unfinished"/>
+        <translation>從 %1 下載新快照版到 %2</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished"/>
+        <translation>新版本寫入失敗。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Mumble failed to retrieve version information from the central server.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 接收中央伺服器訊息失敗。</translation>
     </message>
 </context>
 <context>
@@ -8247,112 +8271,112 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="ViewCert.cpp" line="+50"/>
         <source>Certificate Chain Details</source>
-        <translation type="unfinished"/>
+        <translation>憑證鏈結資料</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Certificate chain</source>
-        <translation type="unfinished"/>
+        <translation>憑證鏈結</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>%1 %2</source>
-        <translation type="unfinished"/>
+        <translation>%1 %2</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Certificate details</source>
-        <translation type="unfinished"/>
+        <translation>憑證資料</translation>
     </message>
     <message>
         <location line="+26"/>
         <location line="+37"/>
         <source>Common Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>通用名: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Organization: %1</source>
-        <translation type="unfinished"/>
+        <translation>組織: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Subunit: %1</source>
-        <translation type="unfinished"/>
+        <translation>部門: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+37"/>
         <source>Country: %1</source>
-        <translation type="unfinished"/>
+        <translation>國家: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>Locality: %1</source>
-        <translation type="unfinished"/>
+        <translation>區域: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation type="unfinished"/>
+        <translation>州: %1</translation>
     </message>
     <message>
         <location line="-36"/>
         <source>Valid from: %1</source>
-        <translation type="unfinished"/>
+        <translation>生效日期: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Valid to: %1</source>
-        <translation type="unfinished"/>
+        <translation>有效日期至: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Serial: %1</source>
-        <translation type="unfinished"/>
+        <translation>序號: %1</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Public Key: %1 bits %2</source>
-        <translation type="unfinished"/>
+        <translation>公開金鑰: %1 位元 %2</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>RSA</source>
-        <translation type="unfinished"/>
+        <translation>RSA加密演算法</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>DSA</source>
-        <translation type="unfinished"/>
+        <translation>數位簽章演算法</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Digest (SHA-1): %1</source>
-        <translation type="unfinished"/>
+        <translation>摘要 (SHA-1): %1</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Email: %1</source>
-        <translation type="unfinished"/>
+        <translation>電郵地址: %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>DNS: %1</source>
-        <translation type="unfinished"/>
+        <translation>DNS: %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Issued by:</source>
-        <translation type="unfinished"/>
+        <translation>發佈者:</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation type="unfinished"/>
+        <translation>單位名稱: %1</translation>
     </message>
 </context>
 <context>
@@ -8360,32 +8384,32 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="VoiceRecorder.cpp" line="+287"/>
         <source>Recorder failed to create directory &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>錄音機新增目錄 &apos;%1&apos; 失敗</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Recorder failed to open file &apos;%1&apos;</source>
-        <translation type="unfinished"/>
+        <translation>錄音機開啟 &apos;%1&apos; 失敗</translation>
     </message>
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.wav - 未經壓縮</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"/>
+        <translation>.ogg - 有損壓縮</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.au - 未經壓縮</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"/>
+        <translation>.flac - 無損壓縮</translation>
     </message>
 </context>
 <context>
@@ -8398,134 +8422,135 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+9"/>
         <location line="+141"/>
         <source>Recorder</source>
-        <translation type="unfinished"/>
+        <translation>錄音機</translation>
     </message>
     <message>
         <location/>
         <source>Control</source>
-        <translation type="unfinished"/>
+        <translation>控制</translation>
     </message>
     <message>
         <location/>
         <source>00:00:00</source>
-        <translation type="unfinished"/>
+        <translation>00:00:00</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Start</source>
-        <translation type="unfinished"/>
+        <translation>&amp;開始</translation>
     </message>
     <message>
         <location/>
         <location filename="VoiceRecorderDialog.cpp" line="-21"/>
         <source>S&amp;top</source>
-        <translation type="unfinished"/>
+        <translation>&amp;停止</translation>
     </message>
     <message>
         <location/>
         <source>Mode</source>
-        <translation type="unfinished"/>
+        <translation>模式</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation type="unfinished"/>
+        <translation>多聲道</translation>
     </message>
     <message>
         <location/>
         <source>Output</source>
-        <translation type="unfinished"/>
+        <translation>輸出</translation>
     </message>
     <message>
         <location/>
         <source>Output format</source>
-        <translation type="unfinished"/>
+        <translation>輸出格式</translation>
     </message>
     <message>
         <location/>
         <source>Target directory</source>
-        <translation type="unfinished"/>
+        <translation>目標目錄</translation>
     </message>
     <message>
         <location/>
         <source>Filename</source>
-        <translation type="unfinished"/>
+        <translation>檔案名稱</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;瀏覽...</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.cpp" line="-210"/>
         <source>Valid variables are:</source>
-        <translation type="unfinished"/>
+        <translation>有效的變量值:</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation type="unfinished"/>
+        <translation>輸入使用者名稱</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current date</source>
-        <translation type="unfinished"/>
+        <translation>輸入目前日期</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the current time</source>
-        <translation type="unfinished"/>
+        <translation>輸入目前時間</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation type="unfinished"/>
+        <translation>輸入主機名稱</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Recorder still running</source>
-        <translation type="unfinished"/>
+        <translation>錄音中</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Closing the recorder without stopping it will discard unwritten audio. Do you really want to close the recorder?</source>
-        <translation type="unfinished"/>
+        <translation>不停止錄音而直接關閉會導致未寫入的音訊檔刪除。您確定要關閉錄音機？</translation>
     </message>
     <message>
         <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation type="unfinished"/>
+        <translation>無法使用錄音機。原因：尚未連接到伺服器。</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>The server you are currently connected to is version 1.2.2 or older. For privacy reasons, recording on servers of versions older than 1.2.3 is not possible.
 Please contact your server administrator for further information.</source>
-        <translation type="unfinished"/>
+        <translation>目前連線的伺服器版本為 1.2.2 或更舊版。因私隱理由，在低於 1.2.3 版的伺服器上無法錄音。
+請聯絡伺服器管理員獲得更多訊息。</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation type="unfinished"/>
+        <translation>本伺服器已經有一個錄音機在使用。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Please select a recording format.</source>
-        <translation type="unfinished"/>
+        <translation>請選擇錄製格式。</translation>
     </message>
     <message>
         <location line="+73"/>
         <source>Stopping</source>
-        <translation type="unfinished"/>
+        <translation>停止中</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Select target directory</source>
-        <translation type="unfinished"/>
+        <translation>選擇目標目錄</translation>
     </message>
     <message>
         <location filename="VoiceRecorderDialog.ui"/>
         <source>Downmix</source>
-        <translation type="unfinished"/>
+        <translation>降混</translation>
     </message>
 </context>
 <context>
@@ -8533,7 +8558,7 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="WASAPI.cpp" line="+253"/>
         <source>Default Device</source>
-        <translation type="unfinished"/>
+        <translation>預設裝置</translation>
     </message>
 </context>
 <context>
@@ -8541,12 +8566,12 @@ Please contact your server administrator for further information.</source>
     <message>
         <location filename="PTTButtonWidget.ui"/>
         <source>Mumble PTT</source>
-        <translation type="unfinished"/>
+        <translation>Mumble 按鍵說話</translation>
     </message>
     <message>
         <location/>
         <source>Push to talk</source>
-        <translation type="unfinished"/>
+        <translation>按鍵說話</translation>
     </message>
 </context>
 </TS>

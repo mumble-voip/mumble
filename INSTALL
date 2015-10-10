@@ -160,3 +160,9 @@ CONFIG+=no-gkey (Mumble, Win32)
  time dependencies, and requires Logitech Gaming
  Software to be installed to have any effect at
  runtime.
+
+CONFIG+=no-qssldiffiehellmanparameters
+ Don't build in support for custom Diffie-Hellman
+ parameters, even if the QSslDiffieHellmanParameters
+ class is available in the version of Qt you are
+ building against.

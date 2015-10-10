@@ -68,6 +68,7 @@
 #include "../SignalCurry.h"
 #include "Settings.h"
 #include "Themes.h"
+#include "SSLCipherInfo.h"
 
 #ifdef Q_OS_WIN
 #include "TaskList.h"
@@ -1152,10 +1153,10 @@ void MainWindow::on_qaServerInformation_triggered() {
 	CryptState &cs = c->csCrypt;
 	QSslCipher qsc = g.sh->qscCipher;
 
-	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1.</p>").arg(MumbleVersion::toString(g.sh->uiVersion));
+	QString qsVersion=tr("<h2>Version</h2><p>Protocol %1</p>").arg(MumbleVersion::toString(g.sh->uiVersion));
 
 	if (g.sh->qsRelease.isEmpty() || g.sh->qsOS.isEmpty() || g.sh->qsOSVersion.isEmpty()) {
-		qsVersion.append(tr("<p>No build information or OS version available.</p>"));
+		qsVersion.append(tr("<p>No build information or OS version available</p>"));
 	} else {
 		qsVersion.append(tr("<p>%1 (%2)<br />%3</p>")
 		                 .arg(Qt::escape(g.sh->qsRelease), Qt::escape(g.sh->qsOS), Qt::escape(g.sh->qsOSVersion)));
@@ -1166,16 +1167,62 @@ void MainWindow::on_qaServerInformation_triggered() {
 
 	g.sh->getConnectionInfo(host,port,uname,pw);
 
-	QString qsControl=tr("<h2>Control channel</h2><p>Encrypted with %1 bit %2<br />%3 ms average latency (%4 deviation)</p><p>Remote host %5 (port %6)</p>").arg(QString::number(qsc.usedBits()),
-	                  Qt::escape(qsc.name()),
+	const SSLCipherInfo *ci = SSLCipherInfoLookupByOpenSSLName(qsc.name().toLatin1().constData());
+	
+	QString cipherDescription;
+	if (ci && ci->message_authentication && ci->encryption && ci->key_exchange_verbose && ci->rfc_name) {
+		if (QString::fromLatin1(ci->message_authentication) == QLatin1String("AEAD")) {
+			// Authenticated Encryption with Associated Data
+			// See https://en.wikipedia.org/wiki/Authenticated_encryption
+			cipherDescription = tr(
+			    "The connection is encrypted and authenticated "
+			    "using %1 and uses %2 as the key exchange mechanism (%3)").arg(
+			        QString::fromLatin1(ci->encryption),
+			        QString::fromLatin1(ci->key_exchange_verbose),
+			        QString::fromLatin1(ci->rfc_name));
+		} else {
+			cipherDescription = tr(
+			    "The connection is encrypted using %1, with %2 "
+			    "for message authentication and %3 as the key "
+			    "exchange mechanism (%4)").arg(
+			        QString::fromLatin1(ci->encryption),
+			        QString::fromLatin1(ci->message_authentication),
+			        QString::fromLatin1(ci->key_exchange_verbose),
+			        QString::fromLatin1(ci->rfc_name));
+		}
+	}
+	if (cipherDescription.isEmpty()) {
+		cipherDescription = tr("The connection is secured by the cipher suite that OpenSSL identifies as %1").arg(qsc.name());
+	}
+
+	QString cipherPFSInfo;
+	if (ci) {
+		if (ci->forward_secret) {
+			cipherPFSInfo = tr("<p>The connection provides perfect forward secrecy</p>");
+		} else {
+			cipherPFSInfo = tr("<p>The connection does not provide perfect forward secrecy</p>");
+		}
+	}
+
+	QString qsControl = tr(
+	            "<h2>Control channel</h2>"
+	            "<p>The connection uses %1</p>"
+	            "%2"
+	            "%3"
+	            "<p>%4 ms average latency (%5 deviation)</p>"
+	            "<p>Remote host %6 (port %7)</p>").arg(
+	                  Qt::escape(c->sessionProtocolString()),
+	                  cipherDescription,
+	                  cipherPFSInfo,
 	                  QString::fromLatin1("%1").arg(boost::accumulators::mean(g.sh->accTCP), 0, 'f', 2),
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
 	                  Qt::escape(host),
 	                  QString::number(port));
+
 	QString qsVoice, qsCrypt, qsAudio;
 
 	if (NetworkConfig::TcpModeEnabled()) {
-		qsVoice = tr("Voice channel is sent over control channel.");
+		qsVoice = tr("Voice channel is sent over control channel");
 	} else {
 		qsVoice = tr("<h2>Voice channel</h2><p>Encrypted with 128 bit OCB-AES128<br />%1 ms average latency (%4 deviation)</p>").arg(boost::accumulators::mean(g.sh->accUDP), 0, 'f', 2).arg(sqrt(boost::accumulators::variance(g.sh->accUDP)),0,'f',2);
 		qsCrypt = QString::fromLatin1("<h2>%1</h2><table><tr><th></th><th>%2</th><th>%3</th></tr>"

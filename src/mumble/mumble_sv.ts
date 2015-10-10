@@ -4256,7 +4256,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Bläddra&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4508,13 +4508,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+139"/>
-        <location line="+2422"/>
+        <location filename="MainWindow.cpp" line="+140"/>
+        <location line="+2468"/>
         <source>Root</source>
         <translation>Rot</translation>
     </message>
     <message>
-        <location line="-2368"/>
+        <location line="-2414"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Tryck-för-att-Tala</translation>
@@ -4593,12 +4593,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
         <location line="+22"/>
-        <location line="+2489"/>
+        <location line="+2535"/>
         <source>Mumble -- %1</source>
         <translation>Mumble - %1</translation>
     </message>
     <message>
-        <location line="-2484"/>
+        <location line="-2530"/>
         <source>&amp;Window</source>
         <translation>&amp;Fönster</translation>
     </message>
@@ -4667,13 +4667,13 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+75"/>
-        <location line="+2500"/>
+        <location line="+2546"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Ej ansluten&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2169"/>
+        <location line="-2215"/>
         <source>Clear</source>
         <translation>Rensa</translation>
     </message>
@@ -4730,39 +4730,79 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1418"/>
+        <location line="+1464"/>
         <source>Transmit Mode set to Continuous</source>
         <translation>Överföringsläge inställt till Kontinuerligt</translation>
     </message>
     <message>
-        <location line="-1327"/>
-        <source>&lt;p&gt;No build information or OS version available.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Ingen bygginformation eller OS version tillgänglig.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+2"/>
+        <location line="-1371"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="+20"/>
+        <location line="+66"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
         <translation>&lt;h2&gt;Ljudkanal&lt;/h2&gt;&lt;p&gt;Krypterad med 128 bitars OCB-AES128&lt;br /&gt;Genomsnittlig svarstid: %1 ms (%4 avvikelse)&lt;/p&gt;</translation>
     </message>
     <message>
-        <location line="-123"/>
-        <location line="+376"/>
+        <location line="-169"/>
+        <location line="+422"/>
         <source>Register yourself as %1</source>
         <translation>Registrera dig som %1</translation>
     </message>
     <message>
-        <location line="-376"/>
-        <location line="+376"/>
+        <location line="-422"/>
+        <location line="+422"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation>&lt;p&gt;Du kommer registrera dig på den här servern. Denna åtgärd kan inte ångras. Ditt användarnamn kan inte heller ändras när detta är gjort. Du kommer vara känd som &quot;%1&quot; på den här servern.&lt;/p&gt;&lt;p&gt;Är du säker på att du vill registrera dig?&lt;/p&gt;</translation>
     </message>
     <message>
+        <location line="-324"/>
+        <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location line="+2"/>
+        <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+18"/>
+        <source>Voice channel is sent over control channel</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+257"/>
         <source>Register user %1</source>
         <translation>Registrera användare %1</translation>
     </message>
@@ -4844,12 +4884,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
         <translation>Bildformatet stöds ej.</translation>
     </message>
     <message>
-        <location line="-1806"/>
-        <source>Voice channel is sent over control channel.</source>
-        <translation>Röstkanal skickas över kontrollkanal.</translation>
-    </message>
-    <message>
-        <location line="-1018"/>
+        <location line="-2870"/>
         <source>&amp;User</source>
         <translation>&amp;Användare</translation>
     </message>
@@ -4916,28 +4951,18 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1405"/>
+        <location line="+1451"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Överföringsläge inställt till Ljudaktivitet</translation>
     </message>
     <message>
-        <location line="-1400"/>
-        <location line="+1404"/>
+        <location line="-1446"/>
+        <location line="+1450"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Överföringsläge inställt till Tryck-för-att-Tala</translation>
     </message>
     <message>
-        <location line="-1326"/>
-        <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1.&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protokoll %1.&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+14"/>
-        <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;Encrypted with %1 bit %2&lt;br /&gt;%3 ms average latency (%4 deviation)&lt;/p&gt;&lt;p&gt;Remote host %5 (port %6)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Krypterad med %1 bitars %2&lt;br /&gt;Genomsnittlig svarstid: %3 ms (%4 avvikelse)&lt;/p&gt;&lt;p&gt;Fjärrvärd %5 (port %6)&lt;/p&gt;</translation>
-    </message>
-    <message>
-        <location line="+18"/>
+        <location line="-1294"/>
         <source>UDP Statistics</source>
         <translation>UDP-statistik</translation>
     </message>

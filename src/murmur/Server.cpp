@@ -1173,6 +1173,12 @@ void Server::newClient() {
 		sock->addCaCertificate(qscCert);
 		sock->addCaCertificates(qlCA);
 
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
+		QSslConfiguration cfg = sock->sslConfiguration();
+		cfg.setDiffieHellmanParameters(qsdhpDHParams);
+		sock->setSslConfiguration(cfg);
+#endif
+
 		if (qqIds.isEmpty()) {
 			log(QString("Session ID pool (%1) empty, rejecting connection").arg(iMaxUsers));
 			sock->disconnectFromHost();

@@ -39,6 +39,7 @@
 
 #include "Connection.h"
 #include "Message.h"
+#include "SSL.h"
 #include "Mumble.pb.h"
 
 
@@ -247,6 +248,22 @@ QList<QSslCertificate> Connection::peerCertificateChain() const {
 
 QSslCipher Connection::sessionCipher() const {
 	return qtsSocket->sessionCipher();
+}
+
+QSsl::SslProtocol Connection::sessionProtocol() const {
+#if QT_VERSION >= 0x050400
+	return qtsSocket->sessionProtocol();
+#else
+	return QSsl::UnknownProtocol; // Cannot determine session cipher. We only know it's some TLS variant
+#endif
+}
+
+QString Connection::sessionProtocolString() const {
+#if QT_VERSION >= 0x050400
+	return MumbleSSL::protocolToString(sessionProtocol());
+#else
+	return QLatin1String("TLS"); // Cannot determine session cipher. We only know it's some TLS variant
+#endif
 }
 
 #ifdef Q_OS_WIN
