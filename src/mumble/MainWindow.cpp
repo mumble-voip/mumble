@@ -62,6 +62,7 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
+#include "UserVolume.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
@@ -1441,7 +1442,27 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 	ClientUser *p = getContextMenuUser();
 	if (!p)
 		return;
-	//Todo: Open volume dialog
+	
+	openUserVolumeDialog(p);
+}
+
+void MainWindow::openUserVolumeDialog(ClientUser *p) {
+	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), p);
+	int res = uservol->exec();
+
+	delete uservol;
+	// Try to get find the user using the session id.
+	// This will return NULL if the user disconnected while typing the message.
+	/*p = ClientUser::get(session);
+
+	if (p && (res == QDialog::Accepted)) {
+		QString msg = texm->message();
+
+		if (! msg.isEmpty()) {
+			g.sh->sendUserTextMessage(p->uiSession, msg);
+			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true);
+		}
+	}*/
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
