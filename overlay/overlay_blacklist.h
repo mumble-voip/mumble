@@ -69,6 +69,8 @@ static const char *overlayBlacklist[] = {
 	"spotify.exe", // Spotify
 	"FarCry4.exe", // Far Cry 4 x64 overlay crash: https://github.com/mumble-voip/mumble/issues/1514
 	"EpicGamesLauncher.exe", // Epic, Unreal Tournament launcher
+	"dwm.exe", // Windows Desktop Window Manager
+	"MouseKeyboardCenter.exe",
 	NULL
 };
 
