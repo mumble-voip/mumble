@@ -171,7 +171,12 @@ OverlayConfig::OverlayConfig(Settings &st) :
 
 	// grab a desktop screenshot as background
 	QRect dsg = QApplication::desktop()->screenGeometry();
+
+#if QT_VERSION > 0x050000
+	qpScreen = QGuiApplication::primaryScreen()->grabWindow(QApplication::desktop()->winId());
+#else
 	qpScreen = QPixmap::grabWindow(QApplication::desktop()->winId(), dsg.x(), dsg.y(), dsg.width(), dsg.height());
+#endif
 	if (qpScreen.size().isEmpty()) {
 		qWarning() << __FUNCTION__ << "failed to grab desktop image, trying desktop widget...";
 
