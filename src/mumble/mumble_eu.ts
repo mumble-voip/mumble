@@ -7417,7 +7417,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan da mumble berrabiarazi</translation>
     </message>
     <message>
         <location line="+1"/>
