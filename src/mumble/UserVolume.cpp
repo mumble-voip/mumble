@@ -36,7 +36,7 @@
 UserVolume::UserVolume(QWidget *p, QString title, ClientUser *user) : QDialog(p) {
 	setupUi(this);
 	u=user;
-	//qlUserVolume->setText(tr("%1 %").arg(user.fLocalVolume));
+	qsUserVolume->setValue(round(log2(user->fLocalVolume)*6.0f));
 	setWindowTitle(title);
 }
 
@@ -44,6 +44,7 @@ void UserVolume::on_qsUserVolume_valueChanged(int v) {
 	QString text;
 	text.sprintf("%+i",v);
 	qlUserVolume->setText(tr("%1 dB").arg(text));
+	u->setLocalVolume(pow(2.0f,v/6.0f));//Decibel formula +6db = *2
 	//TODO: Change volume attribute here
 }
 

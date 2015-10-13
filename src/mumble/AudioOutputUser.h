@@ -45,6 +45,7 @@ class AudioOutputUser : public QObject {
 		AudioOutputUser(const QString& name);
 		~AudioOutputUser() Q_DECL_OVERRIDE;
 		const QString qsName;
+		float fVolumeAdjustment;
 		float *pfBuffer;
 		float *pfVolume;
 		float fPos[3];

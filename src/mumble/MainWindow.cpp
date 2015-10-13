@@ -1450,6 +1450,9 @@ void MainWindow::openUserVolumeDialog(ClientUser *p) {
 	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), p);
 	int res = uservol->exec();
 
+	if (! p->qsHash.isEmpty()) {
+		Database::setLocalVolume(p->qsHash, p->fLocalVolume);
+	}
 	delete uservol;
 	// Try to get find the user using the session id.
 	// This will return NULL if the user disconnected while typing the message.

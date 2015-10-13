@@ -295,7 +295,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 
 	if (msg.has_user_id())
 		pmModel->setUserId(pDst, msg.user_id());
-
+	
 	if (msg.has_hash()) {
 		pmModel->setHash(pDst, u8(msg.hash()));
 		const QString &name = Database::getFriend(pDst->qsHash);
@@ -305,6 +305,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 			pDst->setLocalMute(true);
 		if (Database::isLocalIgnored(pDst->qsHash))
 			pDst->setLocalIgnore(true);
+		pDst->setLocalVolume(Database::getLocalVolume(pDst->qsHash));
 	}
 
 	if (bNewUser)

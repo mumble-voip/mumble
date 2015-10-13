@@ -42,7 +42,7 @@
       </size>
      </property>
      <property name="text">
-      <string notr="true">at</string>
+      <string notr="true">+0 dB</string>
      </property>
     </widget>
    </item>
