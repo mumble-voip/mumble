@@ -148,7 +148,8 @@ HEADERS *= BanEditor.h \
     MumbleApplication.h \
     ApplicationPalette.h \
     ThemeInfo.h \
-    Themes.h
+    Themes.h \
+    OverlayPositionableItem.h
 
 SOURCES *= BanEditor.cpp \
     ACLEditor.cpp \
@@ -211,7 +212,8 @@ SOURCES *= BanEditor.cpp \
     MumbleApplication.cpp \
     smallft.cpp \
     ThemeInfo.cpp \
-    Themes.cpp
+    Themes.cpp \
+    OverlayPositionableItem.cpp
 
 DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc

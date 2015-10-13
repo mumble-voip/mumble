@@ -38,6 +38,7 @@
 
 class OverlayUserGroup;
 struct OverlayAppInfo;
+class OverlayPositionableItem;
 
 class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 	private:
@@ -45,6 +46,8 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		Q_DISABLE_COPY(OverlayConfig)
 
 		void initDisplay();
+		void initDisplayFps();
+		void initDisplayClock();
 		void refreshFpsDemo();
 		void refreshFpsLive();
 		void refreshTimeLive();
@@ -56,8 +59,8 @@ class OverlayConfig : public ConfigWidget, public Ui::OverlayConfig {
 		BasepointPixmap bpFpsDemo;
 		BasepointPixmap bpTimeDemo;
 		QGraphicsPixmapItem *qgpiFpsDemo;
-		QGraphicsPixmapItem *qgpiFpsLive;
-		QGraphicsPixmapItem *qgpiTimeLive;
+		OverlayPositionableItem *qgpiFpsLive;
+		OverlayPositionableItem *qgpiTimeLive;
 		OverlayUserGroup *oug;
 		QGraphicsTextItem *qgtiInstructions;
 
