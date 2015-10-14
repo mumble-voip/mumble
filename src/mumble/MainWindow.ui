@@ -333,7 +333,7 @@
   </action>
   <action name="qaUserLocalVolume">
    <property name="text">
-    <string>Set user volume locally</string>
+    <string>Local Volume Adjustment</string>
    </property>
    <property name="toolTip">
     <string>Locally adjust the user's speech volume.</string>
