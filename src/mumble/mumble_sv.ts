@@ -5314,16 +5314,6 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     </message>
     <message>
         <location/>
-        <source>Locally adjust the user's speech valume.</source>
-        <translation>Justera användarens talvolym lokalt.</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-	<translation>Öppnar en dialog med ett volymreglage. Kan användas på andra användare i samma rum.</translation>
-    </message>
-    <message>
-        <location/>
         <source>&amp;Add</source>
         <translation>&amp;Lägg till</translation>
     </message>
@@ -6327,16 +6317,6 @@ Undeafen self
         <location/>
         <source>Send &amp;Message</source>
         <translation>Skicka &amp;meddelande</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Local Volume Adjustment</source>
-        <translation>Justera volym (lokalt)</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Adjusting local volume for %1</source>
-        <translation>Justerar lokal volym för %1</translation>
     </message>
     <message>
         <location/>
