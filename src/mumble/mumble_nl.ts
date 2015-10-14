@@ -2021,7 +2021,7 @@ Mumble is continue in ontwikkeling en het ontwikkelteam wil zich richten op func
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Dit configureert de positionering van de hoofdtelefoon in plaats van de geluidsinstellingen uit het besturingssysteem te gebruiken</translation>
+        <translation>Configureert de positionering van de hoofdtelefoon in plaats van de geluidsinstellingen uit &apos;t BS te gebruiken</translation>
     </message>
     <message>
         <location/>
@@ -4257,7 +4257,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Bladeren&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4760,47 +4760,47 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-324"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Versie&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Geen bouwinformatie of BS-versie beschikbaar&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Geauthenticeerd gebruikmakend van %1 en versleuteld door %2 als sleuteluitwisselingsmechanisme (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>De verbinding is versleuteld gebruikmakend van %1, met %2 voor bericht-authenticatie en %3 als het sleuteluitwisselingsmechanisme (%4).</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>De verbinding is beveiligd door het algoritme dat OpenSSL identiceert als %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;De verbinding voorziet doorgaans heimelijkheid&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;De verbinding voorziet niet in heimelijkheid&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Controlekanaal&lt;/h2&gt;&lt;p&gt;De verbinding gebruikt %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms gemiddelde latentie (%5 deviatie)&lt;/p&gt;&lt;p&gt;Host %6 (poort %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>Spraakkanaal wordt verzonden over controlekanaal</translation>
     </message>
     <message>
         <location line="+257"/>
