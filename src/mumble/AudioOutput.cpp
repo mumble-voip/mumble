@@ -391,10 +391,6 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			qlMix.append(aop);
 			
 			const ClientUser *user = it.key();
-			if (user)
-			{
-				aop->fVolumeAdjustment = user->fLocalVolume;
-			}
 			if (user && user->bPrioritySpeaker) {
 				prioritySpeakerActive = true;
 			}
@@ -493,12 +489,13 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
-			float volumeAdjustment = aop->fVolumeAdjustment;
-
-			if (prioritySpeakerActive) {
-				AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
-				if (speech) {
-					const ClientUser* user = speech->p;
+			float volumeAdjustment = 1;
+			
+			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+			if (speech) {
+				const ClientUser* user = speech->p;
+				volumeAdjustment *= user->fLocalVolume;
+				if (prioritySpeakerActive) {
 					
 					if (user->tsState != Settings::Whispering
 					    && !user->bPrioritySpeaker) {
@@ -507,7 +504,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					}
 				}
 			}
-
+			
 			if (recorder) {
 				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
 

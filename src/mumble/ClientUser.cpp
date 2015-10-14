@@ -208,11 +208,6 @@ void ClientUser::setLocalMute(bool mute) {
 	emit muteDeafStateChanged();
 }
 
-void ClientUser::setLocalVolume(float volume) {
-	fLocalVolume = volume;
-	emit muteDeafStateChanged();
-}
-
 void ClientUser::setDeaf(bool deaf) {
 	bDeaf = deaf;
 	if (bDeaf)

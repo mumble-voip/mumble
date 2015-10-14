@@ -1,4 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+/* Copyright (C) 2015, Fredrik Nordin <freedick@github>
 
    All rights reserved.
 
@@ -38,11 +38,11 @@ class UserVolume : public QDialog, public Ui::UserVolume {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(UserVolume)
-		ClientUser *u;
+		unsigned int m_clientSession;
 	public slots:
 		void on_qsUserVolume_valueChanged(int v);
 	public:
-		UserVolume(QWidget *parent = NULL, QString title = tr("Enter text"), ClientUser *user=NULL);
+		UserVolume(QWidget *parent = NULL, QString title = tr("Enter text"), unsigned int sessionId=0);
 		bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 };
 

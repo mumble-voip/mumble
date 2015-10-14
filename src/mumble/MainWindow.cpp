@@ -1447,25 +1447,15 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 }
 
 void MainWindow::openUserVolumeDialog(ClientUser *p) {
-	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), p);
+	unsigned int session = p->uiSession;
+	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), session);
 	int res = uservol->exec();
-
+	p = ClientUser::get(session);
 	if (! p->qsHash.isEmpty()) {
 		Database::setLocalVolume(p->qsHash, p->fLocalVolume);
 	}
+
 	delete uservol;
-	// Try to get find the user using the session id.
-	// This will return NULL if the user disconnected while typing the message.
-	/*p = ClientUser::get(session);
-
-	if (p && (res == QDialog::Accepted)) {
-		QString msg = texm->message();
-
-		if (! msg.isEmpty()) {
-			g.sh->sendUserTextMessage(p->uiSession, msg);
-			g.l->log(Log::TextMessage, tr("To %1: %2").arg(Log::formatClientUser(p, Log::Target), texm->message()), tr("Message to %1").arg(p->qsName), true);
-		}
-	}*/
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {

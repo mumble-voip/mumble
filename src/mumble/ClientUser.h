@@ -103,7 +103,6 @@ class ClientUser : public QObject, public User {
 		void setSuppress(bool suppress);
 		void setLocalIgnore(bool ignore);
 		void setLocalMute(bool mute);
-		void setLocalVolume(float volume);
 		void setSelfMute(bool mute);
 		void setSelfDeaf(bool deaf);
 		void setPrioritySpeaker(bool priority);

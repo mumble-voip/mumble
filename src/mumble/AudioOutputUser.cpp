@@ -37,7 +37,6 @@ AudioOutputUser::AudioOutputUser(const QString& name) : qsName(name) {
 	iBufferSize = 0;
 	pfBuffer = NULL;
 	pfVolume = NULL;
-	fVolumeAdjustment = 1.0f;
 	fPos[0]=fPos[1]=fPos[2]=0.0;
 }
 

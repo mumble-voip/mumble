@@ -1,5 +1,4 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2009-2011, Stefan Hacker <dd0t@users.sourceforge.net>
+/* Copyright (C) 2015, Fredrik Nordin <freedick@github>
 
    All rights reserved.
 
@@ -33,10 +32,15 @@
 
 #include "UserVolume.h"
 #include "Global.h"
-UserVolume::UserVolume(QWidget *p, QString title, ClientUser *user) : QDialog(p) {
+#include "ClientUser.h"
+UserVolume::UserVolume(QWidget *p, QString title, unsigned int sessionId)
+	: QDialog(p),
+	m_clientSession(sessionId) {
 	setupUi(this);
-	u=user;
-	qsUserVolume->setValue(round(log2(user->fLocalVolume)*6.0f));
+	ClientUser *user = ClientUser::get(sessionId);
+	if(user) {
+		qsUserVolume->setValue(round(log2(user->fLocalVolume)*6.0f));
+	}
 	setWindowTitle(title);
 }
 
@@ -44,8 +48,10 @@ void UserVolume::on_qsUserVolume_valueChanged(int v) {
 	QString text;
 	text.sprintf("%+i",v);
 	qlUserVolume->setText(tr("%1 dB").arg(text));
-	u->setLocalVolume(pow(2.0f,v/6.0f));//Decibel formula +6db = *2
-	//TODO: Change volume attribute here
+	ClientUser *user = ClientUser::get(m_clientSession);
+	if(user) {
+		user->fLocalVolume = pow(2.0f,v/6.0f);//Decibel formula +6db = *2
+	}
 }
 
 
