@@ -490,7 +490,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 		foreach(AudioOutputUser *aop, qlMix) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
-			
+
 			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
 			if (speech) {
 				const ClientUser* user = speech->p;
@@ -504,7 +504,7 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 					}
 				}
 			}
-			
+
 			if (recorder) {
 				AudioOutputSpeech *aos = qobject_cast<AudioOutputSpeech *>(aop);
 
