@@ -8334,9 +8334,6 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     </message>
 </context>
 <context>
-    <name>UserVolume</name>
-</context>
-<context>
     <name>VersionCheck</name>
     <message>
         <location filename="VersionCheck.cpp" line="+145"/>
