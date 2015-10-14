@@ -1451,7 +1451,7 @@ void MainWindow::openUserVolumeDialog(ClientUser *p) {
 	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), session);
 	int res = uservol->exec();
 	p = ClientUser::get(session);
-	if (! p->qsHash.isEmpty()) {
+	if (p && ! p->qsHash.isEmpty()) {
 		Database::setLocalVolume(p->qsHash, p->fLocalVolume);
 	}
 
