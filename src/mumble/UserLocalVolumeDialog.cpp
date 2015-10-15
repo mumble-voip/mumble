@@ -56,7 +56,3 @@ void UserLocalVolumeDialog::on_qsUserLocalVolumeDialog_valueChanged(int v) {
 	}
 }
 
-bool UserLocalVolumeDialog::eventFilter(QObject *obj, QEvent *evt) {
-	return false;
-}
-
