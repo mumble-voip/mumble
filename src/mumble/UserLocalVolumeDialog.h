@@ -42,7 +42,7 @@ class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
 	public slots:
 		void on_qsUserLocalVolumeDialog_valueChanged(int v);
 	public:
-		UserLocalVolumeDialog(QWidget *parent = NULL, QString title = QString(), unsigned int sessionId=0);
+		UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
 		bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 };
 

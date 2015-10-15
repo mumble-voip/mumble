@@ -1448,7 +1448,7 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, tr("Adjusting local volume for %1").arg(p->qsName), session);
+	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, session);
 	int res = uservol->exec();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {

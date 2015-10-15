@@ -34,15 +34,16 @@
 #include "Global.h"
 #include "ClientUser.h"
 
-UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, QString title, unsigned int sessionId)
+UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
 	: QDialog(p)
 	, m_clientSession(sessionId) {
 	setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if(user) {
+		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
+		setWindowTitle(title);
 		qsUserLocalVolumeDialog->setValue(round(log2(user->fLocalVolume) * 6.0f));
 	}
-	setWindowTitle(title);
 }
 
 void UserLocalVolumeDialog::on_qsUserLocalVolumeDialog_valueChanged(int v) {
