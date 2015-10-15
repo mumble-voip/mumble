@@ -1,21 +1,65 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
+ <!-- Meta translation catalogues -->
+ <file>qt_ar.qm</file>
+ <file>qt_ca.qm</file>
  <file>qt_cs.qm</file>
  <file>qt_da.qm</file>
  <file>qt_de.qm</file>
  <file>qt_es.qm</file>
+ <file>qt_fa.qm</file>
+ <file>qt_fi.qm</file>
  <file>qt_fr.qm</file>
+ <file>qt_gl.qm</file>
  <file>qt_he.qm</file>
  <file>qt_hu.qm</file>
- <file alias="qt_it.qm">qttranslations/qt_it.qm</file>
+ <file>qt_it.qm</file>
  <file>qt_ja.qm</file>
- <file alias="qt_nl.qm">qttranslations/qt_nl.qm</file>
+ <file>qt_ko.qm</file>
+ <file>qt_lt.qm</file>
  <file>qt_pl.qm</file>
  <file>qt_pt.qm</file>
  <file>qt_ru.qm</file>
+ <file>qt_sk.qm</file>
+ <file>qt_sl.qm</file>
  <file>qt_sv.qm</file>
- <file alias="qt_tr.qm">qttranslations/qt_tr.qm</file>
+ <file>qt_uk.qm</file>
  <file>qt_zh_CN.qm</file>
  <file>qt_zh_TW.qm</file>
+ <!--
+    With Qt 5 qt_<locale>.qm was split. For some
+    reason not all translations seem to have been
+    split at this point so they are commented out
+    below.
+ -->
+ <!--<file>qtbase_ar.qm</file>-->
+ <file>qtbase_ca.qm</file>
+ <file>qtbase_cs.qm</file>
+ <!--<file>qtbase_da.qm</file>-->
+ <file>qtbase_de.qm</file>
+ <!--<file>qtbase_es.qm</file>
+ <file>qtbase_fa.qm</file>-->
+ <file>qtbase_fi.qm</file>
+ <!--<file>qtbase_fr.qm</file>
+ <file>qtbase_gl.qm</file>
+ <file>qtbase_he.qm</file>-->
+ <file>qtbase_hu.qm</file>
+ <file>qtbase_it.qm</file>
+ <file>qtbase_ja.qm</file>
+ <!--<file>qtbase_ko.qm</file>
+ <file>qtbase_lt.qm</file>
+ <file>qtbase_pl.qm</file>
+ <file>qtbase_pt.qm</file>-->
+ <file>qtbase_ru.qm</file>
+ <file>qtbase_sk.qm</file>
+ <!--<file>qtbase_sl.qm</file>
+ <file>qtbase_sv.qm</file>-->
+ <file>qtbase_uk.qm</file>
+ <!--<file>qtbase_zh_CN.qm</file>
+ <file>qtbase_zh_TW.qm</file>-->
+ 
+ <!-- Custom qt translations -->
+ <file alias="qt_nl.qm">qttranslations/qt_nl.qm</file>
+ <file alias="qt_tr.qm">qttranslations/qt_tr.qm</file>
 </qresource>
 </RCC>
