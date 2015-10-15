@@ -49,6 +49,7 @@ ClientUser::ClientUser(QObject *p) : QObject(p),
 		bLocalMute(false),
 		fPowerMin(0.0f),
 		fPowerMax(0.0f),
+		fLocalVolume(1.0f),
 		fAverageAvailable(0.0f),
 		iFrames(0),
 		iSequence(0) {

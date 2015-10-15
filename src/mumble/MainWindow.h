@@ -141,6 +141,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		
 		void updateChatBar();
 		void openTextMessageDialog(ClientUser *p);
+		void openUserLocalVolumeDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
 #if QT_VERSION >= 0x050000
@@ -211,6 +212,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaUserPrioritySpeaker_triggered();
 		void on_qaUserLocalIgnore_triggered();
 		void on_qaUserLocalMute_triggered();
+		void on_qaUserLocalVolume_triggered();
 		void on_qaUserTextMessage_triggered();
 		void on_qaUserRegister_triggered();
 		void on_qaUserInformation_triggered();

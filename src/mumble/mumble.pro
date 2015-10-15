@@ -129,6 +129,7 @@ HEADERS *= BanEditor.h \
     ClientUser.h \
     UserEdit.h \
     UserListModel.h \
+    UserLocalVolumeDialog.h \
     Tokens.h \
     UserView.h \
     RichTextEditor.h \
@@ -199,6 +200,7 @@ SOURCES *= BanEditor.cpp \
     ClientUser.cpp \
     UserEdit.cpp \
     UserListModel.cpp \
+    UserLocalVolumeDialog.cpp \
     Tokens.cpp \
     UserView.cpp \
     RichTextEditor.cpp \
@@ -237,6 +239,7 @@ FORMS *= ConfigDialog.ui \
     GlobalShortcutTarget.ui \
     Cert.ui \
     UserEdit.ui \
+    UserLocalVolumeDialog.ui \
     AudioWizard.ui \
     Tokens.ui \
     RichTextEditor.ui \

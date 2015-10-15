@@ -165,6 +165,8 @@ Database::Database() {
 
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `muted` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT)"));
 	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `muted_hash` ON `muted`(`hash`)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `volume` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `hash` TEXT, `volume` FLOAT)"));
+	execQueryAndLogFailure(query, QLatin1String("CREATE UNIQUE INDEX IF NOT EXISTS `volume_hash` ON `volume`(`hash`)"));
 
 	//Note: A previous snapshot version created a table called 'hidden'
 	execQueryAndLogFailure(query, QLatin1String("CREATE TABLE IF NOT EXISTS `filtered_channels` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `server_cert_digest` TEXT NOT NULL, `channel_id` INTEGER NOT NULL)"));
@@ -271,6 +273,27 @@ bool Database::isLocalMuted(const QString &hash) {
 		return true;
 	}
 	return false;
+}
+
+void Database::setUserLocalVolume(const QString &hash, float volume) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("INSERT OR REPLACE INTO `volume` (`hash`, `volume`) VALUES (?,?)"));
+	query.addBindValue(hash);
+	query.addBindValue(QString::number(volume));
+	execQueryAndLogFailure(query);
+}
+
+float Database::getUserLocalVolume(const QString &hash) {
+	QSqlQuery query;
+
+	query.prepare(QLatin1String("SELECT `volume` FROM `volume` WHERE `hash` = ?"));
+	query.addBindValue(hash);
+	execQueryAndLogFailure(query);
+	if (query.first()) {
+		return query.value(0).toString().toFloat();
+	}
+	return 1.0f;
 }
 
 void Database::setLocalMuted(const QString &hash, bool muted) {

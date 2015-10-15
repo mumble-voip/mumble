@@ -491,15 +491,16 @@ bool AudioOutput::mix(void *outbuff, unsigned int nsamp) {
 			const float * RESTRICT pfBuffer = aop->pfBuffer;
 			float volumeAdjustment = 1;
 
-			if (prioritySpeakerActive) {
-				AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
-				if (speech) {
-					const ClientUser* user = speech->p;
+			AudioOutputSpeech *speech = qobject_cast<AudioOutputSpeech *>(aop);
+			if (speech) {
+				const ClientUser *user = speech->p;
+				volumeAdjustment *= user->fLocalVolume;
+				if (prioritySpeakerActive) {
 					
 					if (user->tsState != Settings::Whispering
 					    && !user->bPrioritySpeaker) {
 						
-						volumeAdjustment = adjustFactor;
+						volumeAdjustment *= adjustFactor;
 					}
 				}
 			}
