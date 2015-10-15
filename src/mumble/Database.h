@@ -7,6 +7,7 @@
 #define MUMBLE_MUMBLE_DATABASE_H_
 
 #include "Settings.h"
+#include "Channel.h"
 
 struct FavoriteServer {
 	QString qsName;
@@ -38,8 +39,8 @@ class Database : public QObject {
 		static float getUserLocalVolume(const QString &hash);
 		static void setUserLocalVolume(const QString &hash, float volume);
 
-		static bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
-		static void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);
+		static Channel::FilteredVisibility getChannelFilteredVisibility(const QByteArray &server_cert_digest, const int channel_id);
+		static void setChannelFilteredVisibility(const QByteArray &server_cert_digest, const int channel_id, Channel::FilteredVisibility visibility);
 
 		static QMap<QPair<QString, unsigned short>, unsigned int> getPingCache();
 		static void setPingCache(const QMap<QPair<QString, unsigned short>, unsigned int> &cache);

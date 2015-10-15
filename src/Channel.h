@@ -54,17 +54,41 @@ class Channel : public QObject {
 
 #ifdef MUMBLE
 		unsigned int uiPermissions;
-		bool bFiltered;
 
+		/// List of possible visibility properties for channels
+		/// when filtering is active. Only append to this enum
+		/// as its values are used in the client DB.
+		enum FilteredVisibility {
+			/// Channel has normal behavior when filtering, it might get hidden if unoccupied
+			FILTERED_VISIBILITY_NORMAL,
+			/// Channel is never visible when filtering is active, even when occupied
+			FILTERED_VISIBILITY_NEVER,
+			/// Channel is always visible when filtering is active, even when empty
+			FILTERED_VISIBILITY_ALWAYS,
+		};
+		
+		/// Visibility properties of this channel when filtering is active
+		FilteredVisibility filteredVisibility;
+		
 		static QHash<int, Channel *> c_qhChannels;
 		static QReadWriteLock c_qrwlChannels;
 
 		static Channel *get(int);
 		static Channel *add(int, const QString &);
 		static void remove(Channel *);
+		
+		/// Returns true if this channel or one of its subchannels has a visibility of FILTERED_VISIBILITY_ALWAYS.
+		bool isAlwaysVisibleWhenFiltering() const;
+		/// Returns true if this channel or one of its parent channels has a visibility of FILTERED_VISIBILITY_NEVER.
+		/// Note: You have to check isAlwaysVisibleWhenFiltering to ensure a channel isn't forced visible by a subchannel.
+		bool isNeverVisibleWhenFiltering() const;
 
 		void addClientUser(ClientUser *p);
-#endif
+#endif // MUMBLE
+		
+		bool hasAnyUsersInOrBelow() const;
+		bool isUserInOrBelow(const User *user) const;
+		
 		static bool lessThan(const Channel *, const Channel *);
 
 		size_t getLevel() const;

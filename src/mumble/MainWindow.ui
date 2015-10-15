@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>671</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="qmConfig">
@@ -106,7 +106,7 @@
    <property name="minimumSize">
     <size>
      <width>250</width>
-     <height>93</height>
+     <height>103</height>
     </size>
    </property>
    <property name="features">
@@ -841,12 +841,15 @@ the channel's context menu.</string>
     <string>&amp;Join Channel</string>
    </property>
   </action>
-  <action name="qaChannelFilter">
+  <action name="qaChannelFilterVisibilityNever">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Hide Channel when Filtering</string>
+    <string>&amp;Never show channel</string>
+   </property>
+   <property name="toolTip">
+    <string>When the channel filter is enabled, hide this channel. Even if it is not empty.</string>
    </property>
   </action>
   <action name="qaUserCommentView">
@@ -914,6 +917,28 @@ the channel's context menu.</string>
    </property>
    <property name="iconVisibleInMenu">
     <bool>false</bool>
+   </property>
+  </action>
+  <action name="qaChannelFilterVisibilityAlways">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Always show channel</string>
+   </property>
+   <property name="toolTip">
+    <string>When the channel filter is enabled, show this channel. Even if it is empty.</string>
+   </property>
+  </action>
+  <action name="qaChannelFilterVisibilityNormal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Default</string>
+   </property>
+   <property name="toolTip">
+    <string>Do not apply any special channel filtering rules to this channel.</string>
    </property>
   </action>
  </widget>

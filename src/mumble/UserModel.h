@@ -12,9 +12,10 @@
 #include <QtCore/QSet>
 #include <QtGui/QIcon>
 
+#include "Channel.h"
+
 class User;
 class ClientUser;
-class Channel;
 
 struct ModelItem Q_DECL_FINAL {
 	friend class UserModel;
@@ -70,7 +71,7 @@ class UserModel : public QAbstractItemModel {
 		QIcon qiDeafenedSelf, qiDeafenedServer;
 		QIcon qiAuthenticated, qiChannel, qiLinkedChannel, qiActiveChannel;
 		QIcon qiFriend;
-		QIcon qiComment, qiCommentSeen, qiFilter;
+		QIcon qiComment, qiCommentSeen, qiFilterVisibilityNever, qiFilterVisibilityAlways;
 		ModelItem *miRoot;
 		QSet<Channel *> qsLinked;
 		QMap<QString, ClientUser *> qmHashes;
@@ -147,7 +148,10 @@ class UserModel : public QAbstractItemModel {
 		void ensureSelfVisible();
 		void recheckLinks();
 		void updateOverlay() const;
-		void toggleChannelFiltered(Channel *c);
+		/// Updates the filtered visibility of a given channel 
+		void updateChannelFilteredVisibility(Channel *c, Channel::FilteredVisibility newVisibility);
+		/// Trigger dataChanged events and other updates for given index range
+		void notifyDataChanged(QModelIndex topLeft = QModelIndex(), QModelIndex bottomRight = QModelIndex());
 };
 
 #endif

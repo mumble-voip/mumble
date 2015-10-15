@@ -69,6 +69,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMenu *qmUser;
 		QMenu *qmChannel;
 		QMenu *qmTray;
+		QActionGroup *qagChannelVisibilityFilterGroup;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
 		QMap<unsigned int, UserLocalVolumeDialog *> qmUserVolTracker;
@@ -218,7 +219,9 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaChannelUnlink_triggered();
 		void on_qaChannelUnlinkAll_triggered();
 		void on_qaChannelSendMessage_triggered();
-		void on_qaChannelFilter_triggered();
+		void on_qaChannelFilterVisibilityAlways_triggered();
+		void on_qaChannelFilterVisibilityNever_triggered();
+		void on_qaChannelFilterVisibilityNormal_triggered();
 		void on_qaChannelCopyURL_triggered();
 		void on_qaAudioReset_triggered();
 		void on_qaAudioMute_triggered();

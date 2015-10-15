@@ -57,7 +57,7 @@ class UserView : public QTreeView {
 #else
 		void dataChanged(const QModelIndex & topLeft, const QModelIndex & bottomRight) Q_DECL_OVERRIDE;
 #endif
-		
+
 	public slots:
 		void nodeActivated(const QModelIndex &idx);
 		void selectSearchResult();
