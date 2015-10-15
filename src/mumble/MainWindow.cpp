@@ -62,7 +62,7 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
-#include "UserVolume.h"
+#include "UserLocalVolumeDialog.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
@@ -1440,19 +1440,19 @@ void MainWindow::on_qaUserLocalIgnore_triggered() {
 
 void MainWindow::on_qaUserLocalVolume_triggered() {
 	ClientUser *p = getContextMenuUser();
-	if (!p)
+	if (!p) {
 		return;
-	
-	openUserVolumeDialog(p);
+	}
+	openUserLocalVolumeDialog(p);
 }
 
-void MainWindow::openUserVolumeDialog(ClientUser *p) {
+void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	::UserVolume *uservol = new ::UserVolume(this, tr("Adjusting local volume for %1").arg(p->qsName), session);
+	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, tr("Adjusting local volume for %1").arg(p->qsName), session);
 	int res = uservol->exec();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {
-		Database::setLocalVolume(p->qsHash, p->fLocalVolume);
+		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
 	}
 
 	delete uservol;

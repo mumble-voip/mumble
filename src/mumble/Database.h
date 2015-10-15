@@ -60,8 +60,8 @@ class Database : public QObject {
 		static bool isLocalMuted(const QString &hash);
 		static void setLocalMuted(const QString &hash, bool muted);
 
-		static float getLocalVolume(const QString &hash);
-		static void setLocalVolume(const QString &hash, float volume);
+		static float getUserLocalVolume(const QString &hash);
+		static void setUserLocalVolume(const QString &hash, float volume);
 
 		static bool isChannelFiltered(const QByteArray &server_cert_digest, const int channel_id);
 		static void setChannelFiltered(const QByteArray &server_cert_digest, const int channel_id, bool hidden);

@@ -275,7 +275,7 @@ bool Database::isLocalMuted(const QString &hash) {
 	return false;
 }
 
-void Database::setLocalVolume(const QString &hash, float volume) {
+void Database::setUserLocalVolume(const QString &hash, float volume) {
 	QSqlQuery query;
 
 	query.prepare(QLatin1String("INSERT OR REPLACE INTO `volume` (`hash`, `volume`) VALUES (?,?)"));
@@ -284,7 +284,7 @@ void Database::setLocalVolume(const QString &hash, float volume) {
 	execQueryAndLogFailure(query);
 }
 
-float Database::getLocalVolume(const QString &hash) {
+float Database::getUserLocalVolume(const QString &hash) {
 	QSqlQuery query;
 
 	query.prepare(QLatin1String("SELECT `volume` FROM `volume` WHERE `hash` = ?"));

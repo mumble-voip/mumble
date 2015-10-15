@@ -1,4 +1,4 @@
-/* Copyright (C) 2015, Fredrik Nordin <freedick@github>
+/* Copyright (C) 2015, Fredrik Nordin <freedick(@t)ludd.ltu.se>
 
    All rights reserved.
 
@@ -30,32 +30,32 @@
 
 #include "mumble_pch.hpp"
 
-#include "UserVolume.h"
+#include "UserLocalVolumeDialog.h"
 #include "Global.h"
 #include "ClientUser.h"
-UserVolume::UserVolume(QWidget *p, QString title, unsigned int sessionId)
-	: QDialog(p),
-	m_clientSession(sessionId) {
+
+UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, QString title, unsigned int sessionId)
+	: QDialog(p)
+	, m_clientSession(sessionId) {
 	setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if(user) {
-		qsUserVolume->setValue(round(log2(user->fLocalVolume)*6.0f));
+		qsUserLocalVolumeDialog->setValue(round(log2(user->fLocalVolume) * 6.0f));
 	}
 	setWindowTitle(title);
 }
 
-void UserVolume::on_qsUserVolume_valueChanged(int v) {
+void UserLocalVolumeDialog::on_qsUserLocalVolumeDialog_valueChanged(int v) {
 	QString text;
 	text.sprintf("%+i",v);
-	qlUserVolume->setText(tr("%1 dB").arg(text));
+	qlUserLocalVolumeDialog->setText(tr("%1 dB").arg(text));
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if(user) {
-		user->fLocalVolume = pow(2.0f,v/6.0f);//Decibel formula +6db = *2
+		user->fLocalVolume = pow(2.0f, v / 6.0f); // Decibel formula +6db = *2
 	}
 }
 
-
-bool UserVolume::eventFilter(QObject *obj, QEvent *evt) {
+bool UserLocalVolumeDialog::eventFilter(QObject *obj, QEvent *evt) {
 	return false;
 }
 

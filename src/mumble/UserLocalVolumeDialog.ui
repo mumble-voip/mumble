@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserVolume</class>
- <widget class="QDialog" name="UserVolume">
+ <class>UserLocalVolumeDialog</class>
+ <widget class="QDialog" name="UserLocalVolumeDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,7 +12,7 @@
   </property>
   <layout class="QGridLayout">
    <item row="0" column="0">
-    <widget class="QSlider" name="qsUserVolume">
+    <widget class="QSlider" name="qsUserLocalVolumeDialog">
      <property name="toolTip">
       <string>Local volume for other users</string>
      </property>
@@ -34,7 +34,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLabel" name="qlUserVolume">
+    <widget class="QLabel" name="qlUserLocalVolumeDialog">
      <property name="minimumSize">
       <size>
        <width>50</width>
@@ -63,7 +63,7 @@
   <connection>
    <sender>qbbButtons</sender>
    <signal>accepted()</signal>
-   <receiver>UserVolume</receiver>
+   <receiver>UserLocalVolumeDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

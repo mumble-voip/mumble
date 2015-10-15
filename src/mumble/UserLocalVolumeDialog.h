@@ -1,4 +1,4 @@
-/* Copyright (C) 2015, Fredrik Nordin <freedick@github>
+/* Copyright (C) 2015, Fredrik Nordin <freedick(@t)ludd.ltu.se>
 
    All rights reserved.
 
@@ -31,18 +31,18 @@
 #ifndef MUMBLE_MUMBLE_USERVOLUME_H_
 #define MUMBLE_MUMBLE_USERVOLUME_H_
 
-#include "ui_UserVolume.h"
+#include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
 
-class UserVolume : public QDialog, public Ui::UserVolume {
+class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(UserVolume)
+		Q_DISABLE_COPY(UserLocalVolumeDialog)
 		unsigned int m_clientSession;
 	public slots:
-		void on_qsUserVolume_valueChanged(int v);
+		void on_qsUserLocalVolumeDialog_valueChanged(int v);
 	public:
-		UserVolume(QWidget *parent = NULL, QString title = tr("Enter text"), unsigned int sessionId=0);
+		UserLocalVolumeDialog(QWidget *parent = NULL, QString title = QString(), unsigned int sessionId=0);
 		bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
 };
 

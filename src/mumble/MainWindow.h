@@ -141,7 +141,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		
 		void updateChatBar();
 		void openTextMessageDialog(ClientUser *p);
-		void openUserVolumeDialog(ClientUser *p);
+		void openUserLocalVolumeDialog(ClientUser *p);
 
 #ifdef Q_OS_WIN
 #if QT_VERSION >= 0x050000
