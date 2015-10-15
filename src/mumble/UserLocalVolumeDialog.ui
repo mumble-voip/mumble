@@ -12,7 +12,7 @@
   </property>
   <layout class="QGridLayout">
    <item row="0" column="0">
-    <widget class="QSlider" name="qsUserLocalVolumeDialog">
+    <widget class="QSlider" name="qsUserLocalVolume">
      <property name="toolTip">
       <string>Local volume for other users</string>
      </property>
@@ -34,7 +34,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QLabel" name="qlUserLocalVolumeDialog">
+    <widget class="QLabel" name="qlUserLocalVolume">
      <property name="minimumSize">
       <size>
        <width>50</width>

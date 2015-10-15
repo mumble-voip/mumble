@@ -40,7 +40,7 @@ class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
 		Q_DISABLE_COPY(UserLocalVolumeDialog)
 		unsigned int m_clientSession;
 	public slots:
-		void on_qsUserLocalVolumeDialog_valueChanged(int v);
+		void on_qsUserLocalVolume_valueChanged(int v);
 	public:
 		UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
 };
