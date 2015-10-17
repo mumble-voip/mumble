@@ -26,6 +26,7 @@ scripts/murmur.ini.*
 src/murmur/Murmur.h
 src/murmur/Murmur.cpp
 winpaths_custom.pri
+src/mumble/mumble_qt_auto.qrc
 src/mumble/mumble_plugin_import.cpp
 src/mumble/mumble_app_plugin_import.cpp
 src/murmur/murmurd_plugin_import.cpp

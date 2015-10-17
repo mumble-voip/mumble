@@ -585,31 +585,21 @@ CONFIG(no-update) {
 }
 
 !CONFIG(no-embed-qt-translations) {
-	# Add additional 3rd party Qt translations not shipped with Qt
-	TRANSLATIONS *= qttranslations/qt_it.ts qttranslations/qt_nl.ts qttranslations/qt_tr.ts
-	DEFINES *= USING_BUNDLED_QT_TRANSLATIONS
-
-	# Add translations shipped with Qt
-	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
-	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
-
-	QT_TRANSDIR = $$[QT_INSTALL_TRANSLATIONS]/
-	QT_TRANSDIR = $$replace(QT_TRANSDIR,/,$${DIR_SEPARATOR})
-
-	QT_TRANSLATION_FILES_SRC *= qt_cs.qm qt_da.qm qt_de.qm qt_es.qm qt_fr.qm qt_he.qm qt_hu.qm qt_ja.qm qt_pl.qm qt_pt.qm qt_ru.qm qt_sv.qm qt_zh_CN.qm qt_zh_TW.qm
-	for(lang, QT_TRANSLATION_FILES_SRC):exists($$[QT_INSTALL_TRANSLATIONS]/$${lang}) {
-		QT_TRANSLATION_FILES *= $${lang}
+	QT_TRANSLATIONS_FALLBACK_DIR = qttranslations
+	QT_TRANSLATIONS_FALLBACK_FILES = $$files($$QT_TRANSLATIONS_FALLBACK_DIR/*.ts)
+	for(fn, QT_TRANSLATIONS_FALLBACK_FILES) {
+		!system($$QMAKE_LRELEASE -silent $$fn) {
+			error(Failed to run lrelease for $$fn)
+		}
 	}
-
-	copytrans.output = ${QMAKE_FILE_NAME}
-	copytrans.commands = $$QMAKE_COPY $${QT_TRANSDIR}${QMAKE_FILE_NAME} ${QMAKE_FILE_OUT}
-	copytrans.input = QT_TRANSLATION_FILES
-	copytrans.CONFIG *= no_link
-	copytrans.variable_out = rcc.depends
-
-	QMAKE_EXTRA_COMPILERS *= copytrans
-
-	RESOURCES *= mumble_qt.qrc
+	GENQRC = ../../scripts/generate-mumble_qt-qrc.py
+	win32 {
+		GENQRC = python ..\\..\\scripts\\generate-mumble_qt-qrc.py
+	}
+	!system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
+		error(Failed to run generate-mumble_qt-qrc.py script)
+	}
+	RESOURCES *= mumble_qt_auto.qrc
 }
 
 !CONFIG(no-embed-tango-icons) {
