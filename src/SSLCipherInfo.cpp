@@ -28,7 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "mumble_pch.hpp"
+#include "murmur_pch.h"
 
 #include "SSLCipherInfo.h"
 
