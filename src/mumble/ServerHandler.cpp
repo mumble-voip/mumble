@@ -160,7 +160,7 @@ void ServerHandler::udpReady() {
 		quint16 senderPort;
 		qusUdp->readDatagram(encrypted, qMin(2048U, buflen), &senderAddr, &senderPort);
 
-		if (!(senderAddr == qhaRemote) || (senderPort != usPort))
+		if (!(HostAddress(senderAddr) == HostAddress(qhaRemote)) || (senderPort != usPort))
 			continue;
 
 		ConnectionPtr connection(cConnection);

@@ -1444,7 +1444,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 
 	if (! si->qlAddresses.isEmpty()) {
 		foreach(const QHostAddress &qha, si->qlAddresses) {
-			qhPings[qpAddress(qha, si->usPort)].insert(si);
+			qhPings[qpAddress(HostAddress(qha), si->usPort)].insert(si);
 		}
 		return;
 	}
@@ -1470,7 +1470,7 @@ void ConnectDialog::startDns(ServerItem *si) {
 
 void ConnectDialog::stopDns(ServerItem *si) {
 	foreach(const QHostAddress &qha, si->qlAddresses) {
-		qpAddress addr(qha, si->usPort);
+		qpAddress addr(HostAddress(qha), si->usPort);
 		if (qhPings.contains(addr)) {
 			qhPings[addr].remove(si);
 			if (qhPings[addr].isEmpty()) {
@@ -1506,7 +1506,7 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 	foreach(ServerItem *si, qhDNSWait[host]) {
 		si->qlAddresses = info.addresses();
 		foreach(const QHostAddress &qha, info.addresses()) {
-			qpAddress addr(qha, si->usPort);
+			qpAddress addr(HostAddress(qha), si->usPort);
 			qs.insert(addr);
 			qhPings[addr].insert(si);
 		}
@@ -1521,14 +1521,14 @@ void ConnectDialog::lookedUp(QHostInfo info) {
 	qhDNSWait.remove(host);
 
 	foreach(const qpAddress &addr, qs) {
-		sendPing(addr.first, addr.second);
+		sendPing(addr.first.toAddress(), addr.second);
 	}
 }
 
 void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 	char blob[16];
 
-	qpAddress addr(host, port);
+	qpAddress addr(HostAddress(host), port);
 
 	quint64 uiRand;
 	if (qhPingRand.contains(addr)) {
@@ -1556,6 +1556,7 @@ void ConnectDialog::sendPing(const QHostAddress &host, unsigned short port) {
 
 void ConnectDialog::udpReply() {
 	QUdpSocket *sock = qobject_cast<QUdpSocket *>(sender());
+
 	while (sock->hasPendingDatagrams()) {
 		char blob[64];
 
@@ -1567,7 +1568,8 @@ void ConnectDialog::udpReply() {
 			if (host.scopeId() == QLatin1String("0"))
 				host.setScopeId(QLatin1String(""));
 
-			qpAddress address(host, port);
+			qpAddress address(HostAddress(host), port);
+
 			if (qhPings.contains(address)) {
 				quint32 *ping = reinterpret_cast<quint32 *>(blob+4);
 				quint64 *ts = reinterpret_cast<quint64 *>(blob+8);

@@ -58,7 +58,7 @@
 struct FavoriteServer;
 class QUdpSocket;
 
-typedef QPair<QHostAddress, unsigned short> qpAddress;
+typedef QPair<HostAddress, unsigned short> qpAddress;
 
 struct PublicInfo {
 	QString qsName;
