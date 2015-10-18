@@ -18,7 +18,10 @@ CONFIG(release, debug|release) {
 load(resources)
 
 win32 {
-	rcc.depend_command = python $${PWD}\scripts\rcc-depends.py ${QMAKE_FILE_IN}
+	WINPWD = $$shell_path($${PWD})
+	RCC_DEPENDS = $$system_quote($${WINPWD}\scripts\rcc-depends.py)
+	rcc.depend_command = python $${RCC_DEPENDS} ${QMAKE_FILE_IN}
 } else {
-	rcc.depend_command = $${PWD}/scripts/rcc-depends.py ${QMAKE_FILE_IN}
+	RCC_DEPENDS = $$system_quote($${PWD}/scripts/rcc-depends.py)
+	rcc.depend_command = $${RCC_DEPENDS} ${QMAKE_FILE_IN}
 }
