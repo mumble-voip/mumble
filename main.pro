@@ -78,6 +78,9 @@ SUBDIRS *= src/mumble_proto
 }
 
 !CONFIG(no-server) {
+  !CONFIG(no-ice) {
+    SUBDIRS *= src/murmur/murmur_ice
+  }
   SUBDIRS *= src/murmur
 }
 
