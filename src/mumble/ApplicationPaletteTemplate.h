@@ -79,8 +79,8 @@ class ApplicationPalette : public QWidget
 		Q_OBJECT
 %(properties)s
 	public:
-		explicit ApplicationPalette(QWidget *parent = 0)
-		  : QWidget(parent)
+		explicit ApplicationPalette(QWidget *p = 0)
+		  : QWidget(p)
 		  , m_originalPalette(QApplication::palette()){
 			// Empty
 		}
@@ -91,11 +91,11 @@ class ApplicationPalette : public QWidget
 		void updateApplicationPalette() {
 			qWarning() << "Updating application palette";
 			
-			QPalette palette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
+			QPalette newPalette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
 
 %(paletteupdates)s
 
-			QApplication::setPalette(palette);
+			QApplication::setPalette(newPalette);
 			resetAllProperties();
 		}
 		
@@ -104,10 +104,10 @@ class ApplicationPalette : public QWidget
 		}
 
 	protected:
-		bool event(QEvent *event) Q_DECL_OVERRIDE {
-			bool result = QWidget::event(event);
+		bool event(QEvent *e) Q_DECL_OVERRIDE {
+			bool result = QWidget::event(e);
 			
-			if (event->type() == QEvent::StyleChange) {
+			if (e->type() == QEvent::StyleChange) {
 				// Update global palette. Have to defer it
 				// as property updates are also signals.
 				QTimer::singleShot(0, this, SLOT(updateApplicationPalette()));

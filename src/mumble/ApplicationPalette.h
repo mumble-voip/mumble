@@ -41,7 +41,6 @@
 #include <boost/optional.hpp>
 #endif
 #include <QApplication>
-#include <QDebug>
 
 ///
 /// Class enabling theming of QApplication::palette from stylesheets.
@@ -156,8 +155,8 @@ class ApplicationPalette : public QWidget
 		Q_PROPERTY(QBrush tooltiptext_inactive READ get_tooltiptext_inactive WRITE set_tooltiptext_inactive)
 
 	public:
-		explicit ApplicationPalette(QWidget *parent = 0)
-		  : QWidget(parent)
+		explicit ApplicationPalette(QWidget *p = 0)
+		  : QWidget(p)
 		  , m_originalPalette(QApplication::palette()){
 			// Empty
 		}
@@ -1061,239 +1060,239 @@ class ApplicationPalette : public QWidget
 		void updateApplicationPalette() {
 			qWarning() << "Updating application palette";
 			
-			QPalette palette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
+			QPalette newPalette = m_originalPalette; // Do not re-use potentially already styled palette. Might not pick up system style changes though.
 
 
 			if (m_windowtext_active) {
-				palette.setBrush(QPalette::Active, QPalette::WindowText, *m_windowtext_active);
+				newPalette.setBrush(QPalette::Active, QPalette::WindowText, *m_windowtext_active);
 			}
 
 			if (m_windowtext_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::WindowText, *m_windowtext_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::WindowText, *m_windowtext_disabled);
 			}
 
 			if (m_windowtext_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::WindowText, *m_windowtext_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::WindowText, *m_windowtext_inactive);
 			}
 
 			if (m_button_active) {
-				palette.setBrush(QPalette::Active, QPalette::Button, *m_button_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Button, *m_button_active);
 			}
 
 			if (m_button_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Button, *m_button_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Button, *m_button_disabled);
 			}
 
 			if (m_button_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Button, *m_button_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Button, *m_button_inactive);
 			}
 
 			if (m_light_active) {
-				palette.setBrush(QPalette::Active, QPalette::Light, *m_light_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Light, *m_light_active);
 			}
 
 			if (m_light_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Light, *m_light_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Light, *m_light_disabled);
 			}
 
 			if (m_light_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Light, *m_light_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Light, *m_light_inactive);
 			}
 
 			if (m_midlight_active) {
-				palette.setBrush(QPalette::Active, QPalette::Midlight, *m_midlight_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Midlight, *m_midlight_active);
 			}
 
 			if (m_midlight_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Midlight, *m_midlight_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Midlight, *m_midlight_disabled);
 			}
 
 			if (m_midlight_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Midlight, *m_midlight_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Midlight, *m_midlight_inactive);
 			}
 
 			if (m_dark_active) {
-				palette.setBrush(QPalette::Active, QPalette::Dark, *m_dark_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Dark, *m_dark_active);
 			}
 
 			if (m_dark_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Dark, *m_dark_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Dark, *m_dark_disabled);
 			}
 
 			if (m_dark_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Dark, *m_dark_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Dark, *m_dark_inactive);
 			}
 
 			if (m_mid_active) {
-				palette.setBrush(QPalette::Active, QPalette::Mid, *m_mid_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Mid, *m_mid_active);
 			}
 
 			if (m_mid_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Mid, *m_mid_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Mid, *m_mid_disabled);
 			}
 
 			if (m_mid_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Mid, *m_mid_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Mid, *m_mid_inactive);
 			}
 
 			if (m_text_active) {
-				palette.setBrush(QPalette::Active, QPalette::Text, *m_text_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Text, *m_text_active);
 			}
 
 			if (m_text_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Text, *m_text_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Text, *m_text_disabled);
 			}
 
 			if (m_text_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Text, *m_text_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Text, *m_text_inactive);
 			}
 
 			if (m_brighttext_active) {
-				palette.setBrush(QPalette::Active, QPalette::BrightText, *m_brighttext_active);
+				newPalette.setBrush(QPalette::Active, QPalette::BrightText, *m_brighttext_active);
 			}
 
 			if (m_brighttext_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::BrightText, *m_brighttext_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::BrightText, *m_brighttext_disabled);
 			}
 
 			if (m_brighttext_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::BrightText, *m_brighttext_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::BrightText, *m_brighttext_inactive);
 			}
 
 			if (m_buttontext_active) {
-				palette.setBrush(QPalette::Active, QPalette::ButtonText, *m_buttontext_active);
+				newPalette.setBrush(QPalette::Active, QPalette::ButtonText, *m_buttontext_active);
 			}
 
 			if (m_buttontext_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::ButtonText, *m_buttontext_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::ButtonText, *m_buttontext_disabled);
 			}
 
 			if (m_buttontext_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::ButtonText, *m_buttontext_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::ButtonText, *m_buttontext_inactive);
 			}
 
 			if (m_base_active) {
-				palette.setBrush(QPalette::Active, QPalette::Base, *m_base_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Base, *m_base_active);
 			}
 
 			if (m_base_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Base, *m_base_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Base, *m_base_disabled);
 			}
 
 			if (m_base_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Base, *m_base_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Base, *m_base_inactive);
 			}
 
 			if (m_window_active) {
-				palette.setBrush(QPalette::Active, QPalette::Window, *m_window_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Window, *m_window_active);
 			}
 
 			if (m_window_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Window, *m_window_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Window, *m_window_disabled);
 			}
 
 			if (m_window_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Window, *m_window_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Window, *m_window_inactive);
 			}
 
 			if (m_shadow_active) {
-				palette.setBrush(QPalette::Active, QPalette::Shadow, *m_shadow_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Shadow, *m_shadow_active);
 			}
 
 			if (m_shadow_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Shadow, *m_shadow_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Shadow, *m_shadow_disabled);
 			}
 
 			if (m_shadow_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Shadow, *m_shadow_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Shadow, *m_shadow_inactive);
 			}
 
 			if (m_highlight_active) {
-				palette.setBrush(QPalette::Active, QPalette::Highlight, *m_highlight_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Highlight, *m_highlight_active);
 			}
 
 			if (m_highlight_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Highlight, *m_highlight_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Highlight, *m_highlight_disabled);
 			}
 
 			if (m_highlight_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Highlight, *m_highlight_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Highlight, *m_highlight_inactive);
 			}
 
 			if (m_highlightedtext_active) {
-				palette.setBrush(QPalette::Active, QPalette::HighlightedText, *m_highlightedtext_active);
+				newPalette.setBrush(QPalette::Active, QPalette::HighlightedText, *m_highlightedtext_active);
 			}
 
 			if (m_highlightedtext_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::HighlightedText, *m_highlightedtext_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::HighlightedText, *m_highlightedtext_disabled);
 			}
 
 			if (m_highlightedtext_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::HighlightedText, *m_highlightedtext_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::HighlightedText, *m_highlightedtext_inactive);
 			}
 
 			if (m_link_active) {
-				palette.setBrush(QPalette::Active, QPalette::Link, *m_link_active);
+				newPalette.setBrush(QPalette::Active, QPalette::Link, *m_link_active);
 			}
 
 			if (m_link_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::Link, *m_link_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::Link, *m_link_disabled);
 			}
 
 			if (m_link_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::Link, *m_link_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::Link, *m_link_inactive);
 			}
 
 			if (m_linkvisited_active) {
-				palette.setBrush(QPalette::Active, QPalette::LinkVisited, *m_linkvisited_active);
+				newPalette.setBrush(QPalette::Active, QPalette::LinkVisited, *m_linkvisited_active);
 			}
 
 			if (m_linkvisited_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::LinkVisited, *m_linkvisited_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::LinkVisited, *m_linkvisited_disabled);
 			}
 
 			if (m_linkvisited_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::LinkVisited, *m_linkvisited_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::LinkVisited, *m_linkvisited_inactive);
 			}
 
 			if (m_alternatebase_active) {
-				palette.setBrush(QPalette::Active, QPalette::AlternateBase, *m_alternatebase_active);
+				newPalette.setBrush(QPalette::Active, QPalette::AlternateBase, *m_alternatebase_active);
 			}
 
 			if (m_alternatebase_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, *m_alternatebase_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::AlternateBase, *m_alternatebase_disabled);
 			}
 
 			if (m_alternatebase_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, *m_alternatebase_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::AlternateBase, *m_alternatebase_inactive);
 			}
 
 			if (m_tooltipbase_active) {
-				palette.setBrush(QPalette::Active, QPalette::ToolTipBase, *m_tooltipbase_active);
+				newPalette.setBrush(QPalette::Active, QPalette::ToolTipBase, *m_tooltipbase_active);
 			}
 
 			if (m_tooltipbase_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, *m_tooltipbase_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, *m_tooltipbase_disabled);
 			}
 
 			if (m_tooltipbase_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, *m_tooltipbase_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, *m_tooltipbase_inactive);
 			}
 
 			if (m_tooltiptext_active) {
-				palette.setBrush(QPalette::Active, QPalette::ToolTipText, *m_tooltiptext_active);
+				newPalette.setBrush(QPalette::Active, QPalette::ToolTipText, *m_tooltiptext_active);
 			}
 
 			if (m_tooltiptext_disabled) {
-				palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, *m_tooltiptext_disabled);
+				newPalette.setBrush(QPalette::Disabled, QPalette::ToolTipText, *m_tooltiptext_disabled);
 			}
 
 			if (m_tooltiptext_inactive) {
-				palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, *m_tooltiptext_inactive);
+				newPalette.setBrush(QPalette::Inactive, QPalette::ToolTipText, *m_tooltiptext_inactive);
 			}
 
 
-			QApplication::setPalette(palette);
+			QApplication::setPalette(newPalette);
 			resetAllProperties();
 		}
 		
@@ -1359,10 +1358,10 @@ class ApplicationPalette : public QWidget
 		}
 
 	protected:
-		bool event(QEvent *event) Q_DECL_OVERRIDE {
-			bool result = QWidget::event(event);
+		bool event(QEvent *e) Q_DECL_OVERRIDE {
+			bool result = QWidget::event(e);
 			
-			if (event->type() == QEvent::StyleChange) {
+			if (e->type() == QEvent::StyleChange) {
 				// Update global palette. Have to defer it
 				// as property updates are also signals.
 				QTimer::singleShot(0, this, SLOT(updateApplicationPalette()));

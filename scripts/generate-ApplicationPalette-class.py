@@ -51,7 +51,7 @@ role_multisetter_template="""		m_%(prop)s = brush;
 
 paletteupdate_template ="""
 			if (m_%(prop)s) {
-				palette.setBrush(QPalette::%(group)s, QPalette::%(role)s, *m_%(prop)s);
+				newPalette.setBrush(QPalette::%(group)s, QPalette::%(role)s, *m_%(prop)s);
 			}
 """
 
