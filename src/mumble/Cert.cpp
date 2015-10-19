@@ -552,8 +552,14 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				mem = BIO_new(BIO_s_mem());
 				i2d_PKCS12_bio(mem, pkcs);
 				Q_UNUSED(BIO_flush(mem));
-
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
 				size = BIO_get_mem_data(mem, &data);
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 				qba = QByteArray(data, static_cast<int>(size));
 			}

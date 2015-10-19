@@ -46,6 +46,13 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutX();
 }
 
+#if defined(__GNUC__)
+// ScreenCount(...) and so on are macros that access the private structure and
+// cast their return value using old-style-casts. Hence we suppress these warnings
+// for this section of code.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
 GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode =  -1;
 	bRunning = false;
@@ -122,6 +129,9 @@ GlobalShortcutX::GlobalShortcutX() {
 	bRunning=true;
 	start(QThread::TimeCriticalPriority);
 }
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
