@@ -4832,12 +4832,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Die Verbindung unterstützt Perfect Forward Secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Die Verbindung unterstützt Perfect Forward Secrecy nicht&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
