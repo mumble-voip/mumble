@@ -267,6 +267,7 @@ QString MumbleSSL::protocolToString(QSsl::SslProtocol protocol) {
 		case QSsl::TlsV1SslV3: return QLatin1String("TlsV1SslV3");
 		case QSsl::SecureProtocols: return QLatin1String("SecureProtocols");
 #endif
+		default:
 		case QSsl::UnknownProtocol: return QLatin1String("UnknownProtocol");
 	}
 }
