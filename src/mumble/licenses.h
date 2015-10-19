@@ -13,8 +13,8 @@ struct ThirdPartyLicense {
 	const char* license;
 
 	ThirdPartyLicense() : name(0), url(0), license(0) {}
-	ThirdPartyLicense(const char* name, const char* url, const char* license)
-	    : name(name), url(url), license(license) {}
+	ThirdPartyLicense(const char* name_, const char* url_, const char* license_)
+	    : name(name_), url(url_), license(license_) {}
 	bool isEmpty() const { return (name == 0 && url == 0 && license == 0); }
 };
 
