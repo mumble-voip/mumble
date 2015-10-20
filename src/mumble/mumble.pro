@@ -325,10 +325,6 @@ CONFIG(sbcelt) {
   }
 }
 
-!win32 {
-  QMAKE_CXXFLAGS	*= -Wall -Wextra
-}
-
 !win32:!macx:!CONFIG(no-dbus) {
   CONFIG		*= dbus
 }

@@ -155,11 +155,15 @@ win32 {
 
 unix {
 	DEFINES *= RESTRICT=__restrict__
-	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
-	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
-	!CONFIG(quiet-build-log) {
-		QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare
-		QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+	QMAKE_CFLAGS *= -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -fvisibility=hidden
+
+	QMAKE_CXXFLAGS	*= -Wall -Wextra -std=c++03
+	QMAKE_CFLAGS	*= -Wall -Wextra -std=c99
+
+	!CONFIG(no-warnings-as-errors) {
+		QMAKE_CXXFLAGS	*= -Werror
+		QMAKE_CFLAGS	*= -Werror
 	}
 
 	CONFIG(opt-gcc) {
