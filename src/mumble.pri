@@ -43,8 +43,8 @@ unix {
 		PKG_CONFIG = pkg-config --static
 	}
 
-	QMAKE_CFLAGS *= -isystem ../mumble_proto
-	QMAKE_CXXFLAGS *= -isystem ../mumble_proto
+	QMAKE_CFLAGS *= "-isystem ../mumble_proto"
+	QMAKE_CXXFLAGS *= "-isystem ../mumble_proto"
 
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
