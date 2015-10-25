@@ -46,10 +46,10 @@ private:
 	bool bDeleteAfterFirstUse;
 	QVariant qvData;
 public:
-	SignalCurry(QVariant data, bool deleteAfterFirstUse = false, QObject *parent = 0) :
-		QObject(parent),
-		bDeleteAfterFirstUse(deleteAfterFirstUse),
-		qvData(data) {}
+	SignalCurry(QVariant data, bool deleteAfterFirstUse = false, QObject *p = 0)
+	    : QObject(p)
+		, bDeleteAfterFirstUse(deleteAfterFirstUse)
+		, qvData(data) {}
 
 	static void curry(QObject *sender, const char *signal, QObject *receiver, const char *slot, QVariant data) {
 		SignalCurry *c = new SignalCurry(data);
