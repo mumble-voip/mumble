@@ -31,8 +31,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourServiceRegister.h"
 
-BonjourServiceRegister::BonjourServiceRegister(QObject *parent)
-		: QObject(parent), dnssref(0), bonjourSocket(0) {
+BonjourServiceRegister::BonjourServiceRegister(QObject *p)
+		: QObject(p), dnssref(0), bonjourSocket(0) {
 }
 
 BonjourServiceRegister::~BonjourServiceRegister() {
@@ -50,7 +50,7 @@ void BonjourServiceRegister::registerService(const BonjourRecord &record, quint1
 	quint16 bigEndianPort = servicePort;
 #if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
 	{
-		bigEndianPort =  0 | ((servicePort & 0x00ff) << 8) | ((servicePort & 0xff00) >> 8);
+		bigEndianPort =  static_cast<quint16>(((servicePort & 0x00ff) << 8) | ((servicePort & 0xff00) >> 8));
 	}
 #endif
 

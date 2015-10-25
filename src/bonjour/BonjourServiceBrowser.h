@@ -47,9 +47,6 @@ class BonjourServiceBrowser : public QObject {
 		inline QList<BonjourRecord> currentRecords() const {
 			return bonjourRecords;
 		}
-		inline QString serviceType() const {
-			return browsingType;
-		}
 
 	signals:
 		void currentBonjourRecordsChanged(const QList<BonjourRecord> &list);
@@ -65,7 +62,6 @@ class BonjourServiceBrowser : public QObject {
 		DNSServiceRef dnssref;
 		QSocketNotifier *bonjourSocket;
 		QList<BonjourRecord> bonjourRecords;
-		QString browsingType;
 };
 
 #endif

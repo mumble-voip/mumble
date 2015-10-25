@@ -68,7 +68,7 @@ class BonjourServiceResolver : public QObject {
 		static void DNSSD_API bonjourResolveReply(DNSServiceRef sdRef, DNSServiceFlags flags,
 		        quint32 interfaceIndex, DNSServiceErrorType errorCode,
 		        const char *fullName, const char *hosttarget, quint16 port,
-		        quint16 txtLen, const char *txtRecord, void *context);
+		        quint16 txtLen, const unsigned char *txtRecord, void *context);
 };
 
 #endif

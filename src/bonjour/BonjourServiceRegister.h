@@ -41,7 +41,7 @@ class QSocketNotifier;
 class BonjourServiceRegister : public QObject {
 		Q_OBJECT
 	public:
-		BonjourServiceRegister(QObject *parent = 0);
+		BonjourServiceRegister(QObject *p = 0);
 		~BonjourServiceRegister();
 
 		void registerService(const BonjourRecord &record, quint16 servicePort);

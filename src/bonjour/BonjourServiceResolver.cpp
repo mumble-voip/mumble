@@ -55,7 +55,7 @@ void BonjourServiceResolver::resolveBonjourRecord(const BonjourRecord &record) {
 	                          record.serviceName.toUtf8().constData(),
 	                          record.registeredType.toUtf8().constData(),
 	                          record.replyDomain.toUtf8().constData(),
-	                          (DNSServiceResolveReply)bonjourResolveReply, rr);
+	                          static_cast<DNSServiceResolveReply>(bonjourResolveReply), rr);
 
 	if (err == kDNSServiceErr_NoError) {
 		int sockfd = DNSServiceRefSockFD(rr->dnssref);
@@ -89,7 +89,7 @@ void BonjourServiceResolver::bonjourSocketReadyRead(int sockfd) {
 void BonjourServiceResolver::bonjourResolveReply(DNSServiceRef, DNSServiceFlags ,
         quint32 , DNSServiceErrorType errorCode,
         const char *, const char *hosttarget, quint16 port,
-        quint16 , const char *, void *context) {
+        quint16 , const unsigned char *, void *context) {
 	ResolveRecord *rr = static_cast<ResolveRecord *>(context);
 	rr->bsr->qmResolvers.remove(DNSServiceRefSockFD(rr->dnssref));
 

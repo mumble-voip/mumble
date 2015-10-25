@@ -30,8 +30,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "BonjourServiceBrowser.h"
 
-BonjourServiceBrowser::BonjourServiceBrowser(QObject *parent)
-		: QObject(parent), dnssref(0), bonjourSocket(0) {
+BonjourServiceBrowser::BonjourServiceBrowser(QObject *p)
+		: QObject(p), dnssref(0), bonjourSocket(0) {
 }
 
 BonjourServiceBrowser::~BonjourServiceBrowser() {
