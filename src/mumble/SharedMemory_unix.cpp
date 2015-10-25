@@ -80,10 +80,12 @@ SharedMemory2::SharedMemory2(QObject *p, unsigned int minsize, const QString &me
 	off_t memsize = buf.st_size;
 	if (memsize < minsize) {
 		qWarning() << "SharedMemory2: Segment too small" << memsize << minsize;
+	} else if (memsize > std::numeric_limits<unsigned int>::max()) {
+		qWarning() << "SharedMemory2: Segment too big" << memsize;
 	} else {
 		a_ucData = reinterpret_cast<unsigned char *>(mmap(NULL, minsize, prot, MAP_SHARED, d->iShmemFD, 0));
 		if (a_ucData != reinterpret_cast<unsigned char *>(-1)) {
-			uiSize = memsize;
+			uiSize = static_cast<unsigned int>(memsize);
 			return;
 		}
 		qWarning() << "SharedMemory2: Failed to map shared memory segment" << qsName;

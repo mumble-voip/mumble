@@ -342,7 +342,7 @@ QMap<QPair<QString, unsigned short>, unsigned int> Database::getPingCache() {
 	query.prepare(QLatin1String("SELECT `hostname`, `port`, `ping` FROM `pingcache`"));
 	execQueryAndLogFailure(query);
 	while (query.next()) {
-		map.insert(QPair<QString, unsigned short>(query.value(0).toString(), query.value(1).toUInt()), query.value(2).toUInt());
+		map.insert(QPair<QString, unsigned short>(query.value(0).toString(), static_cast<unsigned short>(query.value(1).toUInt())), query.value(2).toUInt());
 	}
 	return map;
 }

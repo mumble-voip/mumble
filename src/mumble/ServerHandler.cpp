@@ -615,17 +615,17 @@ void ServerHandler::serverConnectionConnected() {
 
 #if defined(Q_OS_UNIX)
 			int val = 0xe0;
-			if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
+			if (setsockopt(static_cast<int>(qusUdp->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val))) {
 				val = 0x80;
-				if (setsockopt(qusUdp->socketDescriptor(), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
+				if (setsockopt(static_cast<int>(qusUdp->socketDescriptor()), IPPROTO_IP, IP_TOS, &val, sizeof(val)))
 					qWarning("ServerHandler: Failed to set TOS for UDP Socket");
 			}
 #if defined(SO_PRIORITY)
 			socklen_t optlen = sizeof(val);
-			if (getsockopt(qusUdp->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
+			if (getsockopt(static_cast<int>(qusUdp->socketDescriptor()), SOL_SOCKET, SO_PRIORITY, &val, &optlen) == 0) {
 				if (val == 0) {
 					val = 6;
-					setsockopt(qusUdp->socketDescriptor(), SOL_SOCKET, SO_PRIORITY, &val, sizeof(val));
+					setsockopt(static_cast<int>(qusUdp->socketDescriptor()), SOL_SOCKET, SO_PRIORITY, &val, sizeof(val));
 				}
 			}
 #endif
@@ -680,9 +680,9 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::createChannel(unsigned int parent_, const QString &name, const QString &description, unsigned int position, bool temporary) {
+void ServerHandler::createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary) {
 	MumbleProto::ChannelState mpcs;
-	mpcs.set_parent(parent_);
+	mpcs.set_parent(parent_id);
 	mpcs.set_name(u8(name));
 	mpcs.set_description(u8(description));
 	mpcs.set_position(position);

@@ -235,7 +235,8 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qWarning("PulseAudio: Starting output: %s", qPrintable(odev));
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasOutput);
-			const unsigned int iBlockLen = ((pao->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
+			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
+			const unsigned int iBlockLen = ((pao->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen * (g.s.iOutputDelay+1);
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
@@ -296,7 +297,8 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qWarning("PulseAudio: Starting input %s",qPrintable(idev));
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasInput);
-			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
+			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
+			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen;
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
@@ -359,7 +361,8 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 			qWarning("PulseAudio: Starting echo: %s", qPrintable(edev));
 			pa_buffer_attr buff;
 			const pa_sample_spec *pss = pa_stream_get_sample_spec(pasSpeaker);
-			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * ((pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short));
+			const size_t sampleSize = (pss->format == PA_SAMPLE_FLOAT32NE) ? sizeof(float) : sizeof(short);
+			const unsigned int iBlockLen = ((pai->iFrameSize * pss->rate) / SAMPLE_RATE) * pss->channels * static_cast<unsigned int>(sampleSize);
 			buff.tlength = iBlockLen;
 			buff.minreq = iBlockLen;
 			buff.maxlength = -1;
@@ -502,7 +505,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->initializeMixer();
 		}
 		if (data != NULL) {
-			pai->addMic(data, length / pai->iMicSampleSize);
+			pai->addMic(data, static_cast<unsigned int>(length) / pai->iMicSampleSize);
 		}
 	} else if (s == pas->pasSpeaker) {
 		if (!pa_sample_spec_equal(pss, &pai->pssEcho)) {
@@ -516,7 +519,7 @@ void PulseAudioSystem::read_callback(pa_stream *s, size_t bytes, void *userdata)
 			pai->initializeMixer();
 		}
 		if (data != NULL) {
-			pai->addEcho(data, length / pai->iEchoSampleSize);
+			pai->addEcho(data, static_cast<unsigned int>(length) / pai->iEchoSampleSize);
 		}
 	}
 
@@ -600,7 +603,7 @@ void PulseAudioSystem::write_callback(pa_stream *s, size_t bytes, void *userdata
 	}
 
 	const unsigned int iSampleSize = pao->iSampleSize;
-	const unsigned int samples = bytes / iSampleSize;
+	const unsigned int samples = static_cast<unsigned int>(bytes) / iSampleSize;
 	bool oldAttenuation = pas->bAttenuating;
 
 	// do we have some mixed output?

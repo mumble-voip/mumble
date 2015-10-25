@@ -129,7 +129,7 @@ class ServerHandler : public QThread {
 
 		void requestUserStats(unsigned int uiSession, bool statsOnly);
 		void joinChannel(unsigned int uiSession, unsigned int channel);
-		void createChannel(unsigned int parent_, const QString &name, const QString &description, unsigned int position, bool temporary);
+		void createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary);
 		void requestBanList();
 		void requestUserList();
 		void requestACL(unsigned int channel);
