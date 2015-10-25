@@ -1471,29 +1471,30 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 		for (; it != users.constEnd(); ++it) {
 			// Skip the SuperUser
 			if (it->user_id > 0) {
-				::MumbleProto::UserList_User *u = msg.add_users();
-				u->set_user_id(it->user_id);
-				u->set_name(u8(it->name));
+				::MumbleProto::UserList_User *user = msg.add_users();
+				user->set_user_id(it->user_id);
+				user->set_name(u8(it->name));
 				if (it->last_channel) {
-					u->set_last_channel(*it->last_channel);
+					user->set_last_channel(*it->last_channel);
 				}
-				u->set_last_seen(u8(it->last_active.toString(Qt::ISODate)));
+				user->set_last_seen(u8(it->last_active.toString(Qt::ISODate)));
 			}
 		}
 		sendMessage(uSource, msg);
 	} else {
+		// Update mode
 		for (int i=0; i < msg.users_size(); ++i) {
-			const MumbleProto::UserList_User &u = msg.users(i);
+			const MumbleProto::UserList_User &user = msg.users(i);
 
-			int id = u.user_id();
+			int id = user.user_id();
 			if (id == 0)
 				continue;
 
-			if (! u.has_name()) {
+			if (! user.has_name()) {
 				log(uSource, QString::fromLatin1("Unregistered user %1").arg(id));
 				unregisterUser(id);
 			} else {
-				const QString &name = u8(u.name());
+				const QString &name = u8(user.name());
 				if (validateUserName(name)) {
 					log(uSource, QString::fromLatin1("Renamed user %1 to '%2'").arg(QString::number(id), name));
 
@@ -1502,10 +1503,10 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 					setInfo(id, info);
 
 					MumbleProto::UserState mpus;
-					foreach(ServerUser *u, qhUsers) {
-						if (u->iId == id) {
-							u->qsName = name;
-							mpus.set_session(u->uiSession);
+					foreach(ServerUser *serverUser, qhUsers) {
+						if (serverUser->iId == id) {
+							serverUser->qsName = name;
+							mpus.set_session(serverUser->uiSession);
 							break;
 						}
 					}

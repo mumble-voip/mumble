@@ -93,7 +93,7 @@ class ServerUser : public Connection, public User {
 
 		float dUDPPingAvg, dUDPPingVar;
 		float dTCPPingAvg, dTCPPingVar;
-		quint64 uiUDPPackets, uiTCPPackets;
+		quint32 uiUDPPackets, uiTCPPackets;
 
 		unsigned int uiVersion;
 		QString qsRelease;

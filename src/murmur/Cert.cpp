@@ -49,6 +49,7 @@ static int add_ext(X509 * crt, int nid, char *value) {
 	return 1;
 }
 
+#if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
 // dh_progress is a status callback for DH_generate_parameterss_ex.
 // We use it to run the event loop while generating DH params, in
 // order to keep the Murmur GUI on Windows responsive during the
@@ -57,6 +58,7 @@ static int dh_progress(int, int, BN_GENCB *) {
 	qApp->processEvents();
 	return 1;
 }
+#endif
 
 bool Server::isKeyForCert(const QSslKey &key, const QSslCertificate &cert) {
 	if (key.isNull() || cert.isNull() || (key.type() != QSsl::PrivateKey))
