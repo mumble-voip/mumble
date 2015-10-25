@@ -267,7 +267,7 @@ static void regenTexture(Context *ctx) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ctx->uiWidth, ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)ctx->uiWidth, (GLsizei)ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
 }
 
 static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
@@ -294,7 +294,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 		om.omh.uiMagic = OVERLAY_MAGIC_NUMBER;
 		om.omh.uiType = OVERLAY_MSGTYPE_PID;
 		om.omh.iLength = sizeof(struct OverlayMsgPid);
-		om.omp.pid = getpid();
+		om.omp.pid = (unsigned int)getpid(); // getpid can't fail
 
 		if (!sendMessage(ctx, &om))
 			return;
@@ -400,7 +400,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 
 							if ((omb->x == 0) && (omb->y == 0) && (omb->w == ctx->uiWidth) && (omb->h == ctx->uiHeight)) {
 								ods("Optimzied fullscreen blit");
-								glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ctx->uiWidth, ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
+								glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (GLsizei)ctx->uiWidth, (GLsizei)ctx->uiHeight, 0, GL_BGRA, GL_UNSIGNED_BYTE, ctx->a_ucTexture);
 							} else {
 								// allocate temporary memory
 								unsigned int x = omb->x;
@@ -419,7 +419,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 								}
 
 								// copy temporary texture to opengl
-								glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, w, h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
+								glTexSubImage2D(GL_TEXTURE_2D, 0, (GLint)x, (GLint)y, (GLint)w, (GLint)h, GL_BGRA, GL_UNSIGNED_BYTE, ptr);
 								free(ptr);
 							}
 						}
@@ -604,7 +604,7 @@ static void drawContext(Context * ctx, int width, int height) {
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, &texunits);
 
 	for (i=texunits-1;i>=0;--i) {
-		glActiveTexture(GL_TEXTURE0 + i);
+		glActiveTexture(GL_TEXTURE0 + (GLenum)i);
 		glDisable(GL_TEXTURE_1D);
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_TEXTURE_3D);
@@ -652,7 +652,7 @@ static void drawContext(Context * ctx, int width, int height) {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	drawOverlay(ctx, width, height);
+	drawOverlay(ctx, (unsigned int)width, (unsigned int)height);
 
 	if (bound != 0) {
 		glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, bound);

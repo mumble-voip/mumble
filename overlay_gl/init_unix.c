@@ -102,15 +102,15 @@ void glXSwapBuffers(Display * dpy, GLXDrawable draw) {
 	}
 
 	if (c->bValid) {
-		GLuint width, height;
+		int width, height;
 		if (c->bMesa) {
 			GLint viewport[4];
 			glGetIntegerv(GL_VIEWPORT, viewport);
 			width = viewport[2];
 			height = viewport[3];
 		} else {
-			glXQueryDrawable(dpy, draw, GLX_WIDTH, (unsigned int *) &width);
-			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (unsigned int *) &height);
+			glXQueryDrawable(dpy, draw, GLX_WIDTH, (GLuint*)&width);
+			glXQueryDrawable(dpy, draw, GLX_HEIGHT, (GLuint*)&height);
 		}
 
 		drawContext(c, width, height);
