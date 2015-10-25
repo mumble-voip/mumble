@@ -94,7 +94,7 @@ bool SslServer::hasDualStackSupport() {
 
 	if (s != -1) { // Equals INVALID_SOCKET
 		const int ipv6only = 0;
-		if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, (const char*)&ipv6only, sizeof(ipv6only)) == 0) {
+		if (setsockopt(s, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&ipv6only), sizeof(ipv6only)) == 0) {
 			result = true;
 		}
 #ifdef Q_OS_UNIX
@@ -167,7 +167,7 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 	foreach(SslServer *ss, qlServer) {
 		sockaddr_storage addr;
 #ifdef Q_OS_UNIX
-		int tcpsock = ss->socketDescriptor();
+		int tcpsock = static_cast<int>(ss->socketDescriptor());
 		socklen_t len = sizeof(addr);
 #else
 		SOCKET tcpsock = ss->socketDescriptor();
@@ -208,8 +208,8 @@ Server::Server(int snum, QObject *p) : QThread(p) {
 				// into two sockets.
 				int ipv6only = 0;
 				socklen_t optlen = sizeof(ipv6only);
-				if (::getsockopt(tcpsock, IPPROTO_IPV6, IPV6_V6ONLY, (char*)&ipv6only, &optlen) == 0) {
-					if (::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, (const char*)&ipv6only, optlen) == SOCKET_ERROR) {
+				if (::getsockopt(tcpsock, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<char*>(&ipv6only), &optlen) == 0) {
+					if (::setsockopt(sock, IPPROTO_IPV6, IPV6_V6ONLY, reinterpret_cast<const char*>(&ipv6only), optlen) == SOCKET_ERROR) {
 						log(QString("Failed to copy IPV6_V6ONLY socket attribute from tcp to udp socket"));
 					}
 				}
@@ -902,7 +902,7 @@ void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &c
 
 		memset(&msg, 0, sizeof(msg));
 		msg.msg_name = reinterpret_cast<struct sockaddr *>(& u->saiUdpAddress);
-		msg.msg_namelen = (u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in);
+		msg.msg_namelen = static_cast<socklen_t>((u->saiUdpAddress.ss_family == AF_INET6) ? sizeof(struct sockaddr_in6) : sizeof(struct sockaddr_in));
 		msg.msg_iov = iov;
 		msg.msg_iovlen = 1;
 		msg.msg_control = controldata;
@@ -1927,8 +1927,8 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 }
 
 bool Server::canNest(Channel *newParent, Channel *channel) const {
-	const int parentLevel = newParent ? newParent->getLevel() : -1;
-	const int channelDepth = channel ? channel->getDepth() : 0;
+	const int parentLevel = newParent ? static_cast<int>(newParent->getLevel()) : -1;
+	const int channelDepth = channel ? static_cast<int>(channel->getDepth()) : 0;
 
 	return (parentLevel + channelDepth) < iChannelNestingLimit;
 }
