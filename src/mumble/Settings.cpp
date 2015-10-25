@@ -283,7 +283,7 @@ Settings::Settings() {
 	bWhisperFriends = false;
 
 	uiDoublePush = 0;
-	uiPTTHold = 0;
+	pttHold = 0;
 	bExpert = false;
 
 #ifdef NO_UPDATE_CHECK
@@ -573,7 +573,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bDeaf, "audio/deaf");
 	LOADENUM(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(uiPTTHold, "audio/ptthold");
+	SAVELOAD(pttHold, "audio/ptthold");
 	SAVELOAD(bTxAudioCue, "audio/pushclick");
 	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
 	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");
@@ -880,7 +880,7 @@ void Settings::save() {
 	SAVELOAD(bDeaf, "audio/deaf");
 	SAVELOAD(atTransmit, "audio/transmit");
 	SAVELOAD(uiDoublePush, "audio/doublepush");
-	SAVELOAD(uiPTTHold, "audio/ptthold");
+	SAVELOAD(pttHold, "audio/ptthold");
 	SAVELOAD(bTxAudioCue, "audio/pushclick");
 	SAVELOAD(qsTxAudioCueOn, "audio/pushclickon");
 	SAVELOAD(qsTxAudioCueOff, "audio/pushclickoff");

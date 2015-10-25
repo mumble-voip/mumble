@@ -180,7 +180,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void closeEvent(QCloseEvent *e) Q_DECL_OVERRIDE;
 		void hideEvent(QHideEvent *e) Q_DECL_OVERRIDE;
 		void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
-		void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
+		void changeEvent(QEvent* e) Q_DECL_OVERRIDE;
 
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();

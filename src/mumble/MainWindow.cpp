@@ -494,9 +494,8 @@ void MainWindow::showEvent(QShowEvent *e) {
 	QMainWindow::showEvent(e);
 }
 
-void MainWindow::changeEvent(QEvent *event)
-{
-	QWidget::changeEvent(event);
+void MainWindow::changeEvent(QEvent *e) {
+	QWidget::changeEvent(e);
 	if (isMinimized() && g.s.bHideInTray) {
 		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
 		QTimer::singleShot(0, this, SLOT(hide()));
@@ -568,9 +567,9 @@ ClientUser *MainWindow::getContextMenuUser() {
 bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
 	if (url.scheme() == QString::fromLatin1("clientid")) {
 		bool ok = false;
-		QString x(url.host());
-		if (x.length() == 40) {
-			ClientUser *cu = pmModel->getUser(x);
+		QString maybeUserHash(url.host());
+		if (maybeUserHash.length() == 40) {
+			ClientUser *cu = pmModel->getUser(maybeUserHash);
 			if (cu) {
 				cuContextUser = cu;
 				ok = true;
@@ -1449,7 +1448,7 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
 	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, session);
-	int res = uservol->exec();
+	uservol->exec();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {
 		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
@@ -1797,8 +1796,8 @@ void MainWindow::qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, link, unlink, unlinkall, msg, hide;
-	add = remove = acl = link = unlink = unlinkall = msg = hide = false;
+	bool add, remove, acl, link, unlink, unlinkall, msg;
+	add = remove = acl = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
@@ -2315,7 +2314,7 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
 	} else if (g.iPushToTalk > 0) {
-		QTimer::singleShot(g.s.uiPTTHold, this, SLOT(pttReleased()));
+		QTimer::singleShot(static_cast<int>(g.s.pttHold), this, SLOT(pttReleased()));
 	}
 }
 
@@ -2508,7 +2507,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	} else if (g.iPushToTalk > 0) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
-		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
+		QTimer::singleShot(static_cast<int>(g.s.pttHold), fwd, SLOT(call()));
 	}
 }
 

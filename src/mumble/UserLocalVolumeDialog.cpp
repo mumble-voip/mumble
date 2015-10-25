@@ -42,7 +42,7 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
-		qsUserLocalVolume->setValue(round(log2(user->fLocalVolume) * 6.0f));
+		qsUserLocalVolume->setValue(qRound(log2(user->fLocalVolume) * 6.0));
 	}
 }
 
@@ -52,7 +52,7 @@ void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int v) {
 	qlUserLocalVolume->setText(tr("%1 dB").arg(text));
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
-		user->fLocalVolume = pow(2.0f, v / 6.0f); // Decibel formula +6db = *2
+		user->fLocalVolume = static_cast<float>(pow(2.0, v / 6.0)); // Decibel formula +6db = *2
 	}
 }
 
