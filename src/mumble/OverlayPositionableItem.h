@@ -17,9 +17,9 @@ public:
 	void updateRender();
 	void setItemVisible(const bool &visible);
 private:
-	const bool m_isPositionEditable;
 	/// Float value between 0 and 1 where 0,0 is top left, and 1,1 is bottom right
 	QRectF *m_position;
+	const bool m_isPositionEditable;
 	QGraphicsEllipseItem *m_qgeiHandle;
 	void createPositioningHandle();
 	bool sceneEventFilter(QGraphicsItem *, QEvent *) Q_DECL_OVERRIDE;

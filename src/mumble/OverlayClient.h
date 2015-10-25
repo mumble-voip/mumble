@@ -57,7 +57,7 @@ class OverlayClient : public QObject {
 		QRect qrLast;
 		Timer t;
 
-		unsigned int fFps;
+		float framesPerSecond;
 		int iOffsetX, iOffsetY;
 		QGraphicsPixmapItem *qgpiCursor;
 		QGraphicsPixmapItem *qgpiLogo;

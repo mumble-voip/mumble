@@ -59,8 +59,10 @@ OverlayEditor::OverlayEditor(QWidget *p, QGraphicsItem *qgi, OverlaySettings *os
 	if (qgpw) {
 		qgpw->setFlag(QGraphicsItem::ItemIgnoresParentOpacity);
 		if (g.ocIntercept) {
-			qgpw->setPos(iroundf(g.ocIntercept->uiWidth / 16.0f + 0.5f), iroundf(g.ocIntercept->uiHeight / 16.0f + 0.5f));
-			qgpw->resize(iroundf(g.ocIntercept->uiWidth * 14.0f / 16.0f + 0.5f), iroundf(g.ocIntercept->uiHeight * 14.0f / 16.0f + 0.5f));
+			qgpw->setPos(iroundf(static_cast<float>(g.ocIntercept->uiWidth) / 16.0f + 0.5f),
+			             iroundf(static_cast<float>(g.ocIntercept->uiHeight) / 16.0f + 0.5f));
+			qgpw->resize(iroundf(static_cast<float>(g.ocIntercept->uiWidth) * 14.0f / 16.0f + 0.5f),
+			             iroundf(static_cast<float>(g.ocIntercept->uiHeight) * 14.0f / 16.0f + 0.5f));
 		}
 	}
 
@@ -77,7 +79,7 @@ OverlayEditor::~OverlayEditor() {
 		qgiPromote->setZValue(-1.0f);
 }
 
-void OverlayEditor::enterEvent(QEvent *event) {
+void OverlayEditor::enterEvent(QEvent *e) {
 	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.9f);
@@ -89,10 +91,10 @@ void OverlayEditor::enterEvent(QEvent *event) {
 	if (qgiPromote)
 		qgiPromote->setZValue(-1.0f);
 
-	QDialog::enterEvent(event);
+	QDialog::enterEvent(e);
 }
 
-void OverlayEditor::leaveEvent(QEvent *event) {
+void OverlayEditor::leaveEvent(QEvent *e) {
 	QGraphicsProxyWidget *qgpw = g.mw->graphicsProxyWidget();
 	if (qgpw)
 		qgpw->setOpacity(0.3f);
@@ -104,7 +106,7 @@ void OverlayEditor::leaveEvent(QEvent *event) {
 	if (qgiPromote)
 		qgiPromote->setZValue(1.0f);
 
-	QDialog::leaveEvent(event);
+	QDialog::leaveEvent(e);
 }
 
 void OverlayEditor::reset() {

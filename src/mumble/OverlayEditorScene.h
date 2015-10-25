@@ -63,10 +63,10 @@ class OverlayEditorScene : public QGraphicsScene {
 
 		void setup();
 
-		void contextMenuEvent(QGraphicsSceneContextMenuEvent *) Q_DECL_OVERRIDE;
-		void mousePressEvent(QGraphicsSceneMouseEvent *) Q_DECL_OVERRIDE;
-		void mouseMoveEvent(QGraphicsSceneMouseEvent *) Q_DECL_OVERRIDE;
-		void mouseReleaseEvent(QGraphicsSceneMouseEvent *) Q_DECL_OVERRIDE;
+		void contextMenuEvent(QGraphicsSceneContextMenuEvent *e) Q_DECL_OVERRIDE;
+		void mousePressEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
+		void mouseMoveEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
+		void mouseReleaseEvent(QGraphicsSceneMouseEvent *e) Q_DECL_OVERRIDE;
 		void updateCursorShape(const QPointF &point);
 
 		void drawBackground(QPainter *, const QRectF &) Q_DECL_OVERRIDE;
