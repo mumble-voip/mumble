@@ -92,7 +92,7 @@ struct Ban {
 #define SWAP64(x) (x)
 #else
 #ifdef __x86_64__
-#define SWAP64(x) ({register quint64 __out, __in = (x); __asm__("bswap %q0" : "=r"(__out) : "0"(__in)); __out;})
+#define SWAP64(x) __builtin_bswap64(x)
 #else
 #define SWAP64(x) qbswap<quint64>(x)
 #endif
