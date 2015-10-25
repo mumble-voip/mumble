@@ -48,37 +48,37 @@ extern "C" {
 };
 #endif
 
-CELTCodec::CELTCodec(const QString &version) {
+CELTCodec::CELTCodec(const QString &celt_version) {
 	bValid = false;
 	cmMode = NULL;
-	qsVersion = version;
+	qsVersion = celt_version;
 	iBitstreamVersion = INT_MIN;
 	qlCELT.setLoadHints(QLibrary::ResolveAllSymbolsHint);
 
 	QStringList alternatives;
 #if defined(Q_OS_MAC)
-	alternatives << QString::fromLatin1("libcelt0.%1.dylib").arg(version);
-	alternatives << QString::fromLatin1("celt0.%1.dylib").arg(version);
-	alternatives << QString::fromLatin1("libcelt.%1.dylib").arg(version);
-	alternatives << QString::fromLatin1("celt.%1.dylib").arg(version);
+	alternatives << QString::fromLatin1("libcelt0.%1.dylib").arg(celt_version);
+	alternatives << QString::fromLatin1("celt0.%1.dylib").arg(celt_version);
+	alternatives << QString::fromLatin1("libcelt.%1.dylib").arg(celt_version);
+	alternatives << QString::fromLatin1("celt.%1.dylib").arg(celt_version);
 #elif defined(Q_OS_UNIX)
-	alternatives << QString::fromLatin1("libcelt0.so.%1").arg(version);
-	alternatives << QString::fromLatin1("libcelt.so.%1").arg(version);
-	alternatives << QString::fromLatin1("celt.so.%1").arg(version);
+	alternatives << QString::fromLatin1("libcelt0.so.%1").arg(celt_version);
+	alternatives << QString::fromLatin1("libcelt.so.%1").arg(celt_version);
+	alternatives << QString::fromLatin1("celt.so.%1").arg(celt_version);
 #else
 	int cpuinfo[4];
 	__cpuid(cpuinfo, 1);
 	if (cpuinfo[3] & 0x02000000) {
 		if (cpuinfo[3] & 0x04000000) {
 			if (cpuinfo[2] & 0x00000001) {
-				alternatives << QString::fromLatin1("celt0.%1.sse3.dll").arg(version);
+				alternatives << QString::fromLatin1("celt0.%1.sse3.dll").arg(celt_version);
 			}
-			alternatives << QString::fromLatin1("celt0.%1.sse2.dll").arg(version);
+			alternatives << QString::fromLatin1("celt0.%1.sse2.dll").arg(celt_version);
 		}
-		alternatives << QString::fromLatin1("celt0.%1.sse.dll").arg(version);
+		alternatives << QString::fromLatin1("celt0.%1.sse.dll").arg(celt_version);
 	}
 
-	alternatives << QString::fromLatin1("celt0.%1.dll").arg(version);
+	alternatives << QString::fromLatin1("celt0.%1.dll").arg(celt_version);
 #endif
 	foreach(const QString &lib, alternatives) {
 		qlCELT.setFileName(MumbleApplication::instance()->applicationVersionRootPath() + QLatin1String("/") + lib);
@@ -144,7 +144,7 @@ void CELTCodec::report() const {
 	qWarning("CELT bitstream %08x from %s", bitstreamVersion(), qPrintable(qlCELT.fileName()));
 }
 
-CELTCodec070::CELTCodec070(const QString &version) : CELTCodec(version) {
+CELTCodec070::CELTCodec070(const QString &celt_version) : CELTCodec(celt_version) {
 	RESOLVE(celt_mode_create);
 	RESOLVE(celt_encoder_create);
 	RESOLVE(celt_decoder_create);
@@ -175,7 +175,7 @@ int CELTCodec070::decode_float(CELTDecoder *st, const unsigned char *data, int l
 	return celt_decode_float(st, data, len, pcm);
 }
 
-CELTCodec011::CELTCodec011(const QString &version) : CELTCodec(version) {
+CELTCodec011::CELTCodec011(const QString &celt_version) : CELTCodec(celt_version) {
 	RESOLVE(celt_mode_create);
 	RESOLVE(celt_encoder_create_custom);
 	RESOLVE(celt_decoder_create_custom);

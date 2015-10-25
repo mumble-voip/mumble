@@ -97,7 +97,7 @@ public:
 	static boost::optional<ThemeInfo> load(const QDir &themeDirectory);
 	
 	/// @return Style with given name or default
-	StyleInfo getStyle(QString name) const;
+	StyleInfo getStyle(QString name_) const;
 	
 	/// Ideally unique theme name. A theme with identical name can override.
 	QString name;

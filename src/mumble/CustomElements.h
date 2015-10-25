@@ -56,7 +56,7 @@ class LogTextBrowser : public QTextBrowser {
 
 		int getLogScroll();
 		int getLogScrollMaximum();
-		void setLogScroll(int pos);
+		void setLogScroll(int scroll_pos);
 		void scrollLogToBottom();
 };
 

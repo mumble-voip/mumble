@@ -53,7 +53,7 @@ class UserEdit : public QDialog, public Ui::UserEdit {
 		Q_DISABLE_COPY(UserEdit)
 	public:
 		/// Constructs a dialog for editing the given userList.
-		UserEdit(const MumbleProto::UserList &userList, QWidget *parent = NULL);
+		UserEdit(const MumbleProto::UserList &userList, QWidget *p = NULL);
 	
 	public slots:
 		void accept() Q_DECL_OVERRIDE;

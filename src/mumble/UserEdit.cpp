@@ -42,8 +42,8 @@
 #include "UserListModel.h"
 
 
-UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *parent)
-	: QDialog(parent)
+UserEdit::UserEdit(const MumbleProto::UserList &userList, QWidget *p)
+	: QDialog(p)
 	, m_model(new UserListModel(userList, this))
 	, m_filter(new UserListFilterProxyModel(this)) {
 
@@ -125,8 +125,8 @@ void UserEdit::on_qtvUserList_customContextMenuRequested(const QPoint &point) {
 		menu->addSeparator();
 	}
 
-	QAction *removeAction = menu->addAction(tr("Remove"));
-	connect(removeAction, SIGNAL(triggered()),
+	QAction *removeMenuAction = menu->addAction(tr("Remove"));
+	connect(removeMenuAction, SIGNAL(triggered()),
 	        this, SLOT(on_qpbRemove_clicked()));
 
 	menu->exec(qtvUserList->mapToGlobal(point));
@@ -176,8 +176,8 @@ void UserEdit::updateInactiveDaysFilter() {
 }
 
 
-UserListFilterProxyModel::UserListFilterProxyModel(QObject *parent)
-	: QSortFilterProxyModel(parent)
+UserListFilterProxyModel::UserListFilterProxyModel(QObject *parent_)
+	: QSortFilterProxyModel(parent_)
 	, m_minimumInactiveDays(0) {
 
 	setFilterKeyColumn(UserListModel::COL_NICK);

@@ -148,10 +148,10 @@ boost::optional<ThemeInfo> ThemeInfo::load(const QDir &themeDirectory) {
 	return theme;
 }
 
-ThemeInfo::StyleInfo ThemeInfo::getStyle(QString name) const {
+ThemeInfo::StyleInfo ThemeInfo::getStyle(QString name_) const {
 	Q_ASSERT(styles.contains(defaultStyle));
 	
-	return styles.value(name, styles.value(defaultStyle));
+	return styles.value(name_, styles.value(defaultStyle));
 }
 
 

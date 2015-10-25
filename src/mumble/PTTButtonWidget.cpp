@@ -4,8 +4,8 @@
 
 #include "Global.h"
 
-PTTButtonWidget::PTTButtonWidget(QWidget *parent) :
-		QWidget(parent) {
+PTTButtonWidget::PTTButtonWidget(QWidget *p) :
+		QWidget(p) {
 	setupUi(this);
 
 	setWindowFlags(Qt::Tool | Qt::WindowStaysOnTopHint);
@@ -15,9 +15,9 @@ PTTButtonWidget::PTTButtonWidget(QWidget *parent) :
 	}
 }
 
-void PTTButtonWidget::closeEvent(QCloseEvent *event) {
+void PTTButtonWidget::closeEvent(QCloseEvent *e) {
 	g.s.qbaPTTButtonWindowGeometry = saveGeometry();
-	QWidget::closeEvent(event);
+	QWidget::closeEvent(e);
 }
 
 void PTTButtonWidget::on_qpbPushToTalk_pressed() {

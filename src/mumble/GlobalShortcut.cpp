@@ -280,12 +280,12 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	root->setExpanded(true);
 	qmTree.insert(-1, root);
 
-	QTreeWidgetItem *pitem = new QTreeWidgetItem(root, QStringList(tr("Parent")));
-	pitem->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT);
-	pitem->setExpanded(true);
-	qmTree.insert(-2, pitem);
+	QTreeWidgetItem *parent_item = new QTreeWidgetItem(root, QStringList(tr("Parent")));
+	parent_item->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT);
+	parent_item->setExpanded(true);
+	qmTree.insert(-2, parent_item);
 
-	QTreeWidgetItem *current = new QTreeWidgetItem(pitem, QStringList(tr("Current")));
+	QTreeWidgetItem *current = new QTreeWidgetItem(parent_item, QStringList(tr("Current")));
 	current->setData(0, Qt::UserRole, SHORTCUT_TARGET_CURRENT);
 	qmTree.insert(-3, current);
 
@@ -296,7 +296,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 	}
 
 	for (int i = 0; i < 8; ++i) {
-		QTreeWidgetItem *psub = new QTreeWidgetItem(pitem, QStringList(UPARROW + tr("Subchannel #%1").arg(i+1)));
+		QTreeWidgetItem *psub = new QTreeWidgetItem(parent_item, QStringList(UPARROW + tr("Subchannel #%1").arg(i+1)));
 		psub->setData(0, Qt::UserRole, SHORTCUT_TARGET_PARENT_SUBCHANNEL - i);
 		qmTree.insert(SHORTCUT_TARGET_PARENT_SUBCHANNEL - i, psub);
 	}
@@ -559,15 +559,15 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
 }
 
-bool GlobalShortcutConfig::eventFilter(QObject* /*object*/, QEvent *event) {
+bool GlobalShortcutConfig::eventFilter(QObject* /*object*/, QEvent *e) {
 #ifdef Q_OS_MAC
-	if (event->type() == QEvent::WindowActivate) {
+	if (e->type() == QEvent::WindowActivate) {
 		if (! g.s.bSuppressMacEventTapWarning) {
 			qwWarningContainer->setVisible(showWarning());
 		}
 	}
 #else
-	Q_UNUSED(event)
+	Q_UNUSED(e)
 #endif
 	return false;
 }

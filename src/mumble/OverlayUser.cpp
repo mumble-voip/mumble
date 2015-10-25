@@ -134,13 +134,13 @@ void OverlayUser::updateLayout() {
 	qgpiChannel->setZValue(3.0f);
 	qgpiChannel->setOpacity(os->fChannel);
 
-	QRectF children = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
+	QRectF childrenBounds = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
 	bool haspen = (os->qcBoxPen != os->qcBoxFill) && (! qFuzzyCompare(os->qcBoxPen.alphaF(), static_cast<qreal>(0.0f)));
 	qreal pw = haspen ? qMax<qreal>(1.0f, os->fBoxPenWidth * uiSize * os->fZoom) : 0.0f;
 	qreal pad = os->fBoxPad * uiSize * os->fZoom;
 	QPainterPath pp;
-	pp.addRoundedRect(children.x() * uiSize * os->fZoom + -pw / 2.0f - pad, children.y() * uiSize * os->fZoom + -pw / 2.0f - pad, children.width() * uiSize * os->fZoom + pw + 2.0f * pad, children.height() * uiSize * os->fZoom + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
+	pp.addRoundedRect(childrenBounds.x() * uiSize * os->fZoom + -pw / 2.0f - pad, childrenBounds.y() * uiSize * os->fZoom + -pw / 2.0f - pad, childrenBounds.width() * uiSize * os->fZoom + pw + 2.0f * pad, childrenBounds.height() * uiSize * os->fZoom + pw + 2.0f * pad, 2.0f * pw, 2.0f * pw);
 	qgpiBox->setPath(pp);
 	qgpiBox->setPos(0.0f, 0.0f);
 	qgpiBox->setZValue(-1.0f);

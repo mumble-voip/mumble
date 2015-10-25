@@ -279,7 +279,7 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 		void stopDns(ServerItem *);
 	public slots:
 		void accept();
-		void fetched(QByteArray, QUrl, QMap<QString, QString>);
+		void fetched(QByteArray xmlData, QUrl, QMap<QString, QString>);
 
 		void udpReply();
 		void lookedUp(QHostInfo);
