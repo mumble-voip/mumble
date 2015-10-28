@@ -158,8 +158,8 @@ unix {
 	QMAKE_CFLAGS *= -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -fvisibility=hidden
 
-	QMAKE_CXXFLAGS	*= -Wall -Wextra -std=c++03
-	QMAKE_CFLAGS	*= -Wall -Wextra -std=c99
+	QMAKE_CXXFLAGS	*= -Wall -Wextra
+	QMAKE_CFLAGS	*= -Wall -Wextra
 
 	!CONFIG(no-warnings-as-errors) {
 		QMAKE_CXXFLAGS	*= -Werror
