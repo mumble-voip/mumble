@@ -318,8 +318,10 @@ CONFIG(sbcelt) {
   }
   !CONFIG(no-bundled-celt) {
     INCLUDEPATH *= ../../3rdparty/celt-0.7.0-src/libcelt
-    QMAKE_CFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
-    QMAKE_CXXFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+    unix {
+      QMAKE_CFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+      QMAKE_CXXFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+    }
   }
 }
 
