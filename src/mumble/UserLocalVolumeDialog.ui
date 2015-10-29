@@ -11,6 +11,19 @@
    </rect>
   </property>
   <layout class="QGridLayout">
+   <item row="2" column="0" colspan="3" alignment="Qt::AlignBottom">
+    <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QSlider" name="qsUserLocalVolume">
      <property name="toolTip">
@@ -31,38 +44,34 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="qlUserLocalVolume">
-     <property name="minimumSize">
-      <size>
-       <width>50</width>
-       <height>0</height>
-      </size>
+     <property name="tickPosition">
+      <enum>QSlider::TicksBelow</enum>
      </property>
-     <property name="text">
-      <string notr="true">+0 dB</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
-    <widget class="QDialogButtonBox" name="qbbButtons">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
-     </property>
-     <property name="centerButtons">
-      <bool>false</bool>
+     <property name="tickInterval">
+      <number>10</number>
      </property>
     </widget>
    </item>
    <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-    <widget class="QLabel" name="warningLabel">
+    <widget class="QLabel" name="qlUserLocalVolume">
      <property name="text">
       <string>Here should be a warning for the ears!</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QSpinBox" name="qsbUserLocalVolume">
+     <property name="suffix">
+      <string> dB</string>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
+     <property name="minimum">
+      <number>-60</number>
+     </property>
+     <property name="maximum">
+      <number>30</number>
      </property>
     </widget>
    </item>

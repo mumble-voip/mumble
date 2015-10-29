@@ -42,30 +42,32 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
-		qsUserLocalVolume->setValue(qRound(log2(user->fLocalVolume) * 6.0));
+        qsUserLocalVolume -> setValue(qRound(log2(user->fLocalVolume) * 6.0));
 	}
 }
 
+void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int Value) {
+    qsbUserLocalVolume -> setValue(Value);
+}
 
-
-
-void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int v) {
-	QString text;
-	text.sprintf("%+i", v);
-	qlUserLocalVolume->setText(tr("%1 dB").arg(text));
-	ClientUser *user = ClientUser::get(m_clientSession);
-	if (user) {
-		user->fLocalVolume = static_cast<float>(pow(2.0, v / 6.0)); // Decibel formula +6db = *2
-	}
+void UserLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int Value) {
+    qsUserLocalVolume -> setValue(Value);
 }
 
 
-void UserLocalVolumeDialog::on_qbbButtons_clicked(QAbstractButton *button)
-{
+void UserLocalVolumeDialog::on_qbbButtons_clicked(QAbstractButton *button) {
     if (button == qbbButtons -> button(QDialogButtonBox::Reset)) {
+        qsUserLocalVolume -> setValue(0);
+    }
+
+    if (button == qbbButtons -> button(QDialogButtonBox::Ok)) {
         ClientUser *user = ClientUser::get(m_clientSession);
         if (user) {
-                qsUserLocalVolume -> setValue(0);
+            user -> fLocalVolume = static_cast<float>
+                    (pow(2.0, qsbUserLocalVolume -> value() / 6.0));
+            // Decibel formula +6db = *2
         }
     }
 }
+
+
