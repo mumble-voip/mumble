@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
-    <height>45</height>
+    <width>503</width>
+    <height>212</height>
    </rect>
   </property>
   <layout class="QGridLayout">
@@ -20,10 +20,10 @@
       <string>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</string>
      </property>
      <property name="minimum">
-      <number>-30</number>
+      <number>-60</number>
      </property>
      <property name="maximum">
-      <number>20</number>
+      <number>30</number>
      </property>
      <property name="value">
       <number>0</number>
@@ -46,13 +46,23 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2">
+   <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
     <widget class="QDialogButtonBox" name="qbbButtons">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="warningLabel">
+     <property name="text">
+      <string>Here should be a warning for the ears!</string>
      </property>
     </widget>
    </item>
@@ -67,12 +77,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>257</x>
-     <y>287</y>
+     <x>263</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>274</y>
+     <y>211</y>
     </hint>
    </hints>
   </connection>

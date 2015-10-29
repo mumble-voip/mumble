@@ -42,7 +42,9 @@ class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
 	public slots:
 		void on_qsUserLocalVolume_valueChanged(int v);
 	public:
-		UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
+                UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
+private slots:
+                void on_qbbButtons_clicked(QAbstractButton *b);
 };
 
 #endif
