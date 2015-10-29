@@ -6,21 +6,52 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>503</width>
-    <height>212</height>
+    <width>500</width>
+    <height>200</height>
    </rect>
   </property>
   <layout class="QGridLayout">
-   <item row="2" column="0" colspan="3" alignment="Qt::AlignBottom">
-    <widget class="QDialogButtonBox" name="qbbButtons">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <widget class="QLabel" name="qlUserLocalVolume">
+     <property name="text">
+      <string>Here should be a warning for the ears!</string>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+    </widget>
+   </item>
+   <item row="0" column="1" alignment="Qt::AlignHCenter">
+    <widget class="QSpinBox" name="qsbUserLocalVolume">
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
-     <property name="centerButtons">
+     <property name="wrapping">
       <bool>false</bool>
+     </property>
+     <property name="frame">
+      <bool>true</bool>
+     </property>
+     <property name="specialValueText">
+      <string/>
+     </property>
+     <property name="accelerated">
+      <bool>false</bool>
+     </property>
+     <property name="showGroupSeparator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="suffix">
+      <string> dB</string>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
+     <property name="minimum">
+      <number>-60</number>
+     </property>
+     <property name="maximum">
+      <number>30</number>
      </property>
     </widget>
    </item>
@@ -31,6 +62,9 @@
      </property>
      <property name="whatsThis">
       <string>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <property name="minimum">
       <number>-60</number>
@@ -52,26 +86,16 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-    <widget class="QLabel" name="qlUserLocalVolume">
-     <property name="text">
-      <string>Here should be a warning for the ears!</string>
+   <item row="2" column="0" colspan="3" alignment="Qt::AlignBottom">
+    <widget class="QDialogButtonBox" name="qbbButtons">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-    </widget>
-   </item>
-   <item row="0" column="1" alignment="Qt::AlignHCenter">
-    <widget class="QSpinBox" name="qsbUserLocalVolume">
-     <property name="suffix">
-      <string> dB</string>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
      </property>
-     <property name="prefix">
-      <string/>
-     </property>
-     <property name="minimum">
-      <number>-60</number>
-     </property>
-     <property name="maximum">
-      <number>30</number>
+     <property name="centerButtons">
+      <bool>false</bool>
      </property>
     </widget>
    </item>

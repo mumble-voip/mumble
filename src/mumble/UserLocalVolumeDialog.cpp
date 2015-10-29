@@ -52,8 +52,31 @@ void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int Value) {
 
 void UserLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int Value) {
     qsUserLocalVolume -> setValue(Value);
-}
+    QPalette* palette = new QPalette();
 
+    if (Value > 0) {
+        if (Value < 11) {
+            palette -> setColor(QPalette::Text, Qt::green);
+        } else if (Value < 21) {
+            palette -> setColor(QPalette::Text, Qt::yellow);
+        } else {
+            palette -> setColor(QPalette::Text, Qt::red);
+        }
+    } else if (Value < 0) {
+        if (Value > -11) {
+            palette -> setColor(QPalette::Text, Qt::green);
+        } else if (Value > -21) {
+            palette -> setColor(QPalette::Text, Qt::yellow);
+        } else {
+            palette -> setColor(QPalette::Text, Qt::red);
+        }
+    } else {
+        palette -> setColor(QPalette::Text, palette -> color(QPalette::Text));
+    }
+
+    qsbUserLocalVolume -> setPalette(*palette);
+
+}
 
 void UserLocalVolumeDialog::on_qbbButtons_clicked(QAbstractButton *button) {
     if (button == qbbButtons -> button(QDialogButtonBox::Reset)) {
