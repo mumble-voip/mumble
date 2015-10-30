@@ -4762,47 +4762,47 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="-324"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Verze&lt;/h2&gt;&lt;p&gt;Protokol %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Nejsou dostupné žádné informace o sestavení nebo verzi OS&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Připojení je zabezpečeno a ověřeno pomocí %1 využívající %2  jako nástroj pro výměnu klíčů (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>Připojení je zabezpečeno pomocí %1, kde %2 je použito pro ověření zpráv a %3 jako nástroj pro výměnu klíčů (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>Připojení je zabezpečeno šifrovací sadou, kterou OpenSSL identifikuje jako %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Připojení poskytuje perfect forward secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Připojení neposkytuje perfect forward secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Kontrolní kanál&lt;/h2&gt;&lt;p&gt;Připojení využívá %1&lt;/p&gt;%2%3&lt;p&gt;Průměrná odezva %4 ms (Odchylka %5)&lt;/p&gt;&lt;p&gt;Vzdálený hostitel %6 (Port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>Zvukový kanál je odesílán přes kontrolní kanál</translation>
     </message>
     <message>
         <location line="+257"/>
