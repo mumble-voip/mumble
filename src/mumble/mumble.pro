@@ -589,7 +589,7 @@ CONFIG(no-update) {
 	DEFINES *= NO_UPDATE_CHECK
 }
 
-!exists($$[QT_INSTALL_TRANSLATIONS]) {
+!CONFIG(no-embed-qt-translations):!exists($$[QT_INSTALL_TRANSLATIONS]) {
   error("$$escape_expand(\\n)$$escape_expand(\\n)"\
         "The QT_INSTALL_TRANSLATIONS directory ($$[QT_INSTALL_TRANSLATIONS])$$escape_expand(\\n)"\
 	"does not exist.$$escape_expand(\\n)"\
@@ -610,8 +610,6 @@ CONFIG(no-update) {
 	"Please refer to the INSTALL file at the root of the source tree for more information$$escape_expand(\\n)"\
 	"about the build process.$$escape_expand(\\n)"\
         "$$escape_expand(\\n)")
-
-	CONFIG += no-embed-qt-translations
 }
 
 !CONFIG(no-embed-qt-translations) {
