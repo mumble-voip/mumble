@@ -1043,6 +1043,10 @@ void MainWindow::setOnTop(bool top) {
 void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = !g.s.bMinimalView;
 
+	qteLog->setFont(g.s.qfFontLog);
+	qteChat->setFont(g.s.qfFontInput);
+	qtvUsers->setFont(g.s.qfFontTree);
+
 	switch (g.s.wlWindowLayout) {
 		case Settings::LayoutClassic:
 			removeDockWidget(qdwLog);

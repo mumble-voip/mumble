@@ -837,6 +837,9 @@ void Settings::load(QSettings *settings_ptr) {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");
+	SAVELOAD(qfFontLog, "ui/fontlog");
+	SAVELOAD(qfFontInput, "ui/fontinput");
+	SAVELOAD(qfFontTree, "ui/fonttree");
 	LOADENUM(ceExpand, "ui/expand");
 	LOADENUM(ceChannelDrag, "ui/drag");
 	LOADENUM(ceUserDrag, "ui/userdrag");
@@ -1209,6 +1212,9 @@ void Settings::save() {
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");
+	SAVELOAD(qfFontLog, "ui/fontlog");
+	SAVELOAD(qfFontInput, "ui/fontinput");
+	SAVELOAD(qfFontTree, "ui/fonttree");
 	SAVELOAD(ceExpand, "ui/expand");
 	SAVELOAD(ceChannelDrag, "ui/drag");
 	SAVELOAD(ceUserDrag, "ui/userdrag");
