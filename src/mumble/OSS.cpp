@@ -249,7 +249,7 @@ void OSSInput::run() {
 		int len = static_cast<int>(iMicLength * iMicChannels * sizeof(short));
 		ssize_t l = read(fd, buffer, len);
 		if (l != len) {
-			qWarning("OSSInput: Read %ld", l);
+			qWarning("OSSInput: Read %zd", l);
 			break;
 		}
 		addMic(buffer, iMicLength);
@@ -355,7 +355,7 @@ void OSSOutput::run() {
 		if (stillRun) {
 			ssize_t l = write(fd, mbuffer, blocklen);
 			if (l != blocklen) {
-				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
+				qWarning("OSSOutput: Write %zd != %zd", l, blocklen);
 				break;
 			}
 		} else {
@@ -363,7 +363,7 @@ void OSSOutput::run() {
 				this->msleep(20);
 			ssize_t l = write(fd, mbuffer, blocklen);
 			if (l != blocklen) {
-				qWarning("OSSOutput: Write %ld != %ld", l, blocklen);
+				qWarning("OSSOutput: Write %zd != %zd", l, blocklen);
 				break;
 			}
 		}
