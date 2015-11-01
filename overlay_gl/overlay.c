@@ -345,7 +345,7 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 				disconnect(ctx);
 				return;
 			} else if (length != ctx->omMsg.omh.iLength) {
-				ods("Short overlay message read %x %ld/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
+				ods("Short overlay message read %x %zd/%d", ctx->omMsg.omh.uiType, length, ctx->omMsg.omh.iLength);
 				disconnect(ctx);
 				return;
 			}
@@ -363,10 +363,11 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 							struct stat buf;
 							
 							if (fstat(fd, &buf) != -1) {
-								if (buf.st_size >= ctx->uiWidth * ctx->uiHeight * 4
-								        && buf.st_size < 512 * 1024 * 1024) {
-									ctx->uiMappedLength = (unsigned int)buf.st_size;
-									ctx->a_ucTexture = mmap(NULL, (size_t)buf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+								unsigned int buflen = buf.st_size;
+								if (buflen >= ctx->uiWidth * ctx->uiHeight * 4
+								        && buflen < 512 * 1024 * 1024) {
+									ctx->uiMappedLength = buflen;
+									ctx->a_ucTexture = mmap(NULL, (size_t)buflen, PROT_READ, MAP_SHARED, fd, 0);
 									if (ctx->a_ucTexture != MAP_FAILED) {
 										// mmap successfull; send a new bodyless sharedmemory overlay message and regenerate the overlay texture
 										struct OverlayMsg om;
