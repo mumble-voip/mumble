@@ -259,7 +259,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::setupGui()  {
-	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	updateWindowTitle();
 	setCentralWidget(qtvUsers);
 	setAcceptDrops(true);
 
@@ -385,6 +385,10 @@ void MainWindow::setupGui()  {
 	qApp->processEvents();
 #endif
 #endif
+}
+
+void MainWindow::updateWindowTitle() {
+	setWindowTitle((g.s.bMinimalView ? tr("Mumble - Minimal View -- %1") : tr("Mumble -- %1")).arg(QLatin1String(MUMBLE_RELEASE)));
 }
 
 // Sets whether or not to show the title bars on the MainWindow's
@@ -2247,6 +2251,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 
 void MainWindow::on_qaConfigMinimal_triggered() {
 	g.s.bMinimalView = qaConfigMinimal->isChecked();
+	updateWindowTitle();
 	setupView();
 }
 

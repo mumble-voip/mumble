@@ -174,6 +174,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 
 		void createActions();
 		void setupGui();
+		void updateWindowTitle();
 		void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
