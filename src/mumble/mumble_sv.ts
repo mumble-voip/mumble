@@ -1491,37 +1491,37 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Avancerade dämpningsinställningar</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Vid markering kommer Mumble endast att dämpa program som använder sig av samma utgångskälla som Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dämpa endast program som använder samma utgångskälla som Mumble.&lt;/b&gt;&lt;br /&gt;Vid markering kommer program som använder en annan utgångskälla än Mumble inte att bli dämpat.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Dämpa endast program som använder samma utgångskälla.</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Vid markering kommer PulsAudio returkopploingsmoduler att bli dämpade.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Dämpa PulsAudio returkopplingsmoduler&lt;/b&gt;&lt;br /&gt;Om returkopplingsmoduler är länkade till Mumble&apos;s utgångsenhet kommer även dessa att bli dämpade.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Dämpa PulseAudio returkopplingsmoduler</translation>
     </message>
 </context>
 <context>
@@ -4784,12 +4784,12 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Anslutningen stöder perfect forward secrecy&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Anslutningen stödjer perfect forward secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Anslutningen stöder inte perfect forward secrecy&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Anslutningen stödjer inte perfect forward secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
