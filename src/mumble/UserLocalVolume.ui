@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserLocalVolumeDialog</class>
- <widget class="QDialog" name="UserLocalVolumeDialog">
+ <class>UserLocalVolume</class>
+ <widget class="QWidget" name="UserLocalVolume">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,46 +12,9 @@
   </property>
   <layout class="QGridLayout">
    <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-    <widget class="QLabel" name="qlUserLocalVolume">
+    <widget class="QLabel" name="qlUserLocalVolume_2">
      <property name="text">
       <string>Here should be a warning for the ears!</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" alignment="Qt::AlignHCenter">
-    <widget class="QSpinBox" name="qsbUserLocalVolume">
-     <property name="font">
-      <font>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="wrapping">
-      <bool>false</bool>
-     </property>
-     <property name="frame">
-      <bool>true</bool>
-     </property>
-     <property name="specialValueText">
-      <string/>
-     </property>
-     <property name="accelerated">
-      <bool>false</bool>
-     </property>
-     <property name="showGroupSeparator" stdset="0">
-      <bool>false</bool>
-     </property>
-     <property name="suffix">
-      <string> dB</string>
-     </property>
-     <property name="prefix">
-      <string/>
-     </property>
-     <property name="minimum">
-      <number>-60</number>
-     </property>
-     <property name="maximum">
-      <number>30</number>
      </property>
     </widget>
    </item>
@@ -86,7 +49,7 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0" colspan="3" alignment="Qt::AlignBottom">
+   <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
     <widget class="QDialogButtonBox" name="qbbButtons">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -99,6 +62,19 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QSpinBox" name="qsbUserLocalVolume">
+     <property name="suffix">
+      <string> dB</string>
+     </property>
+     <property name="minimum">
+      <number>-60</number>
+     </property>
+     <property name="maximum">
+      <number>30</number>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -106,7 +82,7 @@
   <connection>
    <sender>qbbButtons</sender>
    <signal>accepted()</signal>
-   <receiver>UserLocalVolumeDialog</receiver>
+   <receiver>UserLocalVolume</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">

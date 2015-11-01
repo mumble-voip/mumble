@@ -31,21 +31,20 @@
 #ifndef MUMBLE_MUMBLE_USERVOLUME_H_
 #define MUMBLE_MUMBLE_USERVOLUME_H_
 
-#include "ui_UserLocalVolumeDialog.h"
+#include "ui_UserLocalVolume.h"
 #include "ClientUser.h"
 
-class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
+class UserLocalVolume : public QWidget, public Ui::UserLocalVolume {
 	private:
 		Q_OBJECT
-		Q_DISABLE_COPY(UserLocalVolumeDialog)
+        Q_DISABLE_COPY(UserLocalVolume)
 		unsigned int m_clientSession;
 	public slots:
-		void on_qsUserLocalVolume_valueChanged(int v);
-        void on_qsbUserLocalVolume_valueChanged(int v);
+        void on_qsUserLocalVolume_valueChanged(int Value);
+        void on_qsbUserLocalVolume_valueChanged(int Value);
+        void on_qbbButtons_clicked(QAbstractButton *b);
 	public:
-                UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
-private slots:
-                void on_qbbButtons_clicked(QAbstractButton *b);
+        UserLocalVolume(QWidget *parent = NULL, unsigned int sessionId=0);
 };
 
 #endif

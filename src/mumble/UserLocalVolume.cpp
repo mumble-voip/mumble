@@ -30,14 +30,14 @@
 
 #include "mumble_pch.hpp"
 
-#include "UserLocalVolumeDialog.h"
+#include "UserLocalVolume.h"
 #include "Global.h"
 #include "ClientUser.h"
 
-UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
-	: QDialog(p)
+UserLocalVolume::UserLocalVolume(QWidget *p, unsigned int sessionId)
+    : QWidget(p, Qt::Window)
 	, m_clientSession(sessionId) {
-	setupUi(this);
+    setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
@@ -46,51 +46,47 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
 	}
 }
 
-void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int Value) {
+void UserLocalVolume::on_qsUserLocalVolume_valueChanged(int Value) {
+
     qsbUserLocalVolume -> setValue(Value);
+    ClientUser *user = ClientUser::get(m_clientSession);
+    if (user) {
+        user -> fLocalVolume = static_cast<float>
+                (pow(2.0, qsUserLocalVolume -> value() / 6.0));
+        // Decibel formula +6db = *2
+    }
 }
 
-void UserLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int Value) {
-    qsUserLocalVolume -> setValue(Value);
-    QPalette* palette = new QPalette();
 
+void UserLocalVolume::on_qsbUserLocalVolume_valueChanged(int Value) {
+    qsUserLocalVolume->setValue(Value);
     if (Value > 0) {
         if (Value < 11) {
-            palette -> setColor(QPalette::Text, Qt::green);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:green;}"));
         } else if (Value < 21) {
-            palette -> setColor(QPalette::Text, Qt::yellow);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:yellow;}"));
         } else {
-            palette -> setColor(QPalette::Text, Qt::red);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:red;}"));
         }
     } else if (Value < 0) {
         if (Value > -11) {
-            palette -> setColor(QPalette::Text, Qt::green);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:green;}"));
         } else if (Value > -21) {
-            palette -> setColor(QPalette::Text, Qt::yellow);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:yellow;}"));
         } else {
-            palette -> setColor(QPalette::Text, Qt::red);
+            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:red;}"));
         }
     } else {
-        palette -> setColor(QPalette::Text, palette -> color(QPalette::Text));
+        qsbUserLocalVolume -> setStyleSheet(tr(""));
     }
-
-    qsbUserLocalVolume -> setPalette(*palette);
-
 }
 
-void UserLocalVolumeDialog::on_qbbButtons_clicked(QAbstractButton *button) {
+void UserLocalVolume::on_qbbButtons_clicked(QAbstractButton *button) {
     if (button == qbbButtons -> button(QDialogButtonBox::Reset)) {
         qsUserLocalVolume -> setValue(0);
     }
 
     if (button == qbbButtons -> button(QDialogButtonBox::Ok)) {
-        ClientUser *user = ClientUser::get(m_clientSession);
-        if (user) {
-            user -> fLocalVolume = static_cast<float>
-                    (pow(2.0, qsbUserLocalVolume -> value() / 6.0));
-            // Decibel formula +6db = *2
-        }
+        UserLocalVolume::close();
     }
 }
-
-

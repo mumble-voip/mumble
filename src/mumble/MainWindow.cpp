@@ -62,7 +62,7 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
-#include "UserLocalVolumeDialog.h"
+#include "UserLocalVolume.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
@@ -1314,7 +1314,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
-	qmUser->addAction(qaUserLocalVolume);
+    qmUser->addAction(qaUserLocalVolume);
 
 	if (self)
 		qmUser->addAction(qaSelfComment);
@@ -1443,19 +1443,18 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 	if (!p) {
 		return;
 	}
-	openUserLocalVolumeDialog(p);
+    openUserLocalVolume(p);
 }
 
-void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
+void MainWindow::openUserLocalVolume(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, session);
-	int res = uservol->exec();
+    UserLocalVolume *uservol = new UserLocalVolume(this, session);
+    uservol->show();
+    uservol->activateWindow();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {
 		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
 	}
-
-	delete uservol;
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
