@@ -36,6 +36,7 @@ public slots:
 protected:
 	void updateFontInfo(QLabel *l, const QFont &f);
 	void updateFontInfo();
+	void updateFontInfo(const Settings &r);
 	void changeFont(QFont & font);
 protected slots:
 	void on_qpbFontLog_clicked();

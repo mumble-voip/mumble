@@ -110,9 +110,13 @@ void LookConfig::updateFontInfo(QLabel *label, const QFont &font) {
 }
 
 void LookConfig::updateFontInfo() {
-	updateFontInfo(qlFontLogCurrent, s.qfFontLog);
-	updateFontInfo(qlFontInputCurrent, s.qfFontInput);
-	updateFontInfo(qlFontTreeCurrent, s.qfFontTree);
+	updateFontInfo(s);
+}
+
+void LookConfig::updateFontInfo(const Settings &r) {
+	updateFontInfo(qlFontLogCurrent, r.qfFontLog);
+	updateFontInfo(qlFontInputCurrent, r.qfFontInput);
+	updateFontInfo(qlFontTreeCurrent, r.qfFontTree);
 }
 
 QString LookConfig::title() const {
@@ -180,6 +184,8 @@ void LookConfig::load(const Settings &r) {
 			break;
 		}
 	}
+
+	updateFontInfo(r);
 
 	loadComboBox(qcbAlwaysOnTop, r.aotbAlwaysOnTop);
 
