@@ -1370,6 +1370,10 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 
 	QByteArray qba = md->data(mimeTypes().at(0));
 	QDataStream ds(qba);
+
+	// Check if there's more than one entry.  Assume uiSession and iId are same size.
+	bool isMultiSelect = qba.size() > (sizeof(bool) + sizeof( ((ClientUser*)0)->uiSession) );
+
 	while (! ds.atEnd()) {
 		bool isChannel;
 		int iId = -1;
@@ -1399,6 +1403,9 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 			mpus.set_session(uiSession);
 			mpus.set_channel_id(c->iId);
 			g.sh->sendMessage(mpus);
+		} else if (isMultiSelect) {
+			// Ignore channels in multiselection (only move users)
+			continue;
 		} else if (c->iId != iId) {
 			// Channel dropped somewhere (not on itself)
 			int ret;
