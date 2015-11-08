@@ -1491,12 +1491,12 @@ Indeholder listen over medlemmer der er arvet af den nuværende kanal. Fjern mar
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Avancerede valgmuligheder for dæmpning</translation>
     </message>
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Hvis denne er markeret, vil Mumble kun dæmpe programmer der bruger den samme afspilningsenhed som Mumble</translation>
     </message>
     <message>
         <location/>
@@ -3994,7 +3994,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Bruger omdøbt</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4257,7 +4257,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Gennemse&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4493,7 +4493,7 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Tema</translation>
     </message>
     <message>
         <location/>
@@ -5103,12 +5103,12 @@ Dette felt beskriver størrelsen af en LCD-enhed. Størrelsen er enten opgivet i
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Genstart Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Nogle indstillinger vil først blive anvendt efter en genstart af Mumble. Genstart Mumble nu?</translation>
     </message>
     <message>
         <location line="+46"/>
@@ -6171,12 +6171,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+264"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 omdøbt til %2.</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 forlod kanalen og afbrød forbindelsen.</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -7472,12 +7472,12 @@ For at opgradere disse filer til deres nyeste version, klik på knappen nedenfor
     <message>
         <location filename="main.cpp" line="+110"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Kunne ikke genstarte mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble kunne ikke selv genstarte. Genstart det venligst manuelt.</translation>
     </message>
 </context>
 <context>
