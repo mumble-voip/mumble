@@ -11,13 +11,6 @@
    </rect>
   </property>
   <layout class="QGridLayout">
-   <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-    <widget class="QLabel" name="qlUserLocalVolume_2">
-     <property name="text">
-      <string>Here should be a warning for the ears!</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="0">
     <widget class="QSlider" name="qsUserLocalVolume">
      <property name="toolTip">
@@ -72,6 +65,19 @@
      </property>
      <property name="maximum">
       <number>30</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="qlUserLocalVolume_2">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the User.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;If you are change the volume of a User to high, &lt;br/&gt;you may damage your haering or hear a big noise of the User.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

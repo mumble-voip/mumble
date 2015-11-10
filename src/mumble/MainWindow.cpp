@@ -1452,8 +1452,6 @@ void MainWindow::openUserLocalVolume(ClientUser *p) {
 
     uservol->show();
 
-    if(uservol->close())
-
     p = ClientUser::get(session);
     if (p && ! p->qsHash.isEmpty()) {
         Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
