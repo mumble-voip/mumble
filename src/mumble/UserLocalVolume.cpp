@@ -34,9 +34,8 @@
 #include "Global.h"
 #include "ClientUser.h"
 
-UserLocalVolume::UserLocalVolume(QWidget *p, unsigned int sessionId)
-    : QWidget(p, Qt::Window)
-	, m_clientSession(sessionId) {
+UserLocalVolume::UserLocalVolume(QWidget *parent, unsigned int sessionId)
+{
     setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
@@ -60,25 +59,6 @@ void UserLocalVolume::on_qsUserLocalVolume_valueChanged(int Value) {
 
 void UserLocalVolume::on_qsbUserLocalVolume_valueChanged(int Value) {
     qsUserLocalVolume->setValue(Value);
-    if (Value > 0) {
-        if (Value < 11) {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:green;}"));
-        } else if (Value < 21) {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:yellow;}"));
-        } else {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:red;}"));
-        }
-    } else if (Value < 0) {
-        if (Value > -11) {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:green;}"));
-        } else if (Value > -21) {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:yellow;}"));
-        } else {
-            qsbUserLocalVolume -> setStyleSheet(tr("QSpinBox {color:red;}"));
-        }
-    } else {
-        qsbUserLocalVolume -> setStyleSheet(tr(""));
-    }
 }
 
 void UserLocalVolume::on_qbbButtons_clicked(QAbstractButton *button) {

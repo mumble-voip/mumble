@@ -1447,14 +1447,17 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 }
 
 void MainWindow::openUserLocalVolume(ClientUser *p) {
-	unsigned int session = p->uiSession;
+    unsigned int session = p->uiSession;
     UserLocalVolume *uservol = new UserLocalVolume(this, session);
+
     uservol->show();
-    uservol->activateWindow();
-	p = ClientUser::get(session);
-	if (p && ! p->qsHash.isEmpty()) {
-		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
-	}
+
+    if(uservol->close())
+
+    p = ClientUser::get(session);
+    if (p && ! p->qsHash.isEmpty()) {
+        Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
+    }
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
