@@ -37,8 +37,6 @@ win32 {
 }
 
 unix {
-	UNAME=$$system(uname -s)
-
 	CONFIG(static) {
 		PKG_CONFIG = pkg-config --static
 	}
@@ -48,12 +46,7 @@ unix {
 
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
-
-	contains(UNAME, FreeBSD) {
-		LIBS *= -lcrypto
-	} else {
-		PKGCONFIG *= openssl
-	}
+	PKGCONFIG *= openssl
 }
 
 # Make Q_DECL_OVERRIDE and Q_DECL_FINAL no-ops
