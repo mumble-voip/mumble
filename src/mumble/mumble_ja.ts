@@ -40,7 +40,7 @@
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -483,7 +483,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>チャンネルの ID</translation>
     </message>
 </context>
 <context>
@@ -517,7 +517,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (バージョン %2)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1171,7 +1171,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1472,12 +1472,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>優先スピーカー</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation type="unfinished"/>
+        <translation>チェックすると、優先スピーカーが話している時に Mumble は他のユーザーのボリュームを下げます。</translation>
     </message>
     <message>
         <location/>

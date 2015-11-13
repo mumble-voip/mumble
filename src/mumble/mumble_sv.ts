@@ -4794,7 +4794,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Anslutningen använder %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms genomsnittlig fördröjning (%5 avvikelse)&lt;/p&gt;&lt;p&gt;Fjärrvärd %6 (port %7)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Kontrollkanal&lt;/h2&gt;&lt;p&gt;Anslutningen använder %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms genomsnittlig fördröjning (%5 avvikelse)&lt;/p&gt;&lt;p&gt;Fjärrvärd %6  (port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
