@@ -50,12 +50,12 @@
 #include "../../overlay/overlay_blacklist.h"
 #endif
 
+// Hide overlay config for Mac OS X universal builds
+#if !defined(USE_MAC_UNIVERSAL)
 static ConfigWidget *OverlayConfigDialogNew(Settings &st) {
 	return new OverlayConfig(st);
 }
 
-// Hide overlay config for Mac OS X universal builds
-#if !defined(USE_MAC_UNIVERSAL)
 static ConfigRegistrar registrar(6000, OverlayConfigDialogNew);
 #endif
 
