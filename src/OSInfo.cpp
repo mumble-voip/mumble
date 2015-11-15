@@ -131,7 +131,11 @@ QString OSInfo::getOSVersion() {
 	const NXArchInfo *ai = local ? NXGetArchInfoFromCpuType(local->cputype, CPU_SUBTYPE_MULTIPLE) : NULL;
 	const char *arch = ai ? ai->name : "unknown";
 
-	os.sprintf("%i.%i.%i (%s)", major, minor, bugfix, arch);
+	os.sprintf("%lu.%lu.%lu (%s)",
+	           static_cast<unsigned long>(major),
+	           static_cast<unsigned long>(minor),
+	           static_cast<unsigned long>(bugfix),
+	           arch);
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
