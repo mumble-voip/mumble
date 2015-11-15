@@ -147,7 +147,7 @@ void CrashReporter::run() {
 	 * if something weird happened.
 	 */
 	foreach(QFileInfo fi, qfilEntries) {
-		int delta = abs(qdtModification.secsTo(fi.lastModified()));
+		qint64 delta = qAbs<qint64>(qdtModification.secsTo(fi.lastModified()));
 		if (delta < 8) {
 			QFile f(fi.absoluteFilePath());
 			f.open(QIODevice::ReadOnly);
