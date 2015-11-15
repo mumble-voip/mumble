@@ -75,6 +75,8 @@ typedef unsigned char bool;
 #
 # include <objc/objc-runtime.h>
 #
+# include "mach_override.h"
+#
 # include "avail_mac.h"
 #endif
 
