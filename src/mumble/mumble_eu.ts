@@ -1995,7 +1995,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Honek ez dio kasurik egiten SE-ren bozgorailu konfigurazioari eta honen ordez aurikularrentza posizionamendua konfiguratzen du.</translation>
+        <translation>Honek ez dio kasurik egiten SE-ren bozgorailu konfigurazioari eta honen ordez aurikularrentzat posizionamendua konfiguratzen du.</translation>
     </message>
     <message>
         <location/>
@@ -7789,7 +7789,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>&amp;Remove</source>
-        <translation>&amp;Ezabtu</translation>
+        <translation>&amp;Ezabatu</translation>
     </message>
 </context>
 <context>
@@ -8390,7 +8390,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation>.wav - Konprimitu gabe</translation>
+        <translation>.wav - Konprimatu gabe</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -8400,7 +8400,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation>.au - Konprimitu gabe</translation>
+        <translation>.au - Konprimatu gabe</translation>
     </message>
     <message>
         <location line="+2"/>
