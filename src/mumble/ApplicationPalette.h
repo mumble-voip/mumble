@@ -41,6 +41,7 @@
 #include <boost/optional.hpp>
 #endif
 #include <QApplication>
+#include <QDebug>
 
 ///
 /// Class enabling theming of QApplication::palette from stylesheets.
