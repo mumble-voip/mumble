@@ -89,7 +89,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
 
 #ifdef Q_OS_MAC
 	bool embed = g.ocIntercept != NULL;
-	QMenu qm(embed ? NULL : event->widget());
+	QMenu qm(embed ? NULL : e->widget());
 	if (embed) {
 		QGraphicsScene *scene = g.ocIntercept->qgv.scene();
 		scene->addWidget(&qm);
