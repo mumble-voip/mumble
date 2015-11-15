@@ -187,7 +187,7 @@ void Overlay::toggleShow() {
 				ProcessSerialNumber psn;
 				GetFrontProcess(&psn);
 				GetProcessPID(&psn, &pid);
-				if (pid != oc->uiPid)
+				if (static_cast<quint64>(pid) != oc->uiPid)
 					continue;
 #if 0
 				// Fullscreen only.
