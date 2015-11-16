@@ -109,6 +109,7 @@ ACLEditor::ACLEditor(int channelid, const MumbleProto::ACL &mea, QWidget *p) : Q
 
 	qsbChannelMaxUsers->setRange(0, INT_MAX);
 	qsbChannelMaxUsers->setValue(pChannel->uiMaxUsers);
+	qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
 
 	QGridLayout *grid = new QGridLayout(qgbACLpermissions);
 
