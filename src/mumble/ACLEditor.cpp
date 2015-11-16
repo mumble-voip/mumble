@@ -288,7 +288,7 @@ void ACLEditor::accept() {
 			mpcs.set_position(qsbChannelPosition->value());
 			needs_update = true;
 		}
-		if (pChannel->uiMaxUsers != (unsigned int)qsbChannelMaxUsers->value()) {
+		if (pChannel->uiMaxUsers != static_cast<unsigned int>(qsbChannelMaxUsers->value())) {
 			mpcs.set_max_users(qsbChannelMaxUsers->value());
 			needs_update = true;
 		}

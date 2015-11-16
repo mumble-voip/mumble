@@ -521,7 +521,7 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			return;
 		}
 		if (c->uiMaxUsers) {
-			if ((unsigned int)c->qlUsers.count() >= c->uiMaxUsers) {
+			if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
 				PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 				return;
 			}
