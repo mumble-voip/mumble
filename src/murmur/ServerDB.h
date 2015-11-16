@@ -43,7 +43,7 @@ class QSqlQuery;
 
 class ServerDB {
 	public:
-		enum ChannelInfo { Channel_Description, Channel_Position };
+		enum ChannelInfo { Channel_Description, Channel_Position, Channel_Max_Users };
 		enum UserInfo { User_Name, User_Email, User_Comment, User_Hash, User_Password, User_LastActive, User_KDFIterations };
 		ServerDB();
 		~ServerDB();

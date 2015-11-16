@@ -257,6 +257,8 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		else if (! c->qsDesc.isEmpty())
 			mpcs.set_description(u8(c->qsDesc));
 
+		mpcs.set_max_users(c->uiMaxUsers);
+
 		sendMessage(uSource, mpcs);
 
 		foreach(c, c->qlChannels)
@@ -518,7 +520,12 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED(pDstServerUser, c, ChanACL::Enter);
 			return;
 		}
-		if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
+		if (c->uiMaxUsers) {
+			if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
+				PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
+				return;
+			}
+		} else if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
 			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 			return;
 		}
@@ -1060,6 +1067,9 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 		foreach(Channel *l, qlRemove) {
 			removeLink(c, l);
 		}
+
+		if (msg.has_max_users())
+			c->uiMaxUsers = msg.max_users();
 
 		updateChannel(c);
 		emit channelStateChanged(c);

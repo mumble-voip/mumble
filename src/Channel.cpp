@@ -45,6 +45,7 @@ Channel::Channel(int id, const QString &name, QObject *p) : QObject(p) {
 	iPosition = 0;
 	qsName = name;
 	bInheritACL = true;
+	uiMaxUsers = 0;
 	bTemporary = false;
 	cParent = qobject_cast<Channel *>(p);
 	if (cParent)

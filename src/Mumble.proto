@@ -134,6 +134,10 @@ message ChannelState {
 	optional int32 position = 9 [default = 0];
 	// SHA1 hash of the description if the description is 128 bytes or more.
 	optional bytes description_hash = 10;
+	// Maximum number of users allowed in the channel. If this value is zero,
+	// the maximum number of users allowed in the channel is given by the
+	// server's "usersperchannel" setting.
+	optional uint32 max_users = 11;
 }
 
 // Used to communicate user leaving or being kicked. May be sent by the client

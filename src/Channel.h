@@ -68,6 +68,12 @@ class Channel : public QObject {
 
 		bool bInheritACL;
 
+		/// Maximum number of users allowed in the channel. If this
+		/// value is zero, the maximum number of users allowed in the
+		/// channel is given by the server's "usersperchannel"
+		/// setting.
+		unsigned int uiMaxUsers;
+
 		Channel(int id, const QString &name, QObject *p = NULL);
 		~Channel();
 

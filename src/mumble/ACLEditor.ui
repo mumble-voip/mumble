@@ -88,6 +88,30 @@ This value enables you to change the way Mumble arranges the channels in the tre
          </property>
         </widget>
        </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="qlChannelMaxUsers">
+         <property name="text">
+          <string>Maximum Users</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QSpinBox" name="qsbChannelMaxUsers">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Maximum number of users allowed in the channel</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
+This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server's default limit.</string>
+         </property>
+        </widget>
+       </item>
        <item row="10" column="1">
         <widget class="QCheckBox" name="qcbChannelTemporary">
          <property name="toolTip">
@@ -668,6 +692,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
  <tabstops>
   <tabstop>qleChannelPassword</tabstop>
   <tabstop>qsbChannelPosition</tabstop>
+  <tabstop>qsbChannelMaxUsers</tabstop>
   <tabstop>qcbChannelTemporary</tabstop>
   <tabstop>qcbGroupList</tabstop>
   <tabstop>qpbGroupAdd</tabstop>

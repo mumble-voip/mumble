@@ -1401,6 +1401,13 @@ void Server::updateChannel(const Channel *c) {
 	query.addBindValue(QVariant(c->iPosition).toString());
 	SQLEXEC();
 
+	// Update channel maximum users
+	query.addBindValue(iServerNum);
+	query.addBindValue(c->iId);
+	query.addBindValue(ServerDB::Channel_Max_Users);
+	query.addBindValue(QVariant(c->uiMaxUsers).toString());
+	SQLEXEC();
+
 	SQLPREP("DELETE FROM `%1groups` WHERE `server_id` = ? AND `channel_id` = ?");
 	query.addBindValue(iServerNum);
 	query.addBindValue(c->iId);
@@ -1480,6 +1487,8 @@ void Server::readChannelPrivs(Channel *c) {
 			hashAssign(c->qsDesc, c->qbaDescHash, value);
 		} else if (key == ServerDB::Channel_Position) {
 			c->iPosition = QVariant(value).toInt(); // If the conversion fails it'll return the default value 0
+		} else if (key == ServerDB::Channel_Max_Users) {
+			c->uiMaxUsers = QVariant(value).toUInt(); // If the conversion fails it'll return the default value 0
 		}
 	}
 
