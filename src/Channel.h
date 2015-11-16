@@ -68,6 +68,8 @@ class Channel : public QObject {
 
 		bool bInheritACL;
 
+		unsigned int uiMaxUsers;
+
 		Channel(int id, const QString &name, QObject *p = NULL);
 		~Channel();
 

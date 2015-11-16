@@ -669,6 +669,10 @@ void MainWindow::msgChannelState(const MumbleProto::ChannelState &msg) {
 		if (! ql.isEmpty())
 			pmModel->linkChannels(c, ql);
 	}
+
+	if (msg.has_max_users()) {
+		c->uiMaxUsers = msg.max_users();
+	}
 }
 
 void MainWindow::msgChannelRemove(const MumbleProto::ChannelRemove &msg) {
