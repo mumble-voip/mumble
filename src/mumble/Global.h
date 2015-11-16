@@ -103,6 +103,7 @@ public:
 	bool bAllowHTML;
 	unsigned int uiMessageLength;
 	unsigned int uiImageLength;
+	unsigned int uiMaxUsers;
 	bool bQuit;
 
 	bool bHappyEaster;

@@ -529,6 +529,8 @@ message ServerConfig {
 	optional uint32 message_length = 4;
 	// Maximum image message length.
 	optional uint32 image_message_length = 5;
+	// The maximum number of users allowed on the server.
+	optional uint32 max_users = 6;
 }
 
 // Sent by the server to inform the clients of suggested client configuration
