@@ -36,6 +36,17 @@
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+static long mumble_BIO_get_mem_data(BIO *b, char **pp) {
+	return BIO_get_mem_data(b, pp);
+}
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
+
 CertView::CertView(QWidget *p) : QGroupBox(p) {
 	QGridLayout *grid = new QGridLayout(this);
 	QLabel *l;
@@ -552,15 +563,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				mem = BIO_new(BIO_s_mem());
 				i2d_PKCS12_bio(mem, pkcs);
 				Q_UNUSED(BIO_flush(mem));
-#if defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-				size = BIO_get_mem_data(mem, &data);
-#if defined(__GNUC__)
-#pragma GCC diagnostic pop
-#endif
-
+				size = mumble_BIO_get_mem_data(mem, &data);
 				qba = QByteArray(data, static_cast<int>(size));
 			}
 		}
