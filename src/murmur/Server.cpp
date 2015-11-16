@@ -486,6 +486,10 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		for (int id = 1; id < iMaxUsers * 2; ++id)
 			if (!qhUsers.contains(id))
 				qqIds.enqueue(id);
+
+		MumbleProto::ServerConfig mpsc;
+		mpsc.set_max_users(iMaxUsers);
+		sendAll(mpsc);
 	} else if (key == "usersperchannel")
 		iMaxUsersPerChannel = i ? i : Meta::mp.iMaxUsersPerChannel;
 	else if (key == "textmessagelength") {

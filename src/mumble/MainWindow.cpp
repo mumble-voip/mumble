@@ -1229,6 +1229,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
 	                  Qt::escape(host),
 	                  QString::number(port));
+	if (g.uiMaxUsers) {
+		qsControl += tr("<p>Connected users: %1/%2</p>").arg(ModelItem::c_qhUsers.count()).arg(g.uiMaxUsers);
+	}
 
 	QString qsVoice, qsCrypt, qsAudio;
 
@@ -2649,6 +2652,7 @@ void MainWindow::serverConnected() {
 	g.bAllowHTML = true;
 	g.uiMessageLength = 5000;
 	g.uiImageLength = 131072;
+	g.uiMaxUsers = 0;
 
 	if (g.s.bMute || g.s.bDeaf) {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);
