@@ -184,12 +184,6 @@ unix {
 	}
 }
 
-freebsd-clang {
-	QMAKE_CFLAGS *= -isystem /usr/local/include
-	QMAKE_CXXFLAGS	*= -isystem /usr/local/include
-	QMAKE_LFLAGS *= -L/usr/local/lib -lssl
-}
-
 unix:!macx {
 	# If we're building in a Mumble build environment,
 	# add its include and lib dirs to the build configuration.
