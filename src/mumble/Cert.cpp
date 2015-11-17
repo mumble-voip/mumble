@@ -28,6 +28,14 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// Ignore old-style casts for the whole file.
+// We can't use push/pop. They were implemented in GCC 4.6,
+// but we still build with GCC 4.2 for the legacy OS X Universal
+// build.
+#if defined(__GNUC__)
+# pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+
 #include "mumble_pch.hpp"
 
 #include "Cert.h"
@@ -35,17 +43,6 @@
 #include "Global.h"
 
 #define SSL_STRING(x) QString::fromLatin1(x).toUtf8().data()
-
-#if defined(__GNUC__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-static long mumble_BIO_get_mem_data(BIO *b, char **pp) {
-	return BIO_get_mem_data(b, pp);
-}
-#if defined(__GNUC__)
-#pragma GCC diagnostic pop
-#endif
 
 CertView::CertView(QWidget *p) : QGroupBox(p) {
 	QGridLayout *grid = new QGridLayout(this);
@@ -563,7 +560,7 @@ QByteArray CertWizard::exportCert(const Settings::KeyPair &kp) {
 				mem = BIO_new(BIO_s_mem());
 				i2d_PKCS12_bio(mem, pkcs);
 				Q_UNUSED(BIO_flush(mem));
-				size = mumble_BIO_get_mem_data(mem, &data);
+				size = BIO_get_mem_data(mem, &data);
 				qba = QByteArray(data, static_cast<int>(size));
 			}
 		}
