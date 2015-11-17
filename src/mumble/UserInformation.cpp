@@ -44,12 +44,14 @@ static QString decode_utf8_qssl_string(const QString &input) {
 	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
 }
 
+#if QT_VERSION >= 0x050000
 static QString decode_utf8_qssl_string(const QStringList &list) {
 	if (list.count() > 0) {
 		return decode_utf8_qssl_string(list.at(0));
 	}
 	return QString();
 }
+#endif
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
