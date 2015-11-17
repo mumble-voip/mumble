@@ -42,6 +42,9 @@
 #include <sys/ipc.h>
 #include <sys/time.h>
 #include <sys/socket.h>
+#ifdef __FreeBSD__
+#include <sys/stat.h>
+#endif
 #include <sys/un.h>
 #include <sys/stat.h>
 #include <time.h>
