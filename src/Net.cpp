@@ -31,6 +31,12 @@
 #include "murmur_pch.h"
 
 #include "Net.h"
+#ifdef __FreeBSD__
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#endif
 
 HostAddress::HostAddress() {
 	addr[0] = addr[1] = 0ULL;
