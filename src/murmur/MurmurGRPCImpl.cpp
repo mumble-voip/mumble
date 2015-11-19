@@ -1013,6 +1013,8 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 			message.set_message(response.message().text());
 		}
 		break;
+	default:
+		break;
 	}
 }
 
@@ -2113,7 +2115,7 @@ void V1_DatabaseUserUpdate::impl(bool) {
 
 	if (info.contains(ServerDB::User_Name) || info.contains(ServerDB::User_Comment)) {
 		foreach(::ServerUser *u, server->qhUsers) {
-			if (u->iId == request.id()) {
+			if (static_cast<unsigned int>(u->iId) == request.id()) {
 				QString name = u->qsName;
 				QString comment = u->qsComment;
 				if (info.contains(ServerDB::User_Name)) {
