@@ -1,7 +1,7 @@
 include(../mumble.pri)
 
 TEMPLATE = app
-TARGET = murmur_grpc_wrapper_gen
+TARGET = protoc-gen-grpcwrapper
 LANGUAGE = C++
 SOURCES = main.cpp
 LIBS = -lprotoc
