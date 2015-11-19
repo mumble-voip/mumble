@@ -1,5 +1,4 @@
 Makefile
-!/scripts/Makefile
 Makefile.Debug
 Makefile.Release
 debug/
