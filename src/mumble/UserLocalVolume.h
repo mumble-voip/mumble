@@ -35,14 +35,17 @@
 #include "ClientUser.h"
 
 class UserLocalVolume : public QWidget, private Ui::UserLocalVolume {
-    private:
+	private:
         Q_OBJECT
+        Q_DISABLE_COPY(UserLocalVolume);
         unsigned int m_clientSession;
-    public slots:
+        int LastUserVolume;
+
+	public slots:
         void on_qsUserLocalVolume_valueChanged(int Value);
         void on_qsbUserLocalVolume_valueChanged(int Value);
         void on_qbbButtons_clicked(QAbstractButton *b);
-    public:
+	public:
         UserLocalVolume(QWidget *parent, unsigned int sessionId=0);
 };
 

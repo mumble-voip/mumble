@@ -1443,19 +1443,18 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 	if (!p) {
 		return;
 	}
-    openUserLocalVolume(p);
+        openUserLocalVolume(p);
 }
 
 void MainWindow::openUserLocalVolume(ClientUser *p) {
     unsigned int session = p->uiSession;
     UserLocalVolume *uservol = new UserLocalVolume(this, session);
-
+    uservol->setWindowFlags(Qt::Dialog);
     uservol->show();
-
-    p = ClientUser::get(session);
-    if (p && ! p->qsHash.isEmpty()) {
-        Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
-    }
+	p = ClientUser::get(session);
+	if (p && ! p->qsHash.isEmpty()) {
+		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
+	}
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {

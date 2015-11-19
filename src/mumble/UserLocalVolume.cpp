@@ -34,14 +34,16 @@
 #include "Global.h"
 #include "ClientUser.h"
 
-UserLocalVolume::UserLocalVolume(QWidget *parent, unsigned int sessionId)
-{
+UserLocalVolume::UserLocalVolume(QWidget *p, unsigned int sessionId)
+    : QWidget(NULL)
+    , m_clientSession(sessionId) {
     setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
         qsUserLocalVolume -> setValue(qRound(log2(user->fLocalVolume) * 6.0));
+        this->LastUserVolume = qsUserLocalVolume -> value();
 	}
 }
 
@@ -62,11 +64,16 @@ void UserLocalVolume::on_qsbUserLocalVolume_valueChanged(int Value) {
 }
 
 void UserLocalVolume::on_qbbButtons_clicked(QAbstractButton *button) {
-    if (button == qbbButtons -> button(QDialogButtonBox::Reset)) {
+    if (button == qbbButtons->button(QDialogButtonBox::Reset)) {
         qsUserLocalVolume -> setValue(0);
     }
 
-    if (button == qbbButtons -> button(QDialogButtonBox::Ok)) {
+    if (button == qbbButtons->button(QDialogButtonBox::Ok)) {
+        UserLocalVolume::close();
+    }
+
+    if (button == qbbButtons->button(QDialogButtonBox::Abort)) {
+        qsUserLocalVolume->setValue(this->LastUserVolume);
         UserLocalVolume::close();
     }
 }
