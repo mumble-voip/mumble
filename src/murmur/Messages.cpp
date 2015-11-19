@@ -1512,6 +1512,7 @@ void Server::msgUserList(ServerUser *uSource, MumbleProto::UserList &msg) {
 						}
 					}
 					if (mpus.has_session()) {
+						mpus.set_actor(uSource->uiSession);
 						mpus.set_name(u8(name));
 						sendAll(mpus);
 					}
