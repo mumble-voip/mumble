@@ -134,7 +134,7 @@ ice {
 	}
 }
 
-!CONFIG(no-grpc) {
+CONFIG(grpc) {
 	DEFINES *= USE_GRPC
 	INCLUDEPATH *= murmur_grpc
 	LIBS *= -lmurmur_grpc
