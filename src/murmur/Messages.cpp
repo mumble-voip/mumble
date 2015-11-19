@@ -396,6 +396,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	mpsc.set_allow_html(bAllowHTML);
 	mpsc.set_message_length(iMaxTextMessageLength);
 	mpsc.set_image_message_length(iMaxImageMessageLength);
+	mpsc.set_max_users(iMaxUsers);
 	sendMessage(uSource, mpsc);
 
 	MumbleProto::SuggestConfig mpsug;

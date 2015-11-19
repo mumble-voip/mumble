@@ -61,8 +61,8 @@ int LogTextBrowser::getLogScrollMaximum() {
 	return verticalScrollBar()->maximum();
 }
 
-void LogTextBrowser::setLogScroll(int pos) {
-	verticalScrollBar()->setValue(pos);
+void LogTextBrowser::setLogScroll(int scroll_pos) {
+	verticalScrollBar()->setValue(scroll_pos);
 }
 
 void LogTextBrowser::scrollLogToBottom() {

@@ -124,10 +124,11 @@ Ban BanEditor::toBan(bool &ok) {
 		b.qsReason = qleReason->text();
 		b.qdtStart = qdteStart->dateTime().toUTC();
 		const QDateTime &qdte = qdteEnd->dateTime();
+		
 		if (qdte <= b.qdtStart)
 			b.iDuration = 0;
 		else
-			b.iDuration = b.qdtStart.secsTo(qdte);
+			b.iDuration = static_cast<unsigned int>(b.qdtStart.secsTo(qdte));
 
 		ok = b.isValid();
 	}

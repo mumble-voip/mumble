@@ -304,8 +304,8 @@ ALSAAudioInput::~ALSAAudioInput() {
 	wait();
 }
 
-#define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=(x)) < 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
-#define ALSA_ERRCHECK(x) if (!bOk) {} else if ((err=(x)) < 0) {qWarning("ALSAAudio: Non-critical: %s: %s", #x, snd_strerror(err));}
+#define ALSA_ERRBAIL(x) if (!bOk) {} else if ((err=static_cast<int>(x)) < 0) { bOk = false; qWarning("ALSAAudio: %s: %s", #x, snd_strerror(err));}
+#define ALSA_ERRCHECK(x) if (!bOk) {} else if ((err=static_cast<int>(x)) < 0) {qWarning("ALSAAudio: Non-critical: %s: %s", #x, snd_strerror(err));}
 
 void ALSAAudioInput::run() {
 	QMutexLocker qml(&qmALSA);
@@ -568,7 +568,7 @@ void ALSAAudioOutput::run() {
 			if (! stillRun) {
 				snd_pcm_drain(pcm_handle);
 
-				while (bRunning && !mix(outbuff, period_size)) {
+				while (bRunning && !mix(outbuff, static_cast<unsigned int>(period_size))) {
 					this->msleep(10);
 				}
 

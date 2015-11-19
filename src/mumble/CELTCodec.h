@@ -61,7 +61,7 @@ class CELTCodec {
 		void (__cdecl *celt_decoder_destroy)(CELTDecoder *st);
 		int (__cdecl *celt_decoder_ctl)(CELTDecoder * st, int request, ...);
 
-		CELTCodec(const QString &version);
+		CELTCodec(const QString &celt_version);
 		virtual ~CELTCodec();
 		bool isValid() const;
 		int bitstreamVersion() const;
@@ -86,7 +86,7 @@ class CELTCodec070 : public CELTCodec {
 		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm);
 		const char *(__cdecl *celt_strerror)(int error);
 	public:
-		CELTCodec070(const QString &version);
+		CELTCodec070(const QString &celt_version);
 		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
 		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
 		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;
@@ -104,7 +104,7 @@ class CELTCodec011 : public CELTCodec {
 		int (__cdecl *celt_decode)(CELTDecoder *st, const unsigned char *data, int len, celt_int16 *pcm, int frame_size);
 		const char *(__cdecl *celt_strerror)(int error);
 	public:
-		CELTCodec011(const QString &version);
+		CELTCodec011(const QString &celt_version);
 		CELTEncoder *encoderCreate() Q_DECL_OVERRIDE;
 		CELTDecoder *decoderCreate() Q_DECL_OVERRIDE;
 		int encode(CELTEncoder *st, const celt_int16 *pcm, unsigned char *compressed, int nbCompressedBytes) Q_DECL_OVERRIDE;

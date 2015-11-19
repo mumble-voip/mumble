@@ -49,7 +49,7 @@ class G15LCDEngineHelper : public LCDEngine {
 		QProcess *qpHelper;
 		QString qsHelperExecutable;
 		bool framebufferReady() const;
-		void submitFrame(bool alert, uchar *buf, size_t len);
+		void submitFrame(bool alert, uchar *buf, qint64 len);
 		void setProcessStatus(bool run);
 	public:
 		G15LCDEngineHelper();

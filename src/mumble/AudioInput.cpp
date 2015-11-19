@@ -680,7 +680,7 @@ int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& b
 
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
-	len = opus_encode(opusState, source, size, &buffer[0], buffer.size());
+	len = opus_encode(opusState, source, size, &buffer[0], static_cast<opus_int32>(buffer.size()));
 	const int tenMsFrameCount = (size / iFrameSize);
 	iBitrate = (len * 100 * 8) / tenMsFrameCount;
 #endif
@@ -698,7 +698,7 @@ int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_VBR_RATE(iAudioQuality));
-	len = cCodec->encode(ceEncoder, psSource, &buffer[0], qMin<int>(iAudioQuality / (8 * 100), buffer.size()));
+	len = cCodec->encode(ceEncoder, psSource, &buffer[0], qMin<int>(iAudioQuality / (8 * 100), static_cast<int>(buffer.size())));
 	iBitrate = len * 100 * 8;
 
 	return len;
@@ -870,7 +870,7 @@ void AudioInput::encodeAudioFrame() {
 				// this way we are guaranteed to have a valid framecount and won't cause
 				// a codec configuration switch by suddenly using a wildly different
 				// framecount per packet.
-				const size_t missingFrames = iAudioFrames - iBufferedFrames;
+				const int missingFrames = iAudioFrames - iBufferedFrames;
 				opusBuffer.insert(opusBuffer.end(), iFrameSize * missingFrames, 0);
 				iBufferedFrames += missingFrames;
 				iFrameCounter += missingFrames;

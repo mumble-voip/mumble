@@ -36,6 +36,9 @@
 #include "User.h"
 #include "Global.h"
 
+// Ignore deprecation warnings for the whole file, for now.
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 class CoreAudioInputRegistrar : public AudioInputRegistrar {
 	public:
 		CoreAudioInputRegistrar();
@@ -139,7 +142,7 @@ const QHash<QString, QString> CoreAudioSystem::getDevices(bool input) {
 		}
 
 		UInt32 channels = 0;
-		for (int j = 0; j < bufs->mNumberBuffers; j++) {
+		for (UInt32 j = 0; j < bufs->mNumberBuffers; j++) {
 			channels += bufs->mBuffers[j].mNumberChannels;
 		}
 
@@ -191,6 +194,8 @@ void CoreAudioInputRegistrar::setDeviceChoice(const QVariant &choice, Settings &
 }
 
 bool CoreAudioInputRegistrar::canEcho(const QString &outputsys) const {
+	Q_UNUSED(outputsys);
+
 	return false;
 }
 
@@ -423,6 +428,9 @@ CoreAudioInput::~CoreAudioInput() {
 
 OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
                                        UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
+	Q_UNUSED(udata);
+	Q_UNUSED(buflist);
+
 	CoreAudioInput *i = reinterpret_cast<CoreAudioInput *>(udata);
 	OSStatus err;
 
@@ -438,6 +446,11 @@ OSStatus CoreAudioInput::inputCallback(void *udata, AudioUnitRenderActionFlags *
 }
 
 void CoreAudioInput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element) {
+	Q_UNUSED(udata);
+	Q_UNUSED(au);
+	Q_UNUSED(scope);
+	Q_UNUSED(element);
+
 	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioInput: Stream format change detected. Restarting AudioInput.");
 		Audio::stopInput();
@@ -626,9 +639,12 @@ CoreAudioOutput::~CoreAudioOutput() {
 
 OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags *flags, const AudioTimeStamp *ts,
         UInt32 busnum, UInt32 nframes, AudioBufferList *buflist) {
+	Q_UNUSED(flags);
+	Q_UNUSED(ts);
+	Q_UNUSED(busnum);
+
 	CoreAudioOutput *o = reinterpret_cast<CoreAudioOutput *>(udata);
 	AudioBuffer *buf = buflist->mBuffers;
-	OSStatus err;
 
 	bool done = o->mix(buf->mData, nframes);
 	if (! done) {
@@ -640,6 +656,11 @@ OSStatus CoreAudioOutput::outputCallback(void *udata, AudioUnitRenderActionFlags
 }
 
 void CoreAudioOutput::propertyChange(void *udata, AudioUnit au, AudioUnitPropertyID prop, AudioUnitScope scope, AudioUnitElement element) {
+	Q_UNUSED(udata);
+	Q_UNUSED(au);
+	Q_UNUSED(scope);
+	Q_UNUSED(element);
+
 	if (prop == kAudioUnitProperty_StreamFormat) {
 		qWarning("CoreAudioOuptut: Stream format change detected. Restarting AudioOutput.");
 		Audio::stopOutput();

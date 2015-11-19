@@ -84,18 +84,18 @@ int OverlayUserGroup::type() const {
 	return Type;
 }
 
-void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
-	event->accept();
+void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *e) {
+	e->accept();
 
 #ifdef Q_OS_MAC
 	bool embed = g.ocIntercept != NULL;
-	QMenu qm(embed ? NULL : event->widget());
+	QMenu qm(embed ? NULL : e->widget());
 	if (embed) {
 		QGraphicsScene *scene = g.ocIntercept->qgv.scene();
 		scene->addWidget(&qm);
 	}
 #else
-	QMenu qm(g.ocIntercept ? g.mw : event->widget());
+	QMenu qm(g.ocIntercept ? g.mw : e->widget());
 #endif
 
 	QMenu *qmShow = qm.addMenu(OverlayClient::tr("Filter"));
@@ -156,7 +156,7 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	QAction *qaEdit = qm.addAction(OverlayClient::tr("Edit..."));
 	QAction *qaZoom = qm.addAction(OverlayClient::tr("Reset Zoom"));
 
-	QAction *act = qm.exec(event->screenPos());
+	QAction *act = qm.exec(e->screenPos());
 
 	if (! act)
 		return;
@@ -218,26 +218,26 @@ void OverlayUserGroup::contextMenuEvent(QGraphicsSceneContextMenuEvent *event) {
 	}
 }
 
-void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *event) {
-	event->accept();
+void OverlayUserGroup::wheelEvent(QGraphicsSceneWheelEvent *e) {
+	e->accept();
 
-	qreal scale = 0.875f;
+	qreal scaleFactor = 0.875f;
 
-	if (event->delta() > 0)
-		scale = 1.0f / 0.875f;
+	if (e->delta() > 0)
+		scaleFactor = 1.0f / 0.875f;
 
-	if ((scale < 1.0f) && (os->fZoom <= (1.0f / 4.0f)))
+	if ((scaleFactor < 1.0f) && (os->fZoom <= (1.0f / 4.0f)))
 		return;
-	else if ((scale > 1.0f) && (os->fZoom >= 4.0f))
+	else if ((scaleFactor > 1.0f) && (os->fZoom >= 4.0f))
 		return;
 
-	os->fZoom *= scale;
+	os->fZoom *= scaleFactor;
 
 	updateLayout();
 }
 
-bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *event) {
-	switch (event->type()) {
+bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *e) {
+	switch (e->type()) {
 		case QEvent::GraphicsSceneMouseMove:
 		case QEvent::GraphicsSceneMouseRelease:
 			QMetaObject::invokeMethod(this, "moveUsers", Qt::QueuedConnection);
@@ -246,7 +246,7 @@ bool OverlayUserGroup::sceneEventFilter(QGraphicsItem *watched, QEvent *event) {
 			break;
 
 	}
-	return OverlayGroup::sceneEventFilter(watched, event);
+	return OverlayGroup::sceneEventFilter(watched, e);
 }
 
 void OverlayUserGroup::moveUsers() {
@@ -256,8 +256,8 @@ void OverlayUserGroup::moveUsers() {
 	const QRectF &sr = scene()->sceneRect();
 	const QPointF &p = qgeiHandle->pos();
 
-	os->fX = qBound<qreal>(0.0f, p.x() / sr.width(), 1.0f);
-	os->fY = qBound<qreal>(0.0f, p.y() / sr.height(), 1.0f);
+	os->fX = static_cast<float>(qBound(0.0, p.x() / sr.width(), 1.0));
+	os->fY = static_cast<float>(qBound(0.0, p.y() / sr.height(), 1.0));
 
 	qgeiHandle->setPos(os->fX * sr.width(), os->fY * sr.height());
 	updateUsers();
@@ -362,31 +362,31 @@ void OverlayUserGroup::updateUsers() {
 		qgi->hide();
 	}
 
-	QRectF children = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
+	QRectF childrenBounds = os->qrfAvatar | os->qrfChannel | os->qrfMutedDeafened | os->qrfUserName;
 
 	int pad = os->bBox ? iroundf(uiHeight * os->fZoom * (os->fBoxPad + os->fBoxPenWidth) + 0.5f) : 0;
-	int width = iroundf(children.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
-	int height = iroundf(children.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int width = iroundf(childrenBounds.width() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
+	int height = iroundf(childrenBounds.height() * uiHeight * os->fZoom + 0.5f) + 2 * pad;
 
-	int xofs = - iroundf(children.left() * uiHeight * os->fZoom + 0.5f) + pad;
-	int yofs = - iroundf(children.top() * uiHeight * os->fZoom + 0.5f) + pad;
+	int xOffset = - iroundf(childrenBounds.left() * uiHeight * os->fZoom + 0.5f) + pad;
+	int yOffset = - iroundf(childrenBounds.top() * uiHeight * os->fZoom + 0.5f) + pad;
 
-	unsigned int y = 0;
-	unsigned int x = 0;
+	unsigned int yPos = 0;
+	unsigned int xPos = 0;
 
 	foreach(OverlayUser *ou, users) {
 		if (ou->parentItem() == NULL)
 			ou->setParentItem(this);
 
-		ou->setPos(x * (width+4) + xofs, y * (height + 4) + yofs);
+		ou->setPos(xPos * (width+4) + xOffset, yPos * (height + 4) + yOffset);
 		ou->updateUser();
 		ou->show();
 
-		if (x >= (os->uiColumns - 1)) {
-			x = 0;
-			++y;
+		if (xPos >= (os->uiColumns - 1)) {
+			xPos = 0;
+			++yPos;
 		} else {
-			++x;
+			++xPos;
 		}
 	}
 

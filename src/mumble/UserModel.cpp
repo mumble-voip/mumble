@@ -313,12 +313,12 @@ QModelIndex UserModel::parent(const QModelIndex &idx) const {
 
 	ModelItem *item = static_cast<ModelItem *>(idx.internalPointer());
 
-	ModelItem *pitem = (item) ? item->parent : NULL;
+	ModelItem *parent_item = (item) ? item->parent : NULL;
 
-	if (! pitem)
+	if (! parent_item)
 		return QModelIndex();
 
-	return createIndex(pitem->rowOfSelf(), 0, pitem);
+	return createIndex(parent_item->rowOfSelf(), 0, parent_item);
 }
 
 int UserModel::rowCount(const QModelIndex &p) const {

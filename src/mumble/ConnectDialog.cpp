@@ -445,7 +445,7 @@ QVariant ServerItem::data(int column, int role) const {
 					else if (itType == LANType)
 						return loadIcon(QLatin1String("skin:places/network-workgroup.svg"));
 					else if (! qsCountryCode.isEmpty())
-						return loadIcon(QString::fromLatin1(":/flags/%1.png").arg(qsCountryCode));
+						return loadIcon(QString::fromLatin1(":/flags/%1.svg").arg(qsCountryCode));
 					else
 						return loadIcon(QLatin1String("skin:categories/applications-internet.svg"));
 			}
@@ -1593,14 +1593,14 @@ void ConnectDialog::udpReply() {
 	}
 }
 
-void ConnectDialog::fetched(QByteArray data, QUrl, QMap<QString, QString> headers) {
-	if (data.isNull()) {
+void ConnectDialog::fetched(QByteArray xmlData, QUrl, QMap<QString, QString> headers) {
+	if (xmlData.isNull()) {
 		QMessageBox::warning(this, QLatin1String("Mumble"), tr("Failed to fetch server list"), QMessageBox::Ok);
 		return;
 	}
 
 	QDomDocument doc;
-	doc.setContent(data);
+	doc.setContent(xmlData);
 
 	qlPublicServers.clear();
 	qsUserCountry = headers.value(QLatin1String("Geo-Country"));

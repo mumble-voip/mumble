@@ -253,7 +253,7 @@ void Server::initializeCert() {
 		QByteArray pemdh(pem, len);
 		QSslDiffieHellmanParameters qdhp(pemdh);
 		if (!qdhp.isValid()) {
-			qFatal("QSslDiffieHellmanParameters: unable to import generated Diffie-HellmanParameters: %s", qdhp.errorString());
+			qFatal("QSslDiffieHellmanParameters: unable to import generated Diffie-HellmanParameters: %s", qdhp.errorString().toStdString().c_str());
 		}
 
 		qsdhpDHParams = qdhp;

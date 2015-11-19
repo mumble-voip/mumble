@@ -259,7 +259,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::setupGui()  {
-	setWindowTitle(tr("Mumble -- %1").arg(QLatin1String(MUMBLE_RELEASE)));
+	updateWindowTitle();
 	setCentralWidget(qtvUsers);
 	setAcceptDrops(true);
 
@@ -387,6 +387,16 @@ void MainWindow::setupGui()  {
 #endif
 }
 
+void MainWindow::updateWindowTitle() {
+	QString title;
+	if (g.s.bMinimalView) {
+		title = tr("Mumble - Minimal View -- %1");
+	} else {
+		title = tr("Mumble -- %1");
+	}
+	setWindowTitle(title.arg(QLatin1String(MUMBLE_RELEASE)));
+}
+
 // Sets whether or not to show the title bars on the MainWindow's
 // dock widgets.
 void MainWindow::setShowDockTitleBars(bool doShow) {
@@ -494,9 +504,8 @@ void MainWindow::showEvent(QShowEvent *e) {
 	QMainWindow::showEvent(e);
 }
 
-void MainWindow::changeEvent(QEvent *event)
-{
-	QWidget::changeEvent(event);
+void MainWindow::changeEvent(QEvent *e) {
+	QWidget::changeEvent(e);
 	if (isMinimized() && g.s.bHideInTray) {
 		// Workaround http://qt-project.org/forums/viewthread/4423/P15/#50676
 		QTimer::singleShot(0, this, SLOT(hide()));
@@ -568,9 +577,9 @@ ClientUser *MainWindow::getContextMenuUser() {
 bool MainWindow::handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus) {
 	if (url.scheme() == QString::fromLatin1("clientid")) {
 		bool ok = false;
-		QString x(url.host());
-		if (x.length() == 40) {
-			ClientUser *cu = pmModel->getUser(x);
+		QString maybeUserHash(url.host());
+		if (maybeUserHash.length() == 40) {
+			ClientUser *cu = pmModel->getUser(maybeUserHash);
 			if (cu) {
 				cuContextUser = cu;
 				ok = true;
@@ -1084,11 +1093,12 @@ void MainWindow::qcbTransmitMode_activated(int index) {
 void MainWindow::on_qmServer_aboutToShow() {
 	qmServer->clear();
 	qmServer->addAction(qaServerConnect);
+	qmServer->addSeparator();
 	qmServer->addAction(qaServerDisconnect);
-	qmServer->addAction(qaServerBanList);
-	qmServer->addAction(qaServerUserList);
 	qmServer->addAction(qaServerInformation);
 	qmServer->addAction(qaServerTokens);
+	qmServer->addAction(qaServerUserList);
+	qmServer->addAction(qaServerBanList);
 	qmServer->addSeparator();
 	qmServer->addAction(qaQuit);
 
@@ -1219,6 +1229,9 @@ void MainWindow::on_qaServerInformation_triggered() {
 	                  QString::fromLatin1("%1").arg(sqrt(boost::accumulators::variance(g.sh->accTCP)),0,'f',2),
 	                  Qt::escape(host),
 	                  QString::number(port));
+	if (g.uiMaxUsers) {
+		qsControl += tr("<p>Connected users: %1/%2</p>").arg(ModelItem::c_qhUsers.count()).arg(g.uiMaxUsers);
+	}
 
 	QString qsVoice, qsCrypt, qsAudio;
 
@@ -1447,10 +1460,10 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 }
 
 void MainWindow::openUserLocalVolume(ClientUser *p) {
-    unsigned int session = p->uiSession;
-    UserLocalVolume *uservol = new UserLocalVolume(this, session);
-    uservol->setWindowFlags(Qt::Dialog);
-    uservol->show();
+	unsigned int session = p->uiSession;
+	UserLocalVolume *uservol = new UserLocalVolume(this, session);
+	uservol->setWindowFlags(Qt::Dialog);
+	uservol->show();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {
 		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
@@ -1796,8 +1809,8 @@ void MainWindow::qmChannel_aboutToShow() {
 			qmChannel->addAction(a);
 	}
 
-	bool add, remove, acl, link, unlink, unlinkall, msg, hide;
-	add = remove = acl = link = unlink = unlinkall = msg = hide = false;
+	bool add, remove, acl, link, unlink, unlinkall, msg;
+	add = remove = acl = link = unlink = unlinkall = msg = false;
 
 	if (g.uiSession != 0) {
 		add = true;
@@ -2247,6 +2260,7 @@ void MainWindow::on_qaConfigDialog_triggered() {
 
 void MainWindow::on_qaConfigMinimal_triggered() {
 	g.s.bMinimalView = qaConfigMinimal->isChecked();
+	updateWindowTitle();
 	setupView();
 }
 
@@ -2314,7 +2328,7 @@ void MainWindow::on_PushToTalk_triggered(bool down, QVariant) {
 		g.uiDoublePush = g.tDoublePush.restart();
 		g.iPushToTalk++;
 	} else if (g.iPushToTalk > 0) {
-		QTimer::singleShot(g.s.uiPTTHold, this, SLOT(pttReleased()));
+		QTimer::singleShot(static_cast<int>(g.s.pttHold), this, SLOT(pttReleased()));
 	}
 }
 
@@ -2507,7 +2521,7 @@ void MainWindow::on_gsWhisper_triggered(bool down, QVariant scdata) {
 	} else if (g.iPushToTalk > 0) {
 		SignalCurry *fwd = new SignalCurry(scdata, true, this);
 		connect(fwd, SIGNAL(called(QVariant)), SLOT(whisperReleased(QVariant)));
-		QTimer::singleShot(g.s.uiPTTHold, fwd, SLOT(call()));
+		QTimer::singleShot(static_cast<int>(g.s.pttHold), fwd, SLOT(call()));
 	}
 }
 
@@ -2637,6 +2651,7 @@ void MainWindow::serverConnected() {
 	g.bAllowHTML = true;
 	g.uiMessageLength = 5000;
 	g.uiImageLength = 131072;
+	g.uiMaxUsers = 0;
 
 	if (g.s.bMute || g.s.bDeaf) {
 		g.sh->setSelfMuteDeafState(g.s.bMute, g.s.bDeaf);

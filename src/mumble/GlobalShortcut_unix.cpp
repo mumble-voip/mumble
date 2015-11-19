@@ -46,6 +46,13 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 	return new GlobalShortcutX();
 }
 
+#if defined(__GNUC__)
+// ScreenCount(...) and so on are macros that access the private structure and
+// cast their return value using old-style-casts. Hence we suppress these warnings
+// for this section of code.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
 GlobalShortcutX::GlobalShortcutX() {
 	iXIopcode =  -1;
 	bRunning = false;
@@ -122,6 +129,9 @@ GlobalShortcutX::GlobalShortcutX() {
 	bRunning=true;
 	start(QThread::TimeCriticalPriority);
 }
+#if defined(__GNUC__)
+#pragma GCC diagnostic pop
+#endif
 
 GlobalShortcutX::~GlobalShortcutX() {
 	bRunning = false;
@@ -342,7 +352,16 @@ QString GlobalShortcutX::buttonName(const QVariant &v) {
 	if (!ok)
 		return QString();
 	if ((key < 0x118) || (key >= 0x128)) {
+
+		// For backwards compatibility reasons we want to keep using the
+		// old function as long as possible. The replacement function
+		// XkbKeycodeToKeysym requires the XKB extension which isn't
+		// guaranteed to be present.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 		KeySym ks=XKeycodeToKeysym(display, static_cast<KeyCode>(key), 0);
+#pragma GCC diagnostic pop
+
 		if (ks == NoSymbol) {
 			return QLatin1String("0x")+QString::number(key,16);
 		} else {

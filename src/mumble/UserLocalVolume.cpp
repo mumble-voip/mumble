@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 #include "mumble_pch.hpp"
 
 #include "UserLocalVolume.h"
@@ -35,9 +36,9 @@
 #include "ClientUser.h"
 
 UserLocalVolume::UserLocalVolume(QWidget *p, unsigned int sessionId)
-    : QWidget(NULL)
+    : QWidget(p=NULL)
     , m_clientSession(sessionId) {
-    setupUi(this);
+	setupUi(this);
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
@@ -48,32 +49,29 @@ UserLocalVolume::UserLocalVolume(QWidget *p, unsigned int sessionId)
 }
 
 void UserLocalVolume::on_qsUserLocalVolume_valueChanged(int Value) {
-
-    qsbUserLocalVolume -> setValue(Value);
-    ClientUser *user = ClientUser::get(m_clientSession);
-    if (user) {
-        user -> fLocalVolume = static_cast<float>
-                (pow(2.0, qsUserLocalVolume -> value() / 6.0));
-        // Decibel formula +6db = *2
-    }
+	qsbUserLocalVolume -> setValue(Value);
+	ClientUser *user = ClientUser::get(m_clientSession);
+	if (user) {
+        	user -> fLocalVolume = static_cast<float>
+                	(pow(2.0, qsUserLocalVolume -> value() / 6.0));
+        	// Decibel formula +6db = *2
+    	}
 }
 
 
 void UserLocalVolume::on_qsbUserLocalVolume_valueChanged(int Value) {
-    qsUserLocalVolume->setValue(Value);
+	qsUserLocalVolume->setValue(Value);
 }
 
 void UserLocalVolume::on_qbbButtons_clicked(QAbstractButton *button) {
-    if (button == qbbButtons->button(QDialogButtonBox::Reset)) {
-        qsUserLocalVolume -> setValue(0);
-    }
-
-    if (button == qbbButtons->button(QDialogButtonBox::Ok)) {
-        UserLocalVolume::close();
-    }
-
-    if (button == qbbButtons->button(QDialogButtonBox::Abort)) {
-        qsUserLocalVolume->setValue(this->LastUserVolume);
-        UserLocalVolume::close();
-    }
+	if (button == qbbButtons->button(QDialogButtonBox::Reset)) {
+		qsUserLocalVolume -> setValue(0);
+	}
+	if (button == qbbButtons->button(QDialogButtonBox::Ok)) {
+		UserLocalVolume::close();
+	}
+	if (button == qbbButtons->button(QDialogButtonBox::Abort)) {
+		qsUserLocalVolume->setValue(this->LastUserVolume);
+        	UserLocalVolume::close();
+    	}
 }

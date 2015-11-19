@@ -111,9 +111,9 @@ void SocketRPCClient::processXml() {
 			QDomAttr attr = attributes.item(i).toAttr();
 			qmRequest.insert(attr.name(), attr.value());
 		}
-		QDomNodeList children = request.childNodes();
-		for (int i=0;i<children.count();++i) {
-			QDomElement child = children.item(i).toElement();
+		QDomNodeList childNodes = request.childNodes();
+		for (int i=0;i<childNodes.count();++i) {
+			QDomElement child = childNodes.item(i).toElement();
 			if (! child.isNull())
 				qmRequest.insert(child.nodeName(), child.text());
 		}

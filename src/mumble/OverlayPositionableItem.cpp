@@ -25,8 +25,8 @@ void OverlayPositionableItem::createPositioningHandle() {
 	m_qgeiHandle->installSceneEventFilter(this);
 }
 
-bool OverlayPositionableItem::sceneEventFilter(QGraphicsItem *watched, QEvent *event ) {
-	switch (event->type()) {
+bool OverlayPositionableItem::sceneEventFilter(QGraphicsItem *watched, QEvent *e) {
+	switch (e->type()) {
 		case QEvent::GraphicsSceneMouseMove:
 		case QEvent::GraphicsSceneMouseRelease:
 			QMetaObject::invokeMethod(this, "onMove", Qt::QueuedConnection);
@@ -34,7 +34,7 @@ bool OverlayPositionableItem::sceneEventFilter(QGraphicsItem *watched, QEvent *e
 		default:
 			break;
 	}
-	return QGraphicsItem::sceneEventFilter(watched, event);
+	return QGraphicsItem::sceneEventFilter(watched, e);
 }
 
 void OverlayPositionableItem::onMove() {

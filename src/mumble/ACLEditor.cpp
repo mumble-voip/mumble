@@ -273,10 +273,10 @@ void ACLEditor::accept() {
 			needs_update = true;
 		}
 		if (rteChannelDescription->isModified() && (pChannel->qsDesc != rteChannelDescription->text())) {
-			const QString &msg = rteChannelDescription->text();
-			mpcs.set_description(u8(msg));
+			const QString &descriptionText = rteChannelDescription->text();
+			mpcs.set_description(u8(descriptionText));
 			needs_update = true;
-			Database::setBlob(sha1(msg), msg.toUtf8());
+			Database::setBlob(sha1(descriptionText), descriptionText.toUtf8());
 		}
 		if (pChannel->iPosition != qsbChannelPosition->value()) {
 			mpcs.set_position(qsbChannelPosition->value());

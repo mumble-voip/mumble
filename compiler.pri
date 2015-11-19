@@ -155,11 +155,15 @@ win32 {
 
 unix {
 	DEFINES *= RESTRICT=__restrict__
-	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
-	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
-	!CONFIG(quiet-build-log) {
-		QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare
-		QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare
+	QMAKE_CFLAGS *= -fvisibility=hidden
+	QMAKE_CXXFLAGS *= -fvisibility=hidden
+
+	QMAKE_CXXFLAGS	*= -Wall -Wextra
+	QMAKE_CFLAGS	*= -Wall -Wextra
+
+	!CONFIG(no-warnings-as-errors) {
+		QMAKE_CXXFLAGS	*= -Werror
+		QMAKE_CFLAGS	*= -Werror
 	}
 
 	CONFIG(opt-gcc) {
@@ -246,11 +250,11 @@ macx {
 		QMAKE_CC = $$system(xcrun -find clang)
 		QMAKE_CXX = $$system(xcrun -find clang++)
 		QMAKE_LINK = $$system(xcrun -find clang++)
-		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.6
-		QMAKE_CFLAGS += -mmacosx-version-min=10.6
-		QMAKE_CXXFLAGS += -mmacosx-version-min=10.6
-		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.6
-		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=10.6
+		QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.7
+		QMAKE_CFLAGS += -mmacosx-version-min=10.7
+		QMAKE_CXXFLAGS += -mmacosx-version-min=10.7
+		QMAKE_OBJECTIVE_CFLAGS += -mmacosx-version-min=10.7
+		QMAKE_OBJECTIVE_CXXFLAGS += -mmacosx-version-min=10.7
 	} else {
 		XCODE_PATH=$$system(xcode-select -print-path)
 		CONFIG += x86 ppc no-cocoa

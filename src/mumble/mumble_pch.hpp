@@ -39,9 +39,7 @@
 #ifdef Q_OS_WIN
 #define ENABLE_SNDFILE_WINDOWS_PROTOTYPES 1
 #endif
-#define __int64_t __int64
 #include <sndfile.h>
-#undef __int64_t
 #include <celt.h>
 #ifdef USE_SBCELT
 #include <sbcelt.h>

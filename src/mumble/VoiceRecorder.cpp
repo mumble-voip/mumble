@@ -68,8 +68,8 @@ VoiceRecorder::RecordInfo::~RecordInfo() {
 	}
 }
 
-VoiceRecorder::VoiceRecorder(QObject *parent_, const Config& config)
-    : QThread(parent_)
+VoiceRecorder::VoiceRecorder(QObject *p, const Config& config)
+    : QThread(p)
     , m_recordUser(new RecordUser())
     , m_timestamp(new Timer())
 	, m_config(config)

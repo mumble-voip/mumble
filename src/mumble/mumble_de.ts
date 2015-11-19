@@ -4812,7 +4812,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Keine Build- oder Betriebssystem-Informationen verfügbar.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4827,17 +4827,17 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>Die Verbindung wird von der Cipher-Suite , die OpenSSL als %1 identifiziert gesichert.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Die Verbindung unterstützt Perfect Forward Secrecy&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Die Verbindung unterstützt Perfect Forward Secrecy nicht&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>

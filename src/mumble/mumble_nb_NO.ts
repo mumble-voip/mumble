@@ -502,7 +502,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location line="+328"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kunne ikke åpne valgt ALSA-utgang: %1</translation>
     </message>
 </context>
 <context>
@@ -510,7 +510,7 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location filename="ASIOInput.cpp" line="+233"/>
         <source>%1 (version %2)</source>
-        <translation type="unfinished"/>
+        <translation>%1 (versjon %2)</translation>
     </message>
     <message>
         <location line="+3"/>

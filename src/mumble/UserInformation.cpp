@@ -44,12 +44,14 @@ static QString decode_utf8_qssl_string(const QString &input) {
 	return QUrl::fromPercentEncoding(i.replace(QLatin1String("\\x"), QLatin1String("%")).toLatin1());
 }
 
+#if QT_VERSION >= 0x050000
 static QString decode_utf8_qssl_string(const QStringList &list) {
 	if (list.count() > 0) {
 		return decode_utf8_qssl_string(list.at(0));
 	}
 	return QString();
 }
+#endif
 
 UserInformation::UserInformation(const MumbleProto::UserStats &msg, QWidget *p) : QDialog(p) {
 	setupUi(this);
@@ -129,7 +131,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qlCerts.clear();
 		for (int i=0;i<msg.certificates_size(); ++i) {
 			const std::string &s = msg.certificates(i);
-			QList<QSslCertificate> certs = QSslCertificate::fromData(QByteArray(s.data(), s.length()), QSsl::Der);
+			QList<QSslCertificate> certs = QSslCertificate::fromData(QByteArray(s.data(), static_cast<int>(s.length())), QSsl::Der);
 			qlCerts <<certs;
 		}
 		if (! qlCerts.isEmpty()) {
@@ -214,12 +216,12 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 		qlToResync->setText(QString::number(to.resync()));
 
 		quint32 allFromPackets = from.good() + from.late() + from.lost();
-		qlFromLatePercent->setText(QString::number(allFromPackets > 0 ? from.late() * 100.0f / allFromPackets : 0.f, 'f', 2));
-		qlFromLostPercent->setText(QString::number(allFromPackets > 0 ? from.lost() * 100.0f / allFromPackets : 0.f, 'f', 2));
+		qlFromLatePercent->setText(QString::number(allFromPackets > 0 ? from.late() * 100.0 / allFromPackets : 0., 'f', 2));
+		qlFromLostPercent->setText(QString::number(allFromPackets > 0 ? from.lost() * 100.0 / allFromPackets : 0., 'f', 2));
 
 		quint32 allToPackets = to.good() + to.late() + to.lost();
-		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0f / allToPackets : 0.f, 'f', 2));
-		qlToLostPercent->setText(QString::number(allToPackets > 0 ? to.lost() * 100.0f / allToPackets : 0.f, 'f', 2));
+		qlToLatePercent->setText(QString::number(allToPackets > 0 ? to.late() * 100.0 / allToPackets : 0., 'f', 2));
+		qlToLostPercent->setText(QString::number(allToPackets > 0 ? to.lost() * 100.0 / allToPackets : 0., 'f', 2));
 	} else {
 		qgbUDP->setVisible(false);
 	}
@@ -233,7 +235,7 @@ void UserInformation::update(const MumbleProto::UserStats &msg) {
 	if (msg.has_bandwidth()) {
 		qlBandwidth->setVisible(true);
 		qliBandwidth->setVisible(true);
-		qlBandwidth->setText(tr("%1 kbit/s").arg(msg.bandwidth() / 125.0f, 0, 'f', 1));
+		qlBandwidth->setText(tr("%1 kbit/s").arg(msg.bandwidth() / 125.0, 0, 'f', 1));
 	} else {
 		qlBandwidth->setVisible(false);
 		qliBandwidth->setVisible(false);

@@ -641,7 +641,7 @@ bool Meta::boot(int srvnum) {
 			}
 		}
 		if (r.rlim_cur < sockets)
-			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %ld file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, r.rlim_cur);
+			qCritical("Current booted servers require minimum %d file descriptors when all slots are full, but only %lu file descriptors are allowed for this process. Your server will crash and burn; read the FAQ for details.", sockets, static_cast<unsigned long>(r.rlim_cur));
 	}
 #endif
 

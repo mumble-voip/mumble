@@ -97,6 +97,7 @@ Global::Global() {
 	bAllowHTML = true;
 	uiMessageLength = 5000;
 	uiImageLength = 131072;
+	uiMaxUsers = 0;
 
 	qs = NULL;
 

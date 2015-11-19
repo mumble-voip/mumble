@@ -48,12 +48,7 @@ unix {
 
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
-
-	contains(UNAME, FreeBSD) {
-		LIBS *= -lcrypto
-	} else {
-		PKGCONFIG *= openssl
-	}
+	PKGCONFIG *= openssl
 }
 
 # Make Q_DECL_OVERRIDE and Q_DECL_FINAL no-ops

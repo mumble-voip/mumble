@@ -171,7 +171,7 @@ struct Settings {
 
 	AudioTransmit atTransmit;
 	quint64 uiDoublePush;
-	quint64 uiPTTHold;
+	quint64 pttHold;
 
 	bool bExpert;
 

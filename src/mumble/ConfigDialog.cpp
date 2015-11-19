@@ -175,11 +175,11 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 	qlwIcons->clear();
 
 	QFontMetrics qfm(qlwIcons->font());
-	int width = 0;
+	int configNavbarWidth = 0;
 
 	foreach(ConfigWidget *cw, qmWidgets) {
 		bool showit = cw->expert(b);
-		width = qMax(width, qfm.width(cw->title()));
+		configNavbarWidth = qMax(configNavbarWidth, qfm.width(cw->title()));
 		if (showit || b)  {
 			QListWidgetItem *i = new QListWidgetItem(qlwIcons);
 			i->setIcon(cw->icon());
@@ -194,10 +194,10 @@ void ConfigDialog::on_qcbExpert_clicked(bool b) {
 	}
 
 	// Add space for icon and some padding.
-	width += qlwIcons->iconSize().width() + 25;
+	configNavbarWidth += qlwIcons->iconSize().width() + 25;
 
-	qlwIcons->setMinimumWidth(width);
-	qlwIcons->setMaximumWidth(width);
+	qlwIcons->setMinimumWidth(configNavbarWidth);
+	qlwIcons->setMaximumWidth(configNavbarWidth);
 
 	if (sel)
 		qlwIcons->setCurrentItem(sel);

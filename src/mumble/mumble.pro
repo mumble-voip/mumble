@@ -317,12 +317,12 @@ CONFIG(sbcelt) {
     INCLUDEPATH	*= /usr/include/celt
   }
   !CONFIG(no-bundled-celt) {
-    INCLUDEPATH	*= ../../3rdparty/celt-0.7.0-src/libcelt
+    INCLUDEPATH *= ../../3rdparty/celt-0.7.0-src/libcelt
+    unix {
+      QMAKE_CFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+      QMAKE_CXXFLAGS *= "-isystem ../../3rdparty/celt-0.7.0-src/libcelt"
+    }
   }
-}
-
-!win32 {
-  QMAKE_CXXFLAGS	*= -Wall -Wextra
 }
 
 !win32:!macx:!CONFIG(no-dbus) {
@@ -353,6 +353,10 @@ unix:!CONFIG(bundled-opus):system(pkg-config --exists opus) {
     INCLUDEPATH *= ../../3rdparty/opus-src/celt ../../3rdparty/opus-src/include ../../3rdparty/opus-src/src ../../3rdparty/opus-build/src
     DEFINES *= USE_OPUS
     LIBS *= -lopus
+    unix {
+      QMAKE_CFLAGS *= "-isystem  ../../3rdparty/opus-src/celt" "-isystem ../../3rdparty/opus-src/include"
+      QMAKE_CXXFLAGS *= "-isystem  ../../3rdparty/opus-src/celt" "-isystem ../../3rdparty/opus-src/include"
+    }
   }
 }
 
@@ -587,6 +591,29 @@ g15 {
 
 CONFIG(no-update) {
 	DEFINES *= NO_UPDATE_CHECK
+}
+
+!CONFIG(no-embed-qt-translations):!exists($$[QT_INSTALL_TRANSLATIONS]) {
+  error("$$escape_expand(\\n)$$escape_expand(\\n)"\
+        "The QT_INSTALL_TRANSLATIONS directory ($$[QT_INSTALL_TRANSLATIONS])$$escape_expand(\\n)"\
+	"does not exist.$$escape_expand(\\n)"\
+	"$$escape_expand(\\n)"\
+	"The Mumble build process is attempting to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
+	"but it cannot, because the files are missing.$$escape_expand(\\n)"\
+	"$$escape_expand(\\n)"\
+	"If you wish to embed Qt translations into the Mumble binary,$$escape_expand(\\n)"\
+	"you will need to install the translation package for your verison of Qt.$$escape_expand(\\n)"\
+	"For example, On Ubuntu with Qt 5, that package is 'qttranslations5-l10n'.$$escape_expand(\\n)"\
+	"$$escape_expand(\\n)"\
+	"You can also tell the Mumble build process to not embed Qt's$$escape_expand(\\n)"\
+	"translations into the Mumble binary by using the 'no-embed-qt-translations'$$escape_expand(\\n)"\
+	"CONFIG option when running qmake, such as:$$escape_expand(\\n)"\
+	"$$escape_expand(\\n)"\
+	"    $ qmake -recursive main.pro CONFIG+=$$escape_expand(\")no-embed-qt-translations$$escape_expand(\")$$escape_expand(\\n)"\
+	"$$escape_expand(\\n)"\
+	"Please refer to the INSTALL file at the root of the source tree for more information$$escape_expand(\\n)"\
+	"about the build process.$$escape_expand(\\n)"\
+        "$$escape_expand(\\n)")
 }
 
 !CONFIG(no-embed-qt-translations) {
