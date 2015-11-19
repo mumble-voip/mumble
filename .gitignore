@@ -30,6 +30,7 @@ scripts/murmur.ini.*
 !scripts/murmur.ini.grpc
 src/murmur/murmur_ice/Murmur.h
 src/murmur/murmur_ice/Murmur.cpp
+src/murmur/MurmurRPC.proto.Wrapper.cpp
 winpaths_custom.pri
 src/mumble/mumble_qt_auto.qrc
 src/mumble/mumble_plugin_import.cpp
