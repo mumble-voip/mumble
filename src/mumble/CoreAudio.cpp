@@ -37,7 +37,7 @@
 #include "Global.h"
 
 // Ignore deprecation warnings for the whole file, for now.
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 class CoreAudioInputRegistrar : public AudioInputRegistrar {
 	public:
