@@ -1372,7 +1372,7 @@ bool UserModel::dropMimeData(const QMimeData *md, Qt::DropAction, int row, int c
 	QDataStream ds(qba);
 
 	// Check if there's more than one entry.  Assume uiSession and iId are same size.
-	bool isMultiSelect = qba.size() > (sizeof(bool) + sizeof( ((ClientUser*)0)->uiSession) );
+	bool isMultiSelect = static_cast<unsigned int>(qba.size()) > (sizeof(bool) + sizeof( ((ClientUser*)0)->uiSession) );
 
 	while (! ds.atEnd()) {
 		bool isChannel;
