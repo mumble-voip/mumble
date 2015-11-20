@@ -190,6 +190,8 @@ void MainWindow::msgServerConfig(const MumbleProto::ServerConfig &msg) {
 		g.uiMessageLength = msg.message_length();
 	if (msg.has_image_message_length())
 		g.uiImageLength = msg.image_message_length();
+	if (msg.has_max_users())
+		g.uiMaxUsers = msg.max_users();
 }
 
 void MainWindow::msgPermissionDenied(const MumbleProto::PermissionDenied &msg) {
