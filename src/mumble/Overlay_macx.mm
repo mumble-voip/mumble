@@ -42,6 +42,9 @@ extern "C" {
 #include <xar/xar.h>
 }
 
+// Ignore deprecation warnings for the whole file, for now.
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 static NSString *MumbleOverlayLoaderBundle = @"/Library/ScriptingAdditions/MumbleOverlay.osax";
 static NSString *MumbleOverlayLoaderBundleIdentifier = @"net.sourceforge.mumble.OverlayScriptingAddition";
 
@@ -343,8 +346,8 @@ bool OverlayConfig::needsUpgrade() {
 }
 
 static bool authExec(AuthorizationRef ref, const char **argv) {
-	OSStatus err;
-	int pid, status;
+	OSStatus err = noErr;
+	int pid = 0, status = 0;
 
 	err = AuthorizationExecuteWithPrivileges(ref, argv[0], kAuthorizationFlagDefaults, const_cast<char * const *>(&argv[1]), NULL);
 	if (err == errAuthorizationSuccess) {
@@ -362,7 +365,6 @@ static bool authExec(AuthorizationRef ref, const char **argv) {
 
 bool OverlayConfig::installFiles() {
 	bool ret = false;
-	OSStatus err;
 
 	QString path = installerPath();
 	if (path.isEmpty()) {

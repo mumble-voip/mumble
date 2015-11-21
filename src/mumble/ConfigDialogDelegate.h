@@ -38,7 +38,10 @@
 @class NSToolbarItem;
 
 @interface ConfigDialogDelegate : NSObject
-- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andWidgetMap:(QMap<unsigned int, ConfigWidget *> *) map inExpertMode:(BOOL)flag;
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
+<NSToolbarDelegate>
+#endif
+- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andToolbar:(NSToolbar *)toolbar andWidgetMap:(QMap<unsigned int, ConfigWidget *> *)map inExpertMode:(BOOL)isExpertMode;
 - (void) selectItem:(ConfigWidget *)cw;
 - (BOOL) expertMode;
 @end

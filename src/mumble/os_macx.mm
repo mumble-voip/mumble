@@ -75,11 +75,11 @@ static void mumbleMessageOutputQString(QtMsgType type, const QString &msg) {
 	}
 }
 
+#if QT_VERSION < 0x050000
 static void mumbleMessageOutput(QtMsgType type, const char *msg) {
 	mumbleMessageOutputQString(type, QString::fromUtf8(msg));
 }
-
-#if QT_VERSION >= 0x050000
+#elif QT_VERSION >= 0x050000
 static void mumbleMessageOutputWithContext(QtMsgType type, const QMessageLogContext &ctx, const QString &msg) {
 	Q_UNUSED(ctx);
 	mumbleMessageOutputQString(type, msg);
@@ -124,13 +124,13 @@ int sigs[] = { SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGEMT, SIGFPE, SIGBUS, SIGSEG
 #define NSIGS sizeof(sigs)/sizeof(sigs[0])
 
 static void crashhandler_signals_setup() {
-	for (int i = 0; i < NSIGS; i++) {
+	for (size_t i = 0; i < NSIGS; i++) {
 		signal(sigs[i], crashhandler_signal_handler);
 	}
 }
 
 static void crashhandler_signals_restore() {
-	for (int i = 0; i < NSIGS; i++) {
+	for (size_t i = 0; i < NSIGS; i++) {
 		signal(sigs[i], NULL);
 	}
 }

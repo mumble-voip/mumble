@@ -181,7 +181,10 @@ GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
 	kbdLayout = NULL;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1050
-	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty) {
+# if MAC_OS_X_VERSION_MIN_REQUIRED < 1050
+	if (TISCopyCurrentKeyboardInputSource && TISGetInputSourceProperty)
+# endif
+	{
 		TISInputSourceRef inputSource = TISCopyCurrentKeyboardInputSource();
 		if (inputSource) {
 			CFDataRef data = static_cast<CFDataRef>(TISGetInputSourceProperty(inputSource, kTISPropertyUnicodeKeyLayoutData));
@@ -224,7 +227,7 @@ void GlobalShortcutMac::dumpEventTaps() {
 			CGEventTapInformation *info = &table[i];
 
 			ProcessSerialNumber psn;
-			NSString *processName;
+			NSString *processName = nil;
 			OSStatus err = GetProcessForPID(info->tappingProcess, &psn);
 			if (err == noErr) {
 				CFStringRef str = NULL;

@@ -130,7 +130,6 @@ static NSImage *ConfigDialogDelegate_QIcon_to_AutoreleasedNSImage(const QIcon &i
 		NSSize buttonSize = NSMakeSize(OSX_TOOLBAR_ICON_SIZE/2, OSX_TOOLBAR_ICON_SIZE);
 		[button setButtonType:NSSwitchButton];
 		[button setState:(_expertMode ? NSOnState : NSOffState)];
-		[button setTitle:nil];
 		[item setView:button];
 		[item setMinSize:buttonSize];
 		[item setMaxSize:buttonSize];

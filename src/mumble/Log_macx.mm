@@ -35,11 +35,13 @@
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
 
-@interface MUUserNotificationCenterDelegate : NSObject
+@interface MUUserNotificationCenterDelegate : NSObject <NSUserNotificationCenterDelegate>
 @end
 
 @implementation MUUserNotificationCenterDelegate
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
+	Q_UNUSED(center);
+	Q_UNUSED(notification);
 }
 
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
@@ -47,6 +49,9 @@
 }
 
 - (BOOL) userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification {
+	Q_UNUSED(center);
+	Q_UNUSED(notification);
+
 	return NO;
 }
 @end
@@ -87,6 +92,8 @@ static bool growl_available() {
 }
 
 void Log::postNotification(MsgType mt, const QString &console, const QString &plain) {
+	Q_UNUSED(console);
+
 	QString title = msgName(mt);
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MOUNTAINLION) {

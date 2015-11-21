@@ -295,7 +295,7 @@ void ConfigDialogMac::accept() {
 	QDialog::accept();
 }
 
-void ConfigDialogMac::on_qlwIcons_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous) {
+void ConfigDialogMac::on_qlwIcons_currentItemChanged(QListWidgetItem *, QListWidgetItem *) {
 }
 
 void ConfigDialogMac::on_qcbExpert_clicked(bool) {

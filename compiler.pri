@@ -157,13 +157,19 @@ unix {
 	DEFINES *= RESTRICT=__restrict__
 	QMAKE_CFLAGS *= -fvisibility=hidden
 	QMAKE_CXXFLAGS *= -fvisibility=hidden
+	QMAKE_OBJECTIVE_CFLAGS *= -fvisibility=hidden
+	QMAKE_OBJECTIVE_CXXFLAGS *= -fvisibility=hidden
 
-	QMAKE_CXXFLAGS	*= -Wall -Wextra
-	QMAKE_CFLAGS	*= -Wall -Wextra
+	QMAKE_CFLAGS	         *= -Wall -Wextra
+	QMAKE_CXXFLAGS           *= -Wall -Wextra
+	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
+	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
 	!CONFIG(no-warnings-as-errors) {
-		QMAKE_CXXFLAGS	*= -Werror
-		QMAKE_CFLAGS	*= -Werror
+		QMAKE_CFLAGS	         *= -Werror
+		QMAKE_CXXFLAGS	         *= -Werror
+		QMAKE_OBJECTIVE_CFLAGS   *= -Werror
+		QMAKE_OBJECTIVE_CXXFLAGS *= -Werror
 	}
 
 	CONFIG(opt-gcc) {
@@ -175,12 +181,16 @@ unix {
 	CONFIG(optgen) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
 		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_OBJECTIVE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
+		QMAKE_OBJECTIVE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-generate
 		QMAKE_LFLAGS *= -fprofile-generate
 	}
 
 	CONFIG(optimize) {
 		QMAKE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 		QMAKE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
+		QMAKE_OBJECTIVE_CFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
+		QMAKE_OBJECTIVE_CXXFLAGS *= -O3 -march=native -ffast-math -ftree-vectorize -fprofile-use
 	}
 }
 
@@ -275,6 +285,8 @@ macx {
 	CONFIG(symbols) {
 		QMAKE_CFLAGS *= -gfull -gdwarf-2
 		QMAKE_CXXFLAGS *= -gfull -gdwarf-2
+		QMAKE_OBJECTIVE_CFLAGS *= -gfull -gdwarf-2
+		QMAKE_OBJECTIVE_CXXFLAGS *= -gfull -gdwarf-2
 	}
 }
 

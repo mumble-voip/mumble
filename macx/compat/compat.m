@@ -31,11 +31,16 @@
 #import <AppKit/AppKit.h>
 
 @interface CompatApp : NSObject
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1070
+<NSFileManagerDelegate>
+#endif
 @end
 
 @implementation CompatApp
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
+	(void)notification;
+
 	NSAlert *alert = [NSAlert alertWithMessageText:@"Mumble" defaultButton:@"OK" alternateButton:nil otherButton:@"Visit Website"
 	                          informativeTextWithFormat:@"This version of Mumble only runs on 64-bit Intel Macs.\n\n"
 	                                                     "Please download the Universal version from the Mumble website instead.\n"];
@@ -53,6 +58,9 @@
 @end
 
 int main(int argc, char *argv[]) {
+	(void)argc;
+	(void)argv;
+
 	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 	CompatApp *app = [[CompatApp alloc] init];	
 	[NSApplication sharedApplication];
