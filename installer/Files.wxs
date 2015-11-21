@@ -10,11 +10,9 @@
         <DirectoryRef Id="INSTALLDIR">
       <?endif ?>
 
-      <?ifdef StaticBuild ?>
-        <Component Id="mumble_app.dll">
-          <File Source="$(var.SourceDir)\release\mumble_app.dll" KeyPath="yes" />
-        </Component>
-      <?endif ?>
+      <Component Id="mumble_app.dll">
+        <File Source="$(var.SourceDir)\release\mumble_app.dll" KeyPath="yes" />
+      </Component>
       <Component Id="mumble_ol.dll">
         <File Source="$(var.SourceDir)\release\mumble_ol.dll" KeyPath="yes" />
       </Component>
@@ -159,12 +157,6 @@
         </Component>
       <?endif ?>
 
-      <?ifndef StaticBuild ?>
-        <Component Id="qt.conf">
-          <File Source="$(var.SourceDir)\scripts\qt.conf" KeyPath="yes" />
-        </Component>
-      <?endif ?>
-
       <Component Id="licence.txt" Guid="$(var.LicenseTextGuid)">
         <File Source="$(var.SourceDir)\installer\gpl.txt" Name="licence.txt" KeyPath="yes" />
       </Component>
@@ -190,208 +182,6 @@
     </DirectoryRef>
   </Fragment>
 
-  <!-- DBus -->
-  <?ifndef StaticBuild ?>
-    <?ifdef DBusDir ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="dbus1.dll">
-          <File Source="$(var.DBusDir)\bin\dbus-1.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="libxml2.dll">
-          <File Source="$(var.DBusDir)\bin\libxml2.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="iconv.dll">
-          <File Source="$(var.DBusDir)\bin\iconv.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="dbusdaemon.exe">
-          <File Source="$(var.DBusDir)\bin\dbus-daemon.exe" KeyPath="yes" />
-        </Component>
-        <Component Id="session.conf">
-          <File Source="$(var.DBusDir)\etc\session.conf" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-      <ComponentGroup Id="DBus">
-        <ComponentRef Id="dbus1.dll" />
-        <ComponentRef Id="libxml2.dll" />
-        <ComponentRef Id="iconv.dll" />
-        <ComponentRef Id="dbusdaemon.exe" />
-        <ComponentRef Id="session.conf" />
-      </ComponentGroup>
-    </Fragment>
-    <?endif ?>
-  <?endif ?>
-
-  <!-- libsndfile -->
-  <?ifndef StaticBuild ?>
-    <?ifdef SndFileDir ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="libsndfile1.dll">
-          <File Source="$(var.SndFileDir)\libsndfile-1.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-    <?endif ?>
-  <?endif ?>
-
-  <!-- MySQL -->
-  <?ifndef StaticBuild ?>
-    <?ifdef MySQLDir ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="libmysql.dll">
-          <File Source="$(var.MySQLDir)\lib\libmysql.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-    <?endif ?>
-  <?endif ?>
-
-  <!-- Ice -->
-  <?ifndef StaticBuild ?>
-    <?ifdef IceDir ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="bzip2.dll">
-          <File Source="$(var.Bzip2Dir)\bzip2.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="ice34.dll">
-          <File Source="$(var.IceDir)\ice34.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="iceutil34.dll">
-          <File Source="$(var.IceDir)\iceutil34.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-    <?endif ?>
-  <?endif ?>
-
-  <!-- OpenSSL -->
-  <?ifndef StaticBuild ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="libeay32.dll">
-          <File Source="$(var.OpenSslDir)\bin\libeay32.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="ssleay32.dll">
-          <File Source="$(var.OpenSslDir)\bin\ssleay32.dll" KeyPath="yes" />
-        </Component>
-        <?ifdef ZlibDir ?>
-        <Component Id="zlib1.dll">
-          <File Source="$(var.ZlibDir)\zlib1.dll" KeyPath="yes" />
-        </Component>
-        <?endif ?>
-      </DirectoryRef>
-    </Fragment>
-  <?endif ?>
-
-  <!-- Qt -->
-  <?ifndef StaticBuild ?>
-    <Fragment>
-      <DirectoryRef Id="INSTALLDIR">
-        <Component Id="QtCore4.dll">
-          <File Source="$(var.QtDir)\bin\QtCore4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="QtGui4.dll">
-          <File Source="$(var.QtDir)\bin\QtGui4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="QtNetwork4.dll">
-          <File Source="$(var.QtDir)\bin\QtNetwork4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="QtSql4.dll">
-          <File Source="$(var.QtDir)\bin\QtSql4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="QtSvg4.dll">
-          <File Source="$(var.QtDir)\bin\QtSvg4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="QtXml4.dll">
-          <File Source="$(var.QtDir)\bin\QtXml4.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-
-    <Fragment>
-      <DirectoryRef Id="QtPluginAccessibleFolder">
-        <Component Id="qtaccessiblewidgets4.dll">
-          <File Source="$(var.QtDir)\plugins\accessible\qtaccessiblewidgets4.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-
-    <Fragment>
-      <DirectoryRef Id="QtPluginIconEnginesFolder">
-        <Component Id="qsvgicon4.dll">
-          <File Source="$(var.QtDir)\plugins\iconengines\qsvgicon4.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-
-    <Fragment>
-      <DirectoryRef Id="QtPluginImageFormatsFolder">
-        <Component Id="qgif4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qgif4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qico4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qico4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qjpeg4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qjpeg4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qmng4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qmng4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qsvg4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qsvg4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qtiff4.dll">
-          <File Source="$(var.QtDir)\plugins\imageformats\qtiff4.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-
-    <Fragment>
-      <DirectoryRef Id="QtPluginCodecsFolder">
-        <Component Id="qcncodecs4.dll">
-          <File Source="$(var.QtDir)\plugins\codecs\qcncodecs4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qjpcodecs4.dll">
-          <File Source="$(var.QtDir)\plugins\codecs\qjpcodecs4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qkrcodecs4.dll">
-          <File Source="$(var.QtDir)\plugins\codecs\qkrcodecs4.dll" KeyPath="yes" />
-        </Component>
-        <Component Id="qtwcodecs4.dll">
-          <File Source="$(var.QtDir)\plugins\codecs\qtwcodecs4.dll" KeyPath="yes" />
-        </Component>
-      </DirectoryRef>
-    </Fragment>
-
-    <Fragment>
-      <ComponentGroup Id="Qt">
-        <ComponentRef Id="QtCore4.dll" />
-        <ComponentRef Id="QtGui4.dll" />
-        <ComponentRef Id="QtNetwork4.dll" />
-        <ComponentRef Id="QtSql4.dll" />
-        <ComponentRef Id="QtSvg4.dll" />
-        <ComponentRef Id="QtXml4.dll" />
-
-        <ComponentRef Id="qtaccessiblewidgets4.dll" />
-        <ComponentRef Id="qsvgicon4.dll" />
-        <ComponentRef Id="qgif4.dll" />
-        <ComponentRef Id="qico4.dll" />
-        <ComponentRef Id="qjpeg4.dll" />
-        <ComponentRef Id="qmng4.dll" />
-        <ComponentRef Id="qsvg4.dll" />
-        <ComponentRef Id="qtiff4.dll" />
-        <ComponentRef Id="qcncodecs4.dll" />
-        <ComponentRef Id="qjpcodecs4.dll" />
-        <ComponentRef Id="qkrcodecs4.dll" />
-        <ComponentRef Id="qtwcodecs4.dll" />
-      </ComponentGroup>
-    </Fragment>
-  <?endif ?>
-
   <!-- Directory tree -->
     <Fragment>
       <DirectoryRef Id="INSTALLDIR">
@@ -403,14 +193,6 @@
           </Directory>
         <?else ?>
           <Directory Id="PluginFolder" Name="plugins" />
-        <?endif ?>
-        <?ifndef StaticBuild ?>
-          <Directory Id="QtPluginFolder" Name="QtPlugins">
-            <Directory Id="QtPluginIconEnginesFolder" Name="iconengines" />
-            <Directory Id="QtPluginImageFormatsFolder" Name="imageformats" />
-            <Directory Id="QtPluginAccessibleFolder" Name="accessible" />
-            <Directory Id="QtPluginCodecsFolder" Name="codecs" />
-          </Directory>
         <?endif ?>
       </DirectoryRef>
     </Fragment>
