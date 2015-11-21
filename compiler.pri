@@ -220,7 +220,8 @@ unix:!macx {
 		QMAKE_LFLAGS = -Wl,--no-add-needed
 	}
 
-	DEFINES *= _FORTIFY_SOURCE=2
+	QMAKE_CFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
+	QMAKE_CXXFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
 	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
 	CONFIG(symbols) {
