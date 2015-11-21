@@ -23,12 +23,6 @@
   <?define ApplicationProgramsFolderRemovalComponentGuid = 0AE1745D-FF86-4D61-BAF3-44248D21D263 ?>
   <?define NSISUninstallComponentGuid = 3116B7EF-CBA3-4E0B-A2C5-0F0608038905 ?>
 
-
-  <!-- Enable the StaticBuild option if we detect MUMBLE_PREFIX in the environment -->
-  <?ifdef env.MUMBLE_PREFIX ?>
-    <?define StaticBuild = true ?>
-  <?endif ?>
-
   <!-- Defaults for values that aren't given by environment variables -->
   <?ifndef env.MumbleSourceDir ?>
     <?define SourceDir = "\dev\mumble" ?>

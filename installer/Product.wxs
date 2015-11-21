@@ -103,31 +103,11 @@
     </DirectoryRef>
 
     <ComponentGroup Id="LibrariesCommon">
-      <?ifndef StaticBuild ?>
-        <ComponentGroupRef Id="Qt" />
-
-        <ComponentRef Id="libeay32.dll" />
-        <ComponentRef Id="ssleay32.dll" />
-        <?ifdef ZlibDir ?>
-          <ComponentRef Id="zlib1.dll" />
-        <?endif ?>
-
-        <ComponentRef Id="qt.conf" />
-      <?endif ?>
 
       <ComponentRef Id="licence.txt" />
       <ComponentRef Id="Readme.txt" />
       <ComponentRef Id="Changes.txt" />
       <ComponentRef Id="qt.txt" />
-
-      <?ifndef StaticBuild ?>
-        <?ifdef ProtoBufDir ?>
-          <ComponentRef Id="libprotobuf.dll" />
-        <?endif ?>
-        <?ifdef MySQLDir ?>
-          <ComponentRef Id="libmysql.dll" />
-        <?endif ?>
-      <?endif ?>
 
       <?ifdef IntelCppDir ?>
         <ComponentRef Id="libmmd.dll"/>
@@ -135,11 +115,6 @@
     </ComponentGroup>
 
     <Feature Id="Mumble" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no" ConfigurableDirectory="INSTALLDIR" Display="expand">
-      <?ifndef StaticBuild ?>
-        <?ifdef SndFileDir ?>
-          <ComponentRef Id="libsndfile1.dll" />
-        <?endif ?>
-      <?endif ?>
       <ComponentRef Id="speex.dll" />
       <ComponentRef Id="speex.txt" />
 
@@ -156,9 +131,7 @@
         <ComponentRef Id="celt0.0.11.0.sse2.dll" />
         <ComponentRef Id="opus.sse2.dll" />
       <?endif ?>
-      <?ifdef StaticBuild ?>
-        <ComponentRef Id="mumble_app.dll" />
-      <?endif ?>
+      <ComponentRef Id="mumble_app.dll" />
       <ComponentRef Id="mumble.exe" />
       <ComponentRef Id="mumble_ol.dll" />
       <ComponentRef Id="mumble_ol_helper.exe" />
@@ -186,17 +159,6 @@
     </Feature>
 
     <Feature Id="Murmur" Title="!(loc.MUMBLE_SEC_MURMUR)" Description="!(loc.DESC_SectionMurmur)" Level="1000" ConfigurableDirectory="INSTALLDIR" Display="expand">
-      <?ifndef StaticBuild ?>
-        <?ifdef IceDir ?>
-          <ComponentRef Id="bzip2.dll" />
-          <ComponentRef Id="ice34.dll" />
-          <ComponentRef Id="iceutil34.dll" />
-        <?endif ?>
-        <?ifdef DBusDir ?>
-          <ComponentGroupRef Id="DBus" />
-        <?endif ?>
-      <?endif ?>
-
       <ComponentRef Id="murmur.exe" />
       <ComponentRef Id="murmur.ini" />
       <ComponentRef Id="Murmur.ice" />
