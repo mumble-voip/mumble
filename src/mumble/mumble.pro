@@ -329,7 +329,7 @@ CONFIG(sbcelt) {
   CONFIG		*= dbus
 }
 
-!CONFIG(no-g15) {
+!freebsd:!CONFIG(no-g15) {
   CONFIG *= g15
 }
 
@@ -579,13 +579,14 @@ wasapi {
 
 g15 {
 	DEFINES *= USE_G15
-	unix:!macx {
+	win32:macx {
+		SOURCES *= G15LCDEngine_helper.cpp
+		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
+	}
+	unix:!macx:!freebsd {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client
-	} else {
-		SOURCES *= G15LCDEngine_helper.cpp
-		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
 	}
 }
 
