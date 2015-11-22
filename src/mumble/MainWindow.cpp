@@ -62,7 +62,7 @@
 #include "UserEdit.h"
 #include "UserInformation.h"
 #include "UserModel.h"
-#include "UserLocalVolume.h"
+#include "UserLocalVolumeDialog.h"
 #include "VersionCheck.h"
 #include "ViewCert.h"
 #include "VoiceRecorderDialog.h"
@@ -1456,12 +1456,12 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 	if (!p) {
 		return;
 	}
-        openUserLocalVolume(p);
+        openUserLocalVolumeDialog(p);
 }
 
-void MainWindow::openUserLocalVolume(ClientUser *p) {
+void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	UserLocalVolume *uservol = new UserLocalVolume(this, session);
+	UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(this, session);
 	uservol->setWindowFlags(Qt::Dialog);
 	uservol->show();
 	p = ClientUser::get(session);

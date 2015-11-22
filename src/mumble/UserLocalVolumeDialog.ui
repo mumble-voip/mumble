@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UserLocalVolume</class>
- <widget class="QWidget" name="UserLocalVolume">
+ <class>UserLocalVolumeDialog</class>
+ <widget class="QWidget" name="UserLocalVolumeDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item row="2" column="0" colspan="2" alignment="Qt::AlignBottom">
-    <widget class="QDialogButtonBox" name="qbbButtons">
+    <widget class="QDialogButtonBox" name="qbbUserLocalVolume">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -57,6 +57,12 @@
    </item>
    <item row="0" column="1">
     <widget class="QSpinBox" name="qsbUserLocalVolume">
+     <property name="toolTip">
+      <string>Local volume for other users</string>
+     </property>
+     <property name="whatsThis">
+      <string>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</string>
+     </property>
      <property name="suffix">
       <string> dB</string>
      </property>
