@@ -654,10 +654,47 @@ void MainWindow::on_qteLog_customContextMenuRequested(const QPoint &mpos) {
 
 	QPoint contentPosition = QPoint(QApplication::isRightToLeft() ? (qteLog->horizontalScrollBar()->maximum() - qteLog->horizontalScrollBar()->value()) : qteLog->horizontalScrollBar()->value(), qteLog->verticalScrollBar()->value());
 	QMenu *menu = qteLog->createStandardContextMenu(mpos + contentPosition);
+
+	QTextCursor cursor = qteLog->cursorForPosition(mpos);
+	QTextCharFormat fmt = cursor.charFormat();
+	if (fmt.objectType() == QTextFormat::NoObject) {
+		cursor.movePosition(QTextCursor::NextCharacter);
+		fmt = cursor.charFormat();
+	}
+	if (cursor.charFormat().isImageFormat()) {
+		menu->addSeparator();
+		menu->addAction(tr("Save Image As..."), this, SLOT(saveImageAs(void)));
+
+		qtcSaveImageCursor = cursor;
+	}
+
 	menu->addSeparator();
 	menu->addAction(tr("Clear"), qteLog, SLOT(clear(void)));
 	menu->exec(qteLog->mapToGlobal(mpos));
 	delete menu;
+}
+
+void MainWindow::saveImageAs() {
+	QDateTime now = QDateTime::currentDateTime();
+	QString defaultFname = QString::fromLatin1("Mumble-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
+
+	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), defaultFname, tr("Images (*.png *.jpg *.jpeg)"));
+	if (fname.isNull()) {
+		return;
+	}
+
+	QString resName = qtcSaveImageCursor.charFormat().toImageFormat().name();
+	QVariant res = qteLog->document()->resource(QTextDocument::ImageResource, resName);
+	QImage img = res.value<QImage>();
+	bool ok = img.save(fname);
+	if (!ok) {
+		// In case fname did not contain a file extension, try saving with an
+		// explicit format.
+		ok = img.save(fname, "JPG");
+	}
+	if (!ok) {
+		g.l->log(Log::Warning, tr("Could not save image: %1").arg(Qt::escape(fname)));
+	}
 }
 
 static void recreateServerHandler() {
