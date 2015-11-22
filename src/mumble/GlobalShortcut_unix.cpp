@@ -343,6 +343,8 @@ void GlobalShortcutX::directoryChanged(const QString &dir) {
 			}
 		}
 	}
+#else
+	Q_UNUSED(dir);
 #endif
 }
 
