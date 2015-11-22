@@ -680,13 +680,14 @@ void ServerHandler::joinChannel(unsigned int uiSession, unsigned int channel) {
 	sendMessage(mpus);
 }
 
-void ServerHandler::createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary) {
+void ServerHandler::createChannel(unsigned int parent_id, const QString &name, const QString &description, unsigned int position, bool temporary, unsigned int maxUsers) {
 	MumbleProto::ChannelState mpcs;
 	mpcs.set_parent(parent_id);
 	mpcs.set_name(u8(name));
 	mpcs.set_description(u8(description));
 	mpcs.set_position(position);
 	mpcs.set_temporary(temporary);
+	mpcs.set_max_users(maxUsers);
 	sendMessage(mpcs);
 }
 

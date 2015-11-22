@@ -1311,7 +1311,7 @@ void Server::removeLink(Channel *c, Channel *l) {
 	SQLEXEC();
 }
 
-Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int position) {
+Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int position, unsigned int maxUsers) {
 	TransactionHolder th;
 
 	QSqlQuery &query = *th.qsqQuery;
@@ -1348,11 +1348,19 @@ Channel *Server::addChannel(Channel *p, const QString &name, bool temporary, int
 		query.addBindValue(ServerDB::Channel_Position);
 		query.addBindValue(QVariant(position).toString());
 		SQLEXEC();
+
+		// Update channel maximum users
+		query.addBindValue(iServerNum);
+		query.addBindValue(id);
+		query.addBindValue(ServerDB::Channel_Max_Users);
+		query.addBindValue(QVariant(maxUsers).toString());
+		SQLEXEC();
 	}
 
 	Channel *c = new Channel(id, name, p);
 	c->bTemporary = temporary;
 	c->iPosition = position;
+	c->uiMaxUsers = maxUsers;
 	qhChannels.insert(id, c);
 	return c;
 }

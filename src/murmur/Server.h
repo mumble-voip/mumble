@@ -336,7 +336,7 @@ class Server : public QThread {
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		int authenticate(QString &name, const QString &pw, int sessionId = 0, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());
-		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0);
+		Channel *addChannel(Channel *c, const QString &name, bool temporary = false, int position = 0, unsigned int maxUsers = 0);
 		void removeChannelDB(const Channel *c);
 		void readChannels(Channel *p = NULL);
 		void readLinks();
