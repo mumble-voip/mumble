@@ -173,12 +173,6 @@
         <File Source="$(var.SourceDir)\installer\qt.txt" KeyPath="yes" />
       </Component>
 
-      <?ifdef IntelCppDir ?>
-      <Component Id="libmmd.dll">
-        <File Source="$(var.IntelCppDir)\libmmd.dll" KeyPath="yes" />
-      </Component>
-      <?endif ?>
-
     </DirectoryRef>
   </Fragment>
 

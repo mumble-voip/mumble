@@ -103,15 +103,10 @@
     </DirectoryRef>
 
     <ComponentGroup Id="LibrariesCommon">
-
       <ComponentRef Id="licence.txt" />
       <ComponentRef Id="Readme.txt" />
       <ComponentRef Id="Changes.txt" />
       <ComponentRef Id="qt.txt" />
-
-      <?ifdef IntelCppDir ?>
-        <ComponentRef Id="libmmd.dll"/>
-      <?endif ?>
     </ComponentGroup>
 
     <Feature Id="Mumble" Title="!(loc.MUMBLE_SEC_MUMBLE)" Description="!(loc.DESC_SectionMumble)" Level="1" AllowAdvertise="no" ConfigurableDirectory="INSTALLDIR" Display="expand">
