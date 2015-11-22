@@ -99,7 +99,11 @@
 #define ZeroMemory(ptr,len) memset(ptr, 0, len)
 #define __cdecl
 typedef WId HWND;
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
 #endif
 
 #if defined(__MMX__) || defined(Q_OS_WIN)
