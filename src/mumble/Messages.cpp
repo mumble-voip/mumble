@@ -534,12 +534,12 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		QString newName = u8(msg.name());
 		pmModel->renameUser(pDst, newName);
 		if (! oldName.isNull() && oldName != newName) {
-			if (pSrc != pDst) {
-				g.l->log(Log::UserRenamed, tr("%1 renamed to %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target, oldName))
-					.arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatClientUser(pSrc, Log::Source)));
-			} else {
+			if (pSrc == NULL || pSrc == pDst) {
 				g.l->log(Log::UserRenamed, tr("%1 renamed to %2.").arg(Log::formatClientUser(pDst, Log::Target, oldName),
 					Log::formatClientUser(pDst, Log::Target)));
+			} else {
+				g.l->log(Log::UserRenamed, tr("%1 renamed to %2 by %3.").arg(Log::formatClientUser(pDst, Log::Target, oldName))
+					.arg(Log::formatClientUser(pDst, Log::Target)).arg(Log::formatClientUser(pSrc, Log::Source)));
 			}
 		}
 	}
