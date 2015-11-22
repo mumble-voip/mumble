@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 # Updates mumble_en.ts from source and adds a commit.
 #
 # The main actions this script performs:
