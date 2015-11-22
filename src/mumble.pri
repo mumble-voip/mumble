@@ -49,7 +49,7 @@ unix {
 	CONFIG *= link_pkgconfig
 	LIBS *= -lprotobuf
 
-	contains(UNAME, FreeBSD) {
+	freebsd {
 		LIBS *= -lcrypto -lssl
 	} else {
 		PKGCONFIG *= openssl
