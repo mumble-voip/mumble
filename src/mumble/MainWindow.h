@@ -121,6 +121,10 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		bool restartOnQuit;
 		bool bAutoUnmute;
 
+		/// Contains the cursor whose position is immediately before the image to
+		/// save when activating the "Save Image As..." context menu item.
+		QTextCursor qtcSaveImageCursor;
+
 #if QT_VERSION >= 0x050000
 		QPointer<Channel> cContextChannel;
 		QPointer<ClientUser> cuContextUser;
@@ -292,6 +296,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void whisperReleased(QVariant scdata);
 		void onResetAudio();
 		void on_qaFilterToggle_triggered();
+		/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
+		void saveImageAs();
 
 	public:
 		MainWindow(QWidget *parent);
