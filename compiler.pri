@@ -194,10 +194,11 @@ unix {
 	}
 }
 
-freebsd-clang {
+freebsd {
 	QMAKE_CFLAGS *= -isystem /usr/local/include
-	QMAKE_CXXFLAGS	*= -isystem /usr/local/include
-	QMAKE_LFLAGS *= -L/usr/local/lib -lssl
+	QMAKE_CXXFLAGS *= -isystem /usr/local/include
+	QMAKE_LIBDIR *= /usr/lib
+	QMAKE_LIBDIR *= /usr/local/lib
 }
 
 unix:!macx {
