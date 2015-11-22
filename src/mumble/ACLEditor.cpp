@@ -63,8 +63,14 @@ ACLEditor::ACLEditor(int channelparentid, QWidget *p) : QDialog(p) {
 	qleChannelPassword->hide();
 	qlChannelPassword->hide();
 
-	qlChannelMaxUsers->hide();
-	qsbChannelMaxUsers->hide();
+	if (g.sh->uiVersion >= 0x010300) {
+		qsbChannelMaxUsers->setRange(0, INT_MAX);
+		qsbChannelMaxUsers->setValue(0);
+		qsbChannelMaxUsers->setSpecialValueText(tr("Default server value"));
+	} else {
+		qlChannelMaxUsers->hide();
+		qsbChannelMaxUsers->hide();
+	}
 
 	qlChannelID->hide();
 
@@ -272,7 +278,7 @@ void ACLEditor::accept() {
 
 	// Update channel state
 	if (bAddChannelMode) {
-		g.sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(), qsbChannelPosition->value(), qcbChannelTemporary->isChecked());
+		g.sh->createChannel(iChannel, qleChannelName->text(), rteChannelDescription->text(), qsbChannelPosition->value(), qcbChannelTemporary->isChecked(), qsbChannelMaxUsers->value());
 	} else {
 		bool needs_update = false;
 
