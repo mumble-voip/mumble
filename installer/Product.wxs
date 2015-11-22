@@ -54,10 +54,6 @@
       <Directory Id="$(var.ArchSpecificProgramFilesFolderId)">
         <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
         </Directory>
-
-        <?ifdef MergeModuleDir ?>
-          <Merge Id="VCRedist" SourceFile="$(var.MergeModuleDir)\Microsoft_VC120_CRT_x86.msm" DiskId="1" Language="1033" />
-        <?endif ?>
       </Directory>
 
       <Directory Id="DesktopFolder" />
@@ -178,12 +174,6 @@
       <ComponentRef Id="UninstallerComponent" />
       <ComponentRef Id="NSISUninstall" />
     </Feature>
-
-    <?ifdef MergeModuleDir ?>
-    <Feature Id="VCRedist" Title="Visual C++ 10.0 Runtime" AllowAdvertise="no" Display="hidden" Level="1">
-      <MergeRef Id="VCRedist"/>
-    </Feature>
-    <?endif ?>
 
     <InstallExecuteSequence>
       <AppSearch Sequence='1' />
