@@ -167,25 +167,13 @@ void *dlsym(void *handle, const char *name) {
 	return symbol;
 }
 
-__attribute__((constructor))
-static void initializeLibrary() {
-	if (odlsym)
-		return;
-
-	if (getenv("MUMBLE_OVERLAY_DEBUG")) {
-		bDebug = true;
-	} else {
-		bDebug = false;
-	}
-
-	bCursorAvail = false;
-
-	ods("Mumble overlay library loaded");
+static int find_odlsym() {
+#if defined(__linux__)
 	void *dl = dlopen("libdl.so.2", RTLD_LAZY);
 	if (!dl) {
 		ods("Failed to open libdl.so.2");
 	} else {
-		int i;
+		int i = 0;
 		struct link_map *lm = (struct link_map *) dl;
 		int nchains = 0;
 		ElfW(Sym) *symtab = NULL;
@@ -208,13 +196,95 @@ static void initializeLibrary() {
 			dyn ++;
 		}
 		ods("Iterating dlsym table %p %p %d", symtab, strtab, nchains);
-		for (i=0;i<nchains;++i) {
+		for (i = 0; i < nchains; i++) {
 			// ELF32_ST_TYPE and ELF64_ST_TYPE are the same
-			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC)
+			if (ELF32_ST_TYPE(symtab[i].st_info) != STT_FUNC) {
 				continue;
-			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0)
+			}
+			if (strcmp(strtab+symtab[i].st_name, "dlsym") == 0) {
 				odlsym = (void*)lm->l_addr + symtab[i].st_value;
+			}
+		}
+		if (odlsym == NULL) {
+			goto err;
 		}
 		ods("Original dlsym at %p", odlsym);
+	}
+
+	return 0;
+#elif defined(__FreeBSD__)
+	int i = 0;
+	struct link_map *lm = NULL;
+	int nchains = 0;
+	Elf_Sym * symtab = NULL;
+	const char *strtab = NULL;
+
+	if (dlinfo(RTLD_SELF, RTLD_DI_LINKMAP, &lm) == -1) {
+		ods("Unable to acquire link_map: %s", dlerror());
+		goto err;
+	}
+
+	while (lm != NULL) {
+		if (!strcmp(lm->l_name, "/libexec/ld-elf.so.1")) {
+			break;
+		}
+		lm = lm->l_next;
+	}
+	if (lm == NULL) {
+		goto err;
+	}
+
+	Elf_Dyn *dyn = (Elf_Dyn *) lm->l_ld;
+
+	while (dyn->d_tag) {
+		switch (dyn->d_tag) {
+			case DT_HASH:
+				nchains = *(int *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr + 4);
+				break;
+			case DT_STRTAB:
+				strtab = (const char *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
+				break;
+			case DT_SYMTAB:
+				symtab = (Elf64_Sym *)((uintptr_t)lm->l_addr + (uintptr_t)dyn->d_un.d_ptr);
+				break;
+		}
+		dyn++;
+	}
+	ods("Iterating dsym table %p %p %d", symtab, strtab, nchains);
+	for (i = 0; i < nchains; i++) {
+		if (ELF_ST_TYPE(symtab[i].st_info) != STT_FUNC) {
+			continue;
+		}
+		if (strcmp(strtab + symtab[i].st_name, "dlsym") == 0) {
+			odlsym = (void *) lm->l_addr + symtab[i].st_value;
+		}
+	}
+	if (odlsym == NULL) {
+		goto err;
+	}
+	ods("Original dlsym at %p", odlsym);
+
+	return 0;
+#endif
+err:
+	return -1;
+}
+
+__attribute__((constructor))
+static void initializeLibrary() {
+	if (odlsym)
+		return;
+
+	if (getenv("MUMBLE_OVERLAY_DEBUG")) {
+		bDebug = true;
+	} else {
+		bDebug = false;
+	}
+
+	bCursorAvail = false;
+
+	ods("Mumble overlay library loaded");
+	if (find_odlsym() == -1) {
+		ods("Failed to find original address of dlsym().");
 	}
 }
