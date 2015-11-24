@@ -34,15 +34,20 @@
 #include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
 
-class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
+class UserLocalVolumeDialog : public QWidget, private Ui::UserLocalVolumeDialog {
 	private:
-		Q_OBJECT
-		Q_DISABLE_COPY(UserLocalVolumeDialog)
-		unsigned int m_clientSession;
+        Q_OBJECT
+        Q_DISABLE_COPY(UserLocalVolumeDialog);
+        unsigned int m_clientSession;
+        int LastUserVolume;
+
 	public slots:
-		void on_qsUserLocalVolume_valueChanged(int v);
+        void on_qsUserLocalVolume_valueChanged(int Value);
+        void on_qsbUserLocalVolume_valueChanged(int Value);
+        void on_qbbButtons_clicked(QAbstractButton *b);
+        
 	public:
-		UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
+        UserLocalVolumeDialog(QWidget *parent, unsigned int sessionId=0);
 };
 
 #endif

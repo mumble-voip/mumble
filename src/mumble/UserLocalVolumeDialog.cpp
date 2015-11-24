@@ -28,6 +28,7 @@
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+
 #include "mumble_pch.hpp"
 
 #include "UserLocalVolumeDialog.h"
@@ -35,24 +36,43 @@
 #include "ClientUser.h"
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(QWidget *p, unsigned int sessionId)
-	: QDialog(p)
-	, m_clientSession(sessionId) {
+    : QWidget(p=NULL)
+    , m_clientSession(sessionId) {
 	setupUi(this);
+
 	ClientUser *user = ClientUser::get(sessionId);
 	if (user) {
 		QString title = tr("Adjusting local volume for %1").arg(user->qsName);
 		setWindowTitle(title);
-		qsUserLocalVolume->setValue(qRound(log2(user->fLocalVolume) * 6.0));
+        qsUserLocalVolume -> setValue(qRound(log2(user->fLocalVolume) * 6.0));
+        this->LastUserVolume = qsUserLocalVolume -> value();
 	}
 }
 
-void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int v) {
-	QString text;
-	text.sprintf("%+i", v);
-	qlUserLocalVolume->setText(tr("%1 dB").arg(text));
+void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int Value) {
+	qsbUserLocalVolume -> setValue(Value);
 	ClientUser *user = ClientUser::get(m_clientSession);
 	if (user) {
-		user->fLocalVolume = static_cast<float>(pow(2.0, v / 6.0)); // Decibel formula +6db = *2
-	}
+        	user -> fLocalVolume = static_cast<float>
+                    (pow(2.0, qsUserLocalVolume -> value() / 6.0));
+        	// Decibel formula +6db = *2
+    	}
 }
 
+
+void UserLocalVolumeDialog::on_qsbUserLocalVolume_valueChanged(int Value) {
+	qsUserLocalVolume->setValue(Value);
+}
+
+void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *button) {
+    if (button == qbbUserLocalVolume->button(QDialogButtonBox::Reset)) {
+		qsUserLocalVolume -> setValue(0);
+	}
+    if (button == qbbUserLocalVolume->button(QDialogButtonBox::Ok)) {
+		UserLocalVolumeDialog::close();
+	}
+    if (button == qbbUserLocalVolume->button(QDialogButtonBox::Abort)) {
+		qsUserLocalVolume->setValue(this->LastUserVolume);
+        	UserLocalVolumeDialog::close();
+    	}
+}

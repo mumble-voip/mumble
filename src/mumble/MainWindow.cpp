@@ -1364,7 +1364,7 @@ void MainWindow::qmUser_aboutToShow() {
 		qmUser->addAction(qaUserPrioritySpeaker);
 	qmUser->addAction(qaUserLocalMute);
 	qmUser->addAction(qaUserLocalIgnore);
-	qmUser->addAction(qaUserLocalVolume);
+    qmUser->addAction(qaUserLocalVolume);
 
 	if (self)
 		qmUser->addAction(qaSelfComment);
@@ -1493,19 +1493,18 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 	if (!p) {
 		return;
 	}
-	openUserLocalVolumeDialog(p);
+        openUserLocalVolumeDialog(p);
 }
 
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, session);
-	uservol->exec();
+	UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(this, session);
+	uservol->setWindowFlags(Qt::Dialog);
+	uservol->show();
 	p = ClientUser::get(session);
 	if (p && ! p->qsHash.isEmpty()) {
 		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
 	}
-
-	delete uservol;
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
