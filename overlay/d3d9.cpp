@@ -32,6 +32,8 @@
 #include <d3d9.h>
 #include <time.h>
 
+#undef max // for std::numeric_limits<T>::max()
+
 Direct3D9Data *d3dd = NULL;
 
 typedef IDirect3D9* (WINAPI *pDirect3DCreate9)(UINT SDKVersion) ;
@@ -1041,8 +1043,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 					} else {
 						unsigned char *fn = reinterpret_cast<unsigned char *>(pCreate);
 						unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
-						d3dd->iOffsetCreate = fn - base;
-						ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
+						unsigned long off = static_cast<unsigned long>(fn - base);
+
+						// XXX: convert the offset to use something other than int.
+						// Issue mumble-voip/mumble#1924.
+						if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
+							ods("D3D9: Internal overlay error: CreateDevice offset is > 2GB, does not fit the current data structure.");
+						} else {
+							d3dd->iOffsetCreate = static_cast<int>(off);
+							ods("D3D9: Successfully found prepatch offset: %p %p %p: %d", hD3D, d3dcreate9, pCreate, d3dd->iOffsetCreate);
+						}
 					}
 					id3d9->Release();
 				}
@@ -1068,8 +1078,16 @@ extern "C" __declspec(dllexport) void __cdecl PrepareD3D9() {
 						} else {
 							unsigned char *fn = reinterpret_cast<unsigned char *>(pCreateEx);
 							unsigned char *base = reinterpret_cast<unsigned char *>(hD3D);
-							d3dd->iOffsetCreateEx = fn - base;
-							ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
+							unsigned long off = static_cast<unsigned long>(fn - base);
+
+							// XXX: convert the offset to use something other than int.
+							// Issue mumble-voip/mumble#1924.
+							if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
+								ods("D3D9: Internal overlay error: CreateDeviceEx offset is > 2GB, does not fit the current data structure.");
+							} else {
+								d3dd->iOffsetCreateEx = static_cast<int>(off);
+								ods("D3D9: Successfully found prepatch ex offset: %p %p %p: %d", hD3D, d3dcreate9ex, pCreateEx, d3dd->iOffsetCreateEx);
+							}
 						}
 
 						id3d9->Release();
