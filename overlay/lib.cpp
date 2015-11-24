@@ -33,6 +33,8 @@
 #include "overlay_blacklist.h"
 #include "overlay_exe/overlay_exe.h"
 
+#undef max // for std::numeric_limits<T>::max()
+
 static HANDLE hMapObject = NULL;
 static HANDLE hHookMutex = NULL;
 static HHOOK hhookWnd = 0;
@@ -817,5 +819,14 @@ int GetFnOffsetInModule(voidFunc fnptr, wchar_t *refmodulepath, unsigned int ref
 
 	unsigned char *fn = reinterpret_cast<unsigned char *>(fnptr);
 	unsigned char *base = reinterpret_cast<unsigned char *>(hModule);
-	return fn - base;
+	unsigned long off = static_cast<unsigned long>(fn - base);
+
+	// XXX: convert this function to use something other than int.
+	// Issue mumble-voip/mumble#1924.
+	if (off > static_cast<unsigned long>(std::numeric_limits<int>::max())) {
+		ods("Internal overlay error: GetFnOffsetInModule() offset greater than return type can hold.");
+		return -1;
+	}
+
+	return static_cast<int>(off);
 }
