@@ -90,7 +90,7 @@ GlobalShortcutX::GlobalShortcutX() {
 #ifndef NO_XINPUT2
 	int evt, error;
 
-	if (XQueryExtension(display, "XInputExtension", &iXIopcode, &evt, &error)) {
+	if (g.s.bEnableXInput2 && XQueryExtension(display, "XInputExtension", &iXIopcode, &evt, &error)) {
 		int major = 2;
 		int minor = 0;
 		int rc = XIQueryVersion(display, &major, &minor);

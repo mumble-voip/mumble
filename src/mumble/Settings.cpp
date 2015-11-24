@@ -412,6 +412,7 @@ Settings::Settings() {
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
+	bEnableXInput2 = false;
 	bEnableGKey = true;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
@@ -737,6 +738,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
+	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
 	SAVELOAD(bEnableGKey, "shortcut/gkey");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
@@ -1040,6 +1042,7 @@ void Settings::save() {
 	SAVELOAD(bShortcutEnable, "shortcut/enable");
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
+	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

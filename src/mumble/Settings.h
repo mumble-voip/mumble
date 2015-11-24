@@ -243,6 +243,7 @@ struct Settings {
 	bool bShortcutEnable;
 	bool bSuppressMacEventTapWarning;
 	bool bEnableEvdev;
+	bool bEnableXInput2;
 	bool bEnableGKey;
 	QList<Shortcut> qlShortcuts;
 
