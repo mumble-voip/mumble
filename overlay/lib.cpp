@@ -586,7 +586,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 					onwhitelist = true;
 					break;
 				}
-				pos += strlen(buffer + pos) + 1;
+				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
 			}
 
 			if (!onwhitelist) {
@@ -602,7 +602,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 					bBlackListed = TRUE;
 					return true;
 				}
-				pos += strlen(buffer + pos) + 1;
+				pos += static_cast<unsigned int>(strlen(buffer + pos)) + 1;
 			}
 		}
 	} else {
@@ -641,7 +641,7 @@ static bool dllmainProcAttachCheckProcessIsBlacklisted(char procname[], char *p)
 	// Same buffersize as procname; which we copy from.
 	char fname[PROCNAMEFILEPATH_EXTENDED_BUFFER_BUFLEN];
 
-	int pathlength = p - procname;
+	size_t pathlength = static_cast<size_t>(p - procname);
 	p = fname + pathlength;
 	strncpy_s(fname, sizeof(fname), procname, pathlength + 1);
 
