@@ -1498,14 +1498,9 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	::UserLocalVolumeDialog *uservol = new ::UserLocalVolumeDialog(this, session);
-	uservol->exec();
-	p = ClientUser::get(session);
-	if (p && ! p->qsHash.isEmpty()) {
-		Database::setUserLocalVolume(p->qsHash, p->fLocalVolume);
-	}
-
-	delete uservol;
+	UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(session);
+	uservol->setWindowFlags(Qt::Dialog);
+	uservol->show();
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {

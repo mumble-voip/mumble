@@ -34,15 +34,22 @@
 #include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
 
-class UserLocalVolumeDialog : public QDialog, public Ui::UserLocalVolumeDialog {
-	private:
+class UserLocalVolumeDialog : public QWidget, private Ui::UserLocalVolumeDialog {
 		Q_OBJECT
-		Q_DISABLE_COPY(UserLocalVolumeDialog)
+		Q_DISABLE_COPY(UserLocalVolumeDialog);
+
+		/// The session ID for the user that the dialog is changing the volume for.
 		unsigned int m_clientSession;
+		/// The user's original adjustment (in dB) when entering the dialog.
+		int m_originalVolumeAdjustmentDecibel;
+
 	public slots:
-		void on_qsUserLocalVolume_valueChanged(int v);
+		void on_qsUserLocalVolume_valueChanged(int value);
+		void on_qsbUserLocalVolume_valueChanged(int value);
+		void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
+
 	public:
-		UserLocalVolumeDialog(QWidget *parent = NULL, unsigned int sessionId=0);
+		UserLocalVolumeDialog(unsigned int sessionId = 0);
 };
 
 #endif
