@@ -520,14 +520,16 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED(pDstServerUser, c, ChanACL::Enter);
 			return;
 		}
-		if (c->uiMaxUsers) {
-			if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
+		if (! hasPermission(uSource, c, ChanACL::Write)) {
+			if (c->uiMaxUsers) {
+				if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
+					PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
+					return;
+				}
+			} else if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
 				PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
 				return;
 			}
-		} else if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
-			return;
 		}
 	}
 
