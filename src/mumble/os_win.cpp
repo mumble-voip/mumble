@@ -275,7 +275,7 @@ void os_init() {
 	wcscpy_s(wcComment, PATH_MAX, comment.toStdWString().c_str());
 	musComment.Type = CommentStreamW;
 	musComment.Buffer = wcComment;
-	musComment.BufferSize = wcslen(wcComment) * sizeof(wchar_t);
+	musComment.BufferSize = static_cast<ULONG>(wcslen(wcComment) * sizeof(wchar_t));
 
 	QString dump = g.qdBasePath.filePath(QLatin1String("mumble.dmp"));
 
