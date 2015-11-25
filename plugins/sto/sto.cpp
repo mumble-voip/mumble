@@ -35,7 +35,7 @@ static BYTE *contextptr;
 static BYTE *posptr;
 
 static void inline u8(std::wstring &dst, const std::string &src) {
-	if (src.length() > std::numeric_limits<int>::max()) {
+	if (src.length() > static_cast<size_t>(std::numeric_limits<int>::max())) {
 		dst.clear();
 		return;
 	}
