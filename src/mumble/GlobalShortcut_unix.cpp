@@ -79,8 +79,8 @@ GlobalShortcutX::GlobalShortcutX() {
 	int evt, error;
 
 	if (g.s.bEnableXInput2 && XQueryExtension(display, "XInputExtension", &iXIopcode, &evt, &error)) {
-		int major = 2;
-		int minor = 0;
+		int major = XI_2_Major;
+		int minor = XI_2_Minor;
 		int rc = XIQueryVersion(display, &major, &minor);
 		if (rc != BadRequest) {
 			qWarning("GlobalShortcutX: Using XI2 %d.%d", major, minor);
