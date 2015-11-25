@@ -45,9 +45,10 @@ win32 {
 		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
 	}
 
-	# Treat warnings as errors
-	QMAKE_CFLAGS *= -WX
-	QMAKE_CXXFLAGS *= -WX
+	!CONFIG(no-warnings-as-errors) {
+		QMAKE_CFLAGS *= -WX
+		QMAKE_CXXFLAGS *= -WX
+	}
 
 	# Increase PCH heap to 150MB: https://msdn.microsoft.com/en-us/library/bdscwf1c.aspx
 	QMAKE_CFLAGS *= -Zm200
