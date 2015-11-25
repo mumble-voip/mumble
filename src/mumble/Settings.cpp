@@ -412,7 +412,7 @@ Settings::Settings() {
 	bShortcutEnable = true;
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
-	bEnableXInput2 = false;
+	bEnableXInput2 = true;
 	bEnableGKey = true;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
