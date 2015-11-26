@@ -32,8 +32,8 @@
 
 #include "lib.h"
 #include "D11StateBlock.h"
-#include "overlay11.hex"
-#include "d3dx11effect.h"
+#include "overlay11.vs.h"
+#include "overlay11.ps.h"
 #include <d3d11.h>
 #include <d3dx11.h>
 #include <time.h>
@@ -75,9 +75,8 @@ class D11State: protected Pipe {
 		D11StateBlock *pOrigStateBlock;
 		D11StateBlock *pMyStateBlock;
 		ID3D11RenderTargetView *pRTV;
-		ID3DX11Effect *pEffect;
-		ID3DX11EffectTechnique *pTechnique;
-		ID3DX11EffectShaderResourceVariable * pDiffuseTexture;
+		ID3D11VertexShader *pVertexShader;
+		ID3D11PixelShader *pPixelShader;
 		ID3D11InputLayout *pVertexLayout;
 		ID3D11Buffer *pVertexBuffer;
 		ID3D11Buffer *pIndexBuffer;
@@ -116,9 +115,6 @@ D11State::D11State(IDXGISwapChain *pSwapChain, ID3D11Device *pDevice)
 	pOrigStateBlock = NULL;
 	pMyStateBlock = NULL;
 	pRTV = NULL;
-	pEffect = NULL;
-	pTechnique = NULL;
-	pDiffuseTexture = NULL;
 	pVertexLayout = NULL;
 	pVertexBuffer = NULL;
 	pIndexBuffer = NULL;
@@ -322,22 +318,15 @@ bool D11State::init() {
 
 	pDeviceContext->OMSetBlendState(pBlendState, NULL, 0xffffffff);
 
-	hr = D3DX11CreateEffectFromMemory((LPCVOID) g_main, sizeof(g_main), 0, pDevice, &pEffect);
+	hr = pDevice->CreateVertexShader(g_vertex_shader, sizeof(g_vertex_shader), NULL, &pVertexShader);
 	if (FAILED(hr)) {
-		ods("D3D11: D3DX11CreateEffectFromMemory failed!");
+		ods("D3D11: Failed to create vertex shader.");
 		return false;
 	}
 
-	pTechnique = pEffect->GetTechniqueByName("Render");
-	if (pTechnique == NULL) {
-		ods("D3D11: Could not get technique for name 'Render'");
-		return false;
-	}
-
-
-	pDiffuseTexture = pEffect->GetVariableByName("txDiffuse")->AsShaderResource();
-	if (pDiffuseTexture == NULL) {
-		ods("D3D11: Could not get variable by name 'txDiffuse'");
+	hr = pDevice->CreatePixelShader(g_pixel_shader, sizeof(g_pixel_shader), NULL, &pPixelShader);
+	if (FAILED(hr)) {
+		ods("D3D11: Failed to create pixel shader.");
 		return false;
 	}
 
@@ -350,15 +339,7 @@ bool D11State::init() {
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 
-	// Create the input layout
-	D3DX11_PASS_DESC PassDesc;
-	hr = pTechnique->GetPassByIndex(0)->GetDesc(&PassDesc);
-	if (FAILED(hr)) {
-		ods("D3D11: Couldn't get pass description for technique");
-		return false;
-	}
-
-	hr = pDevice->CreateInputLayout(layout, ARRAY_NUM_ELEMENTS(layout), PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &pVertexLayout);
+	hr = pDevice->CreateInputLayout(layout, ARRAY_NUM_ELEMENTS(layout), g_vertex_shader, sizeof(g_vertex_shader), &pVertexLayout);
 	if (FAILED(hr)) {
 		ods("D3D11: pDevice->CreateInputLayout failure!");
 		return false;
@@ -425,8 +406,10 @@ D11State::~D11State() {
 		pIndexBuffer->Release();
 	if (pVertexLayout)
 		pVertexLayout->Release();
-	if (pEffect)
-		pEffect->Release();
+	if (pVertexShader)
+		pVertexShader->Release();
+	if (pPixelShader)
+		pPixelShader->Release();
 	if (pRTV)
 		pRTV->Release();
 
@@ -469,22 +452,16 @@ void D11State::draw() {
 			pMyStateBlock->Apply();
 		}
 
-		D3DX11_TECHNIQUE_DESC techDesc;
-		pTechnique->GetDesc(&techDesc);
-
 		// Set vertex buffer
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
 		pDeviceContext->IASetVertexBuffers(0, 1, &pVertexBuffer, &stride, &offset);
 
-		HRESULT hr = pDiffuseTexture->SetResource(pSRView);
-		if (FAILED(hr))
-			ods("D3D11: Failed to set resource");
-
-		for (UINT p = 0; p < techDesc.Passes; ++p) {
-			pTechnique->GetPassByIndex(p)->Apply(0, pDeviceContext);
-			pDeviceContext->DrawIndexed(6, 0, 0);
-		}
+		pDeviceContext->VSSetShader(pVertexShader, NULL, 0);
+		pDeviceContext->GSSetShader(NULL, NULL, 0);
+		pDeviceContext->PSSetShaderResources(0, 1, &pSRView);
+		pDeviceContext->PSSetShader(pPixelShader, NULL, 0);
+		pDeviceContext->DrawIndexed(6, 0, 0);
 
 		if (bDeferredContext) {
 			ID3D11CommandList *pCommandList;
