@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Standard Serverwert</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,12 +493,12 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Maximale Nutzer</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maximale Anzahl an erlaubten Nutzern in diesem Kanal</translation>
     </message>
     <message>
         <location/>
@@ -5014,7 +5014,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimalansicht -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -5024,17 +5024,17 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Speichere Bild unter...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Speichere Bilddatei</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Konnte Bild nicht speichern: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5056,7 +5056,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Verbunde Nutzer: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6132,7 +6132,7 @@ Wenn Sie hier Text eingeben und Enter drücken wird der Text an den Benutzer ode
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 umbenannt zu %2 durch %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -8303,7 +8303,7 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>

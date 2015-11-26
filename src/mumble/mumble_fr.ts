@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Valeur du serveur par défaut</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Contient la liste des membres hérités par le salon actuel. Décochez &lt;i&gt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Nombre max. d&apos;utilisateurs</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Nombre maximum d&apos;utilisateurs autorisés dans ce canal</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nombre max. d&apos;utilisateurs&lt;/b&gt;&lt;br /&gt;
+Cette valeur vous permet de définir un nombre maximum d&apos;utilisateurs autorisés dans ce canal. Si la valeur est supérieure à zéro, seul ce nombre d&apos;utilisateurs seront autorisés à entrer dans le canal. Si la valeur est égale à zéro, le nombre maximum d&apos;utilisateurs dans ce canal est la limite par défaut du serveur.</translation>
     </message>
 </context>
 <context>
@@ -4798,27 +4799,27 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>La connexion est cryptée via %1, avec %2 en tant que message d&apos;authentification et %3 comme mécanisme d&apos;échange de clé (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>La connexion est sécurisée par la suite de codes secrets qu&apos;OpenSSL identifie en tant que %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Cette connexion fournit une confidentialité parfaite en amont&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Cette connexion ne fournit pas une confidentialité parfaite en amont&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Canal de contrôle&lt;/h2&gt;&lt;p&gt;La connexion utilise %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms de latence en moyenne (%5 de déviation)&lt;/p&gt;&lt;p&gt;Hôte distant %6 (port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -4966,7 +4967,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Vue Minimale -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4976,17 +4977,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Enregistrer l&apos;Image Sous...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Enregistrer le Fichier Image</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossible d&apos;enregistrer l&apos;image : %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5008,7 +5009,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Utilisateurs connectés: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6084,7 +6085,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 a été renommé en %2 par %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6572,17 +6573,17 @@ pour filtrage depuis le menu du canal.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Ajustement Local du Volume</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Ajuste localement le volume de l&apos;utilisateur.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Ouvre un dialogue avec un curseur de défilement de volume. Utilisez cela sur les autres utilisateurs dans la même salle.</translation>
     </message>
 </context>
 <context>
@@ -8238,22 +8239,22 @@ Un jeton d&apos;accès est une chaîne de caractères qui peut être utilisée c
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Volume local pour les autres utilisateurs</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ajuste le volume local des autres utilisateurs&lt;/b&gt;&lt;br /&gt;Mumble supporte l&apos;ajustement du volume local pour les autres utilisateurs.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Ajustement du volume local pour %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>
