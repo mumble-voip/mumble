@@ -45,8 +45,6 @@ SUBDIRS *= src/mumble_proto
   }
 
   win32 {
-    SUBDIRS *= 3rdparty/fx11-build-x86
-    SUBDIRS *= 3rdparty/fx11-build-x64
     SUBDIRS *= overlay
     SUBDIRS *= overlay/overlay_exe
     SUBDIRS *= overlay_winx64
