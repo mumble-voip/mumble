@@ -20,7 +20,11 @@ ui_*.h
 *.pb.*
 installer/Mumble.exe
 overlay/*.hex
+overlay/*.ps.h
+overlay/*.vs.h
 overlay_winx64/*.hex
+overlay_winx64/*.ps.h
+overlay_winx64/*.vs.h
 scripts/Murmur.ice
 scripts/murmur.ini.*
 src/murmur/murmur_ice/Murmur.h
