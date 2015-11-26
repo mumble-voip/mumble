@@ -23,20 +23,13 @@ QMAKE_CXXFLAGS_DEBUG	-= -MDd
 QMAKE_CXXFLAGS_RELEASE	*= -MT
 QMAKE_CXXFLAGS_DEBUG	*= -MTd
 
-INCLUDEPATH *= "$$FX11DIR/inc"
-
 LIBS *= -ldxguid -luuid -lole32 -luser32 -ladvapi32
 LIBS *= -ld3d9 -ld3d10 -ld3d11 -ld3dcompiler -ld3dx9 -ld3dx10 -ld3dx11 -ldxgi
 
 CONFIG(force-x86_64-toolchain) {
-  LIBS *= -leffects11_x64
   DEFINES += USE_MINHOOK
   INCLUDEPATH *= ../3rdparty/minhook-src/include
   LIBS *= -lminhook
-}
-
-CONFIG(force-x86-toolchain) {
-  LIBS *= -leffects11_x86
 }
 
 CONFIG(release, debug|release) {
@@ -62,12 +55,6 @@ fxc.commands = $${FXC} /Tfx_4_0 /O3 /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
 fxc.input = EFFECTS
 fxc.CONFIG *= no_link target_predeps
 QMAKE_EXTRA_COMPILERS *= fxc
-
-fxc11.output = ${QMAKE_FILE_BASE}11.hex
-fxc11.commands = $${FXC} /Tfx_5_0 /O3 /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
-fxc11.input = EFFECTS
-fxc11.CONFIG *= no_link target_predeps
-QMAKE_EXTRA_COMPILERS *= fxc11
 
 vs11.output = ${QMAKE_FILE_BASE}.ps.h
 vs11.commands = $${FXC} /Tvs_5_0 /O3 /Vng_vertex_shader /Fh${QMAKE_FILE_OUT} ${QMAKE_FILE_NAME}
