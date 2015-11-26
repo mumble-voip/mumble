@@ -139,11 +139,6 @@
 
       <ComponentRef Id="dbghelp.dll" />
 
-      <?ifdef D3DCompilerDLL ?>
-        <ComponentRef Id="d3dcompiler_43.dll" />
-        <ComponentRef Id="d3dcompiler_47.dll" />
-      <?endif ?>
-
       <Feature Id="MumbleDesktopShortcutFeature" Title="!(loc.MUMBLE_SEC_DesktopShortcut)" Description="!(loc.DESC_DesktopShortcut)" InstallDefault="followParent" AllowAdvertise="no">
         <ComponentRef Id="MumbleDesktopShortcutComponent" />
       </Feature>
