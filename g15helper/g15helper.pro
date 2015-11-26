@@ -18,6 +18,20 @@ win32 {
   INCLUDEPATH *= "$$G15SDK_PATH/Src"
   DEFINES *= WIN32
   QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
+
+  CONFIG(release, debug|release) {
+    QMAKE_CFLAGS_RELEASE -= -MD
+    QMAKE_CFLAGS_RELEASE *= -MT
+    QMAKE_CXXFLAGS_RELEASE -= -MD
+    QMAKE_CXXFLAGS_RELEASE *= -MT
+  }
+  CONFIG(debug, debug|release) {
+    QMAKE_CFLAGS_DEBUG -= -MDd
+    QMAKE_CFLAGS_DEBUG *= -MTd
+    QMAKE_CXXFLAGS_DEBUG -= -MDd
+    QMAKE_CXXFLAGS_DEBUG *= -MTd
+  }
+
 }
 
 macx {
