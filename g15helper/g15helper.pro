@@ -17,6 +17,7 @@ win32 {
   QMAKE_LIBDIR *= "$$G15SDK_PATH/Lib/x86"
   INCLUDEPATH *= "$$G15SDK_PATH/Src"
   DEFINES *= WIN32
+  QMAKE_POST_LINK = $$QMAKE_POST_LINK$$escape_expand(\\n\\t)$$quote(mt.exe -nologo -updateresource:$(DESTDIR_TARGET);1 -manifest ../src/mumble/mumble.appcompat.manifest)
 }
 
 macx {
