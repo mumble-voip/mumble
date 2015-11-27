@@ -4976,12 +4976,12 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna kuva nimellä...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Tallenna kuvatiedosto</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8249,7 +8249,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>

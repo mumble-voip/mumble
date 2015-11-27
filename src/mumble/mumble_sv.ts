@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Standardvärde för servern</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Max användare</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maximalt antal tillåtna användare i kanalen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;Max användare&lt;/b&gt;&lt;br /&gt;
+Det värdet tillåter dig att ställa in ett maximalt antal av användare som är tillåtna i kanalen. Om värdet är noll så är det maximala antalet användare för kanalen densamma som serverns standard begränsning.</translation>
     </message>
 </context>
 <context>
@@ -4964,7 +4965,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimal Vy -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4974,17 +4975,17 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Spara bilden som...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Spara bildfilen</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kunde inte spara bilden: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5006,7 +5007,7 @@ Detta fält beskriver storleken av en LCD-enhet. Storleken mäts i pixlar (för 
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Anslutna användare: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6082,7 +6083,7 @@ Om inte, avbryt och kontrollera ditt certifikat eller användarnamn.</translatio
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 namnbyte till %2 av %3</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6570,17 +6571,17 @@ kanalens innehållsmeny.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Lokal volumnjustering</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Lokal justering av användarens talvolym</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Öppnar ett fönster med en volymkontroll. Använd den på andra användare i samma kanal.</translation>
     </message>
 </context>
 <context>
@@ -8236,22 +8237,22 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Lokal volym för andra användare</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Anpassar volymen av andra användare lokalt.&lt;/b&gt;&lt;br /&gt;Mumble stödjer justering av volymen lokalt för andra användare.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Anpassa lokal volym för %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>
