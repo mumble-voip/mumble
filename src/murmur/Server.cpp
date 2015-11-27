@@ -1935,12 +1935,10 @@ bool Server::isChannelFull(Channel *c, ServerUser *u) {
 		return false;
 	}
 	if (c->uiMaxUsers) {
-		if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
-			return true;
-		}
+		return static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers;
 	}
-	if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-		return true;
+	if (iMaxUsersPerChannel) {
+		return c->qlUsers.count() >= iMaxUsersPerChannel;
 	}
 	return false;
 }
