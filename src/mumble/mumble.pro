@@ -579,7 +579,7 @@ wasapi {
 
 g15 {
 	DEFINES *= USE_G15
-	win32:macx {
+	win32|macx {
 		SOURCES *= G15LCDEngine_helper.cpp
 		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
 	}
