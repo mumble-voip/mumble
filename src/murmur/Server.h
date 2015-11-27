@@ -333,6 +333,10 @@ class Server : public QThread {
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString(), const int position = 0);
 		void sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text);
 
+		/// Returns true if a channel is full. If a user is provided, false will always
+		/// be returned if the user has write permission in the channel.
+		bool isChannelFull(Channel *c, ServerUser *u = 0);
+
 		// Database / DBus functions. Implementation in ServerDB.cpp
 		void initialize();
 		int authenticate(QString &name, const QString &pw, int sessionId = 0, const QStringList &emails = QStringList(), const QString &certhash = QString(), bool bStrongCert = false, const QList<QSslCertificate> & = QList<QSslCertificate>());

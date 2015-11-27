@@ -1930,6 +1930,19 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 	}
 }
 
+bool Server::isChannelFull(Channel *c, ServerUser *u) {
+	if (u && hasPermission(u, c, ChanACL::Write)) {
+		return false;
+	}
+	if (c->uiMaxUsers) {
+		return static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers;
+	}
+	if (iMaxUsersPerChannel) {
+		return c->qlUsers.count() >= iMaxUsersPerChannel;
+	}
+	return false;
+}
+
 bool Server::canNest(Channel *newParent, Channel *channel) const {
 	const int parentLevel = newParent ? static_cast<int>(newParent->getLevel()) : -1;
 	const int channelDepth = channel ? static_cast<int>(channel->getDepth()) : 0;

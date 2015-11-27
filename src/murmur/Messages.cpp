@@ -176,6 +176,25 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		ok = false;
 	}
 
+	Channel *lc;
+	if (bRememberChan) {
+		lc = qhChannels.value(readLastChannel(uSource->iId));
+	} else {
+		lc = qhChannels.value(iDefaultChan);
+	}
+
+	if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
+		lc = qhChannels.value(iDefaultChan);
+		if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter) || isChannelFull(lc, uSource)) {
+			lc = root;
+			if (isChannelFull(lc, uSource)) {
+				reason = QString::fromLatin1("Server channels are full");
+				rtType = MumbleProto::Reject_RejectType_ServerFull;
+				ok = false;
+			}
+		}
+	}
+
 	if (! ok) {
 		log(uSource, QString("Rejected connection from %1: %2")
 			.arg(addressToString(uSource->peerAddress(), uSource->peerPort()), reason));
@@ -279,19 +298,6 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	// Transmit user profile
 	MumbleProto::UserState mpus;
-
-	Channel *lc;
-	if (bRememberChan)
-		lc = qhChannels.value(readLastChannel(uSource->iId));
-	else
-		lc = qhChannels.value(iDefaultChan);
-
-	if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter)) {
-		lc = qhChannels.value(iDefaultChan);
-		if (! lc || ! hasPermission(uSource, lc, ChanACL::Enter)) {
-			lc = root;
-		}
-	}
 
 	userEnterChannel(uSource, lc, mpus);
 
@@ -520,16 +526,9 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 			PERM_DENIED(pDstServerUser, c, ChanACL::Enter);
 			return;
 		}
-		if (! hasPermission(uSource, c, ChanACL::Write)) {
-			if (c->uiMaxUsers) {
-				if (static_cast<unsigned int>(c->qlUsers.count()) >= c->uiMaxUsers) {
-					PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
-					return;
-				}
-			} else if (iMaxUsersPerChannel && (c->qlUsers.count() >= iMaxUsersPerChannel)) {
-				PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
-				return;
-			}
+		if (isChannelFull(c, uSource)) {
+			PERM_DENIED_FALLBACK(ChannelFull, 0x010201, QLatin1String("Channel is full"));
+			return;
 		}
 	}
 
