@@ -7,10 +7,20 @@
 # of the native architecture of the build
 # environment.
 
-QMAKE_CC = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
-QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
-QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\amd64\link.exe\""
-QMAKE_LIB = \""$$(VCINSTALLDIR)\bin\amd64\lib.exe\""
+# Use the x86-based amd64 cross compiler by default.
+QMAKE_CC = "\"$$(VCINSTALLDIR)bin\x86_amd64\cl.exe\""
+QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\x86_amd64\cl.exe\""
+QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\x86_amd64\link.exe\""
+QMAKE_LIB = \""$$(VCINSTALLDIR)\bin\x86_amd64\lib.exe\""
+
+# ...but use the native amd64 compiler if it is available.
+exists($$(VCINSTALLDIR)\bin\amd64) {
+	QMAKE_CC = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
+	QMAKE_CXX = "\"$$(VCINSTALLDIR)bin\amd64\cl.exe\""
+	QMAKE_LINK = \""$$(VCINSTALLDIR)\bin\amd64\link.exe\""
+	QMAKE_LIB = \""$$(VCINSTALLDIR)\bin\amd64\lib.exe\""
+}
+
 QMAKE_RC = \""$$(WindowsSdkDir)\bin\x64\rc.exe\""
 
 INCLUDEPATH *= "$$(VCINSTALLDIR)\include"
