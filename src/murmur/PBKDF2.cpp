@@ -65,7 +65,7 @@ int PBKDF2::benchmark() {
 }
 
 QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int iterationCount) {
-#if OPENSSL_VERSION >= 0x0090900fL
+#if OPENSSL_VERSION >= 0x00090900fL
 	QByteArray hash(DERIVED_KEY_LENGTH, 0);
 	
 	const QByteArray utf8Password = password.toUtf8();
