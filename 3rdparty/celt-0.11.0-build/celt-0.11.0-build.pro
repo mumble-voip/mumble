@@ -47,6 +47,10 @@ win32 {
 }
 
 unix {
+	contains(QMAKE_CFLAGS, -ffast-math) {
+		DEFINES += FLOAT_APPROX
+	}
+
 	INCLUDEPATH += ../$$BUILDDIR
 }
 

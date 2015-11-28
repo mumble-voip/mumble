@@ -57,6 +57,11 @@ unix {
     # out for now.
     error(Mumble cannot be built in SBCELT mode with Opus 1.1 - aborting build.)
   }
+
+  contains(QMAKE_CFLAGS, -ffast-math) {
+    DEFINES += FLOAT_APPROX
+  }
+
   INCLUDEPATH += ../$$BUILDDIR
 }
 
