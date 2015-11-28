@@ -55,7 +55,8 @@ QList<QSslCipher> MumbleSSL::ciphersFromOpenSSLCipherString(QString cipherString
 		goto out;
 	}
 
-	ctx = SSL_CTX_new(meth);
+	// We use const_cast to be compatible with OpenSSL 0.9.8.
+	ctx = SSL_CTX_new(const_cast<SSL_METHOD *>(meth));
 	if (ctx == NULL) {
 		qWarning("MumbleSSL: unable to allocate SSL_CTX");
 		goto out;
