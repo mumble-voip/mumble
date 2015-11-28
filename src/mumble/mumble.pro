@@ -429,7 +429,7 @@ unix {
 
   CONFIG *= link_pkgconfig
 
-  PKGCONFIG *= openssl sndfile
+  PKGCONFIG *= sndfile
 
   macx {
     TARGET = Mumble
