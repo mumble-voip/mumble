@@ -26,6 +26,9 @@
    <property name="selectionMode">
     <enum>QAbstractItemView::ExtendedSelection</enum>
    </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
    <property name="acceptDrops">
     <bool>true</bool>
    </property>
