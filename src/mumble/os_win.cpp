@@ -38,6 +38,7 @@
 #include <tlhelp32.h>
 #include <dbghelp.h>
 #include <emmintrin.h>
+#include <math.h>
 
 #include "Global.h"
 #include "Version.h"
@@ -237,6 +238,17 @@ void os_init() {
 	GetVersionEx(reinterpret_cast<OSVERSIONINFOW *>(&ovi));
 	bIsWin7 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 7100));
 	bIsVistaSP1 = (ovi.dwMajorVersion >= 7) || ((ovi.dwMajorVersion == 6) &&(ovi.dwBuildNumber >= 6001));
+
+#if _MSC_VER == 1800 && defined(_M_X64)
+	// Disable MSVC 2013's FMA-optimized math routines on Windows
+	// versions earlier than Windows 8 (6.2).
+	// There are various issues on OSes that do not support the newer
+	// instructions.
+	// See issue mumble-voip/mumble#1615.
+	if (ovi.dwMajorVersion < 5 || (ovi.dwMajorVersion == 6 && ovi.dwMinorVersion <= 1)) {
+		_set_FMA3_enable(0);
+	}
+#endif
 
 	unsigned int currentControl = 0;
 	_controlfp_s(&currentControl, _DN_FLUSH, _MCW_DN);
