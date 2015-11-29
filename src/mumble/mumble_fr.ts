@@ -6583,7 +6583,7 @@ pour filtrage depuis le menu du canal.</translation>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation>Ouvre un dialogue avec un curseur de défilement de volume. Utilisez cela sur les autres utilisateurs dans la même salle.</translation>
+        <translation>Ouvre une dialogue avec un curseur de défilement de volume. Utilisez cela sur les autres utilisateurs dans le même salon.</translation>
     </message>
 </context>
 <context>

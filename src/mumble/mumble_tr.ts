@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Varsayılan sunucu değeri</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Güncel kanal tarafından alınmış üyelerin listesini içerir. Üst kanallard
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Azami Kullanıcı Sayısı</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Kanalda müsaade edilen azami kullanıcı sayısı</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Azami Kullanıcı Sayısı&lt;/b&gt;&lt;br /&gt;
+Bu değer kanalda izin verilen azami kullanıcı sayısını ayarlamanıza izin verir. Eğer değer sıfırdan yüksekse sadece o sayıdaki kullanıcı kanala girebilecektir. Eğer değer sıfırsa kanaldaki azami kullanıcı sayısı sunucunun varsayılan sınırı tarafından belirlenir.</translation>
     </message>
 </context>
 <context>
@@ -4784,47 +4785,47 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="-350"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Sürüm&lt;/h2&gt;&lt;p&gt;Protokol %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Hiçbir derleme ya da işletim sistemi bilgisi mevcut değildir&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Bağlantı şifrelenmiştir, kimlik doğrulaması %1 kullanılarak yapılmıştır ve %2 anahtar alışveriş mekanizması olarak kullanılmıştır (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>Bağlantı %1 kullanılarak şifrelenmiştir, %2 mesaj kimlik doğrulaması için ve %3 anahtar alışveriş mekanizması olarak kullanılmıştır (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>Bağlantı, OpenSSL&apos;in %1 olarak tanımladığı şifreleme paketi ile güvence altına alınmıştır</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Bağlantı kusursuz iletme gizliliği (forward secrecy) sağlar&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Bağlantı kusursuz iletme gizliliği (forward secrecy) sağlamaz&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Kontrol kanalı&lt;/h2&gt;&lt;p&gt;Bağlantı şunu kullanır: %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms vasati gecikme (%5 sapma)&lt;/p&gt;&lt;p&gt;Uzaktaki makine %6 (port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>Ses kanalı kontrol kanalından gönderilmekte</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -4967,7 +4968,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Asgari Görünüm -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4977,17 +4978,17 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Resmi Farklı Kaydet...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Resim Dosyasını Kaydet</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Resim kaydedilemedi: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5009,7 +5010,7 @@ Bu alan LCD cihazın boyutunu belirtir. Boyut ya piksel olarak (Grafik LCD ekran
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Çevrimiçi kullanıcılar: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6085,7 +6086,7 @@ deneyiniz. Yoksa iptal edip parolanızı kontrol ediniz.</translation>
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1, %3 tarafından %2 olarak yeniden adlandırılmıştır.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6573,17 +6574,17 @@ ilave kanallar ekleyebilirsiniz.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Yerel Ses Ayarı</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Kullanıcının konuşma ses seviyesini yerel olarak ayarla</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Ses seviyesini belirleyen kaydırıcı içeren bir diyalog açar. Bunu, aynı odadaki diğer kullanıcılar üzerinde kullanın.</translation>
     </message>
 </context>
 <context>
@@ -8239,22 +8240,22 @@ Erişim jetonu bir metindir ve kanallara erişimin çok basit bir şekilde yöne
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Diğer kullanıcılar için yerel ses seviyesi</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Diğer kullanıcıların ses seviyesini yerel olarak ayarla&lt;/b&gt;&lt;br /&gt;Mumble, diğer kullanıcıların ses seviyesinin yerel olarak ayarlanmasını destekler.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>%1 için yerel ses seviyesi ayarlanıyor</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>
