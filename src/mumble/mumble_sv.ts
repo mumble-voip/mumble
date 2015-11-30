@@ -504,7 +504,7 @@ Innehåller listan med ärvda medlemmar av den nuvarande kanalen. Avmarkera &lt;
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation>&lt;Max användare&lt;/b&gt;&lt;br /&gt;
+        <translation>&lt;b&gt;Max användare&lt;/b&gt;&lt;br /&gt;
 Det värdet tillåter dig att ställa in ett maximalt antal av användare som är tillåtna i kanalen. Om värdet är noll så är det maximala antalet användare för kanalen densamma som serverns standard begränsning.</translation>
     </message>
 </context>
