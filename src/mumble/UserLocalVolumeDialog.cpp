@@ -79,3 +79,10 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		UserLocalVolumeDialog::close();
 	}
 }
+
+void UserLocalVolumeDialog::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Escape) {
+        qsUserLocalVolume->setValue(m_originalVolumeAdjustmentDecibel);
+        UserLocalVolumeDialog::close();
+    }
+}
