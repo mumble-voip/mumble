@@ -38,6 +38,7 @@
 
 RichTextHtmlEdit::RichTextHtmlEdit(QWidget *p) : QTextEdit(p) {
 	m_document = new LogDocument(this);
+	m_document->setDefaultStyleSheet(qApp->styleSheet());
 	setDocument(m_document);
 }
 
