@@ -47,6 +47,7 @@ class UserLocalVolumeDialog : public QWidget, private Ui::UserLocalVolumeDialog 
 		void on_qsUserLocalVolume_valueChanged(int value);
 		void on_qsbUserLocalVolume_valueChanged(int value);
 		void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
+		void keyPressEvent(QKeyEvent *event);
 
 	public:
 		UserLocalVolumeDialog(unsigned int sessionId = 0);
