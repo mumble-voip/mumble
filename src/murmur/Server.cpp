@@ -1165,7 +1165,7 @@ void Server::newClient() {
 
 		foreach(const Ban &ban, qlBans) {
 			if (ban.haAddress.match(ha, ban.iMask)) {
-				log(QString("Ignoring connection: %1 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort())));
+				log(QString("Ignoring connection: %1, Reason: %2, Username: %3, Hash: %4 (Server ban)").arg(addressToString(sock->peerAddress(), sock->peerPort()), ban.qsReason, ban.qsUsername, ban.qsHash));
 				sock->disconnectFromHost();
 				sock->deleteLater();
 				return;
@@ -1273,7 +1273,7 @@ void Server::encrypted() {
 
 		foreach(const Ban &ban, qlBans) {
 			if (ban.qsHash == uSource->qsHash) {
-				log(uSource, QString("Certificate hash is banned."));
+				log(uSource, QString("Certificate hash is banned: %1, Username: %2, Reason: %3.").arg(ban.qsHash, ban.qsUsername, ban.qsReason));
 				uSource->disconnectSocket();
 			}
 		}
