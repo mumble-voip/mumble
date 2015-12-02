@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Standaardwaarde server</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Bevat de lijst van leden die door het huidige kanaal zijn geërfd. Deselecteer &
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Gebruikersmaximum</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Max. aantal toegestane gebruikers in &apos;t kanaal</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Gebruikersmaximum&lt;/b&gt;&lt;br /&gt;
+Deze waarde laat je &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal instellen. Als de waarde boven nul ligt kunnen alleen dat aantal gebruikers het kanaal binnengaan. Als &apos;t nul is, is &apos;t max. aantal toegestane gebruikers de standaardlimiet van de server.</translation>
     </message>
 </context>
 <context>
@@ -4965,7 +4966,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimaal -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4975,17 +4976,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Afbeelding opslaan als...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Afbeeldingsbestand opslaan</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kon afbeelding niet opslaan: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5007,7 +5008,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Gebruikers verbonden: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -5467,12 +5468,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute user locally</source>
-        <translation>Gebruiker lokaal dempen</translation>
+        <translation>Gebruiker dempen (lokaal)</translation>
     </message>
     <message>
         <location/>
         <source>Mute or unmute user locally. Use this on other users in the same room.</source>
-        <translation>Gebruiker lokaal (ont)dempen. Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
+        <translation>Gebruiker (ont)dempen (lokaal). Gebruik dit op andere gebruikers in hetzelfde kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -6081,7 +6082,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 hernoemd naar %2 door %3</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6504,7 +6505,7 @@ Undeafen self
     <message>
         <location/>
         <source>Locally ignore user&apos;s text chat messages.</source>
-        <translation>Gebruikers&apos; tekst-chatberichten lokaal negeren.</translation>
+        <translation>Gebruikers&apos; chatberichten negeren (lokaal). </translation>
     </message>
     <message>
         <location/>
@@ -6568,17 +6569,17 @@ Je kunt extra kanalen voor het filteren markeren vanuit het contextmenu van het 
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Lokale volumebijstelling</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Gebruikers&apos; spraakvolume aanpassen (lokaal)</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Opent &apos;n venster met &apos;n volumeschuifje. Gebruik op andere kanaalgebruiker(s).</translation>
     </message>
 </context>
 <context>
@@ -8234,22 +8235,22 @@ Een toegangssleutel is een tekenreeks, die als een wachtwoord voor eenvoudige to
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Lokale volume voor andere gebruikers</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Volume van andere gebruikers bijstellen&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumebijstelling van andere gebruikers (lokaal).</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Lokaal ijkend (%1-volume)</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1  dB</translation>
     </message>
 </context>
 <context>
