@@ -626,6 +626,27 @@ GlobalShortcutConfig::GlobalShortcutConfig(Settings &st) : ConfigWidget(st) {
 	if (canSuppress)
 		qtwShortcuts->header()->setResizeMode(3, QHeaderView::ResizeToContents);
 	qcbEnableGlobalShortcuts->setVisible(canDisable);
+
+#ifdef Q_OS_MAC
+	// Help Mac users enable accessibility access for Mumble...
+	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
+		qpbOpenAccessibilityPrefs->setHidden(true);
+		label->setText(tr(
+			"<html><head/><body>"
+			"<p>"
+			"Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts."
+			"</p>"
+			"<p>"
+			"If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security & Privacy section "
+			"of your Mac's System Preferences."
+			"</p>"
+			"<p>"
+			"In the Security & Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in "
+			"the list to the left. Finally, add Mumble to the list of trusted accessibility programs."
+			"</body></html>"
+		));
+	}
+#endif
 }
 
 bool GlobalShortcutConfig::eventFilter(QObject *object, QEvent *event) {
@@ -641,8 +662,10 @@ bool GlobalShortcutConfig::eventFilter(QObject *object, QEvent *event) {
 
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
-	if (! QFile::exists(QLatin1String("/private/var/db/.AccessibilityAPIEnabled"))) {
-		return true;
+	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
+		return !AXIsProcessTrustedWithOptions(NULL);
+	} else {
+		return !QFile::exists(QLatin1String("/private/var/db/.AccessibilityAPIEnabled"));
 	}
 #endif
 	return false;
