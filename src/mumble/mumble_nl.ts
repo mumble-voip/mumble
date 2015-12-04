@@ -280,7 +280,7 @@ Deze waarde geeft je de mogelijkheid om de volgorde te wijzigen waarin Mumble ka
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation>Dit verwijdert de huidig geselecteerde regel.</translation>
+        <translation>Dit verwijdert de huidige geselecteerde regel.</translation>
     </message>
     <message>
         <location/>
@@ -420,7 +420,7 @@ Maak een nieuwe groep.</translation>
         <source>&lt;b&gt;Temporary&lt;/b&gt;&lt;br /&gt;
 When checked the channel created will be marked as temporary. This means when the last player leaves it the channel will be automatically deleted by the server.</source>
         <translation>&lt;b&gt;Tijdelijk&lt;/b&gt;&lt;br /&gt;
-Wanneer geselecteerd wordt het kanaal gemarkeerd als tijdelijk. Dit betekent dat het kanaal automatisch door de server wordt verwijderd als de laatste speler het kanaal verlaat.</translation>
+Wanneer geselecteerd wordt het kanaal gemarkeerd als tijdelijk. Dit betekent dat het kanaal automatisch door de server wordt verwijderd als laatste speler kanaal verlaat.</translation>
     </message>
     <message>
         <location/>
@@ -454,7 +454,7 @@ Dit zijn alle groepen die momenteel voor het kanaal gedefinieerd zijn. Om een ni
         <source>&lt;b&gt;Members&lt;/b&gt;&lt;br /&gt;
 This list contains all members that were added to the group by the current channel. Be aware that this does not include members inherited by higher levels of the channel tree. These can be found in the &lt;i&gt;Inherited members&lt;/i&gt; list. To prevent this list to be inherited by lower level channels uncheck &lt;i&gt;Inheritable&lt;/i&gt; or manually add the members to the &lt;i&gt;Excluded members&lt;/i&gt; list.</source>
         <translation>&lt;b&gt;Leden&lt;/b&gt;&lt;br /&gt;
-Deze lijst bevat alle leden die aan de groep door het huidige kanaal zijn toegevoegd. Let op dat dit geen leden bevat die van bovenliggende kanalen zijn geërfd. Deze in de &lt;i&gt;Overgeërfde leden&lt;/i&gt; lijst gevonden worden. Om te voorkomen dat deze lijst wordt geërfd door onderliggende kanalen, deselecteer &lt;i&gt;Overerfbaar&lt;/i&gt; of voeg de leden handmatig toe aan de &lt;i&gt;Uitgesloten leden&lt;i&gt; lijst.</translation>
+Deze lijst omvat alle groepsleden van &apos;t huidige kanaal. Let op dat dit geen leden bevat die van bovenliggende kanalen zijn geërfd. Terugvindbaar in de &lt;i&gt;Overgeërfde leden&lt;/i&gt; lijst. Om te voorkomen dat deze lijst wordt geërfd door onderliggende kanalen, deselecteer &lt;i&gt;Overerfbaar&lt;/i&gt; of voeg de leden handmatig toe aan de &lt;i&gt;Uitgesloten leden&lt;i&gt; lijst.</translation>
     </message>
     <message>
         <location/>
@@ -4663,7 +4663,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit wisselt je dempen-status. Als je dit uitzet, ontdoof je jezelf.</translation>
+        <translation>Dit wisselt je dempen-status. Dit uitzetten, ontdooft jezelf ook.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4756,7 +4756,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+76"/>
         <location line="+1492"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation>Verzendmodus ingesteld op Continue</translation>
+        <translation>Zendmodus ingesteld op Continue</translation>
     </message>
     <message>
         <location line="-1398"/>
@@ -5453,7 +5453,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Gebruiker uit server gooien en ervan verbannen. Je wordt gevraagd om een reden op te geven.</translation>
+        <translation>Gebruiker uit server gooien en verbannen. Je wordt gevraagd om een reden op te geven.</translation>
     </message>
     <message>
         <location/>
@@ -5891,7 +5891,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+42"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation>Je wordt %1 toestemming geweigerd in %2.</translation>
+        <translation>Je werd %1 toestemming geweigerd in %2.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6062,12 +6062,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>You were unsuppressed.</source>
-        <translation>Je onderdrukking wordt opgeheven.</translation>
+        <translation>Je onderdrukking werd opgeheven.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>You were unsuppressed by %1.</source>
-        <translation>Je onderdrukking wordt opgeheven door %1.</translation>
+        <translation>Je onderdrukking werd opgeheven door %1.</translation>
     </message>
     <message>
         <location line="+83"/>
@@ -6180,12 +6180,12 @@ Otherwise abort and check your certificate and username.</source>
         <location line="-484"/>
         <source>You were muted and deafened by %1.</source>
         <oldsource>You were deafened by %1.</oldsource>
-        <translation>Je werd door %1 gedempt en gedoofd.</translation>
+        <translation>Je wordt door %1 gedempt en gedoofd.</translation>
     </message>
     <message>
         <location line="+176"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>Je wordt uit de server gegooid door %1: %2.</translation>
+        <translation>Je werd uit de server gegooid door %1: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6195,17 +6195,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Je wordt uit de server gegooid en ervan verbannen door %1: %2.</translation>
+        <translation>Je werd uit de server gegooid en verbannen door %1: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 wordt uit de server gegooid en ervan verbannen door %1: %2.</translation>
+        <translation>%3 werd uit de server gegooid en verbannen door %1: %2.</translation>
     </message>
     <message>
         <location line="-79"/>
         <source>You were moved to %1 by %2.</source>
-        <translation>Je wordt verplaatst naar %1 door %2.</translation>
+        <translation>Je werd verplaatst naar %1 door %2.</translation>
     </message>
     <message>
         <location line="+20"/>
