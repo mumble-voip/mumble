@@ -563,6 +563,8 @@ LogDocument::LogDocument(QObject *p)
 	, m_valid(true)
 	, m_onlyLoadDataURLs(false)
 	, m_allowHTTPResources(true) {
+	connect(documentLayout(), SIGNAL(update(const QRectF &)), SLOT(layoutUpdate()));
+	connect(documentLayout(), SIGNAL(documentSizeChanged(const QSizeF &)), SLOT(layoutUpdate()));
 }
 
 QVariant LogDocument::loadResource(int type, const QUrl &url) {
@@ -685,6 +687,14 @@ void LogDocument::finished() {
 	}
 
 	rep->deleteLater();
+}
+
+void LogDocument::layoutUpdate() {
+	QTextEdit *qte = qobject_cast<QTextEdit *>(parent());
+	if (qte != NULL) {
+		QEvent *e = new LogDocumentResourceAddedEvent();
+		QApplication::postEvent(qte, e);
+	}
 }
 
 LogDocumentResourceAddedEvent::LogDocumentResourceAddedEvent()

@@ -111,6 +111,7 @@ class LogDocument : public QTextDocument {
 		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
 		bool isValid();
 	public slots:
+		void layoutUpdate();
 		void receivedHead();
 		void finished();
 	private:
