@@ -545,7 +545,7 @@ Deze waarde laat je &apos;t maximale aantal toegestane gebruikers in &apos;t kan
         <location line="+3"/>
         <source>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5 Hz</source>
         <oldsource>%1 -&gt; %2 samples buffer, with %3 sample resolution (%4 preferred) at %5Hz</oldsource>
-        <translation>%1 -&gt; %2 samples buffer, met %3 sample resolutie (%4 bij voorkeur) op %5 Hz</translation>
+        <translation>%1 -&gt; %2 ondervindingsbuffer, met %3 ondervindingsresolutie (%4 bij voorkeur) op %5 Hz</translation>
     </message>
     <message>
         <location line="+43"/>
@@ -1066,7 +1066,7 @@ Deze waarde laat je &apos;t maximale aantal toegestane gebruikers in &apos;t kan
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation>Druk-om-te-praten venster tonen</translation>
+        <translation>Druk-om-te-praten-venster tonen</translation>
     </message>
     <message>
         <location/>
@@ -2888,7 +2888,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Dit omvat de machtiging om het kanaal te doorkruisen. Als een gebruiker deze bevoegdheid wordt geweigerd, kan hij geen wijze toegang krijgen tot dit kanaal én eventuele sub-kanalen, onafhankelijk van andere bevoegdheden in de sub-kanalen.</translation>
+        <translation>Dit omvat de machtiging om het kanaal te doorkruisen. Als een gebruiker deze bevoegdheid wordt geweigerd, blijkt in elk mogelijk (sub-)kanaal doorgang onmogelijk (onafhankelijk van andere sub-kanaal-bevoegdheden).</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3937,7 +3937,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation>Toegang geweigerd</translation>
+        <translation>Geen Toestemming</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4340,7 +4340,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Look and Feel</source>
-        <translation>Sfeer en uiterlijk</translation>
+        <translation>Sfeer en stijl</translation>
     </message>
     <message>
         <location/>
@@ -4521,12 +4521,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Theme to use to style the user interface</source>
-        <translation>Thema om als uiterlijk te gebruiken</translation>
+        <translation>Thema om als stijl te gebruiken</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation>&lt;b&gt;Configureert welk thema &apos;t Mumble uiterlijk moet aannemen.&lt;/b&gt;&lt;br /&gt;Mumble leest themas van bepaalde mappen en toont ze in deze lijst. Welke je selecteert wordt gebruikt om de &apos;look&apos; van Mumble aan te nemen. Dit omvat kleuren, iconen en meer.</translation>
+        <translation>&lt;b&gt;Configureert welk thema Mumble gestijld moet worden.&lt;/b&gt;&lt;br /&gt;Mumble leest themas van bepaalde mappen en toont ze in deze lijst. Welke je selecteert wordt gebruikt om de &apos;look&apos; van Mumble aan te nemen. Dit omvat kleuren, iconen en meer.</translation>
     </message>
 </context>
 <context>
@@ -5891,17 +5891,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+42"/>
         <source>You were denied %1 privileges in %2.</source>
-        <translation>Je werd %1 toestemming geweigerd in %2.</translation>
+        <translation>Je hebt geen %1 toestemming in %2.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>%3 was denied %1 privileges in %2.</source>
-        <translation>%3 wordt %1 toestemming geweigerd in %2.</translation>
+        <translation>%3 werd %1 geweigerd in %2.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Denied: Cannot modify SuperUser.</source>
-        <translation>Geweigerd: Kan SuperUser niet wijzigen.</translation>
+        <translation>Geweigerd: SuperUser onwijzigbaar.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5916,7 +5916,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+22"/>
         <source>Denied: Operation not permitted in temporary channel.</source>
-        <translation>Geweigerd: Handeling niet toegestaan in tijdelijk kanaal.</translation>
+        <translation>Geweigerd: Handeling niet toegestaan (tijdelijk kanaal).</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5951,7 +5951,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+7"/>
         <source>Permission denied.</source>
-        <translation>Toegang geweigerd.</translation>
+        <translation>Geen toestemming.</translation>
     </message>
     <message>
         <location line="+40"/>

@@ -3424,7 +3424,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt;Okropnie nam przykro, ale wygląda na to, że Mumble zostało niepodziewanie zamknięte. Czy chcesz wysłać raport z błędem do twórców programu?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Raport ten zawiera kopię pamięci Mumble z momentu, w którym program przestał funkcjonować, pomoże to w dużej mierze naszej drużynie szybko usunąć błąd, który spowodował ten problem.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt;Okropnie nam przykro, ale wygląda na to, że Mumble zostało niespodziewanie zamknięte. Czy chcesz wysłać raport z błędem do twórców programu?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Raport ten zawiera kopię pamięci Mumble z momentu, w którym program przestał funkcjonować, pomoże to w dużej mierze naszej drużynie szybko usunąć błąd, który spowodował ten problem.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
