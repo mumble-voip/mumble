@@ -1,5 +1,42 @@
+2015-12-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    a1a5b10  GlobalShortcut: update help text for marking Mumble trusted
+	     for OS X Mavericks and greater.
+
+2015-12-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    192ba96  Log: trigger scroll-to-bottom for a
+	     QAbstractTextDocumentLayout's update() and
+	     documentSizeChanged() signals.
+    923f6fe  Settings: enable XInput 2 by default once again.
+    0315b4d  Bump version to 1.2.11.
+
+2015-11-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    83e558c  GlobalShortcut_unix: request latest XInput 2 version by
+	     default.
+
+2015-11-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    e227d62  GlobalShortcut_unix, Settings: disable XInput2 by default.
+
+2015-09-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    3a2dc17  Update sbcelt submodule to include fix for Xiph.org's git://
+	     -> https:// transition.
+    cedf910  Use https:// URLs .gitmodules instead of git://.
+
+2015-08-28
+  Sven-Hendrik Haase <sh@lutzhaase.com>
+    ae31d10  Backport mumble.desktop file from master
+
+2015-07-21
+  Lartza <Lartza@users.noreply.github.com>
+    90f26fb  Fix small error in bEnableEvdev config
+
 2015-07-09
   Mikkel Krautz <mikkel@krautz.dk>
+    191b940  Update changelog.
     18cbd46  Bump version to 1.2.10.
 
 2015-06-11
@@ -140,6 +177,11 @@
 2014-04-28
   Christian Krause <chkr@plauener.de>
     b0b43cb  Avoid "jump to label crosses initialization" error.
+
+2014-03-29
+  Tim Cooper <tim.cooper@layeh.com>
+    5ac37bf  Fix incorrect handling of mumble:// links
+    7528229  Fix auto-reconnect behavior when kicked or banned.
 
 2014-02-08
   Mikkel Krautz <mikkel@krautz.dk>
@@ -1502,6 +1544,11 @@
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     0afd37a  Include entire plugin structure
+
+2011-05-17
+  Iain Georgeson <debbugs@iain.georgeson.me.uk>
+    8eea801  Show the IP address of the rejected connection in the
+	     mumble-server log.
 
 2011-05-16
   Stefan Hacker <dd0t@users.sourceforge.net>
