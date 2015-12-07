@@ -37,7 +37,7 @@
 #include "Database.h"
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId)
-	: QWidget(NULL)
+	: QDialog(NULL)
 	, m_clientSession(sessionId) {
 	setupUi(this);
 
