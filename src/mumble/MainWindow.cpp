@@ -1499,7 +1499,6 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
 	UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(session);
-	uservol->setWindowFlags(Qt::Dialog);
 	uservol->show();
 }
 

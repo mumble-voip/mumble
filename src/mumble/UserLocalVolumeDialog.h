@@ -34,7 +34,7 @@
 #include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
 
-class UserLocalVolumeDialog : public QWidget, private Ui::UserLocalVolumeDialog {
+class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog {
 		Q_OBJECT
 		Q_DISABLE_COPY(UserLocalVolumeDialog);
 
