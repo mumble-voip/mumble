@@ -1110,6 +1110,18 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	QSet<ServerUser *> users;
 	QQueue<Channel *> q;
 
+	int res = 0;
+	emit textMessageFilterSig(res, uSource, msg);
+	switch (res) {
+	//case 0: // accept
+	//	break;
+	case 1: // reject
+		PERM_DENIED(uSource, uSource->cChannel, ChanACL::TextMessage);
+		return;
+	case 2: // drop
+		return;
+	}
+
 	QString text = u8(msg.message());
 	bool changed = false;
 

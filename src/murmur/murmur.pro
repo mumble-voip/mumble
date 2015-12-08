@@ -134,6 +134,27 @@ ice {
 	}
 }
 
+CONFIG(grpc) {
+	DEFINES *= USE_GRPC
+	INCLUDEPATH *= murmur_grpc
+	LIBS *= -lmurmur_grpc
+
+	HEADERS *= MurmurGRPCImpl.h
+	SOURCES *= MurmurGRPCImpl.cpp
+
+	GRPC_WRAPPER = MurmurRPC.proto
+	grpc_wrapper.output = MurmurRPC.proto.Wrapper.cpp
+	grpc_wrapper.commands = protoc --plugin=${DESTDIR}protoc-gen-grpcwrapper -I. --grpcwrapper_out=. MurmurRPC.proto
+	grpc_wrapper.input = GRPC_WRAPPER
+	grpc_wrapper.variable_out =
+	QMAKE_EXTRA_COMPILERS += grpc_wrapper
+
+	unix {
+		QMAKE_CXXFLAGS *= -std=c++11
+		PKGCONFIG += gpr grpc grpc++
+	}
+}
+
 bonjour {
 	DEFINES *= USE_BONJOUR
 
