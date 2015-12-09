@@ -42,15 +42,18 @@ class LogTextBrowser : public QTextBrowser {
 		Q_OBJECT
 		Q_DISABLE_COPY(LogTextBrowser)
 	protected:
+		int m_pos;
+		bool m_scrollToBottom;
+		void updateUserScrollState();
 		virtual void resizeEvent(QResizeEvent *e);
 		virtual bool event(QEvent *e);
+	protected slots:
+		void verticalScrollBarMoved(int pos);
+		void verticalScrollBarActionTriggered(int action);
+		void verticalScrollBarRangeChanged(int min, int max);
 	public:
 		LogTextBrowser(QWidget *p = NULL);
-
-		int getLogScroll();
-		int getLogScrollMaximum();
-		void setLogScroll(int pos);
-		void scrollLogToBottom();
+		void updateScrollPosition();
 };
 
 class ChatbarTextEdit : public QTextEdit {

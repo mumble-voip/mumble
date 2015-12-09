@@ -39,36 +39,72 @@
 #include "Log.h"
 
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+LogTextBrowser::LogTextBrowser(QWidget *p)
+	: m_pos(0)
+	, m_scrollToBottom(true)
+	, QTextBrowser(p) {
+
+	connect(verticalScrollBar(), SIGNAL(sliderMoved(int)), SLOT(verticalScrollBarMoved(int)));
+	connect(verticalScrollBar(), SIGNAL(actionTriggered(int)), SLOT(verticalScrollBarActionTriggered(int)));
+	connect(verticalScrollBar(), SIGNAL(rangeChanged(int, int)), SLOT(verticalScrollBarRangeChanged(int, int)));
+}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
-	scrollLogToBottom();
+	// Scroll to the bottom of the log view on resize.
+	m_pos = 0;
+	m_scrollToBottom = true;
+	updateScrollPosition();
+
 	QTextBrowser::resizeEvent(e);
 }
 
 bool LogTextBrowser::event(QEvent *e) {
 	if (e->type() == LogDocumentResourceAddedEvent::Type) {
-		scrollLogToBottom();
+		updateScrollPosition();
 	}
 	return QTextBrowser::event(e);
 }
 
-int LogTextBrowser::getLogScroll() {
-	return verticalScrollBar()->value();
+/// Update the scroll position based on the current
+/// state of the scroll bar. If the scrollbar has been
+/// scrolled to the bottom by the user (or has not been
+/// moved at all by the user), it will always scroll to
+/// the bottom automatically. Otherwise, it will keep the
+/// position the user last put it at.
+void LogTextBrowser::updateScrollPosition() {
+	if (m_scrollToBottom) {
+		verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+	} else {
+		verticalScrollBar()->setValue(m_pos);
+	}
 }
 
-int LogTextBrowser::getLogScrollMaximum() {
-	return verticalScrollBar()->maximum();
+/// updateUserScrollState updates the current scroll
+/// state. This method should only be called when a
+/// user changes the scrollbar's position.
+void LogTextBrowser::updateUserScrollState() {
+	QScrollBar *scrollBar = verticalScrollBar();
+	int curpos = scrollBar->sliderPosition();
+	int max = scrollBar->maximum();
+	if (curpos >= max) {
+		m_scrollToBottom = true;
+	} else {
+		m_scrollToBottom = false;
+	}
+	m_pos = curpos;
 }
 
-void LogTextBrowser::setLogScroll(int pos) {
-	verticalScrollBar()->setValue(pos);
+void LogTextBrowser::verticalScrollBarMoved(int) {
+	updateUserScrollState();
 }
 
-void LogTextBrowser::scrollLogToBottom() {
-	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+void LogTextBrowser::verticalScrollBarActionTriggered(int) {
+	updateUserScrollState();
 }
 
+void LogTextBrowser::verticalScrollBarRangeChanged(int, int) {
+	updateScrollPosition();
+}
 
 /*!
   \fn int ChatbarTextEdit::completeAtCursor()

@@ -441,8 +441,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		QTextCursor tc = g.mw->qteLog->textCursor();
 
 		LogTextBrowser *tlog = g.mw->qteLog;
-		const int oldscrollvalue = tlog->getLogScroll();
-		const bool scroll = (oldscrollvalue == tlog->getLogScrollMaximum());
 
 		tc.movePosition(QTextCursor::End);
 
@@ -467,10 +465,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 		tc.movePosition(QTextCursor::End);
 		g.mw->qteLog->setTextCursor(tc);
 
-		if (scroll || ownMessage)
-			tlog->scrollLogToBottom();
-		else
-			tlog->setLogScroll(oldscrollvalue);
+		tlog->updateScrollPosition();
 	}
 
 	if (!g.s.bTTSMessageReadBack && ownMessage)
