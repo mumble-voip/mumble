@@ -84,19 +84,19 @@ Database::Database() {
 
 	for (i = 0; (i < datapaths.size()) && ! found; i++) {
 		if (!datapaths[i].isEmpty()) {
-			// Try legacy filename.
-			QFile f(datapaths[i] + QLatin1String("/.mumble.sqlite"));
-			if (f.exists()) {
-				db.setDatabaseName(f.fileName());
+			// Try the legacy path first, and use it if it exists.
+			// If it doesn't, use the new, non-hidden version.
+			QFile legacyDatabaseFile(datapaths[i] + QLatin1String("/.mumble.sqlite"));
+			if (legacyDatabaseFile.exists()) {
+				db.setDatabaseName(legacyDatabaseFile.fileName());
 				found = db.open();
 			}
 			if (found) {
 				break;
 			}
-
-			f = QFile(datapaths[i] + QLatin1String("/mumble.sqlite"));
-			if (f.exists()) {
-				db.setDatabaseName(f.fileName());
+			QFile databaseFile(datapaths[i] + QLatin1String("/mumble.sqlite"));
+			if (databaseFile.exists()) {
+				db.setDatabaseName(databaseFile.fileName());
 				found = db.open();
 			}
 		}
