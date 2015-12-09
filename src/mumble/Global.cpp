@@ -62,6 +62,30 @@ static void migrateDataDir() {
 
 	qWarning("Application data migration failed.");
 #endif
+
+// Qt4 used another data directory on Unix-like systems, to ensure a seamless
+// transition we must first move the users data to the new directory.
+#if defined(Q_OS_UNIX) && ! defined(Q_OS_MAC)
+#if QT_VERSION >= 0x050000
+	QString olddir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/data/Mumble");
+	QString newdir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + QLatin1String("/Mumble");
+
+	if (!QFile::exists(newdir) && QFile::exists(olddir)) {
+		QDir d;
+		d.mkpath(newdir + QLatin1String("/.."));
+		if (d.rename(olddir, newdir)) {
+			qWarning("Migrated application data directory from '%s' to '%s'",
+			         qPrintable(olddir), qPrintable(newdir));
+			return;
+		}
+	} else {
+		/* Data dir has already been migrated. */
+		return;
+	}
+
+	qWarning("Application data migration failed.");
+#endif
+#endif
 }
 
 Global::Global() {
