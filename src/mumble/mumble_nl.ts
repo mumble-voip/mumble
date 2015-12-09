@@ -698,7 +698,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Het Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;Een spraak-chat hulpprogramma voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 Het Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;Spraak/chat-hulpprogramma voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -741,12 +741,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Invoermethode voor geluid</translation>
+        <translation>Geluidinvoermethode</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dit is de invoermethode voor geluid.&lt;br&gt;&lt;br /&gt;Hoogstwaarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt;Dit is de geluidinvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -761,7 +761,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dit is het invoerapparaat voor geluid.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dit is het geluidinvoerapparaat.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -776,12 +776,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation>Wanneer je spraak te verzenden</translation>
+        <translation>Wanneer spraak te verzenden</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets when speech should be transmitted.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continuous&lt;/i&gt; - All the time&lt;br /&gt;&lt;i&gt;Voice Activity&lt;/i&gt; - When you are speaking clearly.&lt;br /&gt;&lt;i&gt;Push To Talk&lt;/i&gt; - When you hold down the hotkey set under &lt;i&gt;Shortcuts&lt;/i&gt;.</source>
-        <translation>&lt;b&gt;Dit stelt in wanneer spraak moet worden verzonden.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continue&lt;/i&gt; - Heel de tijd&lt;br /&gt;&lt;i&gt;Spreek Activiteit&lt;/i&gt; - Wanneer je duidelijk spreekt.&lt;br /&gt;&lt;i&gt;Druk Om Te Praten&lt;/i&gt; - Wanneer je de sneltoets ingesteld onder &lt;i&gt;Sneltoetsen&lt;/i&gt; ingedrukt houdt.</translation>
+        <translation>&lt;b&gt;Bepaalt wanneer spraak wordt verzonden.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Continue&lt;/i&gt; - Heel de tijd&lt;br /&gt;&lt;i&gt;Spreek Activiteit&lt;/i&gt; - Wanneer duidelijk sprekend.&lt;br /&gt;&lt;i&gt;Druk Om Te Praten&lt;/i&gt; - Wanneer sneltoets-indrukkend (ingesteld onder &lt;i&gt;Sneltoetsen&lt;/i&gt;).</translation>
     </message>
     <message>
         <location/>
@@ -791,32 +791,32 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>If you press the PTT key twice in this time it will get locked.</source>
-        <translation>Als je de DOTP knop tweemaal binnen deze tijd indrukt wordt het ingehouden.</translation>
+        <translation>DotP-knop dubbel binnen de tijd indrukken → inhouden.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;DoublePush Time&lt;/b&gt;&lt;br /&gt;If you press the push-to-talk key twice during the configured interval of time it will be locked. Mumble will keep transmitting until you hit the key once more to unlock PTT again.</source>
-        <translation>&lt;b&gt;DubbelDruk Tijd&lt;b&gt;&lt;br /&gt;Als je tweemaal binnen de ingestelde interval van tijd op de druk-om-te-praten knop drukt dan wordt het ingehouden. Mumble blijft zenden totdat je nog éénmaal op de knop drukt om DOTP los te laten.</translation>
+        <translation>&lt;b&gt;DubbelDruk Tijd&lt;b&gt;&lt;br /&gt;Dubbel binnen ingestelde tijdsinterval de Druk-om-te-Praten-knop indrukken → inhouding. Mumble blijft zenden tot je &apos;n laatste maal op de knop drukt om DotP los te laten.</translation>
     </message>
     <message>
         <location/>
         <source>Reset audio cue to default</source>
-        <translation>Herstel geluidssignaal naar standaardwaarde</translation>
+        <translation>Geluidssignaal naar standaardwaarde herstellen</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Reset&lt;/b&gt;&lt;br/&gt;Reset the paths for the files to their default.</source>
-        <translation>&lt;b&gt;Herstel&lt;/b&gt;&lt;br/&gt;Herstel de paden voor de bestanden naar hun standaardwaarden</translation>
+        <translation>&lt;b&gt;Herstel&lt;/b&gt;&lt;br/&gt;Bestandspaden naar standaardwaarden herstellen</translation>
     </message>
     <message>
         <location/>
         <source>Browse for on audio file</source>
-        <translation>Bladeren voor &quot;aan&quot; geluidsbestand</translation>
+        <translation>Naar &quot;aan&quot;-geluidsbestand bladeren </translation>
     </message>
     <message>
         <location/>
         <source>Browse for off audio file</source>
-        <translation>Bladeren voor &quot;uit&quot; geluidsbestand</translation>
+        <translation>Naar &quot;uit&quot;-geluidsbestand bladeren </translation>
     </message>
     <message>
         <location/>
@@ -836,7 +836,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Gebruik SNR gebaseerde spraakherkenning</translation>
+        <translation>SNR-gebaseerde spraakherkenning gebruiken</translation>
     </message>
     <message>
         <location/>
@@ -846,7 +846,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>Dit stelt spraakherkenning in om Amplitude te gebruiken. &lt;/b&gt;&lt;br /&gt; In deze modus, wordt de ruwe sterkte van het invoersignaal gebruikt om spraak te herkennen.</translation>
+        <translation>Spraakherkenning d.m.v. Amplitude. &lt;/b&gt;&lt;br /&gt; Deze modus pakt invoersignaalsterkte voor spraakherkennen.</translation>
     </message>
     <message>
         <location/>
@@ -871,7 +871,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Dit stelt de drempelwaarden voor spraakherkenning in.&lt;/b&gt;&lt;br /&gt;Gebruik dit samen met het geluidsstatistiekenvenster om handmatig de drempelwaarden af te stemmen voor spraakherkenning. Waarden onder &quot;Stilte Onder&quot; tellen altijd als stilte. Waarden boven &quot;Spraak Boven&quot; tellen altijd als spraak. Waarden tussenin tellen als spraak als je al praat, maar leiden niet tot een nieuwe herkenning.</translation>
+        <translation>&lt;b&gt;Drempelwaarden voor spraakherkenning instellen.&lt;/b&gt;&lt;br /&gt;Gebruik dit samen met &apos;t geluidsstatistiekenvenster om de drempelwaarden af te stemmen om spraak te herkennen. Waarden ònder &quot;Stilte Onder&quot; tellen als stilte. Waarden bóven &quot;Spraak Boven&quot; tellen als spraak. Waarden ertussen tellen als spraak als je al praat, maar geen nieuwe herkenning.</translation>
     </message>
     <message>
         <location/>
@@ -881,7 +881,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Signal values above this count as voice</source>
-        <translation>Signaal waardes boven dit tellen als spraak</translation>
+        <translation>Hogere signaalwaarde telt als spraak</translation>
     </message>
     <message>
         <location/>
@@ -896,12 +896,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kwaliteit van compressie (piekbandbreedte)</translation>
+        <translation>Compressiekwaliteit (piekbandbreedte)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Dit stelt de kwaliteit van de compressie in.&lt;/b&gt;&lt;br /&gt;Dit bepaalt hoeveel bandbreedte Mumble mag gebruiken voor uitgaand geluid.</translation>
+        <translation>&lt;b&gt;Bepaalt compressiekwaliteit.&lt;/b&gt;&lt;br /&gt;Bepaalt hoeveel bandbreedte bruikbaar is qua uitgaand geluid.</translation>
     </message>
     <message>
         <location/>
@@ -916,12 +916,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This selects how many audio frames should be put in one packet.&lt;/b&gt;&lt;br /&gt;Increasing this will increase the latency of your voice, but will also reduce bandwidth requirements.</source>
-        <translation>&lt;b&gt;Dit selecteert hoeveel geluidsframes in één pakketje moeten komen.&lt;/b&gt;&lt;br /&gt;Dit verhogen, verhoogt de latentie van je spraak, maar vermindert de vereiste bandbreedte.</translation>
+        <translation>&lt;b&gt;Selecteert hoeveel geluidsframes in één pakketje moeten komen.&lt;/b&gt;&lt;br /&gt;Dit verhogen, verhoogt de spraaklatentie maar vermindert vereiste bandbreedte.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows peak outgoing bandwidth used.&lt;/b&gt;&lt;br /&gt;This shows the peak amount of bandwidth sent out from your machine. Audio bitrate is the maximum bitrate (as we use VBR) for the audio data alone. Position is the bitrate used for positional information. Overhead is our framing and the IP packet headers (IP and UDP is 75% of this overhead).</source>
-        <translation>&lt;b&gt;Dit toont piekgebruik uitgaande bandbreedte.&lt;/b&gt;&lt;br /&gt;Dit toont de piekhoeveelheid bandbreedte verzonden vanaf je machine. Geluidsbitsnelheid is de maximum bitsnelheid (zoals we VBR gebruiken) voor louter geluidsgegevens. Positie is de bitsnelheid gebruikt voor positionele-informatie. Overhead bestaat uit het frame en de hoofding van IP-pakketjes (bij IP en UDP is 75% van dit overhead).</translation>
+        <translation>&lt;b&gt;Toont piekgebruik uitgaande bandbreedte.&lt;/b&gt;&lt;br /&gt;Toont piekhoeveelheid verzonden bandbreedte. Geluidsbitsnelheid is maximum (zoals VBR gebruiken) louter voor geluidsgegevens. Positie is bitsnelheid gebruikt voor positionele-informatie. Overhead = frame + hoofd van IP-pakket (bij IP &amp; UDP 75% van overhead).</translation>
     </message>
     <message>
         <location/>
@@ -941,17 +941,17 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This sets the amount of noise suppression to apply.&lt;/b&gt;&lt;br /&gt;The higher this value, the more aggressively stationary noise will be suppressed.</source>
-        <translation>&lt;b&gt;Dit stelt de toe te passen hoeveelheid van geluidsonderdrukking in.&lt;/b&gt;&lt;br /&gt;Hoe hoger deze waarde, des te agressiever stationaire ruis wordt onderdrukt.</translation>
+        <translation>&lt;b&gt;Bepaalt geluidsonderdrukkingshoeveelheid.&lt;/b&gt;&lt;br /&gt;Hoe hoger, des te agressiever ruis wordt onderdrukt.</translation>
     </message>
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximale versterking van invoergeluid</translation>
+        <translation>Maximale invoergeluidversterking</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Maximale versterking van input.&lt;/b&gt;&lt;br /&gt;Mumble normaliseert het invoervolume voor het te comprimeren, en dit stelt hoeveel het toestaat om te versterken in.&lt;br /&gt;Het werkelijke niveau wordt voortdurend bijgewerkt op basis van je huidige spraakpatroon, maar het gaat nooit boven het hier gespecificeerde niveau.&lt;br /&gt;Als het &lt;i&gt;Microfoon luidheid&lt;/i&gt; niveau van de geluidsstatistieken schommelt rond 100%, wil je dit waarschijnlijk instellen op 2,0 of zo, maar als, zoals de meeste mensen, het je niet lukt om 100% te bereiken, verstel dit naar iets veel hogers.&lt;br /&gt;Idealiter, stel het in zodat &lt;i&gt; Microfoon Luidheid* Versterkingsfactor&gt; = 100 &lt;/i&gt;, zelfs wanneer je echt zachtjes praat. &lt;br /&gt;&lt;br /&gt; Merk op dat het geen kwaad kan om deze instelling op maximaal te zetten, maar Mumble begint dan andere gesprekken op te pakken als je het overlaat om automatisch af te stellen op dat niveau.</translation>
+        <translation>&lt;b&gt;Maximale inputversterking.&lt;/b&gt;&lt;br /&gt;Mumble normaliseert invoervolume alvorens compressie, en dit stelt in hoeveel het toestaat te versterken.&lt;br /&gt;Het werkelijke niveau wordt voortdurend bijgewerkt op basis van huidige spraakpatroon, maar het gaat nooit boven &apos;t hier gespecificeerde niveau.&lt;br /&gt;Als de &lt;i&gt;Microfoon luidheid&lt;/i&gt; van de geluidsstatistieken schommelt rond 100%, wil je dit waarschijnlijk instellen op +-2,0, maar als, zoals de meesten, niet lukt om 100% te bereiken, dan veel hoger.&lt;br /&gt;Idealistisch, stel in zodat &lt;i&gt; Microfoon Luidheid* Versterkingsfactor&gt; = 100 &lt;/i&gt;, zelfs terwijl je echt zachtjes praat. &lt;br /&gt;&lt;br /&gt; Het kan geen kwaad om de instelling maximaal te zetten (Mumble pikt  andere gesprekken op als je het overlaat om automatisch af te stellen op dat niveau).</translation>
     </message>
     <message>
         <location/>
@@ -961,12 +961,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Cancel echo from speakers</source>
-        <translation>Onderdruk galm van luidsprekers</translation>
+        <translation>Onderdruk luidsprekergalm</translation>
     </message>
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Dit gebruiken stopt de echo van je luidsprekers. Gemengd heeft een lage CPU-impact, maar werkt alleen goed als je luidsprekers even luid en op gelijke afstand van de microfoon staan. Multi-kanaal galmdmeper voorziet in veel betere galmdemping, maar tegen hogere CPU kracht.</translation>
+        <translation>Stopt luidsprekerecho. Gemengd heeft lage CPU-impact, maar werkt alleen goed als je luidsprekers even luid en op gelijke afstand van de microfoon staan. Multi-kanaal galmdemper voorziet in veel betere galmdemping, maar tegen hogere CPU kracht.</translation>
     </message>
     <message>
         <location/>
@@ -991,32 +991,32 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Dit stelt spraakdetectie in om Signaal naar Ruis verhouding te gebruiken.&lt;/b&gt;&lt;br /&gt;In deze modus wordt de input geanalyseerd naar iets dat op een duidelijk signaal lijkt, en de helderheid van dat signaal wordt gebruikt om spraak te herkennen.</translation>
+        <translation>&lt;b&gt;Spraakherkenning d.m.v. Signaal/Ruis-verhouding.&lt;/b&gt;&lt;br /&gt;Deze modus analyseert input naar iets lijkend op &apos;n duidelijk signaal, signaal-helderheid dient voor spraakherkenning.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Dit toont de huidige spraakherkenningsinstellingen.&lt;/b&gt;&lt;br /&gt;Je kunt de instellingen via het Instellingenvenster of de Geluidswizard wijzigen.</translation>
+        <translation>&lt;b&gt;Toont de huidige spraakherkenningsinstellingen.&lt;/b&gt;&lt;br /&gt;Instellingen via Geluidswizard of Instellingenvenster wijzigbaar.</translation>
     </message>
     <message>
         <location/>
         <source>Signal values below this count as silence</source>
-        <translation>Signaalwaardes onder dit tellen als stilte</translation>
+        <translation>Lagere signaalwaarde telt als stilte</translation>
     </message>
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation>Maximaal bandbreedtegebruik om geluid te verzenden</translation>
+        <translation>Maximale bruikbare bandbreedte om geluid te zenden.</translation>
     </message>
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Gebruik Amplitude gebaseerde spraakherkenning</translation>
+        <translation>Amplitude-gebaseerde spraakherkenning als methode.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Dit selecteert hoe lang een onderbreking in spraakverzending moet aanhouden.&lt;/b&gt;&lt;br /&gt;Verhoog dit als je spraak hapert wanneer je spreekt (te zien door een knipperend praaticoontje naast je naam).</translation>
+        <translation>&lt;b&gt;Selecteert hoe lang spraakverzendingsonderbrekingen aan te houden.&lt;/b&gt;&lt;br /&gt;Verhoog als je spraak hapert wanneer je spreekt (zichtbaar door knipperend praaticoontje naast je naam).</translation>
     </message>
     <message>
         <location/>
@@ -1026,7 +1026,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Dit opent het apparaat in exclusieve modus.&lt;/b&gt;&lt;br /&gt;Geen andere applicatie kan het apparaat dan gebruiken.</translation>
+        <translation>&lt;b&gt;Opent &apos;t apparaat in exclusieve modus.&lt;/b&gt;&lt;br /&gt;Geen andere applicatie kan &apos;t apparaat gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1056,12 +1056,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;Preview&lt;/b&gt;&lt;br/&gt;Plays the current &lt;i&gt;on&lt;/i&gt; sound followed by the current &lt;i&gt;off&lt;/i&gt; sound.</source>
-        <translation>&lt;b&gt;Voorbeeld&lt;/b&gt;&lt;br/&gt;Speelt het huidige &lt;i&gt;aan&lt;/ i&gt; geluid gevolgd door de huidige &lt;i&gt;uit&lt;/i&gt; geluid af.</translation>
+        <translation>&lt;b&gt;Voorbeeld&lt;/b&gt;&lt;br/&gt;Speelt &lt;i&gt;aan&lt;/ i&gt; geluid gevolgd door &lt;i&gt;uit&lt;/i&gt; geluid af.</translation>
     </message>
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Toon een altijd-op-de-voorgrond venster met een druk-om-te-praten knop erop.</translation>
+        <translation>Venster op voorgrond met &apos;n druk-om-te-praten knopje.</translation>
     </message>
     <message>
         <location/>
@@ -1076,12 +1076,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Audible audio cue when starting or stopping to transmit</source>
-        <translation>Hoorbaar geluidssignaal bij het starten of stoppen van zenden</translation>
+        <translation>Hoorbaar geluidssignaal bij begin of einde van zenden.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables transmission audio cues.&lt;/b&gt;&lt;br /&gt;Setting this will give you a short audio beep when you start and stop transmitting.</source>
-        <translation>&lt;b&gt;Dit genereert geluidssignalen bij zenden.&lt;/b&gt;&lt;br /&gt;Dit instellen geeft je een kort geluidssignaal wanneer je start en stopt met zenden.</translation>
+        <translation>&lt;b&gt;Genereert geluidssignalen bij zenden.&lt;/b&gt;&lt;br /&gt;Instellen geeft je &apos;n kort start/stop-geluidssignaal.</translation>
     </message>
     <message>
         <location/>
@@ -1091,27 +1091,27 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Gets played when starting to transmit</source>
-        <translation>Wordt afgespeeld wanneer er gestart wordt met zenden</translation>
+        <translation>Wordt afgespeeld zodra &apos;t zenden wordt aangevangen.</translation>
     </message>
     <message>
         <location/>
         <source>Gets played when stopping to transmit</source>
-        <translation>Wordt afgespeeld wanneer er gestopt wordt met zenden</translation>
+        <translation>Wordt afgespeeld zodra wordt opgehouden te zenden.</translation>
     </message>
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation>Vasthoud Tijd</translation>
+        <translation>Vasthoudtijd</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation>De tijdsduur dat de microfoon openblijft nadat de druk-om-te-praten knop wordt losgelaten</translation>
+        <translation>Tijdsduur dat microfoon openblijft nadat de druk-om-te-praten knop wordt losgelaten.</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+529"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation>Servers&apos; maximale bandbreedte van het netwerk is slechts %1 kbit/s. Geluidskwaliteit automatisch aangepast naar %2 kbit/s (%3 ms)</translation>
+        <translation>Servers&apos; maximum netwerkbandbreedte is slechts %1 kbit/s. Geluidskwaliteit automatisch versteld naar %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
@@ -1164,12 +1164,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation>Druk een knop in om te praten</translation>
+        <translation>Druk om te Praten</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation>Geluidsinvoer</translation>
+        <translation>Geluidinvoer</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -1226,13 +1226,13 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>Uitvoermethode voor geluid</translation>
+        <translation>Geluidsuitvoermethode</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation>&lt;b&gt;Dit is de uitvoermethode voor geluid.&lt;br&gt;&lt;br /&gt;Hoogstwaarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt;Dit is de geluiduitvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1242,12 +1242,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation>Uitvoerapparaat voor geluid</translation>
+        <translation>Geluidsuitvoerapparaat</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the output device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt; Dit is het uitvoerapparaat voor geluid. &lt;/b&gt;</translation>
+        <translation>&lt;b&gt; Dit is het geluidsuitvoerapparaat. &lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1267,32 +1267,32 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation>Veiligheidsmarge voor jitter buffer</translation>
+        <translation>Veiligheidsmarge (jitter buffer)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Dit stelt de minimale veiligheidsmarge voor de jitter buffer in.&lt;/b&gt;&lt;br /&gt;Al het inkomend geluid wordt gebufferd, en de jitter buffer probeert voortdurend om de buffer tot het minimale wat je netwerk aankan, zodat latentie het laagst mogelijke blijft. Dit stelt de minimale bufferomvang in. Als de gehoorde zinnen erg zenuwachtig klinken, verhoog je deze waarde.</translation>
+        <translation>&lt;b&gt;Bepaalt minimum jitter buffer veiligheidsmarge.&lt;/b&gt;&lt;br /&gt;Al &apos;t inkomend geluid wordt gebufferd, en de jitter buffer probeert voortdurend om de buffer te reduceren tot &apos;t minimale wat je netwerk aankan, zodat latentie minimaal blijft. Omvat minimale bufferomvang. Als &apos;t gehoorde zenuwachtig klinkt verhoog de waarde.</translation>
     </message>
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimale afstand tot de gebruiker voordat het geluidvolume afneemt</translation>
+        <translation>Minimumafstand tot gebruiker voordat geluidvolume afneemt.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Stelt de minimumafstand voor geluidsberekeningen in. Het volume van spraak van andere gebruikers daalt niet, totdat, ze minstens zo tot ver af van jou zijn.</translation>
+        <translation>Bepaalt minimumafstand voor geluidsberekeningen. Spraakvolume van van andere gebruikers daalt niet, totdat ze minstens tot ongeveer zover van jou af zijn.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Dit stelt de maximumafstand voor geluidsberekeningen in. Wanneer verder weg dan dit, neemt het spraakvolume van andere gebruikers niet verder af.</translation>
+        <translation>Bepaalt maximumafstand voor geluidsberekeningen. Wanneer verder weg, neemt spraakvolume van andere gebruikers niet verder af.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Dit activeert een van de loopback-test modes&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Geen&lt;/i&gt; - Loopback uitgeschakeld&lt;br /&gt;&lt;i&gt;Lokaal&lt;/i&gt; - Een lokale server nabootsen.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Loopback van server verzoeken.&lt;br /&gt;Graag opletten dat als loopback ingeschakeld is, niemand anders je dan hoort spreken. Deze instelling gaat verloren als de applicatie wordt afgesloten.</translation>
+        <translation>&lt;b&gt;Dit activeert een van de loopback-test modi&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Geen&lt;/i&gt; - Loopback uitgeschakeld&lt;br /&gt;&lt;i&gt;Lokaal&lt;/i&gt; - Een lokale server nabootsen.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Loopback van server verzoeken.&lt;br /&gt;Zolang loopback aanstaat, hoort niemand anders je spreken. Instelling gaat verloren bij afsluiten applicatie.</translation>
     </message>
     <message>
         <location/>
@@ -1307,7 +1307,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Dit past het volume van inkomende spraak aan.&lt;/b&gt;&lt;br /&gt;Merk op dat als je dit voorbij 100% verhoogd, het geluid dan vervormd.</translation>
+        <translation>&lt;b&gt;Dit past het volume van inkomende spraak aan.&lt;/b&gt;&lt;br /&gt;Voorbij 100% verhogen, vervormd &apos;t geluid.</translation>
     </message>
     <message>
         <location/>
@@ -1317,18 +1317,18 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Hoeveelheid gegevens om te bufferen</translation>
+        <translation>Hoeveelheid te bufferen gegevens</translation>
     </message>
     <message>
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation>De aangesloten &quot;luidsprekers&quot; is eigenlijk een hoofdtelefoon</translation>
+        <translation>Aangesloten &quot;luidsprekers&quot; eigenlijk &quot;&apos;n hoofdtelefoon&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>Factor for sound volume decrease</source>
-        <translation>Factor om het geluidsvolume te verlagen</translation>
+        <translation>Geluidsvolumeverlagingsfactor</translation>
     </message>
     <message>
         <location/>
@@ -1338,12 +1338,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Factor for sound volume increase</source>
-        <translation>Factor om het geluidsvolume te verhogen</translation>
+        <translation>Geluidsvolumeverhogingsfactor </translation>
     </message>
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>Hoeveel volume toe laten nemen qua bronnen dichtbij?</translation>
+        <translation>Hoeveel volume toe laten nemen qua dichtbij zijnde bronnen?</translation>
     </message>
     <message>
         <location/>
@@ -1353,7 +1353,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Dit stelt de vooraf te bufferen hoeveelheid gegevens naar de uitvoerbuffer in. Experimenteer met verschillende waarden en stel het op het laagste in zodat er geen snelle jitter wordt veroorzaakt in het geluid.</translation>
+        <translation>Bepaalt vooraf te bufferen hoeveelheid gegevens naar  uitvoerbuffer. Experimenteer verschillende waarden en stel op &apos;t laag in om snelle geluidsjitters te voorkomen.</translation>
     </message>
     <message>
         <location/>
@@ -1363,27 +1363,27 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Minimum Distance</source>
-        <translation>Minimale Afstand</translation>
+        <translation>Minimumafstand</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Distance</source>
-        <translation>Maximale Afstand</translation>
+        <translation>Maximumafstand</translation>
     </message>
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Maximale afstand, vanaf waar spraakvolume niet af zal nemen</translation>
+        <translation>Maximumafstand waarvanaf spraakvolume niet meer afneemt.</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation>Minimale Volume</translation>
+        <translation>Minimumvolume</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation>Hoeveel volume op maximumafstand?</translation>
+        <translation>Hoeveel maximumafstandvolume?</translation>
     </message>
     <message>
         <location/>
@@ -1404,7 +1404,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Dit stelt de pakket-latentie variantie voor loopback-testen in.&lt;/b&gt;&lt;br /&gt;De meeste geluidspaden bevatten enkele variabele latentie. Dit stelt je in staat om de variantie voor loopback-modus testen in te stellen. Bijvoorbeeld, als u dit op 15ms instelt, zal het een netwerk nabootsen met 20-35ms ping latentie of een met 80-95ms latentie. De meeste binnenlandse net verbindingen hebben een verschil van ongeveer 5ms.</translation>
+        <translation>&lt;b&gt;Bepaalt pakket-latentie variantie voor loopback-testen.&lt;/b&gt;&lt;br /&gt;Meeste geluidspaden bevatten variabele latentie. Variantie voor loopback-modus testen instellen. Bijvoorbeeld,  &apos;t op 15ms instellen, bootst een netwerk na met 20-35ms  of 80-95ms latentie. Binnenlandse verbindingen verschillen doorgaans ongeveer 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1414,12 +1414,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Packet loss for loopback mode</source>
-        <translation>Pakketverlies bij loopback-modus</translation>
+        <translation>Loopback-modus-pakketverlies.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Dit stelt het pakketverlies voor loopback-modus in.&lt;/b&gt;&lt;br /&gt;Dit wordt de verhouding van verloren pakketjes. Tenzij je uitgaande bandbreedte piekt of iets mis is met je netwerkverbinding is dit 0 procent.</translation>
+        <translation>&lt;b&gt;Dit stelt het pakketverlies voor loopback-modus in.&lt;/b&gt;&lt;br /&gt;Dit wordt de verhouding van verloren pakketjes. Tenzij jouw uitgaande bandbreedte piekt of jouw netwerkverbinding niet op orde is blijft het 0%.</translation>
     </message>
     <message>
         <location/>
@@ -1444,7 +1444,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Volume van andere applicaties tijdens spreken afzwakken&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van andere applicaties gedurende inkomende en/of uitgaande spraak. Dit stelt de afzwakking van andere applicaties in als de functie aan staat.</translation>
+        <translation>&lt;b&gt;Ander applicatievolume tijdens spreken afzwakken&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van andere applicaties gedurende inkomende en/of uitgaande spraak. Dit stelt de afzwakking van andere applicaties mits &apos;t aanstaat.</translation>
     </message>
     <message>
         <location/>
@@ -1454,7 +1454,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Applicaties afzwakken terwijl andere gebruikers praten&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van andere applicaties gedurende inkomende en/of uitgaande spraak. Dit zorgt ervoor dat Mumble de functie activeert, terwijl andere gebruikers tegen je praten.</translation>
+        <translation>&lt;b&gt;Applicaties afzwakken terwijl anderen praten&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt applicatievolumevermindering gedurende inkomende en/of uitgaande spraak. Zorgt ervoor dat Mumble dat doet activeert, als andere gebruikers tegen je praten.</translation>
     </message>
     <message>
         <location/>
@@ -1464,12 +1464,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Indien aangevinkt, verlaagt mumble het volume van andere applicaties terwijl je praat</translation>
+        <translation>Aangevinkt, verlaagt mumble ander applicatievolume terwijl je praat</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Applicaties afzwakken terwijl je praat&lt;/b&gt;&lt;br/&gt;Mumble ondersteunt volumevermindering van andere applicaties gedurende inkomende en/of uitgaande spraak. Dit zorgt ervoor dat Mumble de functie activeert terwijl je praat.</translation>
+        <translation>&lt;b&gt;Applicaties afzwakken terwijl je praat&lt;/b&gt;&lt;br/&gt;Mumble ondersteunt applicatievolumevermindering gedurende inkomende en/of uitgaande spraak. Zorgt ervoor dat Mumble dat doet terwijl jij praat.</translation>
     </message>
     <message>
         <location/>
@@ -1479,12 +1479,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Exclusive mode, not recommended.</source>
-        <translation>Exclusieve-modus, niet aanbevolen.</translation>
+        <translation>Exclusieve-modus, afgeraden.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This opens the device in exclusive mode.&lt;/b&gt;&lt;br /&gt;No other application will be able to use the device.</source>
-        <translation>&lt;b&gt;Dit opent het apparaat in exclusieve-modus.&lt;/b&gt;&lt;br /&gt;Geen andere applicatie kan dan gebruik van dit apparaat.</translation>
+        <translation>&lt;b&gt;Opent apparaat in exclusieve-modus.&lt;/b&gt;&lt;br /&gt;Geen andere applicatie kan dit apparaat gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1499,17 +1499,17 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Indien aangevinkt, verlaagt Mumble het volume van andere gebruikers terwijl je praat als je de &quot;Prioriteitsspreker&quot;-status hebt.</translation>
+        <translation>Aangevinkt, verlaagt Mumble het volume van anderen terwijl je praat als je de &quot;Prioriteitsspreker&quot;-status hebt.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Andere gebruikers afzwakken tijdens het praten af als Prioriteitsspreker.&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt vermindering van het volume van andere gebruikers terwijl je praat als &lt;i&gt;Prioriteitsspreker&lt;/i&gt; om te voorkomen dat je wordt gestoord. Aanvinken van dit vakje zet deze functie aan.</translation>
+        <translation>&lt;b&gt;Andere gebruikers afzwakken tijdens praten of als Prioriteitsspreker.&lt;/b&gt;&lt;br /&gt;Mumble ondersteunt volumevermindering van anderen terwijl je praat als &lt;i&gt;Prioriteitsspreker&lt;/i&gt; om gestoord worden te voorkomen. Aanvinken betekent inschakeling.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate other users while talking as Priority Speaker.</source>
-        <translation>Andere gebruikers tijdens het praten als Prioriteitsspreker afzwakken.</translation>
+        <translation>Anderen tijdens praten als prioriteitsspreker afzwakken.</translation>
     </message>
     <message>
         <location/>
@@ -1519,22 +1519,22 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>If checked, Mumble will only attenuate applications that are using the same output source as Mumble</source>
-        <translation>Indien aangevinkt, zwakt Mumble slechts applicaties af die dezelfde uitvoerbron als Mumble gebruiken.</translation>
+        <translation>Indien aangevinkt, zwakt Mumble slechts applicaties af die dezelfde uitvoerbron(nen) als Mumble gebruiken.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation>&lt;b&gt;Louter applicaties die dezelfde uitvoer als Mumblr gebruiken afzwakken&lt;/b&gt;&lt;br /&gt;Indien aangevinkt, worden applicaties die een van Mumble verschillende uitvoer gebruiken niet afgezwakt.</translation>
+        <translation>&lt;b&gt;Louter applicaties die zelfde uitvoer als Mumble gebruiken afzwakken&lt;/b&gt;&lt;br /&gt;Indien aangevinkt, worden applicaties uitvoer anders dan Mumble gebruiken niet afgezwakt.</translation>
     </message>
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation>Louter applicaties die hetzelfde uitvoerapparaat gebruiken afzwakken.</translation>
+        <translation>Applicaties die &apos;nzelfde uitvoerapparaat gebruiken afzwakken.</translation>
     </message>
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation>Indien aangevinkt, worden PulseAudio loopback modules afgezwakt.</translation>
+        <translation>Aangevinkt worden PulseAudio loopback modules afgezwakt.</translation>
     </message>
     <message>
         <location/>
@@ -1607,7 +1607,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>Het bestand &apos;%1&apos; kan niet door Mumble gebruikt worden. Graag een bestand met een bruikbare indeling en codering selecteren.</translation>
+        <translation>Bestand &apos;%1&apos; kan niet door Mumble gebruikt worden. Bestand met bruikbare indeling/codering selecteren!</translation>
     </message>
 </context>
 <context>
@@ -1631,38 +1631,38 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Peak microphone level</source>
-        <translation>Piek microfoonniveau</translation>
+        <translation>Microfoonniveaupiek</translation>
     </message>
     <message>
         <location/>
         <source>Peak power in last frame</source>
-        <translation>Piekmeting van het laatste frame</translation>
+        <translation>Piekmeting van &apos;t laatste frame</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms), and is the same measurement as you would usually find displayed as &quot;input power&quot;. Please disregard this and look at &lt;b&gt;Microphone power&lt;/b&gt; instead, which is much more steady and disregards outliers.</source>
-        <translation>Dit toont de piekkracht uit het laatste frame (20 ms), en is eenzelfde meting als je normaliter zou vinden getoond als &quot;invoermeting&quot;. Graag daar niet op letten maar kijk naar&lt;b&gt;Microfoonmeting&lt;/ b&gt; welke veel stabieler is en uitschieters niet meeneemt.</translation>
+        <translation>Toont de piekkracht uit &apos;t laatste frame (20 ms), &apos;nzelfde meting als als invoermeting. Kijk naar &lt;b&gt;Microfoonmeting&lt;/ b&gt; welke véél stabieler is (en uitschieters niet meeneemt).</translation>
     </message>
     <message>
         <location/>
         <source>Peak speaker level</source>
-        <translation>Piek speaker niveau</translation>
+        <translation>Speakerniveaupiek</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Toont luidsprekers-piekmeting uit laatste frame (20 ms). Tenzij je gebruikmaakt van multi-kanaal ondervindingsmethode (zoals ASIO) met luidsprekerkanalen geconfigureerd, is dit 0. Als je &apos;n dergelijke opstelling geconfigureerd hebt, en &apos;t toont nog  0 als andere programma&apos;s geluid afspelen, kloppen jouw instellingen niet.</translation>
+        <translation>Toont luidsprekers-piekmeting uit laatste frame (20 ms). Tenzij je gebruikmaakt van multi-kanaal ondervindingsmethode (zoals ASIO) met luidsprekerkanalen geconfigureerd, is dit 0. Als je zo&apos;n opstelling ingesteld hebt, en geeft 0 weer terwijl andere programma&apos;s geluid afspelen kloppen je instellingen niet.</translation>
     </message>
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>Piek zuiver niveau</translation>
+        <translation>Zuiver-niveaupiek</translation>
     </message>
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Dit toont de piekmeting uit het laatste frame (20 ms) na alle verwerking. Idealistisch is dit -96 dB zijn wanneer je niet praat. In werkelijkheid is in een geluidsstudio -60 dB te zien; jij moet ongeveer rond -20 dB zien. Pratend, moet dit oplopen tot tussen -5 en -10 dB.&lt;br /&gt;Als je gebruik maakt van galmonderdrukking, en dit &apos;oploopt&apos; tot over -15 dB terwijl niet pratend; werkt jouw opstelling niet, want jij irriteert dan anderen met echo&apos;s.</translation>
+        <translation>Toont piekmeting uit &apos;t laatste frame (20 ms) na alle verwerking. Idealistisch is dit -96 dB zijn wanneer je niet praat. In werkelijkheid is in &apos;n geluidsstudio -60 dB te zien; jij dient ongeveer rond -20 dB te zien. Pratend, moet &apos;t oplopen tot -5 á -10 dB.&lt;br /&gt;Als je ook gebruikmaakt van galmonderdrukking, en dit &apos;oploopt&apos; over -15 dB terwijl niet pratend; werkt jouw opstelling niet, want dan irriteer jij anderen met echo&apos;s.</translation>
     </message>
     <message>
         <location/>
@@ -1677,12 +1677,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>How close the current input level is to ideal</source>
-        <translation>Hoe dichtbij het huidige inputniveau is tot het ideale</translation>
+        <translation>Hoe (dichtbij) &apos;t huidig invoerniveau t.o.v. &apos;het ideaalste&apos;.</translation>
     </message>
     <message>
         <location/>
         <source>This shows how close your current input volume is to the ideal. To adjust your microphone level, open whatever program you use to adjust the recording volume, and look at the value here while talking.&lt;br /&gt;&lt;b&gt;Talk loud, as you would when you&apos;re upset over getting fragged by a noob.&lt;/b&gt;&lt;br /&gt;Adjust the volume until this value is close to 100%, but make sure it doesn&apos;t go above. If it does go above, you are likely to get clipping in parts of your speech, which will degrade sound quality.</source>
-        <translation>Dit toont aan hoe dicht je huidige inputvolume is tot het ideale. Om je microfoonniveau aan te passen, open je het programma dat gebruikt om het opnamevolume aan te passen, en te kijken naar de waarde daar tijdens het praten.&lt;br /&gt;&lt;b&gt;Praat luid, zoals je zou doen wanneer je teleurgesteld raakt omdat je verslagen wordt door een beginner.&lt;/b&gt;&lt;br /&gt;Pas het volume aan totdat deze waarde dicht bij 100% ligt, maar bevestig dat het er niet boven gaat. Als het erboven gaat, krijg je waarschijnlijk haperingen tijdens het spreken, waardoor de geluidskwaliteit zal afnemen.</translation>
+        <translation>Toont aan hoe dicht huidig invoervolume is tot &apos;t ideale. Om je microfoonniveau te wijzigen, open &apos;t programma dat gebruikt om het opnamevolume aan te passen, en kijk naar de waarde tijdens praten.&lt;br /&gt;&lt;b&gt;Praat luid, zoals je zou doen indien je teleurgesteld raakt omdat je verslagen wordt.&lt;/b&gt;&lt;br /&gt;Pas volume aan totdat de waarde dicht bij 100% ligt, maar bevestig dat &apos;t er niet boven gaat. Bovengaand → haperingen tijdens spreken, waardoor geluidskwaliteit afneemt.</translation>
     </message>
     <message>
         <location/>
@@ -1692,12 +1692,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Signal-To-Noise ratio from the microphone</source>
-        <translation>Signaal-ruisverhouding van de microfoon</translation>
+        <translation>Signaal-ruisverhouding (microfoon)</translation>
     </message>
     <message>
         <location/>
         <source>This is the Signal-To-Noise Ratio (SNR) of the microphone in the last frame (20 ms). It shows how much clearer the voice is compared to the noise.&lt;br /&gt;If this value is below 1.0, there&apos;s more noise than voice in the signal, and so quality is reduced.&lt;br /&gt;There is no upper limit to this value, but don&apos;t expect to see much above 40-50 without a sound studio.</source>
-        <translation>Dit is de signaal-ruisverhouding (SNR) van de microfoon uit het laatste frame (20 ms). Het toont hoe zuiver de stem zich verhoudt tot de ruis.&lt;br /&gt;Indien deze waarde lager dan 1 komt, ontstaat er meer ruis dan stem in het signaal waarmee de kwaliteit dus afneemt.&lt;br /&gt;Er is geen bovengrens voor deze waarde, maar verwacht niets boven 40-50 te zien zonder een geluidsstudio.</translation>
+        <translation>Signaal-ruisverhouding (SNR) van microfoon uit laatste frame (20 ms). Toont hoe zuiver de stem verhoudt tot de ruis.&lt;br /&gt;Indien deze waarde lager dan 1 komt, ontstaat meer ruis dan stem in &apos;t signaal waarmee kwaliteit afneemt.&lt;br /&gt;Geen waarde-bovengrens, maar verwacht niets boven 45 zonder geluidsstudio.</translation>
     </message>
     <message>
         <location/>
@@ -1712,7 +1712,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Dit is de waarschijnlijkheid dat het laatste frame (20 ms) spraak was en niet omgevingsruis.&lt;br /&gt;Spraakactiviteit zenden is afhankelijk van dit juist hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en het begin van spraak. Het is lastig om een zucht te onderscheiden van een woord beginnend met &apos;h&apos;.&lt;br /&gt;Als dit in vet lettertype is, betekent het dat Mumble momenteel het verzenden is (als je verbonden bent).</translation>
+        <translation>Waarschijnlijkheid dat &apos;t laatste frame (20 ms) spraak was i.t.t. omgevingsruis.&lt;br /&gt;Spraakactiviteit zenden is afhankelijk van dit juist hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en het begin van spraak. Het is lastig zuchten te onderscheiden van een woord beginnend met &apos;h&apos;.&lt;br /&gt;Als dit in vet lettertype is, betekent het dat Mumble momenteel het verzenden is (als je verbonden bent).</translation>
     </message>
     <message>
         <location/>
@@ -1727,7 +1727,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Bitrate of last frame</source>
-        <translation>Bitsnelheid van het laatste frame</translation>
+        <translation>Bitsnelheid van &apos;t laatste frame</translation>
     </message>
     <message>
         <location/>
@@ -1737,7 +1737,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Time between last two Push-To-Talk presses</source>
-        <translation>Tijd tussen de laatste twee druk-om-te-praten indrukkingen</translation>
+        <translation>Tijd tussen (2 laatste) Druk-om-te-Praten in-drukkingen.</translation>
     </message>
     <message>
         <location/>
@@ -1752,7 +1752,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt; Dit toont de huidige spraakherkenningsinstellingen.&lt;/b&gt;&lt;br /&gt;Je kunt de instellingen via het Instellingenvenster of de Geluidswizard wijzigen.</translation>
+        <translation>&lt;b&gt; Toont de huidige spraakherkenningsinstellingen.&lt;/b&gt;&lt;br /&gt;Instellingen via Geluidswizard of Instellingenvenster wijzigbaar.</translation>
     </message>
     <message>
         <location/>
@@ -1767,7 +1767,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This shows the power spectrum of the current input signal (red line) and the current noise estimate (filled blue).&lt;br /&gt;All amplitudes are multiplied by 30 to show the interesting parts (how much more signal than noise is present in each waveband).&lt;br /&gt;This is probably only of interest if you&apos;re trying to fine-tune noise conditions on your microphone. Under good conditions, there should be just a tiny flutter of blue at the bottom. If the blue is more than halfway up on the graph, you have a seriously noisy environment.</source>
-        <translation>Dit toont het trillingsanalyse van het huidige invoersignaal (rode lijn) en een huidige ruisschatting (blauw gevuld).&lt;br /&gt;Alle amplitudes worden vermenigvuldigd met 30 om de interessante delen te laten zien (hoeveel meer signaal dan ruis in elk is golfgebied aanwezig is).&lt;br /&gt;Dit is waarschijnlijk alleen interessant als je ruisomstandigheden fijn probeert te stellen op je microfoon. Onder goede omstandigheden, is er slechts een klein fladder blauw aan de onderkant. Als het blauwe voorbij halverwege omhoog in de grafiek gaat, heb je een ernstig luidruchtige omgeving.</translation>
+        <translation>Toont de trillingsanalyse van &apos;t huidig invoersignaal (rode lijn) en &apos;n ruisschatting (blauw gevuld).&lt;br /&gt;De amplitude wordt vermenigvuldigd met 30 om te laten zien hoeveel meer signaal dan ruis per golfgebied aanwezig is.&lt;br /&gt;Alleen interessant als je ruisomstandigheden fijn probeert te stellen op je microfoon. Onder goede omstandigheden, is er slechts &apos;n klein fladder blauw aan de onderkant. Als &apos;t blauw voorbij halverwege omhoog in de grafiek gaat heb je &apos;n indrukwekkende luidruchtige omgeving.</translation>
     </message>
     <message>
         <location/>
@@ -1782,12 +1782,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Toont gewicht van de galmdemper; met tijdtoename naar beneden en frequentieverhoging naar rechts.&lt;br /&gt;Idealistisch is dit zwart, wanneer geen galm bestaat. Je hebt normaliter één of meer horizontale strepen van blauwe kleur die galmvertragingsduur aanduidt. Real-time kun je gewichten bijgewerkt zien.&lt;br /&gt;Zolang je geen galmveroorzaker hebt, zie je weinig nuttige gegevens. Speel muziek af want dat stabiliseert.&lt;br /&gt;Je kunt kiezen om de echte of ingebeelde delen van frequentiegewichten-domein of berekende modulus en fase te bekijken. Handigste is waarschijnlijk modulus, welke de galmsterkte is, en toont je hoeveel uitgaand signaal wordt verwijderd. Andere weergavemodi zijn vooral handig voor mensen die de galm-algoritmen willen afstellen.&lt;br /&gt;Als het gehele beeld enorm fluctueert, terwijl in modulus-modus, galmdemper faalt om verband te detecteren tussen twee invoerbronnen (microfoon en luidsprekers); heb je galmvertraging, of &apos;n invoerbron foutief geconfigureerd.</translation>
+        <translation>Toont gewicht van galmdemper; tijdtoename (omlaag) en frequentieverhoging (rechts).&lt;br /&gt;Idealistisch is dit zwart, wanneer geen galm bestaat. Je hebt normaliter één of meer horizontale strepen van blauwe kleur die galmvertragingsduur aanduidt. Real-time zijn beiden gewichten bijgewerkt te zien.&lt;br /&gt;Zolang je geen galmveroorzaker hebt zie je geen nuttige gegevens. Speel muziek af want dat stabiliseert.&lt;br /&gt;Kies voor echte of ingebeelde delen van frequentiegewichten-domein of berekende modulus en fase bekijken. Handigste is waarschijnlijk modulus, zijnde galmsterkte; toont je hoeveel uitgaand signaal wordt verwijderd. Andere weergave-modi zijn vooral handig voor mensen die de galm-algoritmen willen afstellen.&lt;br /&gt;Als het beeld erg fluctueert, terwijl in modulus-modus &amp; galmdemper faalt om verband te detecteren tussen twee invoerbronnen (microfoon en luidsprekers); heb je galmvertraging, of &apos;n invoerbron fout ingesteld.</translation>
     </message>
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Dit is de geluidsbitsnelheid van het laatste gecomprimeerde frame (20 ms), en zal als zodanig op en neer springen terwijl de VBR de kwaliteit aanpast. De piek bitsnelheid kan in het Instellingenvenster worden aangepast.</translation>
+        <translation>Geluidsbitsnelheid van &apos;t laatste gecomprimeerde frame (20 ms), en zal zodanig op en neer springen terwijl de VBR de kwaliteit aanpast. Bitsnelheidpiek kan in &apos;t Instellingenvenster worden aangepast.</translation>
     </message>
 </context>
 <context>
@@ -1805,7 +1805,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Welcome to the Mumble Audio Wizard</source>
-        <translation>Welkom bij de Mumble geluidswizard</translation>
+        <translation>Welkom bij Mumble-geluidswizard</translation>
     </message>
     <message>
         <location/>
@@ -1815,7 +1815,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Enjoy using Mumble</source>
-        <translation>Veel plezier met het gebruiken van Mumble</translation>
+        <translation>Veel plezier met Mumble-gebruik</translation>
     </message>
     <message>
         <location/>
@@ -1825,12 +1825,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Selecting the input and output device to use with Mumble.</source>
-        <translation>Het invoer- en uitvoerapparaat om in Mumble te gebruiken selecteren</translation>
+        <translation>In- en uitvoerapparaten; voor Mumble aan &apos;t selecteren.</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your microphone is connected to.</source>
-        <translation>Dit is het apparaat waaraan jouw microfoon is verbonden.</translation>
+        <translation>Het apparaat waaraan/mee je microfoon is verbonden.</translation>
     </message>
     <message>
         <location/>
@@ -1855,12 +1855,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Input device to use</source>
-        <translation>Invoerapparaat om te gebruiken</translation>
+        <translation>Te gebruiken invoerapparaat</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Selecteert de geluidskaart voor geluidsinvoer.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Selecteert geluidinvoerkaart.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1875,17 +1875,17 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This enables echo cancellation of outgoing audio, which helps both on speakers and on headsets.</source>
-        <translation>Dit stelt galmonderdrukking in op uitgaand geluid, wat voor zowel koptelefoons als  luidsprekers helpt.</translation>
+        <translation>Dit stelt galmonderdrukking in op uitgaand geluid, wat voor zowel koptelefoons alsook luidsprekers bijdraagt.</translation>
     </message>
     <message>
         <location/>
         <source>This is the device your speakers or headphones are connected to.</source>
-        <translation>Het apparaat dat je hoofdtelefoon en/of luidsprekers verbindt.</translation>
+        <translation>Apparaat dat je hoofdtelefoon e/o luidsprekers verbindt.</translation>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation>Uitvoermethode voor geluid</translation>
+        <translation>Geluidsuitvoermethode</translation>
     </message>
     <message>
         <location/>
@@ -1895,23 +1895,23 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Output device to use</source>
-        <translation>Uitvoerapparaat om te gebruiken</translation>
+        <translation>Te gebruiken uitvoerapparaat</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio Output.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Selecteert de geluidskaart voor geluidsuitvoer.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Selecteert geluidsuitvoerkaart.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Positie Gebaseerd Geluid inschakelen</translation>
+        <translation>Positie-gebaseerd geluid inschakelen</translation>
     </message>
     <message>
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation>Staat positioneren van geluid toe</translation>
+        <translation>Staat geluidspositionering toe</translation>
     </message>
     <message>
         <location/>
@@ -1922,10 +1922,10 @@ This is the audio tuning wizard for Mumble. This will help you correctly set the
 Please be aware that as long as this wizard is active, audio will be looped locally to allow you to listen to it, and no audio will be sent to the server.
 &lt;/p&gt;</source>
         <translation>&lt;p&gt;
-Dit is de Geluidsafstemmingswizard van Mumble. Dit helpt je om de juiste invoerniveaus van je geluidskaart en de juiste parameters voor geluidsverwerking in Mumble in te stellen.
+Geluidsafstemmingswizard van Mumble. Helpt je om de juiste invoerniveaus van je geluidskaart en de juiste parameters voor geluidsverwerking bij Mumble in te stellen.
 &lt;/p&gt;
 &lt;p&gt;
-Graag opletten dat zolang deze wizard is actief is, geluid lokaal doorgelust wordt zodat je het kunt beluisteren, en er wordt geen geluid naar de server verzonden.
+Zolang de wizard actief is wordt geluid lokaal doorgelust, zodat je kunt luisteren. Kortom; er wordt geen geluid naar server verzonden.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -1941,7 +1941,7 @@ Graag opletten dat zolang deze wizard is actief is, geluid lokaal doorgelust wor
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation>Dit staat Mumble toe om stemmen te positioneren.</translation>
+        <translation>Staat Mumble toe stemmen te positioneren.</translation>
     </message>
     <message>
         <location/>
@@ -1953,22 +1953,22 @@ You should hear a voice sample. Change the slider below to the lowest value whic
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Om latentie tot het minimum te beperken, is het belangrijk om zo weinig geluid te bufferen op de geluidskaart. Echter, veel geluidskaarten vereisen een veel kleinere buffer dan wat ze daadwerkelijk aankunnen, dus de enige manier om deze waarde in te stellen is door te proberen en te falen.
+Om latentie tot &apos;t minimum te beperken, is &apos;t belangrijk om zo minimaal geluid te bufferen op de geluidskaart. Veel geluidskaarten vereisen &apos;n veel kleinere buffer dan wat ze werkelijk aankunnen; enige manier om de waarde in te stellen is door te proberen en te falen.
 &lt;/p&gt;
 &lt;p&gt;
-Je moet een stemvoorbeeld horen. Wijzig de schuifregelaar hieronder naar de laagste waarde welke &lt;b&gt;geen&lt;/b&gt; onderbrekingen of jitter in het geluid geeft. Graag opmerken er geen lokale echo tijdens deze test is.
+Je moet &apos;n stemvoorbeeld horen. Wijzig de schuifregelaar naar de laagste waarde welke &lt;b&gt;geen&lt;/b&gt; onderbrekingen of jitter in &apos;t geluid geeft. Stel vast dat er géén lokale echo tijdens de test voordoet.
 &lt;/p&gt;
 </translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Hoeveelheid van gegevens om te bufferen</translation>
+        <translation>Te bufferen gegevenshoeveelheid</translation>
     </message>
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Dit stelt de hoeveelheid gegevens om vooraf in de uitvoerbuffer te bufferen in. Experimenteer met verschillende waarden en stel het op het laatste wat niet leidt tot een snelle jitter in het geluid in.</translation>
+        <translation>Bepaalt uitvoerbuffer-gegevenshoeveelheid om vooraf te bufferen. Experimenteer verschillende waarden en stel op &apos;t laagste waarbij ↛ (storende) geluidsjitter.</translation>
     </message>
     <message>
         <location/>
@@ -1980,22 +1980,21 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Bevestig dat de microfoon als actieve ingang is geselecteerd met het maximale opnamevolume. Als er een instelling is om &apos;Microfoonversterking&quot; in te stellen, zorg er dan dat dit wordt geactiveerd.
+Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Bevestig dat de microfoon als actieve ingang is geselecteerd (+max. opnamevolume). Indien &apos;Microfoonversterking&quot; instelbaar is; activeer.
 &lt;/p&gt;
 &lt;p&gt;
-Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verlaag het volume in het geluidsconfiguratiescherm totdat de balk eronder zo hoog mogelijk in het blauw en groen blijft, maar &lt;b&gt;niet&lt;/b&gt; in het rode gebied, terwijl je spreekt.
-&lt;/p&gt;
-</translation>
+Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguratieschermvolume totdat de balk zo hoog mogelijk in &apos;t blauw en groen blijft;&lt;b&gt;niet&lt;/b&gt; in &apos;t rode gebied terwijl je spreekt.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Positioneel Geluid</translation>
+        <translation>Positioneel geluid</translation>
     </message>
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>Afzwakking van positioneel geluid afstemmen.</translation>
+        <translation>Positionele geluidsafzwakking afstemmen.</translation>
     </message>
     <message>
         <location/>
@@ -2007,17 +2006,16 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble ondersteunt positioneel geluid voor enkele games, wat de stemmen van andere gebruikers ten opzichte van hun positie in het spel plaatst. Afhankelijk van hun positie, wordt het volume van het geluid aangepast om de richting en afstand van de andere gebruikers na te bootsen. Een dergelijke opstelling is afhankelijk van een juiste luidsprekerconfiguratie in jouw besturingssysteem, daarom wordt hier een test gedaan.
+Mumble ondersteunt positioneel geluid bepaalde games, wat de stemmen van andere gebruikers t.o.v. spelpositie plaatst. Aan de hand daarvan wordt volume aangepast om richting en afstand van andere gebruikers na te bootsen. Een dergelijke opstelling is afhankelijk van een juiste besturingssysteem-luidsprekerconfiguratie, daarom wordt hier &apos;n test gedaan.
 &lt;/p&gt;
 &lt;p&gt;
-De onderstaande grafiek toont de positie van &lt;font color=&quot;red&quot;&gt;jou&lt;/ font&gt;, &lt;font color=&quot;yellow&quot;&gt;luidsprekers&lt;/font&gt; en &lt;font color=&quot;green&quot;&gt;bewegende geluidsbron&lt;/font&gt; als van bovenaf gezien. Je moet de geluid tussen de kanalen horen bewegen.
-&lt;/p&gt;
-</translation>
+Onderstaande grafiek toont de positie van &lt;font color=&quot;red&quot;&gt;jou&lt;/ font&gt;, &lt;font color=&quot;yellow&quot;&gt;luidsprekers&lt;/font&gt; en &lt;font color=&quot;green&quot;&gt;bewegende geluidsbron&lt;/font&gt; van bovenaf gezien; dien je ook tussen de kanalen te horen bewegen.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation>Gebruik een hoofdtelefoon in plaats van luidsprekers</translation>
+        <translation>Hoofdtelefoon i.p.v. luidsprekers gebruiken</translation>
     </message>
     <message>
         <location/>
@@ -2032,18 +2030,18 @@ Mumble is under continuous development, and the development team wants to focus 
 Gefeliciteerd. Je bent klaar om te genieten van Mumble met een mooiere geluidservaring.
 &lt;/p&gt;
 &lt;p&gt;
-Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers belang bij hebben. Daartoe ondersteunt Mumble delen van anonieme statistieken over je configuratie aan de ontwikkelaars. Statistieken zijn essentieel voor toekomstige ontwikkeling, en voortbestaan.
+Mumble wordt doorontwikkeld gericht op functionaliteit waar meeste gebruikers belang bij hebben. Daartoe ondersteunt Mumble delen van anonieme statistieken over je configuratie aan de ontwikkelaars. Statistieken zijn essentieel voor toekomstige ontwikkeling, en voortbestaan.
 &lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation>Gebruik hoofdtelefoon</translation>
+        <translation>Hoofdtelefoon gebruiken</translation>
     </message>
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Configureert de positionering van de hoofdtelefoon in plaats van de geluidsinstellingen uit &apos;t BS te gebruiken</translation>
+        <translation>Configureert de hoofdtelefoon-positionering i.p.v. de besturingssysteem-geluidsinstellingen te gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -2053,12 +2051,12 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation>Optimaliseren van microfoonvolume</translation>
+        <translation>Microfoonvolumeoptimalisatie</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation>Praat nu zachtjes, zoals je zou doen als je &apos;s avonds laat praat en niemand wilt storen. Pas de onderstaande schuifbalk aan zodat de balk in het groene beweegt als je praat, en blauw blijft als je stil blijft.</translation>
+        <translation>Praat zachtjes, zoals je &apos;s avonds laat praat en niet wilt storen. Pas onderstaande schuifbalk aan zodat de balk in &apos;t groen beweegt als je praat en blauw als je stil blijft.</translation>
     </message>
     <message>
         <location/>
@@ -2068,17 +2066,17 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Laat Mumble beslissen wanneer je praat en wanneer je stil bent.</translation>
+        <translation>Laat Mumble uitzoeken of je praat/wanneer je stil bent.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation>Dit helpt Mumble bepalen wanneer je praat. De eerste stap is om de gegevenswaarden te bepalen.</translation>
+        <translation>Helpt gegevenswaarden bepalen.</translation>
     </message>
     <message>
         <location/>
         <source>Raw amplitude from input</source>
-        <translation>Ruwe amplitude van invoer</translation>
+        <translation>Invoeramplitude</translation>
     </message>
     <message>
         <location/>
@@ -2089,7 +2087,7 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>Vervolgens moet je volgende schuifjes verschuiven. De eerste paar uitingen die jij zegt moeten in de groene zone eindigen (vastgestelde spraak). Tijdens praten, moet &apos;t geel blijven (mogelijke spraak) en als je niet praat; rood blijven (nooit spraak).</translation>
+        <translation>Je moet nu volgende schuifjes verschuiven. Eerste paar uitingen die je doet moeten in de groene zone eindigen (vastgestelde spraak). Tijdens praten, moet &apos;t geel blijven (mogelijke spraak) en als je niet praat; rood blijven (nooit spraak).</translation>
     </message>
     <message>
         <location/>
@@ -2099,17 +2097,17 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation>Hardware-uitgang vertragingen naar hun minimale waarde veranderen.</translation>
+        <translation>Hardware-uitgang vertragingen naar minimum-waarde zetten.</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation>Anonieme statistieken met het Mumble project delen</translation>
+        <translation>Statistieken met Mumble-project delen (anoniem)</translation>
     </message>
     <message>
         <location/>
         <source>Push To Talk:</source>
-        <translation>Druk om te praten:</translation>
+        <translation>Druk om te Praten:</translation>
     </message>
     <message>
         <location/>
@@ -2119,7 +2117,7 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation>Kwaliteits- en meldingsinstellingen aanpassen.</translation>
+        <translation>Kwaliteit- en meldingsinstellingen aanpassen.</translation>
     </message>
     <message>
         <location/>
@@ -2144,7 +2142,7 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation>Gebruik Tekst-naar-Spraak om meldingen en berichten aan je voor te lezen.</translation>
+        <translation>Tekst-naar-Spraak melding-&amp;berichten laten voorlezen.</translation>
     </message>
     <message>
         <location/>
@@ -2159,12 +2157,12 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation>Andere applicaties afzwakken terwijl gebruikers tegen je praten</translation>
+        <translation>Andere applicaties afzwakken terwijl anderen tegen je praten.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation>Applicaties afzwakken terwijl andere gebruikers praten</translation>
+        <translation>Applicatie-afzwakking terwijl andere gebruikers praten.</translation>
     </message>
     <message>
         <location/>
@@ -2179,27 +2177,27 @@ Mumble wordt doorontwikkeld en richt op functionaliteit waar meeste gebruikers b
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>Je hebt al een aangepaste kwaliteitsconfiguratie in Mumble ingesteld. Selecteer deze instelling om het te behouden.</translation>
+        <translation>Je hebt al &apos;n aangepaste Mumble-kwaliteitsconfiguratie ingesteld. Selecteer deze instelling om te behouden.</translation>
     </message>
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Stelt afzwakking van andere applicaties in terwijl gebruikers tegen je praten. Dit betekent dat zodra iemand tegen je begint te spreken in Mumble, het geluid van alle andere applicaties (zoals geluidsspelers) verzwakt worden, zodat je ze helderder kunt horen.</translation>
+        <translation>Andere applicatie-afzwakking terwijl anderen praten. Betekent dat terwijl iemand tegen praat; geluid van andere applicaties (zoals geluidsspelers) verzwakt worden; zodat je ze helderder kunt waarnemen.</translation>
     </message>
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Enkele hoog contrast optimalisaties voor visueel gehandicapte gebruikers toepassen</translation>
+        <translation>Hoogcontrast optimalisatie voor visueel beperkten toepassen.</translation>
     </message>
     <message>
         <location/>
         <source>Use high contrast graphics</source>
-        <translation>Gebruik grafisch hoog contrast</translation>
+        <translation>Grafisch hoogcontrast gebruiken</translation>
     </message>
     <message>
         <location/>
         <source>Keep custom Text-To-Speech settings.</source>
-        <translation>Behoud aangepaste tekst-naar-spraak instellingen.</translation>
+        <translation>Aangepaste Tekst-naar-Spraak-instellingen behouden.</translation>
     </message>
     <message>
         <location/>
@@ -2219,38 +2217,38 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
 </oldsource>
         <comment>For high contrast mode</comment>
         <translation>&lt;p&gt;
-Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Zorg ervoor dat de microfoon als actieve invoer is geselecteerd met een maximaal opnamevolume. Als er een functie is om &apos;Microfoonversterking&quot; in te stellen, bevestig dat het geactiveerd is.
+Open je geluidsconfiguratiescherm en ga naar de opname-instellingen. Zorg ervoor dat de microfoon als actieve invoer is geselecteerd met maximumopnamevolume.  Indien &apos;Microfoonversterking&quot; instelbaar is; activeer.
 &lt;/p&gt;
 &lt;p&gt;
-Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het volume van het geluidsconfiguratiescherm totdat de onderstaande balk zo hoog mogelijk in het lege en gestreepte blijft, en &lt;b&gt;niet&lt;/b&gt; in het kriskras doorkruiste gebied komt terwijl je spreekt.
+Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguratieschermvolume totdat de balk zo hoog mogelijk in &apos;t lege en gestreepte blijft, en &lt;b&gt;niet&lt;/b&gt; in &apos;t kriskras-doorkruiste gebied komt terwijl je spreekt.
 &lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Praat nu zachtjes, zoals je zou doen als je &apos;s avonds laat praat en niemand wilt storen. Pas de onderstaande schuifbalk aan zodat de balk in de lege zone beweegt als je praat, en in het gestreepte blijft als je stil blijft.</translation>
+        <translation>Praat zachtjes, zoals je &apos;s avonds laat praat en niet wilt storen. Pas onderstaande schuifbalk aan zodat de balk in de lege zone beweegt als je praat en in &apos;t gestreepte blijft als je stil blijft.</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>Vervolgens moet je de volgende schuiven aanpassen. De eerste paar uitingen die je zegt moeten eindigen in het lege gebied (vastgestelde spraak). Tijdens het praten, moet je in het gestreepte (mogelijke spraak) blijven en als je niet praat, moet alles in het kriskras doorkruiste (nooit spraak) blijven.</translation>
+        <translation>Je moet nu volgende schuifjes verschuiven. Eerste paar uitingen die je doet moeten in in het lege gebied eindigen (vastgestelde spraak). Tijdens praten, moet je in &apos;t gestreepte  blijven (mogelijke spraak) en als je niet praat; moet alles in het kriskras-doorkruiste blijven (nooit spraak).</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>In deze configuratie gebruikt Mumble een &lt;b&gt;lage hoeveelheid bandbreedte&lt;/b&gt;. Dit leidt onvermijdelijk tot een hoge latentie en slechte kwaliteit. Louter als je verbinding niet kan omgaan met de andere instellingen dit kiezen. (16kbit/s, 60ms per pakketje)</translation>
+        <translation>In deze configuratie gebruikt Mumble &apos;n &lt;b&gt;lage bandbreedtehoeveelheid &lt;/b&gt; → hoge latentie/slechte kwaliteit. Als je verbinding geen andere instellingen aankan; kies dit. (16kbit/s, 60ms per pakketje)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation>Dit is de &lt;b&gt;aanbevolen standaard&lt;/b&gt; configuratie. Het voorziet in een goede balans tussen kwaliteit, latentie en bandbreedtegebruik. (40kbit/s, 20ms per pakketje)</translation>
+        <translation>Dit is de &lt;b&gt;aanbevolen standaard&lt;/b&gt; configuratie. Het voorziet in zekere kwaliteitsbalans (tussen latentie en bandbreedtegebruik). (40kbit/s, 20ms per pakketje).</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Deze configuratie wordt louter aanbevolen als bandbreedte geen probleem is, zoals in een lokaal netwerk. Het biedt de laagste door Mumble ondersteunde latentie en &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72kbit/s, 10ms per pakketje)</translation>
+        <translation>Deze configuratie wordt aanbevolen als bandbreedte geen probleem is, zoals in &apos;n lokaal netwerk. Het biedt een door Mumble ondersteunde lage latentie i.c.m. een &lt;b&gt;hoge kwaliteit&lt;/b&gt;. (72kbit/s, 10ms per pakketje).</translation>
     </message>
 </context>
 <context>
@@ -2258,7 +2256,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location filename="BanEditor.ui"/>
         <source>Mumble - Edit Bans</source>
-        <translation>Mumble - Bans Bewerken</translation>
+        <translation>Mumble - Bans bewerken</translation>
     </message>
     <message>
         <location/>
@@ -2323,7 +2321,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is the search field. Use it to find bans that have this username set in the username field.</source>
-        <translation>Dit is een zoekveld. Gebruik het om bans te vinden van de gebruikersnaam neergezet in het gebruikersnaam veld.</translation>
+        <translation>Dit is &apos;t zoekveld. Gebruik &apos;t om bans te vinden van de gebruikersnaam omgesomd in &apos;t gebruikersnaamveld.</translation>
     </message>
     <message>
         <location/>
@@ -2363,7 +2361,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation>Ban einddatum. Als je dezelfde datum bij start en de eind invult, dan is de ban permanent (het verloopt niet).</translation>
+        <translation>Einddatum ban. Als je dezelfde datum bij start en einde invult, dan is de ban permanent (verloopt niet).</translation>
     </message>
     <message>
         <location/>
@@ -2383,22 +2381,22 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is a list with banned users.</source>
-        <translation>Dit is een lijst met verbannen gebruikers.</translation>
+        <translation>Lijst met verbannen gebruikers.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to add a new ban.</source>
-        <translation>Gebruik deze knop als je een nieuwe ban wilt toevoegen.</translation>
+        <translation>Deze knop gebruiken als je nieuwe ban wilt toevoegen.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to update ban information.</source>
-        <translation>Gebruik deze knop als je ban-informatie wilt bijwerken.</translation>
+        <translation>Deze knop gebruiken om ban-informaties bij te werken.</translation>
     </message>
     <message>
         <location/>
         <source>Use this button if you want to remove user from the ban list.</source>
-        <translation>Gebruik deze knop als je een gebruiker van de banlijst wilt verwijderen.</translation>
+        <translation>Deze knop handig is handig voor gebruikerontbanning.</translation>
     </message>
     <message>
         <location/>
@@ -2408,7 +2406,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This button clears all fields. Use it if you want to add a new ban.</source>
-        <translation>Deze knop wist alle velden. Gebruik het als je een nieuwe ban wilt toevoegen.</translation>
+        <translation>Deze knop wist alle veldjes. (Als je ban wilt toevoegen.)</translation>
     </message>
     <message>
         <location/>
@@ -2459,67 +2457,67 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Kon het e-mailadres niet valideren.&lt;br /&gt;Typ een geldig (of geen) e-mailadres om verder te gaan.</translation>
+        <translation>Kon e-mailadres niet valideren.&lt;br /&gt;Typ &apos;n geldig (of geen) e-mailadres om verder te gaan.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>There was an error generating your certificate.&lt;br /&gt;Please try again.</source>
-        <translation>Er was een fout bij het genereren van jouw certificaat.&lt;br /&gt;Graag opnieuw proberen.</translation>
+        <translation>Er was &apos;n fout bij &apos;t genereren van jouw certificaat.&lt;br /&gt;Graag opnieuw proberen.</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Your certificate and key could not be exported to PKCS#12 format. There might be an error in your certificate.</source>
-        <translation>Jouw certificaat en sleutel konden niet worden geëxporteerd naar een PKCS#12 bestand. Er kan een fout in het certificaat zitten.</translation>
+        <translation>Jouw certificaat en sleutel zijn niet ëxporteerbaar naar een PKCS#12 bestand. Mogelijkerwijs &apos;n certificaatfout.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>Het bestand kon niet bewerkt worden. Graag een ander bestand gebruiken.</translation>
+        <translation>Bestand kon niet bewerkt worden; graag &apos;n andere gebruiken!</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>The file&apos;s permissions could not be set. No certificate and key has been written. Please use another file.</source>
-        <translation>De bestandsrechten konden niet gezet worden. Geen certificaat of sleutel is weggeschreven. Graag een ander bestand gebruiken.</translation>
+        <translation>Bestandsrechten werden niet gezet. Geen certificaat of sleutel weggeschreven; svp. ander bestand gebruiken!</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>Het bestand kon niet succesvol worden weggeschreven. Graag een ander bestand gebruiken.</translation>
+        <translation>Bestand niet weggeschreven. Svp &apos;n andere gebruiken!</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>Het bestand kon niet gelezen worden. Graag een ander bestand gebruiken.</translation>
+        <translation>Bestand werd niet gelezen; gebruik &apos;n ander bestandje!</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>Het bestand is leeg of kon niet gelezen worden. Graag een ander bestand gebruiken.</translation>
+        <translation>Leeg bestand of onleesbaar; ander bestand gebruiken!</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>Het bestand bevat geen gevalideerd certificaat en sleutel. Graag een ander bestand gebruiken.</translation>
+        <translation>Bestand zonder goed certificaat/sleutel. Niet mogelijk...</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Select file to export certificate to</source>
-        <translation>Selecteer bestand om het certificaat naar te exporteren</translation>
+        <translation>Selecteer bestand om certificaat naartoe te exporteren</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Select file to import certificate from</source>
-        <translation>Selecteer bestand om het certificaat van te importen</translation>
+        <translation>Selecteer bestand om het certificaat vanuit te importen</translation>
     </message>
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation>Mumble Gebruiker</translation>
+        <translation>Mumble-gebruiker</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+474"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Cerificaat Geldigheid:&lt;/b&gt;Jouw certificaat gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer verbinden met servers waarop je geregistreerd bent.</translation>
+        <translation>&lt;b&gt;Certificaat verloopt:&lt;/b&gt;Je certificaat gaat bijna verlopen. Je moet het vernieuwen of je kan niet meer verbinden met servers waarop je geregistreerd bent.</translation>
     </message>
 </context>
 <context>
@@ -2527,7 +2525,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>Certificaat Beheer</translation>
+        <translation>Certificaatbeheer</translation>
     </message>
     <message>
         <location/>
@@ -2537,7 +2535,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation>Authenticeren zonder wachtwoord bij servers</translation>
+        <translation>Authenticeren zónder wachtwoord-gebruik bij servers.</translation>
     </message>
     <message>
         <location/>
@@ -2547,32 +2545,32 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation>Dit is het certificaat momenteel door Mumble in gebruik.</translation>
+        <translation>Dit is het certificaat momenteel ingebruik door Mumble.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Huidig Certificaat</translation>
+        <translation>Huidige certificaat</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation>Een nieuw certificaat maken</translation>
+        <translation>Nieuw certificaat creëren</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation>Dit maakt een nieuw certificaat.</translation>
+        <translation>Dit creëert &apos;n nieuw certificaat.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation>Certificaat uit bestand importeren</translation>
+        <translation>Certificaat vanuit bestand importeren</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation>Dit importeert een certificaat uit een bestand</translation>
+        <translation>Dit importeert &apos;n certificaat vanuit &apos;n bestand</translation>
     </message>
     <message>
         <location/>
@@ -2582,12 +2580,12 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Certificaat Exporteren</translation>
+        <translation>Certificaat exporteren</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation>Dit exporteert het certificaat naar een bestand</translation>
+        <translation>Exporteert certificaat naar bestand</translation>
     </message>
     <message>
         <location/>
@@ -2597,7 +2595,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Certificaat Importeren</translation>
+        <translation>Certificaat importeren</translation>
     </message>
     <message>
         <location/>
@@ -2608,7 +2606,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;Mumble kan certificaten opgeslagen in PKCS #12 indeling importeren. Dit is de gebruikte indeling bij het exporteren van een sleutel uit Mumble, en ook bij het exporteren sleutels uit Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;Als het bestand met een wachtwoord beveiligd is, dan heb je dat nodig om het certificaat te importeren.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mumble kan certificaten opgeslagen in PKCS #12 indeling (de gebruikte indeling bij exportatie van Mumble-sleutels, en ook bij sleutel-exportatie uit Firefox, Internet Explorer, Opera etc) importeren .&lt;/p&gt;&lt;p&gt;Als &apos;t bestand met wachtwoord versleuteld is, heb je die nodig om &apos;t certificaat te importeren.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2618,22 +2616,22 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation>Bestandsnaam om vanuit te importeren</translation>
+        <translation>Bestandsnaam vanuit te importeren</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to import a certificate from.</source>
-        <translation>Dit is de bestandsnaam vanuit waar je het certificaat wilt importeren.</translation>
+        <translation>Bestandsnaam waarvanuit &apos;t certificaat te importeren...</translation>
     </message>
     <message>
         <location/>
         <source>Select file to import from</source>
-        <translation>Een bestand om vanuit te importeren selecteren</translation>
+        <translation>Vanuit te importeren bestand selecteren</translation>
     </message>
     <message>
         <location/>
         <source>This opens a file selection dialog to choose a file to import a certificate from.</source>
-        <translation>Dit opent een bestandsselectievenster vanwaaruit een certificaatbestand gekozen kan worden om te importeren.</translation>
+        <translation>Opent &apos;n bestandsselectievenster vanwaaruit &apos;n certificaatbestand kan worden geïmporteerd.</translation>
     </message>
     <message>
         <location/>
@@ -2653,17 +2651,17 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>This is the password for the PKCS#12 file containing your certificate.</source>
-        <translation>Dit is het wachtwoord voor het PKCS#12-bestand dat je certificaat bevat.</translation>
+        <translation>Certificaat-wachtwoord van PKCS#12-bestand.</translation>
     </message>
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation>Certificaat om te importeren</translation>
+        <translation>Te importeren certificaat</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation>Dit is het certificaat wat je importeert.</translation>
+        <translation>Certificaat wat je importeert.</translation>
     </message>
     <message>
         <location/>
@@ -2678,7 +2676,7 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation>Bestaand certificaat met nieuw certificaat vervangen?</translation>
+        <translation>Bestaand certificaat met nieuwe certificaat vervangen?</translation>
     </message>
     <message>
         <location/>
@@ -2691,20 +2689,19 @@ Luid spreken, zoals wanneer je geïrriteerd of opgewonden bent. Verminder het vo
 Are you sure you wish to replace your certificate?
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Je hebt al een certificaat in Mumble opgeslagen, en je staat op het punt om het te vervangen.&lt;/p&gt;
-&lt;p&gt;Als je upgradet naar een certificaat afgegeven door een vertrouwde certificaatautoriteit waarop de e-mailadressen overeenkomen met je huidige certificaat, dan is dit volkomen veilig, en servers waarmee je verbindt herkennen automatisch het sterke certificaat aan je e-mailadres.
+        <translation>&lt;p&gt;Je hebt al &apos;n certificaat in Mumble opgeslagen, en staat op &apos;t punt om &apos;t te vervangen.&lt;/p&gt;
+&lt;p&gt;Als jij upgradet naar door &apos;n vertrouwde certificaatautoriteit afgegeven certificaat waarvan jouw e-mailadressen overeenkomen met je huidige certificaat, dan is &apos;t volkomen veilig, en servers waarmee je verbindt herkennen automatisch &apos;t sterke certificaat aan jouw e-mailadres.
 &lt;/p&gt;
-&lt;p&gt;Als dit niet het geval is, wordt je niet langer herkend door alle servers waar je eerder op hebt geauthenticeerd. Als je op geen enkele server geregistreerd was, dan is er niets om je druk over te maken.
+&lt;p&gt;Als &apos;t niet &apos;t geval is, wordt je niet langer herkend door eerdere servers. Als je op geen server geregistreerd was, is er niets om je druk over te maken.
 &lt;/p&gt;
 &lt;p&gt;
-Weet je zeker dat je jouw certificaat wenst te vervangen? 
-&lt;/p&gt;
-</translation>
+Zeker dat je jouw certificaat wilt vervangen? 
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation>Dit is het certificaat momenteel door Mumble in gebruik. Het wordt vervangen.</translation>
+        <translation>Door Mumble ingebruike certificaat; wordt vervangen...</translation>
     </message>
     <message>
         <location/>
@@ -2714,7 +2711,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is the new certificate that will replace the old one.</source>
-        <translation>Dit is het nieuwe certificaat dat het oude vervangt.</translation>
+        <translation>Nieuwe certificaat dat &apos;t oude vervangt.</translation>
     </message>
     <message>
         <location/>
@@ -2724,7 +2721,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Make a backup of your certificate</source>
-        <translation>Maak een reservekopie van jouw certificaat</translation>
+        <translation>Reservekopie van certificaat maken</translation>
     </message>
     <message>
         <location/>
@@ -2734,12 +2731,12 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation>Bestandsnaam om naar te exporteren</translation>
+        <translation>Bestandsnaam naar te exporteren</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation>Dit is de bestandsnaam waarnaar je een certificaat wilt exporteren.</translation>
+        <translation>Certificaatbestandsnaam waarnaar je gaat exporteren.</translation>
     </message>
     <message>
         <location/>
@@ -2749,17 +2746,17 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation>Dit is het certificaat momenteel door Mumble in gebruik. Het wordt geëxporteerd.</translation>
+        <translation>Ingebruike-Mumble-certificaat; dat wordt geëxporteerd.</translation>
     </message>
     <message>
         <location/>
         <source>Generate a new certificate for strong authentication</source>
-        <translation>Een nieuwe certificaat voor sterke authenticatie genereren.</translation>
+        <translation>Nieuwe certificaat voor sterke authenticatie genereren.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;Mumble will now generate a strong certificate for authentication to servers.&lt;/p&gt;&lt;p&gt;If you wish, you may provide some additional information to be stored in the certificate, which will be presented to servers when you connect. If you provide a valid email address, you can upgrade to a CA issued email certificate later on, which provides strong identification.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Mumble gaat nu een sterk certificaat voor authenticatie tot servers genereren.&lt;/p&gt;&lt;p&gt;Als je wilt, kun je wat extra informatie opgeven om in het certificaat op te slaan, wat wordt voorgelegd aan servers als je verbindt. Als je een geldig e-mailadres opgeeft, kun je op een later moment upgraden naar een door een certificaatautoriteit uitgegeven e-certificaat, welke sterke identificatie biedt. &lt;/ P&gt;</translation>
+        <translation>&lt;p&gt;Mumble gaat nu &apos;n sterk Mumble-certificaat genereren.&lt;/p&gt;&lt;p&gt;Als je wilt, kun je extra in &apos;t certificaat op te slane informatie opgeven, ter voorgelegging aan servers als je verbindt. Mits je &apos;n geldig e-mailadres opgeeft, kun je op &apos;n later moment upgraden naar &apos;n door certificaatautoriteit uitgegeven e-Certificaat welke in sterke identificatie voorziet. &lt;/ P&gt;</translation>
     </message>
     <message>
         <location/>
@@ -2779,7 +2776,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is your email address. It is strongly recommended to provide a valid email address, as this will allow you to upgrade to a strong certificate without authentication problems.</source>
-        <translation>Dit is jouw e-mailadres. Het is sterk aanbevolen om een geldig e-mailadres op te geven, omdat dit upgraden naar een sterk certificaat zonder authenticatieproblemen voor je mogelijk maakt.</translation>
+        <translation>Jouw e-mailadres. Sterk aanbevolen om een geldig e-mailadres op te geven, om te kunnen upgraden naar &apos;n sterk certificaat zonder authenticatieproblemen.</translation>
     </message>
     <message>
         <location/>
@@ -2789,7 +2786,7 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>This is your name, and will be filled out in the certificate. This field is entirely optional.</source>
-        <translation>Dit is jouw naam, en wordt op het certificaat ingevuld. Dit veld is volledig optioneel.</translation>
+        <translation>Jouw naam (gekoppeld aan certificaat; optioneel veld!).</translation>
     </message>
     <message>
         <location/>
@@ -2799,12 +2796,12 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
     <message>
         <location/>
         <source>Certificate-based authentication is ready for use</source>
-        <translation>Certificaatgebaseerde authenticatie is klaar om te gebruiken</translation>
+        <translation>Certificaatgebaseerde-authenticatie klaar voor gebruik.</translation>
     </message>
     <message>
         <location/>
         <source>Enjoy using Mumble with strong authentication.</source>
-        <translation>Geniet terwijl je Mumble gebruikt met sterke authenticatie. </translation>
+        <translation>Geniet van Mumble met sterke authenticatie. </translation>
     </message>
     <message>
         <location/>
@@ -2818,18 +2815,17 @@ Weet je zeker dat je jouw certificaat wenst te vervangen?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Mumble kan certificaten voor verificatie met servers gebruiken. Certificaatgebruik vermijdt wachtwoorden, wat betekent dat je geen wachtwoord hoeft af te geven. Het maakt het ook gebruikersregistratie heel makkelijk.&lt;/p&gt;&lt;p&gt;Alhoewel Mumble ook werkt zonder certificaten, vereist de meerderheid van de servers dat je er een hebt.&lt;/p&gt;
+        <translation>&lt;p&gt;Mumble kan certificaten voor verificatie met servers gebruiken. Certificaatgebruik vermijdt wachtwoorden, betekenend zonder wachtwoord. Het maakt gebruikersregistratie heel simpel.&lt;/p&gt;&lt;p&gt;Hoewel Mumble ook zonder certificaten werkt, vereist meerderheid van de servers dat je er een hebt.&lt;/p&gt;
 &lt;p&gt;
-Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;een vertrouwd certificaat maakt&lt;/a&gt;.
-&lt;/p&gt;
-</translation>
+Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;een vertrouwd certificaat creëert&lt;/a&gt;.
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>&lt;p&gt;If you ever lose your current certificate, which will happen if your computer suffers a hardware failure or you reinstall your machine, you will no longer be able to authenticate to any server you are registered on. It is therefore &lt;b&gt;mandatory&lt;/b&gt; that you make a backup of your certificate. We strongly recommend you store this backup on removable storage, such as a USB flash drive.&lt;/p&gt;
 &lt;p&gt;Note that this file will not be encrypted, and if anyone gains access to it, they will be able to impersonate you, so take good care of it.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Als je ooit je certificaat verliest, wat gebeurt als je computerhardware faalt of je jouw machine opnieuw installeert, kun je jou niet langer authenticeren op servers waarop je geregistreerd bent. Het is daarom &lt;b&gt;verplicht&lt;/b&gt; dat je een back-up van je certificaat maakt. Wij raden je aan de back-up op opslagmedium op te slaan, zoals &apos;n USB-stick.&lt;/p&gt;
-&lt;p&gt;Merk op dat dit bestand niet wordt versleuteld, en als iemand toegang krijgt, kunnen ze doen alsof ze jou zijn; zorg er goed voor.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Mocht je je certificaat verliezen; bijv. als hardware faalt of je jouw machine opnieuw installeert; kun je jou niet (meer) authenticeren op waarop je geregistreerd bent. Daarom &lt;b&gt;nodig&lt;/b&gt; dat je &apos;n reservekopie van je certificaat maakt. Wij raden je aan de reservekopie op opslagmedium (zoals USB-stick) op te slaan.&lt;/p&gt;
+&lt;p&gt;Dit bestand wordt niet versleuteld, en als iemand toegang ertoe krijgt, kunnen ze doen alsof ze jou zijn; zorg er goed voor.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -2877,82 +2873,82 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="-87"/>
         <source>This represents no privileges.</source>
-        <translation>Dit houdt geen machtigingen in.</translation>
+        <translation>Geen machtigingen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents total access to the channel, including the ability to change group and ACL information. This privilege implies all other privileges.</source>
-        <translation>Dit omvat volledige toegang tot het kanaal, inclusief de mogelijkheid om de groep en ACL informatie te wijzigen. Deze machtiging impliceert alle andere machtigingen.</translation>
+        <translation>Volledige toegang tot kanaal, inclusief recht om groep- en ACL-informatie te wijzigen. Deze machtiging impliceert alle andere machtigingen.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Dit omvat de machtiging om het kanaal te doorkruisen. Als een gebruiker deze bevoegdheid wordt geweigerd, blijkt in elk mogelijk (sub-)kanaal doorgang onmogelijk (onafhankelijk van andere sub-kanaal-bevoegdheden).</translation>
+        <translation>Toestemming om kanaal te doorkruisen. Als gebruiker recht wordt geweigerd, wordt in elk (sub-)kanaal doorgang onmogelijk (onafhankelijk van andere sub-kanaal-rechten).</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Dit is de bevoegheid om het kanaal binnen te komen. Als je een hiërarchische kanaalstructuur hebt, wil je waarschijnlijk iedereen Doorkruisen geven, maar Toetreden beperken stam van je hiërarchie.</translation>
+        <translation>Toestemming kanaal toe te treden. Met hiërarchische kanaalstructuur hebt wil je misschien iedereen laten doorkruisen en toetreden beperken tot hiërarchie-stam.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Dit omvat de machtiging om in een kanaal te spreken. Gebruikers zonder bevoegdheid worden onderdrukt door de server (te zien als gedempt), en kunnen niet spreken totdat de demping wordt opgeheven door iemand met de juiste bevoegdheden.</translation>
+        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde gedempt); kunnen niet spreken totdat de demping wordt opgeheven door bevoegd iemand.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Dit omvat de machtiging om te fluisteren naar dit kanaal van buitenaf. Dit werkt precies zoals als de &lt;i&gt;spreken&lt;/a&gt; bevoegdheid, maar geldt voor pakketjes gesproken met de Fluisteren-toets ingedrukt. Dit kan worden gebruikt om naar een hiërarchie van kanalen zonder koppeling te zenden.</translation>
+        <translation>Toestemming te fluisteren naar kanaal (van buitenaf). Werkt net als &apos;t &lt;i&gt;spreken&lt;/a&gt;-recht, maar geldt voor Fluisteren-toets ingedrukt. Kan dienen om te zenden naar kanaalhiërarchie zonder koppelen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Dit omvat de machtiging om andere gebruikers te dempen en doven. Eenmaal gedempt, blijft een gebruiker gedempt tot ontdempt door een andere bevoegde gebruiker of tot de gebruiker opnieuw verbindt met de server.</translation>
+        <translation>Toestemming om anderen te dempen/doven. Eenmaal gedempt, blijft gedempt tot ontdempt door bevoegde of totdat gebruikers opnieuw met server verbinden.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to move a user to another channel or kick him from the server. To actually move the user, either the moving user must have Move privileges in the destination channel, or the user must normally be allowed to enter the channel. Users with this privilege can move users into channels the target user normally wouldn&apos;t have permission to enter.</source>
-        <translation>Dit omvat de machtiging om een gebruiker naar een ander kanaal verplaatsen of hem uit de server te gooien. Om daadwerkelijk de gebruiker te verplaatsen, ofwel de verplaatsende gebruiker moet Verplaatsen bevoegdheid hebben in het bestemmingskanaal, of de gebruiker moet normaal worden toegestaan om het kanaal toe te treden. Gebruikers met deze bevoegdheid kunnen gebruikers verplaatsen naar kanalen waarin de beoogde gebruiker normaliter geen toestemming heeft om toe te treden.</translation>
+        <translation>Toestemming om gebruikers naar andere kanalen te verplaatsen of uit server te gooien. Om gebruikers te verplaatsen; vereist dat verplaatsende: Verplaatsen-recht heeft (bestemmingkanaal) of gebruiker moet toetreden-kanaalrecht hebben. Gebruikers met dit recht kunnen gebruikers verplaatsen naar kanalen waarin gebruiker (normaal) niet toe mag toetreden.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>This represents the permission to make sub-channels. The user making the sub-channel will be added to the admin group of the sub-channel.</source>
-        <translation>Dit omvat de machtiging om sub-kanalen te maken. Welke gebruiker het sub-kanaal maakt wordt toegevoegd aan de admin groep van het sub-kanaal.</translation>
+        <translation>Toestemming om sub-kanalen te creëren. Gebruikers die sub-kanalen creëren worden toegevoegd aan de beheerdersgroep van desbetreffende sub-kanalen.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation>Dit omvat de machtiging om een tijdelijk sub-kanalen te maken. Welke gebruiker het sub-kanaal maakt wordt toegevoegd aan de admin groep van het sub-kanaal. Tijdelijke kanalen worden niet opgeslagen en verdwijnen als de laatste gebruiker verlaat.</translation>
+        <translation>Toestemming tijdelijke sub-kanalen te creëren. Sub-kanaal creërende gebruikers worden toegevoegd aan de beheerdersgroep van &apos;n nieuw sub-kanaal. Tijdelijke kanalen  verdwijnen wanneer laatste gebruiker verlaat.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Dit is omvat de machtiging om kanalen te koppelen. Gebruikers in gekoppelde kanalen horen elkaar, zolang de sprekende gebruiker de &lt;i&gt;spreken&lt;/i&gt; bevoegdheid in het kanaal van de luisteraar heeft. Je moet de koppelen-bevoegdheid in beide kanalen hebben om een koppeling te maken, maar slechts in een enkel kanaal om het te verwijderen.</translation>
+        <translation>Toestemming om kanalen te koppelen. Gebruikers van gekoppelde kanalen horen elkaar, zolang sprekende gebruiker &apos;t &lt;i&gt;spreken&lt;/i&gt;-recht in kanaal van de luisteraar heeft. Je moet &apos;t koppelen-recht in beide kanalen hebben om &apos;n koppeling te creëren, en slechts in &apos;n enkel kanaal om te ontkoppelen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation>Dit omvat de machtiging om tekstberichten naar andere gebruikers in dit kanaal te schrijven.</translation>
+        <translation>Toestemming tekstberichten naar andere kanaalgebruikers te schrijven.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers geforceerd uit de server te verwijderen.</translation>
+        <translation>Toestemming om gebruikers geforceerd uit server te gooien.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers permanent uit de server te verwijderen.</translation>
+        <translation>Toestemming om gebruikers van server te verbannen.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register and unregister users on the server.</source>
-        <translation>Dit omvat de machtiging om gebruikers te registreren op de server en registraties ervan te verwijderen.</translation>
+        <translation>Toestemming om gebruikers te (ont)registreren (server).</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to register oneself on the server.</source>
-        <translation>Dit omvat de toestemming dat iemand zichzelf op de server kan registeren.</translation>
+        <translation>Recht dat iemand zichzelf zelf op server kan registeren.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -2992,7 +2988,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="-28"/>
         <source>Write ACL</source>
-        <translation>ACL&apos;s beschrijven</translation>
+        <translation>ACL&apos;s schrijven</translation>
     </message>
 </context>
 <context>
@@ -3072,7 +3068,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>Deze knop slaat de huidige instellingen op en keert daarna terug naar de applicatie. &lt;br /&gt;De instellingen worden toegepast zodra je de applicatie verlaat.</translation>
+        <translation>Knop past huidige instellingen toe en keert terug naar de applicatie. &lt;br /&gt;Instellingen worden opgeslagen zodra je de applicatie afsluit.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3082,43 +3078,43 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+1"/>
         <source>This button will reject all changes and return to the application.&lt;br /&gt;The settings will be reset to the previous positions.</source>
-        <translation>Deze knop weigert alle wijzigingen en keert daarna terug naar de applicatie.&lt;br /&gt;De instellingen worden naar het oude teruggezet.</translation>
+        <translation>Knop weigert alle wijzigingen en keert daarna terug naar de applicatie.&lt;br /&gt;Instellingen worden als vanouds teruggezet.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Apply changes</source>
-        <translation>Wijzigingen opslaan</translation>
+        <translation>Wijzigingen toepassen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will immediately apply all changes.</source>
-        <translation>Deze knop past alle wijzigingen meteen toe.</translation>
+        <translation>Knop past alle wijzigingen toe.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Undo changes for current page</source>
-        <translation>Wijzigingen voor huidige pagina ongedaan maken.</translation>
+        <translation>Wijzigingen ongedaan maken (huidige pagina).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Deze knop maakt eventuele wijzigingen op de huidige pagina ongedaan en zet de laatst toegepaste instellingen terug.</translation>
+        <translation>Knop maakt eventuele wijzigingen op huidige pagina ongedaan en zet laatst toegepaste instellingen terug.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation>Herstel naar standaardwaarden op huidige pagina </translation>
+        <translation>Herstel naar standaardwaarden (huidige pagina)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Deze knop herstelt de huidige pagina naar standaardwaarden. Andere pagina&apos;s worden niet gewijzigd.&lt;br /&gt;Om alle instellingen naar standaardwaarden te herstellen, moet je deze knop op elke pagina gebruiken.</translation>
+        <translation>Knop herstelt standaardwaarden. Andere pagina&apos;s blijven ongewijzigd.&lt;br /&gt;Om alle instellingen naar standaardwaarden te herstellen, moet je de knop op elke pagina gebruiken.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
         <source>Mumble Configuration</source>
-        <translation>Mumble configuratie</translation>
+        <translation>Mumble-configuratie</translation>
     </message>
     <message>
         <location/>
@@ -3245,7 +3241,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location/>
         <source>Remove from Favorites</source>
-        <translation>Uit Favorieten verwijderen</translation>
+        <translation>Uit favorieten verwijderen</translation>
     </message>
     <message>
         <location/>
@@ -3255,12 +3251,12 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation>Alle servers die op ping reageren tonen</translation>
+        <translation>Op ping reagerende servers tonen</translation>
     </message>
     <message>
         <location/>
         <source>Show all servers with users</source>
-        <translation>Alle servers met gebruikers tonen</translation>
+        <translation>Servers met gebruikers tonen</translation>
     </message>
     <message>
         <location/>
@@ -3335,7 +3331,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location/>
         <source>Name of the server</source>
-        <translation>Naam van de server</translation>
+        <translation>Servernaam</translation>
     </message>
     <message>
         <location/>
@@ -3346,7 +3342,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
         <location/>
         <source>Internet address of the server.</source>
         <oldsource>Internet address of the server. </oldsource>
-        <translation>Internetadres van de server.</translation>
+        <translation>Internetadres (server).</translation>
     </message>
     <message>
         <location/>
@@ -3355,7 +3351,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
         <translation>&lt;b&gt;Adres&lt;/b&gt;&lt;br/&gt;
-Internetadres van de server. Kan &apos;n normale hostnaam, IPv4/IPv6-adres of Bonjour-service-ID zijn. Bonjour-service-ID&apos;s moeten beginnen met een &apos;@&apos; om door Mumble te worden her- / erkend.</translation>
+Internetadres van server zijnde normale hostnaam, IPv4/IPv6-adres of Bonjour-service-ID. Bonjour-service-ID&apos;s moeten beginnen met &apos;n &apos;@&apos; om door Mumble te worden geaccepteerd.</translation>
     </message>
     <message>
         <location/>
@@ -3365,14 +3361,14 @@ Internetadres van de server. Kan &apos;n normale hostnaam, IPv4/IPv6-adres of Bo
     <message>
         <location/>
         <source>Port on which the server is listening</source>
-        <translation>Poort waarnaar de server luistert.</translation>
+        <translation>Poort waarnaar server luistert.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
 Port on which the server is listening. If the server is identified by a Bonjour service identifier this field will be ignored.</source>
         <translation>&lt;b&gt;Port&lt;/b&gt;&lt;br/&gt;
-Poort waarnaar de server luistert. Als de server door een Bonjour-service-id wordt geïdentificeerd telt dit veld niet mee.</translation>
+Poort waarnaar server luistert. Als server d.m.v. &apos;n Bonjour-service-id wordt geïdentificeerd telt &apos;t niet mee.</translation>
     </message>
     <message>
         <location/>
@@ -3382,14 +3378,14 @@ Poort waarnaar de server luistert. Als de server door een Bonjour-service-id wor
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Gebruikersnaam om naar de server te verzenden</translation>
+        <translation>Naar server te verzenden gebruikersnaam</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Gebruikersnaam&lt;/b&gt;&lt;br/&gt;
-Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen kan opleggen over gebruikersnaam-naamgeving. Gebruikersnamen kunnen bezet zijn.</translation>
+Gebruikersnaam om naar server te verzenden. De server kan beperkingen opleggen over gebruikersnaam-naamgeving of namen kunnen reeds bezet zijn.</translation>
     </message>
     <message>
         <location/>
@@ -3409,14 +3405,14 @@ Gebruikersnaam om naar de server te verzenden. Let op dat de server beperkingen 
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation>Wachtwoord om naar de server te verzenden</translation>
+        <translation>Naar server te verzenden wachtwoord</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Password&lt;/b&gt;&lt;br/&gt;
 Password to be sent to the server on connect. This password is needed when connecting as &lt;i&gt;SuperUser&lt;/i&gt; or to a server using password authentication. If not entered here the password will be queried on connect.</source>
         <translation>&lt;b&gt;Wachtwoord&lt;/b&gt;&lt;br/&gt;
-Wachtwoord om naar de server te verzenden bij verbinden. Dit wachtwoord is nodig bij verbinden als &lt;i&gt;SuperUser&lt;/in&gt; of naar een wachtwoord vereisende server. Als hier niet het wachtwoord invoert wordt dan zal er om worden gevraagd tijdens verbinden.</translation>
+Wachtwoord om naar server te verzenden bij verbinden. Dit wachtwoord is nodig bij verbinden als &lt;i&gt;SuperUser&lt;/in&gt; of mits server wachtwoord vereist. Indien wachtwoord hier niet wordt ingevoerd wordt er om gevraagd bij verbinden.</translation>
     </message>
     <message>
         <location/>
@@ -3428,12 +3424,12 @@ Wachtwoord om naar de server te verzenden bij verbinden. Dit wachtwoord is nodig
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation>&lt;b&gt;Naam&lt;/b&gt;&lt;br/&gt;
-Naam van de server. Dit is een zelfgekozen naam van de server die in de serverlijst zal weergegeven worden</translation>
+Naam van server. Zelfgekozen naam van server die in serverlijst wordt weergegeven.</translation>
     </message>
     <message>
         <location/>
         <source>Local server label</source>
-        <translation>Lokale server naam</translation>
+        <translation>Lokale servernaam</translation>
     </message>
     <message>
         <location/>
@@ -3469,12 +3465,12 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location filename="CrashReporter.cpp" line="+40"/>
         <source>Mumble Crash Report</source>
-        <translation>Mumble crashrapportage</translation>
+        <translation>Mumble-crashrapport</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;&lt;b&gt;We&apos;re terribly sorry, but it seems Mumble has crashed. Do you want to send a crash report to the Mumble developers?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;The crash report contains a partial copy of Mumble&apos;s memory at the time it crashed, and will help the developers fix the problem.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;&lt;b&gt; Het spijt ons vreselijk, maar blijkbaar is Mumble gecrasht. Wilt u een crashrapportage met de Mumble ontwikkelaars delen?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;De crashrapportage bevat een gedeeltelijke kopie van het Mumble&apos;s geheugen op het moment van de crash, en helpt de ontwikkelaars om het probleem op te lossen. &lt;/p&gt;</translation>
+        <translation>&lt;p&gt;&lt;b&gt; Het spijt ons vreselijk, blijkbaar is Mumble gecrasht. Wilt u een crashrapport met de Mumble ontwikkelaars delen?&lt;/b&gt;&lt;/p&gt;&lt;p&gt;De crashrapportage bevat &apos;n gedeeltelijke kopie van Mumble&apos;s geheugen op &apos;t moment van de crash, en helpt ontwikkelaars om &apos;t probleem te verhelpen. &lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3485,7 +3481,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation>Graag in het kort beschrijven, in het Engels, wat je deed op het moment van de crash</translation>
+        <translation>Beschrijf kort (Engels): wat je deed op &apos;t moment van de crash.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3495,7 +3491,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="+3"/>
         <source>Don&apos;t send report</source>
-        <translation>Geen rapportage verzenden</translation>
+        <translation>Geen rapport verzenden</translation>
     </message>
     <message>
         <location line="+24"/>
@@ -3505,7 +3501,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Bedankt voor je hulp om Mumble beter te maken!</translation>
+        <translation>Bedankt: voor je hulp om Mumble verder te verbeteren!</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3516,17 +3512,17 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="-2"/>
         <source>We&apos;re really sorry, but it appears the crash upload has failed with error %1 %2. Please inform a developer.</source>
-        <translation>Het spijt ons; blijkbaar mislukte de crashupload (fout %1 %2). Graag een ontwikkelaar informeren.</translation>
+        <translation>Crashupload mislukt (fout %1 %2). Informeer een ontwikkelaar.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This really isn&apos;t funny, but apparently there&apos;s a bug in the crash reporting code, and we&apos;ve failed to upload the report. You may inform a developer about error %1</source>
-        <translation>Dit is niet grappig meer, maar blijkbaar zit er een bug in de crash-meldcode, en we slaagden niet om de rapportage te uploaden. Je mag een ontwikkelaar over fout %1 informeren.</translation>
+        <translation>Er zit &apos;n bug in crash-melden; we faalden om &apos;t rapport te uploaden. Informeer een ontwikkelaar over fout %1.</translation>
     </message>
     <message>
         <location line="+102"/>
         <source>Uploading crash report</source>
-        <translation>Crashrapporage aan het uploaden</translation>
+        <translation>Crashrapport aan &apos;t uploaden</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -3539,12 +3535,12 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location filename="DirectSound.cpp" line="+176"/>
         <source>Default DirectSound Voice Input</source>
-        <translation>Standaard DirectSound spraakinvoer</translation>
+        <translation>Standaard DirectSound-invoer</translation>
     </message>
     <message>
         <location line="+451"/>
         <source>Opening chosen DirectSound Input device failed. No microphone capture will be done.</source>
-        <translation>Openen gekozen DIrectSound-invoerapparaat mislukt. Geen microfoonopname vindt plaats.</translation>
+        <translation>Openen gekozen DirectSound-invoerapparaat mislukt. Geen microfoonopname vindt plaats.</translation>
     </message>
     <message>
         <location line="-83"/>
@@ -3554,7 +3550,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="+78"/>
         <source>Lost DirectSound input device.</source>
-        <translation>Verloren DirectSound invoerapparaat.</translation>
+        <translation>Verloren DirectSound-invoerapparaat.</translation>
     </message>
 </context>
 <context>
@@ -3562,7 +3558,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="-486"/>
         <source>Default DirectSound Voice Output</source>
-        <translation>Standaard DirectSound spraakuitvoer.</translation>
+        <translation>Standaard DirectSound-uitvoer.</translation>
     </message>
     <message>
         <location line="+243"/>
@@ -3577,7 +3573,7 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
     <message>
         <location line="+4"/>
         <source>Opening chosen DirectSound Output failed. No audio will be heard.</source>
-        <translation>Gekozen DirectSound-uitvoer openen mislukt. Geen geluid kan worden gehoord.</translation>
+        <translation>Gekozen DirectSound-uitvoer openen mislukt. Geen geluid wordt gehoord.</translation>
     </message>
 </context>
 <context>
@@ -3586,13 +3582,13 @@ Naam van de server. Dit is een zelfgekozen naam van de server die in de serverli
         <location filename="Database.cpp" line="+118"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
-        <translation>Een database initialiseren op enige mogelijke locatie is door Mumble mislukt.</translation>
+        <translation>Mumble-database initialiseren van alle locaties mislukt.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The database &apos;%1&apos; is read-only. Mumble cannot store server settings (i.e. SSL certificates) until you fix this problem.</source>
         <oldsource>The database '%1' is read-only. Mumble can not store server settings (ie. SSL certificates) until you fix this problem.</oldsource>
-        <translation>De database &apos;%1&apos; is alleen-lezen. Mumble kan geen serverinstellingen (bijv. SSL-certificaten) opslaan, totdat je dit probleem oplost.</translation>
+        <translation>Database &apos;%1&apos; is alleen-lezen. Mumble slaat o.a. SSL-certificaten niet op tot je &apos;t probleem oplost.</translation>
     </message>
 </context>
 <context>
@@ -3613,7 +3609,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>List of configured shortcuts</source>
-        <translation>Lijst van geconfigureerde sneltoetsen</translation>
+        <translation>Geconfigureerde sneltoetsenlijst</translation>
     </message>
     <message>
         <location/>
@@ -3643,7 +3639,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>This will add a new global shortcut</source>
-        <translation>Dit voegt een nieuwe globale sneltoets toe</translation>
+        <translation>Voegt nieuwe sneltoets toe</translation>
     </message>
     <message>
         <location/>
@@ -3658,7 +3654,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>This will permanently remove a selected shortcut.</source>
-        <translation>Dit verwijdert een geselecteerde sneltoets permanent.</translation>
+        <translation>Verwijdert geselecteerde sneltoets.</translation>
     </message>
     <message>
         <location/>
@@ -3668,7 +3664,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan momenteel alleen van muisknoppen en speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) gebruikmaken voor de globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Als je meer flexibiliteit wil, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in het Toegankelijkheidscentrum van het systeem instellen. Merk echter op dat deze wijziging ook potentieel schadelijke programma&apos;s mogelijk maakt om te lezen wat er getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan louter van muisknoppen en speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) gebruikmaken voor globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Voor meer flexibiliteit, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in het Toegankelijkheidscentrum van het systeem instellen. Deze wijziging maakt schadelijke programma&apos;s ook mogelijk om te lezen wat getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3702,17 +3698,17 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Dit is de globale sneltoets combinatie.&lt;/b&gt;&lt;br /&gt;Klik op dit veld en druk vervolgens op de gewenste toets/knop-combi om te binden. Dubbelklik om te wissen.</translation>
+        <translation>&lt;b&gt;Dit is de globale sneltoets-combinatie.&lt;/b&gt;&lt;br /&gt;Klik dit veld en druk vervolgens op de gewenste te binden toets/knop-combi. Dubbelklik om te wissen.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Suppress keys from other applications</source>
-        <translation>Toetsen van andere applicaties onderdrukken.</translation>
+        <translation>Toetsen onderdrukken (andere applicaties).</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&lt;b&gt;This hides the button presses from other applications.&lt;/b&gt;&lt;br /&gt;Enabling this will hide the button (or the last button of a multi-button combo) from other applications. Note that not all buttons can be suppressed.</source>
-        <translation>&lt;b&gt;Dit verbergt de knop-indrukkingen van andere toepassingen.&lt;/b&gt;&lt;br /&gt;Dit gebruiken verbergt de toets (of de laatste toets van een meerdere-knoppen-combi) van andere applicaties. Merk op dat niet alle knoppen onderdrukt kunnen worden.</translation>
+        <translation>&lt;b&gt;Neemt andere applicatie-indrukken weg.&lt;/b&gt;&lt;br /&gt;Toetsdrukken (of laatste toets van &apos;n meerdere-knoppen-combi) van andere apps. Niet alle knoppen worden genegeerd.</translation>
     </message>
 </context>
 <context>
@@ -3720,12 +3716,12 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation>Fluister doel</translation>
+        <translation>Fluisterdoel</translation>
     </message>
     <message>
         <location/>
         <source>Whisper to list of Users</source>
-        <translation>Fluister naar lijst van gebruikers</translation>
+        <translation>Fluister naar gebruikerslijst</translation>
     </message>
     <message>
         <location/>
@@ -3735,17 +3731,17 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Restrict to Group</source>
-        <translation>Tot groep beperken</translation>
+        <translation>Beperkt (tot groep) </translation>
     </message>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation>Indien gespecificeerd, kunnen alleen leden van deze groep het gefluister ontvangen.</translation>
+        <translation>Zo, kunnen louter groepsleden je gefluister ontvangen.</translation>
     </message>
     <message>
         <location/>
         <source>List of users</source>
-        <translation>Lijst van gebruikers</translation>
+        <translation>Gebruikerslijst</translation>
     </message>
     <message>
         <location/>
@@ -3765,7 +3761,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Do not send positional audio information when using this whisper shortcut.</source>
-        <translation>Verzend geen positionele geluidsinformatie bij fluistertoetsgebruik.</translation>
+        <translation>Geen positioneel geluid bij fluistertoetsgebruik zenden.</translation>
     </message>
     <message>
         <location/>
@@ -3775,27 +3771,27 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Shout to Linked channels</source>
-        <translation>Schreeuw naar gekoppelde kanalen</translation>
+        <translation>Naar gekoppelde kanalen schreeuwen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to subchannels</source>
-        <translation>Schreeuw naar subkanalen</translation>
+        <translation>Naar sub-kanalen schreeuwen</translation>
     </message>
     <message>
         <location/>
         <source>Shout to Channel</source>
-        <translation>Schreeuw naar kanaal</translation>
+        <translation>Naar kanaal schreeuwen</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be transmitted to linked channels.</source>
-        <translation>Het gefluister wordt ook verzonden naar gekoppelde kanalen.</translation>
+        <translation>Fluister zendt ook naar gekoppelde kanalen.</translation>
     </message>
     <message>
         <location/>
         <source>The whisper will also be sent to the subchannels of the channel target.</source>
-        <translation>Het gefluister wordt ook verzonden naar de subkanalen van het doelkanaal.</translation>
+        <translation>Fluister zendt naar de sub-kanalen van het doelkanaal.</translation>
     </message>
 </context>
 <context>
@@ -3819,7 +3815,7 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation>Dit apparaat activeren</translation>
+        <translation>Apparaat activeren</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3849,12 +3845,12 @@ of the possible locations.</source>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Dit is de lijst met beschikbare LCD-apparaten op je systeem. Het bevat apparaten qua naam, maar ook qua grootte van het scherm. Mumble ondersteunt uitvoer naar meerdere LCD-apparaten gelijkertijd.&lt;/p&gt;
+        <translation>&lt;p&gt;Lijst met beschikbare LCD-apparaten op je systeem. Bevat apparatennamen, maar ook schermgrootten. Mumble ondersteunt uitvoer naar meerdere LCD-apparaten gelijkertijd.&lt;/p&gt;
 &lt;h3&gt;Afmetingen:&lt;/h3&gt;
 &lt;p&gt;
-Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid in pixels (voor Grafische LCD&apos;s) of in letters (voor Karakter LCD&apos;s).&lt;/p&gt;
+Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos;s) of in letters (voor Karakter LCD&apos;s).&lt;/p&gt;
 &lt;h3&gt;Ingeschakeld:&lt;/h3&gt;
-&lt;p&gt; Deze bepaald of Mumble moeten presenteren op een bepaald LCD-apparaat.&lt;/p&gt;</translation>
+&lt;p&gt; Bepaalt of Mumble moeten presenteren op LCD-apparaat.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3881,14 +3877,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <source>&lt;p&gt;This option decides the minimum width a column in the User View.&lt;/p&gt;
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
-        <translation>&lt;p&gt;Deze optie bepaalt de minimale breedte van een kolom in de gebruikerslijst.&lt;/p&gt;
-&lt;p&gt;Als er te veel mensen tegelijk spreken, splitst de gebruikerslijst in kolommen. Je kunt deze optie gebruiken om een compromis te vinden tussen het tonen van een aantal gebruikers op het LCD-scherm, en de breedte van gebruikersnamen.&lt;/p&gt;
-</translation>
+        <translation>&lt;p&gt;Min. breedte van gebruikerslijstkolom.&lt;/p&gt;
+&lt;p&gt;Als te veel mensen tegelijk spreken, splitst de gebruikerslijst in kolommen. Optie dient als compromis tussen aantal op LCD-scherm te tonen gebruikers, en  gebruikersnaam-breedte.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
         <source>This setting decides the width of column splitter.</source>
-        <translation>Deze instelling bepaalt de breedte bij kolomsplitsing.</translation>
+        <translation>Deze instelling bepaalt de breedte bij &apos;n kolomsplitsing.</translation>
     </message>
     <message>
         <location/>
@@ -3936,7 +3931,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+6"/>
         <source>Permission Denied</source>
-        <translation>Geen Toestemming</translation>
+        <translation>Geen toestemming</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4011,7 +4006,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>You self-undeafened</source>
-        <translation>Je ontdoofde jezelf.</translation>
+        <translation>Je ontdoofde jezelf</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4026,7 +4021,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+127"/>
         <source>[[ Text object too large to display ]]</source>
-        <translation>[[ Tekstobject te groot om te laten zien ]]</translation>
+        <translation>[[ Tekstobject te groot om te tonen ]]</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -4048,12 +4043,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+2"/>
         <source>player link</source>
-        <translation>speler koppeling</translation>
+        <translation>spelerkoppeling</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>channel link</source>
-        <translation>kanaal koppeling</translation>
+        <translation>kanaalkoppeling</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4066,55 +4061,55 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-487"/>
         <source>Toggle console for %1 events</source>
-        <translation>Log bij %1 gebeurtenissen tonen</translation>
+        <translation>Log bij %1-gebeurtenissen tonen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Toggle pop-up notifications for %1 events</source>
-        <translation>Venstermeldingen bij %1 gebeurtenissen tonen.</translation>
+        <translation>Meldingen bij %1-gebeurtenissen tonen</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Toggle Text-To-Speech for %1 events</source>
-        <translation>Tekst-Naar-Spraak bij %1 gebeurtenissen tonen</translation>
+        <translation>Tekst-naar-Spraak bij %1-gebeurtenissen tonen</translation>
     </message>
     <message>
         <location line="-9"/>
         <source>Click here to toggle sound notification for %1 events</source>
-        <translation>Klik hier om geluidsmeldingen te geven voor %1 gebeurtenissen.</translation>
+        <translation>Geluidsmeldingen geven voor %1 gebeurtenissen</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Pad naar geluidsbestand voor het geluidmeldingen in het geval van %1 gebeurtenissen&lt;br /&gt;Enkele klik om af te spelen &lt;br /&gt; Dubbelklik om te veranderen</translation>
+        <translation>Pad naar geluidmeldingen-geluidsbestand in geval van %1 gebeurtenissen&lt;br /&gt;Enkele klik om af te spelen&lt;br /&gt;Dubbelklik om te veranderen</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Klik hier voor console-uitvoer bij %1 gebeurtenissen.&lt;br /&gt;Indien aangevinkt, logt Mumble alle %1 gebeurtenissen in bijbehorende log.</translation>
+        <translation>Klik hier voor console-uitvoer bij %1 gebeurtenissen.&lt;br /&gt;Aangevinkt spuugt Mumble alle %1 gebeurtenissen uit in bijbehorend log.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Klik hier om venstermeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Indien aangevinkt, wordt een meldingsvenster getoond door Mumble voor iedere %1 gebeurtenis.</translation>
+        <translation>Klik hier om venstermeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Aangevinkt wordt &apos;n meldingsvenster  voor alle %1-gebeurtenissen door Mumble getoond.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Pad naar geluidsbestand voor het geluidsmeldingen in het geval van %1 gebeurtenissen.&lt;br /&gt;Enkele klik om af te spelen&lt;br /&gt;Dubbelklik om te veranderen&lt;br /&gt;Bevestig dat geluidsmeldingen voor deze gebeurtenissen aan staan anders heeft dit geen enkel effect.</translation>
+        <translation>Pad naar geluidsmeldingen-geluidsbestand in geval van %1 gebeurtenissen.&lt;br /&gt;Enkele klik om af te spelen&lt;br /&gt;Dubbelklik om te veranderen&lt;br /&gt;Bevestig dat gebeurtenis-geluidsmeldingen aanstaan anders heeft dit geen enkel effect.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Klik hier voor Tekst-naar-Spraak bij %1 gebeurtenissen.&lt;br /&gt;Indien aangevinkt, gebruikt Mumble Tekst-naar-Spraak om %1 gebeurtenissen hardop voor te lezen. Tekst-naar-Spraak kan ook de inhoud van de gebeurtenis lezen, in tegenstelling tot geluidsbestanden. Tekst-naar-Spraak en geluidsbestanden kunnen niet tegelijk gebruikt worden.</translation>
+        <translation>Klik hier voor Tekst-naar-Spraak bij %1 gebeurtenissen.&lt;br /&gt;Aangevinkt gebruikt Mumble Tekst-naar-Spraak om %1 gebeurtenissen voor te lezen. Tekst-naar-Spraak kan ook gebeurtenisinhoud lezen, i.t.t. geluidsbestanden. T-n-S / geluidsbestanden kunnen niet tegelijkertijd gebruikt worden.</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Klik hier om geluidsmeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Indien aangevinkt, gebruikt Mumble het vooraf door u aangeven geluidsbestand bij %1 gebeurtenissen. Geluidsbestanden en Tekst-naar-Spraak kunnen niet op hetzelfde moment gebruikt worden.</translation>
+        <translation>Klik hier om geluidsmeldingen voor %1 gebeurtenissen te tonen.&lt;br /&gt;Aangevinkt gebruikt Mumble &apos;t door u aangeven geluidsbestand voor %1-gebeurtenissen. Geluidsbestanden / T-n-S kunnen niet tegelijk gebruikt.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4164,12 +4159,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation>Volume van Tekst-naar-Spraak-engine</translation>
+        <translation>Volume van Tekst-naar-Spraak</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the volume used for the speech synthesis.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dit is het volume voor de spraaksynthese.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Volume voor spraaksynthese.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4179,12 +4174,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Message length threshold for Text-To-Speech Engine</source>
-        <translation>Berichtlengtedrempel voor Tekst-naar-Spraak-engine</translation>
+        <translation>Drempel voor Tekst-naar-Spraak</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the length threshold used for the Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Messages longer than this limit will not be read aloud in their full length.</source>
-        <translation>&lt;b&gt;Dit is de drempellengte voor de Text-To-Speech Engine.&lt;/b&gt;&lt;br /&gt;Berichten langer dan deze limiet worden niet voluit hardop voorgelezen.</translation>
+        <translation>&lt;b&gt;Drempellengte voor Tekst-naar-Spraak.&lt;/b&gt;&lt;br /&gt;Berichten voorbij limiet worden niet voluit voorgelezen.</translation>
     </message>
     <message>
         <location/>
@@ -4199,17 +4194,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>If checked you will only hear whispers from users you added to your friend list.</source>
-        <translation>Indien aangevinkt hoor je alleen gefluister van gebruikers die je aan je vriendenlijst hebt toegevoegd.</translation>
+        <translation>Aangevinkt hoor je alleen gefluister van vrienden die je in hun vriendenlijst hebben.</translation>
     </message>
     <message>
         <location/>
         <source>Only accept whispers from friends</source>
-        <translation>Louter gefluister van vrienden accepteren.</translation>
+        <translation>Gefluister louter van vrienden accepteren.</translation>
     </message>
     <message>
         <location/>
         <source>If enabled text messages you send will be read back to you with TTS</source>
-        <translation>Indien geactiveerd worden tekstberichten die je verzendt terug aan je voorgelezen met Tekst-naar-Spraak.</translation>
+        <translation>Geactiveerd worden tekstberichten die je verzendt terug naar je voorgelezen met Tekst-naar-Spraak.</translation>
     </message>
     <message>
         <location/>
@@ -4268,7 +4263,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation>Niets doen</translation>
+        <translation>Nietsdoen</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4289,17 +4284,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Dit bepaalt welke kanalen automatisch uit moeten uit- en samenvouwen. &lt;I&gt;Géén&lt;/i&gt; en &lt;i&gt;Alle&lt;/i&gt; vouwt geen of all kanalen uit, terwijl de &lt;i&gt;Slechts met gebruikers&lt;/i&gt; kanalen uit- en samenvouwt als gebruikers ze toetreden en verlaten.</translation>
+        <translation>Bepaalt welke kanalen automatisch moeten (uit)vouwen. &lt;I&gt;Géén&lt;/i&gt; en &lt;i&gt;Alle&lt;/i&gt; vouwt geen of alle kanalen uit, terwijl de &lt;i&gt;Slechts met gebruikers&lt;/i&gt; kanalen uit- en samenvouwt als gebruikers toetreden en verlaten.</translation>
     </message>
     <message>
         <location/>
         <source>List users above subchannels (requires restart).</source>
-        <translation>Gebruikers bóven subkanalen tonen (vereist herstart).</translation>
+        <translation>Gebruikers bóven sub-kanalen tonen (opnieuw starten nodig).</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;If set, users will be shown above subchannels in the channel view.&lt;/b&gt;&lt;br /&gt;A restart of Mumble is required to see the change.</source>
-        <translation>&lt;b&gt;Indien ingesteld, worden gebruikers boven subkanalen in de kanalenlijst getoond. &lt;/b&gt;&lt;br /&gt;Een herstart van Mumble is nodig om verandering te zien.</translation>
+        <translation>&lt;b&gt;Ingesteld, worden gebruikers boven sub-kanalen in kanalenlijst getoond. &lt;/b&gt;&lt;br /&gt;Herstart van Mumble  is vereist om verandering te zien.</translation>
     </message>
     <message>
         <location/>
@@ -4309,17 +4304,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>&lt;b&gt;If set, will verify you want to quit if connected.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Indien ingesteld, wordt om bevestiging gevraagd of je wil afsluiten indien verbonden.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Ingesteld, wordt om bevestiging gevraagd of je wilt afsluiten terwijl nog verbonden.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation>Aantal gebruikers per kanaal tonen</translation>
+        <translation>Kanaalgebruikersaantal tonen</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation>Gebruikers-telling per kanaal tonen</translation>
+        <translation>Gebruikersaantal (kanaal) tonen</translation>
     </message>
     <message>
         <location/>
@@ -4329,12 +4324,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation>Te gebruiken taal (vereist herstart)</translation>
+        <translation>Taalinstelling (herstart vereist)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation>&lt;b&gt; Dit stelt in welke taal Mumble moet gebruiken.&lt;/b&gt;&lt;br /&gt;Je moet Mumble herstarten voor de nieuwe taal.</translation>
+        <translation>&lt;b&gt;Bepaalt welke taal Mumble moet gebruiken.&lt;/b&gt;&lt;br /&gt;Je moet Mumble herstarten voor taalwisseling.</translation>
     </message>
     <message>
         <location/>
@@ -4344,7 +4339,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Layout</source>
-        <translation>Lay-out</translation>
+        <translation>Uiterlijk</translation>
     </message>
     <message>
         <location/>
@@ -4369,13 +4364,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>This changes the behavior when moving channels.</source>
-        <translation>Dit verandert het gedrag tijdens het verplaatsen van kanalen.</translation>
+        <translation>Verandert kanaalverplaatsingsgedrag.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Dit stelt het gedrag van kanaal slepen in; het kan worden gebruikt om onbedoeld slepen te voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt; verplaatst het kanaal zonder te vragen. &lt;i&gt;Niets doen &lt;/i&gt; doet niets en toont een foutmelding. &lt;i&gt;Vragen&lt;/i&gt; gebruikt een berichtvenster om te bevestigen of je daadwerkelijk het kanaal wilt verplaatsen.</translation>
+        <translation>Bepaalt gedrag van kanaalslepen; kan onbedoeld slepen voorkomen. &lt;i&gt;Verplaatsen&lt;/i&gt; verplaatst kanaal zonder te vragen. &lt;i&gt;Nietsdoen&lt;/i&gt; doet niets (toont foutmelding). &lt;i&gt;Vragen&lt;/i&gt; gebruikt &apos;n berichtvenster om te bevestigen of je werkelijk &apos;t kanaal wilt verplaatsen.</translation>
     </message>
     <message>
         <location/>
@@ -4385,7 +4380,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation>Wanneer automatisch kanalen uitvouwen</translation>
+        <translation>Wanneer kanalen auto-uitvouwen</translation>
     </message>
     <message>
         <location/>
@@ -4395,12 +4390,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation>Vraag om af te sluiten of minimaliseren bij sluiten Mumble.</translation>
+        <translation>Vraag af te sluiten/minimaliseren indien Mumble afsluit.</translation>
     </message>
     <message>
         <location/>
         <source>Ask on quit while connected</source>
-        <translation>Vraag bij afsluiten wanneer verbonden</translation>
+        <translation>Vraag bij afsluiten terwijl verbonden</translation>
     </message>
     <message>
         <location/>
@@ -4410,22 +4405,22 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>&lt;b&gt;If set, minimizing the Mumble main window will cause it to be hidden and accessible only from the tray. Otherwise, it will be minimized as a window normally would.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Indien ingesteld, leidt minimaliseren van Mumble-hoofdvenster tot verbergen en alleen nog toegankelijk zijn vanuit systeemvak. Anders wordt het geminimaliseerd als een normaal venster.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Ingesteld → minimaliseren van Mumble = venster verbergen (louter toegankelijk vanuit systeemvak). Anders wordt geminimaliseerd (normaal venster).&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Verberg in systeemvak indien geminimaliseerd</translation>
+        <translation>In systeemvak verbergen indien wordt geminimaliseerd</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation>Verberg het Mumble-hoofdvenster in het systeemvak indien het is geminimaliseerd.</translation>
+        <translation>Verberg Mumble in systeemvak (mits geminimaliseerd).</translation>
     </message>
     <message>
         <location/>
         <source>This setting controls when the application will be always on top.</source>
-        <translation>Instelling bepaalt wanneer de applicatie altijd vooraan blijft.</translation>
+        <translation>Dit bepaalt wanneer het Mumble-venster vooraan blijft.</translation>
     </message>
     <message>
         <location/>
@@ -4460,7 +4455,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Deze instelling bepaalt in welke situaties de applicatie altijd vooraan blijft. Als je &lt;i&gt;Nooit&lt;/i&gt; selecteert blijft de applicatie niet vooraan. &lt;i&gt;Altijd&lt;/i&gt; houdt de applicatie altijd vooraan. &lt;i&gt;In minimale weergave&lt;/i&gt; / &lt;i&gt;In normale weergave&lt;/i&gt; houdt de applicatie altijd vooraan als de  minimale weergave is geactiveerd / gedeactiveerd.</translation>
+        <translation>Instelling bepaalt in welke situaties de applicatie altijd vooraan blijft. Als je &lt;i&gt;Nooit&lt;/i&gt; selecteert blijft de applicatie niet vooraan. &lt;i&gt;Altijd&lt;/i&gt; houdt de applicatie altijd vooraan. &lt;i&gt;In minimale weergave&lt;/i&gt; / &lt;i&gt;In normale weergave&lt;/i&gt; houdt de applicatie vooraan ongeacht minimale weergave ge(de)activeerd.</translation>
     </message>
     <message>
         <location/>
@@ -4470,12 +4465,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation>Enkele hoog contrast optimalisaties voor visueel gehandicapte gebruikers toepassen.</translation>
+        <translation>Contrast optimalisaties toepassen (visueel beperkten).</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation>Voor hoog contrast optimaliseren</translation>
+        <translation>Voor hoogcontrast optimaliseren</translation>
     </message>
     <message>
         <location/>
@@ -4485,7 +4480,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Adds user and channel context menus into the menu bar</source>
-        <translation>Voegt gebruiker een kanaal contextmenu&apos;s in de menubalk toe.</translation>
+        <translation>Voegt gebruiker en kanaalcontext in de menu-balk toe.</translation>
     </message>
     <message>
         <location/>
@@ -4500,12 +4495,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location/>
         <source>Use selected item as the chat bar target</source>
-        <translation>Gebruik geselecteerd item als het doel in de chatbalk.</translation>
+        <translation>Geselecteerd item als doel van de chat-balk gebruiken.</translation>
     </message>
     <message>
         <location/>
         <source>Filter automatically hides empty channels</source>
-        <translation>Automatisch filteren verbergt lege kanalen.</translation>
+        <translation>Automatisch filteren verbergt lege kanalen</translation>
     </message>
     <message>
         <location/>
@@ -4546,19 +4541,19 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+2"/>
         <source>Push and hold this button to send voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Druk en houd deze knop ingedrukt om spraak te zenden.</translation>
+        <translation>Druk en knop ingedrukt houden om spreken te zenden.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This configures the push-to-talk button, and as long as you hold this button down, you will transmit voice.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit configureert de druk-om-te-praten knop. Zolang je deze knop indrukt, verzend je spraak.</translation>
+        <translation>Druk-om-te-Praten-knop - ingedrukt; verzend je spraak.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Reset Audio Processor</source>
         <comment>Global Shortcut</comment>
-        <translation>Herstel geluidsverwerkingseenheid</translation>
+        <translation>Geluidsverwerking herstellen</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -4576,7 +4571,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+3"/>
         <source>Join Channel</source>
         <comment>Global Shortcut</comment>
-        <translation>Tot kanaal toetreden</translation>
+        <translation>Toetreden tot kanaal </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4644,7 +4639,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-1"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>Mumble verbonden met &apos;n server. Afsluiten of minimaliseren..?</translation>
+        <translation>Verbonden met een server - afsluiten of minimaliseren?</translation>
     </message>
     <message>
         <location line="-234"/>
@@ -4656,13 +4651,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+2"/>
         <source>Set self-mute status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Stel zelf-dempen status in.</translation>
+        <translation>Zelf-dempen status instellen.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit wisselt je dempen-status. Dit uitzetten, ontdooft jezelf ook.</translation>
+        <translation>Wisselt je dempen-status. Uitzetten, ontdooft jezelf ook.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4674,13 +4669,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Stel zelf-doven status in.</translation>
+        <translation>Zelf-doven status instellen.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>This will set or toggle your deafened status. If you turn this on, you will also enable self-mute.</source>
         <comment>Global Shortcut</comment>
-        <translation>Dit wisselt je doven-status. Als je dit aanzet, doof je jezelf ook.</translation>
+        <translation>Dit wisselt je doven-status. Aanzetten dooft jezelf ook...</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4703,7 +4698,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+50"/>
         <source>Opening URL %1</source>
-        <translation>URL %1 aan het openen</translation>
+        <translation>URL %1 aan &apos;t openen</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4713,22 +4708,22 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation>Bestand is geen configuratiebestand.</translation>
+        <translation>Bestand geen configuratiebestand.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Settings merged from file.</source>
-        <translation>Instellingen samengevoegd uit bestand.</translation>
+        <translation>Instellingen uit bestand samengevoegd.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>URL scheme is not &apos;mumble&apos;</source>
-        <translation>URL schema is niet &apos;mumble&apos;</translation>
+        <translation>URL-schema is niet &apos;mumble&apos;</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>This version of Mumble can&apos;t handle URLs for Mumble version %1.%2.%3</source>
-        <translation>Deze versie van Mumble kan URL&apos;s voor Mumble versie %1.%2.%3 niet aan</translation>
+        <translation>Mumble-versie kan URL&apos;s voor Mumble versie %1.%2.%3 niet aan</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -4749,13 +4744,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+10"/>
         <source>Reconnecting.</source>
-        <translation>Opnieuw aan het verbinden.</translation>
+        <translation>Herverbindend.</translation>
     </message>
     <message>
         <location line="+76"/>
         <location line="+1492"/>
         <source>Transmit Mode set to Continuous</source>
-        <translation>Zendmodus ingesteld op Continue</translation>
+        <translation>Zendmodus staat op Continue</translation>
     </message>
     <message>
         <location line="-1398"/>
@@ -4765,19 +4760,19 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+69"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Spraakkanaal&lt;/h2&gt;&lt;p&gt;Versleuteld met 128 bit OCB-AES128&lt;br /&gt;%1 ms gemiddelde latentie (%4 afwijking)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Spraakkanaal&lt;/h2&gt;&lt;p&gt;Versleuteld met 128-bit OCB-AES128&lt;br /&gt;%1 ms gemiddelde latentie (%4 afwijking)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-173"/>
         <location line="+449"/>
         <source>Register yourself as %1</source>
-        <translation>Jezelf als %1 registeren</translation>
+        <translation>Jezelf (%1) registeren</translation>
     </message>
     <message>
         <location line="-449"/>
         <location line="+449"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Je staat op het punt om jezelf op deze server te registreren. Deze actie kan niet ongedaan gemaakt worden, en je gebruikersnaam kan niet veranderen. Je wordt voor altijd bekend als &apos;%1&apos; op deze server. &lt;/p&gt;&lt;p&gt;Weet je zeker dat je jezelf wil registreren?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Je staat op &apos;t punt om jezelf op de server te registreren. Deze actie kan niet ongedaan gemaakt worden, en je gebruikersnaam kan niet veranderen. Je wordt voor altijd bekend als &apos;%1&apos; op deze server.&lt;/p&gt;&lt;p&gt;Zeker registreren?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-350"/>
@@ -4787,42 +4782,42 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Geen bouwinformatie of BS-versie beschikbaar&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Geen bouwinformatie/BS-versie beschikbaar&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation>Geauthenticeerd gebruikmakend van %1 en versleuteld door %2 als sleuteluitwisselingsmechanisme (%3)</translation>
+        <translation>Geauthenticeerd met %1 en versleuteld door %2 (sleuteluitwisselingsmechanisme (%3))</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation>De verbinding is versleuteld gebruikmakend van %1, met %2 voor bericht-authenticatie en %3 als het sleuteluitwisselingsmechanisme (%4).</translation>
+        <translation>Verbinding is versleuteld met %1 (%2 voor bericht-authenticatie en %3 (sleuteluitwisselingsmechanisme (%4))).</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation>De verbinding is beveiligd door het algoritme dat OpenSSL identiceert als %1</translation>
+        <translation>Verbinding is beveiligd door %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;De verbinding voorziet doorgaans heimelijkheid&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;De verbinding voorziet in de doorgaande heimelijkheid.&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation>&lt;p&gt;De verbinding voorziet niet in heimelijkheid&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;De verbinding voorziet geen (doorgaand) heimelijkheid&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Controlekanaal&lt;/h2&gt;&lt;p&gt;De verbinding gebruikt %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms gemiddelde latentie (%5 deviatie)&lt;/p&gt;&lt;p&gt;Host %6 (poort %7)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Controlekanaal&lt;/h2&gt;&lt;p&gt;Verbinding gebruikt %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms gemiddelde latentie (%5 afwijking)&lt;/p&gt;&lt;p&gt;Host %6 (poort %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Voice channel is sent over control channel</source>
-        <translation>Spraakkanaal wordt verzonden over controlekanaal</translation>
+        <translation>Spraak-kanaal wordt verzonden over &apos;t controle-kanaal</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -4832,22 +4827,22 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Je staat op het punt om %1 te registreren op de server. Deze actie kan niet ongedaan gemaakt worden, de gebruikersnaam kan niet veranderen, en als een geregistreerde gebruiker, heeft %1 toegang tot de server, zelfs als je de het serverwachtwoord verandert.&lt;/p&gt;&lt;p&gt;Vanaf dit punt, wordt %1 geauthenticeerd met het certificaat momenteel in gebruik.&lt;/p&gt;&lt;p&gt;Weet je zeker dat je %1 wilt registreren?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Je staat op het punt om %1 te registreren op de server. Actie kan niet ongedaan worden gemaakt. De naam kan niet veranderen; zijnde &apos;n geregistreerde gebruiker; heeft %1 toegang (onafhankelijk van serverwachtwoord).&lt;/p&gt;&lt;p&gt;Hiernavolgend, wordt %1 geauthenticeerd met &apos;t ingebruike certificaat.&lt;/p&gt;&lt;p&gt;Zeker om %1 te registreren?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation>Gebruiker %1 eruit aan het gooien</translation>
+        <translation>Gebruiker %1 &apos;ruit aan&apos;t gooien</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation>Gebruiker %1 aan het verbannen</translation>
+        <translation>Gebruiker %1 aan &apos;t verbannen</translation>
     </message>
     <message>
         <location line="+61"/>
         <source>View comment on user %1</source>
-        <translation>Commentaar van gebruiker %1 inzien</translation>
+        <translation>%1&apos;s gebruikerscommentaar inzien</translation>
     </message>
     <message>
         <location line="+72"/>
@@ -4864,29 +4859,29 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+105"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation>Server heeft een certificaat dat niet kon worden geverifieerd.</translation>
+        <translation>Server kreeg Ongeverifieerd Certificaat gepresenteerd.</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>SSL Version mismatch</source>
-        <translation>SSL Versie mis-overeenkomst</translation>
+        <translation>SSL-versie misovereenkomst</translation>
     </message>
     <message>
         <location line="+132"/>
         <source>&lt;center&gt;Type message to channel &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to channel '%1' here</oldsource>
-        <translation>&lt;center&gt;Bericht naar kanaal &apos;%1&apos; hier schrijven&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Bericht → kanaal &apos;%1&apos; (hier typen)&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;center&gt;Type message to user &apos;%1&apos; here&lt;/center&gt;</source>
         <oldsource>Type message to user '%1' here</oldsource>
-        <translation>&lt;center&gt;Bericht naar gebruiker &apos;%1&apos; hier schrijven&lt;/center&gt;</translation>
+        <translation>&lt;center&gt;Bericht → gebruiker &apos;%1&apos; (hier typen)&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="+125"/>
         <source>Choose image file</source>
-        <translation>Kies je afbeeldingsbestand</translation>
+        <translation>Kies afbeeldingsbestand</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4898,13 +4893,13 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-27"/>
         <source>Could not open file for reading.</source>
-        <translation>Kon bestand niet openen om te lezen.</translation>
+        <translation>Bestand niet geopend voor lezen.</translation>
     </message>
     <message>
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation>Bestandsindeling van afbeelding wordt niet herkend.</translation>
+        <translation>Afbeeldingsbestandsindeling kon niet worden herkend.</translation>
     </message>
     <message>
         <location line="-2945"/>
@@ -4921,7 +4916,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+26"/>
         <source>Use in conjunction with Whisper to.</source>
         <comment>Global Shortcut</comment>
-        <translation>In combinatie met Fluisteren naar gebruiken.</translation>
+        <translation>I.c.m. Fluisteren naar gebruiken.</translation>
     </message>
     <message>
         <location line="-21"/>
@@ -4945,7 +4940,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation>Verstuur tekstbericht</translation>
+        <translation>Stuur tekstbericht</translation>
     </message>
     <message>
         <location line="+89"/>
@@ -4996,7 +4991,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="+41"/>
         <location line="+1479"/>
         <source>Transmit Mode set to Voice Activity</source>
-        <translation>Zendmodus op Spraakactivtiteit ingesteld</translation>
+        <translation>Zendmodus naar Spraakactivtiteit ingesteld</translation>
     </message>
     <message>
         <location line="-1474"/>
@@ -5012,17 +5007,17 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+15"/>
         <source>UDP Statistics</source>
-        <translation>UDP Statistieken</translation>
+        <translation>UDP-statistieken</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>To Server</source>
-        <translation>Naar Server</translation>
+        <translation>Naar server</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>From Server</source>
-        <translation>Van Server</translation>
+        <translation>Van server</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -5052,7 +5047,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+2"/>
         <source>Mumble Server Information</source>
-        <translation>Mumble Serverinformatie</translation>
+        <translation>Mumble-serverinformatie</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5064,12 +5059,12 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <location line="-1200"/>
         <location line="+19"/>
         <source>Enter reason</source>
-        <translation>Typ reden</translation>
+        <translation>Reden typen</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>Sending message to %1</source>
-        <translation>Bericht naar %1 aan het verzenden</translation>
+        <translation>Bericht naar %1 aan &apos;t verzenden</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -5089,33 +5084,33 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation>Weet je zeker dat je het commentaar van gebruiker %1 opnieuw wilt instellen?</translation>
+        <translation>%1&apos;s gebruikerscommentaar leegmaken bevestigen?</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation>Weet je zeker dat je het avatar van gebruiker %1 opnieuw wilt instellen?</translation>
+        <translation>%1&apos;s gebruikersavatar %1 leegmaken bevestigen?</translation>
     </message>
     <message>
         <location line="+221"/>
         <source>Are you sure you want to delete %1 and all its sub-channels?</source>
-        <translation>Weet je zeker dat je %1 en alle sub-kanalen daarvan wilt verwijderen?</translation>
+        <translation>%1 en sub-kanalen verwijderen bevestigen?</translation>
     </message>
     <message>
         <location line="+71"/>
         <source>Sending message to channel %1</source>
-        <translation>Bericht naar kanaal %1 aan het verzenden</translation>
+        <translation>Verzendt bericht naar kanaal %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Message to tree %1</source>
-        <translation>Bericht naar tak %1</translation>
+        <translation>Bericht naar boom %1</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>To %1 (Tree): %2</source>
         <oldsource>(Tree) %1: %2</oldsource>
-        <translation>Naar %1 (Tak): %2</translation>
+        <translation>Naar %1 (Boom): %2</translation>
     </message>
     <message>
         <location line="+175"/>
@@ -5155,7 +5150,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation>Sommige instellingen worden alleen toegepast na een herstart van Mumble. Mumble nu herstarten?</translation>
+        <translation>Sommige instellingen worden pas toegepast na herstarten van Mumble. Mumble nu herstarten?</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -5165,43 +5160,43 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+443"/>
         <source>SSL Verification failed: %1</source>
-        <translation>SSL Verificatie mislukt: %1</translation>
+        <translation>SSL-verificatie mislukt: %1</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; The server presented a certificate that was different from the stored one.</source>
-        <translation>&lt;b&gt;Waarschuwing:&lt;/b&gt; De server heeft een certificaat dat afwijkt van de opgeslagene.</translation>
+        <translation>&lt;b&gt;Waarschuwing:&lt;/b&gt; Servercertificaat wijkt af van die opgeslagen is.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>&lt;p&gt;%1.&lt;br /&gt;The specific errors with this certificate are: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Do you wish to accept this certificate anyway?&lt;br /&gt;(It will also be stored so you won&apos;t be asked this again.)&lt;/p&gt;</source>
-        <translation>&lt;p&gt;%1&lt;br /&gt;Specifieke fouten met dit certificaat zijn: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Certificaat toch accepteren?&lt;br /&gt;(Wordt ook opgeslagen, zodat je niet opnieuw gevraagd wordt.)&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;%1&lt;br /&gt;Specifieke certificaatfouten zijn: &lt;/p&gt;&lt;ol&gt;%2&lt;/ol&gt;&lt;p&gt;Certificaat toch accepteren?&lt;br /&gt;(Wordt opgeslagen, zodat je niet opnieuw gevraagd wordt.)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation>Deze server gebruikt een oudere versleuteling-standaard, en wordt niet langer ondersteund door moderne versies van Mumble.</translation>
+        <translation>Server gebruikt oude versleutelingsstandaard, wordt niet meer ondersteund door moderne Mumble-versies.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Server connection failed: %1.</source>
-        <translation>Verbinding met server mislukt: %1.</translation>
+        <translation>Serververbindingsfout: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Disconnected from server.</source>
-        <translation>Verbinding met server verbroken.</translation>
+        <translation>Serververbinding verbroken.</translation>
     </message>
     <message>
         <location line="+11"/>
         <location filename="Messages.cpp" line="+95"/>
         <source>Invalid username</source>
-        <translation>Ongeldige gebruikersnaam</translation>
+        <translation>Gebruikersnaam ongeldig</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You connected with an invalid username, please try another one.</source>
-        <translation>Je probeerde met een ongeldige gebruikersnaam te verbinden, graag een andere proberen.</translation>
+        <translation>Ongeldige gebruikersnaam bij verbindingspoging; s.v.p. &apos;n andere proberen.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5212,7 +5207,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
     <message>
         <location line="+1"/>
         <source>That username is already in use, please try another username.</source>
-        <translation>Deze gebruikersnaam is al bezet, probeer een andere gebruikersnaam.</translation>
+        <translation>Gebruikersnaam is al bezet; probeer een andere naam.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5225,7 +5220,7 @@ Dit veld beschrijft de grootte van een LCD-apparaat. De grootte wordt aangeduid 
         <source>Wrong certificate or password for registered user. If you are
 certain this user is protected by a password please retry.
 Otherwise abort and check your certificate and username.</source>
-        <translation>Verkeerde certificaat of wachtwoord voor geregistreerde gebruiker. Als je zeker weet dat deze gebruiker een wachtwoord gebruikt graag opnieuw proberen. Anders afbreken en je certificaat en gebruikersnaam controleren.</translation>
+        <translation>Verkeerd certificaat/wachtwoord voor geregistreerde gebruiker. Als je absoluut zeker weet dat gebruiker &apos;n wachtwoord gebruikt; opnieuw proberen. Anders afbreken en je certificaat en naam controleren.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5236,7 +5231,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Verkeerde serverwachtwoord voor ongeregistreerde gebruikersaccount, graag opnieuw proberen.</translation>
+        <translation>Verkeerd serverwachtwoord voor ongeregistreerde account; opnieuw proberen.</translation>
     </message>
     <message>
         <location line="-2171"/>
@@ -5262,7 +5257,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Dit toont alle recente activiteit. Verbindingen met servers, fouten en informatieberichten komen hier tevoorschijn.&lt;br /&gt;Om precies de berichten te configureren die hier tevoorschijn moeten komen, gebruik &lt;b&gt;Instellingen&lt;/b&gt; uit het menu.</translation>
+        <translation>Toont alle recente activiteit. Verbindingen met servers, fouten en informatieberichten komen hier tevoorschijn.&lt;br /&gt;Om te configureren welke berichten tevoorschijn moeten komen, gebruik &lt;b&gt;Instellingen&lt;/b&gt; uit &apos;t menu.</translation>
     </message>
     <message>
         <location/>
@@ -5272,7 +5267,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Closes the program</source>
-        <translation>Sluit het programma af</translation>
+        <translation>Sluit &apos;t programma af</translation>
     </message>
     <message>
         <location/>
@@ -5292,7 +5287,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation>Open het serververbindingsvenster</translation>
+        <translation>Open &apos;t serververbindingsvenster</translation>
     </message>
     <message>
         <location/>
@@ -5302,12 +5297,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Disconnect from server</source>
-        <translation>Verbinding met server verbroken</translation>
+        <translation>Serververbinding verbroken</translation>
     </message>
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation>Verbreekt je verbinding met de server.</translation>
+        <translation>Verbreekt je serververbinding.</translation>
     </message>
     <message>
         <location/>
@@ -5317,12 +5312,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Show information about the server connection</source>
-        <translation>Informatie over de verbinding met de server tonen</translation>
+        <translation>Serververbindingsinformatie tonen</translation>
     </message>
     <message>
         <location/>
         <source>This will show extended information about the connection to the server.</source>
-        <translation>Dit toont uitgebreide informatie over de verbinding met de server</translation>
+        <translation>Toont uitgebreide serververbindingsinformatie.</translation>
     </message>
     <message>
         <location/>
@@ -5352,12 +5347,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Send a Text Message</source>
-        <translation>Verzend een tekstbericht</translation>
+        <translation>Tekstbericht verzenden</translation>
     </message>
     <message>
         <location/>
         <source>Sends a text message to another user.</source>
-        <translation>Verzend een tekstbericht naar een andere gebruiker</translation>
+        <translation>Verzendt een tekstberichtje naar een andere gebruiker</translation>
     </message>
     <message>
         <location/>
@@ -5372,7 +5367,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This adds a new sub-channel to the currently selected channel.</source>
-        <translation>Dit voegt een nieuw sub-kanaal toe aan het momenteel geselecteerde kanaal.</translation>
+        <translation>Voegt nieuw sub-kanaal toe aan geselecteerd kanaal.</translation>
     </message>
     <message>
         <location/>
@@ -5387,17 +5382,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation>Dit verwijdert een kanaal en alle sub-kanalen daarvan</translation>
+        <translation>Verwijdert &apos;n kanaal en al haar onderliggende kanalen.</translation>
     </message>
     <message>
         <location/>
         <source>Edit Groups and ACL for channel</source>
-        <translation>Groepen en ACL van kanaal bewerken</translation>
+        <translation>Groepen en ACL bewerken (kanaal)</translation>
     </message>
     <message>
         <location/>
         <source>This opens the Group and ACL dialog for the channel, to control permissions.</source>
-        <translation>De opent het Groep en ACL venster van het kanaal, om permissies te beheren.</translation>
+        <translation>Opent &apos;t groep en ACL-venster van &apos;t kanaal; permissiebeheer.</translation>
     </message>
     <message>
         <location/>
@@ -5407,12 +5402,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Link your channel to another channel</source>
-        <translation>Je kanaal aan een ander kanaal koppelen</translation>
+        <translation>Kanaal aan ander kanaal koppelen.</translation>
     </message>
     <message>
         <location/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation>Dit is de chatbalk&lt;br /&gt;Als je hier tekst intypt en op enter drukt wordt de tekst naar de geselecteerde gebruiker of kanaal verzonden. Als er geen selectie is wordt het bericht naar je huidige kanaal verzonden.</translation>
+        <translation>Dit is de chatbalk&lt;br /&gt;Als je hier tekst typt en op enter drukt wordt de tekst naar de geselecteerde gebruiker of &apos;t kanaal verzonden. Geen selectie → binnenkanaalse berichtverzending.</translation>
     </message>
     <message>
         <location/>
@@ -5422,17 +5417,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a dialog of registered servers, and also allows quick-connect.</source>
-        <translation>Toont een venster met geregistreerde servers, en laat ook snel-verbinden toe.</translation>
+        <translation>Geregistreerde serversvenster; laat snel-verbinden toe.</translation>
     </message>
     <message>
         <location/>
         <source>Kick user (with reason)</source>
-        <translation>Gebruiker eruit gooien (met reden)</translation>
+        <translation>Gebruiker &apos;ruit gooien (met reden)</translation>
     </message>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Geselecteerde gebruiker uit server gooien. Je wordt gevraagd om een reden op te geven.</translation>
+        <translation>Geselecteerde gebruiker uit server gooien (met reden).</translation>
     </message>
     <message>
         <location/>
@@ -5442,17 +5437,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute user on server. Unmuting a deafened user will also undeafen them.</source>
-        <translation>Gebruiker (ont)dempen op server. Ontdempen leidt ook tot ontdoven.</translation>
+        <translation>Gebruiker (ont)dempen (server); ontdempen → ontdooft.</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation>Gebruiker eruit gooien en verbannen (met reden)</translation>
+        <translation>Gebruiker &apos;ruit gooien en verbannen (met reden)</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Gebruiker uit server gooien en verbannen. Je wordt gevraagd om een reden op te geven.</translation>
+        <translation>Gebruiker uit server gooien en verbannen (met reden).</translation>
     </message>
     <message>
         <location/>
@@ -5462,7 +5457,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Gebruiker (ont)doven op server. Doven leidt ook tot dempen.</translation>
+        <translation>Gebruiker (ont)doven (server); doven → dempt.</translation>
     </message>
     <message>
         <location/>
@@ -5483,7 +5478,7 @@ Otherwise abort and check your certificate and username.</source>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Koppelt je huidige kanaal aan geselecteerde kanaal. Als gebruikers in een kanaal bevoegd zijn om in het andere kanaal te spreken kunnen gebruikers elkaar daardoor horen. Dit is &apos;n permanente koppeling, en blijft tot ontkoppeld of server opnieuw wordt opgestart. Voor druk-om-te-koppelen graag sneltoetsen bekijken.</translation>
+        <translation>Koppelt je huidige kanaal aan &apos;t geselecteerde kanaal. Als gebruikers in kanalen bevoegd zijn om in &apos;t andere kanaal te spreken kunnen gebruikers elkaar daardoor horen. Permanente koppeling; blijft tot ontkoppeld of serverherstart. Zie druk-om-te-koppelen-sneltoetsen.</translation>
     </message>
     <message>
         <location/>
@@ -5494,22 +5489,22 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Unlink your channel from another channel</source>
-        <translation>Je kanaal van een ander kanaal ontkoppelen</translation>
+        <translation>Kanaal van ander kanaal ontkoppelen</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel from the selected channel.</source>
-        <translation>Dit ontkoppelt je huidige kanaal uit het geselecteerde kanaal.</translation>
+        <translation>Ontkoppelt huidig(e) kanaal van geselecteerde kanaal.</translation>
     </message>
     <message>
         <location/>
         <source>Unlinks your channel from all linked channels.</source>
-        <translation>Je kanaal van alle gekoppelde kanalen ontkoppelen.</translation>
+        <translation>Ontkoppelt jouw kanaal van alle gekoppelden kanalen.</translation>
     </message>
     <message>
         <location/>
         <source>This unlinks your current channel (not the selected one) from all linked channels.</source>
-        <translation>Dit ontkoppelt je huidige kanaal (niet de geselecteerde) van alle gekoppelde kanalen.</translation>
+        <translation>Ontkoppelt kanaal (non-selectie) van alle gekoppelden.</translation>
     </message>
     <message>
         <location/>
@@ -5519,12 +5514,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Reset audio preprocessor</source>
-        <translation>Herstel geluidsverwerking</translation>
+        <translation>Herstel geluidsvoorverwerking</translation>
     </message>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Dit herstelt de geluidsverwerking, wat ruisonderdrukking, automatische versterking en spraakactiviteit-herkenning omvat. Als iets plotseling de geluidsomgeving verslechtert  (zoals het laten vallen van de microfoon) en niet blijvend is, gebruik dit om wachten totdat de geluidsverwerking zich aanpast te voorkomen.</translation>
+        <translation>Herstelt geluidsverwerking (ruisonderdrukking, versterking en spraakactiviteit-herkenning). Als de geluidsomgeving tijdelijk verslechtert (zoals vallende microfoon), gebruik &apos;t om wachten te voorkomen totdat de geluidsverwerking heraanpast.</translation>
     </message>
     <message>
         <location/>
@@ -5539,7 +5534,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Jezelf (ont)dempen. Gedempt verzend je geen gegevens naar de server. Ontdempen terwijl gedoofd leidt ook tot ontdoven.</translation>
+        <translation>Jezelf (ont)dempen. Gedoofd ontdempen → ontdooft.</translation>
     </message>
     <message>
         <location/>
@@ -5554,7 +5549,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Jezelf (ont)doven. Gedoofd hoor je niets. Jezelf doven leidt ook tot dempen.</translation>
+        <translation>Jezelf (ont)doven; jezelf doven → dempen.</translation>
     </message>
     <message>
         <location/>
@@ -5569,7 +5564,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Enable or disable the text-to-speech engine. Only messages enabled for TTS in the Configuration dialog will actually be spoken.</source>
-        <translation>Zet de Tekst-naar-Spraak-engine aan of uit. In het configuratievenster geselecteerde berichten voor Tekst-naar-Spraak worden daadwerkelijk gesproken.</translation>
+        <translation>Tekst-naar-Spraak aan-/uitzetten (T-n-S-geselecteerde berichten (configuratievenster) worden gesproken).</translation>
     </message>
     <message>
         <location/>
@@ -5579,7 +5574,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation>Toont klein venster met informatie over huidige geluidsinvoer.</translation>
+        <translation>Toont klein venstertje met jouw geluidinvoerinformatie.</translation>
     </message>
     <message>
         <location/>
@@ -5589,7 +5584,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation>Forceert plug-in-ontkoppeling, handig als &apos;t onjuiste gegevens leest.</translation>
+        <translation>Forceert plug-in-ontkoppeling (als ie &apos;t onjuiste uitleest).</translation>
     </message>
     <message>
         <location/>
@@ -5604,7 +5599,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation>Laat je de meeste instellingen van Mumble wijzigen</translation>
+        <translation>Laat je de meeste instellingen van Mumble aanpassen.</translation>
     </message>
     <message>
         <location/>
@@ -5614,12 +5609,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation>De geluidsconfiguratie-wizard starten</translation>
+        <translation>Geluidsconfiguratie-wizard starten</translation>
     </message>
     <message>
         <location/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation>Dit leidt je door het proces om je geluidshardware te configureren.</translation>
+        <translation>Leidt jouw &apos;t geluidhardware(configuratie)proces door...</translation>
     </message>
     <message>
         <location/>
@@ -5634,7 +5629,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Click this to enter &quot;What&apos;s This?&quot; mode. Your cursor will turn into a question mark. Click on any button, menu choice or area to show a description of what it is.</source>
-        <translation>Klik dit om &quot;Wat is dit?&quot; modus te beginnen. Je pijltje verandert in een vraagteken. Klik op een willekeurige knop, menukeuze of gebied om een omschrijving te tonen van wat het is.</translation>
+        <translation>Klik dit voor &quot;Wat is dit?&quot;-modus (pijltje verandert naar vraagteken). Klik op &apos;n willekeurige knop, menukeuze of gebied om &apos;n omschrijving te tonen van wat het is.</translation>
     </message>
     <message>
         <location/>
@@ -5649,7 +5644,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information and license for Mumble.</source>
-        <translation>Toont een klein venster met informatie en licentie van Mumble.</translation>
+        <translation>Toont klein venstertje met Mumble-(licentie)informaties.</translation>
     </message>
     <message>
         <location/>
@@ -5664,7 +5659,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation>Toont een klein venster met informatie over Speex.</translation>
+        <translation>Toont een kleintje venster met meer Speex-informaties.</translation>
     </message>
     <message>
         <location/>
@@ -5679,7 +5674,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation>Toont een klein venster met informatie over Qt.</translation>
+        <translation>Toont een klein venstertje met Qt-frameworkinformatie.</translation>
     </message>
     <message>
         <location/>
@@ -5689,32 +5684,32 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Check for new version of Mumble</source>
-        <translation>Op een nieuwe versie van Mumble controleren</translation>
+        <translation>Controleren of er al &apos;n nieuwer versie van Mumble uit is.</translation>
     </message>
     <message>
         <location/>
         <source>Connects to the Mumble webpage to check if a new version is available, and notifies you with an appropriate download URL if this is the case.</source>
-        <translation>Verbindt met de Mumble webpagina om te controleren of een nieuwe versie beschikbaar is, en meldt je met de juiste download URL als dit het geval blijkt.</translation>
+        <translation>Verbindt met de Mumble webpagina om te controleren of &apos;n nieuwe versie beschikbaar is, en meldt je met de juiste (downloadbare) URL als &apos;t &apos;t geval blijkt te zijn.</translation>
     </message>
     <message>
         <location/>
         <source>Sends a text message to all users in a channel.</source>
-        <translation>Verzend een tekstbericht naar alle gebruikers in een kanaal.</translation>
+        <translation>Verzendt tekst-bericht naar alle gebruikers in &apos;n kanaal.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Change Comment</source>
-        <translation>&amp;Commentaar wijzigen</translation>
+        <translation>&amp;Commentaar veranderen</translation>
     </message>
     <message>
         <location/>
         <source>Configure certificates for strong authentication</source>
-        <translation>Certificaten voor sterke authenticatie configureren</translation>
+        <translation>Certificaten voor &apos;n sterkere authenticatie configureren.</translation>
     </message>
     <message>
         <location/>
         <source>This starts the wizard for creating, importing and exporting certificates for authentication against servers.</source>
-        <translation>Dit begint de wizard voor het maken, importeren en exporteren van certificaten voor authenticatie met servers.</translation>
+        <translation>Begint wizard voor certificaatcreatie, -importatie en -exportatie voor serverauthenticatie.</translation>
     </message>
     <message>
         <location/>
@@ -5724,7 +5719,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will permanently register the user on the server.</source>
-        <translation>Dit registreert de gebruiker permanent op de server.</translation>
+        <translation>Registreert gebruiker op server.</translation>
     </message>
     <message>
         <location/>
@@ -5734,12 +5729,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Adds a user as your friend.</source>
-        <translation>Je hebt een gebruiker toegevoegd als je vriend.</translation>
+        <translation>Je hebt &apos;n gebruiker als vriend toegevoegd.</translation>
     </message>
     <message>
         <location/>
         <source>This will add the user as a friend, so you can recognize him on this and other servers.</source>
-        <translation>Dit voegt de gebruiker als vriend toe, zodat je hem/haar kunt herkennen op deze en andere servers.</translation>
+        <translation>Voegt gebruikers als vriend toe zodat je hem/haar kunt herkennen op deze/andere servers.</translation>
     </message>
     <message>
         <location/>
@@ -5749,12 +5744,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation>Verwijdert een gebruiker van je vrienden.</translation>
+        <translation>Verwijdert gebruiker als vriend.</translation>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation>Dit verwijdert een gebruiker van je vriendenlijst.</translation>
+        <translation>Verwijdert &apos;n gebruiker van je vriendenlijst.</translation>
     </message>
     <message>
         <location/>
@@ -5764,12 +5759,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Update name of your friend.</source>
-        <translation>Naam van je vriend bewerken.</translation>
+        <translation>Naam van je vriend bijwerken.</translation>
     </message>
     <message>
         <location/>
         <source>Your friend uses a different name than what is in your database. This will update the name.</source>
-        <translation>Je vriend gebruikt een andere naam dan wat in je database staat. Dit werkt de naam bij.</translation>
+        <translation>Jouw vriend gebruikt &apos;n andere naam dan wat in jouw database staat; werkt de naam bij.</translation>
     </message>
     <message>
         <location/>
@@ -5779,12 +5774,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Edit registered users list</source>
-        <translation>Geregistreerde gebruikerslijst bewerken</translation>
+        <translation>Geregistreerde gebruikers-lijst bewerken</translation>
     </message>
     <message>
         <location/>
         <source>This opens the editor for registered users, which allow you to change their name or unregister them.</source>
-        <translation>Dit opent de bewerker voor geregistreerde gebruikers, welke je hun namen laat wijzigen of registraties ongedaan maakt.</translation>
+        <translation>Opent geregistreerde gebruikers-bewerker; om namen te wijzigen of te ontregistreren.</translation>
     </message>
     <message>
         <location/>
@@ -5794,7 +5789,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation>Tekst-gebaseerde toegangssleutels; toevoegen / verwijderen.</translation>
+        <translation>Toegangsleutels op tekst-basis toevoegen/verwijderen.</translation>
     </message>
     <message>
         <location/>
@@ -5809,7 +5804,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation>Dit wisselt naar minimalistisch venster waar &apos;t geschiedenisvenster en menu verborgen zijn.</translation>
+        <translation>Wisselt naar minimalistisch venster waar geschiedenisvenster &amp; menu verbergen.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+330"/>
@@ -6194,12 +6189,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>Je werd uit de server gegooid en verbannen door %1: %2.</translation>
+        <translation>Je werd de server uitgegooid (verbannen door %1: %2).</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%3 werd uit de server gegooid en verbannen door %1: %2.</translation>
+        <translation>%3 werd de server uitgegooid (verbannen door %1: %2).</translation>
     </message>
     <message>
         <location line="-79"/>
@@ -6518,12 +6513,12 @@ Undeafen self
     <message>
         <location/>
         <source>Edit ban list on server</source>
-        <translation>Banlijst op server bewerken</translation>
+        <translation>Banlijst bewerken (server)</translation>
     </message>
     <message>
         <location/>
         <source>This lets you edit the server-side IP ban list.</source>
-        <translation>Dit laat je de server-kant IP banlijst bewerken.</translation>
+        <translation>Dit laat je de IP-banlijst bewerken.</translation>
     </message>
     <message>
         <location/>
@@ -6606,7 +6601,7 @@ Je kunt extra kanalen voor het filteren markeren vanuit het contextmenu van het 
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;TCP-compatibiliteitsmodus gebruiken&lt;/b&gt;.&lt;br /&gt;Dit laat Mumble louter TCP gebruiken voor communicatie met de server. Dit vergroot overhead van leidt tot pakketverlies tot merkbare pauzes in de communicatie, dus dit mag alleen worden gebruikt als je niet de standaardinstelling (welke UDP voor spraak en TCP voor beheer gebruikt) kunt gebruiken.</translation>
+        <translation>&lt;b&gt;TCP-compatibiliteitsmodus&lt;/b&gt;.&lt;br /&gt;Louter TCP gebruiken. Vergroot overhead → pakketverlies (communicatieonderbrekingen). Als je de standaardinstelling (UDP (spraak) &amp; TCP (beheer)) niet kunt gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -7252,7 +7247,7 @@ Om naar laatste versies te upgraden, klik: onderstaande knop.</translation>
     <message>
         <location/>
         <source>User&apos;s name</source>
-        <translation>Gebruiker&apos;s naam</translation>
+        <translation>Gebruiker&apos;s-naam</translation>
     </message>
     <message>
         <location/>
@@ -8662,7 +8657,7 @@ Een toegangssleutel is een tekenreeks, die als een wachtwoord voor eenvoudige to
     <message>
         <location line="+1"/>
         <source>Inserts the user&apos;s name</source>
-        <translation>Voegt de gebruiker&apos;s naam in</translation>
+        <translation>Voegt de gebruiker&apos;s-naam in</translation>
     </message>
     <message>
         <location line="+1"/>
