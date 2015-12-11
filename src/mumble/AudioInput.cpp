@@ -144,6 +144,8 @@ AudioInput::AudioInput() : opusBuffer(g.s.iFramesPerPacket * (SAMPLE_RATE / 100)
 
 	bPreviousVoice = false;
 
+	bResetEncoder = true;
+
 	pfMicInput = pfEchoInput = pfOutput = NULL;
 
 	iBitrate = 0;
@@ -594,6 +596,8 @@ void AudioInput::resetAudioProcessor() {
 		sesEcho = NULL;
 	}
 
+	bResetEncoder = true;
+
 	bResetProcessor = false;
 }
 
@@ -675,8 +679,10 @@ bool AudioInput::selectCodec() {
 int AudioInput::encodeOpusFrame(short *source, int size, EncodingOutputBuffer& buffer) {
 	int len = 0;
 #ifdef USE_OPUS
-	if (!bPreviousVoice)
+	if (bResetEncoder) {
 		opus_encoder_ctl(opusState, OPUS_RESET_STATE, NULL);
+		bResetEncoder = false;
+	}
 
 	opus_encoder_ctl(opusState, OPUS_SET_BITRATE(iAudioQuality));
 
@@ -692,8 +698,10 @@ int AudioInput::encodeCELTFrame(short *psSource, EncodingOutputBuffer& buffer) {
 	if (!cCodec)
 		return len;
 
-	if (!bPreviousVoice)
+	if (bResetEncoder) {
 		cCodec->celt_encoder_ctl(ceEncoder, CELT_RESET_STATE);
+		bResetEncoder = false;
+	}
 
 	cCodec->celt_encoder_ctl(ceEncoder, CELT_SET_PREDICTION(0));
 
@@ -838,6 +846,10 @@ void AudioInput::encodeAudioFrame() {
 	} else {
 		spx_int32_t increment = 12;
 		speex_preprocess_ctl(sppPreprocess, SPEEX_PREPROCESS_SET_AGC_INCREMENT, &increment);
+	}
+
+	if (bIsSpeech && !bPreviousVoice) {
+		bResetEncoder = true;
 	}
 
 	tIdle.restart();
