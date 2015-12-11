@@ -1796,7 +1796,7 @@
             <rdf:li>mumble muted server</rdf:li>
           </rdf:Bag>
         </dc:subject>
-        <dc:source>git://mumble.git.sourceforge.net/gitroot/mumble</dc:source>
+        <dc:source>https://github.com/mumble-voip/mumble/</dc:source>
         <dc:identifier>muted_server.svg</dc:identifier>
       </cc:Work>
     </rdf:RDF>
