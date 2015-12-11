@@ -2022,7 +2022,7 @@
           </cc:Agent>
         </dc:publisher>
         <dc:identifier>mumble.svg</dc:identifier>
-        <dc:source>git://mumble.git.sourceforge.net/gitroot/mumble</dc:source>
+        <dc:source>https://github.com/mumble-voip/mumble/</dc:source>
         <dc:description>Logo for voice chat program mumble</dc:description>
         <cc:license
            rdf:resource="BSD" />

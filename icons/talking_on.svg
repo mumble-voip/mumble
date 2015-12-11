@@ -1794,7 +1794,7 @@
             <rdf:li>mumble talking on</rdf:li>
           </rdf:Bag>
         </dc:subject>
-        <dc:source>git://mumble.git.sourceforge.net/gitroot/mumble</dc:source>
+        <dc:source>https://github.com/mumble-voip/mumble/</dc:source>
         <dc:identifier>talking_on.svg</dc:identifier>
         <dc:language />
       </cc:Work>
