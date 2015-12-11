@@ -125,6 +125,11 @@ class AudioInput : public QThread {
 		CELTCodec *cCodec;
 		CELTEncoder *ceEncoder;
 
+		/// bResetEncoder is a flag that notifies
+		/// our encoder functions that the encoder
+		/// needs to be reset.
+		bool bResetEncoder;
+
 		/// Encoded audio rate in bit/s
 		int iAudioQuality;
 		/// Number of 10ms audio "frames" per packet (!= frames in packet)
