@@ -595,9 +595,12 @@ bool GlobalShortcutConfig::eventFilter(QObject* /*object*/, QEvent *e) {
 
 bool GlobalShortcutConfig::showWarning() const {
 #ifdef Q_OS_MAC
+# if MAC_OS_X_VERSION_MAX_ALLOWED >= 1090
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MAVERICKS) {
 		return !AXIsProcessTrustedWithOptions(NULL);
-	} else {
+	} else
+# endif
+	{
 		return !QFile::exists(QLatin1String("/private/var/db/.AccessibilityAPIEnabled"));
 	}
 #endif
