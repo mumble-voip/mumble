@@ -284,7 +284,7 @@ Settings::Settings() {
 
 	uiDoublePush = 0;
 	pttHold = 0;
-	bExpert = false;
+	bExpert = true;
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
