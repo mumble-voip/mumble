@@ -41,9 +41,8 @@
 #if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
 <NSToolbarDelegate>
 #endif
-- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andToolbar:(NSToolbar *)toolbar andWidgetMap:(QMap<unsigned int, ConfigWidget *> *)map inExpertMode:(BOOL)isExpertMode;
+- (id) initWithConfigDialog:(ConfigDialogMac *)dialog andToolbar:(NSToolbar *)toolbar andWidgetMap:(QMap<unsigned int, ConfigWidget *> *)map;
 - (void) selectItem:(ConfigWidget *)cw;
-- (BOOL) expertMode;
 @end
 
 #endif

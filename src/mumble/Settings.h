@@ -173,8 +173,6 @@ struct Settings {
 	quint64 uiDoublePush;
 	quint64 pttHold;
 
-	bool bExpert;
-
 	bool bTxAudioCue;
 	static const QString cqsDefaultPushClickOn;
 	static const QString cqsDefaultPushClickOff;

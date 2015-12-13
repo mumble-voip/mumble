@@ -284,7 +284,6 @@ Settings::Settings() {
 
 	uiDoublePush = 0;
 	pttHold = 0;
-	bExpert = true;
 
 #ifdef NO_UPDATE_CHECK
 	bUpdateCheck = false;
@@ -666,7 +665,6 @@ void Settings::load(QSettings* settings_ptr) {
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
-	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");
@@ -973,7 +971,6 @@ void Settings::save() {
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
 
-	SAVELOAD(bExpert, "ui/expert");
 	SAVELOAD(qsLanguage, "ui/language");
 	SAVELOAD(themeName, "ui/theme");
 	SAVELOAD(themeStyleName, "ui/themestyle");

@@ -141,27 +141,14 @@ ShortcutActionWidget::ShortcutActionWidget(QWidget *p) : QComboBox(p) {
 
 	idx++;
 
-	bool expert = true;
-	// Try to traverse to GlobalShortcutConfig to get expert state (default: true)
-	while (p) {
-		GlobalShortcutConfig *gsc = qobject_cast<GlobalShortcutConfig *>(p);
-		if (gsc) {
-			expert = gsc->bExpert;
-			break;
-		}
-		p = p->parentWidget();
-	}
 	foreach(GlobalShortcut *gs, GlobalShortcutEngine::engine->qmShortcuts) {
-		// Hide all expert actions if we are not in expert mode
-		if (expert || ! gs->bExpert) {
-			insertItem(idx, gs->name);
-			setItemData(idx, gs->idx);
-			if (! gs->qsToolTip.isEmpty())
-				setItemData(idx, gs->qsToolTip, Qt::ToolTipRole);
-			if (! gs->qsWhatsThis.isEmpty())
-				setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
-			idx++;
-		}
+		insertItem(idx, gs->name);
+		setItemData(idx, gs->idx);
+		if (! gs->qsToolTip.isEmpty())
+			setItemData(idx, gs->qsToolTip, Qt::ToolTipRole);
+		if (! gs->qsWhatsThis.isEmpty())
+			setItemData(idx, gs->qsWhatsThis, Qt::WhatsThisRole);
+		idx++;
 	}
 }
 
@@ -212,7 +199,7 @@ ShortcutTargetDialog::ShortcutTargetDialog(const ShortcutTarget &st, QWidget *pw
 
 	// Load current shortcut configuration
 	qcbForceCenter->setChecked(st.bForceCenter);
-	qgbModifiers->setVisible(g.s.bExpert);
+	qgbModifiers->setVisible(true);
 
 	if (st.bUsers) {
 		qrbUsers->setChecked(true);
@@ -686,7 +673,6 @@ QIcon GlobalShortcutConfig::icon() const {
 
 void GlobalShortcutConfig::load(const Settings &r) {
 	qlShortcuts = r.qlShortcuts;
-	bExpert = r.bExpert;
 
 	// The 'Skip' button is supposed to be live, meaning users do not need to click Apply for
 	// their choice of skipping to apply.
@@ -747,10 +733,7 @@ void GlobalShortcutConfig::reload() {
 	qtwShortcuts->clear();
 	foreach(const Shortcut &sc, qlShortcuts) {
 		QTreeWidgetItem *item = itemForShortcut(sc);
-		::GlobalShortcut *gs = GlobalShortcutEngine::engine->qmShortcuts.value(sc.iIndex);
 		qtwShortcuts->addTopLevelItem(item);
-		if (gs && gs->bExpert && ! bExpert)
-			item->setHidden(true);
 	}
 #ifdef Q_OS_MAC
 	if (! g.s.bSuppressMacEventTapWarning) {
@@ -765,12 +748,6 @@ void GlobalShortcutConfig::accept() const {
 	GlobalShortcutEngine::engine->bNeedRemap = true;
 	GlobalShortcutEngine::engine->needRemap();
 	GlobalShortcutEngine::engine->setEnabled(g.s.bShortcutEnable);
-}
-
-bool GlobalShortcutConfig::expert(bool exp) {
-	bExpert = exp;
-	reload();
-	return true;
 }
 
 
@@ -956,10 +933,9 @@ QString GlobalShortcutEngine::buttonText(const QList<QVariant> &list) {
 void GlobalShortcutEngine::prepareInput() {
 }
 
-GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, bool expert, QVariant def) : QObject(p) {
+GlobalShortcut::GlobalShortcut(QObject *p, int index, QString qsName, QVariant def) : QObject(p) {
 	idx = index;
 	name=qsName;
-	bExpert = expert;
 	qvDefault = def;
 	GlobalShortcutEngine::add(this);
 }

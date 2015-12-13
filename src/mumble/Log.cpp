@@ -169,10 +169,6 @@ void LogConfig::accept() const {
 	g.mw->qteLog->document()->setMaximumBlockCount(s.iMaxLogBlocks);
 }
 
-bool LogConfig::expert(bool) {
-	return false;
-}
-
 void LogConfig::on_qtwMessages_itemChanged(QTreeWidgetItem* i, int column) {
 	if (! i->isSelected()) return;
 	switch (column) {
