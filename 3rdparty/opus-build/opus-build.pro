@@ -68,9 +68,12 @@ unix {
 DIST = config.h
 
 INCLUDEPATH *= \
+../$$SOURCEDIR \
 ../$$SOURCEDIR/celt \
+../$$SOURCEDIR/celt/x86 \
 ../$$SOURCEDIR/include \
 ../$$SOURCEDIR/silk \
+../$$SOURCEDIR/silk/x86 \
 ../$$SOURCEDIR/silk/float
 
 # celt_sources.mk: CELT_SOURCES
@@ -93,6 +96,23 @@ celt/celt_lpc.c \
 celt/quant_bands.c \
 celt/rate.c \
 celt/vq.c
+
+win32 {
+  # celt_sources.mk: CELT_SOURCES_SSE
+  SOURCES *= \
+  celt/x86/x86cpu.c \
+  celt/x86/x86_celt_map.c \
+  celt/x86/pitch_sse.c
+
+  # celt_sources.mk: CELT_SOURCES_SSE2
+  SOURCES *= \
+  celt/x86/pitch_sse2.c
+
+  # celt_sources.mk: CELT_SOURCES_SSE4_1
+  SOURCES *= \
+  celt/x86/celt_lpc_sse.c \
+  celt/x86/pitch_sse4_1.c
+}
 
 # silk_sources.mk: SILK_SOURCES + SILK_SOURCES_FLOAT
 SOURCES *= \
@@ -204,6 +224,15 @@ silk/float/scale_vector_FLP.c \
 silk/float/schur_FLP.c \
 silk/float/sort_FLP.c
 
+win32 {
+  # silk_sources.mk: SILK_SOURCES_SSE4_1
+  SOURCES *= \
+  silk/x86/NSQ_sse.c \
+  silk/x86/NSQ_del_dec_sse.c \
+  silk/x86/x86_silk_map.c \
+  silk/x86/VAD_sse.c \
+  silk/x86/VQ_WMat_EC_sse.c
+}
 
 # opus_sources.mk: OPUS_SOURCES + OPUS_SOURCES_FLOAT
 SOURCES *= \
@@ -217,6 +246,7 @@ src/repacketizer.c \
 src/analysis.c \
 src/mlp.c \
 src/mlp_data.c
+
 
 CONFIG(debug, debug|release) {
 	CONFIG += console
