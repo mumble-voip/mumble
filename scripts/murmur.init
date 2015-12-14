@@ -2,8 +2,8 @@
 #
 ### BEGIN INIT INFO
 # Provides:             mumble-server
-# Required-Start:       $network $local_fs $remote_fs dbus
-# Required-Stop:	$network $local_fs $remote_fs dbus
+# Required-Start:       $network $local_fs $remote_fs
+# Required-Stop:	$network $local_fs $remote_fs
 # Should-Start:		$mysql
 # Should-Stop:		$mysql
 # Default-Start:        2 3 4 5

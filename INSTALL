@@ -97,10 +97,6 @@ CONFIG+=universal (OSX)
  The x86-64 build of Mumble is compatible with 10.5+ and requires a Cocoa
  version of Qt.
 
-CONFIG+=no-dbus (Mumble)
- Don't include DBus support on Mumble. This has no effect on Murmur, which
- requires DBus to work.
-
 CONFIG+=no-g15 (Mumble)
  Don't include support for the G15 keyboard (and compatible devices).
 

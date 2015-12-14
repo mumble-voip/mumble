@@ -174,9 +174,6 @@ void UnixMurmur::termSignalHandler(int) {
 	Q_UNUSED(len);
 }
 
-
-// Keep these two synchronized with matching actions in DBus.cpp
-
 void UnixMurmur::handleSigHup() {
 	qsnHup->setEnabled(false);
 	char tmp;

@@ -117,7 +117,7 @@ typedef MumblePlugin2 *(__cdecl *mumblePlugin2Func)();
  *      the context, so make this a representation of the game server and
  *      team the player is on.
  *
- *      identity is retained by the server and is pollable over Ice/DBus,
+ *      identity is retained by the server and is pollable over Ice,
  *      to be used by external scripts. This should uniquiely identify the
  *      player inside the game.
  *
