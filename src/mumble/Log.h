@@ -9,6 +9,7 @@
 #include <QtCore/QDate>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextDocument>
+#include <QMovie>
 
 #include "ConfigDialog.h"
 #include "ui_Log.h"
@@ -88,6 +89,7 @@ class LogDocument : public QTextDocument {
 		void setAllowHTTPResources(bool allowHttpResources);
 		void setOnlyLoadDataURLs(bool onlyLoadDataURLs);
 		bool isValid();
+		QHash<QString, QMovie *> qhAnimations;
 	public slots:
 		void receivedHead();
 		void finished();

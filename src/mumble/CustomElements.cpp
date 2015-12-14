@@ -13,7 +13,7 @@
 #include "Log.h"
 
 
-LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p) {}
+LogTextBrowser::LogTextBrowser(QWidget *p) : QTextBrowser(p), qmActiveAnimation(0) {}
 
 void LogTextBrowser::resizeEvent(QResizeEvent *e) {
 	scrollLogToBottom();
@@ -41,6 +41,53 @@ void LogTextBrowser::setLogScroll(int scroll_pos) {
 
 void LogTextBrowser::scrollLogToBottom() {
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+}
+
+void LogTextBrowser::mouseMoveEvent(QMouseEvent *e) {
+	do {
+		QTextCursor cursor = cursorForPosition(e->pos());
+		QTextCharFormat fmt = cursor.charFormat();
+		if (fmt.objectType() == QTextFormat::NoObject) {
+			cursor.movePosition(QTextCursor::NextCharacter);
+			fmt = cursor.charFormat();
+		}
+		if (!fmt.isImageFormat()) {
+			if (qmActiveAnimation) {
+				qmActiveAnimation->setPaused(true);
+				qmActiveAnimation = 0;
+			}
+			break;
+		}
+		QString name = fmt.toImageFormat().name();
+		LogDocument *doc = qobject_cast<LogDocument *>(document());
+		QMovie *movie = doc->qhAnimations.value(name);
+		if (!movie) {
+			if (qmActiveAnimation) {
+				qmActiveAnimation->setPaused(true);
+				qmActiveAnimation = 0;
+			}
+			break;
+		}
+		if (movie == qmActiveAnimation) {
+			break;
+		}
+		movie->setPaused(false);
+		qmActiveAnimation = movie;
+	} while(false);
+
+	QTextBrowser::mouseMoveEvent(e);
+}
+
+void LogTextBrowser::animationFrameUpdated(const QRect &) {
+	LogDocument *doc = qobject_cast<LogDocument *>(document());
+
+	QMovie *movie = qobject_cast<QMovie *>(sender());
+	QUrl name = QUrl(doc->qhAnimations.key(movie), QUrl::TolerantMode);
+	doc->addResource(QTextDocument::ImageResource, name, movie->currentImage());
+
+	// Need to send event or else the image will not be redrawn.
+	QEvent *e = new QEvent(QEvent::FontChange);
+	QApplication::postEvent(this, e);
 }
 
 
