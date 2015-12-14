@@ -97,6 +97,10 @@ void LogTextBrowser::mouseMoveEvent(QMouseEvent *e) {
 		if (movie == qmActiveAnimation) {
 			break;
 		}
+		if (qmActiveAnimation) {
+			qmActiveAnimation->setPaused(true);
+			qmActiveAnimation = 0;
+		}
 		movie->setPaused(false);
 		qmActiveAnimation = movie;
 	} while(false);
