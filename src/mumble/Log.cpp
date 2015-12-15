@@ -708,7 +708,6 @@ void LogDocument::finished() {
 						buffer->setData(ba);
 						buffer->open(QIODevice::ReadOnly);
 						animation->setDevice(buffer);
-						animation->setPaused(true);
 
 						qhAnimations[name.toString()] = animation;
 						connect(animation, SIGNAL(updated(const QRect&)), ltb, SLOT(animationFrameUpdated(const QRect&)));
