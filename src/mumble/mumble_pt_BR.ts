@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Valor padrão do servidor</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Contém a lista de membros herdados pelo canal atual. Desmarque &lt;i&gt;Herdar&
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Máximo de Usuários</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Número máximo de usuários permitidos no canal</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Máximo de Usuários&lt;/b&gt;&lt;br /&gt;
+Este valor permite que você especifique o número máximo de usuários permitidos no canal. Se o valor for acima de zero, apenas aquele número máximo de usuários será permitido entrar no canal. Se o valor é zero, o número máximo de usuários no canal é definido pelo limite padrão do servidor.</translation>
     </message>
 </context>
 <context>
@@ -4789,37 +4790,37 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>A conexão é criptografada e autenticada usando %1 e usa %2 como mecanismo de troca de chaves (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>A conexão é criptografada usando %1, com %2 para autenticação de mensagens e %3 como mecanismo de troca de chaves (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>A conexão é assegurada pela suíte de cifras que o OpenSSL identifica como %1</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;A conexão fornece sigilo permanente (&lt;i&gt;perfect forward secrecy&lt;/i&gt;)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;A conexão não fornece sigilo permanente (&lt;i&gt;perfect forward secrecy&lt;/i&gt;)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Canal de controle&lt;/h2&gt;&lt;p&gt;A conexão usa %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms de latência média (%5 de desvio)&lt;/p&gt;&lt;p&gt;Host remoto %6 (porta %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>Canal de voz é enviado pelo canal de controle</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -4962,7 +4963,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Visão Mínima -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4972,17 +4973,17 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Salvar Imagem Como...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Salvar Arquivo de Imagem</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Impossível salvar imagem: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5004,7 +5005,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Usuários conectados: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6081,7 +6082,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renomeado para %2 por %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6569,17 +6570,17 @@ do menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Ajuste Local de Volume</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Ajusta localmente o volume de fala do usuário.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Abre um diálogo com um controle deslizante de volume. Use isso nos outros usuários na mesma sala.</translation>
     </message>
 </context>
 <context>
@@ -8234,22 +8235,22 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Volume local para outros usuários</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ajusta o volume de outros usuários localmente&lt;/b&gt;&lt;br /&gt;Mumble permite ajustar o volume de outros usuários localmente.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Ajustando volume local para %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>
