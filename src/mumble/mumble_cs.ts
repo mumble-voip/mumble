@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Výchozí hodnota serveru</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Obsahuje seznam členů, zděděných současným kanálem. Odškrtněte &lt;i&g
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Maximum uživatelů</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maximum povolených uživatelů v kanálu</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maximum uživatel&lt;/b&gt;&lt;br /&gt;
+Tato hodnota Vám umožňuje nastavit maximální počet povolených uživatelů v kanále. Pokud je hodnota vyšší než nula, pak je povolen pouze daný počet uživatelů. Pokud je hodnota nula, pak je maximální počet určen výchozím nastavením serveru.</translation>
     </message>
 </context>
 <context>
@@ -4967,7 +4968,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimální zobrazení -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4977,17 +4978,17 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Uložit obrázek jako...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Uložit soubor obrázku</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nelze uložit obrázek: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5009,7 +5010,7 @@ Toto pole popisuje velikost LCD zařízení. Velikost je udávána buď v pixele
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Připojeno uživatelů: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6085,7 +6086,7 @@ Jinak přerušte a zkontrolujte Váš certifikát a uživatelské jméno.</trans
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 přejmenován na %2 uživatelem %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6571,17 +6572,17 @@ kontextové nabídce kanálů.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Místní úprava hlasitosti</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Upravit místní hlasitost mluvení uživatele.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Otevře dialogové okno s posuvníkem pro hlasitost. Toto použijte u ostatních uživatelů v místnosti.</translation>
     </message>
 </context>
 <context>
@@ -8237,22 +8238,22 @@ Znak přístupu je textový řetězec, který může být použit jako heslo pro
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Místní hlasitost pro ostatní uživatele</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Upraví místní hlasitost ostatních uživatelů&lt;/b&gt;&lt;br /&gt;Mumble podporuje místní úpravu hlasitosti ostatních uižvatelů.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Upravování místní hlasitosti pro %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>
