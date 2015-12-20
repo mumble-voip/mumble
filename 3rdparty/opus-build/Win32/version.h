@@ -1,1 +1,1 @@
-#define PACKAGE_VERSION "v1.1-beta"
+#define PACKAGE_VERSION "v1.1.1"
