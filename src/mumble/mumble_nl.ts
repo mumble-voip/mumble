@@ -467,12 +467,12 @@ Bevat ledenlijst waarvan groepslidmaatschap niet van ↱ wordt geërfd.</transla
         <source>&lt;b&gt;Inherited members&lt;/b&gt;&lt;br /&gt;
 Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;Inherit&lt;/i&gt; to prevent inheritance from higher level channels.</source>
         <translation>&lt;b&gt;Geërfde leden&lt;b&gt;&lt;br /&gt;
-Bevat door &apos;t huidige kanaal ↳-ledenlijst . Deselecteer &lt;i&gt;Erven&lt;/i&gt; om bovenliggende-kanalen-erving te voorkomen. </translation>
+Bevat door &apos;t huidige kanaal ↳-ledenlijst . Deselecteer &lt;i&gt;Erven&lt;/i&gt; om kanalen-erving te voorkomen.</translation>
     </message>
     <message>
         <location/>
         <source>This controls which group of users this entry applies to.&lt;br /&gt;Note that the group is evaluated in the context of the channel the entry is used in. For example, the default ACL on the Root channel gives &lt;i&gt;Write&lt;/i&gt; permission to the &lt;i&gt;admin&lt;/i&gt; group. This entry, if inherited by a channel, will give a user write privileges if he belongs to the &lt;i&gt;admin&lt;/i&gt; group in that channel, even if he doesn&apos;t belong to the &lt;i&gt;admin&lt;/i&gt; group in the channel where the ACL originated.&lt;br /&gt;If a group name starts with &apos;!&apos;, its membership is negated, and if it starts with &apos;~&apos;, it is evaluated in the channel the ACL was defined in, rather than the channel the ACL is active in.&lt;br /&gt;If a group name starts with &apos;#&apos;, it is interpreted as an access token. Users must have entered whatever follows the &apos;#&apos; in their list of access tokens to match. This can be used for very simple password access to channels for non-authenticated users.&lt;br /&gt;If a group name starts with &apos;$&apos;, it will only match users whose certificate hash matches what follows the &apos;$&apos;.&lt;br /&gt;A few special predefined groups are:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Everyone will match.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - All authenticated users will match.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - User currently in a sub-channel minimum &lt;i&gt;a&lt;/i&gt; common parents, and between &lt;i&gt;b&lt;/i&gt; and &lt;i&gt;c&lt;/i&gt; channels down the chain. See the website for more extensive documentation on this one.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Users currently in the channel will match (convenience for &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Users outside the channel will match (convenience for &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Note that an entry applies to either a user or a group, not both.</source>
-        <translation>Beheert op welke gebruikersgroepen regel toe te passen.&lt;br /&gt;Groep wordt geëvalueerd in context van kanaal waarin regel gebruikt wordt. ACL die standaard op ↑-ste kanaal is ingesteld geeft bijvoorbeeld &lt;i&gt;Schrijf&lt;/i&gt; autorisatie aan de &lt;i&gt;admin&lt;/i&gt; groep. Indien regel wordt geërfd, geeft de gebruiker schrijfrechten mits behorend tot de &lt;i&gt;admin&lt;/i&gt; groep. Zelfs als gebruiker niet behoort tot groep van oorspronkelijke ACL. &lt;br /&gt;Indien groepsnaam begint met &apos;!&apos; wordt lidmaatschap omgekeerd en beginnend met &apos;~&apos;, wordt geëvalueerd in kanaal waar de ACL gedefinieerd is, in plaats van het kanaal waar de ACL van toepassing is.&lt;br /&gt;Als een groepsnaam begint met &apos;#&apos;, wordt &apos;t geïnterpreteerd als toegangssleutel. Gebruikers moeten wat na de &apos;#&apos; komt in lijst van toegangssleutels hebben (zeer eenvoudige wachtwoord-beveiliging (ongeregistreerde gebruikers)).&lt;br /&gt;Als groepsnaam met &apos;$&apos; begint, past louter toe op gebruikers waarvan certificaat-hash overeenkomt met wat na &apos;$&apos; volgt.&lt;br /&gt;Speciale voorgedefinieerde groepen:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle geregistreerde gebruikers.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Gebruikers momenteel in een kanaal met &lt;i&gt;a&lt;/i&gt; gedeelde bovenliggende kanalen, en met tussen &lt;i&gt;b&lt;/i&gt; en &lt;i&gt;c&lt;/i&gt; kanalen eronder. Zie de website voor meer uitgebreide documentatie.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers nu in &apos;t kanaal (simpeler t.o.v. &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruikers buiten het kanaal (simpeler t.o.v. &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Regels zijn louter van toepassing op gebruiker of groep.</translation>
+        <translation>Regeltoepassingsbeheer (→ welke gebruikersgroepen).&lt;br /&gt;Groep wordt geëvalueerd in context van kanaal waarin regel gebruikt wordt. ACL die standaard op ↑-ste kanaal is ingesteld geeft bijv. &lt;i&gt;Schrijf&lt;/i&gt;-recht aan &lt;i&gt;admin&lt;/i&gt; groep (geërfd; verleent gebruiker schrijfrechten mits  &lt;i&gt;admin&lt;/i&gt;-groepslid). Zelfs als gebruiker niet behoort tot groep van oorspronkelijke ACL.&lt;br /&gt;!-groepsnaam keert lidmaatschap om &amp; ~-groepsnaam geldt lidmaatschap van kanaal waarin ACL is gedefinieerd i.p.v. wordt toegepast.&lt;br /&gt;#-groepsnaam dient als toegangssleutel. Gebruiker moet #-sleutel in toegangssleutellijst hebben (simpele beveiliging (ongeregistreerde gebruikers)).&lt;br /&gt;$-groep past louter toe op gebruikers waarvan certificaat-hash (na &apos;$&apos;) overeenkomt.&lt;br /&gt;Speciale voorgedefinieerde groepen:&lt;br /&gt;&lt;b&gt;all&lt;/b&gt; - Iedereen.&lt;br /&gt;&lt;b&gt;auth&lt;/b&gt; - Alle geregistreerde gebruikers.&lt;br /&gt;&lt;b&gt;sub,a,b,c&lt;/b&gt; - Gebruiker nu in een kanaal met min. &lt;i&gt;a&lt;/i&gt; gedeelde ↱-kanalen en &lt;i&gt;b&lt;/i&gt; à &lt;i&gt;c&lt;/i&gt; ↳-kanalen. Uitgebreidere documentatie op website.&lt;br /&gt;&lt;b&gt;in&lt;/b&gt; - Gebruikers in kanaal (simpeler t.o.v. &apos;&lt;i&gt;sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;&lt;b&gt;out&lt;/b&gt; - Gebruikers buiten het kanaal (simpeler t.o.v. &apos;&lt;i&gt;!sub,0,0,0&lt;/i&gt;&apos;).&lt;br /&gt;Regels louter van toepassing op gebruiker/groep.</translation>
     </message>
     <message>
         <location/>
@@ -740,12 +740,12 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Input method for audio</source>
-        <translation>Geluidinvoermethode</translation>
+        <translation>Geluidsinvoermethode</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation>&lt;b&gt;Dit is de geluidinvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt;Dit is de geluidsinvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -760,7 +760,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Dit is het geluidinvoerapparaat.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Dit is het geluidsinvoerapparaat.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -900,7 +900,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;This sets the quality of compression.&lt;/b&gt;&lt;br /&gt;This determines how much bandwidth Mumble is allowed to use for outgoing audio.</source>
-        <translation>&lt;b&gt;Bepaalt compressiekwaliteit.&lt;/b&gt;&lt;br /&gt;Bepaalt hoeveel bandbreedte bruikbaar is qua uitgaand geluid.</translation>
+        <translation>&lt;b&gt;Bepaalt compressiekwaliteit.&lt;/b&gt;&lt;br /&gt;Bepaalt hoeveel bandbreedte bruikbaar is (uitgaand geluid).</translation>
     </message>
     <message>
         <location/>
@@ -945,7 +945,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Maximum amplification of input sound</source>
-        <translation>Maximale invoergeluidversterking</translation>
+        <translation>Maximale invoergeluid-versterking</translation>
     </message>
     <message>
         <location/>
@@ -1168,7 +1168,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation>Geluidinvoer</translation>
+        <translation>Geluidsinvoer</translation>
     </message>
     <message>
         <location line="+111"/>
@@ -1231,7 +1231,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
         <location/>
         <source>&lt;b&gt;This is the output method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
         <oldsource>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</oldsource>
-        <translation>&lt;b&gt;Dit is de geluiduitvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
+        <translation>&lt;b&gt;Dit is de geluidsuitvoermethode.&lt;br&gt;&lt;br /&gt;Waarschijnlijk wil je DirectSound gebruiken.</translation>
     </message>
     <message>
         <location/>
@@ -1276,7 +1276,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Minimum distance to user before sound volume decreases</source>
-        <translation>Minimumafstand tot gebruiker voordat geluidvolume afneemt.</translation>
+        <translation>Minimumafstand tot gebruiker totwaar geluidsvolume afneemt</translation>
     </message>
     <message>
         <location/>
@@ -1711,7 +1711,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This is the probability that the last frame (20 ms) was speech and not environment noise.&lt;br /&gt;Voice activity transmission depends on this being right. The trick with this is that the middle of a sentence is always detected as speech; the problem is the pauses between words and the start of speech. It&apos;s hard to distinguish a sigh from a word starting with &apos;h&apos;.&lt;br /&gt;If this is in bold font, it means Mumble is currently transmitting (if you&apos;re connected).</source>
-        <translation>Waarschijnlijkheid dat &apos;t laatste frame (20 ms) spraak was i.t.t. omgevingsruis.&lt;br /&gt;Spraakactiviteit zenden is afhankelijk van dit juist hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en &apos;t begin van spraak. &apos;Tis lastig gezucht onderscheiden van &apos;n woord beginnend met &apos;h&apos;.&lt;br /&gt;Als dit in vet lettertype is verzend Mumble (vermits verbonden).</translation>
+        <translation>Waarschijnlijkheid dat &apos;t laatste frame (20 ms) spraak was i.t.t. omgevingsruis.&lt;br /&gt;Spraakactiviteit zenden is afhankelijk van dit juist hebben. De truc hierbij is dat het midden van een zin altijd als spraak gedetecteerd wordt; het probleem is de pauzes tussen woorden en &apos;t begin van spraak. &apos;Tis lastig gezucht onderscheiden van &apos;n woord beginnend met &apos;h&apos;.&lt;br /&gt;Als dit in vet lettertype staat verzend Mumble (mits verbonden).</translation>
     </message>
     <message>
         <location/>
@@ -1721,7 +1721,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Current audio bitrate</source>
-        <translation>Huidige geluidbitsnelheid</translation>
+        <translation>Huidige geluidsbitsnelheid</translation>
     </message>
     <message>
         <location/>
@@ -1786,7 +1786,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Geluidbitsnelheid laatst gecomprimeerde frame springt zodanig op en neer terwijl de VBR de kwaliteit aanpast. Bitsnelheidspiek aanpasbaar in het Instellingenvenster.</translation>
+        <translation>Geluidsbitsnelheid laatst gecomprimeerd frame springt zodanig op en neer terwijl de VBR de kwaliteit aanpast. Bitsnelheidspiek aanpasbaar in het Instellingenvenster.</translation>
     </message>
 </context>
 <context>
@@ -1859,7 +1859,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>&lt;b&gt;Selects which sound card to use for audio input.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Selecteert geluidinvoerkaart.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;Selecteert geluidsinvoerkaart.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -1904,7 +1904,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Enable positional audio</source>
-        <translation>Positie-gebaseerd geluid inschakelen</translation>
+        <translation>Positie-gebaseerd-geluid inschakelen</translation>
     </message>
     <message>
         <location/>
@@ -4079,7 +4079,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location line="+1"/>
         <source>Path to sound file used for sound notifications in the case of %1 events&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change</source>
-        <translation>Pad naar geluidmeldingen-geluidsbestand in geval van %1 gebeurtenissen&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen</translation>
+        <translation>Pad naar geluidsmeldingen-bestand in geval van %1 gebeurtenissen&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5380,7 +5380,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This removes a channel and all sub-channels.</source>
-        <translation>Verwijdert &apos;n kanaal en al haar onderliggende kanalen.</translation>
+        <translation>Verwijdert kanaal inclusief ↳-kanalen.</translation>
     </message>
     <message>
         <location/>
@@ -5572,7 +5572,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Pops up a small dialog with information about your current audio input.</source>
-        <translation>Toont klein venstertje met jouw geluidinvoerinformatie.</translation>
+        <translation>Toont simpel venstertje met je geluidsinvoerinformatie.</translation>
     </message>
     <message>
         <location/>
@@ -5612,7 +5612,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>This will guide you through the process of configuring your audio hardware.</source>
-        <translation>Leidt jouw &apos;t geluidhardware(configuratie)proces door...</translation>
+        <translation>Leidt jou &apos;t geluidshardware-(configuratie)proces door...</translation>
     </message>
     <message>
         <location/>
@@ -7255,7 +7255,7 @@ Om → laatste versie te upgraden klik onderstaande knop.</translation>
     <message>
         <location/>
         <source>Name of user&apos;s channel, if outside your current channel</source>
-        <translation>Gebruiker&apos;skanaal-naam vermits buiten huidige kanaal.</translation>
+        <translation>Gebruikers kanaalnaam (zodien buiten huidige kanaal).</translation>
     </message>
     <message>
         <location/>
@@ -7489,7 +7489,7 @@ Om → laatste versie te upgraden klik onderstaande knop.</translation>
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation>Toont plug-in-configuratiepagina; vermits deze bestaat.</translation>
+        <translation>Toont plug-in-configuratiepagina (zodien deze bestaat).</translation>
     </message>
     <message>
         <location/>
@@ -8354,7 +8354,7 @@ Toegangssleutels zijn tekenreeksen; zijnden wachtwoorden t.b.v. simpel kanaaltoe
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation>Toont kanaalkenmerken vermits die er bepaalde heeft:</translation>
+        <translation>Toont (eventuele) kanaalkenmerken:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8684,7 +8684,7 @@ Toegangssleutels zijn tekenreeksen; zijnden wachtwoorden t.b.v. simpel kanaaltoe
     <message>
         <location line="+33"/>
         <source>Unable to start recording. Not connected to a server.</source>
-        <translation>Geluidopname mislukt (nergens verbonden met server).</translation>
+        <translation>Geluidsopnamestarten mislukt (geen serververbinding).</translation>
     </message>
     <message>
         <location line="+8"/>

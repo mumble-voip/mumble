@@ -504,7 +504,8 @@ Enthält die Liste von Mitgliedern, welche vom aktuellen Kanal geerbt wurden. De
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maximale Benutzer&lt;/b&gt;&lt;br /&gt;
+Dieser Wert erlaubt das Einstellen der maximal im Kanal erlaubten Benutzeranzahl. Wenn dieser Wert über Null liegt, wird nur dieser Anzahl an Benutzern das Betreten des Kanals erlaubt sein. Ist der Wert gleich Null, ist die Benutzeranzahl des Kanals durch die Standardbeschränkung des Servers vorgegeben.</translation>
     </message>
 </context>
 <context>
@@ -1527,7 +1528,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate only applications using the same output as Mumble&lt;/b&gt;&lt;br /&gt;If checked, applications that use a different output than Mumble will not be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Nur Anwendungen mit demselben Ausgabegerät wie Mumble abschwächen&lt;/b&gt;&lt;br /&gt;Wenn ausgewählt, werden Anwendungen mit einem anderen Ausgabegerät als Mumble nicht abgeschwächt.</translation>
     </message>
     <message>
         <location/>
@@ -1542,7 +1543,7 @@ Mumble unterstützt das Herabsetzen der Lautstärke anderer Anwendungen während
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;PulseAudio Loopback-Module abschwächen&lt;/b&gt;&lt;br /&gt;Wenn Loopback-Module mit Mumbles Ausgabegerät verbunden sind, werden auch diese abgeschwächt.</translation>
     </message>
     <message>
         <location/>
@@ -4839,12 +4840,12 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Die Verbindung ist mit %1 verschlüsselt und authentifiziert und verwendet %2 zum Schlüsseltausch (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>Die Verbindung ist mit %1 verschlüsselt, mit %2 zur Nachrichtenauthentifizierung and %3 zum Schlüsseltausch (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -4864,7 +4865,7 @@ Wenn gewählt veranlasst Mumble, dass %1 Ereignisse vorgelesen werden. Text-zu-S
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Steuerkanal&lt;/h2&gt;&lt;p&gt;Die Verbindung nutzt %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms Durchschnittslatenz (%5 Abweichung)&lt;/p&gt;&lt;p&gt;Gegenstelle %6 (Port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -6619,17 +6620,17 @@ Sie können zusätzliche Kanäle zum Filtern über das Kontextmenü des Kanals a
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Lokale Lautstärkeneinstellung</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Die Lautstärke des Benutzers lokal einstellen.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Öffnet einen Dialog mit einem Lautstärkeregler . Verwenden Sie dies auf andere Benutzer im selben Raum.</translation>
     </message>
 </context>
 <context>
@@ -8288,17 +8289,17 @@ Ein Zugriffscode ist eine Zeichenfolge, die als Passwort für ein sehr einfaches
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Lokale Lautstärke für andere Benutzer</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Die Lautstärke der anderen Benutzer lokal einstellen&lt;/b&gt;&lt;br /&gt;Mumble unterstützt das lokale Einstellen der Lautstärke für andere Nutzer.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Lokale Lautstärke für %1 einstellen</translation>
     </message>
     <message>
         <location line="+9"/>
