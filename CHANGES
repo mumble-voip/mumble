@@ -1,3 +1,18 @@
+2015-12-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    443d0d2  AudioInput: ensure our encoders are reset correctly when using
+	     > 1 frame per packet.
+
+2015-12-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    1a4ae8d  LogTextBrowser: move all scroll-to-bottom logic to the
+	     LogTextBrowser.
+    31b68bf  Bump version to 1.2.12.
+
+2015-12-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    212a4c0  Update changelog.
+
 2015-12-05
   Mikkel Krautz <mikkel@krautz.dk>
     a1a5b10  GlobalShortcut: update help text for marking Mumble trusted
@@ -67,6 +82,10 @@
 	     control of Murmur's advertised TLS cipher suites.
     7b086e8  SSL: add MumbleSSL::defaultOpenSSLCipherString().
     0a89171  SSL: implement OpenSSL cipher list format reader.
+
+2015-04-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1e4e1e1  Prevent OverlayClient destructor from hanging on disconnect
 
 2015-03-22
   Mikkel Krautz <mikkel@krautz.dk>
