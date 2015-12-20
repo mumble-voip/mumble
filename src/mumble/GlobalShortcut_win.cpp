@@ -550,7 +550,20 @@ void GlobalShortcutWin::timeTicked() {
 			default:
 				break;
 		}
-		id->pDID->Poll();
+
+		{
+			QElapsedTimer timer;
+			timer.start();
+
+			id->pDID->Poll();
+
+			// If a call to Poll takes more than
+			// a second, warn the user that they
+			// might have a misbehaving device.
+			if (timer.elapsed() > 1000) {
+				qWarning("GlobalShortcut_win: Poll() for device %s took %li msec. This is abnormal, the device is possibly misbehaving...", qPrintable(QUuid(id->guid).toString()), static_cast<long>(timer.elapsed()));
+			}
+		}
 
 		hr = id->pDID->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), rgdod, &dwItems, 0);
 		if (FAILED(hr))
