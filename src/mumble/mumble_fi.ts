@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Palvelimen oletusarvo</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,18 +493,19 @@ Sisältää listan jäsenistä jotka on sisällytetty nykyiselle kanavalle. Pois
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Maksimi käyttäjämäärä</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Maksimi käyttäjämäärä kanavalla</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Maksimi käyttäjämäärä&lt;/b&gt;&lt;br /&gt;
+Tämän numeron ollessa suurempi kuin nolla kanava sallii maksimissaan numeron suuruisen määrän käyttäjiä yhtäaikaisesti. Numeron ollessa nolla käytetään palvelimen oletusarvoa.</translation>
     </message>
 </context>
 <context>
@@ -616,7 +617,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&amp;Configure</source>
-        <translation>K&amp;onfiguroi</translation>
+        <translation>&amp;Konfiguroi</translation>
     </message>
     <message>
         <location/>
@@ -1534,17 +1535,17 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>If checked, PulseAudio loopback modules will be attenuated</source>
-        <translation type="unfinished"/>
+        <translation>Jos valittu, PulseAudion loopback moduuli vaimennetaan</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate PulseAudio loopback modules&lt;/b&gt;&lt;br /&gt;If loopback modules are linked to Mumble&apos;s output device/sink, they will also be attenuated.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Vaimenna PulseAudion loopback moduulit&lt;/b&gt;&lt;br /&gt;Jos loopback moduulit ovat linkitettyinä Mumblen lähtevän äänen laitteeseen, ne vaimennettaan myös.</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate PulseAudio loopback modules</source>
-        <translation type="unfinished"/>
+        <translation>Vaimenna PulseAudion loopback moduulit</translation>
     </message>
 </context>
 <context>
@@ -4526,7 +4527,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Määrittää mitä tyylitelmää Mumblen käyttöliittymä käyttää&lt;/b&gt;&lt;br /&gt;Mumble hakee teemoja määritetyistä hakemistoista ja näyttää ne tässä listassa. Valitsemaasi teemaa käytetään Mumblen tyylinä. Teema sisältää värejä, ikoneita sekä muuta.</translation>
     </message>
 </context>
 <context>
@@ -4783,47 +4784,47 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-350"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Versio&lt;/h2&gt;&lt;p&gt;Protokolla %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Versiotietoja ei ole saatavilla&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
         <source>The connection is encrypted and authenticated using %1 and uses %2 as the key exchange mechanism (%3)</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys on salattu ja autentikoitu käyttäen %1:ta ja se käyttää %2:ta salausavaimien vaihtoon (%3)</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The connection is encrypted using %1, with %2 for message authentication and %3 as the key exchange mechanism (%4)</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys on salattu käyttäen %1:ta,  %2:ta viestien autentikoimiseen ja %3:a salausavaimien vaihdossa. (%4)</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>The connection is secured by the cipher suite that OpenSSL identifies as %1</source>
-        <translation type="unfinished"/>
+        <translation>Yhteys on suojattu käyttäen kryptayskirjastoa minkä OpenSSL tunnistaa %1:ksi.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Yhteys käyttää Perfect Forward Secrecy -tekniikkaa&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Yhteys ei käytä Perfect Forward Secrecy -tekniikkaa&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>&lt;h2&gt;Control channel&lt;/h2&gt;&lt;p&gt;The connection uses %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms average latency (%5 deviation)&lt;/p&gt;&lt;p&gt;Remote host %6 (port %7)&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Hallintakanava&lt;/h2&gt;&lt;p&gt;Yhteys käyttää %1&lt;/p&gt;%2%3&lt;p&gt;%4 ms keskimääräinen latenssi (%5 deviaatio)&lt;/p&gt;&lt;p&gt;Palvelin %6 (port %7)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Voice channel is sent over control channel</source>
-        <translation type="unfinished"/>
+        <translation>Äänikanava lähetetään hallintakavan kautta</translation>
     </message>
     <message>
         <location line="+280"/>
@@ -4966,7 +4967,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Minimalistinen tyyli -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4986,7 +4987,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kuvaa ei voitu tallentaa: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5008,7 +5009,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Yhdistetyt käyttäjät: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6085,7 +6086,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 uudelleennimetty %2 käyttäjän %3 toimesta.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6569,17 +6570,17 @@ kanavien alivalikosta.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen äänenvoimakkuuden muokkaus</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Muokkaa käyttäjän äänenvoimakkuutta paikallisesti.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Avaa dialogin, mistä äänenvoimakkuutta voi muokata. Käytä tätä muihin samalla kanavalla oleviin käyttäjiin.</translation>
     </message>
 </context>
 <context>
@@ -8234,17 +8235,17 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Paikallinen äänenvoimakkuus muille käyttäjille</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Muokkaa muiden käyttäjien äänenvoimakkuutta paikallisesti&lt;/b&gt;&lt;br /&gt;Mumble tukee muiden käyttäjien äänenvoimakkuuden muokkaamista paikallisesti.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>Muokataan käyttäjän %1 äänenvoimakkuutta</translation>
     </message>
     <message>
         <location line="+9"/>
