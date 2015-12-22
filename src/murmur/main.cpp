@@ -84,6 +84,9 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 			break;
 		}
 		syslog(level, "%s", qPrintable(msg));
+		if (type == QtFatalMsg) {
+			exit(1);
+		}
 		return;
 	}
 #endif
