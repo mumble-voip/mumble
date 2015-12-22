@@ -2891,7 +2891,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde gedempt); kunnen niet spreken totdat de demping wordt opgeheven door bevoegd iemand.</translation>
+        <translation>Toestemming om in kanaal te spreken. Gebruikers zonder dit recht worden onderdrukt door server (zijnde gedempt); kunnen niet spreken totdat demping wordt opgeheven door bevoegde.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5455,7 +5455,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen user on server. Deafening a user will also mute them.</source>
-        <translation>Gebruiker (ont)doven (server); doven → dempt.</translation>
+        <translation>Gebruiker (ont)doven (server); doven → dempt ook.</translation>
     </message>
     <message>
         <location/>
@@ -5532,7 +5532,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Jezelf (ont)dempen. Gedoofd ontdempen → ontdooft.</translation>
+        <translation>Jezelf (ont)dempen. Ontdempen → ontdooft jezelf ook.</translation>
     </message>
     <message>
         <location/>
@@ -5547,7 +5547,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Deafen or undeafen yourself. When deafened, you will not hear anything. Deafening yourself will also mute.</source>
-        <translation>Jezelf (ont)doven; jezelf doven → dempen.</translation>
+        <translation>Jezelf (ont)doven; jezelf doven → dempt jezelf ook.</translation>
     </message>
     <message>
         <location/>
