@@ -146,7 +146,7 @@ static void murmurMessageOutputQString(QtMsgType type, const QString &msg) {
 #else
 		::MessageBoxA(NULL, qPrintable(m), "Murmur", MB_OK | MB_ICONWARNING);
 #endif
-		exit(0);
+		exit(1);
 	}
 }
 
