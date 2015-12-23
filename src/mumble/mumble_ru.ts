@@ -488,18 +488,18 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>Макс. пользователей</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Максимальное количество пользователей разрешенное на канале</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Макс. пользователей&lt;/b&gt;&lt;br /&gt;это значение дает возможность установить максимальное количество пользователей на канале. Если значение больше нуля, то этому количеству пользователей разрешено войти на канал. Если значение равно нулю, то максимальное количество пользователей устанавливается настройками сервера.</translation>
     </message>
 </context>
 <context>
@@ -3962,7 +3962,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь переименован</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4224,7 +4224,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Обзор&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4460,7 +4460,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Тема</translation>
     </message>
     <message>
         <location/>
@@ -4727,7 +4727,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-350"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;Версия&lt;/h2&gt;&lt;p&gt;Протокол %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4809,7 +4809,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+105"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>Сервер передает сертификат, который не удалось проверить.</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4890,27 +4890,27 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+3"/>
         <source>Send Text Message</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Отправить текстовое сообщение</translation>
     </message>
     <message>
         <location line="+89"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Постоянно</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Активация по голосу</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push-to-Talk</source>
-        <translation type="unfinished"/>
+        <translation>Активация по кнопке</translation>
     </message>
     <message>
         <location line="+49"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - Минимальный режим -- %1</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -4920,17 +4920,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Сохранить картинку как...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Сохранить картинку</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно сохранить картинку: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -5095,7 +5095,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Перезагрузить Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6028,7 +6028,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>Пользователь %3 переименовал %1 в %2.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6171,12 +6171,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+269"/>
         <source>%1 renamed to %2.</source>
-        <translation type="unfinished"/>
+        <translation>%1 переименован в %2.</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 покинул канал и отключился.</translation>
     </message>
     <message>
         <location line="+127"/>
