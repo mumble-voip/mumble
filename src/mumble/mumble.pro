@@ -401,6 +401,15 @@ win32 {
     DEFINES *= USE_GKEY
   }
 
+  !CONFIG(no-xboxinput) {
+    CONFIG *= xboxinput
+  }
+  CONFIG(xboxinput) {
+    HEADERS *= XboxInput.h
+    SOURCES *= XboxInput.cpp
+    DEFINES *= USE_XBOXINPUT
+  }
+
   !CONFIG(mumble_dll) {
     !CONFIG(no-elevation) {
       CONFIG(release, debug|release) {
