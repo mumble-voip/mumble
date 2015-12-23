@@ -268,6 +268,22 @@ class ConnectDialog : public QDialog, public Ui::ConnectDialog {
 
 		bool bLastFound;
 
+		/// bAllowPing determines whether ConnectDialog can use
+		/// UDP packets to ping remote hosts to be able to show a
+		/// ping latency and user count.
+		bool bAllowPing;
+		/// bAllowHostLookup determines whether ConnectDialog can
+		/// resolve hosts via DNS, Bonjour, and so on.
+		bool bAllowHostLookup;
+		/// bAllowBonjour determines whether ConfigDialog can use
+		/// Bonjour to find nearby servers on the local network.
+		bool bAllowBonjour;
+		/// bAllowFilters determines whether filters are available
+		/// in the ConfigDialog. If this option is diabled, the
+		/// 'Show All' filter is forced, and no other filter can
+		/// be chosen.
+		bool bAllowFilters;
+
 		QMap<QString, QIcon> qmIcons;
 
 		void sendPing(const QHostAddress &, unsigned short port);
