@@ -166,3 +166,7 @@ CONFIG+=no-qssldiffiehellmanparameters
  parameters, even if the QSslDiffieHellmanParameters
  class is available in the version of Qt you are
  building against.
+
+CONFIG+=no-xboxinput (Mumble, Win32)
+ Don't build in support for global shortcuts
+ from Xbox controllers via the XInput DLL.

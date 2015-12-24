@@ -38,6 +38,10 @@
 #include "GKey.h"
 #endif
 
+#ifdef USE_XBOXINPUT
+#include "XboxInput.h"
+#endif
+
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
@@ -85,6 +89,15 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 #ifdef USE_GKEY
 		GKeyLibrary *gkey;
 #endif
+#ifdef USE_XBOXINPUT
+		/// xboxinputLastPacket holds the last packet number
+		/// that was processed. Any new data queried for a
+		/// device is only valid if the packet number is
+		/// different than last time we queried it.
+		uint32_t   xboxinputLastPacket[XBOXINPUT_MAX_DEVICES];
+		XboxInput *xboxinput;
+#endif
+
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);

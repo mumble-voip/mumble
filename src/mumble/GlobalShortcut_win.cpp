@@ -158,6 +158,14 @@ void GlobalShortcutWin::run() {
 	}
 #endif
 
+#ifdef USE_XBOXINPUT
+	if (g.s.bEnableXboxInput) {
+		xboxinput = new XboxInput();
+		ZeroMemory(&xboxinputLastPacket, sizeof(xboxinputLastPacket));
+		qWarning("GlobalShortcutWin: XboxInput initialized, isValid: %d", xboxinput->isValid());
+	}
+#endif
+
 	QTimer * timer = new QTimer(this);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeTicked()));
 	timer->start(20);
@@ -168,6 +176,10 @@ void GlobalShortcutWin::run() {
 
 #ifdef USE_GKEY
 	delete gkey;
+#endif
+
+#ifdef USE_XBOXINPUT
+	delete xboxinput;
 #endif
 
 	if (bHook) {
@@ -630,6 +642,7 @@ void GlobalShortcutWin::timeTicked() {
 			handleButton(ql, rgdod[j].dwData & 0x80);
 		}
 	}
+
 #ifdef USE_GKEY
 	if (g.s.bEnableGKey && gkey->isValid()) {
 		for (int button = GKEY_MIN_MOUSE_BUTTON; button <= GKEY_MAX_MOUSE_BUTTON; button++) {
@@ -646,6 +659,61 @@ void GlobalShortcutWin::timeTicked() {
 				ql << (key | (mode << 16));
 				ql << GKeyLibrary::quKeyboard;
 				handleButton(ql, gkey->isKeyboardGkeyPressed(key, mode));
+			}
+		}
+	}
+#endif
+
+#ifdef USE_XBOXINPUT
+	if (g.s.bEnableXboxInput && xboxinput->isValid()) {
+		XboxInputState state;
+		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
+			if (xboxinput->GetState(i, &state) == 0) {
+				// Skip the result of GetState() if the packet number hasn't changed,
+				// or if we're at the first packet.
+				if (xboxinputLastPacket[i] != 0 && state.packetNumber == xboxinputLastPacket[i]) {
+					continue;
+				}
+
+				// The buttons field of XboxInputState contains a bit
+				// for each button on the Xbox controller. The official
+				// headers enumerate the bits via XINPUT_GAMEPAD_*.
+				// The official mapping uses all 16-bits, but leaves
+				// bit 10 and 11 (counting from 0) undocumented.
+				//
+				// It turns out that bit 10 is the guide button,
+				// which can be queried using the non-public
+				// XInputGetStateEx() function.
+				//
+				// Our mapping uses the bit number as a button index.
+				// So 0x1 -> 0, 0x2 -> 1, 0x4 -> 2, and so on...
+				//
+				// However, since the buttons field is only a 16-bit value,
+				// and we also want to use the left and right triggers as
+				// buttons, we assign them the button indexes 16 and 17.
+				uint32_t buttonMask = state.buttons;
+				for (uint32_t j = 0; j < 18; j++) {
+					QList<QVariant> ql;
+
+					bool pressed = false;
+					if (j >= 16) {
+						if (j == 16) { // LeftTrigger
+							pressed = state.leftTrigger > XBOXINPUT_TRIGGER_THRESHOLD;
+						} else if (j == 17) { // RightTrigger
+							pressed = state.rightTrigger > XBOXINPUT_TRIGGER_THRESHOLD;
+						}
+					} else {
+						uint32_t currentButtonMask = (1 << j);
+						pressed = (buttonMask & currentButtonMask) != 0;
+					}
+
+					uint32_t type = (i << 24) | j;
+					ql << static_cast<uint>(type);
+					ql << XboxInput::s_XboxInputGuid;
+					handleButton(ql, pressed);
+				}
+
+				xboxinputLastPacket[i] = state.packetNumber;
 			}
 		}
 	}
@@ -682,6 +750,56 @@ QString GlobalShortcutWin::buttonName(const QVariant &v) {
 		if (isGKey) {
 			device = QLatin1String("GKey:");
 			return device + name; // Example output: "Gkey:G6/M1"
+		}
+	}
+#endif
+
+#ifdef USE_XBOXINPUT
+	if (g.s.bEnableXboxInput && xboxinput->isValid() && guid == XboxInput::s_XboxInputGuid) {
+		uint32_t idx = (type >> 24) & 0xff;
+		uint32_t button = (type & 0x00ffffffff);
+
+		// Translate from our own button index mapping to
+		// the actual Xbox controller button names.
+		// For a description of the mapping, see the state
+		// querying code in GlobalShortcutWin::timeTicked().
+		switch (button) {
+			case 0:
+				return QString::fromLatin1("Xbox%1:Up").arg(idx + 1);
+			case 1:
+				return QString::fromLatin1("Xbox%1:Down").arg(idx + 1);
+			case 2:
+				return QString::fromLatin1("Xbox%1:Left").arg(idx + 1);
+			case 3:
+				return QString::fromLatin1("Xbox%1:Right").arg(idx + 1);
+			case 4:
+				return QString::fromLatin1("Xbox%1:Start").arg(idx + 1);
+			case 5:
+				return QString::fromLatin1("Xbox%1:Back").arg(idx + 1);
+			case 6:
+				return QString::fromLatin1("Xbox%1:LeftThumb").arg(idx + 1);
+			case 7:
+				return QString::fromLatin1("Xbox%1:RightThumb").arg(idx + 1);
+			case 8:
+				return QString::fromLatin1("Xbox%1:LeftShoulder").arg(idx + 1);
+			case 9:
+				return QString::fromLatin1("Xbox%1:RightShoulder").arg(idx + 1);
+			case 10:
+				return QString::fromLatin1("Xbox%1:Guide").arg(idx + 1);
+			case 11:
+				return QString::fromLatin1("Xbox%1:11").arg(idx + 1);
+			case 12:
+				return QString::fromLatin1("Xbox%1:A").arg(idx + 1);
+			case 13:
+				return QString::fromLatin1("Xbox%1:B").arg(idx + 1);
+			case 14:
+				return QString::fromLatin1("Xbox%1:X").arg(idx + 1);
+			case 15:
+				return QString::fromLatin1("Xbox%1:Y").arg(idx + 1);
+			case 16:
+				return QString::fromLatin1("Xbox%1:LeftTrigger").arg(idx + 1);
+			case 17:
+				return QString::fromLatin1("Xbox%1:RightTrigger").arg(idx + 1);
 		}
 	}
 #endif
