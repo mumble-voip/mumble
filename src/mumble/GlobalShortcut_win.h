@@ -45,9 +45,17 @@ typedef QPair<GUID, DWORD> qpButton;
 
 struct InputDevice {
 	LPDIRECTINPUTDEVICE8 pDID;
+
+	QString name;
+
 	GUID guid;
 	QVariant vguid;
-	QString name;
+
+	GUID guidproduct;
+	QVariant vguidproduct;
+
+	uint16_t vendor_id;
+	uint16_t product_id;
 
 	// dwType to name
 	QHash<DWORD, QString> qhNames;
