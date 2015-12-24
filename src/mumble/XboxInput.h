@@ -56,6 +56,7 @@ struct XboxInputState {
 	uint16_t  leftThumbY;
 	uint16_t  rightThumbY;
 	uint16_t  rightThumbX;
+	uint32_t  paddingReserved; // Required for XInputGetStateEx. Not required for XInputGetState. 
 };
 
 /// XboxInput is an XInput wrapper that dynamically loads an appropriate
