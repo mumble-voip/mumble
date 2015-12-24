@@ -4655,7 +4655,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
         <location line="+1"/>
         <source>This will set or toggle your muted status. If you turn this off, you will also disable self-deafen.</source>
         <comment>Global Shortcut</comment>
-        <translation>Wisselt je dempen-status. Uitzetten, ontdooft jezelf ook.</translation>
+        <translation>Wisselt je dempen-status. Uitzetten ontdooft jezelf ook.</translation>
     </message>
     <message>
         <location line="+2"/>
