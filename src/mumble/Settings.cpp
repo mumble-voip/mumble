@@ -414,7 +414,7 @@ Settings::Settings() {
 	bEnableEvdev = false;
 	bEnableXInput2 = true;
 	bEnableGKey = true;
-	bEnableXboxInput = true;
+	bEnableXboxInput = false;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i) {
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
