@@ -448,10 +448,59 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	QString sname = QString::fromUtf16(reinterpret_cast<const ushort *>(pdidi->tszInstanceName));
 
 	InputDevice *id = new InputDevice;
+
 	id->pDID = NULL;
+
 	id->name = name;
+
 	id->guid = pdidi->guidInstance;
 	id->vguid = QVariant(QUuid(id->guid).toString());
+
+	id->guidproduct = pdidi->guidProduct;
+	id->vguidproduct = QVariant(QUuid(id->guidproduct).toString());
+
+	// Check for PIDVID at the end of the GUID, as
+	// per http://stackoverflow.com/q/25622780.
+	BYTE pidvid[8] = { 0, 0, 'P', 'I', 'D', 'V', 'I', 'D' };
+	if (memcmp(id->guidproduct.Data4, pidvid, 8) == 0) {
+		uint16_t vendor_id = id->guidproduct.Data1 & 0xffff;
+		uint16_t product_id = (id->guidproduct.Data1 >> 16) & 0xffff;
+
+		id->vendor_id = vendor_id;
+		id->product_id = product_id;
+	} else {
+		id->vendor_id = 0x00;
+		id->product_id = 0x00;
+	}
+
+	// Reject devices if they are blacklisted.
+	//
+	// Device Name: ODAC-revB
+	// Vendor/Product ID: 0x262A, 0x1048
+	// https://github.com/mumble-voip/mumble/issues/1977
+	//
+	// Device Name: Aune T1 MK2 - HID-compliant consumer control device
+	// Vendor/Product ID: 0x262A, 0x1168
+	// https://github.com/mumble-voip/mumble/issues/1880
+	//
+	// For now, we simply disable the 0x262A vendor ID.
+	//
+	// 0x26A is SAVITECH Corp.
+	// http://www.savitech-ic.com/, or
+	// http://www.saviaudio.com/product.html
+	// (via https://usb-ids.gowdy.us/read/UD/262a)
+	//
+	// In the future, if there are more devices in the
+	// blacklist, we need a more structured aproach.
+	{
+		if (id->vendor_id == 0x262A) {
+			qWarning("GlobalShortcutWin: rejected blacklisted device %s (GUID: %s, PGUID: %s, VID: 0x%.4x, PID: 0x%.4x)",
+			         qPrintable(id->name), qPrintable(id->vguid.toString()), qPrintable(id->vguidproduct.toString()),
+			         id->vendor_id, id->product_id);
+			delete id;
+			return DIENUM_CONTINUE;
+		}
+	}
 
 	foreach(InputDevice *dev, cbgsw->qhInputDevices) {
 		if (dev->guid == id->guid) {
