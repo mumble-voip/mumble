@@ -395,6 +395,7 @@ Settings::Settings() {
 	bSuppressMacEventTapWarning = false;
 	bEnableEvdev = false;
 	bEnableXInput2 = true;
+	bEnableXboxInput = true;
 
 	for (int i=Log::firstMsgType; i<=Log::lastMsgType; ++i)
 		qmMessages.insert(i, Settings::LogConsole | Settings::LogBalloon | Settings::LogTTS);
@@ -698,6 +699,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
 	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
+	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 
 	int nshorts = settings_ptr->beginReadArray(QLatin1String("shortcuts"));
 	for (int i=0; i<nshorts; i++) {
@@ -986,6 +988,7 @@ void Settings::save() {
 	SAVELOAD(bSuppressMacEventTapWarning, "shortcut/mac/suppresswarning");
 	SAVELOAD(bEnableEvdev, "shortcut/linux/evdev/enable");
 	SAVELOAD(bEnableXInput2, "shortcut/x11/xinput2/enable");
+	SAVELOAD(bEnableXboxInput, "shortcut/windows/xbox/enable");
 
 	settings_ptr->beginWriteArray(QLatin1String("shortcuts"));
 	int idx = 0;

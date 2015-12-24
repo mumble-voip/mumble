@@ -131,6 +131,15 @@ win32 {
     CONFIG	*= wasapi
   }
 
+  !CONFIG(no-xboxinput) {
+    CONFIG *= xboxinput
+  }
+  CONFIG(xboxinput) {
+    HEADERS *= XboxInput.h
+    SOURCES *= XboxInput.cpp
+    DEFINES *= USE_XBOXINPUT
+  }
+
   !CONFIG(no-elevation) {
     CONFIG(release, debug|release) {
       QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"

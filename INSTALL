@@ -154,3 +154,6 @@ CONFIG+=no-overlay (Mumble, Linux)
 CONFIG+=no-xinput2 (Mumble, Linux)
  Don't build support for XI2.
 
+CONFIG+=no-xboxinput (Mumble, Win32)
+ Don't build in support for global shortcuts
+ from Xbox controllers via the XInput DLL.
