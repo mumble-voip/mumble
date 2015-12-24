@@ -38,6 +38,10 @@
 #include "GKey.h"
 #endif
 
+#ifdef USE_XBOXINPUT
+#include "XboxInput.h"
+#endif
+
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
@@ -85,6 +89,12 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 #ifdef USE_GKEY
 		GKeyLibrary *gkey;
 #endif
+#ifdef USE_XBOXINPUT
+		DWORD             xinput_last_packet[XUSER_MAX_COUNT];
+		XINPUT_STATE      xinput_state[XUSER_MAX_COUNT];
+		XboxInputLibrary *xboxinput;
+#endif
+
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
 		static BOOL CALLBACK EnumDevicesCB(LPCDIDEVICEINSTANCE, LPVOID);
 		static BOOL CALLBACK EnumDeviceObjectsCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef);
