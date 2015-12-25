@@ -319,7 +319,7 @@ void MainWindow::msgUserState(const MumbleProto::UserState &msg) {
 		if (msg.has_self_deaf())
 			pDst->setSelfDeaf(msg.self_deaf());
 
-		if ((pSelf && pDst != pSelf && (pDst->cChannel == pSelf->cChannel)) || (pSelf && pDst != pSelf && ((pDst->cChannel->allLinks().contains(pSelf->cChannel))))) {
+		if (pSelf && pDst != pSelf && ((pDst->cChannel == pSelf->cChannel) || pDst->cChannel->allLinks().contains(pSelf->cChannel))) {
 			QString name = pDst->qsName;
 			if (pDst->bSelfMute && pDst->bSelfDeaf)
 				g.l->log(Log::OtherSelfMute, tr("%1 is now muted and deafened.").arg(Log::formatClientUser(pDst, Log::Target)));
