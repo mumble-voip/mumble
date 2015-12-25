@@ -75,6 +75,10 @@
 #include "TaskList.h"
 #endif
 
+#ifdef Q_OS_MAC
+#include "AppNap.h"
+#endif
+
 #ifdef USE_COCOA
 #include "ConfigDialog_macx.h"
 #endif
@@ -2662,6 +2666,11 @@ void MainWindow::serverConnected() {
 #endif
 	g.iCodecBeta = 0;
 
+#ifdef Q_OS_MAC
+	// Suppress AppNap while we're connected to a server.
+	MUSuppressAppNap(true);
+#endif
+
 	g.l->clearIgnore();
 	g.l->setIgnore(Log::UserJoin);
 	g.l->setIgnore(Log::OtherSelfMute);
@@ -2711,6 +2720,11 @@ void MainWindow::serverDisconnected(QAbstractSocket::SocketError err, QString re
 	qtvUsers->setCurrentIndex(QModelIndex());
 	qteChat->setEnabled(false);
 	updateTrayIcon();
+
+#ifdef Q_OS_MAC
+	// Remove App Nap suppression now that we're disconnected.
+	MUSuppressAppNap(false);
+#endif
 
 	QString uname, pw, host;
 	unsigned short port;
