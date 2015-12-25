@@ -44,7 +44,7 @@ QFileInfo ThemeInfo::StyleInfo::getPlatformQss() const {
 }
 
 boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig, const QString &styleId, const ThemeInfo &theme, const QDir &themeDir) {
-	QRegExp qssPlatformRegex(QLatin1String("^qss_(.*)"));
+	QRegExp qssPlatformRegex(QString::fromLatin1("^%1/qss_(.*)").arg(styleId));
 	
 	ThemeInfo::StyleInfo style;
 	
@@ -66,7 +66,7 @@ boost::optional<ThemeInfo::StyleInfo> readStyleFromConfig(QSettings &themeConfig
 		qssPlatformRegex.indexIn(platformQssConfig);
 		const QString platform = qssPlatformRegex.cap(1);
 		
-		QFileInfo platformQss = (themeDir.filePath(themeConfig.value(QString::fromLatin1("%1/%2").arg(styleId, platformQssConfig)).toString()));
+		QFileInfo platformQss = (themeDir.filePath(themeConfig.value(platformQssConfig).toString()));
 		if (!platformQss.exists() || !platformQss.isFile()) {
 			qWarning() << "Style" << style.name << " of theme " << theme.name << " references invalid qss " << platformQss.filePath() << " for platform " << platform << ", skipping theme";
 			return boost::none;
