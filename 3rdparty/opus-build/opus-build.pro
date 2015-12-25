@@ -97,7 +97,7 @@ celt/quant_bands.c \
 celt/rate.c \
 celt/vq.c
 
-win32 {
+win32|macx {
   # celt_sources.mk: CELT_SOURCES_SSE
   SOURCES *= \
   celt/x86/x86cpu.c \
@@ -107,7 +107,9 @@ win32 {
   # celt_sources.mk: CELT_SOURCES_SSE2
   SOURCES *= \
   celt/x86/pitch_sse2.c
+}
 
+win32 {
   # celt_sources.mk: CELT_SOURCES_SSE4_1
   SOURCES *= \
   celt/x86/celt_lpc_sse.c \
