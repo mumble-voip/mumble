@@ -31,6 +31,10 @@
 #ifndef MUMBLE_MUMBLE_XBOXINPUT_H_
 #define MUMBLE_MUMBLE_XBOXINPUT_H_
 
+#include <windows.h>
+#include <stdint.h>
+#include <QUuid>
+
 /// XBOXINPUT_MAX_DEVICES defines the maximum
 /// number of devices that can be connected
 /// to the system at once.
@@ -79,15 +83,15 @@ class XboxInput {
 		/// Query the state of the Xbox controller at deviceIndex.
 		/// If the function succeeds, it returns 0 (Windows's ERROR_SUCCESS).
 		/// If no device is connected, it returns 0x48F (Windows's ERROR_DEVICE_NOT_CONNECTED).
-		uint32_t (*GetState)(uint32_t deviceIndex, XboxInputState *state);
+		uint32_t (WINAPI *GetState)(uint32_t deviceIndex, XboxInputState *state);
 
 	protected:
 		/// m_getStateFunc represents XInputGetState from the XInput DLL.
-		uint32_t (*m_getStateFunc)(uint32_t deviceIndex, XboxInputState *state);
+		uint32_t (WINAPI *m_getStateFunc)(uint32_t deviceIndex, XboxInputState *state);
 
 		/// m_getStateFuncEx represents XInputGetStateEx, which is optionally
 		/// available in the XInput DLL.
-		uint32_t (*m_getStateExFunc)(uint32_t deviceIndex, XboxInputState *state);
+		uint32_t (WINAPI *m_getStateExFunc)(uint32_t deviceIndex, XboxInputState *state);
 
 		/// m_xinputlib is the handle to the XInput DLL as returned by
 		/// LoadLibrary.
