@@ -84,8 +84,8 @@
     <file alias="exported/config_ui.svg">Mumble/exported/config_ui.svg</file>
     <file alias="mimetypes/image-x-generic.svg">Mumble/mimetypes/image-x-generic.svg</file>
     <file alias="mimetypes/text-html.svg">Mumble/mimetypes/text-html.svg</file>
-    <file alias="OSX/OSX Dark.qss">Mumble/OSX/OSX Dark.qss</file>
-    <file alias="OSX/OSX Lite.qss">Mumble/OSX/OSX Lite.qss</file>
+    <file alias="OSX Dark.qss">Mumble/OSX Dark.qss</file>
+    <file alias="OSX Lite.qss">Mumble/OSX Lite.qss</file>
     <file alias="status/text-missing.svg">Mumble/status/text-missing.svg</file>
 </qresource>
 </RCC>
