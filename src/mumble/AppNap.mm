@@ -33,6 +33,7 @@
 static bool appNapSuppressed = false;
 
 void MUSuppressAppNap(bool suppress) {
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 	NSProcessInfo *processInfo = [NSProcessInfo processInfo];
 	if (![processInfo respondsToSelector:@selector(disableAutomaticTermination:)]) {
 		return;
@@ -57,4 +58,7 @@ void MUSuppressAppNap(bool suppress) {
 	appNapSuppressed = suppress;
 
 	[reason release];
+#else
+	Q_UNUSED(suppress);
+#endif
 }
