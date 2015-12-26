@@ -68,11 +68,13 @@ AboutDialog::AboutDialog(QWidget *p) : QDialog(p) {
 	QLabel *text=new QLabel(about);
 	text->setOpenExternalLinks(true);
 	text->setText(tr(
-	                  "<h3>Mumble (%1)</h3>"
-	                  "<p>Copyright %3 The Mumble team</p>"
-	                  "<p><b>A voice-chat utility for gamers</b></p>"
-	                  "<p><tt><a href=\"%2\">%2</a></tt></p>"
-	              ).arg(QLatin1String(MUMBLE_RELEASE)).arg(QLatin1String("http://www.mumble.info/")).arg(QLatin1String("2005-2014")));
+		"<h3>Mumble (%1)</h3>"
+		"<p>%3</p>"
+		"<p><b>A voice-chat utility for gamers</b></p>"
+		"<p><tt><a href=\"%2\">%2</a></tt></p>"
+	).arg(QLatin1String(MUMBLE_RELEASE))
+	 .arg(QLatin1String("http://www.mumble.info/"))
+	 .arg(QLatin1String("Copyright 2005-2015 The Mumble Developers")));
 	QHBoxLayout *qhbl=new QHBoxLayout(about);
 	qhbl->addWidget(icon);
 	qhbl->addWidget(text);
