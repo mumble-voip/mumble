@@ -137,9 +137,9 @@
 #endif
 
 // For now, only enable for OS X. We're sure
-// that OS X is x86, but we can't make the
-// same assumption for other Unix-like OSes.
-#ifdef __APPLE__
+// that modern OS X is x86-64, but we can't make
+// the same assumption for other Unix-like OSes.
+#if defined(__APPLE__) && defined(__x86_64__)
 /* Use run-time CPU capabilities detection */
 /* #undef OPUS_HAVE_RTCD */
 
