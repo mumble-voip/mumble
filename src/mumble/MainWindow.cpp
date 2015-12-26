@@ -364,12 +364,10 @@ void MainWindow::setupGui()  {
 	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowGeometry.isNull())
 		restoreGeometry(g.s.qbaMainWindowGeometry);
 
-	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
 	if (g.s.bMinimalView && ! g.s.qbaMinimalViewState.isNull())
 		restoreState(g.s.qbaMinimalViewState);
 	else if (! g.s.bMinimalView && ! g.s.qbaMainWindowState.isNull())
 		restoreState(g.s.qbaMainWindowState);
-	g.s.wlWindowLayout = wlTmp;
 
 	setupView(false);
 
@@ -562,6 +560,14 @@ void MainWindow::updateTransmitModeComboBox() {
 			qcbTransmitMode->setCurrentIndex(2);
 			return;
 	}
+}
+
+QMenu *MainWindow::createPopupMenu() {
+	if (g.s.wlWindowLayout == Settings::LayoutCustom) {
+		return QMainWindow::createPopupMenu();
+	}
+
+	return NULL;
 }
 
 Channel *MainWindow::getContextMenuChannel() {
@@ -882,9 +888,7 @@ void MainWindow::setOnTop(bool top) {
 void MainWindow::setupView(bool toggle_minimize) {
 	bool showit = ! g.s.bMinimalView;
 
-	// Update window layout
-	Settings::WindowLayout wlTmp = g.s.wlWindowLayout;
-	switch (wlTmp) {
+	switch (g.s.wlWindowLayout) {
 		case Settings::LayoutClassic:
 			removeDockWidget(qdwLog);
 			addDockWidget(Qt::LeftDockWidgetArea, qdwLog);
@@ -908,11 +912,9 @@ void MainWindow::setupView(bool toggle_minimize) {
 			qdwChat->show();
 			break;
 		default:
-			wlTmp = Settings::LayoutCustom;
 			break;
 	}
 	qteChat->updateGeometry();
-	g.s.wlWindowLayout = wlTmp;
 
 	QRect geom = frameGeometry();
 
@@ -3030,22 +3032,6 @@ void MainWindow::on_qteLog_highlighted(const QUrl &url) {
 			QToolTip::showText(QCursor::pos(), url.toString(), qteLog, QRect());
 		}
 	}
-}
-
-void MainWindow::on_qdwChat_dockLocationChanged(Qt::DockWidgetArea) {
-	g.s.wlWindowLayout = Settings::LayoutCustom;
-}
-
-void MainWindow::on_qdwLog_dockLocationChanged(Qt::DockWidgetArea) {
-	g.s.wlWindowLayout = Settings::LayoutCustom;
-}
-
-void MainWindow::on_qdwChat_visibilityChanged(bool) {
-	g.s.wlWindowLayout = Settings::LayoutCustom;
-}
-
-void MainWindow::on_qdwLog_visibilityChanged(bool) {
-	g.s.wlWindowLayout = Settings::LayoutCustom;
 }
 
 void MainWindow::context_triggered() {
