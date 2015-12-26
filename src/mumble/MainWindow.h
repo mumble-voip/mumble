@@ -187,6 +187,8 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void showEvent(QShowEvent *e) Q_DECL_OVERRIDE;
 		void changeEvent(QEvent* e) Q_DECL_OVERRIDE;
 
+		QMenu *createPopupMenu() Q_DECL_OVERRIDE;
+
 		bool handleSpecialContextMenu(const QUrl &url, const QPoint &pos_, bool focus = false);
 		Channel* getContextMenuChannel();
 		ClientUser* getContextMenuUser();
@@ -259,10 +261,6 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qteLog_customContextMenuRequested(const QPoint &pos);
 		void on_qteLog_anchorClicked(const QUrl &);
 		void on_qteLog_highlighted(const QUrl & link);
-		void on_qdwChat_dockLocationChanged(Qt::DockWidgetArea);
-		void on_qdwLog_dockLocationChanged(Qt::DockWidgetArea);
-		void on_qdwChat_visibilityChanged(bool);
-		void on_qdwLog_visibilityChanged(bool);
 		void on_PushToTalk_triggered(bool, QVariant);
 		void on_PushToMute_triggered(bool, QVariant);
 		void on_VolumeUp_triggered(bool, QVariant);
