@@ -2455,7 +2455,7 @@ Fale alto, como quando está incomodado ou animado. Diminua o volume no painel d
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Impossível validar email.&lt;br /&gt;Especifique um email válido (ou em banco) para continuar.</translation>
+        <translation>Não foi possível validar email.&lt;br /&gt;Especifique um email válido (ou em banco) para continuar.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4518,7 +4518,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>&lt;b&gt;Configures which theme the Mumble user interface should be styled with&lt;/b&gt;&lt;br /&gt;Mumble will pick up themes from certain directories and display them in this list. The one you select will be used to customize the visual appearance of Mumble. This includes colors, icons and more.</source>
-        <translation>&lt;b&gt;Configura qual o tema que deve ser usado na interface de utilizador do Mumble&lt;/b&gt;&lt;br /&gt;Mumble recolhe temas de certos diretórios e mostra-os nesta lista. Aquele que selecionar será usado para personalizar a aparência visual do Mumble. Isto incluí cor, ícones e mais.</translation>
+        <translation>&lt;b&gt;Configura qual o tema que deve ser usado na interface de utilizador do Mumble&lt;/b&gt;&lt;br /&gt;O Mumble recolhe temas de certos diretórios e mostra-os nesta lista. Aquele que selecionar será usado para personalizar a aparência visual do Mumble. Isto incluí cor, ícones, entre outros.</translation>
     </message>
 </context>
 <context>
@@ -4800,12 +4800,12 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+6"/>
         <source>&lt;p&gt;The connection provides perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;A ligação fornece &lt;i&gt;perfect forward secrecy&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&lt;p&gt;The connection does not provide perfect forward secrecy&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;A ligação não fornece &lt;i&gt;perfect forward secrecy&lt;/i&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4978,7 +4978,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Não foi possível guardar imagem: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -6077,7 +6077,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+10"/>
         <source>%1 renamed to %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%1 renomeado para %2 por %3.</translation>
     </message>
     <message>
         <location line="+51"/>
@@ -6169,7 +6169,7 @@ o seu certificado e nome de utilizador.</translation>
     <message>
         <location line="+418"/>
         <source>Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.</source>
-        <translation>Impossível encontrar decodificadores CELT correspondentes com outros clientes. Não será capaz de falar com todos utilizadores.</translation>
+        <translation>Não foi possível encontrar decodificadores CELT correspondentes com outros clientes. Não será capaz de falar com todos utilizadores.</translation>
     </message>
     <message>
         <location line="-484"/>
@@ -6570,17 +6570,17 @@ do menu de contexto do canal.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>Ajusto de Volume Local</translation>
     </message>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>Ajustar localmente o volume de voz do utilizador.</translation>
     </message>
     <message>
         <location/>
         <source>Opens a dialog with a volume slider. Use this on other users in the same room.</source>
-        <translation type="unfinished"/>
+        <translation>Abre uma caixa de diálogo com um barra de volume. Utilize noutros utilizadores no mesmo canal.</translation>
     </message>
 </context>
 <context>
@@ -8235,22 +8235,22 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source>Local volume for other users</source>
-        <translation type="unfinished"/>
+        <translation>Volume local para outros utilizadores</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Adjust the volume of other users locally&lt;/b&gt;&lt;br /&gt;Mumble supports adjusting the volume of other users locally.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Ajuste o volume doutros utilizadores localmente&lt;/b&gt;&lt;br /&gt;O Mumble suporta ajuste do volume doutros utilizadores localmente.</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>A ajustar volume local de %1</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>%1 dB</translation>
     </message>
 </context>
 <context>

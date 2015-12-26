@@ -500,7 +500,7 @@ Desgaitu &lt;i&gt;Heredatu&lt;/i&gt; goi nibeleko kanaletatik heredatzea ekidite
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>Baimendutako gehienezko jokalari kopurua kanaleko</translation>
     </message>
     <message>
         <location/>
@@ -3967,7 +3967,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User renamed</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailea berrizendatua</translation>
     </message>
     <message>
         <location line="+59"/>
@@ -4466,7 +4466,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Theme</source>
-        <translation type="unfinished"/>
+        <translation>Gaia</translation>
     </message>
     <message>
         <location/>
@@ -4926,17 +4926,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+225"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>Gorde irudia honela...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>Gorde irudi fitxategia</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>Ezin izan da irudia gorde: %1</translation>
     </message>
     <message>
         <location line="+383"/>
@@ -4958,7 +4958,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1333"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Konektatutako jokalariak: %1/%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -5101,7 +5101,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Berrabiarazi Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5605,7 +5605,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>About &amp;Speex</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Speex-ri buruz</translation>
     </message>
     <message>
         <location/>
@@ -5700,7 +5700,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>Erabiltzailea lagunetatik ezabatzen du.</translation>
     </message>
     <message>
         <location/>
@@ -6405,7 +6405,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation type="unfinished"/>
+        <translation>Lehentasun Bozgorailua</translation>
     </message>
     <message>
         <location/>
