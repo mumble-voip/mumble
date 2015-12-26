@@ -88,9 +88,12 @@ GlobalShortcutEngine *GlobalShortcutEngine::platformInit() {
 }
 
 
-GlobalShortcutWin::GlobalShortcutWin() {
-	pDI = NULL;
-	uiHardwareDevices = 0;
+GlobalShortcutWin::GlobalShortcutWin()
+	: pDI(NULL)
+#ifdef USE_XBOXINPUT
+	, xboxinput(NULL)
+#endif
+	, uiHardwareDevices(0) {
 
 	// Hidden setting to disable hooking
 	bHook = g.qs->value(QLatin1String("winhooks"), true).toBool();
