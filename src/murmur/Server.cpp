@@ -43,6 +43,7 @@
 #include "PacketDataStream.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
+#include "Version.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -360,6 +361,41 @@ Server::~Server() {
 	log("Stopped");
 }
 
+/// normalizeSuggestVersion normalizes a 'suggestversion' config value.
+/// The config value may be a version string, or a bitmasked
+/// integer representing the version.
+/// This function converts the 'suggestversion' config value to
+/// always be a bitmasked integer representation.
+///
+/// On error, the function returns an empty QVariant.
+static QVariant normalizeSuggestVersion(QVariant suggestVersion) {
+	uint integerValue = suggestVersion.toUInt();
+
+	// If the integer value is 0, it can mean two things:
+	//
+	// Either the suggestversion is set to 0.
+	// Or, the suggestversion is a version string such as "1.3.0",
+	// and cannot be converted to an integer value.
+	//
+	// We handle both cases the same: by pretending the
+	// suggestversion is a version string in both cases.
+	//
+	// If it is a version string, the call to MumbleVersion::getRaw()
+	// will return the bitmasked representation.
+	//
+	// If it is not a version string, the call to MumbleVersion::getRaw()
+	// will return 0, so it is effectively a no-op.
+	if (integerValue == 0) {
+		integerValue = MumbleVersion::getRaw(suggestVersion.toString());
+	}
+
+	if (integerValue != 0) {
+		return integerValue;
+	}
+
+	return QVariant();
+}
+
 void Server::readParams() {
 	qsPassword = Meta::mp.qsPassword;
 	usPort = static_cast<unsigned short>(Meta::mp.usPort + iServerNum - 1);
@@ -441,7 +477,7 @@ void Server::readParams() {
 	bCertRequired = getConf("certrequired", bCertRequired).toBool();
 	bForceExternalAuth = getConf("forceExternalAuth", bForceExternalAuth).toBool();
 
-	qvSuggestVersion = getConf("suggestversion", qvSuggestVersion);
+	qvSuggestVersion = normalizeSuggestVersion(getConf("suggestversion", qvSuggestVersion));
 	if (qvSuggestVersion.toUInt() == 0)
 		qvSuggestVersion = QVariant();
 
@@ -566,7 +602,7 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 	else if (key == "channelname")
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
 	else if (key == "suggestversion")
-		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestVersion;
+		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : normalizeSuggestVersion(v)) : Meta::mp.qvSuggestVersion;
 	else if (key == "suggestpositional")
 		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
