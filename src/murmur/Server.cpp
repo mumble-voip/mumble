@@ -43,6 +43,7 @@
 #include "PacketDataStream.h"
 #include "ServerDB.h"
 #include "ServerUser.h"
+#include "Version.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -441,9 +442,19 @@ void Server::readParams() {
 	bCertRequired = getConf("certrequired", bCertRequired).toBool();
 	bForceExternalAuth = getConf("forceExternalAuth", bForceExternalAuth).toBool();
 
+	// The suggestversion config option can either be an integer, containing
+	// a bit-shifted version, where 1.3.0 would be
+	//
+	//    (1 << 16) + (3 << 8) + 0) => 66053
+	//
+	// or it can be a string containing a version, such as "1.3.0".
 	qvSuggestVersion = getConf("suggestversion", qvSuggestVersion);
-	if (qvSuggestVersion.toUInt() == 0)
+	if (qvSuggestVersion.toUInt() == 0) {
+		qvSuggestVersion = MumbleVersion::getRaw(qvSuggestVersion.toString());
+	}
+	if (qvSuggestVersion.toUInt() == 0) {
 		qvSuggestVersion = QVariant();
+	}
 
 	qvSuggestPositional = getConf("suggestpositional", qvSuggestPositional);
 	if (qvSuggestPositional.toString().trimmed().isEmpty())
@@ -565,9 +576,27 @@ void Server::setLiveConf(const QString &key, const QString &value) {
 		qrUserName=!v.isNull() ? QRegExp(v) : Meta::mp.qrUserName;
 	else if (key == "channelname")
 		qrChannelName=!v.isNull() ? QRegExp(v) : Meta::mp.qrChannelName;
-	else if (key == "suggestversion")
-		qvSuggestVersion = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestVersion;
-	else if (key == "suggestpositional")
+	else if (key == "suggestversion") {
+		if (v.isNull()) {
+			qvSuggestVersion = Meta::mp.qvSuggestVersion;
+		} else {
+			// The suggestversion config option can either be an integer, containing
+			// a bit-shifted version, where 1.3.0 would be
+			//
+			//    (1 << 16) + (3 << 8) + 0) => 66053
+			//
+			// or it can be a string containing a version, such as "1.3.0".
+			uint suggestedVersion = v.toUInt();
+			if (suggestedVersion == 0) {
+				suggestedVersion = MumbleVersion::getRaw(v);
+			}
+			if (suggestedVersion != 0) {
+				qvSuggestVersion = suggestedVersion;
+			} else {
+				qvSuggestVersion = QVariant();
+			}
+		}
+	} else if (key == "suggestpositional")
 		qvSuggestPositional = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPositional;
 	else if (key == "suggestpushtotalk")
 		qvSuggestPushToTalk = ! v.isNull() ? (v.isEmpty() ? QVariant() : v) : Meta::mp.qvSuggestPushToTalk;
