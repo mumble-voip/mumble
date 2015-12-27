@@ -345,6 +345,12 @@ module Murmur
 		 *  The data in the certificate (name, email addresses etc), as well as the list of signing certificates,
 		 *  should only be trusted if certstrong is true.
 		 *
+		 *  Internally, Murmur treats usernames as case-insensitive. It is recommended
+		 *  that authenticators do the same. Murmur checks if a username is in use when
+		 *  a user connects. If the connecting user is registered, the other username is
+		 *  kicked. If the connecting user is not registered, the connecting user is not
+		 *  allowed to join the server.
+		 *
 		 *  @param name Username to authenticate.
 		 *  @param pw Password to authenticate with.
 		 *  @param certificates List of der encoded certificates the user connected with.
