@@ -399,6 +399,21 @@ void MainWindow::updateWindowTitle() {
 	setWindowTitle(title.arg(QLatin1String(MUMBLE_RELEASE)));
 }
 
+void MainWindow::updateToolbar() {
+	bool layoutIsCustom = g.s.wlWindowLayout == Settings::LayoutCustom;
+
+	qtIconToolbar->setMovable(layoutIsCustom);
+
+	// Update the toolbar so the movable flag takes effect.
+	if (layoutIsCustom) {
+		// Update the toolbar, but keep it in place.
+		addToolBar(toolBarArea(qtIconToolbar), qtIconToolbar);
+	} else {
+		// Update the toolbar, and ensure it is at the top of the window.
+		addToolBar(Qt::TopToolBarArea, qtIconToolbar);
+	}
+}
+
 // Sets whether or not to show the title bars on the MainWindow's
 // dock widgets.
 void MainWindow::setShowDockTitleBars(bool doShow) {
@@ -914,6 +929,9 @@ void MainWindow::setupView(bool toggle_minimize) {
 		default:
 			break;
 	}
+
+	updateToolbar();
+
 	qteChat->updateGeometry();
 
 	QRect geom = frameGeometry();

@@ -179,6 +179,12 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void createActions();
 		void setupGui();
 		void updateWindowTitle();
+		/// updateToolbar updates the state of the toolbar depending on the current
+		/// window layout setting.
+		/// If the window layout setting is 'custom', the toolbar is made movable. If the
+		/// window layout is not 'custom', the toolbar is locked in place at the top of
+		/// the MainWindow.
+		void updateToolbar();
 		void customEvent(QEvent *evt) Q_DECL_OVERRIDE;
 		void findDesiredChannel();
 		void setupView(bool toggle_minimize = true);
