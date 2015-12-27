@@ -149,7 +149,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 		if (u == uSource)
 			continue;
 		if (((u->iId>=0) && (u->iId == uSource->iId)) ||
-		        (u->qsName == uSource->qsName)) {
+		        (u->qsName.toLower() == uSource->qsName.toLower())) {
 			uOld = u;
 			break;
 		}
