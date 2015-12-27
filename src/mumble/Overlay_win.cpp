@@ -259,8 +259,8 @@ void OverlayPrivateWin::onHelperProcessExited(int exitCode, QProcess::ExitStatus
 	QProcess *helper = qobject_cast<QProcess *>(sender());
 
 	QString path;
-	qint64 elapsedMsec;
-	QTimer *restartTimer;
+	qint64 elapsedMsec = 0;
+	QTimer *restartTimer = NULL;
 	if (helper == m_helper_process) {
 		path = m_helper_exe_path;
 		elapsedMsec = m_helper_start_time.elapsed();
