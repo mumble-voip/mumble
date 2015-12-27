@@ -292,6 +292,34 @@ int main(int argc, char **argv) {
 		}
 	}
 
+	// The code above this block is somewhat racy, in that it might not
+	// be possible to do RPC/DBus if two processes start at almost the
+	// same.
+	//
+	// In order to be completely sure we don't open multiple copies of
+	// Mumble, we open a lock file. The file is opened without any sharing
+	// modes enabled. This gives us exclusive access to the file.
+	// If another Mumble instance attempts to open the file, it will fail,
+	// and that instance will know to terminate itself.
+#ifdef Q_OS_WIN
+	if (! bAllowMultiple) {
+		QString absoluteLockFilePath = g.qdBasePath.filePath(QLatin1String("mumble.lock"));
+		HANDLE lockFileHandle = CreateFile(
+			reinterpret_cast<const wchar_t *>(absoluteLockFilePath.utf16()),
+			GENERIC_WRITE,
+			0,
+			NULL,
+			CREATE_ALWAYS,
+			FILE_ATTRIBUTE_HIDDEN,
+			NULL
+		);
+		if (lockFileHandle == INVALID_HANDLE_VALUE && GetLastError() == ERROR_SHARING_VIOLATION) {
+			qWarning("Another process has already acquired the lock file at '%s'. Terminating...", qPrintable(absoluteLockFilePath));
+			return 1;
+		}
+	}
+#endif
+
 	// Load preferences
 	g.s.load();
 
