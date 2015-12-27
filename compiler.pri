@@ -48,6 +48,7 @@ win32 {
 	!CONFIG(no-warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
+		QMAKE_LFLAGS *= -WX
 	}
 
 	# Increase PCH heap to 150MB: https://msdn.microsoft.com/en-us/library/bdscwf1c.aspx
