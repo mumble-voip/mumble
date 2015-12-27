@@ -45,6 +45,54 @@ win32 {
 		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
 	}
 
+	# C4701: Potentially uninitialized local variable 'name' used
+	# https://msdn.microsoft.com/en-us/library/1wea5zwe.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4701
+	QMAKE_CXXFLAGS_WARN_ON *= -we4701
+
+	# C4702: unreachable code
+	# https://msdn.microsoft.com/en-us/library/c26da40e.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4702
+	QMAKE_CXXFLAGS_WARN_ON *= -we4702
+
+	# C4703: Potentially uninitialized local pointer variable 'name' used
+	# https://msdn.microsoft.com/en-us/library/jj851030.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4703
+	QMAKE_CXXFLAGS_WARN_ON *= -we4703
+
+	# C4533: Code initializing a variable will not be executed.
+	# https://msdn.microsoft.com/en-us/library/f7687yks.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4533
+	QMAKE_CXXFLAGS_WARN_ON *= -we4533
+
+	# C4706: assignment within conditional expression
+	# https://msdn.microsoft.com/en-us/library/7hw7c1he.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4706
+	QMAKE_CXXFLAGS_WARN_ON *= -we4706
+
+	# C4709: comma operator within array index expression
+	# https://msdn.microsoft.com/en-us/library/hf1ywzyy.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4709
+	QMAKE_CXXFLAGS_WARN_ON *= -we4709
+
+	# C4754: Conversion rules for arithmetic operations in
+	# a comparison mean that one branch cannot be executed.
+	# https://msdn.microsoft.com/en-us/library/dn528967.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4754
+	QMAKE_CXXFLAGS_WARN_ON *= -we4754
+
+	# C4815: 'var' : zero-sized array in stack object will have
+	# no elements (unless the object is an aggregate that has
+	# been aggregate initialized)
+	# https://msdn.microsoft.com/en-us/library/7z5xcw8w.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4815
+	QMAKE_CXXFLAGS_WARN_ON *= -we4815
+
+	# C4837: trigraph detected: '??%c' replaced by '%c'
+	# https://msdn.microsoft.com/en-us/library/cc664919.aspx
+	QMAKE_CFLAGS_WARN_ON *= -we4837
+	QMAKE_CXXFLAGS_WARN_ON *= -we4837
+
 	!CONFIG(no-warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
