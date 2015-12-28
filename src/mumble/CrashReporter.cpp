@@ -215,7 +215,7 @@ void CrashReporter::run() {
 
 		QByteArray post = os.toUtf8() + ver.toUtf8() + email.toUtf8() + descr.toUtf8() + det.toUtf8() + head.toUtf8() + qbaDumpContents + end.toUtf8();
 
-		QUrl url(QLatin1String("https://mumble.hive.no/crashreport.php"));
+		QUrl url(QLatin1String("https://crash-report.mumble.info/v1/report"));
 		QNetworkRequest req(url);
 		req.setHeader(QNetworkRequest::ContentTypeHeader, QString::fromLatin1("multipart/form-data; boundary=%1").arg(boundary));
 		req.setHeader(QNetworkRequest::ContentLengthHeader, QString::number(post.size()));
