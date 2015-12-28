@@ -45,6 +45,18 @@ win32 {
 		error("The INCLUDE environment variable is not set. Are you not in a build environment?")
 	}
 
+	CONFIG(analyze) {
+		QMAKE_CFLAGS_DEBUG *= /analyze
+		QMAKE_CXXFLAGS_DEBUG *= /analyze
+		QMAKE_CFLAGS_RELEASE *= /analyze
+		QMAKE_CXXFLAGS_RELEASE *= /analyze
+
+		# Do not treat warnings as errors when
+		# running the static analyzer.
+		# Otherwise, we won't get very far!
+		CONFIG *= no-warnings-as-errors
+	}
+
 	!CONFIG(no-warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
@@ -104,12 +116,6 @@ win32 {
 		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
 	}
 
-	CONFIG(analyze) {
-		QMAKE_CFLAGS_DEBUG *= /analyze
-		QMAKE_CXXFLAGS_DEBUG *= /analyze
-		QMAKE_CFLAGS_RELEASE *= /analyze
-		QMAKE_CXXFLAGS_RELEASE *= /analyze
-	}
 	DEFINES *= RESTRICT=
 	CONFIG(sse2) {
 	      QMAKE_CFLAGS_RELEASE -= -arch:SSE
