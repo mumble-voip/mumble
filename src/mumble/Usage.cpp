@@ -92,7 +92,7 @@ void Usage::registerUsage() {
 	qb->setData(doc.toString().toUtf8());
 	qb->open(QIODevice::ReadOnly);
 
-	QNetworkRequest req(QUrl(QLatin1String("http://mumble.info/usage.cgi")));
+	QNetworkRequest req(QUrl(QLatin1String("https://usage-report.mumble.info/v1/report")));
 	Network::prepareRequest(req);
 	req.setHeader(QNetworkRequest::ContentTypeHeader, QLatin1String("text/xml"));
 
