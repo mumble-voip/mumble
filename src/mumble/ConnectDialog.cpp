@@ -1265,7 +1265,7 @@ void ConnectDialog::initList() {
 	bPublicInit = true;
 
 	QUrl url;
-	url.setPath(QLatin1String("/list2.cgi"));
+	url.setPath(QLatin1String("/v1/list"));
 #if QT_VERSION >= 0x050000
 	QUrlQuery query;
 	query.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
@@ -1274,7 +1274,7 @@ void ConnectDialog::initList() {
 	url.addQueryItem(QLatin1String("version"), QLatin1String(MUMTEXT(MUMBLE_VERSION_STRING)));
 #endif
 
-	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
+	WebFetch::fetch(QLatin1String("publist"), url, this, SLOT(fetched(QByteArray,QUrl,QMap<QString,QString>)));
 }
 
 #ifdef USE_BONJOUR

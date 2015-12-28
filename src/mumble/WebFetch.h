@@ -52,14 +52,18 @@ class WebFetch : public QObject {
 		QObject *qoObject;
 		const char *cpSlot;
 		QNetworkReply *qnr;
+		QString m_service;
 
-		WebFetch(QUrl url, QObject *obj, const char *slot);
+		QString prefixedServiceHost() const;
+		QString serviceHost() const;
+
+		WebFetch(QString service, QUrl url, QObject *obj, const char *slot);
 	signals:
 		void fetched(QByteArray data, QUrl url, QMap<QString, QString> headers);
 	protected slots:
 		void finished();
 	public:
-		static void fetch(const QUrl &url, QObject *obj, const char *slot);
+		static void fetch(const QString &service, const QUrl &url, QObject *obj, const char *slot);
 };
 
 #endif

@@ -495,7 +495,7 @@ void Plugins::on_Timer_timeout() {
 
 void Plugins::checkUpdates() {
 	QUrl url;
-	url.setPath(QLatin1String("/plugins.php"));
+	url.setPath(QLatin1String("/v1/pa-plugins"));
 
 	QList<QPair<QString, QString> > queryItems;
 	queryItems << qMakePair(QString::fromUtf8("ver"), QString::fromUtf8(QUrl::toPercentEncoding(QString::fromUtf8(MUMBLE_RELEASE))));
@@ -528,7 +528,7 @@ void Plugins::checkUpdates() {
 		url.addQueryItem(queryPair.first, queryPair.second);
 	}
 #endif
-	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
+	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetched(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping plugin update in debug mode."));
 #endif
@@ -540,7 +540,7 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 
 	bool rescan = false;
 	const QString &urlPath = url.path();
-	if (urlPath == QLatin1String("/plugins.php")) {
+	if (urlPath == QLatin1String("/v1/pa-plugins")) {
 		qmPluginFetchMeta.clear();
 		QDomDocument doc;
 		doc.setContent(data);
@@ -629,12 +629,12 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 			if (! pfm.hash.isEmpty()) {
 				QUrl pluginDownloadUrl;
 				if (pfm.path.isEmpty()) {
-					pluginDownloadUrl.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
+					pluginDownloadUrl.setPath(QString::fromLatin1("%1").arg(i.key()));
 				} else {
 					pluginDownloadUrl.setPath(pfm.path);
 				}
 
-				WebFetch::fetch(pluginDownloadUrl, this, SLOT(fetched(QByteArray,QUrl)));
+				WebFetch::fetch(QLatin1String("pa-plugin-dl"), pluginDownloadUrl, this, SLOT(fetched(QByteArray,QUrl)));
 			}
 		}
 	} else {

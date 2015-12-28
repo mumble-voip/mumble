@@ -40,7 +40,7 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 	bSilent = autocheck;
 
 	QUrl url;
-	url.setPath(focus ? QLatin1String("/focus.php") : QLatin1String("/ver.php"));
+	url.setPath(focus ? QLatin1String("/v1/banner") : QLatin1String("/v1/version-check"));
 
 	QList<QPair<QString, QString> > queryItems;
 	queryItems << qMakePair(QString::fromLatin1("ver"), QString::fromLatin1(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
@@ -90,16 +90,16 @@ VersionCheck::VersionCheck(bool autocheck, QObject *p, bool focus) : QObject(p) 
 		url.addQueryItem(queryPair.first, queryPair.second);
 	}
 #endif
-	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
+	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetched(QByteArray,QUrl)));
 }
 
 void VersionCheck::fetched(QByteArray a, QUrl url) {
 	if (! a.isNull()) {
 		if (! a.isEmpty()) {
 #ifdef SNAPSHOT_BUILD
-			if (url.path() == QLatin1String("/focus.php")) {
+			if (url.path() == QLatin1String("/v1/banner")) {
 				g.mw->msgBox(QString::fromUtf8(a));
-			} else if (url.path() == QLatin1String("/ver.php")) {
+			} else if (url.path() == QLatin1String("/v1/version-check")) {
 #ifndef Q_OS_WIN
 				g.mw->msgBox(QString::fromUtf8(a));
 #else

@@ -303,7 +303,7 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
-	QString qsRegionalHost;
+	QString qsServicePrefix;
 
 	// Network settings - SSL
 	QString qsSslCiphers;
