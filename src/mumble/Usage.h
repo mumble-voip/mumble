@@ -44,10 +44,8 @@ class Usage : public QObject {
 		QDataStream qdsReport;
 	public:
 		Usage(QObject *p = NULL);
-		void addJitter(ClientUser *cu);
 	public slots:
 		void registerUsage();
-		void reportJitter();
 };
 
 #endif
