@@ -57,11 +57,6 @@ class ClientUser : public QObject, public User {
 		float fAverageAvailable;
 		float fLocalVolume;
 
-#ifdef REPORT_JITTER
-		QMutex qmTiming;
-		Timer tTiming;
-		QList<JitterRecord> qlTiming;
-#endif
 		int iFrames;
 		int iSequence;
 

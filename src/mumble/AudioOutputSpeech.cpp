@@ -185,26 +185,6 @@ void AudioOutputSpeech::addFrameToBuffer(const QByteArray &qbaPacket, unsigned i
 		jbp.span = samples;
 		jbp.timestamp = iFrameSize * iSeq;
 
-#ifdef REPORT_JITTER
-		if (g.s.bUsage && (umtType != MessageHandler::UDPVoiceSpeex) && p && ! p->qsHash.isEmpty() && (p->qlTiming.count() < 3000)) {
-			QMutexLocker qml(& p->qmTiming);
-
-			ClientUser::JitterRecord jr;
-			jr.iSequence = iSeq;
-			jr.iFrames = frames;
-			jr.uiElapsed = p->tTiming.restart();
-
-			if (! p->qlTiming.isEmpty()) {
-				jr.iFrames -= p->iFrames;
-				jr.iSequence -= p->iSequence + p->iFrames;
-			}
-			p->iFrames = frames;
-			p->iSequence = iSeq;
-
-			p->qlTiming.append(jr);
-		}
-#endif
-
 		jitter_buffer_put(jbJitter, &jbp);
 	}
 }
