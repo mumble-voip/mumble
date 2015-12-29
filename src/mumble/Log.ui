@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
-    <height>334</height>
+    <width>517</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -165,6 +165,25 @@
         </property>
         <property name="text">
          <string>Only accept whispers from friends</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="qgbBigMessages">
+     <property name="title">
+      <string>Oversized Text Messages</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="qcbBigMessages">
+        <property name="toolTip">
+         <string>If checked mumble will display messages witch won't fit on your screen, else you get only a warning.</string>
+        </property>
+        <property name="text">
+         <string>Show oversized messages</string>
         </property>
        </widget>
       </item>

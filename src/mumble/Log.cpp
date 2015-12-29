@@ -133,6 +133,7 @@ void LogConfig::load(const Settings &r) {
 	qcbReadBackOwn->setChecked(r.bTTSMessageReadBack);
 #endif
 	qcbWhisperFriends->setChecked(r.bWhisperFriends);
+  qcbBigMessages->setChecked(r.bBigMessages);
 }
 
 void LogConfig::save() const {
@@ -162,6 +163,7 @@ void LogConfig::save() const {
 	s.bTTSMessageReadBack = qcbReadBackOwn->isChecked();
 #endif
 	s.bWhisperFriends = qcbWhisperFriends->isChecked();
+  s.bBigMessages = qcbBigMessages->isChecked();
 }
 
 void LogConfig::accept() const {
@@ -443,19 +445,27 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	QSizeF s = qtd.size();
 
 	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
-		qtd.setPlainText(html);
-		qtd.adjustSize();
-		s = qtd.size();
+		//qtd.setPlainText(html);
+		//qtd.adjustSize();
+		//s = qtd.size();
 
-		if ((s.width() > qr.width()) || (s.height() > qr.height())) {
-			QString errorMessage = tr("[[ Text object too large to display ]]");
+		//if ((s.width() > qr.width()) || (s.height() > qr.height())) {
+		QString errorMessage = tr("[[ Text object too large to display ]]");
+		//}
+ 		QString sSound = g.s.qmMessageSounds.value(Log::MsgType(Warning));
+		AudioOutputPtr ao = g.ao;
+		if (!ao || !ao->playSample(sSound, false)) {
+			qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
+		}
+    if (!g.s.bBigMessages) {
 			if (tc) {
 				tc->insertText(errorMessage);
 				return QString();
 			} else {
 				return errorMessage;
 			}
-		}
+    }
+
 	}
 
 	if (tc) {
@@ -498,7 +508,6 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 			tc.insertHtml(tr("[Date changed to %1]\n").arg(Qt::escape(qdDate.toString(Qt::DefaultLocaleShortDate))));
 			tc.movePosition(QTextCursor::End);
 		}
-
 		if (plain.contains(QRegExp(QLatin1String("[\\r\\n]")))) {
 			QTextFrameFormat qttf;
 			qttf.setBorder(1);

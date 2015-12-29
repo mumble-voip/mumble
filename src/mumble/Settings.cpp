@@ -38,7 +38,6 @@
 #include "Log.h"
 #include "Global.h"
 #include "SSL.h"
-
 #include "../../overlay/overlay.h"
 
 bool Shortcut::isServerSpecific() const {
@@ -281,6 +280,7 @@ Settings::Settings() {
 	bUserTop = true;
 
 	bWhisperFriends = false;
+  bBigMessages = true;
 
 	uiDoublePush = 0;
 	pttHold = 0;
@@ -612,6 +612,8 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
+  
+ 
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
@@ -765,6 +767,8 @@ void Settings::load(QSettings* settings_ptr) {
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
 	settings_ptr->endArray();
+	// or on a other position in source and/or category
+  SAVELOAD(bBigMessages, "chat/bigmessage");
 
 	settings_ptr->beginReadArray(QLatin1String("messagesounds"));
 	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {
@@ -1065,7 +1069,10 @@ void Settings::save() {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
+  
 	settings_ptr->endArray();
+	// or on a other position in source and/or category
+  SAVELOAD(bBigMessages, "chat/bigmessage");
 
 	settings_ptr->beginWriteArray(QLatin1String("messagesounds"));
 	for (QMap<int, QString>::const_iterator it = qmMessageSounds.constBegin(); it != qmMessageSounds.constEnd(); ++it) {

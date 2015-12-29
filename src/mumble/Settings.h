@@ -186,6 +186,7 @@ struct Settings {
 	bool bTTS;
 	bool bUserTop;
 	bool bWhisperFriends;
+  bool bBigMessages;
 	bool bTTSMessageReadBack;
 	int iTTSVolume, iTTSThreshold;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
