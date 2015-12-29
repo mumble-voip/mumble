@@ -662,7 +662,7 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
-	SAVELOAD(qsRegionalHost, "net/region");
+	SAVELOAD(qsServicePrefix, "net/serviceprefix");
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
@@ -970,7 +970,7 @@ void Settings::save() {
 	SAVELOAD(iMaxImageSize, "net/maximagesize");
 	SAVELOAD(iMaxImageWidth, "net/maximagewidth");
 	SAVELOAD(iMaxImageHeight, "net/maximageheight");
-	SAVELOAD(qsRegionalHost, "net/region");
+	SAVELOAD(qsServicePrefix, "net/serviceprefix");
 
 	// Network settings - SSL
 	SAVELOAD(qsSslCiphers, "net/sslciphers");
