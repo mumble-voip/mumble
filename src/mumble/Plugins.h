@@ -104,7 +104,8 @@ class Plugins : public QObject {
 		void rescanPlugins();
 		bool fetch();
 		void checkUpdates();
-		void fetched(QByteArray, QUrl);
+		void fetchedUpdatePAPlugins(QByteArray, QUrl);
+		void fetchedPAPluginDL(QByteArray, QUrl);
 };
 
 #endif

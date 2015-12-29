@@ -303,7 +303,17 @@ struct Settings {
 	ProxyType ptProxyType;
 	QString qsProxyHost, qsProxyUsername, qsProxyPassword;
 	unsigned short usProxyPort;
-	QString qsRegionalHost;
+
+	/// The service prefix that the WebFetch class will use
+	/// when it constructs its fully-qualified URL. If this
+	/// is empty, no prefix is used.
+	///
+	/// When the WebFetch class receives a HTTP response which
+	/// includes the header "Use-Service-Prefix", this setting
+	/// is updated to reflect the received service prefix.
+	///
+	/// For more information, see the documentation for WebFetch::fetch().
+	QString qsServicePrefix;
 
 	// Network settings - SSL
 	QString qsSslCiphers;

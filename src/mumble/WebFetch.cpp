@@ -35,17 +35,34 @@
 #include "Global.h"
 #include "NetworkConfig.h"
 
-WebFetch::WebFetch(QUrl url, QObject *obj, const char *slot) : QObject(), qoObject(obj), cpSlot(slot) {
-	url.setScheme(QLatin1String("http"));
+WebFetch::WebFetch(QString service, QUrl url, QObject *obj, const char *slot)
+	: QObject()
+	, qoObject(obj)
+	, cpSlot(slot)
+	, m_service(service) {
 
-	// Fix in case the regional host is broken
-	url.setHost(g.s.qsRegionalHost);
-	if (url.host() != g.s.qsRegionalHost)
-		url.setHost(QLatin1String("mumble.info"));
+	url.setScheme(QLatin1String("https"));
+
+	if (!g.s.qsServicePrefix.isEmpty()) {
+		url.setHost(prefixedServiceHost());
+	} else {
+		url.setHost(serviceHost());
+	}
 
 	qnr = Network::get(url);
 	connect(qnr, SIGNAL(finished()), this, SLOT(finished()));
 	connect(this, SIGNAL(fetched(QByteArray,QUrl,QMap<QString,QString>)), obj, slot);
+}
+
+QString WebFetch::prefixedServiceHost() const {
+	if (g.s.qsServicePrefix.isEmpty()) {
+		return serviceHost();
+	}
+	return QString::fromLatin1("%1-%2.mumble.info").arg(g.s.qsServicePrefix, m_service);
+}
+
+QString WebFetch::serviceHost() const {
+	return QString::fromLatin1("%1.mumble.info").arg(m_service);
 }
 
 static QString fromUtf8(const QByteArray &qba) {
@@ -76,20 +93,19 @@ void WebFetch::finished() {
 			QString value = fromUtf8(qnr->rawHeader(headerName));
 			if (! name.isEmpty() && ! value.isEmpty()) {
 				headers.insert(name, value);
-				if (name == QLatin1String("Geo-Country-Code"))
-					g.s.qsRegionalHost = value.toLower() + QLatin1String(".mumble.info");
+				if (name == QLatin1String("Use-Service-Prefix")) {
+					QRegExp servicePrefixRegExp(QLatin1String("^[a-zA-Z]+$"));
+					if (servicePrefixRegExp.exactMatch(value)) {
+						g.s.qsServicePrefix = value.toLower();
+					}
+				}
 			}
 		}
 
 		emit fetched(a, url, headers);
 		deleteLater();
-	} else if (url.host() == g.s.qsRegionalHost) {
-		url.setHost(QLatin1String("mumble.info"));
-
-		qnr = Network::get(url);
-		connect(qnr, SIGNAL(finished()), this, SLOT(finished()));
-	} else if (url.host() == QLatin1String("mumble.info")) {
-		url.setHost(QLatin1String("panic.mumble.info"));
+	} else if (url.host() == prefixedServiceHost()) {
+		url.setHost(serviceHost());
 
 		qnr = Network::get(url);
 		connect(qnr, SIGNAL(finished()), this, SLOT(finished()));
@@ -107,11 +123,12 @@ void WebFetch::finished() {
  * @param obj Object to invoke slot on.
  * @param slot Slot to be triggered, invoked with the signature of \link fetched.
  */
-void WebFetch::fetch(const QUrl &url, QObject *obj, const char *slot) {
+void WebFetch::fetch(const QString &service, const QUrl &url, QObject *obj, const char *slot) {
+	Q_ASSERT(!service.isEmpty());
 	Q_ASSERT(url.scheme().isEmpty());
 	Q_ASSERT(url.host().isEmpty());
 	Q_ASSERT(obj);
 	Q_ASSERT(slot);
 
-	new WebFetch(url, obj, slot);
+	new WebFetch(service, url, obj, slot);
 }

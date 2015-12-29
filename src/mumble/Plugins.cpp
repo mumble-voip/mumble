@@ -495,7 +495,7 @@ void Plugins::on_Timer_timeout() {
 
 void Plugins::checkUpdates() {
 	QUrl url;
-	url.setPath(QLatin1String("/plugins.php"));
+	url.setPath(QLatin1String("/v1/pa-plugins"));
 
 	QList<QPair<QString, QString> > queryItems;
 	queryItems << qMakePair(QString::fromUtf8("ver"), QString::fromUtf8(QUrl::toPercentEncoding(QString::fromUtf8(MUMBLE_RELEASE))));
@@ -528,42 +528,75 @@ void Plugins::checkUpdates() {
 		url.addQueryItem(queryPair.first, queryPair.second);
 	}
 #endif
-	WebFetch::fetch(url, this, SLOT(fetched(QByteArray,QUrl)));
+	WebFetch::fetch(QLatin1String("update"), url, this, SLOT(fetchedUpdatePAPlugins(QByteArray,QUrl)));
 #else
 	g.mw->msgBox(tr("Skipping plugin update in debug mode."));
 #endif
 }
 
-void Plugins::fetched(QByteArray data, QUrl url) {
+void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl url) {
 	if (data.isNull())
 		return;
 
 	bool rescan = false;
-	const QString &urlPath = url.path();
-	if (urlPath == QLatin1String("/plugins.php")) {
-		qmPluginFetchMeta.clear();
-		QDomDocument doc;
-		doc.setContent(data);
+	qmPluginFetchMeta.clear();
+	QDomDocument doc;
+	doc.setContent(data);
 
-		QDomElement root=doc.documentElement();
-		QDomNode n = root.firstChild();
-		while (!n.isNull()) {
-			QDomElement e = n.toElement();
-			if (!e.isNull()) {
-				if (e.tagName() == QLatin1String("plugin")) {
-					QString name = QFileInfo(e.attribute(QLatin1String("name"))).fileName();
-					QString hash = e.attribute(QLatin1String("hash"));
-					QString path = e.attribute(QLatin1String("path"));
-					qmPluginFetchMeta.insert(name, PluginFetchMeta(hash, path));
+	QDomElement root=doc.documentElement();
+	QDomNode n = root.firstChild();
+	while (!n.isNull()) {
+		QDomElement e = n.toElement();
+		if (!e.isNull()) {
+			if (e.tagName() == QLatin1String("plugin")) {
+				QString name = QFileInfo(e.attribute(QLatin1String("name"))).fileName();
+				QString hash = e.attribute(QLatin1String("hash"));
+				QString path = e.attribute(QLatin1String("path"));
+				qmPluginFetchMeta.insert(name, PluginFetchMeta(hash, path));
+			}
+		}
+		n = n.nextSibling();
+	}
+
+	QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+	QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
+
+	QFileInfoList libs = qd.entryInfoList();
+	foreach(const QFileInfo &libinfo, libs) {
+		QString libname = libinfo.absoluteFilePath();
+		QString filename = libinfo.fileName();
+		PluginFetchMeta pfm = qmPluginFetchMeta.value(filename);
+		QString wanthash = pfm.hash;
+		if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
+			QFile f(libname);
+			if (wanthash.isEmpty()) {
+				// Outdated plugin
+				if (f.exists()) {
+					clearPlugins();
+					f.remove();
+					rescan=true;
+				}
+			} else if (f.open(QIODevice::ReadOnly)) {
+				QString h = QLatin1String(sha1(f.readAll()).toHex());
+				f.close();
+				if (h == wanthash) {
+					if (qd != qdu) {
+						QFile qfuser(qsUserPlugins + QString::fromLatin1("/") + filename);
+						if (qfuser.exists()) {
+							clearPlugins();
+							qfuser.remove();
+							rescan=true;
+						}
+					}
+					// Mark for removal from userplugins
+					qmPluginFetchMeta.insert(filename, PluginFetchMeta());
 				}
 			}
-			n = n.nextSibling();
 		}
+	}
 
-		QDir qd(qsSystemPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-		QDir qdu(qsUserPlugins, QString(), QDir::Name, QDir::Files | QDir::Readable);
-
-		QFileInfoList libs = qd.entryInfoList();
+	if (qd != qdu) {
+		libs = qdu.entryInfoList();
 		foreach(const QFileInfo &libinfo, libs) {
 			QString libname = libinfo.absoluteFilePath();
 			QString filename = libinfo.fileName();
@@ -582,127 +615,102 @@ void Plugins::fetched(QByteArray data, QUrl url) {
 					QString h = QLatin1String(sha1(f.readAll()).toHex());
 					f.close();
 					if (h == wanthash) {
-						if (qd != qdu) {
-							QFile qfuser(qsUserPlugins + QString::fromLatin1("/") + filename);
-							if (qfuser.exists()) {
-								clearPlugins();
-								qfuser.remove();
-								rescan=true;
-							}
-						}
-						// Mark for removal from userplugins
-						qmPluginFetchMeta.insert(filename, PluginFetchMeta());
+						qmPluginFetchMeta.remove(filename);
 					}
 				}
 			}
 		}
-
-		if (qd != qdu) {
-			libs = qdu.entryInfoList();
-			foreach(const QFileInfo &libinfo, libs) {
-				QString libname = libinfo.absoluteFilePath();
-				QString filename = libinfo.fileName();
-				PluginFetchMeta pfm = qmPluginFetchMeta.value(filename);
-				QString wanthash = pfm.hash;
-				if (! wanthash.isNull() && QLibrary::isLibrary(libname)) {
-					QFile f(libname);
-					if (wanthash.isEmpty()) {
-						// Outdated plugin
-						if (f.exists()) {
-							clearPlugins();
-							f.remove();
-							rescan=true;
-						}
-					} else if (f.open(QIODevice::ReadOnly)) {
-						QString h = QLatin1String(sha1(f.readAll()).toHex());
-						f.close();
-						if (h == wanthash) {
-							qmPluginFetchMeta.remove(filename);
-						}
-					}
-				}
+	}
+	QMap<QString, PluginFetchMeta>::const_iterator i;
+	for (i = qmPluginFetchMeta.constBegin(); i != qmPluginFetchMeta.constEnd(); ++i) {
+		PluginFetchMeta pfm = i.value();
+		if (! pfm.hash.isEmpty()) {
+			QUrl pluginDownloadUrl;
+			if (pfm.path.isEmpty()) {
+				pluginDownloadUrl.setPath(QString::fromLatin1("%1").arg(i.key()));
+			} else {
+				pluginDownloadUrl.setPath(pfm.path);
 			}
-		}
-		QMap<QString, PluginFetchMeta>::const_iterator i;
-		for (i = qmPluginFetchMeta.constBegin(); i != qmPluginFetchMeta.constEnd(); ++i) {
-			PluginFetchMeta pfm = i.value();
-			if (! pfm.hash.isEmpty()) {
-				QUrl pluginDownloadUrl;
-				if (pfm.path.isEmpty()) {
-					pluginDownloadUrl.setPath(QString::fromLatin1("plugins/%1").arg(i.key()));
-				} else {
-					pluginDownloadUrl.setPath(pfm.path);
-				}
 
-				WebFetch::fetch(pluginDownloadUrl, this, SLOT(fetched(QByteArray,QUrl)));
-			}
+			WebFetch::fetch(QLatin1String("pa-plugin-dl"), pluginDownloadUrl, this, SLOT(fetchedPAPluginDL(QByteArray,QUrl)));
 		}
-	} else {
-		QString fname = QFileInfo(urlPath).fileName();
-		if (qmPluginFetchMeta.contains(fname)) {
-			PluginFetchMeta pfm = qmPluginFetchMeta.value(fname);
-			if (pfm.hash == QLatin1String(sha1(data).toHex())) {
-				bool verified = true;
+	}
+
+	if (rescan)
+		rescanPlugins();
+}
+
+void Plugins::fetchedPAPluginDL(QByteArray data, QUrl url) {
+	if (data.isNull())
+		return;
+
+	bool rescan = false;
+
+	const QString &urlPath = url.path();
+	QString fname = QFileInfo(urlPath).fileName();
+	if (qmPluginFetchMeta.contains(fname)) {
+		PluginFetchMeta pfm = qmPluginFetchMeta.value(fname);
+		if (pfm.hash == QLatin1String(sha1(data).toHex())) {
+			bool verified = true;
 #ifdef Q_OS_WIN
-				verified = false;
-				QString tempname;
-				std::wstring tempnative;
-				{
-					QTemporaryFile temp(QDir::tempPath() + QLatin1String("/plugin_XXXXXX.dll"));
-					if (temp.open()) {
-						tempname = temp.fileName();
-						tempnative = QDir::toNativeSeparators(tempname).toStdWString();
-						temp.write(data);
-						temp.setAutoRemove(false);
-					}
+			verified = false;
+			QString tempname;
+			std::wstring tempnative;
+			{
+				QTemporaryFile temp(QDir::tempPath() + QLatin1String("/plugin_XXXXXX.dll"));
+				if (temp.open()) {
+					tempname = temp.fileName();
+					tempnative = QDir::toNativeSeparators(tempname).toStdWString();
+					temp.write(data);
+					temp.setAutoRemove(false);
 				}
-				if (! tempname.isNull()) {
-					WINTRUST_FILE_INFO file;
-					ZeroMemory(&file, sizeof(file));
-					file.cbStruct = sizeof(file);
-					file.pcwszFilePath = tempnative.c_str();
+			}
+			if (! tempname.isNull()) {
+				WINTRUST_FILE_INFO file;
+				ZeroMemory(&file, sizeof(file));
+				file.cbStruct = sizeof(file);
+				file.pcwszFilePath = tempnative.c_str();
 
-					WINTRUST_DATA data;
-					ZeroMemory(&data, sizeof(data));
-					data.cbStruct = sizeof(data);
-					data.dwUIChoice = WTD_UI_NONE;
-					data.fdwRevocationChecks = WTD_REVOKE_NONE;
-					data.dwUnionChoice = WTD_CHOICE_FILE;
-					data.pFile = &file;
-					data.dwProvFlags = WTD_SAFER_FLAG | WTD_USE_DEFAULT_OSVER_CHECK | WTD_LIFETIME_SIGNING_FLAG;
-					data.dwUIContext = WTD_UICONTEXT_INSTALL;
+				WINTRUST_DATA data;
+				ZeroMemory(&data, sizeof(data));
+				data.cbStruct = sizeof(data);
+				data.dwUIChoice = WTD_UI_NONE;
+				data.fdwRevocationChecks = WTD_REVOKE_NONE;
+				data.dwUnionChoice = WTD_CHOICE_FILE;
+				data.pFile = &file;
+				data.dwProvFlags = WTD_SAFER_FLAG | WTD_USE_DEFAULT_OSVER_CHECK | WTD_LIFETIME_SIGNING_FLAG;
+				data.dwUIContext = WTD_UICONTEXT_INSTALL;
 
-					static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
+				static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
 
-					LONG ts = WinVerifyTrust(0, &guid , &data);
+				LONG ts = WinVerifyTrust(0, &guid , &data);
 
-					QFile deltemp(tempname);
-					deltemp.remove();
-					verified = (ts == 0);
-				}
+				QFile deltemp(tempname);
+				deltemp.remove();
+				verified = (ts == 0);
+			}
 #endif
-				if (verified) {
-					clearPlugins();
+			if (verified) {
+				clearPlugins();
 
-					QFile f;
-					f.setFileName(qsSystemPlugins + QLatin1String("/") + fname);
+				QFile f;
+				f.setFileName(qsSystemPlugins + QLatin1String("/") + fname);
+				if (f.open(QIODevice::WriteOnly)) {
+					f.write(data);
+					f.close();
+					g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
+				} else {
+					f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
 					if (f.open(QIODevice::WriteOnly)) {
 						f.write(data);
 						f.close();
 						g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
 					} else {
-						f.setFileName(qsUserPlugins + QLatin1String("/") + fname);
-						if (f.open(QIODevice::WriteOnly)) {
-							f.write(data);
-							f.close();
-							g.mw->msgBox(tr("Downloaded new or updated plugin to %1.").arg(Qt::escape(f.fileName())));
-						} else {
-							g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(Qt::escape(f.fileName())));
-						}
+						g.mw->msgBox(tr("Failed to install new plugin to %1.").arg(Qt::escape(f.fileName())));
 					}
-
-					rescan=true;
 				}
+
+				rescan=true;
 			}
 		}
 	}
