@@ -445,19 +445,13 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 	QSizeF s = qtd.size();
 
 	if (!valid || (s.width() > qr.width()) || (s.height() > qr.height())) {
-		//qtd.setPlainText(html);
-		//qtd.adjustSize();
-		//s = qtd.size();
-
-		//if ((s.width() > qr.width()) || (s.height() > qr.height())) {
-		QString errorMessage = tr("[[ Text object too large to display ]]");
-		//}
  		QString sSound = g.s.qmMessageSounds.value(Log::MsgType(Warning));
 		AudioOutputPtr ao = g.ao;
 		if (!ao || !ao->playSample(sSound, false)) {
 			qWarning() << "Sound file" << sSound << "is not a valid audio file, fallback to TTS.";
 		}
     if (!g.s.bBigMessages) {
+      QString errorMessage = tr("[[ Text object too large to display ]]");
 			if (tc) {
 				tc->insertText(errorMessage);
 				return QString();
@@ -465,7 +459,6 @@ QString Log::validHtml(const QString &html, bool allowReplacement, QTextCursor *
 				return errorMessage;
 			}
     }
-
 	}
 
 	if (tc) {

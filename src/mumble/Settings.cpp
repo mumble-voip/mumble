@@ -612,8 +612,6 @@ void Settings::load(QSettings* settings_ptr) {
 	SAVELOAD(qsAudioInput, "audio/input");
 	SAVELOAD(qsAudioOutput, "audio/output");
 	SAVELOAD(bWhisperFriends, "audio/whisperfriends");
-  
- 
 	SAVELOAD(bTransmitPosition, "audio/postransmit");
 
 	SAVELOAD(iJitterBufferSize, "net/jitterbuffer");
@@ -1069,7 +1067,6 @@ void Settings::save() {
 		settings_ptr->setArrayIndex(it.key());
 		SAVELOAD(qmMessages[it.key()], "log");
 	}
-  
 	settings_ptr->endArray();
 	// or on a other position in source and/or category
   SAVELOAD(bBigMessages, "chat/bigmessage");
