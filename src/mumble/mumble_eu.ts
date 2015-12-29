@@ -699,11 +699,11 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <location line="+30"/>
-        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;Copyright %3 The Mumble team&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
+        <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+12"/>
         <source>&amp;About Mumble</source>
         <translation>Mumble-ri &amp;Buruz</translation>
     </message>
@@ -977,21 +977,6 @@ This value allows you to set the maximum number of users allowed in the channel.
     </message>
     <message>
         <location/>
-        <source>Mixed</source>
-        <translation>Nahastua</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Multichannel</source>
-        <translation>Multi-kanala</translation>
-    </message>
-    <message>
-        <location/>
-        <source>Echo</source>
-        <translation>Oihartzuna</translation>
-    </message>
-    <message>
-        <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
         <translation type="unfinished"/>
     </message>
@@ -1111,7 +1096,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <translation>PTT tekla aske utzi ondoren, mikrofonoa irekia dagoen denbora.</translation>
     </message>
     <message>
-        <location filename="AudioInput.cpp" line="+529"/>
+        <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
         <translation>Zerbitzariko gehienezko sare banda zabalera %1 kbit/s-koa da soilik. Audio kalitatea automatikoki doitua dago %2 kbit/s-ra (%3 ms)</translation>
     </message>
@@ -1149,6 +1134,21 @@ This value allows you to set the maximum number of users allowed in the channel.
         <location/>
         <source>after</source>
         <translation>ondoren</translation>
+    </message>
+    <message>
+        <location/>
+        <source>Echo Cancellation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Mixed echo cancellation</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>Multichannel echo cancellation</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -2486,7 +2486,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
         <translation>Mumble erabiltzailea</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="+474"/>
+        <location filename="main.cpp" line="+494"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
         <translation type="unfinished"/>
     </message>
@@ -3086,18 +3086,18 @@ adierazten du.</translation>
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.cpp" line="+996"/>
+        <location filename="ConnectDialog.cpp" line="+1022"/>
         <source>Connecting to %1</source>
         <translation>%1-era konektatzen</translation>
     </message>
     <message>
-        <location line="-591"/>
-        <location line="+591"/>
+        <location line="-617"/>
+        <location line="+617"/>
         <source>Enter username</source>
         <translation>Sartu erabiltzailea</translation>
     </message>
     <message>
-        <location line="-591"/>
+        <location line="-617"/>
         <source>Adding host %1</source>
         <translation>%1 ostalaria gehitzen</translation>
     </message>
@@ -3164,18 +3164,18 @@ adierazten du.</translation>
         <translation>%1 kbit/s</translation>
     </message>
     <message>
-        <location line="+345"/>
+        <location line="+350"/>
         <source>&amp;Connect</source>
         <translation>&amp;Konektatu</translation>
     </message>
     <message>
-        <location line="+57"/>
+        <location line="+74"/>
         <source>&amp;Filters</source>
         <translation>&amp;Iragazkiak</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
-        <location filename="ConnectDialog.cpp" line="-401"/>
+        <location filename="ConnectDialog.cpp" line="-423"/>
         <source>Users</source>
         <translation>Erabiltzaileak</translation>
     </message>
@@ -3185,7 +3185,7 @@ adierazten du.</translation>
         <translation>Bertsioa</translation>
     </message>
     <message>
-        <location line="+1099"/>
+        <location line="+1143"/>
         <source>Failed to fetch server list</source>
         <translation>Zerbitzari zerrenda eskuratzen huts egin du</translation>
     </message>
@@ -3246,7 +3246,7 @@ adierazten du.</translation>
     </message>
     <message>
         <location/>
-        <location filename="ConnectDialog.cpp" line="-747"/>
+        <location filename="ConnectDialog.cpp" line="-786"/>
         <source>&amp;Edit...</source>
         <translation>&amp;Editatu</translation>
     </message>
@@ -3355,7 +3355,7 @@ Zerbitzariarian erabiliko duzun erabiltzaile izena. Kontuan hartu zerbitzariak i
         <translation>Etiketa</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="-121"/>
+        <location filename="ConnectDialog.cpp" line="-126"/>
         <source>Add Server</source>
         <translation>Gehitu zerbitzaria</translation>
     </message>
@@ -3541,7 +3541,7 @@ Zerbitzariaren etika. Zerbitzari zerrendan agertuko zaizun izena ezartzen du, ed
 <context>
     <name>Database</name>
     <message>
-        <location filename="Database.cpp" line="+118"/>
+        <location filename="Database.cpp" line="+117"/>
         <source>Mumble failed to initialize a database in any
 of the possible locations.</source>
         <translation type="unfinished"/>
@@ -3647,7 +3647,12 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutConfig</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="+654"/>
+        <location filename="GlobalShortcut.cpp" line="+565"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location line="+115"/>
         <source>Shortcuts</source>
         <translation>Laster-teklak</translation>
     </message>
@@ -3759,7 +3764,7 @@ of the possible locations.</source>
 <context>
     <name>GlobalShortcutX</name>
     <message>
-        <location filename="GlobalShortcut_unix.cpp" line="+378"/>
+        <location filename="GlobalShortcut_unix.cpp" line="+379"/>
         <source>Mouse %1</source>
         <translation>Sagua %1</translation>
     </message>
@@ -4482,13 +4487,13 @@ This field describes the size of an LCD device. The size is given either in pixe
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.cpp" line="+141"/>
-        <location line="+2542"/>
+        <location filename="MainWindow.cpp" line="+145"/>
+        <location line="+2561"/>
         <source>Root</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location line="-2488"/>
+        <location line="-2507"/>
         <source>Push-to-Talk</source>
         <comment>Global Shortcut</comment>
         <translation>Sakatu-hitz-egiteko</translation>
@@ -4566,29 +4571,29 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location filename="MainWindow.cpp" line="+4"/>
-        <location line="+155"/>
-        <location line="+2477"/>
+        <location line="+153"/>
+        <location line="+2503"/>
         <source>Mumble -- %1</source>
         <translation>Mumble -- %1</translation>
     </message>
     <message>
-        <location line="-2605"/>
+        <location line="-2629"/>
         <source>&amp;Window</source>
         <translation>&amp;Leihoa</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location line="+171"/>
+        <location line="+184"/>
         <source>Minimize</source>
         <translation>Txikitu</translation>
     </message>
     <message>
-        <location line="-171"/>
+        <location line="-184"/>
         <source>Ctrl+M</source>
         <translation>Ktrl+M</translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+183"/>
         <source>Close</source>
         <translation>Itxi</translation>
     </message>
@@ -4598,7 +4603,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mumble zerbitzari batera dago konektatuta orain. Itxi edo Minimizatu nahi al duzu?</translation>
     </message>
     <message>
-        <location line="-234"/>
+        <location line="-247"/>
         <source>Mute Self</source>
         <comment>Global Shortcut</comment>
         <translation>Mututu</translation>
@@ -4641,13 +4646,13 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+75"/>
-        <location line="+2621"/>
+        <location line="+2645"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
         <translation>&lt;center&gt;Konektatu gabe&lt;/center&gt;</translation>
     </message>
     <message>
-        <location line="-2267"/>
+        <location line="-2270"/>
         <source>Clear</source>
         <translation>Garbitu</translation>
     </message>
@@ -4693,7 +4698,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+15"/>
-        <location line="+206"/>
+        <location line="+205"/>
         <source>Connecting to server %1.</source>
         <translation>%1 zerbitzarira konektatzen.</translation>
     </message>
@@ -4704,12 +4709,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+76"/>
-        <location line="+1492"/>
+        <location line="+1486"/>
         <source>Transmit Mode set to Continuous</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-1398"/>
+        <location line="-1392"/>
         <source>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</source>
         <translation>&lt;p&gt;%1 (%2)&lt;br /&gt;%3&lt;/p&gt;</translation>
     </message>
@@ -4720,18 +4725,18 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="-173"/>
-        <location line="+449"/>
+        <location line="+443"/>
         <source>Register yourself as %1</source>
         <translation>Erregistratu zure burua %1 bezala </translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-443"/>
+        <location line="+443"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="-350"/>
+        <location line="-344"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
         <translation type="unfinished"/>
     </message>
@@ -4776,7 +4781,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+280"/>
+        <location line="+274"/>
         <source>Register user %1</source>
         <translation>Erregistratu %1 erabiltzailea</translation>
     </message>
@@ -4808,12 +4813,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Mezua %1 kanalera</translation>
     </message>
     <message>
-        <location line="+50"/>
+        <location line="+55"/>
         <source>Connected.</source>
         <translation>Konektatuta.</translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+110"/>
         <source>Server presented a certificate which failed verification.</source>
         <translation type="unfinished"/>
     </message>
@@ -4835,7 +4840,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+125"/>
+        <location line="+109"/>
         <source>Choose image file</source>
         <translation>Irudi fitxategia aukeratu</translation>
     </message>
@@ -4858,7 +4863,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Irudi formatua ez da ezagutzen.</translation>
     </message>
     <message>
-        <location line="-2945"/>
+        <location line="-2953"/>
         <source>&amp;User</source>
         <translation>&amp;Erabiltzailea</translation>
     </message>
@@ -4914,17 +4919,17 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Sakatu-hitz-egiteko</translation>
     </message>
     <message>
-        <location line="+49"/>
+        <location line="+47"/>
         <source>Mumble - Minimal View -- %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+48"/>
+        <location line="+63"/>
         <source>Cancel</source>
         <translation>Ezeztatu</translation>
     </message>
     <message>
-        <location line="+225"/>
+        <location line="+233"/>
         <source>Save Image As...</source>
         <translation>Gorde irudia honela...</translation>
     </message>
@@ -4939,24 +4944,24 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Ezin izan da irudia gorde: %1</translation>
     </message>
     <message>
-        <location line="+383"/>
+        <location line="+382"/>
         <source>Change your comment</source>
         <translation>Aldatu zure iruzkina</translation>
     </message>
     <message>
         <location line="+41"/>
-        <location line="+1479"/>
+        <location line="+1473"/>
         <source>Transmit Mode set to Voice Activity</source>
         <translation>Igorpen modua ezarria: ahotsa detektatzean</translation>
     </message>
     <message>
-        <location line="-1474"/>
-        <location line="+1478"/>
+        <location line="-1468"/>
+        <location line="+1472"/>
         <source>Transmit Mode set to Push-to-Talk</source>
         <translation>Igorpen modua ezarria: zapaldu hitz egiteko</translation>
     </message>
     <message>
-        <location line="-1333"/>
+        <location line="-1327"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
         <translation>&lt;p&gt;Konektatutako jokalariak: %1/%2&lt;/p&gt;</translation>
     </message>
@@ -5007,12 +5012,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     </message>
     <message>
         <location line="+4"/>
-        <location line="+1501"/>
+        <location line="+1505"/>
         <source>&amp;View Certificate</source>
         <translation>&amp;Ziurtagiria ikusi</translation>
     </message>
     <message>
-        <location line="-1200"/>
+        <location line="-1210"/>
         <location line="+19"/>
         <source>Enter reason</source>
         <translation>Sartu arrazoia</translation>
@@ -5114,7 +5119,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <translation>Qt-ri buruz</translation>
     </message>
     <message>
-        <location line="+443"/>
+        <location line="+453"/>
         <source>SSL Verification failed: %1</source>
         <translation>SSL egiaztapenak huts egin du: %1</translation>
     </message>
@@ -5190,8 +5195,8 @@ Otherwise abort and check your certificate and username.</source>
         <translation>Zerbitzariko pasahitz okerra erregistratu gabeko erabiltzaile konturako, mesedez saiatu berriz.</translation>
     </message>
     <message>
-        <location line="-2171"/>
-        <location line="+2392"/>
+        <location line="-2174"/>
+        <location line="+2379"/>
         <source>Images (*.png *.jpg *.jpeg)</source>
         <translation>Irudiak (*.png *.jpg *.jpeg)</translation>
     </message>
@@ -6198,7 +6203,7 @@ Otherwise abort and check your certificate and username.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="main.cpp" line="-330"/>
+        <location filename="main.cpp" line="-349"/>
         <source>Usage: mumble [options] [&lt;url&gt;]
 
 &lt;url&gt; specifies a URL to connect to after startup instead of showing
@@ -6263,7 +6268,7 @@ Valid actions are:
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+201"/>
+        <location line="+220"/>
         <source>Welcome to Mumble.</source>
         <translation>Ongietorri Mumble-ra.</translation>
     </message>
@@ -7483,7 +7488,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>QApplication</name>
     <message>
-        <location filename="main.cpp" line="+110"/>
+        <location filename="main.cpp" line="+120"/>
         <source>Failed to restart mumble</source>
         <translation>Ezin izan da mumble berrabiarazi</translation>
     </message>
@@ -7496,7 +7501,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>RichTextEditor</name>
     <message>
-        <location filename="RichTextEditor.cpp" line="+257"/>
+        <location filename="RichTextEditor.cpp" line="+258"/>
         <source>Failed to load image</source>
         <translation>Errorea gertatu da irudia kargatzean</translation>
     </message>
@@ -7673,7 +7678,7 @@ To upgrade these files to their latest versions, click the button below.</source
 <context>
     <name>ShortcutActionWidget</name>
     <message>
-        <location filename="GlobalShortcut.cpp" line="-576"/>
+        <location filename="GlobalShortcut.cpp" line="-602"/>
         <source>Unassigned</source>
         <translation>Esleitu gabea</translation>
     </message>
@@ -8154,13 +8159,18 @@ An access token is a text string, which can be used as a password for very simpl
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="UserLocalVolumeDialog.cpp" line="+43"/>
+        <location filename="UserLocalVolumeDialog.cpp" line="+46"/>
         <source>Adjusting local volume for %1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location line="+9"/>
-        <source>%1 dB</source>
+        <location filename="UserLocalVolumeDialog.ui"/>
+        <source> dB</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
 </context>
