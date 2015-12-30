@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Defaŭlta servilo</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -281,7 +281,7 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
     <message>
         <location/>
         <source>This removes the currently selected entry.</source>
-        <translation type="unfinished"/>
+        <translation>Tio forigas la nune elektatan eron.</translation>
     </message>
     <message>
         <location/>
@@ -297,12 +297,12 @@ Tiu ĉi valoro ebligas al vi ŝanĝi kiel Mumble disponas la kanalojn en la arbo
         <location/>
         <source>Entry should apply to this channel.</source>
         <oldsource>Entry should apply to this channel</oldsource>
-        <translation type="unfinished"/>
+        <translation>La ero estu rilata al tiu ĉi kanalo.</translation>
     </message>
     <message>
         <location/>
         <source>This makes the entry apply to this channel.</source>
-        <translation type="unfinished"/>
+        <translation>Tio </translation>
     </message>
     <message>
         <location/>
