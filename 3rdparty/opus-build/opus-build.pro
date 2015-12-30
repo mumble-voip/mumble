@@ -76,6 +76,17 @@ INCLUDEPATH *= \
 ../$$SOURCEDIR/silk/x86 \
 ../$$SOURCEDIR/silk/float
 
+win32 {
+  CONFIG *= opus-sse-sources
+  CONFIG *= opus-sse2-sources
+  CONFIG *= opus-sse41-sources
+}
+
+macx:!CONFIG(universal) {
+  CONFIG *= opus-sse-sources
+  CONFIG *= opus-sse2-sources
+}
+
 # celt_sources.mk: CELT_SOURCES
 SOURCES *= \
 celt/bands.c \
@@ -97,19 +108,21 @@ celt/quant_bands.c \
 celt/rate.c \
 celt/vq.c
 
-win32|macx {
+CONFIG(opus-sse-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE
   SOURCES *= \
   celt/x86/x86cpu.c \
   celt/x86/x86_celt_map.c \
   celt/x86/pitch_sse.c
+}
 
+CONFIG(opus-sse2-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE2
   SOURCES *= \
   celt/x86/pitch_sse2.c
 }
 
-win32 {
+CONFIG(opus-sse41-sources) {
   # celt_sources.mk: CELT_SOURCES_SSE4_1
   SOURCES *= \
   celt/x86/celt_lpc_sse.c \
@@ -226,7 +239,7 @@ silk/float/scale_vector_FLP.c \
 silk/float/schur_FLP.c \
 silk/float/sort_FLP.c
 
-win32 {
+CONFIG(opus-sse41-sources) {
   # silk_sources.mk: SILK_SOURCES_SSE4_1
   SOURCES *= \
   silk/x86/NSQ_sse.c \
