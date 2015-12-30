@@ -35,7 +35,6 @@
 #include "MainWindow.h"
 #include "OverlayClient.h"
 #include "Global.h"
-#include "../../overlay/HardHook.h"
 
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
@@ -50,38 +49,6 @@ static uint qHash(const GUID &a) {
 	for (int i=0;i<8;i++)
 		val += a.Data4[i];
 	return val;
-}
-
-static HWND WINAPI HookWindowFromPoint(POINT p);
-static BOOL WINAPI HookSetForegroundWindow(HWND hwnd);
-
-static HardHook hhWindowFromPoint(reinterpret_cast<voidFunc>(::WindowFromPoint), reinterpret_cast<voidFunc>(HookWindowFromPoint));
-static HardHook hhSetForegroundWindow(reinterpret_cast<voidFunc>(::SetForegroundWindow), reinterpret_cast<voidFunc>(HookSetForegroundWindow));
-
-typedef HWND(__stdcall *WindowFromPointType)(POINT);
-static HWND WINAPI HookWindowFromPoint(POINT p) {
-	if (g.ocIntercept)
-		return MumbleHWNDForQWidget(&g.ocIntercept->qgv);
-
-	WindowFromPointType oWindowFromPoint = (WindowFromPointType) hhWindowFromPoint.call;
-	hhWindowFromPoint.restore();
-	HWND hwnd = oWindowFromPoint(p);
-	hhWindowFromPoint.inject();
-
-	return hwnd;
-}
-
-typedef BOOL(__stdcall *SetForegroundWindowType)(HWND);
-static BOOL WINAPI HookSetForegroundWindow(HWND hwnd) {
-	if (g.ocIntercept)
-		return TRUE;
-
-	SetForegroundWindowType oSetForegroundWindow = (SetForegroundWindowType) hhSetForegroundWindow.call;
-	hhSetForegroundWindow.restore();
-	BOOL ret = oSetForegroundWindow(hwnd);
-	hhSetForegroundWindow.inject();
-
-	return ret;
 }
 
 /**

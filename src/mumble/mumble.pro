@@ -371,15 +371,9 @@ win32 {
     RC_FILE = mumble.rc
   }
   HEADERS	*= GlobalShortcut_win.h Overlay_win.h TaskList.h UserLockFile.h
-  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/HardHook.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
+  SOURCES	*= GlobalShortcut_win.cpp TextToSpeech_win.cpp Overlay_win.cpp SharedMemory_win.cpp Log_win.cpp os_win.cpp TaskList.cpp ../../overlay/ods.cpp UserLockFile_win.cpp
   LIBS		*= -ldxguid -ldinput8 -lsapi -lole32 -lws2_32 -ladvapi32 -lwintrust -ldbghelp -llibsndfile-1 -lshell32 -lshlwapi -luser32 -lgdi32 -lpsapi
   LIBS		*= -ldelayimp -delayload:shell32.dll
-
-  equals(QMAKE_TARGET.arch, x86_64) {
-    DEFINES += USE_MINHOOK
-    INCLUDEPATH *= ../../3rdparty/minhook-src/include
-    LIBS *= -lminhook
-  }
 
   DEFINES	*= WIN32
   !CONFIG(no-asio) {
