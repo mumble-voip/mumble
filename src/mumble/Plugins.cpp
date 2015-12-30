@@ -534,7 +534,7 @@ void Plugins::checkUpdates() {
 #endif
 }
 
-void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl url) {
+void Plugins::fetchedUpdatePAPlugins(QByteArray data, QUrl) {
 	if (data.isNull())
 		return;
 
