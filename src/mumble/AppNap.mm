@@ -30,7 +30,9 @@
 
 #include "mumble_pch.hpp"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
 static bool appNapSuppressed = false;
+#endif
 
 void MUSuppressAppNap(bool suppress) {
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
