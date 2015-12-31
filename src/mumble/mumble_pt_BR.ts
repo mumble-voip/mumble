@@ -698,7 +698,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;Tradução para o Português do Brasil por&lt;br /&gt;Morris Arozi Moraes &lt;morrisarozi@gmail.com&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Uma utilidade de conversa por voz para gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1071,7 +1071,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Audio cue</source>
-        <translation>Pista de áudio</translation>
+        <translation>Aviso de áudio</translation>
     </message>
     <message>
         <location/>
@@ -1136,17 +1136,17 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Atenuação de Eco</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Atenuação de eco misto</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Atenuação de eco multicanal</translation>
     </message>
 </context>
 <context>
@@ -1657,7 +1657,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Peak clean level</source>
-        <translation>Nível limpo máximo</translation>
+        <translation>Pico de nível limpo</translation>
     </message>
     <message>
         <location/>
@@ -2173,12 +2173,12 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Custom</source>
-        <translation>Personalizada</translation>
+        <translation>Pessoal</translation>
     </message>
     <message>
         <location/>
         <source>You already set a customized quality configuration in Mumble. Select this setting to keep it.</source>
-        <translation>Você já escolheu uma configuração personalizada de qualidade no Mumble. Selecione esta opção para mantê-la.</translation>
+        <translation>Você já escolheu uma configuração pessoal de qualidade no Mumble. Selecione esta opção para mantê-la.</translation>
     </message>
     <message>
         <location/>
@@ -3690,7 +3690,7 @@ dos locais possíveis.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente o Mumble só pode utilizar teclas modificadoras do mouse e do teclado (Alt, Ctrl, Cmd, etc.) para atalhos globais.&lt;/p&gt;&lt;p&gt;Se você deseja mais flexibilidade, você pode adicionar o Mumble como um programa de acessibilidade confiável na seção de Segurança e Privacidade nas Preferências do Sistema do seu Mac.&lt;/p&gt;&lt;p&gt;No painel de Segurança e Privacidade, modifique a aba Privacidade. Depois escolhe Acessibilidade (próximo à parte inferior) na lista à esquerda. Finalmente, adicione o Mumble à lista de programas de acessibilidade confiáveis.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -4872,7 +4872,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+31"/>
         <source>SSL Version mismatch</source>
-        <translation>Versões TSL não coincidem</translation>
+        <translation>Versões TLS não coincidem</translation>
     </message>
     <message>
         <location line="+132"/>
@@ -5163,7 +5163,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+47"/>
         <source>About Qt</source>
-        <translation>Sobre Qt</translation>
+        <translation>Sobre o Qt</translation>
     </message>
     <message>
         <location line="+453"/>
@@ -5237,12 +5237,12 @@ seu certificado e nome de usuário.</translation>
         <location line="+7"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Wrong password</source>
-        <translation>Senha errada</translation>
+        <translation>Senha incorreta</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wrong server password for unregistered user account, please try again.</source>
-        <translation>Senha de servidor errada para conta de usuário não registrada, por favor tente novamente.</translation>
+        <translation>Senha de servidor incorreta para conta de usuário não registrada, por favor tente novamente.</translation>
     </message>
     <message>
         <location line="-2174"/>
@@ -5590,7 +5590,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation>Desvincular complemento a força</translation>
+        <translation>Desvincular complemento forçosamente</translation>
     </message>
     <message>
         <location/>
@@ -5650,7 +5650,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Information about Mumble</source>
-        <translation>Informação sobre Mumble</translation>
+        <translation>Informação sobre o Mumble</translation>
     </message>
     <message>
         <location/>
@@ -5675,12 +5675,12 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>About &amp;Qt</source>
-        <translation>Sobre &amp;Qt</translation>
+        <translation>Sobre o &amp;Qt</translation>
     </message>
     <message>
         <location/>
         <source>Information about Qt</source>
-        <translation>Informação sobre Qt</translation>
+        <translation>Informação sobre o Qt</translation>
     </message>
     <message>
         <location/>
@@ -5981,7 +5981,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location line="+2"/>
         <source>Recording stopped</source>
-        <translation>Gravação parou</translation>
+        <translation>Gravação interrompida</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -8170,7 +8170,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="-123"/>
         <source>Not Reported</source>
-        <translation>Não Reportada</translation>
+        <translation>Não Informado</translation>
     </message>
     <message>
         <location line="+164"/>
@@ -8258,12 +8258,12 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation>dB</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use o controle deslizante ou a caixa de texto para alterar o volume do usuário.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Atenção!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Aumentar o volume de um usuário demais pode danificar permanentemente sua audição. Também pode aumentar o ruído ambiente do usuário.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
