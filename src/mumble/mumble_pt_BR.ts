@@ -2526,12 +2526,12 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation>Gerenciamento de certificados</translation>
+        <translation>Gerenciamento de Certificados</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation>Autenticação de certificado</translation>
+        <translation>Autenticação de Certificado</translation>
     </message>
     <message>
         <location/>
@@ -2551,7 +2551,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation>Certificado atual</translation>
+        <translation>Certificado Atual</translation>
     </message>
     <message>
         <location/>
@@ -2581,7 +2581,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation>Exportar certificado</translation>
+        <translation>Exportar Certificado</translation>
     </message>
     <message>
         <location/>
@@ -2596,7 +2596,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation>Importar certificado</translation>
+        <translation>Importar Certificado</translation>
     </message>
     <message>
         <location/>
@@ -2607,7 +2607,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <location/>
         <source>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from Firefox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</source>
         <oldsource>&lt;p&gt;Mumble can import certificates stored in PKCS #12 format. This is the format used when exporting a key from Mumble, and also when exporting keys from FireFox, Internet Explorer, Opera etc.&lt;/p&gt;&lt;p&gt;If the file is password protected, you will need the password to import the certificate.&lt;/p&gt;</oldsource>
-        <translation>&lt;p&gt;O Mumble pode importar certificados salvos no formato PKCS #12</translation>
+        <translation>&lt;p&gt;O Mumble pode importar certificados salvos no formato PKCS #12. Esse é o formato usado ao exportar uma chave do Mumble, e também ao exportar chaves do Firefox, Internet Explorer, Opera, etc.&lt;/p&gt;&lt;p&gt;Se o arquivo é protegido com senha, você precisará da senha para importar o certificado.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6853,7 +6853,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
         <location filename="OverlayEditorScene.cpp" line="+122"/>
         <location filename="OverlayUser.cpp" line="+154"/>
         <source>Silent</source>
-        <translation>Calado</translation>
+        <translation>Em Silêncio</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -6915,7 +6915,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation>Sempre mostrar a si</translation>
+        <translation>Sempre mostrar si próprio</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -6950,7 +6950,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation>Resetar aproximação</translation>
+        <translation>Redefinir aproximação</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -7208,7 +7208,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location/>
         <source>User is talking in your channel or a linked channel</source>
-        <translation>Usuário esta falando para seu canal ou algum vinculado a ele</translation>
+        <translation>Usuário está falando para seu canal ou algum vinculado a ele</translation>
     </message>
     <message>
         <location/>
@@ -7321,12 +7321,12 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location line="+1"/>
         <source>Avatar and Name</source>
-        <translation>Avatar e nome</translation>
+        <translation>Avatar e Nome</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>User Opacity</source>
-        <translation>Opacidade de usuário</translation>
+        <translation>Opacidade de Usuário</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7337,7 +7337,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location line="-5"/>
         <source>Object Opacity</source>
-        <translation>Opacidade do objeto</translation>
+        <translation>Opacidade do Objeto</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -7462,7 +7462,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation>Permiti aos jogos suportados obter sua posição no jogo e transmiti-la com cada pacote de voz. Isto ativa outros usuários a ouvir sua voz no jogo da direção do seu personagem em relação aos deles.</translation>
+        <translation>Permite aos jogos suportados obter sua posição no jogo e, transmiti-la com cada pacote de voz. Isso permite outros que usuários ouçam sua voz no jogo da direção do seu personagem em relação aos deles.</translation>
     </message>
     <message>
         <location/>
@@ -7603,7 +7603,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location line="+81"/>
         <source>Message is too long.</source>
-        <translation>Mensagem longa demais.</translation>
+        <translation>Mensagem é longa demais.</translation>
     </message>
     <message>
         <location filename="RichTextEditor.ui"/>
@@ -7613,7 +7613,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location/>
         <source>Source Text</source>
-        <translation>Texto fonte</translation>
+        <translation>Texto Original</translation>
     </message>
     <message>
         <location/>
@@ -7676,7 +7676,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location filename="RichTextEditorLink.ui"/>
         <source>Add Link</source>
-        <translation>Adicionar link</translation>
+        <translation>Adicionar Link</translation>
     </message>
     <message>
         <location/>
@@ -7732,7 +7732,7 @@ Para atualizar estes arquivos para suas últimas versões, clique no botão abai
     <message>
         <location line="+9"/>
         <source>Public Internet</source>
-        <translation>Internet pública</translation>
+        <translation>Internet Pública</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -8057,7 +8057,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation>Estatísticas de ping</translation>
+        <translation>Estatísticas de Ping</translation>
     </message>
     <message>
         <location/>
@@ -8160,12 +8160,12 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+15"/>
         <source>Supported</source>
-        <translation>Suportada</translation>
+        <translation>Suportado</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Not Supported</source>
-        <translation>Não Suportada</translation>
+        <translation>Não Suportado</translation>
     </message>
     <message>
         <location line="-123"/>
@@ -8220,7 +8220,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Last channel</source>
-        <translation>Último cana</translation>
+        <translation>Último canal</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -8276,7 +8276,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Talking to your channel.</source>
-        <translation>Falando com seu canal.</translation>
+        <translation>Falando ao seu canal.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8292,7 +8292,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation>Calado.</translation>
+        <translation>Não falando.</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -8317,7 +8317,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+17"/>
         <source>This shows the flags the user has on the server, if any:</source>
-        <translation>Mostra as marcações que o usuário possui no servidor, se possuir:</translation>
+        <translation>Mostra as marcações que o usuário possui no servidor, caso possua:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8377,7 +8377,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+8"/>
         <source>This shows the flags the channel has, if any:</source>
-        <translation>Mostra as marcações que o canal possui, se alguma:</translation>
+        <translation>Mostra as marcações que o canal possui, caso possua:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8413,7 +8413,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
         <location line="+94"/>
         <location line="+20"/>
         <source>Cannot perform this movement automatically, please reset the numeric sorting indicators or adjust it manually.</source>
-        <translation>Impossível realizar este movimento automaticamente, por favor resete os indicadores de ordenação numérica ou ajuste manualmente.</translation>
+        <translation>Impossível realizar este movimento automaticamente, por favor redefina os indicadores de ordenação numérica ou ajuste manualmente.</translation>
     </message>
 </context>
 <context>
@@ -8426,7 +8426,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>A new version of Mumble has been detected and automatically downloaded. It is recommended that you either upgrade to this version, or downgrade to the latest stable release. Do you want to launch the installer now?</source>
-        <translation>Uma nova versão do Mumble foi detectada e baixada automaticamente. É recomendado ou você atualizar para essa versão, ou retornar para a última versão estável. Você deseja executar o instalador agora?</translation>
+        <translation>Uma nova versão do Mumble foi detectada e baixada automaticamente. É recomendado, ou você atualizar para essa versão, ou retornar para a última versão estável. Você deseja executar o instalador agora?</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -8441,7 +8441,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+23"/>
         <source>Downloading new snapshot from %1 to %2</source>
-        <translation>Baixando nova versão teste de %1 em %2</translation>
+        <translation>Baixando nova versão teste de %1 para %2</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -8460,7 +8460,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location filename="ViewCert.cpp" line="+52"/>
         <source>Certificate Chain Details</source>
-        <translation>Detalhes da cadeia de certificados</translation>
+        <translation>Detalhes da Cadeia de Certificados</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -8565,7 +8565,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+3"/>
         <source>Unit Name: %1</source>
-        <translation>Nome da unidade: %1</translation>
+        <translation>Nome da Unidade: %1</translation>
     </message>
 </context>
 <context>
