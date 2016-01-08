@@ -836,7 +836,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Use SNR based speech detection</source>
-        <translation>Usar deteção de áudio baseada em SNR</translation>
+        <translation>Usar detecção de áudio baseada em SNR</translation>
     </message>
     <message>
         <location/>
@@ -846,7 +846,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Amplitude.&lt;/b&gt;&lt;br /&gt;In this mode, the raw strength of the input signal is used to detect speech.</source>
-        <translation>&lt;b&gt;Configura a deteção de fala para usar Amplitude.&lt;/b&gt;&lt;br /&gt;Neste modo, a força bruta do sinal de entrada é usado para detectar fala.</translation>
+        <translation>&lt;b&gt;Configura a detecção de fala para usar Amplitude.&lt;/b&gt;&lt;br /&gt;Neste modo, a força bruta do sinal de entrada é usado para detectar fala.</translation>
     </message>
     <message>
         <location/>
@@ -871,7 +871,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets the trigger values for voice detection.&lt;/b&gt;&lt;br /&gt;Use this together with the Audio Statistics window to manually tune the trigger values for detecting speech. Input values below &quot;Silence Below&quot; always count as silence. Values above &quot;Speech Above&quot; always count as voice. Values in between will count as voice if you&apos;re already talking, but will not trigger a new detection.</source>
-        <translation>&lt;b&gt;Estabelece os gatilhos para a deteção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de deteção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova deteção.</translation>
+        <translation>&lt;b&gt;Estabelece os gatilhos para a detecção de voz.&lt;/b&gt;&lt;br /&gt;Use isto junto com a janela de Estatísticas de Áudio para afinar manualmente os valores para o gatilho de detecção de voz. Valores de entrada baixo de &quot;Silêncio abaixo&quot; sempre contam como silêncio. Valores acima de &quot;Fala acima&quot; sempre contam como voz. Valores entre ambos contam como voz se você já está falando, mas não levam a uma nova detecção.</translation>
     </message>
     <message>
         <location/>
@@ -956,7 +956,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Current speech detection chance</source>
-        <translation>Probabilidade atual de deteção da fala</translation>
+        <translation>Probabilidade atual de detecção da fala</translation>
     </message>
     <message>
         <location/>
@@ -976,12 +976,12 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Configura a deteção para usar a taxa Sinal para Ruído.&lt;/b&gt;&lt;br /&gt;Neste modo a entrada é analisada por algo lembrando um sinal limpo, e a clareza deste sinal é usada para ativar a deteção de fala.</translation>
+        <translation>&lt;b&gt;Configura a detecção para usar a taxa Sinal para Ruído.&lt;/b&gt;&lt;br /&gt;Neste modo a entrada é analisada por algo lembrando um sinal limpo, e a clareza deste sinal é usada para ativar a detecção de fala.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Mostra as configurações atuais de deteção de fala.&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo de Configurações ou o Assistente de Áudio.</translation>
+        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo de Configurações ou o Assistente de Áudio.</translation>
     </message>
     <message>
         <location/>
@@ -996,7 +996,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation>Usar Amplitude baseada na deteção de fala</translation>
+        <translation>Usar Amplitude baseada na detecção de fala</translation>
     </message>
     <message>
         <location/>
@@ -1494,7 +1494,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Priority Speaker</source>
-        <translation>Falante prioritário</translation>
+        <translation>Falante Prioritário</translation>
     </message>
     <message>
         <location/>
@@ -1752,7 +1752,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Mostra as configurações atuais de deteção de fala&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo d Configurações ou do Assistente de áudio.</translation>
+        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo d Configurações ou do Assistente de áudio.</translation>
     </message>
     <message>
         <location/>
@@ -1931,12 +1931,12 @@ Por favor lembre-se que enquanto o assistente estiver ativo, o som será retorna
     <message>
         <location/>
         <source>Input Device</source>
-        <translation>Dispositivo de entrada</translation>
+        <translation>Dispositivo de Entrada</translation>
     </message>
     <message>
         <location/>
         <source>Output Device</source>
-        <translation>Dispositivo de saída</translation>
+        <translation>Dispositivo de Saída</translation>
     </message>
     <message>
         <location/>
@@ -1962,7 +1962,7 @@ Você deve ouvir um exemplo de fala. Mude a barra deslizante abaixo para o menor
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation>Quantia de dados a armazenar</translation>
+        <translation>Quantia de dados a armazenar em buffer</translation>
     </message>
     <message>
         <location/>
@@ -1988,12 +1988,12 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation>Áudio posicional</translation>
+        <translation>Áudio Posicional</translation>
     </message>
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation>Ajustar atenuação de áudio posicional.</translation>
+        <translation>Ajustar atenuação do áudio posicional.</translation>
     </message>
     <message>
         <location/>
@@ -2047,7 +2047,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation>Ajusta de volume</translation>
+        <translation>Ajuste de Volume</translation>
     </message>
     <message>
         <location/>
@@ -2062,7 +2062,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation>Deteção de atividade de voz</translation>
+        <translation>Detecção de Atividade de Voz</translation>
     </message>
     <message>
         <location/>
@@ -2272,7 +2272,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>Reason</source>
-        <translation>Razão</translation>
+        <translation>Motivo</translation>
     </message>
     <message>
         <location/>
@@ -2332,7 +2332,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>No nickname</source>
-        <translation>Nenhum apelid</translation>
+        <translation>Nenhum apelido</translation>
     </message>
     <message>
         <location/>
@@ -2458,7 +2458,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location line="+84"/>
         <source>Unable to validate email.&lt;br /&gt;Enter a valid (or blank) email to continue.</source>
-        <translation>Impossível validar email.&lt;br /&gt;Especifique um email válido (ou em banco) para continuar.</translation>
+        <translation>Impossível validar email.&lt;br /&gt;Especifique um email válido (ou em branco) para continuar.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2473,7 +2473,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location line="+5"/>
         <source>The file could not be opened for writing. Please use another file.</source>
-        <translation>O arquivo não pôde ser aberto para escrita. Por favor use outro.</translation>
+        <translation>O arquivo não pôde ser aberto para escrita. Por favor use outro arquivo.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2483,22 +2483,22 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location line="+6"/>
         <source>The file could not be written successfully. Please use another file.</source>
-        <translation>O arquivo não pôde ser escrito com sucesso. Por favor use outro.</translation>
+        <translation>O arquivo não pôde ser escrito com sucesso. Por favor use outro arquivo.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>The file could not be opened for reading. Please use another file.</source>
-        <translation>O arquivo não pôde ser aberto para leitura. Por favor use outro.</translation>
+        <translation>O arquivo não pôde ser aberto para leitura. Por favor use outro arquivo.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>The file is empty or could not be read. Please use another file.</source>
-        <translation>O arquivo está vazio ou não pôde ser lido. Por favor use outro.</translation>
+        <translation>O arquivo está vazio ou não pôde ser lido. Por favor use outro arquivo.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>The file did not contain a valid certificate and key. Please use another file.</source>
-        <translation>O arquivo não continha um certificado e chave válidos. Por favor use outro.</translation>
+        <translation>O arquivo não continha um certificado e chave válidos. Por favor use outro arquivo.</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -2930,12 +2930,12 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+4"/>
         <source>This represents the permission to write text messages to other users in this channel.</source>
-        <translation>Representa a permissão de escrever mensagens de texto para outros usuários neste canal.</translation>
+        <translation>Representa a permissão de escrever mensagens de texto para outros usuários nesse canal.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>This represents the permission to forcibly remove users from the server.</source>
-        <translation>Representa a permissão de remover usuários do servidor a força.</translation>
+        <translation>Representa a permissão de remover usuários do servidor à força.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3042,12 +3042,12 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+2"/>
         <source>Local Ignore (Text messages)</source>
-        <translation>Ignorado localmente (Mensagens de texto)</translation>
+        <translation>Ignorado Localmente (Mensagens de texto)</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Local Mute</source>
-        <translation>Mudo localmente</translation>
+        <translation>Mudo Localmente</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3070,7 +3070,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+1"/>
         <source>This button will accept current settings and return to the application.&lt;br /&gt;The settings will be stored to disk when you leave the application.</source>
-        <translation>Este botão vai aceitar as configurações atuais e retornar ao programa.&lt;br /&gt;As configurações serão salvas no disco quando você sair do programa.</translation>
+        <translation>Esse botão vai aceitar as configurações atuais e retornar ao programa.&lt;br /&gt;As configurações serão salvas no disco quando você sair do programa.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3100,12 +3100,12 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+1"/>
         <source>This button will revert any changes done on the current page to the most recent applied settings.</source>
-        <translation>Este botão vai reverter qualquer alteração feita na página atual para as configurações aplicadas mais recentemente.</translation>
+        <translation>Esse botão vai reverter qualquer alteração feita na página atual para as configurações aplicadas mais recentemente.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Restore defaults for current page</source>
-        <translation>Restaurar padrões para a página atual</translation>
+        <translation>Restaurar padrões na página atual</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3724,7 +3724,7 @@ dos locais possíveis.</translation>
     <message>
         <location filename="GlobalShortcutTarget.ui"/>
         <source>Whisper Target</source>
-        <translation>Alvo do sussurro</translation>
+        <translation>Alvo do Sussurro</translation>
     </message>
     <message>
         <location/>
@@ -3734,7 +3734,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>Channel Target</source>
-        <translation>Canal alvo</translation>
+        <translation>Canal Alvo</translation>
     </message>
     <message>
         <location/>
@@ -3744,7 +3744,7 @@ dos locais possíveis.</translation>
     <message>
         <location/>
         <source>If specified, only members of this group will receive the whisper.</source>
-        <translation>Se especificado, apenas membros deste grupo receberão o sussurro.</translation>
+        <translation>Se especificado, apenas membros desse grupo receberão o sussurro.</translation>
     </message>
     <message>
         <location/>
@@ -3823,7 +3823,7 @@ dos locais possíveis.</translation>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation>Ativar este dispositivo</translation>
+        <translation>Ativar esse dispositivo</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -3853,12 +3853,12 @@ dos locais possíveis.</translation>
 This field describes the size of an LCD device. The size is given either in pixels (for Graphic LCDs) or in characters (for Character LCDs).&lt;/p&gt;
 &lt;h3&gt;Enabled:&lt;/h3&gt;
 &lt;p&gt;This decides whether Mumble should draw to a particular LCD device.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Esta é a lista de dispositivos LCD disponíveis no seu sistema. Ela lista dispositivos pelo nome, mas também inclui o tamanho do visor. O Mumble suporta saídas para vários dispositivos LCD ao mesmo tempo.&lt;/p&gt;
+        <translation>&lt;p&gt;Esta é a lista de dispositivos LCD disponíveis no seu sistema. Ela lista dispositivos pelo nome, mas também inclui o tamanho do visor. O Mumble suporta saídas em vários dispositivos LCD ao mesmo tempo.&lt;/p&gt;
 &lt;h3&gt;Tamanho:&lt;/h3&gt;
 &lt;p&gt;
-Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels (para LCDs gráficos) ou em caracteres (para LCDs de caracteres).&lt;/p&gt;
+Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels (para LCDs Gráficos) ou em caracteres (para LCDs de Caracteres).&lt;/p&gt;
 &lt;h3&gt;Ativo:&lt;/h3&gt;
-&lt;p&gt;Decide se o Mumble deve ou não mostrar-se em determinado dispositivo LCD.&lt;/p&gt;</translation>
+&lt;p&gt;Decide se o Mumble deve ou não desenhar em determinado dispositivo LCD.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3878,7 +3878,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Minimum Column Width</source>
-        <translation>Largura mínima da coluna</translation>
+        <translation>Largura Mínima da Coluna</translation>
     </message>
     <message>
         <location/>
@@ -4418,7 +4418,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation>Esconder na bandeja quando minimizada</translation>
+        <translation>Esconder na bandeja quando minimizado</translation>
     </message>
     <message>
         <location/>
@@ -4768,7 +4768,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+69"/>
         <source>&lt;h2&gt;Voice channel&lt;/h2&gt;&lt;p&gt;Encrypted with 128 bit OCB-AES128&lt;br /&gt;%1 ms average latency (%4 deviation)&lt;/p&gt;</source>
-        <translation>&lt;h2&gt;Canal de voz&lt;/h2&gt;&lt;p&gt;Criptografado com 128 bit OCB-AES128&lt;br /&gt;%1 ms de latência média (desvio %4)&lt;/p&gt;</translation>
+        <translation>&lt;h2&gt;Canal de voz&lt;/h2&gt;&lt;p&gt;Criptografado com OCB-AES128 de 128 bit&lt;br /&gt;%1 ms de latência média (desvio %4)&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-173"/>
@@ -5067,7 +5067,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="-1210"/>
         <location line="+19"/>
         <source>Enter reason</source>
-        <translation>Especifique a razão</translation>
+        <translation>Especifique o motivo</translation>
     </message>
     <message>
         <location line="+22"/>
@@ -5438,7 +5438,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Kick selected user off server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Expulsar usuário selecionado do servidor. Você será perguntado uma razão específica.</translation>
+        <translation>Expulsar usuário selecionado do servidor. Você será perguntado um motivo específico.</translation>
     </message>
     <message>
         <location/>
@@ -5458,7 +5458,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Expulsar e banir o usuário selecionado do servidor. Você será perguntado uma razão específica.</translation>
+        <translation>Expulsar e banir o usuário selecionado do servidor. Você será perguntado um motivo específico.</translation>
     </message>
     <message>
         <location/>
@@ -5530,7 +5530,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>This will reset the audio preprocessor, including noise cancellation, automatic gain and voice activity detection. If something suddenly worsens the audio environment (like dropping the microphone) and it was temporary, use this to avoid having to wait for the preprocessor to readjust.</source>
-        <translation>Reseta o preprocessador de áudio, incluindo anulação de ruídos, ganho automático e deteção de atividade vocal. Se algo piora subitamente o ambiente de áudio (como derrubar o microfone) e isto foi temporário, use isto para evitar ter que esperar o processador se reajustar.</translation>
+        <translation>Reseta o preprocessador de áudio, incluindo atenuação de ruídos, ganho automático e detecção de atividade vocal. Se algo piora subitamente o ambiente de áudio (como derrubar o microfone) e isto foi temporário, use isto para evitar ter que esperar o processador se reajustar.</translation>
     </message>
     <message>
         <location/>
@@ -6707,7 +6707,7 @@ do menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Suppress certificate and password storage</source>
-        <translation>Suprimir armazenamento de certificados e senhas</translation>
+        <translation>Impedir armazenamento de certificados e senhas</translation>
     </message>
     <message>
         <location/>
@@ -8047,7 +8047,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location/>
         <source>CELT Versions</source>
-        <translation>Versões CELT</translation>
+        <translation>Versões do CELT</translation>
     </message>
     <message>
         <location/>

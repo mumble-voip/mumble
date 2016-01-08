@@ -697,7 +697,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Um programa de chat por voz para jogadores&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -965,7 +965,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Ativar isto vai cancelar o eco de seus altifalantes . Misturado tem pouco impacto, mas só funciona bem se os altifalantes estiverem igualmente altos e equidistantes do microfone. Anulação multicanal de eco fornece uma anulação muito melhor, mas a um custo de CPU maior.</translation>
+        <translation>Ativar isto vai anular o eco dos seus altifalantes. Misturado tem pouco impacto no CPU, mas só funciona bem se ambos altifalantes tiverem o mesmo volume  e equidistantes do microfone. Anulação de eco multi-canal fornece cancelamento de eco muito melhor, mas com um maior custo de CPU.</translation>
     </message>
     <message>
         <location/>
@@ -1135,17 +1135,17 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelamento de Eco</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelamento de eco misto</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Cancelamento de eco multi-canal</translation>
     </message>
 </context>
 <context>
@@ -1661,7 +1661,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location/>
         <source>This shows the peak power in the last frame (20 ms) after all processing. Ideally, this should be -96 dB when you&apos;re not talking. In reality, a sound studio should see -60 dB, and you should hopefully see somewhere around -20 dB. When you are talking, this should rise to somewhere between -5 and -10 dB.&lt;br /&gt;If you are using echo cancellation, and this rises to more than -15 dB when you&apos;re not talking, your setup is not working, and you&apos;ll annoy other users with echoes.</source>
-        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando não está a falar. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte deve ver algo ao redor de -20 dB. Quando está a falar, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se está a usar anulação de eco, e isto aumenta para mais de -15 dB quando não está a falar, a sua configuração não está a funcionar, e vai incomodar outros utilizadores com ecos.</translation>
+        <translation>Mostra a potência máxima no último quadro (20ms) depois de todo processamento. Idealmente, isto deve ser -96 dB quando não está a falar. Na realidade, um estúdio sonoro deve ver -60 dB, e com sorte deve ver algo ao redor de -20 dB. Quando está a falar, isto deve aumentar para algo em torno de -5 e -10 dB.&lt;br /&gt;Se está a usar cancelamento de eco, e isto aumenta para mais de -15 dB quando não está a falar, a sua configuração não está a funcionar, e vai incomodar outros utilizadores com ecos.</translation>
     </message>
     <message>
         <location/>
@@ -1776,12 +1776,12 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location/>
         <source>Weights of the echo canceller</source>
-        <translation>Pesos do anulador de eco</translation>
+        <translation>Pesos do cancelamento de eco</translation>
     </message>
     <message>
         <location/>
         <source>This shows the weights of the echo canceller, with time increasing downwards and frequency increasing to the right.&lt;br /&gt;Ideally, this should be black, indicating no echo exists at all. More commonly, you&apos;ll have one or more horizontal stripes of bluish color representing time delayed echo. You should be able to see the weights updated in real time.&lt;br /&gt;Please note that as long as you have nothing to echo off, you won&apos;t see much useful data here. Play some music and things should stabilize. &lt;br /&gt;You can choose to view the real or imaginary parts of the frequency-domain weights, or alternately the computed modulus and phase. The most useful of these will likely be modulus, which is the amplitude of the echo, and shows you how much of the outgoing signal is being removed at that time step. The other viewing modes are mostly useful to people who want to tune the echo cancellation algorithms.&lt;br /&gt;Please note: If the entire image fluctuates massively while in modulus mode, the echo canceller fails to find any correlation whatsoever between the two input sources (speakers and microphone). Either you have a very long delay on the echo, or one of the input sources is configured wrong.</source>
-        <translation>Mostra os pesos do cancelador de ecos, com o tempo aumentando para baixo e a frequência para a direita.&lt;br /&gt;Idealmente, isto deve ser preto, indicando que nenhum eco existe. Mais comum, ver uma ou mais listras horizontais de tom azul representando eco com tempo atrasado. Deve ser capaz de ver os pesos atualizados em tempo real.&lt;br /&gt;Por favor note que enquanto não tiver nada para ecoar, não verá muitos dados úteis aqui. Toque alguma música e as coisas devem estabilizar.&lt;br /&gt;Pode escolher ver as partes reais ou imaginárias dos pesos no domínio da frequência, ou alternativamente a fase e o módulo calculados. Os mais úteis destes provavelmente serão o módulo, que é a amplitude do eco, e mostra quanto do sinal transmitido está sendo eliminado naquela etapa no tempo. Os outros modos de visão são mais úteis para pessoas que querem melhorar os algoritmos de anulação de echo.&lt;br /&gt;Por favor note: Se a imagem inteira flutua massivamente no modo de módulo, o anulador de eco falha ao encontrar qualquer correlação entre as duas fontes de entrada (altifalantes e microfone). Ou possui um atraso muito longo no eco, ou as fontes de entrada estão configuradas errado.</translation>
+        <translation>Mostra os pesos do cancelador de eco, com o tempo aumentando para baixo e a frequência para a direita.&lt;br /&gt;Idealmente, isto deve ser preto, indicando que nenhum eco existe. Mais comum, ver uma ou mais listras horizontais de tom azul representando eco com tempo atrasado. Deve ser capaz de ver os pesos atualizados em tempo real.&lt;br /&gt;Por favor note que enquanto não tiver nada para ecoar, não verá muitos dados úteis aqui. Toque alguma música e as coisas devem estabilizar.&lt;br /&gt;Pode escolher ver as partes reais ou imaginárias dos pesos no domínio da frequência, ou alternativamente a fase e o módulo calculados. Os mais úteis destes provavelmente serão o módulo, que é a amplitude do eco, e mostra quanto do sinal transmitido está sendo eliminado naquela etapa no tempo. Os outros modos de visão são mais úteis para pessoas que querem melhorar os algoritmos de anulação de echo.&lt;br /&gt;Por favor note: Se a imagem inteira flutua massivamente no modo de módulo, o anulador de eco falha ao encontrar qualquer correlação entre as duas fontes de entrada (altifalantes e microfone). Ou possui um atraso muito longo no eco, ou as fontes de entrada estão configuradas errado.</translation>
     </message>
     <message>
         <location/>
@@ -3686,7 +3686,7 @@ dos locais possíveis.</translation>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Atualmente, o Mumble só pode usar botões do rato e teclas modificadoras do teclado (Alt, Ctrl, Cmd, etc.) como atalhos globais.&lt;/p&gt;&lt;p&gt;Se deseja mais flexibilidade, pode adicionar o Mumble como um programa de acessibilidade de confiança na secção de Segurança &amp; Privacidade nas Preferências de Sistema do seu Mac.&lt;/p&gt;&lt;p&gt;No painel de preferências de Segurança &amp; Privacidade, mude para o separador de Privacidade. Depois escolha Acessibilidade (perto do fundo) na lista à esquerda. Finalmente, adicione o Mumble à lista de programas de acessibilidade de confiança.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -8255,12 +8255,12 @@ Uma credencial de acesso é uma sequência de texto, que pode ser usada como uma
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation> dB</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Utilize a barra deslizante ou a caixa de texto para alterar o volume do utilizador.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Atenção!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Aumentar demasiado o volume de um utilizador pode danificar permanentemente a sua audição. Pode também levar ao aumento de ruído de fundo do utilizador.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
