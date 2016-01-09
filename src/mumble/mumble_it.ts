@@ -3939,7 +3939,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+7"/>
         <source>Other self-muted/deafened</source>
-        <translation>Mutato/disattivato (altro)</translation>
+        <translation>Mutato/escluso (altro utente)</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3994,7 +3994,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+1"/>
         <source>User muted (other)</source>
-        <translation>Utente mutato (altro)</translation>
+        <translation>Utente mutato (altro utente)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4014,7 +4014,7 @@ Questo campo descrive la dimensione di un dispositivo LCD. La dimensione è espr
     <message>
         <location line="+1"/>
         <source>You self-deafened</source>
-        <translation>Ti sei disattivato</translation>
+        <translation>Ti sei escluso</translation>
     </message>
     <message>
         <location line="+1"/>
