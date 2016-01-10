@@ -1,5 +1,11 @@
+2016-01-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    2539b47  Fix Murmur on Windows DoS as described in Mumble-SA-2016-001.
+    1a37d36  Bump version to 1.2.13.
+
 2015-12-20
   Mikkel Krautz <mikkel@krautz.dk>
+    303958f  Update changelog.
     443d0d2  AudioInput: ensure our encoders are reset correctly when using
 	     > 1 frame per packet.
 
