@@ -759,7 +759,7 @@ void Server::run() {
 
 				int sock = fds[i].fd;
 #else
-		{
+		for (int i=0;i<1;++i) {
 			{
 				DWORD ret = WaitForMultipleObjects(nfds, events, FALSE, INFINITE);
 				if (ret == (WAIT_OBJECT_0 + nfds - 1)) {
