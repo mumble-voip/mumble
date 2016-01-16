@@ -697,7 +697,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Spraak/chat-applicatie voor gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -965,7 +965,7 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Stopt een luidsprekerecho; gemengd ↓ CPU-belasting (werkt louter goed als je luidsprekers even luid en op gelijke afstand van microfoon staan; zijnde 3-hoek). Multi-kanaal galmdemper voorziet in uitmuntende galmdemping, maar ↑ CPU-belasting ten gevolg.</translation>
+        <translation>Stopt luidsprekerecho; gemengd → ↓ CPU-belasting (werkt louter goed als luidsprekers even luid en met gelijke afstand van microfoon z.d. &apos;n driehoek staan). Meer-kanaalse galmdemper voorziet in uitmuntende galmdemping maar met ↑ CPU-belasting als gevolg.</translation>
     </message>
     <message>
         <location/>
@@ -1135,17 +1135,17 @@ Waarde bepaalt &apos;t maximale aantal toegestane gebruikers in &apos;t kanaal. 
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Echo-opheffing</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Gemixte echo-opheffing</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Meer-kanaalse echo-opheffing</translation>
     </message>
 </context>
 <context>
@@ -3499,7 +3499,7 @@ Naam ← server. Zelfgekozen naam ← server die in serverlijst wordt weergegeve
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Bedankt voor hulp → Mumble nog verder te verbeteren!</translation>
+        <translation>Dank voor hulp om Mumble voortdurend te verbeteren!</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3662,7 +3662,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can enable &lt;span style=&quot; font-style:italic;&quot;&gt;Access for assistive devices&lt;/span&gt; in the system&apos;s Accessibility preferences. However, please note that this change also potentially allows malicious programs to read what is typed on your keyboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble kan louter gebruikmaken ← muisknoppen &amp; speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) voor globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Voor meer flexibiliteit, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in het Toegankelijkheidscentrum van het systeem instellen. Wijzigingen laat schadelijke programma&apos;s lezen wat getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Mumble kan louter gebruikmaken ← muisknoppen &amp; speciale toetsenbord toetsen (Alt, Ctrl, Cmd, enz.) voor globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Voor meer flexibiliteit, kun je &lt;span style=&quot; font-style:italic;&quot;&gt;Toegang voor hulpapparaten&lt;/span&gt; in Toegankelijkheidscentrum van systeem instellen. Wijzigingen laat schadelijke programma&apos;s lezen wat getypt wordt op uw toetsenbord.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location/>
@@ -3685,7 +3685,7 @@ of the possible locations.</source>
     <message>
         <location filename="GlobalShortcut.cpp" line="+565"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mumble can currently only use mouse buttons and keyboard modifier keys (Alt, Ctrl, Cmd, etc.) for global shortcuts.&lt;/p&gt;&lt;p&gt;If you want more flexibility, you can add Mumble as a trusted accessibility program in the Security &amp; Privacy section of your Mac&apos;s System Preferences.&lt;/p&gt;&lt;p&gt;In the Security &amp; Privacy preference pane, change to the Privacy tab. Then choose Accessibility (near the bottom) in the list to the left. Finally, add Mumble to the list of trusted accessibility programs.&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Mumble slechts muisknoppen en speciale toetsenbord-toetsen gebruiken (Alt, Ctrl, Cmd, etc.) voor globale sneltoetsen.&lt;/p&gt;&lt;p&gt;Als je meer flexibiliteit vereist, stel Mumble als een vertrouwd toegankelijkheidsprogramma onder Beveiliging &amp; Privacy sectie van je Mac&apos;s systeeminstellingen in.&lt;/p&gt;&lt;p&gt;Beveiliging &amp; Privacy voorkeurspaneel → Privacy-tab → Toegankelijkheid onder  linksaan in lijst is waar je Mumble toevoegt.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -4100,7 +4100,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Pad naar geluidsmeldingen-geluidsbestand in geval van %1 gebeurtenissen.&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen&lt;br /&gt;Bevestig dat gebeurtenis-geluidsmeldingen aanstaan anders heeft dit geen enkel effect.</translation>
+        <translation>Pad naar geluidsmelding-geluidsbestand in geval van %1 gebeurtenissen.&lt;br /&gt;Enkele klik → afspelen&lt;br /&gt;Dubbelklik → veranderen&lt;br /&gt;Bevestig dat gebeurtenis-geluidsmelden aanstaat anders heeft dit geen effect.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6390,7 +6390,7 @@ Undeafen self
     <message>
         <location/>
         <source>Reset the comment of the selected user.</source>
-        <translation>Commentaar ← geselecteerde gebruiker leeg maken.</translation>
+        <translation>Commentaar leegmaken ← geselecteerde gebruiker.</translation>
     </message>
     <message>
         <location/>
@@ -8245,12 +8245,12 @@ Toegangssleutels zijn tekenreeksen; zijnden wachtwoorden t.b.v. simpel kanaaltoe
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation>dB</translation>
     </message>
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;p&gt;Gebruik schuifbalk of tekstvak om gebruikersvolume te veranderen.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Opgelet!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Volume van een gebruiker significant verhogen veroorzaakt (gehoor)schade en kan ook gebruiker&apos;s achtergrondruis verhogen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -8258,7 +8258,7 @@ Toegangssleutels zijn tekenreeksen; zijnden wachtwoorden t.b.v. simpel kanaaltoe
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation>Dit is een gebruiker verbonden met server. Het icoontje ← van de gebruikers indiceren of ze praten of juist niet.</translation>
+        <translation>Dit is een gebruiker verbonden met server. Icoontjes van gebruikers ← of ze praten of juist niet.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8629,7 +8629,7 @@ Toegangssleutels zijn tekenreeksen; zijnden wachtwoorden t.b.v. simpel kanaaltoe
     <message>
         <location/>
         <source>Multichannel</source>
-        <translation>Multi-kanaal</translation>
+        <translation>Meer-kanaals</translation>
     </message>
     <message>
         <location/>
