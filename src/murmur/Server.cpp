@@ -44,6 +44,7 @@
 #include "ServerDB.h"
 #include "ServerUser.h"
 #include "Version.h"
+#include "HTMLFilter.h"
 
 #ifdef USE_BONJOUR
 #include "BonjourServer.h"
@@ -1891,29 +1892,11 @@ bool Server::isTextAllowed(QString &text, bool &changed) {
 	changed = false;
 
 	if (! bAllowHTML) {
-		if (! text.contains(QLatin1Char('<'))) {
-			text = text.simplified();
-		} else {
-			QXmlStreamReader qxsr(QString::fromLatin1("<document>%1</document>").arg(text));
-			QString qs;
-			while (! qxsr.atEnd()) {
-				switch (qxsr.readNext()) {
-					case QXmlStreamReader::Invalid:
-						return false;
-					case QXmlStreamReader::Characters:
-						qs += qxsr.text();
-						break;
-					case QXmlStreamReader::EndElement:
-						if ((qxsr.name() == QLatin1String("br")) || (qxsr.name() == QLatin1String("p")))
-							qs += "\n";
-						break;
-					default:
-						break;
-				}
-			}
-			text = qs.simplified();
+		QString out;
+		if (HTMLFilter::filter(text, out)) {
+			changed = true;
+			text = out;
 		}
-		changed = true;
 		return ((iMaxTextMessageLength == 0) || (text.length() <= iMaxTextMessageLength));
 	} else {
 		int length = text.length();
