@@ -37,10 +37,6 @@
 #include "AudioOutput.h"
 #include "AudioOutputSample.h"
 #include "Global.h"
-#ifdef PLUTOVR_BUILD
-#include "MainWindow.h"
-#include "Log.h"
-#endif
 #include "NetworkConfig.h"
 
 static ConfigWidget *AudioInputDialogNew(Settings &st) {
