@@ -69,7 +69,11 @@ static void unlock() {
 	lm->dwcount = last_count = 0;
 	lm->uiVersion = 0;
 	lm->name[0] = 0;
+#ifndef PLUTOVR_BUILD
 	wsPluginName.assign(L"Link");
+#else
+	wsPluginName.assign(L"PlutoLink");
+#endif
 	wsDescription.clear();
 }
 
@@ -80,6 +84,7 @@ static int trylock() {
 			last_tick = GetTickCount();
 
 			errno_t err = 0;
+#ifndef PLUTOVR_BUILD
 			wchar_t buff[2048];
 
 			if (lm->name[0]) {
@@ -92,6 +97,10 @@ static int trylock() {
 				if (! err)
 					wsDescription.assign(buff);
 			}
+#else
+			wsPluginName.assign(L"PlutoLink");
+			wsDescription.clear();
+#endif
 			if (err) {
 				wsPluginName.assign(L"Link");
 				wsDescription.clear();
@@ -154,10 +163,19 @@ BOOL WINAPI DllMain(HINSTANCE, DWORD fdwReason, LPVOID) {
 	bool bCreated = false;
 	switch (fdwReason) {
 		case DLL_PROCESS_ATTACH:
+#ifndef PLUTOVR_BUILD
 			wsPluginName.assign(L"Link");
 			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");
+#else
+			wsPluginName.assign(L"PlutoLink");
+			hMapObject = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"PlutoLink");
+#endif
 			if (hMapObject == NULL) {
+#ifndef PLUTOVR_BUILD
 				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"MumbleLink");
+#else
+				hMapObject = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(LinkedMem), L"PlutoLink");
+#endif
 				bCreated = true;
 				if (hMapObject == NULL)
 					return false;
