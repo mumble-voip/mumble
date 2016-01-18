@@ -315,6 +315,38 @@ int main(int argc, char **argv) {
 	// Load preferences
 	g.s.load();
 
+#ifdef PLUTOVR_BUILD
+// PlutoVR default settings
+g.s.bPositionalAudio = true;
+g.s.bPositionalHeadphone = true;
+g.s.fAudioMinDistance = 1.0f;
+g.s.fAudioMaxDistance = 15.0f;
+g.s.fAudioMaxDistVolume = 0.0f;
+g.s.fAudioBloom = 0.75f;
+g.s.bTransmitPosition = true;
+g.s.bTTS = false;
+g.s.bAskOnQuit = false;
+g.s.iQuality = 72000;
+g.s.iMinLoudness = 2250;
+g.s.fVADmax = 0.636799;
+g.s.fVADmin = 0.443403;
+g.s.fVolume = 1;
+g.s.fOtherVolume = 0.95;
+g.s.iNoiseSuppress = -30;
+g.s.bUpdateCheck = false;
+g.s.bPluginCheck = false;
+g.s.bQoS = false;
+g.s.bReconnect = false;
+g.s.bHideInTray = true;
+g.s.disablePublicList = true;
+g.s.disableConnectDialogEditing = true;
+g.s.bSuppressIdentity = true;
+g.s.bEcho = true;
+g.s.bEchoMulti = true;
+g.s.bHideFrame = false;
+g.s.bMinimalView = false;
+#endif
+
 	// Check whether we need to enable accessibility features
 #ifdef Q_OS_WIN
 	// Only windows for now. Could not find any information on how to query this for osx or linux
@@ -411,7 +443,11 @@ int main(int argc, char **argv) {
 
 	// Main Window
 	g.mw=new MainWindow(NULL);
+#ifdef PLUTOVR_BUILD
+	g.mw->hide();
+#else
 	g.mw->show();
+#endif
 
 #ifdef USE_DBUS
 	new MumbleDBus(g.mw);
@@ -422,6 +458,26 @@ int main(int argc, char **argv) {
 	SocketRPC *srpc = new SocketRPC(QLatin1String("Mumble"));
 
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
+
+#ifdef PLUTOVR_BUILD
+	qWarning("Pluto Default Settings:");
+	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bAskOnQuit " << g.s.bAskOnQuit << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iMinLoudness " << g.s.iMinLoudness << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bTTS " << g.s.bTTS << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fVolume " << g.s.fVolume << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " fOtherVolume " << g.s.fOtherVolume << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " iNoiseSuppress " << g.s.iNoiseSuppress << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEcho " << g.s.bEcho << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bEchoMulti " << g.s.bEchoMulti << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bHideFrame " << g.s.bHideFrame << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bMinimalView " << g.s.bMinimalView << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	qWarning().nospace() << " bPositionalHeadphone " << g.s.bPositionalHeadphone << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+
+#endif
 
 	// Plugins
 	g.p = new Plugins(NULL);
@@ -512,7 +568,9 @@ int main(int argc, char **argv) {
 		qApp->postEvent(g.mw, oue);
 #endif
 	} else {
+#ifndef PLUTOVR_BUILD
 		g.mw->on_qaServerConnect_triggered(true);
+#endif
 	}
 
 	if (! g.bQuit)
