@@ -59,6 +59,9 @@
 #include "ApplicationPalette.h"
 #include "Themes.h"
 #include "UserLockFile.h"
+#ifdef PLUTOVR_BUILD
+#include "WASAPI.h"
+#endif
 
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
@@ -572,6 +575,14 @@ g.s.bMinimalView = false;
 		g.mw->on_qaServerConnect_triggered(true);
 #endif
 	}
+
+	qWarning().nospace() << "SCOTTRA - calling GetInputDeviceNames()";
+#pragma message("SCOTTRA_REMOVE_ME!!!!")
+	GetInputDeviceNames(NULL);
+	g.s.save();
+#pragma message("SCOTTRA_TBD ????? do I need to force the settings window to open/save or just run the g.s.save'()'?")
+  qWarning().nospace() << "SCOTTRA - input device: " << g.s.qsWASAPIInput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+  qWarning().nospace() << "SCOTTRA - output device: " << g.s.qsWASAPIOutput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 
 	if (! g.bQuit)
 		res=a.exec();
