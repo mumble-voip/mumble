@@ -28,18 +28,18 @@ and go to wherever you installed Mumble. Run murmur as
 
 `murmurd [-supw <password>] [-ini <inifile>] [-fg] [v]`
 
--supw   Set new password for the user SuperUser, which is hardcoded to
+`-supw`   Set new password for the user SuperUser, which is hardcoded to
         bypass ACLs. Keep this password safe. Until you set a password,
         the SuperUser is disabled. If you use this option, murmur will
         set the password in the database and then exit.
 
--ini    Use a inifile other than murmur.ini, use this to run several instances
+`-ini`    Use a inifile other than murmur.ini, use this to run several instances
         of murmur from the same directory. Make sure each instance is using
         a separate database.
 
--fg     Run in the foreground, logging to standard output.
+`-fg`     Run in the foreground, logging to standard output.
 
--v      More verbose logging.
+`-v`      More verbose logging.
 
 ### Running Murmur on Mac OS X
 
