@@ -47,14 +47,14 @@ Murmur is distributed seperately from the Mumble client on Mac OS X.
 It is called Static OS X Server and can be downloaded from the main webpage.
 
 Once downloaded it can be run in the same way as on any other Unix-like system.
-For more information please see the 'Running Murmur on Unix-like systems' above.
+For more information please see the [Running Murmur on Unix-like systems](#Running-Murmur-on-Unix-like-systems).
 
 ### Running Murmur on Win32
 
 Doubleclick the Murmur icon to start murmur. There will be a small icon on your
 taskbar from which you can view the log.
 
-To set the superuser password, run murmur with the parameters '-supw <password>'.
+To set the superuser password, run murmur with the parameters `-supw <password>`.
 
 ### Bandwidth usage
 
