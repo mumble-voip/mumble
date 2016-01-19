@@ -715,7 +715,7 @@ void MainWindow::saveImageAs() {
 	if (!ok) {
 		// In case fname did not contain a file extension, try saving with an
 		// explicit format.
-		ok = img.save(fname, "JPG");
+		ok = img.save(fname, "PNG");
 	}
 	if (!ok) {
 		g.l->log(Log::Warning, tr("Could not save image: %1").arg(Qt::escape(fname)));
