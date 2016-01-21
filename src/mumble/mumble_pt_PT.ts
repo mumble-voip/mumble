@@ -1869,7 +1869,7 @@ Este valor permite definir o número máximo de utilizadores permitido no canal.
     <message>
         <location/>
         <source>Use echo cancellation</source>
-        <translation>Usar anulação de eco</translation>
+        <translation>Usar cancelamento de eco</translation>
     </message>
     <message>
         <location/>
