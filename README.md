@@ -2,6 +2,7 @@ Mumble - A voicechat utility for gamers
 =======================================
 
 > *http://mumble.info/*
+
 > *#mumble on freenode*
 
 Mumble is a voicechat program for gamers written on top of Qt and Speex.
