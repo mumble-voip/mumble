@@ -60,14 +60,6 @@ class WASAPISystem : public QObject {
 		static const QList<audioDevice> mapToDevice(const QHash<QString, QString>&, const QString&);
 };
 
-#ifdef PLUTOVR_BUILD
-extern "C"
-{
-  __declspec(dllexport) void __stdcall GetInputDeviceNames(SAFEARRAY**);
-}
-  void GetSafeArrayFromBSTRArray(QVector<BSTR>& sourceArray, ULONG sourceArraySize, SAFEARRAY** destinationArray);
-#endif
-
 class WASAPIInput : public AudioInput {
 	private:
 		Q_OBJECT

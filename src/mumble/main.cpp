@@ -320,6 +320,8 @@ int main(int argc, char **argv) {
 
 #ifdef PLUTOVR_BUILD
 // PlutoVR default settings
+	// SCOTTRA_TODO $$$$$ - need to call a function that behaves similar to the link.cpp biz which creates the memory map
+	// to the settings struct that will be updated from the managed side
 g.s.bPositionalAudio = true;
 g.s.bPositionalHeadphone = true;
 g.s.fAudioMinDistance = 1.0f;
@@ -576,11 +578,7 @@ g.s.bMinimalView = false;
 #endif
 	}
 
-	qWarning().nospace() << "SCOTTRA - calling GetInputDeviceNames()";
-#pragma message("SCOTTRA_REMOVE_ME!!!!")
-	GetInputDeviceNames(NULL);
-	g.s.save();
-#pragma message("SCOTTRA_TBD ????? do I need to force the settings window to open/save or just run the g.s.save'()'?")
+#pragma message("SCOTTRA_TODO - remove this but they are placeholders to remember the settings")
   qWarning().nospace() << "SCOTTRA - input device: " << g.s.qsWASAPIInput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
   qWarning().nospace() << "SCOTTRA - output device: " << g.s.qsWASAPIOutput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 
