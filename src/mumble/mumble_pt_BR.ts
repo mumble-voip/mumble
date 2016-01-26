@@ -976,12 +976,12 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets speech detection to use Signal to Noise ratio.&lt;/b&gt;&lt;br /&gt;In this mode, the input is analyzed for something resembling a clear signal, and the clarity of that signal is used to trigger speech detection.</source>
-        <translation>&lt;b&gt;Configura a detecção para usar a taxa Sinal para Ruído.&lt;/b&gt;&lt;br /&gt;Neste modo a entrada é analisada por algo lembrando um sinal limpo, e a clareza deste sinal é usada para ativar a detecção de fala.</translation>
+        <translation>&lt;b&gt;Configura a detecção de fala usada na taxa de Sinal para Ruído.&lt;/b&gt;&lt;br /&gt;Nesse modo, a entrada é analisada em busca de algo lembrando um sinal limpo, e a clareza deste sinal é usada para ativar a detecção de fala.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This shows the current speech detection settings.&lt;/b&gt;&lt;br /&gt;You can change the settings from the Settings dialog or from the Audio Wizard.</source>
-        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações do diálogo de Configurações ou o Assistente de Áudio.</translation>
+        <translation>&lt;b&gt;Mostra as configurações atuais de detecção de fala.&lt;/b&gt;&lt;br /&gt;Você pode mudar as configurações no diálogo de Configurações ou no Assistente de Áudio.</translation>
     </message>
     <message>
         <location/>
@@ -1001,7 +1001,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This selects how long after a perceived stop in speech transmission should continue.&lt;/b&gt;&lt;br /&gt;Set this higher if your voice breaks up when you speak (seen by a rapidly blinking voice icon next to your name).</source>
-        <translation>&lt;b&gt;Seleciona quanto tempo após uma perceptível parada na fala a transmissão deve continuar.&lt;/b&gt;&lt;br /&gt;Configure isto mais alto se sua voz quebra durante sua fala (percebido pelo ícone de voz piscando ao lado de seu nome).</translation>
+        <translation>&lt;b&gt;Seleciona por quanto tempo após uma perceptível parada na fala a transmissão deve continuar.&lt;/b&gt;&lt;br /&gt;Configure isso mais alto se sua voz quebra durante sua fala (percebido pelo ícone de voz piscando rapidamente ao lado do seu nome).</translation>
     </message>
     <message>
         <location/>
@@ -1046,7 +1046,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation>Mostra uma janela sempre no topo com um botão de pressionar para falar</translation>
+        <translation>Mostra uma janela sempre no topo com um botão de pressionar para falar, nela.</translation>
     </message>
     <message>
         <location/>
@@ -1282,12 +1282,12 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>This sets the minimum distance for sound calculations. The volume of other users&apos; speech will not decrease until they are at least this far away from you.</source>
-        <translation>Configura a distância mínima para cálculos de som. O volume da fala dos usuários não irá diminuir antes de no mínimo esta distância de você.</translation>
+        <translation>Configura a distância mínima para cálculos de som. O volume da fala dos usuários não irá diminuir antes de, no mínimo, esta distância de você.</translation>
     </message>
     <message>
         <location/>
         <source>This sets the maximum distance for sound calculations. When farther away than this, other users&apos; speech volume will not decrease any further.</source>
-        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outros usuários não vai diminuir mais.</translation>
+        <translation>Configura a distância máxima para cálculos de som. Quando além desta distância, o volume de fala de outros usuários não vai diminuir nada a mais.</translation>
     </message>
     <message>
         <location/>
@@ -1307,7 +1307,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Configura o volume da fala recebida.&lt;/b&gt;&lt;br /&gt;Note que se você aumentar isto além de 100%, o áudio será distorcido.</translation>
+        <translation>&lt;b&gt;Configura o volume da fala recebida.&lt;/b&gt;&lt;br /&gt;Note que se você aumentar isso além de 100%, o áudio será distorcido.</translation>
     </message>
     <message>
         <location/>
@@ -1343,7 +1343,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>How much should sound volume increase for sources that are really close?</source>
-        <translation>Quanto o volume deve aumentar para fontes que estão realmente perto?</translation>
+        <translation>Quanto o volume deve aumentar para fontes que estão realmente próximas?</translation>
     </message>
     <message>
         <location/>
@@ -1353,7 +1353,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>This sets the amount of data to pre-buffer in the output buffer. Experiment with different values and set it to the lowest which doesn&apos;t cause rapid jitter in the sound.</source>
-        <translation>Configura a quantia de dados a pré-armazenar no buffer de saída. Experimente com valores diferentes e configure para o menor valor que não causa irregularidades no som.</translation>
+        <translation>Configura a quantia de dados a pré-armazenar no buffer de saída. Experimente com valores diferentes e configure para o menor valor que não causa irregularidades repentinas no som.</translation>
     </message>
     <message>
         <location/>
@@ -1419,7 +1419,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets the packet loss for loopback mode.&lt;/b&gt;&lt;br /&gt;This will be the ratio of packets lost. Unless your outgoing bandwidth is peaked or there&apos;s something wrong with your network connection, this will be 0%</source>
-        <translation>&lt;b&gt;Configura a perda de pacotes para o modo de retorno&lt;/b&gt;&lt;br /&gt;Esta vai ser a taxa de pacotes perdidos. A menos que a sua banda de saída esteja sobrecarregada ou se há algo de errado com a sua conexão de rede, isto será 0%</translation>
+        <translation>&lt;b&gt;Configura a perda de pacotes para o modo de retorno.&lt;/b&gt;&lt;br /&gt;Esta vai ser a taxa de pacotes perdidos. A menos que a sua banda de saída esteja sobrecarregada ou se há algo de errado com a sua conexão de rede, isso será 0%</translation>
     </message>
     <message>
         <location/>
@@ -1607,7 +1607,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation>O arquivo &apos;%1&apos; não pode ser usado pelo Mumble. Por favor escolha um arquivo de formato e codificação compatível.</translation>
+        <translation>O arquivo &apos;%1&apos; não pode ser usado pelo Mumble. Por favor escolha um arquivo de formato e codificação compatíveis.</translation>
     </message>
 </context>
 <context>
@@ -2042,7 +2042,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>This ignores the OS speaker configuration and configures the positioning for headphones instead.</source>
-        <translation>Ignora a configuração de alto-falantes do SO e configura o posicionalmente para fones de ouvido em seu lugar.</translation>
+        <translation>Ignora a configuração de alto-falantes do SO e configura o posicionamento para fones de ouvido em seu lugar.</translation>
     </message>
     <message>
         <location/>
@@ -2067,7 +2067,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation>Permitir que o Mumble suponha quando você está falando e quando está calado.</translation>
+        <translation>Permitir que o Mumble suponha quando você está falando e quando você está calado.</translation>
     </message>
     <message>
         <location/>
@@ -3353,7 +3353,7 @@ Internet address of the server. This can be a normal hostname, an IPv4/IPv6 addr
         <oldsource>&lt;b&gt;Address&lt;/b&gt;&lt;/br&gt;
 Internet address of the server. This can be a normal hostname, an ipv4/6 address or a bonjour service identifier. Bonjour service identifiers have to be prefixed with a '@' to be recognized by Mumble.</oldsource>
         <translation>&lt;b&gt;Endereço&lt;/b&gt;&lt;br/&gt;
-Endereço de internet do servidor. Isto pode ser um nome de host normal, um endereço IPv4/6 ou um identificador de serviços Bonjour. Identificadores de serviço Bonjour devem ser prefixados com &apos;@&apos; para serem reconhecidos pelo Mumble.</translation>
+Endereço de internet do servidor. Isto pode ser um nome de host normal, um endereço IPv4/IPv6 ou um identificador de serviços Bonjour. Identificadores de serviço Bonjour devem ser prefixados com &apos;@&apos; para serem reconhecidos pelo Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -3387,7 +3387,7 @@ Porta que o servidor escuta. Se o servidor é identificado por um identificador 
         <source>&lt;b&gt;Username&lt;/b&gt;&lt;br/&gt;
 Username to send to the server. Be aware that the server can impose restrictions on how a username might look like. Also your username could already be taken by another user.</source>
         <translation>&lt;b&gt;Nome de usuário&lt;/b&gt;&lt;br/&gt;
-Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor restrições em como um nome de usuário pode parecer. Além disso seu nome já pode estar em uso.</translation>
+Nome de usuário para enviar ao servidor. Lembre-se que o servidor pode impor restrições em como um nome de usuário pode parecer. Além disso, seu nome pode já ter sido adotado por outro usuário.</translation>
     </message>
     <message>
         <location/>
@@ -3426,7 +3426,7 @@ Senha para enviar ao servidor na conexão. Essa senha é necessária ao conectar
         <source>&lt;b&gt;Label&lt;/b&gt;&lt;br/&gt;
 Label of the server. This is what the server will be named like in your server list and can be chosen freely.</source>
         <translation>&lt;b&gt;Etiqueta&lt;/b&gt;&lt;br/&gt;
-Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e pode ser livremente escolhido.</translation>
+Etiqueta do favorito. É como o favorito será exibido na lista de favoritos, e pode ser livremente escolhida.</translation>
     </message>
     <message>
         <location/>
@@ -4094,30 +4094,30 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+2"/>
         <source>Click here to toggle console output for %1 events.&lt;br /&gt;If checked, this option makes Mumble output all %1 events in its message log.</source>
-        <translation>Clique aqui para alterar a saída do console para eventos %1.&lt;br /&gt;Se marcada, esta opção faz o Mumble escrever todos eventos %1 no seu registro de mensagens.</translation>
+        <translation>Clique aqui para alterar a saída do console para eventos %1.&lt;br /&gt;Se marcado, o Mumble escreverá todos os eventos %1 no seu registro de mensagens.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by Mumble for every %1 event.</source>
         <oldsource>Click here to toggle pop-up notifications for %1 events.&lt;br /&gt;If checked, a notification pop-up will be created by mumble for every %1 event.</oldsource>
-        <translation>Clique aqui para alternar as notificações de pop-up para eventos %1.&lt;br /&gt;Se marcada, uma pop-up de notificação será criada pelo Mumble para cada evento %1.</translation>
+        <translation>Clique aqui para alternar as notificações de pop-up para eventos %1.&lt;br /&gt;Se marcado, uma pop-up de notificação será criada pelo Mumble para cada evento %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Path to sound file used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Double-click to change&lt;br /&gt;Ensure that sound notifications for these events are enabled or this field will not have any effect.</source>
-        <translation>Caminho para o arquivo de som usado para notificações de som no caso de eventos %1&lt;br /&gt;Clique uma vez para tocar&lt;br /&gt;Clique duas vezes para alterar&lt;br /&gt;Certifique-se de que notificações sonoras para estes eventos estão ativas ou este campo não terá efeito.</translation>
+        <translation>Caminho para o arquivo de som usado para notificações de som no caso de eventos %1.&lt;br /&gt;Clique uma vez para tocar&lt;br /&gt;Clique duas vezes para alterar&lt;br /&gt;Certifique-se de que notificações sonoras para estes eventos estão ativas ou esse campo não terá efeito.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Click here to toggle Text-To-Speech for %1 events.&lt;br /&gt;If checked, Mumble uses Text-To-Speech to read %1 events out loud to you. Text-To-Speech is also able to read the contents of the event which is not true for sound files. Text-To-Speech and sound files cannot be used at the same time.</source>
         <oldsource>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a soundfile predefined by you to indicate %1 events. Soundfiles and Text-To-Speech cannot be used at the same time.</oldsource>
-        <translation>Clique aqui para alternar Texto-para-Fala para eventos %1.&lt;br /&gt;Se marcada, o Mumble usa Texto-para-Fala para ler eventos %1 para você. Texto-para-Fala também é capaz de ler conteúdos do evento o que não é verdade para arquivos sonoros. Texto-para-Fala e arquivos sonoros não podem ser usados ao mesmo tempo.</translation>
+        <translation>Clique aqui para alternar Texto-para-Fala para eventos %1.&lt;br /&gt;Se marcado, o Mumble usa Texto-para-Fala para ler eventos %1 para você. Texto-para-Fala também é capaz de ler o conteúdo do evento, o que não é possível para arquivos sonoros. Texto-para-Fala e arquivos sonoros não podem ser usados ao mesmo tempo.</translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Click here to toggle sound notification for %1 events.&lt;br /&gt;If checked, Mumble uses a sound file predefined by you to indicate %1 events. Sound files and Text-To-Speech cannot be used at the same time.</source>
         <oldsource>Path to soundfile used for sound notifications in the case of %1 events.&lt;br /&gt;Single click to play&lt;br /&gt;Doubleclick to change&lt;br /&gt;Be sure that sound notifications for these events are enabled or this field will not have any effect.</oldsource>
-        <translation>Clique aqui para alternar notificações sonoras para eventos %1.&lt;br /&gt;Se marcada, o Mumble usa um arquivo de som predefinido por você para indicar eventos %1. Arquivos de som e Texto-para-Fala não podem ser usados ao mesmo tempo.</translation>
+        <translation>Clique aqui para alternar notificações sonoras para eventos %1.&lt;br /&gt;Se marcado, o Mumble usará um arquivo de som predefinido por você para indicar eventos %1. Arquivos de som e Texto-para-Fala não podem ser usados ao mesmo tempo.</translation>
     </message>
     <message>
         <location filename="Log.ui"/>
@@ -4292,7 +4292,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location filename="LookConfig.ui"/>
         <source>This sets which channels to automatically expand. &lt;i&gt;None&lt;/i&gt; and &lt;i&gt;All&lt;/i&gt; will expand no or all channels, while &lt;i&gt;Only with users&lt;/i&gt; will expand and collapse channels as users join and leave them.</source>
-        <translation>Especifica quais canais expandir automaticamente. &lt;i&gt;Nenhum&lt;/i&gt; e &lt;i&gt;Todos&lt;/i&gt; expandira ou não todos canais, enquanto &lt;i&gt;Apenas com usuários&lt;/i&gt; expandirá e compactará canais conforme usuários entrem e saem.</translation>
+        <translation>Especifica quais canais expandir automaticamente. &lt;i&gt;Nenhum&lt;/i&gt; e &lt;i&gt;Todos&lt;/i&gt; expandira ou não todos os canais, enquanto &lt;i&gt;Apenas com usuários&lt;/i&gt; expandirá e compactará canais conforme usuários entram e saem.</translation>
     </message>
     <message>
         <location/>
@@ -4378,7 +4378,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location/>
         <source>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</source>
         <oldsource>This sets the behavior of channel drags; it can be used to prevent accidental dragging. &lt;i&gt;Move Channel&lt;/i&gt; moves the channel without prompting. &lt;i&gt;Do Nothing&lt;/i&gt; does nothing and prints an error message. &lt;i&gt;Ask&lt;/i&gt; uses a message box to confirm if you really wanted to move the channel.</oldsource>
-        <translation>Configura o comportamento da moção de canais, pode ser usado para evitar moções acidentais. &lt;i&gt;Mover&lt;/i&gt; move o canal sem perguntar. &lt;i&gt;Não fazer nada&lt;/I&gt; não faz nada e mostra uma mensagem de erro. &lt;i&gt;Perguntar&lt;/i&gt; usa uma caixa de mensagem para confirmar se você realmente quer mover o canal.</translation>
+        <translation>Configura o comportamento da moção de canais; pode ser usado para evitar moções acidentais. &lt;i&gt;Mover&lt;/i&gt; move o canal sem perguntar. &lt;i&gt;Não fazer nada&lt;/I&gt; não faz nada e mostra uma mensagem de erro. &lt;i&gt;Perguntar&lt;/i&gt; usa uma caixa de mensagem para confirmar se você realmente quer mover o canal.</translation>
     </message>
     <message>
         <location/>
@@ -5268,7 +5268,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>This shows all recent activity. Connecting to servers, errors and information messages all show up here.&lt;br /&gt;To configure exactly which messages show up here, use the &lt;b&gt;Settings&lt;/b&gt; command from the menu.</source>
-        <translation>Mostra toda atividade recente. Conexões a servidores, erros e mensagens informações serão mostradas aqui.&lt;br /&gt;Para configurar exatamente quais mensagens aparecem aqui, use o comando &lt;b&gt;Configurações&lt;/b&gt; do menu.</translation>
+        <translation>Mostra toda atividade recente. Conexões a servidores, erros e mensagens de informação serão exibidas aqui.&lt;br /&gt;Para configurar exatamente quais mensagens aparecem aqui, use o comando &lt;b&gt;Configurações&lt;/b&gt; do menu.</translation>
     </message>
     <message>
         <location/>
@@ -5418,7 +5418,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>This is the chatbar&lt;br /&gt;If you enter text here and then press enter the text is sent to the user or channel that was selected. If nothing is selected the message is sent to your current channel.</source>
-        <translation>Esta é a barra de conversa&lt;br /&gt;Se você digitar texto aqui e pressionar enter o texto é enviado para o usuário ou canal que estava selecionado. Se nada está selecionado o texto é enviado ao seu canal atual.</translation>
+        <translation>Esta é a barra de conversa&lt;br /&gt;Se você digitar texto aqui e pressionar enter, o texto é enviado para o usuário ou canal que foi selecionado. Se nada foi selecionado, o texto é enviado para o seu canal atual.</translation>
     </message>
     <message>
         <location/>
@@ -5545,7 +5545,7 @@ seu certificado e nome de usuário.</translation>
     <message>
         <location/>
         <source>Mute or unmute yourself. When muted, you will not send any data to the server. Unmuting while deafened will also undeafen.</source>
-        <translation>Emudecer ou desemudecer-se. Quando mudo, você não enviará nenhum dado ao servidor. Desemudecer enquanto surdo também vai lhe desensurdecer.</translation>
+        <translation>Emudecer ou desemudecer-se. Quando mudo, você não enviará nenhum dado ao servidor. Desemudecer enquanto surdo também irá lhe desensurdecer.</translation>
     </message>
     <message>
         <location/>
@@ -6553,7 +6553,7 @@ the channel&apos;s context menu.</source>
         <translation>Ativar ou desativar o filtro dos canais selecionados.
 Por padrão todos os canais vazios serão filtrados.
 Você pode marcar canais adicionais para filtrar
-do menu contextual do canal.</translation>
+no menu contextual do canal.</translation>
     </message>
     <message>
         <location/>
@@ -6717,7 +6717,7 @@ do menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Hostname of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the hostname of the proxy you wish to tunnel network traffic through.</source>
-        <translation>&lt;b&gt;Endereço do servidor proxy&lt;/b&gt;&lt;br /&gt;Este campo especifica o nome do proxy através do qual você deseja enviar o tráfego.</translation>
+        <translation>&lt;b&gt;Endereço do servidor proxy.&lt;/b&gt;&lt;br /&gt;Este campo especifica o nome de host do proxy que você deseja enviar o tráfego.</translation>
     </message>
     <message>
         <location/>
@@ -6732,7 +6732,7 @@ do menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Port number of the proxy.&lt;/b&gt;&lt;br /&gt;This field specifies the port number that the proxy expects connections on.</source>
-        <translation>&lt;b&gt;Número da porta do proxy&lt;/b&gt;&lt;br /&gt;Este campo especifica o número da porta em que o proxy está esperando conexões.</translation>
+        <translation>&lt;b&gt;Número da porta do proxy.&lt;/b&gt;&lt;br /&gt;Este campo especifica o número da porta em que o proxy está esperando conexões.</translation>
     </message>
     <message>
         <location/>
@@ -6819,7 +6819,7 @@ Evita que o cliente baixe imagens embutidas em mensagens de bate-papo com a marc
     <message>
         <location/>
         <source>&lt;b&gt;Submit anonymous statistics.&lt;/b&gt;&lt;br /&gt;Mumble has a small development team, and as such needs to focus its development where it is needed most. By submitting a bit of statistics you help the project determine where to focus development.</source>
-        <translation>&lt;b&gt;Enviar estatísticas anônimas.&lt;/b&gt;&lt;br /&gt;O Mumble possui uma equipe de desenvolvimento pequena, e por isso precisa focar seu desenvolvimento onde ele é maie necessário. Ao enviar um pouco de estatísticas você ajuda o projeto a determinar onde focar este desenvolvimento.</translation>
+        <translation>&lt;b&gt;Enviar estatísticas anônimas.&lt;/b&gt;&lt;br /&gt;O Mumble possui uma equipe de desenvolvimento pequena, e por isso precisa focar seu desenvolvimento onde ele é mais necessário. Ao enviar um pouco de estatísticas, você ajuda o projeto a determinar onde focar o desenvolvimento.</translation>
     </message>
     <message>
         <location/>
@@ -7934,7 +7934,7 @@ An access token is a text string, which can be used as a password for very simpl
 </source>
         <translation>&lt;b&gt;Esta é uma lista editável de credenciais de acesso no servidor conectado.&lt;/b&gt;
 &lt;br /&gt;
-Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha para um gerenciamento de acesso simples nos canais. O Mumble vai lembrar das credenciais que você usou e vai reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.</translation>
+Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usada como uma senha para um gerenciamento de acesso simples nos canais. O Mumble lembrará das credenciais que você usar e irá reenviá-las para o servidor na próxima vez que você conectar, então você não precisa digitá-las sempre.</translation>
     </message>
     <message>
         <location/>

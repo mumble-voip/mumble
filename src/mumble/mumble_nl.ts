@@ -2354,12 +2354,12 @@ Luid spreken, zoals zijnde geïrriteerd/opgewonden. Verlaag geluidsconfiguraties
     <message>
         <location/>
         <source>Ban end date</source>
-        <translation>Ban einddatum</translation>
+        <translation>Ban-einddatum</translation>
     </message>
     <message>
         <location/>
         <source>Ban end date. If you set the same date for start and end, the ban will be permanent (it will not expire).</source>
-        <translation>Einddatum ban. Als je dezelfde datum bij start en einde invult → is de ban permanent (verloopt niet).</translation>
+        <translation>Ban&apos;s einddatum. Als je eenzelfde datum bij start en einde opgeeft → permanent.</translation>
     </message>
     <message>
         <location/>
@@ -3959,12 +3959,12 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location line="+1"/>
         <source>User kicked (you or by you)</source>
-        <translation>Gebruiker &apos;ruit gegooid (jij of door jou)</translation>
+        <translation>Gebruiker eruit gegooid (jij of door jou)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation>Gebruiker &apos;ruit gegooid</translation>
+        <translation>Gebruiker eruit gegooid</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4835,7 +4835,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location line="+40"/>
         <source>Kicking user %1</source>
-        <translation>Gebruiker %1 &apos;ruit aan&apos;t gooien</translation>
+        <translation>Gebruiker %1 wordt eruit gegooid</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -6187,7 +6187,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>%3 was kicked from the server by %1: %2.</source>
-        <translation>%3 &apos;ruit (server) gegooid (door %1): %2.</translation>
+        <translation>%3 uit server gegooid door %1: %2.</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -6197,7 +6197,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%1 gooide %3 &apos;ruit (server-ban: %2).</translation>
+        <translation>%1 verbannen %3 uit server: %2.</translation>
     </message>
     <message>
         <location line="-79"/>
