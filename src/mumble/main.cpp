@@ -110,8 +110,10 @@ void TeardownPlutoSettingsMap()
 void InitializePlutoSettings()
 {
 	qWarning("Initializing Pluto Default Settings");
-	g.s.fVADmin = plutoSettings.fVADmin;
-	g.s.fVADmax = plutoSettings.fVADmax;
+	if (plutoSettings)
+	{	g.s.fVADmin = plutoSettings->fVADmin;
+		g.s.fVADmax = plutoSettings->fVADmax;
+	}
 
 	g.s.bPositionalAudio = true;
 	g.s.bPositionalHeadphone = true;
