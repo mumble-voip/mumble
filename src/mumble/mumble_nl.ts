@@ -2936,7 +2936,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+2"/>
         <source>This represents the permission to permanently remove users from the server.</source>
-        <translation>Toestemming om gebruikers van server te verbannen.</translation>
+        <translation>Het recht gebruikers op server te bannen.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2971,7 +2971,7 @@ Het wordt &lt;b&gt;sterk&lt;/b&gt; aanbevolen dat je &lt;a href=&quot;http://mum
     <message>
         <location line="+2"/>
         <source>Ban</source>
-        <translation>Verbannen</translation>
+        <translation>Bannen</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4840,7 +4840,7 @@ Veld beschrijft LCD-apparaatgrootte aangeduid in pixels (voor Grafische LCD&apos
     <message>
         <location line="+19"/>
         <source>Banning user %1</source>
-        <translation>Gebruiker %1 aan &apos;t verbannen</translation>
+        <translation>Gebruiker %1 wordt verbannen</translation>
     </message>
     <message>
         <location line="+61"/>
@@ -5335,7 +5335,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Ban</source>
-        <translation>&amp;Verbannen</translation>
+        <translation>&amp;Bannen</translation>
     </message>
     <message>
         <location/>
@@ -5445,12 +5445,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Kick and ban user (with reason)</source>
-        <translation>Gebruiker permanent eruit gooien (verbannen + reden)</translation>
+        <translation>Gebruiker permanent eruit gooien (bannen met reden)</translation>
     </message>
     <message>
         <location/>
         <source>Kick and ban selected user from server. You&apos;ll be asked to specify a reason.</source>
-        <translation>Gebruiker uit de server gooien en verbannen (+ reden).</translation>
+        <translation>Gebruiker eruit gooien en bannen (met reden).</translation>
     </message>
     <message>
         <location/>
@@ -6182,7 +6182,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+176"/>
         <source>You were kicked from the server by %1: %2.</source>
-        <translation>%1 gooide je eruit (server): %2.</translation>
+        <translation>%1 gooide je eruit: %2.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6192,12 +6192,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="-7"/>
         <source>You were kicked and banned from the server by %1: %2.</source>
-        <translation>%1 gooide je eruit (server-ban: %2).</translation>
+        <translation>%1 gooide je eruit (ban: %2).</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>%3 was kicked and banned from the server by %1: %2.</source>
-        <translation>%1 verbannen %3 uit server: %2.</translation>
+        <translation>%1 geband %3: %2.</translation>
     </message>
     <message>
         <location line="-79"/>
@@ -8706,7 +8706,7 @@ Contacteer je serverbeheerder voor meer informatie.</translation>
     <message>
         <location line="+10"/>
         <source>There is already a recorder active for this server.</source>
-        <translation>Reeds opnemer actief op server.</translation>
+        <translation>Reeds opnemer op server actief.</translation>
     </message>
     <message>
         <location line="+9"/>
