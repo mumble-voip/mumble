@@ -64,7 +64,7 @@
 #define VICTIM_INIT \
 	ClientUser *pDst=ClientUser::get(msg.session()); \
 	 if (! pDst) { \
- 		qWarning("MainWindow: Message for nonexistant victim %d.", msg.session()); \
+ 		qWarning("MainWindow: Message for nonexistent victim %d.", msg.session()); \
 		return; \
 	}
 
