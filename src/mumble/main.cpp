@@ -60,6 +60,107 @@
 #include "Themes.h"
 #include "UserLockFile.h"
 
+#ifdef PLUTOVR_BUILD
+
+struct PlutoDefaultSettings 
+{
+	wchar_t audioInputDeviceId[256];
+	wchar_t audioOutputDeviceId[256];
+	float fVADmax;
+	float fVADmin;
+};
+
+static HANDLE settingsMapHandle = NULL;
+static PlutoDefaultSettings* plutoSettings = NULL;
+
+void InitializePlutoSettingsMap()
+{
+	settingsMapHandle = OpenFileMapping(FILE_MAP_ALL_ACCESS, false, L"PlutoSettings");
+	if (NULL == settingsMapHandle)
+	{
+		qWarning("SCOTTRA - This is BAD!!!!");
+		return;
+	}
+
+	plutoSettings = static_cast<PlutoDefaultSettings*>(MapViewOfFile(settingsMapHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+	if (NULL == plutoSettings)
+	{
+		CloseHandle(settingsMapHandle);
+		settingsMapHandle = NULL;
+		return;
+	}
+}
+
+void TeardownPlutoSettingsMap()
+{
+	if (plutoSettings)
+	{
+		UnmapViewOfFile(plutoSettings);
+		plutoSettings = NULL;
+	}
+	if (settingsMapHandle)
+	{
+		CloseHandle(settingsMapHandle);
+		settingsMapHandle = NULL;
+	}
+}
+
+void InitializePlutoSettings()
+{
+	qWarning("Initializing Pluto Default Settings");
+	if (plutoSettings)
+	{
+		g.s.fVADmin = plutoSettings->fVADmin;
+		g.s.fVADmax = plutoSettings->fVADmax;
+		g.s.qsWASAPIInput = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
+		g.s.qsWASAPIOutput = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
+	}
+
+	if (0.0f == g.s.fVADmin)
+	{
+		g.s.fVADmin = 0.443403;
+	}
+
+	if (0.0f == g.s.fVADmax)
+	{
+		g.s.fVADmax = 0.636799f;
+	}
+	g.s.bPositionalAudio = true;
+	g.s.bPositionalHeadphone = true;
+	g.s.fAudioMinDistance = 1.0f;
+	g.s.fAudioMaxDistance = 15.0f;
+	g.s.fAudioMaxDistVolume = 0.0f;
+	g.s.fAudioBloom = 0.75f;
+	g.s.bTransmitPosition = true;
+	g.s.bTTS = false;
+	g.s.bAskOnQuit = false;
+	g.s.iQuality = 72000;
+	g.s.iMinLoudness = 2250;
+	g.s.fVolume = 1;
+	g.s.fOtherVolume = 0.95;
+	g.s.iNoiseSuppress = -30;
+	g.s.bUpdateCheck = false;
+	g.s.bPluginCheck = false;
+	g.s.bQoS = false;
+	g.s.bReconnect = false;
+	g.s.bHideInTray = true;
+	g.s.disablePublicList = true;
+	g.s.disableConnectDialogEditing = true;
+	g.s.bSuppressIdentity = true;
+	g.s.bEcho = true;
+	g.s.bEchoMulti = true;
+	g.s.bHideFrame = false;
+	g.s.bMinimalView = false;
+}
+
+void UpdatePlutoSettings()
+{
+	#pragma message("SCOTTRA_TODO $$$$$ - IMPLEMENT")
+	// call function to set g.s.* to values from plutoSettings
+	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
+}
+#endif
+
 #if defined(USE_STATIC_QT_PLUGINS) && QT_VERSION < 0x050000
 Q_IMPORT_PLUGIN(qtaccessiblewidgets)
 Q_IMPORT_PLUGIN(qico)
@@ -127,6 +228,10 @@ int main(int argc, char **argv) {
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
+#endif
+
+#ifdef PLUTOVR_BUILD
+	InitializePlutoSettingsMap();
 #endif
 
 	bool bAllowMultiple = false;
@@ -316,35 +421,7 @@ int main(int argc, char **argv) {
 	g.s.load();
 
 #ifdef PLUTOVR_BUILD
-// PlutoVR default settings
-g.s.bPositionalAudio = true;
-g.s.bPositionalHeadphone = true;
-g.s.fAudioMinDistance = 1.0f;
-g.s.fAudioMaxDistance = 15.0f;
-g.s.fAudioMaxDistVolume = 0.0f;
-g.s.fAudioBloom = 0.75f;
-g.s.bTransmitPosition = true;
-g.s.bTTS = false;
-g.s.bAskOnQuit = false;
-g.s.iQuality = 72000;
-g.s.iMinLoudness = 2250;
-g.s.fVADmax = 0.636799;
-g.s.fVADmin = 0.443403;
-g.s.fVolume = 1;
-g.s.fOtherVolume = 0.95;
-g.s.iNoiseSuppress = -30;
-g.s.bUpdateCheck = false;
-g.s.bPluginCheck = false;
-g.s.bQoS = false;
-g.s.bReconnect = false;
-g.s.bHideInTray = true;
-g.s.disablePublicList = true;
-g.s.disableConnectDialogEditing = true;
-g.s.bSuppressIdentity = true;
-g.s.bEcho = true;
-g.s.bEchoMulti = true;
-g.s.bHideFrame = false;
-g.s.bMinimalView = false;
+	InitializePlutoSettings();
 #endif
 
 	// Check whether we need to enable accessibility features
@@ -460,7 +537,6 @@ g.s.bMinimalView = false;
 	g.l->log(Log::Information, MainWindow::tr("Welcome to Mumble."));
 
 #ifdef PLUTOVR_BUILD
-	qWarning("Pluto Default Settings:");
 	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
@@ -476,7 +552,6 @@ g.s.bMinimalView = false;
 	qWarning().nospace() << " bHideFrame " << g.s.bHideFrame << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " bMinimalView " << g.s.bMinimalView << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " bPositionalHeadphone " << g.s.bPositionalHeadphone << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
-
 #endif
 
 	// Plugins
