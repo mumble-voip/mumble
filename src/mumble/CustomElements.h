@@ -44,13 +44,18 @@
 # include <QtGui/QTextEdit>
 #endif
 
+#include <QMovie>
+
 class LogTextBrowser : public QTextBrowser {
 	private:
 		Q_OBJECT
 		Q_DISABLE_COPY(LogTextBrowser)
+
+		QMovie *qmActiveAnimation;
 	protected:
 		void resizeEvent(QResizeEvent *e) Q_DECL_OVERRIDE;
 		bool event(QEvent *e) Q_DECL_OVERRIDE;
+		void mouseMoveEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 	public:
 		LogTextBrowser(QWidget *p = NULL);
 
@@ -58,6 +63,8 @@ class LogTextBrowser : public QTextBrowser {
 		int getLogScrollMaximum();
 		void setLogScroll(int scroll_pos);
 		void scrollLogToBottom();
+	public slots:
+		void animationFrameUpdated(const QRect &);
 };
 
 class ChatbarTextEdit : public QTextEdit {

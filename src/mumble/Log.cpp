@@ -705,7 +705,22 @@ void LogDocument::finished() {
 					ok = (qi.width() <= g.s.iMaxImageWidth && qi.height() <= g.s.iMaxImageHeight);
 				}
 				if (ok) {
-					addResource(QTextDocument::ImageResource, rep->request().url(), qi);
+					const QUrl &name = rep->request().url();
+					addResource(QTextDocument::ImageResource, name, qi);
+
+					LogTextBrowser *ltb = qobject_cast<LogTextBrowser *>(this->parent());
+					if (ltb && fmt == QByteArray("gif")) {
+						// Currently, only animations inside of a LogTextBrowser is
+						// supported.
+						QMovie *animation = new QMovie(this);
+						QBuffer *buffer = new QBuffer(animation);
+						buffer->setData(ba);
+						buffer->open(QIODevice::ReadOnly);
+						animation->setDevice(buffer);
+
+						qhAnimations[name.toString()] = animation;
+						connect(animation, SIGNAL(updated(const QRect&)), ltb, SLOT(animationFrameUpdated(const QRect&)));
+					}
 
 					// Force a re-layout of the QTextEdit the next
 					// time we enter the event loop.

@@ -3082,7 +3082,7 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 #endif
 	}
 
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg *.gif)"));
 
 	if (fname.isNull())
 		return retval;
