@@ -62,9 +62,10 @@
 
 #ifdef PLUTOVR_BUILD
 
-struct PlutoDefaultSettings {
-	LPCWSTR audioInputDeviceId;
-	LPCWSTR audioOutputDeviceId;
+struct PlutoDefaultSettings 
+{
+	wchar_t audioInputDeviceId[256];
+	wchar_t audioOutputDeviceId[256];
 	float fVADmax;
 	float fVADmin;
 };
@@ -74,23 +75,20 @@ static PlutoDefaultSettings* plutoSettings = NULL;
 
 void InitializePlutoSettingsMap()
 {
-		settingsMapHandle = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, L"PlutoSettings");
-		if (NULL == settingsMapHandle)
-		{
-			settingsMapHandle = CreateFileMapping(INVALID_HANDLE_VALUE, NULL, PAGE_READWRITE, 0, sizeof(PlutoDefaultSettings), L"PlutoSettings");
-		}
-		if (NULL == settingsMapHandle)
-		{
-			return;
-		}
-		plutoSettings = static_cast<PlutoDefaultSettings*>(MapViewOfFile(settingsMapHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0));
-		if (NULL == plutoSettings)
-		{
-			CloseHandle(settingsMapHandle);
-			settingsMapHandle = NULL;
-			return;
-		}
-		memset(plutoSettings, 0, sizeof(PlutoDefaultSettings));
+	settingsMapHandle = OpenFileMapping(FILE_MAP_ALL_ACCESS, false, L"PlutoSettings");
+	if (NULL == settingsMapHandle)
+	{
+		qWarning("SCOTTRA - This is BAD!!!!");
+		return;
+	}
+
+	plutoSettings = static_cast<PlutoDefaultSettings*>(MapViewOfFile(settingsMapHandle, FILE_MAP_ALL_ACCESS, 0, 0, 0));
+	if (NULL == plutoSettings)
+	{
+		CloseHandle(settingsMapHandle);
+		settingsMapHandle = NULL;
+		return;
+	}
 }
 
 void TeardownPlutoSettingsMap()
@@ -111,10 +109,22 @@ void InitializePlutoSettings()
 {
 	qWarning("Initializing Pluto Default Settings");
 	if (plutoSettings)
-	{	g.s.fVADmin = plutoSettings->fVADmin;
+	{
+		g.s.fVADmin = plutoSettings->fVADmin;
 		g.s.fVADmax = plutoSettings->fVADmax;
+		g.s.qsWASAPIInput = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
+		g.s.qsWASAPIOutput = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
 	}
 
+	if (0.0f == g.s.fVADmin)
+	{
+		g.s.fVADmin = 0.443403;
+	}
+
+	if (0.0f == g.s.fVADmax)
+	{
+		g.s.fVADmax = 0.636799f;
+	}
 	g.s.bPositionalAudio = true;
 	g.s.bPositionalHeadphone = true;
 	g.s.fAudioMinDistance = 1.0f;
@@ -126,8 +136,6 @@ void InitializePlutoSettings()
 	g.s.bAskOnQuit = false;
 	g.s.iQuality = 72000;
 	g.s.iMinLoudness = 2250;
-	g.s.fVADmax = 0.636799;
-	g.s.fVADmin = 0.443403;
 	g.s.fVolume = 1;
 	g.s.fOtherVolume = 0.95;
 	g.s.iNoiseSuppress = -30;
@@ -143,6 +151,13 @@ void InitializePlutoSettings()
 	g.s.bEchoMulti = true;
 	g.s.bHideFrame = false;
 	g.s.bMinimalView = false;
+}
+
+void UpdatePlutoSettings()
+{
+	#pragma message("SCOTTRA_TODO $$$$$ - IMPLEMENT")
+	// call function to set g.s.* to values from plutoSettings
+	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
 }
 #endif
 
@@ -184,10 +199,6 @@ int main(int argc, char **argv) {
 #endif
 #endif
 
-#ifdef PLUTOVR_BUILD
-	InitializePlutoSettingsMap();
-#endif
-
 	// Initialize application object.
 	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));
@@ -217,6 +228,10 @@ int main(int argc, char **argv) {
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MAC)
 	os_init();
+#endif
+
+#ifdef PLUTOVR_BUILD
+	InitializePlutoSettingsMap();
 #endif
 
 	bool bAllowMultiple = false;
@@ -632,10 +647,6 @@ int main(int argc, char **argv) {
 		g.mw->on_qaServerConnect_triggered(true);
 #endif
 	}
-
-#pragma message("SCOTTRA_TODO - remove this but they are placeholders to remember the settings")
-  qWarning().nospace() << "SCOTTRA - input device: " << g.s.qsWASAPIInput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
-  qWarning().nospace() << "SCOTTRA - output device: " << g.s.qsWASAPIOutput << "  @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 
 	if (! g.bQuit)
 		res=a.exec();
