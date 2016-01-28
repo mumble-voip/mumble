@@ -6576,7 +6576,7 @@ kanalens innehållsmeny.</translation>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation>Lokal volumnjustering</translation>
+        <translation>Lokal volymjustering</translation>
     </message>
     <message>
         <location/>
@@ -8262,7 +8262,7 @@ En token är en textsträng, som kan användas som ett lösenord för enkel till
     <message>
         <location/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use the slider or the text box to change the volume of the user.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;Attention!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Increasing the volume of a user too much can permanently damage your hearing. It may also increase the background noise of the user.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Använda reglaget eller textboxen för att ändra volumen på användaren.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;OBS!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Höja volymen av en användare för mycket kan permanent skada din hörsel. Det kanske även höjer bakgrundljudet från användaren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Använd reglaget eller textboxen för att ändra volymen på användaren.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;OBS!&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Höja volymen av en användare för mycket kan permanent skada din hörsel. Det kanske även höjer bakgrundljudet från användaren.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
