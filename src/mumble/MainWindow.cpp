@@ -726,7 +726,7 @@ void MainWindow::saveImageAs() {
 }
 
 QString MainWindow::getImagePath(QString filename) const {
-	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath)) {
+	if (g.s.qsImagePath.isEmpty() || ! QDir(g.s.qsImagePath).exists()) {
 #if QT_VERSION >= 0x050000
 		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
 #else
