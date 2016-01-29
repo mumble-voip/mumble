@@ -1,5 +1,11 @@
+2016-01-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    6f3bacb  Revert 1e4e1e12.
+    c613139  Bump version to 1.2.14.
+
 2016-01-10
   Mikkel Krautz <mikkel@krautz.dk>
+    6f6b73d  Update changelog.
     2539b47  Fix Murmur on Windows DoS as described in Mumble-SA-2016-001.
     1a37d36  Bump version to 1.2.13.
 
