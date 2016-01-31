@@ -95,7 +95,14 @@ ServerHandler::ServerHandler() {
 	tConnectionTimeoutTimer = NULL;
 	uiVersion = 0;
 
-	// For some strange reason, on Win32, we have to call supportsSsl before the cipher list is ready.
+	// Historically, this initialized OpenSSL for us:
+	//
+	//     "For some strange reason, on Win32, we have to call
+	//      supportsSsl before the cipher list is ready."
+	//
+	// Now, OpenSSL is initialized in main() via MumbleSSL::initialize(),
+	// but since it's handy to have the OpenSSL version available, we
+	// keep this one around as well.
 	qWarning("OpenSSL Support: %d (%s)", QSslSocket::supportsSsl(), SSLeay_version(SSLEAY_VERSION));
 
 	MumbleSSL::addSystemCA();
