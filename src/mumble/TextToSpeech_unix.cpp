@@ -60,6 +60,22 @@ TextToSpeechPrivate::TextToSpeechPrivate() {
 	if (! spd) {
 		qWarning("TextToSpeech: Failed to contact speech dispatcher.");
 	} else {
+		QString lang;
+		if (!g.s.qsTTSLanguage.isEmpty()) {
+			lang = g.s.qsTTSLanguage;
+		} else if (!g.s.qsLanguage.isEmpty()) {
+			QLocale locale(g.s.qsLanguage);
+			lang = locale.bcp47Name();
+		} else {
+			QLocale systemLocale;
+			lang = systemLocale.bcp47Name();
+		}
+		if (!lang.isEmpty()) {
+			if (spd_set_language(spd, lang.toLocal8Bit().constData()) != 0) {
+				qWarning("TextToSpeech: Failed to set language.");
+			}
+		}
+
 		if (spd_set_punctuation(spd, SPD_PUNCT_NONE) != 0)
 			qWarning("TextToSpech: Failed to set punctuation mode.");
 		if (spd_set_spelling(spd, SPD_SPELL_ON) != 0)
