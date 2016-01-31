@@ -188,6 +188,15 @@ struct Settings {
 	bool bWhisperFriends;
 	bool bTTSMessageReadBack;
 	int iTTSVolume, iTTSThreshold;
+	/// The Text-to-Speech language to use. This setting overrides
+	/// the default language for the Text-to-Speech engine, which
+	/// is usually inferred from the current locale.
+	///
+	/// The language is expected to be in BCP47 form.
+	///
+	/// The setting is currently only supported by the speech-dispatcher
+	///backend.
+	QString qsTTSLanguage;
 	int iQuality, iMinLoudness, iVoiceHold, iJitterBufferSize;
 	int iNoiseSuppress;
 
