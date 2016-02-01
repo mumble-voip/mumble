@@ -302,6 +302,12 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		void on_qaFilterToggle_triggered();
 		/// Opens a save dialog for the image referenced by qtcSaveImageCursor.
 		void saveImageAs();
+		/// Returns the path to the user's image directory, optionally with a
+		/// filename included.
+		QString getImagePath(QString filename = QString()) const;
+		/// Updates the user's image directory to the given path (any included
+		/// filename is discarded).
+		void updateImagePath(QString filepath) const;
 
 	public:
 		MainWindow(QWidget *parent);

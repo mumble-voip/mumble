@@ -703,7 +703,7 @@ void MainWindow::saveImageAs() {
 	QDateTime now = QDateTime::currentDateTime();
 	QString defaultFname = QString::fromLatin1("Mumble-%1.jpg").arg(now.toString(QString::fromLatin1("yyyy-MM-dd-HHmmss")));
 
-	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), defaultFname, tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getSaveFileName(this, tr("Save Image File"), getImagePath(defaultFname), tr("Images (*.png *.jpg *.jpeg)"));
 	if (fname.isNull()) {
 		return;
 	}
@@ -715,11 +715,33 @@ void MainWindow::saveImageAs() {
 	if (!ok) {
 		// In case fname did not contain a file extension, try saving with an
 		// explicit format.
-		ok = img.save(fname, "JPG");
+		ok = img.save(fname, "PNG");
 	}
+
+	updateImagePath(fname);
+
 	if (!ok) {
 		g.l->log(Log::Warning, tr("Could not save image: %1").arg(Qt::escape(fname)));
 	}
+}
+
+QString MainWindow::getImagePath(QString filename) const {
+	if (g.s.qsImagePath.isEmpty() || ! QDir(g.s.qsImagePath).exists()) {
+#if QT_VERSION >= 0x050000
+		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+#else
+		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
+#endif
+	}
+	if (filename.isEmpty()) {
+		return g.s.qsImagePath;
+	}
+	return g.s.qsImagePath + QDir::separator() + filename;
+}
+
+void MainWindow::updateImagePath(QString filepath) const {
+	QFileInfo fi(filepath);
+	g.s.qsImagePath = fi.absolutePath();
 }
 
 static void recreateServerHandler() {
@@ -3074,15 +3096,7 @@ void MainWindow::context_triggered() {
 QPair<QByteArray, QImage> MainWindow::openImageFile() {
 	QPair<QByteArray, QImage> retval;
 
-	if (g.s.qsImagePath.isEmpty() || ! QDir::root().exists(g.s.qsImagePath)) {
-#if QT_VERSION >= 0x050000
-		g.s.qsImagePath = QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
-#else
-		g.s.qsImagePath = QDesktopServices::storageLocation(QDesktopServices::PicturesLocation);
-#endif
-	}
-
-	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), g.s.qsImagePath, tr("Images (*.png *.jpg *.jpeg)"));
+	QString fname = QFileDialog::getOpenFileName(this, tr("Choose image file"), getImagePath(), tr("Images (*.png *.jpg *.jpeg)"));
 
 	if (fname.isNull())
 		return retval;
@@ -3093,8 +3107,7 @@ QPair<QByteArray, QImage> MainWindow::openImageFile() {
 		return retval;
 	}
 
-	QFileInfo fi(f);
-	g.s.qsImagePath = fi.absolutePath();
+	updateImagePath(fname);
 
 	QByteArray qba = f.readAll();
 	f.close();
