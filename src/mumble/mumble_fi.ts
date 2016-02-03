@@ -1137,7 +1137,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Kaiunpoisto</translation>
     </message>
     <message>
         <location/>
@@ -1147,7 +1147,7 @@ määritellyssä ajassa, lukitaan se päälle. Mumble jatkaa puheen lähettämis
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Monikanavainen kaiunpoisto</translation>
     </message>
 </context>
 <context>
@@ -8255,7 +8255,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation>dB</translation>
     </message>
     <message>
         <location/>

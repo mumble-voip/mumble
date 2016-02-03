@@ -40,6 +40,7 @@
 static std::wstring wsPluginName;
 static std::wstring wsDescription;
 
+#ifndef PLUTOVR_BUILD
 struct LinkedMem {
 	UINT32  uiVersion;
 	DWORD   dwcount;
@@ -55,6 +56,21 @@ struct LinkedMem {
 	unsigned char context[256];
 	wchar_t description[2048];
 };
+#else
+struct LinkedMem {
+	UINT32  uiVersion;
+	DWORD   dwcount;
+	float	fAvatarPosition[3];
+	float	fAvatarFront[3];
+	float	fAvatarTop[3];
+	wchar_t	name[256];
+	float	fCameraPosition[3];
+	float	fCameraFront[3];
+	float	fCameraTop[3];
+	wchar_t	identity[256];
+	wchar_t description[2048];
+};
+#endif
 
 static void about(HWND h) {
 	::MessageBox(h, L"Reads audio position information from linked game", L"Mumble Link Plugin", MB_OK);
@@ -136,11 +152,17 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			camera_top[i]=lm->fCameraTop[i];
 		}
 
+#ifndef PLUTOVR_BUILD
 		if (lm->context_len > 255)
 			lm->context_len = 255;
+#endif
 		lm->identity[255] = 0;
 
+#ifndef PLUTOVR_BUILD
 		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
+#else
+		context = "Pluto";
+#endif
 		identity.assign(lm->identity);
 	} else {
 		for (int i=0;i<3;++i) {
