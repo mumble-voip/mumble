@@ -2,6 +2,12 @@ include(qt.pri)
  
 CONFIG *= warn_on
 
+# Enable zlib compression for assets
+# embedded via rcc. This is done to
+# keep the size of rcc's output
+# source files under control.
+QMAKE_RESOURCE_FLAGS += -compress 9
+
 win32 {
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
