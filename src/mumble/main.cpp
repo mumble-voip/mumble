@@ -98,6 +98,8 @@ int main(int argc, char **argv) {
 #endif
 #endif
 
+	MumbleSSL::initialize();
+
 	// Initialize application object.
 	MumbleApplication a(argc, argv);
 	a.setApplicationName(QLatin1String("Mumble"));

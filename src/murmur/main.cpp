@@ -183,6 +183,9 @@ int main(int argc, char **argv) {
 	}
 
 	SetDllDirectory(L"");
+
+	MumbleSSL::initialize();
+
 #endif
 	int res;
 
