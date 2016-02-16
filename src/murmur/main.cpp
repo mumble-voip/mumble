@@ -183,6 +183,7 @@ int main(int argc, char **argv) {
 	}
 
 	SetDllDirectory(L"");
+
 #endif
 	int res;
 
@@ -211,6 +212,8 @@ int main(int argc, char **argv) {
 	a.setApplicationName("Murmur");
 	a.setOrganizationName("Mumble");
 	a.setOrganizationDomain("mumble.sourceforge.net");
+
+	MumbleSSL::initialize();
 
 	QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 #if QT_VERSION < 0x050000

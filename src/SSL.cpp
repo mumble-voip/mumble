@@ -34,6 +34,11 @@
 
 #include "Version.h"
 
+void MumbleSSL::initialize() {
+	// Let Qt initialize OpenSSL...
+	QSslSocket::supportsSsl();
+}
+
 QString MumbleSSL::defaultOpenSSLCipherString() {
 	return QLatin1String("EECDH+AESGCM:EDH+aRSA+AESGCM:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:AES256-SHA:AES128-SHA");
 }

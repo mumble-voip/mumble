@@ -55,6 +55,7 @@
 #include "NetworkConfig.h"
 #include "CrashReporter.h"
 #include "SocketRPC.h"
+#include "SSL.h"
 #include "MumbleApplication.h"
 #include "ApplicationPalette.h"
 #include "Themes.h"
@@ -112,6 +113,8 @@ int main(int argc, char **argv) {
 #if QT_VERSION >= 0x050000 && defined(Q_OS_WIN)
 	a.installNativeEventFilter(&a);
 #endif
+
+	MumbleSSL::initialize();
 
 	#ifdef USE_SBCELT
 	{
