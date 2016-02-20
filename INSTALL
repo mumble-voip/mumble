@@ -146,7 +146,12 @@ CONFIG+=no-ice (Murmur)
  Don't build support for Ice RPC.
 
 CONFIG+=grpc (Murmur, Linux)
- Include support for gRPC.
+ Include experimental support for gRPC.
+ We do not currently recommend that packagers
+ ship packages to end users with gRPC enabled.
+ The gRPC library's API is not yet stable, and
+ Murmur's gRPC interface is not yet frozen, and
+ will most likely change in the future.
 
 CONFIG+=no-bonjour
  Don't build support for Bonjour.
