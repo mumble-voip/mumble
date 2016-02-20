@@ -81,7 +81,7 @@ SUBDIRS *= src/mumble_proto
     SUBDIRS *= src/murmur/murmur_ice
   }
   CONFIG(grpc) {
-    SUBDIRS *= src/murmur_grpc_wrapper_gen
+    SUBDIRS *= src/murmur_grpcwrapper_protoc_plugin
     SUBDIRS *= src/murmur/murmur_grpc
   }
   SUBDIRS *= src/murmur
