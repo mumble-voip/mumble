@@ -21,68 +21,66 @@
 
 #include "MurmurRPC.proto.Wrapper.cpp"
 
-/*
- * GRPC system overview
- * ====================
- *
- * Definitions:
- *
- *  - Completion queue: a mechanism used for handling asynchronous grpc
- *    requests. Whenever you want to do something with grpc (e.g. accept a
- *    remote call, read/write a message), the completion queue manages that
- *    request for you.
- *
- *    When you wish to perform an asynchronous action, you provide the
- *    completion queue with a unique "tag". This tag used to identify the
- *    request after it has finished.
- *
- *    To check the status of asynchronous actions that have been added to the
- *    completion queue, you call its "Next" method. Next returns when there is
- *    a finished action in the completion queue. Next provides two output
- *    variables: the completed action's tag, and a boolean, which indicates if
- *    the action was successful. All tags in this project are are
- *    heap-allocated pointers to "boost::function"s that accept a boolean.
- *    After Next returns, the tag pointer is dereferenced, executed with the
- *    success variable, and then freed.
- *
- *  - Wrapper class: each RPC method that is defined in the .proto has had a
- *    class generated for it (the generator program is located in scripts/).
- *    Each class provides storage for the incoming and outgoing protocol buffer
- *    message, as well as helper methods for registering events with the
- *    completion queue. Each wrapper class also has an "impl(bool)" method;
- *    each one is implemented in this file. This impl method gets executed when
- *    the particular RPC method gets invoked by an RPC client.
- *
- *    Each wrapper class extends RPCCall. Among other things, RPCCall provides
- *    reference counting for the object. This is needed for memory management,
- *    as the wrapper objects can be used and stored in several locations (this
- *    is only really true for streaming grpc calls).
- *
- * The flow of the grpc system is as follows:
- *
- *  - GRPCStart() is called from murmur's main().
- *  - If an address for the grpc has been set in murmur.ini, the grpc service
- *    begins listening on that address for grpc client connections.
- *  - A new thread is created which handles the grpc completion queue (defined
- *    above). This thread continuously calls the completion queue's Next method
- *    to process the next completed event.
- *  - The wrapper classes' "create" methods are executed, which makes them
- *    invokable by grpc clients.
- *  - With the completion queue now running in the background, murmur
- *    continues starting up.
- *
- *  - When a grpc client invokes an RPC method, the previously mentioned thread
- *    is notified of this and executes the "tag" (recall, tags are pointers to
- *    functions). The wrapper method "impl(bool)" for the corresponding RPC
- *    method ends up being called. It is important to note that this impl
- *    method gets executed in the main thread. This prevents data corruption
- *    of murmur's data structures without the need of locks.
- *
- *    Additionally, the execution of tags are wrapped with a try-catch. This
- *    try-catch catches any grpc::Status that is thrown. If one is caught, the
- *    status is automatically sent to the grpc client and the invocation of the
- *    current method is stopped.
- */
+// GRPC system overview
+// ====================
+//
+// Definitions:
+//
+//  - Completion queue: a mechanism used for handling asynchronous grpc
+//    requests. Whenever you want to do something with grpc (e.g. accept a
+//    remote call, read/write a message), the completion queue manages that
+//    request for you.
+//
+//    When you wish to perform an asynchronous action, you provide the
+//    completion queue with a unique "tag". This tag used to identify the
+//    request after it has finished.
+//
+//    To check the status of asynchronous actions that have been added to the
+//    completion queue, you call its "Next" method. Next returns when there is
+//    a finished action in the completion queue. Next provides two output
+//    variables: the completed action's tag, and a boolean, which indicates if
+//    the action was successful. All tags in this project are are
+//    heap-allocated pointers to "boost::function"s that accept a boolean.
+//    After Next returns, the tag pointer is dereferenced, executed with the
+//    success variable, and then freed.
+//
+//  - Wrapper class: each RPC method that is defined in the .proto has had a
+//    class generated for it (the generator program is located in scripts/).
+//    Each class provides storage for the incoming and outgoing protocol buffer
+//    message, as well as helper methods for registering events with the
+//    completion queue. Each wrapper class also has an "impl(bool)" method;
+//    each one is implemented in this file. This impl method gets executed when
+//    the particular RPC method gets invoked by an RPC client.
+//
+//    Each wrapper class extends RPCCall. Among other things, RPCCall provides
+//    reference counting for the object. This is needed for memory management,
+//    as the wrapper objects can be used and stored in several locations (this
+//    is only really true for streaming grpc calls).
+//
+// The flow of the grpc system is as follows:
+//
+//  - GRPCStart() is called from murmur's main().
+//  - If an address for the grpc has been set in murmur.ini, the grpc service
+//    begins listening on that address for grpc client connections.
+//  - A new thread is created which handles the grpc completion queue (defined
+//    above). This thread continuously calls the completion queue's Next method
+//    to process the next completed event.
+//  - The wrapper classes' "create" methods are executed, which makes them
+//    invokable by grpc clients.
+//  - With the completion queue now running in the background, murmur
+//    continues starting up.
+//
+//  - When a grpc client invokes an RPC method, the previously mentioned thread
+//    is notified of this and executes the "tag" (recall, tags are pointers to
+//    functions). The wrapper method "impl(bool)" for the corresponding RPC
+//    method ends up being called. It is important to note that this impl
+//    method gets executed in the main thread. This prevents data corruption
+//    of murmur's data structures without the need of locks.
+//
+//    Additionally, the execution of tags are wrapped with a try-catch. This
+//    try-catch catches any grpc::Status that is thrown. If one is caught, the
+//    status is automatically sent to the grpc client and the invocation of the
+//    current method is stopped.
 
 static MurmurRPCImpl *service;
 
