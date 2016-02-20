@@ -1447,7 +1447,7 @@ void V1_TextMessageSend::impl(bool) {
 		}
 	}
 
-	server->sendTextMessage(tm);
+	server->sendTextMessageGRPC(tm);
 
 	end();
 }
