@@ -60,7 +60,7 @@
  *
  * The flow of the grpc system is as follows:
  *
- *  - RPCStart() is called from murmur's main().
+ *  - GRPCStart() is called from murmur's main().
  *  - If an address for the grpc has been set in murmur.ini, the grpc service
  *    begins listening on that address for grpc client connections.
  *  - A new thread is created which handles the grpc completion queue (defined
@@ -86,7 +86,7 @@
 
 static MurmurRPCImpl *service;
 
-void RPCStart() {
+void GRPCStart() {
 	const auto &address = meta->mp.qsGRPCAddress;
 	if (address.isEmpty()) {
 		return;
@@ -125,7 +125,7 @@ void RPCStart() {
 	service = new MurmurRPCImpl(address, credentials);
 }
 
-void RPCStop() {
+void GRPCStop() {
 	if (service) {
 		delete service;
 	}

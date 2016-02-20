@@ -171,8 +171,9 @@ void IceStop();
 #endif
 
 #ifdef USE_GRPC
-void RPCStart();
-void RPCStop();
+// From MurmurGRPCImpl.cpp.
+void GRPCStart();
+void GRPCStop();
 #endif
 
 int main(int argc, char **argv) {
@@ -520,7 +521,7 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef USE_GRPC
-	RPCStart();
+	GRPCStart();
 #endif
 
 	meta->getOSInfo();
@@ -546,7 +547,7 @@ int main(int argc, char **argv) {
 #endif
 
 #ifdef USE_GRPC
-	RPCStop();
+	GRPCStop();
 #endif
 
 	delete qfLog;
