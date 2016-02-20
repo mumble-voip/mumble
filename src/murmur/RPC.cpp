@@ -110,12 +110,12 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 	bool updated = false;
 
 	if (!cs.has_channel_id()) {
-		err = "missing channel ID";
+		err = QLatin1String("missing channel ID");
 		return false;
 	}
 	Channel *channel = qhChannels.value(cs.channel_id());
 	if (!channel) {
-		err = "invalid channel";
+		err = QLatin1String("invalid channel");
 		return false;
 	}
 	mpcs.set_channel_id(cs.channel_id());
@@ -127,7 +127,7 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 	for (int i = 0; i < cs.links_size(); i++) {
 		Channel *link = qhChannels.value(cs.links(i));
 		if (!link) {
-			err = "invalid channel link";
+			err = QLatin1String("invalid channel link");
 			return false;
 		}
 		newLinksSet.insert(link);
@@ -136,20 +136,20 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 	if (cs.has_parent()) {
 		Channel *parent = qhChannels.value(cs.parent());
 		if (!parent) {
-			err = "invalid parent channel";
+			err = QLatin1String("invalid parent channel");
 			return false;
 		}
 		if (parent != channel->cParent) {
 			Channel *p = parent;
 			while (p) {
 				if (p == channel) {
-					err = "parent channel cannot be a descendant of channel";
+					err = QLatin1String("parent channel cannot be a descendant of channel");
 					return false;
 				}
 				p = p->cParent;
 			}
 			if (!canNest(parent, channel)) {
-				err = "channel cannot be nested in the given parent";
+				err = QLatin1String("channel cannot be nested in the given parent");
 				return false;
 			}
 			channel->cParent->removeChannel(channel);
