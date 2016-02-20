@@ -120,7 +120,10 @@ void GRPCStart() {
 		options.pem_key_cert_pairs.push_back(pair);
 		credentials = ::grpc::SslServerCredentials(options);
 	}
+
 	service = new MurmurRPCImpl(address, credentials);
+
+	qWarning("GRPC: lisetning on '%s'", qPrintable(address));
 }
 
 void GRPCStop() {
