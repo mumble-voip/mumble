@@ -334,7 +334,15 @@ class Server : public QThread {
 		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name = QString(), const QString &comment = QString());
 		bool setChannelState(const MumbleProto::ChannelState &cs, QString &err);
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString(), const int position = 0);
-		void sendTextMessage(const ::MumbleProto::TextMessage &tm);
+
+		/// Send a text message using the TextMessage protobuf message
+		/// as a template.
+		/// This is equivalent to the logic that happens in Server::msgTextMessage
+		/// when sending a receieved TextMessage, with the exception that this
+		/// method does not perform any permission checks.
+		/// It is used by our gRPC implementation to send text messages.
+		void sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm);
+
 		void sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text);
 
 		/// Returns true if a channel is full. If a user is provided, false will always

@@ -314,7 +314,7 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	return true;
 }
 
-void Server::sendTextMessage(const ::MumbleProto::TextMessage &tm) {
+void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
 	MumbleProto::TextMessage mptm;
 	mptm.set_message(tm.message());
 
