@@ -23,8 +23,7 @@ grpch.CONFIG *= no_link explicit_dependencies target_predeps
 
 grpc.output = ${QMAKE_FILE_BASE}.grpc.pb.cc
 grpc.depends = ${QMAKE_FILE_BASE}.pb.h
-# TODO(grpc): plugin path needs to be set for other systems
-grpc.commands = protoc --grpc_out=. --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin -I. -I.. ${QMAKE_FILE_NAME}
+grpc.commands = protoc --grpc_out=. --plugin=protoc-gen-grpc=$$system(which grpc_cpp_plugin) -I. -I.. ${QMAKE_FILE_NAME}
 grpc.input = GRPC
 grpc.CONFIG *= no_link explicit_dependencies
 grpc.variable_out = SOURCES
