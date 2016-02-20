@@ -129,16 +129,16 @@ void GRPCStop() {
 	}
 }
 
-MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) : qtCleanup(this) {
+MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) : m_cleanupTimer(this) {
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), credentials);
 	builder.RegisterService(&m_V1Service);
 	m_completionQueue = builder.AddCompletionQueue();
-	mServer = builder.BuildAndStart();
+	m_server = builder.BuildAndStart();
 	meta->connectListener(this);
-	connect(&qtCleanup, SIGNAL(timeout()), this, SLOT(cleanup()));
-	qtCleanup.setSingleShot(false);
-	qtCleanup.start(1000 * 60);
+	connect(&m_cleanupTimer, SIGNAL(timeout()), this, SLOT(cleanup()));
+	m_cleanupTimer.setSingleShot(false);
+	m_cleanupTimer.start(1000 * 60);
 	start();
 }
 

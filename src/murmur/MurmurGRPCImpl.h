@@ -35,8 +35,8 @@ class V1_TextMessageFilter;
 
 class MurmurRPCImpl : public QThread {
 		Q_OBJECT;
-		std::unique_ptr<grpc::Server> mServer;
-		QTimer qtCleanup;
+		std::unique_ptr<grpc::Server> m_server;
+		QTimer m_cleanupTimer;
 	protected:
 		void customEvent(QEvent *evt);
 	public:
