@@ -151,17 +151,17 @@ MurmurRPCImpl::~MurmurRPCImpl() {
  * client disconnects.
  */
 void MurmurRPCImpl::cleanup() {
-	for (auto i = qsMetaServiceListeners.begin(); i != qsMetaServiceListeners.end(); ) {
+	for (auto i = m_metaServiceListeners.begin(); i != m_metaServiceListeners.end(); ) {
 		auto listener = *i;
 		if (listener->context.IsCancelled()) {
-			i = qsMetaServiceListeners.erase(i);
+			i = m_metaServiceListeners.erase(i);
 			listener->deref();
 		} else {
 			++i;
 		}
 	}
 
-	for (auto i = qhContextActionListeners.begin(); i != qhContextActionListeners.end(); ) {
+	for (auto i = m_contextActionListeners.begin(); i != m_contextActionListeners.end(); ) {
 		auto &ref = i.value();
 		for (auto j = ref.begin(); j != ref.end(); ) {
 			auto listener = j.value();
@@ -174,26 +174,26 @@ void MurmurRPCImpl::cleanup() {
 		}
 
 		if (ref.isEmpty()) {
-			i = qhContextActionListeners.erase(i);
+			i = m_contextActionListeners.erase(i);
 		} else {
 			++i;
 		}
 	}
 
-	for (auto i = qmhServerServiceListeners.begin(); i != qmhServerServiceListeners.end(); ) {
+	for (auto i = m_serverServiceListeners.begin(); i != m_serverServiceListeners.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
-			i = qmhServerServiceListeners.erase(i);
+			i = m_serverServiceListeners.erase(i);
 			listener->deref();
 		} else {
 			++i;
 		}
 	}
 
-	for (auto i = qhAuthenticators.begin(); i != qhAuthenticators.end(); ) {
+	for (auto i = m_authenticators.begin(); i != m_authenticators.end(); ) {
 		auto listener = i.value();
 		if (listener->context.IsCancelled()) {
-			i = qhAuthenticators.erase(i);
+			i = m_authenticators.erase(i);
 			listener->deref();
 		} else {
 			++i;
@@ -391,13 +391,13 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
  * Sends a meta event to any subscribed listeners.
  */
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
-	auto listeners = qsMetaServiceListeners;
+	auto listeners = m_metaServiceListeners;
 
 	for (auto i = listeners.constBegin(); i != listeners.constEnd(); ++i) {
 		auto listener = *i;
 		listener->ref();
 		auto cb = [this, listener] (::MurmurRPC::Wrapper::V1_Events *, bool ok) {
-			if (!ok && qsMetaServiceListeners.remove(listener)) {
+			if (!ok && m_metaServiceListeners.remove(listener)) {
 				listener->deref();
 			}
 			listener->deref();
@@ -437,7 +437,7 @@ void MurmurRPCImpl::stopped(::Server *server) {
  * Removes a connected text message filter.
  */
 void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
-	auto filter = qhTextMessageFilters.value(s->iServerNum);
+	auto filter = m_textMessageFilters.value(s->iServerNum);
 	if (!filter) {
 		return;
 	}
@@ -445,7 +445,7 @@ void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
 		filter->ref();
 		filter->error(::grpc::Status(::grpc::CANCELLED, "filter detached"));
 	}
-	qhTextMessageFilters.remove(s->iServerNum);
+	m_textMessageFilters.remove(s->iServerNum);
 	filter->deref();
 }
 
@@ -453,7 +453,7 @@ void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
  * Removes a connected authenticator.
  */
 void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
-	auto authenticator = qhAuthenticators.value(s->iServerNum);
+	auto authenticator = m_authenticators.value(s->iServerNum);
 	if (!authenticator) {
 		return;
 	}
@@ -461,7 +461,7 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 		authenticator->ref();
 		authenticator->error(::grpc::Status(::grpc::CANCELLED, "authenticator detached"));
 	}
-	qhAuthenticators.remove(s->iServerNum);
+	m_authenticators.remove(s->iServerNum);
 	authenticator->deref();
 }
 
@@ -470,7 +470,7 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
  */
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -539,7 +539,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
  */
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -578,7 +578,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
  */
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -608,7 +608,7 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
  */
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -643,7 +643,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
  */
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -674,7 +674,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
  */
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -712,7 +712,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
  */
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -741,7 +741,7 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
  */
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -769,7 +769,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
  */
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -797,7 +797,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
  */
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(qhAuthenticators.value(s->iServerNum));
+	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
 	if (!authenticator) {
 		return;
 	}
@@ -825,7 +825,7 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
  * Sends a server event to subscribed listeners.
  */
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
-	auto listeners = qmhServerServiceListeners;
+	auto listeners = m_serverServiceListeners;
 	auto serverID = s->iServerNum;
 	auto i = listeners.find(serverID);
 
@@ -833,7 +833,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 		auto listener = i.value();
 		listener->ref();
 		auto cb = [this, listener, serverID] (::MurmurRPC::Wrapper::V1_ServerEvents *, bool ok) {
-			if (!ok && qmhServerServiceListeners.remove(serverID, listener) > 0) {
+			if (!ok && m_serverServiceListeners.remove(serverID, listener) > 0) {
 				listener->deref();
 			}
 			listener->deref();
@@ -941,7 +941,7 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
  */
 void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message) {
 	::Server *s = qobject_cast< ::Server *> (sender());
-	auto filter = RPCCall::Ref<::MurmurRPC::Wrapper::V1_TextMessageFilter>(qhTextMessageFilters.value(s->iServerNum));
+	auto filter = RPCCall::Ref<::MurmurRPC::Wrapper::V1_TextMessageFilter>(m_textMessageFilters.value(s->iServerNum));
 	if (!filter) {
 		return;
 	}
@@ -995,7 +995,7 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
  * Has the user been sent the given context action?
  */
 bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
-	const auto &m = qmActiveContextActions;
+	const auto &m = m_activeContextActions;
 	if (!m.contains(s->iServerNum)) {
 		return false;
 	}
@@ -1014,14 +1014,14 @@ bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, c
  * Add the context action to the user's active context actions.
  */
 void MurmurRPCImpl::addActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
-	qmActiveContextActions[s->iServerNum][u->uiSession].insert(action);
+	m_activeContextActions[s->iServerNum][u->uiSession].insert(action);
 }
 
 /*
  * Remove the context action to the user's active context actions.
  */
 void MurmurRPCImpl::removeActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
-	auto &m = qmActiveContextActions;
+	auto &m = m_activeContextActions;
 	if (!m.contains(s->iServerNum)) {
 		return;
 	}
@@ -1037,7 +1037,7 @@ void MurmurRPCImpl::removeActiveContextAction(const ::Server *s, const ::User *u
  * Remove all of the user's active context actions.
  */
 void MurmurRPCImpl::removeUserActiveContextActions(const ::Server *s, const ::User *u) {
-	auto &m = qmActiveContextActions;
+	auto &m = m_activeContextActions;
 	if (m.contains(s->iServerNum)) {
 		m[s->iServerNum].remove(u->uiSession);
 	}
@@ -1047,7 +1047,7 @@ void MurmurRPCImpl::removeUserActiveContextActions(const ::Server *s, const ::Us
  * Remove all of the server's active context actions.
  */
 void MurmurRPCImpl::removeActiveContextActions(const ::Server *s) {
-	auto &m = qmActiveContextActions;
+	auto &m = m_activeContextActions;
 	if (m.contains(s->iServerNum)) {
 		m.remove(s->iServerNum);
 	}
@@ -1078,13 +1078,13 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	}
 
 	auto serverID = s->iServerNum;
-	auto listeners = this->qhContextActionListeners.value(serverID);
+	auto listeners = this->m_contextActionListeners.value(serverID);
 	auto i = listeners.find(action);
 	for ( ; i != listeners.end() && i.key() == action; ++i) {
 		auto listener = i.value();
 		listener->ref();
 		auto cb = [this, listener, serverID, action] (::MurmurRPC::Wrapper::V1_ContextActionEvents *, bool ok) {
-			if (!ok && qhContextActionListeners[serverID].remove(action, listener) > 0) {
+			if (!ok && m_contextActionListeners[serverID].remove(action, listener) > 0) {
 				listener->deref();
 			}
 			listener->deref();
@@ -1333,7 +1333,7 @@ void V1_ServerRemove::impl(bool) {
 
 void V1_ServerEvents::impl(bool) {
 	auto server = MustServer(request);
-	rpc->qmhServerServiceListeners.insert(server->iServerNum, this);
+	rpc->m_serverServiceListeners.insert(server->iServerNum, this);
 }
 
 void V1_GetUptime::impl(bool) {
@@ -1353,7 +1353,7 @@ void V1_GetVersion::impl(bool) {
 }
 
 void V1_Events::impl(bool) {
-	rpc->qsMetaServiceListeners.insert(this);
+	rpc->m_metaServiceListeners.insert(this);
 }
 
 void V1_ContextActionAdd::impl(bool) {
@@ -1418,7 +1418,7 @@ void V1_ContextActionEvents::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "missing action");
 	}
 
-	rpc->qhContextActionListeners[server->iServerNum].insert(u8(request.action()), this);
+	rpc->m_contextActionListeners[server->iServerNum].insert(u8(request.action()), this);
 }
 
 void V1_TextMessageSend::impl(bool) {
@@ -1459,7 +1459,7 @@ void V1_TextMessageFilter::impl(bool) {
 		auto server = MustServer(request);
 		QMutexLocker l(&rpc->qmTextMessageFilterLock);
 		rpc->removeTextMessageFilter(server);
-		rpc->qhTextMessageFilters.insert(server->iServerNum, this);
+		rpc->m_textMessageFilters.insert(server->iServerNum, this);
 	};
 	stream.Read(&request, callback(onInitialize));
 }
@@ -2022,7 +2022,7 @@ void V1_AuthenticatorStream::impl(bool) {
 		auto server = MustServer(request.initialize());
 		QMutexLocker l(&rpc->qmAuthenticatorsLock);
 		rpc->removeAuthenticator(server);
-		rpc->qhAuthenticators.insert(server->iServerNum, this);
+		rpc->m_authenticators.insert(server->iServerNum, this);
 	};
 	stream.Read(&request, callback(onInitialize));
 }
