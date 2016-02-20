@@ -151,7 +151,7 @@ CONFIG(grpc) {
 
 	unix {
 		QMAKE_CXXFLAGS *= -std=c++11
-		PKGCONFIG += gpr grpc grpc++
+		PKGCONFIG += grpc grpc++
 	}
 }
 
