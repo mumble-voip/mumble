@@ -185,13 +185,11 @@ public:
 	}
 };
 
-/*
- * Base for "single-stream" RPC methods.
- *
- * The helper method "write" automatically queues writes to the stream. Without
- * write queuing, the grpc crashes if a stream.Write is called before a
- * previous stream.Write completes.
- */
+/// Base for "single-stream" RPC methods.
+///
+/// The helper method "write" automatically queues writes to the stream. Without
+/// write queuing, the grpc crashes if a stream.Write is called before a
+/// previous stream.Write completes.
 template <class InType, class OutType>
 class RPCSingleStreamCall : public RPCCall {
 	QMutex m_writeLock;
