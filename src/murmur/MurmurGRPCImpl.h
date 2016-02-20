@@ -24,13 +24,13 @@
 class RPCCall;
 
 namespace MurmurRPC {
-namespace Wrapper {
-class V1_ContextActionEvents;
-class V1_Events;
-class V1_ServerEvents;
-class V1_AuthenticatorStream;
-class V1_TextMessageFilter;
-}
+	namespace Wrapper {
+		class V1_ContextActionEvents;
+		class V1_Events;
+		class V1_ServerEvents;
+		class V1_AuthenticatorStream;
+		class V1_TextMessageFilter;
+	}
 }
 
 class MurmurRPCImpl : public QThread {
