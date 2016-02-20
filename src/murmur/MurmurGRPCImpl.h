@@ -114,7 +114,7 @@ public:
 };
 
 class RPCCall {
-	::std::atomic_int mRefs;
+	::std::atomic_int m_refs;
 public:
 	MurmurRPCImpl *rpc;
 	::grpc::ServerContext context;
@@ -136,33 +136,33 @@ public:
 	}
 
 	virtual void deref() {
-		if (--mRefs <= 0) {
+		if (--m_refs <= 0) {
 			delete this;
 		}
 	}
 	virtual void ref() {
-		mRefs++;
+		m_refs++;
 	}
 
 	template<class T>
 	class Ref {
-		T *mO;
+		T *m_object;
 	public:
-		Ref(T *o) : mO(o) {
-			if (o) {
-				o->ref();
+		Ref(T *object) : m_object(object) {
+			if (object) {
+				object->ref();
 			}
 		}
 		~Ref() {
-			if (mO) {
-				mO->deref();
+			if (m_object) {
+				m_object->deref();
 			}
 		}
 		operator bool() const {
-			return mO != nullptr && !mO->context.IsCancelled();
+			return m_object != nullptr && !m_object->context.IsCancelled();
 		}
 		T *operator->() {
-			return mO;
+			return m_object;
 		}
 	};
 };
@@ -194,8 +194,8 @@ public:
  */
 template <class InType, class OutType>
 class RPCSingleStreamCall : public RPCCall {
-	QMutex mWriteLock;
-	QQueue< QPair<OutType, void *> > mWriteQueue;
+	QMutex m_writeLock;
+	QQueue< QPair<OutType, void *> > m_writeQueue;
 public:
 	InType request;
 	::grpc::ServerAsyncWriter < OutType > stream;
@@ -207,11 +207,11 @@ public:
 	}
 
 	void write(const OutType &msg, void *tag) {
-		QMutexLocker(&RPCSingleStreamCall::mWriteLock);
-		if (mWriteQueue.size() > 0) {
-			mWriteQueue.enqueue(qMakePair(msg, tag));
+		QMutexLocker(&RPCSingleStreamCall::m_writeLock);
+		if (m_writeQueue.size() > 0) {
+			m_writeQueue.enqueue(qMakePair(msg, tag));
 		} else {
-			mWriteQueue.enqueue(qMakePair(OutType(), tag));
+			m_writeQueue.enqueue(qMakePair(OutType(), tag));
 			stream.Write(msg, writeCB());
 		}
 	}
@@ -223,15 +223,15 @@ private:
 	}
 
 	void writeCallback(bool ok) {
-		QMutexLocker(&RPCSingleStreamCall::mWriteLock);
-		auto processed = mWriteQueue.dequeue();
+		QMutexLocker(&RPCSingleStreamCall::m_writeLock);
+		auto processed = m_writeQueue.dequeue();
 		if (processed.second) {
 			auto cb = static_cast< ::boost::function<void(bool)> *>(processed.second);
 			(*cb)(ok);
 			delete cb;
 		}
-		if (mWriteQueue.size() > 0) {
-			stream.Write(mWriteQueue.head().first, writeCB());
+		if (m_writeQueue.size() > 0) {
+			stream.Write(m_writeQueue.head().first, writeCB());
 		}
 	}
 };
