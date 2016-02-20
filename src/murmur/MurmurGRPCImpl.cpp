@@ -133,7 +133,7 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::Ser
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), credentials);
 	builder.RegisterService(&aV1Service);
-	mCQ = builder.AddCompletionQueue();
+	m_completionQueue = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
 	meta->connectListener(this);
 	connect(&qtCleanup, SIGNAL(timeout()), this, SLOT(cleanup()));
@@ -1239,7 +1239,7 @@ void MurmurRPCImpl::run() {
 	while (true) {
 		void *tag;
 		bool ok;
-		if (!mCQ->Next(&tag, &ok)) {
+		if (!m_completionQueue->Next(&tag, &ok)) {
 			break;
 		}
 		if (tag != nullptr) {

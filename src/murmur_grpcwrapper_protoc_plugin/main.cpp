@@ -40,7 +40,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->request, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
 	}
 };
 )";
@@ -70,7 +70,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->request, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->request, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
 	}
 
 private:
@@ -108,7 +108,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
 	}
 };
 )";
@@ -170,7 +170,7 @@ public:
 		auto call = new $service$_$method$(rpc, service);
 		auto fn = ::boost::bind(&$service$_$method$::handle, call, _1);
 		auto fn_ptr = new ::boost::function<void(bool)>(fn);
-		service->Request$method$(&call->context, &call->stream, rpc->mCQ.get(), rpc->mCQ.get(), fn_ptr);
+		service->Request$method$(&call->context, &call->stream, rpc->m_completionQueue.get(), rpc->m_completionQueue.get(), fn_ptr);
 	}
 
 private:

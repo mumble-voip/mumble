@@ -43,7 +43,7 @@ class MurmurRPCImpl : public QThread {
 		MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials);
 		~MurmurRPCImpl();
 		void run();
-		std::unique_ptr<grpc::ServerCompletionQueue> mCQ;
+		std::unique_ptr<grpc::ServerCompletionQueue> m_completionQueue;
 
 		// Services
 		MurmurRPC::V1::AsyncService aV1Service;
