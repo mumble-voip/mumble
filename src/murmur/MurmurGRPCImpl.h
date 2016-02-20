@@ -32,7 +32,10 @@
 #ifndef MUMBLE_MURMUR_MURMURRPC_H_
 #define MUMBLE_MURMUR_MURMURRPC_H_
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 #include "MurmurRPC.grpc.pb.h"
+#pragma GCC diagnostic pop
 
 #include "Server.h"
 #include "Meta.h"
