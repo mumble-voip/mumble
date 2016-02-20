@@ -144,7 +144,7 @@ CONFIG(grpc) {
 
 	GRPC_WRAPPER = MurmurRPC.proto
 	grpc_wrapper.output = MurmurRPC.proto.Wrapper.cpp
-	grpc_wrapper.commands = protoc --plugin=${DESTDIR}protoc-gen-grpcwrapper -I. --grpcwrapper_out=. MurmurRPC.proto
+	grpc_wrapper.commands = protoc --plugin=${DESTDIR}protoc-gen-murmur-grpcwrapper -I. --murmur-grpcwrapper_out=. MurmurRPC.proto
 	grpc_wrapper.input = GRPC_WRAPPER
 	grpc_wrapper.variable_out =
 	QMAKE_EXTRA_COMPILERS += grpc_wrapper
