@@ -145,11 +145,9 @@ MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::Ser
 MurmurRPCImpl::~MurmurRPCImpl() {
 }
 
-/*
- * This function periodically runs to clean up disconnected listeners. We need
- * this because (as of 2015-07-21) the grpc library does not tell us when a
- * client disconnects.
- */
+// This function periodically runs to clean up disconnected listeners. We need
+// this because (as of 2015-07-21) the grpc library does not tell us when a
+// client disconnects.
 void MurmurRPCImpl::cleanup() {
 	for (auto i = m_metaServiceListeners.begin(); i != m_metaServiceListeners.end(); ) {
 		auto listener = *i;
@@ -201,10 +199,7 @@ void MurmurRPCImpl::cleanup() {
 	}
 }
 
-/*
- * ToRPC/FromRPC methods convert data to/from grpc protocol buffer messages.
- */
-
+// ToRPC/FromRPC methods convert data to/from grpc protocol buffer messages.
 void ToRPC(const ::Server *srv, const ::Channel *c, ::MurmurRPC::Channel *rc) {
 	rc->mutable_server()->set_id(srv->iServerNum);
 
@@ -387,9 +382,7 @@ void ToRPC(const ::Server *srv, const ::User *user, const ::TextMessage &message
 	rtm->set_text(u8(message.qsText));
 }
 
-/*
- * Sends a meta event to any subscribed listeners.
- */
+// Sends a meta event to any subscribed listeners.
 void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	auto listeners = m_metaServiceListeners;
 
@@ -406,9 +399,7 @@ void MurmurRPCImpl::sendMetaEvent(const ::MurmurRPC::Event &e) {
 	}
 }
 
-/*
- * Called when a server starts.
- */
+// Called when a server starts.
 void MurmurRPCImpl::started(::Server *server) {
 	server->connectListener(this);
 	server->connectAuthenticator(this);
@@ -421,9 +412,7 @@ void MurmurRPCImpl::started(::Server *server) {
 	sendMetaEvent(rpcEvent);
 }
 
-/*
- * Called when a server stops.
- */
+// Called when a server stops.
 void MurmurRPCImpl::stopped(::Server *server) {
 	removeActiveContextActions(server);
 
@@ -433,9 +422,7 @@ void MurmurRPCImpl::stopped(::Server *server) {
 	sendMetaEvent(rpcEvent);
 }
 
-/*
- * Removes a connected text message filter.
- */
+// Removes a connected text message filter.
 void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
 	auto filter = m_textMessageFilters.value(s->iServerNum);
 	if (!filter) {
@@ -449,9 +436,7 @@ void MurmurRPCImpl::removeTextMessageFilter(const ::Server *s) {
 	filter->deref();
 }
 
-/*
- * Removes a connected authenticator.
- */
+// Removes a connected authenticator.
 void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 	auto authenticator = m_authenticators.value(s->iServerNum);
 	if (!authenticator) {
@@ -465,9 +450,7 @@ void MurmurRPCImpl::removeAuthenticator(const ::Server *s) {
 	authenticator->deref();
 }
 
-/*
- * Called when a connecting user needs to be authenticated.
- */
+// Called when a connecting user needs to be authenticated.
 void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, const QList<QSslCertificate> &certlist, const QString &certhash, bool certstrong, const QString &pw) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -534,9 +517,7 @@ void MurmurRPCImpl::authenticateSlot(int &res, QString &uname, int sessionId, co
 	}
 }
 
-/*
- * Called when a user is being registered on the server.
- */
+// Called when a user is being registered on the server.
 void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -573,9 +554,7 @@ void MurmurRPCImpl::registerUserSlot(int &res, const QMap<int, QString> &info) {
 	}
 }
 
-/*
- * Called when a user is being deregistered on the server.
- */
+// Called when a user is being deregistered on the server.
 void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -603,9 +582,7 @@ void MurmurRPCImpl::unregisterUserSlot(int &res, int id) {
 	}
 }
 
-/*
- * Called when a list of registered users is requested.
- */
+// Called when a list of registered users is requested.
 void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QString> &res) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -638,9 +615,7 @@ void MurmurRPCImpl::getRegisteredUsersSlot(const QString &filter, QMap<int, QStr
 	}
 }
 
-/*
- * Called when information about a registered user is requested.
- */
+// Called when information about a registered user is requested.
 void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -669,9 +644,7 @@ void MurmurRPCImpl::getRegistrationSlot(int &res, int id, QMap<int, QString> &in
 	}
 }
 
-/*
- * Called when information about a registered user is being updated.
- */
+// Called when information about a registered user is being updated.
 void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -707,9 +680,7 @@ void MurmurRPCImpl::setInfoSlot(int &res, int id, const QMap<int, QString> &info
 	}
 }
 
-/*
- * Called when a texture for a registered user is being updated.
- */
+// Called when a texture for a registered user is being updated.
 void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -736,9 +707,7 @@ void MurmurRPCImpl::setTextureSlot(int &res, int id, const QByteArray &texture) 
 	}
 }
 
-/*
- * Called when a user name needs to be converted to a user ID.
- */
+// Called when a user name needs to be converted to a user ID.
 void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -764,9 +733,7 @@ void MurmurRPCImpl::nameToIdSlot(int &res, const QString &name) {
 	}
 }
 
-/*
- * Called when a user ID needs to be converted to a user name.
- */
+// Called when a user ID needs to be converted to a user name.
 void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -792,9 +759,7 @@ void MurmurRPCImpl::idToNameSlot(QString &res, int id) {
 	}
 }
 
-/*
- * Called when a texture for a given registered user is requested.
- */
+// Called when a texture for a given registered user is requested.
 void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto authenticator = RPCCall::Ref<::MurmurRPC::Wrapper::V1_AuthenticatorStream>(m_authenticators.value(s->iServerNum));
@@ -821,9 +786,7 @@ void MurmurRPCImpl::idToTextureSlot(QByteArray &res, int id) {
 	}
 }
 
-/*
- * Sends a server event to subscribed listeners.
- */
+// Sends a server event to subscribed listeners.
 void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server_Event &e) {
 	auto listeners = m_serverServiceListeners;
 	auto serverID = s->iServerNum;
@@ -842,9 +805,7 @@ void MurmurRPCImpl::sendServerEvent(const ::Server *s, const ::MurmurRPC::Server
 	}
 }
 
-/*
- * Called when a user's state changes.
- */
+// Called when a user's state changes.
 void MurmurRPCImpl::userStateChanged(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -855,9 +816,7 @@ void MurmurRPCImpl::userStateChanged(const ::User *user) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a user sends a text message.
- */
+// Called when a user sends a text message.
 void MurmurRPCImpl::userTextMessage(const ::User *user, const ::TextMessage &message) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -869,9 +828,7 @@ void MurmurRPCImpl::userTextMessage(const ::User *user, const ::TextMessage &mes
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a user successfully connects to a server.
- */
+// Called when a user successfully connects to a server.
 void MurmurRPCImpl::userConnected(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -882,9 +839,7 @@ void MurmurRPCImpl::userConnected(const ::User *user) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a user disconnects from a server.
- */
+// Called when a user disconnects from a server.
 void MurmurRPCImpl::userDisconnected(const ::User *user) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -897,9 +852,7 @@ void MurmurRPCImpl::userDisconnected(const ::User *user) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a channel's state changes.
- */
+// Called when a channel's state changes.
 void MurmurRPCImpl::channelStateChanged(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -910,9 +863,7 @@ void MurmurRPCImpl::channelStateChanged(const ::Channel *channel) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a channel is created.
- */
+// Called when a channel is created.
 void MurmurRPCImpl::channelCreated(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -923,9 +874,7 @@ void MurmurRPCImpl::channelCreated(const ::Channel *channel) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a channel is removed.
- */
+// Called when a channel is removed.
 void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -936,9 +885,7 @@ void MurmurRPCImpl::channelRemoved(const ::Channel *channel) {
 	sendServerEvent(s, event);
 }
 
-/*
- * Called when a user sends a text message.
- */
+// Called when a user sends a text message.
 void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::TextMessage &message) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 	auto filter = RPCCall::Ref<::MurmurRPC::Wrapper::V1_TextMessageFilter>(m_textMessageFilters.value(s->iServerNum));
@@ -991,9 +938,7 @@ void MurmurRPCImpl::textMessageFilter(int &res, const User *user, MumbleProto::T
 	}
 }
 
-/*
- * Has the user been sent the given context action?
- */
+// Has the user been sent the given context action?
 bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
 	const auto &m = m_activeContextActions;
 	if (!m.contains(s->iServerNum)) {
@@ -1010,16 +955,12 @@ bool MurmurRPCImpl::hasActiveContextAction(const ::Server *s, const ::User *u, c
 	return true;
 }
 
-/*
- * Add the context action to the user's active context actions.
- */
+// Add the context action to the user's active context actions.
 void MurmurRPCImpl::addActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
 	m_activeContextActions[s->iServerNum][u->uiSession].insert(action);
 }
 
-/*
- * Remove the context action to the user's active context actions.
- */
+// Remove the context action to the user's active context actions.
 void MurmurRPCImpl::removeActiveContextAction(const ::Server *s, const ::User *u, const QString &action) {
 	auto &m = m_activeContextActions;
 	if (!m.contains(s->iServerNum)) {
@@ -1033,9 +974,7 @@ void MurmurRPCImpl::removeActiveContextAction(const ::Server *s, const ::User *u
 	o.remove(action);
 }
 
-/*
- * Remove all of the user's active context actions.
- */
+// Remove all of the user's active context actions.
 void MurmurRPCImpl::removeUserActiveContextActions(const ::Server *s, const ::User *u) {
 	auto &m = m_activeContextActions;
 	if (m.contains(s->iServerNum)) {
@@ -1043,9 +982,7 @@ void MurmurRPCImpl::removeUserActiveContextActions(const ::Server *s, const ::Us
 	}
 }
 
-/*
- * Remove all of the server's active context actions.
- */
+// Remove all of the server's active context actions.
 void MurmurRPCImpl::removeActiveContextActions(const ::Server *s) {
 	auto &m = m_activeContextActions;
 	if (m.contains(s->iServerNum)) {
@@ -1053,9 +990,7 @@ void MurmurRPCImpl::removeActiveContextActions(const ::Server *s) {
 	}
 }
 
-/*
- * Called when a context action event is triggered.
- */
+// Called when a context action event is triggered.
 void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, unsigned int session, int channel) {
 	::Server *s = qobject_cast< ::Server *> (sender());
 
@@ -1093,11 +1028,8 @@ void MurmurRPCImpl::contextAction(const ::User *user, const QString &action, uns
 	}
 }
 
-/*
- * Must* functions return the requested value, or throw a ::grpc::Status
- * exception.
- */
-
+// *Must* functions return the requested value, or throw a ::grpc::Status
+// exception.
 ::ServerUser *MustUser(const Server *server, unsigned int session) {
 	auto user = server->qhUsers.value(session);
 	if (!user) {
@@ -1215,9 +1147,7 @@ template <>
 	return MustChannel(server, msg.id());
 }
 
-/*
- * Qt event listener for RPCExecEvents.
- */
+// Qt event listener for RPCExecEvents.
 void MurmurRPCImpl::customEvent(QEvent *evt) {
 	if (evt->type() == EXEC_QEVENT) {
 		auto event = static_cast<RPCExecEvent *>(evt);
@@ -1229,10 +1159,8 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
 	}
 }
 
-/*
- * QThread::run() implementation that runs the grpc event loop and executes
- * tags as callback functions.
- */
+// QThread::run() implementation that runs the grpc event loop and executes
+// tags as callback functions.
 void MurmurRPCImpl::run() {
 	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
 
@@ -1252,14 +1180,12 @@ void MurmurRPCImpl::run() {
 	// should be exiting now.
 }
 
-/*
- * The Wrapper implementation methods are below. Implementation methods are
- * executed in the main thread when its corresponding grpc method is invoked.
- *
- * Since the grpc asynchronous API is used, the implementation methods below
- * do not have to complete the call during the lifetime of the method (although
- * this is only used for streaming calls).
- */
+// The Wrapper implementation methods are below. Implementation methods are
+// executed in the main thread when its corresponding grpc method is invoked.
+//
+// Since the grpc asynchronous API is used, the implementation methods below
+// do not have to complete the call during the lifetime of the method (although
+// this is only used for streaming calls).
 
 namespace MurmurRPC {
 namespace Wrapper {
