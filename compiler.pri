@@ -66,6 +66,7 @@ win32 {
 	!CONFIG(no-warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
+		QMAKE_LFLAGS *= -WX
 	}
 
 	# Increase the verbosity of the linker.
