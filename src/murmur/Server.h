@@ -332,7 +332,20 @@ class Server : public QThread {
 		void contextAction(const User *, const QString &, unsigned int, int);
 	public:
 		void setUserState(User *p, Channel *parent, bool mute, bool deaf, bool suppressed, bool prioritySpeaker, const QString& name = QString(), const QString &comment = QString());
-		bool setChannelState(const MumbleProto::ChannelState &cs, QString &err);
+
+		/// Update a channel's state using the ChannelState protobuf message and
+		/// broadcast the changes appropriately to the server. On return, if
+		/// err is non-empty, the operation failed, and err contains a description
+		/// of the error.
+		///
+		/// This method is equivalent to the logic that happens in
+		/// Server::msgChannelState  when a ChannelState message is recieved from
+		/// a user. However, this method doesn't do permissions checking.
+		///
+		/// This method is used by the gRPC implementation to perform channel
+		/// state changes.
+		bool setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &err);
+
 		bool setChannelState(Channel *c, Channel *parent, const QString &qsName, const QSet<Channel *> &links, const QString &desc = QString(), const int position = 0);
 
 		/// Send a text message using the TextMessage protobuf message

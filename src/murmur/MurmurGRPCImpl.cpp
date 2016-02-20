@@ -1645,7 +1645,7 @@ void V1_ChannelUpdate::impl(bool) {
 	}
 
 	QString err;
-	if (!server->setChannelState(mpcs, err)) {
+	if (!server->setChannelStateGRPC(mpcs, err)) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, u8(err));
 	}
 
