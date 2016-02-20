@@ -159,7 +159,7 @@ void RPCStop() {
 MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) : qtCleanup(this) {
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), credentials);
-	builder.RegisterAsyncService(&aV1Service);
+	builder.RegisterService(&aV1Service);
 	mCQ = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
 	meta->connectListener(this);
