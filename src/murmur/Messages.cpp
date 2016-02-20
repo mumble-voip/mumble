@@ -1113,13 +1113,17 @@ void Server::msgTextMessage(ServerUser *uSource, MumbleProto::TextMessage &msg) 
 	int res = 0;
 	emit textMessageFilterSig(res, uSource, msg);
 	switch (res) {
-	//case 0: // accept
-	//	break;
-	case 1: // reject
-		PERM_DENIED(uSource, uSource->cChannel, ChanACL::TextMessage);
-		return;
-	case 2: // drop
-		return;
+		// Accept
+		case 0:
+			// No-op.
+			break;
+		// Reject
+		case 1:
+			PERM_DENIED(uSource, uSource->cChannel, ChanACL::TextMessage);
+			return;
+		// Drop
+		case 2:
+			return;
 	}
 
 	QString text = u8(msg.message());
