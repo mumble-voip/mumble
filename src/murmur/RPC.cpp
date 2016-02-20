@@ -123,7 +123,7 @@ bool Server::setChannelState(const MumbleProto::ChannelState &cs, QString &err) 
 	// Links and parent channel are processed first, because they can return
 	// errors. Without doing this, the server state can be changed without
 	// notifying users.
-	QSet<::Channel *> newLinksSet;
+	QSet< ::Channel *> newLinksSet;
 	for (int i = 0; i < cs.links_size(); i++) {
 		Channel *link = qhChannels.value(cs.links(i));
 		if (!link) {
@@ -370,7 +370,7 @@ void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
 
 	foreach(Channel *c, chans) {
 		foreach(::User *p, c->qlUsers) {
-			sendMessage(static_cast<::ServerUser *>(p), mptm);
+			sendMessage(static_cast< ::ServerUser *>(p), mptm);
 		}
 	}
 }
