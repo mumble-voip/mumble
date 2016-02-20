@@ -104,7 +104,7 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 }
 
 // Sets err to error message on failure.
-bool Server::setChannelState(const MumbleProto::ChannelState &cs, QString &err) {
+bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &err) {
 	::MumbleProto::ChannelState mpcs;
 	bool changed = false;
 	bool updated = false;
