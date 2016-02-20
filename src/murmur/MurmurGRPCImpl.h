@@ -46,7 +46,7 @@ class MurmurRPCImpl : public QThread {
 		std::unique_ptr<grpc::ServerCompletionQueue> m_completionQueue;
 
 		// Services
-		MurmurRPC::V1::AsyncService aV1Service;
+		MurmurRPC::V1::AsyncService m_V1Service;
 
 		// Listeners
 		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::V1_ContextActionEvents *> > qhContextActionListeners;

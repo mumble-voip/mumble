@@ -132,7 +132,7 @@ void GRPCStop() {
 MurmurRPCImpl::MurmurRPCImpl(const QString &address, std::shared_ptr<::grpc::ServerCredentials> credentials) : qtCleanup(this) {
 	::grpc::ServerBuilder builder;
 	builder.AddListeningPort(u8(address), credentials);
-	builder.RegisterService(&aV1Service);
+	builder.RegisterService(&m_V1Service);
 	m_completionQueue = builder.AddCompletionQueue();
 	mServer = builder.BuildAndStart();
 	meta->connectListener(this);
@@ -1234,7 +1234,7 @@ void MurmurRPCImpl::customEvent(QEvent *evt) {
  * tags as callback functions.
  */
 void MurmurRPCImpl::run() {
-	MurmurRPC::Wrapper::V1_Init(this, &aV1Service);
+	MurmurRPC::Wrapper::V1_Init(this, &m_V1Service);
 
 	while (true) {
 		void *tag;
