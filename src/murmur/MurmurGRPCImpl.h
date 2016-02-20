@@ -49,19 +49,21 @@ class MurmurRPCImpl : public QThread {
 		MurmurRPC::V1::AsyncService m_V1Service;
 
 		// Listeners
-		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::V1_ContextActionEvents *> > qhContextActionListeners;
+		QHash<int, QMultiHash<QString, ::MurmurRPC::Wrapper::V1_ContextActionEvents *> > m_contextActionListeners;
 
-		QSet<::MurmurRPC::Wrapper::V1_Events *> qsMetaServiceListeners;
+		QSet<::MurmurRPC::Wrapper::V1_Events *> m_metaServiceListeners;
 
-		QMultiHash<int, ::MurmurRPC::Wrapper::V1_ServerEvents *> qmhServerServiceListeners;
+		QMultiHash<int, ::MurmurRPC::Wrapper::V1_ServerEvents *> m_serverServiceListeners;
 
 		QMutex qmAuthenticatorsLock;
-		QHash<int, ::MurmurRPC::Wrapper::V1_AuthenticatorStream *> qhAuthenticators;
+		QHash<int, ::MurmurRPC::Wrapper::V1_AuthenticatorStream *> m_authenticators;
 
 		QMutex qmTextMessageFilterLock;
-		QHash<int, ::MurmurRPC::Wrapper::V1_TextMessageFilter *> qhTextMessageFilters;
+		QHash<int, ::MurmurRPC::Wrapper::V1_TextMessageFilter *> m_textMessageFilters;
 
-		QMap<int, QMap<unsigned int, QSet<QString> > > qmActiveContextActions; // server id -> session -> context action
+		// Maps server id -> session -> context action
+		QMap<int, QMap<unsigned int, QSet<QString> > > m_activeContextActions;
+
 		bool hasActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
 		void addActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
 		void removeActiveContextAction(const ::Server *s, const ::User *u, const QString &action);
