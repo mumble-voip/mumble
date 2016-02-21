@@ -189,6 +189,7 @@ void MetaParams::read(QString fname) {
 			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
 		}
 		qdBasePath = QFileInfo(f).absoluteDir();
+		fname = QFileInfo(f).absoluteFilePath();
 		f.close();
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
