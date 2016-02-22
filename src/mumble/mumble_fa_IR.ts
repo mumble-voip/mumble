@@ -19,7 +19,7 @@
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>ممنوع %1</translation>
     </message>
     <message>
         <location line="-84"/>
@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>مقدار پیش فرض سرور</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -41,7 +41,7 @@
     <message>
         <location line="-164"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - ویرایش %1</translation>
     </message>
     <message>
         <location line="+2"/>

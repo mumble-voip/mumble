@@ -951,7 +951,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;Maximum amplification of input.&lt;/b&gt;&lt;br /&gt;Mumble normalizes the input volume before compressing, and this sets how much it&apos;s allowed to amplify.&lt;br /&gt;The actual level is continually updated based on your current speech pattern, but it will never go above the level specified here.&lt;br /&gt;If the &lt;i&gt;Microphone loudness&lt;/i&gt; level of the audio statistics hover around 100%, you probably want to set this to 2.0 or so, but if, like most people, you are unable to reach 100%, set this to something much higher.&lt;br /&gt;Ideally, set it so &lt;i&gt;Microphone Loudness * Amplification Factor &gt;= 100&lt;/i&gt;, even when you&apos;re speaking really soft.&lt;br /&gt;&lt;br /&gt;Note that there is no harm in setting this to maximum, but Mumble will start picking up other conversations if you leave it to auto-tune to that level.</source>
-        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isto configura quando ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala, mas nunca passará do especificado aqui.&lt;br /&gt;Se a &lt;i&gt;Altura do microfone&lt;/i&gt; nível das estatísticas de áudio ficam sobre os 100%, você provavelmente quer configurar isto para 2.0 ou parecido, mas se , como a maioria das pessoas, você é incapaz de chegar aos 100%, configure isto muito mais alto.&lt;br /&gt;Idealmente, configure de modo que a &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar isto no máximo, mas o Mumble começará a transmitir outras conversar se você deixá-lo auto-afinado para este nível.</translation>
+        <translation>&lt;b&gt;Amplificação máxima da entrada.&lt;/b&gt;&lt;br /&gt;O Mumble normaliza o volume de entrada antes da compressão, e isso configura o quanto ele pode amplificar.&lt;br /&gt;O nível real é continuamente atualizado baseado no seu padrão atual de fala mas, nunca passará do nível aqui especificado.&lt;br /&gt;Se o nível da &lt;i&gt;Altura do microfone&lt;/i&gt; das estatísticas de áudio tende a ficar perto dos 100%, você provavelmente quer configurar o valor aqui para 2.0 ou algo parecido mas se, como a maioria das pessoas, você é incapaz de chegar aos 100%, configure o valor muito mais alto.&lt;br /&gt;Idealmente, configure de modo que &lt;i&gt;Altura do microfone * Fator de Amplificação &gt;= 100&lt;/i&gt;, mesmo quando você está falando baixo.&lt;br /&gt;&lt;br /&gt;Note que não há dano em configurar o valor aqui para o máximo, mas o Mumble começará a transmitir outras conversas se você deixá-lo auto-afinado para tal nível.</translation>
     </message>
     <message>
         <location/>
@@ -1272,7 +1272,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This sets the minimum safety margin for the jitter buffer.&lt;/b&gt;&lt;br /&gt;All incoming audio is buffered, and the jitter buffer continually tries to push the buffer to the minimum sustainable by your network, so latency can be as low as possible. This sets the minimum buffer size to use. If the start of sentences you hear is very jittery, increase this value.</source>
-        <translation>&lt;b&gt;Isto configura a margem mínima de segurança para o buffer jitter.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em buffer, e o buffer jitter tenta continuamente empurrar o buffer para o mínimo suportado pela sua rede, diminuindo a latência. Configure o tamanho mínimo do buffer. Se o começo das suas frases é muito irregular, aumente este valor.</translation>
+        <translation>&lt;b&gt;Isto configura a margem mínima de segurança para o buffer jitter.&lt;/b&gt;&lt;br /&gt;Todo áudio recebido é armazenado em buffer, e o buffer jitter busca continuamente empurrar o buffer para o tamanho mínimo suportado pela sua rede, diminuindo a latência. Configure o tamanho do buffer para o menor possível. Se o começo das frases recebidas é muito irregular, aumente esse valor.</translation>
     </message>
     <message>
         <location/>
@@ -1292,7 +1292,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>&lt;b&gt;This enables one of the loopback test modes.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;None&lt;/i&gt; - Loopback disabled&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emulate a local server.&lt;br /&gt;&lt;i&gt;Server&lt;/i&gt; - Request loopback from server.&lt;br /&gt;Please note than when loopback is enabled, no other users will hear your voice. This setting is not saved on application exit.</source>
-        <translation>&lt;b&gt;Configura os métodos de teste de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Nenhum&lt;/i&gt; - Retorno desativado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula um servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Pede retorno do servidor.&lt;br /&gt;Por favor note que quando o retorno está ativo, nenhum outro usuário ouvirá sua voz. Esta configuração não é salva na saída do programa.</translation>
+        <translation>&lt;b&gt;Configura os métodos de teste de retorno.&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Nenhum&lt;/i&gt; - Retorno desativado&lt;br /&gt;&lt;i&gt;Local&lt;/i&gt; - Emula um servidor local.&lt;br /&gt;&lt;i&gt;Servidor&lt;/i&gt; - Pede retorno do servidor.&lt;br /&gt;Por favor note que quando o retorno está ativo, nenhum outro usuário ouvirá sua voz. Esta configuração não é salva ao finalizar o programa.</translation>
     </message>
     <message>
         <location/>
@@ -1348,7 +1348,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>Checking this indicates that you don&apos;t have speakers connected, just headphones. This is important, as speakers are usually in front of you, while headphones are directly to your left/right.</source>
-        <translation>Marcar isto indica que você não tem alto-falantes conectados, apenas fones de ouvido. Isto é importante, já que alto-falantes geralmente ficam na sua frente, enquanto que fones de ouvido ficam diretamente ao seu lado.</translation>
+        <translation>Marcar isto indica que você não tem alto-falantes conectados, apenas fones de ouvido. Isso é importante, já que alto-falantes geralmente ficam na sua frente, enquanto que fones de ouvido ficam diretamente à sua esquerda/direita.</translation>
     </message>
     <message>
         <location/>
@@ -1404,7 +1404,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <location/>
         <source>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you to set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</source>
         <oldsource>&lt;b&gt;This sets the packet latency variance for loopback testing.&lt;/b&gt;&lt;br /&gt;Most audio paths contain some variable latency. This allows you set that variance for loopback mode testing. For example, if you set this to 15ms, this will emulate a network with 20-35ms ping latency or one with 80-95ms latency. Most domestic net connections have a variance of about 5ms.</oldsource>
-        <translation>&lt;b&gt;Configura a variação da latência no pacote para teste de retorno.&lt;/b&gt;&lt;br /&gt;A maior parte dos caminhos de áudio contêm alguma latência variável. Isto permite que você configure a latência para o modo de teste de retorno. Por exemplo, se você escolher 15ms, isto vai emular uma rede com ping de 20-35ms ou uma com 80-95ms de latência. A maioria das redes domésticas têm uma variação de cerca de 5ms.</translation>
+        <translation>&lt;b&gt;Configura a variação da latência de pacote para o teste de retorno.&lt;/b&gt;&lt;br /&gt;A maior parte dos caminhos de áudio contêm alguma latência variável. Isso permite que você configure a latência para o modo de teste de retorno. Por exemplo, se você escolher 15ms, isso vai emular uma rede com ping de 20-35ms ou uma com 80-95ms de latência. A maioria das redes domésticas têm uma variação de cerca de 5ms.</translation>
     </message>
     <message>
         <location/>
@@ -1652,7 +1652,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
         <location/>
         <source>This shows the peak power of the speakers in the last frame (20 ms). Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you&apos;re playing audio from other programs, your setup is not working.</source>
         <oldsource>This shows the peak power in the last frame (20 ms) of the speakers. Unless you are using a multi-channel sampling method (such as ASIO) with speaker channels configured, this will be 0. If you have such a setup configured, and this still shows 0 while you're playing audio from other programs, your setup is not working.</oldsource>
-        <translation>Mostra o pico de potência dos alto-falantes no último quadro (20ms). A menos que você esteja usando um método de amostra multicanal (como ASIO) com alto-falantes configurados, isto será 0. Se você possui tal instalação configurada, e isto ainda mostra 0 enquanto você está tocando áudio de outros programas, sua instalação não está funcionando.</translation>
+        <translation>Mostra o pico de potência dos alto-falantes no último quadro (20ms). A menos que você esteja usando um método de amostra multicanal (como ASIO) com alto-falantes configurados, isto será 0. Se você possui tal instalação configurada, e isto ainda mostra 0 enquanto você está tocando áudio de outros programas, sua configuração não está funcionando.</translation>
     </message>
     <message>
         <location/>
@@ -1787,7 +1787,7 @@ Este valor permite que você especifique o número máximo de usuários permitid
     <message>
         <location/>
         <source>This is the audio bitrate of the last compressed frame (20 ms), and as such will jump up and down as the VBR adjusts the quality. The peak bitrate can be adjusted in the Settings dialog.</source>
-        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá pular para cima e para baixo conforma o VBR ajusta a qualidade. O pico da taxa pode ser ajustado no diálogo de Configuração.</translation>
+        <translation>Esta é a taxa de áudio para o último quadro comprimido (20 ms), e como tal irá pular para cima e para baixo conforme o VBR ajusta a qualidade. O pico da taxa de bits pode ser ajustado no diálogo de Configuração.</translation>
     </message>
 </context>
 <context>
@@ -2088,7 +2088,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation>A seguir você precisa ajustar a seguinte barra de rolagem. As primeiras palavras que você falar devem chegar a área verde (definitivamente fala). Enquanto você fala você deve ficar dentro do amarelo (pode ser fala) e quando você não estivar falando tudo deve ficar no vermelho (definitivamente não é fala).</translation>
+        <translation>A seguir você precisa ajustar a seguinte barra de rolagem. As primeiras palavras que você falar devem chegar a área verde (definitivamente fala). Enquanto você fala você deve ficar dentro do amarelo (pode ser fala) e quando você não estiver falando tudo deve ficar no vermelho (definitivamente não é fala).</translation>
     </message>
     <message>
         <location/>
@@ -2183,7 +2183,7 @@ O Mumble está sob constante desenvolvimento, e a equipe de desenvolvimento quer
     <message>
         <location/>
         <source>Enables attenuation of other applications while users talk to you. This means that as soon someone starts to speak to you in Mumble, the sound of all other applications (like audio players) will get attenuated so you can hear them more clearly.</source>
-        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isto significa que assim que alguém começa a falar com você no Mumble, o som de todos outros programas (como tocadores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
+        <translation>Ativa a atenuação de outros aplicativos enquanto usuários falam com você. Isso significa que, assim que alguém começa a falar com você no Mumble, o som de todos os outros programas (como tocadores de áudio) será atenuado para que você possa ouvi-los mais claramente.</translation>
     </message>
     <message>
         <location/>
@@ -2228,18 +2228,18 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into empty zone when you talk, but stays in the striped one while you&apos;re silent.</source>
         <comment>For high contrast mode</comment>
-        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até a zona vazia quando você fala, mas permaneça na listrada do contrário.</translation>
+        <translation>Agora fale suavemente, como você falaria tarde da noite, quando você não quer perturbar ninguém. Ajuste a barra de rolagem abaixo de modo que a barra se mova até a zona vazia quando você fala, mas, permaneça na listrada assim que você  ficar em silêncio.</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the empty area (definitive speech). While talking, you should stay inside the striped (might be speech) and when you&apos;re not talking, everything should be in the crisscrossed (definitively not speech).</source>
         <comment>For high contrast mode</comment>
-        <translation>A seguir você precisa ajustar a seguinte barra de rolagem. As primeiras palavras que você falar devem chegar a área vazia (definitivamente fala). Enquanto você fala você deve ficar dentro da listrada (pode ser fala) e quando você não estivar falando tudo deve ficar na área xadrez (definitivamente não é fala).</translation>
+        <translation>A seguir você precisa ajustar a barra de rolagem abaixo. As primeiras palavras que você falar devem chegar até a área vazia (definitivamente fala). Enquanto você fala, ela deve ficar dentro da área listrada (pode ser fala) e, quando você não estiver falando, tudo deve ficar na área xadrez (definitivamente não é fala).</translation>
     </message>
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência e qualidade ruim. Escolha esta opção somente se sua conexão não suporta outra configuração. (16kbit/s, 60ms por pacote)</translation>
+        <translation>Nesta configuração o Mumble usará &lt;b&gt;baixa quantia de banda&lt;/b&gt;. Isso inevitavelmente resultará em alta latência e qualidade ruim. Escolha essa opção somente se sua conexão não suportar as outras configurações. (16kbit/s, 60ms por pacote)</translation>
     </message>
     <message>
         <location/>
@@ -2249,7 +2249,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation>Esta configuração é recomendado apenas em situações em que a banda não é problema, como uma rede local. Ela fornece a menor latência suportada pelo Mumble e &lt;b&gt;alta qualidade&lt;/b&gt;. (72kbit/s, 10ms por pacote)</translation>
+        <translation>Esta configuração só é recomendada em situações em que a largura de banda não é problema, como uma rede local. Ela fornece a menor latência suportada pelo Mumble e &lt;b&gt;alta qualidade&lt;/b&gt;. (72kbit/s, 10ms por pacote)</translation>
     </message>
 </context>
 <context>
@@ -2518,7 +2518,7 @@ Fale alto, como quando você está incomodado ou animado. Diminua o volume no pa
     <message>
         <location filename="main.cpp" line="+494"/>
         <source>&lt;b&gt;Certificate Expiry:&lt;/b&gt; Your certificate is about to expire. You need to renew it, or you will no longer be able to connect to servers you are registered on.</source>
-        <translation>&lt;b&gt;Expiração do certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
+        <translation>&lt;b&gt;Expiração do Certificado:&lt;/b&gt; Seu certificado está para expirar. Você precisa renová-lo, ou você não será mais capaz de conectar aos servidores em que está registrado.</translation>
     </message>
 </context>
 <context>
@@ -2885,27 +2885,27 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+3"/>
         <source>This represents the permission to traverse the channel. If a user is denied this privilege, he will be unable to access this channel and any sub-channels in any way, regardless of other permissions in the sub-channels.</source>
-        <translation>Representa a permissão de percorrer o canal. Se se nega este privilégio a um usuário, ele não conseguirá acessar este canal e qualquer subcanal de modo algum, independente de outras permissões em subcanais.</translation>
+        <translation>Representa a permissão de percorrer o canal. Se esse privilégio é negado a um usuário, ele não conseguirá acessar o canal ou qualquer subcanal de modo algum, independentemente de outras permissões nos subcanais.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to join the channel. If you have a hierarchical channel structure, you might want to give everyone Traverse, but restrict Enter in the root of your hierarchy.</source>
-        <translation>Representa a permissão de entrar no canal. Se você possui uma estrutura hierárquica de canais, você pode querer dar Percorrer a todos, mas restringir Entrar na raiz de sua hierarquia.</translation>
+        <translation>Representa a permissão de entrar no canal. Se você possui uma estrutura hierárquica de canais, você pode querer conceder Percorrer para todas as pessoas mas, restringir Entrar na raiz de sua hierarquia.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to speak in a channel. Users without this privilege will be suppressed by the server (seen as muted), and will be unable to speak until they are unmuted by someone with the appropriate privileges.</source>
-        <translation>Representa a permissão de falar em um canal. Usuários sem este privilégio vai ser suprimido pelo servidor (visto como mudo), e será incapaz de falar até ser desemudecido por alguém com os privilégios apropriados.</translation>
+        <translation>Representa a permissão de falar em um canal. Usuários sem este privilégio serão suprimidos pelo servidor (visto como mudo), e serão incapazes de falar até serem desemudecidos por alguém com os privilégios apropriados.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to whisper to this channel from the outside. This works exactly like the &lt;i&gt;speak&lt;/i&gt; privilege, but applies to packets spoken with the Whisper key held down. This may be used to broadcast to a hierarchy of channels without linking.</source>
-        <translation>Representa a permissão de sussurrar para este canal de fora. Isto funciona exatamente como o privilégio &lt;i&gt;falar&lt;/i&gt;, mas se aplica a pacotes falados com a tecla de Sussurro pressionada. Isto pode ser usado para transmitir para uma hierarquia de canais sem vinculá-los.</translation>
+        <translation>Representa a permissão de sussurrar para esse canal a partir de fora. Isto funciona exatamente como o privilégio &lt;i&gt;falar&lt;/i&gt;, mas se aplica a pacotes falados com a tecla de Sussurro pressionada. Isso pode ser usado para transmitir para uma hierarquia de canais sem vinculá-los.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>This represents the permission to mute and deafen other users. Once muted, a user will stay muted until he is unmuted by another privileged user or reconnects to the server.</source>
-        <translation>Representa a permissão de emudecer e ensurdecer outros usuários. Uma vez emudecido um usuário permanecerá assim até ser desemudecido por usuário com privilégios ou ao reconectar com o servidor.</translation>
+        <translation>Representa a permissão de emudecer e ensurdecer outros usuários. Uma vez emudecido, um usuário permanecerá assim até ser desemudecido por usuário com privilégios ou, ao reconectar com o servidor.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2920,12 +2920,12 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location line="+3"/>
         <source>This represents the permission to make a temporary subchannel. The user making the sub-channel will be added to the admin group of the sub-channel. Temporary channels are not stored and disappear when the last user leaves.</source>
-        <translation>Representa a permissão de criar um subcanal temporário. O usuário que criar o subcanal será adicionado ao grupo admin do subcanal. Canais temporários não são salvos, e desaparecem quando o último usuário sai.</translation>
+        <translation>Representa a permissão de criar um subcanal temporário. O usuário que criar o subcanal será adicionado ao grupo admin do subcanal. Canais temporários não são armazenados, e desaparecem quando o último usuário sair dele.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This represents the permission to link channels. Users in linked channels hear each other, as long as the speaking user has the &lt;i&gt;speak&lt;/i&gt; privilege in the channel of the listener. You need the link privilege in both channels to create a link, but just in either channel to remove it.</source>
-        <translation>Representa a permissão de vincular canais. Usuários em canais vinculados podem escutar uns aos outros, desde que o usuário falando possua privilégio &lt;i&gt;falar&lt;/i&gt; no canal do ouvinte. Você precisa do privilégio vincular em ambos canais para vinculá-los, mas apenas em um deles para desfazer.</translation>
+        <translation>Representa a permissão de vincular canais. Usuários em canais vinculados podem escutar uns aos outros, desde que o usuário falando possua privilégio &lt;i&gt;falar&lt;/i&gt; no canal do ouvinte. Você precisa do privilégio vincular em ambos os canais criar um vínculo, mas apenas em um deles para desfazer.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3111,7 +3111,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
         <location line="+1"/>
         <source>This button will restore the defaults for the settings on the current page. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</source>
         <oldsource>This button will restore the settings for the current page only to their defaults. Other pages will not be changed.&lt;br /&gt;To restore all settings to their defaults, you will have to use this button on every page.</oldsource>
-        <translation>Este botão vai salvar as configurações padrão para a página atual. Outras páginas não serão alteradas.&lt;br /&gt;Para restaurar todas as configurações para seus padrões, você terá que usar este botão em cada página.</translation>
+        <translation>Este botão irá restaurar as configurações para o padrão da página atual. Outras páginas não serão alteradas.&lt;br /&gt;Para restaurar todas as configurações para seus padrões, você terá que usar o botão em cada página.</translation>
     </message>
     <message>
         <location filename="ConfigDialog.ui"/>
@@ -3151,7 +3151,7 @@ Se recomenda &lt;b&gt;encarecidamente&lt;/b&gt; que você &lt;a href=&quot;http:
     <message>
         <location filename="ConnectDialog.cpp" line="+1"/>
         <source>Hostname</source>
-        <translation>Endereço do servidor</translation>
+        <translation>Nome de host</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3706,7 +3706,7 @@ dos locais possíveis.</translation>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Esta é a combinação de teclas global.&lt;/b&gt;&lt;br /&gt;Clique neste campo e depois pressione a combinação desejada de teclas/botões para reassociá-las. Clique duas vezes para limpar.</translation>
+        <translation>&lt;b&gt;Esta é a combinação de teclas global.&lt;/b&gt;&lt;br /&gt;Clique neste campo e depois pressione a combinação desejada de teclas/botões para reassociá-los. Clique duas vezes para limpar.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3886,7 +3886,8 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
 &lt;p&gt;If too many people are speaking at once, the User View will split itself into columns. You can use this option to pick a compromise between number of users shown on the LCD, and width of user names.&lt;/p&gt;
 </source>
         <translation>&lt;p&gt;Decide a largura mínima de uma coluna na Visualização de Usuário.&lt;/p&gt;
-&lt;p&gt;Se muitas pessoas estão falando ao mesmo tempo, a Visualização de usuário se dividirá em colunas. Você pode usar esta opção para escolher uma concessão entre o número de usuários mostrados no LCD, e a largura dos nomes de usuário.&lt;/p&gt;</translation>
+&lt;p&gt;Se muitas pessoas estão falando ao mesmo tempo, a Visualização de usuário se dividirá em colunas. Você pode usar essa opção para escolher um meio-termo entre o número de usuários mostrados no LCD, e o comprimento dos nomes de usuário.&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -4463,7 +4464,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location/>
         <source>This setting controls in which situations the application will stay always on top. If you select &lt;i&gt;Never&lt;/i&gt; the application will not stay on top. &lt;i&gt;Always&lt;/i&gt; will always keep the application on top. &lt;i&gt;In minimal view&lt;/i&gt; / &lt;i&gt;In normal view&lt;/i&gt; will only keep the application always on top when minimal view is activated / deactivated.</source>
-        <translation>Controle em que situações o aplicativo ficará sempre visível. Se você escolher &lt;i&gt;Nunca&lt;/i&gt; o aplicativo não ficará sempre visível. &lt;i&gt;Sempre&lt;/i&gt; manterá o aplicativo sempre visível. &lt;i&gt;Na visão mínima&lt;/i&gt; / &lt;i&gt;Na visão normal&lt;/i&gt; apenas manterá o aplicativo sempre visível quando a visão mínima estiver ativa /inativa.</translation>
+        <translation>Controla em que situações o aplicativo ficará sempre visível. Se você escolher &lt;i&gt;Nunca&lt;/i&gt; o aplicativo não ficará sempre visível. &lt;i&gt;Sempre&lt;/i&gt; manterá o aplicativo sempre visível. &lt;i&gt;Na visão mínima&lt;/i&gt; / &lt;i&gt;Na visão normal&lt;/i&gt; apenas manterá o aplicativo sempre visível quando a visão mínima estiver ativa /inativa.</translation>
     </message>
     <message>
         <location/>
@@ -4780,7 +4781,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
         <location line="-443"/>
         <location line="+443"/>
         <source>&lt;p&gt;You are about to register yourself on this server. This action cannot be undone, and your username cannot be changed once this is done. You will forever be known as &apos;%1&apos; on this server.&lt;/p&gt;&lt;p&gt;Are you sure you want to register yourself?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Você está para se registrar neste servidor. Está ação não pode ser desfeita, e seu nome de usuário não pode ser alterado uma vez que esta ação se complete. Você será conhecido para sempre como &apos;%1&apos; neste servidor.&lt;/p&gt;&lt;p&gt;Você tem certeza de que você quer se registrar?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Você está prestes a se registrar nesse servidor. Esta ação não pode ser desfeita, e, seu nome de usuário não pode ser alterado após isso ser feito. Para sempre você será conhecido como &apos;%1&apos; nesse servidor.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer se registrar?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="-344"/>
@@ -4835,7 +4836,7 @@ Este campo descreve o tamanho de um dispositivo LCD. O tamanho é dado em pixels
     <message>
         <location line="+0"/>
         <source>&lt;p&gt;You are about to register %1 on the server. This action cannot be undone, the username cannot be changed, and as a registered user, %1 will have access to the server even if you change the server password.&lt;/p&gt;&lt;p&gt;From this point on, %1 will be authenticated with the certificate currently in use.&lt;/p&gt;&lt;p&gt;Are you sure you want to register %1?&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Você está para registrar %1 no servidor. Esta ação não pode ser desfeita, o nome de usuário não pode ser alterado e como um usuário registrado, %1 terá acesso ao servidor mesmo se você alterar a senha do servidor.&lt;/p&gt;&lt;p&gt;Deste ponto em diante, %1 será autenticado com o certificado em uso atualmente.&lt;/p&gt;&lt;p&gt;Você tem certeza de que você quer registrar %1?&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;Você está para registrar %1 no servidor. Essa ação não pode ser desfeita, o nome de usuário não pode ser alterado e como um usuário registrado, %1 terá acesso ao servidor mesmo se você trocar a senha do servidor.&lt;/p&gt;&lt;p&gt;Deste ponto em diante, %1 será autenticado com o certificado em uso atualmente.&lt;/p&gt;&lt;p&gt;Você tem certeza de que quer registrar %1?&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -5489,7 +5490,7 @@ seu certificado e nome de usuário.</translation>
         <location/>
         <source>This links your current channel to the selected channel. If users in a channel have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</source>
         <oldsource>This links your current channel to the selected channel. If they have permission to speak in the other channel, users can now hear each other. This is a permanent link, and will last until manually unlinked or the server is restarted. Please see the shortcuts for push-to-link.</oldsource>
-        <translation>Vincula o seu canal atual ao selecionado. Se usuários em um canal possuem permissão para falar no outro canal, usuários podem agora ouvir uns aos outros. Esta é uma vinculação permanente, e durará até ser manualmente desfeita, ou se o servidor for reiniciado. Por favor veja os atalhos para pressionar-para-vincular.</translation>
+        <translation>Vincula o seu canal atual ao canal selecionado. Se usuários em um canal possuem permissão para falar no outro canal, esses usuários podem agora ouvir uns aos outros. Esta é uma vinculação permanente, e durará até ser manualmente desfeita, ou se o servidor for reiniciado. Por favor, consulte os atalhos para pressionar-para-vincular.</translation>
     </message>
     <message>
         <location/>
@@ -6617,7 +6618,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Enable TCP compatibility mode&lt;/b&gt;.&lt;br /&gt;This will make Mumble use only TCP when communicating with the server. This will increase overhead and cause lost packets to produce noticeable pauses in communication, so this should only be used if you are unable to use the default (which uses UDP for voice and TCP for control).</source>
-        <translation>&lt;b&gt;Ativar modo de compatibilidade TCP&lt;/b&gt;.&lt;br /&gt;Fará com que o Mumble use apenas TCP ao se comunicar com o servidor. Isto aumenta a sobrecarga e faz com que pacotes perdidos produzam pausas perceptíveis na comunicação, portanto só deve ser usado se você é incapaz de usar o padrão (que é UDP para voz e TCP para controle).</translation>
+        <translation>&lt;b&gt;Ativar modo de compatibilidade TCP&lt;/b&gt;.&lt;br /&gt;Fará com que o Mumble use apenas TCP ao se comunicar com o servidor. Isso aumenta a sobrecarga e, faz com que pacotes perdidos produzam pausas perceptíveis na comunicação, portanto isso só deve ser usado se você é incapaz de usar o padrão (que faz uso de UDP para voz e TCP para controle).</translation>
     </message>
     <message>
         <location/>
@@ -6627,7 +6628,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Reconnect when disconnected&lt;/b&gt;.&lt;br /&gt;This will make Mumble try to automatically reconnect after 10 seconds if your server connection fails.</source>
-        <translation>&lt;b&gt;Reconectar quando desconectado&lt;/b&gt;.&lt;br /&gt;Fará com que o Mumble tente reconectar automaticamente após 10 segundos se a conexão com o servidor falhar.</translation>
+        <translation>&lt;b&gt;Reconectar ao desconectar-se&lt;/b&gt;.&lt;br /&gt;Fará com que o Mumble tente reconectar automaticamente após 10 segundos, se a conexão com o servidor falhar.</translation>
     </message>
     <message>
         <location/>
@@ -6667,12 +6668,12 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>Hostname</source>
-        <translation>Endereço do servidor</translation>
+        <translation>Nome de host</translation>
     </message>
     <message>
         <location/>
         <source>Hostname of the proxy</source>
-        <translation>Endereço do servidor proxy</translation>
+        <translation>Nome de host do proxy</translation>
     </message>
     <message>
         <location/>
@@ -6702,7 +6703,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;This will suppress identity information from the client.&lt;/b&gt;&lt;p&gt;The client will not identify itself with a certificate, even if defined, and will not cache passwords for connections. This is primarily a test-option and is not saved.&lt;/p&gt;</source>
-        <translation>&lt;b&gt;Suprime informação de identidade do cliente.&lt;/b&gt;&lt;p&gt;O cliente não vai se identificar com um certificado, mesmo se definido, e não vai salvar senhas para conexões. Isto é basicamente uma opção de teste e não é salva.&lt;/p&gt;</translation>
+        <translation>&lt;b&gt;Suprime informação de identidade do cliente.&lt;/b&gt;&lt;p&gt;O cliente não vai se identificar com um certificado, mesmo se definido, e não vai salvar senhas nas conexões. Essa é basicamente uma opção de teste e não é salva.&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -6712,7 +6713,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Type of proxy to connect through.&lt;/b&gt;&lt;br /&gt;This makes Mumble connect through a proxy for all outgoing connections. Note: Proxy tunneling forces Mumble into TCP compatibility mode, causing all voice data to be sent via the control channel.</source>
-        <translation>&lt;b&gt;Tipo de proxy ao qual se conectar&lt;/b&gt;&lt;br /&gt;Isto faz o Mumble se conectar através de um proxy para todas conexões externas. Note que o uso de túneis de conexão força o Mumble ao modo de compatibilidade TCP, que causa o envio de todos os dados de voz usando o canal de controle.</translation>
+        <translation>&lt;b&gt;Tipo de proxy pelo qual se conectar&lt;/b&gt;&lt;br /&gt;Isso faz o Mumble se conectar através de um proxy para todas as conexões externas. Nota: o uso de túneis por proxies força o Mumble ao modo de compatibilidade TCP, que causa o envio de todos os dados de voz usando o canal de controle.</translation>
     </message>
     <message>
         <location/>
@@ -6762,7 +6763,7 @@ no menu contextual do canal.</translation>
     <message>
         <location/>
         <source>&lt;b&gt;Password for proxy authentication.&lt;/b&gt;&lt;br /&gt;This specifies the password you use for authenticating yourself with the proxy. In case the proxy does not use authentication, or you want to connect anonymously, simply leave this field blank.</source>
-        <translation>&lt;b&gt;Senha para autenticação de proxy&lt;/b&gt;&lt;br /&gt;Especifica a senha para você usar para se autenticar com o proxy. No caso do proxy não exigir autenticação, ou você quiser se conectar anonimamente, simplesmente deixa este campo em branco.</translation>
+        <translation>&lt;b&gt;Senha para autenticação no proxy&lt;/b&gt;&lt;br /&gt;Especifica a senha para você usar para se autenticar com o proxy. No caso do proxy não exigir autenticação, ou você quiser se conectar anonimamente, simplesmente deixe esse campo em branco.</translation>
     </message>
     <message>
         <location/>
@@ -8692,7 +8693,7 @@ Uma credencial de acesso é uma cadeia de caracteres de texto, que podem ser usa
     <message>
         <location line="+1"/>
         <source>Inserts the hostname</source>
-        <translation>Insere o endereço do servidor</translation>
+        <translation>Insere o nome de host</translation>
     </message>
     <message>
         <location line="+26"/>
