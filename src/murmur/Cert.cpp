@@ -50,7 +50,7 @@ static int add_ext(X509 * crt, int nid, char *value) {
 }
 
 #if defined(USE_QSSLDIFFIEHELLMANPARAMETERS)
-// dh_progress is a status callback for DH_generate_parameterss_ex.
+// dh_progress is a status callback for DH_generate_parameters_ex.
 // We use it to run the event loop while generating DH params, in
 // order to keep the Murmur GUI on Windows responsive during the
 // process.
