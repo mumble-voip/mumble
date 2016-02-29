@@ -425,6 +425,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
+    QList<Ban> tmpBans;
 
 	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
@@ -445,6 +446,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		}
 		sendMessage(uSource, msg);
 	} else {
+        tmpBans = qlBans;
 		qlBans.clear();
 		for (int i=0;i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
@@ -462,9 +464,26 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 				b.qdtStart = QDateTime::currentDateTime().toUTC();
 			}
 			b.iDuration = be.duration();
-			if (b.isValid())
+			if (b.isValid()) {
 				qlBans << b;
+                if(!tmpBans.contains(b)) {
+                    log(uSource, QString("New or changed ban %1, Username: %2, Reason: %3, Length: %4").arg(b.qsHash,
+                        b.qsUsername,
+                        b.qsReason,
+                        b.iDuration == 0 ? "Permanent" : "Temporary"
+                    ));
+                }
+            }
 		}
+        foreach(const Ban &tmpBan, tmpBans) {
+            if(!qlBans.contains(tmpBan)) {
+                log(uSource, QString("Removed ban %1, Username: %2, Reason: %3, Length: %4").arg(tmpBan.qsHash,
+                    tmpBan.qsUsername,
+                    tmpBan.qsReason,
+                    tmpBan.iDuration == 0 ? "Permanent" : "Temporary"
+                ));
+            }
+        }
 		saveBans();
 		log(uSource, "Updated banlist");
 	}
