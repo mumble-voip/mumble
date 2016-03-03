@@ -21,6 +21,9 @@
 
 #include "xinputcheck.h"
 
+#include <string.h>
+#include <stdlib.h>
+
 // XInputCheck is an XInput check abstracted away from SDL.
 //
 // If you need to update this file, please arrange the code such that
