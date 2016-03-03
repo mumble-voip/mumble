@@ -57,8 +57,10 @@ my @thirdPartyLicenses = (
     ["licenseFLAC", "../3rdPartyLicenses/libflac_license.txt", "libFLAC", "http://flac.sourceforge.net/"],
     ["licenseMachOverride", "../3rdPartyLicenses/mach_override_license.txt", "mach_override", "https://github.com/rentzsch/mach_star", "Q_OS_MAC"],
     ["licenseQtTranslations", "../src/mumble/qttranslations/LICENSE",
-    "Additional Qt translations", "https://www.virtualbox.org/ticket/2018", "USING_BUNDLED_QT_TRANSLATIONS"]);
-                       
+    "Additional Qt translations", "https://www.virtualbox.org/ticket/2018", "USING_BUNDLED_QT_TRANSLATIONS"],
+    ["licenseXInputCheck", "../3rdparty/xinputcheck-src/COPYING.txt", "XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/"]
+);
+
 # Print 3rd party licenses
 foreach (@thirdPartyLicenses) {
     printGuarded($F, licenseFileToVar(@$_[0], @$_[1]), @$_[4]);

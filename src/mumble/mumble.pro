@@ -140,6 +140,10 @@ win32 {
     DEFINES *= USE_XBOXINPUT
   }
 
+  # XInputCheck (3rdparty/xinputheck-src)
+  INCLUDEPATH *= ../../3rdparty/xinputcheck-src
+  LIBS *= -lxinputcheck
+
   !CONFIG(no-elevation) {
     CONFIG(release, debug|release) {
       QMAKE_LFLAGS *= /MANIFESTUAC:\"level=\'asInvoker\' uiAccess=\'true\'\"

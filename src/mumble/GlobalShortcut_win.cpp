@@ -37,6 +37,9 @@
 #include "Global.h"
 #include "../../overlay/HardHook.h"
 
+// 3rdparty/xinputcheck-src.
+#include <xinputcheck.h>
+
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
@@ -447,6 +450,16 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	id->name = name;
 	id->guid = pdidi->guidInstance;
 	id->vguid = QVariant(QUuid(id->guid).toString());
+
+	// Is it an XInput device? Skip it.
+	//
+	// This check is not restricted to USE_XBOXINPUT because
+	// Windows 10 (10586.122, ~March 2016) has issues with
+	// using XInput devices via DirectInput.
+	if (XInputCheck_IsGuidProductXInputDevice(&pdidi->guidProduct)) {
+		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
+		return DIENUM_CONTINUE;
+	}
 
 	foreach(InputDevice *dev, cbgsw->qhInputDevices) {
 		if (dev->guid == id->guid) {

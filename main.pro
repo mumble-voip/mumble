@@ -25,7 +25,11 @@ CONFIG *= ordered debug_and_release
   }
 
   CONFIG(opus):!CONFIG(no-bundled-opus) {
-	SUBDIRS *= opus-build
+    SUBDIRS *= opus-build
+  }
+
+  win32 {
+    SUBDIRS *= 3rdparty/xinputcheck-build
   }
 
   SUBDIRS *= src/mumble
