@@ -21,25 +21,51 @@
 
 #include "xinputcheck.h"
 
-#define SDL_bool      bool
-#define SDL_TRUE      true
-#define SDL_FALSE     false
+// XInputCheck is an XInput check abstracted away from SDL.
+//
+// If you need to update this file, please arrange the code such that
+// it is possible to copy/paste directly from SDL. This makes code
+// sharing easier! Right now, the SDL_IsXInputDevice is directly
+// copied from SDL.
+//
+// Below, we have a few preprocessor defines, that allow the SDL functions
+// we use, to run in our environment.
+//
+// After that, there is an implementation of the SDL_XINPUT_Enabled
+// that always returns true.
+//
+// Then comes the implementation of SDL_IsXInputDevice, which is copied
+// directly from SDL.
+//
+// At the bottom of the file, you'll find our wrapper interfaces --
+// the public API for the XInputCheck library.
+//
+// Again, if you ever need to change anything in the SDL functions, well.
+// Think again! If you find a bug, feel free to fix it, but report it
+// upstream as well.
+// If at all possible, try to use wrapper functions to implement "new"
+// functionality (such as XInputCheck_ClearDeviceCache, for clearing
+// the internal cache).
 
-#define SDL_free         free
-#define SDL_malloc       malloc
-#define SDL_OutOfMemory  abort
-#define SDL_strstr       strstr
-#define SDL_memcmp       memcmp
-
+// Preprocessor helpers for running SDL code as-is.
+#define SDL_bool                bool
+#define SDL_TRUE                true
+#define SDL_FALSE               false
+#define SDL_free                free
+#define SDL_malloc              malloc
+#define SDL_OutOfMemory         abort
+#define SDL_strstr              strstr
+#define SDL_memcmp              memcmp
 #define SDL_arraysize(array)    (sizeof(array)/sizeof(array[0]))
 
-static PRAWINPUTDEVICELIST SDL_RawDevList = NULL;
-static UINT SDL_RawDevListCount = 0;
 
 static SDL_bool
 SDL_XINPUT_Enabled() {
     return SDL_TRUE;
 }
+
+static PRAWINPUTDEVICELIST SDL_RawDevList = NULL;
+static UINT SDL_RawDevListCount = 0;
 
 static SDL_bool
 SDL_IsXInputDevice(const GUID* pGuidProductFromDirectInput)
