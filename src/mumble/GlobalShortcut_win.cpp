@@ -452,6 +452,9 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// This check is not restricted to USE_XBOXINPUT because
 	// Windows 10 (10586.122, ~March 2016) has issues with
 	// using XInput devices via DirectInput.
+	//
+	// See issues mumble-voip/mumble#2104 and mumble-voip/mumble#2147
+	// for more information.
 	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
 		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
 		return DIENUM_CONTINUE;
