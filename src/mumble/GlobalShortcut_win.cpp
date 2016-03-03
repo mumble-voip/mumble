@@ -568,6 +568,8 @@ void GlobalShortcutWin::timeTicked() {
 	if (g.mw->uiNewHardware != uiHardwareDevices) {
 		uiHardwareDevices = g.mw->uiNewHardware;
 
+		XInputCheck_ClearDeviceCache();
+
 		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ATTACHEDONLY);
 	}
 

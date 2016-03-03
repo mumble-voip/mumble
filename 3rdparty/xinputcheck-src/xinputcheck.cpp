@@ -111,3 +111,9 @@ SDL_IsXInputDevice(const GUID* pGuidProductFromDirectInput)
 bool XInputCheck_IsGuidProductXInputDevice(const GUID *pGuidProductFromDirectInput) {
     return SDL_IsXInputDevice(pGuidProductFromDirectInput);
 }
+
+void XInputCheck_ClearDeviceCache() {
+    SDL_free(SDL_RawDevList);
+    SDL_RawDevList = NULL;
+    SDL_RawDevListCount = 0;
+}
