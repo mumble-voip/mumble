@@ -31,6 +31,7 @@ SUBDIRS *= src/mumble_proto
   }
 
   win32 {
+    SUBDIRS *= 3rdparty/xinputcheck-build
     SUBDIRS *= 3rdparty/minhook-build
   }
 
