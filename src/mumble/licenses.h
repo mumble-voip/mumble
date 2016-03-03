@@ -19,17 +19,11 @@ struct ThirdPartyLicense {
 };
 
 static const char *licenseMumble = 
-	"Copyright (C) 2005-2013, Thorvald Natvig <thorvald@natvig.com>\n"
-	"Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>\n"
-	"Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>\n"
-	"Copyright (C) 2007, Trenton Schulz\n"
-	"Copyright (C) 2008-2016, Mikkel Krautz <mikkel@krautz.dk>\n"
-	"Copyright (C) 2008, Andreas Messer <andi@bupfen.de>\n"
-	"Copyright (C) 2008-2016, Stefan Hacker <dd0t@users.sourceforge.net>\n"
-	"Copyright (C) 2008-2011, Snares <snares@users.sourceforge.net>\n"
-	"Copyright (C) 2009-2013, Benjamin Jemlich <pcgod@users.sourceforge.net>\n"
-	"Copyright (C) 2009-2016, Kissaki <kissaki@gmx.de>\n"
-	"Copyright (C) 2010-2016, Jamie Fraser <jamie.f@mumbledog.com>\n"
+	"Copyright (C) 2005-2016 The Mumble Developers\n"
+	"\n"
+	"A list of The Mumble Developers can be found in the\n"
+	"AUTHORS file at the root of the Mumble source tree\n"
+	"or at <https://www.mumble.info/AUTHORS>.\n"
 	"\n"
 	"All rights reserved.\n"
 	"\n"
@@ -42,7 +36,7 @@ static const char *licenseMumble =
 	"- Redistributions in binary form must reproduce the above copyright notice,\n"
 	"  this list of conditions and the following disclaimer in the documentation\n"
 	"  and/or other materials provided with the distribution.\n"
-	"- Neither the name of the Mumble Developers nor the names of its\n"
+	"- Neither the name of The Mumble Developers nor the names of its\n"
 	"  contributors may be used to endorse or promote products derived from this\n"
 	"  software without specific prior written permission.\n"
 	"\n"
@@ -56,7 +50,10 @@ static const char *licenseMumble =
 	"PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\n"
 	"LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING\n"
 	"NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n"
-	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
+	"SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+	"\n"
+	"For questions and inquiries about Mumble's license,\n"
+	"please contact <license@mumble.info>.";
 
 
 static const char *licenseCELT = 
@@ -856,6 +853,28 @@ static const char *licenseEmojiOne =
 	"     processes of any jurisdiction or authority.";
 
 
+static const char *licenseXInputCheck = 
+	"\n"
+	"Simple DirectMedia Layer\n"
+	"Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>\n"
+	"  \n"
+	"This software is provided 'as-is', without any express or implied\n"
+	"warranty.  In no event will the authors be held liable for any damages\n"
+	"arising from the use of this software.\n"
+	"\n"
+	"Permission is granted to anyone to use this software for any purpose,\n"
+	"including commercial applications, and to alter it and redistribute it\n"
+	"freely, subject to the following restrictions:\n"
+	"  \n"
+	"1. The origin of this software must not be misrepresented; you must not\n"
+	"   claim that you wrote the original software. If you use this software\n"
+	"   in a product, an acknowledgment in the product documentation would be\n"
+	"   appreciated but is not required. \n"
+	"2. Altered source versions must be plainly marked as such, and must not be\n"
+	"   misrepresented as being the original software.\n"
+	"3. This notice may not be removed or altered from any source distribution.";
+
+
 static const ThirdPartyLicense licenses3rdParties[] = {
 	ThirdPartyLicense("CELT", "http://www.celt-codec.org/", licenseCELT),
 	ThirdPartyLicense("Opus", "http://www.opus-codec.org/", licenseOpus),
@@ -876,6 +895,7 @@ static const ThirdPartyLicense licenses3rdParties[] = {
 #endif
 	ThirdPartyLicense("filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
 	ThirdPartyLicense("Emoji One artwork", "http://emojione.com/", licenseEmojiOne),
+	ThirdPartyLicense("XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/", licenseXInputCheck),
 	ThirdPartyLicense(),
 };
 
