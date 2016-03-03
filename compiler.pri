@@ -8,7 +8,34 @@ CONFIG *= warn_on
 # source files under control.
 QMAKE_RESOURCE_FLAGS += -compress 9
 
+# The architecture we're building for.
+# On Windows, Mumble supports overriding the
+# architecture of the compiler via the
+# force-x86_64-toolchain and force-x86-toolchain
+# CONFIG options. Because we have these, qmake's
+# QMAKE_TARGET.arch doesn't suffice any longer, and
+# we define MUMBLE_ARCH to be used in its place.
+MUMBLE_ARCH = $$QMAKE_TARGET.arch
+
 win32 {
+	# Define the CONFIG options 'force-x86-toolchain' and
+	# 'force-x86_64-toolchain'. These can be used to force
+	# the target of a .pro file to be built for a specific
+	# architecture, regardless of the actual architecture
+	# used by the current build environment.
+	FULL_MKSPEC_PATH = $$QMAKESPEC
+	CURRENT_MKSPEC = $$basename(QMAKESPEC)
+
+	CONFIG(force-x86-toolchain) {
+		MUMBLE_ARCH = x86
+		include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
+	}
+
+	CONFIG(force-x86_64-toolchain) {
+		MUMBLE_ARCH = x86_64
+		include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
+	}
+
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
@@ -85,7 +112,7 @@ win32 {
 	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
 	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
 
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_LFLAGS_RELEASE -= /SafeSEH
 	}
 
@@ -93,7 +120,7 @@ win32 {
 	# unless an explict arch is set.
 	# For our non-64 x86 builds, our binaries should not contain any
 	# SSE2 code, so override the default by using -arch:SSE.
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_CFLAGS_RELEASE *= -arch:SSE
 		QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
 	}
@@ -123,11 +150,11 @@ win32 {
 	!isEmpty(QMAKE_LFLAGS_CONSOLE) {
 		error("QMAKE_LFLAGS_CONSOLE is not empty. Please adjust the pri file.")
 	}
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
 		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
 	}
-	equals(QMAKE_TARGET.arch, x86_64) {
+	equals(MUMBLE_ARCH, x86_64) {
 		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,6.00
 		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
 	}
@@ -137,22 +164,6 @@ win32 {
 	      QMAKE_CFLAGS_RELEASE -= -arch:SSE
 	      QMAKE_CFLAGS_DEBUG -= -arch:SSE
 	      QMAKE_CFLAGS += -arch:SSE2
-	}
-
-	# Define the CONFIG options 'force-x86-toolchain' and
-	# 'force-x86_64-toolchain'. These can be used to force
-	# the target of a .pro file to be built for a specific
-	# architecture, regardless of the actual architecture
-	# used by the current build environment.
-	FULL_MKSPEC_PATH = $$QMAKESPEC
-	CURRENT_MKSPEC = $$basename(QMAKESPEC)
-
-	CONFIG(force-x86-toolchain) {
-		include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
-	}
-
-	CONFIG(force-x86_64-toolchain) {
-		include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
 	}
 
 	CONFIG(symbols) {

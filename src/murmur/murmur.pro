@@ -91,10 +91,10 @@ ice {
 		} else {
 			DEFINES *= ICE_STATIC_LIBS
 			QMAKE_LIBDIR *= $$BZIP2_PATH/lib
-			equals(QMAKE_TARGET.arch, x86) {
+			equals(MUMBLE_ARCH, x86) {
 				QMAKE_LIBDIR *= $$ICE_PATH/lib
 			}
-			equals(QMAKE_TARGET.arch, x86_64) {
+			equals(MUMBLE_ARCH, x86_64) {
 				QMAKE_LIBDIR *= $$ICE_PATH/lib/x64
 			}
 			CONFIG(release, debug|release): LIBS *= -llibbz2
