@@ -26,4 +26,9 @@
 
 bool XInputCheck_IsGuidProductXInputDevice(const GUID *pGuidProductFromDirectInput);
 
+/// XInputCheck_ClearDeviceCache clears XInputCheck's internal device cache.
+/// Calling this function causes the next call to
+/// XInputCheck_IsGuidProductXInputDevice to query the system's device tree.
+void XInputCheck_ClearDeviceCache();
+
 #endif
