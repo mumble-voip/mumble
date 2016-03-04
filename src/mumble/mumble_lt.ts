@@ -1023,7 +1023,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>Na&amp;ršyti...</translation>
     </message>
     <message>
         <location/>
@@ -1048,7 +1048,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Įvairūs</translation>
     </message>
     <message>
         <location/>
@@ -1146,7 +1146,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Nepertraukiamai</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1599,7 +1599,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+1"/>
         <source>The file &apos;%1&apos; cannot be used by Mumble. Please select a file with a compatible format and encoding.</source>
-        <translation type="unfinished"/>
+        <translation>Mumble negali naudoti failo &quot;%1&quot;. Prašome pasirinkti suderinamo formato ir kodavimo failą.</translation>
     </message>
 </context>
 <context>
@@ -2073,7 +2073,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Pateikti Mumble projektui anoniminę statistiką</translation>
     </message>
     <message>
         <location/>
@@ -2237,7 +2237,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Reason</source>
-        <translation type="unfinished"/>
+        <translation>Priežastis</translation>
     </message>
     <message>
         <location/>
@@ -2367,7 +2367,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Clear all fields</source>
-        <translation type="unfinished"/>
+        <translation>Išvalyti visus laukus</translation>
     </message>
     <message>
         <location/>
@@ -2506,67 +2506,67 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Esamas liudijimas</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra liudijimas, kurį Mumble šiuo metu naudoja.</translation>
     </message>
     <message>
         <location/>
         <source>Current Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Esamas liudijimas</translation>
     </message>
     <message>
         <location/>
         <source>Create a new certificate</source>
-        <translation type="unfinished"/>
+        <translation>Sukurti naują liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>This will create a new certificate.</source>
-        <translation type="unfinished"/>
+        <translation>Tai sukurs naują liudijimą.</translation>
     </message>
     <message>
         <location/>
         <source>Import certificate from file</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti liudijimą iš failo</translation>
     </message>
     <message>
         <location/>
         <source>This will import a certificate from file.</source>
-        <translation type="unfinished"/>
+        <translation>Tai importuos liudijimą iš failo.</translation>
     </message>
     <message>
         <location/>
         <source>Import a certificate</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>Export Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>This will export a certificate to file.</source>
-        <translation type="unfinished"/>
+        <translation>Tai eksportuos liudijimą į failą.</translation>
     </message>
     <message>
         <location/>
         <source>Export current certificate</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti esamą liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>Import Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Importuoti liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation type="unfinished"/>
+        <translation>PKCS #12 Liudijimo importavimas</translation>
     </message>
     <message>
         <location/>
@@ -2582,7 +2582,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Filename to import from</source>
-        <translation type="unfinished"/>
+        <translation>Failo, iš kurio importuoti, pavadinimas</translation>
     </message>
     <message>
         <location/>
@@ -2612,7 +2612,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Password for PKCS#12 file</source>
-        <translation type="unfinished"/>
+        <translation>Slaptažodis, skirtas PKCS#12 failui</translation>
     </message>
     <message>
         <location/>
@@ -2622,12 +2622,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Certificate to import</source>
-        <translation type="unfinished"/>
+        <translation>Liudijimas, kurį importuoti</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate you are importing.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra liudijimas, kurį importuojate.</translation>
     </message>
     <message>
         <location/>
@@ -2637,12 +2637,12 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Replace Certificate</source>
-        <translation type="unfinished"/>
+        <translation>Pakeisti liudijimą</translation>
     </message>
     <message>
         <location/>
         <source>Replace existing certificate with new certificate?</source>
-        <translation type="unfinished"/>
+        <translation>Pakeisti esamą liudijimą nauju liudijimu?</translation>
     </message>
     <message>
         <location/>
@@ -2660,7 +2660,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be replaced.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra liudijimas, kurį Mumble šiuo metu naudoja. Jis bus pakeistas.</translation>
     </message>
     <message>
         <location/>
@@ -2685,27 +2685,27 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Export to</source>
-        <translation type="unfinished"/>
+        <translation>Eksportuoti į</translation>
     </message>
     <message>
         <location/>
         <source>Filename to export to</source>
-        <translation type="unfinished"/>
+        <translation>Failo, į kurį eksportuoti, pavadinimas</translation>
     </message>
     <message>
         <location/>
         <source>This is the filename you wish to export a certificate to.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra failo, į kurį norite eksportuoti liudijimą, pavadinimas.</translation>
     </message>
     <message>
         <location/>
         <source>Save As...</source>
-        <translation type="unfinished"/>
+        <translation>Įrašyti kaip...</translation>
     </message>
     <message>
         <location/>
         <source>This is the certificate Mumble currently uses. It will be exported.</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra liudijimas, kurį šiuo metu naudoja Mumble. Jis bus eksportuotas.</translation>
     </message>
     <message>
         <location/>
@@ -2730,7 +2730,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"/>
+        <translation>Jūsų el. pašto adresas (pvz., johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -3124,7 +3124,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+3"/>
         <source>Website</source>
-        <translation type="unfinished"/>
+        <translation>Tinklalapis</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3181,7 +3181,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+1143"/>
         <source>Failed to fetch server list</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko gauti serverių sąrašo</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui"/>
@@ -3206,7 +3206,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Show all servers that respond to ping</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti visus serverius, kurie atsako į ping</translation>
     </message>
     <message>
         <location/>
@@ -3258,7 +3258,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location/>
         <source>Open &amp;Webpage</source>
-        <translation type="unfinished"/>
+        <translation>Atverti &amp;tinklalapį</translation>
     </message>
     <message>
         <location/>
@@ -3451,7 +3451,7 @@ Label of the server. This is what the server will be named like in your server l
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation type="unfinished"/>
+        <translation>Dėkojame, kad padedate padaryti Mumble geresne!</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3546,7 +3546,7 @@ of the possible locations.</source>
     <message>
         <location filename="CustomElements.cpp" line="+186"/>
         <source>Drag here</source>
-        <translation type="unfinished"/>
+        <translation>Vilkite čia</translation>
     </message>
 </context>
 <context>
@@ -4338,7 +4338,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Ask whether to close or minimize when quitting Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Išeinant iš Mumble, klausti ar programą užverti ar suskleisti.</translation>
     </message>
     <message>
         <location/>
@@ -4358,12 +4358,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hide in tray when minimized</source>
-        <translation type="unfinished"/>
+        <translation>Suskleidus, slėpti į dėklą</translation>
     </message>
     <message>
         <location/>
         <source>Hide the main Mumble window in the tray when it is minimized.</source>
-        <translation type="unfinished"/>
+        <translation>Suskleidus pagrindinį Mumble langą, slėpti jį į dėklą</translation>
     </message>
     <message>
         <location/>
@@ -4836,7 +4836,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko įkelti paveikslo</translation>
     </message>
     <message>
         <location line="-27"/>
@@ -4893,7 +4893,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+89"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Nepertraukiamai</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5542,12 +5542,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Configure Mumble</source>
-        <translation type="unfinished"/>
+        <translation>Konfigūruoti Mumble</translation>
     </message>
     <message>
         <location/>
         <source>Allows you to change most settings for Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Leidžia jums keisti didžiąją Mumble nustatymų dalį.</translation>
     </message>
     <message>
         <location/>
@@ -5622,7 +5622,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Qt.</source>
-        <translation type="unfinished"/>
+        <translation>Rodo mažą dialogą su informacija apie Qt.</translation>
     </message>
     <message>
         <location/>
@@ -5692,12 +5692,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Removes a user from your friends.</source>
-        <translation type="unfinished"/>
+        <translation>Pašalina naudotoją iš jūsų draugų.</translation>
     </message>
     <message>
         <location/>
         <source>This will remove a user from your friends list.</source>
-        <translation type="unfinished"/>
+        <translation>Tai pašalins naudotoją iš jūsų draugų sąrašo.</translation>
     </message>
     <message>
         <location/>
@@ -5742,17 +5742,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Minimal View</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Minimalus rodinys</translation>
     </message>
     <message>
         <location/>
         <source>Toggle minimal window modes</source>
-        <translation type="unfinished"/>
+        <translation>Perjungti minimalią lango veikseną</translation>
     </message>
     <message>
         <location/>
         <source>This will toggle minimal mode, where the log window and menu is hidden.</source>
-        <translation type="unfinished"/>
+        <translation>Tai perjungs minimalią veikseną, tokią, kurioje žurnalo langas ir meniu yra paslėpti.</translation>
     </message>
     <message>
         <location filename="Messages.cpp" line="+330"/>
@@ -5873,17 +5873,17 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+5"/>
         <source>Invalid username: %1.</source>
-        <translation type="unfinished"/>
+        <translation>Neteisingas naudotojo vardas: %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Invalid username.</source>
-        <translation type="unfinished"/>
+        <translation>Neteisingas naudotojo vardas.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Channel is full.</source>
-        <translation type="unfinished"/>
+        <translation>Kanalas pilnas.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -5898,7 +5898,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+40"/>
         <source>%1 connected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 prisijungė.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6029,7 +6029,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+51"/>
         <source>%1 disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 atsijungė.</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -6051,7 +6051,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+3"/>
         <source>%2%1: %3</source>
-        <translation type="unfinished"/>
+        <translation>%2%1: %3</translation>
     </message>
     <message>
         <location line="+201"/>
@@ -6260,17 +6260,17 @@ Valid actions are:
     <message>
         <location line="+76"/>
         <source>Skipping version check in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>Derinimo veiksenoje, praleidžiamas versijos tikrinimas.</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>
         <source>Hide Frame</source>
-        <translation type="unfinished"/>
+        <translation>Slėpti rėmelį</translation>
     </message>
     <message>
         <location/>
         <source>Toggle showing frame on minimal window</source>
-        <translation type="unfinished"/>
+        <translation>Perjungia rėmelio rodymą minimaliame lange</translation>
     </message>
     <message>
         <location/>
@@ -6360,7 +6360,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Change &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Keisti &amp;avatarą</translation>
     </message>
     <message>
         <location/>
@@ -6370,12 +6370,12 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Remove Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Ša&amp;linti avatarą</translation>
     </message>
     <message>
         <location/>
         <source>Remove currently defined avatar image.</source>
-        <translation type="unfinished"/>
+        <translation>Šalinti šiuo metu nustatytą avataro paveikslą.</translation>
     </message>
     <message>
         <location/>
@@ -6400,12 +6400,12 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Copy URL</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Kopijuoti URL</translation>
     </message>
     <message>
         <location/>
         <source>Copies a link to this channel to the clipboard.</source>
-        <translation type="unfinished"/>
+        <translation>Kopijuoja nuorodą į šį kanalą į iškarpinę.</translation>
     </message>
     <message>
         <location/>
@@ -6458,7 +6458,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Ctrl+F</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location/>
@@ -6468,12 +6468,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reset &amp;Avatar</source>
-        <translation type="unfinished"/>
+        <translation>Atstatyti &amp;avatarą</translation>
     </message>
     <message>
         <location/>
         <source>Reset the avatar of the selected user.</source>
-        <translation type="unfinished"/>
+        <translation>Atstatyti pasirinkto naudotojo avatarą.</translation>
     </message>
     <message>
         <location/>
@@ -6496,7 +6496,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location filename="NetworkConfig.cpp" line="+56"/>
         <source>Network</source>
-        <translation type="unfinished"/>
+        <translation>Tinklas</translation>
     </message>
     <message>
         <location line="+36"/>
@@ -6512,7 +6512,7 @@ the channel&apos;s context menu.</source>
         <location/>
         <source>Use TCP compatibility mode</source>
         <oldsource>Use TCP compatability mode</oldsource>
-        <translation type="unfinished"/>
+        <translation>Naudoti TCP suderinamumo veikseną</translation>
     </message>
     <message>
         <location/>
@@ -6532,37 +6532,37 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Reconnect automatically</source>
-        <translation type="unfinished"/>
+        <translation>Automatiškai prisijungti iš naujo</translation>
     </message>
     <message>
         <location/>
         <source>Proxy</source>
-        <translation type="unfinished"/>
+        <translation>Įgaliotasis serveris</translation>
     </message>
     <message>
         <location/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>Tipas</translation>
     </message>
     <message>
         <location/>
         <source>Type of proxy to connect through</source>
-        <translation type="unfinished"/>
+        <translation>Įgaliotojo serverio, per kurį jungtis, tipas</translation>
     </message>
     <message>
         <location/>
         <source>Direct connection</source>
-        <translation type="unfinished"/>
+        <translation>Tiesioginis ryšys</translation>
     </message>
     <message>
         <location/>
         <source>HTTP(S) proxy</source>
-        <translation type="unfinished"/>
+        <translation>HTTP(S) įgaliotasis serveris</translation>
     </message>
     <message>
         <location/>
         <source>SOCKS5 proxy</source>
-        <translation type="unfinished"/>
+        <translation>SOCKS5 įgaliotasis serveris</translation>
     </message>
     <message>
         <location/>
@@ -6627,7 +6627,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Port number of the proxy</source>
-        <translation type="unfinished"/>
+        <translation>Įgaliotojo serverio prievado numeris</translation>
     </message>
     <message>
         <location/>
@@ -6667,12 +6667,12 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Įvairūs</translation>
     </message>
     <message>
         <location/>
         <source>Prevent log from downloading images</source>
-        <translation type="unfinished"/>
+        <translation>Neleisti žurnalui atsisiųsti paveikslų</translation>
     </message>
     <message>
         <location/>
@@ -6683,17 +6683,17 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation type="unfinished"/>
+        <translation>Išjungti paveikslų atsisiuntimą</translation>
     </message>
     <message>
         <location/>
         <source>Mumble services</source>
-        <translation type="unfinished"/>
+        <translation>Mumble tarnybos</translation>
     </message>
     <message>
         <location/>
         <source>Check for new releases of Mumble automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Automatiškai tikrinti naujas Mumble laidas.</translation>
     </message>
     <message>
         <location/>
@@ -6723,12 +6723,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Submit anonymous statistics to the Mumble project</source>
-        <translation type="unfinished"/>
+        <translation>Pateikti Mumble projektui anoniminę statistiką</translation>
     </message>
     <message>
         <location/>
         <source>Submit anonymous statistics</source>
-        <translation type="unfinished"/>
+        <translation>Siųsti anoniminę statistiką</translation>
     </message>
     <message>
         <location/>
@@ -6849,7 +6849,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+1"/>
         <source>Reset Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Atstatyti mastelį</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -7488,7 +7488,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="RichTextEditor.cpp" line="+258"/>
         <source>Failed to load image</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko įkelti paveikslo</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -7518,7 +7518,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+B</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location/>
@@ -7533,7 +7533,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+I</translation>
     </message>
     <message>
         <location/>
@@ -7543,7 +7543,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+U</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
         <location/>
@@ -7558,7 +7558,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Ctrl+L</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+L</translation>
     </message>
     <message>
         <location/>
@@ -7665,7 +7665,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="GlobalShortcut.cpp" line="-602"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Nepriskirta</translation>
     </message>
 </context>
 <context>
@@ -7688,7 +7688,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+6"/>
         <source>Unassigned</source>
-        <translation type="unfinished"/>
+        <translation>Nepriskirta</translation>
     </message>
 </context>
 <context>
@@ -7950,7 +7950,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping Statistics</source>
-        <translation type="unfinished"/>
+        <translation>Ping statistika</translation>
     </message>
     <message>
         <location/>
@@ -7960,7 +7960,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Average ping</source>
-        <translation type="unfinished"/>
+        <translation>Vidutinis ping</translation>
     </message>
     <message>
         <location/>
@@ -8095,7 +8095,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>Ping deviation</source>
-        <translation type="unfinished"/>
+        <translation>Ping nuokrypis</translation>
     </message>
 </context>
 <context>
