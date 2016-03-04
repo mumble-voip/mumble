@@ -181,3 +181,16 @@ bool Ban::operator ==(const Ban &other) const {
 bool Ban::isValid() const {
 	return haAddress.isValid() && (iMask >= 8) && (iMask <= 128);
 }
+
+QString Ban::toString() const {
+	return QString("Hash: %1, Host: %2, Mask: %3, Username: %4, Reason: %5, BanStart: %6, BanEnd: %7 %8").arg(
+		qsHash,
+		haAddress.toString(),
+		QString::number(iMask),
+		qsUsername,
+		qsReason,
+		qdtStart.toLocalTime().toString(),
+		qdtStart.toLocalTime().addSecs(iDuration).toString(),
+		iDuration == 0 ? "(permanent)" : "(temporary)"
+	);
+}
