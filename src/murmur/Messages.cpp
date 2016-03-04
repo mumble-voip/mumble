@@ -467,23 +467,13 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			if (b.isValid()) {
 				qlBans << b;
 				if (! tmpBans.contains(b)) {
-					log(uSource, QString("New or changed ban: %1, Host: %2, Username: %3, Reason: %4, Length: %5").arg(
-						b.qsHash,
-						b.haAddress.toString(),
-						b.qsUsername,
-						b.qsReason,
-						b.iDuration == 0 ? "Permanent" : "Temporary"));
+					log(uSource, QString("New or changed ban: %1").arg(b.toString()));
 				}
 			}
 		}
 		foreach(const Ban &tmpBan, tmpBans) {
 			if (! qlBans.contains(tmpBan)) {
-				log(uSource, QString("Removed ban: %1, Host: %2, Username: %3, Reason: %4, Length: %5").arg(
-					tmpBan.qsHash,
-					tmpBan.haAddress.toString(),
-					tmpBan.qsUsername,
-					tmpBan.qsReason,
-					tmpBan.iDuration == 0 ? "Permanent" : "Temporary"));
+				log(uSource, QString("Removed ban: %1").arg(tmpBan.toString()));
 			}
 		}
 		saveBans();
