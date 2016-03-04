@@ -183,10 +183,10 @@ bool Ban::isValid() const {
 }
 
 QString Ban::toString() const {
-	return QString("Hash: %1, Host: %2, Mask: %3, Username: \"%4\", Reason: \"%5\", BanStart: %6, BanEnd: %7 %8").arg(
+	return QString("Hash: \"%1\", Host: \"%2\", Mask: \"%3\", Username: \"%4\", Reason: \"%5\", BanStart: \"%6\", BanEnd: \"%7\" %8").arg(
 		qsHash,
 		haAddress.toString(),
-		QString::number(iMask),
+		haAddress.isV6() ? QString::number(iMask) : QString::number(iMask-96),
 		qsUsername,
 		qsReason,
 		qdtStart.toLocalTime().toString(),
