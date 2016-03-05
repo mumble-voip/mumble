@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # Download Murmur.ice from
-# http://mumble.git.sourceforge.net/git/gitweb.cgi?p=mumble;a=blob_plain;f=src/murmur/Murmur.ice;hb=HEAD
+# https://raw.githubusercontent.com/mumble-voip/mumble/master/src/murmur/Murmur.ice
 # and run 'slice2rb Murmur.ice'. slice2rb is part of ICE.
 # This will generate the necessary 'Murmur.rb' file which needs to be included:
 

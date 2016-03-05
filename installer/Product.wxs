@@ -38,8 +38,8 @@
 
     <Property Id="ALLUSERS" Value="1" />
     <Property Id="REINSTALLMODE" Value="amus" />
-    <Property Id="ARPURLINFOABOUT" Value="http://mumble.sourceforge.net/" />
-    <Property Id="ARPURLUPDATEINFO" Value="http://mumble.sourceforge.net/" />
+    <Property Id="ARPURLINFOABOUT" Value="https://www.mumble.info/" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://www.mumble.info/" />
     <Property Id='ARPPRODUCTICON'>mumble.ico</Property>
 
     <WixVariable Id="WixUILicenseRtf" Value="$(var.SourceDir)\installer\gpl.rtf" />

@@ -4,7 +4,7 @@
 $serverId = 1;
 
 // Requires a correctly set up PHP-ICE Module and mumble server running with ICE.
-//  For instructions see http://mumble.sourceforge.net/ICE
+//  For instructions see https://wiki.mumble.info/wiki/ICE
 
 // Credits
 //  This script was created by Kissaki
