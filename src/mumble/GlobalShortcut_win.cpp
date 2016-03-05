@@ -457,6 +457,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// for more information.
 	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
 		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
+		delete id;
 		return DIENUM_CONTINUE;
 	}
 
