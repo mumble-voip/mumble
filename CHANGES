@@ -1,5 +1,31 @@
+2016-03-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    86aac08  GlobalShortcutWin: fix memory leak of 'di' in new XInputCheck
+	     code path.
+    8e98894  Use https://www.mumble.info/ and https://wiki.mumble.info/
+	     URLs through the tree.
+
+2016-03-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    32a3aa5  XInputCheck: add string.h and stdlib.h includes to
+	     xinputcheck.cpp.
+    894bd89  GlobalShortcutWin: add issue references to comment describing
+	     recent Windows 10 DirectInput/XInput breakge.
+    5b7b29c  XInputCheck: fix missing file reference in the README.
+    a0b981b  XInputCheck: add comment at the top of the file describing
+	     development practices and origin of the code.
+    beb0c11  XInputCheck: add documentation for
+	     XInputCheck_IsGuidProductXInputDevice.
+    3ca9a87  XInputCheck: add XInputCheck_ClearDeviceCache().
+
+2016-03-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    8564667  GlobalShortcutWin: Exclude XInput devices from DirectInput.
+    b81c2b5  Bump version to 1.2.15.
+
 2016-01-29
   Mikkel Krautz <mikkel@krautz.dk>
+    46537ea  Update changelog.
     6f3bacb  Revert 1e4e1e12.
     c613139  Bump version to 1.2.14.
 
@@ -8,6 +34,26 @@
     6f6b73d  Update changelog.
     2539b47  Fix Murmur on Windows DoS as described in Mumble-SA-2016-001.
     1a37d36  Bump version to 1.2.13.
+
+2015-12-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    99d3075  GlobalShortcut_win: NULL-initialize xboxinput and gkey member
+	     variables.
+
+2015-12-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    987204b  Fix use of wrong calling convention on xboxinput function
+	     pointers
+
+2015-12-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    18a6a14  Fix XboxInputState being to small for XInputGetStateEx calls
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    44fd4e6  GlobalShortcut_win: add PID/VID blacklist for misbehaving
+	     devices.
+    8dbd099  GlobalShortcut_win, XboxInput: implement native XInput support
+	     in GlobalShortcut_win.
 
 2015-12-20
   Mikkel Krautz <mikkel@krautz.dk>
@@ -108,9 +154,23 @@
   Mikkel Krautz <mikkel@krautz.dk>
     03e4c5b  Bump version to 1.2.9.
 
+2015-03-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    0d0366a  Fix double free in WASAPI no positional audio fallback
+	     code-path
+
+2015-03-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c66431d  Address review concerns to mix format check changes
+
 2015-03-10
   Mikkel Krautz <mikkel@krautz.dk>
     6edf2c6  GlobalShortcut_unix: disable evdev by default.
+
+2015-03-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d683f78  Simplify and extend mix format check in WASAPI.cpp
+    fce74c2  Fix handling of WAVEFORMATEX in WASAPI backend.
 
 2015-02-08
   Mikkel Krautz <mikkel@krautz.dk>
@@ -213,6 +273,12 @@
   Tim Cooper <tim.cooper@layeh.com>
     5ac37bf  Fix incorrect handling of mumble:// links
     7528229  Fix auto-reconnect behavior when kicked or banned.
+
+2014-03-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a4d5b1e  Added hidden option to disable add/edit in connect dialog (FR
+	     #1120)
+    ebb1dc1  Add hidden option to disable pubserver list (FR #1120)
 
 2014-02-08
   Mikkel Krautz <mikkel@krautz.dk>
