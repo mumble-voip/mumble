@@ -189,8 +189,8 @@ QString Ban::toString() const {
 		haAddress.isV6() ? QString::number(iMask) : QString::number(iMask-96),
 		qsUsername,
 		qsReason,
-		qdtStart.toLocalTime().toString(),
-		qdtStart.toLocalTime().addSecs(iDuration).toString(),
+		qdtStart.toLocalTime().toString("yyyy-MM-dd hh:mm:ss"),
+		qdtStart.toLocalTime().addSecs(iDuration).toString("yyyy-MM-dd hh:mm:ss"),
 		iDuration == 0 ? "(permanent)" : "(temporary)"
 	);
 }
