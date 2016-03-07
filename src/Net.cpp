@@ -175,7 +175,13 @@ bool Ban::operator <(const Ban &other) const {
 }
 
 bool Ban::operator ==(const Ban &other) const {
-	return (haAddress == other.haAddress) && (qsUsername == other.qsUsername) && (qsHash == other.qsHash) && (qsReason == other.qsReason) && (qdtStart == other.qdtStart) && (iDuration == other.iDuration);
+	return (haAddress == other.haAddress)
+		&& (iMask == other.iMask)
+		&& (qsUsername == other.qsUsername)
+		&& (qsHash == other.qsHash)
+		&& (qsReason == other.qsReason)
+		&& (qdtStart == other.qdtStart)
+		&& (iDuration == other.iDuration);
 }
 
 bool Ban::isValid() const {
