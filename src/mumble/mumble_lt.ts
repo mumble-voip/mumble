@@ -2017,12 +2017,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Volume tuning</source>
-        <translation type="unfinished"/>
+        <translation>Garsio suderinimas</translation>
     </message>
     <message>
         <location/>
         <source>Tuning microphone hardware volume to optimal settings.</source>
-        <translation type="unfinished"/>
+        <translation>Mikrofono aparatinės įrangos garsio suderinimas iki optimalių nustatymų.</translation>
     </message>
     <message>
         <location/>
@@ -4206,12 +4206,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+2"/>
         <source>Ask</source>
-        <translation type="unfinished"/>
+        <translation>Klausti</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Do Nothing</source>
-        <translation type="unfinished"/>
+        <translation>Nieko nedaryti</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4222,7 +4222,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Naršyti&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -4272,12 +4272,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Language to use (requires restart)</source>
-        <translation type="unfinished"/>
+        <translation>Kalba, kurią naudoti (reikalauja paleidimo iš naujo)</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;This sets which language Mumble should use.&lt;/b&gt;&lt;br /&gt;You have to restart Mumble to use the new language.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai nustato, kurią kalbą turėtų naudoti Mumble.&lt;/b&gt;&lt;br /&gt;Tam, kad naudotumėte naują kalbą, turite iš naujo paleisti Mumble.</translation>
     </message>
     <message>
         <location/>
@@ -4287,7 +4287,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Išdėstymas</translation>
     </message>
     <message>
         <location/>
@@ -4348,7 +4348,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Always On Top</source>
-        <translation type="unfinished"/>
+        <translation>Visada viršuje</translation>
     </message>
     <message>
         <location/>
@@ -4383,12 +4383,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>In minimal view</source>
-        <translation type="unfinished"/>
+        <translation>Minimaliame rodinyje</translation>
     </message>
     <message>
         <location/>
         <source>In normal view</source>
-        <translation type="unfinished"/>
+        <translation>Normaliame rodinyje</translation>
     </message>
     <message>
         <location/>
@@ -4566,7 +4566,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-2629"/>
         <source>&amp;Window</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Langas</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4577,7 +4577,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-184"/>
         <source>Ctrl+M</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location line="+183"/>
@@ -4646,17 +4646,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+50"/>
         <source>Opening URL %1</source>
-        <translation type="unfinished"/>
+        <translation>Atveriamas URL %1</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>File does not exist</source>
-        <translation type="unfinished"/>
+        <translation>Failo nėra</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>File is not a configuration file.</source>
-        <translation type="unfinished"/>
+        <translation>Failas nėra konfigūracijos failas.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -4847,7 +4847,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+18"/>
         <location line="+9"/>
         <source>Image format not recognized.</source>
-        <translation type="unfinished"/>
+        <translation>Neatpažintas atvaizdo formatas.</translation>
     </message>
     <message>
         <location line="-2953"/>
@@ -5032,12 +5032,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-60"/>
         <source>Are you sure you want to reset the comment of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Ar tikrai norite atstatyti naudotojo %1 komentarą?</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Are you sure you want to reset the avatar of user %1?</source>
-        <translation type="unfinished"/>
+        <translation>Ar tikrai norite atstatyti naudotojo %1 avatarą?</translation>
     </message>
     <message>
         <location line="+221"/>
@@ -5093,12 +5093,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation type="unfinished"/>
+        <translation>Paleisti Mumble iš naujo?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation type="unfinished"/>
+        <translation>Kai kurie nustatymai bus pritaikyti tik iš naujo paleidus Mumble. Paleisti Mumble iš naujo dabar?</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -5123,7 +5123,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+24"/>
         <source>This server is using an older encryption standard, and is no longer supported by modern versions of Mumble.</source>
-        <translation type="unfinished"/>
+        <translation>Šis serveris naudoja senesnį šifravimo standartą ir daugiau yra nebepalaikomas šiuolaikinių Mumble versijų.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5150,12 +5150,12 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+4"/>
         <location filename="Messages.cpp" line="+3"/>
         <source>Username in use</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojo vardas yra naudojamas</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>That username is already in use, please try another username.</source>
-        <translation type="unfinished"/>
+        <translation>Šis naudotojas vardas jau yra naudojamas, prašome pabandyti kitą naudotojo vardą.</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -5220,12 +5220,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Exits the application.</source>
-        <translation type="unfinished"/>
+        <translation>Išeina iš programos.</translation>
     </message>
     <message>
         <location/>
         <source>Ctrl+Q</source>
-        <translation type="unfinished"/>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location/>
@@ -5245,12 +5245,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Disconnect from server</source>
-        <translation type="unfinished"/>
+        <translation>Atsijungti nuo serverio</translation>
     </message>
     <message>
         <location/>
         <source>Disconnects you from the server.</source>
-        <translation type="unfinished"/>
+        <translation>Atjungia jus nuo serverio.</translation>
     </message>
     <message>
         <location/>
@@ -5310,7 +5310,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Add new channel</source>
-        <translation type="unfinished"/>
+        <translation>Pridėti naują kanalą</translation>
     </message>
     <message>
         <location/>
@@ -5557,7 +5557,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Start the audio configuration wizard</source>
-        <translation type="unfinished"/>
+        <translation>Paleisti garso konfigūravimo vediklį</translation>
     </message>
     <message>
         <location/>
@@ -5607,7 +5607,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Shows a small dialog with information about Speex.</source>
-        <translation type="unfinished"/>
+        <translation>Rodo mažą dialogą su informacija apie Speex.</translation>
     </message>
     <message>
         <location/>
@@ -5702,7 +5702,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Update Friend</source>
-        <translation type="unfinished"/>
+        <translation>Atna&amp;ujinti draugą</translation>
     </message>
     <message>
         <location/>
@@ -6177,7 +6177,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+127"/>
         <source>Message from %1</source>
-        <translation type="unfinished"/>
+        <translation>Žinutė nuo %1</translation>
     </message>
     <message>
         <location filename="UserModel.cpp" line="+1413"/>
@@ -6215,7 +6215,9 @@ Valid options are:
         <source>Remote controlling Mumble:
 
 </source>
-        <translation type="unfinished"/>
+        <translation>Nuotolinis Mumble valdymas:
+
+</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6410,7 +6412,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Ignore Messages</source>
-        <translation type="unfinished"/>
+        <translation>Nepaisyti žinučių</translation>
     </message>
     <message>
         <location/>
@@ -6936,7 +6938,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Layout</source>
-        <translation type="unfinished"/>
+        <translation>Išdėstymas</translation>
     </message>
     <message>
         <location/>
@@ -7093,7 +7095,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>User is not talking</source>
-        <translation type="unfinished"/>
+        <translation>Naudotojas nekalba</translation>
     </message>
     <message>
         <location/>
@@ -7268,12 +7270,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location line="+7"/>
         <source>Color...</source>
-        <translation type="unfinished"/>
+        <translation>Spalva...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Font...</source>
-        <translation type="unfinished"/>
+        <translation>Šriftas...</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -7475,12 +7477,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="main.cpp" line="+120"/>
         <source>Failed to restart mumble</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko iš naujo paleisti Mumble</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Mumble failed to restart itself. Please restart it manually.</source>
-        <translation type="unfinished"/>
+        <translation>Programai Mumble nepavyko paleisti savęs iš naujo. Prašome paleisti ją iš naujo rankiniu būdu.</translation>
     </message>
 </context>
 <context>
@@ -7975,7 +7977,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location/>
         <source>UDP Network statistics</source>
-        <translation type="unfinished"/>
+        <translation>UDP tinklo statistika</translation>
     </message>
     <message>
         <location/>
@@ -8103,7 +8105,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserListModel.cpp" line="+83"/>
         <source>Nick</source>
-        <translation type="unfinished"/>
+        <translation>Slapyvardis</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8118,7 +8120,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+29"/>
         <source>Last seen: %1</source>
-        <translation type="unfinished"/>
+        <translation>Paskutinį kartą matytas: %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8128,7 +8130,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+2"/>
         <source>Channel id: %1</source>
-        <translation type="unfinished"/>
+        <translation>Kanalo id: %1</translation>
     </message>
 </context>
 <context>
@@ -8164,7 +8166,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserModel.cpp" line="-819"/>
         <source>This is a user connected to the server. The icon to the left of the user indicates whether or not they are talking:</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra prie serverio prisijungęs naudotojas. Iš kairės nuo naudotojo esanti piktograma nurodo ar naudotojas kalba ar ne:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8190,7 +8192,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+8"/>
         <source>This is a channel on the server. The icon indicates the state of the channel:</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra kanalas serveryje. Piktograma nurodo kanalo būseną:</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -8340,7 +8342,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="+14"/>
         <source>Failed to write new version to disk.</source>
         <oldsource>Failed to write new version to disc.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Nepavyko įrašyti naujos versijos į diską.</translation>
     </message>
     <message>
         <location line="+10"/>
