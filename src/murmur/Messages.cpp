@@ -426,7 +426,7 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 	MSG_SETUP(ServerUser::Authenticated);
 
-	QList<Ban> tmpBans;
+	QSet<Ban> previousBans, newBans;
 	if (! hasPermission(uSource, qhChannels.value(0), ChanACL::Ban)) {
 		PERM_DENIED(uSource, qhChannels.value(0), ChanACL::Ban);
 		return;
@@ -446,7 +446,7 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 		}
 		sendMessage(uSource, msg);
 	} else {
-		tmpBans = qlBans;
+		previousBans = qlBans.toSet();
 		qlBans.clear();
 		for (int i=0;i < msg.bans_size(); ++i) {
 			const MumbleProto::BanList_BanEntry &be = msg.bans(i);
@@ -466,15 +466,16 @@ void Server::msgBanList(ServerUser *uSource, MumbleProto::BanList &msg) {
 			b.iDuration = be.duration();
 			if (b.isValid()) {
 				qlBans << b;
-				if (! tmpBans.contains(b)) {
-					log(uSource, QString("New or changed ban: %1").arg(b.toString()));
-				}
 			}
 		}
-		foreach(const Ban &tmpBan, tmpBans) {
-			if (! qlBans.contains(tmpBan)) {
-				log(uSource, QString("Removed ban: %1").arg(tmpBan.toString()));
-			}
+		newBans = qlBans.toSet();
+		QSet<Ban> removed = previousBans - newBans;
+		QSet<Ban> added = newBans - previousBans;
+		foreach(const Ban &b, removed) {
+			log(uSource, QString("Removed ban: %1").arg(b.toString()));
+		}
+		foreach(const Ban &b, added) {
+			log(uSource, QString("New ban: %1").arg(b.toString()));
 		}
 		saveBans();
 		log(uSource, "Updated banlist");
