@@ -59,11 +59,7 @@ MetaParams::MetaParams() {
 	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	legacyPasswordHash = true;
-#else
 	legacyPasswordHash = false;
-#endif
 	kdfIterations = -1;
 	bAllowHTML = true;
 	iDefaultChan = 0;
@@ -287,11 +283,7 @@ void MetaParams::read(QString fname) {
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	legacyPasswordHash = true;
-#else
 	legacyPasswordHash = typeCheckedFromSettings("legacypasswordhash", legacyPasswordHash);
-#endif
 	kdfIterations = typeCheckedFromSettings("kdfiterations", -1);
 	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
@@ -532,10 +524,6 @@ void MetaParams::read(QString fname) {
 	}
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
-
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	qWarning("Meta: PBKDF2 support is disabled. Using legacy password hashing.");
-#endif
 
 	qmConfig.clear();
 	QStringList hosts;

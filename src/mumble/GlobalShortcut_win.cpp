@@ -36,6 +36,9 @@
 #include "OverlayClient.h"
 #include "Global.h"
 
+// 3rdparty/xinputcheck-src.
+#include <xinputcheck.h>
+
 #undef FAILED
 #define FAILED(Status) (static_cast<HRESULT>(Status)<0)
 
@@ -444,6 +447,20 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	id->guidproduct = pdidi->guidProduct;
 	id->vguidproduct = QVariant(QUuid(id->guidproduct).toString());
 
+	// Is it an XInput device? Skip it.
+	//
+	// This check is not restricted to USE_XBOXINPUT because
+	// Windows 10 (10586.122, ~March 2016) has issues with
+	// using XInput devices via DirectInput.
+	//
+	// See issues mumble-voip/mumble#2104 and mumble-voip/mumble#2147
+	// for more information.
+	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
+		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
+		delete id;
+		return DIENUM_CONTINUE;
+	}
+
 	// Check for PIDVID at the end of the GUID, as
 	// per http://stackoverflow.com/q/25622780.
 	BYTE pidvid[8] = { 0, 0, 'P', 'I', 'D', 'V', 'I', 'D' };
@@ -554,6 +571,8 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 void GlobalShortcutWin::timeTicked() {
 	if (g.mw->uiNewHardware != uiHardwareDevices) {
 		uiHardwareDevices = g.mw->uiNewHardware;
+
+		XInputCheck_ClearDeviceCache();
 
 		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ATTACHEDONLY);
 	}
