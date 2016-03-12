@@ -133,7 +133,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (lm->dwcount != last_count) {
 		last_count = lm->dwcount;
 		last_tick = GetTickCount();
+#ifndef PLUTOVR_BUILD
 	} else 	if ((GetTickCount() - last_tick) > 5000)
+#else
+	} else 	if ((GetTickCount() - last_tick) > 600000)
+#endif
 		return false;
 
 	if ((lm->uiVersion != 1) && (lm->uiVersion != 2))
