@@ -1,0 +1,13 @@
+The files in this directory are originally from an article
+in Qt Quarterly 23:
+
+https://doc.qt.io/archives/qq/qq23-bonjour.html
+
+The files in this directory are used directly in the
+Mumble and Murmur build. Because of this, there is no
+"qqbonjour-build" directory.
+
+These files are modified and are now de facto maintained by
+the Mumble project.
+
+For information about the license, see the LICENSE file.

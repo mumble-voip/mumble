@@ -854,7 +854,6 @@ static const char *licenseEmojiOne =
 
 
 static const char *licenseXInputCheck = 
-	"\n"
 	"Simple DirectMedia Layer\n"
 	"Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>\n"
 	"  \n"
@@ -873,6 +872,34 @@ static const char *licenseXInputCheck =
 	"2. Altered source versions must be plainly marked as such, and must not be\n"
 	"   misrepresented as being the original software.\n"
 	"3. This notice may not be removed or altered from any source distribution.";
+
+
+static const char *licenseQQBonjour = 
+	"Copyright (c) 2007, Trenton Schulz\n"
+	"\n"
+	"Redistribution and use in source and binary forms, with or without\n"
+	"modification, are permitted provided that the following conditions are met:\n"
+	"\n"
+	" 1. Redistributions of source code must retain the above copyright notice,\n"
+	"    this list of conditions and the following disclaimer.\n"
+	"\n"
+	" 2. Redistributions in binary form must reproduce the above copyright notice,\n"
+	"    this list of conditions and the following disclaimer in the documentation\n"
+	"    and/or other materials provided with the distribution.\n"
+	"\n"
+	" 3. The name of the author may not be used to endorse or promote products\n"
+	"    derived from this software without specific prior written permission.\n"
+	"\n"
+	"THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED\n"
+	"WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF\n"
+	"MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO\n"
+	"EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\n"
+	"SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,\n"
+	"PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;\n"
+	"OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\n"
+	"WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR\n"
+	"OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF\n"
+	"ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
 
 
 static const ThirdPartyLicense licenses3rdParties[] = {
@@ -896,6 +923,7 @@ static const ThirdPartyLicense licenses3rdParties[] = {
 	ThirdPartyLicense("filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg", licenseFilterSvg),
 	ThirdPartyLicense("Emoji One artwork", "http://emojione.com/", licenseEmojiOne),
 	ThirdPartyLicense("XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/", licenseXInputCheck),
+	ThirdPartyLicense("QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html", licenseQQBonjour),
 	ThirdPartyLicense(),
 };
 

@@ -251,7 +251,7 @@ FORMS *= ConfigDialog.ui \
 include(translations.pri)
 
 PRECOMPILED_HEADER = mumble_pch.hpp
-INCLUDEPATH *= ../bonjour
+INCLUDEPATH *= ../../3rdparty/qqbonjour-src
 
 CONFIG(static) {
   # Ensure that static Mumble.app on Mac OS X
@@ -541,8 +541,15 @@ asio {
 bonjour {
 	DEFINES *= USE_BONJOUR
 
-	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceResolver.h ../bonjour/BonjourServiceBrowser.h BonjourClient.h
-	SOURCES *= ../bonjour/BonjourServiceResolver.cpp ../bonjour/BonjourServiceBrowser.cpp BonjourClient.cpp
+	HEADERS *= \
+		../../3rdparty/qqbonjour-src/BonjourRecord.h \
+		../../3rdparty/qqbonjour-src/BonjourServiceResolver.h \
+		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.h \
+		BonjourClient.h
+	SOURCES *= \
+		../../3rdparty/qqbonjour-src/BonjourServiceResolver.cpp \
+		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.cpp \
+		BonjourClient.cpp
 	win32 {
 		INCLUDEPATH *= "$$BONJOUR_PATH/include"
 		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
