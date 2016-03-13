@@ -83,14 +83,9 @@ win32 {
 		QMAKE_CXXFLAGS_DEBUG *= /analyze
 		QMAKE_CFLAGS_RELEASE *= /analyze
 		QMAKE_CXXFLAGS_RELEASE *= /analyze
-
-		# Do not treat warnings as errors when
-		# running the static analyzer.
-		# Otherwise, we won't get very far!
-		CONFIG *= no-warnings-as-errors
 	}
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
 		QMAKE_LFLAGS *= -WX
@@ -203,7 +198,7 @@ unix {
 	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
 	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS	         *= -Werror
 		QMAKE_CXXFLAGS	         *= -Werror
 		QMAKE_OBJECTIVE_CFLAGS   *= -Werror
