@@ -4,22 +4,22 @@
     <message>
         <location filename="ACLEditor.cpp" line="+127"/>
         <source>Deny</source>
-        <translation>Отхвърляне</translation>
+        <translation>Забрани</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Allow</source>
-        <translation>Позволяване</translation>
+        <translation>Позволи</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Allow %1</source>
-        <translation type="unfinished"/>
+        <translation>Позволи %1</translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Deny %1</source>
-        <translation type="unfinished"/>
+        <translation>Забрани %1</translation>
     </message>
     <message>
         <location line="-84"/>
@@ -30,28 +30,28 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Първоначални стойности на сървъра</translation>
     </message>
     <message>
         <location line="-28"/>
         <location line="+176"/>
         <source>Failed: Invalid channel</source>
-        <translation type="unfinished"/>
+        <translation>Неуспех: Невалиден канал</translation>
     </message>
     <message>
         <location line="-164"/>
         <source>Mumble - Edit %1</source>
-        <translation type="unfinished"/>
+        <translation>Мъмбъл - Редактирай %1</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>ID: %1</source>
-        <translation type="unfinished"/>
+        <translation>ID: %1</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>This grants the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Това дава привилегия на %1. Ако привилегия е едновременно позволена и забранена, то тя е забранена. &lt;br /&gt;%2</translation>
     </message>
     <message>
         <location line="+123"/>
@@ -61,7 +61,7 @@
     <message>
         <location line="-131"/>
         <source>This revokes the %1 privilege. If a privilege is both allowed and denied, it is denied.&lt;br /&gt;%2</source>
-        <translation type="unfinished"/>
+        <translation>Това отхвърля привилегията на %1. Ако привилегия е едновременно позволена и забранена, то тя е забранена. &lt;br /&gt;%2</translation>
     </message>
     <message>
         <location filename="ACLEditor.ui"/>
@@ -76,7 +76,7 @@
     <message>
         <location/>
         <source>Enter the channel name here.</source>
-        <translation>Тук въведете името на канала.</translation>
+        <translation>Въведете името на канала тук.</translation>
     </message>
     <message>
         <location/>
@@ -91,7 +91,7 @@
     <message>
         <location/>
         <source>Enter the channel password here.</source>
-        <translation>Тук въведете паролата на канала.</translation>
+        <translation>Въведете паролата на канала тук.</translation>
     </message>
     <message>
         <location/>
@@ -106,7 +106,7 @@
     <message>
         <location/>
         <source>Channel positioning facility value</source>
-        <translation type="unfinished"/>
+        <translation>Сгойност за подреждане на канали</translation>
     </message>
     <message>
         <location/>
@@ -114,12 +114,13 @@
 This value enables you to change the way Mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</source>
         <oldsource>&lt;b&gt;Position&lt;/b&gt;&lt;br/&gt;
 This value enables you to change the way mumble arranges the channels in the tree. A channel with a higher &lt;i&gt;Position&lt;/i&gt; value will always be placed below one with a lower value and the other way around. If the &lt;i&gt;Position&lt;/i&gt; value of two channels is equal they will get sorted alphabetically by their name.</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Пози;ия&lt;/b&gt;&lt;br/&gt;
+Тази стойност позволява да промените начина, по който Мъмбъл подрежда каналите в списъка. Канал с по-висока стойност &lt;i&gt;Позиция&lt;/i&gt; ще бъде винаги поставен под канал с по-ниска стойност и обратно. Ако стойността &lt;i&gt;Позиция&lt;/i&gt; на два канала е еднаква, те ще бъдат подредени по азбучен ред.</translation>
     </message>
     <message>
         <location/>
         <source>Position</source>
-        <translation>Място</translation>
+        <translation>Позиция</translation>
     </message>
     <message>
         <location/>
