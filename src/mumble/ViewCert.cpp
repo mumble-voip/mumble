@@ -57,6 +57,16 @@ ViewCert::ViewCert(QList<QSslCertificate> cl, QWidget *p) : QDialog(p) {
 	resize(510,300);
 }
 
+QString ViewCert::prettifyDigest(QString digest) {
+	QString pretty_digest = digest.toUpper();
+	int step = 2;
+	QChar separator = QChar::fromAscii(':');
+	for (int i = step; i < pretty_digest.size(); i += step + 1) {
+		pretty_digest.insert(i, separator);
+	}
+	return pretty_digest;
+}
+
 void ViewCert::on_Chain_currentRowChanged(int idx) {
 	qlwCert->clear();
 	if ((idx < 0) || (idx >= qlCerts.size()))
@@ -75,7 +85,7 @@ void ViewCert::on_Chain_currentRowChanged(int idx) {
 	l << tr("Valid to: %1").arg(c.expiryDate().toString());
 	l << tr("Serial: %1").arg(QString::fromLatin1(c.serialNumber().toHex()));
 	l << tr("Public Key: %1 bits %2").arg(c.publicKey().length()).arg((c.publicKey().algorithm() == QSsl::Rsa) ? tr("RSA") : tr("DSA"));
-	l << tr("Digest (SHA-1): %1").arg(QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex()));
+	l << tr("Digest (SHA-1): %1").arg(prettifyDigest(QString::fromLatin1(c.digest(QCryptographicHash::Sha1).toHex())));
 
 #if QT_VERSION >= 0x050000
 	const QMultiMap<QSsl::AlternativeNameEntryType, QString> &alts = c.subjectAlternativeNames();
