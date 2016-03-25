@@ -119,7 +119,7 @@ public:
 	MurmurRPCImpl *rpc;
 	::grpc::ServerContext context;
 
-	RPCCall(MurmurRPCImpl *rpcImpl) : rpc(rpcImpl) {
+	RPCCall(MurmurRPCImpl *rpcImpl) : m_refs(0), rpc(rpcImpl) {
 		ref();
 	}
 	virtual ~RPCCall() {
@@ -136,7 +136,8 @@ public:
 	}
 
 	virtual void deref() {
-		if (--m_refs <= 0) {
+		Q_ASSERT(m_refs > 0);
+		if (--m_refs == 0) {
 			delete this;
 		}
 	}
