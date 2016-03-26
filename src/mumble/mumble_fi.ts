@@ -4681,7 +4681,7 @@ Kenttä kuvaa LCD laitteen koon. Koko annetaan joko pikseleinä (graafinen LCD) 
         <location line="+2"/>
         <source>Set self-deafen status.</source>
         <comment>Global Shortcut</comment>
-        <translation>Asettaa itsesi hiljennys tilaan.</translation>
+        <translation>Asettaa itsesi hiljennystilaan.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -5975,7 +5975,7 @@ Kun olet kirjoittanut tähän ja painanut enter-näppäintä, kirjoitettu viesti
     <message>
         <location line="+2"/>
         <source>%1 is now unmuted.</source>
-        <translation>%1 ei ole enään mykistetty.</translation>
+        <translation>%1 ei ole enää mykistetty.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -8099,7 +8099,7 @@ Pääsyavain on merkkijonoketju, jota voidaan käyttää salasanana yksinkertais
     <message>
         <location/>
         <source>Resync</source>
-        <translation>Uudelleen synkronoi</translation>
+        <translation>Uudelleensynkronoi</translation>
     </message>
     <message>
         <location/>
