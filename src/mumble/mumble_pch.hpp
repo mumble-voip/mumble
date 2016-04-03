@@ -106,7 +106,7 @@ typedef WId HWND;
 #include <netinet/tcp.h>
 #endif
 
-#if defined(__MMX__) || defined(Q_OS_WIN)
+#if !defined(Q_OS_OPENBSD) && (defined(__MMX__) || defined(Q_OS_WIN))
 #include <mmintrin.h>
 #endif
 
