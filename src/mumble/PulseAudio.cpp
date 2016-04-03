@@ -32,11 +32,6 @@
 
 #include "PulseAudio.h"
 
-#include <sys/soundcard.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/ioctl.h>
-
 #include "Global.h"
 #include "MainWindow.h"
 #include "Timer.h"
