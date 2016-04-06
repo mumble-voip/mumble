@@ -42,12 +42,6 @@ class ClientUser : public QObject, public User {
 		Q_OBJECT
 		Q_DISABLE_COPY(ClientUser)
 	public:
-		struct JitterRecord {
-			int iSequence;
-			int iFrames;
-			quint64 uiElapsed;
-		};
-
 		Settings::TalkState tsState;
 		Timer tLastTalkStateChange;
 		bool bLocalIgnore;
@@ -108,7 +102,5 @@ class ClientUser : public QObject, public User {
 		void prioritySpeakerStateChanged();
 		void recordingStateChanged();
 };
-
-QDataStream &operator<<(QDataStream &, const ClientUser::JitterRecord &);
 
 #endif

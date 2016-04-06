@@ -83,14 +83,9 @@ win32 {
 		QMAKE_CXXFLAGS_DEBUG *= /analyze
 		QMAKE_CFLAGS_RELEASE *= /analyze
 		QMAKE_CXXFLAGS_RELEASE *= /analyze
-
-		# Do not treat warnings as errors when
-		# running the static analyzer.
-		# Otherwise, we won't get very far!
-		CONFIG *= no-warnings-as-errors
 	}
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
 		QMAKE_LFLAGS *= -WX
@@ -203,7 +198,7 @@ unix {
 	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
 	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS	         *= -Werror
 		QMAKE_CXXFLAGS	         *= -Werror
 		QMAKE_OBJECTIVE_CFLAGS   *= -Werror
@@ -260,8 +255,31 @@ unix:!macx {
 		QMAKE_LFLAGS *= -Wl,--no-add-needed
 	}
 
-	QMAKE_CFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
-	QMAKE_CXXFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
+	# Ensure _FORTIFY_SOURCE is not used in debug builds.
+	#
+	# First, ensure _FORTIFY_SOURCE is undefined.
+	# Then -- and, only for release builds -- set
+	# _FORTIFY_SOURCE=2.
+	#
+	# We can't use _FORTIFY_SOURCE in debug builds (which are
+	# built with -O0) because _FORTIFY_SOURCE=1 requires -O1
+	# and _FORTIFY_SOURCE=2 requires -O2.
+	# Modern GLIBCs warn about this since
+	# https://sourceware.org/bugzilla/show_bug.cgi?id=13979.
+	# In Mumble builds with warnings-as-errors, this will
+	# cause build failures.
+	#
+	# We use the += operator because we care about the
+	# ordering of unsetting versus setting the preprocessor
+	# define. If they're in the wrong order, this will not
+	# work as intended.
+	QMAKE_CFLAGS += -U_FORTIFY_SOURCE
+	QMAKE_CXXFLAGS += -U_FORTIFY_SOURCE
+	CONFIG(release, debug|release) {
+		QMAKE_CFLAGS += -D_FORTIFY_SOURCE=2
+		QMAKE_CXXFLAGS += -D_FORTIFY_SOURCE=2
+	}
+
 	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
 	CONFIG(symbols) {

@@ -137,9 +137,14 @@ ice {
 bonjour {
 	DEFINES *= USE_BONJOUR
 
-	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceRegister.h BonjourServer.h
-	SOURCES *= ../bonjour/BonjourServiceRegister.cpp BonjourServer.cpp
-	INCLUDEPATH *= ../bonjour
+	HEADERS *= \
+		../../3rdparty/qqbonjour-src/BonjourRecord.h \
+		../../3rdparty/qqbonjour-src/BonjourServiceRegister.h \
+		BonjourServer.h
+	SOURCES *= \
+		../../3rdparty/qqbonjour-src/BonjourServiceRegister.cpp \
+		BonjourServer.cpp
+	INCLUDEPATH *= ../../3rdparty/qqbonjour-src
 	win32 {
 		INCLUDEPATH *= "$$BONJOUR_PATH/include"
 		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
