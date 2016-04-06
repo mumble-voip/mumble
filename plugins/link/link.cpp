@@ -63,12 +63,10 @@ struct LinkedMem {
 	float	fAvatarPosition[3];
 	float	fAvatarFront[3];
 	float	fAvatarTop[3];
-	wchar_t	name[256];
 	float	fCameraPosition[3];
 	float	fCameraFront[3];
 	float	fCameraTop[3];
 	wchar_t	identity[256];
-	wchar_t description[2048];
 };
 #endif
 
@@ -84,8 +82,8 @@ static DWORD last_tick = 0;
 static void unlock() {
 	lm->dwcount = last_count = 0;
 	lm->uiVersion = 0;
-	lm->name[0] = 0;
 #ifndef PLUTOVR_BUILD
+	lm->name[0] = 0;
 	wsPluginName.assign(L"Link");
 #else
 	wsPluginName.assign(L"PlutoLink");
@@ -166,6 +164,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		context.assign(reinterpret_cast<const char *>(lm->context), lm->context_len);
 #else
 		context = "Pluto";
+		if (identity.empty())
 #endif
 		identity.assign(lm->identity);
 	} else {
