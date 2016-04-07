@@ -2965,7 +2965,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ClientUser.cpp" line="+135"/>
         <source>Friend</source>
-        <translation type="unfinished"/>
+        <translation>Draugas</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3965,7 +3965,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+59"/>
         <source>the server</source>
-        <translation type="unfinished"/>
+        <translation>Serveris</translation>
     </message>
     <message>
         <location line="+127"/>
@@ -3976,7 +3976,8 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+47"/>
         <source>[Date changed to %1]
 </source>
-        <translation type="unfinished"/>
+        <translation>[Data pasikeitė į %1]
+</translation>
     </message>
     <message>
         <location line="+66"/>
@@ -5807,7 +5808,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+17"/>
         <source>%1 moved in from %2 by %3.</source>
-        <translation type="unfinished"/>
+        <translation>%3 perkėlė %1 iš %2.</translation>
     </message>
     <message>
         <location line="-200"/>
