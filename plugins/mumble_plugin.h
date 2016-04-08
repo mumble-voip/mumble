@@ -35,15 +35,15 @@
 #include <map>
 
 // Visual Studio 2008 x86
-#if _MSC_VER == 1500 && defined(_M_X86)
+#if _MSC_VER == 1500 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC     0xd63ab7ef
 # define MUMBLE_PLUGIN_MAGIC_2   0xd63ab7fe
 // Visual Studio 2010 x86
-#elif _MSC_VER == 1600 && defined(_M_X86)
+#elif _MSC_VER == 1600 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC    0xd63ab7f0
 # define MUMBLE_PLUGIN_MAGIC_2  0xd63ab7ff
 // Visual Studio 2013 x86
-#elif _MSC_VER == 1800 && defined(_M_X86)
+#elif _MSC_VER == 1800 && defined(_M_IX86)
 # define MUMBLE_PLUGIN_MAGIC    0xd63ab7c0
 # define MUMBLE_PLUGIN_MAGIC_2  0xd63ab7cf
 // Visual Studio 2013 x64
