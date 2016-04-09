@@ -107,7 +107,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Rocket League. No identity support yet.");
+	return std::wstring(L"Supports Rocket League. No identity nor context support yet.");
 }
 
 static std::wstring description(L"Rocket League");
