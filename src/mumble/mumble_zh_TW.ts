@@ -219,7 +219,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This sets whether or not the ACL up the chain of parent channels are applied to this object. Only those entries that are marked in the parent as &quot;Apply to sub-channels&quot; will be inherited.</source>
-        <translation>設置是否對當前對象應用父頻道存取控制表。只有那些在父頻道內被標記為“應用到子頻道”的條目將被繼承。</translation>
+        <translation>設定是否將父頻道的存取控制表套用至當前對象。只有在父頻道內被標記為“套用到子頻道”的項目將被繼承。</translation>
     </message>
     <message>
         <location/>
@@ -234,7 +234,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry up in the list. As entries are evaluated in order, this may change the effective permissions of users. You cannot move an entry above an inherited entry, if you really need that you&apos;ll have to duplicate the inherited entry.</source>
-        <translation>在列表中上移規則順位。由於規則自上而下依序處理，這有可能改變用戶的有效權限.你不能將一個條目移到繼承的條目之上，如果你確實想這麼做，你需要複製繼承的規則。</translation>
+        <translation>在列表中上移規則順位。由於規則自上而下依序處理，這有可能改變使用者的有效權限。你不能將一個項目移到繼承的項目之上，如果你確實想這麼做，你需要複製繼承的規則。</translation>
     </message>
     <message>
         <location/>
@@ -249,7 +249,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This moves the entry down in the list. As entries are evaluated in order, this may change the effective permissions of users.</source>
-        <translation>在列表中下移規則順位。由於規則自上而下依序處理，這有可能改變用戶的有效權限。</translation>
+        <translation>在列表中下移規則順位。由於規則自上而下依序處理，這有可能改變使用者的有效權限。</translation>
     </message>
     <message>
         <location/>
@@ -264,7 +264,7 @@ This value enables you to change the way mumble arranges the channels in the tre
     <message>
         <location/>
         <source>This adds a new entry, initially set with no permissions and applying to all.</source>
-        <translation>新增規則，預設置為無權限且應用到所有。</translation>
+        <translation>新增規則，預設值為無權限且套用到所有項目。</translation>
     </message>
     <message>
         <location/>
@@ -387,7 +387,7 @@ Add a new group.</source>
     <message>
         <location/>
         <source>Group this entry applies to</source>
-        <translation>應用該規則的群組</translation>
+        <translation>套用該規則的群組</translation>
     </message>
     <message>
         <location/>
@@ -489,12 +489,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>使用者最大值</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>頻道內可允許的最大使用者數量</translation>
     </message>
     <message>
         <location/>
@@ -1131,17 +1131,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>取消回音</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>取消混聲回音</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>取消多重頻道混音</translation>
     </message>
 </context>
 <context>
@@ -4956,17 +4956,17 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+233"/>
         <source>Save Image As...</source>
-        <translation type="unfinished"/>
+        <translation>另存圖片 ...</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Save Image File</source>
-        <translation type="unfinished"/>
+        <translation>儲存圖片</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Could not save image: %1</source>
-        <translation type="unfinished"/>
+        <translation>無法儲存圖片：%1</translation>
     </message>
     <message>
         <location line="+382"/>
@@ -4988,7 +4988,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1327"/>
         <source>&lt;p&gt;Connected users: %1/%2&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;已連接的使用者：%1／%2&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -6516,7 +6516,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Local Volume Adjustment</source>
-        <translation type="unfinished"/>
+        <translation>本機音量調整</translation>
     </message>
     <message>
         <location/>
@@ -8188,12 +8188,12 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location filename="UserLocalVolumeDialog.cpp" line="+46"/>
         <source>Adjusting local volume for %1</source>
-        <translation type="unfinished"/>
+        <translation>調整 %1 的本機音量</translation>
     </message>
     <message>
         <location filename="UserLocalVolumeDialog.ui"/>
         <source> dB</source>
-        <translation type="unfinished"/>
+        <translation>分貝</translation>
     </message>
     <message>
         <location/>
