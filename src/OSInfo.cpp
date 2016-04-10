@@ -127,15 +127,19 @@ QString OSInfo::getOSVersion() {
 	if (err != noErr)
 		return QString::number(QSysInfo::MacintoshVersion, 16);
 
-	const NXArchInfo *local = NXGetLocalArchInfo();
-	const NXArchInfo *ai = local ? NXGetArchInfoFromCpuType(local->cputype, CPU_SUBTYPE_MULTIPLE) : NULL;
-	const char *arch = ai ? ai->name : "unknown";
+	char *buildno = NULL;
+	char buildno_buf[32];
+	size_t sz_buildno_buf = sizeof(buildno);
+	int ret = sysctlbyname("kern.osversion", buildno_buf, &sz_buildno_buf, NULL, 0);
+	if (ret == 0) {
+		buildno = &buildno_buf[0];
+	}
 
-	os.sprintf("%lu.%lu.%lu (%s)",
+	os.sprintf("%lu.%lu.%lu %s",
 	           static_cast<unsigned long>(major),
 	           static_cast<unsigned long>(minor),
 	           static_cast<unsigned long>(bugfix),
-	           arch);
+	           buildno ? buildno : "unknown");
 #else
 #ifdef Q_OS_LINUX
 	QProcess qp;
