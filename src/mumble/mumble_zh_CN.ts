@@ -488,23 +488,24 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>ID of the channel.</source>
-        <translation type="unfinished"/>
+        <translation>频道ID</translation>
     </message>
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>最大用户数</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>频道内允许的最大用户数</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Maximum Users&lt;/b&gt;&lt;br /&gt;
 This value allows you to set the maximum number of users allowed in the channel. If the value is above zero, only that number of users will be allowed to enter the channel. If the value is zero, the maximum number of users in the channel is given by the server&apos;s default limit.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;最大用户数&lt;/b&gt;&lt;br /&gt;
+该值用于设置频道内允许最大用户数。如果该值大于0，则允许进入该频道的最大用户数量为所设置的数值。如果该值为0，则允许进入该频道的最大用户数量为服务器设置的缺省值。</translation>
     </message>
 </context>
 <context>
@@ -556,7 +557,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <location line="-21"/>
         <location line="+25"/>
         <source>Failed to instantiate ASIO driver</source>
-        <translation type="unfinished"/>
+        <translation>ASIO驱动实例化失败</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -631,7 +632,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>缓存尺寸</translation>
     </message>
     <message>
         <location/>
@@ -679,7 +680,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="ASIOInput.cpp" line="+78"/>
         <source>You need to select at least one microphone and one speaker source to use ASIO. If you just need microphone sampling, use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>至少需要选择一个麦克风源和一个扬声器源才能使用ASIO。如果仅需要麦克风采样，使用DirectSound。</translation>
     </message>
     <message>
         <location line="+104"/>
@@ -697,22 +698,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;为游戏玩家提供的一个语音聊天工具&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
         <source>&amp;About Mumble</source>
-        <translation type="unfinished"/>
+        <translation>关于Mumble(&amp;A)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;License</source>
-        <translation type="unfinished"/>
+        <translation>许可(&amp;L)</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>3rd &amp;party licenses</source>
-        <translation type="unfinished"/>
+        <translation>三方许可(&amp;p)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -760,12 +761,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;这是用户的音频输入设备。&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>传送</translation>
     </message>
     <message>
         <location/>
@@ -1120,12 +1121,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>关闭扬声器</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>关闭麦克风</translation>
     </message>
     <message>
         <location/>
@@ -1135,7 +1136,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>消除回音</translation>
     </message>
     <message>
         <location/>
