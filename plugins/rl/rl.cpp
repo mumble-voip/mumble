@@ -27,9 +27,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	//  return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
         // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x015E5EB0, &pos_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x015E5EB0, &front_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x015E5EB0, &top_corrector, 12);
+	ok = peekProc((BYTE *) pModule + 0x015D3650, &pos_corrector, 12) &&
+	     peekProc((BYTE *) pModule + 0x015D3650, &front_corrector, 12) &&
+	     peekProc((BYTE *) pModule + 0x015D3650, &top_corrector, 12);
 
 	if (! ok)
 		return false;
@@ -81,10 +81,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Rocket League version 1.0.10897.0 without identity nor context support yet.");
+	return std::wstring(L"Supports Rocket League version 1.16 without identity nor context support yet.");
 }
 
-static std::wstring description(L"Rocket League (version 1.0.10897.0)");
+static std::wstring description(L"Rocket League (v1.16)");
 static std::wstring shortname(L"Rocket League");
 
 static int trylock1() {
