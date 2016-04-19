@@ -20,10 +20,10 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when not
-		peekProc((BYTE *) pModule + 0x10728C4, &pos_corrector, 12) &&
-		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) &&
-		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) &&
-		peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "localhost" when on a local server.
+		peekProc((BYTE *) pModule + 0x10728C4, &pos_corrector, 12) && // Position values (X, Y and Z)
+		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up)
+		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) && // Changes in a range from 180 to -180 when moving the view to left/right
+		peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
 		peekProc((BYTE *) pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
 	
 	if (! ok) {
@@ -38,15 +38,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	if (state == 1 && team == 3) { // If in-game as spectator
-		/*
-		Set to 0 avatar and camera values.
-		*/
+		// Set to 0 avatar and camera values.
 		for (int i=0;i<3;i++) {
 			camera_pos[i] =  camera_front[i] = camera_top[i] = avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0.0f;
 		}
-		/*
-		Set team to SPEC.
-		*/
+		// Set team to SPEC.
 		std::wostringstream oidentity;
 		oidentity << "{\"team\": \"SPEC\"}";
 		identity = oidentity.str();
@@ -56,9 +52,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	host[sizeof(host) - 1] = '\0';
 	std::string Server(host);
-	// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "localhost" or "" (empty) when loading. Hence 22 size for char.
+	// This string can be either "xxx.xxx.xxx.xxx:yyyyy" (or shorter), "loopback" or "" (empty) when loading. Hence 22 size for char.
 	if (!Server.empty()) {
-		if (Server.find("localhost") == std::string::npos) {
+		if (Server.find("loopback") == std::string::npos) {
 			std::ostringstream newcontext;
 			newcontext << "{\"ipport\": \"" << Server << "\"}";
 			context = newcontext.str();
