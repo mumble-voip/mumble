@@ -15,12 +15,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	bool ok;
 
 	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
-	float pos_corrector[3];
-	float viewHor, viewVer;
+	float avatar_pos_corrector[3], camera_pos_corrector[3], viewHor, viewVer;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when not
-		peekProc((BYTE *) pModule + 0x10728C4, &pos_corrector, 12) && // Position values (X, Y and Z)
+		peekProc((BYTE *) pModule + 0x10728C4, &avatar_pos_corrector, 12) && // Avatar Position values (X, Y and Z)
+		peekProc((BYTE *) pModule + 0x0E6093C, &camera_pos_corrector, 12) && // Camera Position values (X, Y and Z)
 		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up)
 		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) && // Changes in a range from 180 to -180 when moving the view to left/right
 		peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
@@ -40,7 +40,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state == 1 && team == 3) { // If in-game as spectator
 		// Set to 0 avatar and camera values.
 		for (int i=0;i<3;i++) {
-			camera_pos[i] =  camera_front[i] = camera_top[i] = avatar_pos[i] = avatar_front[i] = avatar_top[i] = 0.0f;
+			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
 		}
 		// Set team to SPEC.
 		std::wostringstream oidentity;
@@ -78,30 +78,30 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	Y    | Z
 	Z    | X
 	*/
-	avatar_pos[0] = pos_corrector[1];
-	avatar_pos[1] = pos_corrector[2];
-	avatar_pos[2] = pos_corrector[0];
+	avatar_pos[0] = avatar_pos_corrector[1];
+	avatar_pos[1] = avatar_pos_corrector[2];
+	avatar_pos[2] = avatar_pos_corrector[0];
+
+	camera_pos[0] = camera_pos_corrector[1];
+	camera_pos[1] = camera_pos_corrector[2];
+	camera_pos[2] = camera_pos_corrector[0];
 	
 	// Scale to meters
-	for (int i=0;i<3;i++)
+	for (int i=0;i<3;i++) {
 		avatar_pos[i]/=70.0f;
+		camera_pos[i]/=70.0f;
+	}
 	
 	viewVer *= static_cast<float>(M_PI / 180.0f);
 	viewHor *= static_cast<float>(M_PI / 180.0f);
 
-	avatar_front[0] = -sin(viewHor) * cos(viewVer);
-	avatar_front[1] = -sin(viewVer);
-	avatar_front[2] = cos(viewHor) * cos(viewVer);
+	avatar_front[0] = camera_front[0] = -sin(viewHor) * cos(viewVer);
+	avatar_front[1] = camera_front[1] = -sin(viewVer);
+	avatar_front[2] = camera_front[2] = cos(viewHor) * cos(viewVer);
 
-	avatar_top[0] = -sin(viewHor) * cos(viewVer);
-	avatar_top[1] = -sin(viewVer);
-	avatar_top[2] = cos(viewHor) * cos(viewVer);
-	
-	for (int i=0;i<3;i++) {
-		camera_pos[i] = avatar_pos[i];
-		camera_front[i] = avatar_front[i];
-		camera_top[i] = avatar_top[i];
-	}
+	avatar_top[0] = camera_top[0] = -sin(viewHor) * cos(viewVer);
+	avatar_top[1] = camera_top[1] = -sin(viewVer);
+	avatar_top[2] = camera_top[2] = cos(viewHor) * cos(viewVer);
 
 	return true;
 }
