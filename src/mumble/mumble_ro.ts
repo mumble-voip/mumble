@@ -628,7 +628,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Marimea buffer-ului</translation>
     </message>
     <message>
         <location/>
@@ -757,7 +757,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Acesta este dispozitivul de intrare folosit pentru audio&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
@@ -967,7 +967,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Disabled</source>
-        <translation>Oprit</translation>
+        <translation>Dezactivat</translation>
     </message>
     <message>
         <location/>
@@ -987,12 +987,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Maximum bandwidth used for sending audio</source>
-        <translation type="unfinished"/>
+        <translation>Maximul marimii de banda pentru trimiterea audioului</translation>
     </message>
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Folosește detectarea vorbirii bazată pe amplitudine</translation>
     </message>
     <message>
         <location/>
@@ -1002,7 +1002,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive mode</source>
-        <translation type="unfinished"/>
+        <translation>Mod exclusiv</translation>
     </message>
     <message>
         <location/>
@@ -1012,27 +1012,27 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Exclusive</source>
-        <translation type="unfinished"/>
+        <translation>Exclusiv</translation>
     </message>
     <message>
         <location/>
         <source>R&amp;eset</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;eset</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Browse...</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Răsfoiește...</translation>
     </message>
     <message>
         <location/>
         <source>B&amp;rowse...</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;ăsfoiește...</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Preview</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Previzualizare</translation>
     </message>
     <message>
         <location/>
@@ -1042,17 +1042,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Displays an always on top window with a push to talk button in it</source>
-        <translation type="unfinished"/>
+        <translation>Afișează un buton pe partea de sus a ferestrei cu push to talk in el</translation>
     </message>
     <message>
         <location/>
         <source>Display push to talk window</source>
-        <translation type="unfinished"/>
+        <translation>Afișează fereastra push to talk</translation>
     </message>
     <message>
         <location/>
         <source>Misc</source>
-        <translation type="unfinished"/>
+        <translation>Diverse</translation>
     </message>
     <message>
         <location/>
