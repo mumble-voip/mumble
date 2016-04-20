@@ -10,19 +10,20 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 	}
 
-	char state, host[22];
+	bool ok, state, spec;
+	char host[22];
 	BYTE team;
-	bool ok;
-
+	
 	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float avatar_pos_corrector[3], camera_pos_corrector[3], viewHor, viewVer;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when not
-		peekProc((BYTE *) pModule + 0x10728C4, &avatar_pos_corrector, 12) && // Avatar Position values (X, Y and Z)
-		peekProc((BYTE *) pModule + 0x0E6093C, &camera_pos_corrector, 12) && // Camera Position values (X, Y and Z)
-		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up)
-		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) && // Changes in a range from 180 to -180 when moving the view to left/right
+	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
+		peekProc((BYTE *) pModule + 0x1041B14, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
+		peekProc((BYTE *) pModule + 0x10728C4, &avatar_pos_corrector, 12) && // Avatar Position values (X, Y and Z).
+		peekProc((BYTE *) pModule + 0x0E6093C, &camera_pos_corrector, 12) && // Camera Position values (X, Y and Z).
+		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up).
+		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) && // Changes in a range from 180 to -180 when moving the view to left/right.
 		peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
 		peekProc((BYTE *) pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
 	
@@ -30,14 +31,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return false;
 	}
 
-	if (state == 0) { // If not in-game
+	if (! state) { // If not in-game
 		context.clear(); // Clear context
 		identity.clear(); // Clear identity
 		
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	}
 
-	if (state == 1 && team == 3) { // If in-game as spectator
+	if (state && spec) { // If in-game as spectator
 		// Set to 0 avatar and camera values.
 		for (int i=0;i<3;i++) {
 			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
