@@ -1082,67 +1082,67 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Hold Time</source>
-        <translation type="unfinished"/>
+        <translation>Timp așteptare</translation>
     </message>
     <message>
         <location/>
         <source>Time the microphone stays open after the PTT key is released</source>
-        <translation type="unfinished"/>
+        <translation>Timpul in care microfonul stă pornit după ce butonul PTT nu mai este apasat</translation>
     </message>
     <message>
         <location filename="AudioInput.cpp" line="+531"/>
         <source>Server maximum network bandwidth is only %1 kbit/s. Audio quality auto-adjusted to %2 kbit/s (%3 ms)</source>
-        <translation type="unfinished"/>
+        <translation>Limita server-ului de bandă de internet este doar %1 kbit/s. Calitatea audio a fost ajustată automat la %2 kbit/s (%3 ms)</translation>
     </message>
     <message>
         <location filename="AudioInput.ui"/>
         <source>Max. Amplification</source>
-        <translation type="unfinished"/>
+        <translation>Amplificare maximă</translation>
     </message>
     <message>
         <location/>
         <source>Idle action</source>
-        <translation type="unfinished"/>
+        <translation>Acțiune inactivitate</translation>
     </message>
     <message>
         <location/>
         <source>minutes do</source>
-        <translation type="unfinished"/>
+        <translation>minute sa faci</translation>
     </message>
     <message>
         <location/>
         <source>nothing</source>
-        <translation type="unfinished"/>
+        <translation>nimic</translation>
     </message>
     <message>
         <location/>
         <source>deafen</source>
-        <translation type="unfinished"/>
+        <translation>asurzește</translation>
     </message>
     <message>
         <location/>
         <source>mute</source>
-        <translation type="unfinished"/>
+        <translation>amuțește</translation>
     </message>
     <message>
         <location/>
         <source>after</source>
-        <translation type="unfinished"/>
+        <translation>după</translation>
     </message>
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Anulare ecou</translation>
     </message>
     <message>
         <location/>
         <source>Mixed echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Anulare ecou mixt</translation>
     </message>
     <message>
         <location/>
         <source>Multichannel echo cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Anulare ecou cu canale multiple</translation>
     </message>
 </context>
 <context>
@@ -1150,56 +1150,56 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioConfigDialog.cpp" line="+75"/>
         <source>Continuous</source>
-        <translation type="unfinished"/>
+        <translation>Continuu</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Activitate voce</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Push To Talk</source>
-        <translation type="unfinished"/>
+        <translation>Push To Talk</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Audio Input</source>
-        <translation type="unfinished"/>
+        <translation>Intrare audio</translation>
     </message>
     <message>
         <location line="+111"/>
         <location line="+8"/>
         <location line="+7"/>
         <source>%1 ms</source>
-        <translation type="unfinished"/>
+        <translation>%1 ms</translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+7"/>
         <location line="+20"/>
         <source>Off</source>
-        <translation type="unfinished"/>
+        <translation>Oprit</translation>
     </message>
     <message>
         <location line="-12"/>
         <source>%1 s</source>
-        <translation type="unfinished"/>
+        <translation>%1 s</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>%1 kb/s</source>
-        <translation type="unfinished"/>
+        <translation>%1 kb/s</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>-%1 dB</source>
-        <translation type="unfinished"/>
+        <translation>-%1 dB</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>%1 kbit/s (Audio %2, Position %4, Overhead %3)</source>
-        <translation type="unfinished"/>
+        <translation>%1 kbit/s (Audio %2, Position %4, Overhead %3)</translation>
     </message>
 </context>
 <context>
@@ -1207,22 +1207,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location filename="AudioOutput.ui"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation>Formă</translation>
     </message>
     <message>
         <location/>
         <source>Interface</source>
-        <translation type="unfinished"/>
+        <translation>Interfață</translation>
     </message>
     <message>
         <location/>
         <source>System</source>
-        <translation type="unfinished"/>
+        <translation>Sistem</translation>
     </message>
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Metoda de ieșire pentru audio</translation>
     </message>
     <message>
         <location/>
@@ -1233,12 +1233,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Device</source>
-        <translation type="unfinished"/>
+        <translation>Dispozitiv</translation>
     </message>
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Dispozitiv pentru ieșire audio</translation>
     </message>
     <message>
         <location/>
@@ -1248,12 +1248,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Audio pozitional</translation>
     </message>
     <message>
         <location/>
         <source>Audio Output</source>
-        <translation type="unfinished"/>
+        <translation>Ieșire audio</translation>
     </message>
     <message>
         <location/>
@@ -1293,12 +1293,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Volume</source>
-        <translation type="unfinished"/>
+        <translation>Volum</translation>
     </message>
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>Volum de intrare a vorbirii</translation>
     </message>
     <message>
         <location/>
@@ -1308,12 +1308,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation type="unfinished"/>
+        <translation>Întârziere de ieșire</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Cantitatea de date pentru buffer</translation>
     </message>
     <message>
         <location/>
@@ -1329,7 +1329,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Bloom</source>
-        <translation type="unfinished"/>
+        <translation>Bloom</translation>
     </message>
     <message>
         <location/>
