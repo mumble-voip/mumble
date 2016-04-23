@@ -81,7 +81,7 @@ void Log::postNotification(MsgType mt, const QString &console, const QString &pl
 	if (response.type()!=QDBusMessage::ReplyMessage || response.arguments().at(0).toUInt()==0) {
 		QDBusInterface gnome(QLatin1String("org.freedesktop.Notifications"), QLatin1String("/org/freedesktop/Notifications"), QLatin1String("org.freedesktop.Notifications"));
 		if (gnome.isValid())
-			response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), console, QStringList(), hints, -1);
+			response = gnome.call(QLatin1String("Notify"), QLatin1String("Mumble"), uiLastId, qsIcon, msgName(mt), plain, QStringList(), hints, -1);
 	}
 
 	if (response.type()==QDBusMessage::ReplyMessage && response.arguments().count() == 1) {
