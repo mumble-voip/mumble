@@ -97,6 +97,9 @@ class PulseAudioSystem : public QObject {
 
 		void query();
 
+		QString outputDevice() const;
+		QString inputDevice() const;
+
 		void setVolumes();
 		PulseAttenuation* getAttenuation(QString stream_restore_id);
 

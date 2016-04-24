@@ -152,6 +152,28 @@ PulseAudioSystem::~PulseAudioSystem() {
 	pa_threaded_mainloop_free(pam);
 }
 
+QString PulseAudioSystem::outputDevice() const {
+	QString odev = g.s.qsPulseAudioOutput;
+	if (odev.isEmpty()) {
+		odev = qsDefaultOutput;
+	}
+	if (!qhOutput.contains(odev)) {
+		odev = qsDefaultOutput;
+	}
+	return odev;
+}
+
+QString PulseAudioSystem::inputDevice() const {
+	QString idev = g.s.qsPulseAudioInput;
+	if (idev.isEmpty()) {
+		idev = qsDefaultInput;
+	}
+	if (!qhInput.contains(idev)) {
+		idev = qsDefaultInput;
+	}
+	return idev;
+}
+
 void PulseAudioSystem::wakeup() {
 	pa_mainloop_api *api = pa_threaded_mainloop_get_api(pam);
 	api->defer_enable(pade, true);
@@ -183,7 +205,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	PulseAudioOutput *pao = dynamic_cast<PulseAudioOutput *>(raw_ao);
 
 	if (raw_ao) {
-		QString odev = g.s.qsPulseAudioOutput.isEmpty() ? qsDefaultOutput : g.s.qsPulseAudioOutput;
+		QString odev = outputDevice();
 		pa_stream_state ost = pasOutput ? pa_stream_get_state(pasOutput) : PA_STREAM_TERMINATED;
 		bool do_stop = false;
 		bool do_start = false;
@@ -249,7 +271,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	}
 
 	if (raw_ai) {
-		QString idev = g.s.qsPulseAudioInput.isEmpty() ? qsDefaultInput : g.s.qsPulseAudioInput;
+		QString idev = inputDevice();
 		pa_stream_state ist = pasInput ? pa_stream_get_state(pasInput) : PA_STREAM_TERMINATED;
 		bool do_stop = false;
 		bool do_start = false;
@@ -307,7 +329,7 @@ void PulseAudioSystem::eventCallback(pa_mainloop_api *api, pa_defer_event *) {
 	}
 
 	if (raw_ai) {
-		QString odev = g.s.qsPulseAudioOutput.isEmpty() ? qsDefaultOutput : g.s.qsPulseAudioOutput;
+		QString odev = outputDevice();
 		QString edev = qhEchoMap.value(odev);
 		pa_stream_state est = pasSpeaker ? pa_stream_get_state(pasSpeaker) : PA_STREAM_TERMINATED;
 		bool do_stop = false;
