@@ -85,8 +85,6 @@ void RichTextHtmlEdit::insertFromMimeData(const QMimeData *source) {
 
 #ifndef QT_NO_DEBUG
 	qWarning() << "RichTextHtmlEdit::insertFromMimeData" << source->formats();
-	foreach(const QString &format, source->formats())
-		qWarning() << format << decodeMimeString(source->data(format));
 #endif
 
 	if (source->hasImage()) {
