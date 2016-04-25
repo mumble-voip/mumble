@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>伺服器預設值</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -693,7 +693,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;為玩家而生的語音工具&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -1509,7 +1509,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>進階衰減設定</translation>
     </message>
     <message>
         <location/>
@@ -4763,12 +4763,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-344"/>
         <source>&lt;h2&gt;Version&lt;/h2&gt;&lt;p&gt;Protocol %1&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h2&gt;版本&lt;/h2&gt;&lt;p&gt;協定 %1&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&lt;p&gt;No build information or OS version available&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;沒有可用的建置或作業系統資訊&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -4845,7 +4845,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+110"/>
         <source>Server presented a certificate which failed verification.</source>
-        <translation type="unfinished"/>
+        <translation>服務器提供的憑證認證失敗。</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -4946,7 +4946,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+47"/>
         <source>Mumble - Minimal View -- %1</source>
-        <translation type="unfinished"/>
+        <translation>Mumble - 精簡檢視 -- %1</translation>
     </message>
     <message>
         <location line="+63"/>
@@ -6283,7 +6283,7 @@ Valid actions are:
     <message>
         <location line="+16"/>
         <source>Error: No RPC command specified</source>
-        <translation type="unfinished"/>
+        <translation>錯誤：指定的 PRC 指令不存在。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -6521,7 +6521,7 @@ the channel&apos;s context menu.</source>
     <message>
         <location/>
         <source>Locally adjust the user&apos;s speech volume.</source>
-        <translation type="unfinished"/>
+        <translation>調整部份使用者的音量。</translation>
     </message>
     <message>
         <location/>
