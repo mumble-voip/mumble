@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>기본 서버 수</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -493,12 +493,12 @@ Contains the list of members inherited by the current channel. Uncheck &lt;i&gt;
     <message>
         <location/>
         <source>Maximum Users</source>
-        <translation type="unfinished"/>
+        <translation>최대 유저수</translation>
     </message>
     <message>
         <location/>
         <source>Maximum number of users allowed in the channel</source>
-        <translation type="unfinished"/>
+        <translation>채널의 최대 사용자 수</translation>
     </message>
     <message>
         <location/>
@@ -1135,7 +1135,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>반향 소거</translation>
     </message>
     <message>
         <location/>
@@ -1809,7 +1809,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Finished</source>
-        <translation type="unfinished"/>
+        <translation>완료</translation>
     </message>
     <message>
         <location/>
@@ -2757,7 +2757,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your email address (e.g. johndoe@mumble.info)</source>
-        <translation type="unfinished"/>
+        <translation>당신의 이메일 주소 (e.g. johndoe@mumble.info)</translation>
     </message>
     <message>
         <location/>
@@ -2767,7 +2767,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Your name (e.g. John Doe)</source>
-        <translation type="unfinished"/>
+        <translation>당신의 이름 (e.g. John Doe)</translation>
     </message>
     <message>
         <location/>
@@ -2815,7 +2815,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="../ACL.cpp" line="+230"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>None</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2825,17 +2825,17 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location line="+2"/>
         <source>Enter</source>
-        <translation type="unfinished"/>
+        <translation>엔터</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Speak</source>
-        <translation type="unfinished"/>
+        <translation>말하기</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Mute/Deafen</source>
-        <translation type="unfinished"/>
+        <translation>발언 금지/청취 금지</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3045,7 +3045,7 @@ It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://m
     <message>
         <location filename="ConfigDialog.cpp" line="+55"/>
         <source>Accept changes</source>
-        <translation type="unfinished"/>
+        <translation>변경 확인</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3652,7 +3652,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Skip</source>
-        <translation type="unfinished"/>
+        <translation>스킵</translation>
     </message>
     <message>
         <location/>
@@ -3943,12 +3943,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User kicked</source>
-        <translation type="unfinished"/>
+        <translation>유저 강퇴</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>You self-muted</source>
-        <translation type="unfinished"/>
+        <translation>자신을 발언 금지 하기</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3998,7 +3998,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+59"/>
         <source>the server</source>
-        <translation type="unfinished"/>
+        <translation>서버</translation>
     </message>
     <message>
         <location line="+127"/>

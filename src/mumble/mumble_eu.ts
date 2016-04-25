@@ -30,7 +30,7 @@
         <location line="+11"/>
         <location line="+50"/>
         <source>Default server value</source>
-        <translation type="unfinished"/>
+        <translation>Zerbitzariko balio lehenetsia</translation>
     </message>
     <message>
         <location line="-28"/>
@@ -1138,7 +1138,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Echo Cancellation</source>
-        <translation type="unfinished"/>
+        <translation>Oihartzun indargabetzailea</translation>
     </message>
     <message>
         <location/>
@@ -4235,7 +4235,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+19"/>
         <source>&lt;a href=&quot;%1&quot;&gt;Browse&lt;/a&gt;</source>
         <extracomment>This link is located next to the theme heading in the ui config and opens the user theme directory</extracomment>
-        <translation type="unfinished"/>
+        <translation>&lt;a href=&quot;%1&quot;&gt;Arakatu&lt;/a&gt;</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -5076,12 +5076,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+175"/>
         <source>Unmuted and undeafened.</source>
-        <translation>Isiltasuna eta gortasuna kendu.</translation>
+        <translation>Isiltasuna eta gortasuna kenduak.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Unmuted.</source>
-        <translation>Isiltasuna kendu.</translation>
+        <translation>Isiltasuna kendua.</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -5101,7 +5101,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+3"/>
         <source>Undeafened.</source>
-        <translation>Gortasuna kendu.</translation>
+        <translation>Gortasuna kendua.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -5203,7 +5203,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location filename="MainWindow.ui"/>
         <source>C&amp;onfigure</source>
-        <translation type="unfinished"/>
+        <translation>Ezarpenak</translation>
     </message>
     <message>
         <location/>
@@ -5470,7 +5470,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation>&amp;Berabiarazi</translation>
+        <translation>&amp;Berrabiarazi</translation>
     </message>
     <message>
         <location/>
@@ -5485,7 +5485,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Mute Self</source>
-        <translation>Zure burua  &amp;Isildu</translation>
+        <translation>&amp;Isildu zure burua</translation>
     </message>
     <message>
         <location/>
@@ -5500,12 +5500,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Deafen Self</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Gortu zure burua</translation>
     </message>
     <message>
         <location/>
         <source>Deafen yourself</source>
-        <translation type="unfinished"/>
+        <translation>Gortu zure burua</translation>
     </message>
     <message>
         <location/>
@@ -5745,12 +5745,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Access Tokens</source>
-        <translation type="unfinished"/>
+        <translation>Sarrera Tokenak</translation>
     </message>
     <message>
         <location/>
         <source>Add or remove text-based access tokens</source>
-        <translation type="unfinished"/>
+        <translation>Gehitu edo kendu testuan oinarritutako sarrera tokenak.</translation>
     </message>
     <message>
         <location/>
@@ -6460,7 +6460,7 @@ Valid actions are:
     <message>
         <location/>
         <source>Toggle the channel filter (Ctrl+F)</source>
-        <translation type="unfinished"/>
+        <translation>Gaitu / ezgaitu kanal iragazkiak (Ktrl+F)</translation>
     </message>
     <message>
         <location/>
@@ -7632,7 +7632,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="ConnectDialog.cpp" line="-641"/>
         <source>Favorite</source>
-        <translation>Gustukoa </translation>
+        <translation>Gustukoak </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -8200,7 +8200,7 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+1"/>
         <source>Not talking.</source>
-        <translation>Ez hitz egiten.</translation>
+        <translation>Isilik.</translation>
     </message>
     <message>
         <location line="+8"/>
