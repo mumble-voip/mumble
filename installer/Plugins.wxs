@@ -107,6 +107,9 @@
       <Component Id="lotro.dll">
         <File Source="$(var.SourceDir)\release\plugins\lotro.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ql.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ql.dll" KeyPath="yes" />
+      </Component>
       <Component Id="rl.dll">
         <File Source="$(var.SourceDir)\release\plugins\rl.dll" KeyPath="yes" />
       </Component>
@@ -171,6 +174,7 @@
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="lol.dll" />
       <ComponentRef Id="lotro.dll" />
+      <ComponentRef Id="ql.dll" />
       <ComponentRef Id="rl.dll" />
       <ComponentRef Id="sr.dll" />
       <ComponentRef Id="sto.dll" />
