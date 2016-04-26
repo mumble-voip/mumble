@@ -856,7 +856,10 @@ void MetaDBus::getConf(int server_id, const QString &key, const QDBusMessage &ms
 	if (! ServerDB::serverExists(server_id)) {
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
-		value = ServerDB::getConf(server_id, key).toString();
+		if (key == "key" || key == "passphrase")
+			MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.writeonly", "Requested read of write-only field."));
+		else
+			value = ServerDB::getConf(server_id, key).toString();
 	}
 }
 
@@ -876,6 +879,9 @@ void MetaDBus::getAllConf(int server_id, const QDBusMessage &msg, ConfigMap &val
 		MurmurDBus::qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.server", "Invalid server id"));
 	} else {
 		values = ServerDB::getAllConf(server_id);
+
+		values.remove("key");
+		values.remove("passphrase");
 	}
 }
 
@@ -893,6 +899,9 @@ void MetaDBus::getLog(int server_id, int min_offset, int max_offset, const QDBus
 
 void MetaDBus::getDefaultConf(ConfigMap &values) {
 	values = Meta::mp.qmConfig;
+
+	values.remove("key");
+	values.remove("passphrase");
 }
 
 void MetaDBus::setSuperUserPassword(int server_id, const QString &pw, const QDBusMessage &msg) {
