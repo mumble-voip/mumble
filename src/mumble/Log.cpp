@@ -524,7 +524,7 @@ void Log::log(MsgType mt, const QString &console, const QString &terse, bool own
 
 	// Message notification with balloon tooltips
 	if ((flags & Settings::LogBalloon) && !(g.mw->isActiveWindow() && g.mw->qdwLog->isVisible()))
-		postNotification(mt, console, plain);
+		postNotification(mt, plain);
 
 	// Don't make any noise if we are self deafened (Unless it is the sound for activating self deaf)
 	if (g.s.bDeaf && mt != Log::SelfDeaf)

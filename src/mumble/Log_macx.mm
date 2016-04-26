@@ -91,9 +91,7 @@ static bool growl_available() {
 	return isAvailable == 1;
 }
 
-void Log::postNotification(MsgType mt, const QString &console, const QString &plain) {
-	Q_UNUSED(console);
-
+void Log::postNotification(MsgType mt, const QString &plain) {
 	QString title = msgName(mt);
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= 1080
 	if (QSysInfo::MacintoshVersion >= QSysInfo::MV_MOUNTAINLION) {
