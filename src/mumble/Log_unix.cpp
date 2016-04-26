@@ -36,7 +36,7 @@
 #include "MainWindow.h"
 #include "Settings.h"
 
-void Log::postNotification(MsgType mt, const QString &console, const QString &plain) {
+void Log::postNotification(MsgType mt, const QString &plain) {
 	// Message notification with balloon tooltips
 	QString qsIcon;
 	switch (mt) {
@@ -88,7 +88,6 @@ void Log::postNotification(MsgType mt, const QString &console, const QString &pl
 		uiLastId = response.arguments().at(0).toUInt();
 	} else {
 #else
-	Q_UNUSED(console);
 	if (true) {
 #endif
 		postQtNotification(mt, plain);
