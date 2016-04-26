@@ -9,48 +9,27 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	for (int i=0;i<3;i++)
 		avatar_pos[i]=avatar_front[i]=avatar_top[i]=0.0f;
 
-        // char state;
+	// Boolean value to check if game addresses retrieval is successful
 	bool ok;
+        
         // Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
 	float pos_corrector[3];
-	float front_corrector[3];
-	float top_corrector[3];
-
-	/*
-		value is <     >
-	*/
-	// ok = peekProc((BYTE *) 0x<offset>, &state, 1); // Magical state value
-	// if (! ok)
-	//	return false;
-
-	// if (state == 0)
-	//  return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 
         // Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x015D3650, &pos_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x015D3650, &front_corrector, 12) &&
-	     peekProc((BYTE *) pModule + 0x015D3650, &top_corrector, 12);
+	ok = peekProc((BYTE *) pModule + 0x015F4EF0, &pos_corrector, 12);
 
 	if (! ok)
 		return false;
 
-        // X = pModule + 0x015E5EB8
-        // Y = pModule + 0x015E5EB4
-        // Z = pModule + 0x015E5EB0
+        // X = pModule + 0x015F4EF8
+        // Y = pModule + 0x015F4EF4
+        // Z = pModule + 0x015F4EF0
 	avatar_pos[0] = pos_corrector[2];
 	avatar_pos[1] = pos_corrector[1];
 	avatar_pos[2] = pos_corrector[0];
 
 	for (int i=0;i<3;i++)
-		avatar_pos[i]/=32.0f; // Scale to meters
-
-	avatar_front[0] = front_corrector[2];
-	avatar_front[1] = front_corrector[1];
-	avatar_front[2] = front_corrector[0];
-
-	avatar_top[0] = top_corrector[2];
-	avatar_top[1] = top_corrector[1];
-	avatar_top[2] = top_corrector[0];
+		avatar_pos[i]/=100.0f; // Scale to meters
 
 	for (int i=0;i<3;i++) {
 		camera_pos[i] = avatar_pos[i];
@@ -81,10 +60,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Rocket League version 1.16 without identity nor context support yet.");
+	return std::wstring(L"Supports Rocket League version 1.17 without context or identity support yet.");
 }
 
-static std::wstring description(L"Rocket League (v1.16)");
+static std::wstring description(L"Rocket League (v1.17)");
 static std::wstring shortname(L"Rocket League");
 
 static int trylock1() {
