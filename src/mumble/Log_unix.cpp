@@ -69,7 +69,7 @@ void Log::postNotification(MsgType mt, const QString &console, const QString &pl
 			args.append(QString());
 			args.append(QLatin1String("mumble"));
 			args.append(msgName(mt));
-			args.append(console);
+			args.append(plain);
 			args.append(QStringList());
 			args.append(hints);
 			args.append(5000);
