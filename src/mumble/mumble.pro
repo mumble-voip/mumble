@@ -210,12 +210,12 @@ SOURCES *= BanEditor.cpp \
     VoiceRecorderDialog.cpp \
     WebFetch.cpp \
     MumbleApplication.cpp \
-    smallft.cpp \
+    ../../3rdparty/smallft-src/smallft.cpp \
     ThemeInfo.cpp \
     Themes.cpp \
     OverlayPositionableItem.cpp
 
-DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico licenses.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
@@ -252,6 +252,7 @@ include(translations.pri)
 
 PRECOMPILED_HEADER = mumble_pch.hpp
 INCLUDEPATH *= ../../3rdparty/qqbonjour-src
+INCLUDEPATH *= ../../3rdparty/smallft-src
 
 CONFIG(static) {
   # Ensure that static Mumble.app on Mac OS X

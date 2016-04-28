@@ -80,7 +80,8 @@ my @thirdPartyLicenses = (
     ["licenseFilterSvg", "../icons/filter.txt", "filter.svg icon", "https://commons.wikimedia.org/wiki/File:Filter.svg"],
     ["licenseEmojiOne", "../3rdPartyLicenses/cc_by_sa_40_legalcode.txt", "Emoji One artwork", "http://emojione.com/"],
     ["licenseXInputCheck", "../3rdparty/xinputcheck-src/COPYING.txt", "XInputCheck (SDL_IsXInput function)", "https://www.libsdl.org/"],
-    ["licenseQQBonjour", "../3rdparty/qqbonjour-src/LICENSE", "QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html"]
+    ["licenseQQBonjour", "../3rdparty/qqbonjour-src/LICENSE", "QQBonjour", "https://doc.qt.io/archives/qq/qq23-bonjour.html"],
+    ["licenseSmallFT", "../3rdparty/smallft-src/LICENSE", "smallft", "https://www.xiph.org"]
 );
 
 # Print 3rd party licenses
