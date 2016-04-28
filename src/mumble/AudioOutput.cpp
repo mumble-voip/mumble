@@ -42,6 +42,7 @@
 #include "Plugins.h"
 #include "PacketDataStream.h"
 #include "ServerHandler.h"
+#include "Timer.h"
 #include "VoiceRecorder.h"
 
 // Remember that we cannot use static member classes that are not pointers, as the constructor
@@ -229,8 +230,17 @@ AudioOutputSample *AudioOutput::playSample(const QString &filename, bool loop) {
 	if (handle == NULL)
 		return NULL;
 
-	while ((iMixerFreq == 0) && isAlive()) {
+	Timer t;
+	const quint64 oneSecond = 1000000;
+
+	while (!t.isElapsed(oneSecond) && (iMixerFreq == 0) && isAlive()) {
 		QThread::yieldCurrentThread();
+	}
+
+	// If we've waited for more than one second, we declare timeout.
+	if (t.isElapsed(oneSecond)) {
+		qWarning("AudioOutput: playSample() timed out after 1 second: device not ready");
+		return NULL;
 	}
 
 	if (! iMixerFreq)
