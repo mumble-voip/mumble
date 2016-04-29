@@ -19,9 +19,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
-		peekProc((BYTE *) pModule + 0x1041B14, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
-		peekProc((BYTE *) pModule + 0x10728C4, &avatar_pos_corrector, 12) && // Avatar Position values (X, Y and Z).
-		peekProc((BYTE *) pModule + 0x0E6093C, &camera_pos_corrector, 12) && // Camera Position values (X, Y and Z).
+		peekProc((BYTE *) pModule + 0x1041CAC, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
+		peekProc((BYTE *) pModule + 0x0EB8950, &avatar_pos_corrector, 12) && // Avatar Position values (Z, X and Y, respectively).
+		peekProc((BYTE *) pModule + 0x0E6093C, &camera_pos_corrector, 12) && // Camera Position values (Z, X and Y, respectively).
 		peekProc((BYTE *) pModule + 0x1072954, &viewHor, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up).
 		peekProc((BYTE *) pModule + 0x1072950, &viewVer, 4) && // Changes in a range from 180 to -180 when moving the view to left/right.
 		peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
@@ -127,10 +127,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Quake Live version 1067 with context and identity support."); // Plugin long description
+	return std::wstring(L"Supports Quake Live version 1068 with context and identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Quake Live (v1067)"); // Plugin short description
+static std::wstring description(L"Quake Live (v1068)"); // Plugin short description
 static std::wstring shortname(L"Quake Live"); // Plugin short name
 
 static int trylock1() {
