@@ -67,7 +67,6 @@ MetaParams::MetaParams() {
 	qsWelcomeText = QString();
 	qsDatabase = QString();
 	iDBPort = 0;
-	qsDBusService = "net.sourceforge.mumble.murmur";
 	qsDBDriver = "QSQLITE";
 	qsLogfile = "murmur.log";
 
@@ -312,8 +311,6 @@ void MetaParams::read(QString fname) {
 
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
-	qsDBus = typeCheckedFromSettings("dbus", qsDBus);
-	qsDBusService = typeCheckedFromSettings("dbusservice", qsDBusService);
 	qsLogfile = typeCheckedFromSettings("logfile", qsLogfile);
 	qsPid = typeCheckedFromSettings("pidfile", qsPid);
 

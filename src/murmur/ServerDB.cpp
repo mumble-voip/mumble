@@ -35,7 +35,6 @@
 #include "ACL.h"
 #include "Channel.h"
 #include "Connection.h"
-#include "DBus.h"
 #include "Group.h"
 #include "Meta.h"
 #include "Server.h"

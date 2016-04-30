@@ -95,8 +95,6 @@ public:
 	bool bSendVersion;
 	bool bAllowPing;
 
-	QString qsDBus;
-	QString qsDBusService;
 	QString qsLogfile;
 	QString qsPid;
 	QString qsIceEndpoint;

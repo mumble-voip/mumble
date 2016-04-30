@@ -13,15 +13,11 @@ FORMS =
 HEADERS *= Server.h ServerUser.h Meta.h PBKDF2.h
 SOURCES *= main.cpp Server.cpp ServerUser.cpp ServerDB.cpp Register.cpp Cert.cpp Messages.cpp Meta.cpp RPC.cpp PBKDF2.cpp
 
-DIST = DBus.h ServerDB.h ../../icons/murmur.ico Murmur.ice MurmurI.h MurmurIceWrapper.cpp murmur.plist
+DIST = ServerDB.h ../../icons/murmur.ico Murmur.ice MurmurI.h MurmurIceWrapper.cpp murmur.plist
 PRECOMPILED_HEADER = murmur_pch.h
 
 !CONFIG(no-ice) {
 	CONFIG *= ice
-}
-
-!CONFIG(no-dbus):!win32:!macx {
-	CONFIG *= dbus
 }
 
 !CONFIG(no-bonjour) {
@@ -64,13 +60,6 @@ macx {
   CONFIG -= app_bundle
   LIBS *= -framework Security
   QMAKE_LFLAGS += -sectcreate __TEXT __info_plist murmur.plist
-}
-
-dbus {
-	DEFINES *= USE_DBUS
-	QT *= dbus
-	HEADERS *= DBus.h
-	SOURCES *= DBus.cpp
 }
 
 ice {
