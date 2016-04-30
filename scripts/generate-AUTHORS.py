@@ -113,7 +113,7 @@ patchAuthors = (
 )
 
 def gitAuthorsOutput():
-	p = subprocess.Popen(["git", "log", "--use-mailmap", "--format=%aN <%aE>", "master", "1.2.x"], stdout=subprocess.PIPE)
+	p = subprocess.Popen(["git", "log", "--use-mailmap", "--format=%aN <%aE>", "origin/master", "origin/1.2.x"], stdout=subprocess.PIPE)
 	stdout, stderr = p.communicate()
 	if stdout is not None:
 		stdout = stdout.decode('utf-8')
