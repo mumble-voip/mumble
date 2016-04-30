@@ -333,6 +333,34 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
+unsigned int Log::estimatedDataURLImageSize(const QByteArray &buf) {
+	// We estimate the extra characters (HTML) in the encoded
+	// message to be around 32.
+	const unsigned int htmlExtras = 32U;
+
+	// Count the number of characters that will be percent encoded by
+	// Log::imageToImg(const QByteArray &, const QByteArray &)
+	unsigned int percentEncodedCount = 0;
+	for (int i = 0; i < buf.length(); i++) {
+		switch (buf[i]) {
+		case '+':
+		case '/':
+		case '=':
+			percentEncodedCount++;
+		}
+	}
+
+	// Calculate the base64 length.
+	// Note that the value of len will be <= INT_MAX, so this
+	// calculation will not cause overflow.
+	//
+	// Percent encoding characters require an additional two bytes each
+	unsigned int len = static_cast<unsigned int>(buf.length());
+	unsigned int b64len = ((len + 2U) / 3U) * 4U + percentEncodedCount * 2;
+
+	return b64len + htmlExtras;
+}
+
 QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 	QString fmt = QLatin1String(format);
 
@@ -348,8 +376,6 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 		end = begin+72;
 
 		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
-		if (end < rawbase.length())
-			encoded.append('\n');
 
 		++i;
 	} while (end < rawbase.length());
@@ -370,9 +396,7 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.write(img);
 	}
 
-	QString encoded = imageToImg(format, qba);
-
-	while ((encoded.length() > static_cast<int>(g.uiImageLength)) && (quality > 0)) {
+	while ((estimatedDataURLImageSize(qba) > g.uiImageLength) && (quality > 0)) {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
@@ -383,11 +407,9 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.setQuality(quality);
 		imgwrite.write(img);
 		quality -= 10;
-
-		encoded = imageToImg(format, qba);
 	}
-	if (encoded.length() <= static_cast<int>(g.uiImageLength)) {
-		return encoded;
+	if (estimatedDataURLImageSize(qba) <= g.uiImageLength) {
+		return imageToImg(format, qba);
 	}
 	return QString();
 }
