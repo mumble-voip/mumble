@@ -370,8 +370,9 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.write(img);
 	}
 
-	const int safety = 1024;
-	while ((static_cast<unsigned int>(qba.length() * 2 + safety) >= g.uiImageLength) && (quality > 0)) {
+	QString encoded = imageToImg(format, qba);
+
+	while ((encoded.length() > static_cast<int>(g.uiImageLength)) && (quality > 0)) {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
@@ -382,9 +383,11 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.setQuality(quality);
 		imgwrite.write(img);
 		quality -= 10;
+
+		encoded = imageToImg(format, qba);
 	}
-	if (static_cast<unsigned int>(qba.length() * 2 + safety) < g.uiImageLength) {
-		return imageToImg(format, qba);
+	if (encoded.length() <= static_cast<int>(g.uiImageLength)) {
+		return encoded;
 	}
 	return QString();
 }
