@@ -252,18 +252,7 @@ void RichTextEditor::on_qaImage_triggered() {
 	if (qba.isEmpty())
 		return;
 
-	if ((g.uiImageLength > 0) && (static_cast<unsigned int>(qba.length()) > g.uiImageLength)) {
-		QMessageBox::warning(this, tr("Failed to load image"), tr("Image file too large to embed in document. Please use images smaller than %1 kB.").arg(g.uiImageLength /1024));
-		return;
-	}
-
-	QBuffer qb(&qba);
-	qb.open(QIODevice::ReadOnly);
-
-	QByteArray format = QImageReader::imageFormat(&qb);
-	qb.close();
-
-	qteRichText->insertHtml(Log::imageToImg(format, qba));
+	qteRichText->insertHtml(Log::imageToImg(choice.second));
 }
 
 void RichTextEditor::onCurrentChanged(int index) {

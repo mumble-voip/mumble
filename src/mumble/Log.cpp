@@ -358,10 +358,6 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 }
 
 QString Log::imageToImg(QImage img) {
-	if ((img.width() > 480) || (img.height() > 270)) {
-		img = img.scaled(480, 270, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-	}
-
 	int quality = 100;
 	QByteArray format = "PNG";
 
@@ -374,7 +370,8 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.write(img);
 	}
 
-	while ((qba.length() >= 65536) && (quality > 0)) {
+	const int safety = 1024;
+	while ((static_cast<unsigned int>(qba.length() * 2 + safety) >= g.uiImageLength) && (quality > 0)) {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
@@ -386,7 +383,7 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.write(img);
 		quality -= 10;
 	}
-	if (qba.length() < 65536) {
+	if (static_cast<unsigned int>(qba.length() * 2 + safety) < g.uiImageLength) {
 		return imageToImg(format, qba);
 	}
 	return QString();
