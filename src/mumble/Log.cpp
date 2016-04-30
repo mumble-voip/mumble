@@ -368,17 +368,7 @@ QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 		fmt = QLatin1String("qt");
 
 	QByteArray rawbase = image.toBase64();
-	QByteArray encoded;
-	int i = 0;
-	int begin = 0, end = 0;
-	do {
-		begin = i*72;
-		end = begin+72;
-
-		encoded.append(QUrl::toPercentEncoding(QLatin1String(rawbase.mid(begin,72))));
-
-		++i;
-	} while (end < rawbase.length());
+	QByteArray encoded = QUrl::toPercentEncoding(QLatin1String(rawbase));
 
 	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
 }
