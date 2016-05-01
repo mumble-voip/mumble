@@ -333,7 +333,13 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
-unsigned int Log::estimatedDataURLImageSize(const QByteArray &buf) {
+/// Estimate the size of buf when encoded as an HTML image tag
+/// with the src attribute set to a base64-encoded data URL, such
+/// as:
+///
+///    <img src="image/jpeg;base64,[base64-of-buf-goes-here]" />
+///
+static unsigned int estimatedDataURLImageSize(const QByteArray &buf) {
     // We estimate the extra characters (HTML) in the encoded
     // message to be around 64.
     const unsigned int htmlExtras = 64U;
