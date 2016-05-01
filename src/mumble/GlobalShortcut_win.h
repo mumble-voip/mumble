@@ -96,6 +96,10 @@ class GlobalShortcutWin : public GlobalShortcutEngine {
 		/// different than last time we queried it.
 		uint32_t   xboxinputLastPacket[XBOXINPUT_MAX_DEVICES];
 		XboxInput *xboxinput;
+		/// nxboxinput holds the number of XInput devices
+		/// available on the system. It is filled out by
+		/// our EnumDevices callback.
+		int nxboxinput;
 #endif
 
 		static BOOL CALLBACK EnumSuitableDevicesCB(LPCDIDEVICEINSTANCE, LPDIRECTINPUTDEVICE8, DWORD, DWORD, LPVOID);
