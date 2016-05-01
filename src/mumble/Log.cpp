@@ -340,17 +340,18 @@ void Log::clearIgnore() {
 ///    <img src="image/jpeg;base64,[base64-of-buf-goes-here]" />
 ///
 static unsigned int estimatedDataURLImageSize(const QByteArray &buf) {
-    // We estimate the extra characters (HTML) in the encoded
-    // message to be around 64.
-    const unsigned int htmlExtras = 64U;
+	// We estimate the extra characters (HTML) in the encoded message to be
+	// around 64. This accounts for the image tag itself, but also a bit of
+	// extra HTML from the user.
+	const unsigned int htmlExtras = 64U;
 
-    // Calculate the base64 length.
-    // Note that the value of len will be <= INT_MAX, so this
-    // calculation will not cause overflow.
-    unsigned int len = static_cast<unsigned int>(buf.length());
-    unsigned int b64len = ((len + 2U) / 3U) * 4U;
+	// Calculate the base64 length.
+	// Note that the value of len will be <= INT_MAX, so this
+	// calculation will not cause overflow.
+	unsigned int len = static_cast<unsigned int>(buf.length());
+	unsigned int b64len = ((len + 2U) / 3U) * 4U;
 
-    return b64len + htmlExtras;
+	return b64len + htmlExtras;
 }
 
 QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
