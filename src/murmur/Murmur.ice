@@ -264,6 +264,8 @@ module Murmur
 	exception InvalidSecretException extends MurmurException {};
 	/** This is thrown when the channel operation would excede the channel nesting limit */
 	exception NestingLimitException extends MurmurException {};
+	/**  This is thrown when you ask the server to disclose something that should be secret. */
+	exception WriteOnlyException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
@@ -485,7 +487,7 @@ module Murmur
 		 * @param key Configuration key.
 		 * @return Configuration value. If this is empty, see {@link Meta.getDefaultConf}
 		 */
-		idempotent string getConf(string key) throws InvalidSecretException;
+		idempotent string getConf(string key) throws InvalidSecretException, WriteOnlyException;
 
 		/** Retrieve all configuration items.
 		 * @return All configured values. If a value isn't set here, the value from {@link Meta.getDefaultConf} is used.

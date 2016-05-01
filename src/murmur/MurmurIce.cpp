@@ -914,7 +914,10 @@ static void impl_Server_id(const ::Murmur::AMD_Server_idPtr cb, int server_id) {
 #define ACCESS_Server_getConf_READ
 static void impl_Server_getConf(const ::Murmur::AMD_Server_getConfPtr cb, int server_id,  const ::std::string& key) {
 	NEED_SERVER_EXISTS;
-	cb->ice_response(u8(ServerDB::getConf(server_id, u8(key)).toString()));
+	if (key == "key" || key == "passphrase")
+		cb->ice_exception(WriteOnlyException());
+	else
+		cb->ice_response(u8(ServerDB::getConf(server_id, u8(key)).toString()));
 }
 
 #define ACCESS_Server_getAllConf_READ
@@ -926,6 +929,8 @@ static void impl_Server_getAllConf(const ::Murmur::AMD_Server_getAllConfPtr cb, 
 	QMap<QString, QString> values = ServerDB::getAllConf(server_id);
 	QMap<QString, QString>::const_iterator i;
 	for (i=values.constBegin();i != values.constEnd(); ++i) {
+		if (i.key() == "key" || i.key() == "passphrase")
+			continue;
 		cm[u8(i.key())] = u8(i.value());
 	}
 	cb->ice_response(cm);
@@ -1644,6 +1649,8 @@ static void impl_Meta_getDefaultConf(const ::Murmur::AMD_Meta_getDefaultConfPtr 
 	::Murmur::ConfigMap cm;
 	QMap<QString, QString>::const_iterator i;
 	for (i=meta->mp.qmConfig.constBegin();i != meta->mp.qmConfig.constEnd(); ++i) {
+		if (i.key() == "key" || i.key() == "passphrase")
+			continue;
 		cm[u8(i.key())] = u8(i.value());
 	}
 	cb->ice_response(cm);
