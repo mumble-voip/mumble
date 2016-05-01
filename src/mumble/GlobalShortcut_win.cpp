@@ -95,6 +95,7 @@ GlobalShortcutWin::GlobalShortcutWin()
 	: pDI(NULL)
 #ifdef USE_XBOXINPUT
 	, xboxinput(NULL)
+	, nxboxinput(0)
 #endif
 	, uiHardwareDevices(0) {
 
@@ -466,6 +467,8 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// See issues mumble-voip/mumble#2104 and mumble-voip/mumble#2147
 	// for more information.
 	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
+		nxboxinput += 1;
+
 		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
 		delete id;
 		return DIENUM_CONTINUE;
@@ -583,6 +586,7 @@ void GlobalShortcutWin::timeTicked() {
 		uiHardwareDevices = g.mw->uiNewHardware;
 
 		XInputCheck_ClearDeviceCache();
+		nxboxinput = 0;
 
 		pDI->EnumDevices(DI8DEVCLASS_ALL, EnumDevicesCB, static_cast<void *>(this), DIEDFL_ATTACHEDONLY);
 	}
@@ -633,7 +637,7 @@ void GlobalShortcutWin::timeTicked() {
 	}
 
 #ifdef USE_XBOXINPUT
-	if (g.s.bEnableXboxInput && xboxinput->isValid()) {
+	if (g.s.bEnableXboxInput && xboxinput->isValid() && nxboxinput > 0) {
 		XboxInputState state;
 		for (uint32_t i = 0; i < XBOXINPUT_MAX_DEVICES; i++) {
 			if (xboxinput->GetState(i, &state) == 0) {
