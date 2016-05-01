@@ -333,14 +333,27 @@ void Log::clearIgnore() {
 	qmIgnore.clear();
 }
 
+unsigned int Log::estimatedDataURLImageSize(const QByteArray &buf) {
+    // We estimate the extra characters (HTML) in the encoded
+    // message to be around 64.
+    const unsigned int htmlExtras = 64U;
+
+    // Calculate the base64 length.
+    // Note that the value of len will be <= INT_MAX, so this
+    // calculation will not cause overflow.
+    unsigned int len = static_cast<unsigned int>(buf.length());
+    unsigned int b64len = ((len + 2U) / 3U) * 4U;
+
+    return b64len + htmlExtras;
+}
+
 QString Log::imageToImg(const QByteArray &format, const QByteArray &image) {
 	QString fmt = QLatin1String(format);
 
 	if (fmt.isEmpty())
 		fmt = QLatin1String("qt");
 
-	QByteArray rawbase = image.toBase64();
-	QByteArray encoded = QUrl::toPercentEncoding(QLatin1String(rawbase));
+	QByteArray encoded = image.toBase64();
 
 	return QString::fromLatin1("<img src=\"data:image/%1;base64,%2\" />").arg(fmt).arg(QLatin1String(encoded));
 }
@@ -358,9 +371,7 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.write(img);
 	}
 
-	QString encoded = imageToImg(format, qba);
-
-	while ((static_cast<unsigned int>(encoded.length()) > g.uiImageLength) && (quality > 0)) {
+	while ((estimatedDataURLImageSize(qba) > g.uiImageLength) && (quality > 0)) {
 		qba.clear();
 		QBuffer qb(&qba);
 		qb.open(QIODevice::WriteOnly);
@@ -371,11 +382,9 @@ QString Log::imageToImg(QImage img) {
 		imgwrite.setQuality(quality);
 		imgwrite.write(img);
 		quality -= 10;
-
-		encoded = imageToImg(format, qba);
 	}
-	if (static_cast<unsigned int>(encoded.length()) <= g.uiImageLength) {
-		return encoded;
+	if (estimatedDataURLImageSize(qba) <= g.uiImageLength) {
+		return imageToImg(format, qba);
 	}
 	return QString();
 }

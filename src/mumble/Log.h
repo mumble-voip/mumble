@@ -95,6 +95,13 @@ class Log : public QObject {
 		void setIgnore(MsgType t, int ignore = 1 << 30);
 		void clearIgnore();
 		static QString validHtml(const QString &html, bool allowReplacement = false, QTextCursor *tc = NULL);
+		/// Estimate the size of buf when encoded as an HTML image tag
+		/// with the src attribute set to a base64-encoded data URL, such
+		/// as:
+		///
+		///    <img src="image/jpeg;base64,[base64-of-buf-goes-here]" />
+		///
+		static unsigned int estimatedDataURLImageSize(const QByteArray &buf);
 		static QString imageToImg(const QByteArray &format, const QByteArray &image);
 		static QString imageToImg(QImage img);
 		static QString msgColor(const QString &text, LogColorType t);
