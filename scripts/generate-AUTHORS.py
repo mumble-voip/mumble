@@ -11,7 +11,7 @@ from __future__ import (unicode_literals, print_function, division)
 import sys
 import subprocess
 import codecs
-import locale
+import pyuca
 
 blacklist = (
 	# Unknown
@@ -124,8 +124,6 @@ def gitAuthorsOutput():
 	return stdout
 
 def main():
-	locale.setlocale(locale.LC_ALL, "")
-
 	authorsSet = set()
 	authorsText = gitAuthorsOutput()
 	for line in authorsText.split("\n"):
@@ -186,10 +184,8 @@ def main():
 
 	# Sort alphabetically
 	authors = list(authorsSet)
-	if sys.version[0] == '2': # Python 2
-		authors.sort(cmp=locale.strcoll)
-	else:
-		authors.sort(key=locale.strxfrm)
+	collator = pyuca.Collator()
+	authors.sort(key=collator.sort_key)
 
 	for author in authors:
 		f.write(author)
