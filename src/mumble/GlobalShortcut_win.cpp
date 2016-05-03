@@ -467,7 +467,7 @@ BOOL GlobalShortcutWin::EnumDevicesCB(LPCDIDEVICEINSTANCE pdidi, LPVOID pContext
 	// See issues mumble-voip/mumble#2104 and mumble-voip/mumble#2147
 	// for more information.
 	if (XInputCheck_IsGuidProductXInputDevice(&id->guidproduct)) {
-		nxboxinput += 1;
+		cbgsw->nxboxinput += 1;
 
 		qWarning("GlobalShortcutWin: excluded XInput device '%s' (%s) from DirectInput", qPrintable(id->name), qPrintable(id->vguid.toString()));
 		delete id;
