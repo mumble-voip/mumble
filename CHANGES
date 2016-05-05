@@ -1,5 +1,22 @@
+2016-05-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    1471f24  overlay: sync overlay_blacklist.h with master branch.
+    6d37604  Use mumble.info instead of mumble.hive.no in publist
+	     registration and crash reporting.
+    045953c  Bump version to 1.2.16.
+
+2016-05-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    536a5fc  GlobalShortcut_win: fix access to nxboxinput in EnumDevicesCB.
+
+2016-05-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    c33e5a9  GlobalShortcut_win: only poll XboxInput if there are XInput
+	     devices present.
+
 2016-03-05
   Mikkel Krautz <mikkel@krautz.dk>
+    974292c  Update changelog.
     86aac08  GlobalShortcutWin: fix memory leak of 'di' in new XInputCheck
 	     code path.
     8e98894  Use https://www.mumble.info/ and https://wiki.mumble.info/
