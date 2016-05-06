@@ -106,7 +106,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 			CGEventFlags f = CGEventGetFlags(event);
 
 			// Dump active event taps on Ctrl+Alt+Cmd.
-			CGEventFlags ctrlAltCmd = kCGEventFlagMaskControl|kCGEventFlagMaskAlternate|kCGEventFlagMaskCommand;
+			CGEventFlags ctrlAltCmd = static_cast<CGEventFlags>(kCGEventFlagMaskControl|kCGEventFlagMaskAlternate|kCGEventFlagMaskCommand);
 			if ((f & ctrlAltCmd) == ctrlAltCmd)
 				gs->dumpEventTaps();
 
@@ -146,7 +146,7 @@ CGEventRef GlobalShortcutMac::callback(CGEventTapProxy proxy, CGEventType type,
 	return suppress ? NULL : event;
 }
 
-GlobalShortcutMac::GlobalShortcutMac() : modmask(0) {
+GlobalShortcutMac::GlobalShortcutMac() : modmask(static_cast<CGEventFlags>(0)) {
 #ifndef QT_NO_DEBUG
 	qWarning("GlobalShortcutMac: Debug build detected. Disabling shortcut engine.");
 	return;
