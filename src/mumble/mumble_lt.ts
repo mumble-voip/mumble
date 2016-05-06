@@ -510,7 +510,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+191"/>
         <source>Opening chosen ALSA Input failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko atverti pasirinktos ALSA įvesties: %1</translation>
     </message>
 </context>
 <context>
@@ -523,7 +523,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+328"/>
         <source>Opening chosen ALSA Output failed: %1</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko atverti pasirinktos ALSA išvesties: %1</translation>
     </message>
 </context>
 <context>
@@ -624,7 +624,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Buffer size</source>
-        <translation type="unfinished"/>
+        <translation>Buferio dydis</translation>
     </message>
     <message>
         <location/>
@@ -738,7 +738,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai yra garsui naudojamas įvesties metodas.&lt;/b&gt;&lt;br /&gt;Greičiausiai, jūs norėtumėte naudoti DirectSound.</translation>
     </message>
     <message>
         <location/>
@@ -753,22 +753,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This is the input device to use for audio.&lt;/b&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai yra garsui naudojamas įvesties įrenginys.&lt;/b&gt;</translation>
     </message>
     <message>
         <location/>
         <source>Transmission</source>
-        <translation type="unfinished"/>
+        <translation>Perdavimas</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Transmit</source>
-        <translation type="unfinished"/>
+        <translation>Perduo&amp;ti</translation>
     </message>
     <message>
         <location/>
         <source>When to transmit your speech</source>
-        <translation type="unfinished"/>
+        <translation>Kada perdavinėti jūsų kalbą</translation>
     </message>
     <message>
         <location/>
@@ -918,17 +918,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Audio Processing</source>
-        <translation type="unfinished"/>
+        <translation>Garso apdorojimas</translation>
     </message>
     <message>
         <location/>
         <source>Noise Suppression</source>
-        <translation type="unfinished"/>
+        <translation>Triukšmo malšinimas</translation>
     </message>
     <message>
         <location/>
         <source>Noise suppression</source>
-        <translation type="unfinished"/>
+        <translation>Triukšmo malšinimas</translation>
     </message>
     <message>
         <location/>
@@ -1244,7 +1244,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Pozicinis garsas</translation>
     </message>
     <message>
         <location/>
@@ -1254,12 +1254,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Default &amp;Jitter Buffer</source>
-        <translation type="unfinished"/>
+        <translation>Numatytasis &amp;drebėjimo buferis</translation>
     </message>
     <message>
         <location/>
         <source>Safety margin for jitter buffer</source>
-        <translation type="unfinished"/>
+        <translation>Drebėjimo buferio saugumo riba</translation>
     </message>
     <message>
         <location/>
@@ -1294,7 +1294,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Volume of incoming speech</source>
-        <translation type="unfinished"/>
+        <translation>Gaunamos kalbos garsis</translation>
     </message>
     <message>
         <location/>
@@ -1304,7 +1304,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Output Delay</source>
-        <translation type="unfinished"/>
+        <translation>Išvesties delsa</translation>
     </message>
     <message>
         <location/>
@@ -1451,7 +1451,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>kol kiti naudotojai kalba</translation>
     </message>
     <message>
         <location/>
@@ -1466,7 +1466,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>while you talk</source>
-        <translation type="unfinished"/>
+        <translation>kol jūs kalbate</translation>
     </message>
     <message>
         <location/>
@@ -1837,7 +1837,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This is the input method to use for audio.&lt;/b&gt;&lt;br /&gt;Most likely you want to use DirectSound.</source>
-        <translation type="unfinished"/>
+        <translation>&lt;b&gt;Tai yra garsui naudojamas įvesties metodas.&lt;/b&gt;&lt;br /&gt;Greičiausiai, jūs norėtumėte naudoti DirectSound.</translation>
     </message>
     <message>
         <location/>
@@ -1933,7 +1933,7 @@ Prašome turėti omenyje, kad tol, kol šis vediklis yra aktyvus, pakartotinai b
     <message>
         <location/>
         <source>This allows Mumble to use positional audio to place voices.</source>
-        <translation type="unfinished"/>
+        <translation>Tai leidžia Mumble naudoti pozicinį garsą, kad išdėstytų balsus.</translation>
     </message>
     <message>
         <location/>
@@ -1970,7 +1970,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Positional Audio</source>
-        <translation type="unfinished"/>
+        <translation>Pozicinis garsas</translation>
     </message>
     <message>
         <location/>
@@ -2007,7 +2007,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use headphones</source>
-        <translation type="unfinished"/>
+        <translation>Naudoti ausines</translation>
     </message>
     <message>
         <location/>
@@ -2032,7 +2032,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Voice Activity Detection</source>
-        <translation type="unfinished"/>
+        <translation>Balso aktyvumo aptikimas</translation>
     </message>
     <message>
         <location/>
@@ -2068,7 +2068,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Changing hardware output delays to their minimum value.</source>
-        <translation type="unfinished"/>
+        <translation>Aparatinės įrangos išvesties delsų į jų mažiausias reikšmes keitimas.</translation>
     </message>
     <message>
         <location/>
@@ -2083,7 +2083,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Quality &amp; Notifications</source>
-        <translation type="unfinished"/>
+        <translation>Kokybė ir pranešimai</translation>
     </message>
     <message>
         <location/>
@@ -3431,7 +3431,7 @@ Label of the server. This is what the server will be named like in your server l
         <location line="+9"/>
         <source>Please describe briefly, in English, what you were doing at the time of the crash</source>
         <oldsource>Please briefly describe what you were doing at the time of the crash</oldsource>
-        <translation type="unfinished"/>
+        <translation>Prašome trumpai, anglų kalba aprašyti ką darėte, kai programa užstrigo</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3721,7 +3721,7 @@ of the possible locations.</source>
     <message>
         <location/>
         <source>Ignore positional audio</source>
-        <translation type="unfinished"/>
+        <translation>Nepaisyti pozicinio garso</translation>
     </message>
     <message>
         <location/>
@@ -3770,12 +3770,12 @@ of the possible locations.</source>
     <message>
         <location line="-160"/>
         <source>Enable this device</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti šį įrenginį</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>LCD</source>
-        <translation type="unfinished"/>
+        <translation>LCD</translation>
     </message>
     <message>
         <location filename="LCD.ui"/>
@@ -4073,12 +4073,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Console</source>
-        <translation type="unfinished"/>
+        <translation>Pultas</translation>
     </message>
     <message>
         <location/>
         <source>Notification</source>
-        <translation type="unfinished"/>
+        <translation>Pranešimas</translation>
     </message>
     <message>
         <location/>
@@ -4088,7 +4088,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Soundfile</source>
-        <translation type="unfinished"/>
+        <translation>Garso failas</translation>
     </message>
     <message>
         <location/>
@@ -4118,7 +4118,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Length threshold</source>
-        <translation type="unfinished"/>
+        <translation>Ilgio slenkstis</translation>
     </message>
     <message>
         <location/>
@@ -4133,7 +4133,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source> Characters</source>
-        <translation type="unfinished"/>
+        <translation> simbolių</translation>
     </message>
     <message>
         <location/>
@@ -4508,7 +4508,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+13"/>
         <source>Unlink Plugin</source>
         <comment>Global Shortcut</comment>
-        <translation type="unfinished"/>
+        <translation>Atsieti įskiepį</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5528,12 +5528,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Forcibly unlink plugin</source>
-        <translation type="unfinished"/>
+        <translation>Priverstinai atsieti įskiepį</translation>
     </message>
     <message>
         <location/>
         <source>This forces the current plugin to unlink, which is handy if it is reading completely wrong data.</source>
-        <translation type="unfinished"/>
+        <translation>Tai priverstinai atsieja esamą įskiepį, kas praverčia tuo atveju, jei įskiepis skaito visiškai neteisingus duomenis.</translation>
     </message>
     <message>
         <location/>
@@ -6062,12 +6062,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+4"/>
         <source>The server requests positional audio be enabled.</source>
-        <translation type="unfinished"/>
+        <translation>Serveris prašo, kad pozicinis garsas būtų įjungtas.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The server requests positional audio be disabled.</source>
-        <translation type="unfinished"/>
+        <translation>Serveris prašo, kad pozicinis garsas būtų išjungtas.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -6348,7 +6348,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Unlink Plugins</source>
-        <translation type="unfinished"/>
+        <translation>A&amp;tsieti įskiepius</translation>
     </message>
     <message>
         <location/>
@@ -6711,12 +6711,12 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location/>
         <source>Check for new releases of plugins automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Automatiškai tikrinti ar yra naujų įskiepių laidų.</translation>
     </message>
     <message>
         <location/>
         <source>This will check for new releases of plugins every time you start the program, and download them automatically.</source>
-        <translation type="unfinished"/>
+        <translation>Tai, kas kartą jums paleidus programą, tikrins ar yra naujų įskiepių laidų ir automatiškai jas atsisiųs.</translation>
     </message>
     <message>
         <location/>
@@ -6792,52 +6792,52 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location filename="OverlayUserGroup.cpp" line="+101"/>
         <source>Filter</source>
-        <translation type="unfinished"/>
+        <translation>Filtras</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Only talking</source>
-        <translation type="unfinished"/>
+        <translation>Tik kalbantys</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Talking and recently active</source>
-        <translation type="unfinished"/>
+        <translation>Kalbantys ir paskiausiai aktyvūs</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in current channel</source>
-        <translation type="unfinished"/>
+        <translation>Visi esamame kanale</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>All in linked channels</source>
-        <translation type="unfinished"/>
+        <translation>Visi susietuose kanaluose</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Always show yourself</source>
-        <translation type="unfinished"/>
+        <translation>Visada rodyti mane</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Configure recently active time (%1 seconds)...</source>
-        <translation type="unfinished"/>
+        <translation>Konfigūruoti paskiausiai aktyvių laiką (%1 sekundės)...</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Columns</source>
-        <translation type="unfinished"/>
+        <translation>Stulpeliai</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Sort</source>
-        <translation type="unfinished"/>
+        <translation>Rikiuoti</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Alphabetically</source>
-        <translation type="unfinished"/>
+        <translation>Pagal abėcėlę</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -6847,7 +6847,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+5"/>
         <source>Edit...</source>
-        <translation type="unfinished"/>
+        <translation>Keisti...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -6857,7 +6857,7 @@ Prevents the client from downloading images embedded into chat messages with the
     <message>
         <location line="+41"/>
         <source>Configure recently active time</source>
-        <translation type="unfinished"/>
+        <translation>Konfigūruoti paskiausiai aktyvių laiką</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -7091,7 +7091,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="OverlayEditor.ui"/>
         <source>State</source>
-        <translation type="unfinished"/>
+        <translation>Būsena</translation>
     </message>
     <message>
         <location/>
@@ -7101,7 +7101,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Passive</source>
-        <translation type="unfinished"/>
+        <translation>Pasyvi</translation>
     </message>
     <message>
         <location/>
@@ -7111,7 +7111,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Talking</source>
-        <translation type="unfinished"/>
+        <translation>Kalbėjimo</translation>
     </message>
     <message>
         <location/>
@@ -7136,7 +7136,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Zoom</source>
-        <translation type="unfinished"/>
+        <translation>Mastelis</translation>
     </message>
     <message>
         <location/>
@@ -7146,7 +7146,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enabled Elements</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti elementai</translation>
     </message>
     <message>
         <location/>
@@ -7186,7 +7186,7 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Mute state</source>
-        <translation type="unfinished"/>
+        <translation>Nutildymo būsena</translation>
     </message>
     <message>
         <location/>
@@ -7330,17 +7330,17 @@ To upgrade these files to their latest versions, click the button below.</source
         <location filename="Plugins.ui"/>
         <location filename="Plugins.cpp" line="+99"/>
         <source>Plugins</source>
-        <translation type="unfinished"/>
+        <translation>Įskiepiai</translation>
     </message>
     <message>
         <location filename="Plugins.cpp" line="+60"/>
         <source>Plugin has no configure function.</source>
-        <translation type="unfinished"/>
+        <translation>Įskiepis neturi konfigūravimo funkcijos.</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Plugin has no about function.</source>
-        <translation type="unfinished"/>
+        <translation>Įskiepis neturi &quot;apie&quot; funkcijos.</translation>
     </message>
     <message>
         <location filename="Plugins.ui"/>
@@ -7355,42 +7355,42 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Enable plugins and transmit positional information</source>
-        <translation type="unfinished"/>
+        <translation>Įjungti įskiepius ir perduoti pozicinę informaciją</translation>
     </message>
     <message>
         <location/>
         <source>This allows plugins for supported games to fetch your in-game position and transmit it with each voice packet. This enables other users to hear your voice in-game from the direction your character is in relation to their own.</source>
-        <translation type="unfinished"/>
+        <translation>Tai leidžia įskiepiams palaikomuose žaidimuose gauti jūsų poziciją žaidime ir perduoti ją su kiekvienu balso paketu. Tai leidžia kitiems naudotojams girdėti žaidime jūsų balsą iš tos vietos, kurioje yra jūsų veikėjas jų veikėjo atžvilgiu.</translation>
     </message>
     <message>
         <location/>
         <source>Link to Game and Transmit Position</source>
-        <translation type="unfinished"/>
+        <translation>Susieti su žaidimu ir perduoti poziciją</translation>
     </message>
     <message>
         <location/>
         <source>Reloads all plugins</source>
-        <translation type="unfinished"/>
+        <translation>Iš naujo įkelti visus įskiepius</translation>
     </message>
     <message>
         <location/>
         <source>This rescans and reloads plugins. Use this if you just added or changed a plugin to the plugins directory.</source>
-        <translation type="unfinished"/>
+        <translation>Tai peržiūri ir iš naujo įkelia įskiepius. Naudokite tai, jeigu jūs ką tik į įskiepių katalogą pridėjote ar pakeitėte įskiepį.</translation>
     </message>
     <message>
         <location/>
         <source>&amp;Reload plugins</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Iš naujo įkelti įskiepius</translation>
     </message>
     <message>
         <location/>
         <source>Information about plugin</source>
-        <translation type="unfinished"/>
+        <translation>Informacija apie įskiepį</translation>
     </message>
     <message>
         <location/>
         <source>This shows a small information message about the plugin.</source>
-        <translation type="unfinished"/>
+        <translation>Tai rodo mažą informacinį pranešimą apie įskiepį.</translation>
     </message>
     <message>
         <location/>
@@ -7400,12 +7400,12 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location/>
         <source>Show configuration page of plugin</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti įskiepio konfigūravimo puslapį</translation>
     </message>
     <message>
         <location/>
         <source>This shows the configuration page of the plugin, if any.</source>
-        <translation type="unfinished"/>
+        <translation>Tai rodo įskiepio konfigūracijos puslapį, jei toks yra.</translation>
     </message>
     <message>
         <location/>
@@ -7428,18 +7428,18 @@ To upgrade these files to their latest versions, click the button below.</source
     <message>
         <location filename="Plugins.cpp" line="+353"/>
         <source>Skipping plugin update in debug mode.</source>
-        <translation type="unfinished"/>
+        <translation>Derinimo veiksenoje, praleidžiamas įskiepio atnaujinimas.</translation>
     </message>
     <message>
         <location line="+159"/>
         <location line="+6"/>
         <source>Downloaded new or updated plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Atsisiųstas naujas ar atnaujintas įskiepis į %1.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Failed to install new plugin to %1.</source>
-        <translation type="unfinished"/>
+        <translation>Nepavyko įdiegti naujo įskiepio į %1.</translation>
     </message>
     <message>
         <location line="-286"/>
@@ -8406,7 +8406,7 @@ An access token is a text string, which can be used as a password for very simpl
         <location line="-36"/>
         <location line="+37"/>
         <source>State: %1</source>
-        <translation type="unfinished"/>
+        <translation>Būsena: %1</translation>
     </message>
     <message>
         <location line="-36"/>
