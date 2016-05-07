@@ -56,7 +56,7 @@
     <message>
         <location line="+123"/>
         <source>Channel must have a name</source>
-        <translation type="unfinished"/>
+        <translation>Kanalas privalo turėti pavadinimą</translation>
     </message>
     <message>
         <location line="-131"/>
@@ -1218,7 +1218,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Output method for audio</source>
-        <translation type="unfinished"/>
+        <translation>Garso išvesties metodas</translation>
     </message>
     <message>
         <location/>
@@ -1234,7 +1234,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Output device for audio</source>
-        <translation type="unfinished"/>
+        <translation>Garso išvesties įrenginys</translation>
     </message>
     <message>
         <location/>
@@ -1857,7 +1857,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Cancel echo from headset or speakers</source>
-        <translation type="unfinished"/>
+        <translation>Malšinti aidą iš ausinių ar garsiakalbių</translation>
     </message>
     <message>
         <location/>
@@ -1903,7 +1903,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <location/>
         <source>Allows positioning of sound</source>
         <oldsource>Allows positioning of sound.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Leidžia garso pozicionavimą</translation>
     </message>
     <message>
         <location/>
@@ -1917,7 +1917,7 @@ Please be aware that as long as this wizard is active, audio will be looped loca
 Tai yra garso suderinimo vediklis, skirtas Mumble. Jis padės jums teisingai nustatyti garso plokštės įvesties lygius bei nustatyti teisingus garso apdorojimo parametrus programoje Mumble.
 &lt;/p&gt;
 &lt;p&gt;
-Prašome turėti omenyje, kad tol, kol šis vediklis yra aktyvus, pakartotinai bus grojamas garsas tam, kad jūs galėtumėte jo klausytis, ir joks garsas nebus siunčiamas į serverį.
+Prašome turėti omenyje, kad tol, kol šis vediklis yra aktyvus, pakartotinai bus grojamas garsas tam, kad jūs galėtumėte jo klausytis, ir joks kitas garsas nebus siunčiamas į serverį.
 &lt;/p&gt;</translation>
     </message>
     <message>
@@ -6153,7 +6153,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation type="unfinished"/>
+        <translation>%1 užėjo į kanalą.</translation>
     </message>
     <message>
         <location line="-409"/>
@@ -6173,7 +6173,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location line="+46"/>
         <source>%1 left channel and disconnected.</source>
-        <translation type="unfinished"/>
+        <translation>%1 išėjo iš kanalo ir atsijungė.</translation>
     </message>
     <message>
         <location line="+127"/>
