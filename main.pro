@@ -80,6 +80,13 @@ SUBDIRS *= src/mumble_proto
   !CONFIG(no-ice) {
     SUBDIRS *= src/murmur/murmur_ice
   }
+  CONFIG(grpc) {
+    !system(pkg-config --atleast-version=3 protobuf) {
+      error(grpc requires protobuf>=3)
+    }
+    SUBDIRS *= src/murmur_grpcwrapper_protoc_plugin
+    SUBDIRS *= src/murmur/murmur_grpc
+  }
   SUBDIRS *= src/murmur
 }
 

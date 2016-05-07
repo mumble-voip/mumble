@@ -1,0 +1,823 @@
+// Copyright 2015-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+syntax = "proto2";
+
+package MurmurRPC;
+
+// Note about embedded messages:
+//
+// To help save bandwidth, the protocol does not always send complete embedded
+// messages (i.e. an embeddded message with all of the fields filled in). These
+// incomplete messages only contain enough identifying information to get more
+// information from the message's corresponding "Get" method. For example:
+//
+// User.server only ever contains the server ID. Calling ServerGet(User.server)
+// will return a Server message with the server's status and uptime.
+
+message Void {
+}
+
+message Version {
+	// 2-byte Major, 1-byte Minor and 1-byte Patch version number.
+	optional uint32 version = 1;
+	// Client release name.
+	optional string release = 2;
+	// Client OS name.
+	optional string os = 3;
+	// Client OS version.
+	optional string os_version = 4;
+}
+
+message Uptime {
+	// The number of seconds from the starting time.
+	optional uint64 secs = 1;
+}
+
+message Server {
+	// The unique server ID.
+	required uint32 id = 1;
+	// Is the server currently running?
+	optional bool running = 2;
+	// The update of the server.
+	optional Uptime uptime = 3;
+
+	message Event {
+		enum Type {
+			UserConnected = 0;
+			UserDisconnected = 1;
+			UserStateChanged = 2;
+			UserTextMessage = 3;
+			ChannelCreated = 4;
+			ChannelRemoved = 5;
+			ChannelStateChanged = 6;
+		};
+		// The server on which the event happened.
+		optional Server server = 1;
+		// The type of event that happened.
+		optional Type type = 2;
+		// The user tied to the event (if applicable).
+		optional User user = 3;
+		// The text message tied to the event (if applicable).
+		optional TextMessage message = 4;
+		// The channel tied to the event (if applicable).
+		optional Channel channel = 5;
+	}
+
+	message Query {
+	}
+
+	message List {
+		// The servers.
+		repeated Server servers = 1;
+	}
+}
+
+message Event {
+	enum Type {
+		ServerStopped = 0;
+		ServerStarted = 1;
+	};
+	// The server for which the event happened.
+	optional Server server = 1;
+	// The type of event that happened.
+	optional Type type = 2;
+}
+
+message ContextAction {
+	enum Context {
+		Server = 0x01;
+		Channel = 0x02;
+		User = 0x04;
+	};
+	// The server on which the action is.
+	optional Server server = 1;
+	// The context in which the action is.
+	optional uint32 context = 2;
+	// The action name.
+	optional string action = 3;
+	// The user-visible descriptive name of the action.
+	optional string text = 4;
+	// The user that triggered the ContextAction.
+	optional User actor = 5;
+	// The user on which the ContextAction was triggered.
+	optional User user = 6;
+	// The channel on which the ContextAction was triggered.
+	optional Channel channel = 7;
+}
+
+message TextMessage {
+	// The server on which the TextMessage originates.
+	optional Server server = 1;
+	// The user who sent the message.
+	optional User actor = 2;
+	// The users to whom the message is sent.
+	repeated User users = 3;
+	// The channels to which the message is sent.
+	repeated Channel channels = 4;
+	// The channels to which the message is sent, including the channels'
+	// ancestors.
+	repeated Channel trees = 5;
+	// The message body that is sent.
+	optional string text = 6;
+
+	message Filter {
+		enum Action {
+			// Accept the message.
+			Accept = 0;
+			// Reject the message with a permission error.
+			Reject = 1;
+			// Silently drop the message.
+			Drop = 2;
+		}
+		// The server on which the message originated.
+		optional Server server = 1;
+		// The action to perform for the message.
+		optional Action action = 2;
+		// The text message.
+		optional TextMessage message = 3;
+	}
+}
+
+message Log {
+	// The server on which the log message was generated.
+	optional Server server = 1;
+	// The unix timestamp of when the message was generated.
+	optional int64 timestamp = 2;
+	// The log message.
+	optional string text = 3;
+
+	message Query {
+		// The server whose logs will be queried.
+		optional Server server = 1;
+		// The minimum log index to receive.
+		optional uint32 min = 2;
+		// The maximum log index to receive.
+		optional uint32 max = 3;
+	}
+
+	message List {
+		// The server where the log entries are from.
+		optional Server server = 1;
+		// The total number of logs entries on the server.
+		optional uint32 total = 2;
+		// The minimum log index that was sent.
+		optional uint32 min = 3;
+		// The maximum log index that was sent.
+		optional uint32 max = 4;
+		// The log entries.
+		repeated Log entries = 5;
+	}
+}
+
+message Config {
+	// The server for which the configuration is for.
+	optional Server server = 1;
+	// The configuration keys and values.
+	map<string, string> fields = 2;
+
+	message Field {
+		// The server for which the configuration field is for.
+		optional Server server = 1;
+		// The field key.
+		optional string key = 2;
+		// The field value.
+		optional string value = 3;
+	}
+}
+
+message Channel {
+	// The server on which the channel exists.
+	optional Server server = 1;
+	// The unique channel identifier.
+	optional uint32 id = 2;
+	// The channel name.
+	optional string name = 3;
+	// The channel's parent.
+	optional Channel parent = 4;
+	// Linked channels.
+	repeated Channel links = 5;
+	// The channel's description.
+	optional string description = 6;
+	// Is the channel temporary?
+	optional bool temporary = 7;
+	// The position in which the channel should appear in a sorted list.
+	optional int32 position = 8;
+
+	message Query {
+		// The server on which the channels are.
+		optional Server server = 1;
+	}
+
+	message List {
+		// The server on which the channels are.
+		optional Server server = 1;
+		// The channels.
+		repeated Channel channels = 2;
+	}
+}
+
+message User {
+	// The server to which the user is connected.
+	optional Server server = 1;
+	// The user's session ID.
+	optional uint32 session = 2;
+	// The user's registered ID.
+	optional uint32 id = 3;
+	// The user's name.
+	optional string name = 4;
+	// Is the user muted?
+	optional bool mute = 5;
+	// Is the user deafened?
+	optional bool deaf = 6;
+	// Is the user suppressed?
+	optional bool suppress = 7;
+	// Is the user a priority speaker?
+	optional bool priority_speaker = 8;
+	// Has the user muted him/herself?
+	optional bool self_mute = 9;
+	// Has the user muted him/herself?
+	optional bool self_deaf = 10;
+	// Is the user recording?
+	optional bool recording = 11;
+	// The channel the user is in.
+	optional Channel channel = 12;
+	// How long the user has been connected to the server.
+	optional uint32 online_secs = 13;
+	// How long the user has been idle on the server.
+	optional uint32 idle_secs = 14;
+	// How many bytes per second is the user transmitting to the server.
+	optional uint32 bytes_per_sec = 15;
+	// The user's client version.
+	optional Version version = 16;
+	// The user's  plugin context.
+	optional bytes plugin_context = 17;
+	// The user's plugin identity.
+	optional string plugin_identity = 18;
+	// The user's comment.
+	optional string comment = 19;
+	// The user's texture.
+	optional bytes texture = 20;
+	// The user's IP address.
+	optional bytes address = 21;
+	// Is the user in TCP-only mode?
+	optional bool tcp_only = 22;
+	// The user's UDP ping in milliseconds.
+	optional float udp_ping_msecs = 23;
+	// The user's TCP ping in milliseconds.
+	optional float tcp_ping_msecs = 24;
+
+	message Query {
+		// The server whose users will be queried.
+		optional Server server = 1;
+	}
+
+	message List {
+		// The server to which the users are connected.
+		optional Server server = 1;
+		// The users.
+		repeated User users = 2;
+	}
+
+	message Kick {
+		// The server to which the user is connected.
+		optional Server server = 1;
+		// The user to kick.
+		optional User user = 2;
+		// The user who performed the kick.
+		optional User actor = 3;
+		// The reason for why the user is being kicked.
+		optional string reason = 4;
+	}
+}
+
+message Tree {
+	// The server which the tree represents.
+	optional Server server = 1;
+	// The current channel.
+	optional Channel channel = 2;
+	// Channels below the current channel.
+	repeated Tree children = 3;
+	// The users in the current channel.
+	repeated User users = 4;
+
+	message Query {
+		// The server to query.
+		optional Server server = 1;
+	}
+}
+
+message Ban {
+	// The server on which the ban is applied.
+	optional Server server = 1;
+	// The banned IP address.
+	optional bytes address = 2;
+	// The number of leading bits in the address to which the ban applies.
+	optional uint32 bits = 3;
+	// The name of the banned user.
+	optional string name = 4;
+	// The certificate hash of the banned user.
+	optional string hash = 5;
+	// The reason for the ban.
+	optional string reason = 6;
+	// The ban start time (in epoch form).
+	optional int64 start = 7;
+	// The ban duration.
+	optional int64 duration_secs = 8;
+
+	message Query {
+		// The server whose bans to query.
+		optional Server server = 1;
+	}
+
+	message List {
+		// The server for which the bans apply.
+		optional Server server = 1;
+		// The bans.
+		repeated Ban bans = 2;
+	}
+}
+
+message ACL {
+	enum Permission {
+		None = 0x00;
+		Write = 0x01;
+		Traverse = 0x02;
+		Enter = 0x04;
+		Speak = 0x08;
+		Whisper = 0x100;
+		MuteDeafen = 0x10;
+		Move = 0x20;
+		MakeChannel = 0x40;
+		MakeTemporaryChannel = 0x400;
+		LinkChannel = 0x80;
+		TextMessage = 0x200;
+
+		Kick = 0x10000;
+		Ban = 0x20000;
+		Register = 0x40000;
+		RegisterSelf = 0x80000;
+	}
+
+	message Group {
+		// The ACL group name.
+		optional string name = 1;
+		// Is the group inherited?
+		optional bool inherited = 2;
+		// Does the group inherit members?
+		optional bool inherit = 3;
+		// Can this group be inherited by its children?
+		optional bool inheritable = 4;
+
+		// The users explicitly added by this group.
+		repeated DatabaseUser users_add = 5;
+		// The users explicitly removed by this group.
+		repeated DatabaseUser users_remove = 6;
+		// All of the users who are part of this group.
+		repeated DatabaseUser users = 7;
+	}
+
+	// Does the ACL apply to the current channel?
+	optional bool apply_here = 3;
+	// Does the ACL apply to the current channel's sub-channels?
+	optional bool apply_subs = 4;
+	// Was the ACL inherited?
+	optional bool inherited = 5;
+
+	// The user to whom the ACL applies.
+	optional DatabaseUser user = 6;
+	// The group to whom the ACL applies.
+	optional ACL.Group group = 7;
+
+	// The permissions granted by the ACL (bitmask of ACL.Permission).
+	optional uint32 allow = 8;
+	// The permissions denied by the ACL (bitmask of ACL.Permission).
+	optional uint32 deny = 9;
+
+	message Query {
+		// The server where the user and channel exist.
+		optional Server server = 1;
+		// The user to query.
+		optional User user = 2;
+		// The channel to query.
+		optional Channel channel = 3;
+	}
+
+	message List {
+		// The server on which the ACLs exist.
+		optional Server server = 1;
+		// The channel to which the ACL refers.
+		optional Channel channel = 2;
+		// The ACLs part of the given channel.
+		repeated ACL acls = 3;
+		// The groups part of the given channel.
+		repeated ACL.Group groups = 4;
+		// Should ACLs be inherited from the parent channel.
+		optional bool inherit = 5;
+	}
+
+	message TemporaryGroup {
+		// The server where the temporary group exists.
+		optional Server server = 1;
+		// The channel to which the temporary user group is added.
+		optional Channel channel = 2;
+		// The user who is added to the group.
+		optional User user = 3;
+		// The name of the temporary group.
+		optional string name = 4;
+	}
+}
+
+message Authenticator {
+	message Request {
+		// An authentication request for a connecting user.
+		message Authenticate {
+			// The user's name.
+			optional string name = 1;
+			// The user's password.
+			optional string password = 2;
+			// The user's certificate chain in DER format.
+			repeated bytes certificates = 3;
+			// The hexadecimal hash of the user's certificate.
+			optional string certificate_hash = 4;
+			// If the user is connecting with a strong certificate.
+			optional bool strong_certificate = 5;
+		}
+
+		// A request for information about a user, given by either the user's ID
+		// or name.
+		message Find {
+			// The user's ID used for lookup.
+			optional uint32 id = 1;
+			// The user's name used for lookup.
+			optional string name = 2;
+		}
+
+		// A query of all the registered users, optionally filtered by the given
+		// filter string.
+		message Query {
+			// A user name filter (% is often used as a wildcard)
+			optional string filter = 1;
+		}
+
+		// A request for a new user registration.
+		message Register {
+			// The database user to register.
+			optional DatabaseUser user = 1;
+		}
+
+		// A request for deregistering a registered user.
+		message Deregister {
+			// The database user to deregister.
+			optional DatabaseUser user = 1;
+		}
+
+		// A request to update a registered user's information. The information
+		// provided should be merged with existing data.
+		message Update {
+			// The database user to update.
+			optional DatabaseUser user = 1;
+		}
+
+		optional Authenticate authenticate = 1;
+		optional Find find = 2;
+		optional Query query = 3;
+		optional Register register = 4;
+		optional Deregister deregister = 5;
+		optional Update update = 6;
+	}
+
+	message Response {
+		// The initialization for the authenticator stream. This message must be
+		// sent before authentication requests will start streaming.
+		message Initialize {
+			optional Server server = 1;
+		}
+
+		enum Status {
+			// The request should fallthrough to murmur's default action.
+			Fallthrough = 0;
+			// The request was successful.
+			Success = 1;
+			// The request failed; there was some error.
+			Failure = 2;
+			// A temporary failure prevented the request from succeeding (e.g. a
+			// database was unavailable).
+			TemporaryFailure = 3;
+		}
+
+		message Authenticate {
+			// The status of the request.
+			optional Status status = 1;
+			// The user's registered ID.
+			optional uint32 id = 2;
+			// The corrected user's name;
+			optional string name = 3;
+			// Additional ACL groups that the user belongs too.
+			repeated ACL.Group groups = 4;
+		}
+
+		message Find {
+			// The database user (if found).
+			optional DatabaseUser user = 1;
+		}
+
+		message Query {
+			// The matched database users.
+			repeated DatabaseUser users = 1;
+		}
+
+		message Register {
+			// The status of the request.
+			optional Status status = 1;
+			// The registered database user (must contain the registered user's ID).
+			optional DatabaseUser user = 2;
+		}
+
+		message Deregister {
+			// The status of the request.
+			optional Status status = 1;
+		}
+
+		message Update {
+			// The status of the request.
+			optional Status status = 1;
+		}
+
+		optional Initialize initialize = 1;
+		optional Authenticate authenticate = 2;
+		optional Find find = 3;
+		optional Query query = 4;
+		optional Register register = 5;
+		optional Deregister deregister = 6;
+		optional Update update = 7;
+	}
+}
+
+message DatabaseUser {
+	// The server on which the user is registered.
+	optional Server server = 1;
+	// The unique user ID.
+	optional uint32 id = 2;
+	// The user's name.
+	optional string name = 3;
+	// The user's email address.
+	optional string email = 4;
+	// The user's comment.
+	optional string comment = 5;
+	// The user's certificate hash.
+	optional string hash = 6;
+	// The user's password (never sent; used only when updating).
+	optional string password = 7;
+	// When the user was last on the server.
+	optional string last_active = 8;
+	// The user's texture.
+	optional bytes texture = 9;
+
+	message Query {
+		// The server whose users will be queried.
+		optional Server server = 1;
+		// A string to filter the users by.
+		optional string filter = 2;
+	}
+
+	message List {
+		// The server on which the users are registered.
+		optional Server server = 1;
+		// The users.
+		repeated DatabaseUser users = 2;
+	}
+
+	message Verify {
+		// The server on which the user-password pair will be authenticated.
+		optional Server server = 1;
+		// The user's name.
+		optional string name = 2;
+		// The user's password.
+		optional string password  = 3;
+	}
+}
+
+message RedirectWhisperGroup {
+	// The server on which the whisper redirection will take place.
+	optional Server server = 1;
+	// The user to whom the redirection will be applied.
+	optional User user = 2;
+	// The source group.
+	optional ACL.Group source = 3;
+	// The target group.
+	optional ACL.Group target = 4;
+}
+
+service V1 {
+	//
+	// Meta
+	//
+
+	// GetUptime returns murmur's uptime.
+	rpc GetUptime(Void) returns(Uptime);
+	// GetVersion returns murmur's version.
+	rpc GetVersion(Void) returns(Version);
+	// Events returns a stream of murmur events.
+	rpc Events(Void) returns(stream Event);
+
+	//
+	// Servers
+	//
+
+	// ServerCreate creates a new virtual server. The returned server object
+	// contains the newly created server's ID.
+	rpc ServerCreate(Void) returns(Server);
+	// ServerQuery returns a list of servers that match the given query.
+	rpc ServerQuery(Server.Query) returns(Server.List);
+	// ServerGet returns information about the given server.
+	rpc ServerGet(Server) returns(Server);
+	// ServerStart starts the given stopped server.
+	rpc ServerStart(Server) returns(Void);
+	// ServerStop stops the given virtual server.
+	rpc ServerStop(Server) returns(Void);
+	// ServerRemove removes the given virtual server and its configuration.
+	rpc ServerRemove(Server) returns(Void);
+	// ServerEvents returns a stream of events that happen on the given server.
+	rpc ServerEvents(Server) returns(stream Server.Event);
+
+	//
+	// ContextActions
+	//
+
+	// ContextActionAdd adds a context action to the given user's client. The
+	// following ContextAction fields must be set:
+	//   context, action, text, and user.
+	//
+	// Added context actions are valid until:
+	//  - The context action is removed with ContextActionRemove, or
+	//  - The user disconnects from the server, or
+	//  - The server stops.
+	rpc ContextActionAdd(ContextAction) returns(Void);
+	// ContextActionRemove removes a context action from the given user's client.
+	// The following ContextAction must be set:
+	//   action
+	// If no user is given, the context action is removed from all users.
+	rpc ContextActionRemove(ContextAction) returns(Void);
+	// ContextActionEvents returns a stream of context action events that are
+	// triggered by users.
+	rpc ContextActionEvents(ContextAction) returns(stream ContextAction);
+
+	//
+	// TextMessage
+	//
+
+	// TextMessageSend sends the given TextMessage to the server.
+	//
+	// If no users, channels, or trees are added to the TextMessage, the message
+	// will be broadcast the entire server. Otherwise, the message will be
+	// targeted to the specified users, channels, and trees.
+	rpc TextMessageSend(TextMessage) returns(Void);
+	// TextMessageFilter filters text messages on a given server.
+
+	// TextMessageFilter filters text messages for a given server.
+	//
+	// When a filter stream is active, text messages sent from users to the
+	// server are sent over the stream. The RPC client then sends a message back
+	// on the same stream, containing an action: whether the message should be
+	// accepted, rejected, or dropped.
+	//
+	// To activate the filter stream, an initial TextMessage.Filter message must
+	// be sent that contains the server on which the filter will be active.
+	rpc TextMessageFilter(stream TextMessage.Filter) returns(stream TextMessage.Filter);
+
+	//
+	// Logs
+	//
+
+	// LogQuery returns a list of log entries from the given server.
+	//
+	// To get the total number of log entries, omit min and/or max from the
+	// query.
+	rpc LogQuery(Log.Query) returns(Log.List);
+
+	//
+	// Config
+	//
+
+	// ConfigGet returns the explicitly set configuration for the given server.
+	rpc ConfigGet(Server) returns(Config);
+	// ConfigGetField returns the configuration value for the given key.
+	rpc ConfigGetField(Config.Field) returns(Config.Field);
+	// ConfigSetField sets the configuration value to the given value.
+	rpc ConfigSetField(Config.Field) returns(Void);
+	// ConfigGetDefault returns the default server configuration.
+	rpc ConfigGetDefault(Void) returns(Config);
+
+	//
+	// Channels
+	//
+
+	// ChannelQuery returns a list of channels that match the given query.
+	rpc ChannelQuery(Channel.Query) returns(Channel.List);
+	// ChannelGet returns the channel with the given ID.
+	rpc ChannelGet(Channel) returns(Channel);
+	// ChannelAdd adds the channel to the given server. The parent and name of
+	// the channel must be set.
+	rpc ChannelAdd(Channel) returns(Channel);
+	// ChannelRemove removes the given channel from the server.
+	rpc ChannelRemove(Channel) returns(Void);
+	// ChannelUpdate updates the given channel's attributes. Only the fields that
+	// are set will be updated.
+	rpc ChannelUpdate(Channel) returns(Channel);
+
+	//
+	// Users
+	//
+
+	// UserQuery returns a list of connected users who match the given query.
+	rpc UserQuery(User.Query) returns(User.List);
+	// UserGet returns information on the connected user, given by the user's
+	// session or name.
+	rpc UserGet(User) returns(User);
+	// UserUpdate changes the given user's state. Only the following fields can
+	// be changed:
+	//   name, mute, deaf, suppress, priority_speaker, channel, comment.
+	rpc UserUpdate(User) returns(User);
+	// UserKick kicks the user from the server.
+	rpc UserKick(User.Kick) returns(Void);
+
+	//
+	// Tree
+	//
+
+	// TreeQuery returns a representation of the given server's channel/user
+	// tree.
+	rpc TreeQuery(Tree.Query) returns(Tree);
+
+	//
+	// Bans
+	//
+
+	// BansGet returns a list of bans for the given server.
+	rpc BansGet(Ban.Query) returns(Ban.List);
+	// BansSet replaces the server's ban list with the given list.
+	rpc BansSet(Ban.List) returns(Void);
+
+	//
+	// ACL
+	//
+
+	// ACLGet returns the ACL for the given channel.
+	rpc ACLGet(Channel) returns(ACL.List);
+	// ACLSet overrides the ACL of the given channel to what is provided.
+	rpc ACLSet(ACL.List) returns(Void);
+	// ACLGetEffectivePermissions returns the effective permissions for the given
+	// user in the given channel.
+	rpc ACLGetEffectivePermissions(ACL.Query) returns(ACL);
+	// ACLAddTemporaryGroup adds a user to a temporary group.
+	rpc ACLAddTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+	// ACLRemoveTemporaryGroup removes a user from a temporary group.
+	rpc ACLRemoveTemporaryGroup(ACL.TemporaryGroup) returns(Void);
+
+	//
+	// Authenticator
+	//
+
+	// AuthenticatorStream opens an authentication stream to the server.
+	//
+	// There can only be one RPC client with an open Stream. If a new
+	// authenticator connects, the open connected will be closed.
+	rpc AuthenticatorStream(stream Authenticator.Response) returns(stream Authenticator.Request);
+
+	//
+	// Database
+	//
+
+	// DatabaseUserQuery returns a list of registered users who match given
+	// query.
+	rpc DatabaseUserQuery(DatabaseUser.Query) returns(DatabaseUser.List);
+	// DatabaseUserGet returns the database user with the given ID.
+	rpc DatabaseUserGet(DatabaseUser) returns(DatabaseUser);
+	// DatabaseUserUpdate updates the given database user.
+	rpc DatabaseUserUpdate(DatabaseUser) returns(Void);
+	// DatabaseUserRegister registers a user with the given information on the
+	// server. The returned DatabaseUser will contain the newly registered user's
+	// ID.
+	rpc DatabaseUserRegister(DatabaseUser) returns(DatabaseUser);
+	// DatabaseUserDeregister deregisters the given user.
+	rpc DatabaseUserDeregister(DatabaseUser) returns(Void);
+	// DatabaseUserVerify verifies the that the given user-password pair is
+	// correct.
+	rpc DatabaseUserVerify(DatabaseUser.Verify) returns(DatabaseUser);
+
+	//
+	// Audio
+	//
+
+	// AddRedirectWhisperGroup add a whisper targets redirection for the given
+	// user. Whenever a user whispers to group "source", the whisper will be
+	// redirected to group "target".
+	rpc RedirectWhisperGroupAdd(RedirectWhisperGroup) returns(Void);
+
+	// RemoveRedirectWhisperGroup removes a whisper target redirection for
+	// the the given user.
+	rpc RedirectWhisperGroupRemove(RedirectWhisperGroup) returns(Void);
+}
