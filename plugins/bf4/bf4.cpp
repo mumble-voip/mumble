@@ -3,7 +3,14 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"  
+#include "../mumble_plugin_win32.h"
+#include <algorithm>
+
+std::string jsonStringEscape(const std::string &input) {
+    std::string output(input);
+    std::replace(output.begin(), output.end(), '"', ' '); // Replace '"' character with ' ' (space)
+    return output;
+}
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
     for (int i=0;i<3;i++) {
@@ -46,7 +53,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             peekProc((BYTE *) squad_offset_2 + 0x230, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
             peekProc((BYTE *) squad_offset_2 + 0x234, squad_leader); // Team value: US (United States); RU (Russia); CH (China).
 
-    // This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses
+    // This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
     if (! ok) {
         return false;
     }
@@ -61,7 +68,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
         return true; // This tells Mumble to ignore all vectors.
     }
-    
+
+    serverid = jsonStringEscape(serverid); // Replace '"' character with ' ' (space) to prevent JSON break.
+    serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string ServerID(serverid);
     std::ostringstream ocontext;
     ocontext << " {\"Server ID\": \"" << ServerID << "\"}"; // Set context with server ID
@@ -69,27 +78,31 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
     std::wostringstream oidentity;
     oidentity << "{";
+    host = jsonStringEscape(host);
+    host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Host(host);
-    if (Host.find("bot") == std::string::npos) // Set host string as empty if "bot" is found in it
+    if (Host.find("bot") == std::string::npos) // Set host string as empty if "bot" is found in it.
         if (!Host.empty()) {
-            oidentity << std::endl << "\"Host\": \"" << host << "\""; // If it's not empty, set Host (IP:Port) in identity
+            oidentity << std::endl << "\"Host\": \"" << host << "\""; // If it's not empty, set Host (IP:Port) in identity.
         }
 
+    team = jsonStringEscape(team);
+    team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Team(team);
     if (!Team.empty()) {
         oidentity << std::endl;
         if (Team == "US")
-            oidentity << "\"Team\": \"United States\""; // If team value is US, set "United States" as team in identity
+            oidentity << "\"Team\": \"United States\""; // If team value is US, set "United States" as team in identity.
         else if (Team == "CH")
-            oidentity << "\"Team\": \"China\""; // If team value is CH, set "China" as team in identity
+            oidentity << "\"Team\": \"China\""; // If team value is CH, set "China" as team in identity.
         else if (Team == "RU")
-            oidentity << "\"Team\": \"Russia\""; // If team value is RU, set "Russia" as team in identity
+            oidentity << "\"Team\": \"Russia\""; // If team value is RU, set "Russia" as team in identity.
     }
 
     if (squad == 0) {
-        oidentity << std::endl << "\"Squad\": \"No\""; // If squad value is 0, set squad state to "No" in identity
+        oidentity << std::endl << "\"Squad\": \"No\""; // If squad value is 0, set squad state to "No" in identity.
     } else {
-        // If squad value is in a value between 1 and 26, set squad name in identity using NATO Phonetic alphabet
+        // If squad value is in a value between 1 and 26, set squad name in identity using NATO Phonetic alphabet.
         if (squad == 1)
             oidentity << std::endl << "\"Squad\": \"Alpha\"";
         else if (squad == 2)
@@ -144,9 +157,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             oidentity << std::endl << "\"Squad\": \"Zulu\"";
 
         if (squad_leader)
-            oidentity << std::endl << "\"Squad leader\": \"Yes\""; // If squad leader value is true, set squad leader state to "Yes" as squad leader in identity
+            oidentity << std::endl << "\"Squad leader\": \"Yes\""; // If squad leader value is true, set squad leader state to "Yes" as squad leader in identity.
         else
-            oidentity << std::endl << "\"Squad leader\": \"No\""; // If squad leader value is false, set squad leader state to "No" as squad leader in identity
+            oidentity << std::endl << "\"Squad leader\": \"No\""; // If squad leader value is false, set squad leader state to "No" as squad leader in identity.
     }
 
     oidentity << std::endl << "}";
