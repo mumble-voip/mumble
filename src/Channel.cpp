@@ -191,7 +191,7 @@ void Channel::removeUser(User *p) {
 	qlUsers.removeAll(p);
 }
 
-Channel::operator const QString() const {
+Channel::operator QString() const {
 	return QString::fromLatin1("%1[%2:%3%4]").arg(qsName,
 	        QString::number(iId),
 	        QString::number(cParent ? cParent->iId : -1),
