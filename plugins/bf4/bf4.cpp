@@ -69,26 +69,26 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         return true; // This tells Mumble to ignore all vectors.
     }
 
-    serverid = jsonStringEscape(serverid); // Replace '"' character with ' ' (space) to prevent JSON break.
     serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string ServerID(serverid);
+    ServerID = jsonStringEscape(ServerID); // Replace '"' character with ' ' (space) to prevent JSON break.
     std::ostringstream ocontext;
     ocontext << " {\"Server ID\": \"" << ServerID << "\"}"; // Set context with server ID
     context = ocontext.str();
 
     std::wostringstream oidentity;
     oidentity << "{";
-    host = jsonStringEscape(host);
     host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Host(host);
+    Host = jsonStringEscape(Host);
     if (Host.find("bot") == std::string::npos) // Set host string as empty if "bot" is found in it.
         if (!Host.empty()) {
             oidentity << std::endl << "\"Host\": \"" << host << "\""; // If it's not empty, set Host (IP:Port) in identity.
         }
 
-    team = jsonStringEscape(team);
     team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Team(team);
+    Team = jsonStringEscape(Team);
     if (!Team.empty()) {
         oidentity << std::endl;
         if (Team == "US")
