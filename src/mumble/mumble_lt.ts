@@ -1309,7 +1309,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Buferizuojamų duomenų kiekis</translation>
     </message>
     <message>
         <location/>
@@ -1426,7 +1426,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Attenuate applications by...</source>
-        <translation type="unfinished"/>
+        <translation>Slopinti programas...</translation>
     </message>
     <message>
         <location/>
@@ -1506,7 +1506,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Advanced Attenuation Options</source>
-        <translation type="unfinished"/>
+        <translation>Išplėstinės slopinimo parinktys</translation>
     </message>
     <message>
         <location/>
@@ -1521,7 +1521,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Only attenuate applications using the same output device</source>
-        <translation type="unfinished"/>
+        <translation>Slopinti tik programas, naudojančias tą patį išvesties įrenginį</translation>
     </message>
     <message>
         <location/>
@@ -1944,12 +1944,18 @@ To keep latency to an absolute minimum, it's important to buffer as little audio
 You should hear a voice sample. Change the slider below to the lowest value which gives &lt;b&gt;no&lt;/b&gt; interruptions or jitter in the sound. Please note that local echo is disabled during this test.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Tam, kad būtų išlaikyta pati mažiausia delsa, yra svarbu kuo mažiau garso buferizuoti garso plokštei. Kita vertus, daugelis garso plokščių teigia, jog jos reikalauja žymiai mažesnio buferio, negu tas, su kuriuo jos iš tikrųjų gali veikti, taigi, vienintelis būdas kaip nustatyti šią reikšmę yra bandymų ir klaidų metodas.
+&lt;/p&gt;
+&lt;p&gt;
+Jūs turėtumėte girdėti balso elementą. Keiskite žemiau esantį slinktuką į žemiausią reikšmę, kurią nustačius, garse negirdėsite &lt;b&gt;jokių&lt;/b&gt; pertraukų ar drebėjimo. Turėkite omenyje, kad šio bandymo metu vietinis aidas yra išjungtas.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>Amount of data to buffer</source>
-        <translation type="unfinished"/>
+        <translation>Buferizuojamų duomenų kiekis</translation>
     </message>
     <message>
         <location/>
@@ -1965,7 +1971,13 @@ Open your sound control panel and go to the recording settings. Make sure the mi
 Speak loudly, as when you are annoyed or excited. Decrease the volume in the sound control panel until the bar below stays as high as possible in the blue and green but &lt;b&gt;not&lt;/b&gt; the red zone while you speak.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Atverkite savo garso valdymo skydelį ir pereikite į įrašymo nustatymus. Įsitikinkite, kad mikrofonas yra pasirinktas kaip aktyvi įvestis su didžiausiu įrašymo garsiu. Jei ten yra parinktis, skirta įjungti &quot;Mikrofono užkėlimą&quot;, įsitikinkite, kad ji pažymėta.
+&lt;/p&gt;
+&lt;p&gt;
+Kalbėkite taip garsiai, lyg būtumėte susierzinę ar susijaudinę. Mažinkite garsį garso skydelyje tol, kol jums kalbant, žemiau esanti juosta neišliks kaip įmanoma aukščiau mėlynoje ir žalioje, bet &lt;b&gt;ne&lt;/b&gt; raudonoje zonoje.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -1975,7 +1987,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>Adjusting attenuation of positional audio.</source>
-        <translation type="unfinished"/>
+        <translation>Pozicinio garso slopinimo reguliavimas.</translation>
     </message>
     <message>
         <location/>
@@ -1986,12 +1998,18 @@ Mumble supports positional audio for some games, and will position the voice of 
 The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/font&gt;, the &lt;font color=&quot;yellow&quot;&gt;speakers&lt;/font&gt; and a &lt;font color=&quot;green&quot;&gt;moving sound source&lt;/font&gt; as if seen from above. You should hear the audio move between the channels.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Mumble kai kuriuose žaidimuose palaiko pozicinį garsą ir nustatys kitų naudotojų balso padėtį, atsižvelgiant į jų padėtį žaidime. Priklausomai nuo kitų naudotojų vietos, bus keičiamas balso garsis tarp garsiakalbių, kad būtų simuliuojamas nuotolis ir kryptis, kurioje yra naudotojas. Toks padėties nustatymas priklauso nuo to, ar jūsų garsiakalbių konfigūracija operacinėje sistemoje yra teisinga, taigi, čia yra atliekamas bandymas.
+&lt;/p&gt;
+&lt;p&gt;
+Žemiau esantis grafikas rodo &lt;font color=&quot;red&quot;&gt;jūsų&lt;/font&gt;, &lt;font color=&quot;yellow&quot;&gt;garsiakalbių&lt;/font&gt; ir &lt;font color=&quot;green&quot;&gt;judančio garso šaltinio&lt;/font&gt; padėtį, žiūrint iš viršaus. Jūs turėtumėte girdėti kaip garsas juda tarp kanalų.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
         <source>Use headphones instead of speakers</source>
-        <translation type="unfinished"/>
+        <translation>Vietoj garsiakalbių, naudoti ausines</translation>
     </message>
     <message>
         <location/>
@@ -2002,7 +2020,13 @@ Congratulations. You should now be ready to enjoy a richer sound experience with
 Mumble is under continuous development, and the development team wants to focus on the features that benefit the most users. To this end, Mumble supports submitting anonymous statistics about your configuration to the developers. These statistics are essential for future development, and also make sure the features you use aren't deprecated.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;
+Sveikiname. Dabar, su Mumble, jūs turėtumėte būti pasiruošę mėgautis turtingesniu garso patyrimu.
+&lt;/p&gt;
+&lt;p&gt;
+Mumble yra pastoviai kuriama, o kūrimo komanda nori susitelkti ties tomis ypatybėmis, kurios pravers didžiajai daliai naudotojų. Dėl to, Mumble palaiko anoniminės statistikos, apie jūsų konfigūraciją, pateikimą kūrėjams. Ši statistika yra svarbi būsimam kūrimui, o taip pat užtikrina, kad ypatybės, kuriomis naudojatės, nebūtų apleistos.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -2027,7 +2051,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Now talk softly, as you would when talking late at night and you don&apos;t want to disturb anyone. Adjust the slider below so that the bar moves into green when you talk, but stays blue while you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Dabar kalbėkite taip švelniai, lyg kalbėtumėte vėlai naktį ir nenorėtumėte niekam sutrukdyti. Reguliuokite žemiau esantį slinktuką taip, kad jums kalbant, juosta pereitų į žalią zoną, tačiau jums tylint, išliktų mėlynoje zonoje.</translation>
     </message>
     <message>
         <location/>
@@ -2037,28 +2061,28 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Letting Mumble figure out when you&apos;re talking and when you&apos;re silent.</source>
-        <translation type="unfinished"/>
+        <translation>Leidžiama Mumble išsiaiškinti kada jūs kalbate, o kada tylite.</translation>
     </message>
     <message>
         <location/>
         <source>This will help Mumble figure out when you are talking. The first step is selecting which data value to use.</source>
-        <translation type="unfinished"/>
+        <translation>Tai padės Mumble išsiaiškinti kada jūs kalbate. Pirmas žingsnis yra pasirinkti kokią duomenų reikšmę naudoti.</translation>
     </message>
     <message>
         <location/>
         <source>Raw amplitude from input</source>
-        <translation type="unfinished"/>
+        <translation>Neapdorota amplitudė iš įvesties</translation>
     </message>
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signalo ir triukšmo santykis</translation>
     </message>
     <message>
         <location/>
         <source>Next you need to adjust the following slider. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you&apos;re not talking, everything should be in the red (definitively not speech).</source>
         <oldsource>Next you need to adjust the following two sliders. The first few utterances you say should end up in the green area (definitive speech). While talking, you should stay inside the yellow (might be speech) and when you're not talking, everything should be in the red (definitively not speech).</oldsource>
-        <translation type="unfinished"/>
+        <translation>Toliau jums reikia sureguliuoti šį slinktuką. Pirmi keli jūsų išsireiškimai turėtų atsidurti žalioje zonoje (tikrai kalbama). Kalbėdami, jūs turėtumėte išlikti geltonoje zonoje (galbūt kalbama), o jums nekalbant, viskas turėtų būti raudonoje zonoje (tikrai nekalbama).</translation>
     </message>
     <message>
         <location/>
@@ -2088,7 +2112,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Adjust quality and notification settings.</source>
-        <translation type="unfinished"/>
+        <translation>Sureguliuokite kokybės ir pranešimų nustatymus.</translation>
     </message>
     <message>
         <location/>
@@ -2098,12 +2122,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Low</source>
-        <translation type="unfinished"/>
+        <translation>Žema</translation>
     </message>
     <message>
         <location/>
         <source>Balanced</source>
-        <translation type="unfinished"/>
+        <translation>Subalansuota</translation>
     </message>
     <message>
         <location/>
@@ -2113,12 +2137,12 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Use Text-To-Speech to read notifications and messages to you.</source>
-        <translation type="unfinished"/>
+        <translation>Naudoti garsinį teksto atkūrimą, kad jums būtų skaitomi pranešimai ir žinutės.</translation>
     </message>
     <message>
         <location/>
         <source>Disable Text-To-Speech and use sounds instead.</source>
-        <translation type="unfinished"/>
+        <translation>Išjungti garsinį teksto atkūrimą ir, vietoj to, naudoti garsus.</translation>
     </message>
     <message>
         <location filename="AudioWizard.cpp" line="+316"/>
@@ -2128,17 +2152,17 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location filename="AudioWizard.ui"/>
         <source>Enables attenuation of other applications while users talk to you</source>
-        <translation type="unfinished"/>
+        <translation>Įjungia kitų programų slopinimą tuo metu, kai kiti naudotojai jums kalba</translation>
     </message>
     <message>
         <location/>
         <source>Attenuate applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>Slopinti programas, kol kiti naudotojai kalba</translation>
     </message>
     <message>
         <location/>
         <source>High</source>
-        <translation type="unfinished"/>
+        <translation>Aukšta</translation>
     </message>
     <message>
         <location/>
@@ -2158,7 +2182,7 @@ Mumble is under continuous development, and the development team wants to focus 
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Taikyti kai kuriuos kontrasto optimizavimus, skirtus silpnaregiams naudotojams</translation>
     </message>
     <message>
         <location/>
@@ -2204,17 +2228,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>In this configuration Mumble will use a &lt;b&gt;low amount of bandwidth&lt;/b&gt;. This will inevitably result in high latency and poor quality. Choose this only if your connection cannot handle the other settings. (16kbit/s, 60ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Šioje konfigūracijoje Mumble naudos &lt;b&gt;mažą siuntimo spartą&lt;/b&gt;. Tai neišvengiamai prives prie didelės delsos ir prastos kokybės. Rinkitės šią parinktį tik tuo atveju, jeigu jūsų ryšys negali apdoroti kitų nustatymų. (16kbit/s, 60ms vienam paketui)</translation>
     </message>
     <message>
         <location/>
         <source>This is the &lt;b&gt;recommended default&lt;/b&gt; configuration. It provides a good balance between quality, latency, and bandwidth usage. (40kbit/s, 20ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Tai yra &lt;b&gt;rekomenduojama numatytoji&lt;/b&gt; konfigūracija. Ji pateikia gerą pusiausvyrą tarp kokybės, delsos ir siuntimo spartos naudojimo. (40kbit/s, 20ms vienam paketui)</translation>
     </message>
     <message>
         <location/>
         <source>This configuration is only recommended for use in setups where bandwidth is not an issue, like a LAN. It provides the lowest latency supported by Mumble and &lt;b&gt;high quality&lt;/b&gt;. (72kbit/s, 10ms per packet)</source>
-        <translation type="unfinished"/>
+        <translation>Ši konfigūracija yra rekomenduojama tik toms sąrankoms, kuriose siuntimo sparta nėra problema, kaip pvz., vietiniame tinkle. Ji pateikia mažiausią Mumble palaikomą delsą ir &lt;b&gt;aukštą kokybę&lt;/b&gt;. (72kbit/s, 10ms vienam paketui)</translation>
     </message>
 </context>
 <context>
@@ -3653,7 +3677,7 @@ of the possible locations.</source>
         <location line="+1"/>
         <source>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Click this field and then press the desired key/button combo to rebind. Double-click to clear.</source>
         <oldsource>&lt;b&gt;This is the global shortcut key combination.&lt;/b&gt;&lt;br /&gt;Double-click this field and then the desired key/button combo to rebind.</oldsource>
-        <translation>&lt;b&gt;Tai yra visuotinė sparčiųjų klavišų kombinacija.&lt;/b&gt;&lt;br /&gt;Spustelėkite šį lauką, o tuomet nuspauskite norimą klavišų/mygtukų kombinaciją, kad susietumėte. Spustelėkite du kartus, kad išvalytumėte.</translation>
+        <translation>&lt;b&gt;Tai yra visuotinė trumpinio kombinacija.&lt;/b&gt;&lt;br /&gt;Spustelėkite šį lauką, o tuomet nuspauskite norimą klavišų/mygtukų kombinaciją, kad susietumėte. Spustelėkite du kartus, kad išvalytumėte.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -4083,7 +4107,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Garsinis teksto atkūrimas</translation>
     </message>
     <message>
         <location/>
@@ -4098,7 +4122,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Text To Speech</source>
-        <translation type="unfinished"/>
+        <translation>Garsinis teksto atkūrimas</translation>
     </message>
     <message>
         <location/>
@@ -4108,7 +4132,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Volume of Text-To-Speech Engine</source>
-        <translation type="unfinished"/>
+        <translation>Garsinio teksto atkūrimo modulio garsis</translation>
     </message>
     <message>
         <location/>
@@ -4173,7 +4197,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Unlimited</source>
-        <translation type="unfinished"/>
+        <translation>Neribota</translation>
     </message>
     <message>
         <location/>
@@ -4186,23 +4210,23 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location filename="LookConfig.cpp" line="+56"/>
         <source>System default</source>
-        <translation type="unfinished"/>
+        <translation>Sistemos numatytoji</translation>
     </message>
     <message>
         <location line="+21"/>
         <location line="+45"/>
         <source>None</source>
-        <translation type="unfinished"/>
+        <translation>Nėra</translation>
     </message>
     <message>
         <location line="-44"/>
         <source>Only with users</source>
-        <translation type="unfinished"/>
+        <translation>Tik su naudotojais</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>All</source>
-        <translation type="unfinished"/>
+        <translation>Visus</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -4293,7 +4317,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Classic</source>
-        <translation type="unfinished"/>
+        <translation>Klasikinis</translation>
     </message>
     <message>
         <location/>
@@ -4303,7 +4327,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Hybrid</source>
-        <translation type="unfinished"/>
+        <translation>Hibridinis</translation>
     </message>
     <message>
         <location/>
@@ -4324,12 +4348,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Expand</source>
-        <translation type="unfinished"/>
+        <translation>Išskleisti</translation>
     </message>
     <message>
         <location/>
         <source>When to automatically expand channels</source>
-        <translation type="unfinished"/>
+        <translation>Kada automatiškai išskleisti kanalus</translation>
     </message>
     <message>
         <location/>
@@ -4399,7 +4423,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show talking status in tray icon</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti dėklo piktogramoje kalbėjimo būseną</translation>
     </message>
     <message>
         <location/>
@@ -4414,12 +4438,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Apply some high contrast optimizations for visually impaired users</source>
-        <translation type="unfinished"/>
+        <translation>Taikyti kai kuriuos kontrasto optimizavimus, skirtus silpnaregiams naudotojams</translation>
     </message>
     <message>
         <location/>
         <source>Optimize for high contrast</source>
-        <translation type="unfinished"/>
+        <translation>Optimizuoti aukštam kontrastui</translation>
     </message>
     <message>
         <location/>
@@ -5503,12 +5527,12 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Garsinis &amp;teksto atkūrimas</translation>
     </message>
     <message>
         <location/>
         <source>Toggle Text-To-Speech</source>
-        <translation type="unfinished"/>
+        <translation>Perjungti garsinį teksto atkūrimą</translation>
     </message>
     <message>
         <location/>
@@ -6353,7 +6377,7 @@ Valid actions are:
     <message>
         <location/>
         <source>R&amp;egister</source>
-        <translation type="unfinished"/>
+        <translation>R&amp;egistruoti</translation>
     </message>
     <message>
         <location/>
