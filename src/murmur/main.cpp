@@ -170,6 +170,12 @@ void IceStart();
 void IceStop();
 #endif
 
+#ifdef USE_GRPC
+// From MurmurGRPCImpl.cpp.
+void GRPCStart();
+void GRPCStop();
+#endif
+
 int main(int argc, char **argv) {
 	// Check for SSE and MMX, but only in the windows binaries
 #ifdef Q_OS_WIN
@@ -514,6 +520,10 @@ int main(int argc, char **argv) {
 	IceStart();
 #endif
 
+#ifdef USE_GRPC
+	GRPCStart();
+#endif
+
 	meta->getOSInfo();
 
 	int major, minor, patch;
@@ -534,6 +544,10 @@ int main(int argc, char **argv) {
 
 #ifdef USE_ICE
 	IceStop();
+#endif
+
+#ifdef USE_GRPC
+	GRPCStop();
 #endif
 
 	delete qfLog;
