@@ -152,6 +152,7 @@ CONFIG+=grpc (Murmur, Linux)
  The gRPC library's API is not yet stable, and
  Murmur's gRPC interface is not yet frozen, and
  will most likely change in the future.
+ Support for gRPC requires Qt 5.
 
 CONFIG+=no-bonjour
  Don't build support for Bonjour.

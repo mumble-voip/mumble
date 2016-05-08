@@ -135,6 +135,10 @@ ice {
 }
 
 grpc {
+	isEqual(QT_MAJOR_VERSION, 4) {
+		error("Murmur's gRPC support requires Qt 5")
+	}
+
 	DEFINES *= USE_GRPC
 	INCLUDEPATH *= murmur_grpc
 	LIBS *= -lmurmur_grpc
