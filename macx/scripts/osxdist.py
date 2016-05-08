@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+#
 # Simple Mac OS X Application Bundler for Mumble
 #
 # Loosely based on original bash-version by Sebastian Schlingmann (based, again, on a OSX application bundler
