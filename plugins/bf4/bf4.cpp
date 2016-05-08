@@ -144,9 +144,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             oidentity << std::endl << "\"Squad\": \"Zulu\"";
 
         if (squad_leader)
-            oidentity << std::endl << "\"Squad leader\": \"Yes\""; // If squad leader value is 1, set squad leader state to "Yes" as squad leader in identity
+            oidentity << std::endl << "\"Squad leader\": \"Yes\""; // If squad leader value is true, set squad leader state to "Yes" as squad leader in identity
         else
-            oidentity << std::endl << "\"Squad leader\": \"No\""; // If squad leader value is 1, set squad leader state to "No" as squad leader in identity
+            oidentity << std::endl << "\"Squad leader\": \"No\""; // If squad leader value is false, set squad leader state to "No" as squad leader in identity
     }
 
     oidentity << std::endl << "}";
