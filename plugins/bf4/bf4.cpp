@@ -17,9 +17,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
         avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
     }
 
-    bool ok, state, squad_leader;
+    bool ok, state;
     char serverid[37], host[22], team[3];
-    BYTE squad;
+    BYTE squad, squad_leader;
 
     // Server ID pointers
     BYTE *serverid_base = peekProc<BYTE *>(pModule + 0x02210658);
@@ -51,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             peekProc((BYTE *) pModule + 0x21B80C0, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
             peekProc((BYTE *) pModule + 0x24AFAE5, team) && // Team value: US (United States); RU (Russia); CH (China).
             peekProc((BYTE *) squad_offset_2 + 0x230, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
-            peekProc((BYTE *) squad_offset_2 + 0x234, squad_leader); // Team value: US (United States); RU (Russia); CH (China).
+            peekProc((BYTE *) squad_offset_2 + 0x234, squad_leader); // Squad leader value: 1 (True); 2 (False).
 
     // This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
     if (! ok) {
@@ -83,7 +83,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     Host = jsonStringEscape(Host);
     if (Host.find("bot") == std::string::npos) // Set host string as empty if "bot" is found in it.
         if (!Host.empty()) {
-            oidentity << std::endl << "\"Host\": \"" << host << "\""; // If it's not empty, set Host (IP:Port) in identity.
+            oidentity << std::endl << "\"Host\": \"" << host << "\","; // If it's not empty, set Host (IP:Port) in identity.
         }
 
     team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
@@ -92,74 +92,74 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     if (!Team.empty()) {
         oidentity << std::endl;
         if (Team == "US")
-            oidentity << "\"Team\": \"United States\""; // If team value is US, set "United States" as team in identity.
+            oidentity << "\"Team\": \"United States\","; // If team value is US, set "United States" as team in identity.
         else if (Team == "CH")
-            oidentity << "\"Team\": \"China\""; // If team value is CH, set "China" as team in identity.
+            oidentity << "\"Team\": \"China\","; // If team value is CH, set "China" as team in identity.
         else if (Team == "RU")
-            oidentity << "\"Team\": \"Russia\""; // If team value is RU, set "Russia" as team in identity.
+            oidentity << "\"Team\": \"Russia\","; // If team value is RU, set "Russia" as team in identity.
     }
 
-    if (squad == 0) {
-        oidentity << std::endl << "\"Squad\": \"No\""; // If squad value is 0, set squad state to "No" in identity.
-    } else {
-        // If squad value is in a value between 1 and 26, set squad name in identity using NATO Phonetic alphabet.
+    // If squad value is in a value between 1 and 26, set squad name in identity using NATO Phonetic alphabet.
+    if (squad > 0 && squad < 27) {
         if (squad == 1)
-            oidentity << std::endl << "\"Squad\": \"Alpha\"";
+            oidentity << std::endl << "\"Squad\": \"Alpha\",";
         else if (squad == 2)
-            oidentity << std::endl << "\"Squad\": \"Bravo\"";
+            oidentity << std::endl << "\"Squad\": \"Bravo\",";
         else if (squad == 3)
-            oidentity << std::endl << "\"Squad\": \"Charlie\"";
+            oidentity << std::endl << "\"Squad\": \"Charlie\",";
         else if (squad == 4)
-            oidentity << std::endl << "\"Squad\": \"Delta\"";
+            oidentity << std::endl << "\"Squad\": \"Delta\",";
         else if (squad == 5)
-            oidentity << std::endl << "\"Squad\": \"Echo\"";
+            oidentity << std::endl << "\"Squad\": \"Echo\",";
         else if (squad == 6)
-            oidentity << std::endl << "\"Squad\": \"Foxtrot\"";
+            oidentity << std::endl << "\"Squad\": \"Foxtrot\",";
         else if (squad == 7)
-            oidentity << std::endl << "\"Squad\": \"Golf\"";
+            oidentity << std::endl << "\"Squad\": \"Golf\",";
         else if (squad == 8)
-            oidentity << std::endl << "\"Squad\": \"Hotel\"";
+            oidentity << std::endl << "\"Squad\": \"Hotel\",";
         else if (squad == 9)
-            oidentity << std::endl << "\"Squad\": \"India\"";
+            oidentity << std::endl << "\"Squad\": \"India\",";
         else if (squad == 10)
-            oidentity << std::endl << "\"Squad\": \"Juliet\"";
+            oidentity << std::endl << "\"Squad\": \"Juliet\",";
         else if (squad == 11)
-            oidentity << std::endl << "\"Squad\": \"Kilo\"";
+            oidentity << std::endl << "\"Squad\": \"Kilo\",";
         else if (squad == 12)
-            oidentity << std::endl << "\"Squad\": \"Lima\"";
+            oidentity << std::endl << "\"Squad\": \"Lima\",";
         else if (squad == 13)
-            oidentity << std::endl << "\"Squad\": \"Mike\"";
+            oidentity << std::endl << "\"Squad\": \"Mike\",";
         else if (squad == 14)
-            oidentity << std::endl << "\"Squad\": \"November\"";
+            oidentity << std::endl << "\"Squad\": \"November\",";
         else if (squad == 15)
-            oidentity << std::endl << "\"Squad\": \"Oscar\"";
+            oidentity << std::endl << "\"Squad\": \"Oscar\",";
         else if (squad == 16)
-            oidentity << std::endl << "\"Squad\": \"Papa\"";
+            oidentity << std::endl << "\"Squad\": \"Papa\",";
         else if (squad == 17)
-            oidentity << std::endl << "\"Squad\": \"Quebec\"";
+            oidentity << std::endl << "\"Squad\": \"Quebec\",";
         else if (squad == 18)
-            oidentity << std::endl << "\"Squad\": \"Romeo\"";
+            oidentity << std::endl << "\"Squad\": \"Romeo\",";
         else if (squad == 19)
-            oidentity << std::endl << "\"Squad\": \"Sierra\"";
+            oidentity << std::endl << "\"Squad\": \"Sierra\",";
         else if (squad == 20)
-            oidentity << std::endl << "\"Squad\": \"Tango\"";
+            oidentity << std::endl << "\"Squad\": \"Tango\",";
         else if (squad == 21)
-            oidentity << std::endl << "\"Squad\": \"Uniform\"";
+            oidentity << std::endl << "\"Squad\": \"Uniform\",";
         else if (squad == 22)
-            oidentity << std::endl << "\"Squad\": \"Victor\"";
+            oidentity << std::endl << "\"Squad\": \"Victor\",";
         else if (squad == 23)
-            oidentity << std::endl << "\"Squad\": \"Whiskey\"";
+            oidentity << std::endl << "\"Squad\": \"Whiskey\",";
         else if (squad == 24)
-            oidentity << std::endl << "\"Squad\": \"X-ray\"";
+            oidentity << std::endl << "\"Squad\": \"X-ray\",";
         else if (squad == 25)
-            oidentity << std::endl << "\"Squad\": \"Yankee\"";
+            oidentity << std::endl << "\"Squad\": \"Yankee\",";
         else if (squad == 26)
-            oidentity << std::endl << "\"Squad\": \"Zulu\"";
-
-        if (squad_leader)
-            oidentity << std::endl << "\"Squad leader\": \"Yes\""; // If squad leader value is true, set squad leader state to "Yes" as squad leader in identity.
+            oidentity << std::endl << "\"Squad\": \"Zulu\",";
+        if (squad_leader == 1)
+            oidentity << std::endl << "\"Squad leader\": true"; // If squad leader value is true, set squad leader state to "True" in identity.
         else
-            oidentity << std::endl << "\"Squad leader\": \"No\""; // If squad leader value is false, set squad leader state to "No" as squad leader in identity.
+            oidentity << std::endl << "\"Squad leader\": false"; // If squad leader value is false, set squad leader state to "False" in identity.
+    } else {
+        oidentity << std::endl << "\"Squad\": null,"; // If squad value isn't between 1 and 26, set squad state to "null" in identity.
+        oidentity << std::endl << "\"Squad leader\": null"; // If not in a squad, set squad leader state to "null" in identity.
     }
 
     oidentity << std::endl << "}";
