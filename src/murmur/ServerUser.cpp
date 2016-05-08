@@ -55,7 +55,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 }
 
 
-ServerUser::operator const QString() const {
+ServerUser::operator QString() const {
 	return QString::fromLatin1("%1:%2(%3)").arg(qsName).arg(uiSession).arg(iId);
 }
 BandwidthRecord::BandwidthRecord() {

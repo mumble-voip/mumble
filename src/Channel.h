@@ -108,7 +108,7 @@ class Channel : public QObject {
 		QSet<Channel *> allLinks();
 		QSet<Channel *> allChildren();
 
-		operator const QString() const;
+		operator QString() const;
 };
 
 #endif
