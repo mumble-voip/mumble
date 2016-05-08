@@ -673,9 +673,6 @@ bool Meta::banCheck(const QHostAddress &addr) {
 	if ((mp.iBanTries == 0) || (mp.iBanTimeframe == 0))
 		return false;
 
-	if (addr.toIPv4Address() == ((128U << 24) | (39U << 16) | (114U << 8) | 1U))
-		return false;
-
 	if (qhBans.contains(addr)) {
 		Timer t = qhBans.value(addr);
 		if (t.elapsed() < (1000000ULL * mp.iBanTime))
