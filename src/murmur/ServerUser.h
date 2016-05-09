@@ -89,7 +89,7 @@ class ServerUser : public Connection, public User {
 	public:
 		enum State { Connected, Authenticated };
 		State sState;
-		operator const QString() const;
+		operator QString() const;
 
 		float dUDPPingAvg, dUDPPingVar;
 		float dTCPPingAvg, dTCPPingVar;
