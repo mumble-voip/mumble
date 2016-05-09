@@ -39,3 +39,4 @@ src/murmur/murmur_plugin_import.cpp
 doxygen/
 .qmake.cache
 .qmake.stash
+.DS_Store
