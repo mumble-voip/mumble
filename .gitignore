@@ -27,7 +27,6 @@ overlay_winx64/*.ps.h
 overlay_winx64/*.vs.h
 scripts/Murmur.ice
 scripts/murmur.ini.*
-!scripts/murmur.ini.grpc
 src/murmur/murmur_ice/Murmur.h
 src/murmur/murmur_ice/Murmur.cpp
 src/murmur/MurmurRPC.proto.Wrapper.cpp
