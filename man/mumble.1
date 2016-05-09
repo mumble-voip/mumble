@@ -1,14 +1,54 @@
-.TH MUMBLE 1 "2015 December 27"
+.TH MUMBLE 1 "2016 May 9"
 .SH NAME
-mumble \- a low\-latency, high quality voice chat program for gaming.
+mumble - a low-latency, high quality voice chat program
 .SH SYNOPSIS
 .B mumble
+[\fB\-m\fR|\fB\-\-multiple\fR] [\fB\-n\fR|\fB\-\-noidentity\fR] [\fBURL\fR]
+.br
+.B mumble
+\fB\-h\fR|\fB\-\-help
 .SH DESCRIPTION
-Mumble is a low\-latency, high quality voice chat utility for
-gaming that runs under X11.
+Mumble is an open source, low-latency, high quality voice chat software
+primarily intended for use while gaming.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help
+Display help and exit.
+.TP
+.B \-m, \-\-multiple
+Allow multiple instances of the client to be started.
+.TP
+.B \-n, \-\-noidentity
+Suppress loading of identity files (i.e., certificates.)
+.P
+.B URL
+specifies a URL to connect to after startup instead of showing the connection
+window.
+.SH RPC CONTROL
+.P
+It is possible to remote control a running instance of Mumble using the
+following command:
+.P
+.B mumble rpc
+[\fBACTION\fR]
+.P
+Where \fBACTION\fR is one of the following:
+.RS
+.TP
+.B mute
+Mute self
+.TP
+.B unmute
+Unmute self
+.TP
+.B deaf
+Deafen self
+.TP
+.B undeaf
+Undeafen self
+.RE
 .SH SEE ALSO
 .BR mumble\-overlay (1),
 .BR murmurd (1).
-.br
 .SH AUTHORS
 mumble and murmurd were written by The Mumble Developers.
