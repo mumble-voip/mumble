@@ -1,0 +1,292 @@
+Mumble's AudioConfigDialog
+
+	src/mumble/AudioConfigDialog.cpp
+
+	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
+
+Support for GKey in Mumble
+
+	src/mumble/GKey.cpp
+	src/mumble/GKey.h
+
+	Copyright (C) 2015, Jordan J Klassen <forivall@gmail.com>
+
+Mumble's PortAudio support
+
+	src/mumble/PAAudio.cpp, src/mumble/PAAudio.h
+
+	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
+
+Mumble's Text-to-Speech support on OS X
+
+	src/mumble/TextToSpeech_macx.mm
+
+	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
+	Copyright (C) 2008-2011, Mikkel Krautz <mikkel@krautz.dk>
+	Copyright (C) 2014, Mayur Pawashe <zorgiepoo@gmail.com>
+
+Mumble's UserLocalVolumeDialog
+
+	src/mumble/UserLocalVolumeDialog.cpp
+	src/mumble/UserLocalVolumeDialog.h
+
+	Copyright (C) 2015, Fredrik Nordin <freedick@ludd.ltu.se>
+
+Murmur's PBKDF2 support
+
+	src/murmur/PBKDF2.cpp
+	src/murmur/PBKDF2.h
+
+	Copyright (C) 2013, Morris Moraes <mauricioarozi@gmail.com>
+	Copyright (C) 2014, Stefan Hacker <dd0t@users.sourceforge.net>
+
+D11StateBlock in Mumble's Windows Overlay
+
+	overlay/D11StateBlock.cpp
+	overlay/D11StateBlock.h
+
+	Copyright (C) 2011-2013, Nye Liu <nyet@nyet.org>
+	Copyright (C) 2011-2013, Kissaki <kissaki@gmx.de>
+
+D3D11 HLSL shaders for Mumble's Windows Overlay
+
+	overlay/overlay11-common.hlsl
+	overlay/overlay11.ps
+	overlay/overlay11.vs
+
+	Copyright (C) 2011-2013, Nye Liu <nyet@nyet.org>
+
+D3D11 support for Mumble's Windows Overlay
+
+	overlay/d3d11.cpp
+
+	Copyright (C) 2010-2013, Benjamin Jemlich <pcgod@users.sourceforge.net>
+	Copyright (C) 2011-2013, Nye Liu <nyet@nyet.org>
+	Copyright (C) 2011-2013, Kissaki <kissaki@gmx.de>
+
+DXGI support for Mumble's Windows Overlay
+
+	overlay/dxgi.cpp
+
+	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2011, Kissaki <kissaki@gmx.de>
+	Copyright (C) 2011, Nye Liu <nyet@nyet.org>
+
+Mumble's "Age of Chivalry" Plugin
+
+	plugins/aoc/aoc.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Arma 2" Plugin
+
+	plugins/arma2/arma2.cpp
+
+	Copyright (C) 2005-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Battlefield 1942" Plugin
+
+	plugins/bf1942/bf1942.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Battlefield 3" Plugin
+
+	plugins/bf3/bf3.cpp
+
+	Copyright (C) 2010-2011, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2011, Ryan Austin <ryan@gameforcecenters.com>
+	Copyright (C) 2012, Bojan Hartmann <bogie@bawki.de>
+
+Mumble's "Battlefield: Bad Company 2" Plugin
+
+	plugins/bfbc2/bfbc2.cpp
+
+	Copyright (C) 2010-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Blacklight" Plugin
+
+	plugins/blacklight/blacklight.cpp
+
+	Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Borderlands" Plugin
+
+	plugins/borderlands/borderlands.cpp
+
+	Copyright (C) 2010, Mark-Willem Jansen <rawnar@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Borderlands 2" Plugin
+
+	plugins/borderlands2/borderlands2.cpp
+
+	Copyright (C) 2013, Steve Hill <github@cheesy.sackheads.org>
+	Copyright (C) 2013, Gabriel Risterucci <cleyfaye@gmail.com>
+	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Breach" Plugin
+
+	plugins/breach/breach.cpp
+
+	Copyright (C) 2011, Mark-Willem Jansen <rawnar@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Call of Duty: Modern Warfare 2" Plugin
+
+	plugins/codmw2/codmw2.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Call of Duty: Modern Warfare 2 Special Ops" Plugin
+
+	plugins/codmw2so/codmw2so.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Counter-Strike" Plugin
+
+	plugins/cs/cs.cpp
+
+	Copyright (C) 2009-2010, Imre Botos <zokny@users.sourceforge.net>
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Dystopia" Plugin
+
+	plugins/dys/dys.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Enemy Territory: Quake Wars" Plugin
+
+	plugins/etqw/etqw.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2009-2012, Stefan Hacker <dD0t@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Garry's Mod" Plugin
+
+	plugins/gmod/gmod.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Grand Theft Auto IV" Plugin
+
+	plugins/gtaiv/gtaiv.cpp
+
+	Copyright (C) 2011, Mike <mike@flomp.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Insurgency" Plugin
+
+	plugins/insurgency/insurgency.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Just Cause 2" Plugin
+
+	plugins/jc2/jc2.cpp
+
+	Copyright (C) 2012, Mike <mike@flomp.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Left 4 Dead 2" Plugin
+
+	plugins/l4d2/l4d2.cpp
+
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+	Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+
+Mumble's "League of Legends" Plugin
+
+	plugins/lol/lol.cpp
+
+	Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "The Lord of The Rings Online" Plugin
+
+	plugins/lotro/lotro.cpp
+
+	Copyright (c) 2009-2011 Ilmar 'Ingaras' Kruis (seaeagle1@users.sourceforge.net)
+
+Mumble's "Sub Rosa" Plugin
+
+	plugins/sr/sr.cpp
+
+	Copyright (C) 2012, Lukas Orsvärn <lucas.orsv@gmail.com>
+	Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Unreal Tournament 3" Plugin
+
+	plugins/ut3/ut3.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Unreal Tournament 2004" Plugin
+
+	plugins/ut2004/ut2004.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "Unreal Tournament" Plugin
+
+	plugins/ut99/ut99.cpp
+
+	Copyright (C) 2009-2012, Snares <snares@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+Mumble's "World of Warcraft" Plugin
+
+	plugins/wow/wow.cpp
+
+	Copyright (C) 2010-2014, Jamie Fraser <jamie.f@mumbledog.com>
+	Copyright (C) 2009-2010, deKarl <dekarl@users.sourceforge.net>
+	Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+- Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+- Neither the name of the Mumble Developers nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
