@@ -1,4 +1,5 @@
 include(../mumble.pri)
+include(../../python.pri)
 
 DEFINES		*= MUMBLE
 TEMPLATE	= app
@@ -69,7 +70,7 @@ CONFIG(static) {
       DEF_KIND = release
     }
 
-    gendef.commands = python ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
+    gendef.commands = $$PYTHON ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
     QMAKE_EXTRA_TARGETS *= gendef
     PRE_TARGETDEPS *= gendef
     QMAKE_DISTCLEAN *= $${DEF_FILE}
@@ -645,9 +646,9 @@ CONFIG(no-update) {
 			error(Failed to run lrelease for $$fn)
 		}
 	}
-	GENQRC = ../../scripts/generate-mumble_qt-qrc.py
+	GENQRC = $$PYTHON ../../scripts/generate-mumble_qt-qrc.py
 	win32 {
-		GENQRC = python ..\\..\\scripts\\generate-mumble_qt-qrc.py
+		GENQRC = $$PYTHON ..\\..\\scripts\\generate-mumble_qt-qrc.py
 	}
 	!system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
 		error(Failed to run generate-mumble_qt-qrc.py script)
