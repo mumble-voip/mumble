@@ -194,7 +194,7 @@ def gitMailmapLookup(author, email):
 	if p.returncode != 0:
 		raise Exception('"git check-mailmap" failed: %s', stderr)
 
-	match = re.match('^(.*)\ (\<.*\>)$', stdout)
+	match = re.match('^(.*)\ \<(.*)\>$', stdout)
 	if match is None:
 		raise Exception("unable to parse contact output from 'git check-mailmap'")
 
