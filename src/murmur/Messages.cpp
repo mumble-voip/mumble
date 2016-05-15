@@ -279,7 +279,11 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 
 	userEnterChannel(uSource, lc, mpus);
 
-	uSource->sState = ServerUser::Authenticated;
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		uSource->sState = ServerUser::Authenticated;
+	}
+
 	mpus.set_session(uSource->uiSession);
 	mpus.set_name(u8(uSource->qsName));
 	if (uSource->iId >= 0) {
