@@ -40,6 +40,8 @@ BandwidthRecord::BandwidthRecord() {
 }
 
 bool BandwidthRecord::addFrame(int size, int maxpersec) {
+	QMutexLocker ml(&qmMutex);
+
 	quint64 elapsed = a_qtWhen[iRecNum].elapsed();
 
 	if (elapsed == 0)
@@ -64,10 +66,14 @@ bool BandwidthRecord::addFrame(int size, int maxpersec) {
 }
 
 int BandwidthRecord::onlineSeconds() const {
+	QMutexLocker ml(&qmMutex);
+
 	return static_cast<int>(tFirst.elapsed() / 1000000LL);
 }
 
 int BandwidthRecord::idleSeconds() const {
+	QMutexLocker ml(&qmMutex);
+
 	quint64 iIdle = a_qtWhen[(iRecNum + N_BANDWIDTH_SLOTS - 1) % N_BANDWIDTH_SLOTS].elapsed();
 	if (tIdleControl.elapsed() < iIdle)
 		iIdle = tIdleControl.elapsed();
@@ -76,10 +82,14 @@ int BandwidthRecord::idleSeconds() const {
 }
 
 void BandwidthRecord::resetIdleSeconds() {
+	QMutexLocker ml(&qmMutex);
+
 	tIdleControl.restart();
 }
 
 int BandwidthRecord::bandwidth() const {
+	QMutexLocker ml(&qmMutex);
+
 	int sum = 0;
 	int records = 0;
 	quint64 elapsed = 0ULL;

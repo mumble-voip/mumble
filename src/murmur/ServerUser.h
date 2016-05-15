@@ -32,6 +32,7 @@ struct BandwidthRecord {
 	Timer tIdleControl;
 	unsigned short a_iBW[N_BANDWIDTH_SLOTS];
 	Timer a_qtWhen[N_BANDWIDTH_SLOTS];
+	mutable QMutex qmMutex;
 
 	BandwidthRecord();
 	bool addFrame(int size, int maxpersec);
