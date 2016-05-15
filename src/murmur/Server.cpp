@@ -972,7 +972,6 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
-	User *p;
 	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
 	unsigned int counter;
@@ -1027,7 +1026,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		return;
 	} else if (target == 0) { // Normal speech
 		buffer[0] = static_cast<char>(type | 0);
-		foreach(p, c->qlUsers) {
+		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
 			SENDTO;
 		}
@@ -1040,7 +1039,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 
 			foreach(Channel *l, chans) {
 				if (ChanACL::hasPermission(u, l, ChanACL::Speak, &acCache)) {
-					foreach(p, l->qlUsers) {
+					foreach(User *p, l->qlUsers) {
 						ServerUser *pDst = static_cast<ServerUser *>(p);
 						SENDTO;
 					}
@@ -1069,7 +1068,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 						if (!link && !dochildren && ! group) {
 							// Common case
 							if (ChanACL::hasPermission(u, wc, ChanACL::Whisper, &acCache)) {
-								foreach(p, wc->qlUsers) {
+								foreach(User *p, wc->qlUsers) {
 									channel.insert(static_cast<ServerUser *>(p));
 								}
 							}
@@ -1085,7 +1084,7 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 							const QString &qsg = redirect.isEmpty() ? wtc.qsGroup : redirect;
 							foreach(Channel *tc, channels) {
 								if (ChanACL::hasPermission(u, tc, ChanACL::Whisper, &acCache)) {
-									foreach(p, tc->qlUsers) {
+									foreach(User *p, tc->qlUsers) {
 										ServerUser *su = static_cast<ServerUser *>(p);
 										if (! group || Group::isMember(tc, tc, qsg, su)) {
 											channel.insert(su);
