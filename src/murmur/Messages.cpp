@@ -1306,67 +1306,76 @@ void Server::msgACL(ServerUser *uSource, MumbleProto::ACL &msg) {
 		Group *g;
 		ChanACL *a;
 
-		QHash<QString, QSet<int> > hOldTemp;
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
 
-		foreach(g, c->qhGroups) {
-			hOldTemp.insert(g->qsName, g->qsTemporary);
-			delete g;
-		}
+			QHash<QString, QSet<int> > hOldTemp;
 
-		foreach(a, c->qlACL)
-			delete a;
+			foreach(g, c->qhGroups) {
+				hOldTemp.insert(g->qsName, g->qsTemporary);
+				delete g;
+			}
 
-		c->qhGroups.clear();
-		c->qlACL.clear();
+			foreach(a, c->qlACL)
+				delete a;
 
-		c->bInheritACL = msg.inherit_acls();
+			c->qhGroups.clear();
+			c->qlACL.clear();
 
-		for (int i=0;i<msg.groups_size(); ++i) {
-			const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
-			g = new Group(c, u8(group.name()));
-			g->bInherit = group.inherit();
-			g->bInheritable = group.inheritable();
-			for (int j=0;j<group.add_size();++j)
-				if (!getUserName(group.add(j)).isEmpty())
-					g->qsAdd << group.add(j);
-			for (int j=0;j<group.remove_size();++j)
-				if (!getUserName(group.remove(j)).isEmpty())
-					g->qsRemove << group.remove(j);
-			g->qsTemporary = hOldTemp.value(g->qsName);
-		}
+			c->bInheritACL = msg.inherit_acls();
 
-		for (int i=0;i<msg.acls_size(); ++i) {
-			const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
-			if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
-				continue;
+			for (int i = 0; i < msg.groups_size(); ++i) {
+				const MumbleProto::ACL_ChanGroup &group = msg.groups(i);
+				g = new Group(c, u8(group.name()));
+				g->bInherit = group.inherit();
+				g->bInheritable = group.inheritable();
+				for (int j = 0; j < group.add_size(); ++j)
+					if (!getUserName(group.add(j)).isEmpty())
+						g->qsAdd << group.add(j);
+				for (int j = 0; j < group.remove_size(); ++j)
+					if (!getUserName(group.remove(j)).isEmpty())
+						g->qsRemove << group.remove(j);
+				g->qsTemporary = hOldTemp.value(g->qsName);
+			}
 
-			a = new ChanACL(c);
-			a->bApplyHere=mpacl.apply_here();
-			a->bApplySubs=mpacl.apply_subs();
-			if (mpacl.has_user_id())
-				a->iUserId=mpacl.user_id();
-			else
-				a->qsGroup=u8(mpacl.group());
-			a->pDeny=static_cast<ChanACL::Permissions>(mpacl.deny())  & ChanACL::All;
-			a->pAllow=static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
+			for (int i = 0; i < msg.acls_size(); ++i) {
+				const MumbleProto::ACL_ChanACL &mpacl = msg.acls(i);
+				if (mpacl.has_user_id() && getUserName(mpacl.user_id()).isEmpty())
+					continue;
+
+				a = new ChanACL(c);
+				a->bApplyHere = mpacl.apply_here();
+				a->bApplySubs = mpacl.apply_subs();
+				if (mpacl.has_user_id())
+					a->iUserId = mpacl.user_id();
+				else
+					a->qsGroup = u8(mpacl.group());
+				a->pDeny = static_cast<ChanACL::Permissions>(mpacl.deny()) & ChanACL::All;
+				a->pAllow = static_cast<ChanACL::Permissions>(mpacl.grant()) & ChanACL::All;
+			}
 		}
 
 		clearACLCache();
 
 		if (! hasPermission(uSource, c, ChanACL::Write) && ((uSource->iId >= 0) || !uSource->qsHash.isEmpty())) {
-			a = new ChanACL(c);
-			a->bApplyHere=true;
-			a->bApplySubs=false;
-			if (uSource->iId >= 0)
-				a->iUserId=uSource->iId;
-			else
-				a->qsGroup=QLatin1Char('$') + uSource->qsHash;
-			a->iUserId=uSource->iId;
-			a->pDeny=ChanACL::None;
-			a->pAllow=ChanACL::Write | ChanACL::Traverse;
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+
+				a = new ChanACL(c);
+				a->bApplyHere = true;
+				a->bApplySubs = false;
+				if (uSource->iId >= 0)
+					a->iUserId = uSource->iId;
+				else
+					a->qsGroup = QLatin1Char('$') + uSource->qsHash;
+				a->iUserId = uSource->iId;
+				a->pDeny = ChanACL::None;
+				a->pAllow = ChanACL::Write | ChanACL::Traverse;
+			}
 
 			clearACLCache();
 		}
+
 
 		updateChannel(c);
 		log(uSource, QString("Updated ACL in channel %1").arg(*c));

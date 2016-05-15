@@ -1611,11 +1611,16 @@ static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroup
 		return;
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (! g)
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
 
-	g->qsTemporary.insert(- session);
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (! g)
+			g = new ::Group(channel, qsgroup);
+
+		g->qsTemporary.insert(- session);
+	}
+
 	server->clearACLCache(user);
 
 	cb->ice_response();
@@ -1632,11 +1637,16 @@ static void impl_Server_removeUserFromGroup(const ::Murmur::AMD_Server_removeUse
 		return;
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (! g)
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker qrwl(&server->qrwlVoiceThread);
 
-	g->qsTemporary.remove(- session);
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (!g)
+			g = new ::Group(channel, qsgroup);
+
+		g->qsTemporary.remove(-session);
+	}
+
 	server->clearACLCache(user);
 
 	cb->ice_response();

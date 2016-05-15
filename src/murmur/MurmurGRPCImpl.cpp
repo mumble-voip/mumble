@@ -1839,47 +1839,51 @@ void V1_ACLSet::impl(bool) {
 	::Group *g;
 	::ChanACL *acl;
 
-	QHash<QString, QSet<int> > hOldTemp;
-	foreach(g, channel->qhGroups) {
-		hOldTemp.insert(g->qsName, g->qsTemporary);
-		delete g;
-	}
-	foreach(acl, channel->qlACL) {
-		delete acl;
-	}
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
 
-	channel->qhGroups.clear();
-	channel->qlACL.clear();
+		QHash<QString, QSet<int> > hOldTemp;
+		foreach(g, channel->qhGroups) {
+			hOldTemp.insert(g->qsName, g->qsTemporary);
+			delete g;
+		}
+		foreach(acl, channel->qlACL) {
+			delete acl;
+		}
 
-	channel->bInheritACL = request.inherit();
+		channel->qhGroups.clear();
+		channel->qlACL.clear();
 
-	for (int i = 0; i < request.groups_size(); i++) {
-		auto &rpcGroup = request.groups(i);
-		auto name = u8(rpcGroup.name());
-		g = new ::Group(channel, name);
-		g->bInherit = rpcGroup.inherit();
-		g->bInheritable = rpcGroup.inheritable();
-		for (int j = 0; j < rpcGroup.users_add_size(); j++) {
-			g->qsAdd.insert(rpcGroup.users_add(j).id());
+		channel->bInheritACL = request.inherit();
+
+		for (int i = 0; i < request.groups_size(); i++) {
+			auto &rpcGroup = request.groups(i);
+			auto name = u8(rpcGroup.name());
+			g = new ::Group(channel, name);
+			g->bInherit = rpcGroup.inherit();
+			g->bInheritable = rpcGroup.inheritable();
+			for (int j = 0; j < rpcGroup.users_add_size(); j++) {
+				g->qsAdd.insert(rpcGroup.users_add(j).id());
+			}
+			for (int j = 0; j < rpcGroup.users_remove_size(); j++) {
+				g->qsRemove.insert(rpcGroup.users_remove(j).id());
+			}
+			g->qsTemporary = hOldTemp.value(name);
 		}
-		for (int j = 0; j < rpcGroup.users_remove_size(); j++) {
-			g->qsRemove.insert(rpcGroup.users_remove(j).id());
+		for (int i = 0; i < request.acls_size(); i++) {
+			auto &rpcACL = request.acls(i);
+			acl = new ChanACL(channel);
+			acl->bApplyHere = rpcACL.apply_here();
+			acl->bApplySubs = rpcACL.apply_subs();
+			if (rpcACL.has_user()) {
+				acl->iUserId = rpcACL.user().id();
+			}
+			if (rpcACL.has_group() && rpcACL.group().has_name()) {
+				acl->qsGroup = u8(rpcACL.group().name());
+			}
+			acl->pDeny = static_cast<ChanACL::Permissions>(rpcACL.deny()) & ChanACL::All;
+			acl->pAllow = static_cast<ChanACL::Permissions>(rpcACL.allow()) & ChanACL::All;
 		}
-		g->qsTemporary = hOldTemp.value(name);
-	}
-	for (int i = 0; i < request.acls_size(); i++) {
-		auto &rpcACL = request.acls(i);
-		acl = new ChanACL(channel);
-		acl->bApplyHere = rpcACL.apply_here();
-		acl->bApplySubs = rpcACL.apply_subs();
-		if (rpcACL.has_user()) {
-			acl->iUserId = rpcACL.user().id();
-		}
-		if (rpcACL.has_group() && rpcACL.group().has_name()) {
-			acl->qsGroup = u8(rpcACL.group().name());
-		}
-		acl->pDeny = static_cast<ChanACL::Permissions>(rpcACL.deny()) & ChanACL::All;
-		acl->pAllow = static_cast<ChanACL::Permissions>(rpcACL.allow()) & ChanACL::All;
 	}
 
 	server->clearACLCache();
@@ -1914,12 +1918,17 @@ void V1_ACLAddTemporaryGroup::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty name");
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (!g) {
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (!g) {
+			g = new ::Group(channel, qsgroup);
+		}
+
+		g->qsTemporary.insert(-user->uiSession);
 	}
 
-	g->qsTemporary.insert(-user->uiSession);
 	server->clearACLCache(user);
 
 	end();
@@ -1939,12 +1948,17 @@ void V1_ACLRemoveTemporaryGroup::impl(bool) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "empty name");
 	}
 
-	::Group *g = channel->qhGroups.value(qsgroup);
-	if (!g) {
-		g = new ::Group(channel, qsgroup);
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+
+		::Group *g = channel->qhGroups.value(qsgroup);
+		if (!g) {
+			g = new ::Group(channel, qsgroup);
+		}
+
+		g->qsTemporary.remove(-user->uiSession);
 	}
 
-	g->qsTemporary.remove(-user->uiSession);
 	server->clearACLCache(user);
 
 	end();
