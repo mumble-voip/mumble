@@ -472,7 +472,7 @@ void Server::msgUDPTunnel(ServerUser *uSource, MumbleProto::UDPTunnel &msg) {
 	int len = static_cast<int>(str.length());
 	if (len < 1)
 		return;
-	QReadLocker rl(&qrwlUsers);
+	QReadLocker rl(&qrwlVoiceThread);
 	processMsg(uSource, str.data(), len);
 }
 
@@ -1550,7 +1550,7 @@ void Server::msgVoiceTarget(ServerUser *uSource, MumbleProto::VoiceTarget &msg) 
 	if ((target < 1) || (target >= 0x1f))
 		return;
 
-	QWriteLocker lock(&qrwlUsers);
+	QWriteLocker lock(&qrwlVoiceThread);
 
 	uSource->qmTargetCache.remove(target);
 

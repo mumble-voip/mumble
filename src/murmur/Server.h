@@ -216,7 +216,7 @@ class Server : public QThread {
 		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;
 		QHash<HostAddress, QSet<ServerUser *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
-		QReadWriteLock qrwlUsers;
+		QReadWriteLock qrwlVoiceThread;
 		ChanACL::ACLCache acCache;
 		QMutex qmCache;
 		QHash<int, QString> qhUserNameCache;
