@@ -972,7 +972,6 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	if (u->sState != ServerUser::Authenticated || u->bMute || u->bSuppress || u->bSelfMute)
 		return;
 
-	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
 	unsigned int counter;
 	char buffer[UDP_PACKET_SIZE];
@@ -1025,6 +1024,8 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		sendMessage(u, buffer, len, qba);
 		return;
 	} else if (target == 0) { // Normal speech
+		Channel *c = u->cChannel;
+
 		buffer[0] = static_cast<char>(type | 0);
 		foreach(User *p, c->qlUsers) {
 			ServerUser *pDst = static_cast<ServerUser *>(p);
