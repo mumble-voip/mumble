@@ -1648,10 +1648,15 @@ static void impl_Server_redirectWhisperGroup(const ::Murmur::AMD_Server_redirect
 
 	QString qssource = u8(source);
 	QString qstarget = u8(target);
-	if (qstarget.isEmpty())
-		user->qmWhisperRedirect.remove(qssource);
-	else
-		user->qmWhisperRedirect.insert(qssource, qstarget);
+
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+
+		if (qstarget.isEmpty())
+			user->qmWhisperRedirect.remove(qssource);
+		else
+			user->qmWhisperRedirect.insert(qssource, qstarget);
+	}
 
 	server->clearACLCache(user);
 
