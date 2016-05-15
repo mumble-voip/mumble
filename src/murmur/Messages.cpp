@@ -671,6 +671,10 @@ void Server::msgUserState(ServerUser *uSource, MumbleProto::UserState &msg) {
 
 
 	if (msg.has_mute() || msg.has_deaf() || msg.has_suppress() || msg.has_priority_speaker()) {
+		// Writing to bDeaf, bMute and bSuppress requires
+		// holding a write lock on qrwlVoiceThread.
+		QWriteLocker wl(&qrwlVoiceThread);
+
 		if (msg.has_deaf()) {
 			pDstServerUser->bDeaf = msg.deaf();
 			if (pDstServerUser->bDeaf)

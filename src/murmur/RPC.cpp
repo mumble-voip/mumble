@@ -53,9 +53,13 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 		mpus.set_name(u8(name));
 	}
 
-	pUser->bDeaf = deaf;
-	pUser->bMute = mute;
-	pUser->bSuppress = suppressed;
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		pUser->bDeaf = deaf;
+		pUser->bMute = mute;
+		pUser->bSuppress = suppressed;
+	}
+
 	pUser->bPrioritySpeaker = prioritySpeaker;
 	pUser->qsName = name;
 	hashAssign(pUser->qsComment, pUser->qbaCommentHash, comment);
