@@ -1106,10 +1106,14 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 				}
 			}
 
-			foreach(unsigned int id, wt.qlSessions) {
-				ServerUser *pDst = qhUsers.value(id);
-				if (pDst && ChanACL::hasPermission(u, pDst->cChannel, ChanACL::Whisper, &acCache) && ! channel.contains(pDst))
-					direct.insert(pDst);
+			{
+				QMutexLocker qml(&qmCache);
+
+				foreach(unsigned int id, wt.qlSessions) {
+					ServerUser *pDst = qhUsers.value(id);
+					if (pDst && ChanACL::hasPermission(u, pDst->cChannel, ChanACL::Whisper, &acCache) && !channel.contains(pDst))
+						direct.insert(pDst);
+				}
 			}
 
 			int uiSession = u->uiSession;
