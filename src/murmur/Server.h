@@ -212,6 +212,51 @@ class Server : public QThread {
 		quint32 uiVersionBlob;
 		QList<QSocketNotifier *> qlUdpNotifier;
 
+		/// This lock provides synchronization between the
+		/// main thread (where control channel messages and
+		/// RPC happens), and the Server's voice thread.
+		///
+		/// These are the only two threads in Murmur that
+		/// access a Server's data.
+		///
+		/// The easiest way to understand the locking strategy
+		/// and synchronization between the main thread and the
+		/// Server's voice thread is by using the concept of
+		/// ownership.
+		///
+		/// A thread owning an object means that it is the only
+		/// thread that is allowed to write to that object. To
+		/// make changes to it.
+		///
+		/// Most data in the Server class is owned by the main
+		/// thread. That means that the main thread is the only
+		/// thread that writes/updates those structures.
+		///
+		/// When processing incoming voice data (and re-
+		/// broadcasting) that voice data), the Server's voice
+		/// thread needs to access various parts of Server's data,
+		/// such as qhUsers, qhChannels, User->cChannel, etc.
+		/// However, these are owned by the main thread.
+		///
+		/// To ensure correct synchronization between the two
+		/// threads, the contract for using qrwlVoiceThread is
+		/// as follows:
+		///
+		///  - When the Server's voice thread needs to read data
+		///    owned by the main thread, it must hold a read lock
+		///    on qrwlVoiceThread.
+		///
+		///  - The Server's voice thread does not write to any data
+		///    that is owned by the main thread.
+		///
+		///  - When the main thread needs to write to data owned by
+		///    itself that is accessed by the voice thread, it must
+		///    hold a write lock on qrwlVoiceThread.
+		///
+		///  - When the main thread needs to read data that is owned
+		///    by itself, it DOES NOT hold a lock on qrwlVoiceThread.
+		///    That is because ownership of data guarantees that no
+		///    other thread can write to that data.
 		QReadWriteLock qrwlVoiceThread;
 		QHash<unsigned int, ServerUser *> qhUsers;
 		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;
