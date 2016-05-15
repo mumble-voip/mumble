@@ -973,7 +973,6 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 		return;
 
 	User *p;
-	BandwidthRecord *bw = & u->bwr;
 	Channel *c = u->cChannel;
 	QByteArray qba, qba_npos;
 	unsigned int counter;
@@ -984,13 +983,17 @@ void Server::processMsg(ServerUser *u, const char *data, int len) {
 	unsigned int target = data[0] & 0x1f;
 	unsigned int poslen;
 
-	// IP + UDP + Crypt + Data
-	int packetsize = 20 + 8 + 4 + len;
-
 	// Check the voice data rate limit.
-	if (! bw->addFrame(packetsize, iMaxBandwidth/8)) {
-		// Suppress packet.
-		return;
+	{
+		BandwidthRecord *bw = &u->bwr;
+
+		// IP + UDP + Crypt + Data
+		const int packetsize = 20 + 8 + 4 + len;
+
+		if (! bw->addFrame(packetsize, iMaxBandwidth / 8)) {
+			// Suppress packet.
+			 return;
+		}
 	}
 
 	// Read the sequence number.
