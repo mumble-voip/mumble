@@ -72,7 +72,7 @@ static void userToUser(const ::User *p, Murmur::User &mp) {
 	mp.udpPing = u->dUDPPingAvg;
 	mp.tcpPing = u->dTCPPingAvg;
 
-	mp.tcponly = ! u->bUdp;
+	mp.tcponly = u->aiUdpFlag == 0;
 
 	::Murmur::NetAddress addr(16, 0);
 	const Q_IPV6ADDR &a = u->haAddress.qip6;

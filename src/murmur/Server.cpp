@@ -855,7 +855,7 @@ void Server::run() {
 						if (bOpus)
 							break;
 					case MessageHandler::UDPVoiceOpus: {
-							u->bUdp = true;
+							u->aiUdpFlag = 1;
 							processMsg(u, buffer, len);
 							break;
 						}
@@ -894,7 +894,7 @@ bool Server::checkDecrypt(ServerUser *u, const char *encrypt, char *plain, unsig
 }
 
 void Server::sendMessage(ServerUser *u, const char *data, int len, QByteArray &cache, bool force) {
-	if ((u->bUdp || force) && (u->sUdpSocket != INVALID_SOCKET)) {
+	if ((u->aiUdpFlag == 1 || force) && (u->sUdpSocket != INVALID_SOCKET)) {
 #if defined(__LP64__)
 		STACKVAR(char, ebuffer, len+4+16);
 		char *buffer = reinterpret_cast<char *>(((reinterpret_cast<quint64>(ebuffer) + 8) & ~7) + 4);
@@ -1444,7 +1444,7 @@ void Server::message(unsigned int uiType, const QByteArray &qbaMsg, ServerUser *
 
 		QReadLocker rl(&qrwlVoiceThread);
 
-		u->bUdp = false;
+		u->aiUdpFlag = 0;
 
 		const char *buffer = qbaMsg.constData();
 

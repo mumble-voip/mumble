@@ -20,7 +20,7 @@ ServerUser::ServerUser(Server *p, QSslSocket *socket) : Connection(p, socket), U
 	dTCPPingAvg = dTCPPingVar = 0.0f;
 	uiUDPPackets = uiTCPPackets = 0;
 
-	bUdp = true;
+	aiUdpFlag = 1;
 	uiVersion = 0;
 	bVerified = true;
 	iLastPermissionCheck = -1;
