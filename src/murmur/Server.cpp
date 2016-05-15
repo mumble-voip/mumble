@@ -1551,14 +1551,20 @@ void Server::removeChannel(Channel *chan, Channel *dest) {
 	if (dest == NULL)
 		dest = chan->cParent;
 
-	chan->unlink(NULL);
+	{
+		QWriteLocker wl(&qrwlVoiceThread);
+		chan->unlink(NULL);
+	}
 
 	foreach(c, chan->qlChannels) {
 		removeChannel(c, dest);
 	}
 
 	foreach(p, chan->qlUsers) {
-		chan->removeUser(p);
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
+			chan->removeUser(p);
+		}
 
 		Channel *target = dest;
 		while (target->cParent && ! hasPermission(static_cast<ServerUser *>(p), target, ChanACL::Enter))

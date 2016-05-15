@@ -1519,7 +1519,13 @@ void V1_ChannelAdd::impl(bool) {
 
 	QString qsName = u8(request.name());
 
-	::Channel *nc = server->addChannel(parent, qsName);
+	::Channel *nc;
+
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		nc = server->addChannel(parent, qsName);
+	}
+
 	server->updateChannel(nc);
 	int newid = nc->iId;
 
@@ -1541,7 +1547,12 @@ void V1_ChannelRemove::impl(bool) {
 	if (!channel->cParent) {
 		throw ::grpc::Status(::grpc::INVALID_ARGUMENT, "cannot remove the root channel");
 	}
-	server->removeChannel(channel);
+
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		server->removeChannel(channel);
+	}
+
 	end();
 }
 

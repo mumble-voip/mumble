@@ -374,7 +374,13 @@ void MurmurDBus::sendMessageChannel(int id, bool tree, const QString &text, cons
 void MurmurDBus::addChannel(const QString &name, int chanparent, const QDBusMessage &msg, int &newid) {
 	CHANNEL_SETUP_VAR(chanparent);
 
-	Channel *nc = server->addChannel(cChannel, name);
+	Channel *nc;
+
+	{
+		QWriteLocker wl(&server->qrwlVoiceThread);
+		server->addChannel(cChannel, name);
+	}
+
 	server->updateChannel(nc);
 	newid = nc->iId;
 
@@ -391,6 +397,8 @@ void MurmurDBus::removeChannel(int id, const QDBusMessage &msg) {
 		qdbc.send(msg.createErrorReply("net.sourceforge.mumble.Error.channel", "Invalid channel id"));
 		return;
 	}
+
+	QWriteLocker wl(&server->qrwlVoiceThread);
 	server->removeChannel(cChannel);
 }
 

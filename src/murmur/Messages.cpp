@@ -1034,8 +1034,11 @@ void Server::msgChannelState(ServerUser *uSource, MumbleProto::ChannelState &msg
 			        QString(* c->cParent),
 			        QString(*p)));
 
-			c->cParent->removeChannel(c);
-			p->addChannel(c);
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+				c->cParent->removeChannel(c);
+				p->addChannel(c);
+			}
 		}
 		if (! qsName.isNull()) {
 			log(uSource, QString("Renamed channel %1 to %2").arg(QString(*c),

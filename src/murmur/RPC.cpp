@@ -127,8 +127,13 @@ bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &e
 				err = QLatin1String("channel cannot be nested in the given parent");
 				return false;
 			}
-			channel->cParent->removeChannel(channel);
-			parent->addChannel(channel);
+
+			{
+				QWriteLocker wl(&qrwlVoiceThread);
+				channel->cParent->removeChannel(channel);
+				parent->addChannel(channel);
+			}
+
 			mpcs.set_parent(parent->iId);
 
 			changed = true;
@@ -229,8 +234,11 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 			return false;
 		}
 
-		cChannel->cParent->removeChannel(cChannel);
-		cParent->addChannel(cChannel);
+		{
+			QWriteLocker wl(&qrwlVoiceThread);
+			cChannel->cParent->removeChannel(cChannel);
+			cParent->addChannel(cChannel);
+		}
 
 		mpcs.set_parent(cParent->iId);
 
