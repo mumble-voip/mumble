@@ -212,13 +212,15 @@ class Server : public QThread {
 		quint32 uiVersionBlob;
 		QList<QSocketNotifier *> qlUdpNotifier;
 
+		QReadWriteLock qrwlVoiceThread;
 		QHash<unsigned int, ServerUser *> qhUsers;
 		QHash<QPair<HostAddress, quint16>, ServerUser *> qhPeerUsers;
 		QHash<HostAddress, QSet<ServerUser *> > qhHostUsers;
 		QHash<unsigned int, Channel *> qhChannels;
-		QReadWriteLock qrwlVoiceThread;
-		ChanACL::ACLCache acCache;
+
 		QMutex qmCache;
+		ChanACL::ACLCache acCache;
+
 		QHash<int, QString> qhUserNameCache;
 		QHash<QString, int> qhUserIDCache;
 
