@@ -25,6 +25,7 @@
 #include "Message.h"
 #include "Mumble.pb.h"
 #include "Usage.h"
+#include "UserLocalVolumeDialog.h"
 
 #include "ui_MainWindow.h"
 
@@ -71,6 +72,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
+		QMap<unsigned int, UserLocalVolumeDialog*> qmuservolTracker;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;

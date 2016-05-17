@@ -1518,8 +1518,13 @@ void MainWindow::on_qaUserLocalVolume_triggered() {
 
 void MainWindow::openUserLocalVolumeDialog(ClientUser *p) {
 	unsigned int session = p->uiSession;
-	UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(session);
-	uservol->show();
+	if (qmuservolTracker.contains(session)) {
+		qmuservolTracker.value(session)->raise();
+	} else {
+		UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(session, &qmuservolTracker);
+		uservol->show();
+		qmuservolTracker.insert(session, uservol);
+	}
 }
 
 void MainWindow::on_qaUserDeaf_triggered() {
