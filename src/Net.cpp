@@ -170,9 +170,9 @@ QString Ban::toString() const {
 		haAddress.isV6() ? QString::number(iMask) : QString::number(iMask-96),
 		qsUsername,
 		qsReason,
-		qdtStart.toLocalTime().toString("yyyy-MM-dd hh:mm:ss"),
-		qdtStart.toLocalTime().addSecs(iDuration).toString("yyyy-MM-dd hh:mm:ss"),
-		iDuration == 0 ? "(permanent)" : "(temporary)"
+		qdtStart.toLocalTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss")),
+		qdtStart.toLocalTime().addSecs(iDuration).toString(QLatin1String("yyyy-MM-dd hh:mm:ss")),
+		iDuration == 0 ? QLatin1String("(permanent)") : QLatin1String("(temporary)")
 	);
 }
 
