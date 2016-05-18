@@ -4418,7 +4418,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Displays talking status in system tray</source>
-        <translation type="unfinished"/>
+        <translation>Rodo kalbėjimo būseną sistemos dėkle</translation>
     </message>
     <message>
         <location/>
@@ -4938,7 +4938,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+63"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Atsisakyti</translation>
     </message>
     <message>
         <location line="+233"/>
