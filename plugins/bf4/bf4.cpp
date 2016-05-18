@@ -6,10 +6,40 @@
 #include "../mumble_plugin_win32.h"
 #include <algorithm>
 
-std::string jsonStringEscape(const std::string &input) {
-    std::string output(input);
-    std::replace(output.begin(), output.end(), '"', ' '); // Replace '"' character with ' ' (space)
-    return output;
+// escape lossily converts the given
+// string to ASCII, replacing any
+// character not within the printable
+// ASCII region (32-126) with an ASCII
+// space character.
+//
+// escape also replaces any double quote
+// characters with an ASCII space. This
+// allows the string to be safely used
+// when constructing JSON documents via
+// string concatenation.
+static void escape(char *str) {
+    char *c = str;
+
+    while (*c != '\0') {
+        // For JSON compatibility, the string
+        // can't contain double quotes.
+        // If a double quote is found, replace
+        // it with an ASCII space.
+        if (*c == '"') {
+            *c = ' ';
+        }
+
+        // Ensure the string is within printable
+        // ASCII. If not, replace the offending
+        // byte with an ASCII space.
+        if (*c < 32) {
+            *c = ' ';
+        } else if (*c > 126) {
+            *c = ' ';
+        }
+
+        c += 1;
+    }
 }
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
@@ -70,25 +100,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
     }
 
     serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-    std::string ServerID(serverid);
-    ServerID = jsonStringEscape(ServerID); // Replace '"' character with ' ' (space) to prevent JSON break.
+    escape(serverid);
     std::ostringstream ocontext;
-    ocontext << " {\"Server ID\": \"" << ServerID << "\"}"; // Set context with server ID
+    ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with server ID
     context = ocontext.str();
 
     std::wostringstream oidentity;
     oidentity << "{";
     host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
-    std::string Host(host);
-    Host = jsonStringEscape(Host);
-    if (Host.find("bot") == std::string::npos) // Set host string as empty if "bot" is found in it.
-        if (!Host.empty()) {
-            oidentity << std::endl << "\"Host\": \"" << host << "\","; // If it's not empty, set Host (IP:Port) in identity.
-        }
+    escape(host);
+    // Only include host (IP:port) if it is not empty and does not include the string "bot" (which means it's a local server).
+    if (strcmp(host, "") != 0 && strstr(host, "bot") == NULL) {
+        oidentity << std::endl << "\"Host\": \"" << host << "\",";
+    }
 
     team[sizeof(team)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
     std::string Team(team);
-    Team = jsonStringEscape(Team);
     if (!Team.empty()) {
         oidentity << std::endl;
         if (Team == "US")
