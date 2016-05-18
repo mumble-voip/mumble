@@ -214,7 +214,7 @@ def gitLogOutput():
 		 - Date (YYYY-MM-DD)
 		 - Subject
 	'''
-	p = subprocess.Popen(["git", "log", "--use-mailmap", "--date=short", "--pretty=format:%h%x00%aN%x00%aE%x00%ad%x00%s"], stdout=subprocess.PIPE)
+	p = subprocess.Popen(["git", "log", "--use-mailmap", "--date=short", "--pretty=format:%h%x00%aN%x00%aE%x00%cd%x00%s"], stdout=subprocess.PIPE)
 	stdout, stderr = p.communicate()
 	if stdout is not None:
 		stdout = stdout.decode('utf-8')
