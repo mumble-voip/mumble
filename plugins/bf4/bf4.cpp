@@ -49,7 +49,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
     bool ok, state;
     char serverid[37], host[22], team[3];
-    BYTE squad, squad_leader;
+    BYTE squad, squad_leader, squad_state;
 
     // Server ID pointers
     BYTE *serverid_base = peekProc<BYTE *>(pModule + 0x02210658);
@@ -81,7 +81,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             peekProc((BYTE *) pModule + 0x21B80C0, host) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
             peekProc((BYTE *) pModule + 0x24AFAE5, team) && // Team value: US (United States); RU (Russia); CH (China).
             peekProc((BYTE *) squad_offset_2 + 0x230, squad) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
-            peekProc((BYTE *) squad_offset_2 + 0x234, squad_leader); // Squad leader value: 1 (True); 2 (False).
+            peekProc((BYTE *) squad_offset_2 + 0x234, squad_leader) && // Squad leader value: 0 (False); 1 (True).
+            peekProc((BYTE *) squad_offset_2 + 0x235, squad_state); // Squad state value: 0 (Public); 1 (Private).
 
     // This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
     if (! ok) {
@@ -180,13 +181,21 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             oidentity << std::endl << "\"Squad\": \"Yankee\",";
         else if (squad == 26)
             oidentity << std::endl << "\"Squad\": \"Zulu\",";
+        // Squad leader
         if (squad_leader == 1)
-            oidentity << std::endl << "\"Squad leader\": true"; // If squad leader value is true, set squad leader state to "True" in identity.
+            oidentity << std::endl << "\"Squad leader\": true,"; // If squad leader value is true, set squad leader state to "True" in identity.
         else
-            oidentity << std::endl << "\"Squad leader\": false"; // If squad leader value is false, set squad leader state to "False" in identity.
+            oidentity << std::endl << "\"Squad leader\": false,"; // If squad leader value is false, set squad leader state to "False" in identity.
+        // Squad state
+        if (squad_state == 1)
+            oidentity << std::endl << "\"Squad state\": \"Private\""; // If squad state value is true, set squad state to "Private" in identity.
+        else
+            oidentity << std::endl << "\"Squad state\": \"Public\""; // If squad state value is false, set squad state to "Public" in identity.
+        // When not in a squad
     } else {
-        oidentity << std::endl << "\"Squad\": null,"; // If squad value isn't between 1 and 26, set squad state to "null" in identity.
-        oidentity << std::endl << "\"Squad leader\": null"; // If not in a squad, set squad leader state to "null" in identity.
+        oidentity << std::endl << "\"Squad\": null,"; // If squad value isn't between 1 and 26, set squad to "null" in identity.
+        oidentity << std::endl << "\"Squad leader\": null,"; // If not in a squad, set squad leader state to "null" in identity.
+        oidentity << std::endl << "\"Squad state\": null"; // If not in a squad, set squad state to "null" in identity.
     }
 
     oidentity << std::endl << "}";
