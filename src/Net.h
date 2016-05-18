@@ -61,7 +61,10 @@ struct Ban {
 	bool isValid() const;
 	bool operator < (const Ban &) const;
 	bool operator == (const Ban &) const;
+	QString toString() const;
 };
+
+quint32 qHash(const Ban &);
 
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
 #define SWAP64(x) (x)
