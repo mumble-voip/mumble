@@ -84,7 +84,7 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		if (user && !user->qsHash.isEmpty()) {
 			Database::setUserLocalVolume(user->qsHash, user->fLocalVolume);
 		}
-        UserLocalVolumeDialog::close();
+		UserLocalVolumeDialog::close();
 	}
 	if (button == qbbUserLocalVolume->button(QDialogButtonBox::Cancel)) {
 		qsUserLocalVolume->setValue(m_originalVolumeAdjustmentDecibel);
