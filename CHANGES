@@ -1,3 +1,1667 @@
+2016-05-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    b9356b0  Update CHANGES.
+    23b4e85  Merge PR #2270: scripts/generate-CHANGES.py: fix capture group
+	     in gitMailmapLookup's contact regexp.
+    b0005c4  scripts/generate-CHANGES.py: fix capture group in
+	     gitMailmapLookup's contact regexp.
+    3b1ad3a  Merge PR #2268: Transifex translation update
+
+2016-05-11
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    e4c91e2  Fixed Squad/Squad Leader pointers (#2267)
+
+2016-05-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    37c4749  Merge PR #2264: Add Joeliam to .mailmap and sync AUTHORS.
+    c1251fd  Add Joeliam to .mailmap and sync AUTHORS.
+    084da53  Merge PR #2256: Update the Mumble tree to use LICENSE.header
+	     for all license headers
+    19214a4  Add remaining files that use the old-style license header to
+	     3rdPartyLicenses.
+    f4e3ca9  Merge PR #2250: Various OpenBSD fixes
+    3283c43  Add python.pri to detect the system's Python binary. Use it in
+	     mumble.pro.
+
+2016-05-09
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    2854b32  Positional Audio support for Battlefield 4 (x64)
+
+  John Marion <john@lmsn.net>
+    4462701  Touch up Mumble and Murmur manpages
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    77b59e5  Merge PR #2262: Touch up Mumble and Murmur manpages
+    7072cb2  Merge PR #2257: Various C++11 fixes
+    39aebda  Channel, ServerUser: make cast operator non-const.
+    9b2bb22  Merge PR #2246: scripts/generate-CHANGES.py: add Python
+	     replacement for 'git2cl.pl'.
+    11b2823  .gitignore: add .DS_Store.
+    656be8f  Merge PR #2259: remove non-existent file from .gitignore
+    691d80a  installer, plugins: add bf4 plugin to build and installer.
+    5b6bdac  Merge PR #2258: Remove hardcoded IP whitelist for master
+	     server
+    a30f1dd  Merge PR #2255: Positional Audio support for Battlefield 4
+	     (x64)
+
+  Tim Cooper <tim.cooper@layeh.com>
+    412c0d1  Document undocumented fields in Mumble.proto (#2261)
+
+2016-05-08
+  John Marion <john@lmsn.net>
+    6123439  Remove hardcoded IP whitelist for master server
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    78a46ea  src/murmur_grpcwrapper_protoc_plugin: update to use
+	     LICENSE.header.
+    313be4b  plugins: update to use LICENSE.header.
+    63f2bd8  scripts: update to use LICENSE.header.
+    84aa1ae  3rdparty: update to use LICENSE.header.
+    af43d61  mumble_proto: update to use LICENSE.header.
+    d2bda14  src/mumble: update to use LICENSE.header.
+    4e2c7e3  macx: update to use LICENSE.header.
+    5f71ce6  src/mumble_exe: update to use LICENSE.header.
+    ce9e4c7  *.pri: update to use LICENSE.header.
+    e45183b  toolchain: update to use LICENSE.header.
+    35358ca  overlay_winx64: update to use LICENSE.header.
+    3dad85f  overlay_gl: update to use LICENSE.header.
+    76f3168  g15helper: update to use LICENSE.header.
+    049fcae  overlay: update to use LICENSE.header.
+    54c28d3  src/murmur: update to use LICENSE.header.
+    395c084  src: update to use LICENSE.header.
+    f3d19ad  LICENSE.header: update default license header to use
+	     "2005-2016".
+    c8d136f  Merge PR #2248: Fix Left 4 Dead 2 plugin and clean up plugin
+	     code
+    790bd79  Merge PR #2253: Transifex translation update
+    89097d5  Merge PR #1682: murmur grpc support
+    4a419de  grpc: limit gRPC to Qt 5.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    0b0ce8e  remove non-existent file from .gitignore
+
+2016-05-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    ac716df  scripts/generate-CHANGES.py: add Python replacement for
+	     'git2cl.pl'.
+
+2016-05-06
+  Joel Kees <joelkees@gmail.com>
+    192a89c  Fix Left 4 Dead 2 plugin and clean up plugin code
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    69086d8  GlobalShortcut_macx: fix build in C++11 mode (strongly typed
+	     enums)
+    0d35a9c  scripts/ts2html.pl: remove.
+    6d2364a  scripts/qt.conf: remove.
+    aedb1a3  Re-generate and update AUTHORS file.
+
+2016-05-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    ba1a189  GlobalShortcut_win: fix access to nxboxinput in EnumDevicesCB.
+
+2016-05-01
+  James Fraser <fwaggle@fwaggle.org>
+    0288120  Don't expose SSL secrets over Ice/D-Bus.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    d475b44  scripts/generate-AUTHORS.py: use pyuca for sorting to get
+	     deterministic output on all platforms.
+    8dbc793  GlobalShortcut_win: only poll XboxInput if there are XInput
+	     devices present.
+
+2016-04-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    3434ff8  .mailmap: update James Fraser alias.
+    9f20c21  scripts/generate-AUTHORS.py: use 'origin/branch' instead of
+	     just 'branch' in git log call.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    6a3f2ef  add note about allowping to murmur.ini regarding information
+	     exposure
+
+2016-04-29
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    cb8cbd0  Plugin update for latest version of Quake Live
+
+2016-04-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    a1a969e  AudioOutput: make playSample() time out after 1 second if no
+	     AudioOutput is present.
+
+2016-04-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    b7271c2  Log: remove 'console' parameter of postNotification().
+    cd8fbbd  Log_unix: use plain log message for KDE notifications.
+
+2016-04-26
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    6f843e5  Plugin update for latest version of Rocket League
+
+  James Fraser <fwaggle@fwaggle.org>
+    25422e7  Add comments to some conditionals in initializeCert()
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    5c17181  Move smallft to 3rdparty/smallft-src and add to
+	     3rdPartyLicenses.
+
+2016-04-25
+  James Fraser <fwaggle@fwaggle.org>
+    68547c9  Fix missing whitespace in if statement
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3a9edb8  plugins.pro: add ql plugin to the build.
+    2c65953  installer: add ql.dll plugin to the installer.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    b347f7e  fix crash caused by decoding all MIME data formats in
+	     RichTextHtmlEdit
+
+2016-04-24
+  Mikkel Krautz <mikkel@krautz.dk>
+    a50a120  PulseAudio: fall back to default device if chosen device is no
+	     longer present.
+
+2016-04-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    a2e6cb8  Log_unix: always send plain text notifications via
+	     org.freedesktop.Notifications.
+
+2016-04-20
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    6f1b851  plugins/ql: Added Spectator state value
+
+2016-04-19
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    ccb1ff7  plugins/ql: Added camera values for a more precise PA
+    47a6e32  plugins/ql: Fix host address string and add comments
+
+2016-04-18
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    4f7af50  Positional audio support for Quake Live
+
+2016-04-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    48cc538  Fix 'rl.dl' typo in Plugins.wxs.
+
+2016-04-15
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    043a7d7  Plugin update for latest version of Rocket League
+
+2016-04-10
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    8017a01  l4d2: Plugin update for latest game version
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    0502fa6  Drop OS X specific '64-bit' check.
+    72ef902  Add build number to OS X OSInfo.
+    6be0de4  installer: add 'rl.dll' to Plugins.wxs.
+    95b3cc1  plugins.pro: add 'rl'.
+
+2016-04-09
+  Davide Beatrici <davidebeatrici@users.noreply.github.com>
+    80d0354  Positional Audio support for Rocket League
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    0393ed3  mumble_plugin.h: use _M_IX86 instead of (typo'd) _M_X86.
+
+2016-04-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    1f72548  Fix mumble_pch.hpp for OpenBSD.
+    cc48689  PulseAudio: remove OSS headers from PulseAudio.cpp.
+
+2016-04-01
+  John Marion <john@lmsn.net>
+    4e9f412  Remove unused jitter reporting code
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    ef72e3e  overlay: remove Far Cry 4 from the default blacklist.
+
+2016-03-25
+  Tim Cooper <tim.cooper@layeh.com>
+    21f9a29  grpc: fix uninitialized RPCCall reference count
+    1af50bd  grpc: do not use CONFIG for grpc block
+
+2016-03-15
+  Tim Cooper <tim.cooper@layeh.com>
+    edcd4cd  grpc: require protobuf>=3
+
+2016-03-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    a59e166  Do not enable warnings-as-errors by default.
+    a24b8c3  Do not use _FORTIFY_SOURCE for debug builds since they're not
+	     built with optimizations.
+    b03a689  Add .mailmap file and us it in scripts/generate-AUTHORS.py.
+    6beb46e  Move src/bonjour to 3rdparty/qqbonjour-src and add its license
+	     to the third party license list.
+
+2016-03-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3643c24  Add missing iMask to Ban equality operator
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    25f0e1f  Remove OpenSSL 0.9.x compatibility hacks.
+
+2016-03-05
+  John Marion <john@lmsn.net>
+    8b4ed1e  Remove timer to run reportJitter.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    888a459  GlobalShortcutWin: fix memory leak of 'di' in new XInputCheck
+	     code path.
+
+2016-03-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    bc12e8e  XInputCheck: add string.h and stdlib.h includes to
+	     xinputcheck.cpp.
+    b817122  GlobalShortcutWin: add issue references to comment describing
+	     recent Windows 10 DirectInput/XInput breakge.
+    cbff56b  XInputCheck: fix missing file reference in the README.
+    da12c2b  XInputCheck: add comment at the top of the file describing
+	     development practices and origin of the code.
+    25b88a7  XInputCheck: add documentation for
+	     XInputCheck_IsGuidProductXInputDevice.
+    0f80533  XInputCheck: add XInputCheck_ClearDeviceCache().
+
+2016-03-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    e174f8d  compiler.pri: fix architecture checks for force-x86-toolchain
+	     and force-x86_64-toolchain builds.
+    6f1331b  GlobalShortcutWin: Exclude XInput devices from DirectInput.
+
+2016-02-25
+  Nick Heindl <nheindl@wisc.edu>
+    93427af  Fix typo in comment: Issue #2070
+
+2016-02-22
+  Tim Cooper <tim.cooper@layeh.com>
+    59bda9b  grpc: rename murmur.ini.grpc to murmur.grpc.ini
+
+2016-02-21
+  John Marion <john@lmsn.net>
+    f5e03d6  Fix relative paths for Murmur -ini switch
+    53107ca  Fix building Mumble on unix with no-dbus
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    999b59b  Add LuaMilkshake to AUTHORS.
+
+2016-02-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    8d5236f  grpc: add log message in GRPCStart, so users know that GRPC is
+	     enabled.
+    e93d566  grpc: use single-line comments for docs in MurmurGRPCImpl.cpp.
+    88a6653  grpc: use single-line doxygen-style comments in
+	     RPCSingleStreamCall top-level comment.
+    cd6b532  grpc: fix implicit QString conversions in setChannelStateGRPC.
+    9128351  grpc: rename GRPC-specific Server::setChannelState method, and
+	     add docs.
+    c7cd28b  grpc: indent pre-declaration of classes in MurmurRPC::Wrapper.
+    505df4f  grpc: make mServer and qtCleanup members in MurmurRPCImpl
+	     conform to coding style.
+    a02ef1b  grpc: fix Server::sendTextMessageGRPC and
+	     Server::setChannelState to build in non-C++11 mode.
+    9fafa9a  grpc: make member variables in RPCCall and RPCSingleStreamCall
+	     coding style conformant.
+    71f90de  grpc: rename remaining MurmurRPCImpl member variables to be
+	     coding style conformant.
+    d8710c1  grpc: rename aV1Service to m_V1Service.
+    32b8abd  grpc: rename mCQ to m_completionQueue as per our coding style.
+    31928ca  grpc: use single-line comments for MurmurGRPCImpl.cpp system
+	     overview.
+    83c0b09  grpc: rename RPCStart and RPCStop to GRPCStart and GRPCStop.
+    a107fb3  grpc: fix formatting of textMessageFilter result handling.
+    ee1988e  grpc: rename GRPC-specific Server::sendTextMessage to
+	     Server::sendTextMessageGRPC(), and add docs.
+    9c55e95  grpc: mention that gRPC is experimental in the INSTALL file.
+    7666447  grpc: rename murmur_grpc_wrapper_gen to
+	     murmur_grpcwrapper_protoc_plugin.
+    4c54bb2  grpc: update license headers to use the new-style header.
+    75d68fb  grpc: sync murmur.ini.grpc with murmur.ini.
+    49f9833  grpc: shell out to 'which grpc_cpp_plugin' to find
+	     grpc_cpp_plugin path in murmur_grpc.pro.
+    41885a2  grpc: ignore unused parameter warnings from
+	     MurmurRPC.grpc.pb.h.
+    772191f  grpc: use RegisterService instead of RegisterAsyncService.
+    46e954d  grpc: remove 'gpr' from PKGCONFIG.
+    e3b14f3  themes/Mumble: sync with mumble-theme submodule.
+    4b3746a  Add Tim Visée to AUTHORS.
+    3b2a169  Simplify LICENSE file, add LICENSE.header and add AUTHORS.
+
+2016-02-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    0840dd4  Fix OpenSSL intialization.
+
+2016-02-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    0c08e73  compiler.pri: pass '-compress 9' to rcc.
+
+2016-01-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    1aae05e  TextToSpeech_unix: use Mumble's language setting, or the
+	     system locale for TTS language.
+
+2016-01-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    cffa565  Fix warning typo reported in #2087
+
+2016-01-25
+  Tim Visée <timvisee@gmail.com>
+    b4589b4  Add README.md for GitHub
+
+2016-01-19
+  Tim Cooper <tim.cooper@layeh.com>
+    56fc9de  Remember the last directory used for saving images from the
+	     chat log
+    8722bdd  Use a lossless image format when saving chat log images that
+	     do not have a file extension
+
+2016-01-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    bd8f92b  Move HTML filtering to a separate shared class.
+
+2016-01-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    58c06f2  Fix Murmur on Windows DoS as described in Mumble-SA-2016-001.
+
+2016-01-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    6e16502  Update the Copyright year range for The Mumble Developers
+	     throughout the tree.
+    7a33318  About: update copyright year range to 2005-2016.
+    50bc11d  Update LICENSE for 2016. Happy new year!
+
+2015-12-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    c56cb01  mumble.pro: use separate libsndfile libs on Windows.
+    3a18e13  compiler.pri: add CONFIG(verbose-linker) option for diagnosing
+	     MSVC runtime library issues.
+    143bf86  AppNap: only declare 'appNapSuppressed' static variable when
+	     AppNap is available.
+    7a82dc9  Plugins: remove unused url parameter from
+	     fetchedUpdatePAPlugins slot.
+    ad6acf2  GlobalShortcut_win, mumble.pro: remove use of HardHook in
+	     GlobalShortcut_win.
+    17ddc1a  VersionCheck: use updated WebFetch::fetch() for snapshot
+	     downloads.
+    e82debb  3rdparty/opus-build: re-structure qmake logic for including
+	     SSE, SSE2 and SSE4.1 sources into the build.
+    acb69be  Update WebFetch, and its users, to use the new service
+	     hostnames and endpoints, as well as HTTPS.
+
+2015-12-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    9652f7f  compiler.pri: disable warnings-as-errors when MSVC static
+	     analysis is enabled.
+    bd49fa5  CrashReporter: use new service hostname and endpoint for the
+	     crash reporter service.
+    3910dc9  Remove all REPORT_JITTER-related code.
+    9db3015  Usage: use new usage service hostname and endpoint, and use
+	     HTTPS.
+    2857d71  Translation update
+
+2015-12-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    34cbd3c  compiler.pri: on Windows, treat MSVC linker warnings as
+	     errors.
+    c22393e  Messages, Murmur.ice: make username checking case insensitive
+	     throughout Murmur.
+    8eec7cc  Overlay_win: silence MSVC warning about potentially
+	     uninitialized local variables.
+    d0ced44  Mumble: implement lock file mechanism for Windows.
+    a3ad0c5  installer: use 'The Mumble Developers' as ProductManufacturer
+	     in the Windows installer.
+    7d4fe6c  man: refer to The Mumble Developers as the Mumble authors in
+	     our man pages.
+    a97c4bb  3rdparty/minhook-build: disable third-party warnings by
+	     default in MinHook.
+    69cdaee  MainWindow: only allow toolbar dragging in the 'custom'
+	     layout.
+
+2015-12-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    7f37b71  GlobalShortcut_win: NULL-initialize xboxinput and gkey member
+	     variables.
+    25ceebb  MainWindow: only allow layout to be changed via settings.
+    173b68a  Update copyright strings in .rc and .plist files to refer to
+	     'The Mumble Developers'.
+    a2b7020  About: change 'The Mumble team' to 'The Mumble Developers', as
+	     used in our license.
+    33f8448  Murmur: allow both bitmasked version and version string when
+	     setting 'suggestversion' via RPC.
+    da8a95e  3rdparty/opus-build: only enable OS X SIMD for x86-64
+	     (non-universal) build.
+    4e53e6f  AppNap: fix build for OS X Universal, which uses the 10.4 SDK.
+
+2015-12-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    aa92699  Revert "Settings: disable 'shortcut/windows/xbox/enable' by
+	     default, disabling XboxInput."
+    1070b40  Fix use of wrong calling convention on xboxinput function
+	     pointers
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    3e680f7  Update themes/Mumble submodule and themes/MumbleTheme.qrc to
+	     point to latest mumble-theme.
+    1719496  ThemeInfo: fix loading of platform-specific QSS files.
+    7cb6bb1  3rdparty/opus-build: enable use of SSE and SSE2 intrinsics in
+	     Opus on OS X.
+    779496c  AppNap: add AppNap support for OS X.
+
+  Natenom <natenom@natenom.com>
+    b83316a  Show self mute/deaf, global mute/deaf, prio speaker, user left
+	     channel and disconnected states in linked channels.
+
+2015-12-24
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    c2bbcd5  Fix XboxInputState being to small for XInputGetStateEx calls
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    fe81316  Settings: disable 'shortcut/windows/xbox/enable' by default,
+	     disabling XboxInput.
+    608e802  GlobalShortcut_win, XboxInput: implement native XInput support
+	     in GlobalShortcut_win.
+    df28734  GlobalShortcut_win: add PID/VID blacklist for misbehaving
+	     devices.
+    08af66d  ConnectDialog: disable ping and host lookups when using a
+	     proxy.
+
+2015-12-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    abdb500  murmur: exit(1) when encountering a qFatal() when using syslog
+	     logging.
+    703f8c7  murmur: exit with status code 1 on fatal error.
+
+2015-12-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    1bcea4e  GlobalShortuct_win: warn if a device takes more than 1 second
+	     to poll via DirectInput.
+
+2015-12-13
+  Mikkel Krautz <mikkel@krautz.dk>
+    9295be4  Update Opus to 1.1.1.
+    4090c21  Settings: enable expert mode by default for 1.3.0.
+
+2015-12-12
+  Mikkel Krautz <mikkel@krautz.dk>
+    2a31708  GlobalShortcut: only build in the OS X-specific
+	     AXIsProcessTrustedWithOptions check if we're on a 10.9 or
+	     newer SDK.
+
+2015-12-11
+  Matt Hamilton <m@tthamilton.com>
+    40868d4  Update svg URL(s) from sourceforge to github
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    23fa9b3  AudioInput: ensure our encoders are reset correctly when using
+	     > 1 frame per packet.
+
+2015-12-10
+  John P <johnhatestrash@gmail.com>
+    37618b7  fix unix ub celt build
+
+2015-12-09
+  Mikkel Krautz <mikkel@krautz.dk>
+    eaad2da  Database: use separate QFile variables for legacy DB path and
+	     modern DB path.
+
+  Phil <synapse84@gmail.com>
+    f6b746e  Migrate old Qt 4 data directory to new Qt 5 location
+
+2015-12-08
+  Jan Klass <kissaki@gmx.de>
+    31abc89  Add outlook to overlay blacklist
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    ba49ba5  Murmur: use OPENSSL_VERSION_NUMBER instead of OPENSSL_VERSION.
+
+2015-12-07
+  Mikkel Krautz <mikkel@krautz.dk>
+    42c0684  UserLocalVolumeDialog: subclass QDialog instead of QWidget.
+
+2015-12-06
+  Roman Priesol <roman@priesol.net>
+    21673bf  mumble.desktop: added missing semicolons
+
+2015-12-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    7852dce  GlobalShortcut: update help text for marking Mumble trusted
+	     for OS X Mavericks and greater.
+
+2015-12-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    197f13e  RichTextEditor: inherit QApplication's stylesheet in
+	     RichTextHtmlEdit.
+
+  Natenom <natenom@natenom.com>
+    b582547  Show more information when a banned user connects
+
+2015-11-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    77bb12f  themes/Mumble: sync submodule.
+    d793aa1  murmur.ini: document empty welcometext behavior.
+
+  Natenom <natenom@natenom.com>
+    9e8a40f  Echo -> Echo cancellation in settings dialog
+
+2015-11-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    ce1df5d  os_win.cpp: disable MSVC 2013's FMA-optimized math routines on
+	     Windows versions earlier than 8.
+
+2015-11-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    e8e7ed3  3rdparty: for CELT and Opus, define APPROX_FLOAT if
+	     -ffast-math is in CFLAGS.
+    551f109  PBKDF2: use 8 digits in OPENSSL_VERSION check.
+    711c2ec  Murmur: forcefully disable PBKDF2 on OpenSSL < 0.9.9.
+    74ce74c  mumble.pro: don't find OpenSSL via pkconfig here, it is
+	     already found via mumble.pri.
+    f44b7df  GlobalShortcut_unix: fix GCC deprecation pragmas for GCC 4.2.
+    ed308af  SSL: add const_cast to be compatible with OpenSSL 0.9.8.
+    5dac7e8  Net: GCC 4.2 on FreeBSD 9.3 does not have __builtin_bswap.
+    2fdbc83  toolchain/win32-msvc2013: only use native amd64 compiler if it
+	     is available.
+
+2015-11-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    3762ad0  mumble.pro: fix g15 logic for detecting Windows and OS X.
+
+2015-11-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    a5724cf  installer: do not bundle D3DCompiler_43.dll and
+	     D3DCompiler_47.dll with Mumble anymore.
+    329afa3  main.pro, 3rdparty: remove fx11 from the Mumble build.
+    3763d59  overlay: replace use of Effects11 with direct use of our split
+	     HLSL shaders.
+    53a529c  overlay: split the shaders in overlay.fx out into separate
+	     HLSL files.
+    218c6a5  g15helper: statically link against runtime library on Windows.
+    8904591  g15helper: apply mumble.appcompat.manifest to
+	     mumble-g15-helper.exe.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    fea39f2  Respect maximum channel user limits when joining server
+
+2015-11-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    6390946  Allow no-warnings-as-errors for vc too
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    ee43279  plugins/sto: fix signed/unsigned mismatch.
+    aef9ef7  Settings: enable XInput 2 by default once again.
+    956a8ca  GlobalShortcut_unix: request latest XInput 2 version by
+	     default.
+
+  doggone <rolf@metadata.be>
+    925587a  Unhide mumble.sqlite on non-Windows
+
+2015-11-24
+  Kevin Rohland <kevin@nascher.org>
+    bd9bb66  Improve local user volume adjustment.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    58efe0c  GlobalShortcut_unix, Settings: disable XInput2 by default.
+    c52d1a3  compiler.pri: treat warnings as errors for MSVC (-WX).
+    114495e  overlay: add runtime checks for offset overflow in D3D9.
+    a3e7958  overlay: add runtime check for when GetFnOffsetInModule()'s
+	     return value would have overflowed its return type.
+    5f79a3e  overlay: fix a few MSVC signed/unsigned conversion warnings.
+    150d096  os_win: fix conversion from size_t to DWORD.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    0b0c074  Allow users with Write permission to bypass channel user
+	     limits
+
+2015-11-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    0214948  compiler.pri: ensure we only pass -pie as a linker flag.
+    514100d  compiler.pri: fix erronous QMAKE_FLAGS overwrite.
+    3a356a2  overlay_gl: port to FreeBSD.
+
+2015-11-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    0e4070c  scripts/updatetranslations.sh: fix shebang to work on systems
+	     where bash doesn't live in /bin.
+    00090db  Translation update
+    f56143f  mumble_pch.hpp: add missing networking headers to fix FreeBSD
+	     build.
+    e9b240c  mumble.pro: always disable G15 on FreeBSD.
+    80e0f96  GlobalShortcut_unix: fix build on non-Linux systems.
+    1f3b254  mumble.pri: use freebsd (mkspec) to check whether we're on
+	     FreeBSD, rather than checking the uname.
+    b88728c  compiler.pri: fixups for FreeBSD.
+    bbd93e1  installer: remove support for merge modules.
+    c19ec3f  installer: remove support for the Intel compilers.
+    377d7cd  rcc.pri: use manual quoting via escape_expand(\") instead of
+	     system_quote() to be compatible with Qt 4.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    c0879e5  Allow creating channel with a set maximum number of users
+    b0c9521  Add saving of images from chat log
+
+2015-11-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    9222b9a  installer: remove non-static installer logic.
+    be7367f  compiler.pri: undefine _FORTIFY_SOURCE before defiining it.
+    b0d53e1  compiler.pri: unsure that all our compiler.pri CFLAGS and
+	     CXXFLAGS are also applied for Objective-C(++).
+
+2015-11-20
+  Mark Felder <feld@feld.me>
+    30df2cb  Revert 72038f6, add -lssl for FreeBSD
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    8ea1740  CoreAudio: use '#pragma GCC' to be compatible with both GCC
+	     and Clang.
+
+2015-11-19
+  Tim Cooper <tim.cooper@layeh.com>
+    750f08d  grpc: do not include generated proto wrapper
+    4a0f287  grpc: fix grpc CONFIG flag
+    ff109d9  grpc: integrate murmur_grpc_wrapper_gen into qmake build
+    97741f6  grpc: move grpc-specific ini options to separate file
+    77e0bc2  grpc: fix compilation errors
+    49a6d35  grpc: rename grpcCert, grpcKey to grpccert, grpckey
+    07a142d  Include actor when performing a user rename
+
+2015-11-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    82561a4  UserInformation: only implement decode_utf8_qssl_string()'s
+	     QStringList override for Qt 5 builds.
+    2757a0c  Cert: disable old-style cast warning for the whole source file
+	     to fix GCC 4.2 build.
+    159aad4  Cert: fix old-style cast warning on older GCCs that disallow
+	     'pragma GCC diagnostic' within functions.
+
+2015-11-16
+  Mikkel Krautz <mikkel@krautz.dk>
+    e94c8f7  Use Emoji One SVGs for our flag icons instead of FamFamFam.
+    5feef96  Remove __int64_t define/undef dance from mumble_pch.hpp.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    84b1bce  Add per-channel user limit
+    4862897  Add maximum number of server users to control channel protocol
+
+2015-11-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    1f6a1f2  ViewCert: only implement decode_utf8_qssl_string()'s
+	     QStringList override for Qt 5 builds.
+    f5d72ba  OverlayConfig: avoid implementing OverlayConfigDialogNew on OS
+	     X Universal.
+    9dba18f  OSInfo: fix OS X version string formatting build error.
+    8ebd51a  mumble.pro: add opus-src/celt and opus-src/include as -isystem
+	     headers.
+    8d2edb8  G15LCDEngine_helper: change size parameter in submitFrame() to
+	     qint64.
+    6c47ca7  compiler.pri: update non-universal deployment target to 10.7,
+	     as mandated by Qt 5.5.
+    c25da2c  OverlayUserGroup: fix build in OS X ifdef block.
+    147be10  Overlay: fix OS X pid comparison.
+    a7e7e1b  CrashReporter: fix build with -Werror.
+    bcaebc0  CoreAudio: make it build with -Werror.
+    28d43b5  ApplicationPalette: add missing QDebug include.
+    f931ef1  overlay_gl: add missing mach_override include for OS X.
+    9f85eeb  Meta: cast rlim_t to unsigned long when format printing.
+    1e06692  Disable warnings by default for third party library
+	     mach-override.
+    d02ea64  Convert icons/filter.txt to ASCII and sync licenses.h.
+    33f295f  Update .gitignore to point to the new location of
+	     Ice-generated files.
+
+2015-11-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5fb2573  Fix regression in last commit
+
+2015-11-12
+  Mark Felder <feld@feld.me>
+    7eb4987  FreeBSD can use pkgconfig too
+
+2015-11-01
+  Jan Klass <kissaki@gmx.de>
+    21cd4dd  Show Minimal View status in title
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f32343d  Use %zd for ssize_t printing in OSS.cpp.
+    671598b  Fix warnings in SharedMemory_unix when built with GCC 5.2.1 on
+	     i386.
+    e4c80da  Fix warnings in overlay_gl when built with GCC 5.2.1 for i386.
+
+2015-10-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    a6ac95b  Do not warn about missing QT_INSTALL_TRANSLATIONS_DIR when
+	     no-embed-qt-translations is used.
+    86f97a9  Add warning about missing QT_INSTALL_TRANSLATIONS directory.
+
+2015-10-28
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4795ae5  Fix qFatal message generation in Diffie Hellmann error path
+    12cb827  Fix Murmur.ice path lookup for ermine and osx
+    bfe43e3  Drop -std=XXX directives for gcc
+    b828a0a  Fix warning in debug assertion
+    3206530  Fix isystem compiler flag for celt
+
+2015-10-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    648f35b  Fix remaining backend warnings in mumble
+    c9c9d0e  Fix remaining frontend warnings for mumble
+    e0cb6e0  Fix overlay code related warnings in mumble
+    f9b2db4  Fix various shadow warnings in mumble by renaming
+    66ff6d6  Fix warnings in overlay_gl C code
+    68205b9  Fix remaining warnings in murmur code
+    7b882d0  Fix warnings in murmur/Server.cpp
+    1a8175b  Use intrinsic instead of inline asm in Net.h
+    234ed23  Fix "-isystem" flag use for mumble_proto
+    e21ce49  Fix shadow warning in SignalCurry.h
+    99d37cf  Fix warnings in Bonjour code
+
+2015-10-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e074dde  Consistently use -Wall -Wextra -Werror for C++ and C
+    2062b24  Supress deprecation warning on XKeycodeToKeysym
+    1090423  Supress remaining old-style casts we incur from 3rd party
+	     headers. These should all be system headers but we still get
+	     these warnings from macro expansions which is kinda strange...
+
+2015-10-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    39b8b07  Fix warnings in AudioOutput code
+    8ecc3d1  Fix warnings in shared connection code
+    51ab40a  Fix warning due to missing default case in protocolToString
+    0db712e  Make mkwrapper.pl write a banner to its generated files
+    a8bed29  Modify generator for licenses.h to fix warnings in that file
+    73f6051  Modify generator for ApplicationPalette.h to fix warnings in
+	     that file
+    d8889f8  Extract Ice compilation to murmur_ice lib
+
+2015-10-18
+  Mikkel Krautz <mikkel@krautz.dk>
+    10c902f  Fix rcc.pri to work when there are spaces in our $PWD.
+
+2015-10-17
+  Mikkel Krautz <mikkel@krautz.dk>
+    75a25c4  ConnectDialog, ServerHandler: use HostAddress instead of
+	     QHostAddress when comparing addresses.
+    311f6f7  Auto-generate qrc file for embedded Qt translations when
+	     running qmake.
+    571b3c1  Use murmur_pch.h instead of mumble_pch.hpp in
+	     SSLCipherInfo.cpp.
+
+2015-10-16
+  Benjamin Neff <benjamin@coding4coffee.ch>
+    e9f87a6  Add missing includes
+
+2015-10-15
+  Fredrik Nordin <freedick@ludd.ltu.se>
+    15f47f4  Add local per-user volume adjustment.
+
+2015-10-11
+  Jan Klass <kissaki@gmx.de>
+    495dfdc  Replace obsolete Qt method with new method
+    f732ec4  Add dwm and MouseKeyboardCenter to overlay blacklist
+
+2015-10-07
+  Tim Cooper <tim.cooper@layeh.com>
+    7c7ccfb  grpc: change "no-grpc" build flag to "grpc"
+
+2015-10-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    f18c587  Translation update
+
+2015-10-03
+  Jan Klass <kissaki@gmx.de>
+    8bf9b0a  Make overlay FPS and clock positionable
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    a5009b6  Fix "RCC: Error in [...]" output that appears when running
+	     qmake.
+
+2015-09-27
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e8027bd  Output more control channel encryption parameters
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    8e195e1  Use lookup table for cipher info in 'Connection Info' dialog.
+    13e494c  Update sbcelt submodule to include fix for Xiph.org's git://
+	     -> https:// transition.
+
+2015-09-26
+  Mikkel Krautz <mikkel@krautz.dk>
+    8bd3f76  Murmur: add support for EDH cipher suites, and for specifying
+	     Diffie-Hellman parmeters.
+
+2015-09-22
+  Samuel D. Leslie <sdl@nexiom.net>
+    83da4f1  Replace all murmur.ini comments using hash (#) w/ semicolons
+	     (;)
+
+2015-09-20
+  Jan Klass <kissaki@gmx.de>
+    df44859  Add EpicGamesLauncher to default overlay blacklist
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    612d6b5  Enable bHideInTray only on Windows versions below 7.
+
+2015-09-19
+  Mikkel Krautz <mikkel@krautz.dk>
+    0f2c07c  compiler.pri: increase MSVC PCH heap to up to 150MB (-Zm).
+
+2015-09-14
+  Mikko Rantanen <jubjub@jubjubnest.net>
+    52898aa  Add Finnish translations to the wix project
+
+2015-09-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    492293b  Translation update
+    0528883  Add an experimental translator comment
+    47631f7  Enable LookConfig to detect changes to user themes folder
+    426edb6  Add link to user themes directory to LookConfig
+
+2015-09-07
+  Jan Klass <kissaki@gmx.de>
+    ce413bd  Mark text as not to be translated
+
+2015-09-06
+  James Fraser <fwaggle@fwaggle.org>
+    263607f  Update World of Warcraft 32-bit plugin to build 20444
+
+2015-08-20
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4794770  Fix Qt 5 compatibility of our Qt translation use
+
+2015-08-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    8169811  Fix broken range check in UserListModel::data
+
+2015-08-18
+  asmolero <alsamolero@gmail.com>
+    d110e56  Fix grammar in default murmur.ini file
+
+2015-08-13
+  Tim Cooper <tim.cooper@layeh.com>
+    9bd982c  grpc: add TextMessageFilter method comment
+
+2015-08-11
+  Tim Cooper <tim.cooper@layeh.com>
+    805c047  grpc: implement TextMessageFilter
+
+2015-08-06
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d39e773  Fix setting an empty SuperUser password not creating an error
+    857e839  Translation update
+
+2015-08-04
+  Tim Cooper <tim.cooper@layeh.com>
+    19537ac  grpc: allow connections to be secured using TLS
+    6c68dec  grpc: only allow users to trigger explicitly added context
+	     actions
+
+2015-07-31
+  Tim Cooper <tim.cooper@layeh.com>
+    92320bf  grpc: add comment about incomplete embedded protobuf messages
+
+2015-07-27
+  Tim Cooper <tim.cooper@layeh.com>
+    af63163  grpc: fix crash when writing to a stream that hasn't completed
+	     its previous write
+    d4b799d  grpc: add RPCSingleStreamCall base for single-streaming
+	     wrappers
+
+2015-07-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4c16f25  Fix build on Linux (missing semicolon)
+    e061b72  Ensure closeEvent for MainWindow is called on self-restart
+    a11bccf  Create themes directory if it doesn't exist
+    459022d  Work around Windows permissions preventing Mumble restart
+
+2015-07-24
+  Tim Cooper <tim.cooper@layeh.com>
+    1253f77  grpc: add helper method "end" to RPCSingleSingleCall
+
+2015-07-23
+  Tim Cooper <tim.cooper@layeh.com>
+    8401b51  grpc: document more of the RPC protocol
+    28fc480  grpc: add internal system overview
+
+2015-07-21
+  Lartza <Lartza@users.noreply.github.com>
+    9f1b01a  Fix small error in bEnableEvdev config
+
+  Tim Cooper <tim.cooper@layeh.com>
+    0cbd230  grpc: reduce amount of generated wrapper code
+    7514247  grpc: change RPCCall.mRefs to atomic
+
+2015-07-17
+  Tim Cooper <tim.cooper@layeh.com>
+    23c931d  grpc: fix potential use after free issue
+    6dfbce2  grpc: normalize RPC method names
+
+2015-07-16
+  Tim Cooper <tim.cooper@layeh.com>
+    b52d4df  grpc: remove ContextAction.Context.None
+    ab09ba3  grpc: fix ACL.allow, ACL.deny, ContextAction.context bitmasks
+    b10811a  grpc: update RPC service comments
+    f87267f  grpc: switch to versioned API
+
+2015-07-15
+  Tim Cooper <tim.cooper@layeh.com>
+    56e0507  grpc: fix stream referencing counting issues
+
+2015-07-14
+  Mikkel Krautz <mikkel@krautz.dk>
+    3183da9  themes/Mumble: update submodule.
+    e614a7b  Document no-gkey CONFIG option.
+
+  Sven-Hendrik Haase <sh@lutzhaase.com>
+    e8f627f  Add fallback include path for speech-dispatcher
+
+  Tim Cooper <tim.cooper@layeh.com>
+    5805883  grpc: fix crash in listener cleanup method
+    d65eccf  grpc: document "no-grpc" config flag
+    b69e5f8  grpc: periodically clean up old listeners
+    c7686ff  grpc: fix possible use-after-frees with the GRPC wrappers
+    89b487c  grpc: reduce compile warnings
+    e953933  grpc: move grpc protobuf into separate sub-project
+
+2015-07-13
+  Tim Cooper <tim.cooper@layeh.com>
+    9d26e93  grpc: remove TODOs
+    e35f427  grpc: move ChannelService_Update logic to RPC.cpp
+    3f47647  grpc: protocol documentation
+    47a52f2  grpc: remove event listeners on write failure
+    b558149  grpc: split AudioService.SetRedirectWhisperGroup into two
+	     methods
+    cccbec3  grpc: fix several TODO items
+    7250656  grpc: fix build problems with GRPC 0.10
+
+2015-07-12
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    84a8bbc  Fix build for Qt < 5.2
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    9c462ce  Fix logging in Themes::getConfiguredOutput() to use the
+	     correct settings variable.
+    4ebfb90  Re-work Mac-specific style code in MainWindow.cpp and
+	     OverlayClient.cpp to work with the new theme system.
+    0a5d2ba  Do not re-index themes in Themes::getConfiguredStyle() if both
+	     the theme and style are unset.
+    1408041  Use passed-in settings object in Themes::getConfiguredStyle().
+
+2015-07-11
+  Mikkel Krautz <mikkel@krautz.dk>
+    35e58eb  Add CONFIG(unix)'s new SYSTEM_INCLUDES to CFLAGS and CXXFLAGS.
+    81bc94c  Add $MUMBLE_PREFIX/include and $MUMBLE_PREFIX/lib when in a
+	     build env in CONFIG(unix) builds.
+
+2015-07-10
+  Tim Cooper <tim.cooper@layeh.com>
+    80930b5  grpc: support setting temporary groups from authenticator
+    3225be0  grpc: update some protocol field types to be more descriptive
+    b331245  grpc: support texture in DatabaseServer methods
+    37931ca  grpc: change TreeService.Get to TreeService.Query (allows for
+	     query options to be added in the future)
+    8f830b6  grpc: TODO fixes
+    15f8258  grpc: normalize some grpc status codes thrown by Must*
+    7df16ed  grpc: move TextMessageService_Send logic to RPC.cpp
+    cace36d  grpc: simplify TextMessageService_Send
+    a39df33  grpc: fix ConfigService.GetField, ConfigService.Get,
+	     LogService.Query not working for stopped servers
+    8192e55  grpc: fix ConfigService.SetField not working for stopped
+	     servers
+    5696efb  grpc: simplify ChannelService_Add
+    f080702  grpc: simplify ChannelService_Update
+    4a56a24  grpc: add User.Kick.actor
+    060ae78  grpc: add a lock around the authenticator when it does a
+	     write-read
+
+2015-07-09
+  Tim Cooper <tim.cooper@layeh.com>
+    c53134d  grpc: simplify authenticator slots
+    acfa8e8  grpc: update docs
+
+2015-07-08
+  Tim Cooper <tim.cooper@layeh.com>
+    9b84646  grpc: change Server.uptime to Update from uint32
+    a1d428d  grpc: minor cleanup
+    17498d1  grpc: fix ServerService.Get for stopped servers
+    4e6b3b9  grpc: move meta event sending to new method
+
+2015-07-07
+  Tim Cooper <tim.cooper@layeh.com>
+    11eefc0  grpc: remove proto field
+	     Authenticator.Response.Initialize.updating
+    5d9d1af  grpc: remove old authenticator upon error or new authenticator
+    fd52a05  grpc: make RPCCall.error's argument const
+
+2015-07-06
+  Tim Cooper <tim.cooper@layeh.com>
+    ecf254f  grpc: implement MurmurRPCImpl::getRegisteredUsersSlot
+    02c7f74  grpc: implement MurmurRPCImpl::registerUserSlot
+    70cb2b7  grpc: implement MurmurRPCImpl::unregisterUserSlot
+    541312d  grpc: implement MurmurRPCImpl::setTextureSlot
+    4455db8  grpc: implement MurmurRPCImpl::setInfoSlot
+
+2015-07-03
+  Tim Cooper <tim.cooper@layeh.com>
+    a813b13  grpc: implement MurmurRPCImpl::idToTextureSlot
+    743ca4a  grpc: implement MurmurRPCImpl::nameToIdSlot
+    d929e70  grpc: implement MurmurRPCImpl::idToNameSlot
+    55cb261  grpc: implement MurmurRPCImpl::getRegistrationSlot
+
+2015-07-02
+  Tim Cooper <tim.cooper@layeh.com>
+    a5cbcfa  grpc: add Find message to Authenticator
+    5bb9a4f  grpc: include user certificate chain in authenticator request
+    ac2418f  grpc: start AuthenticatorService.Stream implementation
+
+2015-07-01
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4fe1664  Handle some possible failure cases in overlay_gl
+
+2015-06-30
+  Jordan Klassen <jordan@klassen.me.uk>
+    6c096c3  Add Logitech G-key support for use in global shortcuts
+
+  Kevin Strasser <kevstras@gmail.com>
+    5aabbcd  Normalize submodule URLs as https
+
+  Phil <synapse84@gmail.com>
+    0623c14  changed sourceforge links to mumble.info links
+
+  Tim Cooper <tim.cooper@layeh.com>
+    d63b5c7  grpc: add "request", "response" to stream-stream wrapper
+    3af2bc8  grpc: rename "response" in generated code to "stream"
+
+2015-06-29
+  Tim Cooper <tim.cooper@layeh.com>
+    5b2f2b9  grpc: generate callback() for "stream-stream" RPC methods
+    5c071f0  grpc: change AuthenticatorService to a (hopefully) easier to
+	     use API
+    cc59e82  grpc: add authenticator slot stubs
+
+2015-06-27
+  Will Tange <bh34rt@gmail.com>
+    46cb8a3  Add `UserRenamed` `MsgType`
+
+2015-06-26
+  Will Tange <bh34rt@gmail.com>
+    b4d48ef  Handle input device suspend/recovery gracefully
+
+2015-06-25
+  Alex Krishnan <akrishnan@twilio.com>
+    821486a  Update OS X murmur docs
+
+  Tim Cooper <tim.cooper@layeh.com>
+    28e6041  grpc: implement ACLService.Get
+    57dc921  grpc: implement ACLService.Set
+
+2015-06-23
+  Tim Cooper <tim.cooper@layeh.com>
+    7f537d3  grpc: implement ConfigService.GetDefaults
+    9b6eaed  grpc: implement ConfigService.Get
+    ba30ef1  grpc: implement ConfigService.SetField
+    729fad4  grpc: implement ConfigService.GetField
+    51b5050  grpc: replace individual Config fields in favour of a
+	     map<string, string>
+
+2015-06-22
+  Tim Cooper <tim.cooper@layeh.com>
+    59340c3  grpc: implement ACLService.GetEffectivePermissions
+    24e9400  grpc: implement ACLService.RemoveTemporaryGroup
+    cf77593  grpc: implement ACLService.AddTemporaryGroup
+
+2015-06-21
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    d275284  Add built-in "Mumble" theme and set "Lite" variant as default.
+    65c1aff  Add generate-qrc.py script as a rcc -project replacement
+    83b6071  Add Theme support to Mumble
+    8bd78a5  Add ThemeInfo class for finding and loading Theme descriptions
+
+2015-06-19
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a1ff21b  Enable audio to be played during config restart query
+
+  Tim Cooper <tim.cooper@layeh.com>
+    39940a4  grpc: finish ServerService.Events implementation
+    e279bef  grpc: start ServerService.Events implementation
+    95d4ab4  grpc: implement AudioService.SetRedirectWhisperGroup
+    e9ec7d7  grpc: implement LogService.Query
+    12e70ed  grpc: implement BanService.Set
+    62a627e  grpc: implement BanService.Get
+
+2015-06-18
+  Tim Cooper <tim.cooper@layeh.com>
+    b5afebe  grpc: implement MetaService.Events
+    2acd97a  grpc: remove ContextActionService.Events listeners after they
+	     fail
+    39984f6  grpc: add timer that will trigger cleanup function every
+	     minute
+
+2015-06-17
+  Tim Cooper <tim.cooper@layeh.com>
+    3a1da38  grpc: add callback() method to single-streaming calls,
+	     reenable ContextActionService.Events
+    0fdb1df  grpc: RPCCall::error does not need to be a function anymore
+    a89333d  grpc: pass grpc success variable to callback functions
+    1b3cdd8  grpc: re-enable streaming wrapper generation
+    c386db3  grpc: rework non-streaming call wrappers, temporary disable
+	     streaming calls
+    d19e266  Add period after "renamed to" message.
+
+2015-06-16
+  Tim Cooper <tim.cooper@layeh.com>
+    f8677db  grpc: implement DatabaseService.Query
+
+2015-06-15
+  Tim Cooper <tim.cooper@layeh.com>
+    3fdd054  grpc: implement DatabaseService.Verify
+    3b44029  grpc: implement DatabaseService.Deregister
+    9d0899e  grpc: implement DatabaseService.Register
+    dee4fbd  grpc: implement DatabaseService.Update
+    cb85565  grpc: implement DatabaseService.Get
+
+2015-06-13
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    3f0e2d2  Make change of language and users top settings require restart
+    d08336e  Add capability to trigger restart to ConfigDialog
+    c431d37  Add self-restart capability to client
+
+2015-06-12
+  Nikita Puzyryov <NikitaPuzyryov@users.noreply.github.com>
+    6db171e  Harden systemd service
+
+  Tim Cooper <tim.cooper@layeh.com>
+    3f9d0a9  grpc: implement ServerService.Query.
+    e8125d6  grpc: rename channelToRPCChannel,userToRPCUser to ToRPC
+    d5e8ef3  grpc: implement UserService.Query
+    48f9b00  grpc: implement ChannelService.Query.
+    45f90c0  grpc: implement TreeService.Get.
+    a8d772a  grpc: implement targeting of TextMessageService.Send messages
+    c748dbb  grpc: implement UserService.Update
+
+2015-06-11
+  Tim Cooper <tim.cooper@layeh.com>
+    9269ab9  grpc: implement ServerService.Start
+    0462dff  grpc: implement ServerService.Remove
+
+2015-06-10
+  Tim Cooper <tim.cooper@layeh.com>
+    3b9bf4f  grpc: implement (rough) ContextActionService.Events
+    ba0df3e  grpc: add basic meta and server event slots to MurmurRPCImpl
+    b6aca49  grpc: implemented streaming generator, temporary removed
+	     certain streaming RPC methods
+
+2015-06-09
+  Tim Cooper <tim.cooper@layeh.com>
+    d711b8c  grpc: implement ServerService.Get
+
+2015-06-08
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    7fbe61e  Strip schema and path component from new server addresses
+
+  Tim Cooper <tim.cooper@layeh.com>
+    f952591  grpc: implement ServerService.Stop
+    a3c80ad  grpc: implement ServerService.Create
+    cba1db8  grpc: replace "response->FinishWithError + return"s with
+	     "throw"s
+    fb97e5e  grpc: implement ContextActionService.Remove
+    b929b2d  grpc: implement ContextActionService.Add
+    3a7b724  grpc: replace old code with Must* functions
+    6916629  grpc: add MustChannel for MurmurRPC.Channel
+    082e145  grpc: add MustUser for MurmurRPC.User message
+
+2015-06-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    3d46634  installer: force uninstall before install.
+
+2015-06-05
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5acf4af  Fix qmake warning about qdbus CONFIG option being deprecated
+    d3d6920  Fix various warnings in Linux build
+    75feffb  Suppress protobuf warnings in unix builds
+    fac930b  Suppress warnings in 3rd party codec builds
+    c84916f  SSL: Fix build for Qt 5 versions before Qt 5.3
+
+  James Fraser <fwaggle@fwaggle.org>
+    7e4639c  Add rules to compiler.pri to fix FreeBSD builds w/ Qt5
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    06e19e6  Check for Mesa rather than GLX > 1.2 when determining
+	     glXQueryDrawable GLX_WIDTH/GLX_HEIGHT availability.
+    859da4d  Do not link the Linux overlay with '-z now'.
+    faddfda  Remove old "non-tagged" Boost include directories.
+    441ae3f  Point 3rdparty/minhook-src back to
+	     'cbd6254467b0f4b20f3fc2b47ceea44e26330a34'.
+    a66fdeb  overlay_gl: remove unnecessary qmake message.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    e233c53  grpc: add exception hander around *_Impl to ease error handing
+    0041ab3  grpc: switch to async grpc API, change naming of service
+	     methods
+    d181c0d  grpc: add *_Init to protoc-gen-grpcwrapper
+    05a4501  grpc: remove MurmurRPCImpl and AsyncService from _Impl
+	     signature
+    d749e0f  grpc: add protoc-gen-grpcwrapper.cpp
+
+2015-06-04
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    e934c1e  Fix dual-stack UDP on Windows and improve dual-stack detection
+
+2015-06-03
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    9a426b1  Fix Qt 5 mumur incorrectly binding to IPv6 only by default
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    b90b420  mumble_exe: fix expansion of baked-in MUMBLE_VERSION.
+
+2015-06-01
+  Mikkel Krautz <mikkel@krautz.dk>
+    5a8c7f5  Update the Mumble installer to work with a versioned directory
+	     hierarchy.
+    e6b17b5  Add support for running with a versioned root path in
+	     mumble.exe.
+    1250b04  Use MumbleApplication::applicationVersionRootPath() throughout
+	     Mumble to support a versioned directory hierarchy.
+    83da956  Add MumbleApplication::applicationVersionRootPath().
+    ced3bf8  Do not delayload speex.dll.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    d681631  grpc: implement ChannelService.add
+    08971f3  grpc: implement ChannelService.remove
+    ab3c520  grpc: implement ChannelService.update
+
+2015-05-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    239b89c  installer: rearrange codec components in the installer.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    bb86b3a  grpc: implement ChannelService.get
+    b9c2169  grpc: fix incorrect status
+    32ec04b  grpc: start ChannelService implementation
+    f68b35d  grpc: implement UserService.kick
+    418ff98  grpc: implement UserService.query
+    2c0b3dc  grpc: start UserService, implement UserService::get
+
+2015-05-28
+  Tim Cooper <tim.cooper@layeh.com>
+    5a7536c  grpc: add broadcasting to TextMessageService.send
+
+2015-05-27
+  Tim Cooper <tim.cooper@layeh.com>
+    776c084  grpc: start implementation
+    7b0bb82  grpc: switch to proto2 from proto3
+    8d46083  grpc: do renames and add notes to MurmurRPC.proto
+
+2015-05-26
+  Tim Cooper <tim.cooper@layeh.com>
+    375d0ae  grpc: add first MurmurRPC protobuf draft
+
+2015-05-25
+  Mikkel Krautz <mikkel@krautz.dk>
+    3283ac2  SSL: fix build for Qt 4.
+
+  Tim Cooper <tim.cooper@layeh.com>
+    3960228  grpc: add empty MurmurRPC.proto file
+    ebf6d23  Broadcast RPC-updated welcome text, even when it is empty
+
+2015-05-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    e5ddf55  SSL: move declaration of 'i' in
+	     MumbleSSL::ciphersFromOpenSSLCipherString() to the top of the
+	     function.
+    63a6985  SSL: remove class name qualifier in SSL.h for new cipher
+	     string methods.
+
+2015-05-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    8ae710b  Mumble: add 'net/sslciphers' hidden setting to allow
+	     configuring the client's advertised TLS cipher suites.
+    a3f93f7  Murmur: add 'sslCiphers' option to allow server admins full
+	     control of Murmur's advertised TLS cipher suites.
+    49f57d3  SSL: add MumbleSSL::defaultOpenSSLCipherString().
+    1dc6ecc  SSL: implement OpenSSL cipher list format reader.
+
+2015-05-20
+  Tim Cooper <tim.cooper@layeh.com>
+    6fe5547  Don't initialize qsWelcomeText to "Welcome to this server"
+    2612b67  Don't display "Welcome message: " in client if none was sent.
+
+2015-05-17
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5026c47  Fix ice documentation mistake
+
+  Jan Klass <kissaki@gmx.de>
+    9ee9e8a  Use upstreamed MH_STATUS to string function
+
+2015-05-16
+  Jan Klass <kissaki@gmx.de>
+    da004cf  Overlay: Resolve undefined behavior
+    d9e0d08  Ignore VS *.aps files
+    834365e  Cleanup: Remove unused Hooks
+    771657a  HardHook(MH): Reuse inject function and error logging
+    fcb908b  Initialize fields in OverlayClient
+    70451a6  Fix #1637 application crashes on Mumble exit
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    57740e7  Rename overlay helpers to avoid PDB name clashes with DLLs.
+
+2015-05-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    15fbe1d  Remove ICC support and some VC10 workarounds
+    bf2a2cd  Add /Zo to release flags for improved optimized build
+	     debugging
+    f6e17fe  Drop support for VC10 by updating compiler.pri for VC12
+	     default flags
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    e871691  3rdparty/fx11-build-shared: set _WIN32_WINNT to 0x0501.
+    8f4b071  3rdparty/minhook-src: sync with MinHook master.
+
+2015-05-14
+  Jan Klass <kissaki@gmx.de>
+    3282887  Fix access violations on exit with Overlay active
+
+  Nikolaj Dombrow <nikolaj.dombrow@dombrow.de>
+    de27cd7  Add RTMP as an allowed protocol for links
+
+2015-05-12
+  Will Tange <bh34rt@gmail.com>
+    ab78e6c  Sensible warning message
+    78604d8  Connect button should be disabled by default
+    0fdb7c1  Mark shebanged files as executable
+
+2015-05-10
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    a96a8e7  Add deprecation warning for building client with Qt 4
+
+2015-05-09
+  Evan Purkhiser <evanpurkhiser@gmail.com>
+    82ca800  Follow XDG directory spec for RPC socket & overlay pipe
+    c005fe3  Remove tabs from the project file
+
+2015-05-07
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    4e459a9  Do not consider a default hostname from clipboard to be custom
+    78d0db8  Fix title from URLs not being picked up in connect dialog.
+
+2015-05-06
+  Charles Ricketts <githlar@gmail.com>
+    5b104e0  PulseAudio: Add options to disable attenuating applications on
+	     other audio outputs and to disable attenuation of loopback
+	     modules.
+
+  Joël Troch <joel.troch62@gmail.com>
+    c3236b3  Fix for Windows 10 detection in murmur
+
+2015-05-05
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    2c0d37f  Switch from old speex to new speex and speexdsp
+
+  Tim Cooper <tim.cooper@layeh.com>
+    263a292  fix minor spelling mistake
+
+2015-05-03
+  Nik Johnson <nik@jnstw.us>
+    b2282e7  Move label to bottom of connect dialog and default it to
+	     hostname
+
+2015-04-30
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    ad1ed22  Prevent OverlayClient destructor from hanging on disconnect
+
+2015-04-29
+  Lartza <Lartza@users.noreply.github.com>
+    f1eb642  Add Finnish to languages in Product.wxs
+    b2b3106  Fix typo in Finnish translation
+
+2015-04-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    0128e7d  installer: include both x86 and x64 variants of
+	     D3DCompiler_XX.dll.
+
+2015-04-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    2eef8ba  g15helper: force 32-bit x86 compilation.
+    d63fc6d  Use the index variable instead of hardcoding 0 in
+	     overlay_exe's GetCommandLineArgs().
+    2379f1f  Use non-negative error constants in overlay_exe.h.
+    9a18c77  Re-work command line parsing in the Windows overlay helper
+	     executable.
+
+2015-04-12
+  Jan Klass <kissaki@gmx.de>
+    ad0ee22  Translation update
+
+2015-04-11
+  Jan Klass <kissaki@gmx.de>
+    d0f6b96  Make script for updating translation strings more robust
+
+2015-04-06
+  x89 <napalm10@gmail.com>
+    57396fa  Add systemd service file for Murmur.
+
+2015-03-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    3223c8a  Fix translatability of 'Cycle transmit mode' GlobalShortcut
+	     log messages.
+    f05e657  Fix typo in speex-build.pro: '../speex-build' instead of
+	     '../speex-srcbuild'.
+    46fc40e  Fix Qt 4 build of mach-override to build both x86 and x86-64
+	     binaries.
+    d855b67  Fix config.h issues in 3rdparty caused by new INCLUDEPATH
+	     handling in Qt 5.4.1.
+
+2015-03-21
+  Ferdinand Thiessen <rpm@fthiessen.de>
+    67ed33f  Do not show TTS options when speechd is disabled.
+
+2015-03-19
+  Mikkel Krautz <mikkel@krautz.dk>
+    6c96ab4  Use 'QSsl::TlsV1_0' on Qt 5.0 through 5.3 and allow
+	     'QSsl::SecureProtocols' to be used on 5.4.X.
+
+2015-03-18
+  Joël Troch <joel.troch62@gmail.com>
+    122ed92  OSInfo: update Windows 10 detection due to kernel version
+	     change.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    71e522f  Use QSsl::TlsV1_0OrLater on Qt 5.5 or later, and
+	     QSsl::SecureProtocols on Qt 5.4.
+
+2015-03-15
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    fca6278  Fix double free in WASAPI no positional audio fallback
+	     code-path
+    988eeb5  Translation update
+
+  Sami Laine <sami.v.laine@gmail.com>
+    47889eb  Add Finnish translation for the installer.
+
+2015-03-14
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    525995d  Address review concerns to mix format check changes
+
+2015-03-10
+  Mikkel Krautz <mikkel@krautz.dk>
+    18c359f  GlobalShortcut_unix: disable evdev by default.
+
+  MumbleTransifexBot <mumbletransifexbot@mumble.info>
+    657f9e8  Transifex translation
+
+2015-03-09
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    5a033b8  Simplify and extend mix format check in WASAPI.cpp
+    b4f5050  Fix handling of WAVEFORMATEX in WASAPI backend.
+
+2015-03-06
+  Derrick Dymock <actown@gmail.com>
+    a7dd1b7  Remove __DATE__ and __TIME__.
+
+2015-03-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    8e333b3  OverlayPrivateWin: add qFatal calls for invalid states.
+
+2015-02-27
+  Mikkel Krautz <mikkel@krautz.dk>
+    a2be915  Fix missing comma in license header in overlay_exe.cpp.
+    b29df64  Rename 'missing magic argument' error to 'no arguments' in
+	     overlay helper.
+    6c446e4  Ensure overlay helpers exit when the Mumble process
+	     terminates.
+
+2015-02-25
+  Stefan Hacker <dd0t@users.sourceforge.net>
+    1c00533  Incorrectly assumed SF_FORMAT_* subtypes were flags.
+
+2015-02-22
+  Mikkel Krautz <mikkel@krautz.dk>
+    b188029  Add config options for disabling specific overlay helpers.
+
+2015-02-21
+  Mikkel Krautz <mikkel@krautz.dk>
+    bb0ccc4  Add restart limiter to OverlayPrivateWin to avoid bombing the
+	     system with process spawns.
+
+2015-02-20
+  Mikkel Krautz <mikkel@krautz.dk>
+    8e31de7  Log overlay helper process errors in OverlayPrivateWin.
+    3018c5e  Handle WM_CLOSE messages in overlay helper.
+
+2015-02-19
+  Tim Cooper <tim.cooper@layeh.com>
+    f5affcd  Better log message when a user disconnects from the same
+	     channel as the client.
+    9ba92b5  Add user friendly UserRemove message when disconnecting a
+	     ghost user.
+    dede317  Add basic support for sending text messages via
+	     GlobalShortcuts.
+    88aefca  Fix protocol documentation for RequestBlob in the .proto file.
+    eda74f2  Add protocol buffer comments from the old 'doc' directory to
+	     the .proto file.
+    6eecd62  Remove 'doc' directory in favour of
+	     https://github.com/mumble-voip/mumble-protocol
+
+2015-02-08
+  Mew <Giratina493@mew151.net>
+    bc5852d  Implement "mumble rpc" subcommand
+
+  Kyle Smith <askreet@gmail.com>
+    44dc94e  Add optional combobox for transmit mode selection in the
+	     MainWindow's toolbar.
+
+  BuddyButterfly <buddy.butterfly@web.de>
+    80f1623  PulseAudio: allow monitor devices to be used as inputs.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    f8b63cd  macx/osax: bump OS X overlay version to 19.
+
+2015-02-07
+  Jordan Cristiano <SizzlingCalamari@users.noreply.github.com>
+    445cdf0  Do not set the Mumble process's priority to High on Windows.
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    0e358bf  Check if the host supports 64-bit processes before attempting
+	     to start the x64 helper process.
+    21a1519  Log path to the executable of the helper process in
+	     onHelperProcessExited().
+    f0ff84f  Unify overlay code for Unix and OS X.
+    a565197  Add setting 'asio/enable' to allow users to disable ASIO via
+	     the Mumble configuration.
+
+2015-02-06
+  Mikkel Krautz <mikkel@krautz.dk>
+    3293f7a  Make 3rdparty/mach-override-src point to
+	     mumble-voip/mach_override, and use https instead of ssh.
+
+2015-02-05
+  dennisschagt <dennisschagt@gmail.com>
+    32f3273  Translation update
+    99f3de8  Fixed typo reported at github #1552
+
+  Mikkel Krautz <mikkel@krautz.dk>
+    1fab580  Use glDrawArrays instead of immediate mode in OS X's
+	     drawOverlay().
+    f4568b9  Port 6e9a7e7c to the OS X overlay.
+    8e3168b  Port ec7e78d1 to the OS X overlay.
+    403aedb  Add mach_override as a 3rdparty dep and hook it into the OS X
+	     overlay.
+
+2015-01-23
+  Mikkel Krautz <mikkel@krautz.dk>
+    529f76f  Add the x86_64 Windows overlay to the installer.
+    8d3c1f7  Add support for using both x86 and x86_64 overlays in
+	     Overlay_win.cpp.
+    d609879  Use arch-specific shared memory regions in the Windows
+	     overlay.
+    3a6c4f0  Build two separate Windows overlays - one for x86 and one for
+	     x86_64.
+    4a478f7  Add force-x86-toolchain and force-x86_64-toolchain to
+	     compiler.pri.
+    5d41a78  Add toolchain files. To be used by 32-bit on 64-bit overlay
+	     (and vice versa).
+
+2015-01-15
+  Mikkel Krautz <mikkel@krautz.dk>
+    9f1e605  Move Windows overlay setup and injection to mumble_ol.exe.
+
+2015-01-11
+  Jan Klass <kissaki@gmx.de>
+    06d00f4  OpenGL overlay injection requirements
+    2418b80  Remove unused injection code and function lookups
+    967a325  In OpenGL Overlay, make code and context swapping more clear
+    3b507d5  Overlay: Use standard OpenGL headers rather than duplicating
+	     code
+
+2015-01-10
+  Jan Klass <kissaki@gmx.de>
+    a7d103f  Fix indentation. Add curly braces according to coding style.
+
+2015-01-05
+  Mikkel Krautz <mikkel@krautz.dk>
+    faa6730  Move speex, celt-0.7.0, celt-0.11.0, opus and sbcelt to the
+	     3rdparty directory.
+
+2015-01-04
+  Mikkel Krautz <mikkel@krautz.dk>
+    ec3120c  installer: distribute all plugins for Windows x64 build.
+
+2015-01-03
+  Mikkel Krautz <mikkel@krautz.dk>
+    f1e298a  murmur: fix CONFIG(static) block in the unix section of
+	     murmur.pro to not be applied for OS X.
+    7f69c51  Add Far Cry 4 to the blacklist due to crashes with the x64
+	     overlay.
+    a2bb659  murmur: move murmur.pro's CONFIG(static) and CONFIG(ermine)
+	     sections into the unix section.
+    ecf543b  GlobalShortcut: enable use of hooks for Windows x64 now that
+	     we have HardHook available.
+
+2014-12-31
+  Mikkel Krautz <mikkel@krautz.dk>
+    29525cb  installer: distribute D3DCompiler_43.dll for our Windows x86
+	     builds.
+
+2014-12-30
+  Mikkel Krautz <mikkel@krautz.dk>
+    a88b316  installer: distribute D3DCompiler_47.dll for our Windows x64
+	     builds.
+    9345abe  plugins: limit win32-specific plugins to win32.
+    c9f476c  compiler.pri: only set explicit -ARCH:SSE for Windows x86.
+    4d55c33  compiler.pri: use explicit subsystem versioning for Windows
+	     builds.
+    a0247d7  plugins: enable all plugins for the x64 build.
+    370fae6  plugins: cleanup a few warnings in the WoW plugin.
+    f3c64b3  plugins: move u8 function into the Star Trek: Online plugin.
+
+2014-12-29
+  Mikkel Krautz <mikkel@krautz.dk>
+    b2f5bd0  Update Opus submodule to include our workaround for
+	     MSVC2013.3+ x64's bad sqrt auto-vectorizer codegen.
+
+2014-12-28
+  Mikkel Krautz <mikkel@krautz.dk>
+    6a07cbd  Update changelog.
+
 2014-12-26
   Stefan Hacker <dd0t@users.sourceforge.net>
     c5e427d  Revert "Use TLS 1.2 when built with Qt 5."
@@ -14,10 +1678,6 @@
     7ecf4b3  Define Qt 4 no-ops for Q_DECL_OVERRIDE and Q_DECL_FINAL on the
 	     command line.
     a24b566  Only use $$shell_path on Qt 5.
-
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    5f3a2d6  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 31 languages
 
 2014-12-24
   Mikkel Krautz <mikkel@krautz.dk>
@@ -38,29 +1698,21 @@
     2438f31  Fix Esperanto entry in language list and display cc in
 	     parentheses behind name.
 
-2014-12-07
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    442fef9  Transifex translation update
-
 2014-11-09
   Stefan Hacker <dd0t@users.sourceforge.net>
     78d7198  Fix typo in AudioEchoWidget regression fix
     ef6353b  Fix Qt5 transition regression in AudioEchoWidget.
 
   Mikkel Krautz <mikkel@krautz.dk>
+    93ad74b  Add MinHook-based overlay for Windows x64.
     1bd6c88  Add RC files for CELT 0.7.0 and CELT 0.11.0.
     56e7e5a  Add rc file for mumble_ol.dll.
     d6ba8cf  Fix mumble_dll.rc to identify as a DLL.
     82a8e7d  Update .gitignore to ignore more of Qt 5's auto-generated
 	     plugin importer .cpp files.
 
-2014-11-08
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    921c073  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 31 languages
-
 2014-11-07
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     b9baebb  Update WoW Plugin to build #19116
 
 2014-11-05
@@ -88,29 +1740,17 @@
     fd782c3  Overlay, OverlayClient: add PID and process name diagnostics
 	     to 'Dead client detected' notice.
 
-2014-11-01
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    09f6813  Transifex translation update
-
 2014-10-30
   Stefan Hacker <dd0t@users.sourceforge.net>
     7d434bb  Revert "Fix issue with tray icon double clicking."
     a120c8e  Fix issue with tray icon double clicking.
 
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     d2a1b5c  Update WoW plugin to build 19103
-
-2014-10-28
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    f678550  Transifex translation update
 
 2014-10-27
   Stefan Hacker <dd0t@users.sourceforge.net>
     f35ef65  Fix compilation failure on OSX due to missing include.
-
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    6f44613  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 31 languages
 
   Natenom <natenom@natenom.com>
     23899b4  Extended icon theming options.
@@ -123,7 +1763,7 @@
     291ed48  Add ApplicationPalette class which allows theming the
 	     QApplication::palette.
 
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     cde294f  Fix assert when viewing legacy user registration lists
 
 2014-10-25
@@ -152,9 +1792,6 @@
     7a18851  Make AudioInputDialog and AudioOutputDialog use own icons.
     8aa125f  Fix issues found in review of PR #1422
 
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    fa5188c  Transifex translation update
-
 2014-10-19
   Stefan Hacker <dd0t@users.sourceforge.net>
     6f2552d  Fix Qt 5 transition bug making certificate wizard access out
@@ -165,24 +1802,15 @@
     dc87fa2  Fix crash on Linux when trying to configure shortcuts.
 
 2014-10-17
-  Joël Troch <JoelTroch@users.noreply.github.com>
-    236e987  Added Windows 10 in OS detection and manifest file.
-
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     8ab0c4a  Update WoW Plugin to build 19034
 
-2014-10-16
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    a0fd5e9  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 31 languages
+  Joël Troch <joel.troch62@gmail.com>
+    236e987  Added Windows 10 in OS detection and manifest file.
 
 2014-10-15
   scapula <rasmus.ry@gmail.com>
     6e9a7e7  Disable vertex attrib arrays in overlay_gl (fixes #1298)
-
-2014-10-12
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    78b6cc4  Transifex translation update
 
 2014-10-11
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -203,16 +1831,6 @@
     bf5693b  Remove special case for allowing override on Qt 4 for windows.
     5131d9e  Review and refactor of PBKDF2 support patch.
 
-2014-10-02
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    e313d73  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 28 languages
-
-2014-10-01
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    8097c08  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 28 languages
-
 2014-09-26
   Stefan Hacker <dd0t@users.sourceforge.net>
     17d95c0  Update URLs in installer and add a comment.
@@ -227,17 +1845,9 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     491789c  Restore old log timestamp format.
 
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    a61d67d  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
-
 2014-09-22
   Stefan Hacker <dd0t@users.sourceforge.net>
     3c280a6  Add poor man's padding to last column in connect dialog.
-
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    6151814  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
 
 2014-09-21
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -282,25 +1892,13 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     edaca2e  Fix hide in tray default value for Windows 8.1
 
-2014-09-15
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    90925af  Transifex translation update
-
 2014-09-14
   Steve Hill <github@cheesy.sackheads.org>
     5e7706a  Update Borderlands 2 plugin for version 1.8.3
 
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    d84a2dc  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
-
 2014-09-13
   Stefan Hacker <dd0t@users.sourceforge.net>
     6095134  Fix Mumble build failing on OSX due to missing include.
-
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    0c8c158  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
 
 2014-09-07
   Mikkel Krautz <mikkel@krautz.dk>
@@ -312,11 +1910,6 @@
     ace1917  Add QMAKE_TARGET_BUNDLE_PREFIX to the manual plugin's
 	     .qmake.cache file.
 
-2014-08-27
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    09d6de1  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
-
 2014-08-26
   Michael Pavlyshko <me@mixaill.tk>
     2c0c0ed  Add Microsoft Visual Studio to overlay blacklist
@@ -325,11 +1918,6 @@
   Mikkel Krautz <mikkel@krautz.dk>
     67fc74f  Build fixes for the debug variant of the
 	     win32-static/win64-static build envs.
-
-2014-08-23
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    282b289  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
 
 2014-08-22
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -340,13 +1928,8 @@
     fc5fd45  Delete MumbleApplication.cpp.autosave
 
 2014-08-21
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     83218f1  Update project url and copyright info
-
-2014-08-19
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    4c5e0ec  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
 
 2014-08-18
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -365,17 +1948,9 @@
     d299360  Log, TextMessage: remove $ as an illegal character in our
 	     simple URL regexp.
 
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    37c768d  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
-
 2014-08-16
   Stefan Hacker <dd0t@users.sourceforge.net>
     7cfc2e5  Split out translation resources from mumble.qrc.
-
-  MumbleTransifexBot <mumbletransifexbot@mumble.info>
-    75761f9  Transifex translation update Mode: default Minimum percent
-	     translated: 0 Matched 24 languages
 
 2014-08-09
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -530,10 +2105,13 @@
 	     image is loaded (#1258)
 
 2014-05-24
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     82f95c6  Update World of Warcraft Plugin to build 18291
 
 2014-05-15
+  Christopher Knadle <Chris.Knadle@coredump.us>
+    e24cfe6  Add Keywords to mumble.desktop to satisfy Lintian warning
+
   Mikkel Krautz <mikkel@krautz.dk>
     f91386b  mumble: fix Mumble-SA-2014-005.
 
@@ -582,7 +2160,7 @@
 	     (#1230)
 
 2014-04-24
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     fb3d6c6  Update WoW plugin to build 18019.
 
 2014-04-13
@@ -683,7 +2261,7 @@
   bendem <online@bendem.be>
     cd2a5e5  Update french translation
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     221a5d7  Updated Polish translation
 
 2014-02-17
@@ -747,7 +2325,7 @@
     15f7610  TextToSpeech_macx: reimplement using NSSpeechSynthesizer.
 
 2014-01-18
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     d9785f9  Shows move message if you moved a user from another channel
 	     into another channel
 
@@ -755,7 +2333,7 @@
   Jan Klass <kissaki@gmx.de>
     0285e3b  Adjust build error text (missing submodule dir)
 
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     9cc1c0a  Add -limits to help text and improve man page
 
 2014-01-12
@@ -783,7 +2361,7 @@
     d9d81a9  MainWindow: add Cancel button to the "Minimize or Close?"
 	     message box.
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     8f0ae69  OSInfo: use full Windows version when version string is
 	     user-facing.
 
@@ -792,7 +2370,7 @@
     00b3686  scripts/release.pl: add vpath special-case for fx11.
 
 2014-01-08
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     44a0846  Show messages for priority speaker status
     b2d938b  Messages: use actual username (instead of the ConnectDialog
 	     username) in msgPermissionDenied.
@@ -888,7 +2466,7 @@
     1eefaab  mumble.appcompat.manifest: add Windows 8 and Windows 8.1
 	     entries.
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     f459c5b  Updated Polish translation
 
 2013-11-06
@@ -925,7 +2503,7 @@
     a6f7610  Fix mixup between printf and QString format character in
 	     VoiceRecorder error message
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     75976ec  Fix two GUI issues
 
 2013-10-21
@@ -944,7 +2522,7 @@
     d2ed7d2  Update slice path for Ice 3.5.1
 
 2013-10-01
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     f07f0c8  Show channelid to ACLEditor
 
 2013-09-21
@@ -1016,6 +2594,7 @@
 
 2013-08-19
   Jan Klass <kissaki@gmx.de>
+    c1b6110  Reorder server menu
     7c2d1a3  Open soundfile selection dialog with current path
     6e09508  Fix path in skin selection dialog
 
@@ -1094,9 +2673,6 @@
     ac65b31  Banlist: PR commit adjustments
 
 2013-06-29
-  bendem <bendembd@gmail.com>
-    2994048  Translation: French: Fix
-
   Jan Klass <kissaki@gmx.de>
     51ecb7a  Accountlist: Fix filtering. Windowtitle and refacs.
     c40b0b0  Merge branch 'pr-userlist'
@@ -1112,11 +2688,10 @@
     be75138  mumble, plugins: allow 'manual' plugin dialogs to work OS X
 	     when using Qt 5.
 
-2013-06-28
-  bendem <bendembd@gmail.com>
-    2967697  Unified channel traduction to "salon"
-    b7b3018  Translation improvements
+  bendem <online@bendem.be>
+    2994048  Translation: French: Fix
 
+2013-06-28
   Jan Klass <kissaki@gmx.de>
     ef8b3b9  Userlist improvements: Use QDateTime.
     b5ade6e  Userlist Improvements: Display localized time. Refactoring.
@@ -1134,6 +2709,10 @@
 	     Qt 5 compatibility.
     84bc19c  mumble: migrate hardcoded 0x050000 Qt version to the
 	     QT_VERSION_CHECK macro.
+
+  bendem <online@bendem.be>
+    2967697  Unified channel traduction to "salon"
+    b7b3018  Translation improvements
 
 2013-06-27
   Mikkel Krautz <mikkel@krautz.dk>
@@ -1357,15 +2936,15 @@
     dab8157  Updated BF3 PA plugin to Endgame DLC(b1147186)
 
 2013-03-01
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     5c87ded  Clock in Overlay
 
 2013-02-20
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     c00b44e  Minor fix in pl translation
 
 2013-02-12
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     b3aac5e  UserList improvements
 
 2013-02-02
@@ -1486,7 +3065,7 @@
     e87028a  Integrate MIT licensed 3rd party Qt translations for missing
 	     locales.
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     d25c069  Fix for Polish translation
 
 2012-12-28
@@ -1601,7 +3180,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     3297416  Fix use of cConnection smart_ptr in ServerHandler
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     bddefc2  Fixes in Polish translation
 
 2012-11-20
@@ -1612,7 +3191,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     338c985  Manual positioning plugin had X-Axis backwards
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     ab225ea  Polish translation for Mumble 1.2.4
 
 2012-11-16
@@ -1625,7 +3204,7 @@
 	     methods to originals on Windows 8.
 
 2012-11-15
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     e661969  Updated Spanish translation file for version 1.2.4
 
 2012-11-12
@@ -1665,7 +3244,7 @@
     09f2ec0  Final release mumble_ru.ts for Mumble 1.2.4 with new
 	     translating position 'Copy URL' in channel menu_fix
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     46740a2  Minor fixes for Danish translation
 
 2012-11-04
@@ -1698,7 +3277,7 @@
   Lekensteyn <lekensteyn@users.sourceforge.net>
     ca5d432  Partial Dutch translation for 1.2.4 (#3581588)
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     3d543fa  Updated Danish translation for 1.2.4 (#3581734)
 
 2012-10-29
@@ -1761,6 +3340,10 @@
   tkmorris <mauricioarozi@gmail.com>
     04592b6  WIX Portuguese Brazil translation update, mostly typos
 
+2012-10-12
+  Patrick Matthäi <pmatthaei@debian.org>
+    0f072ef  Add missing LSB Description to the init script.
+
 2012-10-04
   Stefan Hacker <dd0t@users.sourceforge.net>
     ce65945  Forgot to update language list in Product.wxs
@@ -1808,7 +3391,7 @@
     63c91fa  osxdist.py: consistent .dmg naming for releases and snapshots.
     e8a28dc  compiler.pri: Update OS X Boost to 1.51.0.
 
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     95d2137  Translation updates; fix shortcuts for right click on a
 	     channel
 
@@ -1835,11 +3418,11 @@
     2b9233c  updated plugins/bf3/bf3.cpp for DLC Armored Kill(build 981420)
 
 2012-08-31
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     9177738  Update INSTALL
 
 2012-08-30
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     6602fb6  Updated German translations
 
   Tsbook <tsbook@users.sourceforge.net>
@@ -1849,11 +3432,11 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     f178216  Update .ts files
 
+  tkmorris <mauricioarozi@gmail.com>
+    837e037  Updated Brazilian Portuguese translation
+
   B0nuse <mumble@mumble.ru>
     4d17ba4  Translated new position at RU language file.
-
-  morris <tkmorris@users.sourceforge.net>
-    837e037  Updated Brazilian Portuguese translation
 
 2012-08-19
   EarlOfWenc <lorenz.schwittmann@gmail.com>
@@ -1875,7 +3458,7 @@
     971f0ff  macx/osax: fix unused parameter warnings.
 
 2012-08-16
-  EarlOfWenc <user@localhost>
+  EarlOfWenc <lorenz.schwittmann@gmail.com>
     377c65f  Extended recording notification to linked channels
 
 2012-08-15
@@ -1986,7 +3569,7 @@
     6c9694d  'Fix' release script for opus
 
 2012-07-23
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     2ba6f00  Updated German translations
 
 2012-07-22
@@ -2134,7 +3717,7 @@
     e16ee9a  Updated BF3 PA plugin for BF3 v944019
 
 2012-06-03
-  Stefan Hacker <hast@hast-desktop.(none)>
+  Stefan Hacker <dd0t@users.sourceforge.net>
     a2a3836  PTT hold feature that can virtually "hold" down the PTT key
 	     for up to 5s after releasing it. (#3380557)
 
@@ -2282,7 +3865,7 @@
     06f0d18  Fix Windows installer build
 
 2012-02-24
-  Patrick Matthäi <the-me88@users.sourceforge.net>
+  Patrick Matthäi <pmatthaei@debian.org>
     5f79a1b  Unified spelling of of writable (s/writeable/writable)
 
 2012-02-23
@@ -2357,7 +3940,7 @@
     cc8e245  Mark Server::log as const
 
 2012-01-09
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     314132a  Updated German translations
 
 2012-01-08
@@ -2396,7 +3979,7 @@
     31bb25e  Updated plugin for BF3 v889134
 
 2011-12-03
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     723eafd  Fix typo in French translation per WarT (blabla29 @ sf).
     8e84148  Update World of Warcraft plugin to build #15050.
 
@@ -2482,7 +4065,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     eb93c08  Fix forced auto update check for snapshot builds.
 
-  Benjamin Jemlich <pcgod@gmx.net>
+  Benjamin Jemlich <pcgod@users.sourceforge.net>
     32787e5  Fix auto version check logic
 
 2011-10-27
@@ -2494,7 +4077,7 @@
     089b23d  Fix ghost disconnect removing permissions (#3423985)
 
 2011-10-22
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     380b52d  Update Retail version of Battlefield: Bad Company 2 to build
 	     #795745.
 
@@ -2504,11 +4087,11 @@
 	     italian users.
 
 2011-10-14
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     b383722  Update Counter Strike: Source to Build #4724.
 
 2011-10-13
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     832eb89  Update Counter Strike: Source plugin to build #4720.
     09325a3  Update Battlefield: Bad Company 2 Plugin to build #795745
 	     (Steam Only).
@@ -2525,11 +4108,11 @@
     f6e586d  remove obsolete MumbleScript.h/.cpp files
 
 2011-10-08
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     b46b5e1  Update WoW plugin to build 14545.
 
 2011-10-04
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     e11752b  Update Counter Strike: Source to build 4687.
 
 2011-10-03
@@ -2554,16 +4137,16 @@
     f506511  Add %s for printf
 
 2011-09-28
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     9cc9539  Fix bug #3200725 @ SF - RichTextEditor disregarding
 	     g.uiImageLength.
 
 2011-09-07
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     60cf7f8  Add local-ignore-text-messages option.
 
 2011-09-05
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     41100fd  Add 'Crimecraft: Bleedout' to default blacklist.
 
 2011-08-29
@@ -2573,7 +4156,7 @@
 	     p_id=147372&atid=768008)
 
 2011-08-28
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     6a46030  Make edit button greyed out if selected item is not a
 	     favorite.
     b61f781  Added Edit button to Connect dialog.
@@ -2648,7 +4231,7 @@
     0e4d963  Implement audio attenuation for PulseAudio.
 
 2011-06-12
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     a270c7f  Updated German translations
 
 2011-06-11
@@ -2656,17 +4239,17 @@
     60ea789  Czech Tanslation Update (#3315071)
 
 2011-06-10
-  morris <tkmorris@users.sourceforge.net>
+  tkmorris <mauricioarozi@gmail.com>
     c581e0e  Updated Brazilian Portuguese translation (#3314540)
 
 2011-06-09
+  Semion Tsinman <Necromancer3333@gmail.com>
+    821d7ce  Updated Hebrew translation (#3308818)
+
   Stefan Hacker <dd0t@users.sourceforge.net>
     c873e08  Prevent user from accepting the channel add/edit dialog when
 	     channel names are empty. Implements patch #3289052 in a leaner
 	     way
-
-  Necromancer <necro3@users.sourceforge.net>
-    821d7ce  Updated Hebrew translation (#3308818)
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     84ed2eb  Murmur: Remove unused DBus.h includes
@@ -2675,7 +4258,7 @@
     fc03b89  Updated Swedish Translation (#3296034)
 
 2011-05-31
-  Natenom <natenom@natenom.name>
+  Natenom <natenom@natenom.com>
     bc32f8d  Updated German translations
 
 2011-05-28
@@ -2790,7 +4373,7 @@
     74a4051  Fix mixed up buttons in AudioInput
     6b33a67  Improve documentation of Ice stop() command
 
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     4586068  Don't check version numbers of URLs being sent over RPC.
 
 2011-04-29
@@ -2820,7 +4403,7 @@
 	     password/certificate to a registered account
 
 2011-04-11
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     fa7a412  Added option -wipelogs to clear logs in DB.
 
   Ludwig Nussel <ludwig.nussel@suse.de>
@@ -2836,7 +4419,7 @@
     f738bb2  Fix chatbar sending empty messages (#3267833)
     a972df6  Convert context field to json
 
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     bd690db  Fixed up Otto's patch (#2911421), mostly style stuff. Changed
 	     int -> uint and iterators to foreach()
     6f156fa  Correctly disable 'Disconnect' option when you abort a
@@ -2855,7 +4438,7 @@
   Tuck Therebelos <snares@users.sourceforge.net>
     6297937  Update/Fix L4D plugins
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     bf5927e  BanList improvements
 
 2011-03-27
@@ -2871,7 +4454,7 @@
     d9324c2  Add a missing pch include in WebFetch.h
 
 2011-03-26
-  Jamie Fraser <jamie.f@mumbledog.com>
+  James Fraser <fwaggle@fwaggle.org>
     9c4a194  Added a more helpful error condition to -supw being used
 	     without a password
 
@@ -2916,7 +4499,7 @@
     6f079db  Fix compilation on Windows.
     7bdd779  Update boost to 1.46.1
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     b752ea0  Added a macro "DEFAULT_MUMBLE_PORT" in src/Net.h so that its a
 	     one-line change should the default port ever change.
 
@@ -2924,7 +4507,7 @@
     e57c008  fix compile error
 
 2011-03-18
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     fb9df24  Fixed pasting of port-less URLs into connect dialog
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -2995,7 +4578,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     b986e84  Fix possible access violation in Overlay
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     d2a023e  Added "Copy URL" to channel context menu.
     e83173c  ICE: Add udpPing and tcpPing to User
 
@@ -3007,7 +4590,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     05096f7  Add some comments to hooking code
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     188b652  Fixed Ice method getLogLen() requiring write secret instead of
 	     read secret.
 
@@ -3022,7 +4605,7 @@
     3db23e6  Make mumble overlay able to detect mumble independent of
 	     executable name
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     296ee6f  Fixed typo: "staring" -> "starting" in OSS.cpp
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3124,11 +4707,11 @@
   Thorvald Natvig <slicer@users.sourceforge.net>
     685809c  Remove CELT 0.10.0
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     e027b3f  Updated Polish translation
 
 2011-02-06
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     1601fb8  Password is now not visible in the Import Certificate window
 
 2011-02-04
@@ -3149,12 +4732,12 @@
 	     AdjustToContents, the QComboBox *is* bigger than the contents.
 
 2011-01-27
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     cebb2dd  Fixed 'nan' in user information (average ping) for newly
 	     connected users
 
 2011-01-26
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     e067269  User Information improvements
     6755b81  Added gg, xmpp, skype and mailto to allowedSchemes
 
@@ -3181,7 +4764,7 @@
     324338f  Iterator oddness in ACL Editor
     460e489  Ok, slightly less verbose, then
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     a7f91b7  Updated italian translation
 
 2011-01-20
@@ -3394,11 +4977,11 @@
 	     single click
 
 2010-11-25
+  Semion Tsinman <Necromancer3333@gmail.com>
+    03b5df8  [translation] Hebrew update
+
   Stefan Hacker <dd0t@users.sourceforge.net>
     b38e264  Make TTS link simplification case insensitive
-
-  Necromancer <necromancer3@users.sourceforge.net>
-    03b5df8  [translation] Hebrew update
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
     df7dc3a  Don't crash if someone tries to add an ACE for an unknown user
@@ -3510,7 +5093,7 @@
 	     recursion might have occurred on windows machines.
 
 2010-11-02
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     b1340c3  Updated Japanese Translation for 1.2.3
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -3520,13 +5103,13 @@
     bee5338  Readd overlay hook on DLL_THREAD_ATTACH
 
 2010-10-30
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     2a26a18  Italian translation for 1.2.3
 
   Svenne33 <svenne33@users.sourceforge.net>
     97e4bd6  Swedish translation for 1.2.3
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     6f7435f  Danish translation: small update
 
 2010-10-29
@@ -3535,11 +5118,11 @@
 	     3067616 - DUAL Head PTT)
 
 2010-10-24
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     f913b99  Updated Spanish translation for 1.2.3
 
 2010-10-22
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     ec2b987  Updated Japanese Translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -3558,13 +5141,13 @@
   Mikko Rantanen <jubjub@jubjubnest.net>
     0b14cb3  Clarified varint encoding
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
-    99ddd8f  Updated Spanish translation for 1.2.3
-
-  morris <tkmorris@users.sourceforge.net>
+  tkmorris <mauricioarozi@gmail.com>
     7f3d833  Brazilian Portuguese translation update
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+    99ddd8f  Updated Spanish translation for 1.2.3
+
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     aca189b  Updated Danish translation for 1.2.3
 
 2010-10-18
@@ -3584,7 +5167,7 @@
     848d242  ALSA: added Rear Center and boosted the channel count to 9
     66fa813  Plugins: Manual plugin corrected.
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     84c611c  Updated Polish translation
 
 2010-10-17
@@ -3595,7 +5178,7 @@
 	     pcgod's input. Fixed some references as well.
     4b71e41  Rather complete documentation of Messages
 
-  morris <tkmorris@users.sourceforge.net>
+  tkmorris <mauricioarozi@gmail.com>
     4731d82  Brazilian Portuguese Translation
 
 2010-10-16
@@ -3651,7 +5234,7 @@
   Justin McGrath <justin.m.mcgrath@gmail.com>
     52a8f39  Added FR 2109227: limit the chat log size.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     1eaee4b  Updated German translations.
 
 2010-10-07
@@ -3673,11 +5256,11 @@
     7df254a  Sync alternate icon render
     f52fb66  Update to new G15 SDK
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     bb3cb7f  Updated Polish translation
 
 2010-10-06
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     3556898  Updated Japanese Translation
 
   Justin McGrath <justin.m.mcgrath@gmail.com>
@@ -3692,7 +5275,7 @@
     31488de  Experimentally switch back to "real" boost typeof
 
 2010-10-05
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     e8810bf  Limit name label width in ban editor to 500 to not break the
 	     UI with very long names.
 
@@ -3700,7 +5283,7 @@
     ac2b6ca  Remove unused code, spotted by rawnar
 
 2010-10-04
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     3a703dd  Updated Japanese Translation
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -3735,7 +5318,7 @@
     8a5998f  Swedish Translation (#3071209 & #3071223)
 
 2010-09-18
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     5f774af  Fixed a translation typo submitted by Radioactiveman in IRC on
 	     #mumble, German translation updates
 
@@ -3746,7 +5329,7 @@
 	     for SuperUser or favourites which already have a password)
 
 2010-09-12
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     fe52c22  Fixed a German translation typo which caused the overlay
 	     editor to save mumblelay files without extension. Submitted by
 	     Thomas <moes_taverne@gmx.li> via email.
@@ -3763,7 +5346,7 @@
     25e7ebb  Move qmake profile lines to single line to work with release
 	     script
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     10625c9  Update polish translation
 
 2010-09-07
@@ -3802,7 +5385,7 @@
     09c23f8  Russian translation update.
 
 2010-09-02
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     f78a58b  Updated Japanese Translation (#3058069)
 
   Nicos Gollan <gtdev@spearhead.de>
@@ -3811,10 +5394,10 @@
   Mikkel Krautz <mikkel@krautz.dk>
     518b2aa  Make overlay injection work on Mac OS X Leopard.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     83d2ee8  Updated German translations
 
-  zuczeq <zuczeq@users.sourceforge.net>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     a3518d4  Translation update - Polish (#3054197)
 
 2010-08-31
@@ -3861,7 +5444,7 @@
     fb9f982  Allow semi-transparent windows on our overlay for Mac OS X
 	     again. Fixed in mumble-developers-qt.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     4f1ff20  This patch adds a read-only recording flag to the User object
 	     that is returned by getState() over Ice. Polished by Svedrin
 	     (Michael Ziegler <diese-addy@funzt-halt.net>)
@@ -3935,7 +5518,7 @@
     cb8ddcf  Fix compile errors
     8faf40f  Add support for ASIO format ASIOSTInt24LSB
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     71e9029  Ice method: int getLogLen()
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -3959,7 +5542,7 @@
     81f9d9f  Boost 1.44
 
 2010-08-18
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     c19821c  Updated Japanese Translation
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -3970,7 +5553,7 @@
     1a88c2e  Fix old version uninstall
 
 2010-08-17
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     f5eeaaf  Updated German translations.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -3984,7 +5567,7 @@
     f6a3e82  Add cpu type and SSE2 state to usage stats
 
 2010-08-16
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     1d32a33  Japanese translation for current git
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -4102,12 +5685,12 @@
     3d6ef0f  Ignore zero scopeId in ping replies
 
 2010-08-04
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     bf561d3  Toggle setting (rememberchannel) for remembering a registered
 	     users last channel.
 
 2010-08-03
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     ab31fc2  added timestamps to foreground log output
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -4149,7 +5732,7 @@
     3e91919  Counter-Strike 1.6 plugin fix
 
 2010-07-28
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     85feea3  Added ability to disable logging to DB
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -4168,7 +5751,7 @@
   B0nuse <mumble@mumble.ru>
     b8f14d8  Translation fixes (Russian)
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     e0163bd  Updated German translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -4276,7 +5859,7 @@
     470a089  New servers have DB version 5
 
 2010-07-13
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     e4615e6  Add -n (suppress certificat) to the command line options.
 
 2010-07-12
@@ -4304,16 +5887,16 @@
     25e833b  Source plugin updates; BFBC2 update, works with Steam now
 
 2010-07-09
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     9c9983b  Added default root certificate store on FreeBSD.
 
 2010-07-05
-  Andreas Bibok <biboka@users.sourceforge.net>
-    3c4fe52  Partial translation to Hungarian
-
-  Necromancer <necromancer3@users.sourceforge.net>
+  Semion Tsinman <Necromancer3333@gmail.com>
     1d155a1  Hebrew translation update: translated audio input, audio
 	     output, user interface and shortcuts sections.
+
+  Andreas Bibok <biboka@users.sourceforge.net>
+    3c4fe52  Partial translation to Hungarian
 
   Sergey Ivanov <randomei@users.sourceforge.net>
     e6514f0  Updated russian translation
@@ -4323,7 +5906,7 @@
     cb9c5bd  Customize labels for high contrast mode so they talk about
 	     what is actually visible
 
-  Jamie Fraser <jamie.f@sabrienix.com>
+  James Fraser <fwaggle@fwaggle.org>
     ea20c4c  Fixed Murmur Build on FreeBSD
 
 2010-07-02
@@ -4390,7 +5973,7 @@
 	     HRESULT
 
 2010-06-02
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     a6d75b5  Updated Japanese Translation
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -4469,7 +6052,7 @@
     69aaf67  Plugin updates
 
 2010-05-08
-  Álvaro Manuel Recio Pérez <naproxeno@kepis.(none)>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     0846a64  Updated Spanish translation
 
 2010-05-06
@@ -4545,7 +6128,7 @@
 	     libcelt.
     a74a0f6  Specify absolute path for slice2cpp for macx.
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     e1eacae  Updated Spanish translation
 
 2010-04-23
@@ -4587,7 +6170,7 @@
     7b77dea  Counter-Strike 1.6 Positional Audio support
 
 2010-04-17
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     472296f  Updated japanese translation.
 
   Sergey Ivanov <randomei@users.sourceforge.net>
@@ -4768,7 +6351,7 @@
     10175ef  Windows build fix (warning in gcc -> error on windows...)
 
 2010-03-06
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     49ae4cb  Translation Updates to German
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -4800,7 +6383,7 @@
     f0b40a6  Gmod, L4D2 updates
 
 2010-03-03
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     9b8d1be  Updated Japanese Translation
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -4888,7 +6471,7 @@
     add15dc  Assume input URLs are valid-ish
 
 2010-02-23
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     eda6b17  Updated Japanese Translations for 1.2.2
 
   Jan Klass <kissaki@gmx.de>
@@ -4903,7 +6486,7 @@
     e4c7724  Grab cursor from Win32 directly
     3b38ac2  Override DoDragDrop's window detection
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     952a837  Some fixes in Polish translation
 
 2010-02-22
@@ -4976,7 +6559,7 @@
     a2b4f85  Example of on-the-fly slice-fetch for Python
     7ba42b7  Split icesecret in icesecretread and icesecretwrite
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     aa6250d  Updated Polish translation
 
 2010-02-14
@@ -5011,7 +6594,7 @@
     d97d55c  Remove period in tooltip
 
 2010-02-11
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     c067589  Add few German translations strings
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5076,11 +6659,11 @@
 	     on-demand loaded avatars, so always on
     8a1705d  Work around colors lost when application style lost
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     1ec8726  Small fixes in Polish translation
 
 2010-02-06
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     cf75490  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5104,7 +6687,7 @@
     4c2ffdf  Fix SocketRPC on nix
     228e9ed  Local socket RPC for mumble self-RPC
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     9a58ef1  Updated Italian translation 1.2.2
 
 2010-02-04
@@ -5122,7 +6705,7 @@
     7a0d844  Only send texture if it changed.
     cd6667b  Boost 1.42 for Win32
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     0f630bf  Updated Danish translation for 1.2.2.
 
 2010-02-03
@@ -5146,7 +6729,7 @@
   Tuck Therebelos <snares@users.sourceforge.net>
     936779d  MW2 updates
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     2becf4f  Updated Polish translation
 
 2010-02-02
@@ -5160,13 +6743,13 @@
 	     http://gitorious.org/mumble-scripts/ . From now one all
 	     non-sample scripts will be placed in this repository.
 
+  James Fraser <fwaggle@fwaggle.org>
+    a9e9922  Added a crappy example of an auto idle-move written in PHP.
+
   DWM|G <gallaghermumble@gmail.com>
     38b47ec  Added Icon Toolbar.
 
-  Jamie Fraser <jamie.f@sabrienix.com>
-    a9e9922  Added a crappy example of an auto idle-move written in PHP.
-
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     11e4cec  Added some new strings to German translations
 
   Ilmar Kruis <seaeagle1@users.sourceforge.net>
@@ -5184,7 +6767,7 @@
     1afffff  Fix unstable TF2 state address
     7ef0e7f  TF2 update; hopefully more update-friendly arrays now
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     7925624  Polish translation
 
 2010-02-01
@@ -5210,7 +6793,7 @@
 	     memoryblob://avatar/ and expand the fileengine slightly
     07e0d90  Send only the avatar hash on login
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     3ca49eb  Polish translation
 
 2010-01-31
@@ -5222,7 +6805,7 @@
     48cc272  Add High contrast option for visually impaired. For now only
 	     affects AGC/VAD config bars
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     3ae5144  Updated Spanish translation
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -5243,7 +6826,7 @@
 	     WriteACL grants all rights by graying out the others if it is
 	     set.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     82e3d5c  German Strings updated
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5267,7 +6850,7 @@
     75fc50a  User avatars
 
 2010-01-28
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     f816fe6  Updated and fixed japanese translation
 
   Erik Bouvin Pedersen <erikbp@users.sourceforge.net>
@@ -5299,10 +6882,10 @@
     af4ac7a  Fix enable-state for mute/deafen
 
 2010-01-26
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     8bd520e  Updated Japanese Translation
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     b502e7f  Updated German Translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5315,7 +6898,7 @@
     63568fd  Client-side blob cache for comments
     e51a048  Make Win32 OGL overlay work in windowed mode
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     8b56834  Polish translation
 
 2010-01-25
@@ -5328,7 +6911,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     e548546  Initial import of WIP mumble protocol description
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     59b0d54  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5337,7 +6920,7 @@
     2322bec  Clean up texture assignment
 
 2010-01-23
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     b1884ac  Updated German Translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5477,7 +7060,7 @@
     c12f127  Fix focus tracking hiccup on disconnect in chat bar
     09dd4a3  Fix mumble-auth.py for 1.2.0 (#2926521)
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     759480f  Updated German Translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -5492,7 +7075,7 @@
     cbee6c8  Only show userinformation if server >= 1.2.2
 
 2010-01-10
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     5eed139  Fixed Japanese Translation for 1.2.1
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -5541,7 +7124,7 @@
   Mikkel Krautz <mikkel@krautz.dk>
     d43d38c  Tell codesign where the mumble-overlay binary resides now.
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     9a38eee  Updated Spanish translation
     5989b9c  Updated Spanish Translation
 
@@ -5560,11 +7143,11 @@
     58081c6  Update licenses; add UT3, 2004, 1942 plugins; update some
 	     Source plugins
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     2e2652b  Update Danish translation for 1.2.1.
 
 2010-01-06
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     a8d4b61  Updated Japanese Translations
 
 2010-01-05
@@ -5577,10 +7160,10 @@
     85e5429  Add licenses to plugins
 
 2010-01-03
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     b9a647b  Updated Japanese Translations for 1.2.1
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     eee808d  Updated Spanish translation
 
   Ilmar Kruis <seaeagle1@users.sourceforge.net>
@@ -5593,10 +7176,10 @@
     d150ba1  Fix spelling error in manpage
     64a7d22  Honor CONFIG+=no-crash-report for 11x
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     9019991  Italian translation for 1.2.1 and 1.1.x
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     336d02d  Updated Polish translation
 
 2009-12-31
@@ -5604,7 +7187,7 @@
     064969a  Allow setChannelState on root channel
 
 2009-12-30
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     c9f7a54  Updated German Translations
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -5649,11 +7232,11 @@
     bef7408  Show and react immediately to tranmission changes in
 	     audiowizard
 
-  Zuko <zuczeq@gmail.com>
+  Michał "Zuko" Żukowski <zuczeq@gmail.com>
     243f5c7  Update Polish installer
 
 2009-12-27
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     6364d67  Updated Japanese Translations for 1.2.1
 
   Stefan Hacker <dd0t@users.sourceforge.net>
@@ -5694,7 +7277,7 @@
     417ae98  Unified string messages; added ETQW plugin; various plugin
 	     fixes, improvements and updates
 
-  Zentriple <zentriple@users.sourceforge.net>
+  Jonathan E. Hansen <zentriple@users.sourceforge.net>
     48646e1  Update Danish translation
     b24f793  Danish translation for 1.2
 
@@ -5705,7 +7288,7 @@
     98cd01e  Update MW2; remove useless context
 
 2009-12-25
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     60ca8ee  Added some new translations for 1.2.1
 
 2009-12-24
@@ -5861,7 +7444,7 @@
     867da14  Order channels when importing to MySQL
 
 2009-12-10
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     d5e0afb  Japanese Translation for 1.2.0
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -5895,7 +7478,7 @@
     58f9726  Updated Polish translation
 
 2009-12-07
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     be4786d  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -5933,7 +7516,7 @@
     0521e38  Update 11x Polish translation
 
 2009-12-01
-  lolo_32 <Alex@.(none)>
+  BAYSSE Laurent <lolo_32@users.sourceforge.net>
     d8188f7  Translations in French of new strings, and some minor write
 	     and grammar errors corrected
 
@@ -5961,15 +7544,15 @@
     53fcb70  Gmod update
 
 2009-11-30
-  lolo_32 <Alex@.(none)>
-    0632e82  Add the new strings
-
   arrai <array.of.intellect@gmail.com>
     00f3aa2  Fixed linking temporary channels
 
   Stefan Hacker <dd0t@users.sourceforge.net>
     3a3926c  Extend TestLink plugin with comments so its code can be used
 	     directly in the documentation page
+
+  BAYSSE Laurent <lolo_32@users.sourceforge.net>
+    0632e82  Add the new strings
 
   Thorvald Natvig <slicer@users.sourceforge.net>
     e7f089b  String updates
@@ -5982,7 +7565,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     1c8d127  Fix mistake in previous message patch
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     f392cb6  Updated German translations for 1.2.0
 
 2009-11-27
@@ -6030,7 +7613,7 @@
     9766240  MW2 string updates, TF2 identifier update
 
 2009-11-24
-  lolo_32 <Alex@.(none)>
+  BAYSSE Laurent <lolo_32@users.sourceforge.net>
     47d2398  Translations in French of installer and Mumble
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -6123,7 +7706,7 @@
     019e6da  Murmur: Disconnect clients sending huge packets
 
 2009-11-18
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     a8a25e9  Japanese Translation
 
   Mikkel Krautz <mikkel@krautz.dk>
@@ -6163,7 +7746,7 @@
     640d91e  German translation update minor English text fix
 
 2009-11-14
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     4911c8a  Update Spanish translation
 
   Tuck Therebelos <snares@users.sourceforge.net>
@@ -6185,7 +7768,7 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     7411fc9  Use localeAwareCompare for overlay sorting.
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     382bca6  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -6241,7 +7824,7 @@
 	     packets
     64d16b8  Remove input policy from dist list
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     aed4569  Italian translation for 1.2
 
 2009-11-09
@@ -6255,7 +7838,7 @@
     52aead7  Use UAC NSIS plugin
 
 2009-11-08
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     0bfaea9  Updated Spanish translation.
 
   Benjamin Jemlich <pcgod@users.sourceforge.net>
@@ -6297,7 +7880,7 @@
     3a6e97a  pass commandline arguments to Ice
 
 2009-11-05
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     cd3e90f  fixed japanese translation
 
 2009-11-04
@@ -6305,7 +7888,7 @@
     bf23ffc  Show client versions in the log
 
 2009-11-03
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     26d77a2  Japanese Installer Translation
     48d03a5  Japanese Translation
 
@@ -6347,7 +7930,7 @@
     91f536b  fix some obvious English text issues
     c9112a2  German Translation
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     366110e  Italian installer translation
 
 2009-10-30
@@ -6648,7 +8231,7 @@
     da6e842  Use service.name instead of :x.y in DBus calls
 
 2009-09-29
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     9a1ec81  Rename Name to Servername
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -6675,7 +8258,7 @@
     e9b84b4  Don't do TextMessage symlinks in mklinks.sh
 
 2009-09-26
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     c54a7ed  Dont use always muted_self icon in tray. Show wether muted
 	     self or by server or suppressed.
 
@@ -6801,7 +8384,7 @@
   Mikkel Krautz <mikkel@krautz.dk>
     fa95e61  Update OSX license script.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     6c90415  Updated German translations.
 
 2009-09-04
@@ -6811,7 +8394,7 @@
 	     disk image (for now).
     345852e  Switch to new manual overlay injector on OSX.
 
-  Natenom <natenom@googlemail.com>
+  Natenom <natenom@natenom.com>
     a74e859  Changed translations and fixed errors.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -6869,7 +8452,7 @@
   Hengqing Hu <esrms@users.sourceforge.net>
     acbb44f  Add BOM and s/LANG_SIMPCHINESE/LANG_TRADCHINESE/
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     37d26c8  Corrected Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -7008,7 +8591,7 @@
     b5ba5db  Fixed artifacts in talk icons
     add5e12  Fixed metadata for mumble.svg, and added talking_whisper.svg.
 
-  unknown <d0t@.(none)>
+  Stefan Hacker <dd0t@users.sourceforge.net>
     55179d9  Make build environment more flexible
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -7070,7 +8653,7 @@
     2acd26f  Removed yellow circle from icons/mumble.svg
     95dc226  Fixed bugged icons/mumble.svg, verified.
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     b0aaa8e  Fixed installer' Spanish translation
     59b741f  Updated installer' Spanish translation
 
@@ -7656,7 +9239,7 @@
     3cc160b  Trim whitespace from ConnectDialog input
 
 2009-05-03
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     3c9ea0e  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -7852,7 +9435,7 @@
     f67b83e  Add version info to mumble
     c760d4d  Have murmur accept and send version packets
 
-  Spaccaossi <spaccaossi@users.sourceforge.net>
+  Spaccaossi <spaccaossi@gmail.com>
     d48588a  italian translation - finished for 1.1.8
 
 2009-04-11
@@ -7897,10 +9480,10 @@
     ffe7929  Add CELT submodule
 
 2009-03-29
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     1399c24  Updated Japanese Translation
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     fbf395c  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -7996,7 +9579,7 @@
     4eb6d7d  New changelog script
     3732dce  Fix WASAPI device selection
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     b79e2a2  Polish translation quick fix
 
 2009-03-20
@@ -8006,7 +9589,7 @@
   Mikkel Krautz <mikkel@krautz.dk>
     ba56432  Update to the MIT licensed version of mach_star.
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     f48f816  Updated Spanish translation for 1.1.8
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8018,7 +9601,7 @@
     b246faa  Fix capitalization.
     9a49e4f  Revert "Fix crash of config dialog when always on top is set"
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     0f54d3c  Polish translation - completed for 1.1.8
 
 2009-03-19
@@ -8240,7 +9823,7 @@
     f71a815  Support extended keys
 
 2009-03-01
-  Arrai <arrai@users.sourceforge.net>
+  arrai <array.of.intellect@gmail.com>
     aee1e23  Don't idlemute after self muted
 
   nomad <gmc_holle@users.sourceforge.net>
@@ -8277,7 +9860,7 @@
     944501f  Patch #2645062: Installer Translation: German
     89d5f51  Patch #2638107: Installer Translation: German
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     56426af  Overlay for Mac OS X.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8286,7 +9869,7 @@
     a5a3a73  Unbreak QoS on Unix
     f56a47f  qWave (QoS for Vista)
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     0ddd167  Patch #2645933: Polish translation (small fix)
 
   theblackstorm <theblackstorm@users.sourceforge.net>
@@ -8303,7 +9886,7 @@
 	     threads
 
 2009-02-25
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     9f8f3cd  Patch #2637281: NSIS Japanese Translation update
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8349,7 +9932,7 @@
     35f52a9  Team Fortress 2 PA plugin
 
 2009-02-20
-  Arcenciel <arcenciel@users.sourceforge.net>
+  haru_arc <arcenciel@users.sf.net>
     4fd1812  Patch #2620308: NSIS Japanese Translation
     17a6814  Patch #2620179: NSIS Japanese Translation
 
@@ -8482,7 +10065,7 @@
     ad0a14f  Patch #2574499: NSIS French Translation update
 
 2009-02-04
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     d56a85d  Remove Window->Close menu item on OSX. Disconnect uses Cmd+W
 	     as well, and we should really only quit on Cmd+Q.
 
@@ -8494,7 +10077,7 @@
     c7b215c  Patch #2560147: NSIS French Translation
 
 2009-02-02
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     d02a587  Spanish translation for installer
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8513,7 +10096,7 @@
 	     Use Unicode NSIS installer
 
 2009-01-30
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     2be3586  German translation for installer
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8533,7 +10116,7 @@
     a0c9671  Indenting fixes
 
 2009-01-27
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     878fff7  Updated Spanish translation
 
 2009-01-26
@@ -8551,11 +10134,11 @@
     048343f  Updated mumble-overlay to support biarch systems, based on
 	     patch by ludwig.nussel@suse.de
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     901ffe7  Polish translation hotfix
 
 2009-01-23
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e611b15  Include Mumble's LICENSE file instead of the GPL in the Mumble
 	     disk image.
 
@@ -8564,7 +10147,7 @@
     70344b3  Preserve config menu settings entry.
 
 2009-01-22
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     b6cd05d  Allow the i386-part of OSX Universal Binaries to be built with
 	     MMX/SSE/SSE2 optimizations.
 
@@ -8584,7 +10167,7 @@
     d0bd009  Strip " from lsb_release
     1be6e51  Update to support G15 SDK 3.01
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     490728e  Polish hotfix
     00bf4ac  Updated polish translation
 
@@ -8632,7 +10215,7 @@
 	     and compress off.
 
 2009-01-15
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     318e002  German translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8643,15 +10226,15 @@
     852f60d  Thread-safe AddRef/Release for overlay. Delayed-insertion D3D9
 	     hook, work around bug in SupCom.
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     7afa56f  polish_for_1.1.7_release_update_v50-FINAL.tar
 
 2009-01-14
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     bf34571  Updated Spanish translation.
 
 2009-01-13
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     04825a7  Use sheets for ConnectDialog-related dialogs on OS X.
     1fd2ae4  Prettify OSX OSInfo and include architecture.
 
@@ -8681,7 +10264,7 @@
     d28a8a8  Language file updates
     b13cd6a  Report true Windows version.
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     e2701fa  Updated polish translation
 
 2009-01-11
@@ -8709,7 +10292,7 @@
     130416e  On Unix, detach even if logfile fails
 
 2009-01-08
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3f2c634  Fix universal build on Mac OS X (and other non-pch targets).
     7565edb  Only enable XEvie when building against an X11 version of Qt.
 	     Disable g15daemon support on Mac OS X.
@@ -8737,7 +10320,7 @@
 	     tempbans
 
 2009-01-05
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e9fb2ff  Allow global volume shortcuts to increase the volume up to
 	     200%.
 
@@ -8805,7 +10388,7 @@
 	     players/linked channels. Fudge the font metrics.
 
 2008-12-13
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     b4806cc  Add g15helper.ico.
     98da0f9  LCD Support
 
@@ -8814,7 +10397,7 @@
     62d3ac4  The G15 library doesn't handle multiple devices.
 
 2008-12-12
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     f838215  Add LCD config dialog icon.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -8838,11 +10421,11 @@
     913cd1e  Keep expanded state of items when moved.
     ffa5621  Updated translation sources
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     5eb15b1  Updated polish translation
 
 2008-11-29
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     a76f1f0  Treat incoming and outgoing mumble:// URLs as URL encoded.
     5f3d243  Fix typo in "What's This" for Noise Supression. Fixes bug
 	     #2238867.
@@ -8857,7 +10440,7 @@
     d798227  Patch #2301216: Positional audio for Call of Duty 5
     8d72daf  Patch #2338606: Positional audio for Wolfenstein:ET
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     b5cdef7  Fix rounding issues in AudioConfigDialog. Fixes bug #2293514;
 	     Based on patch #2293714 by dd0t.
 
@@ -8882,12 +10465,12 @@
   Stefan Hacker <dd0t@users.sourceforge.net>
     9d6f296  Sanity checking for CoD4 plugin
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     b535225  Make GlobalShortcutMac build again.
     e61870e  Fix version number in BF2 plugin about dialog.
 
 2008-10-11
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     71684f1  Make sure LogTitleBar is properly hidden when launching
 	     Mumble.
     0e48e6e  Initialize DirectInput in the same thread as we are polling it
@@ -8916,7 +10499,7 @@
     2cecce4  Patch #2133288: Correction in mumble_de.ts
 
 2008-09-26
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     42b0508  Updated Spanish translation
 
 2008-09-24
@@ -8943,11 +10526,11 @@
     e94da5f  Version bump
     9e33a86  Changelog update
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     9589f64  Updated Polish translation
 
 2008-09-12
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3b124ce  Add dbOpts setting. Allows users to specify custom connect
 	     options for their QSqlDatabase.
 
@@ -8966,7 +10549,7 @@
     f34ca68  getVersion() for DBus/ICE
 
 2008-09-08
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     5b0322d  Distribute Murmur.ice along with the other Murmur-related
 	     files on OS X.
     1430ecb  Make setChannelState() rename channels for DBus and Ice. Add
@@ -8979,10 +10562,10 @@
     4498fd6  Support source-less text messages.
 
 2008-09-06
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     4d89809  Updated German translation
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     5fd6da8  Add mumble.icns to mumble.qrc.
     6dbc29f  Add mumble.plist to DIST.
     168e007  Add icedemo.php to OSX dist scripts.
@@ -9015,7 +10598,7 @@
   ikasamah <ikasamah@users.sourceforge.net>
     61f7ce3  Updated Japanese translation
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     aa3c45d  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9026,7 +10609,7 @@
     16a9832  Work around bug in QDir::addSearchPath() and
 	     QTranslator::load()
 
-  Bartek <sumowski@users.sourceforge.net>
+  Bartek "stranded" Sumowski <sumowski@gmail.com>
     f1dc16c  Updated polish translation
     df503d5  Polish translation
 
@@ -9044,7 +10627,7 @@
     d42e60e  Switch to name hints for iterating PCM devices on ALSA.
 
 2008-08-30
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     9ffa6f1  Use 'MBLE' process signature on OSX for easier identification.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9056,7 +10639,7 @@
 	     Win32. (Fixes bug #2083383)
 
 2008-08-29
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     2e227c0  Fix urlCallback prototype on non-x86-64. Sigh.
     8e99df7  More general Boost include path on OSX.
     d3e6a7c  Support for building against Cocoa Qt4 in compiler.pri
@@ -9072,7 +10655,7 @@
     4013745  Work around setRecord() being broken in Qt 4.4.1
 
 2008-08-28
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     78d6ca4  GlobalShortcutMac cleanups.
     13037b5  Use ~/Library/Logs/Mumble.log for our log on Mac OS X.
     d066df9  Convert GlobalShortcut on OSX to use the Quartz Event Tap API.
@@ -9080,7 +10663,7 @@
 	     names in the config dialog.
 
 2008-08-27
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     c468b39  Show version in title of Win32 Murmur log window.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9094,7 +10677,7 @@
     5a457e8  Small cleanup of Win32 output modules.
 
 2008-08-26
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     19a4b0a  Repair broken Murmur output formatting introduced by --version
 	     change.
     ab5df06  Do not output an AppBundle for Murmur on OSX.
@@ -9161,7 +10744,7 @@
 	     for VS2008 SP1 and Qt 4.4.1.
 
 2008-08-08
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e4b4a27  Update Benchmark.cpp to use current Auth message.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9193,7 +10776,7 @@
 	     1 now.
 
 2008-07-20
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     9b7b713  Consolidate player/channel name validation into validateName()
 	     functions. Fix bug that allowed users to rename channels to
 	     otherwise invalid channel names. The registerPlayer() function
@@ -9210,7 +10793,7 @@
     f56a687  Fix compile bug with ICE. Attempt to fix PlayerModel bugs.
 
 2008-07-10
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3bb651c  Default to ICE for Murmur on OS X as well.
 
 2008-07-09
@@ -9223,7 +10806,7 @@
     3056df3  Taborder in AudioInput
 
 2008-07-04
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     5246e8e  Ice for Mac OS X.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9243,7 +10826,7 @@
     b2f70a7  Patch 2003574: Cannot save current connection
 
 2008-06-26
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     91abf12  Add a new icon for the Mac OS X port. Contributed by Karsten
 	     Bruns.
 
@@ -9265,7 +10848,7 @@
     c9ffada  Framework for ICE in Murmur
 
 2008-06-24
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     05dcd3b  Use OS X system langauge instead of locale data for
 	     translation determination. (Fixes bug #1952855: Mac: Mumble
 	     uses wrong language setting)
@@ -9292,27 +10875,27 @@
     4c5157b  Add logging to phpBB auth script
 
 2008-06-05
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     41025c8  Fixed some strings in the Spanish translation
 
 2008-06-04
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     23da58d  Make sure Mumble will even build with CONFIG=no-dbus.
 
 2008-06-03
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     cd41589  Remove unconditional DBus disablement on OS X. Qt can load
 	     libdbus at runetime now, yay!
     29d857b  Enable proper mumble:// protocol support on OS X. Likewise for
 	     Console.txt logging.
 
 2008-05-28
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     f1835a8  More useful PlayerModel tooltips (feature request #1942941:
 	     Additional tooltips)
 
 2008-05-27
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     97d2d09  Hide 'Expand'-label in LookConfig for non-expert mode.
     d4ef1a8  Explicitly focus the text input field of the text message
 	     dialog. Win32 doesn't do this by default.
@@ -9320,11 +10903,11 @@
 	     volume keybind)
 
 2008-05-17
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     ab53c51  Updated translation
 
 2008-05-11
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     bb952c1  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9366,7 +10949,7 @@
 	     widgets.
 
 2008-05-07
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3166fa4  Workaround for the, now as of Qt 4.4.0 yet worse, QWizard bug.
     8ac6be5  Fix automatic version parsing in OS X distribution scripts.
     d1c0313  Avoid loading system Qt plugins on Mac OS X.
@@ -9379,15 +10962,15 @@
     11db737  Translation sync
 
 2008-04-29
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     f88d0cb  Hah. Correct 'passford' typo in Murmur usage output.
 
 2008-04-28
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     ce01bdc  Linux only -> Unix-like systems only
 
 2008-04-27
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     444dfd2  Oops. Remove MacVersion variable from TextToSpeech_macx.cpp as
 	     well.
     96e395b  Use qMacVersion() instead of Gestalt() in
@@ -9401,7 +10984,7 @@
     f4a9042  Yet more resampler fixes
 
 2008-04-26
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     83e782f  Refactor MacOS X TTS engine and disable it when running on
 	     10.4 (Tiger). Thanks to Christoph Pirkl for tracking down the
 	     bug.
@@ -9425,7 +11008,7 @@
     d0ac8bf  Update for Speex visibility
 
 2008-04-23
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     83793af  Add VersionCheck QueryItem for OS X.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9434,7 +11017,7 @@
     5e136dc  Dumbing down the ALSA a bit
 
 2008-04-22
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     79ef80e  PortAudio: Get rid of crackling noise when opening output
 	     streams.
     c15dd01  Mention that we also run on OS X in the README.
@@ -9450,7 +11033,7 @@
 	     context.
 
 2008-04-21
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3beb2b4  Disable the overlay ConfigWidget on OS X - we have no overlay
 	     implementation yet, so showing the widget just confuses
 	     people.
@@ -9466,11 +11049,11 @@
 	     connected" URLs.
 
 2008-04-19
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     6eec5d5  Stereo support for PortAudio.
 
 2008-04-17
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     6849be2  Prefer ~/Library/Preferences to ~/.config/ on OSX for Mumrur
 	     as well.
     68a7bc0  TextToSpeechMac: Fix the parameters for our SpeechDone
@@ -9491,7 +11074,7 @@
     082e9ec  Minimal mode.
 
 2008-04-12
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     44afd7a  Distribute plugins on OSX.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9516,7 +11099,7 @@
     b90733f  Input/Output mixer speedups.
 
 2008-04-09
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e02770f  Make sure srs is set to NULL if we're not doing resampling.
     865effb  OSX build system updates. Add dist scripts.
 
@@ -9533,7 +11116,7 @@
   derandi <derandi@users.sourceforge.net>
     8a2fad6  Patch 1934642: A few linkplug fixes
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     67de848  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9550,7 +11133,7 @@
     45121cd  Work on the speex resampler
 
 2008-04-03
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     8438405  Prettify Mumble icon on Mac OS X (mumble.icns)
     ff58997  Fix about dialog icon on Mac OS X
 
@@ -9586,7 +11169,7 @@
 	     system-specific audio configs.
 
 2008-03-24
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     3002066  Patch 1923982: Always unmask the NoCancelButton flag in the
 	     AudioWizard
     ff72785  Patch 1923965: TextToSpeech OSX Update
@@ -9601,7 +11184,7 @@
     2fd3801  Infacy of surround mixer
 
 2008-03-22
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     46510a9  Patch 1922968: Remove old reference to ALSAOutputPlayer in
 	     ALSAAudio.h
 
@@ -9611,10 +11194,10 @@
     fa43ba7  Fix iOutputDelay on *nix
 
 2008-03-21
-  Arrai <arrai@users.sourceforge.net>
+  arrai <array.of.intellect@gmail.com>
     1baed7e  Patch 1921066: Option to disable html messages
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     c577d45  Patch 1922328: More OSX UI cleanups
     264bbd0  Patch 1921277: Use powf instead of exp10f in PositionalSound.h
     d224c59  Patch 1920346: Disable QSysTrayIcon on OSX - use the dock
@@ -9634,7 +11217,7 @@
     3b43d94  Patch 1920117: Stereo Mixing
     013c29b  Patch 1920115: Positional Sound Widget + Volume Models
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     83c5b45  Patch #1920346 Disable QSysTrayIcon on OSX - use the dock
 	     instead
     d296102  Patch #1920332 Add a cancel button to Server Browser of the
@@ -9659,10 +11242,10 @@
   l-n <l-n@users.sourceforge.net>
     ab6f5e1  Patch to fix no-speechd
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     831aa39  Patch #1917558 Implement GlobalShortcut for OSX
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     ec619c7  Updated Spanish translation.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9675,7 +11258,7 @@
   jerhum <jerhum@users.sourceforge.net>
     d90d605  Language update and new french translations
 
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     bcd9c81  Patch #1916734 Fix TTS on OS X and add volume capability
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9699,7 +11282,7 @@
 	     speechd (CONFIG+=no-whatver)
 
 2008-03-16
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     49bb6aa  Patch #1914863 Override TARGET for better OSX integration
     862186f  Patch #1915779 Add window titles to Mumble's about dialogs
     731d349  Remove the empty line at the beginning of the log view and
@@ -9715,7 +11298,7 @@
     5399fff  Make murmur compile on freebsd
 
 2008-03-15
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     279919a  Patches #1914820: OSX patches (from bug #1914742)
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9803,7 +11386,7 @@
     401dc37  Major packaging cleanups. Getting ready for 1.1.3
 
 2008-02-18
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     0c96725  Updated Spanish translation.
 
 2008-02-17
@@ -9833,7 +11416,7 @@
     f745174  Fix "move to parent" bug.
 
 2008-02-01
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e094fc9  Automatically add/remove /dev/input devices
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9844,11 +11427,11 @@
     786a5d7  Ask "Are you sure?" if quitting while connected.
 
 2008-01-20
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     20bf4ab  Fixed some strings in the Spanish translation
 
 2008-01-17
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     5cda451  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -9878,7 +11461,7 @@
     5235be7  Work around bug in newer debian
 
 2008-01-08
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     f8c5319  Proxy support
 
 2008-01-07
@@ -9886,7 +11469,7 @@
     dae8d2f  Modified manpages
 
 2008-01-06
-  Mikkel Krautz <mkrautz@users.sourceforge.net>
+  Mikkel Krautz <mikkel@krautz.dk>
     e83fcc8  Change the size parameter for EVIOCGBIT, based on patch by
 
 2008-01-05
@@ -10037,7 +11620,7 @@
     9851873  Updated AudioStats. Added voice detect to AudioConfigDialog.
 
 2007-11-04
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     42f0f2a  more spelling errors corrected
     94ef85c  german translation updated and 1825370 fixed
 
@@ -10071,7 +11654,7 @@
     98a1f8f  QVariant based GlobalShortcut
 
 2007-10-27
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     9db7eb0  german translation updates
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10102,10 +11685,10 @@
     267542d  Update for SVN release of Speex
 
 2007-10-20
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     dbe4a15  german translation updated
 
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     729c5e0  Fixed some strings in the Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10115,7 +11698,7 @@
 	     server information tab.
 
 2007-10-19
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     5b337d1  german translation updated
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10128,11 +11711,11 @@
     81ce7a6  Ubuntu packaging updates
 
 2007-10-18
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     bb17b2b  Updated Spanish translation
 
 2007-10-17
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     705ebf2  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10200,7 +11783,7 @@
 	     Auriemma
 
 2007-09-01
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     14c660e  new batch of translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10283,7 +11866,7 @@
     6551302  Manual close of application
 
 2007-08-11
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     1d4905c  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10370,7 +11953,7 @@
     7e24961  Win32 Murmur DBus
 
 2007-08-01
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     152d58b  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10413,7 +11996,7 @@
     b4817ee  obsessive PacketDataStream optimization
 
 2007-07-20
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     47fdafe  translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10441,7 +12024,7 @@
     b3ac4e4  Latin1 for Festival
 
 2007-07-18
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     3bbdcb6  German translation added.
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10473,7 +12056,7 @@
     aa7b85a  Fix buglet in PlayerModel
 
 2007-07-15
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     bcac0ae  Minor corrections to the Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10487,7 +12070,7 @@
     b4d3042  Some more Qt 4.2.2 fixes.
 
 2007-07-14
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     d2952d5  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10497,7 +12080,7 @@
     c3d7033  Forgot a conditional for the audio wizard
 
 2007-07-13
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     5e25cd3  Should do svn update more often ;)
     d259422  more translations. Unfortunately since I don't have Qt 4.3 I
 	     can't really check if the translations fit the wizard.
@@ -10542,7 +12125,7 @@
     c36e1f6  Test icons with hard edges for overlay for cartoon look. If
 	     this doesn't look good, I will try soft edges.
 
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     3087e08  slight changes to the translations
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10550,7 +12133,7 @@
     c338f5a  Jitter buffer fixes. Should work better now.
 
 2007-07-07
-  m0ta <m0ta@users.sourceforge.net>
+  Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
     de744a8  updated german translation
     412fb15  add menu entry for freedesktop.org compliant distributions
     c504036  updated german translation
@@ -10618,7 +12201,7 @@
     f9b2025  Fixed softmixer
 
 2007-07-01
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     880c997  Updated translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
@@ -10645,7 +12228,7 @@
     a9008bd  New datastream. Breaks all kinds of things
 
 2007-06-28
-  Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+  Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
     e2a05bc  Updated Spanish translation
 
   Thorvald Natvig <slicer@users.sourceforge.net>
