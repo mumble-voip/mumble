@@ -72,7 +72,7 @@ class MainWindow : public QMainWindow, public MessageHandler, public Ui::MainWin
 		QMenu *qmTray;
 		QIcon qiIcon, qiIconMuteSelf, qiIconMuteServer, qiIconDeafSelf, qiIconDeafServer, qiIconMuteSuppressed;
 		QIcon qiTalkingOn, qiTalkingWhisper, qiTalkingShout, qiTalkingOff;
-		QMap<unsigned int, UserLocalVolumeDialog*> qmuservolTracker;
+		QMap<unsigned int, UserLocalVolumeDialog *> qmUserVolTracker;
 
 		GlobalShortcut *gsPushTalk, *gsResetAudio, *gsMuteSelf, *gsDeafSelf;
 		GlobalShortcut *gsUnlink, *gsPushMute, *gsJoinChannel, *gsToggleOverlay;

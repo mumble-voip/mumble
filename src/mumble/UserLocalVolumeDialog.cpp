@@ -42,10 +42,10 @@
 #include "Database.h"
 
 UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
-                                             QMap<unsigned int, UserLocalVolumeDialog*> *qmuservolTracker)
+                                             QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker)
 	: QDialog(NULL)
 	, m_clientSession(sessionId)
-	, m_qmuservolTracker(qmuservolTracker){
+	, m_qmUserVolTracker(qmUserVolTracker){
 	setupUi(this);
 
 	ClientUser *user = ClientUser::get(sessionId);
@@ -58,7 +58,7 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
 }
 
 void UserLocalVolumeDialog::closeEvent(QCloseEvent *event) {
-	m_qmuservolTracker->remove(m_clientSession);
+	m_qmUserVolTracker->remove(m_clientSession);
 	event->accept();
 }
 
@@ -93,6 +93,6 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 }
 
 void UserLocalVolumeDialog::reject() {
-	m_qmuservolTracker->remove(m_clientSession);
+	m_qmUserVolTracker->remove(m_clientSession);
 	UserLocalVolumeDialog::close();
 }

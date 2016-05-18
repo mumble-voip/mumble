@@ -50,7 +50,7 @@ class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog 
 
 		/// The user's original adjustment (in dB) when entering the dialog.
 		int m_originalVolumeAdjustmentDecibel;
-		QMap<unsigned int, UserLocalVolumeDialog*> *m_qmuservolTracker;
+		QMap<unsigned int, UserLocalVolumeDialog *> *m_qmUserVolTracker;
 
 	public slots:
 		void closeEvent(QCloseEvent *event);
@@ -60,8 +60,8 @@ class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog 
 		void reject();
 
 	public:
-		UserLocalVolumeDialog(unsigned int sessionId = 0,
-                                      QMap<unsigned int, UserLocalVolumeDialog*> *qmuservolTracker = NULL);
+		UserLocalVolumeDialog(unsigned int sessionId,
+                                      QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
 };
 
 #endif
