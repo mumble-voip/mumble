@@ -1,0 +1,107 @@
+# This is the .mailmap file for Mumble.
+# It maps author names and emails to to a canonical name/email pair.
+#
+# By default, the .mailmap file is only used by "git shortlog".
+# To use it with "git log", use the "--use-mailmap" parameter.
+
+# Aliases of Bartek "stranded" Sumowski <sumowski@gmail.com>
+Bartek "stranded" Sumowski <sumowski@gmail.com> <sumowski@users.sourceforge.net>
+Bartek "stranded" Sumowski <sumowski@gmail.com> Bartek Sumowksi <sumowski@gmail.com>
+
+# Alias of Benjamin Jemlich <pcgod@users.sourceforge.net>
+Benjamin Jemlich <pcgod@users.sourceforge.net> <pcgod@gmx.net>
+
+# Alias of EarlOfWenc <lorenz.schwittmann@gmail.com>
+EarlOfWenc <lorenz.schwittmann@gmail.com> EarlOfWenc <user@localhost>
+
+# Aliases of James Fraser <fwaggle@fwaggle.org> -- latest commit uses this email.
+James Fraser <fwaggle@fwaggle.org> <fwagglechop@gmail.com>
+James Fraser <fwaggle@fwaggle.org> <jamie.f@mumbledog.com>
+James Fraser <fwaggle@fwaggle.org> <jamie.f@sabrienix.com>
+
+# Aliases of Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net> <naproxeno@kepis.(none)>
+Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net> Álvaro M. Recio Pérez <naproxeno@users.sourceforge.net>
+
+# Aliases of Thorvald Natvig <slicer@users.sourceforge.net>
+Thorvald Natvig <slicer@users.sourceforge.net> <github@natvig.com>
+Thorvald Natvig <slicer@users.sourceforge.net> <thorvald@-e false.(none)>
+Thorvald Natvig <slicer@users.sourceforge.net> <thorvald@debian.localdomain>
+Thorvald Natvig <slicer@users.sourceforge.net> <thorvald@natvig.com>
+
+# Alias of Spaccaossi <spaccaossi@gmail.com>
+Spaccaossi <spaccaossi@gmail.com> <spaccaossi@users.sourceforge.net>
+
+# Aliases of Stefan Hacker <dd0t@users.sourceforge.net>
+Stefan Hacker <dd0t@users.sourceforge.net> <hacker.stefan@googlemail.com>
+Stefan Hacker <dd0t@users.sourceforge.net> <hast@hast-desktop.(none)>
+Stefan Hacker <dd0t@users.sourceforge.net> Stefan H <dd0t@users.sourceforge.net>
+Stefan Hacker <dd0t@users.sourceforge.net> unknown <d0t@.(none)>
+
+# Aliases of Michał "Zuko" Żukowski <zuczeq@gmail.com>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> Zuko <zuczeq@gmail.com>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> Zukowski Michal <zuczeq@gmail.com>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> Żukowski Michał <zuczeq@gmail.com>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> zuczeq <zuczeq@users.sourceforge.net>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> =?UTF-8 Michał Żukowski?= <zuczeq@gmail.com>
+Michał "Zuko" Żukowski <zuczeq@gmail.com> Michał Żukowski <zuczeq@gmail.com>
+
+# Aliases of Mikkel Krautz <mikkel@krautz.dk>
+Mikkel Krautz <mikkel@krautz.dk> <mkrautz@users.sourceforge.net>
+Mikkel Krautz <mikkel@krautz.dk> Mikkel <mikkel@krautz.dk>
+
+# Alias of tkmorris <mauricioarozi@gmail.com>
+tkmorris <mauricioarozi@gmail.com> <tkmorris@users.sourceforge.net>
+
+# Alias of bendem <online@bendem.be>
+bendem <online@bendem.be> <bendembd@gmail.com>
+
+# Alias of arrai <array.of.intellect@gmail.com>
+arrai <array.of.intellect@gmail.com> <arrai@users.sourceforge.net>
+
+# Alias of Joël Troch <joel.troch62@gmail.com>
+Joël Troch <joel.troch62@gmail.com> <JoelTroch@users.noreply.github.com>
+
+# Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
+Matthias Vogelgesang <matthias.vogelgesang@gmail.com> <m0ta@users.sourceforge.net>
+
+# Alias of Tuck Therebelos <snares@users.sourceforge.net>
+Tuck Therebelos <snares@users.sourceforge.net> <snares@users.sourceforge.net>
+
+# Aliases of Natenom <natenom@natenom.com>
+Natenom <natenom@natenom.com> <natenom@googlemail.com>
+Natenom <natenom@natenom.com> <natenom@natenom.name>
+
+# Alias of haru_arc <arcenciel@users.sf.net>
+haru_arc <arcenciel@users.sf.net> <arcenciel@users.sourceforge.net>
+
+# Alias of Jonathan E. Hansen <zentriple@users.sourceforge.net>
+Jonathan E. Hansen <zentriple@users.sourceforge.net>
+
+# Alias of Patrick Matthäi <pmatthaei@debian.org>
+Patrick Matthäi <pmatthaei@debian.org> <the-me88@users.sourceforge.net>
+
+# Alias of Jan Klass <kissaki@gmx.de>
+Jan Klass <kissaki@gmx.de> <kissaki0@gmail.com>
+
+# Alias of Semion Tsinman <Necromancer3333@gmail.com>
+Semion Tsinman <Necromancer3333@gmail.com> <necromancer3@users.sourceforge.net>
+Semion Tsinman <Necromancer3333@gmail.com> <necro3@users.sourceforge.net>
+
+# Alias of Svenne33 <svenne33@users.sourceforge.net>
+Svenne33 <svenne33@users.sourceforge.net>
+
+# Potentially an alias of BAYSSE Laurent <lolo_32@users.sourceforge.net>
+BAYSSE Laurent <lolo_32@users.sourceforge.net> lolo_32 <Alex@.(none)>
+
+# Alias of Kevin Rohland <kevin@nascher.org>
+Kevin Rohland <kevin@nascher.org>
+
+# Alias of John Marion <john@lmsn.net>
+John Marion <john@lmsn.net> <LuaMilkshake@users.noreply.github.com>
+
+# Alias of Derrick Dymock <actown@gmail.com
+Derrick Dymock <actown@gmail.com> Derrick Dymock <derrick@puppetlabs.com>
+
+# Alias of Joel Kees <joelkees@gmail.com>
+Joel Kees <joelkees@gmail.com> Joeliam <joelkees@gmail.com>

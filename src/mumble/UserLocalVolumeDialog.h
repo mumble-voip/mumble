@@ -1,3 +1,8 @@
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 /* Copyright (C) 2015, Fredrik Nordin <freedick@ludd.ltu.se>
 
    All rights reserved.
@@ -31,6 +36,8 @@
 #ifndef MUMBLE_MUMBLE_USERVOLUME_H_
 #define MUMBLE_MUMBLE_USERVOLUME_H_
 
+#include <QMap>
+
 #include "ui_UserLocalVolumeDialog.h"
 #include "ClientUser.h"
 
@@ -40,16 +47,23 @@ class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog 
 
 		/// The session ID for the user that the dialog is changing the volume for.
 		unsigned int m_clientSession;
+
 		/// The user's original adjustment (in dB) when entering the dialog.
 		int m_originalVolumeAdjustmentDecibel;
+		QMap<unsigned int, UserLocalVolumeDialog *> *m_qmUserVolTracker;
 
 	public slots:
+		void closeEvent(QCloseEvent *event);
 		void on_qsUserLocalVolume_valueChanged(int value);
 		void on_qsbUserLocalVolume_valueChanged(int value);
 		void on_qbbUserLocalVolume_clicked(QAbstractButton *b);
+		void reject();
 
 	public:
-		UserLocalVolumeDialog(unsigned int sessionId = 0);
+		static void present(unsigned int sessionId,
+                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
+		UserLocalVolumeDialog(unsigned int sessionId,
+                                      QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
 };
 
 #endif

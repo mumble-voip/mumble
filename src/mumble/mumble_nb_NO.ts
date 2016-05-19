@@ -889,7 +889,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Quality of compression (peak bandwidth)</source>
-        <translation>Kvalitet på komprimering (toppnivå båndbredde)</translation>
+        <translation>Kvalitet på komprimering (toppnivå for båndbredde)</translation>
     </message>
     <message>
         <location/>

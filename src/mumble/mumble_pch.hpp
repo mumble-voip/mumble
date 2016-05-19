@@ -1,3 +1,8 @@
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 #ifndef Q_MOC_RUN
 #ifndef MUMBLE_MUMBLE_MUMBLE_PCH_H_
 #define MUMBLE_MUMBLE_MUMBLE_PCH_H_
@@ -106,7 +111,7 @@ typedef WId HWND;
 #include <netinet/tcp.h>
 #endif
 
-#if defined(__MMX__) || defined(Q_OS_WIN)
+#if !defined(Q_OS_OPENBSD) && (defined(__MMX__) || defined(Q_OS_WIN))
 #include <mmintrin.h>
 #endif
 

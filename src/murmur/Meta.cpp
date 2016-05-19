@@ -1,32 +1,7 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-   - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
-   - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "murmur_pch.h"
 
@@ -59,11 +34,7 @@ MetaParams::MetaParams() {
 	iMaxUsersPerChannel = 0;
 	iMaxTextMessageLength = 5000;
 	iMaxImageMessageLength = 131072;
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	legacyPasswordHash = true;
-#else
 	legacyPasswordHash = false;
-#endif
 	kdfIterations = -1;
 	bAllowHTML = true;
 	iDefaultChan = 0;
@@ -189,6 +160,7 @@ void MetaParams::read(QString fname) {
 			qFatal("Specified ini file %s could not be opened", qPrintable(fname));
 		}
 		qdBasePath = QFileInfo(f).absoluteDir();
+		fname = QFileInfo(f).absoluteFilePath();
 		f.close();
 	}
 	QDir::setCurrent(qdBasePath.absolutePath());
@@ -286,11 +258,7 @@ void MetaParams::read(QString fname) {
 	iTimeout = typeCheckedFromSettings("timeout", iTimeout);
 	iMaxTextMessageLength = typeCheckedFromSettings("textmessagelength", iMaxTextMessageLength);
 	iMaxImageMessageLength = typeCheckedFromSettings("imagemessagelength", iMaxImageMessageLength);
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	legacyPasswordHash = true;
-#else
 	legacyPasswordHash = typeCheckedFromSettings("legacypasswordhash", legacyPasswordHash);
-#endif
 	kdfIterations = typeCheckedFromSettings("kdfiterations", -1);
 	bAllowHTML = typeCheckedFromSettings("allowhtml", bAllowHTML);
 	iMaxBandwidth = typeCheckedFromSettings("bandwidth", iMaxBandwidth);
@@ -316,6 +284,10 @@ void MetaParams::read(QString fname) {
 	qsIceSecretRead = typeCheckedFromSettings("icesecret", qsIceSecretRead);
 	qsIceSecretRead = typeCheckedFromSettings("icesecretread", qsIceSecretRead);
 	qsIceSecretWrite = typeCheckedFromSettings("icesecretwrite", qsIceSecretRead);
+
+	qsGRPCAddress = typeCheckedFromSettings("grpc", qsGRPCAddress);
+	qsGRPCCert = typeCheckedFromSettings("grpccert", qsGRPCCert);
+	qsGRPCKey = typeCheckedFromSettings("grpckey", qsGRPCKey);
 
 	iLogDays = typeCheckedFromSettings("logdays", iLogDays);
 
@@ -532,10 +504,6 @@ void MetaParams::read(QString fname) {
 
 	qWarning("OpenSSL: %s", SSLeay_version(SSLEAY_VERSION));
 
-#if OPENSSL_VERSION_NUMBER <= 0x00090900fL
-	qWarning("Meta: PBKDF2 support is disabled. Using legacy password hashing.");
-#endif
-
 	qmConfig.clear();
 	QStringList hosts;
 	foreach(const QHostAddress &qha, qlBind) {
@@ -678,9 +646,6 @@ void Meta::killAll() {
 
 bool Meta::banCheck(const QHostAddress &addr) {
 	if ((mp.iBanTries == 0) || (mp.iBanTimeframe == 0))
-		return false;
-
-	if (addr.toIPv4Address() == ((128U << 24) | (39U << 16) | (114U << 8) | 1U))
 		return false;
 
 	if (qhBans.contains(addr)) {

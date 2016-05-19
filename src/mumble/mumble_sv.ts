@@ -685,7 +685,7 @@ Det värdet tillåter dig att ställa in ett maximalt antal av användare som ä
     <message>
         <location line="+104"/>
         <source>Opening selected ASIO device failed. No input will be done.</source>
-        <translation>Kunde inte öppna enhet för ASIO. Ingen ingång kommer att göras.</translation>
+        <translation>Kunde inte öppna vald enhet för ASIO. Ingen ändring kommer att göras.</translation>
     </message>
 </context>
 <context>
@@ -6782,7 +6782,7 @@ Förhindrar att klienten laddar ner bilder inbäddade i chattmeddelanden med img
     <message>
         <location/>
         <source>Disable image download</source>
-        <translation>Aktivera nedladdning av bilder</translation>
+        <translation>Avaktivera nedladdning av bilder</translation>
     </message>
     <message>
         <location/>

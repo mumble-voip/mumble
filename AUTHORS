@@ -1,0 +1,212 @@
+// This is the official list of people who have contributed
+// to, and/or hold the copyright to Mumble.
+//
+// The use of Mumble source code is governed by a BSD-style
+// license that can be found in the LICENSE file at the root
+// of the Mumble source tree or at <https://www.mumble.info/LICENSE>.
+//
+// Contributions made on behalf of another entity, such as a
+// company are indicated with the following suffix:
+//
+//     John Doe <jd@mumble.info> (on behalf of $COMPANY)
+//
+// It is possible to mix individual contributions with company
+// contributions. For example, if a contributor, over time,
+// has contributed code copyrighted by the contributor, as well
+// as various companies:
+//
+//     John Doe <jd@mumble.info> (individually, on behalf of
+//                                $COMPANY1, on behalf of
+//                                $COMPANY2, [...]).
+//
+// Mumble's code is developed in a Git repository. A log of
+// every contribution ever made to Mumble is available in the
+// Git repository. The Git repository can be queried to get
+// detailed authorship information for copyright and attribution
+// purposes for each file that makes up the software. A detailed
+// analysis of contributions made to Mumble is available via GitHub's
+// contribution statistics:
+//
+// <https://github.com/mumble-voip/mumble/graphs/contributors>
+
+Alex Krishnan <akrishnan@twilio.com>
+Alex Maclean <monkeh@monkeh.net>
+Álvaro Manuel Recio Pérez <naproxeno@users.sourceforge.net>
+Andreas Bibok <biboka@users.sourceforge.net>
+Andreas Messer <andi@bupfen.de>
+Andreas Sinz <andreas.sinz@aon.at>
+Antoine Bertin <diaoulael@users.sourceforge.net>
+Anton Romanov <theli.ua@gmail.com>
+Arie <allochtoon@zonnet.nl>
+arrai <array.of.intellect@gmail.com>
+Arseniy Lartsev <ars3niy@users.sourceforge.net>
+Artem Vorotnikov <skybon@gmail.com>
+asmolero <alsamolero@gmail.com>
+Asura Lee <ashurta@gmail.com>
+B0nuse <mumble@mumble.ru>
+Balazs Nagy <julian7@users.sourceforge.net>
+Bartek "stranded" Sumowski <sumowski@gmail.com>
+Bas Wijnen <wijnen@debian.org>
+BAYSSE Laurent <lolo_32@users.sourceforge.net>
+bendem <online@bendem.be>
+Benjamin Jemlich <pcgod@users.sourceforge.net>
+Benjamin Neff <benjamin@coding4coffee.ch>
+Bernhard M. Wiedemann <bernhardout@lsmod.de>
+bogie <priivet@gmail.com>
+Bojan <bogie@b02.a01.ca>
+BuddyButterfly <buddy.butterfly@web.de>
+Cesare Tirabassi <cesare.tirabassi@gmail.com>
+Charles Ricketts <githlar@gmail.com>
+Chosi <chosi@choseh.de>
+Christian Krause <chkr@plauener.de>
+Christoph Hofmann <christoph.hofmann@vfc2.eu>
+Christopher Knadle <Chris.Knadle@coredump.us>
+Cristian Gattamelati <cristian.gattamelati@gmail.com>
+d-rez <dark.skeleton@gmail.com>
+Davide Beatrici <https://github.com/davidebeatrici>
+dc6jgk <github.filter@gkware.com>
+dennisschagt <dennisschagt@gmail.com>
+derandi <derandi@users.sourceforge.net>
+Derrick Dymock <actown@gmail.com>
+DK <davidk@mail.org>
+DNW <dnw.ftw@gmail.com>
+doggone <rolf@metadata.be>
+DWM|G <gallaghermumble@gmail.com>
+EarlOfWenc <lorenz.schwittmann@gmail.com>
+Entitaet <entitaet@users.sourceforge.net>
+Erik Bouvin Pedersen <erikbp@users.sourceforge.net>
+Evan Purkhiser <evanpurkhiser@gmail.com>
+Ferdinand Thiessen <rpm@fthiessen.de>
+Filip Hedman <hedman.filip@gmail.com>
+Finessi Manuel <fino.manu@gmail.com>
+Frank Mueller <frmimue@gmail.com>
+Fredrik Nordin <freedick@ludd.ltu.se>
+Friedrich Uz-Valentin <uz_@users.sourceforge.net>
+Generator <american.jesus.pt@gmail.com>
+GoD-Tony <noreply@gmail.com>
+Harry Gabriel <h.gabriel@nodefab.de>
+haru_arc <arcenciel@users.sf.net>
+He Tal <hetao29@users.sourceforge.net>
+Hengqing Hu <esrms@users.sourceforge.net>
+Henry Fallon <hjf288@gmail.com>
+Iain Georgeson <debbugs@iain.georgeson.me.uk>
+Ilmar Kruis <seaeagle1@users.sourceforge.net>
+Imre Botos <zokny@users.sourceforge.net>
+Jacob Peddicord <jacob@peddicord.net>
+Jakob Dettner <jakobdettner@users.sourceforge.net>
+James Fraser <fwaggle@fwaggle.org>
+Jan Braun <janbraun@gmx.net>
+Jan Klass <kissaki@gmx.de>
+javitonino <javitonino@users.sourceforge.net>
+Jérôme "buggerone" <buggerone@users.sourceforge.net>
+Jerome Vidal <jerhum@users.sourceforge.net>
+jgeboski <jgeboski@gmail.com>
+Joel Kees <joelkees@gmail.com>
+Joël Troch <joel.troch62@gmail.com>
+John Marion <john@lmsn.net>
+John P <johnhatestrash@gmail.com>
+Jonathan E. Hansen <zentriple@users.sourceforge.net>
+Jordan Cristiano <https://github.com/SizzlingCalamari>
+Jordan Klassen <jordan@klassen.me.uk>
+Joshua Kocinski <git@cl0secall.net>
+Julien Pardons <j.pardons@redline-hosting.eu>
+Justin M <justin.m.mcgrath@gmail.com>
+Justin McGrath <justin.m.mcgrath@gmail.com>
+Karl Dietz <dekarl@users.sourceforge.net>
+karokatona <karokatona@users.sourceforge.net>
+Kevin Rohland <kevin@nascher.org>
+Kevin Strasser <kevstras@gmail.com>
+Kissaki <kissaki@gmx.de>
+Kjetil Jørgensen <kjetijor@users.sourceforge.net>
+Kyle Smith <askreet@gmail.com>
+Lartza <https://github.com/Lartza>
+Lekensteyn <lekensteyn@users.sourceforge.net>
+Leszek Godlewski <inequation@users.sourceforge.net>
+Ludwig Nussel <ludwig.nussel@suse.de>
+Lukas Orsvärn <lucas.orsv@gmail.com>
+main() <main@ehvag.eu.org>
+Marc Deslauriers <marc.deslauriers@canonical.com>
+Marius Grannæs <grannas@users.sourceforge.net>
+Mark Felder <feld@feld.me>
+Mark Schreiber <mark7@users.sourceforge.net>
+Mark-Willem Jansen <rawnar@users.sourceforge.net>
+Markus S <Reaper@gmx.at>
+Martijn Stolk <github@netripper.nl>
+Martin Skilnand <cybknight@users.sourceforge.net>
+Martin von Gagern <Martin.vGagern@gmx.net>
+Matt Hamilton <m@tthamilton.com>
+Matt Lewandowsky <matt@greenviolet.net>
+Matt M. <mokomull@users.sourceforge.net>
+Matthias Salzeder <mail@MatthiasSalzeder.de>
+Matthias Vogelgesang <matthias.vogelgesang@gmail.com>
+meanracoon <racoon@meanclan.org>
+Mew <Giratina493@mew151.net>
+Micah Caldwell <micah@zoltu.net>
+Michael Pavlyshko <me@mixaill.tk>
+Michael Ziegler <diese-addy@funzt-halt.net>
+Michał "Zuko" Żukowski <zuczeq@gmail.com>
+Mike <mike@flomp.net>
+Mikkel Krautz <mikkel@krautz.dk>
+Mikko Rantanen <jubjub@jubjubnest.net>
+mystic_sam <mystic_sam@users.sourceforge.net>
+Natenom <natenom@natenom.com>
+Nick Heindl <nheindl@wisc.edu>
+Nicos Gollan <gtdev@spearhead.de>
+Nik Johnson <nik@jnstw.us>
+Nikita Puzyryov <https://github.com/NikitaPuzyryov>
+Nikolaj Dombrow <nikolaj.dombrow@dombrow.de>
+nomad <gmc_holle@users.sourceforge.net>
+Opalium <opalium@users.sourceforge.net>
+Otto Allmendinger <oallmendinger@users.sourceforge.net>
+ozon <mumble-tower@users.sourceforge.net>
+Patrick Matthäi <pmatthaei@debian.org>
+Peter Vágner <pvdeejay@gmail.com>
+Phil <synapse84@gmail.com>
+Philip Cass <frymaster@127001.org>
+Phrag <info@clanwars.cz>
+Piotr Chodań <dark.skeleton@gmail.com>
+Piratonym <piratonym@piratonym.cc>
+Prosper_Spurius <prosper_spurius@users.sourceforge.net>
+QuirB <quirb@gmx.net>
+qwestduck <gsreceiver2@yahoo.com>
+Rafael Correia <rafaeljpc@gmail.com>
+Rafael Lopez <rafael@case.edu>
+rdb <git@rdb.name>
+Roman Priesol <roman@priesol.net>
+ronoc <conor@forwind.net>
+Ryan Austin <ryan.e.austin@gmail.com>
+Sami Laine <sami.v.laine@gmail.com>
+Samuel D. Leslie <sdl@nexiom.net>
+scapula <rasmus.ry@gmail.com>
+Sebastian Schlingmann <mit_service@users.sourceforge.net>
+Semion Tsinman <Necromancer3333@gmail.com>
+Sergey Ivanov <randomei@users.sourceforge.net>
+Spaccaossi <spaccaossi@gmail.com>
+Stefan Gehn <mETz@gehn.net>
+Stefan Hacker <dd0t@users.sourceforge.net>
+Steve Hill <github@cheesy.sackheads.org>
+Sven-Hendrik Haase <sh@lutzhaase.com>
+Svenne33 <svenne33@users.sourceforge.net>
+Thibault Capdevielled <theblackstorm@userse.sourceforge.net>
+Thibaut Girka
+Thorvald Natvig <slicer@users.sourceforge.net>
+Tim Burke <tim.burke@gmail.com>
+Tim Cooper <tim.cooper@layeh.com>
+Tim Visée <timvisee@gmail.com>
+Timo Gurr <timo.gurr@gmail.com>
+Timo K <timer@dbclan.de>
+tkmorris <mauricioarozi@gmail.com>
+Tristan Matthews <tristan.matthews@savoirfairelinux.com>
+Tsbook <tsbook@users.sourceforge.net>
+Tuck Therebelos <snares@users.sourceforge.net>
+Wesley W. Terpstra <terpstra@users.sourceforge.net>
+Will Tange <bh34rt@gmail.com>
+withgod <withgod@users.sourceforge.net>
+x89 <napalm10@gmail.com>
+zapman
+Zorg <zorgiepoo@gmail.com>
+
+// Special thanks to:
+//
+//    Thorvald Natvig, for founding the Mumble project
+//    and maintaining it during its formative years.

@@ -3384,7 +3384,7 @@ Port d&apos;écoute du serveur. Si le serveur est identifié par le service Bonj
     <message>
         <location/>
         <source>Username to send to the server</source>
-        <translation>Nom d&apos;utilisateur envoyé au serveur</translation>
+        <translation>Nom d&apos;utilisateur à envoyer au serveur</translation>
     </message>
     <message>
         <location/>
@@ -3411,7 +3411,7 @@ Nom d&apos;utilisateur envoyé au serveur. Notez que le serveur peut imposer des
     <message>
         <location/>
         <source>Password to send to the server</source>
-        <translation>Mot de passe envoyé au serveur</translation>
+        <translation>Mot de passe à envoyer au serveur</translation>
     </message>
     <message>
         <location/>
@@ -3507,7 +3507,7 @@ Nom du serveur. C&apos;est le nom du serveur tel qu&apos;il apparaîtra dans vos
     <message>
         <location line="+0"/>
         <source>Thank you for helping make Mumble better!</source>
-        <translation>Merci d&apos;aider Mumble à devenir meilleur !</translation>
+        <translation>Merci d&apos;aider à améliorer Mumble !</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3958,7 +3958,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Left Server</source>
-        <translation>Un utilisateur quitte le serveur</translation>
+        <translation>Un utilisateur a quitté le serveur</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3998,12 +3998,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+1"/>
         <source>User Joined Channel</source>
-        <translation>Un utilisateur arrive dans le salon</translation>
+        <translation>Un utilisateur a rejoint le salon</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>User Left Channel</source>
-        <translation>Un utilisateur quitte le salon</translation>
+        <translation>Un utilisateur a quitté le salon</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4651,7 +4651,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="-1"/>
         <source>Mumble is currently connected to a server. Do you want to Close or Minimize it?</source>
-        <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches         ?</translation>
+        <translation>Mumble est actuellement connecté à un serveur. Voulez-vous le fermer ou le réduire dans la barre des tâches ?</translation>
     </message>
     <message>
         <location line="-247"/>
@@ -4725,7 +4725,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+6"/>
         <source>Settings merged from file.</source>
-        <translation>Paramètres fusionnée à partir du fichier.</translation>
+        <translation>Paramètres fusionnés à partir du fichier.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -5111,7 +5111,7 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+71"/>
         <source>Sending message to channel %1</source>
-        <translation>Envoie un message au salon %1</translation>
+        <translation>Envoyer un message au salon %1</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -5157,12 +5157,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location line="+60"/>
         <source>Restart Mumble?</source>
-        <translation>Redémarrer Mumble ?</translation>
+        <translation>Redémarrer Mumble?</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Some settings will only apply after a restart of Mumble. Restart Mumble now?</source>
-        <translation>Certaines options ne seront appliquées qu&apos;après un redémarrage de Mumble. Redémarrer Mumble maintenant ?</translation>
+        <translation>Certaines options ne seront appliquées qu&apos;après un redémarrage de Mumble. Redémarrer Mumble maintenant?</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -5964,7 +5964,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+40"/>
         <source>%1 connected.</source>
-        <translation>%1 connecté.</translation>
+        <translation>%1 connecté(e).</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -6095,7 +6095,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+51"/>
         <source>%1 disconnected.</source>
-        <translation>%1 déconnecté.</translation>
+        <translation>%1 déconnecté(e).</translation>
     </message>
     <message>
         <location line="+115"/>
@@ -6218,7 +6218,7 @@ veuillez réessayer. Sinon annulez et vérifiez votre certificat et nom d&apos;u
     <message>
         <location line="+20"/>
         <source>%1 entered channel.</source>
-        <translation>%1 est entré dans le salon.</translation>
+        <translation>%1 a rejoint le salon.</translation>
     </message>
     <message>
         <location line="-409"/>

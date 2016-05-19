@@ -1,14 +1,8 @@
-Copyright (C) 2005-2013, Thorvald Natvig <thorvald@natvig.com>
-Copyright (C) 2007, Stefan Gehn <mETz AT gehn DOT net>
-Copyright (C) 2007, Sebastian Schlingmann <mit_service@users.sourceforge.net>
-Copyright (C) 2007, Trenton Schulz
-Copyright (C) 2008-2016, Mikkel Krautz <mikkel@krautz.dk>
-Copyright (C) 2008, Andreas Messer <andi@bupfen.de>
-Copyright (C) 2008-2016, Stefan Hacker <dd0t@users.sourceforge.net>
-Copyright (C) 2008-2011, Snares <snares@users.sourceforge.net>
-Copyright (C) 2009-2013, Benjamin Jemlich <pcgod@users.sourceforge.net>
-Copyright (C) 2009-2016, Kissaki <kissaki@gmx.de>
-Copyright (C) 2010-2016, Jamie Fraser <jamie.f@mumbledog.com>
+Copyright (C) 2005-2016 The Mumble Developers
+
+A list of The Mumble Developers can be found in the
+AUTHORS file at the root of the Mumble source tree
+or at <https://www.mumble.info/AUTHORS>.
 
 All rights reserved.
 
@@ -21,7 +15,7 @@ are met:
 - Redistributions in binary form must reproduce the above copyright notice,
   this list of conditions and the following disclaimer in the documentation
   and/or other materials provided with the distribution.
-- Neither the name of the Mumble Developers nor the names of its
+- Neither the name of The Mumble Developers nor the names of its
   contributors may be used to endorse or promote products derived from this
   software without specific prior written permission.
 
@@ -36,3 +30,6 @@ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+For questions and inquiries about Mumble's license,
+please contact <license@mumble.info>.

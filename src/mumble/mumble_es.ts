@@ -965,7 +965,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Enabling this will cancel the echo from your speakers. Mixed has low CPU impact, but only works well if your speakers are equally loud and equidistant from the microphone. Multichannel echo cancellation provides much better echo cancellation, but at a higher CPU cost.</source>
-        <translation>Habilitar esto cancelará el eco de sus altavoces. Mezclado tiene un impacto bajo en la CPU, pero sólo funciona bien si sus altavoces están al mismo volúmen y son equidistantes al micrófono. La cancelación del eco multicanal proporciona mejor cancelación de eco, pero a un coste de CPU mayor.</translation>
+        <translation>Habilitar esto cancelará el eco de sus altavoces. Mezclado tiene un impacto bajo en la CPU, pero sólo funciona bien si sus altavoces están al mismo volumen y son equidistantes al micrófono. La cancelación del eco multicanal proporciona mejor cancelación de eco, pero a un coste de CPU mayor.</translation>
     </message>
     <message>
         <location/>
@@ -1296,7 +1296,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Volume</source>
-        <translation>Volúmen</translation>
+        <translation>Volumen</translation>
     </message>
     <message>
         <location/>
@@ -1306,7 +1306,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;This adjusts the volume of incoming speech.&lt;/b&gt;&lt;br /&gt;Note that if you increase this beyond 100%, audio will be distorted.</source>
-        <translation>&lt;b&gt;Ajusta el volúmen del habla entrante.&lt;/b&gt;&lt;br /&gt;Fíjese en que si incrementa esto por encima de 100%, se distorsionará el audio.</translation>
+        <translation>&lt;b&gt;Ajusta el volumen del habla entrante.&lt;/b&gt;&lt;br /&gt;Fíjese en que si incrementa esto por encima de 100%, se distorsionará el audio.</translation>
     </message>
     <message>
         <location/>
@@ -1372,17 +1372,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Maximum distance, beyond which speech volume won&apos;t decrease</source>
-        <translation>Distancia máxima, más allá de la cual el volúmen del habla no disminuirá</translation>
+        <translation>Distancia máxima, más allá de la cual el volumen del habla no disminuirá</translation>
     </message>
     <message>
         <location/>
         <source>Minimum Volume</source>
-        <translation>Volúmen mínimo</translation>
+        <translation>Volumen mínimo</translation>
     </message>
     <message>
         <location/>
         <source>What should the volume be at the maximum distance?</source>
-        <translation>¿Cuál debería ser el volúmen a la distancia máxima?</translation>
+        <translation>¿Cuál debería ser el volumen a la distancia máxima?</translation>
     </message>
     <message>
         <location/>
@@ -1443,17 +1443,17 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate volume of other applications during speech&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This sets the attenuation of other applications if the feature is enabled.</source>
-        <translation>&lt;b&gt;Atenuar el volúmen de las otras aplicaciones durante el habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Esto establece la atenuación de las otras aplicaciones si la característica está habilitada.</translation>
+        <translation>&lt;b&gt;Atenuar el volumen de las otras aplicaciones durante el habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Esto establece la atenuación de las otras aplicaciones si la característica está habilitada.</translation>
     </message>
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation>Si se marca, Mumble disminuye el volúmen de las otras aplicaciones mientras otros usuarios hablan</translation>
+        <translation>Si se marca, Mumble disminuye el volumen de las otras aplicaciones mientras otros usuarios hablan</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while other users talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while other users talk to you.</source>
-        <translation>&lt;b&gt;Atenuar las aplicaciones mientras otros usuarios hablan&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Esto hace que Mumble active la característica mientras otros usuarios le hablan.</translation>
+        <translation>&lt;b&gt;Atenuar las aplicaciones mientras otros usuarios hablan&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volumen de las otras aplicaciones durante el habla entrante y/o saliente. Esto hace que Mumble active la característica mientras otros usuarios le hablan.</translation>
     </message>
     <message>
         <location/>
@@ -1463,12 +1463,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation>Si se marca, Mumble disminuye el volúmen de otras aplicaciones mientras usted habla</translation>
+        <translation>Si se marca, Mumble disminuye el volumen de otras aplicaciones mientras usted habla</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate applications while you talk&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other applications during incoming and/or outgoing speech. This makes mumble activate the feature while you talk.</source>
-        <translation>&lt;b&gt;Atenuar las aplicaciones mientras usted habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volúmen de las otras aplicaciones durante el habla entrante y/o saliente. Esto hace que Mumble active la característica mientras usted habla.</translation>
+        <translation>&lt;b&gt;Atenuar las aplicaciones mientras usted habla&lt;/b&gt;&lt;br /&gt;Mumble puede disminuir el volumen de las otras aplicaciones durante el habla entrante y/o saliente. Esto hace que Mumble active la característica mientras usted habla.</translation>
     </message>
     <message>
         <location/>
@@ -1498,12 +1498,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other users while you talk if you have the &quot;Priority Speaker&quot; status.</source>
-        <translation>Si se marca Mumble disminuye el volúmen de otros usuarios mientras usted habla si es usted un &quot;Orador prioritario&quot;.</translation>
+        <translation>Si se marca Mumble disminuye el volumen de otros usuarios mientras usted habla si es usted un &quot;Orador prioritario&quot;.</translation>
     </message>
     <message>
         <location/>
         <source>&lt;b&gt;Attenuate other users while talking as Priority Speaker.&lt;/b&gt;&lt;br /&gt;Mumble supports decreasing the volume of other users while you talk as the &lt;i&gt;Priority Speaker&lt;/i&gt; to avoid getting disturbed. Checking this checkbox will enable this feature.</source>
-        <translation>&lt;b&gt;Disminuír el volúmen de otros usuarios mientras se habla como Orador Prioritario.&lt;/b&gt;&lt;br /&gt;Mumble permite disminuír el volúmen de otros usuarios mientras usted habla &lt;i&gt;Orador Prioritario&lt;/i&gt; para evitar ser interrumpido. Marcando esta casilla se activa esta función.</translation>
+        <translation>&lt;b&gt;Disminuír el volumen de otros usuarios mientras se habla como Orador Prioritario.&lt;/b&gt;&lt;br /&gt;Mumble permite disminuír el volúmen de otros usuarios mientras usted habla &lt;i&gt;Orador Prioritario&lt;/i&gt; para evitar ser interrumpido. Marcando esta casilla se activa esta función.</translation>
     </message>
     <message>
         <location/>
@@ -2006,12 +2006,11 @@ The graph below shows the position of &lt;font color=&quot;red&quot;&gt;you&lt;/
 &lt;/p&gt;
 </source>
         <translation>&lt;p&gt;
-Mumble adminte audio posicional para algunos juegos, y posicionará la voz de otros usuarios en relación a su posición en el juego. Dependiendo de su posición, el volúmen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros usuarios. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, así que se hará una prueba aquí.
+Mumble adminte audio posicional para algunos juegos, y posicionará la voz de otros usuarios en relación a su posición en el juego. Dependiendo de su posición, el volumen de la voz cambiará entre los altavoces para simular la dirección y la distancia a la que están los otros usuarios. Tal posicionamiento depende de que la configuración de los altavoces sea correcta en su sistema operativo, así que se hará una prueba aquí.
 &lt;/p&gt;
 &lt;p&gt;
 El gráfico de abajo muestra &lt;font color=&quot;red&quot;&gt;su&lt;/font&gt; posición, los &lt;font color=&quot;yellow&quot;&gt;altavoces&lt;/font&gt; y una &lt;font color=&quot;green&quot;&gt;fuente de sonido móvil&lt;/font&gt; vistas desde arriba. Debería oir el audio moverse entre los canales.
-&lt;/p&gt;
-</translation>
+&lt;/p&gt;</translation>
     </message>
     <message>
         <location/>
@@ -4607,13 +4606,13 @@ Este campo describe el tamaño de un dispositivo LCD. El tamaño se da, o bien e
         <location line="+3"/>
         <source>Volume Up (+10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Aumentar el volúmen (+10%)</translation>
+        <translation>Aumentar el volumen (+10%)</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Volume Down (-10%)</source>
         <comment>Global Shortcut</comment>
-        <translation>Disminuir el volúmen (-10%)</translation>
+        <translation>Disminuir el volumen (-10%)</translation>
     </message>
     <message>
         <location filename="MainWindow.ui"/>

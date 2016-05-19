@@ -35,6 +35,12 @@
       <Component Id="bfheroes.dll">
         <File Source="$(var.SourceDir)\release\plugins\bfheroes.dll" KeyPath="yes" />
       </Component>
+      <Component Id="bf4.dll">
+        <File Source="$(var.SourceDir)\release\plugins\bf4.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="bf4_x86.dll">
+        <File Source="$(var.SourceDir)\release\plugins\bf4_x86.dll" KeyPath="yes" />
+      </Component>
       <Component Id="blacklight.dll">
         <File Source="$(var.SourceDir)\release\plugins\blacklight.dll" KeyPath="yes" />
       </Component>
@@ -107,6 +113,12 @@
       <Component Id="lotro.dll">
         <File Source="$(var.SourceDir)\release\plugins\lotro.dll" KeyPath="yes" />
       </Component>
+      <Component Id="ql.dll">
+        <File Source="$(var.SourceDir)\release\plugins\ql.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="rl.dll">
+        <File Source="$(var.SourceDir)\release\plugins\rl.dll" KeyPath="yes" />
+      </Component>
       <Component Id="sr.dll">
         <File Source="$(var.SourceDir)\release\plugins\sr.dll" KeyPath="yes" />
       </Component>
@@ -144,6 +156,8 @@
       <ComponentRef Id="bf3.dll" />
       <ComponentRef Id="bfbc2.dll" />
       <ComponentRef Id="bfheroes.dll" />
+      <ComponentRef Id="bf4.dll" />
+      <ComponentRef Id="bf4_x86.dll" />
       <ComponentRef Id="borderlands.dll" />
       <ComponentRef Id="borderlands2.dll" />
       <ComponentRef Id="blacklight.dll" />
@@ -168,6 +182,8 @@
       <ComponentRef Id="l4d2.dll" />
       <ComponentRef Id="lol.dll" />
       <ComponentRef Id="lotro.dll" />
+      <ComponentRef Id="ql.dll" />
+      <ComponentRef Id="rl.dll" />
       <ComponentRef Id="sr.dll" />
       <ComponentRef Id="sto.dll" />
       <ComponentRef Id="tf2.dll" />

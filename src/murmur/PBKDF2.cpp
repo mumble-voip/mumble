@@ -1,3 +1,8 @@
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 /* Copyright (C) 2013, Morris Moraes <mauricioarozi@gmail.com>
    Copyright (C) 2014, Stefan Hacker <dd0t@users.sourceforge.net>
 
@@ -28,6 +33,7 @@
    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 #include "murmur_pch.h"
 
 #include "PBKDF2.h"
@@ -65,7 +71,6 @@ int PBKDF2::benchmark() {
 }
 
 QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int iterationCount) {
-#if OPENSSL_VERSION_NUMBER >= 0x00090900fL
 	QByteArray hash(DERIVED_KEY_LENGTH, 0);
 	
 	const QByteArray utf8Password = password.toUtf8();
@@ -81,15 +86,6 @@ QString PBKDF2::getHash(const QString &hexSalt, const QString &password, int ite
 	}
 	
 	return hash.toHex();
-#else
-	Q_UNUSED(hexSalt);
-	Q_UNUSED(password);
-	Q_UNUSED(iterationCount);
-
-	qFatal("PBKDF2::getHash() is not implemented. System's OpenSSL is too old.");
-
-	return QString();
-#endif
 }
 
 

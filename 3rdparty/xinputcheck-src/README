@@ -1,0 +1,10 @@
+XInputCheck is an XInput check abstracted away from SDL.
+
+The content of xinputcheck.c is originally from SDL Hg c7932bb6dcee.
+The files used are "src/joystick/windows/SDL_dinputjoystick.c" and
+"include/SDL_stdinc.h".
+
+If you need to update this file, please arrange the code such that
+it is possible to copy/paste directly from SDL. This makes code
+sharing easier! Right now, the SDL_IsXInputDevice is directly
+copied from SDL.

@@ -1,3 +1,8 @@
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 /* Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com>
    Copyright (C) 2011, Kissaki <kissaki@gmx.de>
    Copyright (C) 2011, Nye Liu <nyet@nyet.org>

@@ -1,8 +1,46 @@
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 include(qt.pri)
  
 CONFIG *= warn_on
 
+# Enable zlib compression for assets
+# embedded via rcc. This is done to
+# keep the size of rcc's output
+# source files under control.
+QMAKE_RESOURCE_FLAGS += -compress 9
+
+# The architecture we're building for.
+# On Windows, Mumble supports overriding the
+# architecture of the compiler via the
+# force-x86_64-toolchain and force-x86-toolchain
+# CONFIG options. Because we have these, qmake's
+# QMAKE_TARGET.arch doesn't suffice any longer, and
+# we define MUMBLE_ARCH to be used in its place.
+MUMBLE_ARCH = $$QMAKE_TARGET.arch
+
 win32 {
+	# Define the CONFIG options 'force-x86-toolchain' and
+	# 'force-x86_64-toolchain'. These can be used to force
+	# the target of a .pro file to be built for a specific
+	# architecture, regardless of the actual architecture
+	# used by the current build environment.
+	FULL_MKSPEC_PATH = $$QMAKESPEC
+	CURRENT_MKSPEC = $$basename(QMAKESPEC)
+
+	CONFIG(force-x86-toolchain) {
+		MUMBLE_ARCH = x86
+		include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
+	}
+
+	CONFIG(force-x86_64-toolchain) {
+		MUMBLE_ARCH = x86_64
+		include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
+	}
+
 	# Import dependency paths for windows
 	include(winpaths_default.pri)
 
@@ -50,16 +88,12 @@ win32 {
 		QMAKE_CXXFLAGS_DEBUG *= /analyze
 		QMAKE_CFLAGS_RELEASE *= /analyze
 		QMAKE_CXXFLAGS_RELEASE *= /analyze
-
-		# Do not treat warnings as errors when
-		# running the static analyzer.
-		# Otherwise, we won't get very far!
-		CONFIG *= no-warnings-as-errors
 	}
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS *= -WX
 		QMAKE_CXXFLAGS *= -WX
+		QMAKE_LFLAGS *= -WX
 	}
 
 	# Increase the verbosity of the linker.
@@ -78,7 +112,7 @@ win32 {
 	QMAKE_CFLAGS_RELEASE *= -Ox /fp:fast
 	QMAKE_CXXFLAGS_RELEASE *= -Ox /fp:fast
 
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_LFLAGS_RELEASE -= /SafeSEH
 	}
 
@@ -86,7 +120,7 @@ win32 {
 	# unless an explict arch is set.
 	# For our non-64 x86 builds, our binaries should not contain any
 	# SSE2 code, so override the default by using -arch:SSE.
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_CFLAGS_RELEASE *= -arch:SSE
 		QMAKE_CXXFLAGS_RELEASE *= -arch:SSE
 	}
@@ -116,11 +150,11 @@ win32 {
 	!isEmpty(QMAKE_LFLAGS_CONSOLE) {
 		error("QMAKE_LFLAGS_CONSOLE is not empty. Please adjust the pri file.")
 	}
-	equals(QMAKE_TARGET.arch, x86) {
+	equals(MUMBLE_ARCH, x86) {
 		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,5.01
 		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,5.01
 	}
-	equals(QMAKE_TARGET.arch, x86_64) {
+	equals(MUMBLE_ARCH, x86_64) {
 		QMAKE_LFLAGS_CONSOLE += /SUBSYSTEM:CONSOLE,6.00
 		QMAKE_LFLAGS_WINDOWS += /SUBSYSTEM:WINDOWS,6.00
 	}
@@ -130,22 +164,6 @@ win32 {
 	      QMAKE_CFLAGS_RELEASE -= -arch:SSE
 	      QMAKE_CFLAGS_DEBUG -= -arch:SSE
 	      QMAKE_CFLAGS += -arch:SSE2
-	}
-
-	# Define the CONFIG options 'force-x86-toolchain' and
-	# 'force-x86_64-toolchain'. These can be used to force
-	# the target of a .pro file to be built for a specific
-	# architecture, regardless of the actual architecture
-	# used by the current build environment.
-	FULL_MKSPEC_PATH = $$QMAKESPEC
-	CURRENT_MKSPEC = $$basename(QMAKESPEC)
-
-	CONFIG(force-x86-toolchain) {
-		include(toolchain/$${CURRENT_MKSPEC}/x86-xp.toolchain)
-	}
-
-	CONFIG(force-x86_64-toolchain) {
-		include(toolchain/$${CURRENT_MKSPEC}/x64.toolchain)
 	}
 
 	CONFIG(symbols) {
@@ -185,7 +203,7 @@ unix {
 	QMAKE_OBJECTIVE_CFLAGS   *= -Wall -Wextra
 	QMAKE_OBJECTIVE_CXXFLAGS *= -Wall -Wextra
 
-	!CONFIG(no-warnings-as-errors) {
+	CONFIG(warnings-as-errors) {
 		QMAKE_CFLAGS	         *= -Werror
 		QMAKE_CXXFLAGS	         *= -Werror
 		QMAKE_OBJECTIVE_CFLAGS   *= -Werror
@@ -242,8 +260,31 @@ unix:!macx {
 		QMAKE_LFLAGS *= -Wl,--no-add-needed
 	}
 
-	QMAKE_CFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
-	QMAKE_CXXFLAGS *= -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2
+	# Ensure _FORTIFY_SOURCE is not used in debug builds.
+	#
+	# First, ensure _FORTIFY_SOURCE is undefined.
+	# Then -- and, only for release builds -- set
+	# _FORTIFY_SOURCE=2.
+	#
+	# We can't use _FORTIFY_SOURCE in debug builds (which are
+	# built with -O0) because _FORTIFY_SOURCE=1 requires -O1
+	# and _FORTIFY_SOURCE=2 requires -O2.
+	# Modern GLIBCs warn about this since
+	# https://sourceware.org/bugzilla/show_bug.cgi?id=13979.
+	# In Mumble builds with warnings-as-errors, this will
+	# cause build failures.
+	#
+	# We use the += operator because we care about the
+	# ordering of unsetting versus setting the preprocessor
+	# define. If they're in the wrong order, this will not
+	# work as intended.
+	QMAKE_CFLAGS += -U_FORTIFY_SOURCE
+	QMAKE_CXXFLAGS += -U_FORTIFY_SOURCE
+	CONFIG(release, debug|release) {
+		QMAKE_CFLAGS += -D_FORTIFY_SOURCE=2
+		QMAKE_CXXFLAGS += -D_FORTIFY_SOURCE=2
+	}
+
 	QMAKE_LFLAGS *= -Wl,-z,relro -Wl,-z,now
 
 	CONFIG(symbols) {

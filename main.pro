@@ -1,3 +1,8 @@
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 TEMPLATE = subdirs
 CONFIG *= ordered debug_and_release
 
@@ -31,6 +36,7 @@ SUBDIRS *= src/mumble_proto
   }
 
   win32 {
+    SUBDIRS *= 3rdparty/xinputcheck-build
     SUBDIRS *= 3rdparty/minhook-build
   }
 
@@ -78,6 +84,13 @@ SUBDIRS *= src/mumble_proto
 !CONFIG(no-server) {
   !CONFIG(no-ice) {
     SUBDIRS *= src/murmur/murmur_ice
+  }
+  CONFIG(grpc) {
+    !system(pkg-config --atleast-version=3 protobuf) {
+      error(grpc requires protobuf>=3)
+    }
+    SUBDIRS *= src/murmur_grpcwrapper_protoc_plugin
+    SUBDIRS *= src/murmur/murmur_grpc
   }
   SUBDIRS *= src/murmur
 }

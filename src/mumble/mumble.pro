@@ -1,4 +1,10 @@
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 include(../mumble.pri)
+include(../../python.pri)
 
 DEFINES		*= MUMBLE
 TEMPLATE	= app
@@ -69,7 +75,7 @@ CONFIG(static) {
       DEF_KIND = release
     }
 
-    gendef.commands = python ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
+    gendef.commands = $$PYTHON ../../scripts/gen-mumble_app-qt-def.py $${DEF_KIND} $$[QT_INSTALL_LIBS] $${DEF_FILE}
     QMAKE_EXTRA_TARGETS *= gendef
     PRE_TARGETDEPS *= gendef
     QMAKE_DISTCLEAN *= $${DEF_FILE}
@@ -210,12 +216,12 @@ SOURCES *= BanEditor.cpp \
     VoiceRecorderDialog.cpp \
     WebFetch.cpp \
     MumbleApplication.cpp \
-    smallft.cpp \
+    ../../3rdparty/smallft-src/smallft.cpp \
     ThemeInfo.cpp \
     Themes.cpp \
     OverlayPositionableItem.cpp
 
-DIST		*= ../../icons/mumble.ico licenses.h smallft.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
+DIST		*= ../../icons/mumble.ico licenses.h ../../icons/mumble.xpm murmur_pch.h mumble.plist
 RESOURCES	*= mumble.qrc mumble_translations.qrc mumble_flags.qrc ../../themes/MumbleTheme.qrc
 FORMS *= ConfigDialog.ui \
     MainWindow.ui \
@@ -251,7 +257,8 @@ FORMS *= ConfigDialog.ui \
 include(translations.pri)
 
 PRECOMPILED_HEADER = mumble_pch.hpp
-INCLUDEPATH *= ../bonjour
+INCLUDEPATH *= ../../3rdparty/qqbonjour-src
+INCLUDEPATH *= ../../3rdparty/smallft-src
 
 CONFIG(static) {
   # Ensure that static Mumble.app on Mac OS X
@@ -405,6 +412,10 @@ win32 {
     DEFINES *= USE_XBOXINPUT
   }
 
+  # XInputCheck (3rdparty/xinputheck-src)
+  INCLUDEPATH *= ../../3rdparty/xinputcheck-src
+  LIBS *= -lxinputcheck
+
   !CONFIG(mumble_dll) {
     !CONFIG(no-elevation) {
       CONFIG(release, debug|release) {
@@ -537,8 +548,15 @@ asio {
 bonjour {
 	DEFINES *= USE_BONJOUR
 
-	HEADERS *= ../bonjour/BonjourRecord.h ../bonjour/BonjourServiceResolver.h ../bonjour/BonjourServiceBrowser.h BonjourClient.h
-	SOURCES *= ../bonjour/BonjourServiceResolver.cpp ../bonjour/BonjourServiceBrowser.cpp BonjourClient.cpp
+	HEADERS *= \
+		../../3rdparty/qqbonjour-src/BonjourRecord.h \
+		../../3rdparty/qqbonjour-src/BonjourServiceResolver.h \
+		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.h \
+		BonjourClient.h
+	SOURCES *= \
+		../../3rdparty/qqbonjour-src/BonjourServiceResolver.cpp \
+		../../3rdparty/qqbonjour-src/BonjourServiceBrowser.cpp \
+		BonjourClient.cpp
 	win32 {
 		INCLUDEPATH *= "$$BONJOUR_PATH/include"
 		QMAKE_LIBDIR *= "$$BONJOUR_PATH/lib/win32"
@@ -633,9 +651,9 @@ CONFIG(no-update) {
 			error(Failed to run lrelease for $$fn)
 		}
 	}
-	GENQRC = ../../scripts/generate-mumble_qt-qrc.py
+	GENQRC = $$PYTHON ../../scripts/generate-mumble_qt-qrc.py
 	win32 {
-		GENQRC = python ..\\..\\scripts\\generate-mumble_qt-qrc.py
+		GENQRC = $$PYTHON ..\\..\\scripts\\generate-mumble_qt-qrc.py
 	}
 	!system($$GENQRC mumble_qt_auto.qrc $$[QT_INSTALL_TRANSLATIONS] $$QT_TRANSLATIONS_FALLBACK_DIR) {
 		error(Failed to run generate-mumble_qt-qrc.py script)

@@ -1,32 +1,7 @@
-/* Copyright (C) 2005-2011, Thorvald Natvig <thorvald@natvig.com>
-
-   All rights reserved.
-
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-   - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
-   - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 #include "murmur_pch.h"
 
@@ -101,6 +76,131 @@ void Server::setUserState(User *pUser, Channel *cChannel, bool mute, bool deaf, 
 
 		emit userStateChanged(pUser);
 	}
+}
+
+// Sets err to error message on failure.
+bool Server::setChannelStateGRPC(const MumbleProto::ChannelState &cs, QString &err) {
+	::MumbleProto::ChannelState mpcs;
+	bool changed = false;
+	bool updated = false;
+
+	if (!cs.has_channel_id()) {
+		err = QLatin1String("missing channel ID");
+		return false;
+	}
+	Channel *channel = qhChannels.value(cs.channel_id());
+	if (!channel) {
+		err = QLatin1String("invalid channel");
+		return false;
+	}
+	mpcs.set_channel_id(cs.channel_id());
+
+	// Links and parent channel are processed first, because they can return
+	// errors. Without doing this, the server state can be changed without
+	// notifying users.
+	QSet< ::Channel *> newLinksSet;
+	for (int i = 0; i < cs.links_size(); i++) {
+		Channel *link = qhChannels.value(cs.links(i));
+		if (!link) {
+			err = QLatin1String("invalid channel link");
+			return false;
+		}
+		newLinksSet.insert(link);
+	}
+
+	if (cs.has_parent()) {
+		Channel *parent = qhChannels.value(cs.parent());
+		if (!parent) {
+			err = QLatin1String("invalid parent channel");
+			return false;
+		}
+		if (parent != channel->cParent) {
+			Channel *p = parent;
+			while (p) {
+				if (p == channel) {
+					err = QLatin1String("parent channel cannot be a descendant of channel");
+					return false;
+				}
+				p = p->cParent;
+			}
+			if (!canNest(parent, channel)) {
+				err = QLatin1String("channel cannot be nested in the given parent");
+				return false;
+			}
+			channel->cParent->removeChannel(channel);
+			parent->addChannel(channel);
+			mpcs.set_parent(parent->iId);
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (cs.has_name()) {
+		QString qsName = u8(cs.name());
+		if (channel->qsName != qsName) {
+			channel->qsName = qsName;
+			mpcs.set_name(cs.name());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	const QSet<Channel *> &oldLinksSet = channel->qsPermLinks;
+
+	if (newLinksSet != oldLinksSet) {
+		// Remove
+		foreach(Channel *l, oldLinksSet) {
+			if (!newLinksSet.contains(l)) {
+				removeLink(channel, l);
+				mpcs.add_links_remove(l->iId);
+			}
+		}
+		// Add
+		foreach(Channel *l, newLinksSet) {
+			if (! oldLinksSet.contains(l)) {
+				addLink(channel, l);
+				mpcs.add_links_add(l->iId);
+			}
+		}
+
+		changed = true;
+	}
+
+	if (cs.has_position() && cs.position() != channel->iPosition) {
+		channel->iPosition = cs.position();
+		mpcs.set_position(cs.position());
+
+		changed = true;
+		updated = true;
+	}
+
+	if (cs.has_description()) {
+		QString qsDescription = u8(cs.description());
+		if (qsDescription != channel->qsDesc) {
+			hashAssign(channel->qsDesc, channel->qbaDescHash, qsDescription);
+			mpcs.set_description(cs.description());
+
+			changed = true;
+			updated = true;
+		}
+	}
+
+	if (updated) {
+		updateChannel(channel);
+	}
+	if (changed) {
+		sendAll(mpcs, ~ 0x010202);
+		if (mpcs.has_description() && !channel->qbaDescHash.isEmpty()) {
+			mpcs.clear_description();
+			mpcs.set_description_hash(blob(channel->qbaDescHash));
+		}
+		sendAll(mpcs, 0x010202);
+		emit channelStateChanged(channel);
+	}
+
+	return true;
 }
 
 bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString &qsName, const QSet<Channel *> &links, const QString &desc, const int position) {
@@ -187,6 +287,67 @@ bool Server::setChannelState(Channel *cChannel, Channel *cParent, const QString 
 	}
 
 	return true;
+}
+
+void Server::sendTextMessageGRPC(const ::MumbleProto::TextMessage &tm) {
+	MumbleProto::TextMessage mptm;
+	mptm.set_message(tm.message());
+
+	if (tm.has_actor()) {
+		mptm.set_actor(tm.actor());
+	}
+
+	// Broadcast
+	if (!tm.session_size() && !tm.channel_id_size() && !tm.tree_id_size()) {
+		sendAll(mptm);
+		return;
+	}
+
+	// Single targets
+	for (int i = 0; i < tm.session_size(); i++) {
+		ServerUser *user = qhUsers.value(tm.session(i));
+		if (!user) {
+			continue;
+		}
+		mptm.add_session(user->uiSession);
+		sendMessage(user, mptm);
+		mptm.clear_session();
+	}
+
+	// Channel targets
+	QSet<Channel *> chans;
+
+	for (int i = 0; i < tm.channel_id_size(); i++) {
+		Channel *channel = qhChannels.value(tm.channel_id(i));
+		if (!channel) {
+			continue;
+		}
+		chans.insert(channel);
+		mptm.add_channel_id(channel->iId);
+	}
+
+	QQueue<Channel *> chansQ;
+	for (int i = 0; i < tm.tree_id_size(); i++) {
+		Channel *channel = qhChannels.value(tm.tree_id(i));
+		if (!channel) {
+			continue;
+		}
+		chansQ.enqueue(channel);
+		mptm.add_tree_id(channel->iId);
+	}
+	while (!chansQ.isEmpty()) {
+		Channel *c = chansQ.dequeue();
+		chans.insert(c);
+		foreach(c, c->qlChannels) {
+			chansQ.enqueue(c);
+		}
+	}
+
+	foreach(Channel *c, chans) {
+		foreach(::User *p, c->qlUsers) {
+			sendMessage(static_cast< ::ServerUser *>(p), mptm);
+		}
+	}
 }
 
 void Server::sendTextMessage(Channel *cChannel, ServerUser *pUser, bool tree, const QString &text) {
