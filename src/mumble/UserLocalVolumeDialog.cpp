@@ -62,6 +62,17 @@ void UserLocalVolumeDialog::closeEvent(QCloseEvent *event) {
 	event->accept();
 }
 
+void UserLocalVolumeDialog::present(unsigned int sessionId,
+                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker) {
+	if (qmUserVolTracker->contains(sessionId)) {
+		qmUserVolTracker->value(sessionId)->raise();
+	} else {
+		UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(sessionId, qmUserVolTracker);
+		uservol->show();
+		qmUserVolTracker->insert(sessionId, uservol);
+	}
+}
+
 void UserLocalVolumeDialog::on_qsUserLocalVolume_valueChanged(int value) {
 	qsbUserLocalVolume->setValue(value);
 	ClientUser *user = ClientUser::get(m_clientSession);

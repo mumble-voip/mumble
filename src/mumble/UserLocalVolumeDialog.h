@@ -60,6 +60,8 @@ class UserLocalVolumeDialog : public QDialog, private Ui::UserLocalVolumeDialog 
 		void reject();
 
 	public:
+		static void present(unsigned int sessionId,
+                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
 		UserLocalVolumeDialog(unsigned int sessionId,
                                       QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker);
 };
