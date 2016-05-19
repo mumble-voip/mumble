@@ -41,9 +41,11 @@
 #include "ClientUser.h"
 #include "Database.h"
 
-UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId)
+UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId,
+                                             QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker)
 	: QDialog(NULL)
-	, m_clientSession(sessionId) {
+	, m_clientSession(sessionId)
+	, m_qmUserVolTracker(qmUserVolTracker){
 	setupUi(this);
 
 	ClientUser *user = ClientUser::get(sessionId);
@@ -52,6 +54,22 @@ UserLocalVolumeDialog::UserLocalVolumeDialog(unsigned int sessionId)
 		setWindowTitle(title);
 		qsUserLocalVolume->setValue(qRound(log2(user->fLocalVolume) * 6.0));
 		m_originalVolumeAdjustmentDecibel = qsUserLocalVolume->value();
+	}
+}
+
+void UserLocalVolumeDialog::closeEvent(QCloseEvent *event) {
+	m_qmUserVolTracker->remove(m_clientSession);
+	event->accept();
+}
+
+void UserLocalVolumeDialog::present(unsigned int sessionId,
+                                    QMap<unsigned int, UserLocalVolumeDialog *> *qmUserVolTracker) {
+	if (qmUserVolTracker->contains(sessionId)) {
+		qmUserVolTracker->value(sessionId)->raise();
+	} else {
+		UserLocalVolumeDialog *uservol = new UserLocalVolumeDialog(sessionId, qmUserVolTracker);
+		uservol->show();
+		qmUserVolTracker->insert(sessionId, uservol);
 	}
 }
 
@@ -83,4 +101,9 @@ void UserLocalVolumeDialog::on_qbbUserLocalVolume_clicked(QAbstractButton *butto
 		qsUserLocalVolume->setValue(m_originalVolumeAdjustmentDecibel);
 		UserLocalVolumeDialog::close();
 	}
+}
+
+void UserLocalVolumeDialog::reject() {
+	m_qmUserVolTracker->remove(m_clientSession);
+	UserLocalVolumeDialog::close();
 }
