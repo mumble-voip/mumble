@@ -557,11 +557,14 @@ int main(int argc, char **argv) {
 		}
 	}
 
+#ifndef PLUTOVR_BUILD
 	if (runaudiowizard) {
+		qWarning().nospace() << " Running audio wizard " << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 		AudioWizard *aw = new AudioWizard(g.mw);
 		aw->exec();
 		delete aw;
 	}
+#endif
 
 	g.s.uiUpdateCounter = 2;
 
