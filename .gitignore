@@ -29,6 +29,7 @@ scripts/Murmur.ice
 scripts/murmur.ini.*
 src/murmur/murmur_ice/Murmur.h
 src/murmur/murmur_ice/Murmur.cpp
+src/murmur/MurmurRPC.proto.Wrapper.cpp
 winpaths_custom.pri
 src/mumble/mumble_qt_auto.qrc
 src/mumble/mumble_plugin_import.cpp
@@ -38,3 +39,4 @@ src/murmur/murmur_plugin_import.cpp
 doxygen/
 .qmake.cache
 .qmake.stash
+.DS_Store

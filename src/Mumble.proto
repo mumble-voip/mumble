@@ -1,3 +1,8 @@
+// Copyright 2005-2016 The Mumble Developers. All rights reserved.
+// Use of this source code is governed by a BSD-style license
+// that can be found in the LICENSE file at the root of the
+// Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
 package MumbleProto;
 
 option optimize_for = SPEED;
@@ -63,7 +68,8 @@ message Ping {
 // Sent by the server when it rejects the user connection.
 message Reject {
 	enum RejectType {
-		// TODO ??
+		// The rejection reason is unknown (details should be available
+		// in Reject.reason).
 		None = 0;
 		// The client attempted to connect with an incompatible version.
 		WrongVersion = 1;
@@ -98,7 +104,7 @@ message ServerSync {
 	optional uint32 max_bandwidth = 2;
 	// Server welcome text.
 	optional string welcome_text = 3;
-	// Current user permissions TODO: Confirm??
+	// Current user permissions in the root channel.
 	optional uint64 permissions = 4;
 }
 
@@ -184,9 +190,14 @@ message UserState {
 	optional bool self_deaf = 10;
 	// User image if it is less than 128 bytes.
 	optional bytes texture = 11;
-	// TODO ??
+	// The positional audio plugin identifier.
+	// Positional audio information is only sent to users who share
+	// identical plugin contexts.
+	//
+	// This value is not trasmitted to clients.
 	optional bytes plugin_context = 12;
-	// TODO ??
+	// The user's plugin-specific identity.
+	// This value is not transmitted to clients.
 	optional string plugin_identity = 13;
 	// User comment if it is less than 128 bytes.
 	optional string comment = 14;
@@ -213,7 +224,7 @@ message BanList {
 		required uint32 mask = 2;
 		// User name for identification purposes (does not affect the ban).
 		optional string name = 3;
-		// TODO ??
+		// The certificate hash of the banned user.
 		optional string hash = 4;
 		// Reason for the ban (does not affect the ban).
 		optional string reason = 5;
@@ -407,9 +418,9 @@ message VoiceTarget {
 	message Target {
 		// Users that are included as targets.
 		repeated uint32 session = 1;
-		// Channels that are included as targets.
+		// Channel that is included as a target.
 		optional uint32 channel_id = 2;
-		// TODO ??
+		// ACL group that is included as a target.
 		optional string group = 3;
 		// True if the voice should follow links from the specified channel.
 		optional bool links = 4 [default = false];

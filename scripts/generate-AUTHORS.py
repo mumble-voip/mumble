@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2016 The Mumble Developers. All rights reserved.
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
@@ -11,7 +11,7 @@ from __future__ import (unicode_literals, print_function, division)
 import sys
 import subprocess
 import codecs
-import locale
+import pyuca
 
 blacklist = (
 	# Unknown
@@ -113,7 +113,7 @@ patchAuthors = (
 )
 
 def gitAuthorsOutput():
-	p = subprocess.Popen(["git", "log", "--use-mailmap", "--format=%aN <%aE>", "master", "1.2.x"], stdout=subprocess.PIPE)
+	p = subprocess.Popen(["git", "log", "--use-mailmap", "--format=%aN <%aE>", "origin/master", "origin/1.2.x"], stdout=subprocess.PIPE)
 	stdout, stderr = p.communicate()
 	if stdout is not None:
 		stdout = stdout.decode('utf-8')
@@ -124,8 +124,6 @@ def gitAuthorsOutput():
 	return stdout
 
 def main():
-	locale.setlocale(locale.LC_ALL, "")
-
 	authorsSet = set()
 	authorsText = gitAuthorsOutput()
 	for line in authorsText.split("\n"):
@@ -186,10 +184,8 @@ def main():
 
 	# Sort alphabetically
 	authors = list(authorsSet)
-	if sys.version[0] == '2': # Python 2
-		authors.sort(cmp=locale.strcoll)
-	else:
-		authors.sort(key=locale.strxfrm)
+	collator = pyuca.Collator()
+	authors.sort(key=collator.sort_key)
 
 	for author in authors:
 		f.write(author)

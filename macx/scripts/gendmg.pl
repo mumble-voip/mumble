@@ -1,10 +1,12 @@
 #!/usr/bin/perl
 #
+# Copyright 2005-2016 The Mumble Developers. All rights reserved.
+# Use of this source code is governed by a BSD-style license
+# that can be found in the LICENSE file at the root of the
+# Mumble source tree or at <https://www.mumble.info/LICENSE>.
+
+#
 # Generate a Mac OS X Finder .DS_Store file for use on the Mumble disk image.
-#
-# Copyright (c) 2009 Mikkel Krautz <mikkel@krautz.dk>
-#
-# Released under the same terms as Mumble itself.
 #
 
 #
