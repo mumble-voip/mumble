@@ -86,21 +86,28 @@ void InitializePlutoSettings()
 	qWarning("Initializing Pluto Default Settings");
 	if (plutoSettings)
 	{
-		g.s.fVADmin = plutoSettings->fVADmin;
-		g.s.fVADmax = plutoSettings->fVADmax;
+		if (0.0f != plutoSettings->fVADmin && 0.80f == g.s.fVADmin)
+		{
+				g.s.fVADmin = plutoSettings->fVADmin;
+		}
+		if (0.0f != plutoSettings->fVADmax && 0.98f == g.s.fVADmax)
+		{
+				g.s.fVADmax = plutoSettings->fVADmax;
+		}
 		g.s.qsWASAPIInput = QString::fromWCharArray(plutoSettings->audioInputDeviceId);
 		g.s.qsWASAPIOutput = QString::fromWCharArray(plutoSettings->audioOutputDeviceId);
 	}
 
-	if (0.0f == g.s.fVADmin)
+	if (0.80f == g.s.fVADmin)
 	{
 		g.s.fVADmin = 0.443403;
 	}
 
-	if (0.0f == g.s.fVADmax)
+	if (0.98f == g.s.fVADmax)
 	{
 		g.s.fVADmax = 0.636799f;
 	}
+
 	g.s.bPositionalAudio = true;
 	g.s.bPositionalHeadphone = true;
 	g.s.fAudioMinDistance = 1.0f;
@@ -131,7 +138,7 @@ void InitializePlutoSettings()
 
 void UpdatePlutoSettings()
 {
-	#pragma message("SCOTTRA_TODO $$$$$ - IMPLEMENT")
+	#pragma message("SCOTTRA_TODO $$$ - IMPLEMENT")
 	// call function to set g.s.* to values from plutoSettings
 	// call whatever functions are called by the AudioConfigDialog when you change any values/settings
 }
@@ -516,6 +523,8 @@ int main(int argc, char **argv) {
 
 #ifdef PLUTOVR_BUILD
 	qWarning().nospace() << " vsVAD " << g.s.vsVAD << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
+	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmax %1").arg(g.s.fVADmax));
+	g.l->log(Log::Information, MainWindow::tr("g.s.fVADmin %1").arg(g.s.fVADmin));
 	qWarning().nospace() << " fVADmax " << g.s.fVADmax << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " fVADmin " << g.s.fVADmin << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
 	qWarning().nospace() << " iQuality " << g.s.iQuality << " @" << __FUNCTION__ <<"():" << __FILE__ << ":" << __LINE__;
