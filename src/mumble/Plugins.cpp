@@ -653,7 +653,7 @@ void Plugins::fetchedPAPluginDL(QByteArray data, QUrl url) {
 				data.fdwRevocationChecks = WTD_REVOKE_NONE;
 				data.dwUnionChoice = WTD_CHOICE_FILE;
 				data.pFile = &file;
-				data.dwProvFlags = WTD_SAFER_FLAG | WTD_USE_DEFAULT_OSVER_CHECK | WTD_LIFETIME_SIGNING_FLAG;
+				data.dwProvFlags = WTD_SAFER_FLAG | WTD_USE_DEFAULT_OSVER_CHECK;
 				data.dwUIContext = WTD_UICONTEXT_INSTALL;
 
 				static GUID guid = WINTRUST_ACTION_GENERIC_VERIFY_V2;
