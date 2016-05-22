@@ -51,6 +51,10 @@ representing the virtual server to set the password for.
 .B \-disablesu\fR\ [\fIserverid\fR]
 Disables the SuperUser account. Optionally takes a \fIserverid\fR representing
 the virtual server to disable the SuperUser account on.
+
+Disabling the SuperUser account makes it impossible to log in as SuperUser
+until a new password is set. You can set a new SuperUser password with the
+\-supw parameter.
 .TP
 .B \-limits
 Tests and shows how many file descriptors and threads can be created. The
