@@ -9,6 +9,8 @@ murmurd - VoIP server.
 .br
 .B murmurd \-readsupw \fIserverid\fR
 .br
+.B murmurd \-disablesu \fIserverid\fR
+.br
 .B murmurd \-limits
 .br
 .B murmurd \-wipessl
@@ -45,6 +47,10 @@ virtual server to set the password for.
 .BI \-readsupw\fR\ [\fIserverid\fR]
 Reads SuperUser password from stdin. Optionally takes a \fIserverid\fR
 representing the virtual server to set the password for.
+.TP
+.B \-disablesu\fR\ [\fIserverid\fR]
+Disables the SuperUser account. Optionally takes a \fIserverid\fR representing
+the virtual server to disable the SuperUser account on.
 .TP
 .B \-limits
 Tests and shows how many file descriptors and threads can be created. The
