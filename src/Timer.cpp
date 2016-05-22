@@ -63,7 +63,21 @@ quint64 Timer::now() {
 	return static_cast<quint64>(e * scale);
 }
 #elif defined(Q_OS_UNIX)
-#include <sys/time.h>
+# include <errno.h>
+# include <string.h>
+# include <unistd.h>
+# include <sys/time.h>
+# if defined(_POSIX_TIMERS) && defined(_POSIX_MONOTONIC_CLOCK)
+quint64 Timer::now() {
+	struct timespec ts;
+	if (clock_gettime(CLOCK_MONOTONIC, &ts) != 0) {
+		qFatal("Timer: clock_gettime() failed: (%i) %s", errno, strerror(errno));
+	}
+	quint64 e = ts.tv_sec * 1000000LL;
+	e += ts.tv_nsec / 1000LL;
+	return e;
+}
+# else
 quint64 Timer::now() {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
@@ -71,6 +85,7 @@ quint64 Timer::now() {
 	e += tv.tv_usec;
 	return e;
 }
+# endif
 #else
 quint64 Timer::now() {
 	static QTime ticker;
