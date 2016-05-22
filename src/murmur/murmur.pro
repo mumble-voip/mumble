@@ -50,6 +50,9 @@ win32 {
 unix {
   contains(UNAME, Linux) {
     LIBS *= -lcap
+
+    # For MumbleSSL::qsslSanityCheck()
+    LIBS *= -ldl
   }
 
   CONFIG(static):!macx {

@@ -493,6 +493,11 @@ unix {
     PKGCONFIG *= x11
     LIBS *= -lrt -lXi
 
+    # For MumbleSSL::qsslSanityCheck()
+    contains(UNAME, Linux) {
+      LIBS *= -ldl
+    }
+
     !CONFIG(no-oss) {
       CONFIG  *= oss
     }
