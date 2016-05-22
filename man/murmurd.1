@@ -5,9 +5,11 @@ murmurd - VoIP server.
 .B murmurd
 [\fB-ini \fIinifile\fR] [\fB-fg\fR] [\fB-v\fR]
 .br
-.B murmurd \-supw \fIpassword\fR \fIserverid\fR
+.B murmurd \-supw\fR \fIpassword\fR [\fIserverid\fR]
 .br
-.B murmurd \-readsupw \fIserverid\fR
+.B murmurd \-readsupw\fR [\fIserverid\fR]
+.br
+.B murmurd \-disablesu\fR [\fIserverid\fR]
 .br
 .B murmurd \-limits
 .br
@@ -42,9 +44,13 @@ This sets the SuperUser password for a server. SuperUser is a special account
 while the server is running. Optionally takes a \fIserverid\fR representing the
 virtual server to set the password for.
 .TP
-.BI \-readsupw\fR\ [\fIserverid\fR]
+.B \-readsupw\fR\ [\fIserverid\fR]
 Reads SuperUser password from stdin. Optionally takes a \fIserverid\fR
 representing the virtual server to set the password for.
+.TP
+.B \-disablesu\fR\ [\fIserverid\fR]
+Disables the SuperUser account. Optionally takes a \fIserverid\fR representing
+the virtual server to disable the SuperUser account on.
 .TP
 .B \-limits
 Tests and shows how many file descriptors and threads can be created. The
