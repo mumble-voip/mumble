@@ -27,6 +27,7 @@ class ServerDB {
 		static QSqlDatabase *db;
 		static QString qsUpgradeSuffix;
 		static void setSUPW(int iServNum, const QString &pw);
+		static void disableSU(int srvnum);
 		static QList<int> getBootServers();
 		static QList<int> getAllServers();
 		static int addServer();
@@ -47,6 +48,7 @@ class ServerDB {
 		
 	private:
 		static void loadOrSetupMetaPKBDF2IterationsCount(QSqlQuery &query);
+		static void writeSUPW(int srvnum, const QString &pwHash, const QString &saltHash, const QVariant &kdfIterations);
 };
 
 #endif
