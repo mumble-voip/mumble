@@ -16,11 +16,11 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], camera_front_corrector[3], camera_top_corrector[3];
 
 	// Avatar pointers
-	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x016EAA10);
+	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x016EA900);
 	if (!avatar_base) return false;
-	BYTE *avatar_offset_0 = peekProc<BYTE *>(avatar_base + 0x24);
+	BYTE *avatar_offset_0 = peekProc<BYTE *>(avatar_base + 0x44);
 	if (!avatar_offset_0) return false;
-	BYTE *avatar_offset_1 = peekProc<BYTE *>(avatar_offset_0 + 0x7F0);
+	BYTE *avatar_offset_1 = peekProc<BYTE *>(avatar_offset_0 + 0x4C);
 	if (!avatar_offset_1) return false;
 	BYTE *avatar_offset = peekProc<BYTE *>(avatar_offset_1 + 0x1C);
 	if (!avatar_offset) return false;
