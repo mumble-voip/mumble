@@ -89,6 +89,9 @@
       <Component Id="gtaiv.dll">
         <File Source="$(var.SourceDir)\release\plugins\gtaiv.dll" KeyPath="yes" />
       </Component>
+      <Component Id="gtav.dll">
+        <File Source="$(var.SourceDir)\release\plugins\gtav.dll" KeyPath="yes" />
+      </Component>
       <Component Id="gw.dll">
         <File Source="$(var.SourceDir)\release\plugins\gw.dll" KeyPath="yes" />
       </Component>
@@ -174,6 +177,7 @@
       <ComponentRef Id="etqw.dll" />
       <ComponentRef Id="gmod.dll" />
       <ComponentRef Id="gtaiv.dll" />
+      <ComponentRef Id="gtav.dll" />
       <ComponentRef Id="gw.dll" />
       <ComponentRef Id="hl2dm.dll" />
       <ComponentRef Id="insurgency.dll" />
