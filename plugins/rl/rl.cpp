@@ -42,15 +42,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	Mumble | Game
 	X      | Z
 	Y      | Y
-	Z      | X
+	Z      | -X
 	*/
 	avatar_pos[0] = avatar_pos_corrector[2];
 	avatar_pos[1] = avatar_pos_corrector[1];
-	avatar_pos[2] = avatar_pos_corrector[0];
+	avatar_pos[2] = -avatar_pos_corrector[0]; // Convert from right handed to left handed coordinate system
 
 	camera_pos[0] = camera_pos_corrector[2];
 	camera_pos[1] = camera_pos_corrector[1];
-	camera_pos[2] = camera_pos_corrector[0];
+	camera_pos[2] = -camera_pos_corrector[0]; // Convert from right handed to left handed coordinate system
 
 	avatar_front[0] = avatar_front_corrector[2];
 	avatar_front[1] = avatar_front_corrector[1];
