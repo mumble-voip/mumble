@@ -194,13 +194,17 @@ void Server::msgAuthenticate(ServerUser *uSource, MumbleProto::Authenticate &msg
 	}
 
 	// Setup UDP encryption
-	uSource->csCrypt.genKey();
+	{
+		QMutexLocker l(&uSource->qmCrypt);
 
-	MumbleProto::CryptSetup mpcrypt;
-	mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
-	mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
-	mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
-	sendMessage(uSource, mpcrypt);
+		uSource->csCrypt.genKey();
+
+		MumbleProto::CryptSetup mpcrypt;
+		mpcrypt.set_key(std::string(reinterpret_cast<const char *>(uSource->csCrypt.raw_key), AES_BLOCK_SIZE));
+		mpcrypt.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
+		mpcrypt.set_client_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.decrypt_iv), AES_BLOCK_SIZE));
+		sendMessage(uSource, mpcrypt);
+	}
 
 	bool fake_celt_support = false;
 	if (msg.celt_versions_size() > 0) {
@@ -1400,6 +1404,9 @@ void Server::msgQueryUsers(ServerUser *uSource, MumbleProto::QueryUsers &msg) {
 
 void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+
+	QMutexLocker l(&uSource->qmCrypt);
+
 	CryptState &cs=uSource->csCrypt;
 
 	cs.uiRemoteGood = msg.good();
@@ -1428,6 +1435,9 @@ void Server::msgPing(ServerUser *uSource, MumbleProto::Ping &msg) {
 
 void Server::msgCryptSetup(ServerUser *uSource, MumbleProto::CryptSetup &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
+
+	QMutexLocker l(&uSource->qmCrypt);
+
 	if (! msg.has_client_nonce()) {
 		log(uSource, "Requested crypt-nonce resync");
 		msg.set_server_nonce(std::string(reinterpret_cast<const char *>(uSource->csCrypt.encrypt_iv), AES_BLOCK_SIZE));
@@ -1605,7 +1615,6 @@ void Server::msgCodecVersion(ServerUser *, MumbleProto::CodecVersion &) {
 void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 	MSG_SETUP_NO_UNIDLE(ServerUser::Authenticated);
 	VICTIM_SETUP;
-	const CryptState &cs = pDstServerUser->csCrypt;
 	const BandwidthRecord &bwr = pDstServerUser->bwr;
 	const QList<QSslCertificate> &certs = pDstServerUser->peerCertificateChain();
 
@@ -1635,6 +1644,9 @@ void Server::msgUserStats(ServerUser*uSource, MumbleProto::UserStats &msg) {
 
 	if (local) {
 		MumbleProto::UserStats_Stats *mpusss;
+
+		QMutexLocker l(&pDstServerUser->qmCrypt);
+		const CryptState &cs = pDstServerUser->csCrypt;
 
 		mpusss = msg.mutable_from_client();
 		mpusss->set_good(cs.uiGood);
