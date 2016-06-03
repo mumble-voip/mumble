@@ -690,7 +690,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+30"/>
         <source>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;A voice-chat utility for gamers&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;h3&gt;Mumble (%1)&lt;/h3&gt;&lt;p&gt;%3&lt;/p&gt;&lt;p&gt;&lt;b&gt;Balso pokalbių paslaugų programa, skirta žaidėjams&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;tt&gt;&lt;a href=&quot;%2&quot;&gt;%2&lt;/a&gt;&lt;/tt&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -843,22 +843,22 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Amplitude</source>
-        <translation type="unfinished"/>
+        <translation>Amplitudė</translation>
     </message>
     <message>
         <location/>
         <source>Voice &amp;Hold</source>
-        <translation type="unfinished"/>
+        <translation>Balso &amp;užlaikymas</translation>
     </message>
     <message>
         <location/>
         <source>How long to keep transmitting after silence</source>
-        <translation type="unfinished"/>
+        <translation>Kaip ilgai tęsti perdavimą po tylos</translation>
     </message>
     <message>
         <location/>
         <source>Silence Below</source>
-        <translation type="unfinished"/>
+        <translation>Tyla žemiau</translation>
     </message>
     <message>
         <location/>
@@ -868,7 +868,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Speech Above</source>
-        <translation type="unfinished"/>
+        <translation>Kalba aukščiau</translation>
     </message>
     <message>
         <location/>
@@ -988,7 +988,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Use Amplitude based speech detection</source>
-        <translation type="unfinished"/>
+        <translation>Naudoti amplitude pagrįsta kalbos aptikimą</translation>
     </message>
     <message>
         <location/>
@@ -1151,7 +1151,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location line="+1"/>
         <source>Voice Activity</source>
-        <translation type="unfinished"/>
+        <translation>Esant balso aktyvumui</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1315,7 +1315,7 @@ This value allows you to set the maximum number of users allowed in the channel.
         <location/>
         <source>The connected &quot;speakers&quot; are actually headphones</source>
         <oldsource>The connected &quot;speakers&quot; are actually headphones.</oldsource>
-        <translation type="unfinished"/>
+        <translation>Prijungti &quot;garsiakalbiai&quot;, iš tikrųjų, yra ausinės</translation>
     </message>
     <message>
         <location/>
@@ -1431,7 +1431,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Attenuation of other applications during speech</source>
-        <translation type="unfinished"/>
+        <translation>Kitų programų slopinimas kalbos metu</translation>
     </message>
     <message>
         <location/>
@@ -1441,7 +1441,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while other users talk</source>
-        <translation type="unfinished"/>
+        <translation>Jei pažymėta, Mumble sumažina kitų programų garsį, kol kalba kiti naudotojai</translation>
     </message>
     <message>
         <location/>
@@ -1456,7 +1456,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>If checked Mumble lowers the volume of other applications while you talk</source>
-        <translation type="unfinished"/>
+        <translation>Jei pažymėta, Mumble sumažina kitų programų garsį, kol kalbate jūs</translation>
     </message>
     <message>
         <location/>
@@ -1679,7 +1679,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal-To-Noise ratio</source>
-        <translation type="unfinished"/>
+        <translation>Signalo ir triukšmo santykis</translation>
     </message>
     <message>
         <location/>
@@ -1694,7 +1694,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Speech Probability</source>
-        <translation type="unfinished"/>
+        <translation>Kalbos tikimybė</translation>
     </message>
     <message>
         <location/>
@@ -1709,12 +1709,12 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Configuration feedback</source>
-        <translation type="unfinished"/>
+        <translation>Konfigūracijos grįžtamasis ryšys</translation>
     </message>
     <message>
         <location/>
         <source>Current audio bitrate</source>
-        <translation type="unfinished"/>
+        <translation>Esamas garso pralaidumas</translation>
     </message>
     <message>
         <location/>
@@ -1734,7 +1734,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Speech Detection</source>
-        <translation type="unfinished"/>
+        <translation>Kalbos aptikimas</translation>
     </message>
     <message>
         <location/>
@@ -1749,7 +1749,7 @@ This value allows you to set the maximum number of users allowed in the channel.
     <message>
         <location/>
         <source>Signal and noise power spectrum</source>
-        <translation type="unfinished"/>
+        <translation>Signalo ir triukšmo galios spektras</translation>
     </message>
     <message>
         <location/>
@@ -2414,32 +2414,32 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.cpp" line="+51"/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Vardas</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>El. paštas</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Issuer</source>
-        <translation type="unfinished"/>
+        <translation>Išdavėjas</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Expiry Date</source>
-        <translation type="unfinished"/>
+        <translation>Galioja iki</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>(none)</source>
-        <translation type="unfinished"/>
+        <translation>(joks)</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Self-signed</source>
-        <translation type="unfinished"/>
+        <translation>Paties pasirašytas</translation>
     </message>
 </context>
 <context>
@@ -2502,7 +2502,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location line="+86"/>
         <source>Mumble User</source>
-        <translation type="unfinished"/>
+        <translation>Mumble naudotojas</translation>
     </message>
     <message>
         <location filename="main.cpp" line="+494"/>
@@ -2515,17 +2515,17 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location filename="Cert.ui"/>
         <source>Certificate Management</source>
-        <translation type="unfinished"/>
+        <translation>Liudijimų tvarkymas</translation>
     </message>
     <message>
         <location/>
         <source>Certificate Authentication</source>
-        <translation type="unfinished"/>
+        <translation>Atpažinimas liudijimu</translation>
     </message>
     <message>
         <location/>
         <source>Authenticating to servers without using passwords</source>
-        <translation type="unfinished"/>
+        <translation>Tapatybės nustatymas serveriuose, nenaudojant slaptažodžių</translation>
     </message>
     <message>
         <location/>
@@ -2590,7 +2590,7 @@ Speak loudly, as when you are annoyed or excited. Decrease the volume in the sou
     <message>
         <location/>
         <source>PKCS #12 Certificate import</source>
-        <translation>PKCS #12 Liudijimo importavimas</translation>
+        <translation>PKCS #12 liudijimo importavimas</translation>
     </message>
     <message>
         <location/>
@@ -2744,7 +2744,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Name</source>
-        <translation type="unfinished"/>
+        <translation>Vardas</translation>
     </message>
     <message>
         <location/>
@@ -2789,7 +2789,7 @@ Are you sure you wish to replace your certificate?
     <message>
         <location/>
         <source>Automatic certificate creation</source>
-        <translation type="unfinished"/>
+        <translation>Automatinis liudijimo kūrimas</translation>
     </message>
     <message>
         <location/>
@@ -2798,7 +2798,11 @@ Are you sure you wish to replace your certificate?
 It is &lt;b&gt;strongly&lt;/b&gt; recommended that you &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;create a trusted certificate&lt;/a&gt;.
 &lt;/p&gt;
 </source>
-        <translation type="unfinished"/>
+        <translation>&lt;p&gt;Mumble gali naudoti liudijimus, kad nustatytų tapatybę serveriuose. Naudojant liudijimus yra išvengiama slaptažodžių, o tai reiškia, kad jums nereikia atskleisti jokio slaptažodžio nuotolinei tinklavietei. Be to, tai įgalina labai lengvą naudotojų registraciją.&lt;/p&gt;&lt;p&gt;Nors Mumble gali veikti ir be liudijimų, tačiau dauguma serverių tikėsis, kad jūs jį turėsite.&lt;/p&gt;
+&lt;p&gt;
+Yra &lt;b&gt;primygtinai&lt;/b&gt; rekomenduojama, kad jūs &lt;a href=&quot;http://mumble.info/certificate.php&quot;&gt;sukurtumėte patikimą liudijimą&lt;/a&gt;.
+&lt;/p&gt;
+</translation>
     </message>
     <message>
         <location/>
@@ -4282,12 +4286,12 @@ This field describes the size of an LCD device. The size is given either in pixe
     <message>
         <location/>
         <source>Show number of users in each channel</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti kiekviename kanale naudotojų skaičių</translation>
     </message>
     <message>
         <location/>
         <source>Show channel user count</source>
-        <translation type="unfinished"/>
+        <translation>Rodyti kanalo naudotojų skaičių</translation>
     </message>
     <message>
         <location/>
@@ -4661,7 +4665,7 @@ This field describes the size of an LCD device. The size is given either in pixe
         <location line="+2645"/>
         <source>&lt;center&gt;Not connected&lt;/center&gt;</source>
         <oldsource>Not connected</oldsource>
-        <translation type="unfinished"/>
+        <translation>&lt;center&gt;Neprisijungta&lt;/center&gt;</translation>
     </message>
     <message>
         <location line="-2270"/>
@@ -5260,7 +5264,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>Open the server connection dialog</source>
-        <translation type="unfinished"/>
+        <translation>Atverti serverio prisijungimo dialogą</translation>
     </message>
     <message>
         <location/>
@@ -5482,7 +5486,7 @@ Otherwise abort and check your certificate and username.</source>
     <message>
         <location/>
         <source>&amp;Reset</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Atstatyti</translation>
     </message>
     <message>
         <location/>
@@ -6317,7 +6321,7 @@ Valid actions are:
     <message>
         <location/>
         <source>&amp;Certificate Wizard</source>
-        <translation type="unfinished"/>
+        <translation>&amp;Liudijimų vediklis</translation>
     </message>
     <message>
         <location/>
@@ -8503,22 +8507,22 @@ An access token is a text string, which can be used as a password for very simpl
     <message>
         <location line="+166"/>
         <source>.wav - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.wav - Nesuglaudintas</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.ogg (Vorbis) - Compressed</source>
-        <translation type="unfinished"/>
+        <translation>.ogg (Vorbis) - Suglaudintas</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>.au - Uncompressed</source>
-        <translation type="unfinished"/>
+        <translation>.au - Nesuglaudintas</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>.flac - Lossless compressed</source>
-        <translation type="unfinished"/>
+        <translation>.flac - Nenuostolingasis suglaudintas</translation>
     </message>
 </context>
 <context>
