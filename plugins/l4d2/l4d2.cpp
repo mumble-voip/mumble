@@ -3,176 +3,182 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-/* Copyright (C) 2005-2012, Thorvald Natvig <thorvald@natvig.com>
-   Copyright (C) 2012, dark_skeleton (d-rez) <dark.skeleton@gmail.com>
+#include "../mumble_plugin_win32.h" // Include standard plugin header.
+#include "../mumble_plugin_utils.h" // Include plugin header for special functions, like "escape".
 
-   All rights reserved.
+BYTE *serverid_steamclient, *player_engine; // BYTE values to contain modules addresses
 
-   Redistribution and use in source and binary forms, with or without
-   modification, are permitted provided that the following conditions
-   are met:
-
-   - Redistributions of source code must retain the above copyright notice,
-     this list of conditions and the following disclaimer.
-   - Redistributions in binary form must reproduce the above copyright notice,
-     this list of conditions and the following disclaimer in the documentation
-     and/or other materials provided with the distribution.
-   - Neither the name of the Mumble Developers nor the names of its
-     contributors may be used to endorse or promote products derived from this
-     software without specific prior written permission.
-
-   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
-   CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-   EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-   PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-#include "../mumble_plugin_win32.h"
-
-/*  DESCRIPTION        ADDRESS              TYPE    VALUE
-
-    position tuple:    client.dll+0x774B40  float   (x, y, z location in inches)
-    front tuple:       client.dll+0x774BA0  float   (x, y, z as unit vector in direction you are facing)
-    top tuple:         client.dll+0x774BD0  float   (x, y, z as unit vector pointing out top of head)
-	state:             client.dll+0x772ACC  byte    (0 in menu; non-zero in game)
-    context:           client.dll+0x772ACC  str     (see context support below for its possible values)
-*/
-
-static BYTE *posptr;
-static BYTE *frontptr;
-static BYTE *topptr;
-static BYTE *stateptr;
-static BYTE *contextptr;
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/);
-
-static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
-	posptr = frontptr = topptr = stateptr = contextptr = NULL;
-
-	if (! initialize(pids, L"left4dead2.exe", L"client.dll"))
-		return false;
-	
-	/*
-	Some hints to make things easier next time valve updates this game:
-	use Cheat Engine (non-network single player or non VAC-secured servers to be safe)
-	type is Float
-	use unknown initial value
-	use value unchanged/ value changed
-	speed things up by limiting the scan range to 40000000 to 90000000 (hex number)
-	you need addresses relative to client.dll. You can get address by double clicking on the address.
-	
-	pos: float likely in a range of 0 to 10000 (changes if you move. constant if you view around.)
-	front: float in range of -1 to 1. (changes if you move your camera. constant if you do not.)
-	top: float in range of -1 to 1. (changes if you move your camera. constant if you do not.)
-	state: single player -> search for "loopback:0"
-	       public game -> search for server ip "xxx.xxx.xxx.xxx:yyyyy"
-		   menu -> empty string ""
-	context: same as state (they are used differently)
-
-	*/
-	float apos[3], afront[3], atop[3];
-	float cpos[3], cfront[3], ctop[3];
-	std::string context;
-	std::wstring identity;
-	
-	if (fetch(apos, afront, atop, cpos, cfront, ctop, context, identity))
-		return true;
-
-	generic_unlock();
-	return false;
-}
-
-static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &/*identity*/) {
-	for (int i=0;i<3;i++)
+static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
+	for (int i=0;i<3;i++) {
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
-
-	float pos[3], front[3], top[3];
-	bool ok;
-	char state;
-	char _context[21];
-	
-	// when valve updates the game and breaks the plugin, these following 5 addresses will need changed
-	// nothing else should need to be modified
-	posptr = pModule + 0x774B40;
-	frontptr = pModule + 0x774BA0;
-	topptr = pModule + 0x774BD0;
-	stateptr = pModule + 0x772ACC;
-	contextptr = pModule + 0x772ACC;
-
-	ok = peekProc(posptr, pos, 12) &&
-	     peekProc(frontptr, front, 12) &&
-		 peekProc(topptr, top, 12) &&
-		 peekProc(stateptr, &state, 1) &&
-		 peekProc(contextptr, _context);
-
-	// in menu -> disable plugin
-	if (state == 0) {
-		context = std::string(""); // clear context
-	 	return true; // This results in all vectors being zero which tells Mumble to ignore them.
 	}
-	
-	if(!ok)
+
+	// Boolean value to check if game addresses retrieval is successful
+	bool ok;
+	// Create containers to stuff our raw data into, so we can convert it to Mumble's coordinate system
+	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], avatar_top_corrector[3];
+	// Char values for extra features
+	char serverid[22], host[22], servername[50], map[30], player[33];
+
+	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
+	ok = peekProc((BYTE *) pModule + 0x06ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
+			peekProc((BYTE *) pModule + 0x06B9E1C, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x0774B98, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x0774BF8, avatar_front_corrector, 12) && // Front vector values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x0774C28, avatar_top_corrector, 12) && // Top vector values (Z, X and Y).
+			peekProc((BYTE *) serverid_steamclient, serverid) && // Unique server Steam ID.
+			peekProc((BYTE *) pModule + 0x0772B24, host) && // Server value: "IP:Port" (xxx.xxx.xxx.xxx:yyyyy) when in a remote server, "loopback:0" when on a local server and empty when not playing.
+			peekProc((BYTE *) pModule + 0x0772D2C, servername) && // Server name.
+			peekProc((BYTE *) pModule + 0x0772C28, map) && // Map name.
+			peekProc((BYTE *) player_engine, player); // Player nickname.
+
+	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
+	if (! ok)
 		return false;
-	
-	// convert all vectors from right handed coordinate system to left handed coordinate system
-	// L4D2 is in inches so convert to meters
-	avatar_pos[0] = pos[0] / 39.37f;
-	avatar_pos[1] = pos[2] / 39.37f;
-	avatar_pos[2] = pos[1] / 39.37f;
-	
-	avatar_front[0] = front[0];
-	avatar_front[1] = front[2];
-	avatar_front[2] = front[1];
-	
-	avatar_top[0] = top[0];
-	avatar_top[1] = top[2];
-	avatar_top[2] = top[1];
-	
-	for (int i=0;i<3;++i) {
-		camera_pos[i] = avatar_pos[i];
+
+	// State
+	if (state != 1) { // If not in-game
+		context.clear(); // Clear context
+		identity.clear(); // Clear identity
+		// Set vectors values to 0.
+		for (int i=0;i<3;i++) {
+			avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] =  camera_front[i] = camera_top[i] = 0.0f;
+		}
+
+		return true; // This tells Mumble to ignore all vectors.
+	}
+
+	// Begin context
+	serverid[sizeof(serverid)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(serverid);
+	std::ostringstream ocontext;
+	if (strcmp(serverid, "") != 0) {
+		ocontext << " {\"Server ID\": \"" << serverid << "\"}"; // Set context with IP address and port
+	}
+
+	context = ocontext.str();
+	// End context
+
+	// Begin identity
+	std::wostringstream oidentity;
+	oidentity << "{";
+
+	// Host
+	host[sizeof(host)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(host);
+	if (strcmp(host, "") != 0 && strstr(host, "loopback") == NULL) { // Only include host (IP:Port) if it is not empty and does not include the string "loopback" (which means it's a local server).
+		oidentity << std::endl;
+		oidentity << "\"Host\": \"" << host << "\","; // Set host address in identity.
+	} else {
+		oidentity << std::endl << "\"Host\": null,";
+	}
+
+	// Server name
+	servername[sizeof(servername)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(servername);
+	if (strcmp(servername, "") != 0) {
+		oidentity << std::endl;
+		oidentity << "\"Server name\": \"" << servername << "\","; // Set server name in identity.
+	} else {
+		oidentity << std::endl << "\"Server name\": null,";
+	}
+
+	// Map
+	map[sizeof(map)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(map);
+	if (strcmp(map, "") != 0) {
+		oidentity << std::endl;
+		oidentity << "\"Map\": \"" << map << "\","; // Set map name in identity.
+	} else {
+		oidentity << std::endl << "\"Map\": null,";
+	}
+
+	// Player
+	player[sizeof(player)-1] = 0; // NUL terminate queried C strings. We do this to ensure the strings from the game are NUL terminated. They should be already, but we can't take any chances.
+	escape(player);
+	if (strcmp(player, "") != 0) {
+		oidentity << std::endl;
+		oidentity << "\"Player\": \"" << player << "\","; // Set player nickname in identity.
+	} else {
+		oidentity << std::endl << "\"Player\": null";
+	}
+
+	oidentity << std::endl << "}";
+	identity = oidentity.str();
+	// End identity
+
+	/*
+	Mumble | Game
+	X      | X
+	Y      | Z
+	Z      | Y
+	*/
+	avatar_pos[0] = avatar_pos_corrector[0];
+	avatar_pos[1] = avatar_pos_corrector[2];
+	avatar_pos[2] = avatar_pos_corrector[1];
+
+	camera_pos[0] = camera_pos_corrector[0];
+	camera_pos[1] = camera_pos_corrector[2];
+	camera_pos[2] = camera_pos_corrector[1];
+
+	avatar_front[0] = avatar_front_corrector[0];
+	avatar_front[1] = avatar_front_corrector[2];
+	avatar_front[2] = avatar_front_corrector[1];
+
+	avatar_top[0] = avatar_top_corrector[0];
+	avatar_top[1] = avatar_top_corrector[2];
+	avatar_top[2] = avatar_top_corrector[1];
+
+	// Convert from inches to meters and sync camera vectors with avatar ones
+	for (int i=0;i<3;i++) {
+		avatar_pos[i]/=39.37f;
+		camera_pos[i]/=39.37f;
 		camera_front[i] = avatar_front[i];
 		camera_top[i] = avatar_top[i];
-
-		// Example only -- only set these when you have sane values, and make sure they're pretty constant (every change causes a sever message).
-		//context = std::string("server/map/blah");
-		//identity = std::wstring(L"STEAM_1:2:3456789");
-	}
-	
-	// context support
-	// used to disable positional audio when people are on different servers
-	_context[sizeof(_context) - 1] = '\0';
-	std::string sHost(_context);
-	// this string will change depending on your context:
-	// if in public game then server ip  -> "xxx.xxx.xxx.xxx:yyyyy"
-	// if in single player then loopback -> "loopback:0"
-	// if in menu then empty             -> ""
-	if (!sHost.empty())
-	{
-		if (sHost.find("loopback") == std::string::npos)
-		{
-			std::ostringstream newcontext;
-			newcontext << "{\"ipport\": \"" << sHost << "\"}";
-			context = newcontext.str();
-		}
-				
 	}
 
 	return true;
 }
 
-static const std::wstring longdesc() {
-	return std::wstring(L"Supports L4D2 version 2.1.4.5 with context support. No identity support yet.");
+static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
+
+	if (! initialize(pids, L"left4dead2.exe", L"client.dll")) { // Link the game executable
+		return false;
+	}
+
+	BYTE *steamclient=getModuleAddr(L"steamclient.dll"); // Link "steamclient.dll" module
+	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
+	if (!steamclient)
+		return false;
+
+	serverid_steamclient = steamclient + 0x09888ED; // Module + Server ID offset
+
+	BYTE *engine=getModuleAddr(L"engine.dll"); // // Link "engine.dll" module
+	// This prevents the plugin from linking to the game in case something goes wrong during module linking.
+	if (!engine)
+		return false;
+
+	player_engine = engine + 0x06795D1; // Module + Player offset
+
+	// Check if we can get meaningful data from it
+	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
+	std::wstring sidentity;
+	std::string scontext;
+
+	if (fetch(apos, afront, atop, cpos, cfront, ctop, scontext, sidentity)) {
+		return true;
+	} else {
+		generic_unlock();
+		return false;
+	}
 }
 
-static std::wstring description(L"Left 4 Dead 2 (version 2.1.4.5)");
-static std::wstring shortname(L"Left 4 Dead 2");
+static const std::wstring longdesc() {
+	return std::wstring(L"Supports Left 4 Dead 2 version 2.1.4.6 with context and identity support."); // Plugin long description
+}
+
+static std::wstring description(L"Left 4 Dead 2 (v2.1.4.6)"); // Plugin short description
+static std::wstring shortname(L"Left 4 Dead 2"); // Plugin short name
 
 static int trylock1() {
 	return trylock(std::multimap<std::wstring, unsigned long long int>());

@@ -254,6 +254,33 @@ void Server::initializeCert() {
 		DH_free(dh);
 	}
 #endif
+
+	// Drain OpenSSL's per-thread error queue
+	// to ensure that errors from the operations
+	// we've done in here do not leak out into
+	// Qt's SSL module.
+	//
+	// If an error leaks, it can break all connections
+	// to the server because each invocation of Qt's SSL
+	// read callback checks OpenSSL's per-thread error
+	// queue (albeit indirectly, via SSL_get_error()).
+	// Qt expects any errors returned from SSL_get_error()
+	// to be related to the QSslSocket it is currently
+	// processing -- which is the obvious thing to expect:
+	// SSL_get_error() takes a pointer to an SSL object
+	// and the return code of the failed operation.
+	// However, it is also documented as:
+	//
+	//  "In addition to ssl and ret, SSL_get_error()
+	//   inspects the current thread's OpenSSL error
+	//   queue."
+	//
+	// So, if any OpenSSL operation on the main thread
+	// forgets to clear the error queue, those errors
+	// *will* leak into other things that *do* error
+	// checking. In our case, into Qt's SSL read callback,
+	// resulting in all clients being disconnected.
+	ERR_clear_error();
 }
 
 const QString Server::getDigest() const {
