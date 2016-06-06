@@ -19,6 +19,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], avatar_top_corrector[3];
 	// Char values for extra features
 	char serverid[22], host[22], servername[50], map[30], player[33];
+	// State
+	BYTE state;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
 	ok = peekProc((BYTE *) pModule + 0x06ACBD5, &state, 1) && // Magical state value: 0 or 255 when in main menu and 1 when in-game.
