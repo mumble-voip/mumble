@@ -1306,6 +1306,7 @@ void Server::sslError(const QList<QSslError> &errors) {
 			case QSslError::SelfSignedCertificate:
 			case QSslError::SelfSignedCertificateInChain:
 			case QSslError::UnableToGetLocalIssuerCertificate:
+			case QSslError::UnableToVerifyFirstCertificate:
 			case QSslError::HostNameMismatch:
 			case QSslError::CertificateNotYetValid:
 			case QSslError::CertificateExpired:
