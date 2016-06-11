@@ -19,22 +19,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state, in_game, player[50], vehicle[50], location[50], street[50];
 
 	// Avatar pointer
-	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x01B2C3D0);
+	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x01B3D3F0);
 	if (!avatar_base) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x264DE00, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
-			peekProc((BYTE *) pModule + 0x1B5C5EF, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
-			peekProc((BYTE *) pModule + 0x1B9E620, avatar_pos_corrector, 12) && // Avatar Position values (Z, X and Y).
-			peekProc((BYTE *) pModule + 0x1BEDBE0, camera_pos_corrector, 12) && // Camera Position values (Z, X and Y).
-			peekProc((BYTE *) avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (Z, X and Y).
-			peekProc((BYTE *) avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (Z, X and Y).
-			peekProc((BYTE *) pModule + 0x1BEF6A0, camera_front_corrector, 12) && // Camera Front Vector values (Z, X and Y).
-			peekProc((BYTE *) pModule + 0x1B6F710, camera_top_corrector, 12) && // Camera Top Vector values (Z, X and Y).
-			peekProc((BYTE *) pModule + 0x265857C, player) && // Player nickname.
-			peekProc((BYTE *) pModule + 0x22506D0, vehicle) && // Vehicle name if in a vehicle, empty if not.
-			peekProc((BYTE *) pModule + 0x22500AB, location) && // Location name.
-			peekProc((BYTE *) pModule + 0x224CE70, street); // Street name if on a street, empty if not.
+	ok = peekProc((BYTE *) pModule + 0x267FD50, &state, 1) && // Magical state value: 0 when in single player, 2 when online and 3 when in a lobby.
+			peekProc((BYTE *) pModule + 0x1B6D757, &in_game, 1) && // 0 when loading or not in-game, 1 when in-game.
+			peekProc((BYTE *) pModule + 0x1EC2830, avatar_pos_corrector, 12) && // Avatar Position values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x1BFEDA0, camera_pos_corrector, 12) && // Camera Position values (X, Z and Y).
+			peekProc((BYTE *) avatar_base + 0x70, avatar_front_corrector, 12) && // Avatar Front Vector values (X, Z and Y).
+			peekProc((BYTE *) avatar_base + 0x80, avatar_top_corrector, 12) && // Avatar Top Vector values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x1C00860, camera_front_corrector, 12) && // Camera Front Vector values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x1ED0E30, camera_top_corrector, 12) && // Camera Top Vector values (X, Z and Y).
+			peekProc((BYTE *) pModule + 0x268A4EC, player) && // Player nickname.
+			peekProc((BYTE *) pModule + 0x2282400, vehicle) && // Vehicle name if in a vehicle, empty if not.
+			peekProc((BYTE *) pModule + 0x2281DDB, location) && // Location name.
+			peekProc((BYTE *) pModule + 0x227EBA0, street); // Street name if on a street, empty if not.
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
@@ -103,7 +103,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	escape(street);
 	if (strcmp(street, "") != 0) {
 		oidentity << std::endl;
-		oidentity << "\"Street\": \"" << street << "\","; // Set street name in identity.
+		oidentity << "\"Street\": \"" << street << "\""; // Set street name in identity.
 	} else {
 		oidentity << std::endl << "\"Street\": null";
 	}
@@ -114,40 +114,40 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	/*
 	Mumble | Game
-	X      | Z
-	Y      | X
+	X      | X
+	Y      | Z
 	Z      | Y
 	*/
-	avatar_pos[0] = avatar_pos_corrector[1];
+	avatar_pos[0] = avatar_pos_corrector[0];
 	avatar_pos[1] = avatar_pos_corrector[2];
-	avatar_pos[2] = avatar_pos_corrector[0];
+	avatar_pos[2] = avatar_pos_corrector[1];
 
-	camera_pos[0] = camera_pos_corrector[1];
+	camera_pos[0] = camera_pos_corrector[0];
 	camera_pos[1] = camera_pos_corrector[2];
-	camera_pos[2] = camera_pos_corrector[0];
+	camera_pos[2] = camera_pos_corrector[1];
 
-	avatar_front[0] = avatar_front_corrector[1];
+	avatar_front[0] = avatar_front_corrector[0];
 	avatar_front[1] = avatar_front_corrector[2];
-	avatar_front[2] = avatar_front_corrector[0];
+	avatar_front[2] = avatar_front_corrector[1];
 
-	avatar_top[0] = avatar_top_corrector[1];
+	avatar_top[0] = avatar_top_corrector[0];
 	avatar_top[1] = avatar_top_corrector[2];
-	avatar_top[2] = avatar_top_corrector[0];
+	avatar_top[2] = avatar_top_corrector[1];
 
-	camera_front[0] = camera_front_corrector[1];
+	camera_front[0] = camera_front_corrector[0];
 	camera_front[1] = camera_front_corrector[2];
-	camera_front[2] = camera_front_corrector[0];
+	camera_front[2] = camera_front_corrector[1];
 
-	camera_top[0] = camera_top_corrector[1];
+	camera_top[0] = camera_top_corrector[0];
 	camera_top[1] = camera_top_corrector[2];
-	camera_top[2] = camera_top_corrector[0];
+	camera_top[2] = camera_top_corrector[1];
 
 	return true;
 }
 
 static int trylock(const std::multimap<std::wstring, unsigned long long int> &pids) {
 
-	if (! initialize(pids, L"GTA5.exe")) { // Link the game executable
+	if (! initialize(pids, L"GTA5.exe")) { // Retrieve game executable's memory address
 		return false;
 	}
 
@@ -165,10 +165,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Grand Theft Auto V with identity support."); // Plugin long description
+	return std::wstring(L"Supports Grand Theft Auto V version 1.34 with identity support."); // Plugin long description
 }
 
-static std::wstring description(L"Grand Theft Auto V version 1.33"); // Plugin short description
+static std::wstring description(L"Grand Theft Auto V (v1.34)"); // Plugin short description
 static std::wstring shortname(L"Grand Theft Auto V"); // Plugin short name
 
 static int trylock1() {
