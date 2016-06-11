@@ -233,7 +233,7 @@ unix {
 	}
 }
 
-freebsd {
+contains(UNAME, FreeBSD) {
 	QMAKE_CFLAGS *= -isystem /usr/local/include
 	QMAKE_CXXFLAGS *= -isystem /usr/local/include
 	QMAKE_LIBDIR *= /usr/lib

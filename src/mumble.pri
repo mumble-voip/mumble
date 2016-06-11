@@ -53,7 +53,7 @@ unix {
 
 	PKGCONFIG *= protobuf
 
-	freebsd {
+	contains(UNAME, FreeBSD) {
 		LIBS *= -lcrypto -lssl
 	} else {
 		PKGCONFIG *= openssl
