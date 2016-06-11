@@ -4,6 +4,7 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 include(qt.pri)
+include(uname.pri)
  
 CONFIG *= warn_on
 

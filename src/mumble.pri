@@ -42,8 +42,6 @@ win32 {
 }
 
 unix {
-	UNAME=$$system(uname -s)
-
 	CONFIG(static) {
 		PKG_CONFIG = pkg-config --static
 	}
