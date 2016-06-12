@@ -162,8 +162,15 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 		dwPid = 0;
 		return false;
 	}
-	pModule32 = reinterpret_cast<procptr32_t>(pModule);
-	pModule64 = reinterpret_cast<procptr64_t>(pModule);
+
+	DWORD dwDesiredAccess = PROCESS_VM_READ;
+#if defined(_M_X64)
+	// We need PROCESS_QUERY_LIMITED_INFORMATION for IsWow64Process.
+	// Limit it to x64-only builds to allow our 32-bit x86 builds to
+	// still work on Windows XP (which doesn't have
+	// PROCESS_QUERY_LIMITED_INFORMATION).
+	dwDesiredAccess |= PROCESS_QUERY_LIMITED_INFORMATION;
+#endif
 
 	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
 	if (!hProcess) {
@@ -171,10 +178,31 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 #ifdef USE_PLUGIN_LEGACY_PTR
 		pModule = NULL;
 #endif
-		pModule32 = NULL;
-		pModule64 = NULL;
 		return false;
 	}
+
+#if defined(_M_IX86)
+	pModule32 = reinterpret_cast<procptr32_t>(pModule);
+	pModule64 = NULL;
+#elif defined(_M_X64)
+	BOOL iswow64 = FALSE;
+
+	if (!IsWow64Process(hProcess, &iswow64)) {
+		dwPid = 0;
+# ifdef USE_PLUGIN_LEGACY_PTR
+		pModule = NULL;
+# endif
+		return false;
+	}
+
+	if (iswow64) {
+		pModule32 = reinterpret_cast<procptr32_t>(pModule);
+	} else {
+		pModule64 = reinterpret_cast<procptr64_t>(pModule);
+	}
+#else
+# error Unimplemented for the current architecture
+#endif
 
 	return true;
 }
