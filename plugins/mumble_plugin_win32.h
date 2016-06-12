@@ -29,7 +29,11 @@ typedef uint32_t procptr32_t;
 
 DWORD dwPid;
 static HANDLE hProcess;
+
+#ifdef USE_PLUGIN_LEGACY_PTR
 static BYTE *pModule;
+#endif
+
 static procptr32_t pModule32;
 static procptr64_t pModule64;
 
@@ -78,11 +82,13 @@ static inline BYTE *getModuleAddr(const wchar_t *modname) {
 	return getModuleAddr(dwPid, modname);
 }
 
+#ifdef USE_PLUGIN_LEGACY_PTR
 static inline bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
 	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), dest, len, &r);
 	return (ok && (r == len));
 }
+#endif
 
 static inline bool peekProc(procptr32_t base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
@@ -96,7 +102,7 @@ static inline bool peekProc(procptr64_t base, VOID *dest, SIZE_T len) {
 	return (ok && (r == len));
 }
 
-
+#ifdef USE_PLUGIN_LEGACY_PTR
 template<class T>
 bool peekProc(VOID *base, T &dest) {
 	SIZE_T r;
@@ -110,6 +116,7 @@ T peekProc(VOID *base) {
 	peekProc(base, reinterpret_cast<T *>(&v), sizeof(T));
 	return v;
 }
+#endif
 
 template<class T>
 T peekProc(procptr32_t base) {
@@ -127,7 +134,9 @@ T peekProc(procptr64_t base) {
 
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
+#ifdef USE_PLUGIN_LEGACY_PTR
 	pModule = NULL;
+#endif
 	pModule32 = NULL;
 	pModule64 = NULL;
 
@@ -145,6 +154,9 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 	if (!dwPid)
 		return false;
 
+#ifndef USE_PLUGIN_LEGACY_PTR
+	static VOID *pModule;
+#endif
 	pModule=getModuleAddr(modname ? modname : procname);
 	if (!pModule) {
 		dwPid = 0;
@@ -156,7 +168,9 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
 	if (!hProcess) {
 		dwPid = 0;
+#ifdef USE_PLUGIN_LEGACY_PTR
 		pModule = NULL;
+#endif
 		pModule32 = NULL;
 		pModule64 = NULL;
 		return false;
@@ -169,7 +183,9 @@ static void generic_unlock() {
 	if (hProcess) {
 		CloseHandle(hProcess);
 		hProcess = NULL;
+#ifdef USE_PLUGIN_LEGACY_PTR
 		pModule = NULL;
+#endif
 		pModule32 = NULL;
 		pModule64 = NULL;
 		dwPid = 0;
