@@ -26,18 +26,18 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 			0x0151A110		float	Vertical view (degrees) (=0 out-of-game)
 			0x0096B688		byte	Magic value (0=ingame/out-of-game, 4=spectator)
 	*/
-	ok = peekProc((BYTE *) 0x0096B688, &state, 1);
+	ok = peekProc((procptr32_t) 0x0096B688, &state, 1);
 	if (! ok)
 		return false;
 
 	if (state == 4)
 		return true; // If this magic value is 4 we are spectating, so switch of PA
 
-	ok = peekProc((BYTE *) 0x01516608, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x0151660C, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x01516610, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x0151A114, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x0151A110, &viewVer, 4); //Ver
+	ok = peekProc((procptr32_t) 0x01516608, avatar_pos+2, 4) &&	//Z
+	     peekProc((procptr32_t) 0x0151660C, avatar_pos, 4) &&	//X
+	     peekProc((procptr32_t) 0x01516610, avatar_pos+1, 4) && //Y
+	     peekProc((procptr32_t) 0x0151A114, &viewHor, 4) && //Hor
+	     peekProc((procptr32_t) 0x0151A110, &viewVer, 4); //Ver
 
 	if (! ok)
 		return false;

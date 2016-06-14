@@ -36,9 +36,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE *posptr;
-BYTE *frontptr;
-BYTE *topptr;
+procptr32_t posptr, frontptr, topptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	for (int i=0;i<3;i++)
@@ -125,11 +123,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	   if (!pModule)
 	*/
 
-	BYTE *ptr1 = peekProc<BYTE *>((BYTE *) 0x00C500FC);
+	procptr32_t ptr1 = peekProc<procptr32_t>((procptr32_t) 0x00C500FC);
 
-	BYTE *ptr2 = peekProc<BYTE *>(ptr1 + 0x88);
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0x88);
 
-	BYTE *base = ptr2 + 0x10;
+	procptr32_t base = ptr2 + 0x10;
 
 	posptr = base + 0x18;
 	frontptr = base;

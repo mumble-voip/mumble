@@ -30,7 +30,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 			0x0074E380		byte	Magical state value
 	*/
-	ok = peekProc((BYTE *) 0x0074E380, &state, 1); // Magical state value
+	ok = peekProc((procptr32_t) 0x0074E380, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	/*
@@ -45,12 +45,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (state != 4)
 		return true; // This results in all vectors beeing zero which tells mumble to ignore them.
 
-	ok = peekProc((BYTE *) 0x0072AFD0, avatar_pos+2, 4) &&	//Z
-	     peekProc((BYTE *) 0x0072AFE0, avatar_pos, 4) &&	//X
-	     peekProc((BYTE *) 0x0072AFF0, avatar_pos+1, 4) && //Y
-	     peekProc((BYTE *) 0x0072AF3C, &viewHor, 4) && //Hor
-	     peekProc((BYTE *) 0x0072AF38, &viewVer, 4) && //Ver
-	     peekProc((BYTE *) 0x00956D88, ccontext, 128);
+	ok = peekProc((procptr32_t) 0x0072AFD0, avatar_pos+2, 4) &&	//Z
+	     peekProc((procptr32_t) 0x0072AFE0, avatar_pos, 4) &&	//X
+	     peekProc((procptr32_t) 0x0072AFF0, avatar_pos+1, 4) && //Y
+	     peekProc((procptr32_t) 0x0072AF3C, &viewHor, 4) && //Hor
+	     peekProc((procptr32_t) 0x0072AF38, &viewVer, 4) && //Ver
+	     peekProc((procptr32_t) 0x00956D88, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -84,15 +84,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	// Calculate view unit vector
 	/*
-	   Vertical view 0° when centered
-					85°	when looking down
-				   275° when looking up
+	   Vertical view 0Â° when centered
+					85Â°	when looking down
+				   275Â° when looking up
 	   Decreasing when looking up.
 
-	   Horizontal is 0° when facing North
-					90° when facing West
-				   180° when facing South
-				   270° when facing East
+	   Horizontal is 0Â° when facing North
+					90Â° when facing West
+				   180Â° when facing South
+				   270Â° when facing East
 	   Increasing when turning left.
 	*/
 	viewVer *= static_cast<float>(M_PI / 180.0f);
