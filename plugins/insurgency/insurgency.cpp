@@ -38,10 +38,7 @@
 
 using namespace std;
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+procptr32_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -131,7 +128,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	BYTE *mod_engine=getModuleAddr(L"engine.dll");
+	procptr32_t mod_engine=getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -145,14 +142,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x4F1EE0;
-	rotptr = pModule + 0x4F247C;
-	stateptr = pModule + 0x4AFEB8;
+	posptr = pModule32 + 0x4F1EE0;
+	rotptr = pModule32 + 0x4F247C;
+	stateptr = pModule32 + 0x4AFEB8;
 	hostptr = mod_engine + 0x3909A4;
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule + 0x46B512, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
+	if (!peekProc(pModule32 + 0x46B512, sMagic, 14) || strncmp("CombatWeapon@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
@@ -170,7 +167,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 }
 
 static const std::wstring longdesc() {
-	return std::wstring(L"Supports Insurgency pModule build 4044. No identity support yet.");
+	return std::wstring(L"Supports Insurgency: Modern Infantry Combat build 4044. No identity support yet.");
 }
 
 static std::wstring description(L"Insurgency: Modern Infantry Combat (Build 4044)");
