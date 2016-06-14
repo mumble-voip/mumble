@@ -38,9 +38,9 @@
 #include "../mumble_plugin_win32.h"
 #include <algorithm>
 
-VOID *vects_ptr;
-VOID *state_ptr;
-VOID *character_name_ptr_loc;
+procptr32_t vects_ptr;
+procptr32_t state_ptr;
+procptr32_t character_name_ptr_loc;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &identity)
 {
@@ -53,7 +53,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state;
 
 	// State 1 == in-game, 0 == in-menu
-	ok = peekProc(state_ptr, state);
+	ok = peekProc(state_ptr, state, 1);
 	if (!ok) return false;
 
 	if (state == 0)
@@ -67,7 +67,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	} game_vects;
 
 
-	ok = peekProc(vects_ptr, game_vects);
+	ok = peekProc(vects_ptr, game_vects, 1);
 	if (!ok) return false;
 
 	// Copy game vectors into return values
@@ -80,12 +80,12 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 
 	// Extract the character name
-	BYTE *ptr1 = peekProc<BYTE*>(character_name_ptr_loc);
-	BYTE *ptr2 = peekProc<BYTE*>(ptr1 + 0xC);
-	BYTE *character_name_ptr = ptr2 + 0x80;
+	procptr32_t ptr1 = peekProc<procptr32_t>(character_name_ptr_loc);
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0xC);
+	procptr32_t character_name_ptr = ptr2 + 0x80;
 
 	char character_name[16]; // The game limits us to 15 char names
-	ok = peekProc(character_name_ptr, character_name);
+	ok = peekProc(character_name_ptr, character_name, 1);
 	if (ok)
 	{
 		// character_name is zero terminated, but using strnlen for double-plus safety
@@ -136,44 +136,44 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// 1.3.1
-	if (peekProc(pModule + 0x1E6D048, detected_version)
+	if (peekProc(pModule32 + 0x1E6D048, detected_version, 1)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-28-CL697606"))
 	{
-		vects_ptr = pModule + 0x1E792B0;
-		state_ptr = pModule + 0x1E79BC8;
-		character_name_ptr_loc = pModule + 0x1E7302C;
+		vects_ptr = pModule32 + 0x1E792B0;
+		state_ptr = pModule32 + 0x1E79BC8;
+		character_name_ptr_loc = pModule32 + 0x1E7302C;
 	}
 	// 1.4.0
-	else if (peekProc(pModule + 0x1E8D1D8, detected_version)
+	else if (peekProc(pModule32 + 0x1E8D1D8, detected_version, 1)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-77-CL711033"))
 	{
-		vects_ptr = pModule + 0x1E993F0;
-		state_ptr = pModule + 0x1E99D08;
-		character_name_ptr_loc = pModule + 0x1E93194;
+		vects_ptr = pModule32 + 0x1E993F0;
+		state_ptr = pModule32 + 0x1E99D08;
+		character_name_ptr_loc = pModule32 + 0x1E93194;
 	}
 	// 1.5.0
-	else if (peekProc(pModule + 0x01E9F338, detected_version)
+	else if (peekProc(pModule32 + 0x01E9F338, detected_version, 1)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCLILAC-60-CL721220"))
 	{
-		vects_ptr = pModule + 0x1EAB650;
-		state_ptr = pModule + 0x1EABF68;
-		character_name_ptr_loc = pModule + 0x01EA5384;
+		vects_ptr = pModule32 + 0x1EAB650;
+		state_ptr = pModule32 + 0x1EABF68;
+		character_name_ptr_loc = pModule32 + 0x01EA5384;
 	}
 	// 1.7.0
-	else if (peekProc(pModule + 0x01ED53A8, detected_version)
+	else if (peekProc(pModule32 + 0x01ED53A8, detected_version, 1)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCALLIUM-55-CL770068"))
 	{
-		vects_ptr = pModule + 0x1EE18E0;
-		state_ptr = pModule + 0x1EE21F8;
-		character_name_ptr_loc = pModule + 0x01EDB5B4;
+		vects_ptr = pModule32 + 0x1EE18E0;
+		state_ptr = pModule32 + 0x1EE21F8;
+		character_name_ptr_loc = pModule32 + 0x01EDB5B4;
 	}
 	// 1.8.3
-	else if (peekProc(pModule + 0x1EE63C8, detected_version)
+	else if (peekProc(pModule32 + 0x1EE63C8, detected_version, 1)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCCHINA-29-CL827556"))
 	{
-		vects_ptr = pModule + 0x1EF2930;
-		state_ptr = pModule + 0x1EF3248;
-		character_name_ptr_loc = pModule + 0x01EEC5D4;
+		vects_ptr = pModule32 + 0x1EF2930;
+		state_ptr = pModule32 + 0x1EF3248;
+		character_name_ptr_loc = pModule32 + 0x01EEC5D4;
 	}
 	else
 	{
