@@ -162,7 +162,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	wservername[sizeof(wservername)/sizeof(wservername[0]) - 1] = '\0';
 
 	std::string servername;
-	wcsToMultibyteStdString(wservername, servername, 60);
+	wcsToMultibyteStdString(wservername, servername);
 
 	std::ostringstream contextss;
 	contextss << "{"
