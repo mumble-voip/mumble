@@ -78,7 +78,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		avatar_pos[i] = avatar_front[i] = avatar_top[i] = camera_pos[i] = camera_front[i] = camera_top[i] = 0.0f;
 
 	bool ok;
-	procptr32_t logincheck;
+	BYTE logincheck;
 	ok = peekProc(login_ptr, &logincheck, 1);
 	if (! ok)
 		return false;
@@ -86,7 +86,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	if (logincheck == 0)
 		return false;
 
-	procptr32_t state;
+	BYTE state;
 	ok = peekProc(state_ptr , &state, 1); // Magical state value
 	if (! ok)
 		return false;
