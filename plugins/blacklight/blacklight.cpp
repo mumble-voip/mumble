@@ -92,8 +92,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc(camfrontptr, camfront, 12) &&
 		 peekProc(camtopptr, camtop, 12) &&
-		 peekProc(hostipportptr, hostipport, 1) &&
-		 peekProc(camptr, cam, 1);
+		 peekProc(hostipportptr, hostipport, 22) &&
+		 peekProc(camptr, cam, 12);
 
 	if (!ok) 
 		return false;
