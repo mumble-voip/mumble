@@ -73,17 +73,17 @@
 
 */
 
-static BYTE *camptr = (BYTE *) 0xa30274;
-static BYTE *posptr = (BYTE *) 0xa302a4;
-static BYTE *camfrontptr = (BYTE *) 0xbf46b8;
-static BYTE *frontptr_ = (BYTE *) 0xd55610;
-static BYTE *frontptr;
+static procptr32_t camptr = (procptr32_t) 0xa30274;
+static procptr32_t posptr = (procptr32_t) 0xa302a4;
+static procptr32_t camfrontptr = (procptr32_t) 0xbf46b8;
+static procptr32_t frontptr_ = (procptr32_t) 0xd55610;
+static procptr32_t frontptr;
 
-static BYTE *locationptr = (BYTE *) 0xa3fa08;
-static BYTE *areaptr = (BYTE *) 0xa31158;
+static procptr32_t locationptr = (procptr32_t) 0xa3fa08;
+static procptr32_t areaptr = (procptr32_t) 0xa31158;
 
 static char prev_location;
-static int  prev_areaid;
+static int prev_areaid;
 
 static bool calcout(float *pos, float *front, float *cam, float *camfront, float *opos, float *ofront, float *ocam, float *ocamfront) {
 
@@ -114,13 +114,13 @@ static bool refreshPointers(void)
 {
 	frontptr = NULL;
 
-	frontptr = peekProc<BYTE *>(frontptr_);
+	frontptr = peekProc<procptr32_t>(frontptr_);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<BYTE *>(frontptr + 0x8);
+	frontptr = peekProc<procptr32_t>(frontptr + 0x8);
 	if (!frontptr)
 		return false;
-	frontptr = peekProc<BYTE *>(frontptr);
+	frontptr = peekProc<procptr32_t>(frontptr);
 	if (!frontptr)
 		return false;
 	frontptr = frontptr + 0x1c;
@@ -137,22 +137,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char location;
 	int areaid;
 
-	ok = peekProc(camptr, cam) &&
-		 peekProc(posptr, pos) &&
-		 peekProc(camfrontptr, camfront) &&
+	ok = peekProc(camptr, cam, 12) &&
+		 peekProc(posptr, pos, 12) &&
+		 peekProc(camfrontptr, camfront, 12) &&
 		 peekProc(locationptr, &location, 1) &&
-		 peekProc(areaptr, &areaid, 4);
+		 peekProc(areaptr, &areaid, 1);
 
 	if (!ok) // First we check, if the game is even running or if we should unlink because it's not / it's broken
 		return false;
-	
+
 	ok = refreshPointers(); // yes, we need to do this pretty often since the pointer gets wiped and changed evey time you leave a world instance (that means on loading screens etc)
 	if (!ok) { // Next we check, if we're inside the game or in menus/in a loading screen
 		context.clear();
 		return true; // don't report positional data but stay linked to avoid unnecessary unlinking on loading screens
 	}
 	else { // If we're inside the game, try to peekProc the last value we need or unlink (again, in case something went wrong)
-		if (!peekProc(frontptr, front))
+		if (!peekProc(frontptr, front, 12))
 			return false;
 	}
 

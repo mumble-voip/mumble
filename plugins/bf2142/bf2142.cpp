@@ -5,9 +5,7 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE *posptr;
-BYTE *faceptr;
-BYTE *topptr;
+procptr32_t posptr, faceptr, topptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &) {
 	for (int i=0;i<3;i++)
@@ -18,7 +16,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char logincheck;
 	bool ok;
 
-	ok = peekProc((BYTE *) 0x00A1D908, &logincheck, 1);
+	ok = peekProc((procptr32_t) 0x00A1D908, &logincheck, 1);
 	if (! ok)
 		return false;
 
@@ -31,14 +29,14 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		usually 1, never 0		if you create your own server ingame; this value will switch to 1 the instant you click "Join Game"
 		usually 3, never 0		if you load into a server; this value will switch to 3 the instant you click "Join Game"
 	*/
-	ok = peekProc((BYTE *) 0x00B47968, &state, 1); // Magical state value
+	ok = peekProc((procptr32_t) 0x00B47968, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 
 	ok = peekProc(posptr, avatar_pos, 12) &&
 	     peekProc(faceptr, avatar_front, 12) &&
 	     peekProc(topptr, avatar_top, 12) &&
-	     peekProc((BYTE *) 0x00B527B8, ccontext, 128);
+	     peekProc((procptr32_t) 0x00B527B8, ccontext, 128);
 
 	if (! ok)
 		return false;
@@ -68,12 +66,12 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"BF2142.exe", L"BF2142Audio.dll"))
 		return false;
 
-	BYTE *cacheaddr = pModule + 0x4745c;
-	BYTE *cache = peekProc<BYTE *>(cacheaddr);
+	procptr32_t cacheaddr = pModule32 + 0x4745c;
+	procptr32_t cache = peekProc<procptr32_t>(cacheaddr);
 
-	posptr = peekProc<BYTE *>(cache + 0xc0);
-	faceptr = peekProc<BYTE *>(cache + 0xc4);
-	topptr = peekProc<BYTE *>(cache + 0xc8);
+	posptr = peekProc<procptr32_t>(cache + 0xc0);
+	faceptr = peekProc<procptr32_t>(cache + 0xc4);
+	topptr = peekProc<procptr32_t>(cache + 0xc8);
 
 	float apos[3], afront[3], atop[3], cpos[3], cfront[3], ctop[3];
 	std::string context;

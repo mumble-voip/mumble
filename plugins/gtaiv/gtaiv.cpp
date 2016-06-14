@@ -37,16 +37,15 @@
 #include "../mumble_plugin_win32.h"
 
 static unsigned int playerid;
-static BYTE *base_address;
-static BYTE *cvecptr;
-static BYTE *displayptr;
+static procptr32_t base_address;
+static procptr32_t cvecptr;
+static procptr32_t displayptr;
 
 static int setuppointers() {
-	BYTE *playerptr;
-	BYTE *charptr;
+	procptr32_t playerptr, charptr;
 
 	// Player stuff
-	if (!peekProc(base_address + 0xF1CC68, playerid))
+	if (!peekProc(base_address + 0xF1CC68, playerid, 255))
 		return false;
 
 	if (!peekProc(base_address + 0x11A7008 + (playerid * 4), &playerptr, 4) || !playerptr)
@@ -64,7 +63,7 @@ static int setuppointers() {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
                  std::string &, std::wstring &) {
 	unsigned int playerid_check;
-	if (!peekProc(base_address + 0xF1CC68, playerid_check))
+	if (!peekProc(base_address + 0xF1CC68, playerid_check, 255))
 		return false;
 	if (playerid_check != playerid) {
 		if (!setuppointers())
@@ -132,9 +131,9 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	float cpos[3], cfront[3], ctop[3];
 	std::wstring sidentity;
 	std::string scontext;
-	BYTE *viewportptr;
+	procptr32_t viewportptr;
 
-	base_address = pModule - 0x400000;
+	base_address = pModule32 - 0x400000;
 
 	if (!peekProc(base_address + 0x10F47F0, &viewportptr, 4) || !viewportptr)
 		return false;
@@ -185,4 +184,3 @@ extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
 	return &gtaivplug2;
 }
-

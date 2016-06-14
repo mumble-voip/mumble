@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-/* Copyright (C) 2012, Lukas Orsv‰rn <lucas.orsv@gmail.com>
+/* Copyright (C) 2012, Lukas Orsv√§rn <lucas.orsv@gmail.com>
    Copyright (C) 2005-2010, Thorvald Natvig <thorvald@natvig.com> 
 
    All rights reserved.
@@ -51,7 +51,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	/*
 		value is <     >
 	*/
-	ok = peekProc((BYTE *) 0xB378564, &state, 1); // Magical state value
+	ok = peekProc((procptr32_t) 0xB378564, &state, 1); // Magical state value
 	if (! ok)
 		return false;
 	
@@ -59,9 +59,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		return true; // This results in all vectors beeing zero which tells Mumble to ignore them.
 	
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) 0x1243BE84, &pos_corrector, 12) &&
-	        peekProc((BYTE *) 0x1243BEA8, &front_corrector, 12) &&
-	        peekProc((BYTE *) 0x1243BE9C, &top_corrector, 12);
+	ok = peekProc((procptr32_t) 0x1243BE84, &pos_corrector, 12) &&
+	        peekProc((procptr32_t) 0x1243BEA8, &front_corrector, 12) &&
+	        peekProc((procptr32_t) 0x1243BE9C, &top_corrector, 12);
 	
 	if (! ok)
 		return false;
