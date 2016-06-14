@@ -123,11 +123,11 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	   if (!pModule)
 	*/
 
-	procptr32_t *ptr1 = peekProc<procptr32_t>(0x00C500FC);
+	procptr32_t ptr1 = peekProc<procptr32_t>((procptr32_t) 0x00C500FC);
 
-	procptr32_t *ptr2 = peekProc<procptr32_t>(ptr1 + 0x88);
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptr1 + 0x88);
 
-	procptr32_t *base = ptr2 + 0x10;
+	procptr32_t base = ptr2 + 0x10;
 
 	posptr = base + 0x18;
 	frontptr = base;
