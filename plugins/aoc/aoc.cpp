@@ -38,10 +38,7 @@
 
 using namespace std;
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+procptr32_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -147,14 +144,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x748e14;
-	rotptr = pModule + 0x73dc9c;
-	stateptr = pModule + 0x6d4334;
+	posptr = pModule32 + 0x748e14;
+	rotptr = pModule32 + 0x73dc9c;
+	stateptr = pModule32 + 0x6d4334;
 	hostptr = mod_engine + 0x3C2A84;
 
 	//Gamecheck
 	char sMagic[13];
-	if (!peekProc(pModule + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
+	if (!peekProc(pModule32 + 0x7071e8, sMagic, 13) || strncmp("ageofchivalry", sMagic, 13)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
