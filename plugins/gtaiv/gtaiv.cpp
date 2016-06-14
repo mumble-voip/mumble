@@ -45,7 +45,7 @@ static int setuppointers() {
 	procptr32_t playerptr, charptr;
 
 	// Player stuff
-	if (!peekProc(base_address + 0xF1CC68, playerid))
+	if (!peekProc(base_address + 0xF1CC68, playerid, 255))
 		return false;
 
 	if (!peekProc(base_address + 0x11A7008 + (playerid * 4), &playerptr, 4) || !playerptr)
@@ -63,7 +63,7 @@ static int setuppointers() {
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top,
                  std::string &, std::wstring &) {
 	unsigned int playerid_check;
-	if (!peekProc(base_address + 0xF1CC68, playerid_check))
+	if (!peekProc(base_address + 0xF1CC68, playerid_check, 255))
 		return false;
 	if (playerid_check != playerid) {
 		if (!setuppointers())
