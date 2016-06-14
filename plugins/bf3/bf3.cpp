@@ -40,20 +40,18 @@
 static bool ptr_chain_valid = false;
 
 // Magic ptrs
-static BYTE* const state_ptr = (BYTE *) 0x238ABDC;
+static procptr32_t const state_ptr = (procptr32_t) 0x238ABDC;
 
 // Vector ptrs
-static BYTE* const avatar_pos_ptr = (BYTE *) 0x0238AB70;
-static BYTE* const avatar_front_ptr = (BYTE *) 0x0238ABA0;
-static BYTE* const avatar_top_ptr = (BYTE *) 0x0238AB90;
+static procptr32_t const avatar_pos_ptr = (procptr32_t) 0x0238AB70;
+static procptr32_t const avatar_front_ptr = (procptr32_t) 0x0238ABA0;
+static procptr32_t const avatar_top_ptr = (procptr32_t) 0x0238AB90;
 
 // Context ptrs
-static BYTE* const ipport_ptr = (BYTE *) 0x0235DB90;
+static procptr32_t const ipport_ptr = (procptr32_t) 0x0235DB90;
 
 // Identity ptrs
-static BYTE *team_state_ptr;
-static BYTE *squad_state_ptr;
-static BYTE *squad_lead_state_ptr;
+static procptr32_t team_state_ptr, squad_state_ptr, squad_lead_state_ptr;
 
 // Offsets
 static const int base_offset = 0x01EF25C4;
@@ -102,17 +100,17 @@ inline bool resolve_ptrs() {
         Team state:  BF3.exe+0x01EF25C4 + 0x1C + 0xBC + 0x31C                    BYTE        1 is blufor (US team, for example), 2 is opfor (RU), 0 is probably upcoming spec mode
     */
 
-    BYTE *base_bf3 = peekProc<BYTE *>(pModule + base_offset);
+    procptr32_t base_bf3 = peekProc<procptr32_t>(pModule32 + base_offset);
     if (!base_bf3)
         return false;
 
-    BYTE *offset_ptr1 = peekProc<BYTE *>(base_bf3 + identity_offset1);
+    procptr32_t offset_ptr1 = peekProc<procptr32_t>(base_bf3 + identity_offset1);
     if (!offset_ptr1) return false;
-    BYTE *offset_ptr2 = peekProc<BYTE *>(offset_ptr1 + identity_offset2);
+    procptr32_t offset_ptr2 = peekProc<procptr32_t>(offset_ptr1 + identity_offset2);
     if (!offset_ptr2) return false;
-    BYTE *offset_ptr3 = peekProc<BYTE *>(offset_ptr2 + identity_offset3);
+    procptr32_t offset_ptr3 = peekProc<procptr32_t>(offset_ptr2 + identity_offset3);
     if (!offset_ptr3) return false;
-    BYTE *offset_ptr4 = peekProc<BYTE *>(offset_ptr3 + identity_offset4);
+    procptr32_t offset_ptr4 = peekProc<procptr32_t>(offset_ptr3 + identity_offset4);
     if (!offset_ptr4) return false;
 
     squad_state_ptr = offset_ptr4 + squad_state_offset;
