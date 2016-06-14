@@ -134,6 +134,7 @@ class MurmurDBus : public QDBusAbstractAdaptor {
 
 		// These use private types, so won't be converted to DBus
 		void userStateChanged(const User *p);
+		void userTextMessage(const User *, const TextMessage &);
 		void userConnected(const User *p);
 		void userDisconnected(const User *p);
 

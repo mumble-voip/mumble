@@ -52,7 +52,8 @@ unix {
 	QMAKE_CXXFLAGS *= "-isystem ../mumble_proto"
 
 	CONFIG *= link_pkgconfig
-	LIBS *= -lprotobuf
+
+	PKGCONFIG *= protobuf
 
 	freebsd {
 		LIBS *= -lcrypto -lssl

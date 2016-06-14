@@ -271,6 +271,8 @@ module Murmur
 	exception NestingLimitException extends MurmurException {};
 	/**  This is thrown when you ask the server to disclose something that should be secret. */
 	exception WriteOnlyException extends MurmurException {};
+	/** This is thrown when invalid input data was specified. */
+	exception InvalidInputDataException extends MurmurException {};
 
 	/** Callback interface for servers. You can supply an implementation of this to receive notification
 	 *  messages from the server.
@@ -753,6 +755,27 @@ module Murmur
 		 * @return Uptime of the virtual server in seconds
 		 */
 		idempotent int getUptime() throws ServerBootedException, InvalidSecretException;
+
+		/**
+		 * Update the server's certificate information.
+		 *
+		 * Reconfigure the running server's TLS socket with the given
+		 * certificate and private key.
+		 *
+		 * The certificate and and private key must be PEM formatted.
+		 *
+		 * New clients will see the new certificate.
+		 * Existing clients will continue to see the certificate the server
+		 * was using when they connected to it.
+		 *
+		 * This method throws InvalidInputDataException if any of the
+		 * following errors happen:
+		 *  - Unable to decode the PEM certificate and/or private key.
+		 *  - Unable to decrypt the private key with the given passphrase.
+		 *  - The certificate and/or private key do not contain RSA keys.
+		 *  - The certificate is not usable with the given private key.
+		 */
+		 idempotent void updateCertificate(string certificate, string privateKey, string passphrase) throws ServerBootedException, InvalidSecretException, InvalidInputDataException;
 	};
 
 	/** Callback interface for Meta. You can supply an implementation of this to receive notifications
