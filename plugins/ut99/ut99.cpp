@@ -36,9 +36,9 @@
 
 #include "../mumble_plugin_win32.h"
 
-BYTE* posptr;
-BYTE* frtptr;
-BYTE* topptr;
+procptr32_t posptr;
+procptr32_t frtptr;
+procptr32_t topptr;
 
 static void wcsToMultibyteStdString(wchar_t *wcs, std::string &str) {
 	const int size = WideCharToMultiByte(CP_UTF8, 0, wcs, -1, NULL, 0, NULL, NULL);
@@ -99,7 +99,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	char state;
 	bool ok;
 
-	ok = peekProc((BYTE *) pModule+0x290557, state); // Magical state value
+	ok = peekProc(pModule32 + 0x290557, state, 1); // Magical state value
 	if (! ok)
 		return false;
 
@@ -114,9 +114,9 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float top_corrector[3];
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) posptr, pos_corrector) &&
-	     peekProc((BYTE *) frtptr, front_corrector) &&
-	     peekProc((BYTE *) topptr, top_corrector);
+	ok = peekProc((procptr32_t) posptr, pos_corrector, 12) &&
+	     peekProc((procptr32_t) frtptr, front_corrector, 12) &&
+	     peekProc((procptr32_t) topptr, top_corrector, 12);
 
 	if (! ok)
 		return false;
@@ -147,22 +147,22 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	}
 
 	// Read server name
-	BYTE *cbase = peekProc<BYTE *> ((BYTE *) pModule + 0x00290550);
-	BYTE *cptr0 = peekProc<BYTE *> ((BYTE *) cbase + 0x30);
-	BYTE *cptr1 = peekProc<BYTE *> ((BYTE *) cptr0 + 0x73C);
-	BYTE *cptr2 = peekProc<BYTE *> ((BYTE *) cptr1 + 0x244);
+	procptr32_t cbase = peekProc<procptr32_t> ((procptr32_t) pModule32 + 0x00290550);
+	procptr32_t cptr0 = peekProc<procptr32_t> ((procptr32_t) cbase + 0x30);
+	procptr32_t cptr1 = peekProc<procptr32_t> ((procptr32_t) cptr0 + 0x73C);
+	procptr32_t cptr2 = peekProc<procptr32_t> ((procptr32_t) cptr1 + 0x244);
 
 
 	wchar_t wservername[60];
 
-	ok = peekProc((BYTE *) cptr2, wservername);
+	ok = peekProc((procptr32_t) cptr2, wservername);
 	if (! ok)
 		return false;
 
 	wservername[sizeof(wservername)/sizeof(wservername[0]) - 1] = '\0';
 
 	std::string servername;
-	wcsToMultibyteStdString(wservername, servername);
+	wcsToMultibyteStdString(wservername, servername, 60);
 
 	std::ostringstream contextss;
 	contextss << "{"
@@ -179,7 +179,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UnrealTournament.exe", L"Engine.dll"))
 		return false;
 
-	BYTE* base = pModule + 0x290584;
+	procptr32_t base = pModule32 + 0x290584;
 	posptr = base;
 	frtptr = base + 0x0C;
 	topptr = base + 0x18;
