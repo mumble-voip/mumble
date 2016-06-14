@@ -85,7 +85,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	procptr32_t character_name_ptr = ptr2 + 0x80;
 
 	char character_name[16]; // The game limits us to 15 char names
-	ok = peekProc(character_name_ptr, character_name, 1);
+	ok = peekProc(character_name_ptr, character_name, 16);
 	if (ok)
 	{
 		// character_name is zero terminated, but using strnlen for double-plus safety
@@ -136,7 +136,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	memcmp(buf, strlit, std::min(sizeof(buf), sizeof(strlit)-1)) == 0
 
 	// 1.3.1
-	if (peekProc(pModule32 + 0x1E6D048, detected_version, 1)
+	if (peekProc(pModule32 + 0x1E6D048, detected_version, 32)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-28-CL697606"))
 	{
 		vects_ptr = pModule32 + 0x1E792B0;
@@ -144,7 +144,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		character_name_ptr_loc = pModule32 + 0x1E7302C;
 	}
 	// 1.4.0
-	else if (peekProc(pModule32 + 0x1E8D1D8, detected_version, 1)
+	else if (peekProc(pModule32 + 0x1E8D1D8, detected_version, 32)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCSAGE-77-CL711033"))
 	{
 		vects_ptr = pModule32 + 0x1E993F0;
@@ -152,7 +152,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		character_name_ptr_loc = pModule32 + 0x1E93194;
 	}
 	// 1.5.0
-	else if (peekProc(pModule32 + 0x01E9F338, detected_version, 1)
+	else if (peekProc(pModule32 + 0x01E9F338, detected_version, 32)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCLILAC-60-CL721220"))
 	{
 		vects_ptr = pModule32 + 0x1EAB650;
@@ -160,7 +160,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		character_name_ptr_loc = pModule32 + 0x01EA5384;
 	}
 	// 1.7.0
-	else if (peekProc(pModule32 + 0x01ED53A8, detected_version, 1)
+	else if (peekProc(pModule32 + 0x01ED53A8, detected_version, 32)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCALLIUM-55-CL770068"))
 	{
 		vects_ptr = pModule32 + 0x1EE18E0;
@@ -168,7 +168,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 		character_name_ptr_loc = pModule32 + 0x01EDB5B4;
 	}
 	// 1.8.3
-	else if (peekProc(pModule32 + 0x1EE63C8, detected_version, 1)
+	else if (peekProc(pModule32 + 0x1EE63C8, detected_version, 32)
 		&& VERSION_EQ(detected_version, "WILLOW2-PCCHINA-29-CL827556"))
 	{
 		vects_ptr = pModule32 + 0x1EF2930;
