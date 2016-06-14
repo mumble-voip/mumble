@@ -42,7 +42,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
             peekProc(serverid_offset, serverid, 37) && // Server ID (36 characters).
             peekProc(pModule32 + 0x1BA8A10, host, 22) && // Host value: "IP:Port" when in a server, "bot" when loading and empty when it's hidden.
             peekProc(pModule32 + 0x1C814B5, team, 3) && // Team value: US (United States); RU (Russia); CH (China).
-            peekProc(squad_offset_1 + 0x15C, squad, 1) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
+            peekProc(squad_offset_1 + 0x15C, squad, 2) && // Squad value: 0 (not in a squad); 1 (Alpha); 2 (Bravo); 3 (Charlie)... 26 (Zulu).
             peekProc(squad_offset_1 + 0x160, squad_leader, 1) && // Squad leader value: 0 (False); 1 (True).
             peekProc(squad_offset_1 + 0x161, squad_state, 1); // Squad state value: 0 (Public); 1 (Private).
 
