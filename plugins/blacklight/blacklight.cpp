@@ -54,10 +54,10 @@
 	TODO: Find Avatar position, front, top vectors, protect against version change (find a random pointer to check), distinguish spectator and normal mode
 */
 
-static BYTE *camfrontptr = (BYTE *)0x141bc20;
-static BYTE *camtopptr = camfrontptr + 0xC;
-static BYTE *camptr = camfrontptr + 0x18;
-static BYTE *hostipportptr;
+static procptr32_t camfrontptr = (procptr32_t) 0x141bc20;
+static procptr32_t camtopptr = camfrontptr + 0xC;
+static procptr32_t camptr = camfrontptr + 0x18;
+static procptr32_t hostipportptr;
 
 static char prev_hostipport[22];
 
@@ -77,7 +77,7 @@ static bool calcout(float *cam, float *camfront, float *camtop, float *ocam, flo
 static bool refreshPointers(void) {
 	hostipportptr = NULL;
 
-	hostipportptr = pModule + 0xB8C57;
+	hostipportptr = pModule32 + 0xB8C57;
 
 	return true;
 }
@@ -92,8 +92,8 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 
 	ok = peekProc(camfrontptr, camfront, 12) &&
 		 peekProc(camtopptr, camtop, 12) &&
-		 peekProc(hostipportptr, hostipport) &&
-		 peekProc(camptr, cam);
+		 peekProc(hostipportptr, hostipport, 1) &&
+		 peekProc(camptr, cam, 1);
 
 	if (!ok) 
 		return false;
