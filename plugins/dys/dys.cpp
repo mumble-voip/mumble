@@ -38,10 +38,7 @@
 
 using namespace std;
 
-BYTE *posptr;
-BYTE *rotptr;
-BYTE *stateptr;
-BYTE *hostptr;
+procptr32_t posptr, rotptr, stateptr, hostptr;
 
 static bool calcout(float *pos, float *rot, float *opos, float *front, float *top) {
 	float h = rot[0];
@@ -131,7 +128,7 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"hl2.exe", L"client.dll"))
 		return false;
 
-	BYTE *mod_engine=getModuleAddr(L"engine.dll");
+	procptr32_t mod_engine=getModuleAddr(L"engine.dll");
 	if (!mod_engine)
 		return false;
 
@@ -145,14 +142,14 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	*/
 
 	// Remember addresses for later
-	posptr = pModule + 0x4A3330;
-	rotptr = pModule + 0x454E04;
-	stateptr = pModule + 0x4518A0;
+	posptr = pModule32 + 0x4A3330;
+	rotptr = pModule32 + 0x454E04;
+	stateptr = pModule32 + 0x4518A0;
 	hostptr = mod_engine + 0x3C2A84;
 
 	//Gamecheck
 	char sMagic[14];
-	if (!peekProc(pModule + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
+	if (!peekProc(pModule32 + 0x463726, sMagic, 14) || strncmp("DysObjective@@", sMagic, 14)!=0)
 		return false;
 
 	// Check if we can get meaningful data from it
