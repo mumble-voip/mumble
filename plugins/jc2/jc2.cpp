@@ -45,8 +45,8 @@ const unsigned int off_char_matrix = 0x15C;
 const unsigned int off_camera_manager = 0xD919F4;
 const unsigned int off_cam_matrix = 0x2FC;
 
-static BYTE *char_matrix_ptr = 0;
-static BYTE *cam_matrix_ptr = 0;
+static procptr32_t char_matrix_ptr = 0;
+static procptr32_t cam_matrix_ptr = 0;
 
 typedef struct {
 	float x;
@@ -63,13 +63,9 @@ typedef struct {
 } Matrix4;
 
 static int setuppointers() {
-	BYTE *character_manager;
-	BYTE *local_player;
-	BYTE *character;
+	procptr32_t character_manager, local_player, character, camera_manager;
 
-	BYTE *camera_manager;
-
-	if (!peekProc(pModule + off_character_manager, &character_manager, 4) || !character_manager)
+	if (!peekProc(pModule32 + off_character_manager, &character_manager, 4) || !character_manager)
 		return false;
 
 	if (!peekProc(character_manager + off_local_player, &local_player, 4) || !local_player)
@@ -80,7 +76,7 @@ static int setuppointers() {
 
 	char_matrix_ptr = character + off_char_matrix;
 
-	if (!peekProc(pModule + off_camera_manager, &camera_manager, 4) || !camera_manager)
+	if (!peekProc(pModule32 + off_camera_manager, &camera_manager, 4) || !camera_manager)
 		return false;
 
 	cam_matrix_ptr = camera_manager + off_cam_matrix;
@@ -189,4 +185,3 @@ extern "C" __declspec(dllexport) MumblePlugin *getMumblePlugin() {
 extern "C" __declspec(dllexport) MumblePlugin2 *getMumblePlugin2() {
 	return &jc2plug2;
 }
-
