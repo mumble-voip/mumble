@@ -21,15 +21,15 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	BYTE team;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) pModule + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
-			peekProc((BYTE *) pModule + 0x1041C68, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
-			peekProc((BYTE *) pModule + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (Z, X and Y, respectively).
-			peekProc((BYTE *) pModule + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (Z, X and Y, respectively).
-			peekProc((BYTE *) pModule + 0x106CE04, &viewHor, 4) && // Changes in a range from 180 to -180 when moving the view to left/right.
-			peekProc((BYTE *) pModule + 0x106CE00, &viewVer, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up).
-			peekProc((BYTE *) pModule + 0x0E4A638, host) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
-			peekProc((BYTE *) pModule + 0x12DE8D8, map) && // Map name.
-			peekProc((BYTE *) pModule + 0x106CE6C, team); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
+	ok = peekProc(pModule32 + 0x0188248, &state, 1) && // Magical state value: 1 when in-game and 0 when in main menu.
+			peekProc(pModule32 + 0x1041C68, &spec, 1) && // Spectator state value: 1 when spectating and 0 when playing.
+			peekProc(pModule32 + 0x0EB8950, avatar_pos_corrector, 12) && // Avatar Position values (Z, X and Y, respectively).
+			peekProc(pModule32 + 0x0E6093C, camera_pos_corrector, 12) && // Camera Position values (Z, X and Y, respectively).
+			peekProc(pModule32 + 0x106CE04, &viewHor, 4) && // Changes in a range from 180 to -180 when moving the view to left/right.
+			peekProc(pModule32 + 0x106CE00, &viewVer, 4) && // Changes in a range from 87.890625 (looking down) to -87.890625 (looking up).
+			peekProc(pModule32 + 0x0E4A638, host, 22) && // Server value: "IP:Port" when in a remote server, "loopback" when on a local server.
+			peekProc(pModule32 + 0x12DE8D8, map, 30) && // Map name.
+			peekProc(pModule32 + 0x106CE6C, team, 1); // Team value: 0 when in a FFA game (no team); 1 when in Red team; 2 when in Blue team; 3 when in Spectators.
 
 	if (! ok) {
 		return false;
