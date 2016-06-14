@@ -45,7 +45,7 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	byte l[2];
 	byte r,i;
 	float o[3];
-	BYTE *hPtr;
+	procptr32_t hPtr;
 	float h;
 
 	/*
@@ -66,16 +66,16 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 		nPtr = pointer to character name (unique on a server)
 	*/
 
-	ok = peekProc((BYTE *) 0x01272D34, o, 12) &&
-	     peekProc((BYTE *) 0x01272D2C, l, 2) &&
-	     peekProc((BYTE *) 0x01272D28, &r, 1) &&
-	     peekProc((BYTE *) 0x01272D20, &i, 1) &&
-	     peekProc((BYTE *)(pModule + 0x00A138A4), &hPtr, 4);
+	ok = peekProc((procptr32_t) 0x01272D34, o, 12) &&
+	     peekProc((procptr32_t) 0x01272D2C, l, 2) &&
+	     peekProc((procptr32_t) 0x01272D28, &r, 1) &&
+	     peekProc((procptr32_t) 0x01272D20, &i, 1) &&
+	     peekProc((procptr32_t)(pModule32 + 0x00A138A4), &hPtr, 4);
 
 	if (! ok)
 		return false;
 
-	ok = peekProc((BYTE *)(hPtr  + 0x0000046F), &h, 4);
+	ok = peekProc((procptr32_t)(hPtr  + 0x0000046F), &h, 4);
 
 	if (! ok)
 		return false;
