@@ -39,11 +39,7 @@
 
 using namespace std;
 
-BYTE *pos0ptr;
-BYTE *pos1ptr;
-BYTE *pos2ptr;
-BYTE *faceptr;
-BYTE *topptr;
+procptr32_t pos0ptr, pos1ptr, pos2ptr, faceptr, topptr;
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &, std::wstring &) {
 	//char ccontext[128];
@@ -103,10 +99,10 @@ static int trylock(const std::multimap<std::wstring, unsigned long long int> &pi
 	if (! initialize(pids, L"UT2004.exe", L"Engine.dll"))
 		return false;
 
-	BYTE *ptraddress = pModule + 0x4A44FC;
-	BYTE *ptr2 = peekProc<BYTE *>(ptraddress);
-	BYTE *ptr3 = peekProc<BYTE *>(ptr2 + 0xCC);
-	BYTE *baseptr = ptr3 + 0x1C8;
+	procptr32_t ptraddress = pModule32 + 0x4A44FC;
+	procptr32_t ptr2 = peekProc<procptr32_t>(ptraddress);
+	procptr32_t ptr3 = peekProc<procptr32_t>(ptr2 + 0xCC);
+	procptr32_t baseptr = ptr3 + 0x1C8;
 
 	pos0ptr = baseptr;
 	pos1ptr = baseptr + 0x4;
