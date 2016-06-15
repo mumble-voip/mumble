@@ -339,8 +339,7 @@ CONFIG(sbcelt) {
 !win32:!macx:!CONFIG(no-dbus) {
   CONFIG		*= dbus
 }
-
-!freebsd:!CONFIG(no-g15) {
+!contains(UNAME, FreeBSD):!CONFIG(no-g15) {
   CONFIG *= g15
 }
 
@@ -614,7 +613,7 @@ g15 {
 		SOURCES *= G15LCDEngine_helper.cpp
 		HEADERS *= G15LCDEngine_helper.h ../../g15helper/g15helper.h
 	}
-	unix:!macx:!freebsd {
+	unix:!macx:!contains(UNAME, FreeBSD) {
 		SOURCES *= G15LCDEngine_unix.cpp
 		HEADERS *= G15LCDEngine_unix.h
 		LIBS *= -lg15daemon_client

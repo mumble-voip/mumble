@@ -42,8 +42,6 @@ win32 {
 }
 
 unix {
-	UNAME=$$system(uname -s)
-
 	CONFIG(static) {
 		PKG_CONFIG = pkg-config --static
 	}
@@ -55,7 +53,7 @@ unix {
 
 	PKGCONFIG *= protobuf
 
-	freebsd {
+	contains(UNAME, FreeBSD) {
 		LIBS *= -lcrypto -lssl
 	} else {
 		PKGCONFIG *= openssl
