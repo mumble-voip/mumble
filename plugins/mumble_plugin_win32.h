@@ -18,9 +18,24 @@
 
 #include "mumble_plugin.h"
 
+#if _MSC_VER < 1800 && defined(M_IX86)
+typedef unsigned long long procptr64_t;
+typedef unsigned long procptr32_t;
+#else
+#include <stdint.h>
+typedef uint64_t procptr64_t;
+typedef uint32_t procptr32_t;
+#endif
+
 DWORD dwPid;
 static HANDLE hProcess;
+
+#ifdef USE_PLUGIN_LEGACY_PTR
 static BYTE *pModule;
+#endif
+
+static procptr32_t pModule32;
+static procptr64_t pModule64;
 
 static inline DWORD getProcess(const wchar_t *exename) {
 	PROCESSENTRY32 pe;
@@ -47,7 +62,7 @@ static inline BYTE *getModuleAddr(DWORD pid, const wchar_t *modname) {
 	MODULEENTRY32 me;
 	BYTE *addr = NULL;
 	me.dwSize = sizeof(me);
-	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, pid);
+	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE|TH32CS_SNAPMODULE32, pid);
 	if (hSnap != INVALID_HANDLE_VALUE) {
 		BOOL ok = Module32First(hSnap, &me);
 
@@ -67,12 +82,27 @@ static inline BYTE *getModuleAddr(const wchar_t *modname) {
 	return getModuleAddr(dwPid, modname);
 }
 
+#ifdef USE_PLUGIN_LEGACY_PTR
 static inline bool peekProc(VOID *base, VOID *dest, SIZE_T len) {
 	SIZE_T r;
-	BOOL ok=ReadProcessMemory(hProcess, base, dest, len, &r);
+	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), dest, len, &r);
+	return (ok && (r == len));
+}
+#endif
+
+static inline bool peekProc(procptr32_t base, VOID *dest, SIZE_T len) {
+	SIZE_T r;
+	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), dest, len, &r);
 	return (ok && (r == len));
 }
 
+static inline bool peekProc(procptr64_t base, VOID *dest, SIZE_T len) {
+	SIZE_T r;
+	BOOL ok=ReadProcessMemory(hProcess, reinterpret_cast<VOID *>(base), dest, len, &r);
+	return (ok && (r == len));
+}
+
+#ifdef USE_PLUGIN_LEGACY_PTR
 template<class T>
 bool peekProc(VOID *base, T &dest) {
 	SIZE_T r;
@@ -86,10 +116,29 @@ T peekProc(VOID *base) {
 	peekProc(base, reinterpret_cast<T *>(&v), sizeof(T));
 	return v;
 }
+#endif
+
+template<class T>
+T peekProc(procptr32_t base) {
+	T v = 0;
+	peekProc(base, reinterpret_cast<T *>(&v), sizeof(T));
+	return v;
+}
+
+template<class T>
+T peekProc(procptr64_t base) {
+	T v = 0;
+	peekProc(reinterpret_cast<VOID *>(base), reinterpret_cast<T *>(&v), sizeof(T));
+	return v;
+}
 
 static bool inline initialize(const std::multimap<std::wstring, unsigned long long int> &pids, const wchar_t *procname, const wchar_t *modname = NULL) {
 	hProcess = NULL;
+#ifdef USE_PLUGIN_LEGACY_PTR
 	pModule = NULL;
+#endif
+	pModule32 = NULL;
+	pModule64 = NULL;
 
 	if (! pids.empty()) {
 		std::multimap<std::wstring, unsigned long long int>::const_iterator iter = pids.find(std::wstring(procname));
@@ -105,18 +154,55 @@ static bool inline initialize(const std::multimap<std::wstring, unsigned long lo
 	if (!dwPid)
 		return false;
 
+#ifndef USE_PLUGIN_LEGACY_PTR
+	static VOID *pModule;
+#endif
 	pModule=getModuleAddr(modname ? modname : procname);
 	if (!pModule) {
 		dwPid = 0;
 		return false;
 	}
 
+	DWORD dwDesiredAccess = PROCESS_VM_READ;
+#if defined(_M_X64)
+	// We need PROCESS_QUERY_LIMITED_INFORMATION for IsWow64Process.
+	// Limit it to x64-only builds to allow our 32-bit x86 builds to
+	// still work on Windows XP (which doesn't have
+	// PROCESS_QUERY_LIMITED_INFORMATION).
+	dwDesiredAccess |= PROCESS_QUERY_LIMITED_INFORMATION;
+#endif
+
 	hProcess=OpenProcess(PROCESS_VM_READ, false, dwPid);
 	if (!hProcess) {
 		dwPid = 0;
+#ifdef USE_PLUGIN_LEGACY_PTR
 		pModule = NULL;
+#endif
 		return false;
 	}
+
+#if defined(_M_IX86)
+	pModule32 = reinterpret_cast<procptr32_t>(pModule);
+	pModule64 = NULL;
+#elif defined(_M_X64)
+	BOOL iswow64 = FALSE;
+
+	if (!IsWow64Process(hProcess, &iswow64)) {
+		dwPid = 0;
+# ifdef USE_PLUGIN_LEGACY_PTR
+		pModule = NULL;
+# endif
+		return false;
+	}
+
+	if (iswow64) {
+		pModule32 = reinterpret_cast<procptr32_t>(pModule);
+	} else {
+		pModule64 = reinterpret_cast<procptr64_t>(pModule);
+	}
+#else
+# error Unimplemented for the current architecture
+#endif
 
 	return true;
 }
@@ -125,7 +211,11 @@ static void generic_unlock() {
 	if (hProcess) {
 		CloseHandle(hProcess);
 		hProcess = NULL;
+#ifdef USE_PLUGIN_LEGACY_PTR
 		pModule = NULL;
+#endif
+		pModule32 = NULL;
+		pModule64 = NULL;
 		dwPid = 0;
 	}
 }
