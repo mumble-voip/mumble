@@ -1534,6 +1534,72 @@ static void impl_Server_getUptime(const ::Murmur::AMD_Server_getUptimePtr cb, in
 	cb->ice_response(static_cast<int>(server->tUptime.elapsed()/1000000LL));
 }
 
+static void impl_Server_updateCertificate(const ::Murmur::AMD_Server_updateCertificatePtr cb, int server_id, const ::std::string& certificate, const ::std::string& privateKey, const ::std::string& passphrase) {
+	NEED_SERVER;
+
+	QByteArray certPem(certificate.c_str());
+	QByteArray privateKeyPem(privateKey.c_str());
+	QByteArray passphraseBytes(passphrase.c_str());
+
+	// Verify that we can load the certificate.
+	QSslCertificate cert(certPem);
+	if (cert.isNull()) {
+		ERR_clear_error();
+		cb->ice_exception(InvalidInputDataException());
+		return;
+	}
+
+	// Verify that we can load the private key.
+	QSslKey privKey(privateKeyPem, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, passphraseBytes);
+	if (privKey.isNull()) {
+		ERR_clear_error();
+		cb->ice_exception(InvalidInputDataException());
+		return;
+	}
+
+	// Ensure that the private key is usable with the given
+	// certificate.
+	//
+	// Right now, we only support RSA keys in Murmur.
+	//
+	// To determine if the private key matches the certificate,
+	// we acquire the public key from the certificate and check
+	// that the modulus (n) and the public exponent (e) match
+	// those of the private key.
+	QSslKey pubKey = cert.publicKey();
+
+	if (privKey.algorithm() != QSsl::Rsa || pubKey.algorithm() != QSsl::Rsa) {
+		ERR_clear_error();
+		cb->ice_exception(InvalidInputDataException());
+		return;
+	}
+
+	RSA *privRSA = reinterpret_cast<RSA *>(privKey.handle());
+	RSA *pubRSA = reinterpret_cast<RSA *>(pubKey.handle());
+
+	if (BN_cmp(pubRSA->n, privRSA->n) != 0) {
+		ERR_clear_error();
+		cb->ice_exception(InvalidInputDataException());
+		return;
+	}
+
+	if (BN_cmp(pubRSA->e, privRSA->e) != 0) {
+		ERR_clear_error();
+		cb->ice_exception(InvalidInputDataException());
+		return;
+	}
+
+	// All our sanity checks passed.
+	// The certificate and private key are usable, so
+	// update the server to use them.
+	server->setConf("certificate", u8(certificate));
+	server->setConf("key", u8(privateKey));
+	server->setConf("passphrase", u8(passphrase));
+	server->initializeCert();
+
+	cb->ice_response();
+}
+
 static void impl_Server_addUserToGroup(const ::Murmur::AMD_Server_addUserToGroupPtr cb, int server_id, ::Ice::Int channelid,  ::Ice::Int session,  const ::std::string& group) {
 	NEED_SERVER;
 	NEED_PLAYER;

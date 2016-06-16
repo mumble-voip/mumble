@@ -745,6 +745,10 @@ void MurmurDBus::userStateChanged(const User *p) {
 	emit playerStateChanged(PlayerInfo(p));
 }
 
+void MurmurDBus::userTextMessage(const User *, const TextMessage &) {
+	// Not implemented for DBus.
+}
+
 void MurmurDBus::userConnected(const User *p) {
 	emit playerConnected(PlayerInfo(p));
 }

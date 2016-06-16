@@ -1317,10 +1317,47 @@ void Server::sslError(const QList<QSslError> &errors) {
 		}
 	}
 
-	if (ok)
+	if (ok) {
 		u->proceedAnyway();
-	else
+	} else {
+		// Due to a regression in Qt 5 (QTBUG-53906),
+		// we can't 'force' disconnect (which calls
+		// QAbstractSocket->abort()) when built against Qt 5.
+		//
+		// The bug is that Qt doesn't update the
+		// QSslSocket's socket state when QSslSocket->abort()
+		// is called.
+		//
+		// Our call to abort() happens when QSslSocket is inside
+		// startHandshake(). That is, a handshake is in progress.
+		//
+		// After emitting the peerVerifyError/sslErrors signals,
+		// startHandshake() checks whether the connection is still
+		// in QAbstractSocket::ConectedState.
+		//
+		// Unfortunately, because abort() doesn't update the socket's
+		// state to signal that it is no longer connected, startHandshake()
+		// still thinks the socket is connected and will continue to
+		// attempt to finish the handshake.
+		//
+		// Because abort() tears down a lot of internal state
+		// of the QSslSocket, inlcuding the 'SSL *' object
+		// associated with the socket, this is fatal and leads
+		// to crashes, such as attempting to derefernce a NULL
+		// 'SSL *' object.
+		//
+		// To avoid this, we use a non-forceful disconnect
+		// until this is fixed upstream.
+		//
+		// See
+		// https://bugreports.qt.io/browse/QTBUG-53906
+		// https://github.com/mumble-voip/mumble/issues/2334
+#if QT_VERSION >= 0x050000
+		u->disconnectSocket();
+#else
 		u->disconnectSocket(true);
+#endif
+	}
 }
 
 void Server::connectionClosed(QAbstractSocket::SocketError err, const QString &reason) {
