@@ -832,11 +832,11 @@ void Server::run() {
 								memcpy(& u->saiUdpAddress, &from, sizeof(from));
 								qhHostUsers[from].remove(u);
 								qhPeerUsers.insert(key, u);
-								qrwlVoiceThread.unlock();
-								rl.relock();
-								if (! qhUsers.contains(uiSession))
-									u = NULL;
 							}
+							qrwlVoiceThread.unlock();
+							rl.relock();
+							if (u != NULL && !qhUsers.contains(uiSession))
+								u = NULL;
 							break;
 						}
 					}
