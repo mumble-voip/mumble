@@ -468,15 +468,29 @@ static void drawOverlay(Context *ctx, unsigned int width, unsigned int height) {
 	float xmx = right  / w;
 	float ymx = bottom / h;
 
+	GLfloat vertex[] = {
+		left, bottom,
+		left, top,
+		right, top,
 
-	GLfloat vertex[] = {left, bottom,
-	        left, top,
-	        right, top,
-	        right, bottom};
-	GLfloat tex[] = {xm, ymx, xm, ym, xmx, ym, xmx, ymx};
+		left, bottom,
+		right, top,
+		right, bottom
+	};
 	glVertexPointer(2, GL_FLOAT, 0, vertex);
+
+	GLfloat tex[] = {
+		xm, ymx,
+		xm, ym,
+		xmx, ym,
+
+		xm, ymx,
+		xmx, ym,
+		xmx, ymx
+	};
 	glTexCoordPointer(2, GL_FLOAT, 0, tex);
-	glDrawArrays(GL_QUADS, 0, 4);
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	glPopMatrix();
 }
