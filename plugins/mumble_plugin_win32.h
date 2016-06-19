@@ -6,8 +6,12 @@
 #ifndef MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 #define MUMBLE_MUMBLE_PLUGIN_WIN32_H_
 
-#define PTR_TYPE VOID *
-#define PTR_TYPE_CONCRETE BYTE *
-#include "mumble_plugin_win32_ptr_type.h"
+#ifdef USE_PLUGIN_LEGACY_PTR
+# define PTR_TYPE VOID *
+# define PTR_TYPE_CONCRETE BYTE *
+# include "mumble_plugin_win32_ptr_type.h"
+#else
+# error The mumble_plugin_win32.h header is no longer supported
+#endif
 
 #endif
