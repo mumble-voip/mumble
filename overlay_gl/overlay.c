@@ -523,6 +523,8 @@ static void drawContext(Context * ctx, int width, int height) {
 	glPushMatrix();
 	glLoadIdentity();
 
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_AUTO_NORMAL);
 	// Skip clip planes, there are thousands of them.
