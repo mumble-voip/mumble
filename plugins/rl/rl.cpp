@@ -3,7 +3,7 @@
 // that can be found in the LICENSE file at the root of the
 // Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
-#include "../mumble_plugin_win32.h"
+#include "../mumble_plugin_win32_x86.h"
 
 static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, float *camera_pos, float *camera_front, float *camera_top, std::string &context, std::wstring &identity) {
 	for (int i=0;i<3;i++)
@@ -16,23 +16,23 @@ static int fetch(float *avatar_pos, float *avatar_front, float *avatar_top, floa
 	float avatar_pos_corrector[3], camera_pos_corrector[3], avatar_front_corrector[3], camera_front_corrector[3], camera_top_corrector[3];
 
 	// Avatar pointers
-	BYTE *avatar_base = peekProc<BYTE *>(pModule + 0x016FEC04);
+	procptr32_t avatar_base = peekProc<procptr32_t>(pModule + 0x016FEC04);
 	if (!avatar_base) return false;
-	BYTE *avatar_offset_0 = peekProc<BYTE *>(avatar_base + 0x448);
+	procptr32_t avatar_offset_0 = peekProc<procptr32_t>(avatar_base + 0x448);
 	if (!avatar_offset_0) return false;
-	BYTE *avatar_offset_1 = peekProc<BYTE *>(avatar_offset_0 + 0x440);
+	procptr32_t avatar_offset_1 = peekProc<procptr32_t>(avatar_offset_0 + 0x440);
 	if (!avatar_offset_1) return false;
-	BYTE *avatar_offset_2 = peekProc<BYTE *>(avatar_offset_1 + 0x0);
+	procptr32_t avatar_offset_2 = peekProc<procptr32_t>(avatar_offset_1 + 0x0);
 	if (!avatar_offset_2) return false;
-	BYTE *avatar_offset = peekProc<BYTE *>(avatar_offset_2 + 0x1C);
+	procptr32_t avatar_offset = peekProc<procptr32_t>(avatar_offset_2 + 0x1C);
 	if (!avatar_offset) return false;
 
 	// Peekproc and assign game addresses to our containers, so we can retrieve positional data
-	ok = peekProc((BYTE *) avatar_offset + 0x0, &avatar_pos_corrector, 12) && // Avatar Position values (Z, Y and X).
-			peekProc((BYTE *) pModule + 0x016FEE40, &camera_pos_corrector, 12) && // Camera Position values (Z, Y and X).
-			peekProc((BYTE *) avatar_offset + 0xC, &avatar_front_corrector, 12) && // Avatar Front values (Z, Y and X).
-			peekProc((BYTE *) pModule + 0x016FEE28, &camera_front_corrector, 12) && // Camera Front Vector values (Z, Y and X).
-			peekProc((BYTE *) pModule + 0x016FEE34, &camera_top_corrector, 12); // Camera Top Vector values (Z, Y and X).
+	ok = peekProc(avatar_offset + 0x0, &avatar_pos_corrector, 12) && // Avatar Position values (Z, Y and X).
+			peekProc(pModule + 0x016FEE40, &camera_pos_corrector, 12) && // Camera Position values (Z, Y and X).
+			peekProc(avatar_offset + 0xC, &avatar_front_corrector, 12) && // Avatar Front values (Z, Y and X).
+			peekProc(pModule + 0x016FEE28, &camera_front_corrector, 12) && // Camera Front Vector values (Z, Y and X).
+			peekProc(pModule + 0x016FEE34, &camera_top_corrector, 12); // Camera Top Vector values (Z, Y and X).
 
 	// This prevents the plugin from linking to the game in case something goes wrong during values retrieval from memory addresses.
 	if (! ok)
